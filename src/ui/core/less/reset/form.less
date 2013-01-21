@@ -1,0 +1,30 @@
+
+input, button, select, textarea {
+	font-family: @serifFontFamily;
+	vertical-align: middle;
+}
+
+button, select, textarea {
+	margin: 0; 
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+
+textarea {
+  
+	// remove vertical scrollbar in IE6-9
+	overflow: auto;
+  
+	// readability and alignment cross-browser
+	vertical-align: baseline;
+	*vertical-align: top;
+}
+
+// Chrome on Linux and Mobile Safari need background-color
+select {
+    background-color: @backgroundColor;
+}
+

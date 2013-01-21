@@ -1,0 +1,97 @@
+//
+// Variables
+// --------------------------------------------------
+
+// Grays
+// -------------------------
+@black:                 #000;
+@grayDarker:            #222;
+@grayDark:              #333;
+@gray:                  #555;
+@grayLight:             #999;
+@grayLighter:           #eee;
+@grayBorder:            #ddd;
+@grayBorderLight:       #e5e5e5;
+@white:                 #fff;
+
+// Accent colors
+// -------------------------
+@blue:                  #049cdb;
+@blueDark:              #0064cd;
+@blueLight:             #3A87AD;
+@green:                 #46a546;
+@red:                   #9d261d;
+@yellow:                #ffc40d;
+@orange:                #f89406;
+@pink:                  #c3325f;
+@purple:                #7a43b6;
+
+// Scaffolding
+// -------------------------
+@backgroundColor:		@white;
+@textColor:             @grayDark;
+
+// Links
+// -------------------------
+@linkColor:             #08c;
+@linkColorHover:        darken(@linkColor, 15%);
+
+
+// Form states and alerts
+// -------------------------
+
+@hintTextColor:			@grayLight;
+
+@successTextColor:             #468847;
+@successBackgroundColor:       lighten(#dff0d8, 4%);
+@successBorderColor:           darken(spin(@successBackgroundColor, -10), 20%);
+
+@infoTextColor:                #3a87ad;
+@infoBackgroundColor:          lighten(#d9edf7, 4%);
+@infoBorderColor:              lighten(@infoTextColor, 30%); //darken(spin
+
+@warningTextColor:             #c09853;
+@warningBackgroundColor:       #fcf8e3;
+@warningBorderColor:           lighten(@warningTextColor, 30%); //darken(spin(@warningBackground, -10), 3%);
+
+@errorTextColor:               #b94a48;
+@errorBackgroundColor:         #F8E6E6;
+@errorBorderColor:             lighten(@errorTextColor, 30%); //darken(spin(@errorBackground, -10), 3%);(@infoBackground, -10), 7%);
+
+@highlightTextColor:			#FF6600;
+
+// Typography
+// -------------------------
+@sansFontFamily:        Tahoma, Helvetica, Arial;
+@serifFontFamily:       "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
+@monoFontFamily:        "Courier New", Menlo, Monaco, monospace;
+@systemFontFamily:		"Microsoft YaHei", "宋体", Arial;
+
+@baseFontSize:          12px;
+@baseFontFamily:        @sansFontFamily;
+@baseLineHeight:        18px;
+
+
+// Component sizing
+// -------------------------
+
+@baseBorderRadius:      4px;
+
+// Z-index master list
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+@zindexDropdown:          1000;
+@zindexBalloonTip:        1010;
+@zindexTooltip:           1020;
+@zindexFixedNavbar:       1030;
+@zindexDialogBackdrop:    1040;
+@zindexDialog:            1050;
+
+// GRID
+// ------------------------ 
+
+// Default 980px grid
+@gridColumns:             12;
+@gridColumnWidth:         67px;
+@gridGutterWidth:         16px;
+@gridRowWidth:            (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));

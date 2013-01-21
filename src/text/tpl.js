@@ -1,4 +1,9 @@
-/** * @author xuld */include("core/class.js");
+/**
+ * @author xuld
+ */
+
+include("core/class.js");
+
 
 /**
  * @class Tpl
