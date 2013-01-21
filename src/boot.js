@@ -250,6 +250,8 @@
 	function exports(varName, value) {
 		if(typeof define === "function" && define.amd){
 			define(varName, [], value);
+		} else {
+			this[varName] = typeof value === "function" ? value() : value;
 		}
 	}
 	

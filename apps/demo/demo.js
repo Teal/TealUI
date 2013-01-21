@@ -197,6 +197,21 @@ if (typeof module !== 'object') {
 			return -1;
 		},
 
+		removeIndents: function (value) {
+			value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
+			var space = /^\s+/.exec(value);
+
+			if (space) {
+				space = space[0];
+				value = value.split(/[\r\n]/);
+				for (var i = value.length - 1; i >= 0; i--) {
+					value[i] = value[i].replace(space, "");
+				}
+				value = value.join('\r\n');
+			}
+			return value;
+		},
+
 		/**
 		 * 编码 HTML 特殊字符。
 		 * @param {String} value 要编码的字符串。
@@ -226,9 +241,9 @@ if (typeof module !== 'object') {
 		 * 获取一个函数内的源码。
 		 */
 		getFunctionSource: function (fn){
-			return fn.toString().replace(/^function\s+[^(]*\s*\(.*?\)\s*\{\s*/, "").replace(/\s*\}\s*$/, "").replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
+			return Demo.Utils.removeIndents(fn.toString().replace(/^function\s+[^(]*\s*\(.*?\)\s*\{[\r\n]*/, "").replace(/\s*\}\s*$/, "").replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
 				return String.fromCharCode((parseInt(b, 16) * 16 + parseInt(c, 16)))
-			});
+			}));
 		}
 
 	};
@@ -312,7 +327,7 @@ if (typeof module !== 'object') {
 							break;
 						case 'text/markdown':
 							if (Demo.Markdown) {
-								value = Demo.Markdown.toHTML(removeIndents(value));
+								value = Demo.Markdown.toHTML(Demo.Utils.removeIndents(value));
 								var div = document.createElement('SECTION');
 								div.innerHTML = value;
 								var nodes = div.getElementsByTagName('*');
@@ -350,21 +365,6 @@ if (typeof module !== 'object') {
 					}, 0);
 				}
 
-				function removeIndents(value) {
-					value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
-					var space = /^\s+/.exec(value);
-
-					if (space) {
-						space = space[0];
-						value = value.split(/[\r\n]/);
-						for (var i = value.length - 1; i >= 0; i--) {
-							value[i] = value[i].replace(space, "");
-						}
-						value = value.join('\r\n');
-					}
-					return value;
-				}
-
 				function insertCode(node, value, language, canHide) {
 
 					var pre = document.createElement('pre');
@@ -374,7 +374,7 @@ if (typeof module !== 'object') {
 					if (Demo.Beautify && (language in Demo.Beautify) && node.className.indexOf('demo-noformat') < 0) {
 						value = Demo.Beautify[language](value);
 					} else {
-						value = removeIndents(value);
+						value = Demo.Utils.removeIndents(value);
 					}
 
 					pre.textContent = pre.innerText = value;
