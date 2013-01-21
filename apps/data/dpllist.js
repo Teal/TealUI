@@ -1,0 +1,1 @@
+var DplList={"examples":{"core/base.html":{"status":"plan","name":"测试组件"},"dom/base.html":{"status":"plan","name":"DOM"}},"src":{"core/base.css":".css","core/base.js":".js","dom/base.css":".css","dom/base.js":".js"}};

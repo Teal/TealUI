@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>jPlusUI 用户手册</title>
+    <link href="../build/styles/jplus.css" rel="stylesheet">
+    <link href="assets/common.css" rel="stylesheet">
+
+    <link href="../assets/demo/demo.css" rel="stylesheet">
+    <script src="../build/scripts/jplus.js" type="text/javascript"></script>
+    <script>var Demo = { web: true }</script>
+    <script src="../assets/demo/demo.js" type="text/javascript"></script>
+
+    <script src="assets/common.js" type="text/javascript"></script>
+</head>
+<body id="demo">
+    <div id="header">
+        <div class="x-container">
+
+            <div class="toolbar">
+                <input type="text" class="x-textbox x-searchtextbox" id="d1" placeholder="搜索组件..." />
+                <script>
+                    var d1 = new SearchTextBox('d1');
+
+                    d1.on('search', function (text) {
+                        alert("准备搜索 " + text + " ...");
+                    });
+                </script>
+            </div>
+
+            <h1><a href="index.html">jPlusUI</a></h1>
+            <h2>一个轻量但完整的 Web UI 组件库，快速构建互联网页面</h2>
+        </div>
+
+        <div id="navbar" class="x-clear">
+            <ul class="x-container">
+                <li class="selected"><a href="#" title="首页">首页</a></li>
+                <li><a href="#" title="如何开始">如何开始</a></li>
+                <li><a href="#" title="组件演示">组件演示</a></li>
+                <li><a href="#" title="API 文档">API 文档</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="body" class="x-container">
+        <div id="sidebar">
+            <ul>
+                <li>基础结构</li>
+                <li>表单</li>
+                <li>按钮</li>
+            </ul>
+        </div>
+        <div id="main">
+            <h2 class="demo">基本样式</h2>
+
+            <h3 class="demo">H1-H6</h3>
+
+            <div class="sample">
+                <h1>标题1 Heading <small>备注 Hint</small></h1>
+                <h2>标题2 Heading <small>备注 Hint</small></h2>
+                <h3>标题3 Heading <small>备注 Hint</small></h3>
+                <h4>标题4 Heading <small>备注 Hint</small></h4>
+                <h5>标题5 Heading <small>备注 Hint</small></h5>
+                <h6>标题6 Heading <small>备注 Hint</small></h6>
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Typography/Heading.html" target="_blank">Heading 组件</a> 定义。</p>
+
+            <h3 class="demo">P</h3>
+
+            <div class="sample">
+                <h3>标题 Heading</h3>
+                <p>正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content 正文 content </p>
+                <p>正文 content 正文 content 正文 content 正文 content</p>
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Typography/Paragraph.html" target="_blank">Paragraph 组件</a> 定义。</p>
+
+            <h3 class="demo">Blockquote</h3>
+
+            <div class="sample">
+
+                <blockquote>
+                    <p>
+                        引用 blockquote
+                    </p>
+                    <small>引用
+　　　　<cite title="作者">作者
+    </cite>
+                    </small>
+                </blockquote>
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Typography/Blockquote.html" target="_blank">Blockquote 组件</a> 定义。</p>
+
+            <h3 class="demo">列表</h3>
+
+            <div class="sample">
+
+                <h4 class="demo">无序列表</h4>
+
+                <ul class="x-list">
+                    <li>列表项</li>
+                    <li>列表项</li>
+                </ul>
+
+                <h4 class="demo">有序列表</h4>
+
+                <ol>
+                    <li>列表项1</li>
+                    <li>列表项2</li>
+                </ol>
+
+                <h4 class="demo">定义列表</h4>
+
+                <dl>
+                    <dt>标题</dt>
+                    <dd>内容</dd>
+                    <dd>内容</dd>
+                    <dt>标题</dt>
+                    <dd>内容</dd>
+                    <dd>内容</dd>
+                </dl>
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Display/List.html" target="_blank">List 组件</a> 和  <a href="../src/Controls/Typography/Dl.html" target="_blank">Dl 组件</a>定义。</p>
+
+            <h3 class="demo">表格</h3>
+
+            <div class="sample">
+
+                <h4 class="demo">默认风格</h4>
+
+                <table class="x-table">
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="demo">间隔颜色</h4>
+
+                <table class="x-table x-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Th 1</th>
+                            <th>Th 2</th>
+                            <th>Th 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="demo">基线风格</h4>
+
+                <table class="x-table x-table-baseline">
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Th 1</th>
+                            <th>Th 2</th>
+                            <th>Th 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Td 1</td>
+                            <td>Td 2</td>
+                            <td>Td 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Display/Table.html" target="_blank">Table 组件</a> 定义。</p>
+
+            <h3 class="demo">图片</h3>
+
+            <div class="sample">
+
+                <a class="x-thumbnail" href="#">
+                    <img alt="" src="../assets/demo/images/200x200.gif">
+                </a>
+
+                <a class="x-videoplaceholder" href="#">
+                    <img alt="" src="../assets/demo/images/200x200.gif">
+                    <span class="x-videoplaceholder-icon"></span>
+                </a>
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Display/Thumbnail.html" target="_blank">Thumbnail 组件</a> 和 <a href="../src/Controls/Display/VideoPlaceholder.html" target="_blank">VideoPlaceholder 组件</a> 定义。</p>
+
+            <h3 class="demo">水平线</h3>
+
+            <div class="sample">
+
+                <hr>
+
+                <hr class="x-line x-line-dotted">
+
+                <hr class="x-line x-line-dashed">
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Typography/Hr.html" target="_blank">Hr 组件</a> 和 <a href="../src/Controls/Display/Line.html" target="_blank">Line 组件</a> 定义。</p>
+
+            <h3 class="demo">内联样式</h3>
+
+            <div class="sample">
+
+                <a href="#">Auchor</a> <strong>Strong</strong> <em>Em</em> <code>Code</code> <abbr title="缩略">Abbr</abbr> <cite>Cite</cite>
+
+            </div>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Core/Base.html" target="_blank">Base 组件</a>、<a href="../src/Controls/Typography/Code.html" target="_blank">Code 组件</a> 和 <a href="../src/Controls/Typography/Misc.html" target="_blank">Misc 组件</a> 定义。</p>
+
+
+            <h3 class="demo">常用的 css 样式</h3>
+
+            <div class="sample">
+
+                <h4 class="demo">颜色</h4>
+
+                <span class="x-hint">x-hint</span> <span class="x-highlight">x-highlight</span> <span class="x-success">x-success</span> <span class="x-warning">x-warning</span> <span class="x-error">x-error</span> <span class="x-info">x-info</span>
+
+                <h4 class="demo">位置</h4>
+
+                <code class="demo">x-left</code> <code class="demo">x-center</code> <code class="demo">x-right</code> <code class="demo">x-middle</code> <code class="demo">x-clear</code>
+
+                <h4 class="demo">显示</h4>
+
+                <code class="demo">x-inline</code> <code class="demo">x-block</code> <code class="demo">x-inline-block</code> <code class="demo">x-hide</code> <code class="demo">x-relative</code> <code class="demo">x-absolute</code>
+
+            </div>
+
+            <p class="demo link">具体信息参考 <a href="../src/Controls/Core/Common.html" target="_blank">Common 组件</a>。</p>
+
+            <h3 class="demo">按钮</h3>
+
+            <table class="table">
+                <tr>
+                    <th>类别</th>
+                    <th>按钮</th>
+                </tr>
+                <tr>
+                    <th>正常</th>
+                    <td>
+                        <button class="x-button">正常</button>
+
+                        <button class="x-button x-button-hint">提示</button>
+
+                        <button class="x-button x-button-highlight">高亮</button>
+
+                        <button class="x-button x-button-success">成功</button>
+
+                        <button class="x-button x-button-warning">警告</button>
+
+                        <button class="x-button x-button-error">错误</button>
+
+                        <button class="x-button x-button-info">信息</button>
+
+                        <button class="x-button x-button-alt">移上后高亮</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>禁用</th>
+                    <td>
+                        <button class="x-button" disabled="disabled">正常</button>
+
+                        <button class="x-button x-button-hint" disabled="disabled">提示</button>
+
+                        <button class="x-button x-button-highlight" disabled="disabled">高亮</button>
+
+                        <button class="x-button x-button-success" disabled="disabled">成功</button>
+
+                        <button class="x-button x-button-warning" disabled="disabled">警告</button>
+
+                        <button class="x-button x-button-error" disabled="disabled">错误</button>
+
+                        <button class="x-button x-button-info" disabled="disabled">信息</button>
+
+                        <button class="x-button x-button-alt" disabled="disabled">移上后高亮</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>大小</th>
+                    <td>
+                        <button class="x-button x-button-large"><i class="x-icon"></i>固定</button>
+
+                        <button class="x-button"><i class="x-icon"></i>固定</button>
+
+                        <button class="x-button x-button-small"><i class="x-icon"></i>固定</button>
+
+                        <button class="x-button x-button-smallest"><i class="x-icon"></i>固定</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>状态</th>
+                    <td>
+                        <button class="x-button x-button-actived">按下状态</button>
+
+                        <button class="x-button x-button-plain">平板</button>
+
+                        <button class="x-button x-button-fixed">固定边距</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>扩展</th>
+                    <td>
+                        <span class="x-buttongroup">
+                            <a href="#" class="x-button"><i class="x-icon x-icon-arrow-left"></i></a>
+                            <a href="#" class="x-button x-menubutton"><i class="x-icon x-icon-arrow-right"></i></a>
+                        </span>
+
+                        <button type="button" id="menuButton1" class="x-button x-menubutton">MenuButton<i class="x-menubutton-arrow"></i></button>
+                        <script>
+                            var menuButton1 = new MenuButton('menuButton1').add('子菜单1', '子菜单2', '-', '子菜单3')
+                        </script>
+
+                        <span class="x-splitbutton x-buttongroup" id="splitbutton1">
+                            <button type="button" class="x-button">SplitButton</button>
+                            <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                        </span>
+
+                        <a href="#" class="x-linkbutton">LinkButton</a>
+
+                        <script>
+                            var splitbutton1 = new SplitButton('splitbutton1').add('子菜单1', '子菜单2', '-', '子菜单3')
+                        </script>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="demo link">此样式由 <a href="../src/Controls/Button/Button.html" target="_blank">Button 组件</a>、 <a href="../src/Controls/Button/ButtonGroup.html" target="_blank">ButtonGroup 组件</a>、 <a href="../src/Controls/Button/MenuButton.html" target="_blank">MenuButton 组件</a>、 <a href="../src/Controls/Button/SplitButton.html" target="_blank">SplitButton 组件</a> 和  <a href="../src/Controls/Button/LinkButton.html" target="_blank">LinkButton 组件</a> 定义。</p>
+
+            <h3 class="demo">图标</h3>
+
+            <p class="demo">jPlusUI 内置了 2 套图标库：Glyphicons 和 IcoMoon</p>
+
+            <div class="sample">
+
+                <h4 class="demo">图标</h4>
+
+                <i class="x-icon x-icon-glass"></i>
+
+                <h4 class="demo">关闭按钮（无图版）</h4>
+
+                <a class="x-closebutton" style="float: none;">×</a>
+
+                <h4 class="demo">箭头（无图版）</h4>
+
+                <span class="x-arrow x-arrow-top" style="position: relative;"><span class="x-arrow-fore">◆</span>
+                    <span class="x-arrow-back" style="color: #fff">◆</span></span>
+
+                <span class="x-arrow x-arrow-right" style="position: relative;"><span class="x-arrow-fore">◆</span>
+                    <span class="x-arrow-back" style="color: #fff">◆</span></span>
+            </div>
+
+            <p class="demo link">具体请参考 <a href="../src/Controls/Part/Icon.html" target="_blank">Icon 组件</a>、<a href="../src/Controls/Part/IcoMoon.html" target="_blank">IcoMoon 组件</a>、<a href="../src/Controls/Part/CloseButton.html" target="_blank">CloseButton 组件</a> 和 <a href="../src/Controls/Part/Arrow.html" target="_blank">Arrow 组件</a> 。</p>
+
+            <h3 class="demo">表单</h3>
+
+            <div class="sample">
+
+                <form class="x-form">
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段1:
+                        </label>
+                        <div class="x-formfield-content">
+                            <input type="text" class="x-textbox" id="tagchooser" placeholder="提示文本" />
+                            <a class="x-tagchooser x-tagchooser-selected" href="javascript:;">选项1</a>
+                            <a class="x-tagchooser" href="javascript:;">选项2</a>
+                            <a class="x-tagchooser" href="javascript:;">选项3</a>
+                            <script>
+                                var tagchooser = new TagChooser('tagchooser', '.x-tagchooser');
+                            </script>
+                            <span class="x-tipbox x-tipbox-success x-tipbox-plain">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段2:
+                        </label>
+                        <div class="x-formfield-content">
+                            <select id="dropDownList1" name="dropDownList1">
+                                <option value="1">选项1</option>
+                                <option value="2" selected="selected">选项2</option>
+                                <option value="1">选项3</option>
+                                <option value="1">选项4</option>
+                            </select>
+                            <script>
+                                var dropDownList1 = new DropDownList("dropDownList1");
+                            </script>
+
+                            <select id="comboBox1" name="comboBox1">
+                                <option value="1">选项1</option>
+                                <option value="2" selected="selected">选项2</option>
+                                <option value="1">选项3</option>
+                                <option value="1">选项4</option>
+                            </select>
+                            <script>
+                                var comboBox1 = new ComboBox("comboBox1");
+                            </script>
+                            <span class="x-tipbox x-tipbox-error">必须选择一项;</span>
+
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                           (选填)字段3:
+                        </label>
+                        <div class="x-formfield-content">
+
+                            <input type="text" class="x-textbox" value="2012/12/30" id="datePicker" />
+                            <script>
+                                var datePicker = new DatePicker("datePicker");
+                            </script>
+
+                            <span class="x-picker x-updown" id="numericUpDown">
+                                <input class="x-textbox" type="text">
+                                <button type="button" class="x-button x-updown-button-up"><span class="x-menubutton-arrow"></span></button>
+                                <button
+                                    type="button" class="x-button x-updown-button-down">
+                                    <span class="x-menubutton-arrow"></span>
+                                </button>
+                            </span>
+                            <script>
+                                var numericUpDown = new NumericUpDown('numericUpDown');
+                            </script>
+
+                            
+
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段4:
+                        </label>
+                        <div class="x-formfield-content">
+                            <label>
+                                <input name="radio" checked="checked" class="x-radiobutton" type="radio">
+                                value
+                            </label>
+                            <label>
+                                <input name="radio" class="x-radiobutton" type="radio">
+                                value
+                            </label>
+                            <label>
+                                <input name="checkbox" checked="checked" class="x-checkbox" type="checkbox">
+                                value
+                            </label>
+                            <label>
+                                <input name="checkbox" class="x-checkbox" type="checkbox">
+                                value
+                            </label>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段5:
+                        </label>
+                        <div class="x-formfield-content">
+                            <input class="x-textbox" readonly="readonly" id="fileUpload1" type="text">
+                            <span class="x-fileupload">
+                                <input size="1" name="upload" onchange="document.getElementById('fileUpload1').value=this.value"
+                                    type="file">
+                                <button class="x-button">浏览...</button></span>
+
+                            <input type="text" class="x-textbox x-searchtextbox" id="searchTextBox1" />
+                            <script>
+                                var searchTextBox1 = new SearchTextBox('searchTextBox1');
+                            </script>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段6:
+                        </label>
+                        <div class="x-formfield-content">
+                            <textarea class="x-textbox" style="width: 440px;" id="charCounter"></textarea>  <br />
+                            <span class="x-charcounter"></span>
+                            <script>
+                                var charCounter = new CharCounter('charCounter');
+                            </script>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段7:
+                        </label>
+                        <div class="x-formfield-content">
+                            <input class="x-textbox x-textbox-warning" type="text">
+                            <input class="x-textbox x-textbox-error" type="text">
+                            <input class="x-textbox x-textbox-success" type="text">
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段7:
+                        </label>
+                        <div class="x-formfield-content">
+                            <select class="x-textbox">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                            <select class="x-textbox x-textbox-warning">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                            <select class="x-textbox x-textbox-error">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                            <select class="x-textbox x-textbox-success">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+
+                            <br />
+
+                            <select class="x-textbox" size="3">
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">
+                            字段7:
+                        </label>
+                        <div class="x-formfield-content">
+                            <input autocomplete="off" class="x-textbox" id="emailSuggest" placeholder="输入邮箱地址..."
+                                type="text">
+                            <ul tabindex="-1" style="display: none; outline: medium none;" class="x-listbox x-suggest x-dropdown"></ul>
+                            <script>
+                                var emailSuggest = new EmailSuggest('emailSuggest');
+                            </script>
+                        </div>
+                    </div>
+                    <div class="x-formfield">
+                        <div class="x-formfield-content">
+                            <button type="submit" class="x-button x-button-info">确定</button>
+                            <button type="reset" class="x-button">重写</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <p class="demo link">具体信息参考 <a href="../src/Controls/Form/Form.html" target="_blank">Form 组件</a>、<a href="../src/Controls/Suggest/TagChooser.html" target="_blank">TagChooser 组件</a>、<a href="../src/Controls/Suggest/DropDownList.html" target="_blank">DropDownList 组件</a>、<a href="../src/Controls/Suggest/ComboBox.html" target="_blank">ComboBox 组件</a>、<a href="../src/Controls/Suggest/DatePicker.html" target="_blank">DatePicker 组件</a>、<a href="../src/Controls/Suggest/Suggest.html" target="_blank">Suggest 组件</a>、<a href="../src/Controls/Suggest/EmailSuggest.html" target="_blank">EmailSuggest 组件</a>、<a href="../src/Controls/Suggest/NumericUpDown.html" target="_blank">NumericUpDown 组件</a>、 <a href="../src/Controls/Form/RadioButton.html" target="_blank">RadioButton 组件</a>、<a href="../src/Controls/Form/CheckBox.html" target="_blank">CheckBox 组件</a>、<a href="../src/Controls/Tip/TipBox.html" target="_blank">TipBox 组件</a>、<a href="../src/Controls/Form/Validator.html" target="_blank">Validator 组件</a>、<a href="../src/Controls/Form/Select.html" target="_blank">Select 组件</a> 和 <a href="../src/Controls/Form/SearchTextBox.html" target="_blank">SearchTextBox 组件</a> 。</p>
+
+            <h3 class="demo">提示</h3>
+
+            <div class="sample">
+
+                <span class="x-tip">默认 Tip</span>
+
+                <span class="x-badge x-badge-success">包 Badge</span>
+
+                <span class="x-badge x-badge-warning">包 Badge</span>
+
+                <span class="x-badge x-badge-error">包 Badge</span>
+
+                <br />
+
+                <br />
+
+                <span class="x-badge">包 Badge</span>
+
+                <span class="x-badge x-badge-success">包 Badge</span>
+
+                <span class="x-badge x-badge-warning">包 Badge</span>
+
+                <span class="x-badge x-badge-error">包 Badge</span>
+
+                <br />
+
+                <br />
+
+                <span class="x-tipbox"><a class="x-closebutton">×</a>默认 Tip</span>
+
+                <span class="x-tipbox x-tipbox-success">成功 Tip</span>
+
+                <span class="x-tipbox x-tipbox-warning">警告 Tip</span>
+
+                <span class="x-tipbox x-tipbox-error">错误 Tip</span>
+
+                <span class="x-tipbox x-tipbox-info">提示 Tip</span>
+
+                <br />
+
+                <div class="x-tipbox">
+                    默认 Tip
+                </div>
+
+                <br />
+
+                <div class="x-tipbox x-tipbox-success">
+                    成功 Tip
+                </div>
+
+                <br />
+
+                <div class="x-tipbox x-tipbox-warning">
+                    警告 Tip
+                </div>
+
+                <br />
+
+                <div class="x-tipbox x-tipbox-error">
+                    错误 Tip
+                </div>
+
+                <br />
+
+                <div class="x-tipbox x-tipbox-info">
+                    提示 Tip
+                </div>
+
+            </div>
+
+            <p class="demo link">具体信息参考 <a href="../src/Controls/Tip/Tip.html" target="_blank">Tip 组件</a>、<a href="../src/Controls/Tip/Badge.html" target="_blank">Badge 组件</a> 和 <a href="../src/Controls/Tip/TipBox.html" target="_blank">TipBox 组件</a>。</p>
+
+            <h3 class="demo">工具提示</h3>
+
+            <div class="sample">
+
+                <div id="toolTip_ct" style="display: inline-block">鼠标移到我上面，然后稍等</div>
+
+                <script>
+
+                    var toolTip1 = new ToolTip().setToolTip('toolTip_ct', 'ToolTip1');
+
+                    var toolTip2 = new ToolTip().setArrow('left').setToolTip('toolTip_ct', 'ToolTip2');
+
+                    var toolTip3 = new ToolTip().setArrow('bottom').setToolTip('toolTip_ct', 'ToolTip3');
+
+                    var toolTip4 = new ToolTip().setArrow('right').setToolTip('toolTip_ct', 'ToolTip4');
+
+                    var toolTip5 = new ToolTip().setArrow('top').setToolTip('toolTip_ct', 'ToolTip5');
+
+                </script>
+
+            </div>
+
+            <h3 class="demo">泡泡提示</h3>
+
+            <div class="sample">
+
+                <div id="balloonTip_ct" style="display: inline-block">鼠标移到我上面，然后稍等</div>
+
+                <script>
+
+                    var balloonTip1 = new BalloonTip().setToolTip('balloonTip_ct', '提示内容').setTitle("标题");
+
+                    var balloonTip2 = new BalloonTip().setArrow('left').setToolTip('balloonTip_ct', '提示内容');
+
+                    var balloonTip3 = new BalloonTip().setArrow('bottom').setToolTip('balloonTip_ct', '提示内容');
+
+                    var balloonTip4 = new BalloonTip().setArrow('right').setToolTip('balloonTip_ct', '提示内容');
+
+                    var balloonTip5 = new BalloonTip().setArrow('top').setTitle("标题").setToolTip('balloonTip_ct', '提示内容');
+
+                </script>
+
+            </div>
+
+            <p class="demo link">具体信息参考 <a href="../src/Controls/Tip/BalloonTip.html" target="_blank">BalloonTip 组件</a> 。</p>
+
+        </div>
+    </div>
+</body>
+</html>

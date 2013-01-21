@@ -1,0 +1,1 @@
+/** * @author [作者] */ include("core/base.js");trace("dom/base is loaded");

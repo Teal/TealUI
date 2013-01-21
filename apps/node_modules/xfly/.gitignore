@@ -1,0 +1,12 @@
+*~
+~*
+_notes
+Thumbs.db
+.settings
+.DS_Store
+.svn
+*.diff
+*.patch
+*.suo
+obj
+*.vshost.*

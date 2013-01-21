@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>jPlusUI 用户手册</title>
+    <link href="../build/styles/jplus.css" rel="stylesheet">
+    <link href="assets/common.css" rel="stylesheet">
+    <script src="../build/scripts/jplus.js" type="text/javascript"></script>
+    <script src="assets/common.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="x-container">
+
+            <div class="toolbar">
+                <input type="text" class="x-textbox x-searchtextbox" id="d1" placeholder="搜索组件..." />
+                <script>
+                    var d1 = new SearchTextBox('d1');
+
+                    d1.on('search', function (text) {
+                        alert("准备搜索 " + text + " ...");
+                    });
+                </script>
+            </div>
+
+            <h1><a href="index.html">jPlusUI</a></h1>
+            <h2>一个轻量但完整的 Web UI 组件库，快速构建互联网页面</h2>
+        </div>
+
+        <div id="navbar" class="x-clear">
+            <ul class="x-container">
+                <li class="selected"><a href="#" title="首页">首页</a></li>
+                <li><a href="#" title="如何开始">如何开始</a></li>
+                <li><a href="#" title="组件演示">组件演示</a></li>
+                <li><a href="#" title="API 文档">API 文档</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="main" class="x-container">
+        
+    </div>
+    <div id="footer">
+        <div class="x-container">
+            Copyright &copy; 2011-2012 jPlusUI Team. All Rights Reserved.<br />
+            All code on this site is licensed under the <a href="LICENSE.txt" target="_blank">The BSD License</a> unless stated otherwise.
+            <p>
+                <a href="https://github.com/jplusui/jplusui/issues/new" target="_blank">用户反馈</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="../community.html">加入我们</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

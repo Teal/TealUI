@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>合法方案列表</title>
+
+    <link href="../common/base.css" rel="stylesheet" type="text/css">
+    
+    <script src="../common/base.js" type="text/javascript"></script>
+    <script src="../demo/demo.js" type="text/javascript"></script>
+    <script src="../common/jsonp.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <div class="x-row toolbar" style="text-align: right;">
+            <script>
+                document.write('<a class="x-button" href="' + Demo.Configs.serverBaseUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=create">新建合成方案</a>');
+            </script>
+        </div>
+
+        <table class="x-table x-row">
+            <thead>
+                <tr>
+                    <th>合成方案</th>
+                    <th style="width: 240px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="2">正在搜索合成配置文件...</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><input class="x-textbox" type="text" placeholder="输入 DPL 文件地址..." style="width: 666px" /></td>
+                    <td>
+                        <a class="x-button x-button-info" href="javascript://生成此 .dpl 文件" onclick="go('build')">生成</a>
+                        <a class="x-button" href="javascript:编辑此 .dpl 文件" onclick="go('edit')">编辑</a>
+                        <a class="x-button" href="javascript:复制此 .dpl 文件" onclick="go('copy')">复制</a>
+                        <a class="x-button" href="javascript:删除此 .dpl 文件" onclick="if(prompt('确认删除此合成方案吗? 如果确认请输入 yes') === 'yes') go('delete')">删除</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </article>
+
+    <style>
+        .content {
+            line-height: 28px;
+        }
+    </style>
+
+    <script>
+
+        if (!Demo.local) {
+            Dom.find("article.demo").prepend("<blockquote class='demo demo-info'>本工具仅限本地使用，请先 <a href='http://github.com/jplusui/jplusui'>下载</a> 项目并执行 apps/startserver.bat 。</blockquote>");
+        }
+
+        Demo.jsonp(Demo.Configs.apiPath + 'dplfilemanager.njs?action=get', null, function (data) {
+            var html = '';
+            for (var dpl in data) {
+                var url = encodeURIComponent(data[dpl]);
+                html += '<tr><td><a class="content" target="_blank" href="' + Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=edit&file=' + url + '" title="' + Demo.Text.encodeHTML(data[dpl]) + '">' + dpl + '</a></td><td><a class="x-button x-button-info" href="' + Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=build&file=' + url + '">生成</a> <a class="x-button" href="' + Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=edit&file=' + url + '">编辑</a> <a class="x-button" href="' + Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=copy&file=' + url + '">复制</a> <a class="x-button" href="' + Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplfilemanager.njs?action=delete&file=' + url + '&postback=' + encodeURIComponent(location.href) + '" onclick="return prompt(\'确认删除以下合成方案吗? 如果确认请输入 yes\\r\\n' + Demo.Text.encodeJs(dpl) + '\') === \'yes\'">删除</a></td></tr>';
+            }
+
+            Dom.find('.x-table tbody').setHtml(html);
+        });
+
+        function go(action) {
+
+            var url = Dom.find('tfoot .x-textbox').getText();
+
+            if (url)
+                location.href = Demo.Configs.serverRootUrl + Demo.Configs.apiPath + 'dplbuilder.njs?action=' + action + '&file=' + encodeURIComponent(url);
+            else
+                Dom.find('tfoot .x-textbox').addClass('x-textbox-error');
+        }
+
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

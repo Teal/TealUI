@@ -1,0 +1,3 @@
+﻿
+
+trace("js is loaded");

@@ -1,0 +1,87 @@
+<!--
+	Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+-->
+<HTML>
+	<HEAD>
+		<SCRIPT LANGUAGE="JavaScript"><!--
+/*
+ * Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+ *
+ * Permission is granted to use and modify this script for any purpose,
+ * provided that this credit header is retained, unmodified, in the script.
+ *
+ */
+function copyUp () {
+	top.RegExTest.globalFlag = document.local.Global.checked;
+	top.RegExTest.ignoreCaseFlag = document.local.ignoreCase.checked;
+	top.RegExTest.multiLineFlag = document.local.Multiline.checked;
+};
+function copyDown () {
+	document.local.Global.checked = top.RegExTest.globalFlag;
+	document.local.ignoreCase.checked = top.RegExTest.ignoreCaseFlag;
+	document.local.Multiline.checked = top.RegExTest.multiLineFlag;
+};
+function rs () {
+	copyUp();
+	three.style.borderBottom = '0px none gray';
+	three.style.backgroundColor = 'white';
+	two.style.borderBottom = '1px solid gray';
+	two.style.backgroundColor = '#EEEEEE';
+	parent.frames['regexinput'].copyUp();
+};
+function re () {
+	copyUp();
+	two.style.borderBottom = '0px none gray';
+	two.style.backgroundColor = 'white';
+	three.style.borderBottom = '1px solid gray';
+	three.style.backgroundColor = '#EEEEEE';
+	parent.frames['regexinput'].copyUp();
+};
+// -->
+		</SCRIPT>
+		<STYLE MEDIA="screen" TYPE="text/css">
+<!--
+.tabs {
+	text-align: center;
+	vertical-align: bottom;
+}
+
+#two {
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	vertical-align: top;
+}
+#three {
+	vertical-align: top;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+	border-top: 1px solid gray;
+}
+-->
+		</STYLE>
+	</HEAD>
+	<BODY LEFTMARGIN="0" RIGHTMARGIN="0" TOPMARGIN="0" ONLOAD="copyDown();" ONUNLOAD="copyUp();" ONBLUR="copyUp();" ONMOUSEOUT="copyUp();">
+		<FORM NAME="local" ID="local" ONSUBMIT="return false;">
+			<TABLE CELLSPACING="0" CELLPADDING="0" WIDTH="33%" ID="Table2" ALIGN="center">
+				<TR STYLE="vertical-align: top;">
+					<TD STYLE="text-align: left;"><BUTTON TYPE="button" ONCLICK="copyUp();top.findMatch();">Match</BUTTON></TD>
+					<TD STYLE="text-align: center;"><BUTTON TYPE="button" ONCLICK="copyUp(); top.findReplace();">Replace</BUTTON></TD>
+					<TD STYLE="text-align: right;"><BUTTON TYPE="button" ONCLICK="copyUp(); top.findSplit();">Split</BUTTON></TD>
+			</TABLE>
+			<TABLE BORDER="1" ALIGN="right" CELLSPACING="0">
+				<TR>
+					<TD>Flags:</TD>
+					<TD><LABEL FOR="ignoreCase">Ignore Case: <INPUT NAME="ignoreCase" ID="ignoreCase" TYPE="checkbox" VALUE="1" CHECKED></LABEL></TD>
+					<TD><LABEL FOR="Global">Global: <INPUT NAME="Global" ID="Global" TYPE="checkbox" VALUE="1" CHECKED></LABEL></TD>
+					<TD><LABEL FOR="Multiline">Multiline: <INPUT NAME="Multiline" ID="Multiline" TYPE="checkbox" VALUE="1" CHECKED></LABEL></TD>
+				</TR>
+			</TABLE>
+			<BR CLEAR="all">
+			<SPAN CLASS="tabs" STYLE="width: 5%; border-bottom: 1px solid gray;" ID="one"></SPAN>
+			<SPAN CLASS="tabs" STYLE="width: 20%; border-bottom: 0px none gray;" ID="two"><A ONCLICK="re(); return true;" HREF="RegExInput.htm" TARGET="regexinput">
+					Regular Expression</A></SPAN><SPAN CLASS="tabs" STYLE="width: 20%; border-bottom: 1px solid gray; background-color: #EEEEEE;" ID="three"><A ONCLICK="rs(); return true;" HREF="ReplaceString.htm" TARGET="regexinput">Replacement
+					String</A></SPAN><SPAN CLASS="tabs" STYLE="width: 54%; border-bottom: 1px solid gray;" ID="four"></SPAN>
+		</FORM>
+	</BODY>
+</HTML>

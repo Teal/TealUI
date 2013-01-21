@@ -1,0 +1,22 @@
+{
+	
+	"websites": [{
+		
+		"port": 8021,
+		
+		"host": "*",
+
+		"virtualPath": "",
+		
+		"physicalPath": ""
+	}],
+	
+	"urlRewrite": {
+		"(.*)\\.jss": "$1.js"
+	},
+	
+	"markdown": {
+		"tpl": "<!--  arkdown  -->"
+	}
+
+}

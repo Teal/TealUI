@@ -7,3 +7,4 @@ Thumbs.db
 .svn
 *.diff
 *.patch
+*.suo

@@ -1,0 +1,916 @@
+﻿/*
+ * This file is created by a tool at 2012/11/23 18:00:36
+ */
+
+
+/************************************
+ * Controls.Core.Base
+ ************************************/
+/**
+ * J+ Library, 1.0
+ * @projectDescription jPlusUI: 一个轻量但完整�?Web UI 组件库�?
+ * @copyright 2011-2012 J+ Team
+ * @license The BSD License
+ * @author xuld
+ */html,
+body,
+form,
+object,
+iframe,
+img,
+pre,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+a img {
+  border: 0;
+}
+ul,
+li {
+  list-style-type: none;
+}
+ol li {
+  list-style-type: decimal;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+}
+th,
+td {
+  padding: 0;
+  border: 0;
+}
+input,
+button,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
+  vertical-align: middle;
+}
+button,
+select,
+textarea {
+  margin: 0;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+textarea {
+  overflow: auto;
+  vertical-align: baseline;
+  *vertical-align: top;
+}
+select {
+  background-color: #ffffff;
+}
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+body {
+  font-family: Tahoma, Arial;
+  font-size: 12px;
+  line-height: 18px;
+  color: #333333;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+a:focus {
+  outline-offset: -2px;
+}
+/************************************
+ * Controls.Core.Common
+ ************************************/
+html .x-left {
+  float: left;
+}
+html .x-right {
+  float: right;
+}
+html .x-left,
+html .x-right {
+  _display: inline;
+}
+html .x-middle {
+  vertical-align: middle;
+}
+.x-center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+html .x-relative,
+html div.x-relative {
+  position: relative;
+}
+html .x-absolute,
+html div.x-absolute {
+  position: absolute;
+}
+html .x-inline {
+  display: inline;
+}
+html .x-block {
+  display: block;
+}
+html .x-inline-block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+html .x-hide,
+html div.x-hide {
+  display: none;
+}
+html .x-plain,
+html div.x-plain {
+  margin: 0;
+  padding: 0;
+}
+.x-break-word {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
+.x-clear {
+  *zoom: 1;
+}
+.x-clear:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-hint {
+  color: #999999;
+}
+.x-success {
+  color: #468847 !important;
+}
+.x-info {
+  color: #3a87ad !important;
+}
+.x-warning {
+  color: #c09853 !important;
+}
+.x-error {
+  color: #b94a48 !important;
+}
+.x-highlight {
+  color: #ff6600 !important;
+}
+html .x-row {
+  margin-bottom: 10px;
+}
+.x-blank {
+  height: 10px;
+  display: block;
+  visibility: hidden;
+  color: #ffffff;
+}
+.x-debug {
+  background: #C03!important;
+  color: #fff!important;
+}
+/************************************
+ * Controls.Typography.Hr
+ ************************************/
+hr {
+  clear: both;
+  float: none;
+  height: 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  display: block;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 12px 0;
+  *margin: 4px 0;
+}
+/************************************
+ * Controls.Form.TextBox
+ ************************************/
+.x-textbox {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 4px;
+  color: #555555;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear .2s, box-shadow linear .2s;
+  -moz-transition: border linear .2s, box-shadow linear .2s;
+  -o-transition: border linear .2s, box-shadow linear .2s;
+  transition: border linear .2s, box-shadow linear .2s;
+}
+.x-textbox:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  outline: 0;
+}
+.x-textbox[disabled],
+.x-textbox[readonly] {
+  border-color: #dddddd;
+  background-color: #eeeeee;
+}
+input.x-textbox {
+  height: 18px;
+}
+textarea.x-textbox {
+  width: 600px;
+  height: 150px;
+  line-height: 19px;
+}
+.x-textbox-warning {
+  border-color: #c09853;
+}
+.x-textbox-warning:focus {
+  border-color: #a47e3c;
+  -webkit-box-shadow: 0 0 6px #dbc59e;
+  -moz-box-shadow: 0 0 6px #dbc59e;
+  box-shadow: 0 0 6px #dbc59e;
+}
+.x-textbox-error {
+  border-color: #b94a48;
+}
+.x-textbox-error:focus {
+  border-color: #953b39;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
+}
+.x-textbox-success {
+  border-color: #468847;
+}
+.x-textbox-success:focus {
+  border-color: #356635;
+  -webkit-box-shadow: 0 0 6px #7aba7b;
+  -moz-box-shadow: 0 0 6px #7aba7b;
+  box-shadow: 0 0 6px #7aba7b;
+}
+.x-placeholder {
+  color: #999999;
+}
+:-moz-placeholder {
+  color: #999999;
+}
+:-ms-input-placeholder,
+::-webkit-input-placeholder {
+  color: #999999;
+}
+/************************************
+ * Controls.Core.IDropDownOwner
+ ************************************/
+.x-dropdown {
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 1000;
+  max-height: 300px;
+  background-color: #ffffff;
+}
+/************************************
+ * Controls.Form.ListBox
+ ************************************/
+.x-listbox {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  _display: block;
+  _zoom: 0;
+  padding: 4px 0;
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  *overflow-x: hidden;
+  text-align: left;
+}
+.x-listbox li {
+  display: block;
+  padding: 3px 10px;
+  color: #555555;
+  white-space: nowrap;
+  cursor: default;
+  _width: 100%;
+  line-height: 18px;
+  *text-indent: -16px;
+  _text-indent: 0;
+}
+.x-listbox li a {
+  color: #333333;
+  cursor: default;
+}
+.x-listbox li a:hover {
+  text-decoration: none;
+}
+.x-listbox-selected {
+  background-color: #005580;
+}
+.x-listbox-hover {
+  background-color: #0077b3;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+}
+.x-listbox .x-listbox-selected,
+.x-listbox .x-listbox-hover {
+  color: #ffffff;
+}
+.x-listbox .x-listbox-selected a,
+.x-listbox .x-listbox-hover a {
+  color: #ffffff;
+}
+.x-listbox-readonly {
+  background-color: #eeeeee !important;
+}
+.x-listbox-disabled {
+  border-color: #dddddd !important;
+  background-color: #eeeeee !important;
+}
+.x-listbox-disabled .x-listbox-selected {
+  background-color: #555555;
+}
+/************************************
+ * Controls.Button.Button
+ ************************************/
+.x-button {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 4px 14px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #333333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  border: 1px solid #cccccc;
+  border-bottom-color: #b3b3b3;
+  background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+  text-align: center;
+  vertical-align: middle;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+.x-button:hover,
+.x-button:active,
+.x-button.x-button-actived,
+.x-button[disabled],
+.x-button.x-button-disabled {
+  background-color: #e6e6e6;
+}
+.x-button:first-child {
+  *margin-left: 0;
+}
+.x-button:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  background-position: 0 -15.3px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+.x-button:active,
+.x-button-actived {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+}
+.x-button[disabled],
+.x-button-disabled {
+  cursor: default;
+  background-image: none;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.x-button-large {
+  padding: 9px 24px;
+  line-height: 150%;
+  font-size: 16px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.x-button-small {
+  padding: 2px 9px;
+  font-size: 10px;
+}
+.x-button-smallest {
+  padding: 1px 6px;
+  font-size: 10px;
+  line-height: 14px;
+}
+.x-button-hint,
+.x-button-hint:hover,
+.x-button-success,
+.x-button-success:hover,
+.x-button-info,
+.x-button-info:hover,
+.x-button-warning,
+.x-button-warning:hover,
+.x-button-error,
+.x-button-error:hover,
+.x-button-highlight,
+.x-button-highlight:hover {
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+}
+.x-button-hint {
+  background-color: #262626;
+  background-image: -moz-linear-gradient(top, #454545, #262626);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#454545), to(#262626));
+  background-image: -webkit-linear-gradient(top, #454545, #262626);
+  background-image: -o-linear-gradient(top, #454545, #262626);
+  background-image: linear-gradient(to bottom, #454545, #262626);
+  background-repeat: repeat-x;
+  border-color: #262626 #262626 #000000;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-hint:hover,
+.x-button-hint:active,
+.x-button-hint.x-button-actived,
+.x-button-hint[disabled],
+.x-button-hint.x-button-disabled {
+  background-color: #262626;
+}
+.x-button-success {
+  background-color: #51a351;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(to bottom, #62c462, #51a351);
+  background-repeat: repeat-x;
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-success:hover,
+.x-button-success:active,
+.x-button-success.x-button-actived,
+.x-button-success[disabled],
+.x-button-success.x-button-disabled {
+  background-color: #51a351;
+}
+.x-button-info {
+  background-color: #2f96b4;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-info:hover,
+.x-button-info:active,
+.x-button-info.x-button-actived,
+.x-button-info[disabled],
+.x-button-info.x-button-disabled {
+  background-color: #2f96b4;
+}
+.x-button-warning {
+  background-color: #f89406;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-warning:hover,
+.x-button-warning:active,
+.x-button-warning.x-button-actived,
+.x-button-warning[disabled],
+.x-button-warning.x-button-disabled {
+  background-color: #f89406;
+}
+.x-button-error {
+  background-color: #bd362f;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-error:hover,
+.x-button-error:active,
+.x-button-error.x-button-actived,
+.x-button-error[disabled],
+.x-button-error.x-button-disabled {
+  background-color: #bd362f;
+}
+.x-button-highlight {
+  background-color: #4a81ca;
+  background-image: -moz-linear-gradient(top, #4aacca, #4a81ca);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4aacca), to(#4a81ca));
+  background-image: -webkit-linear-gradient(top, #4aacca, #4a81ca);
+  background-image: -o-linear-gradient(top, #4aacca, #4a81ca);
+  background-image: linear-gradient(to bottom, #4aacca, #4a81ca);
+  background-repeat: repeat-x;
+  border-color: #4a81ca #4a81ca #2d5c9a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25);
+}
+.x-button-highlight:hover,
+.x-button-highlight:active,
+.x-button-highlight.x-button-actived,
+.x-button-highlight[disabled],
+.x-button-highlight.x-button-disabled {
+  background-color: #4a81ca;
+}
+button.x-button,
+input.x-button {
+  *padding: 4px 5px 0;
+}
+button.x-button-large,
+input.x-button-large {
+  *padding-top: 7px;
+  *padding-bottom: 5px;
+}
+button.x-button-small,
+input.x-button-small {
+  *padding-top: 1px;
+}
+.x-button-plain {
+  background: none;
+  color: #333333;
+  border-color: transparent;
+  _border-color: #ffffff;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.x-button-fixed {
+  padding-left: 20px!important;
+  padding-right: 20px!important;
+}
+/************************************
+ * Controls.Button.MenuButton
+ ************************************/
+.x-menubutton-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 30;
+  filter: alpha(opacity=3000);
+  content: "\2193";
+  font-size: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000000;
+  margin-top: -3px;
+  *margin-top: 0;
+  _vertical-align: baseline;
+  _background: transparent;
+  _border-left: 4px solid white;
+  _border-right: 4px solid white;
+  _filter: chroma(color=#ffffff);
+}
+.x-button .x-menubutton-arrow {
+  margin-left: 5px;
+  _margin-top: 7px;
+  _margin-bottom: 5px;
+}
+.x-button:hover .x-menubutton-arrow,
+.x-button-actived .x-menubutton-arrow {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.x-button[disabled]:hover .x-menubutton-arrow,
+.x-button-disabled:hover .x-menubutton-arrow {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+/************************************
+ * Controls.Suggest.Picker
+ ************************************/
+.x-picker {
+  position: relative;
+  display: inline-block;
+  line-height: 18px !important;
+  *margin-left: .3em;
+}
+.x-picker:first-child {
+  *margin-left: 0;
+}
+.x-picker button {
+  padding-left: 4px;
+  padding-right: 8px;
+  margin-left: 0;
+  *padding: 3px 6px 3px 2px;
+  position: absolute;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  right: 0;
+  top: 0;
+  _padding-bottom: 1px;
+  _margin-right: -1px;
+}
+.x-picker button .x-icon {
+  margin-left: 2px;
+  margin-right: -2px;
+}
+.x-picker input {
+  padding-right: 30px;
+  *position: relative;
+  *top: -1px;
+}
+.x-picker input:focus ~ button {
+  border-color: rgba(82, 168, 236, 0.8);
+}
+.x-picker a {
+  cursor: default!important;
+  text-align: left;
+  height: 18px;
+  display: inline-block;
+  padding-right: 35px;
+  /* IE6-9 */
+
+}
+/************************************
+ * Controls.Suggest.DropDownMenu
+ ************************************/
+/**
+ * @author 
+ */
+
+
+
+/************************************
+ * Controls.Button.ButtonGroup
+ ************************************/
+/** #imports Controls.Button.Button */
+.x-buttongroup {
+  display: inline-block;
+  vertical-align: middle;
+  *margin-left: .3em;
+  *zoom: 1;
+}
+.x-buttongroup:first-child {
+  *margin-left: 0;
+}
+.x-buttongroup:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-buttongroup .x-button {
+  position: relative;
+  float: left;
+  margin-left: -1px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.x-buttongroup .x-button:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+  border-bottom-left-radius: 4px;
+}
+.x-buttongroup .x-button:last-child {
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  border-bottom-right-radius: 4px;
+}
+/************************************
+ * Controls.Button.SplitButton
+ ************************************/
+.x-splitbutton .x-button:last-child {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.x-splitbutton .x-menubutton-arrow {
+  margin-left: 0;
+  *margin-top: 7px;
+  *margin-bottom: 7px;
+  _margin-bottom: 5px;
+}
+/************************************
+ * Controls.Form.Form
+ ************************************/
+.x-formfield {
+  line-height: 28px;
+  margin-bottom: 10px;
+  *zoom: 1;
+}
+.x-formfield:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-formfield-label {
+  width: 100px;
+  display: block;
+  text-align: right;
+  margin-right: 10px;
+  float: left;
+}
+.x-formfield-content {
+  margin-left: 110px;
+}
+.x-form-vertical .x-formfield-label {
+  float: none;
+  width: auto;
+  text-align: left;
+  margin-right: 0;
+}
+.x-form-vertical .x-formfield-content {
+  margin-left: 0;
+}
+/************************************
+ * Controls.Display.Table
+ ************************************/
+.x-table {
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-table th,
+.x-table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+  _border: 1px solid #dddddd;
+}
+.x-table thead:first-child tr th,
+.x-table thead:first-child tr td {
+  border-top: 0;
+}
+.x-table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.x-table th + th,
+.x-table td + td,
+.x-table th + td,
+.x-table td + th {
+  border-left: 1px solid #dddddd;
+}
+.x-table thead:first-child tr:first-child th,
+.x-table tbody:first-child tr:first-child th,
+.x-table tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+.x-table thead:first-child tr:first-child th:first-child,
+.x-table tbody:first-child tr:first-child td:first-child {
+  -webkit-border-radius: 4px 0 0 0;
+  -moz-border-radius: 4px 0 0 0;
+  border-radius: 4px 0 0 0;
+}
+.x-table thead:first-child tr:first-child th:last-child,
+.x-table tbody:first-child tr:first-child td:last-child {
+  -webkit-border-radius: 0 4px 0 0;
+  -moz-border-radius: 0 4px 0 0;
+  border-radius: 0 4px 0 0;
+}
+.x-table thead:last-child tr:last-child th:first-child,
+.x-table tbody:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+}
+.x-table thead:last-child tr:last-child th:last-child,
+.x-table tbody:last-child tr:last-child td:last-child {
+  -webkit-border-radius: 0 0 4px 0;
+  -moz-border-radius: 0 0 4px 0;
+  border-radius: 0 0 4px 0;
+}
+.x-table tbody tr:hover td,
+.x-table tbody tr:hover th {
+  background-color: #f3f3f3;
+}
+.x-table-baseline {
+  border: none;
+}
+.x-table-baseline th,
+.x-table-baseline td {
+  _border: none;
+}
+.x-table-baseline td {
+  _border-top: 1px solid #dddddd;
+}
+.x-table-baseline thead th {
+  vertical-align: bottom;
+}
+.x-table-baseline th + th,
+.x-table-baseline td + td,
+.x-table-baseline th + td,
+.x-table-baseline td + th {
+  border-left: none;
+}
+.x-table-striped tbody tr:nth-child(odd) td,
+.x-table-striped tbody tr:nth-child(odd) th {
+  background-color: #f6f6f6;
+}

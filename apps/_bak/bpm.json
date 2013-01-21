@@ -1,0 +1,11 @@
+{
+	
+	"basePath": "../../",
+	
+	"includeBasePath": "src",
+	
+	"fromEncoding": "utf-8",
+	
+	"toEncoding": "utf-8"
+
+}

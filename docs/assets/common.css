@@ -1,0 +1,115 @@
+﻿body {
+    font-family: 'Open Sans','PT Sans','DejaVu Sans','Bitstream Vera Sans','Microsoft YaHei';
+}
+
+#header {
+    background: #F1F1F1;
+}
+
+    #header h1 {
+        padding-top: 10px;
+        margin: 0;
+    }
+
+        #header h1 a {
+            color: #444444;
+            text-decoration: none;
+            font-size: 26px;
+        }
+
+    #header h2 {
+        color: #999999;
+        font-size: 12px;
+        margin: 0;
+        font-weight: 100;
+        font-family: inherit;
+        line-height: 18px;
+        padding-bottom: 6px;
+    }
+
+    #header .toolbar {
+        float: right;
+        margin-top: 26px;
+    }
+
+    #header .x-searchtextbox {
+        /*-webkit-border-radius: 1px;
+        -moz-border-radius: 1px;
+        border-radius: 1px;
+        padding-left: 4px;*/
+        width: 200px;
+    }
+
+#navbar {
+    background: #444444;
+    line-height: 38px;
+}
+
+    #navbar li {
+        float: left;
+        margin-right: 48px;
+    }
+
+        #navbar li a {
+            color: #FFFFFF;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+            #navbar li a:hover {
+                color: #EEEEEE;
+            }
+
+        #navbar li.selected {
+            background: url("data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAABgAAAAKCAYAAACuaZ5oAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAH1JREFUeNpi/P//PwORgBmIJ0DZBUD8lyhdIAuIwEJAvP0/AmyHihHUS4zhKkB8+z8muA2Vo8gCeyB++x83eAtVQ5YFOUD88z9h8AeqlmgLmIF48n/SwWSoXrwWoEcmqQAj8omJTFIBSuQTG5mkAnjkwyLzz3/qA3DkAwQYABEvANn67PzPAAAAAElFTkSuQmCC") no-repeat 50% 32px;
+        }
+
+#footer {
+    background: #F5F5F5;
+    border-top: 1px solid #E5E5E5;
+    margin-top: 70px;
+    padding: 30px 0;
+}
+
+#demo #sidebar {
+    float: left;
+    width: 210px;
+}
+
+#demo #sidebar ul {
+    border: 1px solid #DFDFDF;
+}
+
+#demo #main {
+    float: left;
+    width: 700px;
+}
+
+#demo h2.demo {
+    margin-top: 20px;
+    font-size: 28px;
+    line-height: 47px;
+    color: #333;
+}
+
+#demo .link {
+    color: #999;
+    font-size: 12px;
+    text-align: right;
+}
+
+#demo .sample {
+    border: 1px solid #DDDDDD;
+    padding: 10px;
+    margin: 10px 0;
+    position: relative;
+}
+
+#demo .table {
+    width: 100%;
+}
+
+#demo .table th, #demo .table td{
+    border: 1px solid #DDDDDD;
+    padding: 5px;
+}
