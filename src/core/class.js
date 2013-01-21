@@ -1,5 +1,12 @@
-/** * @author [作者] */include("core/base.js");
-exports("Class", function () {
+/**
+ * @author xuld
+ * @fileOverview 提供类的支持。
+ */
+
+
+include("core/base.js");
+
+var Class = (function () {
 	
 	/**
 	 * 空对象。
@@ -31,7 +38,8 @@ exports("Class", function () {
 	 * var c = new MyCls('参数1', '参数2');  // 创建类。
 	 * c.say();  //  调用 say 方法。
 	 * </pre>
-	 */	function Class(members) {
+	 */
+	function Class(members) {
 
 		// 所有类都是继承 Class.Base 创建的。
 		return Base.extend(members);
@@ -110,21 +118,21 @@ exports("Class", function () {
 
 				args = arguments;
 
-			assert(fn, "JPlus.Base#base(fnName, args): 子类不存在 {fnName} 的属性或方法。", fnName);
+			assert(fn, "Class.Base#base(fnName, args): 子类不存在 {fnName} 的属性或方法。", fnName);
 
 			// 标记当前类的 fn 已执行。
 			fn.$bubble = true;
 
-			assert(!me || me.prototype[fnName], "JPlus.Base#base(fnName, args): 父类不存在 {fnName} 的方法。", fnName);
+			assert(!me || me.prototype[fnName], "Class.Base#base(fnName, args): 父类不存在 {fnName} 的方法。", fnName);
 
 			// 保证得到的是父类的成员。
 
 			do {
 				me = me.base;
-				assert(me && me.prototype[fnName], "JPlus.Base#base(fnName, args): 父类不存在 {fnName} 的方法。", fnName);
+				assert(me && me.prototype[fnName], "Class.Base#base(fnName, args): 父类不存在 {fnName} 的方法。", fnName);
 			} while ('$bubble' in (fn = me.prototype[fnName]));
 
-			assert.isFunction(fn, "JPlus.Base#base(fnName, args): 父类的成员 {fn}不是一个函数。  ");
+			assert.isFunction(fn, "Class.Base#base(fnName, args): 父类的成员 {fn}不是一个函数。  ");
 
 			fn.$bubble = true;
 
@@ -423,42 +431,14 @@ exports("Class", function () {
 	};
 
 	/**
-	 * 所有类的基类。
-	 * @abstract class
-	 * {@link Class.Base} 提供了全部类都具有的基本函数。
-	 */
-	Class.Base = Base;
-
-	/**
-	 * 将一个原生的 Javascript 函数对象转换为一个类。
-	 * @param {Function/Class} constructor 用于转换的对象，将修改此对象，让它看上去和普通的类一样。
-	 * @return {Function} 返回生成的类。
-	 * @remark 转换后的类将有继承、扩展等功能。
-	 * @example <pre>
-	 * function myFunc(){}
-	 * 
-	 * JPlus.Native(myFunc);
-	 * 
-	 * // 现在可以直接使用 implement 函数了。
-	 * myFunc.implement({
-	 * 	  a: 2
-	 * });
-	 * </pre>
-	 */
-	Class.Native = function (constructor) {
-
-		// JPlus 创建的类和普通的 Javascript 函数的最大区别在于:
-		// JPlus 创建的类还拥有 classMembers 指定的成员。
-		// 因此，将普通函数转换为 JPlus 类的方法就是复制 classMembers 下的方法。
-		return Object.extend(constructor, Class.staticMembers);
-	};
-
-	/**
 	 * 类成员方法。
 	 * @type Object
 	 * @namespace JPlus.Base
 	 */
 	Class.staticMembers = {
+
+		// 在支持 __proto__ 的浏览器使用。
+		__proto__: Function.prototype,
 
 		/**
 		 * 扩展当前类的动态方法。
@@ -481,21 +461,6 @@ exports("Class", function () {
 
 			// 直接将成员复制到原型上即可 。
 			Object.extend(this.prototype, members);
-
-			return this;
-		},
-
-		/**
-		 * 扩展当前类的动态方法，但不覆盖已存在的成员。
-		 * @param {Object} members 成员。
-		 * @return this
-		 * @see #implement
-		 */
-		implementIf: function (members) {
-
-			assert(this.prototype, "MyClass.implementIf(members): 无法扩展当前类，因为当前类的 prototype 为空。");
-
-			Object.extendIf(this.prototype, members);
 
 			return this;
 		},
@@ -689,7 +654,7 @@ exports("Class", function () {
 		 *
 		 * 要想在子类的构造函数调用父类的构造函数，可以使用 {@link JPlus.Base#base} 调用。
 		 *
-		 * 这个函数返回的类实际是一个函数，但它被 {@link JPlus.Native} 修饰过。
+		 * 这个函数返回的类实际是一个函数，但它被 {@link Class.Native} 修饰过。
 		 *
 		 * 由于原型链的关系， 肯能存在共享的引用。 如: 类 A ， A.prototype.c = []; 那么，A的实例 b ,
 		 * d 都有 c 成员， 但它们共享一个 A.prototype.c 成员。 这显然是不正确的。所以你应该把 参数 quick
@@ -741,6 +706,42 @@ exports("Class", function () {
 	};
 
 	/**
+	 * 将一个原生的 Javascript 函数对象转换为一个类。
+	 * @param {Function/Class} constructor 用于转换的对象，将修改此对象，让它看上去和普通的类一样。
+	 * @return {Function} 返回生成的类。
+	 * @remark 转换后的类将有继承、扩展等功能。
+	 * @example <pre>
+	 * function myFunc(){}
+	 * 
+	 * JPlus.Native(myFunc);
+	 * 
+	 * // 现在可以直接使用 implement 函数了。
+	 * myFunc.implement({
+	 * 	  a: 2
+	 * });
+	 * </pre>
+	 */
+	Class.Native = function (constructor) {
+
+		assert.notNull(constructor, "Class.Native(constructor): constructor ~");
+
+		// 在高级浏览器优先使用 __proto__ 以节约内存。
+		if (constructor.__proto__) {
+			constructor.__proto__ = Class.staticMembers;
+			return constructor;
+		}
+
+		return Object.extend(constructor, Class.staticMembers);
+	};
+
+	/**
+	 * 所有类的基类。
+	 * @abstract class
+	 * {@link Class.Base} 提供了全部类都具有的基本函数。
+	 */
+	Class.Base = Class.Native(Base);
+
+	/**
 	 * 获取指定的对象所有的事件管理器。
 	 * @param {Object} obj 要使用的对象。
 	 * @param {String} type 事件名。
@@ -762,4 +763,8 @@ exports("Class", function () {
 
 	return Class;
 
-});
+})();
+
+
+
+

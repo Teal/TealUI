@@ -1,1 +1,1 @@
-var DplList={"examples":{"core/base.html":{"status":"plan","name":"组件底层"},"core/class.html":{"status":"plan","name":"类"}},"src":{"core/base.js":".js","core/class.js":".js"}};
+var DplList={"examples":{"core/base.html":{"name":"组件底层","status":"ok"},"core/class.html":{"name":"类","status":"ok"},"text/tpl.html":{"status":"plan","name":"模板引擎"},"utils/deferrable.html":{"status":"plan","name":"串联异步操作"}},"src":{"core/base.js":".js","core/class.js":".js","text/tpl.js":".js","utils/deferrable.js":".js"}};
