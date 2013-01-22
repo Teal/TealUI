@@ -1,8 +1,8 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
-.x-monthcalender {
+.ui-monthcalender {
     border: 1px solid @grayBorder;
     font-size: 12px;
     font-family: Arial;
@@ -14,47 +14,47 @@
     background-color: #F5F5F5;
 }
 
-.x-monthcalender-main {
+.ui-monthcalender-main {
     border: 1px solid @grayBorder;
     padding: 6px;
     background-color: @white;
 }
 
 
-.x-monthcalender-header {
+.ui-monthcalender-header {
     font-weight: 700;
     font-size: 14px;
 }
 
-.x-monthcalender-title {
+.ui-monthcalender-title {
     padding: 0 31px;
 }
 
-.x-monthcalender a {
+.ui-monthcalender a {
     text-decoration: none;
     color: #111;
 }
 
-.x-monthcalender a:hover {
+.ui-monthcalender a:hover {
     color: #568cca;
 }
 
-.x-monthcalender-previous, .x-monthcalender-next {
+.ui-monthcalender-previous, .ui-monthcalender-next {
     display: block;
     width: 16px;
     font-size: 18px;
 }
 
-.x-monthcalender-previous {
+.ui-monthcalender-previous {
     float: left;
 }
 
-.x-monthcalender-next {
+.ui-monthcalender-next {
     float: right;
 }
 
 //  内容
-.x-monthcalender-body {
+.ui-monthcalender-body {
     position: relative;
     width: 173px;
     height: 118px;
@@ -62,18 +62,18 @@
     margin: 1px;
 }
 
-.x-monthcalender-days, .x-monthcalender-monthyears {
+.ui-monthcalender-days, .ui-monthcalender-monthyears {
     width: 173px;
     position: absolute;
 }
 
-.x-monthcalender-content {
+.ui-monthcalender-content {
     position: absolute;
     top: 0;
     left: 0;
 }
 
-.x-monthcalender-days a, .x-monthcalender-days span, .x-monthcalender-monthyears a {
+.ui-monthcalender-days a, .ui-monthcalender-days span, .ui-monthcalender-monthyears a {
     float: left;
     overflow: hidden;
     border: 1px solid transparent;
@@ -81,14 +81,14 @@
     .border-radius(2px);
 }
 
-.x-monthcalender-days a:hover, .x-monthcalender-monthyears a:hover {
+.ui-monthcalender-days a:hover, .ui-monthcalender-monthyears a:hover {
     background-color: #EDF5FF;
     #gradient > .vertical-all(#FDFEFF, #EDF5FF);
     border-color: #B9D7FC;
 }
 
 // 天
-.x-monthcalender-days a, .x-monthcalender-days span {
+.ui-monthcalender-days a, .ui-monthcalender-days span {
     text-align: right;
     width: 14px;
     height: 14px;
@@ -96,7 +96,7 @@
     padding: 0px 4px;
 }
 
-.x-monthcalender-week {
+.ui-monthcalender-week {
     padding-bottom: 2px;
     margin-bottom: 2px;
     border-bottom: 1px solid #e0e0e0;
@@ -104,36 +104,36 @@
     font-weight: bold;
 }
 
-.x-monthcalender-monthyears a {
+.ui-monthcalender-monthyears a {
     width: 40px;
     line-height: 36px;
     height: 36px;
 }
 
-a.x-monthcalender-actived {
+a.ui-monthcalender-actived {
     color: #007FE6;
 	font-weight: bold;
 }
 
-a.x-monthcalender-selected {
+a.ui-monthcalender-selected {
     background-color: #D0E5FF;
     #gradient > .vertical-all(#ECF5FF, #D0E5FF);
     border-color: #007FE6!important;
 }
 
-a.x-monthcalender-decade {
+a.ui-monthcalender-decade {
     line-height: 18px;
 }
 
-.x-monthcalender-alt, .x-monthcalender-disabled a {
+.ui-monthcalender-alt, .ui-monthcalender-disabled a {
     color: @grayLight!important;
     cursor: default!important;
 }
 
-.x-monthcalender-disabled .x-monthcalender-body a {
+.ui-monthcalender-disabled .ui-monthcalender-body a {
     background: none!important;
 }
 
-.x-dropdownmenu .x-monthcalender-main {
+.ui-dropdownmenu .ui-monthcalender-main {
     border: none;
 }

@@ -194,7 +194,7 @@ Object.extend(Tpl, {
 			return index >= obj.length - 1;
 
 		for (var p in obj) {
-			index--;
+			indeui--;
 		}
 
 		return !index;

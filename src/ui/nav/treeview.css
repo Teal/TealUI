@@ -1,5 +1,5 @@
 /* Tree */
-.x-treeview {
+.ui-treeview {
   padding: 3px 0;
   overflow: auto;
   border: 1px solid #CCCCCC;
@@ -7,68 +7,68 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.x-treeview-plain {
+.ui-treeview-plain {
   border: 0;
 }
-.x-treeview li {
+.ui-treeview li {
   white-space: nowrap;
 }
-.x-treenode,
-.x-treeview a,
-.x-treenode-space {
+.ui-treenode,
+.ui-treeview a,
+.ui-treenode-space {
   height: 20px;
   vertical-align: top;
 }
-.x-treenode {
+.ui-treenode {
   cursor: default;
   display: block;
   color: #333333;
   font-size: 14px;
 }
-.x-treenode-space {
+.ui-treenode-space {
   display: inline-block;
   width: 19px;
   background-repeat: no-repeat;
   background-image: url(images/treeview.gif);
 }
-.x-treenode-none {
+.ui-treenode-none {
   background-image: none!important;
 }
-.x-treenode-selected {
+.ui-treenode-selected {
   background-color: #D9E8FB;
 }
-.x-treenode:hover {
+.ui-treenode:hover {
   background-color: #EEEEEE;
   text-decoration: none;
 }
-.x-treenode-plus {
+.ui-treenode-plus {
   background-position: 0 -30px;
 }
-.x-treenode-minus {
+.ui-treenode-minus {
   background-position: 0 -60px;
 }
-.x-treenode-plus:hover {
+.ui-treenode-plus:hover {
   background-position: -30px -30px;
 }
-.x-treenode-minus:hover {
+.ui-treenode-minus:hover {
   background-position: -30px -60px;
 }
-.x-treeview-alt .x-treenode-space {
+.ui-treeview-alt .ui-treenode-space {
   background-image: url(images/treeview-alt.gif);
 }
-.x-treeview-alt .x-treenode-normal {
+.ui-treeview-alt .ui-treenode-normal {
   background-position: 0 -90px;
 }
-.x-treeview-alt .x-treenode-last .x-treenode-plus {
+.ui-treeview-alt .ui-treenode-last .ui-treenode-plus {
   background-position: 0 -120px;
 }
-.x-treeview-alt .x-treenode-last .x-treenode-minus {
+.ui-treeview-alt .ui-treenode-last .ui-treenode-minus {
   background-position: 0 -150px;
 }
-.x-treeview-alt .x-treenode-last .x-treenode-normal {
+.ui-treeview-alt .ui-treenode-last .ui-treenode-normal {
   background-position: 0 -180px;
 }
-.x-treenode-loading {
+.ui-treenode-loading {
   background-image: url(images/loading.gif) !important;
   background-position: 50% 50%;
 }

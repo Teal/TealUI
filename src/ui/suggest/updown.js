@@ -15,11 +15,11 @@ var UpDown = Picker.extend({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    menuButtonTpl: '<button type="button" class="x-button x-updown-button-up">\
-                        <span class="x-menubutton-arrow"></span>\
+    menuButtonTpl: '<button type="button" class="ui-button ui-updown-button-up">\
+                        <span class="ui-menubutton-arrow"></span>\
                     </button>\
-                    <button type="button" class="x-button x-updown-button-down">\
-                        <span class="x-menubutton-arrow"></span>\
+                    <button type="button" class="ui-button ui-updown-button-down">\
+                        <span class="ui-menubutton-arrow"></span>\
                     </button>',
 
     changeSpeed: 90,
@@ -28,7 +28,7 @@ var UpDown = Picker.extend({
 
     _bindEvent: function (d, fn) {
         var me = this;
-        d = this.find('.x-updown-button-' + d).node;
+        d = this.find('.ui-updown-button-' + d).node;
 
         d.onmousedown = function () {
             me[fn]();

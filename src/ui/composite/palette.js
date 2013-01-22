@@ -11,7 +11,7 @@ var Palette = Control.extend({
     onItemClick: function (item) {
 
         // 如果此项是允许点击的。则生成新的日期对象，并设置为当前值。
-        if (!item.hasClass('x-monthcalender-disabled')) {
+        if (!item.hasClass('ui-monthcalender-disabled')) {
             this.selectItem(item);
         }
 
@@ -163,7 +163,7 @@ var Palette = Control.extend({
         h.push('<div class="evo-color" style="float:left"><div style="');
         h.push(c ? 'background-color:' + c : 'display:none');
         if (isIE) {
-            h.push('" class="evo-colorbox-ie"></div><span class=".evo-colortxt-ie" ');
+            h.push('" class="evo-colorboui-ie"></div><span class=".evo-colortxt-ie" ');
         } else {
             h.push('"></div><span ');
         }

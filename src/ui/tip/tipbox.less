@@ -1,10 +1,10 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 
-// Base x-tipbox styles
-.x-tipbox {
+// Base ui-tipbox styles
+.ui-tipbox {
     padding: 4px 14px;
     text-shadow: 0 1px 0 rgba(255,255,255,.5);
     .border-radius(@baseBorderRadius / 2);
@@ -17,11 +17,11 @@
     color: @warningTextColor;
 }
 
-div.x-tipbox {
+div.ui-tipbox {
     display: block;
 }
 
-.x-tipbox .x-closebutton{
+.ui-tipbox .ui-closebutton{
 	font-size: 16px;
 	margin-left: 10px;
 	color: #AAA6A1;
@@ -30,31 +30,31 @@ div.x-tipbox {
 // Alternate styles
 // ----------------
 
-.x-tipbox-success, .x-tipbox-error, .x-tipbox-info, .x-tipbox-warning {
+.ui-tipboui-success, .ui-tipboui-error, .ui-tipboui-info, .ui-tipboui-warning {
     background-repeat: no-repeat;
     background-position: 8px 50%;
     padding-left: 28px;
 }
 
-.x-tipbox-warning {
+.ui-tipboui-warning {
     background-image: url(images/warning.png);
 }
 
-.x-tipbox-success {
+.ui-tipboui-success {
     background-color: @successBackgroundColor;
     border-color: @successBorderColor;
     color: @successTextColor;
     background-image: url(images/success.png);
 }
 
-.x-tipbox-error {
+.ui-tipboui-error {
     background-color: @errorBackgroundColor;
     border-color: @errorBorderColor;
     color: @errorTextColor;
     background-image: url(images/error.png);
 }
 
-.x-tipbox-info {
+.ui-tipboui-info {
     background-color: @infoBackgroundColor;
     border-color: @infoBorderColor;
     color: @infoTextColor;
@@ -62,7 +62,7 @@ div.x-tipbox {
 }
 
 
-.x-tipbox-plain {
+.ui-tipboui-plain {
     background-color: transparent;
     border-color: transparent;
 }

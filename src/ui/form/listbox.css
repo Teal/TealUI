@@ -1,4 +1,4 @@
-.x-listbox {
+.ui-listbox {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -19,7 +19,7 @@
   *overflow-x: hidden;
   text-align: left;
 }
-.x-listbox li {
+.ui-listbox li {
   display: block;
   padding: 3px 10px;
   color: #555555;
@@ -30,17 +30,17 @@
   *text-indent: -16px;
   _text-indent: 0;
 }
-.x-listbox li a {
+.ui-listbox li a {
   color: #333333;
   cursor: default;
 }
-.x-listbox li a:hover {
+.ui-listbox li a:hover {
   text-decoration: none;
 }
-.x-listbox-selected {
+.ui-listboui-selected {
   background-color: #005580;
 }
-.x-listbox-hover {
+.ui-listboui-hover {
   background-color: #0077b3;
   background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
@@ -49,21 +49,21 @@
   background-image: linear-gradient(to bottom, #0088cc, #0077b3);
   background-repeat: repeat-x;
 }
-.x-listbox .x-listbox-selected,
-.x-listbox .x-listbox-hover {
+.ui-listbox .ui-listboui-selected,
+.ui-listbox .ui-listboui-hover {
   color: #ffffff;
 }
-.x-listbox .x-listbox-selected a,
-.x-listbox .x-listbox-hover a {
+.ui-listbox .ui-listboui-selected a,
+.ui-listbox .ui-listboui-hover a {
   color: #ffffff;
 }
-.x-listbox-readonly {
+.ui-listboui-readonly {
   background-color: #eeeeee !important;
 }
-.x-listbox-disabled {
+.ui-listboui-disabled {
   border-color: #dddddd !important;
   background-color: #eeeeee !important;
 }
-.x-listbox-disabled .x-listbox-selected {
+.ui-listboui-disabled .ui-listboui-selected {
   background-color: #555555;
 }

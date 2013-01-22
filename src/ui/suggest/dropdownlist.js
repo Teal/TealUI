@@ -16,8 +16,8 @@ var DropDownList = ComboBox.extend({
 	 * @getter {String} tpl
 	 * @protected override
 	 */
-    tpl: '<span class="x-picker">\
-			<a href="javascript:;" class="x-button">A</a>\
+    tpl: '<span class="ui-picker">\
+			<a href="javascript:;" class="ui-button">A</a>\
 		</span>',
 
     /**

@@ -1,1 +1,1 @@
-/** * @author  xuld */include("ui/form/checkbox.css");include("ui/core/base.js");include("ui/core/iinput.js");var CheckBox = Control.extend(IInput).implement({		xtype: 'checkbox',		tpl: '<input type="checkbox" class="x-control">'	});
+/** * @author  xuld */include("ui/form/checkbox.css");include("ui/core/base.js");include("ui/core/iinput.js");var CheckBox = Control.extend(IInput).implement({		xtype: 'checkbox',		tpl: '<input type="checkbox" class="ui-control">'	});

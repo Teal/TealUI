@@ -12,13 +12,13 @@ var SplitButton = MenuButton.extend({
 	
 	xtype: 'splitbutton',
 	
-	tpl: '<span class="x-splitbutton x-buttongroup">\
-				<button class="x-button"></button>\
-				<button class="x-button"><span class="x-menubutton-arrow x-menubutton-arrow-down"></span></button>\
+	tpl: '<span class="ui-splitbutton ui-buttongroup">\
+				<button class="ui-button"></button>\
+				<button class="ui-button"><span class="ui-menubutton-arrow ui-menubutton-arrow-down"></span></button>\
 			</span>',
 			
 	content: function(){
-		return this.find('.x-button');
+		return this.find('.ui-button');
 	},
 
 	input: function(){
@@ -27,9 +27,9 @@ var SplitButton = MenuButton.extend({
 
 	state: function (name, value) {
 	    if (name == "disabled") {
-	        this.query('.x-button').setAttr(name, value).toggleClass('x-button-disabled', value);
+	        this.query('.ui-button').setAttr(name, value).toggleClass('ui-button-disabled', value);
 	    } else if (name == "actived") {
-	        this.last('.x-button').toggleClass('x-button-actived', value !== false);
+	        this.last('.ui-button').toggleClass('ui-button-actived', value !== false);
 	    } else {
 	        this.base('state');
 	    }
@@ -38,8 +38,8 @@ var SplitButton = MenuButton.extend({
 	},
 	
 	init: function () {
-	    this.setDropDown(this.createDropDown(this.next('.x-dropdown')));
-		this.find('>.x-button:last-child').on('click', this.toggleDropDown, this);
+	    this.setDropDown(this.createDropDown(this.next('.ui-dropdown')));
+		this.find('>.ui-button:last-child').on('click', this.toggleDropDown, this);
 	}
 	
 });

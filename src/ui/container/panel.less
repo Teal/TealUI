@@ -1,16 +1,16 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 
-.x-panel {
+.ui-panel {
     background: @backgroundColor;
     border: 1px solid #CCCCCC;
     .border-radius(@baseBorderRadius);
 }
 
 
-.x-panel-header {
+.ui-panel-header {
     background-color: #FAFAFA;
 	#gradient > .vertical(#FFFFFF, #F3F3F3);
     border-bottom: 1px solid #CCCCCC;
@@ -18,23 +18,23 @@
     .border-radius(@baseBorderRadius @baseBorderRadius 0 0);
 }
 
-.x-panel-header h2 {
+.ui-panel-header h2 {
     font-size: 14px;
     line-height: 14px;
     color: @grayDark;
     margin: 0;
 }
 
-.x-panel-body {
+.ui-panel-body {
     overflow: hidden;
     .clear();
 }
 
-.x-panel-content {
+.ui-panel-content {
     padding: 10px;
 }
 
-.x-panel-collapsed .x-panel-header {
+.ui-panel-collapsed .ui-panel-header {
     border-bottom: 0;
     .border-radius(@baseBorderRadius);
 }

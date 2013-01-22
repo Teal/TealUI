@@ -115,7 +115,7 @@ var DropDownMenu = ListControl.extend({
      * 重新设置当前高亮项。
      */
 	hovering: function (item) {
-	    var clazz = 'x-' + this.xtype + '-hover';
+	    var clazz = 'ui-' + this.xtype + '-hover';
 
 	    if (this._hovering) {
 	        this._hovering.removeClass(clazz);

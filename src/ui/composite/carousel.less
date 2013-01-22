@@ -1,15 +1,15 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
-.x-carousel {
+.ui-carousel {
     position: relative;
 	height: 200px;
 	width: 100%;
 	overflow: hidden;
 }
 
-.x-carousel-header {
+.ui-carousel-header {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -17,7 +17,7 @@
     z-index: 10;
 }
 
-.x-carousel-header li {
+.ui-carousel-header li {
     float: left;
     width: 120px;
     text-align: center;
@@ -28,18 +28,18 @@
     cursor: pointer;
 }
 
-.x-carousel-header .x-carousel-selected {
+.ui-carousel-header .ui-carousel-selected {
     font-weight: bold;
     background-color: #F2F2F2;
     color: @black;
 }
 
-.x-carousel-body, .x-carousel-body li {
+.ui-carousel-body, .ui-carousel-body li {
     position: absolute;
 	top: 0;
 	left: 0;
 }
 
-.x-carousel-body li li {
+.ui-carousel-body li li {
 	position: static;
 }

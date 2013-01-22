@@ -176,7 +176,7 @@ var HtmlSelect = Dom.extend({
 	  // objselect.selectedIndex=i+k;
     // }
 	// this.movetop=function(i){this.moveon(-objselect.selectedIndex,i);}
-	// this.movetbottom=function(i){this.moveon(objselect.length-objselect.selectedIndex-1,i);}
+	// this.movetbottom=function(i){this.moveon(objselect.length-objselect.selectedIndeui-1,i);}
 	// this.getall=function(){
 		// var arr=new Array(objselect.length);
 		// for(i=0;i<objselect.length;i++)

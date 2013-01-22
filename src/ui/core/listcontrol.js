@@ -172,7 +172,7 @@ var ListControl = Control.extend({
  * 为非 ListControl 对象扩展 ListControl 的6个方法: add addAt remove removeAt set item
  */
 ListControl.aliasMethods = function (controlClass, targetProperty, removeChildProperty) {
-	controlClass.defineMethods(targetProperty, 'add addAt removeAt item');
+	controlClass.delegateMethods(targetProperty, 'add addAt removeAt item');
 
 	removeChildProperty = removeChildProperty || targetProperty;
 

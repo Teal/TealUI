@@ -1,4 +1,10 @@
-/** * @author [作者] */
+/**
+ * @author [作者]
+ */
+
+
+
+
 /**
  * 表示一个树结构的子组件。
  * @class TreeControl
@@ -27,7 +33,7 @@ var TreeControl = ListControl.extend({
 	initTreeItem: function (li, childControl) {
 
 		// 获取第一个子节点。
-		var subControl = li.addClass('x-' + this.xtype + '-item').find('>ul');
+		var subControl = li.addClass('ui-' + this.xtype + '-item').find('>ul');
 
 		// 如果没有指定 childControl，则使用 li.first()作为内容。
 		if (!childControl) {
@@ -134,7 +140,7 @@ var TreeControl = ListControl.extend({
  */
 TreeControl.Item = ContentControl.extend({
 
-	tpl: '<a class="x-control"></a>',
+	tpl: '<a class="ui-control"></a>',
 
 	/**
 	 * 获取当前菜单管理的子菜单。

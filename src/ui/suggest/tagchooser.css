@@ -1,4 +1,4 @@
-.x-tagchooser {
+.ui-tagchooser {
   display: inline-block;
   padding: 3px 8px;
   text-decoration: none;
@@ -10,8 +10,8 @@
   border-radius: 4px;
   text-decoration: none;
 }
-.x-tagchooser-selected,
-.x-tagchooser:hover {
+.ui-tagchooser-selected,
+.ui-tagchooser:hover {
   background-color: #3079d5;
   background-position: 8px -23px;
   color: #FFFFFF;

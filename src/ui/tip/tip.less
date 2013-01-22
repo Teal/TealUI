@@ -1,5 +1,5 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 .tipBackgroundColor(@color){
@@ -15,7 +15,7 @@
 // ------
 
 // Base
-.x-tip {
+.ui-tip {
     padding: 2px 4px 3px;
     font-size: @baseFontSize * .85;
     font-weight: bold;
@@ -30,18 +30,18 @@
     }
 }
 
-.x-tip-info {
+.ui-tip-info {
     .tipBackgroundColor(@infoTextColor);
 }
 
-.x-tip-success {
+.ui-tip-success {
     .tipBackgroundColor(@successTextColor);
 }
 
-.x-tip-warning {
+.ui-tip-warning {
     .tipBackgroundColor(@warningTextColor);
 }
 
-.x-tip-error {
+.ui-tip-error {
     .tipBackgroundColor(@errorTextColor);
 }

@@ -157,7 +157,7 @@
 			 * @param {String} getters=undefined 获取函数的方法名数组，用空格隔开。
              * @remark 使用此函数只能传递最多 3 个参数。
 			 * @example <pre>
-			 * MyClass.defineMethods('field', 'fn1 fn2 fn3');
+			 * MyClass.delegateMethods('field', 'fn1 fn2 fn3');
 			 * </pre>
 			 * 等价于 <pre>
 			 * MyClass.implement({
@@ -175,9 +175,9 @@
 			 * });
 			 * </pre>
 			 */
-			defineMethods: function(targetProperty, methods, args) {
+			delegateMethods: function(targetProperty, methods, args) {
 				
-				assert.isString(methods, "MyClass.defineMethods(targetProperty, methods): {methods} ~");
+				assert.isString(methods, "MyClass.delegateMethods(targetProperty, methods): {methods} ~");
 				
 				var propertyGetterFunc;
 				
@@ -6226,7 +6226,7 @@ function imports(namespace) {
 	});
 	
 	// Dom 函数。
-	Dom.defineMethods('node', 'scrollIntoView focus blur select click reset', 1);
+	Dom.delegateMethods('node', 'scrollIntoView focus blur select click reset', 1);
 	
 	/// #region document
 	
@@ -8748,7 +8748,7 @@ var ContentControl = Control.extend({
 	    this.toggleClass('x-' + this.xtype + '-' + name, value);
 	}
 	
-}).defineMethods("content()", "setHtml getHtml setText getText");
+}).delegateMethods("content()", "setHtml getHtml setText getText");
 
 
 /************************************
@@ -8917,7 +8917,7 @@ var ListControl = Control.extend({
  * 为非 ListControl 对象扩展 ListControl 的6个方法: add addAt remove removeAt set item
  */
 ListControl.aliasMethods = function(controlClass, targetProperty, removeChildProperty){
-    controlClass.defineMethods(targetProperty, 'add addAt removeAt item');
+    controlClass.delegateMethods(targetProperty, 'add addAt removeAt item');
 
     removeChildProperty = removeChildProperty || targetProperty;
 

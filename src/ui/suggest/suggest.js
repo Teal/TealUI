@@ -23,7 +23,7 @@ var Suggest = Control.extend(IDropDownOwner).implement({
             owner: this,
             selectMethod: 'selectItem',
             updateMethod: 'showDropDown'
-        }).addClass('x-suggest');
+        }).addClass('ui-suggest');
     },
 
     /**
@@ -60,7 +60,7 @@ var Suggest = Control.extend(IDropDownOwner).implement({
         this.setAttr('autocomplete', 'off')
         	
         	// 创建并设置提示的下拉菜单。
-        	.setDropDown(this.createDropDown(this.next('x-suggest')))
+        	.setDropDown(this.createDropDown(this.next('ui-suggest')))
 			
 			// 获取焦点后更新智能提示显示状态。
             .on('focus', this.showDropDown)

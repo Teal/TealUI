@@ -10,17 +10,17 @@ var ProgressBar = Control.extend({
 
     xtype: 'progressbar',
 
-    tpl: '<div class="x-control">\
-                <div class="x-progressbar-fore"></div>\
+    tpl: '<div class="ui-control">\
+                <div class="ui-progressbar-fore"></div>\
             </div>',
 
     setValue: function (value) {
-        this.find('.x-progressbar-fore').node.style.width = value + '%';
+        this.find('.ui-progressbar-fore').node.style.width = value + '%';
         return this;
     },
 
     getValue: function () {
-        return parseInt(this.find('.x-progressbar-fore').node.style.width);
+        return parseInt(this.find('.ui-progressbar-fore').node.style.width);
     }
 
 });

@@ -5,7 +5,7 @@
 
 include("ajax/base.js");
 
-Ajax.accepts.script = "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript";
+Ajax.accepts.script = "text/javascript, application/javascript, application/ecmascript, application/ui-ecmascript";
 
 Ajax.dataParsers.script = function (xhrObject) {
     window.execScript(this.text(xhrObject));

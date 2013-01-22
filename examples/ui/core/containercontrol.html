@@ -16,14 +16,14 @@
 
         <blockquote class="demo demo-info">ContainerControl 是容器组件基类。容器组件是一个包含标题栏和正文的一个区域。</blockquote>
 
-        <p class="demo">一个容器组件标准格式为： (其中 xtype 应该被替换成实际的组件名)</p>
+        <p class="demo">一个容器组件标准格式为： (其中 ui 应该被替换成实际的组件名)</p>
 
         <script class="demo" type="code/html">
-            <div class="xtype">
-                <div class="xtype-header">
+            <div class="ui">
+                <div class="ui-header">
                     header
                 </div>
-                <div class="xtype-body">
+                <div class="ui-body">
                     body
                 </div>
             </div>
@@ -32,19 +32,19 @@
         <p class="demo">实际使用时，标题需要加粗，内容则需要 padding，因此实际格式为：</p>
 
         <script class="demo" type="code/html">
-            <div class="xtype">
-                <div class="xtype-header">
+            <div class="ui">
+                <div class="ui-header">
                     <h4>title</h4> <!-- 为了加粗 -->
                 </div>
-                <div class="xtype-body">
-                    <div class="xtype-content"> <!-- 为了加 padding -->
+                <div class="ui-body">
+                    <div class="ui-content"> <!-- 为了加 padding -->
                         content
                     </div>
                 </div>
             </div>
         </script>
 
-        <p class="demo">对于某些容器，标题是可以省略的，此时可删除 xtype-header。</p>
+        <p class="demo">对于某些容器，标题是可以省略的，此时可删除 ui-header。</p>
 
     </article>
 
@@ -54,11 +54,11 @@
 
         <section class="demo demo-sample">
             <aside class="demo">
-                <div class="xtype" id="containerControl">
-                    <div class="xtype-header">
+                <div class="ui" id="containerControl">
+                    <div class="ui-header">
                         header
                     </div>
-                    <div class="xtype-body">
+                    <div class="ui-body">
                         body
                     </div>
                 </div>
@@ -97,16 +97,16 @@
             var MyContainer = ContainerControl.extend({
                 
                 // 当前控件顶部的 HTML 模板字符串。
-                headerTpl: '<div class="xtype-header"><h4></h4></div>',
+                headerTpl: '<div class="ui-header"><h4></h4></div>',
                 
                 // 获取当前容器用于存放标题的 Dom 对象。
                 header: function () {
-                    return this.dom.find('.' + this.xtype + '-header');
+                    return this.dom.find('.' + this.ui + '-header');
                 },
 
                 // 获取当前容器用于存放内容的 Dom 对象。
                 body: function () {
-                    return this.dom.find('.' + this.xtype + '-body') || this.dom;
+                    return this.dom.find('.' + this.ui + '-body') || this.dom;
                 }
 
             });

@@ -6,9 +6,9 @@ Dom.implement({
 	
 	imageZoom: function(getUrlCallback){
 				
-	    return this.addClass('x-imagezoom-small').on('click', function (e) {
-	    	if(this.hasClass('x-imagezoom-small')){
-	    		this.removeClass('x-imagezoom-small').addClass('x-imagezoom-large');
+	    return this.addClass('ui-imagezoom-small').on('click', function (e) {
+	    	if(this.hasClass('ui-imagezoom-small')){
+	    		this.removeClass('ui-imagezoom-small').addClass('ui-imagezoom-large');
 	    		var oldState;
 	    		if(getUrlCallback){
 	    			this.dataField().imageZoomSrc = this.node.src;
@@ -19,7 +19,7 @@ Dom.implement({
 	    			this.node.style.width = this.node.style.height = 'auto';
 	    		}
 	    	} else {
-	    		this.addClass('x-imagezoom-small').removeClass('x-imagezoom-large');
+	    		this.addClass('ui-imagezoom-small').removeClass('ui-imagezoom-large');
 	    		if(getUrlCallback){
 	    			this.node.src = this.dataField().imageZoomSrc;
 	    		} else {

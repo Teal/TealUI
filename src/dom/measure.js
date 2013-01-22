@@ -90,9 +90,9 @@ Element.implement({
 			if (arguments.length === 0) {
 				node = document.documentElement;
 			}
-			sizing = this.getStyle("-moz-box-sizing");
+			sizing = this.getStyle("-moz-boui-sizing");
 			if (!sizing) {
-				sizing = this.getStyle("box-sizing");
+				sizing = this.getStyle("boui-sizing");
 			}
 			result = (sizing ? sizing : 'content-box');
 		}

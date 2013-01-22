@@ -26,7 +26,7 @@
 		// if(p<0){
 			// p = p+4*x+6;
 		// }else{
-			// y--,p = p+4*(x-y)+10;
+			// y--,p = p+4*(ui-y)+10;
 		// }
 		// x++;
 	// }
@@ -40,8 +40,8 @@
 	// while(dx<=y){
 		// ret.push([px+x,JPlus+y]);
 		// ret.push([px+x,JPlus-y]);
-		// ret.push([px-x,JPlus+y]);
-		// ret.push([px-x,JPlus-y]);
+		// ret.push([pui-x,JPlus+y]);
+		// ret.push([pui-x,JPlus-y]);
 		// if(p<=0){
 			// ++x;
 		// }else{
@@ -53,8 +53,8 @@
 	// while(y>0){
 		// ret.push([px+x,JPlus+y]);
 		// ret.push([px+x,JPlus-y]);
-		// ret.push([px-x,JPlus+y]);
-		// ret.push([px-x,JPlus-y]);
+		// ret.push([pui-x,JPlus+y]);
+		// ret.push([pui-x,JPlus-y]);
 		// if(p>=0){
 			// --y,p = p-2*rx2*y-rx2;
 		// }else{
@@ -62,7 +62,7 @@
 		// }
 	// }
 	// ret.push([px+x,JPlus]);
-	// ret.push([px-x,JPlus]);
+	// ret.push([pui-x,JPlus]);
 	// return ret.slice(0);
 // };
 // /*画直线*/
@@ -91,12 +91,12 @@
 				// x++,ret.push([x,y]);
 			// }
 		// }else{
-			// h = 2*dx-dy,ret.push([x,y]);
+			// h = 2*dui-dy,ret.push([x,y]);
 			// while(y!=y2){
 				// if(h<0){
 					// h += 2*dx;
 				// }else{
-					// ++x,h += 2*(dx-dy);
+					// ++x,h += 2*(dui-dy);
 				// }
 				// y++,ret.push([x,y]);
 			// }
@@ -117,7 +117,7 @@
 			// dy = -dy,dx = -dx,y = y2,x = x2,ret.push([x,y]),h = 2*dx+dy;
 			// while(y!=y1){
 				// if(h<0){
-					// h += 2*(dx+dy),x--;
+					// h += 2*(dx+dy),ui--;
 				// }else{
 					// h += 2*dx;
 				// }

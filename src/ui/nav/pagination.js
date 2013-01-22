@@ -12,7 +12,7 @@ var Pagination = Control.extend({
 
     xtype: 'pagination',
 
-    tpl: '<ul class="x-control"></ul>',
+    tpl: '<ul class="ui-control"></ul>',
 
     onClick: function (e) {
         var page = e.getTarget().getAttr('data-pagination');
@@ -35,9 +35,9 @@ var Pagination = Control.extend({
         var html = '';
 
         if (currentPage === 0) {
-            html += '<li class="x-pagination-disabled x-pagination-first"><a href="#" title="上一页">«</a></li>';
+            html += '<li class="ui-pagination-disabled ui-pagination-first"><a href="#" title="上一页">«</a></li>';
         } else {
-            html += '<li class="x-pagination-first"><a href="#" title="上一页" data-pagination="1">«</a></li>';
+            html += '<li class="ui-pagination-first"><a href="#" title="上一页" data-pagination="1">«</a></li>';
         }
 
         var left = 1, right = this.pageCount;
@@ -46,7 +46,7 @@ var Pagination = Control.extend({
             html += '<li><a href="#" data-pagination="' + i + '">' + i + '</a></li>';
         }
 
-        html += '<li class="x-pagination-selected"><span>' + currentPage + '</span></li>';
+        html += '<li class="ui-pagination-selected"><span>' + currentPage + '</span></li>';
 
         for (var i = currentPage + 1; i < right; i++) {
             html += '<li><a href="#" data-pagination="' + i + '">' + i + '</a></li>';

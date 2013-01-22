@@ -1,4 +1,4 @@
-/** * @author [作者] */
+/** * @author xuld */
 /**
  * 所有内容控件的基类。
  * @abstract class
@@ -6,15 +6,13 @@
  */
 var ContentControl = Control.extend({
 
-	// 基本属性
-
 	/**
 	 * 当前控件的 HTML 模板字符串。
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-	tpl: '<div class="xtype">\
-			<div class="xtype-content"></div>\
+	tpl: '<div class="ui">\
+			<div class="ui-content"></div>\
 		</div>',
 
 	/**
@@ -23,7 +21,7 @@ var ContentControl = Control.extend({
      * @protected virtual
 	 */
 	content: function () {
-		return this.dom.find('.' + this.xtype + '-content') || this.dom;
+		return this.dom.find('.' + this.ui + '-content') || this.dom;
 	},
 
 	/**

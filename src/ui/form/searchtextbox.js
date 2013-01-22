@@ -10,11 +10,11 @@ var SearchTextBox = Picker.extend({
 	
 	xtype: 'searchtextbox',
 	
-	tpl: '<span class="x-picker">\
-				<input type="text" class="x-textbox x-searchtextbox"/>\
+	tpl: '<span class="ui-picker">\
+				<input type="text" class="ui-textbox ui-searchtextbox"/>\
 			</span>',
 		
-	menuButtonTpl: '<button class="x-searchtextbox-search"></button>',
+	menuButtonTpl: '<button class="ui-searchtextboui-search"></button>',
 	
 	onKeyDown: function(e){
 		if(e.keyCode === 10 || e.keyCode === 13){
@@ -37,12 +37,12 @@ var SearchTextBox = Picker.extend({
 	
 	init: function(){
 		
-		// 如果是 <input> 或 <a> 直接替换为 x-picker
-		if(!this.first() && !this.hasClass('x-picker')) {
+		// 如果是 <input> 或 <a> 直接替换为 ui-picker
+		if(!this.first() && !this.hasClass('ui-picker')) {
 			var elem = this.node;
 			
-			// 创建 x-picker 组件。
-			this.node = Dom.createNode('span', 'x-picker');
+			// 创建 ui-picker 组件。
+			this.node = Dom.createNode('span', 'ui-picker');
 			
 			// 替换当前节点。
 			if(elem.parentNode){

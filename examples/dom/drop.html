@@ -24,7 +24,7 @@
             margin-bottom: 30px;
         }
 
-        .demo-box-small {
+        .demo-boui-small {
             cursor: move;
             border: 1px dotted transparent;
         }
@@ -45,13 +45,13 @@
 <body>
     <article class="demo">
         <div id="drag">
-            <div id="d1" class="demo-box-small demo-blue">1</div>
-            <div id="d2" class="demo-box-small demo-purple">2</div>
-            <div id="d3" class="demo-box-small demo-indigo">3</div>
-            <div id="d4" class="demo-box-small demo-green">4</div>
-            <div id="d5" class="demo-box-small demo-purple">5</div>
-            <div id="d6" class="demo-box-small demo-indigo">6</div>
-            <div id="d7" class="demo-box-small demo-blue">7</div>
+            <div id="d1" class="demo-boui-small demo-blue">1</div>
+            <div id="d2" class="demo-boui-small demo-purple">2</div>
+            <div id="d3" class="demo-boui-small demo-indigo">3</div>
+            <div id="d4" class="demo-boui-small demo-green">4</div>
+            <div id="d5" class="demo-boui-small demo-purple">5</div>
+            <div id="d6" class="demo-boui-small demo-indigo">6</div>
+            <div id="d7" class="demo-boui-small demo-blue">7</div>
         </div>
         <div id="drop">
             <div id="z1" class="zone"></div>
@@ -61,7 +61,7 @@
         <script class="demo">
 
             // 让 小方块 可拖动。
-            Dom.query('.demo-box-small').draggable(true).on('dragstart', function (e) {
+            Dom.query('.demo-boui-small').draggable(true).on('dragstart', function (e) {
                 // 拖动前先创建一个副本。
                 e.draggable.proxy = e.draggable.target.clone().addClass('drag-proxy').appendTo('drag').setPosition(e.draggable.target.getPosition());
             }).on('dragend', function (e) {
@@ -73,7 +73,7 @@
             Dom.query('.zone').on('dragenter', function (e) {
 
                 // 在 zone 创建虚线放开。
-                e.draggable.hover = Dom.create('div', 'demo-box-small hover').setHtml(e.draggable.target.node.id.substr(1)).appendTo(this);
+                e.draggable.hover = Dom.create('div', 'demo-boui-small hover').setHtml(e.draggable.target.node.id.substr(1)).appendTo(this);
 
                 // 拖到外面时，隐藏虚位。
             }).on('dragleave', function (e) {

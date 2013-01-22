@@ -13,9 +13,9 @@ var FileUpload = Control.extend(IInput).implement({
 
     xtype: 'fileupload',
 
-    tpl: '<span class="x-control">\
+    tpl: '<span class="ui-control">\
 			<input type="file" size="1">\
-			<button class="x-button">浏览...</button>\
+			<button class="ui-button">浏览...</button>\
     	</span>',
 
     init: function(){
@@ -35,7 +35,7 @@ var FileUpload = Control.extend(IInput).implement({
     state: function (name, value) {
         if (name === 'disabled' || name === 'readonly') {
             this.find('[type=file]').setAttr('disabled', value);
-            this.query('.x-button').toggleClass('x-button-disabled', value);
+            this.query('.ui-button').toggleClass('ui-button-disabled', value);
         } else {
             IInput.state.call(name, value);
         }

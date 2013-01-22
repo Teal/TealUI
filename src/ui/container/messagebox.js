@@ -43,9 +43,9 @@ var MessageBox = Dialog.extend({
         }
 
         if (type == null) {
-            content.node.className = content.node.className.replace(/x-dialog-iconbox\s+x-dialog-iconbox-\w+/, '');
+            content.node.className = content.node.className.replace(/ui-dialog-iconbox\s+ui-dialog-iconboui-\w+/, '');
         } else {
-            content.addClass('x-dialog-iconbox x-dialog-iconbox-' + type);
+            content.addClass('ui-dialog-iconbox ui-dialog-iconboui-' + type);
         }
 
         return this;
@@ -61,10 +61,10 @@ var MessageBox = Dialog.extend({
     setButtons: function (options) {
 
         if (options == null) {
-            this.query('.x-dialog-footer').remove();
+            this.query('.ui-dialog-footer').remove();
         } else {
 
-            var footer = this.find('.x-dialog-footer') || Dom.create('div', 'x-dialog-footer').appendTo(this),
+            var footer = this.find('.ui-dialog-footer') || Dom.create('div', 'ui-dialog-footer').appendTo(this),
                 key,
                 value,
                 btn;
@@ -73,7 +73,7 @@ var MessageBox = Dialog.extend({
 
             for (key in options) {
                 value = options[key];
-                btn = footer.append('<button class="x-button"></button>').setText(key);
+                btn = footer.append('<button class="ui-button"></button>').setText(key);
                 switch (typeof value) {
                     case 'boolean':
                         value = value ? this.ok : this.cancel;
@@ -118,7 +118,7 @@ MessageBox.confirm = function (text, title, onOk, onCancel) {
 
     var messageBox = MessageBox.show(text, title, 'confirm', {
         '确定': {
-            className: 'x-button x-button-info',
+            className: 'ui-button ui-button-info',
             onclick: function () {
                 messageBox.ok();
             }

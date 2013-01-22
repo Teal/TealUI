@@ -1,1 +1,1 @@
-/** * @author  xuld */include("ui/form/textbox.css");include("ui/core/base.js");include("ui/core/iinput.js");var TextBox = Control.extend(IInput).implement({		xtype: 'textbox',		tpl: '<input type="text" class="x-control">'	});
+/** * @author  xuld */include("ui/form/textbox.css");include("ui/core/base.js");include("ui/core/iinput.js");var TextBox = Control.extend(IInput).implement({		xtype: 'textbox',		tpl: '<input type="text" class="ui-control">'	});

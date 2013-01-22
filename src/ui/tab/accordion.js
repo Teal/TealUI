@@ -16,14 +16,14 @@ var Accordion = TabbableControl.extend({
 	 */
 	xtype: 'accordion',
 	
-	tpl: '<div class="x-control"></div>',
+	tpl: '<div class="ui-control"></div>',
 
-	itemTpl: '<div class="x-accordion-panel x-accordion-collapsed">\
-                    <div class="x-accordion-header">\
+	itemTpl: '<div class="ui-accordion-panel ui-accordion-collapsed">\
+                    <div class="ui-accordion-header">\
                         <a href="javascript:;">{title}</a>\
                     </div>\
-                    <div class="x-accordion-body">\
-                        <div class="x-accordion-content">{content}</div>\
+                    <div class="ui-accordion-body">\
+                        <div class="ui-accordion-content">{content}</div>\
                     </div>\
                 </div>',
 
@@ -40,7 +40,7 @@ var Accordion = TabbableControl.extend({
 				return;
 			}
 			
-			from.removeClass('x-accordion-collapsed').last().hide({
+			from.removeClass('ui-accordion-collapsed').last().hide({
 		    	effect: 'height',
 		    	duration: this.collapseDuration,
 		    	callback: finish
@@ -49,7 +49,7 @@ var Accordion = TabbableControl.extend({
 		    finish();
 		
 		if(to)
-		    to.removeClass('x-accordion-collapsed').last().show({
+		    to.removeClass('ui-accordion-collapsed').last().show({
 		    	effect: 'height',
 		    	duration: this.collapseDuration,
 		    	callback: finish
@@ -59,29 +59,29 @@ var Accordion = TabbableControl.extend({
 			
 		function finish(){
 			if(--trigger <= 0 && from){
-				from.addClass('x-accordion-collapsed');
+				from.addClass('ui-accordion-collapsed');
 			}
 		}
 		
 	},
 	
 	getSelectedTab: function(){
-		return this.find('.x-accordion-panel:not(.x-accordion-collapsed)');
+		return this.find('.ui-accordion-panel:not(.ui-accordion-collapsed)');
 	},
 	
 	init:function(options){
 	    var me = this,
             selecedTab = me.getSelectedTab();
 
-	    me.delegate('>.x-accordion-header', options.selectEvent || 'click', function (e) {
+	    me.delegate('>.ui-accordion-header', options.selectEvent || 'click', function (e) {
 	        e.preventDefault();
 		    me.selectTab(this.parent());
 		});
 
-		me.query('>.x-accordion-panel').addClass('x-accordion-collapsed');
+		me.query('>.ui-accordion-panel').addClass('ui-accordion-collapsed');
 
 		if (selecedTab)
-		    selecedTab.removeClass('x-accordion-collapsed');
+		    selecedTab.removeClass('ui-accordion-collapsed');
 			
 	}
 	

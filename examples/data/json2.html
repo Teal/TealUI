@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>JSON2</title>
     <script type="text/javascript" src="../../../src/data/json2.js"></script>
 
@@ -10,27 +11,14 @@
 <body>
     <article class="demo">
 
-        <blockquote class="demo">JSON2 是由 <a href="http://www.json.org">json.org</a> 提供的标准 JSON 库。</blockquote>
+        <blockquote class="demo">JSON2 是由 <a href="http://www.json.org" class="demo">json.org</a> 提供的标准 JSON 库。</blockquote>
 
         <script type="text/javascript">
 
             Demo.writeExamples({
                 'JSON.stringify': 'JSON.stringify({})',
-                'JSON.parse': JSON.parse("[{\"a\":true}]")
+                'JSON.parse': 'JSON.parse("[{\\\"a\\\":true}]")'
             });
-
-            function parseDate(key, value) {
-                var d;
-                if (typeof value === "string" &&
-                        value.slice(0, 5) === "Date(" &&
-                        value.slice(-1) === ")") {
-                    d = new Date(value.slice(5, -1))
-                    if (d) {
-                        return d;
-                    }
-                }
-                return value;
-            }
 
         </script>
     </article>

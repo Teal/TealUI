@@ -1,5 +1,5 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 @listBoxTextColor:						@gray;
@@ -9,7 +9,7 @@
 @listBoxBackgroundColorHover:			@linkColor;
 @listBoxBackgroundColorSelected:		darken(@listBoxBackgroundColorHover, 15%);
 
-.x-listbox {
+.ui-listbox {
     .inline-block();
     background-color: @listBoxBackgroundColor;
     border-color: #ccc;
@@ -28,7 +28,7 @@
 }
 
 // Links within the dropdown menu
-.x-listbox li {
+.ui-listbox li {
     display: block;
     padding: 3px 10px;
     color: @gray;
@@ -50,15 +50,15 @@
 
 }
 
-.x-listbox-selected {
+.ui-listboui-selected {
     background-color: @listBoxBackgroundColorSelected;
 }
 
-.x-listbox-hover {
+.ui-listboui-hover {
     #gradient > .vertical(@listBoxBackgroundColorHover, darken(@listBoxBackgroundColorHover, 5%));
 }
 
-.x-listbox .x-listbox-selected, .x-listbox .x-listbox-hover {
+.ui-listbox .ui-listboui-selected, .ui-listbox .ui-listboui-hover {
     color: @listBoxTextColorHover;
 
     a {
@@ -66,15 +66,15 @@
     }
 }
 
-.x-listbox-readonly {
+.ui-listboui-readonly {
     background-color: @grayLighter!important;
 }
 
-.x-listbox-disabled {
+.ui-listboui-disabled {
     border-color: @grayBorder!important;
     background-color: @grayLighter!important;
 
-    .x-listbox-selected {
+    .ui-listboui-selected {
         background-color: @gray;
     }
 }

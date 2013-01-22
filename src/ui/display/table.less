@@ -1,13 +1,13 @@
 
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 // BASE TABLES
 // -----------------
 
-.x-table {
-    max-width: 100%;
+.ui-table {
+    maui-width: 100%;
     width: 100%;
     border: 1px solid @grayBorder;
     border-collapse: separate; // Done so we can round those corners!
@@ -72,7 +72,7 @@
 // BASELINE STYLES
 // ---------------
 
-.x-table-baseline {
+.ui-table-baseline {
 
     border: none;
 
@@ -99,7 +99,7 @@
 // --------------
 
 // Default zebra-stripe styles (alternating gray and transparent backgrounds)
-.x-table-striped {
+.ui-table-striped {
     tbody {
         tr:nth-child(odd) td,
         tr:nth-child(odd) th {

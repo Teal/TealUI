@@ -1,4 +1,4 @@
-.x-updown .x-updown-button-up {
+.ui-updown .ui-updown-button-up {
   -webkit-border-bottom-right-radius: 0;
   -moz-border-radius-bottomright: 0;
   border-bottom-right-radius: 0;
@@ -15,11 +15,11 @@
   border-color: #f2f2f2 #f2f2f2 #cccccc;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
-.x-updown-button-up .x-menubutton-arrow {
+.ui-updown-button-up .ui-menubutton-arrow {
   border-top: none;
   border-bottom: 4px solid #000000;
 }
-.x-updown .x-updown-button-down {
+.ui-updown .ui-updown-button-down {
   -webkit-border-top-right-radius: 0;
   -moz-border-radius-topright: 0;
   border-top-right-radius: 0;

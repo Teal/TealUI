@@ -88,7 +88,7 @@ var ICollapsable = {
 				effect: 'height', 
 				duration: me.collapseDuration, 
 				callback: function () {
-	                me.addClass('x-' + me.xtype + '-collapsed');
+	                me.addClass('ui-' + me.xtype + '-collapsed');
 	                me.onCollapse();
 	            }, 
 	            link: 'ignore'
@@ -113,7 +113,7 @@ var ICollapsable = {
         // 仅当存在主体内容时才执行操作。
         if (me.onExpanding() !== false && (body = me.body ? me.body() : me)) {
 
-            me.removeClass('x-' + me.xtype + '-collapsed');
+            me.removeClass('ui-' + me.xtype + '-collapsed');
 			
 			body.show(arguments, {
 				effect: 'height', 

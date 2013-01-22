@@ -1,17 +1,17 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 
 
-.x-picker {
+.ui-picker {
     position: relative;
     display: inline-block;
     line-height: @baseLineHeight!important;
     .ie7-restore-left-whitespace();
 }
 
-.x-picker button {
+.ui-picker button {
     padding-left: 4px;
     padding-right: 8px;
     margin-left: 0;
@@ -24,24 +24,24 @@
     _margin-right: -1px;
 }
 
-.x-picker button .x-icon {
+.ui-picker button .ui-icon {
     margin-left: 2px;
     margin-right: -2px;
 }
 
 // 编辑模式的 picker
-.x-picker input {
+.ui-picker input {
     padding-right: 30px;
     *position: relative;
 	*top: -1px;
 }
 
-.x-picker input:focus ~ button {
+.ui-picker input:focus ~ button {
     border-color: rgba(82,168,236,.8);
 }
 
 // 只读模式的 picker
-.x-picker a {
+.ui-picker a {
     cursor: default!important;
     text-align: left;
     height: @baseLineHeight;
@@ -49,8 +49,8 @@
     padding-right: 35px;
     // 发光效果
     //
-    // .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
-    // .transition(e("border linear .2s, box-shadow linear .2s"));
+    // .boui-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+    // .transition(e("border linear .2s, boui-shadow linear .2s"));
     //
     //
     // &:focus + button {
@@ -59,14 +59,14 @@
     //
     // &:focus {
     // border-color: rgba(82,168,236,.8);
-    // .box-shadow(e("inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)"));
+    // .boui-shadow(e("inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)"));
     // outline: 0;
     // //    outline: thin dotted \9; /* IE6-9 */
     /* IE6-9 */
     // }
     //
-    // &.x-button-disabled:focus,  &.x-button-disabled:focus + button {
+    // &.ui-button-disabled:focus,  &.ui-button-disabled:focus + button {
     // border-color: #ddd;
-    // .box-shadow(none);
+    // .boui-shadow(none);
     // }
 }

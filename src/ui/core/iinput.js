@@ -41,7 +41,7 @@ var IInput = {
 	 * @protected virtual
 	 */
 	state: function (name, value) {
-	    this.toggleClass('x-' + this.xtype + '-' + name, value);
+	    this.toggleClass('ui-' + this.xtype + '-' + name, value);
 	},
 	
 	/**

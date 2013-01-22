@@ -25,11 +25,11 @@ var ToolTip = ContentControl.extend(IToolTip).implement({
 	xtype: 'tooltip',
 	
 	menuTpl: '<span>\
-				<span class="x-arrow-fore">◆</span>\
+				<span class="ui-arrow-fore">◆</span>\
 			</span>',
 
 	content: function () {
-	    return this.find('.x-tooltip-content');
+	    return this.find('.ui-tooltip-content');
 	}
 
 });

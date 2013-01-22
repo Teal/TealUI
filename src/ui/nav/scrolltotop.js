@@ -9,7 +9,7 @@ include("ui/core/base.js");
 
 var ScrollToTop = Control.extend({
 
-    tpl: '<a href="#" class="x-scrolltotop" title="返回顶部">返回顶部</a>',
+    tpl: '<a href="#" class="ui-scrolltotop" title="返回顶部">返回顶部</a>',
 
     showDuration: -1,
 

@@ -1,13 +1,13 @@
-.x-picker {
+.ui-picker {
   position: relative;
   display: inline-block;
   line-height: 18px !important;
   *margin-left: .3em;
 }
-.x-picker:first-child {
+.ui-picker:first-child {
   *margin-left: 0;
 }
-.x-picker button {
+.ui-picker button {
   padding-left: 4px;
   padding-right: 8px;
   margin-left: 0;
@@ -21,19 +21,19 @@
   _padding-bottom: 1px;
   _margin-right: -1px;
 }
-.x-picker button .x-icon {
+.ui-picker button .ui-icon {
   margin-left: 2px;
   margin-right: -2px;
 }
-.x-picker input {
+.ui-picker input {
   padding-right: 30px;
   *position: relative;
   *top: -1px;
 }
-.x-picker input:focus ~ button {
+.ui-picker input:focus ~ button {
   border-color: rgba(82, 168, 236, 0.8);
 }
-.x-picker a {
+.ui-picker a {
   cursor: default!important;
   text-align: left;
   height: 18px;

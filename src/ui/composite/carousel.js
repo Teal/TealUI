@@ -11,13 +11,13 @@ include("ui/core/base.js");
 var Carousel = Control.extend({
 	
 	onChange: function (from, to) {
-		var ul = this.find('.x-carousel-header'), t;
+		var ul = this.find('.ui-carousel-header'), t;
 		if (ul) {
 			if (t = ul.child(from))
-				t.removeClass('x-carousel-selected');
+				t.removeClass('ui-carousel-selected');
 
 			if (t = ul.child(to))
-				t.addClass('x-carousel-selected');
+				t.addClass('ui-carousel-selected');
 		}
 		
 	},
@@ -38,9 +38,9 @@ var Carousel = Control.extend({
 
 	    var me = this,
             width = me.getWidth(),
-            items = me.items = me.query('.x-carousel-body > li').hide();
+            items = me.items = me.query('.ui-carousel-body > li').hide();
 
-	    me.query('.x-carousel-header > li').setWidth(width / items.length).on(options.event || 'mouseover', function (e) {
+	    me.query('.ui-carousel-header > li').setWidth(width / items.length).on(options.event || 'mouseover', function (e) {
 	        me.moveTo(this.index());
 	    });
 

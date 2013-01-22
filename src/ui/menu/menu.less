@@ -1,5 +1,5 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 
@@ -10,7 +10,7 @@
 @menuBackgroundColorHover:			@linkColor;
 @menuArrowColor:					#333;
 
-.x-menu {
+.ui-menu {
     // display: none; // none by default, but block on "open" of the menu
     background-color: @menuBackgroundColor;
     border: 1px solid #ccc;
@@ -23,7 +23,7 @@
     *width: 240px;
     position: absolute;
     z-index: @zindexDropdown;
-    .box-shadow(0 5px 10px rgba(0,0,0,.2));
+    .boui-shadow(0 5px 10px rgba(0,0,0,.2));
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
@@ -32,13 +32,13 @@
 	text-align: left;
 }
 
-.x-menu li {
+.ui-menu li {
     line-height: @baseLineHeight;
 	_height: @baseLineHeight;
 }
 
 // Links within the dropdown menu
-.x-menuitem {
+.ui-menuitem {
     display: block;
     padding: 3px 10px;
     white-space: nowrap;
@@ -46,12 +46,12 @@
     _width: 100%;
 }
 
-.x-menuitem, .x-menuitem a {
+.ui-menuitem, .ui-menuitem a {
     color: @menuTextColor;
 }
 
 // Dividers (basically an hr) within the dropdown
-.x-menuseperator {
+.ui-menuseperator {
     height: 1px;
     margin: 1px;
     overflow: hidden;
@@ -67,21 +67,21 @@
 }
 
 // Hover state
-.x-menuitem:hover {
+.ui-menuitem:hover {
     text-decoration: none;
 }
 
-.x-menuitem-hover {
+.ui-menuitem-hover {
     #gradient > .vertical(@menuBackgroundColorHover, darken(@menuBackgroundColorHover, 5%));
 }
 
-.x-menuitem-hover, .x-menuitem-hover a {
+.ui-menuitem-hover, .ui-menuitem-hover a {
     color: @menuTextColorHover!important;
 }
 
 // Submenu
 
-.x-menuitem-arrow {
+.ui-menuitem-arrow {
 	border-color: transparent transparent transparent @menuArrowColor;
 	_border-color: @menuBackgroundColor @menuBackgroundColor @menuBackgroundColor @menuArrowColor;
     border-style: solid;
@@ -96,7 +96,7 @@
 	_line-height: 0;
 }
 
-.x-menuitem-hover .x-menuitem-arrow {
+.ui-menuitem-hover .ui-menuitem-arrow {
 	border-color: transparent transparent transparent @menuTextColorHover;
 	_border-color: @menuBackgroundColorHover @menuBackgroundColorHover @menuBackgroundColorHover @menuTextColorHover;
 }

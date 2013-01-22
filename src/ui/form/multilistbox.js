@@ -18,7 +18,7 @@ var MultiListBox = ListBox.implement({
         if(items) {
             items.addClass(clazz);
         } else {
-            this.query('.x-' + this.xtype + '-selected').removeClasss('x-' + this.xtype + '-selected');
+            this.query('.ui-' + this.xtype + '-selected').removeClasss('ui-' + this.xtype + '-selected');
         }
 
         return this;
@@ -28,7 +28,7 @@ var MultiListBox = ListBox.implement({
      * 获取当前高亮项。
      */
     getSelectedItem: function () {
-        return this.query('.x-' + this.xtype + '-selected');
+        return this.query('.ui-' + this.xtype + '-selected');
     },
 
     /**

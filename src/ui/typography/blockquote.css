@@ -17,13 +17,13 @@ blockquote small {
 blockquote small:before {
   content: '\2014 \00A0';
 }
-blockquote.x-right {
+blockquote.ui-right {
   padding-left: 0;
   padding-right: 15px;
   border-left: 0;
   border-right: 5px solid #eeeeee;
 }
-blockquote.x-right p,
-blockquote.x-right small {
+blockquote.ui-right p,
+blockquote.ui-right small {
   text-align: right;
 }

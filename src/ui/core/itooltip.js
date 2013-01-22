@@ -21,8 +21,8 @@ var IToolTip = {
     reshowDelay: 100,
 	
 	menuTpl: '<span>\
-	    <span class="x-arrow-fore">◆</span>\
-        <span class="x-arrow-back">◆</span>\
+	    <span class="ui-arrow-fore">◆</span>\
+        <span class="ui-arrow-back">◆</span>\
     </span>',
 
     /**
@@ -71,9 +71,9 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-	    var arrow = this.find('.x-arrow') || this.append(this.menuTpl);
+	    var arrow = this.find('.ui-arrow') || this.append(this.menuTpl);
 	    if (value) {
-	        arrow.node.className = 'x-arrow x-arrow-' + value;
+	        arrow.node.className = 'ui-arrow ui-arrow-' + value;
 	    } else {
 	        arrow.remove();
 	    }
@@ -81,10 +81,10 @@ var IToolTip = {
 	},
 
 	getArrow: function () {
-	    var arrow = this.find('.x-arrow'), r = null;
+	    var arrow = this.find('.ui-arrow'), r = null;
 
 	    if (arrow) {
-	        r = (/\bx-arrow-(top|bottom|left|right)/.exec(arrow.node.className) || [0, r])[1];
+	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow.node.className) || [0, r])[1];
 	    }
 	    return r;
 	},

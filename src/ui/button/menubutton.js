@@ -14,22 +14,22 @@ var MenuButton = Button.extend(IDropDownOwner).implement({
 	
 	xtype: 'menubutton',
 	
-	tpl: '<button class="x-button x-control" type="button"><span class="x-menubutton-arrow"></span></button>',
+	tpl: '<button class="ui-button ui-control" type="button"><span class="ui-menubutton-arrow"></span></button>',
 	
 	createDropDown: function (existDom) {
-		if(existDom && !existDom.hasClass('x-menu')){
+		if(existDom && !existDom.hasClass('ui-menu')){
 			return existDom;
 		}
-		assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 x-menu 的菜单项。");
+		assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 ui-menu 的菜单项。");
 		return new Menu(existDom).on('click', this.onDropDownClick, this);
 	},
 
 	state: function (name, value) {
-	    return this.toggleClass('x-button-' + name, value);
+	    return this.toggleClass('ui-button-' + name, value);
 	},
 	
 	init: function () {
-	    this.setDropDown(this.createDropDown(this.next('.x-dropdown')));
+	    this.setDropDown(this.createDropDown(this.next('.ui-dropdown')));
 		this.on('click', this.toggleDropDown, this);
 	},
 	

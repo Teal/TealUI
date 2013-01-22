@@ -1,4 +1,6 @@
-/** * @author  */.x-slider {
+/**
+ * @author 
+ */.ui-slider {
   position: relative;
   border: solid 1px #aaa;
   -webkit-border-radius: 2px;
@@ -6,7 +8,7 @@
   border-radius: 2px;
   height: 10px;
 }
-.x-slider-handle {
+.ui-slider-handle {
   position: absolute;
   z-index: 2;
   margin-left: -6px;
@@ -20,11 +22,11 @@
   height: 14px;
   cursor: default;
 }
-.x-slider-handle:hover {
+.ui-slider-handle:hover {
   border: solid 1px #999999;
   background-color: #e5e5e5;
 }
-.x-slider-range {
+.ui-slider-range {
   position: absolute;
   z-index: 1;
   height: 10px;

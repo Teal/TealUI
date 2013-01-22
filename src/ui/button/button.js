@@ -14,7 +14,7 @@ var Button = ContentControl.extend({
 	
 	type: 'button',
 	
-	tpl: '<button class="x-control" type="button"></button>',
+	tpl: '<button class="ui-control" type="button"></button>',
 	
 	create: function (options) {
 	    this.tpl = this.tpl.replace('type="button"', 'type="' + (options.type || this.type) + '"');

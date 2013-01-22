@@ -12,21 +12,21 @@ var TabControl = TabbableControl.extend({
 	
 	xtype: 'tabcontrol',
 	
-	tpl: '<div class="x-tabcontrol">\
-			<ul class="x-tabcontrol-header x-tabbable">\
+	tpl: '<div class="ui-tabcontrol">\
+			<ul class="ui-tabcontrol-header ui-tabbable">\
 			</ul>\
-			<div class="x-tabcontrol-body">\
+			<div class="ui-tabcontrol-body">\
 	        </div>\
         </div>',
 
 	collapseDuration: undefined,
         
 	header: function () {
-	    return this.find('.x-tabbable');
+	    return this.find('.ui-tabbable');
 	},
         
 	body: function () {
-	    return this.find('.x-tabcontrol-body');
+	    return this.find('.ui-tabcontrol-body');
 	},
 	
 	item: function(index){
@@ -53,12 +53,12 @@ var TabControl = TabbableControl.extend({
 
 	    var tab = me.getSelectedTab() || me.item(0);
 
-	    me.header().children().removeClass('x-tabbable-selected');
+	    me.header().children().removeClass('ui-tabbable-selected');
 
 	    me.body().children().hide();
 
 	    if (tab) {
-	        tab.addClass('x-tabbable-selected');
+	        tab.addClass('ui-tabbable-selected');
 	        var content = me.getContentOf(tab);
 	        if (content) {
 	            content.show();
@@ -69,7 +69,7 @@ var TabControl = TabbableControl.extend({
 
 	onToggleTab: function (from, to) {
 	    if (from) {
-	        from.removeClass('x-tabbable-selected');
+	        from.removeClass('ui-tabbable-selected');
 	        var content = this.getContentOf(from);
 	        if (content) {
 	            content.hide();
@@ -77,7 +77,7 @@ var TabControl = TabbableControl.extend({
 	    }
 
 	    if (to) {
-	        to.addClass('x-tabbable-selected');
+	        to.addClass('ui-tabbable-selected');
 	        var content = this.getContentOf(to);
 	        if (content) {
 	            content.show(this.collapseDuration);
@@ -87,9 +87,9 @@ var TabControl = TabbableControl.extend({
 	
 	addAt: function (index, title, content) {
 	    var header = this.header();
-	    var tab = header.insertBefore(Dom.parse('<li class="x-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header.child(index));
+	    var tab = header.insertBefore(Dom.parse('<li class="ui-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header.child(index));
 	    var body = this.body();
-	    body.insertBefore(Dom.parse('<div class="x-tabpage">' + content + '</div>').hide(), body.child(index));
+	    body.insertBefore(Dom.parse('<div class="ui-tabpage">' + content + '</div>').hide(), body.child(index));
 	    return tab;
 	},
 	
@@ -111,7 +111,7 @@ var TabControl = TabbableControl.extend({
 	},
 
 	getSelectedTab: function () {
-	    return this.header().find('.x-tabbable-selected');
+	    return this.header().find('.ui-tabbable-selected');
 	}
 
 });

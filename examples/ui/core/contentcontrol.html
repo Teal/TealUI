@@ -17,13 +17,13 @@
 
         <script class="demo" type="code/html">
 
-            <div class="xtype">
-                <span class="xtype-content">content</span>
+            <div class="ui">
+                <span class="ui-content">content</span>
             </div>
 
         </script>
 
-        <p class="demo">如上例，<code class="demo">xtype-content</code> 才是真正的存放内容的节点，这种结构统一使用 ContentControl 处理。</p>
+        <p class="demo">如上例，<code class="demo">ui-content</code> 才是真正的存放内容的节点，这种结构统一使用 ContentControl 处理。</p>
 
     </article>
 
@@ -33,8 +33,8 @@
 
         <section class="demo demo-sample">
             <aside class="demo">
-                <div class="xtype" id="contentcontrol">
-                    <span class="xtype-content">content</span>
+                <div class="ui" id="contentcontrol">
+                    <span class="ui-content">content</span>
                 </div>
 
                 <script>
@@ -67,7 +67,7 @@
                 
                 // 获取当前容器用于存放内容的 Dom 对象。
                 content: function () {
-                    return this.dom.find('.' + this.xtype + '-header');
+                    return this.dom.find('.' + this.ui + '-header');
                 }
 
             });

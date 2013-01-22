@@ -1,53 +1,53 @@
 
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 @sideWidth: 230px;
 @extraWidth: 200px;
 
-.x-grid {
+.ui-grid {
     margin-top: 10px;
     .clear();
 }
 
-.x-col {
+.ui-col {
     float: left;
     margin-left: @gridGutterWidth;
 }
 
 // Container
-.x-container {
+.ui-container {
     width: @gridRowWidth;
     .center-block();
 }
 
-.x-grid-1 .x-col-main {
+.ui-grid-1 .ui-col-main {
     width: @gridRowWidth;
     margin-left: 0;
 }
 
-.x-grid-2 .x-col-side, .x-grid-3 .x-col-side {
+.ui-grid-2 .ui-col-side, .ui-grid-3 .ui-col-side {
     width: @sideWidth;
     margin-left: 0;
 }
 
-.x-grid-2 .x-col-main {
+.ui-grid-2 .ui-col-main {
     width: @gridRowWidth - @sideWidth - @gridGutterWidth;
 }
 
-.x-grid-2x .x-col-extra {
+.ui-grid-2x .ui-col-extra {
     width: @sideWidth;
 }
 
-.x-grid-2x .x-col-main {
+.ui-grid-2x .ui-col-main {
     width: @gridRowWidth - @sideWidth - @gridGutterWidth;
     margin-left: 0;
 }
 
-.x-grid-3 .x-col-extra {
+.ui-grid-3 .ui-col-extra {
     width: @extraWidth;
 }
 
-.x-grid-3 .x-col-main {
+.ui-grid-3 .ui-col-main {
     width: @gridRowWidth - @sideWidth - @extraWidth - @gridGutterWidth - @gridGutterWidth;
 }

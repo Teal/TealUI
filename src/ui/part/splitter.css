@@ -1,24 +1,24 @@
-.x-splitter {
+.ui-splitter {
   z-index: 100;
   overflow: hidden;
   position: absolute;
 }
-.x-splitter-proxy {
+.ui-splitter-proxy {
   position: absolute;
   overflow: hidden;
   background: none repeat scroll 0 0 #CCCCCC;
   z-index: 1040;
 }
-.x-splitter-left,
-.x-splitter-right {
+.ui-splitter-left,
+.ui-splitter-right {
   cursor: e-resize;
   cursor: col-resize;
   width: 6px;
   height: 100%;
   top: 0;
 }
-.x-splitter-top,
-.x-splitter-bottom {
+.ui-splitter-top,
+.ui-splitter-bottom {
   cursor: n-resize;
   cursor: row-resize;
   width: 100%;

@@ -1,6 +1,6 @@
 
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 .badgeBackgroundColor(@color){
 	background-color: @color;
@@ -11,7 +11,7 @@
 }
 
 // Base
-.x-badge {
+.ui-badge {
     padding: 1px 9px 2px;
     font-size: @baseFontSize * .925;
     font-weight: bold;
@@ -29,18 +29,18 @@
 
 // Colors
 
-.x-badge-info {
+.ui-badge-info {
     .badgeBackgroundColor(@infoTextColor);
 }
 
-.x-badge-success {
+.ui-badge-success {
     .badgeBackgroundColor(@successTextColor);
 }
 
-.x-badge-warning {
+.ui-badge-warning {
     .badgeBackgroundColor(@warningTextColor);
 }
 
-.x-badge-error {
+.ui-badge-error {
     .badgeBackgroundColor(@errorTextColor);
 }

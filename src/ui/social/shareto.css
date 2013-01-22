@@ -5,7 +5,7 @@
  */
 
 
-.x-shareto-content {
+.ui-shareto-content {
 	display:inline-block;
 	line-height:16px;
 	height:16px;
@@ -14,35 +14,35 @@
 	background-repeat:no-repeat;
 }
 
-.x-shareto span{
+.ui-shareto span{
 	color: #999999;
 	display:inline-block;
 	line-height:16px;
 }
 
-.x-shareto-plain .x-shareto-content {
+.ui-shareto-plain .ui-shareto-content {
 	width: 0px;
 	overflow: hidden;
 	vertical-align: -3px;
 }
 
 
-.x-shareto-sina {
+.ui-shareto-sina {
 	background-image: url(images/weibo.gif);
 }
 
-.x-shareto-qqt {
+.ui-shareto-qqt {
 	background-image: url(images/qqt.png);
 }
 
-.x-shareto-163 {
+.ui-shareto-163 {
 	background-image: url(images/163.png);
 }
 
-.x-shareto-renren {
+.ui-shareto-renren {
 	background-image: url(images/renren.png);
 }
 
-.x-shareto-douban {
+.ui-shareto-douban {
 	background-image: url(images/douban.png);
 }

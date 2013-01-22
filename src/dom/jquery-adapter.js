@@ -5,13 +5,24 @@ include("core/class.js");
 var Dom = (function($){
 
     var Dom = Class.Native(function(selector, context){
-
+        return new jQuery.fn.init(selector, context);
     });
 
     Dom.prototype = $();
 
-})(jQuery);
+    Object.extend(Dom, {
 
-Class.Native(function (selector, context) {
-    return new jQuery.fn.init(selector, context, rootjQuery);
-});
+        parse: function () {
+
+        }
+
+
+    });
+
+    Dom.implement({
+
+
+
+    });
+
+})(jQuery);

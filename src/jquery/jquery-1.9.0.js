@@ -1078,7 +1078,7 @@
 										firingLength--;
 									}
 									if (index <= firingIndex) {
-										firingIndex--;
+										firingIndeui--;
 									}
 								}
 							}
@@ -1430,7 +1430,7 @@
 		// Run tests that need a body at doc ready
 		jQuery(function () {
 			var container, marginDiv, tds,
-				divReset = "padding:0;margin:0;border:0;display:block;box-sizing:content-box;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;",
+				divReset = "padding:0;margin:0;border:0;display:block;boui-sizing:content-box;-moz-boui-sizing:content-box;-webkit-boui-sizing:content-box;",
 				body = document.getElementsByTagName("body")[0];
 
 			if (!body) {
@@ -1462,9 +1462,9 @@
 			// Check if empty table cells still have offsetWidth/Height
 			support.reliableHiddenOffsets = isSupported && (tds[0].offsetHeight === 0);
 
-			// Check box-sizing and margin behavior
+			// Check boui-sizing and margin behavior
 			div.innerHTML = "";
-			div.style.cssText = "box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;padding:1px;border:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
+			div.style.cssText = "boui-sizing:border-box;-moz-boui-sizing:border-box;-webkit-boui-sizing:border-box;padding:1px;border:1px;display:block;width:4px;margin-top:1%;position:absolute;top:1%;";
 			support.boxSizing = (div.offsetWidth === 4);
 			support.doesNotIncludeMarginInBodyOffset = (body.offsetTop !== 1);
 
@@ -2448,7 +2448,7 @@
 			tabIndex: {
 				get: function (elem) {
 					// elem.tabIndex doesn't always return the correct value when it hasn't been explicitly set
-					// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+					// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindeui-values-with-javascript/
 					var attributeNode = elem.getAttributeNode("tabindex");
 
 					return attributeNode && attributeNode.specified ?
@@ -3014,7 +3014,7 @@
 				handlers = (jQuery._data(this, "events") || {})[event.type] || [],
 				special = jQuery.event.special[event.type] || {};
 
-			// Use the fix-ed jQuery.Event rather than the (read-only) native event
+			// Use the fiui-ed jQuery.Event rather than the (read-only) native event
 			args[0] = event;
 			event.delegateTarget = this;
 
@@ -7064,7 +7064,7 @@
 			val = parseFloat(val) || 0;
 		}
 
-		// use the active box-sizing model to add/subtract irrelevant styles
+		// use the active boui-sizing model to add/subtract irrelevant styles
 		return (val +
 			augmentWidthOrHeight(
 				elem,
@@ -7593,7 +7593,7 @@
 			global: true,
 			processData: true,
 			async: true,
-			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			contentType: "application/ui-www-form-urlencoded; charset=UTF-8",
 			/*
 			timeout: 0,
 			data: null,
@@ -8211,7 +8211,7 @@
 	// Install script dataType
 	jQuery.ajaxSetup({
 		accepts: {
-			script: "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript"
+			script: "text/javascript, application/javascript, application/ecmascript, application/ui-ecmascript"
 		},
 		contents: {
 			script: /(?:java|ecma)script/
@@ -8313,7 +8313,7 @@
 		var callbackName, overwritten, responseContainer,
 			jsonProp = s.jsonp !== false && (rjsonp.test(s.url) ?
 				"url" :
-				typeof s.data === "string" && !(s.contentType || "").indexOf("application/x-www-form-urlencoded") && rjsonp.test(s.data) && "data"
+				typeof s.data === "string" && !(s.contentType || "").indexOf("application/ui-www-form-urlencoded") && rjsonp.test(s.data) && "data"
 			);
 
 		// Handle iff the expected data type is "jsonp" or we have a parameter to set
@@ -8454,13 +8454,13 @@
 							xhr.overrideMimeType(s.mimeType);
 						}
 
-						// X-Requested-With header
+						// ui-Requested-With header
 						// For cross-domain requests, seeing as conditions for a preflight are
 						// akin to a jigsaw puzzle, we simply never set it to be sure.
 						// (it can always be set on a per-request basis or even using ajaxSetup)
 						// For same-domain requests, won't change header if already provided.
-						if (!s.crossDomain && !headers["X-Requested-With"]) {
-							headers["X-Requested-With"] = "XMLHttpRequest";
+						if (!s.crossDomain && !headers["ui-Requested-With"]) {
+							headers["ui-Requested-With"] = "XMLHttpRequest";
 						}
 
 						// Need an extra try/catch for cross domain requests in Firefox 3
@@ -9126,7 +9126,7 @@
 					}
 				}
 
-				for (index = timers.length; index--;) {
+				for (index = timers.length; indeui--;) {
 					if (timers[index].elem === this && (type == null || timers[index].queue === type)) {
 						timers[index].anim.stop(gotoEnd);
 						dequeue = false;
@@ -9165,7 +9165,7 @@
 				}
 
 				// look for any active animations, and finish them
-				for (index = timers.length; index--;) {
+				for (index = timers.length; indeui--;) {
 					if (timers[index].elem === this && timers[index].queue === type) {
 						timers[index].anim.stop(true);
 						timers.splice(index, 1);

@@ -1,4 +1,4 @@
-.x-balloontip {
+.ui-balloontip {
   position: absolute;
   top: 0;
   left: 0;
@@ -11,24 +11,24 @@
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   min-width: 200px;
   display: none;
 }
-.x-balloontip-body {
+.ui-balloontip-body {
   overflow: hidden;
   background-color: #ffffff;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
-.x-balloontip-content {
+.ui-balloontip-content {
   padding: 8px 14px;
   overflow: auto;
 }
-.x-balloontip-header {
+.ui-balloontip-header {
   padding: 8px 14px;
   line-height: 1;
   background-color: #f5f5f5;
@@ -40,17 +40,17 @@
   -moz-border-radius-topleft: 6px;
   border-top-left-radius: 6px;
 }
-.x-balloontip-header h4 {
+.ui-balloontip-header h4 {
   font-size: 14px;
   line-height: 16px;
   margin: 0;
 }
-.x-balloontip .x-arrow {
+.ui-balloontip .ui-arrow {
   font-size: 26px;
 }
-.x-balloontip .x-arrow-fore {
+.ui-balloontip .ui-arrow-fore {
   color: rgba(0, 0, 0, 0.2);
 }
-.x-balloontip .x-arrow-back {
+.ui-balloontip .ui-arrow-back {
   color: #ffffff;
 }

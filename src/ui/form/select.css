@@ -1,4 +1,4 @@
-.x-select {
+.ui-select {
   padding: 4px;
   font-size: 14px;
   line-height: 18px;
@@ -7,16 +7,16 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
-.x-select-warning {
+.ui-select-warning {
   border-color: #c09853;
 }
-.x-select-error {
+.ui-select-error {
   border-color: #b94a48;
 }
-.x-select-success {
+.ui-select-success {
   border-color: #468847;
 }

@@ -1,10 +1,10 @@
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 
 
 
-.x-dialog {
+.ui-dialog {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,14 +16,14 @@
     border: 7px solid #999;
     border: 7px solid rgba(0,0,0,.3);
     .border-radius(6px);
-    .box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+    .boui-shadow(0 0 10px rgba(0, 0, 0, 0.3));
     -webkit-background-clip: padding-box;
     -moz-background-clip: padding;
     background-clip: padding-box;
 }
 
 
-.x-dialog-header {
+.ui-dialog-header {
     padding: 7px 10px;
     border-bottom: 1px solid #D9D9D9;
     #gradient > .vertical(#F9F9F9, #F5F5F5);
@@ -35,42 +35,42 @@
     }
 }
 
-.x-dialog-body {
+.ui-dialog-body {
     overflow: hidden;
 }
 
-.x-dialog-content {
+.ui-dialog-content {
     padding: 10px;
     overflow-y: auto;
 }
 
-.x-dialog-iconbox {
+.ui-dialog-iconbox {
     padding: 18px 10px 16px 60px;
     background-repeat: no-repeat;
     background-position: 18px 16px;
 }
 
-.x-dialog-iconbox-warning {
+.ui-dialog-iconboui-warning {
     background-image: url(images/icon-warning.gif);
 }
 
-.x-dialog-iconbox-error {
+.ui-dialog-iconboui-error {
     background-image: url(images/icon-error.gif);
 }
 
-.x-dialog-iconbox-info {
+.ui-dialog-iconboui-info {
     background-image: url(images/icon-info.gif);
 }
 
-.x-dialog-iconbox-confirm {
+.ui-dialog-iconboui-confirm {
     background-image: url(images/icon-question.gif);
 }
 
-.x-dialog-iconbox-success {
+.ui-dialog-iconboui-success {
     background-image: url(images/icon-success.png);
 }
 
-.x-dialog-footer {
+.ui-dialog-footer {
     padding: 5px 10px;
     text-align: right;
 }

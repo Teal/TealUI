@@ -1,4 +1,7 @@
-/** * @author xuld */
+/**
+ * @author xuld
+ */
+
 
 include("ui/suggest/combobox.js");
 
@@ -12,8 +15,8 @@ var CityChooser = Class({
         var value1 = provinces.getText();
         var value2 = cities.getText();
 
-        provinces = this.provinces = new ComboBox(provinces).addClass('x-citychooser').setDropDownList(true);
-        cities = this.cities = new ComboBox(cities).addClass('x-citychooser').setDropDownList(true);
+        provinces = this.provinces = new ComboBox(provinces).addClass('ui-citychooser').setDropDownList(true);
+        cities = this.cities = new ComboBox(cities).addClass('ui-citychooser').setDropDownList(true);
 
         if (CityChooser.cdata == null) {
             CityChooser.cdata = {};

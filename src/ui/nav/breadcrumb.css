@@ -1,4 +1,4 @@
-.x-breadcrumb {
+.ui-breadcrumb {
   padding: 8px 15px;
   margin: 0 0 18px;
   list-style: none;
@@ -7,16 +7,16 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.x-breadcrumb li {
+.ui-breadcrumb li {
   display: inline-block;
   *display: inline;
   *zoom: 1;
   text-shadow: 0 1px 0 #ffffff;
 }
-.x-breadcrumb .x-breadcrumb-divider {
+.ui-breadcrumb .ui-breadcrumb-divider {
   padding: 0 5px;
   color: #999999;
 }
-.x-breadcrumb .x-breadcrumb-selected a {
+.ui-breadcrumb .ui-breadcrumb-selected a {
   color: #333333;
 }

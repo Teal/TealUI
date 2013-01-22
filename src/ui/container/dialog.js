@@ -25,7 +25,7 @@ var Dialog = ContainerControl.extend({
 	
 	// 基本属性
 		
-	headerTpl: '<div class="x-control-header"><a class="x-dialog-close x-closebutton">×</a><h4></h4></div>',
+	headerTpl: '<div class="ui-control-header"><a class="ui-dialog-close ui-closebutton">×</a><h4></h4></div>',
 
 	onCloseButtonClick: function () {
 	    this.close();
@@ -36,12 +36,12 @@ var Dialog = ContainerControl.extend({
 		var t ;
 		
 		// 允许直接传入一个节点。
-		if (!this.hasClass('x-dialog')) {
+		if (!this.hasClass('ui-dialog')) {
             
 		    // 判断节点是否已渲染过。
 		    t = this.parent();
 
-		    if (t && t.hasClass('x-dialog-body')) {
+		    if (t && t.hasClass('ui-dialog-body')) {
 		        this.node = t.node.parentNode;
 		    } else {
 
@@ -54,7 +54,7 @@ var Dialog = ContainerControl.extend({
 		}
 		
 		// 关闭按钮。
-		this.delegate('.x-dialog-close', 'click', this.onCloseButtonClick.bind(this));
+		this.delegate('.ui-dialog-close', 'click', this.onCloseButtonClick.bind(this));
 
 		this.setStyle('display', 'none');
 		
@@ -64,7 +64,7 @@ var Dialog = ContainerControl.extend({
 	},
 	
 	mask: function(opacity){
-		var mask = this.maskDom || (this.maskDom = Dom.find('.x-mask-dialog') || Dom.create('div', 'x-mask x-mask-dialog').appendTo());
+		var mask = this.maskDom || (this.maskDom = Dom.find('.ui-mask-dialog') || Dom.create('div', 'ui-mask ui-mask-dialog').appendTo());
 		if (opacity === null) {
 			mask.hide();
 		} else {

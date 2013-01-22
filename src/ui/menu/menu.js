@@ -41,7 +41,7 @@ var Menu = TreeControl.extend({
                     childControl = new MenuItem;
                     childControl.append(t);
                 }
-            } else if (childControl.hasClass('x-menuseperator')) {
+            } else if (childControl.hasClass('ui-menuseperator')) {
                 childControl = new MenuSeperator(childControl);
             } else {
 
@@ -206,7 +206,7 @@ var MenuItem = TreeControl.Item.extend({
 	initSubControl: function(treeControl){
 		treeControl.hide();
 		treeControl.floating = false;
-		this.prepend('<i class="x-menuitem-arrow"></i>');
+		this.prepend('<i class="ui-menuitem-arrow"></i>');
 		this.on('mouseup', this._cancelHideMenu);
 	},
 	
@@ -217,7 +217,7 @@ var MenuItem = TreeControl.Item.extend({
 	 */
 	uninitSubControl: function(treeControl){
 		treeControl.floating = true;
-		this.remove('x-menuitem-arrow');
+		this.remove('ui-menuitem-arrow');
 		this.un('mouseup', this._cancelHideMenu);
 	},
 
@@ -244,7 +244,7 @@ var MenuItem = TreeControl.Item.extend({
 	 *
 	 */
 	init: function() {
-		if(this.hasClass('x-' + this.xtype)) {
+		if(this.hasClass('ui-' + this.xtype)) {
 			this.unselectable();
 			this.on('mouseover', this.onMouseOver);
 			this.on('mouseout', this.onMouseOut);
@@ -257,7 +257,7 @@ var MenuItem = TreeControl.Item.extend({
 
 	_hideTargetMenu: function(e) {
 		var tg = e.relatedTarget;
-		while (tg && !Dom.hasClass(tg, 'x-menu')) {
+		while (tg && !Dom.hasClass(tg, 'ui-menu')) {
 			tg = tg.parentNode;
 		}
 
@@ -291,7 +291,7 @@ var MenuItem = TreeControl.Item.extend({
 
 var MenuSeperator = MenuItem.extend({
 
-	tpl: '<div class="x-menuseperator"></div>',
+	tpl: '<div class="ui-menuseperator"></div>',
 
 	init: Function.empty
 

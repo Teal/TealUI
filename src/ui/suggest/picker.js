@@ -28,8 +28,8 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    tpl: '<span class="x-picker">\
-			<input type="text" class="x-textbox"/>\
+    tpl: '<span class="ui-picker">\
+			<input type="text" class="ui-textbox"/>\
 		</span>',
 
     /**
@@ -37,7 +37,7 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    menuButtonTpl: '<button class="x-button" type="button"><span class="x-menubutton-arrow"></span></button>',
+    menuButtonTpl: '<button class="ui-button" type="button"><span class="ui-menubutton-arrow"></span></button>',
 
     /**
 	 * 获取当前控件的按钮部分。
@@ -83,13 +83,13 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
         if (name == "disabled" || name == "readonly") {
 
             // 为按钮增加 disabled 样式。
-            this.query('.x-button,button').setAttr("disabled", value).toggleClass("x-button-disabled", value);
+            this.dom.query('.ui-button,button').setAttr("disabled", value).toggleClass("ui-button-disabled", value);
 
             // 为文本框增加设置样式。
-            this.input().setAttr(name, value).toggleClass("x-textbox-" + name, value);
+            this.input().setAttr(name, value).toggleClass("ui-textboui-" + name, value);
 
         } else if (name == "actived") {
-            this.query('.x-button,button').toggleClass("x-button-actived", value);
+            this.query('.ui-button,button').toggleClass("ui-button-actived", value);
         } else {
             IInput.state.call(this, name, value);
         }
@@ -114,12 +114,12 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 
         var me = this, elem;
 
-        // 如果是 <input> 或 <a> 直接替换为 x-picker
-        if (!me.first() && !me.hasClass('x-picker')) {
+        // 如果是 <input> 或 <a> 直接替换为 ui-picker
+        if (!me.dom.first() && !me.dom.hasClass('ui-picker')) {
             elem = me.node;
 
-            // 创建 x-picker 组件。
-            me.node = Dom.createNode('span', 'x-picker x-' + me.xtype);
+            // 创建 ui-picker 组件。
+            me.node = Dom.createNode('span', 'ui-picker ui-' + me.xtype);
 
             // 替换当前节点。
             if (elem.parentNode) {
@@ -144,7 +144,7 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
         }
 
         // 初始化菜单。
-        me.setDropDown(me.createDropDown(me.next('.x-dropdown')));
+        me.setDropDown(me.createDropDown(me.next('.ui-dropdown')));
 
         // 设置菜单显示的事件。
         (me.listMode ? me : me.button()).on('click', me.toggleDropDown, me);

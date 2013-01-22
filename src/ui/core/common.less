@@ -1,31 +1,31 @@
 
-@import "../../../Core/assets/less/variables.less";
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
 
 // align
 html {
 	
-	.x-left {
+	.ui-left {
 		float: left;
 	}
 	
-	.x-right {
+	.ui-right {
 		float: right;
 	}
 	
 	/// IE6
 	// fix double margin bug for IE6
-	.x-left, .x-right {
+	.ui-left, .ui-right {
 		_display: inline;
 	}
 	
-	.x-middle {
+	.ui-middle {
 		vertical-align: middle;	
 	}
 
 }
 
-.x-center {
+.ui-center {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -33,11 +33,11 @@ html {
 // position
 html {
 		
-	.x-relative, div.x-relative {
+	.ui-relative, div.ui-relative {
 		position: relative;	
 	}
 	
-	.x-absolute, div.x-absolute {
+	.ui-absolute, div.ui-absolute {
 		position: absolute;	
 	}
 
@@ -46,24 +46,24 @@ html {
 // display
 html {
 	
-	.x-inline {
+	.ui-inline {
 		display: inline;	
 	}
 	
-	.x-block {
+	.ui-block {
 		display: block;	
 	}
 	
-	.x-inline-block {
+	.ui-inline-block {
 		.inline-block();
 	}
 	
-	.x-hide, div.x-hide{
+	.ui-hide, div.ui-hide{
 		display: none;
 	}
 	
 	// plain
-	.x-plain, div.x-plain {
+	.ui-plain, div.ui-plain {
 		margin: 0;
 		padding: 0;
 	}
@@ -71,7 +71,7 @@ html {
 }
 
 // text
-.x-break-word {
+.ui-break-word {
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 	-ms-word-break: break-all;
@@ -79,51 +79,51 @@ html {
 }
 
 // clear
-.x-clear {
+.ui-clear {
 	.clear();
 }
 
 // colors
 
-.x-hint {
+.ui-hint {
 	color: @hintTextColor;
 }
 
-.x-success {
+.ui-success {
 	color: @successTextColor!important;
 }
 
-.x-info {
+.ui-info {
 	color: @infoTextColor!important;
 }
 
-.x-warning {
+.ui-warning {
 	color: @warningTextColor!important;
 }
 
-.x-error {
+.ui-error {
 	color: @errorTextColor!important;
 }
 
-.x-highlight {
+.ui-highlight {
 	color: @highlightTextColor!important;
 }
 
 // misc
 html {
-	.x-row {
+	.ui-row {
 		margin-bottom: 10px;
 	}
 }
 	
-.x-blank {
+.ui-blank {
 	height: 10px;
 	display: block;
 	visibility: hidden;
 	color: @white;
 }
 
-.x-debug {
+.ui-debug {
 	background: #C03!important;
 	color: #fff!important;
 }

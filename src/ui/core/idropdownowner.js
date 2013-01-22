@@ -1,4 +1,8 @@
-/** * @author [作者] */
+/**
+ * @author xuld
+ */
+
+
 /**
  * 所有支持下拉菜单的组件实现的接口。
  * @interface IDropDownOwner
@@ -74,7 +78,7 @@ var IDropDownOwner = {
 			dom = dom instanceof Dom ? dom : Dom.get(dom);
 
 			// 初始化并保存下拉菜单。
-			this.dropDown = dom.addClass('x-dropdown').hide();
+			this.dropDown = dom.addClass('ui-dropdown').hide();
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
 			if (!dom.closest('body')) {

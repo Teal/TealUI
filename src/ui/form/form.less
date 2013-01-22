@@ -1,15 +1,15 @@
-@import "../../../Core/assets/less/mixins.less";
+@import "../core/less/mixins.less";
 
 
 @formFieldWidth:    100px;
 
-.x-formfield   {
+.ui-formfield   {
 	line-height: 28px;
 	margin-bottom: 10px;
 	.clear();
 }
 
-.x-formfield-label{
+.ui-formfield-label{
 	width: @formFieldWidth;
 	display: block;
 	text-align: right;
@@ -17,19 +17,19 @@
 	float: left;
 }
 
-.x-formfield-content {
+.ui-formfield-content {
   margin-left: @formFieldWidth + 10; 
 }
 
-.x-form-vertical {
-  .x-formfield-label{ 
+.ui-form-vertical {
+  .ui-formfield-label{ 
     float: none;
     width: auto;
     text-align: left;
     margin-right: 0;
   }
   
-  .x-formfield-content {
+  .ui-formfield-content {
      margin-left: 0; 
   }
 }

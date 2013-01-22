@@ -18,7 +18,7 @@ var ListBox = ListControl.implement({
      * 重新设置当前高亮项。
      */
     setSelectedItem: function (item) {
-        var clazz = 'x-' + this.xtype + '-selected';
+        var clazz = 'ui-' + this.xtype + '-selected';
         this.query('.' + clazz).removeClass(clazz);
 
         if(item) {
@@ -32,7 +32,7 @@ var ListBox = ListControl.implement({
      * 获取当前高亮项。
      */
     getSelectedItem: function () {
-        return this.find('.x-' + this.xtype + '-selected');
+        return this.find('.ui-' + this.xtype + '-selected');
     },
 
     /**
@@ -105,7 +105,7 @@ var ListBox = ListControl.implement({
 //	onClick: function (e) {
 		
 //		// 如果无法更改值，则直接忽略。
-//		if(this.hasClass('x-' + this.xtype + '-disabled') || this.hasClass('x-' + this.xtype + '-readonly'))
+//		if(this.hasClass('ui-' + this.xtype + '-disabled') || this.hasClass('ui-' + this.xtype + '-readonly'))
 //			return;
 			
 //		//获取当前项。

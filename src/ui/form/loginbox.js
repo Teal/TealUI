@@ -1,25 +1,46 @@
-/** * @author xuld */include("ui/form/textbox.css");include("ui/form/form.css");include("ui/button/button.css");include("ui/container/dialog.js");var LoginBox = Dialog.extend({
+/**
+ * @author xuld
+ */
 
-    contentTpl: '<form class="x-form">\
-                    <div class="x-formfield">\
-                        <label class="x-formfield-label">�û���:</label>\
-                        <div class="x-formfield-content">\
-                            <input type="text" class="x-textbox">\
-                            <span class="x-tipbox x-tipbox-error">AAA</span>\
+include("ui/form/textbox.css");
+include("ui/form/form.css");
+include("ui/button/button.css");
+include("ui/container/dialog.js");
+
+
+var LoginBox = Dialog.extend({
+
+    contentTpl: '<form class="ui-form">\
+                    <div class="ui-formfield">\
+                        <label class="ui-formfield-label">�û���:</label>\
+                        <div class="ui-formfield-content">\
+                            <input type="text" class="ui-textbox">\
+                            <span class="ui-tipbox ui-tipboui-error">AAA</span>\
                         </div>\
                     </div>\
-                    <div class="x-formfield">\
-                        <label class="x-formfield-label">����:</label>\
-                        <div class="x-formfield-content">\
-                            <input type="text" class="x-textbox">\
-                            <span class="x-tipbox x-tipbox-success x-tipbox-plain">&nbsp;</span>\
+                    <div class="ui-formfield">\
+                        <label class="ui-formfield-label">����:</label>\
+                        <div class="ui-formfield-content">\
+                            <input type="text" class="ui-textbox">\
+                            <span class="ui-tipbox ui-tipboui-success ui-tipboui-plain">&nbsp;</span>\
                         </div>\
                     </div>\
-                    <div class="x-formfield">\
-                        <div class="x-formfield-content">\
-                            <button class="x-button" type="submit">ȷ��</button>\
+                    <div class="ui-formfield">\
+                        <div class="ui-formfield-content">\
+                            <button class="ui-button" type="submit">ȷ��</button>\
                         </div>\
                     </div>\
                 </form>',
-    init: function (options) {
-        this.base('init');        this.setHtml(this.contentTpl);    }});
+
+    init: function (options) {
+
+        this.base('init');
+
+        this.setHtml(this.contentTpl);
+
+
+    }
+
+
+});
+

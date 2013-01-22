@@ -11,20 +11,20 @@ var MonthCalender = Control.extend({
 
     xtype: 'monthcalender',
 
-    tpl: '<div class="x-monthcalender">\
-		       <div class="x-monthcalender-main">\
-		        <div class="x-monthcalender-header">\
-		            <a class="x-monthcalender-next" href="javascript://下一页">▸</a>\
-		            <a class="x-monthcalender-previous" href="javascript://上一页">◂</a>\
-		            <a class="x-monthcalender-title" href="javascript://返回上一级"></a>\
+    tpl: '<div class="ui-monthcalender">\
+		       <div class="ui-monthcalender-main">\
+		        <div class="ui-monthcalender-header">\
+		            <a class="ui-monthcalender-next" href="javascript://下一页">▸</a>\
+		            <a class="ui-monthcalender-previous" href="javascript://上一页">◂</a>\
+		            <a class="ui-monthcalender-title" href="javascript://返回上一级"></a>\
 		        </div>\
-		        <div class="x-monthcalender-body">\
-		            <div class="x-monthcalender-content">\
+		        <div class="ui-monthcalender-body">\
+		            <div class="ui-monthcalender-content">\
 		                <div style="left:1px; top:1px;"></div>\
 						<div style="left:172px; top:1px;"></div>\
 					</div>\
 		        </div>\
-		    	<div class="x-monthcalender-footer">\
+		    	<div class="ui-monthcalender-footer">\
 		    		<a href="javascript://选择今天"></a>\
 		    	</div>\
 		      </div>\
@@ -80,7 +80,7 @@ var MonthCalender = Control.extend({
     onItemClick: function (item) {
 
         // 如果此项是允许点击的。则生成新的日期对象，并设置为当前值。
-        if (!item.hasClass('x-monthcalender-disabled')) {
+        if (!item.hasClass('ui-monthcalender-disabled')) {
             this.selectItem(item);
         }
 
@@ -135,7 +135,7 @@ var MonthCalender = Control.extend({
             this.setValue(today);
 
             // 触发相关的点击事件。
-            this.onItemClick(this.find('.x-monthcalender-selected'));
+            this.onItemClick(this.find('.ui-monthcalender-selected'));
         }
 
         return this;
@@ -144,16 +144,16 @@ var MonthCalender = Control.extend({
     init: function (options) {
         var me = this.unselectable();
         me.bind({
-            'click.x-monthcalender-title': me.onTitleClick.bind(me),
-            'click.x-monthcalender-previous': me.onPrevClick.bind(me),
-            'click.x-monthcalender-next': me.onNextClick.bind(me),
-            'click.x-monthcalender-footer a': me.onTodayClick.bind(me),
-            'click.x-monthcalender-content a': function () {
+            'click.ui-monthcalender-title': me.onTitleClick.bind(me),
+            'click.ui-monthcalender-previous': me.onPrevClick.bind(me),
+            'click.ui-monthcalender-next': me.onNextClick.bind(me),
+            'click.ui-monthcalender-footer a': me.onTodayClick.bind(me),
+            'click.ui-monthcalender-content a': function () {
                 return me.view.select(me, this);
             }
         });
 
-        var contents = me.find('.x-monthcalender-content');
+        var contents = me.find('.ui-monthcalender-content');
         me.content = contents.first();
         me.contentProxy = contents.last();
 
@@ -168,7 +168,7 @@ var MonthCalender = Control.extend({
     },
 
     setToday: function (value) {
-        this.find('.x-monthcalender-footer a').setHtml(value.toString(MonthCalender.todayFormat));
+        this.find('.ui-monthcalender-footer a').setHtml(value.toString(MonthCalender.todayFormat));
         this.today = value;
     },
 
@@ -280,7 +280,7 @@ Object.extend(MonthCalender, {
         }
 
         // 设置内容。
-        calender[useProxy ? 'contentProxy' : 'content'].setHtml(html).node.className = 'x-monthcalender-monthyears';
+        calender[useProxy ? 'contentProxy' : 'content'].setHtml(html).node.className = 'ui-monthcalender-monthyears';
 
     },
 
@@ -331,9 +331,9 @@ Object.extend(MonthCalender, {
                 value = new Date(displayedYear, displayedMonth, 1);
 
             // 绘制星期。
-            html += '<div class="x-monthcalender-week">';
+            html += '<div class="ui-monthcalender-week">';
             for (j in MonthCalender.weeks) {
-                html += '<span class="x-monthcalender-' + j + '">' + MonthCalender.weeks[j] + '</span>';
+                html += '<span class="ui-monthcalender-' + j + '">' + MonthCalender.weeks[j] + '</span>';
             }
             html += '</div>';
 
@@ -357,17 +357,17 @@ Object.extend(MonthCalender, {
                     }
 
                     if (value < minValue || value > maxValue) {
-                        html += 'x-monthcalender-disabled ';
+                        html += 'ui-monthcalender-disabled ';
                     } else if (altClassType !== 0) {
-                        html += 'x-monthcalender-alt ' + (altClassType ? 'x-monthcalender-alt-prev ' : 'x-monthcalender-alt-next ');
+                        html += 'ui-monthcalender-alt ' + (altClassType ? 'ui-monthcalender-alt-prev ' : 'ui-monthcalender-alt-next ');
                     } else {
 
                         if (activedDate == day) {
-                            html += 'x-monthcalender-actived ';
+                            html += 'ui-monthcalender-actived ';
                         }
 
                         if (selectedDate == day) {
-                            html += 'x-monthcalender-selected ';
+                            html += 'ui-monthcalender-selected ';
                         }
 
                     }
@@ -381,10 +381,10 @@ Object.extend(MonthCalender, {
             }
 
             // 设置内容。
-            calender[useProxy ? 'contentProxy' : 'content'].setHtml(html).node.className = 'x-monthcalender-days';
+            calender[useProxy ? 'contentProxy' : 'content'].setHtml(html).node.className = 'ui-monthcalender-days';
 
             // 设置顶部标题。
-            calender.query('.x-monthcalender-title').setText(calender.displayedValue.toString(MonthCalender.monthFormat));
+            calender.query('.ui-monthcalender-title').setText(calender.displayedValue.toString(MonthCalender.monthFormat));
         },
 
         parentView: 'MonthView',
@@ -393,7 +393,7 @@ Object.extend(MonthCalender, {
 
             // 如果是 alt， 则是上个月或下个月, 则切换为新视图。
             // 否则，设置并更新当前的值。
-            if (item.hasClass('x-monthcalender-alt')) {
+            if (item.hasClass('ui-monthcalender-alt')) {
 
                 var day = parseInt(item.getText());
                 calender.value = new Date(calender.displayedValue.getFullYear(), calender.displayedValue.getMonth() + (day < 15 ? 1 : -1), day);
@@ -449,11 +449,11 @@ Object.extend(MonthCalender, {
                 var html = '<a href="javascript:;" data-value="' + c + '" class="';
 
                 if (value < minValue || value > maxValue) {
-                    html += 'x-monthcalender-disabled ';
+                    html += 'ui-monthcalender-disabled ';
                 }
 
                 if (selectedMonth == c) {
-                    html += 'x-monthcalender-selected ';
+                    html += 'ui-monthcalender-selected ';
                 }
 
                 html += '">' + months[c] + '</a>';
@@ -463,7 +463,7 @@ Object.extend(MonthCalender, {
             });
 
             // 设置顶部标题。
-            calender.query('.x-monthcalender-title').setText(displayedYear);
+            calender.query('.ui-monthcalender-title').setText(displayedYear);
         },
 
         select: function (calender, item) {
@@ -504,7 +504,7 @@ Object.extend(MonthCalender, {
                 value = ((displayedYear / 10) | 0) * 10;
 
             // 设置顶部标题。
-            calender.query('.x-monthcalender-title').setText(value + '-' + (value + 9));
+            calender.query('.ui-monthcalender-title').setText(value + '-' + (value + 9));
 
             value--;
 
@@ -513,19 +513,19 @@ Object.extend(MonthCalender, {
                 var html = '<a href="javascript:;" class="';
 
                 if (value < minValue || value > maxValue) {
-                    html += 'x-monthcalender-disabled ';
+                    html += 'ui-monthcalender-disabled ';
                 }
 
                 if (c === 0 || c === 11) {
-                    html += 'x-monthcalender-alt ';
+                    html += 'ui-monthcalender-alt ';
                 }
 
                 if (selectedYear == value) {
-                    html += 'x-monthcalender-selected ';
+                    html += 'ui-monthcalender-selected ';
                 }
 
                 if (activedYear == value) {
-                    html += 'x-monthcalender-selected ';
+                    html += 'ui-monthcalender-selected ';
                 }
 
                 html += '">' + value + '</a>';
@@ -575,28 +575,28 @@ Object.extend(MonthCalender, {
                 value = ((displayedYear / 100) | 0) * 100;
 
             // 设置顶部标题。
-            calender.query('.x-monthcalender-title').setText(value + '-' + (value + 99));
+            calender.query('.ui-monthcalender-title').setText(value + '-' + (value + 99));
 
             value--;
 
             MonthCalender._renderContentOfMonthYears(calender, useProxy, function (c) {
 
-                var html = '<a href="javascript:;" data-value="' + (value + 5) + '" class="x-monthcalender-decade ';
+                var html = '<a href="javascript:;" data-value="' + (value + 5) + '" class="ui-monthcalender-decade ';
 
                 if (value + 10 < minValue || value > maxValue) {
-                    html += 'x-monthcalender-disabled ';
+                    html += 'ui-monthcalender-disabled ';
                 }
 
                 if (c === 0 || c === 11) {
-                    html += 'x-monthcalender-alt ';
+                    html += 'ui-monthcalender-alt ';
                 }
 
                 if (selectedYear >= value && selectedYear <= value + 9) {
-                    html += 'x-monthcalender-selected ';
+                    html += 'ui-monthcalender-selected ';
                 }
 
                 if (activedYear >= value && activedYear <= value + 9) {
-                    html += 'x-monthcalender-selected ';
+                    html += 'ui-monthcalender-selected ';
                 }
 
                 html += '">' + value + '-<br>' + (value + 9) + '&nbsp;</a>';

@@ -194,7 +194,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
             }
             this.childNodes.push(node);
             node.parentNode = this;
-            var ps = this.childNodes[index-1];
+            var ps = this.childNodes[indeui-1];
             if(ps){
                 node.previousSibling = ps;
                 ps.nextSibling = node;
@@ -269,7 +269,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
         
         
         if(oldParent == this && this.childNodes.indexOf(node) < index){
-            refIndex--;
+            refIndeui--;
         }
         
         
@@ -284,7 +284,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
         }
         this.childNodes.splice(refIndex, 0, node);
         node.parentNode = this;
-        var ps = this.childNodes[refIndex-1];
+        var ps = this.childNodes[refIndeui-1];
         if(ps){
             node.previousSibling = ps;
             ps.nextSibling = node;
