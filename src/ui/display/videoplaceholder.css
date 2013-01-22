@@ -1,0 +1,51 @@
+.x-videoplaceholder {
+  display: inline-block;
+  *display: inline;
+  padding: 4px;
+  line-height: 1;
+  border: 1px solid #dddddd;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  *padding: 0;
+  position: relative;
+}
+a.x-videoplaceholder:hover {
+  border-color: #0088cc;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+.x-videoplaceholder img {
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.x-videoplaceholder-icon {
+  background: url(../images/videoplaceholder.png) no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+}
+.x-videoplaceholder:hover .x-videoplaceholder-icon {
+  background-position: -50px 0;
+}
+.x-videoplaceholder-small .x-videoplaceholder-icon {
+  background-position: 0 -51px;
+  width: 25px;
+  height: 25px;
+  margin-left: -12px;
+  margin-top: -12px;
+}
+.x-videoplaceholder-small:hover .x-videoplaceholder-icon {
+  background-position: -50px -51px;
+}

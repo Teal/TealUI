@@ -58,7 +58,7 @@ Demo.Dpl.add = function (parentNode) {
 
 };
 
-Demo.Dpl.listToTree = function (list) {
+Demo.Dpl.listToTree = function (list, filter) {
 
 	var tree = {
 
@@ -80,6 +80,18 @@ Demo.Dpl.listToTree = function (list) {
 			list[path].versionValue = version = parseFloat(v);
 			return "";
 		});
+
+		if (filter) {
+			if (category.indexOf(filter) !== 0) {
+				continue;
+			}
+
+			category = category.substr(filter.length);
+		}
+
+		if (fileNameWithoutExtension === "index") {
+			continue;
+		}
 
 
 		data = tree[category] || (tree[category] = {});
@@ -118,10 +130,10 @@ Demo.Dpl.listToTree = function (list) {
 	return tree;
 };
 
-Demo.writeDplList = function () {
+Demo.writeDplList = function (filter) {
 
 	var list = DplList.examples,
-		tree = Demo.Dpl.listToTree(list),
+		tree = Demo.Dpl.listToTree(list, filter),
 		from = document.referrer || "",
 		html = "",
 		html2 = "",

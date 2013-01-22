@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=beta">
+    <title>特效渐变方式</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/Animate.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/Transitions.js" type="text/javascript"></script>
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+    <style>
+        .p {
+            height: 3px;
+            position: absolute;
+            width: 3px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <article class="demo">
+        <div style="float: left; width: 100px;">
+            <div style="position: absolute; border-top: 1px solid purple; border-bottom: 1px solid #E27B00" id="v"></div>
+            <div id="b"></div>
+            <div style="border: 1px solid #E27B00; position: relative; height: 20px;" id="t">
+                <div style="position: absolute; width: 20px; left: 0px; top: 0px; height: 20px; background: red;" id="f"></div>
+            </div>
+        </div>
+        <div style="float: right; width: 500px; text-align: right">
+            <script>
+                var width = 200, duration = 3500, fps = 200;
+
+                Dom.get('v').setHeight(width);
+                Dom.get('b').setHeight(width);
+                Dom.get('t').setWidth(width + 20);
+
+                Fx.compute = function (from, to, delta) {
+                    return (to - from) * delta + from;
+                };
+
+                var Trans = Fx.extend({
+
+                    link: 'ignore',
+
+                    options: {
+
+                        fps: fps,
+
+                        duration: duration
+                    },
+
+                    set: function (delta) {
+                        this.options.x++;
+                        var y = Fx.compute(this.options.from, this.options.to, delta);
+                        this.options.y = width - y;
+
+                        Dom.create('div', 'p').appendTo('v').setOffset(this.options);
+
+                        Dom.get('f').node.style.left = y + 'px';
+                    },
+
+                    start: function () {
+                        Dom.get('v').empty();
+                    }
+
+                });
+
+                var f = new Trans();
+
+                for (var i in Fx.Transitions) {
+                    document.write('<input type="button" onclick="f.run({x: 0, from: 0, to:' + width + ', transition: Fx.Transitions.' + i + '}, \'ignore\');" value="' + i + '">');
+                    document.write('<input type="button" onclick="f.run({x: 0, from: 0, to:' + width + ', transition: Fx.easeOut(Fx.Transitions.' + i + ')}, \'ignore\');" value="easeOut(' + i + ')">');
+                    document.write('<input type="button" onclick="f.run({x: 0, from: 0, to:' + width + ', transition: Fx.easeInOut(Fx.Transitions.' + i + ')}, \'ignore\');" value="easeInOut(' + i + ')">');
+                    document.write('<p />');
+                }
+            </script>
+        </div>
+    </article>
+</body>
+</html>

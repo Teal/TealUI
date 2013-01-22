@@ -1,0 +1,68 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+// Base x-tipbox styles
+.x-tipbox {
+    padding: 4px 14px;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    .border-radius(@baseBorderRadius / 2);
+    display: inline-block;
+    vertical-align: middle;
+	line-height: @baseLineHeight;
+	
+    border: 1px solid @warningBorderColor;
+    background-color: @warningBackgroundColor;
+    color: @warningTextColor;
+}
+
+div.x-tipbox {
+    display: block;
+}
+
+.x-tipbox .x-closebutton{
+	font-size: 16px;
+	margin-left: 10px;
+	color: #AAA6A1;
+}
+
+// Alternate styles
+// ----------------
+
+.x-tipbox-success, .x-tipbox-error, .x-tipbox-info, .x-tipbox-warning {
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    padding-left: 28px;
+}
+
+.x-tipbox-warning {
+    background-image: url(../images/warning.png);
+}
+
+.x-tipbox-success {
+    background-color: @successBackgroundColor;
+    border-color: @successBorderColor;
+    color: @successTextColor;
+    background-image: url(../images/success.png);
+}
+
+.x-tipbox-error {
+    background-color: @errorBackgroundColor;
+    border-color: @errorBorderColor;
+    color: @errorTextColor;
+    background-image: url(../images/error.png);
+}
+
+.x-tipbox-info {
+    background-color: @infoBackgroundColor;
+    border-color: @infoBorderColor;
+    color: @infoTextColor;
+    background-image: url(../images/info.png);
+}
+
+
+.x-tipbox-plain {
+    background-color: transparent;
+    border-color: transparent;
+}

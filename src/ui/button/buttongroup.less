@@ -1,0 +1,34 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+/** #imports Controls.Button.Button */
+
+// Make the div behave like a button
+.x-buttongroup {
+  display: inline-block;
+   vertical-align: middle;
+  .ie7-restore-left-whitespace();
+  .clear();
+}
+
+// Float them, remove border radius, then re-add to first and last elements
+.x-buttongroup .x-button {
+  position: relative;
+  float: left;
+  margin-left: -1px;
+  .border-radius(0);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+// Set corners individual because sometimes a single button can be in a .x-buttongroup and we need :first-child and :last-child to both match
+.x-buttongroup .x-button:first-child {
+  margin-left: 0;
+  .border-top-left-radius(@baseBorderRadius);
+  .border-bottom-left-radius(@baseBorderRadius);
+}
+
+.x-buttongroup .x-button:last-child {
+  .border-top-right-radius(@baseBorderRadius);
+  .border-bottom-right-radius(@baseBorderRadius);
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>触摸滚屏</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/Animate.js" type="text/javascript"></script>
+    <script src="../../System/Fx/assets/scripts/TouchScroll.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+
+    <style>
+        #a {
+            height: 400px;
+            border: 1px solid #dddddd;
+            line-height: 40px;
+            font-size: 40px;
+            overflow: auto;
+        }
+
+        #c {
+            height: 900px;
+        }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+
+        <div id="a">
+            <div id="c">
+                <script>
+                    for (var i = 1; i < 1000; i++)
+                        document.write(i + '<br>');
+                </script>
+            </div>
+        </div>
+
+        <script class="demo">
+            new Fx.TouchScroll(Dom.get("a"));
+        </script>
+
+
+    </article>
+</body>
+</html>

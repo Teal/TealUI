@@ -1,0 +1,88 @@
+.x-table {
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-table th,
+.x-table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+  _border: 1px solid #dddddd;
+}
+.x-table thead:first-child tr th,
+.x-table thead:first-child tr td {
+  border-top: 0;
+}
+.x-table tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.x-table th + th,
+.x-table td + td,
+.x-table th + td,
+.x-table td + th {
+  border-left: 1px solid #dddddd;
+}
+.x-table thead:first-child tr:first-child th,
+.x-table tbody:first-child tr:first-child th,
+.x-table tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+.x-table thead:first-child tr:first-child th:first-child,
+.x-table tbody:first-child tr:first-child td:first-child {
+  -webkit-border-radius: 4px 0 0 0;
+  -moz-border-radius: 4px 0 0 0;
+  border-radius: 4px 0 0 0;
+}
+.x-table thead:first-child tr:first-child th:last-child,
+.x-table tbody:first-child tr:first-child td:last-child {
+  -webkit-border-radius: 0 4px 0 0;
+  -moz-border-radius: 0 4px 0 0;
+  border-radius: 0 4px 0 0;
+}
+.x-table thead:last-child tr:last-child th:first-child,
+.x-table tbody:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+}
+.x-table thead:last-child tr:last-child th:last-child,
+.x-table tbody:last-child tr:last-child td:last-child {
+  -webkit-border-radius: 0 0 4px 0;
+  -moz-border-radius: 0 0 4px 0;
+  border-radius: 0 0 4px 0;
+}
+.x-table tbody tr:hover td,
+.x-table tbody tr:hover th {
+  background-color: #f3f3f3;
+}
+.x-table-baseline {
+  border: none;
+}
+.x-table-baseline th,
+.x-table-baseline td {
+  _border: none;
+}
+.x-table-baseline td {
+  _border-top: 1px solid #dddddd;
+}
+.x-table-baseline thead th {
+  vertical-align: bottom;
+}
+.x-table-baseline th + th,
+.x-table-baseline td + td,
+.x-table-baseline th + td,
+.x-table-baseline td + th {
+  border-left: none;
+}
+.x-table-striped tbody tr:nth-child(odd) td,
+.x-table-striped tbody tr:nth-child(odd) th {
+  background-color: #f6f6f6;
+}

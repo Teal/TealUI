@@ -1,0 +1,98 @@
+
+
+.x-starrating {
+	position: relative;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+    height: 14px;
+	width: 80px;	
+}
+
+.x-starrating-back, .x-starrating-fore {
+	background-image: url("../images/star.png");
+    background-repeat: repeat-x;
+    height: 14px;
+	width: 100%;
+	position: absolute;
+}
+
+.x-starrating-fore {
+    background-position: left bottom;
+    z-index: 1;
+}
+.x-starrating-do{
+	line-height: 20px;
+}
+.x-starrating-do ul{
+	background: url("../images/icon-starrating-big.gif") repeat-x left top;
+	height:20px;
+	overflow: hidden;
+	position: relative;
+	width: 110px;
+	z-index: 1;
+}
+.x-starrating-do li a{
+	display:block;	
+	width:22px;
+	height:20px;
+	text-indent: -9999px;
+	z-index: 3;
+	zoom: 1;
+	position: absolute;
+	left:0;
+	top:0;
+}
+.x-starrating-do a:hover,
+.x-starrating-do .x-starrating-current{
+	 background: url("../images/icon-starrating-big.gif") repeat-x left bottom;
+}
+.x-starrating-do li{
+	display:inline;
+	width:22px;
+}
+.x-starrating-do .x-starrating-current{
+    height: 20px;
+    line-height: 0;   
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 1;
+	display:block;
+	width:0;
+}
+.x-starrating-grade{
+	color: #669900;
+    float: left;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0 0 0 6px;
+}
+.x-starrating-do-ul .x-star1{
+	width:22px;
+	z-index: 6
+}
+.x-starrating-do-ul .x-star2{
+	width:44px;
+	z-index: 5
+}
+.x-starrating-do-ul .x-star3{
+	width:66px;
+	z-index: 4
+}
+.x-starrating-do-ul .x-star4{
+	width:88px;
+	z-index: 3
+}
+.x-starrating-do-ul .x-star5{
+	width:110px;
+	z-index: 2
+}
+.x-starrating-readonly{
+	left:0;
+	top:0;
+	width:100%;
+	height:30px;
+	z-index: 0;
+	zoom:1;
+}

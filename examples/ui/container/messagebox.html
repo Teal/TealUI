@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>消息提示框</title>
+
+    <link href="../../Controls/Core/assets/styles/Base.css" rel="stylesheet" type="text/css">
+    <link href="../../Controls/Part/assets/styles/CloseButton.css" rel="stylesheet" type="text/css" />
+    <link href="../../Controls/Part/assets/styles/Mask.css" rel="stylesheet" type="text/css" />
+    <link href="../../Controls/Container/assets/styles/Dialog.css" rel="stylesheet" type="text/css" />
+    <link href="../../Controls/Container/assets/styles/MessageBox.css" rel="stylesheet" type="text/css" />
+
+    <link href="../../Controls/Button/assets/styles/Button.css" rel="stylesheet" type="text/css" />
+
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../Controls/Container/assets/scripts/MessageBox.js" type="text/javascript"></script>
+
+    <script src="../../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <h2 class="demo">创建消息提示框</h2>
+        
+        <script>
+            MessageBox.alert("<em>内容</em>", "标题");
+        </script>
+        
+        <script type="text/javascript">
+            Demo.writeExamples({
+                '基本用法': '-',
+                '最基本的提示框(模拟alert)': 'MessageBox.alert("<em>内容</em>", "标题");',
+                '最基本的确认框(模拟confirm)': 'MessageBox.confirm("<em>内容</em>", "标题", function(){alert("点击了确定")})',
+                '最基本的快速提示框(成功的提示)': 'MessageBox.tip("发送成功。<br><em>3 秒后刷新页面...<em>", "success", 3000, function(){location.reload()})',
+                
+                '自定义': '-',
+                '自定义图标': 'MessageBox.show("<em>内容</em>", "标题", "info")',
+                '自定义按钮': function(){
+                    MessageBox.show("<em>内容</em>", "标题", "error", {
+                       '忽略': true,
+                       '重试': function(){
+                           this.close();
+                            alert("点击了重试");
+                       },
+                       '取消': false
+                    });
+                }
+                
+            });
+        </script>
+
+        <blockquote class="demo">消息提示框是含有按钮和图标的特定对话框。其它 API 参考 <a href="Dialog.html">Dialog</a> 组件。(MessageBox 继承于 Dialog)</blockquote>
+        
+    </article>
+
+</body>
+</html>

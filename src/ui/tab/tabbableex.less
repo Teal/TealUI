@@ -1,0 +1,80 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+// Remove border on bottom, left, right
+.x-tabbable-bottom, .x-tabbable-right, .x-tabbable-left {
+    border-bottom: 0;
+}
+
+.x-tabbable-bottom {
+    border-top: 1px solid @grayBorder;
+}
+
+.x-tabbable-bottom  li {
+    margin-top: -1px;
+    margin-bottom: 0;
+}
+
+.x-tabbable-bottom  li a {
+    .border-radius(0 0 4px 4px);
+
+    &:hover {
+        border-bottom-color: transparent;
+        border-top-color: @grayBorder;
+    }
+}
+
+.x-tabbable-bottom .x-tabbable-selected a, .x-tabbable-bottom .x-tabbable-selected a:hover {
+    border-color: transparent @grayBorder @grayBorder @grayBorder;
+}
+
+// Common styles
+.x-tabbable-left  li, .x-tabbable-right  li {
+    float: none;
+}
+
+.x-tabbable-left  li a,
+.x-tabbable-right  li a {
+    min-width: 74px;
+    margin-right: 0;
+    margin-bottom: 3px;
+}
+
+// tabbable on the left
+.x-tabbable-left {
+    float: left;
+    border-right: 1px solid @grayBorder;
+}
+
+.x-tabbable-left  li a {
+    margin-right: -1px;
+    .border-radius(4px 0 0 4px);
+}
+
+.x-tabbable-left  li a:hover {
+    border-color: @grayLighter @grayBorder @grayLighter @grayLighter;
+}
+
+.x-tabbable-left .x-tabbable-selected a, .x-tabbable-left .x-tabbable-selected a:hover {
+    border-color: @grayBorder transparent @grayBorder @grayBorder;
+}
+
+// tabbable on the right
+.x-tabbable-right {
+    float: right;
+    border-left: 1px solid @grayBorder;
+}
+
+.x-tabbable-right  li a {
+    margin-left: -1px;
+    .border-radius(0 4px 4px 0);
+}
+
+.x-tabbable-right  li a:hover {
+    border-color: @grayLighter @grayLighter @grayLighter @grayBorder;
+}
+
+.x-tabbable-right .x-tabbable-selected a, .x-tabbable-right .x-tabbable-selected a:hover {
+    border-color: @grayBorder @grayBorder @grayBorder transparent;
+}

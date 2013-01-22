@@ -1,0 +1,62 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+@balloonTipBorderColor:			rgba(0,0,0,.2);
+@balloonTipBackground:			@white;
+@balloonTipTitleBackground:			#f5f5f5;
+@balloonTipBorderRadius:			6px;
+
+.x-balloontip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: @zindexBalloonTip;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid @balloonTipBorderColor;
+    .border-radius(@balloonTipBorderRadius);
+    .box-shadow(0 5px 10px @balloonTipBorderColor);
+    min-width: 200px;
+
+	display: none;
+}
+
+.x-balloontip-body {
+    overflow: hidden;
+    background-color: @balloonTipBackground;
+    .border-radius(@balloonTipBorderRadius);
+}
+
+.x-balloontip-content {
+    padding: 8px 14px;
+    overflow: auto;
+}
+
+.x-balloontip-header {
+    padding: 8px 14px;
+    line-height: 1;
+    background-color: @balloonTipTitleBackground;
+    border-bottom: 1px solid darken(@balloonTipTitleBackground, 10%);
+    .border-top-radius(@balloonTipBorderRadius);
+
+	h4 {
+		font-size: 14px;
+        line-height: 16px;
+        margin: 0;
+	}
+}
+
+.x-balloontip .x-arrow {
+	font-size: 26px;
+}
+
+.x-balloontip .x-arrow-fore {
+    color: @balloonTipBorderColor;
+}
+
+.x-balloontip .x-arrow-back {
+    color: @balloonTipBackground;
+}

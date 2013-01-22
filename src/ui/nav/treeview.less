@@ -1,0 +1,104 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+/* Tree */
+
+
+
+.x-treeview {
+    padding: 3px 0;
+    overflow: auto;
+    border: 1px solid #CCCCCC;
+    .border-radius(@baseBorderRadius);
+}
+
+.x-treeview-plain {
+    border: 0;
+}
+
+.x-treeview  li {
+    white-space: nowrap;
+}
+
+.x-treenode, .x-treeview a, .x-treenode-space {
+    height: 20px;
+    vertical-align: top;
+}
+
+.x-treenode {
+    cursor: default;
+    display: block;
+    color: @textColor;
+    font-size: @baseFontSize + 2;
+}
+
+.x-treenode-space {
+    display: inline-block;
+    width: 19px;
+    background-repeat: no-repeat;
+    background-image: url(../images/treeview.gif);
+}
+
+.x-treenode-none {
+    background-image: none!important;
+}
+
+.x-treenode-selected {
+    background-color: #D9E8FB;
+}
+
+.x-treenode:hover {
+    background-color: #EEEEEE;
+    text-decoration: none;
+}
+
+
+
+.x-treenode-plus {
+    background-position: 0 -30px;
+}
+
+.x-treenode-minus {
+    background-position: 0 -60px;
+}
+
+.x-treenode-plus:hover {
+    background-position: -30px -30px;
+}
+
+.x-treenode-minus:hover {
+    background-position: -30px -60px;
+}
+
+.x-treeview-alt {
+    .x-treenode-space {
+        background-image: url(../images/treeview-alt.gif);
+    }
+
+    .x-treenode-normal {
+        background-position: 0 -90px;
+    }
+
+    .x-treenode-last {
+
+        .x-treenode-plus {
+            background-position: 0 -120px;
+        }
+
+        .x-treenode-minus {
+            background-position: 0 -150px;
+        }
+
+        .x-treenode-normal {
+            background-position: 0 -180px;
+        }
+    }
+}
+
+
+.x-treenode-loading {
+    background-image: url(../images/loading.gif)!important;
+    background-position: 50% 50%;
+}

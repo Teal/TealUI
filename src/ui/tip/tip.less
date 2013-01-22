@@ -1,0 +1,47 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+.tipBackgroundColor(@color){
+	background-color: @color;
+
+	&:hover {
+		background-color: darken(@color, 10%);
+	}
+}
+
+
+// LABELS
+// ------
+
+// Base
+.x-tip {
+    padding: 2px 4px 3px;
+    font-size: @baseFontSize * .85;
+    font-weight: bold;
+    color: @white;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    background-color: @grayLight;
+    .border-radius(@baseBorderRadius - 1);
+
+    &:hover {
+        color: @white;
+        text-decoration: none;
+    }
+}
+
+.x-tip-info {
+    .tipBackgroundColor(@infoTextColor);
+}
+
+.x-tip-success {
+    .tipBackgroundColor(@successTextColor);
+}
+
+.x-tip-warning {
+    .tipBackgroundColor(@warningTextColor);
+}
+
+.x-tip-error {
+    .tipBackgroundColor(@errorTextColor);
+}

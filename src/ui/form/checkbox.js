@@ -1,0 +1,1 @@
+/** * @author  xuld */imports("Controls.Form.CheckBox");using("Controls.Core.Base");using("Controls.Core.IInput");var CheckBox = Control.extend(IInput).implement({		xtype: 'checkbox',		tpl: '<input type="checkbox" class="x-control">'	});

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="dpl-info" content="status=obsolete" />
+		<title>模拟 jQuery API</title>
+		<script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+        <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+        <script src="../../System/Fx/assets/scripts/Base.js" type="text/javascript"></script>
+        <script src="../../System/Fx/assets/scripts/Tween.js" type="text/javascript"></script>
+        <script src="../../System/Fx/assets/scripts/Animate.js" type="text/javascript"></script>
+        <script src="../../System/Ajax/assets/scripts/Base.js" type="text/javascript"></script>
+        <script src="../../System/Ajax/assets/scripts/Jsonp.js" type="text/javascript"></script>
+		<script src="../../System/Core/assets/scripts/JQuery-Style.js" type="text/javascript"></script>
+		
+		<script src="../../apps/demo/demo.js" type="text/javascript"></script>
+	</head>
+	<body>
+        <article class="demo">
+
+            <p class="demo">Dom.Base 组件已经提供了 DOM 操作的全部方法。本组件扩展了一些 jQuery 相同的 API 函数，让最终的代码和 jQuery 代码兼容。</p>
+
+            <section class="demo-control">
+                <div id="all">
+                    <div id="a" style="background: #DCDCDC; margin: 4px; padding: 8px;">
+                        id=a margin=4 padding=8
+				        <div id="b" style="background: #EDEDED; padding: 8px;">
+                            id=b padding=8
+					        <div id="c" style="background: #EAF2F5; border: 1px solid #ffffff; margin: 4px auto; width: 300px; text-align: center;">id=c border=1 margin=4 auto width=300</div>
+                        </div>
+                        <div id="d" style="background: #EAF2F5; border: 10px solid #BEDCE7; padding: 8px;">id=d border=10 padding=8</div>
+                    </div>
+                </div>
+                <script>
+                    var a = $('#a'),
+                        b = $('#b'),
+                        c = $('#c'),
+                        d = $('#d'),
+                        abcd = $([a, b, c, d]);
+                </script>
+            </section>
+
+            <section class="demo-api">
+
+                <script>
+
+                    Demo.writeExamples({
+                        'attr': {
+                            'a.attr("class")': 'a',
+                            'a.attr("class", "b")': '-'
+                        }
+
+                    });
+
+
+
+                </script>
+
+            </section>
+
+        </article>
+	</body>
+</html>

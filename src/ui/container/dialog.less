@@ -1,0 +1,76 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+
+.x-dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: @zindexDialog;
+    min-width: 200px;
+    *width: 400px;
+    margin-left: -100px;
+    background-color: @white;
+    border: 7px solid #999;
+    border: 7px solid rgba(0,0,0,.3);
+    .border-radius(6px);
+    .box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+
+
+.x-dialog-header {
+    padding: 7px 10px;
+    border-bottom: 1px solid #D9D9D9;
+    #gradient > .vertical(#F9F9F9, #F5F5F5);
+
+    h4 {
+        font-size: 16px;
+        line-height: @baseLineHeight;
+        margin: 0;
+    }
+}
+
+.x-dialog-body {
+    overflow: hidden;
+}
+
+.x-dialog-content {
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.x-dialog-iconbox {
+    padding: 18px 10px 16px 60px;
+    background-repeat: no-repeat;
+    background-position: 18px 16px;
+}
+
+.x-dialog-iconbox-warning {
+    background-image: url(../images/icon-warning.gif);
+}
+
+.x-dialog-iconbox-error {
+    background-image: url(../images/icon-error.gif);
+}
+
+.x-dialog-iconbox-info {
+    background-image: url(../images/icon-info.gif);
+}
+
+.x-dialog-iconbox-confirm {
+    background-image: url(../images/icon-question.gif);
+}
+
+.x-dialog-iconbox-success {
+    background-image: url(../images/icon-success.png);
+}
+
+.x-dialog-footer {
+    padding: 5px 10px;
+    text-align: right;
+}

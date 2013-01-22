@@ -1,0 +1,31 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+.x-splitter {
+    z-index: 100;
+    overflow: hidden;
+    position: absolute;
+}
+
+.x-splitter-proxy {
+    position: absolute;
+    overflow: hidden;
+    background: none repeat scroll 0 0 #CCCCCC;
+    z-index: @zindexDialogBackdrop;
+}
+
+.x-splitter-left, .x-splitter-right {
+    cursor: e-resize;
+    cursor: col-resize;
+    width: 6px;
+    height: 100%;
+    top: 0;
+}
+
+.x-splitter-top, .x-splitter-bottom {
+    cursor: n-resize;
+    cursor: row-resize;
+    width: 100%;
+    height: 6px;
+    left: 0;
+}

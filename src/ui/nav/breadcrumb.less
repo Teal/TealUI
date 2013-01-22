@@ -1,0 +1,24 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+.x-breadcrumb {
+    padding: 8px 15px;
+    margin: 0 0 @baseLineHeight;
+    list-style: none;
+    background-color: #f5f5f5;
+    .border-radius(@baseBorderRadius);
+
+    li {
+        .inline-block();
+        text-shadow: 0 1px 0 @white;
+    }
+
+    .x-breadcrumb-divider {
+        padding: 0 5px;
+        color: @grayLight;
+    }
+
+    .x-breadcrumb-selected a {
+        color: @grayDark;
+    }
+}

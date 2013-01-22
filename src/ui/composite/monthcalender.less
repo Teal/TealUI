@@ -1,0 +1,139 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+.x-monthcalender {
+    border: 1px solid @grayBorder;
+    font-size: 12px;
+    font-family: Arial;
+    padding: 3px;
+    cursor: default;
+    text-align: center;
+    .inline-block();
+    .border-radius(@baseBorderRadius);
+    background-color: #F5F5F5;
+}
+
+.x-monthcalender-main {
+    border: 1px solid @grayBorder;
+    padding: 6px;
+    background-color: @white;
+}
+
+
+.x-monthcalender-header {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.x-monthcalender-title {
+    padding: 0 31px;
+}
+
+.x-monthcalender a {
+    text-decoration: none;
+    color: #111;
+}
+
+.x-monthcalender a:hover {
+    color: #568cca;
+}
+
+.x-monthcalender-previous, .x-monthcalender-next {
+    display: block;
+    width: 16px;
+    font-size: 18px;
+}
+
+.x-monthcalender-previous {
+    float: left;
+}
+
+.x-monthcalender-next {
+    float: right;
+}
+
+//  内容
+.x-monthcalender-body {
+    position: relative;
+    width: 173px;
+    height: 118px;
+    overflow: hidden;
+    margin: 1px;
+}
+
+.x-monthcalender-days, .x-monthcalender-monthyears {
+    width: 173px;
+    position: absolute;
+}
+
+.x-monthcalender-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.x-monthcalender-days a, .x-monthcalender-days span, .x-monthcalender-monthyears a {
+    float: left;
+    overflow: hidden;
+    border: 1px solid transparent;
+	.ie6-border-transparent();
+    .border-radius(2px);
+}
+
+.x-monthcalender-days a:hover, .x-monthcalender-monthyears a:hover {
+    background-color: #EDF5FF;
+    #gradient > .vertical-all(#FDFEFF, #EDF5FF);
+    border-color: #B9D7FC;
+}
+
+// 天
+.x-monthcalender-days a, .x-monthcalender-days span {
+    text-align: right;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    padding: 0px 4px;
+}
+
+.x-monthcalender-week {
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid #e0e0e0;
+    .clear();
+    font-weight: bold;
+}
+
+.x-monthcalender-monthyears a {
+    width: 40px;
+    line-height: 36px;
+    height: 36px;
+}
+
+a.x-monthcalender-actived {
+    color: #007FE6;
+	font-weight: bold;
+}
+
+a.x-monthcalender-selected {
+    background-color: #D0E5FF;
+    #gradient > .vertical-all(#ECF5FF, #D0E5FF);
+    border-color: #007FE6!important;
+}
+
+a.x-monthcalender-decade {
+    line-height: 18px;
+}
+
+.x-monthcalender-alt, .x-monthcalender-disabled a {
+    color: @grayLight!important;
+    cursor: default!important;
+}
+
+.x-monthcalender-disabled .x-monthcalender-body a {
+    background: none!important;
+}
+
+.x-dropdownmenu .x-monthcalender-main {
+    border: none;
+}

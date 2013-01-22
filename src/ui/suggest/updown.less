@@ -1,0 +1,26 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+.x-updown .x-updown-button-up {
+	.border-bottom-right-radius(0);
+    line-height: 6px;
+	height: 15px;
+	*padding-top: 0;
+	#gradient > .bar(@white, darken(@white, 5%));
+}
+
+.x-updown-button-up .x-menubutton-arrow{
+	border-top: none;
+	border-bottom:   4px solid @black;
+}
+
+.x-updown .x-updown-button-down {
+	.border-top-right-radius(0);
+    line-height: 6px;
+	height: 15px;
+	top: auto;
+	bottom: 0;
+	*padding-top: 0;
+	*margin-bottom: 2px;
+	#gradient > .bar(darken(@white, 2%), darken(@white, 7%));
+}

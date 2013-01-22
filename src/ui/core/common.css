@@ -1,0 +1,92 @@
+html .x-left {
+  float: left;
+}
+html .x-right {
+  float: right;
+}
+html .x-left,
+html .x-right {
+  _display: inline;
+}
+html .x-middle {
+  vertical-align: middle;
+}
+.x-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+html .x-relative,
+html div.x-relative {
+  position: relative;
+}
+html .x-absolute,
+html div.x-absolute {
+  position: absolute;
+}
+html .x-inline {
+  display: inline;
+}
+html .x-block {
+  display: block;
+}
+html .x-inline-block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+html .x-hide,
+html div.x-hide {
+  display: none;
+}
+html .x-plain,
+html div.x-plain {
+  margin: 0;
+  padding: 0;
+}
+.x-break-word {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
+.x-clear {
+  *zoom: 1;
+}
+.x-clear:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-hint {
+  color: #999999;
+}
+.x-success {
+  color: #468847 !important;
+}
+.x-info {
+  color: #3a87ad !important;
+}
+.x-warning {
+  color: #c09853 !important;
+}
+.x-error {
+  color: #b94a48 !important;
+}
+.x-highlight {
+  color: #ff6600 !important;
+}
+html .x-row {
+  margin-bottom: 10px;
+}
+.x-blank {
+  height: 10px;
+  display: block;
+  visibility: hidden;
+  color: #ffffff;
+}
+.x-debug {
+  background: #C03!important;
+  color: #fff!important;
+}

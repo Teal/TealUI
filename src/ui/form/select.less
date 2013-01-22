@@ -1,0 +1,33 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+@inputTextColor:				@gray;
+@inputBorderColor:				#ccc;
+
+
+
+
+.x-select {
+  padding: 4px;
+  font-size: @baseFontSize + 2;
+  line-height: @baseLineHeight;
+  color: @inputTextColor;
+  border: 1px solid @inputBorderColor;
+  .border-radius(3px); 
+  .box-shadow(inset 0 1px 1px rgba(0,0,0,.075)); 
+}
+
+// Warning
+.x-select-warning {
+  border-color: @warningTextColor;
+}
+
+// Error
+.x-select-error {
+  border-color: @errorTextColor;
+}
+
+// Success
+.x-select-success {
+  border-color: @successTextColor;
+}

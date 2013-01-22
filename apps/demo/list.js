@@ -58,7 +58,7 @@ Demo.waterFall = function (column) {
                 }
 
                 section = sections[i];
-                section.style.cssText = 'position:absolute;top:' + min + 'px;left:' + minIndex * columnWidth + 'px';
+                section.style.cssText = 'position:absolute;width:' + eachWidth + 'px;top:' + min + 'px;left:' + minIndex * columnWidth + 'px';
 
                 heights[minIndex] += section.offsetHeight + marginBottom;
             }

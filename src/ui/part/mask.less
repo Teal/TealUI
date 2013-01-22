@@ -1,0 +1,24 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+.x-mask, .x-mask iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.x-mask {
+    z-index: @zindexModalBackdrop;
+    background: #000;
+    .opacity(0.3);
+
+    iframe {
+        z-index: -1;
+        filter: mask();
+    }
+}

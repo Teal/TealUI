@@ -1,0 +1,25 @@
+html {
+  _text-overflow: ellipsis;
+}
+.x-scrolltotop {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  _position: absolute;
+  _top: expression(document.getScroll().y + document.getSize().y-65);
+  display: none;
+  overflow: hidden;
+  width: 51px;
+  height: 51px;
+  text-indent: -9999px;
+  background: url(../images/scrolltotop.png) no-repeat left top;
+}
+.x-scrolltotop:hover {
+  background-position: 0 -51px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+#toTop:active,
+#toTop:focus {
+  outline: none;
+}

@@ -1,0 +1,33 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+// Parent container
+.x-accordion {
+    margin-bottom: @baseLineHeight;
+}
+
+// Group == heading + body
+.x-accordion-panel {
+    margin-bottom: 2px;
+    border: 1px solid @grayBorderLight;
+    .border-radius(@baseBorderRadius);
+}
+
+.x-accordion-header {
+    border-bottom: 0;
+    padding: 8px 15px;
+}
+
+.x-accordion-body {
+    overflow: hidden;
+}
+
+.x-accordion-collapsed .x-accordion-body {
+    height: 0;
+}
+
+// Inner needs the styles because you can't animate properly with any styles on the element
+.x-accordion-content {
+    padding: 9px 15px;
+    border-top: 1px solid @grayBorderLight;
+}

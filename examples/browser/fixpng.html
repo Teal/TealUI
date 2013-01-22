@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>IE6 png 透明</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Browser/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Browser/assets/scripts/FixPng.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <div class="demo-relative demo-box">
+            文字文字
+			<img class="demo-absolute" style="top: 0; left: 0" src="../../assets/resources/test.png">
+        </div>
+
+        <script>
+            Demo.writeExamples({
+                "修复 PNG": 'Browser.fixPng()'
+            });
+        </script>
+    </article>
+</body>
+</html>

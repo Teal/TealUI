@@ -1,0 +1,130 @@
+
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+// align
+html {
+	
+	.x-left {
+		float: left;
+	}
+	
+	.x-right {
+		float: right;
+	}
+	
+	/// IE6
+	// fix double margin bug for IE6
+	.x-left, .x-right {
+		_display: inline;
+	}
+	
+	.x-middle {
+		vertical-align: middle;	
+	}
+
+}
+
+.x-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// position
+html {
+		
+	.x-relative, div.x-relative {
+		position: relative;	
+	}
+	
+	.x-absolute, div.x-absolute {
+		position: absolute;	
+	}
+
+}
+
+// display
+html {
+	
+	.x-inline {
+		display: inline;	
+	}
+	
+	.x-block {
+		display: block;	
+	}
+	
+	.x-inline-block {
+		.inline-block();
+	}
+	
+	.x-hide, div.x-hide{
+		display: none;
+	}
+	
+	// plain
+	.x-plain, div.x-plain {
+		margin: 0;
+		padding: 0;
+	}
+	
+}
+
+// text
+.x-break-word {
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-all;
+}
+
+// clear
+.x-clear {
+	.clear();
+}
+
+// colors
+
+.x-hint {
+	color: @hintTextColor;
+}
+
+.x-success {
+	color: @successTextColor!important;
+}
+
+.x-info {
+	color: @infoTextColor!important;
+}
+
+.x-warning {
+	color: @warningTextColor!important;
+}
+
+.x-error {
+	color: @errorTextColor!important;
+}
+
+.x-highlight {
+	color: @highlightTextColor!important;
+}
+
+// misc
+html {
+	.x-row {
+		margin-bottom: 10px;
+	}
+}
+	
+.x-blank {
+	height: 10px;
+	display: block;
+	visibility: hidden;
+	color: @white;
+}
+
+.x-debug {
+	background: #C03!important;
+	color: #fff!important;
+}
+

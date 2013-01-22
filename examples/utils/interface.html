@@ -1,0 +1,70 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="dpl-info" content="status=plan">
+    <title></title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Utils/assets/scripts/Interface.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+
+            var MYCLASS = new Class({
+                xtype: "MYCLASS",
+                setType: function (t) {
+                    log(t);
+                    this._type = t;
+                },
+                constructor: function MYCLASSCTR(args) {
+                    log(args + "    MYCLASS 构造");
+                }
+            }).implement(IOptions).implement(IStore).implement(JPlus.IEvent),
+
+			instance = new MYCLASS('');
+
+            var fns = [
+				["IOptions", function () {
+				    instance.extend({
+				        type: '7'
+				    });
+				}, function () {
+				    assert('7' == instance._type);
+				}],
+
+				 ["IOptions", function () {
+				     var CLS = new Class().implement(IOptions);
+				     var a = new CLS();
+				     a.setOptions('a', 2);
+				     return a.a;
+				 }],
+				["IDataStore", function () {
+				    var CLS = new Class().implement(IDataStore);
+				    var a = new CLS();
+				    a.setData('f', 2);
+				    return a.getDataIf('f');
+				}]
+
+				["IStore", function () {
+				    instance.getData('f').e = 4;
+				    assert(instance.getDataIf('f').e === 4);
+				    instance.setData('f', 5);
+				    assert(instance.getDataIf('f') === 5);
+				    instance.clearData('f');
+				    assert(!instance.getDataIf('f'));
+				    return instance.getData('f');
+				}],
+
+				["IEvent", function () {
+				    instance.on('name', log);
+				    instance.trigger('name', 1);
+				}]
+            ];
+
+        </script>
+    </article>
+</body>
+</html>

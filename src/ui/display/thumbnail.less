@@ -1,0 +1,28 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+.x-thumbnail {
+    display: inline-block;
+    *display: inline;
+    padding: 4px;
+    line-height: 1;
+    border: 1px solid @grayBorder;
+    .border-radius(@baseBorderRadius);
+    .box-shadow(0 1px 3px rgba(0,0,0,.055));
+	*padding: 0;
+}
+
+// Add a hover state for linked versions only
+a.x-thumbnail:hover {
+    border-color: @linkColor;
+    .box-shadow(0 1px 4px rgba(0,105,214,.25));
+	.transition(all .2s ease-in-out);
+}
+
+// Images and captions
+.x-thumbnail img {
+    display: block;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

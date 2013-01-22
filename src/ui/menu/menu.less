@@ -1,0 +1,102 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+@menuTextColor:						@gray;
+@menuBackgroundColor:				@white;
+@menuBorderColor:					rgba(0,0,0,.2);
+@menuTextColorHover:				@white;
+@menuBackgroundColorHover:			@linkColor;
+@menuArrowColor:					#333;
+
+.x-menu {
+    // display: none; // none by default, but block on "open" of the menu
+    background-color: @menuBackgroundColor;
+    border: 1px solid #ccc;
+    border-color: @menuBorderColor;
+    .border-radius(5px);
+    min-width: 140px;
+    padding: 4px 0;
+    margin: 0; // override default ul
+    list-style: none;
+    *width: 240px;
+    position: absolute;
+    z-index: @zindexDropdown;
+    .box-shadow(0 5px 10px rgba(0,0,0,.2));
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+	_display: block;
+	_zoom: 0;
+	text-align: left;
+}
+
+.x-menu li {
+    line-height: @baseLineHeight;
+	_height: @baseLineHeight;
+}
+
+// Links within the dropdown menu
+.x-menuitem {
+    display: block;
+    padding: 3px 10px;
+    white-space: nowrap;
+    cursor: default;
+    _width: 100%;
+}
+
+.x-menuitem, .x-menuitem a {
+    color: @menuTextColor;
+}
+
+// Dividers (basically an hr) within the dropdown
+.x-menuseperator {
+    height: 1px;
+    margin: 1px;
+    overflow: hidden;
+    background-color: #e5e5e5;
+    border-bottom: 1px solid @menuBackgroundColor;
+    display: block;
+    // IE7 needs a set width since we gave a height. Restricting just
+    // to IE7 to keep the 1px left/right space in other browsers.
+    // It is unclear where IE is getting the extra space that we need
+    // to negative-margin away, but so it goes.
+    *width: 100%;
+	*font-size: ~"expression(this.parentNode?(this.runtimeStyle.fontSize=this.parentNode.style.lineHeight=this.parentNode.style.height=this.parentNode.style.fontSize='3px'):'1px')";
+}
+
+// Hover state
+.x-menuitem:hover {
+    text-decoration: none;
+}
+
+.x-menuitem-hover {
+    #gradient > .vertical(@menuBackgroundColorHover, darken(@menuBackgroundColorHover, 5%));
+}
+
+.x-menuitem-hover, .x-menuitem-hover a {
+    color: @menuTextColorHover!important;
+}
+
+// Submenu
+
+.x-menuitem-arrow {
+	border-color: transparent transparent transparent @menuArrowColor;
+	_border-color: @menuBackgroundColor @menuBackgroundColor @menuBackgroundColor @menuArrowColor;
+    border-style: solid;
+    border-width: 4px 0 4px 4px;
+    content: " ";
+    display: block;
+    float: right;
+    width: 0;
+    height: 0;
+    margin-top: 6px;
+	margin-left: 9px;
+	_line-height: 0;
+}
+
+.x-menuitem-hover .x-menuitem-arrow {
+	border-color: transparent transparent transparent @menuTextColorHover;
+	_border-color: @menuBackgroundColorHover @menuBackgroundColorHover @menuBackgroundColorHover @menuTextColorHover;
+}

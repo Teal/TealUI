@@ -1,0 +1,13 @@
+﻿@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+// 双重背景方式，保证背景正常的显示。
+body, #main {
+  /*background: url(../images/bg.jpg) no-repeat center top;*/ 
+}
+
+#main {
+  position: relative;
+  width: @gridRowWidth;
+  .center-block();
+}

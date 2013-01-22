@@ -1,0 +1,132 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+
+ /*  菜单  */
+.x-menu{
+	min-width:130px;
+	position: absolute;
+	background:url(../images/menu.gif) #f0f0f0 repeat-y;
+	border:1px solid #999999;
+	*width: 200px;
+  margin: 0px;
+  padding: 2.8px;
+}
+
+.x-menu li{
+    outline-color: -moz-use-text-color;
+    outline-style: none;
+    outline-width: 0;
+    white-space: nowrap;
+	border-style: solid;  
+    border-width: 1px 0;
+	border-color: transparent;
+	list-style: none;
+	padding: 0;
+}
+
+.x-menuitem{
+    line-height: 20px;
+	overflow: hidden;
+	display: block;
+    padding: 1px 2px;
+	margin: 0 -1px;
+	border-style: solid;
+    border-width: 0 1px;
+	border-color: transparent;
+	cursor: default;
+	font-size: 12px;
+	color: #000000;
+	_padding: 0 2px;
+}
+
+.x-menuitem:hover {
+	color: #000000;
+  text-decoration: none;
+}
+
+.x-menu-handle-top, .x-menu-handle-bottom {
+	height: 6px;
+    line-height: 6px;
+	font-size: 6px;
+	display: block;
+	cursor: pointer;
+	background-position: center center;
+	background-repeat: no-repeat;
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
+	margin-left: -1px;
+}
+
+.x-menu li, .x-menuitem, .x-menu-handle-top, .x-menu-handle-bottom {
+	_border-color:#f0f0f0; 
+	_filter:chroma(color=#f0f0f0);
+}
+
+.x-menu-hover  {
+  background-position: center;
+  background-image: url(../images/item-over.gif);
+  background-color: #dbecf4;
+  border-color:#aaccf6;
+}
+
+.x-menuitem-hover {
+  border-color:#aaccf6;
+}
+
+.x-menuitem-submenu {
+    background: url(../images/menu-arrow.gif) no-repeat right 5px;
+    padding-right: 21px;
+}
+
+.x-menuitem-disabled {
+	color: gray;	
+}
+
+.x-menuseperator {
+	display: block;
+	margin: 0 0 0 22px;
+	height: 0px;
+    border-top: 1px solid #E0E0E0;
+    border-bottom: 1px solid #FFFFFF;
+	*font-size: e("expression(this.runtimeStyle.fontSize = this.parentNode.runtimeStyle.lineHeight = this.parentNode.runtimeStyle.fontSize = 0)");
+}
+
+.x-menu  li .x-icon {
+	margin-left: 3px;
+	margin-right: 10px;
+}
+
+.x-menu-plain{
+	background-image: none!important;
+}
+
+.x-menu-handle-top {
+	background-image: url(../images/mini-top.gif);
+}
+
+.x-menu-handle-bottom {
+	background-image: url(../images/mini-bottom.gif);
+}
+
+.x-menu-handle-top:hover , .x-menu-handle-bottom:hover {
+	background-color: #dbecf4;
+	border-color: #aaccf6;
+}
+
+.x-icon-selected {
+	background-image: url(../images/selected.gif);
+}
+
+.x-icon-checked {
+	background-image: url(../images/checked.gif);
+}
+
+.x-icon-unchecked {
+	background-image: url(../images/unchecked.gif);
+}
+
+

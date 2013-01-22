@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>智能提示</title>
+
+    <link href="../../Controls/Core/assets/styles/Base.css" rel="stylesheet" type="text/css">
+
+    <!-- 以下文件仅用于演示 -->
+    <link href="../../Controls/Form/assets/styles/TextBox.css" rel="stylesheet" type="text/css">
+    <!-- 以上文件仅用于演示 -->
+
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Pin.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/KeyNav.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/IDropDownOwner.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/ListControl.js" type="text/javascript"></script>
+    <script src="../../Controls/Form/assets/scripts/ListBox.js" type="text/javascript"></script>
+    <script src="../../Controls/Suggest/assets/scripts/DropDownMenu.js" type="text/javascript"></script>
+    <script src="../../Controls/Suggest/assets/scripts/Suggest.js" type="text/javascript"></script>
+
+    <script src="../../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+
+
+    <article class="demo">
+
+        <h3 class="demo">预定义的智能提示项</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" id="suggest1" placeholder="输入 a...">
+
+            <script>
+
+
+                var suggest1 = new Suggest('suggest1');
+
+                suggest1.setSuggestItems(["abc", "abcg", "abcer", "abcewrewr", "desssdasd", "dwerer"]);
+
+            </script>
+
+        </aside>
+
+        <h3 class="demo">自定义的智能提示</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" id="suggest2" placeholder="输入 a...">
+
+            <script>
+
+
+                var suggest2 = new Suggest('suggest2');
+
+                suggest2.getSuggestItems = function () {
+                    return ["abc", "abcg", "abcer"];
+                };
+
+            </script>
+
+        </aside>
+
+        <h3 class="demo">不关闭下拉菜单的重复提示</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" id="suggest3" placeholder="输入 a...">
+
+            <script>
+
+
+                var suggest3 = new Suggest('suggest3');
+
+                suggest3.getSuggestItems = function () {
+                    return ["abc", "abcg", "abcer"];
+                };
+
+                // 选择一项后重新显示下拉菜单。
+                suggest3.selectItem = function (item) {
+                    if (item) {
+                        this.setText(item.getText());
+                    }
+                    return this.showDropDown();
+                };
+
+            </script>
+
+        </aside>
+
+        <h3 class="demo">从后台获取数据的异步提示</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" id="suggest4" placeholder="输入 a...">
+
+            <script>
+
+
+                var suggest4 = new Suggest('suggest4');
+
+                // 选择一项后重新显示下拉菜单。
+                suggest4.onDropDownShow = function () {
+
+                    var me = this;
+
+                    var text = me.getText();
+
+                    me.dropDown.hide();
+
+                    setTimeout(function () {
+
+                        // 假如在用户回调完成前没有新的输入，则提示。
+                        if (me.getText() === text) {
+
+                            me.dropDown.show();
+
+                            me.dropDown.set(["a", "b", "c"]);
+
+                            // 默认选择当前值。
+                            me.dropDown.hovering(me.dropDown.item(0));
+
+                        }
+                    }, 300);
+
+                };
+
+            </script>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+.x-carousel {
+    position: relative;
+	height: 200px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.x-carousel-header {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 32px;
+    z-index: 10;
+}
+
+.x-carousel-header li {
+    float: left;
+    width: 120px;
+    text-align: center;
+    .opacity(0.9);
+    background-color: @black;
+    line-height: 32px;
+    color: @white;
+    cursor: pointer;
+}
+
+.x-carousel-header .x-carousel-selected {
+    font-weight: bold;
+    background-color: #F2F2F2;
+    color: @black;
+}
+
+.x-carousel-body, .x-carousel-body li {
+    position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.x-carousel-body li li {
+	position: static;
+}

@@ -1,0 +1,40 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+.x-panel {
+    background: @backgroundColor;
+    border: 1px solid #CCCCCC;
+    .border-radius(@baseBorderRadius);
+}
+
+
+.x-panel-header {
+    background-color: #FAFAFA;
+	#gradient > .vertical(#FFFFFF, #F3F3F3);
+    border-bottom: 1px solid #CCCCCC;
+    padding: 10px 10px;
+    .border-radius(@baseBorderRadius @baseBorderRadius 0 0);
+}
+
+.x-panel-header h2 {
+    font-size: 14px;
+    line-height: 14px;
+    color: @grayDark;
+    margin: 0;
+}
+
+.x-panel-body {
+    overflow: hidden;
+    .clear();
+}
+
+.x-panel-content {
+    padding: 10px;
+}
+
+.x-panel-collapsed .x-panel-header {
+    border-bottom: 0;
+    .border-radius(@baseBorderRadius);
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=beta">
+    <title>集合</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Data/assets/scripts/Collection.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <script>
+
+            var list = new Collection();
+            list.add(2);  // [2]
+            list.insert(0, 1);   //  [1, 2]
+            list.remove(2);  // [1]
+            list.removeAt(0);  // []
+            list.insert(0, 2);   // [2]
+            list.insert(0, 8);   // [8, 2]
+
+            Demo.writeExamples({
+                'Collection.prototype.length': {
+                    'list.length': 2
+                },
+                'Collection.prototype.item': {
+                    'list.item(0)': 8,
+                    'list.item(1)': 2,
+                    'list.item(-1)': 2,
+                    'list.item(2)': undefined
+                }
+            });
+        </script>
+
+    </article>
+</body>
+</html>

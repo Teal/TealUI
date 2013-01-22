@@ -1,0 +1,48 @@
+
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+// Grid system
+// -------------------------
+#gridSystem {
+  
+  // Calculates Column Width
+  .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, @columns) {
+    width: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns - 1));
+  }
+  
+}
+
+// Gird Conatiner
+.x-grid {
+  margin-top: 10px;
+  .clear();
+}
+
+// Columns
+.x-col       { 
+  float: left; 
+  margin-left: @gridGutterWidth;
+}
+
+// Container
+.x-container { 
+  width: @gridRowWidth;
+  .center-block();
+}
+
+.x-col-1     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 1); }
+.x-col-2     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 2); }
+.x-col-3     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 3); }
+.x-col-4     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 4); }
+.x-col-5     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 5); }
+.x-col-6     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 6); }
+.x-col-7     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 7); }
+.x-col-8     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 8); }
+.x-col-9     { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 9); }
+.x-col-10    { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 10); }
+.x-col-11    { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 11); }
+.x-col-12    { #gridSystem > .columns(@gridGutterWidth, @gridColumnWidth, @gridRowWidth, 12); }
+.x-col-first, .x-col:first-child {
+  margin-left: 0!important;
+}

@@ -1,0 +1,193 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+@buttonBackgroundColor:					@white;
+@buttonBackgroundColorHover:			darken(@white, 10%);
+@buttonBorder:							darken(@white, 20%);
+
+@hintButtonBackgroundColor:				#454545;
+@hintButtonBackgroundColorHover:		#262626;
+
+@successButtonBackgroundColor:			#62c462;
+@successButtonBackgroundColorHover:		#51a351;
+
+@infoButtonBackgroundColor:				#5bc0de;
+@infoButtonBackgroundColorHover:		#2f96b4;
+
+@warningButtonBackgroundColor:			lighten(@orange, 15%);
+@warningButtonBackgroundColorHover:		@orange;
+
+@errorButtonBackgroundColor:			#ee5f5b;
+@errorButtonBackgroundColorHover:		#bd362f;
+
+@highlightButtonBackgroundColor:		#4AACCA;
+@highlightButtonBackgroundColorHover:	spin(@highlightButtonBackgroundColor, 20);
+
+
+// Mixin for generating button BackgroundColors
+// ---------------------------------------
+.buttonBackgroundColor(@startColor, @endColor) {
+    #gradient > .bar(@startColor, @endColor);
+    // in these cases the gradient won't cover the BackgroundColorColor, so we override
+    &:hover, &:active, &.x-button-actived, &[disabled], &.x-button-disabled {
+        background-color: @endColor;
+    }
+}
+
+// Core
+// --------------------------------------------------
+
+.x-button {
+	.inline-block();
+	padding: 4px 14px;
+	font-size: @baseFontSize + 1;
+	line-height: @baseLineHeight;
+	color: @grayDark;
+    text-shadow: 0 1px 1px rgba(255,255,255,.75);
+	border: 1px solid @buttonBorder;
+	border-bottom-color: darken(@buttonBorder, 10%);
+	.buttonBackgroundColor(@buttonBackgroundColor, @buttonBackgroundColorHover);
+	text-align: center;
+	vertical-align: middle;
+	
+	.border-radius(@baseBorderRadius);
+	.ie7-restore-left-whitespace();
+	.box-shadow(~"inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)");
+}
+	
+// Hover state
+.x-button:hover {
+	color: @grayDark;
+	text-decoration: none;
+	background-color: darken(@white, 10%);
+	background-position: 0 -15.3px;
+
+	// transition is only when going to hover, otherwise the BackgroundColor
+	// behind the gradient (there for IE<=9 fallback) gets mismatched
+	.transition(background-position .1s linear);
+}
+	
+// Active state
+.x-button:active, .x-button-actived {
+  background-color: darken(@white, 10%);
+  background-color: darken(@white, 15%) e("\9");
+  background-image: none;
+  outline: 0;
+  .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15)");
+}
+	
+// Disabled state
+.x-button[disabled], .x-button-disabled {
+  cursor: default;
+  background-image: none;
+  .opacity(0.6);
+  .box-shadow(none);
+}
+	
+	
+// Button Sizes
+// --------------------------------------------------
+
+// Large
+.x-button-large {
+  padding: 9px 24px;
+  line-height: 150%;
+  font-size: @baseFontSize + 4px;
+  .border-radius(5px);
+}
+
+// Small
+.x-button-small {
+  padding: 2px 9px;
+  font-size: @baseFontSize - 2px;
+}
+
+// Smallest
+.x-button-smallest {
+  padding: 1px 6px;
+  font-size: @baseFontSize - 2px;
+  line-height: @baseLineHeight - 4px;
+}
+
+
+// Alternate buttons
+// --------------------------------------------------
+	
+// Set text color
+// -------------------------
+.x-button-hint, .x-button-hint:hover, .x-button-success, .x-button-success:hover, .x-button-info, .x-button-info:hover, .x-button-warning, .x-button-warning:hover, .x-button-error, .x-button-error:hover, .x-button-highlight, .x-button-highlight:hover, .x-button-alt:hover, .x-button-alt:active {
+  text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+  color: @white;
+}
+
+.x-button-alt:hover, .x-button-alt:active{
+	 #gradient > .bar(@infoButtonBackgroundColor, @infoButtonBackgroundColorHover);
+}
+
+// Set the BackgroundColors
+// -------------------------
+
+// Info appears as a neutral blue
+.x-button-hint {
+  .buttonBackgroundColor(@hintButtonBackgroundColor, @hintButtonBackgroundColorHover);
+}
+
+// Success appears as green
+.x-button-success {
+  .buttonBackgroundColor(@successButtonBackgroundColor, @successButtonBackgroundColorHover);
+}
+	
+// Info appears as a neutral blue
+.x-button-info {
+  .buttonBackgroundColor(@infoButtonBackgroundColor, @infoButtonBackgroundColorHover);
+}
+
+// Warning appears are orange
+.x-button-warning {
+  .buttonBackgroundColor(@warningButtonBackgroundColor, @warningButtonBackgroundColorHover);
+}
+
+// error and error appear as red
+.x-button-error {
+  .buttonBackgroundColor(@errorButtonBackgroundColor, @errorButtonBackgroundColorHover);
+}
+
+.x-button-highlight {
+  .buttonBackgroundColor(@highlightButtonBackgroundColor, @highlightButtonBackgroundColorHover);
+}
+
+	
+// Cross-browser Jank
+// --------------------------------------------------
+
+button, input {
+
+  &.x-button {
+    // IE7 has some default padding on button controls
+    *padding: 4px 5px 0;
+  }
+ 
+  &.x-button-large {
+    *padding-top: 7px;
+    *padding-bottom: 5px;
+  }
+
+  &.x-button-small {
+    *padding-top: 1px;
+  }
+  
+}
+
+.x-button-plain {
+  background: none;
+  color: @grayDark;
+  border-color: transparent;
+  _border-color: @backgroundColor;
+  .box-shadow(none);
+}
+
+.x-button-fixed {
+  padding-left: 20px!important;
+  padding-right: 20px!important;
+}
+	

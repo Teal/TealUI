@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>文件上传域</title>
+
+    <link href="../../Controls/Core/assets/styles/Base.css" rel="stylesheet" type="text/css">
+    <link href="../../Controls/Button/assets/styles/Button.css" rel="stylesheet" type="text/css">
+    <link href="../../Controls/Form/assets/styles/FileUpload.css" rel="stylesheet" type="text/css" />
+
+    <!-- 以下文件仅用于演示 -->
+    <link href="../../Controls/Form/assets/styles/TextBox.css" rel="stylesheet" type="text/css" />
+    <!-- 以上文件仅用于演示 -->
+
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Dom/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../Controls/Core/assets/scripts/IInput.js" type="text/javascript"></script>
+    <script src="../../Controls/Form/assets/scripts/FileUpload.js" type="text/javascript"></script>
+
+    <script src="../../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <h2 class="demo">使用 HTML 创建</h2>
+
+        <h3 class="demo">只显示一个按钮</h3>
+
+        <aside class="demo">
+
+            <span class="x-fileupload">
+                <input type="file" size="1" name="upload">
+                <button class="x-button">浏览...</button>
+            </span>
+
+        </aside>
+
+        <h3 class="demo">显示文件框和按钮</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" readonly="readonly" id="fileUpload1" />
+
+            <span class="x-fileupload">
+                <input type="file" size="1" name="upload" onchange="document.getElementById('fileUpload1').value=this.value">
+                <button class="x-button">浏览...</button>
+            </span>
+
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">使用 JavaScript 创建</h2>
+
+        <h3 class="demo">显示文件框和按钮</h3>
+
+        <script class="demo" type="text/html">
+            
+            <!-- 相邻的 [type=text] 会被自动作为上传域的文本框。 -->
+            <input type="text" readonly="readonly" class="x-textbox" />
+
+            <span class="x-fileupload" id="fileUpload2">
+                <input type="file" size="1" name="upload">
+                <button class="x-button">浏览...</button>
+            </span>
+
+            <\script>
+                var fileUpload2 = new FileUpload("fileUpload2");
+            </\script>
+
+        </script>
+        
+        <blockquote class="demo">关于文本框操作的 API 参考 <a href="../Core/IInput.html">IInput</a>。(FileUpload 实现了 IInput 接口)</blockquote>
+
+    </article>
+</body>
+</html>

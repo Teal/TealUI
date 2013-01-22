@@ -1,0 +1,1 @@
+/** * @author  xuld */imports("Controls.Form.TextBox");using("Controls.Form.TextBox");var TextArea = TextBox.extend({		xtype: 'textarea',		tpl: '<textarea class="x-textbox"></textarea>'	});

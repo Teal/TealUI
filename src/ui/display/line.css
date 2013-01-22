@@ -1,0 +1,9 @@
+/** #import Controls.Typography.Hr */.x-line {
+  border-color: #dddddd;
+}
+.x-line-dotted {
+  border-style: dotted;
+}
+.x-line-dashed {
+  border-style: dashed;
+}

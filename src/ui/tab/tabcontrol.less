@@ -1,0 +1,42 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+
+
+
+
+// TABCONTROLS
+// -----------
+
+.x-tabpage-content {
+    padding: 10px;
+}
+
+.x-tabcontrol-alt .x-tabcontrol-body {
+    border-width: 0 1px 1px;
+    border-style: solid;
+    border-color: #DDD;
+    background-color: @white;
+    .border-radius(0 0 4px 4px);
+}
+
+.x-tabcontrol-alt  li a {
+    margin-right: 10px;
+    border-color: @grayBorder;
+    background-color: #F5F5F5;
+    color: @gray;
+}
+
+.x-tabcontrol-alt  li a:hover {
+    background-color: @backgroundColor;
+    // transition is only when going to hover, otherwise the background
+    // behind the gradient (there for IE<=9 fallback) gets mismatched
+    .transition(background-color .1s linear);
+}
+
+.x-tabcontrol-alt .x-tabbable-selected a {
+    background-color: @backgroundColor;
+    border-bottom-color: transparent;
+}

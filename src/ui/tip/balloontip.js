@@ -1,0 +1,1 @@
+/** * @author xuld */imports("Controls.Tip.BalloonTip");using("System.Dom.Pin");using("Controls.Core.ContainerControl");using("Controls.Core.IToolTip");/** * @class * @extends Control */var BalloonTip = ContainerControl.extend(IToolTip).implement({	    xtype: 'balloontip'});

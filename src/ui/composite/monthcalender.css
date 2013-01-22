@@ -1,0 +1,145 @@
+.x-monthcalender {
+  border: 1px solid #dddddd;
+  font-size: 12px;
+  font-family: Arial;
+  padding: 3px;
+  cursor: default;
+  text-align: center;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #F5F5F5;
+}
+.x-monthcalender-main {
+  border: 1px solid #dddddd;
+  padding: 6px;
+  background-color: #ffffff;
+}
+.x-monthcalender-header {
+  font-weight: 700;
+  font-size: 14px;
+}
+.x-monthcalender-title {
+  padding: 0 31px;
+}
+.x-monthcalender a {
+  text-decoration: none;
+  color: #111;
+}
+.x-monthcalender a:hover {
+  color: #568cca;
+}
+.x-monthcalender-previous,
+.x-monthcalender-next {
+  display: block;
+  width: 16px;
+  font-size: 18px;
+}
+.x-monthcalender-previous {
+  float: left;
+}
+.x-monthcalender-next {
+  float: right;
+}
+.x-monthcalender-body {
+  position: relative;
+  width: 173px;
+  height: 118px;
+  overflow: hidden;
+  margin: 1px;
+}
+.x-monthcalender-days,
+.x-monthcalender-monthyears {
+  width: 173px;
+  position: absolute;
+}
+.x-monthcalender-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.x-monthcalender-days a,
+.x-monthcalender-days span,
+.x-monthcalender-monthyears a {
+  float: left;
+  overflow: hidden;
+  border: 1px solid transparent;
+  _border-color: #ffffff;
+  _filter: chroma(color=#ffffff);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.x-monthcalender-days a:hover,
+.x-monthcalender-monthyears a:hover {
+  background-color: #EDF5FF;
+  background-color: #edf5ff;
+  background-image: -moz-linear-gradient(top, #fdfeff, #edf5ff);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fdfeff), to(#edf5ff));
+  background-image: -webkit-linear-gradient(top, #fdfeff, #edf5ff);
+  background-image: -o-linear-gradient(top, #fdfeff, #edf5ff);
+  background-image: linear-gradient(to bottom, #fdfeff, #edf5ff);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffdfeff', endColorstr='#ffedf5ff', GradientType=0);
+  border-color: #B9D7FC;
+}
+.x-monthcalender-days a,
+.x-monthcalender-days span {
+  text-align: right;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  padding: 0px 4px;
+}
+.x-monthcalender-week {
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid #e0e0e0;
+  *zoom: 1;
+  font-weight: bold;
+}
+.x-monthcalender-week:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-monthcalender-monthyears a {
+  width: 40px;
+  line-height: 36px;
+  height: 36px;
+}
+a.x-monthcalender-actived {
+  color: #007FE6;
+  font-weight: bold;
+}
+a.x-monthcalender-selected {
+  background-color: #D0E5FF;
+  background-color: #d0e5ff;
+  background-image: -moz-linear-gradient(top, #ecf5ff, #d0e5ff);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ecf5ff), to(#d0e5ff));
+  background-image: -webkit-linear-gradient(top, #ecf5ff, #d0e5ff);
+  background-image: -o-linear-gradient(top, #ecf5ff, #d0e5ff);
+  background-image: linear-gradient(to bottom, #ecf5ff, #d0e5ff);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffecf5ff', endColorstr='#ffd0e5ff', GradientType=0);
+  border-color: #007FE6!important;
+}
+a.x-monthcalender-decade {
+  line-height: 18px;
+}
+.x-monthcalender-alt,
+.x-monthcalender-disabled a {
+  color: #999999 !important;
+  cursor: default!important;
+}
+.x-monthcalender-disabled .x-monthcalender-body a {
+  background: none!important;
+}
+.x-dropdownmenu .x-monthcalender-main {
+  border: none;
+}

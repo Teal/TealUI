@@ -1,0 +1,53 @@
+.x-grid {
+  margin-top: 10px;
+  *zoom: 1;
+}
+.x-grid:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-col {
+  float: left;
+  margin-left: 16px;
+}
+.x-container {
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  *zoom: 1;
+}
+.x-container:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-grid-1 .x-col-main {
+  width: 980px;
+  margin-left: 0;
+}
+.x-grid-2 .x-col-side,
+.x-grid-3 .x-col-side {
+  width: 230px;
+  margin-left: 0;
+}
+.x-grid-2 .x-col-main {
+  width: 734px;
+}
+.x-grid-2x .x-col-extra {
+  width: 230px;
+}
+.x-grid-2x .x-col-main {
+  width: 734px;
+  margin-left: 0;
+}
+.x-grid-3 .x-col-extra {
+  width: 200px;
+}
+.x-grid-3 .x-col-main {
+  width: 518px;
+}

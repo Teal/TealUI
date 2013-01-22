@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>获取中文拼音</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Text/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Text/assets/scripts/PinYin.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+        输入中文: 
+        <input type="text" class="demo" id="value" value="中文" />
+        <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = Text.getPinYin(document.getElementById('value').value)" />
+
+        <div class="demo" id="result"></div>
+
+        <script>
+            Demo.writeExamples({
+                "Text.getPinYin - 获取全拼": 'Text.getPinYin("中文")',
+                "Text.getPY - 获取拼音首字母": 'Text.getPY("中文")'
+            });
+        </script>
+
+        <h3 class="demo">实现原理</h3>
+
+        <p class="demo">在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</p>
+    </article>
+</body>
+</html>

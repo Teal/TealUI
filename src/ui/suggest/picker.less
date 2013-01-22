@@ -1,0 +1,72 @@
+@import "../../../Core/assets/less/variables.less";
+@import "../../../Core/assets/less/mixins.less";
+
+
+
+
+.x-picker {
+    position: relative;
+    display: inline-block;
+    line-height: @baseLineHeight!important;
+    .ie7-restore-left-whitespace();
+}
+
+.x-picker button {
+    padding-left: 4px;
+    padding-right: 8px;
+    margin-left: 0;
+    *padding: 3px 6px 3px 2px;
+    position: absolute;
+    .border-radius(0 4px 4px 0);
+    right: 0;
+    top: 0;
+    _padding-bottom: 1px;
+    _margin-right: -1px;
+}
+
+.x-picker button .x-icon {
+    margin-left: 2px;
+    margin-right: -2px;
+}
+
+// 编辑模式的 picker
+.x-picker input {
+    padding-right: 30px;
+    *position: relative;
+	*top: -1px;
+}
+
+.x-picker input:focus ~ button {
+    border-color: rgba(82,168,236,.8);
+}
+
+// 只读模式的 picker
+.x-picker a {
+    cursor: default!important;
+    text-align: left;
+    height: @baseLineHeight;
+    display: inline-block;
+    padding-right: 35px;
+    // 发光效果
+    //
+    // .box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+    // .transition(e("border linear .2s, box-shadow linear .2s"));
+    //
+    //
+    // &:focus + button {
+    // border-color:  rgba(82,168,236,.8);
+    // }
+    //
+    // &:focus {
+    // border-color: rgba(82,168,236,.8);
+    // .box-shadow(e("inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)"));
+    // outline: 0;
+    // //    outline: thin dotted \9; /* IE6-9 */
+    /* IE6-9 */
+    // }
+    //
+    // &.x-button-disabled:focus,  &.x-button-disabled:focus + button {
+    // border-color: #ddd;
+    // .box-shadow(none);
+    // }
+}

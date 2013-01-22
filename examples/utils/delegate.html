@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=plan">
+    <title>委托</title>
+    <script src="../../System/Core/assets/scripts/Base.js" type="text/javascript"></script>
+    <script src="../../System/Utils/assets/scripts/Delegate.js" type="text/javascript"></script>
+
+    <script src="../../apps/demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+    <article class="demo">
+        <p class="demo">委托可以模拟函数，并封装多个函数。</p>
+
+        <script class="demo">
+
+            // 创建新的委托。
+            var delegate = new Delegate(function () {
+                trace(1);
+            }, function () {
+                trace(2);
+            });
+
+            // 动态增加函数。
+            delegate.add(function () {
+                trace(5);
+            });
+
+            // 执行函数。
+            delegate();
+
+            // 使用 call 执行函数。
+            delegate.call(this, 1);
+
+        </script>
+    </article>
+</body>
+</html>
