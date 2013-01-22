@@ -20,8 +20,8 @@ var ContainerControl = Control.extend({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-	tpl: '<div class="x-control">\
-			<div class="x-control-body"></div>\
+	tpl: '<div class="xtype">\
+			<div class="xtype-body"></div>\
 		</div>',
 
 	/**
@@ -29,7 +29,7 @@ var ContainerControl = Control.extend({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-	headerTpl: '<div class="x-control-header"><h4></h4></div>',
+	headerTpl: '<div class="xtype-header"><h4></h4></div>',
 
 	/**
 	 * 获取当前容器用于存放标题的 Dom 对象。
@@ -37,7 +37,7 @@ var ContainerControl = Control.extend({
      * @protected virtual
 	 */
 	header: function () {
-		return this.find('.' + this.xtype + '-header');
+		return this.dom.find('.' + this.xtype + '-header');
 	},
 
 	/**
@@ -46,7 +46,7 @@ var ContainerControl = Control.extend({
      * @protected virtual
 	 */
 	body: function () {
-		return this.find('.' + this.xtype + '-body') || this;
+		return this.dom.find('.' + this.xtype + '-body') || this.dom;
 	},
 
 	// 基本操作
@@ -80,7 +80,7 @@ var ContainerControl = Control.extend({
 
 			// 如果不存在标题，则创建一个。
 			if (!header) {
-				header = this.prepend(this.headerTpl.replace(/control/g, this.xtype));
+				header = this.dom.prepend(this.headerTpl.replace(/xtype/g, this.xtype));
 			}
 
 			// 获取或创建 title 。
@@ -137,22 +137,6 @@ var ContainerControl = Control.extend({
 		content[valueAsText ? 'setText' : 'setHtml'](value);
 		return this;
 
-	},
-
-	getText: function () {
-		return this.getContent(true);
-	},
-
-	setText: function (value) {
-		return this.setContent(value, true);
-	},
-
-	getHtml: function () {
-		return this.getContent(false);
-	},
-
-	setHtml: function (value) {
-		return this.setContent(value, false);
 	}
 
 });

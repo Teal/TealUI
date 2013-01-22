@@ -1,0 +1,14 @@
+
+
+addClass
+removeClass
+toggleClass
+hasClass
+
+getText
+setText
+
+getHtml
+setHtml
+
+index

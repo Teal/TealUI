@@ -1,5 +1,9 @@
-/** * @author xuld */
-include("core/class.js");
+/**
+ * @author xuld
+ */
+
+include("core/class.js");
+
 /**
  * 所有 UI 组件的基类。
  * @class Control
@@ -109,6 +113,16 @@ var Control = Class({
 
 		// 设置其它的各个选项。
 		me.set(opt);
+	},
+
+	/**
+	 * 设置当前输入域的状态, 并改变控件的样式。
+     * @param {String} name 状态名。
+     * @param {Boolean} value=false 要设置的状态值。
+	 * @protected virtual
+	 */
+	state: function (name, value) {
+		this.dom.toggleClass(this.xtype + '-' + name, value);
 	}
 
 });

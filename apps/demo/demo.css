@@ -1,6 +1,5 @@
 /**
- * 测试系统的主样式文件
- */
+ * 演示系统的基础样式表�? */
 /***************** 重置 ****************/
 body {
   margin: 0;
@@ -93,7 +92,7 @@ h2.demo {
   border-bottom: 1px solid #eee;
 }
 h3.demo {
-  color: #444444;
+  color: #0E454A;
   font-size: 16px;
   line-height: 20px;
   margin-top: 25px;
