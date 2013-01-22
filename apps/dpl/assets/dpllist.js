@@ -23,7 +23,7 @@ Demo.Dpl.submitForm = function (formElem, redirectTo) {
 };
 
 Demo.Dpl.add = function (parentNode) {
-	parentNode.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/dplmanager.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="x-textbox textbox-path" placeholder="组件完整路径"> <input type="text" name="title" class="x-textbox textbox-name" placeholder="(可选)组件名字"> <input type="hidden" name="action" value="create"> <select class="x-textbox" name="tpl"><option value="jscss">js+css组件</option><option value="js">js组件</option><option value="css">css组件</option><option value="docs">组件文档</option></select> <input type="button" class="x-button x-button-info" value="添加并转到" onclick="Demo.Dpl.submitForm(this.parentNode, true)"> <input type="button" class="x-button" value="添加" onclick="Demo.Dpl.submitForm(this.parentNode, false)"></form>';
+	parentNode.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/dplmanager.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="x-textbox textbox-path" placeholder="模块完整路径"> <input type="text" name="title" class="x-textbox textbox-name" placeholder="(可选)模块描述"> <input type="hidden" name="action" value="create"> <select class="x-textbox" name="tpl"><option value="jscss">js+css模块</option><option value="js">js模块</option><option value="css">css模块</option><option value="docs">文档</option></select> <input type="button" class="x-button x-button-info" value="添加并转到" onclick="Demo.Dpl.submitForm(this.parentNode, true)"> <input type="button" class="x-button" value="添加" onclick="Demo.Dpl.submitForm(this.parentNode, false)"></form>';
 
 	var form = Dom.get(parentNode);
 
@@ -147,7 +147,7 @@ Demo.writeDplList = function (filter) {
 	html += '<article class="demo">';
 
 	if (Demo.local)
-		html += '<nav class="demo demo-toolbar" style="margin-top:-40px;"><a href="javascript://创建一个新的组件" class="x-linkbutton" onclick="Demo.Dpl.add(this.parentNode)">✚ 创建组件</a></nav>';
+		html += '<nav class="demo demo-toolbar" style="margin-top:-40px;"><a href="javascript://创建一个新的模块" class="x-linkbutton" onclick="Demo.Dpl.add(this.parentNode)">✚ 创建模块</a></nav>';
 
 	for (category in tree) {
 		data = tree[category];

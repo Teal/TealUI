@@ -411,7 +411,7 @@ var Class = (function () {
 		 */
 		once: function (eventName, eventHandler, scope) {
 
-			assert.isFunction(eventHandler, 'JPlus.Base#once(eventName, eventHandler): {eventHandler} ~');
+			assert.isFunction(eventHandler, 'Class.Base#once(eventName, eventHandler): {eventHandler} ~');
 
 			// 先插入一个用于删除句柄的函数。
 			return this.on(eventName, function () {

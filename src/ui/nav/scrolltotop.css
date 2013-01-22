@@ -12,7 +12,7 @@ html {
   width: 51px;
   height: 51px;
   text-indent: -9999px;
-  background: url(../images/scrolltotop.png) no-repeat left top;
+  background: url(images/scrolltotop.png) no-repeat left top;
 }
 .x-scrolltotop:hover {
   background-position: 0 -51px;

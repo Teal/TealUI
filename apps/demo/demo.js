@@ -416,7 +416,7 @@ if (typeof module !== 'object') {
 				case "demo-toolbar-goto":
 					dropDown.className = 'demo-toolbar-dropdown';
 					dropDown.style.width = '300px';
-					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="搜索组件路径/名字..."><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
+					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="搜索组件路径/名字以快速转到..."><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
 					dropDown.defaultButton = dropDown.firstChild;
 					dropDown.defaultButton.onkeydown = function (e) {
 						e = e || window.event;
@@ -812,7 +812,7 @@ if (typeof module !== 'object') {
 			}
 		}
 
-		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他组件" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="G">转到' + space + '▾</a> | ';
+		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他组件" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="F">搜索' + space + '▾</a> | ';
 
 		if (Demo.local && isInDocs && isHomePage) {
 			html += '<a href="' + configs.serverBaseUrl + configs.apps + '/dpl/server/dplmanager.njs?action=updatelist&postback=' + encodeURIComponent(location.href) + ' " title="刷新组件列表缓存" accesskey="H">刷新列表</a>';

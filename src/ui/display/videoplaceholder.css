@@ -26,7 +26,7 @@ a.x-videoplaceholder:hover {
   margin-right: auto;
 }
 .x-videoplaceholder-icon {
-  background: url(../images/videoplaceholder.png) no-repeat scroll 0 0 transparent;
+  background: url(images/videoplaceholder.png) no-repeat scroll 0 0 transparent;
   cursor: pointer;
   position: absolute;
   width: 50px;

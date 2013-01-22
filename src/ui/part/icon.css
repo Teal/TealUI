@@ -8,7 +8,7 @@
   overflow: hidden;
   color: transparent;
   text-decoration: none;
-  background-image: url(../images/glyphicons-halflings.png);
+  background-image: url(images/glyphicons-halflings.png);
   background-repeat: no-repeat;
   *margin-right: .3em;
 }
@@ -19,7 +19,7 @@
   background-image: none;
 }
 .x-icon-white {
-  background-image: url(../images/glyphicons-halflings-white.png);
+  background-image: url(images/glyphicons-halflings-white.png);
 }
 .x-icon-glass {
   background-position: 0 0;

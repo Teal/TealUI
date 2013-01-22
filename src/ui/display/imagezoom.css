@@ -3,9 +3,9 @@
  */
 
 .x-imagezoom-small{
-	cursor:url(../images/zoom-tolarge.cur),pointer;
+	cursor:url(images/zoom-tolarge.cur),pointer;
 }
 
 .x-imagezoom-large{
-    cursor:url(../images/zoom-tosmall.cur),pointer;
+    cursor:url(images/zoom-tosmall.cur),pointer;
 }

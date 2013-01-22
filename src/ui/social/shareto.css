@@ -1,4 +1,6 @@
-/** * @author  *//**
+/**
+ * @author 
+ *//**
  * @author 
  */
 
@@ -26,21 +28,21 @@
 
 
 .x-shareto-sina {
-	background-image: url(../images/weibo.gif);
+	background-image: url(images/weibo.gif);
 }
 
 .x-shareto-qqt {
-	background-image: url(../images/qqt.png);
+	background-image: url(images/qqt.png);
 }
 
 .x-shareto-163 {
-	background-image: url(../images/163.png);
+	background-image: url(images/163.png);
 }
 
 .x-shareto-renren {
-	background-image: url(../images/renren.png);
+	background-image: url(images/renren.png);
 }
 
 .x-shareto-douban {
-	background-image: url(../images/douban.png);
+	background-image: url(images/douban.png);
 }
