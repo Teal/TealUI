@@ -7,7 +7,7 @@
 //  CompactMode - 兼容模式 - 支持 IE6+ FF3+ Chrome10+ Opera10.5+ Safari5+ , 若无此宏，将只支持 HTML5。
 
 
-var JPlus = (function (window, undefined) {
+var JPlus = (function (undefined) {
 
 	/// #region Core
 
@@ -219,7 +219,9 @@ var JPlus = (function (window, undefined) {
      * @remark
      * 在定义一个类的抽象函数时，可以让其成员的值等于 **Function.empty** 。
      */
-	Function.empty = emptyFn;
+	Function.empty = function emptyFn() {
+
+	};
 
 	/**
 	 * 格式化指定的字符串。
@@ -351,145 +353,95 @@ var JPlus = (function (window, undefined) {
 	 * @type Navigator
 	 * @namespace navigator
 	 */
-	(function (navigator) {
 
-		// 检查信息
-		var ua = navigator.userAgent,
+    // 检查信息
+	var ua = navigator.userAgent,
 
-			match = ua.match(/(IE|Firefox|Chrome|Safari|Opera)[\/\s]([\w\.]*)/i) || ua.match(/(WebKit|Gecko)[\/\s]([\w\.]*)/i) || [0, "", 0],
+		match = ua.match(/(IE|Firefox|Chrome|Safari|Opera)[\/\s]([\w\.]*)/i) || ua.match(/(WebKit|Gecko)[\/\s]([\w\.]*)/i) || [0, "Other", 0],
 
-			// 浏览器名字。
-			browser = match[1],
+		isIE678 = !+"\v1";
 
-			// IE678 = false, 其它 = true
-			isStd = !!+"\v1";
+    /**
+	 * 获取一个值，该值指示是否为 IE 浏览器。
+	 * @getter isIE
+	 * @type Boolean
+	 */
 
-		navigator["is" + browser] = navigator["is" + browser + parseInt(match[2])] = true;
+    /**
+	 * 获取一个值，该值指示是否为 IE6 浏览器。
+	 * @getter isIE6
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE 浏览器。
-		 * @getter isIE
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 IE7 浏览器。
+	 * @getter isIE7
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE6 浏览器。
-		 * @getter isIE6
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 IE8 浏览器。
+	 * @getter isIE8
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE7 浏览器。
-		 * @getter isIE7
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 IE9 浏览器。
+	 * @getter isIE9
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE8 浏览器。
-		 * @getter isIE8
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 IE10 浏览器。
+	 * @getter isIE10
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE9 浏览器。
-		 * @getter isIE9
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 Firefox 浏览器。
+	 * @getter isFirefox
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 IE10 浏览器。
-		 * @getter isIE10
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 Chrome 浏览器。
+	 * @getter isChrome
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 Firefox 浏览器。
-		 * @getter isFirefox
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 Opera 浏览器。
+	 * @getter isOpera
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 Chrome 浏览器。
-		 * @getter isChrome
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 Opera10 浏览器。
+	 * @getter isOpera10
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 Opera 浏览器。
-		 * @getter isOpera
-		 * @type Boolean
-		 */
+    /**
+	 * 获取一个值，该值指示是否为 Safari 浏览器。
+	 * @getter isSafari
+	 * @type Boolean
+	 */
 
-		/**
-		 * 获取一个值，该值指示是否为 Opera10 浏览器。
-		 * @getter isOpera10
-		 * @type Boolean
-		 */
+	navigator["is" + match[1]] = navigator["is" + match[1] + parseInt(match[2])] = true;
 
-		/**
-		 * 获取一个值，该值指示是否为 Safari 浏览器。
-		 * @getter isSafari
-		 * @type Boolean
-		 */
+    /**
+	 * 判断当前浏览器是否是 IE678。
+	 * @getter
+	 * @type Boolean
+	 */
+	navigator.isIE678 = isIE678;
 
-		// 结果
-		extend(navigator, {
-
-			/// #if CompactMode
-
-			/**
-			 * 判断当前浏览器是否符合W3C标准。
-			 * @getter
-			 * @type Boolean
-			 * @remark 就目前浏览器状况， 除了 IE6, 7, 8， 其它浏览器都返回 true。
-			 */
-			isStd: isStd,
-
-			/**
-			 * 获取一个值，该值指示当前浏览器是否支持标准事件。
-			 * @getter
-			 * @type Boolean
-			 * @remark 就目前浏览器状况， IE6，7 中 isQuirks = true 其它浏览器都为 false 。
-			 */
-			isQuirks: !isStd && typeof document.constructor !== 'object',
-
-			/// #endif
-
-			/**
-			 * 获取当前浏览器的名字。
-			 * @getter
-			 * @type String
-			 * @remark
-			 * 肯能的值有:
-			 *
-			 * - IE
-			 * - Firefox
-			 * - Chrome
-			 * - Opera
-			 * - Safari
-			 *
-			 * 对于其它非主流浏览器，返回其 HTML 引擎名:
-			 *
-			 * - Webkit
-			 * - Gecko
-			 * - Other
-			 */
-			name: browser,
-
-			/**
-			 * 获取当前浏览器版本。
-			 * @getter
-			 * @type String
-			 * @remark 输出的格式比如 6.0.0 。 这是一个字符串，如果需要比较版本，应该使用
-			 * <pre>
-			 *       parseFloat(navigator.version) <= 5.5 。
-			 * </pre>
-			 */
-			version: match[2]
-
-		});
-
-	})(window.navigator);
+    /**
+	 * 获取一个值，该值指示当前浏览器是否支持标准事件。
+	 * @getter
+	 * @type Boolean
+	 */
+	navigator.isIE67 = isIE678 && typeof document.constructor !== 'object';
 
 	/// #endregion
 
@@ -869,13 +821,6 @@ var JPlus = (function (window, undefined) {
 	}
 
 	/**
-	 * 空函数。
-	 */
-	function emptyFn() {
-
-	}
-
-	/**
 	 * 将一个字符转为大写。
 	 * @param {String} ch 参数。
 	 * @param {String} match 字符。
@@ -913,4 +858,8 @@ var JPlus = (function (window, undefined) {
 
 	};
 
-})(this);
+})();
+
+
+
+
