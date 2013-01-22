@@ -4,7 +4,7 @@
 
 
 
-using("System.Utils.Set");
+include("utils/set.js");
 
 Object.extend(JPlus, {
 

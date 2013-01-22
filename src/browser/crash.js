@@ -4,7 +4,7 @@
 
 
 
-using("System.Browser.Base");
+include("browser/base.js");
 
 
 Browser.crash = function () {

@@ -104,7 +104,7 @@ function assert(value, message) {
  * 载入一个组件的 js 和 css源码。
  * @param {String} namespace 组件全名。
  * @example <pre>
- * using("System.Dom.Keys");
+ * include("dom/keys.js");
  * </pre>
  */
 function using(namespace, isStyle) {

@@ -3,8 +3,8 @@
 //===========================================
 
 
-using("System.Dom.Base");
-using("System.Dom.Selection");
+include("dom/base.js");
+include("dom/selection.js");
 
 
 /**

@@ -1,7 +1,7 @@
 
 
-using("System.Ajax.Base");
-using("System.Dom.Base");
+include("ajax/base.js");
+include("dom/base.js");
 
 /**
  * 返回一个表单的参数表示形式。

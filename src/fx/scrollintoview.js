@@ -1,7 +1,7 @@
 
 
 
-using("System.Dom.Base");
+include("dom/base.js");
 
 Dom.implement({
 

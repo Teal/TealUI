@@ -4,9 +4,9 @@
 
 
 
-imports("Controls.Part.Icon");
-using("Controls.Suggest.Picker");
-using("Controls.Composite.MonthCalender");
+include("ui/part/icon.css");
+include("ui/suggest/picker.js");
+include("ui/composite/monthcalender.js");
 
 
 var DatePicker = Picker.extend({

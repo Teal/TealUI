@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-using("Controls.Suggest.Picker");
-using("Controls.Suggest.DropDownMenu");
+include("ui/suggest/picker.js");
+include("ui/suggest/dropdownmenu.js");
 
 /**
  * 表示一个组合框。

@@ -1,9 +1,9 @@
-﻿/**
+/**
  * @author xuld
  */
 
 
-using("Controls.Core.Base");
+include("ui/core/base.js");
 
 
 var Pagination = Control.extend({

@@ -1,8 +1,8 @@
-﻿/**
+/**
  * @author xuld
  */
 
-using("System.Text.Base");
+include("text/base.js");
 
 
 /**

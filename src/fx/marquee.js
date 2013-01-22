@@ -3,8 +3,8 @@
  */
 
 
-using("System.Fx.Animate");
-using("System.Dom.Base");
+include("fx/animate.js");
+include("dom/base.js");
 
 var Marquee = Class({
 	

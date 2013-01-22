@@ -3,9 +3,9 @@
  */
 
 
-imports("Controls.Menu.Menu");
-using("System.Dom.Pin");
-using("Controls.Core.TreeControl");
+include("ui/menu/menu.css");
+include("dom/pin.js");
+include("ui/core/treecontrol.js");
 
 
 var Menu = TreeControl.extend({

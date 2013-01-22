@@ -1,5 +1,5 @@
 
-using("System.Dom.Base");
+include("dom/base.js");
 
 
 var HtmlSelect = Dom.extend({

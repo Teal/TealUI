@@ -4,8 +4,8 @@
 
 
 
-imports("Controls.Tab.Accordion");
-using("Controls.Core.TabbableControl");
+include("ui/tab/accordion.css");
+include("ui/core/tabbablecontrol.js");
 
 
 var Accordion = TabbableControl.extend({

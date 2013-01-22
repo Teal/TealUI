@@ -1,9 +1,9 @@
-﻿/**
+/**
  * @author 
  */
 
 
-using("System.Dom.Base");
+include("dom/base.js");
 
 window.DomHelper = (function () {
 

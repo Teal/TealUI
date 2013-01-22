@@ -2,8 +2,7 @@
  * @author 
  */
 
-using('System.Dom.Base')
-Dom.implement({	
+include("dom/base.js");Dom.implement({	
 	scrollSpy: function(){
 		var me = this,
 			initY = me.getPosition().y,

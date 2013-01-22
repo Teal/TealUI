@@ -3,7 +3,7 @@
  */
 
 
-using("System.Ajax.Base");
+include("ajax/base.js");
 
 
 var QueryString = QueryString || {};

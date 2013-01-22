@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-imports("Controls.Composite.MonthCalender");
-using("System.Utils.Date");
-using("System.Fx.Animate");
+include("ui/composite/monthcalender.css");
+include("utils/date.js");
+include("fx/animate.js");
 
 
 var MonthCalender = Control.extend({

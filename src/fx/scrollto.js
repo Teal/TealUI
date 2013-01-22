@@ -1,4 +1,4 @@
-/** * @author  */using("System.Fx.Animate");Dom.implement({
+/** * @author  */include("fx/animate.js");Dom.implement({
 	scrollTo: function(y, x, duration, callback) {
 		var obj = {};
 		if (y != null) {

@@ -1,15 +1,15 @@
-/** * @author xuld */imports("Controls.Form.TextBox");imports("Controls.Form.Form");imports("Controls.Button.Button");using("Controls.Container.Dialog");var LoginBox = Dialog.extend({
+/** * @author xuld */include("ui/form/textbox.css");include("ui/form/form.css");include("ui/button/button.css");include("ui/container/dialog.js");var LoginBox = Dialog.extend({
 
     contentTpl: '<form class="x-form">\
                     <div class="x-formfield">\
-                        <label class="x-formfield-label">ÓÃ»§Ãû:</label>\
+                        <label class="x-formfield-label">ï¿½Ã»ï¿½ï¿½ï¿½:</label>\
                         <div class="x-formfield-content">\
                             <input type="text" class="x-textbox">\
                             <span class="x-tipbox x-tipbox-error">AAA</span>\
                         </div>\
                     </div>\
                     <div class="x-formfield">\
-                        <label class="x-formfield-label">ÃÜÂë:</label>\
+                        <label class="x-formfield-label">ï¿½ï¿½ï¿½ï¿½:</label>\
                         <div class="x-formfield-content">\
                             <input type="text" class="x-textbox">\
                             <span class="x-tipbox x-tipbox-success x-tipbox-plain">&nbsp;</span>\
@@ -17,7 +17,7 @@
                     </div>\
                     <div class="x-formfield">\
                         <div class="x-formfield-content">\
-                            <button class="x-button" type="submit">È·¶¨</button>\
+                            <button class="x-button" type="submit">È·ï¿½ï¿½</button>\
                         </div>\
                     </div>\
                 </form>',

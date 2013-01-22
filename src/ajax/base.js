@@ -3,7 +3,7 @@
  */
 
 
-using("System.Utils.Deferrable");
+include("utils/deferrable.js");
 
 /**
  * 用于发送和接收 AJAX 请求的工具。

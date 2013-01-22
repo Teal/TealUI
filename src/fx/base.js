@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-using("System.Utils.Deferrable");
+include("utils/deferrable.js");
 
 /**
  * 特效算法基类。

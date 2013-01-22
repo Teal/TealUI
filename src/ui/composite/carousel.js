@@ -3,9 +3,9 @@
  */
 
 
-imports("Controls.Composite.Carousel");
-using("System.Fx.Animate");
-using("Controls.Core.Base");
+include("ui/composite/carousel.css");
+include("fx/animate.js");
+include("ui/core/base.js");
 
 
 var Carousel = Control.extend({

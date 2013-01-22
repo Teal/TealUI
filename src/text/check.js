@@ -2,7 +2,7 @@
  * @author aki
  */
 
-using("System.Text.Base");
+include("text/base.js");
 
 Object.extend(Text, {
 	

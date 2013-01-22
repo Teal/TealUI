@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-using("System.Text.Base");
+include("text/base.js");
 
 //将utf8转gb2312
 Text.utf8ToGb2312 = function (str) {

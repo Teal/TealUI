@@ -2,7 +2,7 @@
 
 
 
-using("System.Data.QueryString");
+include("data/querystring.js");
 
 
 // Chrome 23 可能更新 location

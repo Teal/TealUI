@@ -1,4 +1,4 @@
-/** * @author xuld */using("System.Dom.Drag");var Slider = Control.extend({
+/** * @author xuld */include("dom/drag.js");var Slider = Control.extend({
 
     tpl: '<div class="x-slider">\
                 <div class="x-slider-range"></div>\

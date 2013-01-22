@@ -1,2 +1,2 @@
-using("System.Dom.Helper");using("System.Fx.Animate");using("System.Ajax.Base");using("System.Ajax.Jsonp");DomList.implement({
+include("dom/helper.js");include("fx/animate.js");include("ajax/base.js");include("ajax/jsonp.js");DomList.implement({
 });

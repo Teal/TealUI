@@ -3,7 +3,7 @@
  */
 
 
-using("System.Text.Base");
+include("text/base.js");
 
 /**
  * 检查中国身份证合法性。

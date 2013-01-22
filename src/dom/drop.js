@@ -6,7 +6,7 @@
 
 
 
-using("System.Dom.Drag");
+include("dom/drag.js");
 
 
 

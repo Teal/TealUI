@@ -3,8 +3,8 @@
  */
 
 
-using('System.Fx.Animate');
-using('Controls.Core.Base');
+include("fx/animate.js");
+include("ui/core/base.js");
 
 
 var ScrollToTop = Control.extend({

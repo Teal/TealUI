@@ -1,8 +1,8 @@
-﻿/**
+/**
  * @author xuld
  */
 
-using("System.Ajax.Script");
+include("ajax/script.js");
 
 Ajax.transports.jsonp = function (xhrObject, parseData) {
 

@@ -3,7 +3,7 @@
  */
 
 
-using("Controls.Suggest.Suggest");
+include("ui/suggest/suggest.js");
 
 var EmailSuggest = Suggest.extend({
 

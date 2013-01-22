@@ -1,9 +1,9 @@
-﻿/**
+/**
  * @author xuld
  */
 
 
-using("System.Dom.Pin");
+include("dom/pin.js");
 
 
 var IToolTip = {

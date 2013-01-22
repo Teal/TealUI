@@ -3,15 +3,15 @@
  */
 
 
-imports("Controls.Suggest.UpDown");
-using("System.Dom.KeyNav");
-using("Controls.Suggest.Picker");
+include("ui/suggest/updown.css");
+include("dom/keynav.js");
+include("ui/suggest/picker.js");
 
 
 var UpDown = Picker.extend({
 
     /**
-	 * µ±Ç°¿Ø¼þÏÂÀ­°´Å¥µÄ HTML Ä£°å×Ö·û´®¡£
+	 * ï¿½ï¿½Ç°ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ HTML Ä£ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */

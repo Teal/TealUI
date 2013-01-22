@@ -3,9 +3,9 @@
  */
 
 
-imports("Controls.Nav.TreeView");
-using("Controls.Core.TreeControl");
-using("Controls.Core.ICollapsable");
+include("ui/nav/treeview.css");
+include("ui/core/treecontrol.js");
+include("ui/core/icollapsable.js");
 
 
 var TreeView = TreeControl.extend({

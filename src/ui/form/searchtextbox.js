@@ -1,9 +1,9 @@
 
 
 
-imports("Controls.Form.TextBox");
-imports("Controls.Suggest.SearchTextBox");
-using("Controls.Suggest.Picker");
+include("ui/form/textbox.css");
+include("ui/suggest/searchtextbox.css");
+include("ui/suggest/picker.js");
 
 
 var SearchTextBox = Picker.extend({

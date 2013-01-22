@@ -1,10 +1,10 @@
-﻿/**
+/**
  * AJAX 传输 JSON
  * @author xuld
  */
 
-using("System.Ajax.Base");
-using("System.Data.JSON");
+include("ajax/base.js");
+include("data/json.js");
 
 Ajax.accepts.json = "application/json, text/javascript";
 Ajax.dataParsers.json = function (xhrObject) {

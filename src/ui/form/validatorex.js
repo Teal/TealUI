@@ -1,7 +1,7 @@
 /**
  * @author xuld
  */
-using("Controls.Form.Validator");
+include("ui/form/validator.js");
 
 Validator.get = function (dom) {
     dom = Dom.get(dom);

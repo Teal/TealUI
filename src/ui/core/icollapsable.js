@@ -3,7 +3,7 @@
  */
 
 
-using("System.Fx.Animate");
+include("fx/animate.js");
 
 
 /**

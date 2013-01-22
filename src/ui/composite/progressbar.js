@@ -1,9 +1,9 @@
-﻿/**
+/**
  * @author xuld
  */
 
-imports("Controls.Composite.ProgressBar");
-using("Controls.Core.Base");
+include("ui/composite/progressbar.css");
+include("ui/core/base.js");
 
 
 var ProgressBar = Control.extend({

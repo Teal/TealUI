@@ -3,7 +3,7 @@
  */
 
 
-using("System.Fx.Tween");
+include("fx/tween.js");
 
 
 (function(){

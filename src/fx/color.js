@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-using("System.Fx.Tween");
+include("fx/tween.js");
 
 
 Fx.defaultTweeners.unshift({

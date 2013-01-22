@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-imports("Controls.Form.ListBox");
-using("System.Dom.KeyNav");
-using("Controls.Core.ListControl");
+include("ui/form/listbox.css");
+include("dom/keynav.js");
+include("ui/core/listcontrol.js");
 
 /**
  * 表示一个下拉菜单。用于 Suggest 和 ComboBox 组件。

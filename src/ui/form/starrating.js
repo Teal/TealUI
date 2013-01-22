@@ -15,7 +15,7 @@ var Starrating = {
                 me.setRate();
             })
         } else {
-            Dom.query('.x-starrating-do span.x-left').setText('ÄúÒÑ¾­ÆÀ¹ý·ÖÁË');
+            Dom.query('.x-starrating-do span.x-left').setText('ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
             Dom.query('.x-starrating-readonly').setStyle('z-index', 10);
         }
     },

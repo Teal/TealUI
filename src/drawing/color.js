@@ -145,7 +145,7 @@ Object.extend(JPlus.Color, {
 
 
 
-using("System.Dom.Base");
+include("dom/base.js");
 
 
 Element.implement({

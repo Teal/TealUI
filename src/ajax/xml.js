@@ -1,9 +1,9 @@
-﻿/**
+/**
  * AJAX 传输 XML
  * @author xuld
  */
 
-using("System.Ajax.Base");
+include("ajax/base.js");
 
 
 Ajax.accepts.xml = "application/xml, text/xml";

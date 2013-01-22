@@ -5,81 +5,81 @@
 include("core/class.js");
 
 /**
- * 所有 UI 组件的基类。
+ * 锟斤拷锟斤拷 UI 锟斤拷锟斤拷锟侥伙拷锟洁。
  * @class Control
  * @abstract
- * 控件的生命周期：
- * constructor - 创建控件对应的 Javascript 类。不建议重写构造函数，除非你知道你在做什么。
- * create - 创建本身的 dom 节点。默认为解析 #tpl 对应的 HTML 字符串，返回相应原生节点。
- * init - 初始化控件本身。默认为空函数。
- * attach - 添加控件对应的节点到 DOM 树。不建议重写，如果一个控件封装了多个 DOM 节点则需重写本函数。
- * detach - 删除控件对应的节点。不建议重写，如果一个控件封装了多个 DOM 节点则需重写本函数。
+ * 锟截硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟节ｏ拷
+ * constructor - 锟斤拷锟斤拷锟截硷拷锟斤拷应锟斤拷 Javascript 锟洁。锟斤拷锟斤拷锟斤拷锟斤拷写锟斤拷锟届函锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷知锟斤拷锟斤拷锟斤拷锟斤拷什么锟斤拷
+ * create - 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷 dom 锟节点。默锟斤拷为锟斤拷锟斤拷 #tpl 锟斤拷应锟斤拷 HTML 锟街凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷应原锟斤拷锟节点。
+ * init - 锟斤拷始锟斤拷锟截硷拷锟斤拷锟巾。默锟斤拷为锟秸猴拷锟斤拷锟斤拷
+ * attach - 锟斤拷锟接控硷拷锟斤拷应锟侥节点到 DOM 锟襟。诧拷锟斤拷锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷一锟斤拷锟截硷拷锟斤拷装锟剿讹拷锟斤拷 DOM 锟节碉拷锟斤拷锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷锟斤拷
+ * detach - 删锟斤拷锟截硷拷锟斤拷应锟侥节点。锟斤拷锟斤拷锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷一锟斤拷锟截硷拷锟斤拷装锟剿讹拷锟斤拷 DOM 锟节碉拷锟斤拷锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷锟斤拷
  */
 var Control = Class({
 
 	/**
-	 * 当前 UI 组件绑定的 Dom 对象。
+	 * 锟斤拷前 UI 锟斤拷锟斤拷锟襟定碉拷 Dom 锟斤拷锟斤拷锟斤拷
 	 * @type {Dom}
 	 */
 	dom: null,
 
 	/**
-	 * xtype: 用于标记控件的 css 类。
+	 * xtype: 锟斤拷锟节憋拷锟角控硷拷锟斤拷 css 锟洁。
 	 * @protected virtual
 	 */
 	xtype: "x-control",
 
 	/**
-	 * 当前控件的 HTML 模板字符串。
+	 * 锟斤拷前锟截硷拷锟斤拷 HTML 模锟斤拷锟街凤拷锟斤拷锟斤拷
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
 	tpl: "<div/>",
 
 	/**
-	 * 当被子类重写时，生成当前控件对应的原生节点。
-	 * @param {Object} options 选项。
-     * @return {Element} 原生的 DOM 节点。
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷写时锟斤拷锟斤拷锟缴碉拷前锟截硷拷锟斤拷应锟斤拷原锟斤拷锟节点。
+	 * @param {Object} options 选锟筋。
+     * @return {Element} 原锟斤拷锟斤拷 DOM 锟节点。
 	 * @protected virtual
 	 */
 	create: function () {
 
-		// 转为对 tpl解析。
+		// 转为锟斤拷 tpl锟斤拷锟斤拷锟斤拷
 		return Dom.parseNode(this.tpl.replace(/xtype/g, this.xtype));
 	},
 
 	/**
-	 * 当被子类重写时，初始化当前控件。
-	 * @param {Object} options 当前控件的初始化配置。
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷写时锟斤拷锟斤拷始锟斤拷锟斤拷前锟截硷拷锟斤拷
+	 * @param {Object} options 锟斤拷前锟截硷拷锟侥筹拷始锟斤拷锟斤拷锟矫★拷
 	 * @protected virtual
 	 */
 	init: Function.empty,
 
 	/**
-	 * 初始化一个新的控件。
-	 * @param {String/Element/Dom/Object} [options] 绑定的节点或节点 id 或完整的配置对象，用于初始化当前控件。
+	 * 锟斤拷始锟斤拷一锟斤拷锟铰的控硷拷锟斤拷
+	 * @param {String/Element/Dom/Object} [options] 锟襟定的节碉拷锟斤拷锟节碉拷 id 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟矫讹拷锟斤拷锟斤拷锟斤拷锟节筹拷始锟斤拷锟斤拷前锟截硷拷锟斤拷
 	 */
 	constructor: function (options) {
 
-		// 这是所有控件共用的构造函数。
+		// 锟斤拷锟斤拷锟斤拷锟叫控硷拷锟斤拷锟矫的癸拷锟届函锟斤拷锟斤拷
 		var me = this,
 
-			// 临时的配置对象。
+			// 锟斤拷时锟斤拷锟斤拷锟矫讹拷锟斤拷锟斤拷
 			opt = {},
 
-			// 当前实际的节点。
+			// 锟斤拷前实锟绞的节点。
 			node;
 
-		// 如果存在配置。
+		// 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟矫★拷
 		if (options) {
 
-			// 如果 options 是纯配置。
+			// 锟斤拷锟斤拷 options 锟角达拷锟斤拷锟矫★拷
 			if (options.constructor === Object) {
 
-				// 将配置拷贝到 opt 对象。
+				// 锟斤拷锟斤拷锟矫匡拷锟斤拷锟斤拷 opt 锟斤拷锟斤拷锟斤拷
 				Object.extend(opt, options);
 
-				// 处理 node、selector、dom 字段
+				// 锟斤拷锟斤拷 node锟斤拷selector锟斤拷dom 锟街讹拷
 				if (opt.node) {
 					node = opt.node;
 					delete opt.node;
@@ -97,28 +97,28 @@ var Control = Class({
 
 			} else {
 
-				// 否则，尝试根据 options 找到节点。
+				// 锟斤拷锟津，筹拷锟皆革拷锟斤拷 options 锟揭碉拷锟节点。
 				node = Dom.getNode(options);
 			}
 
 		}
 
-		// 如果 node 被找到，则使用 node，否则使用 #create(opt)生成节点。
+		// 锟斤拷锟斤拷 node 锟斤拷锟揭碉拷锟斤拷锟斤拷使锟斤拷 node锟斤拷锟斤拷锟斤拷使锟斤拷 #create(opt)锟斤拷锟缴节点。
 		me.node = node || me.create(opt);
 
-		assert.isNode(me.node, "Dom#constructor(options): Dom 对象的 {node} 不是节点。", me.node);
+		assert.isNode(me.node, "Dom#constructor(options): Dom 锟斤拷锟斤拷锟斤拷 {node} 锟斤拷锟角节点。", me.node);
 
-		// 调用 init 初始化控件。
+		// 锟斤拷锟斤拷 init 锟斤拷始锟斤拷锟截硷拷锟斤拷
 		me.init(opt);
 
-		// 设置其它的各个选项。
+		// 锟斤拷锟斤拷锟斤拷锟斤拷锟侥革拷锟斤拷选锟筋。
 		me.set(opt);
 	},
 
 	/**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。
-     * @param {Boolean} value=false 要设置的状态值。
+	 * 锟斤拷锟矫碉拷前锟斤拷锟斤拷锟斤拷锟斤拷状态, 锟斤拷锟侥憋拷锟截硷拷锟斤拷锟斤拷式锟斤拷
+     * @param {String} name 状态锟斤拷锟斤拷
+     * @param {Boolean} value=false 要锟斤拷锟矫碉拷状态值锟斤拷
 	 * @protected virtual
 	 */
 	state: function (name, value) {

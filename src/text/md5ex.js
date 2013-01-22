@@ -1,9 +1,9 @@
-﻿/**
+/**
  * @author xuld
  */
 
 
-using("System.Text.Md5");
+include("text/md5.js");
 
 /**
  * 计算一个字符串的 MD5值。

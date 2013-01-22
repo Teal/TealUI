@@ -3,7 +3,7 @@
  */
 
 
-using("Controls.Suggest.UpDown");
+include("ui/suggest/updown.js");
 
 var NumericUpDown = UpDown.extend({
 

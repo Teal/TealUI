@@ -3,10 +3,10 @@
  */
 
 
-imports("Controls.Part.Arrow");
-imports("Controls.Tip.ToolTip");
-using("Controls.Core.ContentControl");
-using("Controls.Core.IToolTip");
+include("ui/part/arrow.css");
+include("ui/tip/tooltip.css");
+include("ui/core/contentcontrol.js");
+include("ui/core/itooltip.js");
 
 
 	

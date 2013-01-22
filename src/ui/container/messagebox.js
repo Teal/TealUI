@@ -1,9 +1,9 @@
-﻿
 
 
 
 
-using("Controls.Container.Dialog");
+
+include("ui/container/dialog.js");
 
 var MessageBox = Dialog.extend({
 

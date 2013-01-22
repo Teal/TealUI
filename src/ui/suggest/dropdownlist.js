@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-using("Controls.Suggest.ComboBox");
+include("ui/suggest/combobox.js");
 
 /**
  * 表示一个下拉列表。

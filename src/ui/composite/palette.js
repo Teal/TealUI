@@ -1,4 +1,4 @@
-﻿
+
 
 
 var Palette = Control.extend({

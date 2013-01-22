@@ -1,4 +1,4 @@
-﻿/** * @author  */Dom.implement({	getOuterHtml: function() {
+/** * @author  */Dom.implement({	getOuterHtml: function() {
 		var elem = this.node;
 		if ("outerHTML" in elem) {
 			return elem.outerHTML;

@@ -3,10 +3,10 @@
  */
 
 
-imports("Controls.Button.Button");
-imports("Controls.Form.FileUpload");
-using("Controls.Core.Base");
-using("Controls.Core.IInput");
+include("ui/button/button.css");
+include("ui/form/fileupload.css");
+include("ui/core/base.js");
+include("ui/core/iinput.js");
 
 
 var FileUpload = Control.extend(IInput).implement({

@@ -3,7 +3,7 @@
  */
 
 
-using("System.Text.Base");
+include("text/base.js");
 
 Object.extend(Text, {
 
@@ -11,7 +11,7 @@ Object.extend(Text, {
 
 	},
 
-	//¼ì²éÊÇ·ñÎªÖÐÎÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	isChinese: function (value) {
 		return /^([\u4E00-\u9FA5]|[\uFE30-\uFFA0])+$/gi.test(value);
 	},
@@ -25,7 +25,7 @@ Object.extend(Text, {
 	},
 
 	/**
-	 * ÑéÖ¤ÊÇ·ñºÏ·¨µÄÉí·ÝÖ¤¡£
+	 * ï¿½ï¿½Ö¤ï¿½Ç·ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½
 	 * @param {Object} value
 	 */
 	isId: function (value) {
@@ -41,7 +41,7 @@ Object.extend(Text, {
 	},
 
 	/**
-	 * ÊÇ·ñÎªÓÊÕþ±àÂë¡£
+	 * ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£
 	 * @param {Object} value
 	 */
 	isPostCode: function (value) {

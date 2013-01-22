@@ -1,1 +1,1 @@
-/** * @author  */using("System.Browser.Base");Browser.noIFrame = function () {	if (self != top) {		top.location = self.location;	}};
+/** * @author  */include("browser/base.js");Browser.noIFrame = function () {	if (self != top) {		top.location = self.location;	}};

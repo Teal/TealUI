@@ -1,9 +1,9 @@
-﻿/**
+/**
  * AJAX 传输 JavaScript 。
  * @author xuld
  */
 
-using("System.Ajax.Base");
+include("ajax/base.js");
 
 Ajax.accepts.script = "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript";
 

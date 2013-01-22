@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-imports("Controls.Form.ListBox");
-using("Controls.Core.ListControl");
+include("ui/form/listbox.css");
+include("ui/core/listcontrol.js");
 
 
 /**

@@ -2,8 +2,8 @@
  * @author 
  */
 
-imports("Controls.Tab.Tabbable");
-using("Controls.Core.TabbableControl");
+include("ui/tab/tabbable.css");
+include("ui/core/tabbablecontrol.js");
 
 /**
  * TAB 选项卡。

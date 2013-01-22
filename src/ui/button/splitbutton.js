@@ -3,9 +3,9 @@
  */
 
 
-imports("Controls.Button.ButtonGroup");
-imports("Controls.Button.SplitButton");
-using("Controls.Button.MenuButton");
+include("ui/button/buttongroup.css");
+include("ui/button/splitbutton.css");
+include("ui/button/menubutton.js");
 
 
 var SplitButton = MenuButton.extend({

@@ -1,8 +1,8 @@
 /**
  * @author  xuld
  */
-imports("Controls.Form.RadioButton");using("Controls.Core.Base");
-using("Controls.Core.IInput");
+include("ui/form/radiobutton.css");include("ui/core/base.js");
+include("ui/core/iinput.js");
 
 
 var RadioButton = Control.extend(IInput).implement({

@@ -1,7 +1,7 @@
 //===========================================
 //  表格               table.js       A
 //===========================================
-using("System.Controls.Control");
+include("controls/control.js");
 
 /**
  * IFrame

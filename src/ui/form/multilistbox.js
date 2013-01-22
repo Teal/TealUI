@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-using("Controls.Form.ListBox");
+include("ui/form/listbox.js");
 
 
 /**

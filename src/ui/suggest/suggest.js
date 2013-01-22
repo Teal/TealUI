@@ -3,8 +3,8 @@
  */
 
 
-using("Controls.Core.IDropDownOwner");
-using("Controls.Suggest.DropDownMenu");
+include("ui/core/idropdownowner.js");
+include("ui/suggest/dropdownmenu.js");
 
 /**
  * 智能提示组件。

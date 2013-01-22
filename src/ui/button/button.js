@@ -3,9 +3,9 @@
  */
 
 
-imports("Controls.Button.Button");
-using("Controls.Core.IInput");
-using("Controls.Core.ContentControl");
+include("ui/button/button.css");
+include("ui/core/iinput.js");
+include("ui/core/contentcontrol.js");
 
 
 var Button = ContentControl.extend({
