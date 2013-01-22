@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author 
  */
 /*
@@ -10,13 +10,13 @@
 */
 @font-face {
   font-family: 'IcoMoon';
-  src: url('../fonts/base/icomoon-webfont.eot');
-  src: url('../fonts/base/icomoon-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/base/icomoon-webfont.woff') format('woff'), url('../fonts/base/icomoon-webfont.ttf') format('truetype'), url('../fonts/base/icomoon-webfont.svg#IcoMoonBase') format('svg');
+  src: url('fonts/base/icomoon-webfont.eot');
+  src: url('fonts/base/icomoon-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/base/icomoon-webfont.woff') format('woff'), url('fonts/base/icomoon-webfont.ttf') format('truetype'), url('fonts/base/icomoon-webfont.svg#IcoMoonBase') format('svg');
 }
 @font-face {
   font-family: 'IcoMoonSocial';
-  src: url('../fonts/social/icomoonsocial-webfont.eot');
-  src: url('../fonts/social/icomoonsocial-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/social/icomoonsocial-webfont.woff') format('woff'), url('../fonts/social/icomoonsocial-webfont.ttf') format('truetype'), url('../fonts/social/icomoonsocial-webfont.svg#IcoMoonSocial') format('svg');
+  src: url('fonts/social/icomoonsocial-webfont.eot');
+  src: url('fonts/social/icomoonsocial-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/social/icomoonsocial-webfont.woff') format('woff'), url('fonts/social/icomoonsocial-webfont.ttf') format('truetype'), url('fonts/social/icomoonsocial-webfont.svg#IcoMoonSocial') format('svg');
 }
 .x-icomoon {
   display: inline-block;

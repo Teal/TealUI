@@ -9,15 +9,14 @@
 </head>
 <body>
     <article class="demo">
+
+        <blockquote class="demo">JSON2 是由 <a href="http://www.json.org">json.org</a> 提供的标准 JSON 库。</blockquote>
+
         <script type="text/javascript">
 
             Demo.writeExamples({
-                'JSON.stringify': {
-                    'JSON.stringify({})': "{}"
-                },
-                'JSON.parse': {
-                    'JSON.parse("[{\\\"a\\\":true}]")': [{ a: true }]
-                }
+                'JSON.stringify': 'JSON.stringify({})',
+                'JSON.parse': JSON.parse("[{\"a\":true}]")
             });
 
             function parseDate(key, value) {

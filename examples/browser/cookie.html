@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>Cookie 操作</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/browser/base.js"></script>
-    <script type="text/javascript" src="../../../src/browser/cookie.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/browser/cookie.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,9 +13,9 @@
     <article class="demo">
         <script>
             Demo.writeExamples({
-                '获取 Cookie': 'Browser.getCookie("aaaa")',
-                '设置 Cookie': 'Browser.setCookie("aaaa", "b")',
-                '删除 Cookie': 'Browser.setCookie("aaaa", null)'
+                '获取 Cookie': 'Cookie.get("sample")',
+                '设置 Cookie': 'Cookie.set("sample", "the value")',
+                '删除 Cookie': 'Cookie.set("sample", null)'
             });
         </script>
     </article>

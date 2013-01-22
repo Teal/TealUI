@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="dpl-info" content="status=ok">
+    <meta name="dpl-info" content="status=complete">
     <title>网页结构</title>
 
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
@@ -11,7 +11,7 @@
     
    <article class="demo">
 
-       <p class="demo">本组件只规定了一个文档应该具有的基本结构。</p>
+       <blockquote class="demo demo-info">本组件不含任何代码，只规定了一个网页的基本结构。</blockquote>
 
        <script class="demo" type="code/html">
            <!DOCTYPE html>
@@ -35,7 +35,7 @@
             </html>
        </script>
 
-       <blockquote class="demo">本组件库只支持 HTML CSS1Compact 模式（标准模式），因此必须定义 !doctype 。推荐使用 HTML5 的方式声明。</blockquote>
+       <blockquote class="demo">本组件库只支持 HTML 标准模式（CSS1Compact），因此必须定义 !doctype 。</blockquote>
 
    </article>
 
@@ -43,10 +43,10 @@
 
         <h2 class="demo">980px 宽度居中</h2>
 
-       <p class="demo">要实现 980px 宽度居中，可以使用 <code class="demo">Controls.Layout.Grid</code> 组件中的 <code class="demo">x-container</code> 类。</p>
+       <p class="demo">要实现 980px 宽度居中，可以使用 <a class="demo" href="grid.html">grid</a> 组件中的 <code class="demo">x-container</code> 类。</p>
 
        <script class="demo" type="code/html">
-           <!DOCTYPE html>
+            <!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">
@@ -57,20 +57,17 @@
                     <div class="x-container"></div>
                 </div>
                 <div id="main" class="x-container">
-                    <div id="header">
-                    </div>
-                    <div id="body">
-                    </div>
-                    <div id="footer">
-                    </div>
+                    <div id="header"></div>
+                    <div id="body"></div>
+                    <div id="footer"></div>
                 </div>
             </body>
             </html>
        </script>
-       <p class="demo">如果 #header 和 #footer 存在背景，则不能直接对 #main 居中，这时需要每个模块各自居中。</p>
+       <p class="demo">有些网页设计需要头部和底部背景全屏扩展，此时不能将整个 #main 居中，而应该各个部分各自居中。</p>
 
        <script class="demo" type="code/html">
-           <!DOCTYPE html>
+            <!DOCTYPE html>
             <html>
             <head>
                 <meta charset="UTF-8">
