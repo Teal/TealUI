@@ -150,12 +150,6 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	tpl: '<a class="ui-control"><span></span></a>',
 	
 	/**
-	 * 当前树的深度。
-	 * @type {Integer}
-	 */
-	depth: 0,
-	
-	/**
 	 * 获取当前用于折叠的容器对象。
 	 * @return {Control} 折叠的容器对象。
 	 * @protected override
@@ -379,7 +373,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return {Integer} 返回节点深度。
 	 */
 	getDepth: function(){
-		return this.depth;
+		return Dom.dataField(this.dom[0]).treeViewDepth;
 	},
 
 	/**
@@ -392,7 +386,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		assert(value >= 0, "TreeNode#setDepth(value): {value} 必须是不小于 0 的整数", value);
 		
 		var me = this,
-			currentDepth = me.depth, 
+			currentDepth = me.getDepth(),
 			span,
 			current = me;
 		
@@ -412,7 +406,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		
 		// 更新深度。
 		
-		me.depth = value;
+		Dom.dataField(this.dom[0]).treeViewDepth = value;
 		
 		// 绑定最后一个 span 的点击事件。
 		

@@ -18,8 +18,8 @@ var TreeControl = ListControl.extend({
 	 * @param {Dom} parent=null DOM 对象的父节点。
 	 * @protected virtual
 	 */
-	createNode: function (child) {
-		return new TreeControl.Node(child);
+	createNode: function (existsDom) {
+		return new TreeControl.Node(existsDom);
 	},
 
 	/**
@@ -28,25 +28,24 @@ var TreeControl = ListControl.extend({
 	 * @param {Dom} [childControl] 强制指定 li 内指定的子节点。
 	 * @private
 	 */
-	initNode: function (li, createNode) {
+	initNode: function (li) {
 
 		// 获取第一个子节点。
 		var sub = li.find('>ul');
 
 		// 如果不存在子树，也不需要创建子节点，则退出。
-		if (!sub.length && !createNode) {
-			return;
-		}
-
-		// 根据节点创建一个 TreeControl.Node 对象。
-		li = this.createNode(li);
-
-		// 如果存在子菜单，设置子菜单。
 		if (sub.length) {
-			li.setSubControl(sub);
-		}
 
-		return li;
+			// 为了设置子菜单，将 li 转为 Node 对象。
+			// 根据节点创建一个 TreeControl.Node 对象。
+			if (!(li instanceof TreeControl.Node)) {
+				li = this.createNode(li);
+			}
+
+			// 设置子菜单。
+			li.setSub(sub);
+
+		}
 
 	},
 
@@ -68,20 +67,15 @@ var TreeControl = ListControl.extend({
 	 */
 	insert: function (newChild, refChild) {
 
-		var item;
-
-		// newChild 不一定是一个标准的 <li> 标签。
-		// 先处理 newChild 为标准 Dom 对象。
-
-		// 处理字符串。
-		newChild = Dom.parse(newChild);
-
-		// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
-		if (newChild[0].tagName !== 'LI') {
-			item = newChild;
-			newChild = Dom.create('LI');
-			newChild.append(item);
+		// 将参数转为 Node 对象。
+		if (!(newChild instanceof TreeControl.Node)) {
+			var t = newChild;
+			newChild = this.createNode();
+			newChild.content().append(t);
 		}
+
+		// 如果其内部有子树，则进行初始化。
+		this.initNode(newChild);
 
 		if (refChild && refChild.before) {
 			refChild.before(newChild);
@@ -89,8 +83,7 @@ var TreeControl = ListControl.extend({
 			this.dom.append(newChild);
 		}
 
-		// newChild 是一个 <li> 标签，如果其内部有子树，则进行初始化。
-		return this.initNode(newChild, true);
+		return newChild;
 	},
 
 	item: function (index) {
