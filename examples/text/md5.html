@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>MD5 加密</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/md5.js"></script>
+    <script type="text/javascript" src="../../src/text/md5.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,14 +12,12 @@
     <article class="demo">
 
         <input type="text" value="" id="value" style="width: 300px;" />
-        <input type="button" value="MD5 加密" onclick=" document.getElementById('value').value = Text.md5(document.getElementById('value').value)" />
+        <input type="button" value="MD5 加密" onclick=" document.getElementById('value').value = Encryption.md5(document.getElementById('value').value)" />
 
 
         <script>
             Demo.writeExamples({
-                "MD5 加密": {
-                    'Text.md5("abc")': "900150983cd24fb0d6963f7d28e17f72"
-                }
+                "MD5 加密": 'Encryption.md5("abc")'
             });
         </script>
     </article>

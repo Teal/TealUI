@@ -2,11 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="dpl-info" content="status=plan">
+    <meta name="dpl-info" content="status=develop">
     <title>IE6 png 透明</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/browser/base.js"></script>
-    <script type="text/javascript" src="../../../src/browser/fixpng.js"></script>
+    
+    <script type="text/javascript" src="../../src/browser/fixpng.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -15,12 +14,12 @@
 
         <div class="demo-relative demo-box">
             文字文字
-			<img class="demo-absolute" style="top: 0; left: 0" src="../../assets/resources/test.png">
+			<img class="demo-absolute" style="top: 0; left: 0" src="../../apps/demo/images/test.png">
         </div>
 
         <script>
             Demo.writeExamples({
-                "修复 PNG": 'Browser.fixPng()'
+                "修复 PNG": 'fixPng()'
             });
         </script>
     </article>

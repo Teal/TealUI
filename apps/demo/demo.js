@@ -131,7 +131,7 @@ Demo.Dpl = {
      * 将 URL 转换为模块名。
      */
 	toModulePath: function (path) {
-		return path ? path.replace(/\.[a-zA-Z]+$/, "").replace(/^[\/\\]+/, "").replace(/[\/\\]+$/, "") : "";
+		return path ? path.replace(/[?#].*$/, "").replace(/\.[a-zA-Z]+$/, "").replace(/^[\/\\]+/, "").replace(/[\/\\]+$/, "") : "";
 	}
 
 };

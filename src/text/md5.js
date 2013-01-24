@@ -2,14 +2,14 @@
  * @author xuld
  */
 
-include("text/base.js");
-
-
 /**
  * 计算一个字符串的 MD5值。
  * @param {String} s 字符串。
  * @return {String} md5 字符串。
  */
+
+var Encryption = Encryption || {};
+
 
 (function () {
 
@@ -66,7 +66,7 @@ include("text/base.js");
      * 转换字符串到二进制。
      * 如果字符大于 255 ， 高位被截掉。
      */
-	Text.str2binl = function (str) {
+	Encryption.str2binl = function (str) {
 	    var bin = Array(), chrsz = charSize;
 	    var mask = (1 << chrsz) - 1;
 	    for (var i = 0; i < str.length * chrsz; i += chrsz)
@@ -77,7 +77,7 @@ include("text/base.js");
     /**
      * 计算一个数组的 MD5 值。
      */
-	Text.md5c = function (x, len) {
+	Encryption.md5c = function (x, len) {
 
 	    // 靠齐字符串
 	    x[len >> 5] |= 0x80 << ((len) % 32);
@@ -142,9 +142,8 @@ include("text/base.js");
      * @param {String} s 字符串。
      * @return {String} md5 字符串。
      */
-	Text.md5 = function (s) {
-	    assert.isString(s, "Text.md5(s): {s}~");
-	    return Text.binl2hex(Text.md5c(Text.str2binl(s), s.length * charSize));
+	Encryption.md5 = function (s) {
+	    return Encryption.binl2hex(Encryption.md5c(Encryption.str2binl(s), s.length * charSize));
 	};
 
     /**
@@ -152,7 +151,7 @@ include("text/base.js");
      * @param {Array} 二进制数组。
      * @return {String} 字符串。
      */
-	Text.binl2hex = function (binarray) {
+	Encryption.binl2hex = function (binarray) {
 	    var str = "";
 	    for (var i = 0; i < binarray.length * 4; i++) {
 	        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +

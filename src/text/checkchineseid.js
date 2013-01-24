@@ -3,12 +3,11 @@
  */
 
 
-include("text/base.js");
 
 /**
  * 检查中国身份证合法性。
  */
-Text.checkId = (function (data) {
+var checkChineseId = (function (data) {
 	
 	return function(id){
 		

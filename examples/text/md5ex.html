@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>MD5 加密扩展</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/md5.js"></script>
-    <script type="text/javascript" src="../../../src/text/md5ex.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/text/md5.js"></script>
+    <script type="text/javascript" src="../../src/text/md5ex.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,15 +14,15 @@
     <article class="demo">
         
         <input type="text" id="value" style="width: 300px;" />
-        <input type="button" value="HMAC MD5 加密" onclick="document.getElementById('value').value = Text.hmacMd5(document.getElementById('value').value, 'key')" />
-        <input type="button" value="base64 Md5 加密" onclick="document.getElementById('value').value = Text.base64Md5(document.getElementById('value').value)" />
-        <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('value').value = Text.base64HmacMd5(document.getElementById('value').value, 'key')" />
+        <input type="button" value="HMAC MD5 加密" onclick="document.getElementById('value').value = Encryption.hmacMd5(document.getElementById('value').value, 'key')" />
+        <input type="button" value="base64 Md5 加密" onclick="document.getElementById('value').value = Encryption.base64Md5(document.getElementById('value').value)" />
+        <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('value').value = Encryption.base64HmacMd5(document.getElementById('value').value, 'key')" />
 
         <script>
             Demo.writeExamples({
-                "MD5 & base64 加密": 'Text.base64Md5("abc")',
-                "HMD5 加密": 'Text.hmacMd5("abc", "key")',
-                "HMD5 & base64 加密": 'Text.base64HmacMd5("abc", "key")'
+                "MD5 & base64 加密": 'Encryption.base64Md5("abc")',
+                "HMD5 加密": 'Encryption.hmacMd5("abc", "key")',
+                "HMD5 & base64 加密": 'Encryption.base64HmacMd5("abc", "key")'
             });
         </script>
 

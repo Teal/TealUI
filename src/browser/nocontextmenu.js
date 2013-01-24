@@ -1,14 +1,9 @@
 /**
- * @author 
+ * @author xuld
  */
 
 
-
-
-include("browser/base.js");
-
-
-Browser.noContextMenu = function () {
+function noContextMenu() {
     document.oncontextmenu = document.onselectstart = function () {
         return false;
     };

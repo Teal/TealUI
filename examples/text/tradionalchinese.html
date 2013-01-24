@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>中文简繁体转换</title>
-    <script type="text/javascript" src="../../../src/core/debug.js"></script>
-    <script type="text/javascript" src="../../../src/text/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/tradionalchinese.js"></script>
+    <script type="text/javascript" src="../../src/text/tradionalchinese.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,13 +12,13 @@
     <article class="demo">
         输入中文: 
         <input type="text" class="demo" id="value" value="中文简繁体转换" />
-        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = Text.toTradionalChinese(document.getElementById('value').value)" />
-        <input type="button" value="转简体" onclick=" document.getElementById('value').value = Text.toSimpleChinese(document.getElementById('value').value)" />
+        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = Chinese.toTradionalChinese(document.getElementById('value').value)" />
+        <input type="button" value="转简体" onclick=" document.getElementById('value').value = Chinese.toSimpleChinese(document.getElementById('value').value)" />
 
         <script>
             Demo.writeExamples({
-                "Text.toTradionalChinese - 简体转繁体": 'Text.toTradionalChinese("简")',
-                "Text.toSimpleChinese - 繁体转简体": 'Text.toSimpleChinese("簡")'
+                "简体转繁体": 'Chinese.toTradionalChinese("简")',
+                "繁体转简体": 'Chinese.toSimpleChinese("簡")'
             });
         </script>
 

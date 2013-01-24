@@ -1,7 +1,6 @@
 
 
 include("ajax/base.js");
-include("dom/base.js");
 
 /**
  * 返回一个表单的参数表示形式。
@@ -9,7 +8,6 @@ include("dom/base.js");
  * @return {String} 参数形式。
  */
 Ajax.paramForm = function(formElem) {
-	formElem = Dom.getNode(formElem);
 	assert(formElem && formElem.tagName == "FORM", "HTMLFormElement.param(formElem): 参数 {formElem} 不是合法的 表单 元素", formElem);
 	var s = [], input, e = encodeURIComponent, value, name;
 	for (var i = 0, len = formElem.length; i < len; i++) {
@@ -46,19 +44,17 @@ Ajax.paramForm = function(formElem) {
 
 /**
  * 通过 ajax 提交一个表单。
- * @param {HTMLFormElement} form 表单元素。
- * @param {String/Object} data 数据。
+ * @param {HTMLFormElement} formElem 表单元素。
  * @param {Function} [onsuccess] 成功回调函数。
  * @param {Function} [onerror] 错误回调函数。
  * @param {Object} timeouts=-1 超时时间， -1 表示不限。
  * @param {Function} [ontimeout] 超时回调函数。
  */
-Ajax.submit = function(form, onsuccess, onerror) {
-	form = Dom.getNode(form);
+Ajax.submit = function(formElem, onsuccess, onerror) {
 	return Ajax.send({
 		type: form.method,
 		url: form.action,
-		data: Ajax.paramForm(form),
+		data: Ajax.paramForm(formElem),
 		success: onsuccess,
 		error: onerror
 	});

@@ -1,12 +1,14 @@
+/**
+ * @author xuld
+ */
 
-include("browser/base.js");
 
 
 /**
  * 预载入一个地址的资源。
  * @param {String} src 图片地址。
  */
-Browser.preload = (function () {
+var preload = (function () {
 	
 	var loadings = [], isLoading = false;
 	

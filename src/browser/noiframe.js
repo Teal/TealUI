@@ -1,1 +1,1 @@
-/** * @author  */include("browser/base.js");Browser.noIFrame = function () {	if (self != top) {		top.location = self.location;	}};
+/** * @author xuld */function noIFrame() {	if (self != top) {		top.location = self.location;	}};

@@ -10,17 +10,17 @@ include("text/md5.js");
  * @param {String} s 字符串。
  * @return {String} md5 字符串。
  */
-Text.hmacMd5 = function (key, data) {
-    return Text.binl2hex(Text.hmacMd5c(key, data));
+Encryption.hmacMd5 = function (key, data) {
+    return Encryption.binl2hex(Encryption.hmacMd5c(key, data));
 };
 
 /**
  * 计算 HMAC-MD5 。
  */
-Text.hmacMd5c = function (key, data) {
+Encryption.hmacMd5c = function (key, data) {
     assert.notNull(key, "key");
     assert.notNull(data, "data");
-    var me = Text,
+    var me = Encryption,
         charSize = 8,
         bkey = me.str2binl(key);
     if (bkey.length > 16)
@@ -41,15 +41,15 @@ Text.hmacMd5c = function (key, data) {
  * @param {String} s 字符串。
  * @return {String} md5 字符串。
  */
-Text.base64Md5 = function (s) {
+Encryption.base64Md5 = function (s) {
     var charSize = 8;
-    return Text.binl2b64(Text.md5c(Text.str2binl(s), s.length * charSize));
+    return Encryption.binl2b64(Encryption.md5c(Encryption.str2binl(s), s.length * charSize));
 };
 
 /**
  * 转换数组到 base-64 的字符串。
  */
-Text.binl2b64 = function (binarray, base64pad) {
+Encryption.binl2b64 = function (binarray, base64pad) {
     var str = "";
     base64pad = base64pad || "";
     for (var i = 0; i < binarray.length * 4; i += 3) {
@@ -71,10 +71,10 @@ Text.binl2b64 = function (binarray, base64pad) {
  * @param {String} s 字符串。
  * @return {String} md5 字符串。
  */
-Text.base64HmacMd5 = function (key, data) {
+Encryption.base64HmacMd5 = function (key, data) {
     assert.notNull(key, "key");
     assert.notNull(data, "data");
-    return Text.binl2b64(Text.md5c(key, data));
+    return Encryption.binl2b64(Encryption.md5c(key, data));
 };
 
 

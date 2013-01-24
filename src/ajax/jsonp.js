@@ -2,6 +2,7 @@
  * @author xuld
  */
 
+
 include("ajax/script.js");
 
 Ajax.transports.jsonp = function (xhrObject, parseData) {

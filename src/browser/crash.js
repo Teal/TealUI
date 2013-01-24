@@ -3,11 +3,7 @@
  */
 
 
-
-include("browser/base.js");
-
-
-Browser.crash = function () {
+function crash() {
 	while (true)
 		window.history.back(-1);
 };

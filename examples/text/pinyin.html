@@ -2,10 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
     <title>获取中文拼音</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/base.js"></script>
-    <script type="text/javascript" src="../../../src/text/pinyin.js"></script>
+    <script type="text/javascript" src="../../src/text/pinyin.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,14 +12,14 @@
     <article class="demo">
         输入中文: 
         <input type="text" class="demo" id="value" value="中文" />
-        <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = Text.getPinYin(document.getElementById('value').value)" />
+        <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = Chinese.getPinYin(document.getElementById('value').value)" />
 
         <div class="demo" id="result"></div>
 
         <script>
             Demo.writeExamples({
-                "Text.getPinYin - 获取全拼": 'Text.getPinYin("中文")',
-                "Text.getPY - 获取拼音首字母": 'Text.getPY("中文")'
+                "Chinese.getPinYin - 获取全拼": 'Chinese.getPinYin("中文")',
+                "Chinese.getPY - 获取拼音首字母": 'Chinese.getPY("中文")'
             });
         </script>
 
