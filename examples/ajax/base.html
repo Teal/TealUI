@@ -2,10 +2,12 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="dpl-info" content="status=plan">
+        <meta name="dpl-info" content="status=complete">
         <title>AJAX 底层</title>
-        
+
+        <script type="text/javascript" src="../../src/boot.js"></script>
         <script type="text/javascript" src="../../src/core/base.js"></script>
+        <script type="text/javascript" src="../../src/core/class.js"></script>
         <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
         <script type="text/javascript" src="../../src/ajax/base.js"></script>
         
@@ -14,18 +16,20 @@
     <body>
         
         <article class="demo">
-            
+
+            <blockquote class="demo demo-info">提供支持 Ajax 操作的基本方法。内置基于传统的 XMLHttpRequest 实现的文本传输。</blockquote>
+
             <script>
             
                 Demo.writeExamples({
-                    'Ajax.send' : 'Ajax.send({url: "../../../assets/demo/ajax/test.txt", success:function(data){alert(data)}})',
-                    'Ajax.get' : 'Ajax.get("../../../assets/demo/ajax/test.txt", function(data){alert(data)})',
-                    'Ajax.post' : 'Ajax.post("../../../assets/demo/ajax/test.txt", {data: "值"}, function(data){alert(data)})',
-                    'Ajax#run': function(){
+                    'Ajax.send': 'Ajax.send({url: "../../apps/demo/ajax/test.txt", success:function(data){alert(data)}})',
+                    'Ajax.get' : 'Ajax.get("../../apps/demo/ajax/test.txt", function(data){alert(data)})',
+                    'Ajax.post': 'Ajax.post("../../apps/demo/ajax/test.txt", {data: "值"}, function(data){alert(data)})',
+                    '完整的请求操作': function(){
                         var ajax = new Ajax();
                         
-                        ajax.run({
-                            url : "../../../assets/demo/ajax/test.txt",
+                        ajax.send({
+                            url : "../../apps/demo/ajax/test.txt",
                             data : {
                                 "参数1" : "值1"
                             },
