@@ -19,7 +19,7 @@ var Menu = TreeControl.extend({
 	 */
     floating: false,
 
-    createTreeItem: function (childControl) {
+    createNode: function (child) {
 
         if (!(childControl instanceof MenuItem)) {
 
