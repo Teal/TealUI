@@ -1,5 +1,9 @@
-/** * @author xuld */
-include("core/class.js");
+/**
+ * @author xuld
+ */
+
+include("core/class.js");
+
 /**
  * 所有 UI 组件的基类。
  * @class Control
@@ -20,17 +24,17 @@ var Control = Class({
     dom: null,
 
     /**
-	 * 用于标记控件的 css 类。
+	 * 当前 UI 组件的 css 类。
 	 * @protected virtual
 	 */
     cssClass: "ui-control",
 
     /**
-	 * 当前控件的 HTML 模板字符串。
+	 * 当前 UI 组件的 HTML 模板字符串。其中 ui-control 会被替换为 cssClass 属性的值。
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    tpl: '<div class="ui" />',
+    tpl: '<div class="ui-control" />',
 
     /**
 	 * 当被子类重写时，生成当前控件对应的原生节点。
@@ -41,7 +45,7 @@ var Control = Class({
     create: function () {
 
         // 转为对 tpl解析。
-        return Dom.parse(this.tpl.replace(/\bui\b/g, this.cssClass));
+    	return Dom.parse(this.tpl.replace(/\bui-control\b/g, this.cssClass));
     },
 
     /**
@@ -51,6 +55,48 @@ var Control = Class({
 	 */
     init: Function.empty,
 
+	/**
+	 * 初始化一个新的控件。
+	 * @param {String/Element/Dom/Object} [options] 绑定的节点或节点 id 或完整的配置对象，用于初始化当前控件。
+	 */
+    constructor: function (options) {
+
+    	// 这是所有控件共用的构造函数。
+    	var me = this,
+
+			// 临时的配置对象。
+			opt = {};
+
+    	// 如果存在配置。
+    	if (options) {
+
+    		// 如果 options 是纯配置。
+    		if (options.constructor === Object) {
+
+    			// 将配置拷贝到 opt 对象。
+    			Object.extend(opt, options);
+
+    			// 处理 dom 字段
+    			me.dom = opt.dom ? Dom.query(opt.dom) : me.create(opt);
+
+    		} else {
+
+    			// 否则，尝试根据 options 找到节点。
+    			me.dom = Dom.query(options);
+    		}
+
+    	} else {
+
+    		me.dom = me.create(opt);
+    	}
+
+    	// 调用 init 初始化控件。
+    	me.init(opt);
+
+    	// 设置其它的各个选项。
+    	me.set(opt);
+    },
+
     /**
 	 * 设置当前输入域的状态, 并改变控件的样式。
      * @param {String} name 状态名。
@@ -58,14 +104,14 @@ var Control = Class({
 	 * @protected virtual
 	 */
     state: function (name, value) {
-        this.dom.toggleClass('x-' + this.xtype + '-' + name, value);
+    	this.dom.toggleClass('x-' + this.cssClass + '-' + name, value);
     },
 
-    attach: function (parentNode, refNode) {
+    attach: function (parent, ref) {
     
     },
 
-    detach: function (parentNode) {
+    detach: function (parent) {
 
     },
 
@@ -73,64 +119,8 @@ var Control = Class({
         
     },
 
-    /**
-	 * 初始化一个新的控件。
-	 * @param {String/Element/Dom/Object} [options] 绑定的节点或节点 id 或完整的配置对象，用于初始化当前控件。
-	 */
-    constructor: function (options) {
+    set: function (options) {
 
-        // 这是所有控件共用的构造函数。
-        var me = this,
-
-			// 临时的配置对象。
-			opt = {},
-
-			// 当前实际的节点。
-			node;
-
-        // 如果存在配置。
-        if (options) {
-
-            // 如果 options 是纯配置。
-            if (options.constructor === Object) {
-
-                // 将配置拷贝到 opt 对象。
-                Object.extend(opt, options);
-
-                // 处理 node、selector、dom 字段
-                if (opt.node) {
-                    node = opt.node;
-                    delete opt.node;
-                } else if (opt.selector) {
-                    node = Dom.find(opt.selector);
-                    delete opt.selector;
-                } else if (opt.dom) {
-                    node = opt.dom;
-                    delete opt.dom;
-                }
-
-                if (node) {
-                    node = Dom.getNode(node);
-                }
-
-            } else {
-
-                // 否则，尝试根据 options 找到节点。
-                node = Dom.getNode(options);
-            }
-
-        }
-
-        // 如果 node 被找到，则使用 node，否则使用 #create(opt)生成节点。
-        me.node = node || me.create(opt);
-
-        assert.isNode(me.node, "Dom#constructor(options): Dom 对象的 {node} 不是节点。", me.node);
-
-        // 调用 init 初始化控件。
-        me.init(opt);
-
-        // 设置其它的各个选项。
-        me.set(opt);
     }
 
 });

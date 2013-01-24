@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/menu/menu.css" />
 
+    <script type="text/javascript" src="../../../src/boot.js"></script>
     <script type="text/javascript" src="../../../src/core/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/pin.js"></script>
@@ -24,7 +25,7 @@
     <article class="demo">
 
         <script class="demo" type="text/html">
-            <ul id="demo1" class="ui-menu demo-relative demo-inline-block">
+            <ul id="menu1" class="ui-menu demo-relative demo-inline-block">
                 <li>1. 最简单菜单项</li>
                 <li>-</li>   <!-- 分隔线 -->
                 <li><a class="ui-menuitem" href="javascript:alert(0)">2. 使用 ui-menuitem 创建菜单项。</a></li>
@@ -37,39 +38,39 @@
                     </ul>
                 </li>
             </ul>
-            <\script>
+            < script>
 
                 // 创建和初始化菜单。
-                var demo1 = new Menu("demo1");
+                var menu1 = new Menu("menu1");
 
                 // 添加一个分隔线。（方法1）
-                demo1.add('-');
+                menu1.add('-');
 
                 // 添加一个菜单项。（方法1）
-                demo1.add('4. JavaScript 生成的菜单项').on('click', function(){
+                menu1.add('4. JavaScript 生成的菜单项').on('click', function(){
                     alert("我被点击了");
                 });
             
                 // 添加一个分隔线。（方法2）
-                demo1.add(new MenuSeperator);
+                menu1.add(new MenuSeperator);
             
                 // 添加一个菜单项。（方法2）
-                demo1.add(new MenuItem().setText('5. 用 MenuItem 创建菜单项'));
+                menu1.add(new MenuItem().setText('5. 用 MenuItem 创建菜单项'));
                 
                 // 创建子菜单。
-                var demo1_subMenu = new Menu();
-                demo1_subMenu.add('添加子菜单的项');
+                var menu1_subMenu = new Menu();
+                menu1_subMenu.add('添加子菜单的项');
 
-                // 设置最后一个菜单的子菜单为 demo1_subMenu 。
-                demo1.item(-1).setSubMenu(demo1_subMenu);
+                // 设置最后一个菜单的子菜单为 menu1_subMenu 。
+                menu1.item(-1).setSubMenu(menu1_subMenu);
                 
                 // 批量增加菜单和子菜单。
-                demo1.add('这个菜单的子菜单是一次性添加的').getSubMenu().add('子菜单 1', '-', new MenuItem().setText('子菜单 2'));
+                menu1.add('这个菜单的子菜单是一次性添加的').getSubMenu().add('子菜单 1', '-', new MenuItem().setText('子菜单 2'));
 
-            </\script>
+            < /script>
         </script>
 
-        <section class="demo-test">
+      <!--  <section class="demo-test">
             <h3 class="demo">无 JavaScript 版</h3>
             <ul class="ui-menu">
                 <li class="ui-menu-item">内容 tmp</li>
@@ -85,7 +86,7 @@
                 </li>
                 <li class="ui-menu-item"><a class="ui-menuitem" href="#">内容 tmp</a></li>
             </ul>
-        </section>
+        </section>-->
 
     </article>
 

@@ -1,4 +1,8 @@
-/** * @author xuld */
+/**
+ * @author xuld
+ */
+
+
 /**
  * 所有内容控件的基类。
  * @abstract class
@@ -21,7 +25,7 @@ var ContentControl = Control.extend({
      * @protected virtual
 	 */
 	content: function () {
-		return this.dom.find('.' + this.ui + '-content') || this.dom;
+		return this.dom.frist() || this.dom;
 	},
 
 	/**

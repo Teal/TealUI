@@ -1,4 +1,9 @@
-/** * @author xuld */var Dom = (function () {
+/**
+ * @author xuld
+ */
+
+
+var Dom = (function () {
 
     function Dom() {
 

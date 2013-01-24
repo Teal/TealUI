@@ -10,11 +10,11 @@ include("ui/core/icollapsable.js");
 
 var TreeView = TreeControl.extend({
 
-    xtype: 'treeview',
+    cssClass: 'ui-treeview',
 
     depth: 0,
 
-    createTreeItem: function (childControl) {
+    createNode: function (child) {
 
         if (!(childControl instanceof TreeNode)) {
 
@@ -145,7 +145,7 @@ var TreeView = TreeControl.extend({
  */
 var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	
-	xtype: 'treenode',
+	cssClass: 'ui-treenode',
 	
 	tpl: '<a class="ui-control"><span></span></a>',
 	

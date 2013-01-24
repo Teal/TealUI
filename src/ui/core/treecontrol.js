@@ -1,8 +1,6 @@
 /**
- * @author [作者]
+ * @author xuld
  */
-
-
 
 
 /**
@@ -20,8 +18,8 @@ var TreeControl = ListControl.extend({
 	 * @param {Dom} parent=null DOM 对象的父节点。
 	 * @protected virtual
 	 */
-	createTreeItem: function (childControl, li) {
-		return new TreeControl.Item(childControl);
+	createNode: function (child) {
+		return new TreeControl.Node(child);
 	},
 
 	/**
@@ -30,34 +28,25 @@ var TreeControl = ListControl.extend({
 	 * @param {Dom} [childControl] 强制指定 li 内指定的子节点。
 	 * @private
 	 */
-	initTreeItem: function (li, childControl) {
+	initNode: function (li, createNode) {
 
 		// 获取第一个子节点。
-		var subControl = li.addClass('ui-' + this.xtype + '-item').find('>ul');
+		var sub = li.find('>ul');
 
-		// 如果没有指定 childControl，则使用 li.first()作为内容。
-		if (!childControl) {
-			childControl = (subControl ? (subControl.prev() || subControl.prev(null)) : (li.first() || li.first(null))) || Dom.parse('');
+		// 如果不存在子树，也不需要创建子节点，则退出。
+		if (!sub.length && !createNode) {
+			return;
 		}
 
-		// 根据节点创建一个 MenuItem 对象。
-		childControl = this.createTreeItem(childControl, li);
-
-		// 插入创建的菜单项。
-		li.prepend(childControl);
+		// 根据节点创建一个 TreeControl.Node 对象。
+		li = this.createNode(li);
 
 		// 如果存在子菜单，设置子菜单。
-		if (subControl) {
-			childControl.setSubControl(subControl);
+		if (sub.length) {
+			li.setSubControl(sub);
 		}
 
-		// 保存 li -> childControl 的关联。
-		li.dataField().item = childControl;
-
-		// 绑定 parentControl。
-		childControl.parentControl = this;
-
-		return childControl;
+		return li;
 
 	},
 
@@ -66,12 +55,10 @@ var TreeControl = ListControl.extend({
 	 * @protected override
 	 */
 	init: function () {
-		for (var c = this.first() ; c; c = c.next()) {
-			this.initTreeItem(c);
+		for (var c = this.dom.first() ; c; c = c.next()) {
+			this.initNode(c);
 		}
 	},
-
-	// 增删节点
 
 	/**
 	 * 当新控件被添加时执行。
@@ -79,74 +66,49 @@ var TreeControl = ListControl.extend({
 	 * @param {Control} refControl 元素被添加的位置。
 	 * @protected override
 	 */
-	insertBefore: function (childControl, refControl) {
+	insert: function (newChild, refChild) {
 
 		var item;
 
-		// 如果不是添加 <li> 标签，则创建一个。
-		if (childControl.node.tagName !== 'LI') {
+		// newChild 不一定是一个标准的 <li> 标签。
+		// 先处理 newChild 为标准 Dom 对象。
 
-			// 作为 initTreeItem 的参数。
-			item = childControl;
+		// 处理字符串。
+		newChild = Dom.parse(newChild);
 
-			// 生成一个 <li>
-			childControl = Dom.create('LI');
+		// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
+		if (newChild[0].tagName !== 'LI') {
+			item = newChild;
+			newChild = Dom.create('LI');
+			newChild.append(item);
 		}
 
-		// 插入 DOM 树。
-		childControl.attach(this.node, refControl && refControl.node || null);
-
-		// 返回 treeItem
-		return this.initTreeItem(childControl, item);
-	},
-
-	/**
-	 * 当新控件被移除时执行。
-	 * @param {Object} childControl 新添加的元素。
-	 * @protected override
-	 */
-	removeChild: function (childControl) {
-
-		// 取消删除一个项(自动转到 <li>)。
-		if (childControl = ListControl.prototype.removeChild.call(this, childControl)) {
-
-			var data = childControl.dataField();
-
-			delete data.item.parentControl;
-
-			delete data.item;
-
+		if (refChild && refChild.before) {
+			refChild.before(newChild);
+		} else {
+			this.dom.append(newChild);
 		}
 
-		// 返回被删除的子控件。
-		return childControl;
+		// newChild 是一个 <li> 标签，如果其内部有子树，则进行初始化。
+		return this.initNode(newChild, true);
 	},
-
-	// 项
 
 	item: function (index) {
-		if (index = this.child(index)) {
-			index = index.dataField().item;
-		}
-
-		return index;
+		index = this.dom.child(index);
+		return index.length ? this.createNode(index) : null;
 	}
 
 });
 
 /**
  * 表示 TreeControl 中的一项。
- * @class TreeControl.Item
+ * @class TreeControl.Node
  */
-TreeControl.Item = ContentControl.extend({
+TreeControl.Node = ContentControl.extend({
 
-	tpl: '<a class="ui-control"></a>',
+	cssClass: "ui-treecontrol-node",
 
-	/**
-	 * 获取当前菜单管理的子菜单。
-	 * @type {TreeControl}
-	 */
-	subControl: null,
+	tpl: '<li><a class="ui-control"></a></li>',
 
 	/**
 	 * 当被子类重写时，用于创建子树。
@@ -154,8 +116,8 @@ TreeControl.Item = ContentControl.extend({
 	 * @return {TreeControl} 新的 {@link TreeControl} 对象。
 	 * @protected virtual
 	 */
-	createSubControl: function (control) {
-		return new TreeControl(control);
+	createSub: function (existDom) {
+		return new TreeControl(existDom);
 	},
 
 	/**
@@ -163,76 +125,84 @@ TreeControl.Item = ContentControl.extend({
 	 * @param {TreeControl} treeControl 要初始化的子树。
 	 * @protected virtual
 	 */
-	initSubControl: Function.empty,
+	initSub: Function.empty,
 
 	/**
 	 * 当被子类重写时，用于删除初始化子树。
 	 * @param {TreeControl} treeControl 要删除初始化的子树。
 	 * @protected virtual
 	 */
-	uninitSubControl: Function.empty,
+	uninitSub: Function.empty,
+
+	parent: function () {
+		var li = this.dom.parent('ul').parent('li');
+		return li.length ? new this.constructor(li) : null;
+	},
+
+	/**
+	 * 获取或当前节点的子树。 
+	 */
+	sub: function () {
+
+		// 获取子树。
+		var sub = this.getSub();
+
+		// 如果不存在，则创建并设置一个。
+		if (!sub) {
+			sub = this.createSub();
+			this.setSub(sub);
+		}
+
+		return sub;
+	},
 
 	/**
 	 * 获取当前项的子树控件。 
 	 */
-	getSubControl: function () {
-		if (!this.subControl) {
-			this.setSubControl(this.createSubControl());
-		}
-		return this.subControl;
+	getSub: function () {
+		// 子树的信息存在当前节点中。
+		return Dom.dataField(this.dom[0]).treeControlSub || null;
 	},
 
 	/**
 	 * 设置当前项的子树控件。
 	 */
-	setSubControl: function (treeControl) {
+	setSub: function (treeControl) {
 		if (treeControl) {
 
+			// 如果参数不是一个合法的树，则先创建一个。
 			if (!(treeControl instanceof TreeControl)) {
-				treeControl = this.createSubControl(treeControl);
+				treeControl = this.createSub(treeControl);
 			}
 
-			// 如果子控件不在 DOM 树中，插入到当前节点后。
-			if (!treeControl.closest('body') && this.node.parentNode) {
-				this.node.parentNode.appendChild(treeControl.node);
+			// 如果子树不在 DOM 树中，插入到当前节点后。
+			if (!treeControl.closest('body').length) {
+				this.dom.append(treeControl);
 			}
 
-			this.subControl = treeControl;
-			this.initSubControl(treeControl);
-			treeControl.owner = this;
-		} else if (this.subControl) {
-			this.subControl.remove();
-			this.uninitSubControl(this.subControl);
-			delete this.subControl.owner;
-			this.subControl = null;
+			// 保存当前节点的子树对象。
+			Dom.dataField(this.dom[0]).treeControlSub = treeControl;
+
+			// 初始化子树。
+			this.initSub(treeControl);
+
+		// setSub(null)
+		} else if (treeControl = this.getSub()) {
+
+			// 删除子树的 DOM 。
+			treeControl.remove();
+
+			// 删除对象。
+			delete Dom.dataField(this.dom[0]).treeControlSub;
+
+			// 取消初始化子树。
+			this.uninitSub(treeControl);
 		}
 		return this;
-	},
-
-	attach: function (parentNode, refNode) {
-
-		parentNode.insertBefore(this.node, refNode);
-
-		// 如果有关联的容器，添加容器。
-		var subControl = this.subControl;
-		if (subControl && !subControl.closest('body')) {
-			parentNode.insertBefore(subControl.node, refNode);
-		}
-	},
-
-	detach: function (parentNode) {
-
-		if (this.node.parentNode === parentNode) {
-			parentNode.removeChild(this.node);
-		}
-
-		// 如果有关联的容器，删除容器。
-		var subControl = this.subControl;
-		if (subControl) {
-			parentNode.removeChild(subControl.node);
-		}
 	}
 
 });
 
-ListControl.aliasMethods(TreeControl.Item, 'getSubControl()', 'subControl');
+//ListControl.aliasMethods(TreeControl.Item, 'getSubControl()', 'subControl');
+
+
