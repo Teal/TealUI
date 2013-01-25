@@ -5,8 +5,11 @@ include("core/class/base.js");
 var Dom = (function($){
 
 	var Dom = Class.Native(function (nodelist) {
-		var i = 0;
-		while(this[this.length++] = nodelist[i++]);
+		if(nodelist) {
+			var i = 0;
+			while (nodelist[i])
+				this[this.length++] = nodelist[i++];
+		}
     });
 
     Dom.prototype = $();
@@ -14,19 +17,34 @@ var Dom = (function($){
     Object.extend(Dom, {
 
     	get: function (id, context) {
-    
+    		return typeof id === "string" ? (id = document.getElementById(id)) && new Dom([id]) :
+				id ? id.nodeType || id.setTimeout ? new Dom([id]) :
+					id instanceof Dom ? id : Dom.get(id[0]) :
+					null;
     	},
 
     	find: function (selector, context) {
-
+    		return typeof selector === 'string' ? new Dom([$(selector, context)[0]]) :
+				selector instanceof Dom ? selector :
+					selector ? selector.nodeType || selector.setTimeout ?
+							new Dom([selector]) : new Dom(selector) :
+						new Dom;
     	},
 
     	query: function (selector, context) {
-
+    		return typeof selector === 'string' ? new Dom($(selector, context)) :
+				selector instanceof Dom ? selector :
+					selector ? selector.nodeType || selector.setTimeout ?
+							new Dom([selector]) : new Dom(selector) :
+						new Dom;
     	},
 
     	create: function (tagName, className) {
-    		
+    		assert.isString(tagName, 'Dom.create(tagName, className): {tagName} ~');
+    		var div = document.createElement(tagName);
+    		if (className)
+    			div.className = className;
+    		return new Dom([div]);
     	},
 
         parse: function (html, context) {
@@ -300,5 +318,8 @@ var Dom = (function($){
     	// scrollLeft
 
     });
+
+
+    return Dom;
 
 })(jQuery);

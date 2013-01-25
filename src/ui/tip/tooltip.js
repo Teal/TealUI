@@ -24,7 +24,7 @@ var ToolTip = ContentControl.extend(IToolTip).implement({
 	
 	xtype: 'tooltip',
 	
-	menuTpl: '<span>\
+	arrowTpl: '<span>\
 				<span class="ui-arrow-fore">◆</span>\
 			</span>',
 

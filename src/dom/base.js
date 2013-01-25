@@ -3,6 +3,9 @@
  */
 
 
+include("core/class/base.js");
+
+
 var Dom = (function () {
 
     function Dom() {

@@ -6,6 +6,9 @@
 include("dom/pin.js");
 
 
+/**
+ * 表示一个工具提示应该实现的接口。
+ */
 var IToolTip = {
 
     /**
@@ -20,7 +23,7 @@ var IToolTip = {
      */
     reshowDelay: 100,
 	
-	menuTpl: '<span>\
+	arrowTpl: '<span>\
 	    <span class="ui-arrow-fore">◆</span>\
         <span class="ui-arrow-back">◆</span>\
     </span>',
@@ -31,23 +34,22 @@ var IToolTip = {
 	showDuration: -2,
 
 	show: function () {
-	    if (!this.closest('body')) {
+	    if (!this.closest('body').length) {
 	        this.appendTo();
 	    }
 
-	    return Dom.prototype.show.call(this, arguments, {
-	    	duration: this.showDuration
-	    });
+	    this.dom.show(this.showDuration);
+	    return this;
 	},
 
 	hide: function () {
-	    return Dom.prototype.hide.call(this, arguments, {
-	    	duration: this.showDuration
-	    });
+		return this.hide.show(this.showDuration);
 	},
 
-	showAt: function (x, y) {
-	    return this.show().setPosition(x, y);
+	showAt: function (p) {
+		this.show()
+		this.dom.setPosition(p);
+		return dom;
 	},
 
 	showBy: function (ctrl, offsetX, offsetY, e) {
@@ -63,7 +65,7 @@ var IToolTip = {
 	    this.show().pin(ctrl, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
 		
 		if(configs[3] && e){
-			this.setPosition(e.pageX + (offsetX || 0));
+			this.setPosition({ x: e.pageX + (offsetX || 0) });
 		}
 
 		return this;
@@ -71,7 +73,7 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-	    var arrow = this.find('.ui-arrow') || this.append(this.menuTpl);
+	    var arrow = this.find('.ui-arrow') || this.append(this.arrowTpl);
 	    if (value) {
 	        arrow.node.className = 'ui-arrow ui-arrow-' + value;
 	    } else {
@@ -92,11 +94,11 @@ var IToolTip = {
     /**
      * 设置某个控件工具提示。
      */
-	setToolTip: function (ctrl, caption, offsetX, offsetY) {
-	    ctrl = Dom.get(ctrl);
+	setToolTip: function (dom, caption, offsetX, offsetY) {
+		dom = Dom.query(dom);
 
 	    var me = this;
-	    ctrl.on('mouseover', function (e) {
+	    dom.on('mouseover', function (e) {
 	        var waitTimeout = me.isHidden() ? me.initialDelay : me.reshowDelay;
 	        if (me.showTimer)
 	            clearTimeout(me.showTimer);
@@ -110,15 +112,15 @@ var IToolTip = {
 	            me.showBy(ctrl, offsetX, offsetY, e);
 	        }, waitTimeout);
 
-	    }, this);
+	    });
 		
-	    ctrl.on('mouseout', function () {
+	    dom.on('mouseout', function () {
 	        if (me.showTimer) {
 	            clearTimeout(me.showTimer);
 	        }
 
-	        this.hide();
-	    }, this);
+	        me.hide();
+	    });
 		
 		
 	    return this;

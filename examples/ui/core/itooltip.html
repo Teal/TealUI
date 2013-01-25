@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="module-info" content="status=ok">
-    <title>提示控件接口</title>
+    <title>工具提示接口</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
 
@@ -16,26 +16,24 @@
 </head>
 <body>
 
-
-
     <article class="demo">
+
+        <blockquote class="demo demo-info">鼠标移上去几秒后显示的提醒框叫工具提示。</blockquote>
 
         <aside class="demo">
 
-            <span id="a">Node</span>
+            <span id="target">鼠标移到我这里</span>
 
             <div id="tooltip" style="position: absolute"></div>
 
             <script>
 
+                // 初始化一个含有 IToolTip 功能的对象。
+                var target = Dom.get('tooltip');
+                Object.extend(target, IToolTip);
 
-                var a = Dom.get('tooltip');
-
-                // 拷贝 IToolTip 方法。
-                Object.extend(a, IToolTip);
-
-                // 设置。
-                a.setToolTip(Dom.get('a'), 'ToolTip');
+                // 设置工具框指定的目标节点及对应的显示文字。
+                target.setToolTip(Dom.get('target'), '我是工具提示框');
             </script>
 
         </aside>
