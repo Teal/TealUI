@@ -1,4 +1,5 @@
-/** #import Controls.Typography.Hr */.ui-line {
+﻿@import url(../typography/hr.css);
+.ui-line {
   border-color: #dddddd;
 }
 .ui-line-dotted {
