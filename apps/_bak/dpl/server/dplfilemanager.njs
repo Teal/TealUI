@@ -2,25 +2,25 @@
 // 本源码需要使用 xfly 服务器执行。请运行项目跟目录下的 startserver 文件。
 
 var System = require('./system');
-var DplFileManager = require('./dplfilemanager');
+var ModuleFileManager = require('./dplfilemanager');
 var res = require('./res');
 
 switch(request.queryString['action']){
 	case 'get':
 	case 'getlist':
-		var list = DplFileManager.getDplFileList(System.Configs.physicalPath + System.Configs.dplbuildFilesPath);
+		var list = ModuleFileManager.getModuleFileList(System.Configs.physicalPath + System.Configs.dplbuildFilesPath);
 		res.writeJsonp(context, list);
 		break;
 	case 'delete':
-		var list = DplFileManager.deleteDplFile(request.queryString.file);
+		var list = ModuleFileManager.deleteModuleFile(request.queryString.file);
 		res.redirect(context);
 		break;
 	case 'getsource':
-		var list = DplFileManager.getDplSources(request.queryString.path, request.queryString.type);
+		var list = ModuleFileManager.getModuleSources(request.queryString.path, request.queryString.type);
 		res.writeJsonp(context, list);
 		break;
 	case 'getrefs':
-		var list = DplFileManager.getDplRefs(request.queryString.path, request.queryString.type);
+		var list = ModuleFileManager.getModuleRefs(request.queryString.path, request.queryString.type);
 		res.writeJsonp(context, list);
 		break;
 

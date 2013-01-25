@@ -18,7 +18,7 @@
         <div class="addressbar">
             <label>配置文件路径: </label>
             <input type="text" placeholder="输入配置文件的文件路径或网址" name="path" class="x-textbox largest" value="">
-            <input type="button" class="x-button x-button-info" value="打开" onclick="DplBuilder.openBuildFile()" />
+            <input type="button" class="x-button x-button-info" value="打开" onclick="ModuleBuilder.openBuildFile()" />
             <hr>
         </div>
 
@@ -26,7 +26,7 @@
 
             <table>
                 <tr>
-                    <th class="dpllist border-right">文件列表</th>
+                    <th class="modulelist border-right">文件列表</th>
                     <th class="dplproperty">基本属性</th>
                 </tr>
                 <tr>
@@ -149,9 +149,9 @@
             </table>
 
             <div class="button-label">
-                <input type="button" onclick="DplBuilder.saveAndBuildFile()" class="x-button x-button-info" value="保存并生成">
-                <input type="button" onclick="DplBuilder.saveFile()" class="x-button" value="保存">
-                <input type="button" onclick="DplBuilder.previewFile()" class="x-button" value="预览">
+                <input type="button" onclick="ModuleBuilder.saveAndBuildFile()" class="x-button x-button-info" value="保存并生成">
+                <input type="button" onclick="ModuleBuilder.saveFile()" class="x-button" value="保存">
+                <input type="button" onclick="ModuleBuilder.previewFile()" class="x-button" value="预览">
                 <input type="button" onclick="location.href = Demo.Configs.rootUrl + 'assets/dpl/dplfilelist.html'" class="x-button" value="返回">
             </div>
 

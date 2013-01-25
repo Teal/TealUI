@@ -10,7 +10,7 @@ td{
     padding: 10px;
 }
 
-.dpllist, .dplproperty {
+.modulelist, .dplproperty {
     text-align: center;
     width: 468px;
     font-size: 18px;
@@ -61,7 +61,7 @@ td{
 	margin: 10px 0 10px 15px;
 }
 
-.newDpl input.x-textbox {
+.newModule input.x-textbox {
     width: 266px;   
 }
 

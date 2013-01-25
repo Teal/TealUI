@@ -16,9 +16,9 @@ var Demo = require('./demo'),
  * @param {String} name 组件的名字。
  * @param {String} [title] 组件的描述名。默认使用 *name* 作为描述 。
  */
-exports.createDpl = function (path, tpl, title) {
+exports.createModule = function (path, tpl, title) {
 
-	path = Demo.Dpl.toModulePath(path);
+	path = Demo.Module.toModulePath(path);
 
 	// 忽略空参数。
 	if (!path) {
@@ -65,7 +65,7 @@ exports.createDpl = function (path, tpl, title) {
 	if (!IO.exists(targetHtmlPath))
 		IO.writeFile(targetHtmlPath, text, Demo.Configs.encoding);
 
-	exports.updateDplList();
+	exports.updateModuleList();
 
 	return targetHtmlPath;
 
@@ -77,9 +77,9 @@ exports.createDpl = function (path, tpl, title) {
  * @param {String} category 组件的分类。
  * @param {String} name 组件的名字。
  */
-exports.deleteDpl = function (path) {
+exports.deleteModule = function (path) {
 
-	path = Demo.Dpl.toModulePath(path);
+	path = Demo.Module.toModulePath(path);
 
 	// 忽略空参数。
 	if (!path) {
@@ -89,7 +89,7 @@ exports.deleteDpl = function (path) {
 	deleteFileByName(Path.resolve(Demo.basePath, Demo.Configs.examples, path));
 	deleteFileByName(Path.resolve(Demo.basePath, Demo.Configs.src, path));
 
-	exports.updateDplList();
+	exports.updateModuleList();
 
 };
 
@@ -101,7 +101,7 @@ exports.deleteDpl = function (path) {
  * @param {String} [title] 组件的描述名。如果不需要更改，则置为 null 。
  * @param {Object} [dplInfo] 组件的属性。如果不需要更改，则置为 null 。
  */
-exports.updateDplInfo = function (htmlPath, title, dplInfo) {
+exports.updateModuleInfo = function (htmlPath, title, dplInfo) {
 	
 	// 忽略空参数。
 	if (!htmlPath) {
@@ -135,7 +135,7 @@ exports.updateDplInfo = function (htmlPath, title, dplInfo) {
 
 		// dplInfo 存入 meta 标签。
 		if (dplInfo) {
-			var metaMatch = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Demo.Configs.metaDplInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>\\s*)').exec(head);
+			var metaMatch = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Demo.Configs.metaModuleInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>\\s*)').exec(head);
 
 			if (!metaMatch) {
 
@@ -147,34 +147,34 @@ exports.updateDplInfo = function (htmlPath, title, dplInfo) {
 					delete dplInfo.status;
 				}
 
-				dplInfo = Demo.Dpl.stringifyDplInfo(dplInfo);
+				dplInfo = Demo.Module.stringifyModuleInfo(dplInfo);
 
 				if (dplInfo) {
 
 					var titleMatch = /(\s*)(<title[^\>]*?>.*?<\/title>)/m.exec(head);
 
 					if (!titleMatch) {
-						head = '<meta name="' + Demo.Configs.metaDplInfo + '" content="' + dplInfo + '\">' + head;
+						head = '<meta name="' + Demo.Configs.metaModuleInfo + '" content="' + dplInfo + '\">' + head;
 					} else {
-						head = head.replace(titleMatch[0], titleMatch[1] + '<meta name="' + Demo.Configs.metaDplInfo + '" content="' + dplInfo + '\">' + titleMatch[0]);
+						head = head.replace(titleMatch[0], titleMatch[1] + '<meta name="' + Demo.Configs.metaModuleInfo + '" content="' + dplInfo + '\">' + titleMatch[0]);
 					}
 
 				}
 
 			} else {
 
-				var oldDplInfo = Demo.Dpl.parseDplInfo(metaMatch[4]);
-				require('utilskit/helpers').extend(oldDplInfo, dplInfo);
+				var oldModuleInfo = Demo.Module.parseModuleInfo(metaMatch[4]);
+				require('utilskit/helpers').extend(oldModuleInfo, dplInfo);
 
-				if (!oldDplInfo.support) {
-					delete oldDplInfo.support;
+				if (!oldModuleInfo.support) {
+					delete oldModuleInfo.support;
 				}
 
-				if (oldDplInfo.status == "ok") {
-					delete oldDplInfo.status;
+				if (oldModuleInfo.status == "ok") {
+					delete oldModuleInfo.status;
 				}
 
-				dplInfo = Demo.Dpl.stringifyDplInfo(oldDplInfo);
+				dplInfo = Demo.Module.stringifyModuleInfo(oldModuleInfo);
 				if (dplInfo) {
 					head = head.replace(metaMatch[0], metaMatch[1] + dplInfo + metaMatch[5]);
 				} else {
@@ -191,7 +191,7 @@ exports.updateDplInfo = function (htmlPath, title, dplInfo) {
 
 		IO.writeFile(htmlPath, text, Demo.Configs.encoding);
 
-		exports.updateDplList();
+		exports.updateModuleList();
 	}
 
 };
@@ -204,7 +204,7 @@ exports.updateDplInfo = function (htmlPath, title, dplInfo) {
  * @param {String} folder 搜索的文件夹。
  * @return {Object} 返回 JSON 格式如： {'path0': attributes1, 'path1': attributes2}
  */
-exports.getDplList = function (folder) {
+exports.getModuleList = function (folder) {
 
 	var root = Path.resolve(Demo.basePath, folder);
 	var files = IO.getFiles(root);
@@ -219,7 +219,7 @@ exports.getDplList = function (folder) {
 		if (isDoc.test(ext)) {
 
 			// 获取 DPL 信息。
-			var dplInfo = exports.getDplInfo(Path.resolve(root, file));
+			var dplInfo = exports.getModuleInfo(Path.resolve(root, file));
 
 			// 检测是否隐藏列表。
 			if (!('hide' in dplInfo) || dplInfo.hide !== "false") {
@@ -240,12 +240,12 @@ exports.getDplList = function (folder) {
 /**
  * 更新指定的列表缓存文件。
  */
-exports.updateDplList =  function(){
-	var dplListFilePath = Path.resolve(Demo.basePath, Demo.Configs.apps, "data/dpllist.js");
+exports.updateModuleList =  function(){
+	var dplListFilePath = Path.resolve(Demo.basePath, Demo.Configs.apps, "data/modulelist.js");
 
-	var dplList = { examples: this.getDplList(Demo.Configs.examples), src: this.getDplList(Demo.Configs.src) };
+	var dplList = { examples: this.getModuleList(Demo.Configs.examples), src: this.getModuleList(Demo.Configs.src) };
 	dplList = JSON.stringify(dplList);
-	dplList = 'var DplList=' + dplList + ';';
+	dplList = 'var ModuleList=' + dplList + ';';
 
 	IO.writeFile(dplListFilePath, dplList, Demo.Configs.encoding);
 };
@@ -253,16 +253,16 @@ exports.updateDplList =  function(){
 /**
  * 解析一个文件内指定的组件信息。
  */
-exports.getDplInfo = function (fullPath) {
+exports.getModuleInfo = function (fullPath) {
 
 	var dplInfo;
 
 	var text = IO.readFile(fullPath, Demo.Configs.encoding);
 
-	var meta = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Demo.Configs.metaDplInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>)');
+	var meta = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Demo.Configs.metaModuleInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>)');
 
 	if (meta = meta.exec(text)) {
-		dplInfo = Demo.Dpl.parseDplInfo(meta[4]);
+		dplInfo = Demo.Module.parseModuleInfo(meta[4]);
 	} else {
 		dplInfo = {};
 	}

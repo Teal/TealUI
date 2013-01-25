@@ -1,15 +1,15 @@
 
 
 
-var DplManager = require("../../dpl/server/dplmanager.js");
+var ModuleManager = require("../../dpl/server/modulemanager.js");
 
 
 
-DplManager.createDpl('dom/base2/aaa/asdasd', 'js', 'DOM 操作底层');
+ModuleManager.createModule('dom/base2/aaa/asdasd', 'js', 'DOM 操作底层');
 
 
 
-DplManager.updateDplInfo('/examples/dom/base.html', '啊啊啊啊', { status: 'obsolete', support: '' });
+ModuleManager.updateModuleInfo('/examples/dom/base.html', '啊啊啊啊', { status: 'obsolete', support: '' });
 
 
-//var list = DplManager.getDplList('src'); console.log(list);
+//var list = ModuleManager.getModuleList('src'); console.log(list);

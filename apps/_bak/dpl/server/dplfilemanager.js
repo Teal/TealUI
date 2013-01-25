@@ -11,16 +11,16 @@ var System = require('./system'),
 /**
  * 管理 .dpl 文件的工具。
  */
-var DplFileManager = {
+var ModuleFileManager = {
 
 	/**
 	 * 创建或更新一个新的 DPL 文件。
      * @param {String} fullPath 要处理的文件绝对路径。
      * @param {Object} dplFileData 创建的文件数据。
 	 */
-    createDplFile: function (fullPath, dplFileData) {
-        var DplFile = require('./dplfile');
-        var dplFile = new DplFile();
+    createModuleFile: function (fullPath, dplFileData) {
+        var ModuleFile = require('./dplfile');
+        var dplFile = new ModuleFile();
         dplFile.loadConfigs(dplFileData);
         dplFile.save(fullPath);
 	},
@@ -29,7 +29,7 @@ var DplFileManager = {
 	 * 删除一个 DPL 文件。
      * @param {String} fullPath 要处理的文件绝对路径。
 	 */
-    deleteDplFile: function (fullPath) {
+    deleteModuleFile: function (fullPath) {
         IO.deleteFile(fullPath);
     },
 
@@ -37,7 +37,7 @@ var DplFileManager = {
 	 * 预览一个 DPL 文件。
      * @param {String} fullPath 要处理的文件绝对路径。
 	 */
-    previewDplFile: function (fullPath) {
+    previewModuleFile: function (fullPath) {
         IO.copyFile(fromFullPath, toFullPath);
     },
 
@@ -45,11 +45,11 @@ var DplFileManager = {
 	 * 编译一个 DPL 文件。
      * @param {String} fullPath 要处理的文件绝对路径。
 	 */
-    buildDplFile: function (fullPath) {
-        var DplFile = require('./dplfile');
-        var DplBuilder = require('./dplbuilder');
-        var dplFile = new DplFile(fullPath);
-        DplBuilder.build(dplFile);
+    buildModuleFile: function (fullPath) {
+        var ModuleFile = require('./dplfile');
+        var ModuleBuilder = require('./dplbuilder');
+        var dplFile = new ModuleFile(fullPath);
+        ModuleBuilder.build(dplFile);
     },
 
     /**
@@ -57,14 +57,14 @@ var DplFileManager = {
      * @param {String} fromFullPath 要复制的源文件绝对路径。
      * @param {String} toFullPath 要生成的文件绝对路径。
 	 */
-    copyDplFile: function (fromFullPath, toFullPath) {
+    copyModuleFile: function (fromFullPath, toFullPath) {
         IO.copyFile(fromFullPath, toFullPath);
     },
 
 	/**
 	 * 搜索 .dpl 文件。
 	 */
-	getDplFileList: function (folder) {
+	getModuleFileList: function (folder) {
 
 	    folder = Path.resolve(System.Configs.physicalPath, folder) + Path.sep;
 
@@ -99,17 +99,17 @@ var DplFileManager = {
 	 * @param {String} sourceType '': 获取 js 和 css， 'js': 仅获取 js， 'css': 仅获取 css。
 	 * @return {Object} 返回 {路径: '完整路径的方式'}
 	 */
-	getDplSources: function(dplPath, sourceType){
-        var DplBuilder = require('./dplbuilder');
-        DplBuilder.init();
+	getModuleSources: function(dplPath, sourceType){
+        var ModuleBuilder = require('./dplbuilder');
+        ModuleBuilder.init();
         var r = {};
         
         if(!sourceType || sourceType === 'js'){
-        	r[DplBuilder.getFileName(dplPath, false)] = DplBuilder.getFullPath(dplPath, false);
+        	r[ModuleBuilder.getFileName(dplPath, false)] = ModuleBuilder.getFullPath(dplPath, false);
         }
         
         if(!sourceType || sourceType === 'css'){
-        	r[DplBuilder.getFileName(dplPath, true)] = DplBuilder.getFullPath(dplPath, true);
+        	r[ModuleBuilder.getFileName(dplPath, true)] = ModuleBuilder.getFullPath(dplPath, true);
         }
         
         return r;
@@ -122,19 +122,19 @@ var DplFileManager = {
 	 * @param {String} sourceType '': 获取 js 和 css， 'js': 仅获取 js， 'css': 仅获取 css。
 	 * @return {Object} 返回 [js: [path1, path2], css: [path1, path2]]
 	 */
-	getDplRefs: function(dplPath, sourceType){
-        var DplBuilder = require('./dplbuilder');
-        DplBuilder.init();
+	getModuleRefs: function(dplPath, sourceType){
+        var ModuleBuilder = require('./dplbuilder');
+        ModuleBuilder.init();
         var r = {};
         
         if(!sourceType || sourceType === 'js'){
-        	var t = DplBuilder.getRefs(dplPath, false);
+        	var t = ModuleBuilder.getRefs(dplPath, false);
         	add(t.js, 'js');
         	add(t.css, 'css');
         }
         
         if(!sourceType || sourceType === 'css'){
-        	var t = DplBuilder.getRefs(dplPath, true);
+        	var t = ModuleBuilder.getRefs(dplPath, true);
         	add(t.js, 'js');
         	add(t.css, 'css');
         }
@@ -160,4 +160,4 @@ var DplFileManager = {
 
 
 
-module.exports = DplFileManager;
+module.exports = ModuleFileManager;

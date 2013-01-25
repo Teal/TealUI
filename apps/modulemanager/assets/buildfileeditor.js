@@ -1,17 +1,17 @@
 
 
-var DplBuilder = {
+var ModuleBuilder = {
 
 	current: null,
 
-    addDpl: function () {
-        var type = Dom.find('.newDpl select').getText();
-        var path = Dom.find('.newDpl input.x-textbox').getText();
+    addModule: function () {
+        var type = Dom.find('.newModule select').getText();
+        var path = Dom.find('.newModule input.x-textbox').getText();
 
         if (path) {
 
-            for (var i = 0; i < DplFile.dpls.length; i++) {
-                if (DplFile.dpls[i].type === type && DplFile.dpls[i].path === path) {
+            for (var i = 0; i < ModuleFile.dpls.length; i++) {
+                if (ModuleFile.dpls[i].type === type && ModuleFile.dpls[i].path === path) {
                     if (confirm('组件 ' + path + ' 已存在于列表中，是否重复添加?') === false) {
                         return;
                     } else {
@@ -20,43 +20,43 @@ var DplBuilder = {
                 }
             }
 
-            DplFile.dpls.push({ type: type, path: path });
-            this.updateDpls();
+            ModuleFile.dpls.push({ type: type, path: path });
+            this.updateModules();
         } else {
-            Dom.find('.newDpl input.x-textbox').addClass('x-textbox-error');
+            Dom.find('.newModule input.x-textbox').addClass('x-textbox-error');
         }
     },
 
     clearList: function () {
         if (confirm('确定清空列表吗?')) {
-        	DplBuilder.current.list.length = 0;
-            this.updateDpls();
+        	ModuleBuilder.current.list.length = 0;
+            this.updateModules();
         }
     },
 
     updateList: function () {
 
-    	var list = DplBuilder.current.list;
+    	var list = ModuleBuilder.current.list;
     	var form = Dom.find('.dpls');
 
     	var html = '';
 
     	if (t.length) {
-    		html += '<div class="demo demo-toolbar"><a onclick="DplBuilder.clearList();" href="javascript://按顺序执行全部测试用例">清空列表</a></div>';
+    		html += '<div class="demo demo-toolbar"><a onclick="ModuleBuilder.clearList();" href="javascript://按顺序执行全部测试用例">清空列表</a></div>';
     	}
 
     	for (var i = 0; i < list.length; i++) {
     		var dpl = list[i];
 
-    		html += '<div class="demo-tip" onmouseover="this.className += \' demo-tip-hover\'" onmouseout="this.className = this.className.replace(\' demo-tip-hover\', \'\');"><nav class="demo demo-toolbar"><a href="javascript://查看关联的源文件" onclick="DplBuilder.viewSource(this, \'' + dpl.extension + '\', \'' + dpl.path + '\');return false;">源文件</a> | <a href="javascript://查看当前模块引用的项" onclick="DplBuilder.viewRefs(this, \'' + dpl.extension + '\', \'' + dpl.path + '\');return false;">查看引用</a>';
+    		html += '<div class="demo-tip" onmouseover="this.className += \' demo-tip-hover\'" onmouseout="this.className = this.className.replace(\' demo-tip-hover\', \'\');"><nav class="demo demo-toolbar"><a href="javascript://查看关联的源文件" onclick="ModuleBuilder.viewSource(this, \'' + dpl.extension + '\', \'' + dpl.path + '\');return false;">源文件</a> | <a href="javascript://查看当前模块引用的项" onclick="ModuleBuilder.viewRefs(this, \'' + dpl.extension + '\', \'' + dpl.path + '\');return false;">查看引用</a>';
 
     		if (i > 0)
-    			html += ' | <a class="demo-viewsource-toggle" href="javascript://上移生成的位置" onclick="DplBuilder.moveDpl(' + i + ', false); return false;">上移</a>';
+    			html += ' | <a class="demo-viewsource-toggle" href="javascript://上移生成的位置" onclick="ModuleBuilder.moveModule(' + i + ', false); return false;">上移</a>';
 
     		if (i < t.length - 1)
-    			html += ' | <a class="demo-viewsource-toggle" href="javascript://下移生成的位置" onclick="DplBuilder.moveDpl(' + i + ', true);">下移</a>';
+    			html += ' | <a class="demo-viewsource-toggle" href="javascript://下移生成的位置" onclick="ModuleBuilder.moveModule(' + i + ', true);">下移</a>';
 
-    		html += ' | <a class="demo-viewsource-toggle" href="javascript://删除对当前模块的引用" onclick="DplBuilder.deleteDpl(' + i + '); return false;">删除</a></nav><a class="demo demo-mono" target="_blank" href="' + Demo.basePath + Demo.Configs.src + dpl.path + '">';
+    		html += ' | <a class="demo-viewsource-toggle" href="javascript://删除对当前模块的引用" onclick="ModuleBuilder.deleteModule(' + i + '); return false;">删除</a></nav><a class="demo demo-mono" target="_blank" href="' + Demo.basePath + Demo.Configs.src + dpl.path + '">';
 
     		if (dpl.type == "exclude") {
     			html += '<del>[排除]' + dpl.path + '</del>';
@@ -67,13 +67,13 @@ var DplBuilder = {
     		html += '</a>						    </div>';
     	}
 
-    	html += '<div class="newDpl"><select class="x-textbox"><option value="using" title="完全引入一个组件及其依赖项">引用</option><option value="imports" title="仅引入一个组件的样式及其依赖样式">仅样式</option><option value="include" title="仅引入一个组件的样式及其依赖样式">仅脚本</option><option value="-using" title="排除一个组件的样式和脚本">排除</option><option value="-imports" title="排除一个组件的样式">排除样式</option><option value="-include" title="排除一个组件的脚本">排除脚本</option></select>  <input type="text" class="x-textbox" placeholder="输入组件路径">  <a href="javascript://添加一个组件" class="x-button x-button-success" onclick="DplBuilder.addDpl()">添加</a></div>';
+    	html += '<div class="newModule"><select class="x-textbox"><option value="using" title="完全引入一个组件及其依赖项">引用</option><option value="imports" title="仅引入一个组件的样式及其依赖样式">仅样式</option><option value="include" title="仅引入一个组件的样式及其依赖样式">仅脚本</option><option value="-using" title="排除一个组件的样式和脚本">排除</option><option value="-imports" title="排除一个组件的样式">排除样式</option><option value="-include" title="排除一个组件的脚本">排除脚本</option></select>  <input type="text" class="x-textbox" placeholder="输入组件路径">  <a href="javascript://添加一个组件" class="x-button x-button-success" onclick="ModuleBuilder.addModule()">添加</a></div>';
 
     	form.setHtml(html);
 
     	initData && initData();
 
-    	new PathSuggest(Dom.find('.newDpl input.x-textbox'));
+    	new PathSuggest(Dom.find('.newModule input.x-textbox'));
 
     },
 
@@ -91,7 +91,7 @@ var DplBuilder = {
     		]
     	};
 
-    	DplBuilder.loadBuildFile(window.__bpm);
+    	ModuleBuilder.loadBuildFile(window.__bpm);
 
     },
 
@@ -216,26 +216,26 @@ var DplBuilder = {
 
     },
 
-    moveDpl: function (id, down) {
+    moveModule: function (id, down) {
         var oldId = down ? (id + 1) : (id - 1);
 
-        if (oldId < 0 || oldId >= DplFile.dpls.length) {
+        if (oldId < 0 || oldId >= ModuleFile.dpls.length) {
             return;
         }
 
-        var old = DplFile.dpls[oldId];
-        DplFile.dpls[oldId] = DplFile.dpls[id];
+        var old = ModuleFile.dpls[oldId];
+        ModuleFile.dpls[oldId] = ModuleFile.dpls[id];
 
-        DplFile.dpls[id] = old;
+        ModuleFile.dpls[id] = old;
 
 
-        this.updateDpls();
+        this.updateModules();
 
     },
 
-    deleteDpl: function (id) {
-        DplFile.dpls.splice(id, 1);
-        this.updateDpls();
+    deleteModule: function (id) {
+        ModuleFile.dpls.splice(id, 1);
+        this.updateModules();
     },
 
     viewSource: function (node, type, path) {
@@ -323,7 +323,7 @@ var DplBuilder = {
 
                 var prefix = data[path] ? data[path] == 'js' ? '[脚本]' : '[样式]' : '';
 
-                html += '<li><div class="demo-tip" onmouseover="this.className += \' demo-tip-hover\'" onmouseout="this.className = this.className.replace(\' demo-tip-hover\', \'\');"><span class="demo-toolbar"><a class="demo" href="javascript://查看关联的源文件" onclick="DplBuilder.viewSource(this, \'' + type + '\', \'' + path + '\');return false;">源文件</a> | <a class="demo" href="javascript://查看当前模块引用的项" onclick="DplBuilder.viewRefs(this, \'' + type + '\', \'' + path + '\');return false;">查看引用</a></span><a class="demo demo-mono" href="' + Demo.getDemoUrl(path) + '">' + prefix + path + '</a></div></li>';
+                html += '<li><div class="demo-tip" onmouseover="this.className += \' demo-tip-hover\'" onmouseout="this.className = this.className.replace(\' demo-tip-hover\', \'\');"><span class="demo-toolbar"><a class="demo" href="javascript://查看关联的源文件" onclick="ModuleBuilder.viewSource(this, \'' + type + '\', \'' + path + '\');return false;">源文件</a> | <a class="demo" href="javascript://查看当前模块引用的项" onclick="ModuleBuilder.viewRefs(this, \'' + type + '\', \'' + path + '\');return false;">查看引用</a></span><a class="demo demo-mono" href="' + Demo.getDemoUrl(path) + '">' + prefix + path + '</a></div></li>';
 
             }
 
@@ -333,8 +333,8 @@ var DplBuilder = {
     },
 
     submitData: function (action, target) {
-        this.saveDplFile();
-        Demo.submit(Demo.Configs.apiPath + 'dplbuilder.njs?action=' + action + '&file=' + DplFile.path + '&postback=' + encodeURIComponent(Demo.Configs.rootUrl + "assets/dpl/dplfilelist.html"), DplFile, target);
+        this.saveModuleFile();
+        Demo.submit(Demo.Configs.apiPath + 'dplbuilder.njs?action=' + action + '&file=' + ModuleFile.path + '&postback=' + encodeURIComponent(Demo.Configs.rootUrl + "assets/dpl/dplfilelist.html"), ModuleFile, target);
     },
 
     saveAndBuildFile: function () {
@@ -410,7 +410,7 @@ var PathSuggest = Suggest.extend({
         return r;
     },
 
-    _getDplList: function (module, categegory, name) {
+    _getModuleList: function (module, categegory, name) {
         var c = (PathSuggest.tree[module] || {})[categegory];
 
         var r = [];
@@ -450,7 +450,7 @@ var PathSuggest = Suggest.extend({
         // 以点结尾，使用向导。
         if (/\.$/.test(text)) {
             if (split.category) {
-                return this._getDplList(split.module, split.category, '');
+                return this._getModuleList(split.module, split.category, '');
             }
 
             return this._getCategories(split.module);
@@ -458,7 +458,7 @@ var PathSuggest = Suggest.extend({
 
         // 如果存在分类了。
         if (split.name) {
-            return this._getDplList(split.module, split.category, split.name);
+            return this._getModuleList(split.module, split.category, split.name);
         }
 
         if (split.category) {
@@ -484,12 +484,12 @@ PathSuggest.list = PathSuggest.tree = {};
 
 function initData() {
 
-    Demo.jsonp(Demo.Configs.apiPath + 'dplmanager.njs', {
+    Demo.jsonp(Demo.Configs.apiPath + 'modulemanager.njs', {
         action: 'getlist',
         type: 'src'
-    }, function (DplList) {
-        PathSuggest.list = DplList;
-        PathSuggest.tree = Demo.listToTree(DplList);
+    }, function (ModuleList) {
+        PathSuggest.list = ModuleList;
+        PathSuggest.tree = Demo.listToTree(ModuleList);
     });
 
     initData = null;

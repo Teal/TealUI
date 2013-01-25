@@ -1,17 +1,17 @@
 ﻿// 如果本源码被直接显示，说明使用了其它服务器。
 // 本源码需要使用 xfly 服务器执行。请运行项目跟目录下的 startserver 文件。
 
-var DplBuilderUI = require('./dplbuilderui');
-var DplFile = require('./dplfile');
+var ModuleBuilderUI = require('./dplbuilderui');
+var ModuleFile = require('./dplfile');
 var System = require('./system');
 
 response.contentType = 'text/html; charset=UTF-8';
 switch(request.queryString['action']){
 	case 'edit':
-		writeEditUI(new DplFile(request.queryString.file));
+		writeEditUI(new ModuleFile(request.queryString.file));
 		break;
 	case 'create':
-		writeEditUI(createNewDplFile());
+		writeEditUI(createNewModuleFile());
 		break;
 	case 'copy':
 		writeEditUI(cloneFile(request.queryString.file));
@@ -24,13 +24,13 @@ switch(request.queryString['action']){
 		writeBuildUI(saveData(getPostData()));
 		break;
 	case 'build':
-		writeBuildUI(new DplFile(request.queryString.file));
+		writeBuildUI(new ModuleFile(request.queryString.file));
 		break;
 	case 'preview':
 		writePreviewUI(getPostData());
 		break;
 	default:
-		writeEditUI(new DplFile(request.queryString.file));
+		writeEditUI(new ModuleFile(request.queryString.file));
 		break;
 		
 
@@ -44,7 +44,7 @@ response.end();
 function getPostData() {
 
 	var data = JSON.parse(request.form.data);
-	var dplFile = new DplFile(request.queryString.file);
+	var dplFile = new ModuleFile(request.queryString.file);
 	dplFile.loadConfigs(data);
 
 	return dplFile;
@@ -52,11 +52,11 @@ function getPostData() {
 
 function writeEditUI(dplFile) {
 
-	DplBuilderUI.writeHeader(response, '合成方案编辑');
+	ModuleBuilderUI.writeHeader(response, '合成方案编辑');
 	
-	DplBuilderUI.writeDplFileBuilder(response, dplFile);
+	ModuleBuilderUI.writeModuleFileBuilder(response, dplFile);
 	
-	DplBuilderUI.writeFooter(response);
+	ModuleBuilderUI.writeFooter(response);
 }
 
 function saveData(dplFile) {
@@ -73,7 +73,7 @@ function saveData(dplFile) {
 	return dplFile;
 }
 
-function createNewDplFile(){
+function createNewModuleFile(){
 	return cloneFile(System.Configs.physicalPath + System.Configs.templatePath + '/tpl.dpl');
 }
 
@@ -91,7 +91,7 @@ function cloneFile(srcFile){
 
 		newFile = 'untitled-' + i;
 	}
-	var dplFile = new DplFile(srcFile);
+	var dplFile = new ModuleFile(srcFile);
 
 	dplFile.path = require('path').normalize(root + newFile + '.dpl');
 	dplFile.properties.js = dplFile.properties.js.replace('tpl.', newFile + '.') ;
@@ -107,22 +107,22 @@ function writeBuildUI(dplFile) {
 
 	response.bufferOutput = false;
 
-	DplBuilderUI.writeHeader(response, '合法方案生成');
+	ModuleBuilderUI.writeHeader(response, '合法方案生成');
 	
-	DplBuilderUI.writeDplBuildLog(response, dplFile);
+	ModuleBuilderUI.writeModuleBuildLog(response, dplFile);
 
 
 	
-	DplBuilderUI.writeFooter(response, true);
+	ModuleBuilderUI.writeFooter(response, true);
 }
 
 function writePreviewUI(dplFile){
 
-	DplBuilderUI.writeHeader(response, '合法方案预览');
+	ModuleBuilderUI.writeHeader(response, '合法方案预览');
 	
-	DplBuilderUI.writePreview(response, dplFile);
+	ModuleBuilderUI.writePreview(response, dplFile);
 	
-	DplBuilderUI.writeFooter(response);
+	ModuleBuilderUI.writeFooter(response);
 
 }
 

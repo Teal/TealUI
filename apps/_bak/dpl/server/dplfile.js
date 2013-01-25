@@ -30,9 +30,9 @@ var defaultConfigs = {
 };
 
 /**
- * @class DplFile 处理 .dpl 文件。
+ * @class ModuleFile 处理 .dpl 文件。
  */
-function DplFile(path) {
+function ModuleFile(path) {
     
     // 创建字段。
     this.properties = {};
@@ -47,11 +47,11 @@ function DplFile(path) {
 
 }
 
-DplFile.prototype = {
+ModuleFile.prototype = {
 
     path: '',
 
-    _loadDplSource: function(content){
+    _loadModuleSource: function(content){
 
         content.split(/[\r\n]+/).forEach(function (line) {
             line = line.replace(/;\s*$/, "").trim();
@@ -101,7 +101,7 @@ DplFile.prototype = {
 
     },
 
-    _saveDplSource: function () {
+    _saveModuleSource: function () {
 		var content = '';
 		
 		content += '# 基本属性\r\n';
@@ -141,7 +141,7 @@ DplFile.prototype = {
         var content = IO.readFile(path);
 
         if (content) {
-            this._loadDplSource(content);
+            this._loadModuleSource(content);
         }
 
     },
@@ -151,7 +151,7 @@ DplFile.prototype = {
      */
     save: function (path) {
     	path = path || this.path;
-        var content = this._saveDplSource();
+        var content = this._saveModuleSource();
         IO.writeFile(path, content);
     }
 
@@ -159,4 +159,4 @@ DplFile.prototype = {
 
 
 
-module.exports = DplFile;
+module.exports = ModuleFile;

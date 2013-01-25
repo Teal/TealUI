@@ -5,7 +5,7 @@
 
 
 var System = require('./system'),
-    DplFile = require('./dplfile'),
+    ModuleFile = require('./dplfile'),
 	Path = require('path'),
 	IO = require(System.Configs.nodeModules + 'io');
 
@@ -39,11 +39,11 @@ function writeFooter(response){
 	</html>');
 }
 
-function writeDplFileBuilder(response, dplFile){
+function writeModuleFileBuilder(response, dplFile){
 	var p = dplFile.properties;
 	response.write();
     
-    response.write('<script>var DplFile=');
+    response.write('<script>var ModuleFile=');
     
     response.write(JSON.stringify({
     	properties: dplFile.properties,
@@ -52,53 +52,53 @@ function writeDplFileBuilder(response, dplFile){
     	path: dplFile.path
    	}));
     
-    response.write(';  DplBuilder.loadDplFile();</script>');
+    response.write(';  ModuleBuilder.loadModuleFile();</script>');
     
 }
 
-function writeDplBuildLog(response, dplFile){
+function writeModuleBuildLog(response, dplFile){
 	
-	var DplBuilder = require('./dplbuilder');
+	var ModuleBuilder = require('./dplbuilder');
 	
 	response.write('<div class="x-right"><a style="cursor: default" class="x-button x-button-info" href="?action=build&file=' + dplFile.path + '">重新生成</a>  <a style="cursor: default" class="x-button" href="../dplfilelist.html" title="合法方案列表">返回列表</a>  <a style="cursor: default" class="x-button" href="?action=edit&file=' + dplFile.path + '">重新编辑</a></div>')
 	
 	response.write('<h2 class="demo">合成日志 <small>合成完成前请勿关闭本页面</small></h2>')
 	
 	
-	DplBuilder.info = function(content){
+	ModuleBuilder.info = function(content){
 		response.write('<h4 class="demo">' + content + '</h4>');
 	};
 	
-	DplBuilder.infoFile = function(content, path){
+	ModuleBuilder.infoFile = function(content, path){
 		this.log(content + '<a href="/explorer:' + path.replace(/\\/g, "/") + '">' + path + '</a>'+ '\r\n');
 	};
 	
-	DplBuilder.log = function(content){
+	ModuleBuilder.log = function(content){
 		response.write('<pre>' + content + '</pre>');
 		//for(var i = 0; i < 1000; i++){console.log(i)}
 	};
 	
-	DplBuilder.error = function(content){
+	ModuleBuilder.error = function(content){
 		response.write('<pre style="color:red">' + content + '</pre>');
 	};
 
-	DplBuilder.end = function () {
+	ModuleBuilder.end = function () {
 	    writeFooter(response);
 	    response.end();
 	};
 	
-	DplBuilder.build(dplFile);
+	ModuleBuilder.build(dplFile);
 	
 	
 }
 
 function writePreview(response, dplFile) {
 
-    var DplBuilder = require('./dplbuilder');
+    var ModuleBuilder = require('./dplbuilder');
 
     response.write('合法方案: <strong>' + dplFile.path + '</strong>');
     
-    var list = DplBuilder.getFinalList(dplFile);
+    var list = ModuleBuilder.getFinalList(dplFile);
 
     response.write('<h3 class="demo">最终的 js 列表</h3><table class="x-table"><tr><th>组件</th><th>来自</th></tr>');
     var d = list.js;
@@ -148,8 +148,8 @@ function writePreview(response, dplFile) {
 
 exports.writeHeader = writeHeader;
 exports.writeFooter = writeFooter;
-exports.writeDplFileBuilder = writeDplFileBuilder;
-exports.writeDplBuildLog = writeDplBuildLog;
+exports.writeModuleFileBuilder = writeModuleFileBuilder;
+exports.writeModuleBuildLog = writeModuleBuildLog;
 exports.writePreview = writePreview;
 
 

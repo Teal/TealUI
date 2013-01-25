@@ -2,16 +2,16 @@
 // 本源码需要使用 xfly 服务器执行。
 // 请执行 apps 目录下的 startserver.cmd 文件，并不要关闭本窗口。
 
-var DplManager = require('./dplmanager');
+var ModuleManager = require('./modulemanager');
 var res = require('./res');
 
 switch(request.queryString['action']){
 	case 'create':
-		var html = DplManager.createDpl(request.queryString.path, request.queryString.tpl, request.queryString.title);
+		var html = ModuleManager.createModule(request.queryString.path, request.queryString.tpl, request.queryString.title);
 		res.redirect(context, context.request.queryString.postback || html);
 		break;
 	case 'delete':
-		DplManager.deleteDpl(request.queryString.path);
+		ModuleManager.deleteModule(request.queryString.path);
 		res.redirect(context);
 		break;
 	case 'update':
@@ -31,15 +31,15 @@ switch(request.queryString['action']){
 			dplInfo.hide = request.queryString.hide == "on";
 		}
 
-		DplManager.updateDplInfo(request.queryString.path, request.queryString.title, dplInfo);
+		ModuleManager.updateModuleInfo(request.queryString.path, request.queryString.title, dplInfo);
 		res.redirect(context);
 		break;
 	case 'getlist':
-		var list = DplManager.getDplList(request.queryString.type || require('./demo').Configs.src);
+		var list = ModuleManager.getModuleList(request.queryString.type || require('./demo').Configs.src);
 		res.writeJsonp(context, list);
 		break;
 	case 'updatelist':
-		DplManager.updateDplList();
+		ModuleManager.updateModuleList();
 		res.redirect(context);
 		break;
 	default:

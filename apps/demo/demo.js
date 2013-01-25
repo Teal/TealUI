@@ -34,7 +34,7 @@ Demo.Configs = {
 	/**
 	 * 存放数据字段的 meta 节点。
 	 */
-	metaDplInfo: 'dpl-info',
+	metaModuleInfo: 'module-info',
 
 	/**
 	 * dpl 访问历史最大值。
@@ -44,7 +44,7 @@ Demo.Configs = {
 	/**
 	 * 工具的下拉菜单 HTML 模板。
 	 */
-	tool: '<a href="~/apps/dpl/dplfilelist.html" target="_blank">组件合成工具</a>\
+	tool: '<a href="~/apps/modulemanager/dplfilelist.html" target="_blank">模块合成工具</a>\
                 <a href="~/apps/tools/codehelper/index.html" target="_blank">代码工具</a>\
                 <a href="~/apps/tools/codesegments/specialcharacters.html" target="_blank">特殊字符</a>\
                 <!--<a href="~/resources/index.html#tool" target="_blank">更多工具</a>-->\
@@ -57,7 +57,7 @@ Demo.Configs = {
 	doc: '<a href="~/resources/cookbooks/jplusui-full-api/index.html" target="_blank">jPlusUI API 文档</a>\
                 <a href="~/resources/cookbooks/jplusui-core-api/index.html" target="_blank">jPlusUI Core 文档</a>\
                 <a href="~/resources/cookbooks/jquery2jplus.html" target="_blank">jQuery 转 jPlusUI</a>\
-                <!--<a href="~/resources/cookbooks/dplsystem.html" target="_blank" style="border-top: 1px solid #EBEBEB;">组件开发教程</a>-->\
+                <!--<a href="~/resources/cookbooks/dplsystem.html" target="_blank" style="border-top: 1px solid #EBEBEB;">模块开发教程</a>-->\
                 <a href="~/resources/cookbooks/dev/dplsystem.html" target="_blank">测试系统用法</a>\
                 <a href="~/resources/cookbooks/classdiagram" target="_blank">类图</a>\
                 <!--<a href="~/resources/index.html#doc" target="_blank" style="border-top: 1px solid #EBEBEB;">更多文档</a>-->',
@@ -91,12 +91,12 @@ Demo.Configs = {
 
 };
 
-Demo.Dpl = {
+Demo.Module = {
 
 	/**
      * 获取当前页面指定的控件的信息。
      */
-	parseDplInfo: function (value) {
+	parseModuleInfo: function (value) {
 
 		var r = {}, i, t, s;
 
@@ -115,7 +115,7 @@ Demo.Dpl = {
 	/**
      * 获取当前页面指定的控件的信息。
      */
-	stringifyDplInfo: function (value) {
+	stringifyModuleInfo: function (value) {
 
 		var r = [];
 
@@ -416,7 +416,7 @@ if (typeof module !== 'object') {
 				case "demo-toolbar-goto":
 					dropDown.className = 'demo-toolbar-dropdown';
 					dropDown.style.width = '300px';
-					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="搜索组件路径/名字以快速转到..."><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
+					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="搜索模块路径/名字以快速转到..."><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
 					dropDown.defaultButton = dropDown.firstChild;
 					dropDown.defaultButton.onkeydown = function (e) {
 						e = e || window.event;
@@ -448,20 +448,20 @@ if (typeof module !== 'object') {
 						}
 					};
 
-					Demo.Page.loadDplList(Demo.Page.gotoUpdateList);
+					Demo.Page.loadModuleList(Demo.Page.gotoUpdateList);
 
 					break;
 				case "demo-toolbar-controlstate":
-					var dplInfo = Demo.dplInfo;
+					var moduleInfo = Demo.moduleInfo;
 					dropDown.className = 'demo-toolbar-dropdown';
 					dropDown.style.cssText = 'padding:5px;*width:260px;';
-					var html = '<style>#demo-toolbar-controlstate input{vertical-align: -2px;}</style><form style="*margin-bottom:0" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/dplmanager.njs" method="get">\
+					var html = '<style>#demo-toolbar-controlstate input{vertical-align: -2px;}</style><form style="*margin-bottom:0" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/modulemanager.njs" method="get">\
                     <fieldset>\
                         <legend>进度</legend>';
 
 					var i = 1, key;
 					for (key in Demo.Configs.status) {
-						html += '<input name="status" type="radio"' + (dplInfo.status === key ? ' checked="checked"' : '') + ' id="demo-controlstate-status-' + key + '" value="' + key + '"><label for="demo-controlstate-status-' + key + '">' + Demo.Configs.status[key] + '</label>';
+						html += '<input name="status" type="radio"' + (moduleInfo.status === key ? ' checked="checked"' : '') + ' id="demo-controlstate-status-' + key + '" value="' + key + '"><label for="demo-controlstate-status-' + key + '">' + Demo.Configs.status[key] + '</label>';
 
 						if (i++ === 3) {
 							html += '<br>';
@@ -473,7 +473,7 @@ if (typeof module !== 'object') {
                         <legend>兼容</legend>';
 
 					i = 1;
-					var support = dplInfo.support ? dplInfo.support.split('|') : Demo.Configs.support;
+					var support = moduleInfo.support ? moduleInfo.support.split('|') : Demo.Configs.support;
 
 					for (i = 0; i < Demo.Configs.support.length; i++) {
 						key = Demo.Configs.support[i];
@@ -487,11 +487,11 @@ if (typeof module !== 'object') {
 					html += '</fieldset>\
                     <fieldset>\
                         <legend>标题</legend>\
-                    <input style="width:224px" type="text" name="title" value="' + dplInfo.name + '">\
+                    <input style="width:224px" type="text" name="title" value="' + moduleInfo.name + '">\
                 </fieldset>\
 \
                 <input value="保存修改" class="demo-right" type="submit">\
-                <a href="javascript://彻底删除当前组件及相关源码" onclick="if(prompt(\'确定删除当前组件吗?  如果确认请输入 yes\') === \'yes\')location.href=\'' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/dplmanager.njs?action=delete&path=' + encodeURIComponent(Demo.dplInfo.path) + '&postback=' + encodeURIComponent(Demo.Configs.serverBaseUrl + Demo.Configs.examples) + '\'">删除组件</a>\
+                <a href="javascript://彻底删除当前模块及相关源码" onclick="if(prompt(\'确定删除当前模块吗?  如果确认请输入 yes\') === \'yes\')location.href=\'' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/dpl/server/modulemanager.njs?action=delete&path=' + encodeURIComponent(Demo.moduleInfo.path) + '&postback=' + encodeURIComponent(Demo.Configs.serverBaseUrl + Demo.Configs.examples) + '\'">删除模块</a>\
 <input type="hidden" name="path" value="' + Demo.Utils.encodeHTML(location.pathname) + '">\
 <input type="hidden" name="action" value="update">\
 <input type="hidden" name="postback" value="' + Demo.Utils.encodeHTML(location.href) + '">\
@@ -579,9 +579,9 @@ if (typeof module !== 'object') {
 			}
 		},
 
-		addDplHistory: function (dpl) {
+		addModuleHistory: function (dpl) {
 			if (window.localStorage) {
-				var dplList = localStorage.demoDplHistory;
+				var dplList = localStorage.demoModuleHistory;
 				dplList = dplList ? dplList.split(';') : [];
 
 				for (var i = 0; i < dplList.length; i++) {
@@ -596,7 +596,7 @@ if (typeof module !== 'object') {
 				}
 
 				dplList.push(dpl);
-				localStorage.demoDplHistory = dplList.join(';');
+				localStorage.demoModuleHistory = dplList.join(';');
 			}
 		},
 
@@ -612,10 +612,10 @@ if (typeof module !== 'object') {
 		/**
 		 * 载入 DPL 列表。
 		 */
-		loadDplList: function (callback) {
+		loadModuleList: function (callback) {
 
-			if (window.DplList) {
-				callback(window.DplList);
+			if (window.ModuleList) {
+				callback(window.ModuleList);
 				return;
 			}
 
@@ -624,12 +624,12 @@ if (typeof module !== 'object') {
 				if (!script.readyState || !/in/.test(script.readyState)) {
 					script.onload = script.onreadystatechange = null;
 
-					callback(window.DplList);
+					callback(window.ModuleList);
 				}
 			};
 
 			script.type = 'text/javascript';
-			script.src = Demo.baseUrl + Demo.Configs.apps + "/data/dpllist.js";
+			script.src = Demo.baseUrl + Demo.Configs.apps + "/data/modulelist.js";
 
 			var head = document.getElementsByTagName('HEAD')[0];
 			head.insertBefore(script, head.firstChild);
@@ -637,7 +637,7 @@ if (typeof module !== 'object') {
 
 		gotoUpdateList: function () {
 
-			if (!window.DplList) {
+			if (!window.ModuleList) {
 				return;
 			}
 
@@ -651,19 +651,19 @@ if (typeof module !== 'object') {
 
 			if (filter) {
 				filter = filter.replace(/^\s+|\s+$/g, "").toLowerCase();
-				for (var path in DplList.examples) {
+				for (var path in ModuleList.examples) {
 					if (path.indexOf('/' + filter) >= 0) {
 						html += getTpl(path);
-					} else if (path.indexOf(filter) >= 0 || DplList.examples[path].name.toLowerCase().indexOf(filter) >= 0) {
+					} else if (path.indexOf(filter) >= 0 || ModuleList.examples[path].name.toLowerCase().indexOf(filter) >= 0) {
 						html2 += getTpl(path);
 					}
 				}
 			} else {
 
-				if (histories = window.localStorage && localStorage.demoDplHistory) {
+				if (histories = window.localStorage && localStorage.demoModuleHistory) {
 					histories = histories.split(';');
 					for (var i = histories.length - 1; i >= 0; i--) {
-						if (histories[i] in DplList.examples) {
+						if (histories[i] in ModuleList.examples) {
 							html += getTpl(histories[i]);
 						}
 					}
@@ -671,7 +671,7 @@ if (typeof module !== 'object') {
 					sep = !!html;
 				}
 
-				for (var path in DplList.examples) {
+				for (var path in ModuleList.examples) {
 					html2 += getTpl(path);
 				}
 			}
@@ -682,7 +682,7 @@ if (typeof module !== 'object') {
 					tpl = ' style="border-top: 1px solid #EBEBEB"';
 					sep = false;
 				}
-				return '<a' + tpl + ' onmouseover="Demo.Page.gotoSetListHover(this)" href="' + Demo.baseUrl + Demo.Configs.examples + "/" + path + '">' + path + '<small style="color: #999"> - ' + DplList.examples[path].name + '</small></a>';
+				return '<a' + tpl + ' onmouseover="Demo.Page.gotoSetListHover(this)" href="' + Demo.baseUrl + Demo.Configs.examples + "/" + path + '">' + path + '<small style="color: #999"> - ' + ModuleList.examples[path].name + '</small></a>';
 			}
 
 			dropDown.lastChild.innerHTML = html + html2;
@@ -740,29 +740,29 @@ if (typeof module !== 'object') {
 			html = '',
 			node = document.getElementsByTagName("meta"),
 			i,
-			dplInfo,
+			moduleInfo,
 			isInDocs = Demo.urlPrefix === configs.examples,
 			isHomePage = !Demo.urlPostfix || /^index\./.test(Demo.urlPostfix);
 
-		// 生成 dplInfo 字段。
+		// 生成 moduleInfo 字段。
 
 		for (i = 0; node[i]; i++) {
-			if (node[i].name === configs.metaDplInfo) {
+			if (node[i].name === configs.metaModuleInfo) {
 				node = node[i].content;
-				dplInfo = Demo.Dpl.parseDplInfo(node);
+				moduleInfo = Demo.Module.parseModuleInfo(node);
 				break;
 			}
 		}
 
-		Demo.dplInfo = dplInfo = dplInfo || {};
+		Demo.moduleInfo = moduleInfo = moduleInfo || {};
 
-		if (!(dplInfo.status in configs.status)) {
-			dplInfo.status = 'ok';
+		if (!(moduleInfo.status in configs.status)) {
+			moduleInfo.status = 'ok';
 		}
 
 		// 默认使用 document.title 作为标题。
-		if (!('name' in dplInfo)) {
-			dplInfo.name = document.title;
+		if (!('name' in moduleInfo)) {
+			moduleInfo.name = document.title;
 		}
 
 		// 输出 css 和 js
@@ -790,44 +790,44 @@ if (typeof module !== 'object') {
 		html += '<aside id="demo-toolbar"><nav class="demo-toolbar">';
 
 		// 如果当前的页面是 docs 下的一个页面。
-		// 则添加组件状态和历史记录。
+		// 则添加模块状态和历史记录。
 		if (isInDocs && !isHomePage) {
 
-			if (!('path' in dplInfo)) {
-				dplInfo.path = Demo.Dpl.toModulePath(Demo.urlPostfix);
+			if (!('path' in moduleInfo)) {
+				moduleInfo.path = Demo.Module.toModulePath(Demo.urlPostfix);
 			}
 
-			// 组件默认使用路径作为副标题。
-			if (!dplInfo.subtitle) {
-				dplInfo.subtitle = dplInfo.path;
+			// 模块默认使用路径作为副标题。
+			if (!moduleInfo.subtitle) {
+				moduleInfo.subtitle = moduleInfo.path;
 			}
 
-			Demo.Page.addDplHistory(Demo.urlPostfix);
+			Demo.Page.addModuleHistory(Demo.urlPostfix);
 
-			// 只有本地的时候，才支持修改组件状态。
+			// 只有本地的时候，才支持修改模块状态。
 			if (Demo.local) {
-				html += '<a href="javascript://更改组件属性" onclick="Demo.Page.showDropDown(\'demo-toolbar-controlstate\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" title="点击修改组件状态" accesskey="S">' + configs.status[dplInfo.status] + '</a> | ';
+				html += '<a href="javascript://更改模块属性" onclick="Demo.Page.showDropDown(\'demo-toolbar-controlstate\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" title="点击修改模块状态" accesskey="S">' + configs.status[moduleInfo.status] + '</a> | ';
 			} else {
-				html += '<a href="javascript:;">' + configs.status[dplInfo.status] + '</a> | ';
+				html += '<a href="javascript:;">' + configs.status[moduleInfo.status] + '</a> | ';
 			}
 		}
 
-		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他组件" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="F">搜索' + space + '▾</a> | ';
+		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他模块" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="F">搜索' + space + '▾</a> | ';
 
 		if (Demo.local && isInDocs && isHomePage) {
-			html += '<a href="' + configs.serverBaseUrl + configs.apps + '/dpl/server/dplmanager.njs?action=updatelist&postback=' + encodeURIComponent(location.href) + ' " title="刷新组件列表缓存" accesskey="H">刷新列表</a>';
+			html += '<a href="' + configs.serverBaseUrl + configs.apps + '/dpl/server/modulemanager.njs?action=updatelist&postback=' + encodeURIComponent(location.href) + ' " title="刷新模块列表缓存" accesskey="H">刷新列表</a>';
 		} else {
-			html += '<a href="' + Demo.baseUrl + configs.examples + '/index.html" title="返回组件列表" accesskey="H">返回列表</a>';
+			html += '<a href="' + Demo.baseUrl + configs.examples + '/index.html" title="返回模块列表" accesskey="H">返回列表</a>';
 		}
 
 		html += '</nav></aside>';
 
 		// 生成标题。
-		if (dplInfo.name) {
-			html += '<h1 class="demo">' + dplInfo.name;
+		if (moduleInfo.name) {
+			html += '<h1 class="demo">' + moduleInfo.name;
 
-			if (dplInfo.subtitle) {
-				html += '<small>' + dplInfo.subtitle + '</small>';
+			if (moduleInfo.subtitle) {
+				html += '<small>' + moduleInfo.subtitle + '</small>';
 			}
 
 			html += '</h1>';

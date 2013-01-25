@@ -5,14 +5,14 @@
 
 
 var System = require('./system'),
-    DplFile = require('./dplfile'),
+    ModuleFile = require('./dplfile'),
 	Path = require('path'),
 	IO = require(System.Configs.nodeModules + 'io');
 
 /**
  * 构建 DPL 工具。
  */
-var DplBuilder = {
+var ModuleBuilder = {
 
     info: function(content){
         console.info(content);
@@ -193,7 +193,7 @@ var DplBuilder = {
             list = this._convertToAst(data);
         }
         this.applyRequires(dplFile, data);
-        this.applyExcludeDpls(data, list);
+        this.applyExcludeModules(data, list);
         this.removeNotExitsItems(list);
         return list;
     },
@@ -209,7 +209,7 @@ var DplBuilder = {
 
     ///**
 	// * 根据 dplFile 获取内部文件的绝对路径。
-    // * @param {DplFile} dplPath 当前的 DPL 路径。
+    // * @param {ModuleFile} dplPath 当前的 DPL 路径。
     // * @param {String} fileName 文件名。
     // * @return {String} 返回文件路径。
 	// */
@@ -381,7 +381,7 @@ var DplBuilder = {
     },
 
     // 应用 DPL 的排除列表。
-    applyExcludeDpls: function (data, list) {
+    applyExcludeModules: function (data, list) {
 
         // 删除已排除的组件。
         
@@ -442,7 +442,7 @@ var DplBuilder = {
         var dplFileRootPath = Path.dirname(dplFile.path);
 
         for (var i = 0; i < dplFile.requires.length; i++) {
-            var dplFile2 = new DplFile(Path.resolve(dplFileRootPath, dplFile.requires[i]));
+            var dplFile2 = new ModuleFile(Path.resolve(dplFileRootPath, dplFile.requires[i]));
 
             // 已经被依赖过，则不进行处理。
             if (this.cacheRequires[dplFile2.path]) {
@@ -773,9 +773,9 @@ var DplBuilder = {
      */
     init: function () {
 
-        var DplManager = require('./dplmanager');
+        var ModuleManager = require('./modulemanager');
 
-        this.dplList = DplManager.getDplList('src');
+        this.dplList = ModuleManager.getModuleList('src');
 
         this.cacheJsFileName = {};
 
@@ -794,7 +794,7 @@ var DplBuilder = {
     },
 
     /**
-     * 编译指定的 {@link DplFile} 对象。
+     * 编译指定的 {@link ModuleFile} 对象。
      */
     build: function (dplFile) {
 
@@ -870,4 +870,4 @@ function getParentName(name) {
 }
 
 
-module.exports = DplBuilder;
+module.exports = ModuleBuilder;
