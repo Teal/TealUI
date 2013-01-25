@@ -1,4 +1,11 @@
-/** * @author biqing * https://github.com/biqing/MessengerJS */function Messenger(win) {
+/**
+ * @author biqing
+ * https://github.com/biqing/MessengerJS
+ */
+
+
+
+function Messenger(win) {
     // save the pointer to the window which is interacting with
     this.win = win;
     this.init();

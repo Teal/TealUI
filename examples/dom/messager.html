@@ -2,10 +2,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <meta name="module-info" content="status=plan" />
+        <meta name="module-info" content="status=complete" />
 		<title>IFrame通信</title>
-		<script type="text/javascript" src="../../../src/core/base.js"></script>
-		<script type="text/javascript" src="../../../src/dom/messager.js"></script>
+		<script type="text/javascript" src="../../src/dom/messager.js"></script>
 		
 		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
 	</head>
@@ -13,12 +12,14 @@
 
         <article class="demo">
 
+            <blockquote class="demo demo-info">Messager 解决 IFrame 跨域通信问题。</blockquote>
+
             <p>
                 Domain of the parent page
       <script>document.write('(' + location.protocol + '//' + location.host + ')');</script>
             </p>
             <p>
-                <iframe id="iframe" src="Messager.html" width="500px"></iframe>
+                <iframe id="iframe" src="Messager.html" width="500"></iframe>
             </p>
             
             <p>

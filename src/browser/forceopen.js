@@ -1,1 +1,2 @@
-/** * @author  */
+/** * @author xuld */function forceOpen(url) {
+}

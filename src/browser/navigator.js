@@ -1,37 +1,25 @@
 
 
-Object.extendIf(navigator, (function(ua) {
-
-	var w = this,
+(function(ua) {
 	
-		//检查信息
-		engine = window.opera ? 'Presto' : w.ActiveXObject ? 'Trident' : document.getBoxObjectFor != null || w.mozInnerScreenX != null ? 'Gecko' : document.childNodes && !document.all && !navigator.taintEnabled ? 'Webkit' : 'Other',
+	//检查信息
+	var engine = window.opera ? 'Presto' : window.ActiveXObject ? 'Trident' : document.getBoxObjectFor != null || window.mozInnerScreenX != null ? 'Gecko' : document.childNodes && !document.all && !navigator.taintEnabled ? 'Webkit' : 'Other',
 
 		//平台
-		platform = (ua.match(/(?:Webos|Android)/i) || [window.orientation ? 'Ipod' : navigator.platform])[0];
+		platform = (ua.match(/(?:Webos|Android)/i) || [window.orientation ? 'Ipod' : 'Other'])[0];
 	
 	navigator["is" + platform] = navigator["is" + engine] = true;
-	
-	//结果
-	return {
-		
-		/**
-		 * 是否是标准CSS模式。
-		 * @type {Boolean}
-		 */
-		isStrict: document.compatMode == "CSS1Compat",
 
-		/**
-		 * 浏览器平台。
-		 * @type String
-		 */
-		platform: platform,
-		
-		/**
-		 * 浏览器引擎名。
-		 * @type String
-		 */
-		engine: engine
-		
-	}
-})(navigator.userAgent));
+	/**
+	 * 浏览器平台。
+	 * @type String
+	 */
+	navigator.platform = platform;
+
+	/**
+	 * 浏览器引擎名。
+	 * @type String
+	 */
+	navigator.engine = engine;
+
+})(navigator.userAgent);
