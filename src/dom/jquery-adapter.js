@@ -1,6 +1,6 @@
 
 
-include("core/class.js");
+include("core/class/base.js");
 
 var Dom = (function($){
 
@@ -89,7 +89,7 @@ var Dom = (function($){
 
         },
 
-        dataField: function (elem) {
+        data: function (elem) {
 
         }
 

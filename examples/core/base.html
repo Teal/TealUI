@@ -64,12 +64,11 @@
                     [5, 4].item(-2); // 5
                     [5, 4].item(-3); // undefined
                 },
-                'Array#invoke': '[5,4].invoke("toString", [])',
-                'Array#unique': '[2, 5, 7, 5].unique()',
                 'Array#forEach': '[5,4].forEach(alert)',
-                'Array#each': '[5,4].each(function(value){alert(value); return false;})',
                 'Array#filter': '[5,4].filter(function(v){return v > 4;})',
-                'Array#include': 'var ar = [5,4];ar.include(2); ar',
+
+                'Array#unique': '[2, 5, 7, 5].unique()',
+                'Array#each': '[5,4].each(function(value){alert(value); return false;})',
                 'Array#remove': 'var ar = [5,4];ar.remove(4); ar',
 
                 'Function 扩展': '-',

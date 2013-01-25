@@ -5,16 +5,16 @@
     <meta name="module-info" content="status=complete">
     <title>类</title>
 
-    <script type="text/javascript" src="../../src/boot.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/boot.js"></script>
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class/base.js"></script>
 
-    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
 <body>
 
     <article class="demo">
-        <blockquote class="demo demo-info">为 JavaScript 提供创建类的功能。创建的类支持单继承、扩展、事件和多态。</blockquote>
+        <blockquote class="demo demo-info">为 JavaScript 提供创建类的功能。</blockquote>
 
         <script>
 
@@ -109,92 +109,6 @@
 
                     // 调用 Dog 类的 say2 方法。
                     dog.say2();
-
-                },
-                '多态类': function () {
-
-                    // 创建一个类。
-                    var Animale = new Class({
-
-                        // 类的一个方法。
-                        say: function (name) {
-                            alert("正在执行 Animale 类的 say 方法: 参数 name=" + name);
-                        }
-
-                    });
-
-                    // 创建一个类。
-                    var Dog = Animale.extend({
-
-                        // 类的一个方法。
-                        say: function () {
-                            this.base('say', 'Dog');
-                        }
-
-                    });
-
-                    // 创建一个类。
-                    var Cat = Animale.extend({
-
-                        // 类的一个方法。
-                        say: function () {
-                            this.base('say', 'Cat');
-                        }
-
-                    });
-
-                    var dog = new Dog();
-                    dog.say();
-
-                    var cat = new Cat();
-                    cat.say();
-                },
-                '使用事件的功能': function () {
-
-                    // 创建一个类。
-                    var Animale = new Class({
-
-                    });
-
-                    var ani = new Animale();
-                    ani.on('needsay', function (name) {
-                        alert("needsay事件被触发了， 参数 name=" + name);
-                    });
-
-                    ani.trigger('needsay', "触发needsay事件时的参数");
-
-                },
-                '定义事件': function () {
-
-                    // 创建一个类。
-                    var Animale = new Class({
-
-                    });
-
-                    Animale.addEvents('needsay', {
-
-                        add: function (target, eventName, eventHandler) {
-                            alert(eventName + "事件被绑定了一个函数: " + eventHandler);
-                        },
-
-                        remove: function (target, eventName, eventHandler) {
-                            alert(eventName + "事件被解绑了");
-                        },
-
-                        dispatch: function (target, eventName, eventHandler, eventArgs) {
-                            alert(eventName + "事件被触发了, 接下来执行用户传入的事件处理函数");
-
-                            eventHandler(eventArgs);
-                        }
-
-                    });
-
-                    var ani = new Animale();
-                    ani.on('needsay', function (name) {
-                        alert("needsay事件被触发了， 参数 name=" + name);
-                    });
-
-                    ani.trigger('needsay', "触发needsay事件时的参数");
 
                 },
                 '将一个已经定义好的 JavaScript 函数转为一个类': function () {

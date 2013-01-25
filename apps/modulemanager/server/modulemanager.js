@@ -49,7 +49,8 @@ exports.createModule = function (path, tpl, title) {
 			var toName = Demo.Configs.src + "/" + path + Path.extname(file);
 			var toPath = Path.resolve(Demo.basePath, toName);
 
-			IO.copyFile(fromPath, toPath);
+			if (!IO.exists(toPath))
+				IO.copyFile(fromPath, toPath);
 			return basePathRelative + "/" + toName;
 		}
 

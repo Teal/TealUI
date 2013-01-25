@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>类函数重写</title>
+
+    <script type="text/javascript" src="../../../src/boot.js"></script>
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class/basecall.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        <blockquote class="demo demo-info">为类提供事件功能。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+                '多态类': function () {
+
+                    // 创建一个类。
+                    var Animale = new Class({
+
+                        // 类的一个方法。
+                        say: function (name) {
+                            alert("正在执行 Animale 类的 say 方法: 参数 name=" + name);
+                        }
+
+                    });
+
+                    // 创建一个类。
+                    var Dog = Animale.extend({
+
+                        // 类的一个方法。
+                        say: function () {
+                            this.base('say', 'Dog');
+                        }
+
+                    });
+
+                    // 创建一个类。
+                    var Cat = Animale.extend({
+
+                        // 类的一个方法。
+                        say: function () {
+                            this.base('say', 'Cat');
+                        }
+
+                    });
+
+                    var dog = new Dog();
+                    dog.say();
+
+                    var cat = new Cat();
+                    cat.say();
+                }
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

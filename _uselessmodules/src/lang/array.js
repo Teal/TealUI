@@ -4,6 +4,45 @@
 
 
 /**
+ * 如果当前数组中不存在指定 *value*， 则将 *value* 添加到当前数组的末尾。
+ * @param {Object} value 要添加的值。
+ * @return {Boolean} 如果此次操作已成功添加 *value*，则返回 **true**;
+ * 否则表示原数组已经存在 *value*，返回 **false**。
+ * @example
+ * <pre>
+ * ["", "aaa", "zzz", "qqq"].include(""); // 返回 true， 数组不变。
+ * [false].include(0);	// 返回 false， 数组变为 [false, 0]
+ * </pre>
+ */
+include: function (value) {
+	var exists = this.indexOf(value) >= 0;
+	if (!exists)
+		this.push(value);
+	return exists;
+},
+
+/**
+ * 对当前数组的每个元素调用其指定属性名的函数，并将返回值放入新的数组返回。
+ * @param {String} fnName 要调用的函数名。
+ * @param {Array} [args] 调用时的参数数组。
+ * @return {Array} 返回包含执行结果的数组。
+ * @example
+ * <pre>
+ * ["abc", "def", "ghi"].invoke('charAt', [0]); //  ['a', 'd', 'g']
+ * </pre>
+ */
+invoke: function (fnName, args) {
+	assert(!args || typeof args.length === 'number', "Array#invoke(fnName, args): {args} 必须是参数数组。", args);
+	var r = [];
+	ap.forEach.call(this, function (value) {
+		assert(value != null && value[fnName] && value[fnName].apply, "Array#invoke(fnName, args): {value} 不包含函数 {fnName}。", value, fnName);
+		r.push(value[fnName].apply(value, args || []));
+	});
+
+	return r;
+},
+
+/**
  * 将一个伪数组对象转为原生数组。
  * @param {Object} iterable 一个伪数组对象。
  * @param {Number} startIndex=0 转换开始的位置。

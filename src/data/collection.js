@@ -4,7 +4,7 @@
  */
 
 
-include("core/class.js");
+include("core/class/base.js");
 	
 /**
  * 集合。
