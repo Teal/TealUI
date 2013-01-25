@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="dpl-info" content="status=beta">
+    <meta name="dpl-info" content="status=complete">
     <title>排序算法</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/utils/sorter.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/utils/sorter.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,19 +13,11 @@
     <article class="demo">
         <script>
 
-            var testcases = {
-                '冒泡排序': {
-                    'Sorter.bubble([1,3,5,4,3])': [1, 3, 3, 4, 5]
-                },
-                '快速排序': {
-                    'Sorter.quick([1,3,5,4,3])': [1, 3, 3, 4, 5]
-                },
-                '希尔排序': {
-                    'Sorter.shell([1,3,5,4,3])': [1, 3, 3, 4, 5]
-                }
-            };
-
-            Demo.writeExamples(testcases);
+            Demo.writeExamples({
+                '冒泡排序': 'Sorter.bubble([1,3,5,4,3])',
+                '快速排序': 'Sorter.quick([1,3,5,4,3])',
+                '希尔排序': 'Sorter.shell([1,3,5,4,3])'
+            });
 
         </script>
     </article>

@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="dpl-info" content="status=ok">
-		<title>特效底层</title>
-		<script type="text/javascript" src="../../../src/core/base.js"></script>
-		<script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-		<script type="text/javascript" src="../../../src/fx/base.js"></script>
-		
-		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="dpl-info" content="status=complete">
+    <title>特效底层</title>
 
-        <article class="demo">
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
 
-		    <script>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-		        var fx = new Fx();
-		        fx.set = function (value) {
-                    trace(value);
-                };
-			
-		        Demo.writeExamples({
-				
-				    // 简单创建一个特效。
-				    'createAnimate': function () {
-				        fx.run({});
-                        fx.run({}, 'abort');
-                        fx.run({});
-				    }
-			    }, {times: 8});
-			
-		    </script>
+    <article class="demo">
 
-        </article>
-	</body>
+        <script>
+
+            Demo.writeExamples({
+
+                // 简单创建一个特效。
+                '执行特效': function () {
+
+                    var fx = new Fx();
+
+                    // Fx 对象会不断调用此函数，参数 value 是 0 - 1 的变化值。
+                    fx.set = function (value) {
+                        trace(value);
+                    };
+
+                    fx.run({});
+                }
+            }, { times: 8 });
+
+        </script>
+
+    </article>
+</body>
 </html>

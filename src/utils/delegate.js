@@ -20,7 +20,7 @@ var Delegate = Class({
 		};
 		
 		Object.extend(fn, this);
-		fn.handlers = Array.create(arguments);
+		fn.handlers = [].slice.call(arguments);
 		return fn;
 		
 	},
@@ -74,7 +74,7 @@ var Delegate = Class({
 	 * @return {Boolean} 是否成功调用所有委托成员。
 	 */
 	call: function(bind){
-		return this.apply(bind, Array.create(arguments, 1));
+		return this.apply(bind, [].slice.call(arguments, 1));
 	}
 							   
 });

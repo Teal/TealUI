@@ -1,11 +1,11 @@
+/**
+ * @author xuld
+ */
 
 
 
+var BigInteger = {
 
-var BigInteger = BigInteger || {};
-
-Object.extend(BigInteger, {
-	
 	/**
 	 * 计算大数的乘积。
 	 */
@@ -13,13 +13,13 @@ Object.extend(BigInteger, {
 		var p = a.match(/\d{1,4}/g).reverse(),
 			q = b.match(/\d{1,4}/g).reverse(),
 			f1 = 0;
-			result = "0";
-	
-		for(var i = 0; i < p.length; i++){
+		result = "0";
+
+		for (var i = 0; i < p.length; i++) {
 			var f2 = 0;
-			for(var j = 0; j < q.length; j++){
-				var t = (p[i]|0)*(q[j]|0);
-				t += new Array(f1+f2+1).join("0");
+			for (var j = 0; j < q.length; j++) {
+				var t = (p[i] | 0) * (q[j] | 0);
+				t += new Array(f1 + f2 + 1).join("0");
 				result = BigInteger.add(result, t);
 				f2 += q[j].length;
 			}
@@ -28,31 +28,31 @@ Object.extend(BigInteger, {
 		return result;
 
 	},
-	
-	add: function (a,b){
+
+	add: function (a, b) {
 		var m = a.split('').reverse();
 		var n = b.split('').reverse();
 		var ret = [];
 		var s = 0;
-	
-		for(var i = 0; i < a.length || i < b.length; i++){
-			var t = (m[i]|0) + (n[i]|0) + s;
-	
-			ret.push(t%10);
-			s = (t/10)|0;
+
+		for (var i = 0; i < a.length || i < b.length; i++) {
+			var t = (m[i] | 0) + (n[i] | 0) + s;
+
+			ret.push(t % 10);
+			s = (t / 10) | 0;
 		}
-		if(s){
+		if (s) {
 			ret.push(s);
 		}
 		return ret.reverse().join('');
 	},
-	
-	power: function(a,      b){
+
+	power: function (a, b) {
 		var ret = "1";
-		for(var i = 0; i < b; i++){
+		for (var i = 0; i < b; i++) {
 			ret = BigInteger.multiple(ret, a);
 		}
 		return ret;
 	}
-	
-});
+
+};

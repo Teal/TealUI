@@ -1,13 +1,16 @@
-//===========================================
-//  日期扩展     
-//===========================================
+/**
+ * @author xuld
+ */
+
+
+include("core/base.js");
 
 
 /**
  * 时间。
  * @class Date
  */
-Date.implement({
+Object.extend(Date.prototype, {
 	
 	/**
 	 * 改写 Date.toString。实现支持   yyyymmdd hhmmss 。
@@ -69,28 +72,20 @@ Date.implement({
 	addDay: function(value){
 		this.setDate(this.getDate() + value);
 		return this;
-		
-		
 	},
 
 	addWeek: function(value){
 		return this.addDay(value * 7);
-		
-		
 	},
 
 	addMonth: function(value){
 		this.setMonth(this.getMonth() + value);
 		return this;
-		
-		
 	},
 
 	addYear: function(value){
 		this.setFullYear(parseInt(this.getFullYear()) + value);
 		return this;
-		
-		
 	}
 
 });
