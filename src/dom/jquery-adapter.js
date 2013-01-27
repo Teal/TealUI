@@ -48,15 +48,17 @@ var Dom = (function($){
     	},
 
         parse: function (html, context) {
-        	return new Dom(jQuery(html, context));
+        	return typeof html === 'string' ? new Dom(jQuery(html.trim(), context)) : html;
         },
 
         ready: function (callback) {
-
+			$(document).ready(callback);
+			return this;
         },
 
         laod: function (callback) {
-
+			$(window).load(callback);
+			return this;
         },
 
         calc: function (elem, attributes) {
@@ -64,7 +66,11 @@ var Dom = (function($){
         },
 
         getText: function (elem) {
+			
+        },
 
+        setText: function (elem, value) {
+			
         },
 
         getStyle: function (elem, name) {
@@ -114,6 +120,10 @@ var Dom = (function($){
     });
 
     Dom.implement({
+    	
+    	constructor: Dom,
+    	
+    	toString: Class.Base.prototype.toString,
 
     	// addClass
     	// removeClass
@@ -154,11 +164,12 @@ var Dom = (function($){
     	},
     	
     	item: function (index) {
-    
+    		var elem = this[index < 0 ? this.length + index : index];
+			return new Dom(elem && [elem]);
     	},
 
-    	on: function (eventName, handler) {
-    
+    	on: function (eventName, handler, context) {
+    		//return this.bind(eventName, handler)
     	},
 
     	un: function (eventName, handler) {
@@ -170,35 +181,35 @@ var Dom = (function($){
     	},
 
     	setStyle: function (name, value) {
-
+			return this.css(name, value);
     	},
 
     	getStyle: function (name) {
-
+			return this.css(name);
     	},
 
     	setAttr: function (name, value) {
-
+			return this.attr(name, value);
     	},
 
     	getAttr: function (name, type) {
-
+			return type ? type !== 2 ? this.attr(name) : this.prop('default' + name) : this.prop(name);
     	},
 
-    	setHtml: function (name) {
-
+    	setHtml: function (value) {
+    		return iterateDom(this, Dom.setHtml, value);
     	},
 
     	getHtml: function () {
-
+			return Dom.getHtml(this[0]);
     	},
 
-    	setText: function (name) {
-
+    	setText: function (value) {
+    		return iterateDom(this, Dom.setText, value);
     	},
 
     	getText: function () {
-
+			return this.text();
     	},
 
     	setSize: function (value) {
@@ -206,7 +217,7 @@ var Dom = (function($){
     	},
 
     	getSize: function () {
-
+			
     	},
 
     	setWidth: function (value) {
@@ -297,7 +308,7 @@ var Dom = (function($){
 
     	}
 
-		// ÒÔÏÂ·½·¨ÓÉ jquery-style Ìá¹©¡£
+		// ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ jquery-style ï¿½á¹©ï¿½ï¿½
     	// attr
     	// prop
     	// text
@@ -319,6 +330,12 @@ var Dom = (function($){
 
     });
 
+	function iterateDom(dom, fn, args1, args2){
+		for(var i = 0, len = dom.length; i < len; i++) {
+			fn(dom[i], args1, args2);
+		}
+		return dom;
+	}
 
     return Dom;
 

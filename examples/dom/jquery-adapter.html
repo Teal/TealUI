@@ -30,11 +30,11 @@
         <script>
 
             Demo.writeExamples({
-                '获取节点（Dom 对象）': '-',
+                'core(获取 Dom 对象)': '-',
                 '根据节点 ID 获取': 'Dom.get("a")',
                 '根据 CSS 选择器获取': function () {
-                    Dom.find("#all div"); // 只找第一个。
                     Dom.query("#all div"); // 找全部。
+                    Dom.find("#all div"); // 只找第一个。
                 },
                 '根据原生节点对象获取': 'Dom.get(document.getElementById("a"))',
                 '动态创建': 'Dom.create("div", "className")',
