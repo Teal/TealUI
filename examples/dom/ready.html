@@ -2,11 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan;attr=#5" />
-    <title>DOM 属性操作</title>
+    <meta name="module-info" content="status=plan;attr=#2" />
+    <title>DOMReady 事件</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
-    <script type="text/javascript" src="../../src/dom/attr.js"></script>
+    <script type="text/javascript" src="../../src/dom/ready.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -14,7 +14,7 @@
 
     <article class="demo">
 
-        <blockquote class="demo demo-info">DOM 属性操作</blockquote>
+        <blockquote class="demo demo-info"></blockquote>
 
         <div id="all" class="demo-sample">
             <div id="a" style="background: #DCDCDC; margin: 4px; padding: 8px;">
@@ -33,17 +33,8 @@
         <script>
 
             Demo.writeExamples({
-                'Dom#setAttr': 'c.setAttr("innerText", "12121")',
-                'Dom#getAttr': 'c.getAttr("innerText")',
-                'Dom#set': 'c.set({"innerHTML": "cv"})',
-                'Dom#setText': 'c.setText("cv")',
-                'Dom#getText': 'c.getText()',
-                'Dom#setHtml': 'c.setHtml("cv")',
-                'Dom#getHtml': 'c.getHtml()',
-                'Dom#addClass': 'a.addClass("light")',
-                'Dom#hasClass': 'a.hasClass("light")',
-                'Dom#removeClass': 'a.removeClass("light")',
-                'Dom#toggleClass': 'a.toggleClass("light")'
+                'Dom.ready': 'Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") })',
+                'Dom.load': 'Dom.load(function(){ alert("DOM 已经 load（引用的图片都已加载）") })'
             });
 
         </script>

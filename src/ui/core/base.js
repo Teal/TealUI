@@ -3,6 +3,7 @@
  */
 
 include("core/class/base.js");
+include("dom/base.js");
 
 /**
  * 所有 UI 组件的基类。
@@ -116,7 +117,7 @@ var Control = Class({
     },
 
     appendTo: function (parent) {
-        
+    	Dom.query(parent).append(this);
     },
 
     set: function (options) {
