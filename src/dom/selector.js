@@ -1,4 +1,10 @@
-/** * @author xuld */include("dom/base.js");include("dom/attr.js");
+/**
+ * @author xuld
+ */
+
+include("dom/base.js");
+include("dom/attr.js");
+
 Dom.Selector = (function () {
 
 	var Selector = {

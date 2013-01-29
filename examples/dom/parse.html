@@ -14,12 +14,18 @@
 
     <article class="demo">
 
-        <blockquote class="demo demo-info"></blockquote>
+        <blockquote class="demo demo-info">解析 HTML 源码动态生成 Dom 对象。</blockquote>
 
         <script>
 
             Demo.writeExamples({
-
+                '从 HTML 源码获取 Dom 对象': function () {
+                    Dom.parse("<div/>");
+                    Dom.parse("<div><div />a<\/div>");
+                    Dom.parse("   <div/> f <div/>");
+                    Dom.parse("<object />");
+                    Dom.parse("<input type=\'radio\' checked=\'checked\'>");
+                }
             });
 
         </script>
