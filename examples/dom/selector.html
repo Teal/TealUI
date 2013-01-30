@@ -35,6 +35,15 @@
 
             debugger
             var xx = Sizzle.select("div div", document, []);
+            
+            
+            // 删除 XML 支持
+            // 简化 getText 操作， 肯能包含回车问题。  #11153
+            // 删除以下伪类的支持：
+            // :radio :checkbox :file :password :image :submit :reset :header
+            // 删除以下兼容措施：
+            // Blackberry 4.6: document.getElementById() 肯能返回已删除的节点。
+            
 
         </script>
 
