@@ -1769,6 +1769,8 @@
 		return results;
 	}
 
+	Sizzle.select = select;
+
 	function select(selector, context, results, seed) {
 		var i, tokens, token, type, find,
 			match = tokenize(selector);

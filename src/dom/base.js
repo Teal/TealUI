@@ -24,7 +24,7 @@ include("core/class/base.js");
 
 var Dom = (function () {
 
-	// #region Core
+	//#region Core
 
 	/**
 	 * Object.extend 简写。
@@ -94,6 +94,9 @@ var Dom = (function () {
 			 */
 			length: 0,
 
+			/**
+			 * @constructor
+			 */
 			constructor: function (nodelist) {
 				if (nodelist) {
 					var i = 0;
@@ -166,16 +169,40 @@ var Dom = (function () {
 	Dom.iterateGetter = iterateGetter;
 	Dom.iterateDom = iterateDom;
 
-	// #endregion Core
+	//#endregion Core
 
-	// #endregion Selector
+	//#region Selector
 
 	var Selector = Dom.Selector = {
 
+		native: !!div.querySelector,
+
+		all: function (selector, parentNode) {
+			try {
+				return new Dom(parentNode.querySelectorAll(selector));
+			} catch (e) {
+				return query(selector, new Dom([parentNode]));
+			}
+		},
+
+		qall: function (selector, dom) {
+
+			// 如果只有一个元素，加速遍历。
+			if (dom.length === 1) {
+				return Selector.all(selector, dom);
+			}
+
+		},
+
 		all: function (selector, context) {
 			assert.isString(selector, "Dom.Selector#all(selector): selector ~");
+
+			// 如果已经指定必须某个作用域下进行查找。
 			if (context) {
-				
+
+				// 将作用域转为 Dom 对象。
+				context = Dom.query(context);
+
 			} else {
 				try {
 					result = document.querySelectorAll(selector);
@@ -238,21 +265,12 @@ var Dom = (function () {
 				return hash && hash.slice(1) === elem.id;
 			},
 
-			focus: function (elem) {
-				return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
-			},
-
 			/**
 			 * 判断一个节点是否有元素节点或文本节点。
 			 * @param {Element} elem 要测试的元素。
 			 * @return {Boolean} 如果存在子节点，则返回 true，否则返回 false 。
 			 */
-			empty: function (elem) {
-				for (elem = elem.firstChild; elem; elem = elem.nextSibling)
-					if (elem.nodeType === 1 || elem.nodeType === 3)
-						return false;
-				return true;
-			},
+			empty: Dom.isEmpty,
 
 			contains: function (elem, args) {
 				return Dom.getText(elem).indexOf(args) >= 0;
@@ -262,13 +280,11 @@ var Dom = (function () {
 			 * 判断一个节点是否不可见。
 			 * @return {Boolean} 如果元素不可见，则返回 true 。
 			 */
-			hidden: Dom.isHidden = function (elem) {
-				return (elem.style.display || getStyle(elem, 'display')) === 'none';
-			},
+			hidden: Dom.isHidden,
 			visible: function (elem) { return !Dom.isHidden(elem); },
 
-			not: function (elem, args) { return !match(elem, args); },
-			has: function (elem, args) { return query(args, new Dom(elem)).length > 0; },
+			not: function (elem, args) { return !Dom.match(elem, args); },
+			has: function (elem, args) { return Dom.find(args, elem).length > 0; },
 
 			selected: function (elem) { return attrFix.selected.get(elem, 'selected', 1); },
 			checked: function (elem) { return elem.checked; },
@@ -278,7 +294,7 @@ var Dom = (function () {
 			input: function (elem) { return /^(input|select|textarea|button)$/i.test(elem.nodeName); },
 
 			"nth-child": function (args, oldResult, result) {
-				var tmpResult = Dom.pseudos;
+				var tmpResult = Selector.pseudos;
 				if (tmpResult[args]) {
 					tmpResult[args](null, oldResult, result);
 				} else if (args = oldResult[args - 1])
@@ -594,10 +610,6 @@ var Dom = (function () {
 		throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
 	}
 
-	// #endregion Selector
-
-	// #region Query
-
 	/**
 	 * 执行一个 CSS 选择器，返回一个新的 {@link DomList} 对象。
 	 * @param {String/NodeList/DomList/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点列表。
@@ -641,21 +653,104 @@ var Dom = (function () {
 	 * 查找所有的单选按钮(即: type 值为 radio 的 input 元素)。
 	 * <pre>Dom.query("input[type=radio]");</pre>
 	 */
-	Dom.query = function (selector) {
-		return selector ?
-			typeof selector === 'string' ?
-				document.query(selector) :
-				selector.nodeType || selector.setTimeout ?
-					new DomList([selector]) :
-					typeof selector.length === 'number' ?
-						selector instanceof DomList ?
-			selector :
-							new DomList(selector) :
-						new DomList([Dom.getNode(selector)]) :
-			new DomList;
+	Dom.query = function (selector, context) {
+
+		// Dom.query("selector")
+		return typeof selector === 'string' ? Selector.all(selector, context) :
+
+				// Dom.query(dom)
+				selector instanceof Dom ? selector :
+
+					// Dom.query(node)
+					selector && (selector.nodeType || selector.setInterval) ? new Dom([selector]) :
+
+						// Dom.query()/Dom.query(nodelist)
+						new Dom(selector);
+
 	};
 
-	// #endregion Query
+	/**
+	 * 根据一个 *id* 或原生节点获取一个 {@link Dom} 类的实例。
+	 * @param {String/Node/Dom/DomList} id 要获取元素的 id 或用于包装成 Dom 对象的任何元素，如是原生的 DOM 节点、原生的 DOM 节点列表数组或已包装过的 Dom 对象。。
+	 * @return {Dom} 此函数返回是一个 Dom 类型的变量。通过这个变量可以调用所有文档中介绍的 DOM 操作函数。如果无法找到指定的节点，则返回 null 。此函数可简写为 $。
+	 * @static
+	 * @example
+	 * 找到 id 为 a 的元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p id="a"&gt;once&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
+	 * </pre>
+	 * #####JavaScript:
+	 * <pre>Dom.get("a");</pre>
+	 * #####结果:
+	 * <pre>{&lt;p id="a"&gt;once&lt;/p&gt;}</pre>
+	 * 
+	 * <br>
+	 * 返回 id 为 a1 的 DOM 对象
+	 * #####HTML:
+	 * <pre lang="htm" format="none">&lt;p id="a1"&gt;&lt;/p&gt; &lt;p id="a2"&gt;&lt;/p&gt; </pre>
+	 *
+	 * #####JavaScript:
+	 * <pre>Dom.get(document.getElecmentById('a1')) // 等效于 Dom.get('a1')</pre>
+	 * <pre>Dom.get(['a1', 'a2']); // 等效于 Dom.get('a1')</pre>
+	 * <pre>Dom.get(Dom.get('a1')); // 等效于 Dom.get('a1')</pre>
+	 * 
+	 * #####结果:
+	 * <pre>{&lt;p id="a1"&gt;&lt;/p&gt;}</pre>
+	 */
+	Dom.get = function (id) {
+		
+		// 将 ID 转为原生节点。
+		id = typeof id === "string" ? document.getElementById(id) : !id || id.nodeType || id.setInterval ? id : id[0];
+
+		// 如果存在节点，则转为 Dom 对象。
+		return id ? new Dom([id]) : null;
+	};
+
+	/**
+	 * 执行一个 CSS 选择器，返回第一个元素对应的 {@link Dom} 对象。
+	 * @param {String/NodeList/DomList/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点。
+	 * @return {Element} 如果没有对应的节点则返回一个空的 DomList 对象。
+	 * @static
+	 * @see DomList
+	 * @example
+	 * 找到第一个 p 元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
+	 * </pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.find("p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * {  &lt;p&gt;one&lt;/p&gt;  }
+	 * </pre>
+	 * 
+	 * <br>
+	 * 找到第一个 p 元素，并且这些元素都必须是 div 元素的子元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;</pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.find("div &gt; p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * { &lt;p&gt;two&lt;/p&gt; }
+	 * </pre>
+	 */
+	Dom.find = function (selector, context) {
+		return typeof selector === "string" ? Selector.one(selector, context) : Dom.query(selector, context);
+	};
+
+	//#endregion Selector
 
 	// #region Functions
 
@@ -723,6 +818,21 @@ var Dom = (function () {
 	 * @static
 	 */
 	Dom.document = new Dom([document]);
+
+	/**
+	 * 获取当前类对应的数据字段。
+	 * @protected override
+	 * @return {Object} 一个可存储数据的对象。
+	 * @remark
+	 * 此函数会在原生节点上创建一个 $data 属性以存储数据。
+	 */
+	Dom.data = function (elem) {
+
+		// 将数据绑定在原生节点上。
+		// 这在  IE 6/7 存在内存泄露问题。
+		// 由于 IE 6/7 即将退出市场。此处忽略。
+		return elem.$data || (elem.$data = {});
+	};
 
 	/**
 	 * 获取元素的文档。
@@ -853,7 +963,7 @@ var Dom = (function () {
 		return html;
 
 	};
-
+	
 	// #endregion Parse
 
 	// #endregion Create
@@ -913,32 +1023,32 @@ var Dom = (function () {
 	 * 默认用于获取和设置属性的函数。
 	 */
 	var defaultHook = {
-		getProp: function (elem, name) {
-			return name in elem ? elem[name] : null;
-		},
-		setProp: function (elem, name, value) {
-			if ('238'.indexOf(elem.nodeType) === -1) {
-				elem[name] = value;
-			}
-		},
-
-		get: function (elem, name) {
-			return elem.getAttribute ? elem.getAttribute(name) : this.getProp(elem, name);
-		},
-		set: function (elem, name, value) {
-			if (elem.setAttribute) {
-
-				// 如果设置值为 null, 表示删除属性。
-				if (value === null) {
-					elem.removeAttribute(name);
-				} else {
-					elem.setAttribute(name, value);
+			getProp: function (elem, name) {
+				return name in elem ? elem[name] : null;
+			},
+			setProp: function (elem, name, value) {
+				if ('238'.indexOf(elem.nodeType) === -1) {
+					elem[name] = value;
 				}
-			} else {
-				this.setProp(elem, name, value);
+			},
+
+			get: function (elem, name) {
+				return elem.getAttribute ? elem.getAttribute(name) : this.getProp(elem, name);
+			},
+			set: function (elem, name, value) {
+				if (elem.setAttribute) {
+
+					// 如果设置值为 null, 表示删除属性。
+					if (value === null) {
+						elem.removeAttribute(name);
+					} else {
+						elem.setAttribute(name, value);
+					}
+				} else {
+					this.setProp(elem, name, value);
+				}
 			}
-		}
-	},
+		},
 
 		/**
 		 * 获取和设置优先使用 prop 而不是 attr 的特殊属性的函数。
@@ -1308,9 +1418,9 @@ var Dom = (function () {
 	 * #####结果:
 	 * <pre lang="htm" format="none">"&lt;p/&gt;"</pre>
 	 */
-	Dom.getHtml = function () {
-		assert(this.node.nodeType === 1, "Dom#getHtml(): 仅当 dom.nodeType === 1 时才能使用此函数。");
-		return this.node.innerHTML;
+	Dom.getHtml = function (elem) {
+		assert(elem.nodeType === 1, "Dom#getHtml(): 仅当 dom.nodeType === 1 时才能使用此函数。");
+		return elem.innerHTML;
 	};
 
 	/**
@@ -1326,7 +1436,7 @@ var Dom = (function () {
 	 * #####结果:
 	 * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;a/&gt;&lt;/div&gt;</pre>
 	 */
-	Dom.setHtml = function (value) {
+	Dom.setHtml = function (elem, value) {
 
 		// 如果存在 <script> 或 <style> ，则不能使用 innerHTML 实现。
 		if (/<(?:script|style)/i.test(value)) {
@@ -1334,8 +1444,7 @@ var Dom = (function () {
 			return this;
 		}
 
-		var elem = this.node,
-			map = parseFix.$default;
+		var map = parseFix.$default;
 
 		assert(elem.nodeType === 1, "Dom#setHtml(value): {elem} 不是元素节点(nodeType === 1), 无法执行 setHtml。", elem);
 
@@ -1724,13 +1833,9 @@ var Dom = (function () {
 
 	};
 
-	/**
-	 * 默认最大的 z-index 。
-	 * @property zIndex
-	 * @type Number
-	 * @private
-	 * @static
-	 */
+	Dom.isHidden = function (elem) {
+		return (elem.style.display || getStyle(elem, 'display')) === 'none';
+	};
 
 	/**
 	 * 获取一个标签的默认 display 属性。
@@ -1942,6 +2047,29 @@ var Dom = (function () {
 	};
 
 	// #endregion Text
+
+	Dom.isEmpty = function (elem) {
+		for (elem = elem.firstChild; elem; elem = elem.nextSibling)
+			if (elem.nodeType === 1 || elem.nodeType === 3)
+				return false;
+		return true;
+	};
+
+	// #region Event
+
+	Dom.Event = {
+
+	};
+
+	Dom.addListener = function (elem, type, fn) {
+
+	};
+
+	Dom.on = function (elem, type, fn, scope) {
+
+	};
+
+	// #endregion Event
 
 	Dom.implement({
 		
@@ -4654,102 +4782,3 @@ var Dom = (function () {
 
 // 导出函数。
 window.$ = window.$ || Dom.query;
-
-var Dom2 = (function () {
-
-	Object.extend(Dom, {
-
-		/**
-		 * 执行一个 CSS 选择器，返回第一个元素对应的 {@link Dom} 对象。
-		 * @param {String/NodeList/DomList/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点。
-		 * @return {Element} 如果没有对应的节点则返回一个空的 DomList 对象。
-	 	 * @static
-	 	 * @see DomList
-	 	 * @example
-	 	 * 找到第一个 p 元素。
-	 	 * #####HTML:
-	 	 * <pre lang="htm" format="none">
-	 	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
-	 	 * </pre>
-	 	 * 
-	 	 * #####Javascript:
-	 	 * <pre>
-	 	 * Dom.find("p");
-	 	 * </pre>
-	 	 * 
-	 	 * #####结果:
-	 	 * <pre lang="htm" format="none">
-	 	 * {  &lt;p&gt;one&lt;/p&gt;  }
-	 	 * </pre>
-	 	 * 
-	 	 * <br>
-	 	 * 找到第一个 p 元素，并且这些元素都必须是 div 元素的子元素。
-	 	 * #####HTML:
-	 	 * <pre lang="htm" format="none">
-	 	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;</pre>
-	 	 * 
-	 	 * #####Javascript:
-	 	 * <pre>
-	 	 * Dom.find("div &gt; p");
-	 	 * </pre>
-	 	 * 
-	 	 * #####结果:
-	 	 * <pre lang="htm" format="none">
-	 	 * { &lt;p&gt;two&lt;/p&gt; }
-	 	 * </pre>
-		 */
-		find: function (selector) {
-			return typeof selector === "string" ?
-				document.find(selector) :
-				Dom.get(selector);
-		},
-
-		/**
-		 * 根据一个 *id* 或原生节点获取一个 {@link Dom} 类的实例。
-		 * @param {String/Node/Dom/DomList} id 要获取元素的 id 或用于包装成 Dom 对象的任何元素，如是原生的 DOM 节点、原生的 DOM 节点列表数组或已包装过的 Dom 对象。。
-	 	 * @return {Dom} 此函数返回是一个 Dom 类型的变量。通过这个变量可以调用所有文档中介绍的 DOM 操作函数。如果无法找到指定的节点，则返回 null 。此函数可简写为 $。
-	 	 * @static
-	 	 * @example
-	 	 * 找到 id 为 a 的元素。
-	 	 * #####HTML:
-	 	 * <pre lang="htm" format="none">
-	 	 * &lt;p id="a"&gt;once&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
-	 	 * </pre>
-	 	 * #####JavaScript:
-	 	 * <pre>Dom.get("a");</pre>
-	 	 * #####结果:
-	 	 * <pre>{&lt;p id="a"&gt;once&lt;/p&gt;}</pre>
-	 	 * 
-	 	 * <br>
-	 	 * 返回 id 为 a1 的 DOM 对象
-	 	 * #####HTML:
-	 	 * <pre lang="htm" format="none">&lt;p id="a1"&gt;&lt;/p&gt; &lt;p id="a2"&gt;&lt;/p&gt; </pre>
-	 	 *
-	 	 * #####JavaScript:
-	 	 * <pre>Dom.get(document.getElecmentById('a1')) // 等效于 Dom.get('a1')</pre>
-	 	 * <pre>Dom.get(['a1', 'a2']); // 等效于 Dom.get('a1')</pre>
-	 	 * <pre>Dom.get(Dom.get('a1')); // 等效于 Dom.get('a1')</pre>
-	 	 * 
-	 	 * #####结果:
-	 	 * <pre>{&lt;p id="a1"&gt;&lt;/p&gt;}</pre>
-		 */
-		get: function (id) {
-			return typeof id === "string" ?
-				(id = document.getElementById(id)) && new Dom([id]) :
-				id ?
-					id.nodeType || id.setTimeout ?
-						new Dom(id) :
-						id.node ?
-							id instanceof Dom ?
-				id :
-								new Dom(id.node) :
-							Dom.get(id[0]) :
-					null;
-		},
-
-		div: document.createElement('div')
-	});
-
-	return Dom;
-
-})();

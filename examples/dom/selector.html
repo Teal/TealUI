@@ -6,8 +6,7 @@
     <title>CSS 选择器</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
-    <script type="text/javascript" src="../../src/dom/attr.js"></script>
-    <script type="text/javascript" src="../../src/dom/selector.js"></script>
+    <script type="text/javascript" src="../../src/jquery/sizzle.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -26,16 +25,16 @@
                         </div>
                 <div id="d" style="background: #EAF2F5; border: 10px solid #BEDCE7; padding: 8px;">id=d border=10 padding=8</div>
                 <script>
-                    var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d');
+                    //   var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d');
                 </script>
             </div>
         </div>
 
         <script>
 
-            Demo.writeExamples({
 
-            });
+            debugger
+            var xx = Sizzle.select("div div", document, []);
 
         </script>
 

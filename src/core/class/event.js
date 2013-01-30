@@ -421,4 +421,5 @@ include("core/base.js");
 
 		return t[eventName];
 	}
-})();
+
+})();
