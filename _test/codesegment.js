@@ -33,3 +33,6 @@
 
 		return ret;
 	};
+
+
+// bug: Safari  e.target 返回文本节点   #504

@@ -169,7 +169,7 @@ var Dom = (function () {
 	Dom.iterateGetter = iterateGetter;
 	Dom.iterateDom = iterateDom;
 
-	//#endregion Core
+	//#endregion
 
 	//#region Selector
 
@@ -1994,7 +1994,7 @@ trace(selector, "->", match)
 
 			i = 0;
 			while (r[i])
-				if (r[i++] === node)
+				if (r[i++] === elem)
 					return true;
 
 			return false;
@@ -2497,9 +2497,12 @@ trace(selector, "->", match)
 		return typeof selector === "string" ? Selector.one(selector, context) : Dom.query(selector, context);
 	};
 
-	//#endregion Selector
 
-	// #region Functions
+	Dom.match = Dom.Selector.match;
+
+	//#endregion
+
+	//#region Functions
 
 	/**
 	 * 新元素缓存。
@@ -3221,9 +3224,9 @@ trace(selector, "->", match)
 		return this;
 	};
 
-	// #endregion Attr
+	//#endregion
 
-	// #region Style
+	//#region Style
 
 	/**
 	 * 透明度的正则表达式。
@@ -3658,9 +3661,9 @@ trace(selector, "->", match)
 		}
 	};
 
-	// #endregion Style
+	//#endregion
 
-	// #region Clone
+	//#region Clone
 
 	/**
 	 * 特殊属性集合。
@@ -3793,8 +3796,6 @@ trace(selector, "->", match)
 		return clone;
 	};
 
-	// #endregion Text
-
 	Dom.isEmpty = function (elem) {
 		for (elem = elem.firstChild; elem; elem = elem.nextSibling)
 			if (elem.nodeType === 1 || elem.nodeType === 3)
@@ -3802,21 +3803,342 @@ trace(selector, "->", match)
 		return true;
 	};
 
-	// #region Event
+	//#endregion
 
-	Dom.Event = {
+	//#region Event
 
+	var emptyObj = {};
+
+	Dom.initEvent = function (e) {
+		return e;
 	};
 
-	Dom.addListener = function (elem, type, fn) {
+	Dom.eventFix = {};
 
+	Dom.defineEvents = function (events, hooks) {
+
+		var eventFix = Dom.eventFix;
+
+		map(events, function (eventName) {
+
+			// 支持 bind 字段：自动添加和删除指定的父事件。
+			if (hooks.bind) {
+
+				hooks.add = function (elem, type, fn) {
+					Dom.addListener(elem, this.bind, fn);
+				};
+
+				hooks.remove = function (elem, type, fn) {
+					defaultEvent.remove(elem, this.bind, fn);
+				};
+			}
+
+			// 将已有的信息拷贝回来。
+			if(eventFix[eventName]) {
+				eventFix[eventName] = extend(extend({}, eventFix[eventName]), hooks);
+			} else {
+				eventFix[eventName] = hooks;
+			}
+		})
+	};
+
+	if (isIE678) {
+		Dom.initEvent = function (e) {
+			e.targetElement = e.target = e.srcElement;
+			e.getTarget = ep.getTarget;
+			e.stopPropagation = ep.stopPropagation;
+			e.preventDefault = ep.preventDefault;
+			e.which = e.keyCode;
+			return e;
+		};
+
+		Dom.defineEvents("click dblclick mousedown mouseup mouseover mouseenter mousemove mouseleave mouseout contextmenu selectstart selectend", {
+			initEvent: function (e) {
+				e = Dom.initEvent(e);
+
+				// 没有 target 时，重新初始化 IE 事件对象的参数。
+				if (!e.target) {
+					e.relatedTarget = e.fromElement === e.srcElement ? e.toElement : e.fromElement;
+
+					var eventDoc = getDocument(e.target).documentElement;
+					e.pageX = e.clientX + (eventDoc.scrollLeft || 0) - (eventDoc.clientLeft || 0);
+					e.pageY = e.clientY + (eventDoc.scrollTop || 0) - (eventDoc.clientTop || 0);
+
+					e.layerX = e.x;
+					e.layerY = e.y;
+
+					// 1 ： 单击 2 ： 中键点击 3 ： 右击
+					e.which = e.button & 1 ? 1 : e.button & 2 ? 3 : e.button & 4 ? 2 : 0;
+
+				}
+
+				return e;
+			}
+		});
+	}
+
+	if (div.onfocusin === undefined) {
+		Dom.defineEvents('focusin focusout', {
+			add: function (elem, type, fn) {
+				var data = Dom.data(elem.ownerDocument || elem);
+
+				if (!data[type + 'Handler']) {
+					doc.addEventListener(type === 'focusin' ? 'focus' : 'blur', data[type + 'Handler'] = function (e) {
+						if (e.eventPhase <= 1) {
+							var p = elem;
+							while (p && p.parentNode) {
+								if (!Dom.trigger(p, type, e)) {
+									return;
+								}
+
+								p = p.parentNode;
+							}
+						}
+					}, true);
+				}
+			}
+		});
+
+	}
+
+	if (div.onmousewheel === undefined) {
+		Dom.defineEvents('mousewheel', {
+			bind: 'DOMMouseScroll'
+		});
+	}
+
+	//if (navigator.isFirefox) {
+	//	Dom.defineEvents('click', {
+	//		initEvent: function (e) {
+	//			return e.which === undefined || e.which === 1 ? e : null;
+	//		}
+	//	});
+	//}
+
+	// Firefox 会在右击时触发 document.onclick 。
+	Dom.defineEvents('click', {
+
+		check: function (target, e) {
+			return !target.disabled && (e.which === undefined || e.which === 1);
+		}
+
+	});
+
+	Object.each({
+		'mouseenter': 'mouseover',
+		'mouseleave': 'mouseout'
+	}, function (fix, event) {
+		Dom.defineEvents(event, {
+			initEvent: function (e) {
+
+				// 如果浏览器原生支持 mouseenter/mouseleave, 不作操作。
+				if (e.type !== event) {
+
+					var relatedTarget = e.relatedTarget;
+
+					// 修正 getTarget 返回值。
+					e.orignalType = event;
+					return this.node !== relatedTarget && !Dom.has(elem, relatedTarget);
+
+				}
+			},
+			bind: div.onmouseenter === null ? null : fix,
+			delegate: fix
+		});
+	});
+
+	Dom.defineEvents('focus', {
+		delegate: 'focusin'
+	});
+	
+	Dom.defineEvents('blur', {
+		delegate: 'focusout'
+	});
+
+	Dom.addListener = div.addEventListener ? function (elem, type, fn) {
+		elem.addEventListener(type, fn, false);
+	} : function (elem, type, fn) {
+		elem.attachEvent('on' + type, fn);
+	};
+
+	Dom.removeListener = div.removeEventListener ? function (elem, type, fn) {
+		elem.removeEventListener(type, fn, false);
+	} : function (elem, type, fn) {
+		elem.detachEvent('on' + type, fn);
 	};
 
 	Dom.on = function (elem, type, fn, scope) {
 
+		//assert.isString(selector, "Dom#delegate(selector, eventName, handler): {selector}  ~");
+		//assert.isString(eventName, "Dom#delegate(selector, eventName, handler): {eventName}  ~");
+		//assert.isFunction(handler, "Dom#delegate(selector, eventName, handler): {handler}  ~");
+		//assert(eventName, "Dom#bind(eventAndSelector, handler): {eventAndSelector} 中不存在事件信息。正确的 eventAndSelector 格式： click.selector");
+
+		var data = Dom.data(elem), eventName, selector, eventHandler, eventFix;
+
+		// 如果指定的节点无法存储数据，则不添加函数。
+		if (!data) {
+			return;
+		}
+
+		// 初始化存储事件函数的对象。
+		data = data.$events || (data.$events = {});
+		eventName = (/^\w+/.exec(type) || [''])[0];
+		selector = type.substr(eventName.length);
+		eventFix = Dom.eventFix[eventName] || emptyObj;
+		eventHandler = data[eventName = selector && eventFix.delegate || eventName];
+
+		// 如果不存在指定事件的处理函数，则先创建。
+		if (!eventHandler) {
+			data[eventName] = eventHandler = function (e) {
+				return dispatchEvent(e, arguments.callee);
+			};
+
+			// 保存最开始的参数类型，用于以后处理。
+			eventHandler.target = elem;
+			eventHandler.type = eventName;
+			eventHandler.initEvent = eventFix.initEvent || Dom.initEvent;
+
+			// 第一次绑定事件时，同时会绑定 DOM 事件。
+			// 如果自定义的 .add 函数返回 false，说明 add 无法处理，则添加 DOM 事件。
+			if (!eventFix.add || eventFix.add(elem, type, eventHandler) === false) {
+				Dom.addListener(elem, eventName, eventHandler);
+			}
+		}
+
+		// 添加当前函数到队列末尾。
+		data = [fn, scope || elem, selector];
+		eventName = selector ? 'delegateFn' : 'bindFn';
+
+		if (eventFix = eventHandler[eventName]) {
+			eventFix.push(data);
+		} else {
+			eventHandler[eventName] = [data];
+		}
+
+
 	};
 
-	// #endregion Event
+	Dom.un = function (elem, type, fn) {
+
+		var data = (Dom.data(elem) || {}).$events, eventName, selector, eventHandler, eventFix;
+
+		// 如果不传递 type, 表示删除当前 DOM 的全部事件。
+		// 如果指定的节点无法存储数据，则不添加函数。
+		if (data && type) {
+
+			// 获取事件类型。
+			eventName = (/^\w+/.exec(type) || [''])[0];
+			selector = type.substr(eventName.length);
+			eventHandler = data[eventName];
+
+			// 如果指定了函数，则搜索指定的函数。
+			if (fn) {
+
+				handlers = selector ? eventHandler.delegateFn : eventHandler.bindFn;
+
+				for (i = 0; i < handlers.length; i++) {
+					if ((handlers[i][0] === fn) || (!selector || handlers[i][2] === selector)) {
+						handlers.splice(i, 1);
+						fn = handlers.length;
+						break;
+					}
+				}
+
+			}
+			
+			// 否则，删除全部事件函数。
+			if (!fn) {
+
+				delete data[eventName];
+				eventFix = Dom.eventFix[eventName];
+
+				// 第一次绑定事件时，同时会绑定 DOM 事件。
+				// 如果自定义的 .add 函数返回 false，说明 add 无法处理，则添加 DOM 事件。
+				if (!eventFix || !eventFix.remove || eventFix.remove(elem, type, eventHandler) === false) {
+					Dom.removeListener(elem, eventName, eventHandler);
+				}
+
+			}
+
+		} else {
+
+			// 否则，删除全部事件函数。
+			for (eventName in data) {
+				Dom.un(elem, eventName);
+			}
+
+		}
+
+	};
+
+	function dispatchEvent(e, eventHandler) {
+		var handler,
+			i,
+			length,
+			delegateTarget,
+			check,
+			delegateHandlers = eventHandler.delegateFn,
+			target = eventHandler.target,
+			actualHandlers = [];
+
+		// 初始化和修复事件。
+		e = eventHandler.initEvent(e);
+
+		// 遍历委托处理句柄，将符合要求的句柄放入 actualHandlers 。
+		if (delegateHandlers) {
+
+			check = eventHandler.check;
+
+			// 从当前实际发生事件的元素开始一直往上查找，直到当前节点。
+			for (delegateTarget = e.target; delegateTarget != target; delegateTarget = delegateTarget.parentNode || target) {
+
+				// 获取发生事件的原始对象。
+				i = 0;
+				length = delegateHandlers.length;
+
+				while (i < length) {
+
+					handler = delegateHandlers[i++];
+
+					// 如果节点满足 CSS 选择器要求，则放入队列。
+					// check 用于处理部分特殊的情况，不允许执行委托函数。（如 click 已禁用的按钮）
+					if (Dom.match(delegateTarget, handler[2]) && (!check || check(delegateTarget, e))) {
+
+						actualHandlers.push([handler[0], handler[1] || delegateTarget]);
+
+					}
+
+				}
+			}
+
+		}
+
+		// 将普通的句柄直接复制到 actualHandlers 。
+		if (eventHandler.bindFn) {
+			actualHandlers.push.apply(actualHandlers, eventHandler.bindFn);
+		}
+
+		i = 0;
+		length = actualHandlers.length;
+
+		// 循环直接以上提取的所有函数句柄。
+		while (i < length) {
+
+			handler = actualHandlers[i++];
+
+			// 如果句柄函数返回 false, 则同时阻止事件并退出循环。
+			if (handler[0].call(handler[1], e) === false) {
+				e.stopPropagation();
+				e.preventDefault();
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	//#endregion
 
 	Dom.implement({
 		
@@ -3831,6 +4153,8 @@ trace(selector, "->", match)
 	});
 
 	return Dom;
+
+	//#region End
 
 	/**
 	 * DOM 事件。
@@ -3865,14 +4189,6 @@ trace(selector, "->", match)
 		 */
 		preventDefault: function () {
 			this.returnValue = false;
-		},
-
-		/**
-		 * 获取当前发生事件 Dom 对象。
-		 * @return {Dom} 发生事件 Dom 对象。
-		 */
-		getTarget: function () {
-			return new Dom((this.orignalType && this.currentTarget) || (this.target.nodeType === 3 ? this.target.parentNode : this.target));
 		}
 	}),
 
@@ -5903,7 +6219,7 @@ trace(selector, "->", match)
 
 	if (div.onmousewheel === undefined) {
 		Dom.addEvents('mousewheel', {
-			base: 'DOMMouseScroll'
+			bind: 'DOMMouseScroll'
 		});
 	}
 
@@ -5934,7 +6250,7 @@ trace(selector, "->", match)
 
 				}
 			},
-			base: div.onmouseenter === null ? null : fix,
+			bind: div.onmouseenter === null ? null : fix,
 			delegate: fix
 		});
 	});
@@ -6521,7 +6837,7 @@ trace(selector, "->", match)
 		throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
 	}
 
-	/// #endregion
+	//#endregion
 
 	return Dom;
 
