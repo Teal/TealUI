@@ -6,7 +6,7 @@
     <title>DOM 属性操作</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
-    <script type="text/javascript" src="../../src/dom/attr.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -32,7 +32,19 @@
 
         <script>
 
+
+			
+
+
             Demo.writeExamples({
+            	'on("click")': 'Dom.on(a[0], "click", trace)',
+            	'on("mouseenter")': 'Dom.on(a[0], "mouseenter", trace)',
+            	'on("focusin")': 'Dom.on(a[0], "focusin", trace)',
+            	
+            	'on("mouseenter#b")': 'Dom.on(a[0], "mouseenter#b", trace)',
+            	'on("focus#b")': 'Dom.on(a[0], "focus#b", trace)',
+            	/*
+            	
                 'Dom#setAttr': 'c.setAttr("innerText", "12121")',
                 'Dom#getAttr': 'c.getAttr("innerText")',
                 'Dom#set': 'c.set({"innerHTML": "cv"})',
@@ -44,6 +56,9 @@
                 'Dom#hasClass': 'a.hasClass("light")',
                 'Dom#removeClass': 'a.removeClass("light")',
                 'Dom#toggleClass': 'a.toggleClass("light")'
+                
+                
+                */
             });
 
         </script>

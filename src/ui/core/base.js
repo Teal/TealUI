@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("core/class/base.js");
+include("core/class.js");
 include("dom/base.js");
 
 /**

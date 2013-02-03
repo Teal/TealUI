@@ -3,35 +3,66 @@
  * @fileOverview 为浏览器环境扩展一些必要的方法。
  */
 
-// 可用的宏
-//  CompactMode - 兼容模式 - 支持 IE6+ FF3+ Chrome10+ Opera10.5+ Safari5+ , 若无此宏，将只支持 HTML5。
-
-
 var JPlus = (function (undefined) {
 
-	/// #region Core
+    //#region Functions
 
 	/**
 	 * Array.prototype 简写。
 	 * @type  Object
 	 */
-	var ap = Array.prototype,
+	var ap = Array.prototype;
 
-		/**
-		 * Object.prototype.toString 简写。
-		 * @type Function
-		 */
-		toString = Object.prototype.toString,
+    /**
+	 * 复制所有属性到任何对象。
+	 * @param {Object} dest 复制目标。
+	 * @param {Object} src 要复制的内容。
+	 * @return {Object} 复制后的对象。
+	 */
+	function extend(dest, src) {
 
-		/**
-		 * Object.prototype.hasOwnProperty 简写。
-		 * @type Function
-		 */
-		hasOwnProperty = Object.prototype.hasOwnProperty;
+	    assert(dest != null, "Object.extend(dest, src): {dest} 不可为空。", dest);
 
-	/// #endregion
+	    // 直接遍历，不判断是否为真实成员还是原型的成员。
+	    for (var key in src)
+	        dest[key] = src[key];
+	    return dest;
+	}
 
-	/// #region Functions
+    /**
+	 * 复制对象的所有属性到其它对象，但不覆盖原对象的相应值。
+	 * @param {Object} dest 复制目标。
+	 * @param {Object} src 要复制的内容。
+	 * @return {Object} 复制后的对象。
+	 */
+	function extendIf(dest, src) {
+
+	    assert(dest != null, "extendIf(dest, src): {dest} 不可为空。", dest);
+
+	    // 和 extend 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
+	    for (var b in src)
+	        if (dest[b] === undefined)
+	            dest[b] = src[b];
+	    return dest;
+	}
+
+    /**
+	 * 对数组运行一个函数。
+	 * @param {Function} fn 遍历的函数。参数依次 value, index, array 。
+	 * @param {Object} scope 对象。
+	 * @return {Boolean} 返回一个布尔值，该值指示本次循环时，有无出现一个函数返回 false 而中止循环。
+	 */
+	function each(fn, scope) {
+
+	    assert(typeof fn === 'function', "Array#each(fn, scope): {fn} 必须是一个函数。", fn);
+
+	    var i = -1, me = this;
+
+	    while (++i < me.length)
+	        if (fn.call(scope, me[i], i, me) === false)
+	            return false;
+	    return true;
+	}
 
 	/**
 	 * 系统原生的对象。
@@ -39,7 +70,7 @@ var JPlus = (function (undefined) {
 	 */
 	extend(Object, {
 
-		/// #if CompactMode
+		//#if CompactMode
 
 		/**
 		 * 复制对象的所有属性到其它对象。
@@ -66,7 +97,7 @@ var JPlus = (function (undefined) {
 					assert(dest != null, "Object.extend(dest, src): {dest} 不可为空。", dest);
 
 					for (var i = extend.enumerables.length, value; i--;)
-						if (hasOwnProperty.call(src, value = extend.enumerables[i]))
+					    if (Object.prototype.hasOwnProperty.call(src, value = extend.enumerables[i]))
 							dest[value] = src[value];
 					extend(dest, src);
 				}
@@ -75,11 +106,11 @@ var JPlus = (function (undefined) {
 			};
 		})(),
 
-		/// #else
+		//#else
 
-		/// extend: extend,
+		//# extend: extend,
 
-		/// #endif
+		//#endif
 
 		/**
 		 * 复制对象的所有属性到其它对象，但不覆盖原对象的相应值。
@@ -186,25 +217,19 @@ var JPlus = (function (undefined) {
 		 */
 		map: function (iterable, fn, dest) {
 
-			var actualFn;
-
-			// 如果是目标对象是一个字符串，则改为数组。
+			// Object.map("a b c")
 			if (typeof iterable === 'string') {
-				iterable = iterable.split(' ');
-				actualFn = typeof fn === 'function' ? dest ? function (value, key, array) {
-					this[value] = fn(value, key, array);
-				} : fn : function (value) {
-					this[value] = fn;
-				};
+			    iterable = iterable.split(' ');
+
+			    // Object.map({})
 			} else {
-				dest = typeof iterable.length !== "number" ? {} : [];
-				actualFn = function (value, key, array) {
-					this[key] = fn(value, key, array);
-				};
+			    dest = dest || typeof iterable.length !== "number" ? {} : [];
 			}
 
 			// 遍历对象。
-			Object.each(iterable, actualFn, dest);
+			Object.each(iterable, dest ? function (value, key, array) {
+			    this[value] = fn(value, key, array);
+			} : fn, dest);
 
 			// 返回目标。
 			return dest;
@@ -271,6 +296,8 @@ var JPlus = (function (undefined) {
 		}) : "";
 	};
 
+    //#if CompactMode
+
 	/**
 	 * 系统原生的数组对象。
 	 * @class Array
@@ -289,12 +316,10 @@ var JPlus = (function (undefined) {
 	     * </pre>
 		 */
 		Array.isArray = function (obj) {
-			return toString.call(obj) === "[object Array]";
+		    return Object.prototype.toString.call(obj) === "[object Array]";
 		};
 
 	}
-
-	/// #if CompactMode
 
 	/**
 	 * 系统原生的日期对象。
@@ -317,7 +342,7 @@ var JPlus = (function (undefined) {
 
 	}
 
-	/// #endif
+	//#endif
 
 	/**
 	 * @namespace window
@@ -344,9 +369,9 @@ var JPlus = (function (undefined) {
 
 	}
 
-	/// #endregion
+	//#endregion
 
-	/// #region Navigator
+	//#region Navigator
 
 	/**
 	 * 系统原生的浏览器对象实例。
@@ -443,9 +468,19 @@ var JPlus = (function (undefined) {
 	 */
 	navigator.isIE67 = isIE678 && typeof document.constructor !== 'object';
 
-	/// #endregion
+	//#endregion
 
-	/// #region Methods
+    //#region Methods
+
+    /**
+	 * 将一个字符转为大写。
+	 * @param {String} ch 参数。
+	 * @param {String} match 字符。
+	 * @return {String} 转为大写之后的字符串。
+	 */
+	function toUpperCase(ch, match) {
+	    return match.toUpperCase();
+	}
 
 	/**
 	 * 系统原生的字符串对象。
@@ -627,24 +662,7 @@ var JPlus = (function (undefined) {
 			return i;
 		},
 
-		/**
-		 * 获取当前数组中指定索引的元素。
-		 * @param {Number} index 要获取的元素索引。如果 *index* 小于 0， 则表示获取倒数 *index* 位置的元素。
-		 * @return {Object} 指定位置所在的元素。如果指定索引的值不存在，则返回 undefined。
-		 * @remark
-		 * 使用 arr.item(-1) 可获取最后一个元素的值。
-		 * @example
-		 * <pre>
-	     * [0, 1, 2, 3].item(0);  // 0
-	     * [0, 1, 2, 3].item(-1); // 3
-	     * [0, 1, 2, 3].item(5);  // undefined
-	     * </pre>
-		 */
-		item: function (index) {
-			return this[index < 0 ? this.length + index : index];
-		},
-
-		/// #if CompactMode
+		//#if CompactMode
 
 		/**
 		 * 返回当前数组中某个值的第一个位置。
@@ -722,76 +740,13 @@ var JPlus = (function (undefined) {
 		 */
 		forEach: each
 
-		/// #endif
+		//#endif
 
 	});
 
-	/// #endregion
+    //#endregion
 
-	/// #region Private Functions
-
-	/**
-	 * 复制所有属性到任何对象。
-	 * @param {Object} dest 复制目标。
-	 * @param {Object} src 要复制的内容。
-	 * @return {Object} 复制后的对象。
-	 */
-	function extend(dest, src) {
-
-		assert(dest != null, "Object.extend(dest, src): {dest} 不可为空。", dest);
-
-		// 直接遍历，不判断是否为真实成员还是原型的成员。
-		for (var key in src)
-			dest[key] = src[key];
-		return dest;
-	}
-
-	/**
-	 * 复制对象的所有属性到其它对象，但不覆盖原对象的相应值。
-	 * @param {Object} dest 复制目标。
-	 * @param {Object} src 要复制的内容。
-	 * @return {Object} 复制后的对象。
-	 */
-	function extendIf(dest, src) {
-
-		assert(dest != null, "extendIf(dest, src): {dest} 不可为空。", dest);
-
-		// 和 extend 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
-		for (var b in src)
-			if (dest[b] === undefined)
-				dest[b] = src[b];
-		return dest;
-	}
-
-	/**
-	 * 对数组运行一个函数。
-	 * @param {Function} fn 遍历的函数。参数依次 value, index, array 。
-	 * @param {Object} scope 对象。
-	 * @return {Boolean} 返回一个布尔值，该值指示本次循环时，有无出现一个函数返回 false 而中止循环。
-	 */
-	function each(fn, scope) {
-
-		assert(typeof fn === 'function', "Array#each(fn, scope): {fn} 必须是一个函数。", fn);
-
-		var i = -1, me = this;
-
-		while (++i < me.length)
-			if (fn.call(scope, me[i], i, me) === false)
-				return false;
-		return true;
-	}
-
-	/**
-	 * 将一个字符转为大写。
-	 * @param {String} ch 参数。
-	 * @param {String} match 字符。
-	 * @return {String} 转为大写之后的字符串。
-	 */
-	function toUpperCase(ch, match) {
-		return match.toUpperCase();
-	}
-
-	/// #endregion
+    //#region Export
 
 	/**
 	 * 包含系统有关的函数。
@@ -815,12 +770,10 @@ var JPlus = (function (undefined) {
 		 * 获取当前框架的版本号。
 		 * @getter
 		 */
-		version: /*@VERSION*/1.00
+		version: /*@VERSION*/0.40
 
 	};
 
+    //#endregion
+
 })();
-
-
-
-

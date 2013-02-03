@@ -3,7 +3,7 @@
  */
 
 
-include("core/class/base.js");
+include("core/class.js");
 
 
 /**
