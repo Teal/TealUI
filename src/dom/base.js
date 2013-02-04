@@ -1206,7 +1206,7 @@ var Dom = (function () {
 		styleHooks = Dom.styleHooks = {
 		    height: {
 		        get: function (elem) {
-		            return styleNumber(elem, "height");
+		            return styleNumber(elem, "height") + "px";
 		        },
 		        compute: function (elem){
 		            return elem.offsetHeight === 0 ? 'auto' : elem.offsetHeight - Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
@@ -1217,7 +1217,7 @@ var Dom = (function () {
 		    },
 		    width: {
 		        get: function (elem) {
-		            return styleNumber(elem, "width");
+		            return styleNumber(elem, "width") + "px";
 		        },
 		        compute: function (elem) {
 		            return elem.offsetWidth === 0 ? 'auto' : elem.offsetWidth - Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
@@ -1334,15 +1334,19 @@ var Dom = (function () {
 	 * @return {Number} 数字。
 	 */
 	function styleNumber(elem, name) {
-		//assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
+	    //assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
 
-		if (elem.style) {
+	    var style = elem.style, value;
+
+	    if (style) {
 
 			// 优先从 style 获取。
-			var value = parseFloat(elem.style[name]);
+	        value = style[name];
 
-			// value 不能使 NaN
-			if (!value && value !== 0) {
+            // 如果已经制定了一个 0px 格式的数字，直接返回。
+	        if (value && /^[\d\.]+px$/.test(value)) {
+	            value = parseFloat(value);
+	        } else {
 
 				// 如果获取不到值，则从 currentStyle 获取。
 				value = parseFloat(getCurrentStyle(elem, name));
@@ -1353,16 +1357,14 @@ var Dom = (function () {
 					// 处理 width/height，必须在 display 不是 none 的时候进行获取。
 					if (name in styleHooks) {
 
-						elem = elem.style;
-
 						var styles = {};
 						for (var name in Dom.displayFix) {
-							styles[style] = elem[name];
+						    styles[name] = style[name];
 						}
 
-						extend(elem, Dom.displayFix);
+						extend(style, Dom.displayFix);
 						value = parseFloat(getCurrentStyle(elem, name)) || 0;
-						extend(elem, styles);
+						extend(style, styles);
 					} else {
 						value = 0;
 					}
@@ -1374,7 +1376,7 @@ var Dom = (function () {
 
 			value = name === "height" ? elem.clientHeight :
 				name === "width" ? elem.clientWidth :
-				styleNumber(elem);
+				styleNumber(elem, name);
 
 		}
 
@@ -1610,8 +1612,6 @@ var Dom = (function () {
 	        if (name in styleHooks) {
 	            styleHooks[name].set(elem, value);
 	        } else {
-
-	            assert(value || !isNaN(value), "Dom.setStyle(name, value): {value} 不是正确的属性值。", value);
 
 	            // 设置样式，为一些数字类型的样式自动追加单位。
 	            elem.style[name] = typeof value !== "number" || name in Dom.styleNumbers ? value : (value + "px");
@@ -2525,6 +2525,65 @@ var Dom = (function () {
 
     //#endregion
 
+    //#region Set
+
+    /**
+     * 快速设置当前 Dom 对象的样式、属性或事件。
+     * @param {String/Object} name 属性名。可以是一个 css 属性名或 html 属性名。如果属性名是on开头的，则被认为是绑定事件。 - 或 - 属性值，表示 属性名/属性值 的 JSON 对象。
+     * @param {Object} [value] 属性值。
+     * @return this
+     * @remark
+     * 此函数相当于调用 setStyle 或 setAttr 。数字将自动转化为像素值。
+     * @example
+     * 将所有段落字体设为红色、设置 class 属性、绑定 click 事件。
+     * <pre>
+     * Dom.query("p").set("color","red").set("class","cls-red").set("onclick", function(){alert('clicked')});
+     * </pre>
+     *
+     * - 或 -
+     *
+     * <pre>
+     * Dom.query("p").set({
+     * 		"color":"red",
+     * 		"class":"cls-red",
+     * 		"onclick": function(){alert('clicked')}
+     * });
+     * </pre>
+     */
+    dp.set = function (options, value) {
+
+        var key,
+			setter;
+
+        // .set(key, value)
+        if (typeof options === 'string') {
+            key = options;
+            options = {};
+            options[key] = value;
+        }
+
+        for (key in options) {
+            value = options[key];
+
+            // .setStyle(css, value)
+            if (key in document.documentElement.style)
+                this.setStyle(key, value);
+
+            // .on(event, value)
+            else if (/^on(\w+)/.test(key))
+                value ? this.on(RegExp.$1, value) : me.un(RegExp.$1);
+
+            // .setAttribute(attr, value);
+            else
+                this.setAttribute(key, value);
+
+        }
+
+        return this;
+    };
+
+    //#endregion
+
     //#region Clone
 
     /**
@@ -2754,7 +2813,7 @@ var Dom = (function () {
      * </pre>
      */
     dp.appendTo = function (parent) {
-    	(parent && parent !== true ? Dom.query(parent, this[0]) : new Dom([document.body])).append(this);
+    	(parent ? Dom.query(parent, this[0]) : new Dom([document.body])).append(this);
         return this;
     };
     

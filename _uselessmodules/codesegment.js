@@ -39,6 +39,7 @@
 //  不修复 -ms-  样式
 //  不特殊处理  Chrome margin-right 的值。
 // getWidth/getHeight  不支持 document
+// setStyle("fontSize", NaN)  不被支持
 
 
 

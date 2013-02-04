@@ -31,6 +31,76 @@ function moduleTeardown() {
 }
 
 
+/**
+ * Add random number to url to stop caching
+ *
+ * @example url("data/test.html")
+ * @result "data/test.html?10538358428943"
+ *
+ * @example url("data/test.php?foo=bar")
+ * @result "data/test.php?foo=bar&10538358345554"
+ */
+function url(value) {
+    return value + (/\?/.test(value) ? "&" : "?") + new Date().getTime() + "" + parseInt(Math.random() * 100000, 10);
+}
+
+
+function testIframe(fileName, name, fn) {
+
+    test(name, function () {
+        // pause execution for now
+        stop();
+
+        // load fixture in iframe
+        var iframe = loadFixture(),
+            win = iframe.contentWindow,
+            interval = setInterval(function () {
+                if (win) {
+                    clearInterval(interval);
+                    // continue
+                    start();
+                    // call actual tests passing the correct jQuery instance to use
+                    fn.call(this, win);
+                    document.body.removeChild(iframe);
+                    iframe = null;
+                }
+            }, 15);
+    });
+
+    function loadFixture() {
+        var src = url("./data/" + fileName + ".html"),
+            iframe = document.createElement("iframe");
+        document.body.appendChild(iframe);
+        iframe.style.cssText = "width: 500px; height: 500px; position: absolute; top: -600px; left: -600px; visibility: hidden;";
+        iframe.contentWindow.location = src;
+        return iframe;
+    }
+};
+
+function testIframeWithCallback(title, fileName, func) {
+
+    test(title, function () {
+        var iframe;
+
+        stop();
+        window.iframeCallback = function () {
+            var self = this,
+                args = arguments;
+            setTimeout(function () {
+                window.iframeCallback = undefined;
+                iframe.remove();
+                func.apply(self, args);
+                func = function () { };
+                start();
+            }, 0);
+        };
+        iframe = document.createElement("iframe");
+        document.body.appendChild(iframe);
+    });
+};
+
+window.iframeCallback = undefined;
+
 //var isLocal = window.location.protocol === "file:",
 //	// see RFC 2606
 //	externalHost = "example.com";

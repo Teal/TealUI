@@ -59,7 +59,7 @@ Demo.Configs = {
                 <a href="~/resources/cookbooks/jplusui-core-api/index.html" target="_blank">jPlusUI Core 文档</a>\
                 <a href="~/resources/cookbooks/jquery2jplus.html" target="_blank">jQuery 转 jPlusUI</a>\
                 <!--<a href="~/resources/cookbooks/dplsystem.html" target="_blank" style="border-top: 1px solid #EBEBEB;">模块开发教程</a>-->\
-                <a href="~/resources/cookbooks/dev/dplsystem.html" target="_blank">测试系统用法</a>\
+                <a href="~/dev/cookbooks/develop/apps.html" target="_blank">演示系统文档</a>\
                 <a href="~/resources/cookbooks/classdiagram" target="_blank">类图</a>\
                 <!--<a href="~/resources/index.html#doc" target="_blank" style="border-top: 1px solid #EBEBEB;">更多文档</a>-->',
 
