@@ -472,23 +472,13 @@ var JPlus = (function (undefined) {
 
     //#region Methods
 
-    /**
-	 * 将一个字符转为大写。
-	 * @param {String} ch 参数。
-	 * @param {String} match 字符。
-	 * @return {String} 转为大写之后的字符串。
-	 */
-	function toUpperCase(ch, match) {
-	    return match.toUpperCase();
-	}
+	//#if CompactMode
 
 	/**
 	 * 系统原生的字符串对象。
 	 * @class String
 	 */
 	extendIf(String.prototype, {
-
-		/// #if CompactMode
 
 		/**
 		 * 去除字符串的首尾空格。
@@ -501,36 +491,6 @@ var JPlus = (function (undefined) {
 		 */
 		trim: function () {
 			return this.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, "");
-		},
-
-		/// #endif
-
-		/**
-		 * 将字符串转为骆驼格式。
-		 * @return {String} 返回的内容。
-		 * @remark
-		 * 比如 "awww-bwww-cwww" 的骆驼格式为 "awwBwwCww"
-		 * @example
-		 * <pre>
-	     * "font-size".toCamelCase(); //     "fontSize"
-	     * </pre>
-		 */
-		toCamelCase: function () {
-			return this.replace(/-(\w)/g, toUpperCase);
-		},
-
-		/**
-		 * 将字符首字母大写。
-		 * @return {String} 处理后的字符串。
-		 * @example
-		 * <pre>
-	     * "aa".capitalize(); //     "Aa"
-	     * </pre>
-		 */
-		capitalize: function () {
-
-			// 使用正则实现。
-			return this.replace(/(\b[a-z])/g, toUpperCase);
 		}
 
 	});
@@ -564,6 +524,8 @@ var JPlus = (function (undefined) {
 		}
 
 	});
+
+	//#endif
 
 	/**
 	 * 系统原生的数组对象。
@@ -677,38 +639,6 @@ var JPlus = (function (undefined) {
 				if (this[startIndex] === value)
 					return startIndex;
 			return -1;
-		},
-
-		/**
-		 * 对数组每个元素通过一个函数过滤。返回所有符合要求的元素的数组。
-		 * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
-		 *
-		 * - {Object} value 当前元素的值。
-		 * - {Number} index 当前元素的索引。
-		 * - {Array} array 当前正在遍历的数组。
-		 *
-		 * 如果函数返回 **true**，则当前元素会被添加到返回值数组。
-		 * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
-		 * @return {Array} 返回一个新的数组，包含过滤后的元素。
-		 * @remark 目前除了 IE8-，主流浏览器都已内置此函数。
-		 * @see #each
-		 * @see #forEach
-		 * @see Object.map
-		 * @example
-		 * <pre>
-	     * [1, 7, 2].filter(function (key) {
-	     * 		return key < 5;
-	     * })  //  [1, 2]
-	     * </pre>
-		 */
-		filter: function (fn, scope) {
-			assert.isFunction(fn, "Array#filter(fn, scope): {fn} ~");
-			var r = [];
-			ap.forEach.call(this, function (value, i, array) {
-				if (fn.call(scope, value, i, array))
-					r.push(value);
-			});
-			return r;
 		},
 
 		/**

@@ -38,8 +38,6 @@ var Dom = (function () {
 		 */
 		html = document.documentElement,
 
-		// DOM 
-
 		/**
 		 * 提供对单一原生 HTML 节点的封装操作。
 		 * @class
@@ -86,6 +84,11 @@ var Dom = (function () {
 		            while (nodelist[i])
 		                this[this.length++] = nodelist[i++];
 		        }
+		    },
+
+		    item: function (index) {
+		    	var node = this[index < 0 ? this.length + index : index];
+		    	return new Dom(node && [node]);
 		    }
 
 		}),
@@ -112,34 +115,6 @@ var Dom = (function () {
     }
 
     /**
-	 * 获取 Dom 对象第一个元素的返回值。
-	 */
-    function iterateGetter(dom, getter, args1) {
-        return dom.length ? getter(dom[0], args1) : null;
-    }
-
-    /**
-	 * 遍历 Dom 对象，并对每个元素执行 getter。返回执行后新生成的 Dom 对象。
-	 */
-    function iterateDom(dom, getter, args1) {
-        var ret = new Dom(),
-			i = 0,
-			j,
-			len = dom.length,
-			nodelist;
-        for (; i < len; i++) {
-            nodelist = getter(dom[i], args1);
-            for (j = 0; nodelist[j]; j++) {
-                if (ret.indexOf(nodelist[j]) < 0) {
-                    ret[ret.length++] = nodelist[j];
-                }
-            }
-        }
-
-        return ret;
-    }
-    
-    /**
 	 * 获取元素的文档。
 	 * @param {Node} node 元素。
 	 * @return {Document} 文档。
@@ -156,10 +131,6 @@ var Dom = (function () {
         };
     });
 
-    Dom.iterate = iterate;
-    Dom.iterateGetter = iterateGetter;
-    Dom.iterateDom = iterateDom;
-    
     /**
 	 * 执行一个 CSS 选择器，返回一个新的 {@link Dom} 对象。
 	 * @param {String/NodeList/Dom/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点列表。
@@ -206,7 +177,7 @@ var Dom = (function () {
     Dom.query = function (selector, context) {
 
         // Dom.query("selector")
-        return typeof selector === 'string' ? Selector.all(selector, context) :
+        return typeof selector === 'string' ? Selector.all(selector, context && null, new Dom()) :
 
 				// Dom.query(dom)
 				selector instanceof Dom ? selector :
@@ -297,7 +268,7 @@ var Dom = (function () {
 	 * </pre>
 	 */
     Dom.find = function (selector, context) {
-        return typeof selector === "string" ? Selector.one(selector, context) : Dom.query(selector, context);
+    	return typeof selector === "string" ? Selector.one(selector, context, new Dom()) : Dom.query(selector, context);
     };
 
     /**
@@ -322,9 +293,8 @@ var Dom = (function () {
     Dom.data = function (elem) {
 
         // 将数据绑定在原生节点上。
-        // 这在  IE 6/7 存在内存泄露问题。
-        // 由于 IE 6/7 即将退出市场。此处忽略。
-        return (elem.nodeType === 1 || elem.nodeType === 9) && elem.$data || (elem.$data = {});
+        // 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
+        return (elem.nodeType === 1 || elem.nodeType === 9) && (elem.$data || (elem.$data = {}));
     };
 
     /**
@@ -334,7 +304,139 @@ var Dom = (function () {
 	 * @static
 	 */
     Dom.getDocument = getDocument;
-    
+
+    Dom.iterate = iterate;
+
+    //Dom.find = function (selector, context) {
+    //	return Dom.query(selector, context)[0]
+	//};
+
+    //     Dom.match = Dom.Selector.match;
+
+	/**
+     * 搜索所有与指定表达式匹配的元素。
+     * @param {String} 用于查找的表达式。
+     * @return {NodeList} 返回满足要求的节点的列表。
+     * @example
+     * 从所有的段落开始，进一步搜索下面的span元素。与Dom.query("p span")相同。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.query("p").query("span")</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
+     */
+    dp.query = function (selector) {
+
+    	return Dom.query(selector, this);
+
+    	assert.isString(selector, "Dom#find(selector): selector ~。");
+    	assert(selector, "Dom#find(selector): {selector} 不能为空。", selector);
+    	var elem = this.node, result;
+
+    	if (elem.nodeType !== 1) {
+    		return document.query.call(this, selector)
+    	}
+
+    	try {
+    		var oldId = elem.id, displayId = oldId;
+    		if (!oldId) {
+    			elem.id = displayId = '__SELECTOR__';
+    			oldId = 0;
+    		}
+    		result = elem.querySelectorAll('#' + displayId + ' ' + selector);
+    	} catch (e) {
+    		result = query(selector, this);
+    	} finally {
+    		if (oldId === 0) {
+    			elem.removeAttribute('id');
+    		}
+    	}
+
+
+
+    	return new Dom(result);
+    };
+
+	/**
+     * 搜索所有与指定CSS表达式匹配的第一个元素。
+     * @param {String} selecter 用于查找的表达式。
+     * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+     * @example
+     * 从所有的段落开始，进一步搜索下面的span元素。与Dom.find("p span")相同。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.query("p").find("span")</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
+     */
+    dp.find = function (selector) {
+
+    	return Selector.one(selector, this[0], new Dom());
+
+    	assert.isString(selector, "Dom#find(selector): selector ~");
+    	var elem = this.node, result;
+    	if (elem.nodeType !== 1) {
+    		return document.find.call(this, selector)
+    	}
+
+    	try {
+    		var oldId = elem.id, displayId = oldId;
+    		if (!oldId) {
+    			elem.id = displayId = '__SELECTOR__';
+    			oldId = 0;
+    		}
+    		result = elem.querySelector('#' + displayId + ' ' + selector);
+    	} catch (e) {
+    		result = query(selector, this)[0];
+    	} finally {
+    		if (oldId === 0) {
+    			elem.removeAttribute('id');
+    		}
+    	}
+
+    	return result ? new Dom(result) : null;
+    };
+
+    dp.filter = function (expression) {
+    	if(typeof expression === 'string') {
+    		expression = function (elem) {
+    			return Dom.match(elem, expression);
+    		};
+    	}
+
+    	var ret = new Dom(), i = 0;
+    	for(; i < this.length; i++) {
+    		if(expression(this[i]) !== false){
+    			ret.push(this[i]);
+    		}
+    	}
+    	return ret;
+    };
+
+	/**
+     * 检查当前 Dom 对象是否符合指定的表达式。
+     * @param {String} String
+     * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
+     * @example
+     * 由于input元素的父元素是一个表单元素，所以返回true。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;form&gt;&lt;input type="checkbox" /&gt;&lt;/form&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.query("input[type='checkbox']").match("input")</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">true</pre>
+     */
+    dp.match = function (selector) {
+    	for (var i = 0; i < this.length; i++) {
+    		if (!Dom.match(elem, selector)) {
+    			return false;
+    		}
+    	}
+    	return true;
+    };
+
     //#endregion
 
     //#region Parse
@@ -353,14 +455,14 @@ var Dom = (function () {
 		 * @remark 在 Dom.parse 和 Dom#setHtml 使用。
 		 */
 		parseFix = Dom.parseFix = {
-		    $default: isIE678 ? [2, '$<div>', '</div>'] : [1, '', ''],
-		    option: [2, '<select multiple="multiple">', '</select>'],
-		    legend: [2, '<fieldset>', '</fieldset>'],
-		    thead: [2, '<table>', '</table>'],
-		    tr: [3, '<table><tbody>', '</tbody></table>'],
-		    td: [4, '<table><tbody><tr>', '</tr></tbody></table>'],
+		    $default: isIE678 ? [1, '$<div>', '</div>'] : [0, '', ''],
+		    option: [1, '<select multiple="multiple">', '</select>'],
+		    legend: [1, '<fieldset>', '</fieldset>'],
+		    thead: [1, '<table>', '</table>'],
+		    tr: [2, '<table><tbody>', '</tbody></table>'],
+		    td: [3, '<table><tbody><tr>', '</tr></tbody></table>'],
 		    col: [3, '<table><tbody></tbody><colgroup>', '</colgroup></table>'],
-		    area: [2, '<map>', '</map>']
+		    area: [1, '<map>', '</map>']
 		},
 
 		/**
@@ -403,7 +505,7 @@ var Dom = (function () {
 	 * #####JavaScript:
 	 * <pre>
 	 * // 在 IE 中无效:
-	 * Dom.parse("&lt;input&gt;").setAttr("type", "checkbox");
+	 * Dom.parse("&lt;input&gt;").setAttribute("type", "checkbox");
 	 * // 在 IE 中有效:
 	 * Dom.parse("&lt;input type='checkbox'&gt;");
 	 * </pre>        
@@ -413,8 +515,7 @@ var Dom = (function () {
         // 不是 html，直接返回。
         if (typeof html === 'string') {
 
-            var parseFix = Dom.parseFix,
-				srcHTML = html;
+        	var srcHTML = html, div, tag, wrap;
 
             // 仅缓存 512B 以内的 HTML 字符串。
             cachable = cachable !== false && srcHTML.length < 512;
@@ -423,79 +524,73 @@ var Dom = (function () {
             assert(context.createElement, 'Dom.parseNode(html, context, cachable): {context} 必须是 DOM 节点。', context);
 
             // 查找是否存在缓存。
-            if (cachable && (html = parseCache[srcHTML]) && html.ownerDocument === context) {
+            if (cachable && (html = parseCache[srcHTML]) && html[0].ownerDocument === context) {
 
                 // 复制并返回节点的副本。
-                html = html.cloneNode(true);
+            	html = html.clone(true, false, true);
 
             } else {
 
-                // 测试查找 HTML 标签。
-                var tag = /<([!\w:]+)/.exec(srcHTML);
+            	html = new Dom();
 
-                if (tag) {
+                // 测试查找 HTML 标签。
+            	if (tag = /<([!\w:]+)/.exec(srcHTML)) {
 
                     assert.isString(srcHTML, 'Dom.parseNode(html, context, cachable): {html} ~');
-                    html = context.createElement("div");
+                    div = context.createElement("div");
 
-                    var wrap = Dom.parseFix[tag[1].toLowerCase()] || Dom.parseFix.$default;
+                    wrap = Dom.parseFix[tag[1].toLowerCase()] || Dom.parseFix.$default;
 
                     // IE8- 会过滤字符串前的空格。
                     // 为了保证全部浏览器统一行为，此处删除全部首尾空格。
 
-                    html.innerHTML = wrap[1] + srcHTML.trim().replace(rXhtmlTag, "<$1></$2>") + wrap[2];
+                    div.innerHTML = wrap[1] + srcHTML.trim().replace(rXhtmlTag, "<$1></$2>") + wrap[2];
 
-                    // UE67: 如果节点未添加到文档。需要重置 checkbox 的 checked 属性。
+                    // IE67: 如果节点未添加到文档。需要重置 checkbox 的 checked 属性。
                     if (navigator.isIE67) {
-                        each(html.getElementsByTagName('INPUT'), function (elem) {
+                    	Object.each(div.getElementsByTagName('INPUT'), function (elem) {
                             if (rCheckBox.test(elem.type)) {
                                 elem.checked = elem.defaultChecked;
                             }
                         });
                     }
 
-                    // 转到正确的深度。
-                    // IE 肯能无法正确完成位置标签的处理。
+                    // IE 下有些标签解析会错位，这里转到实际的节点位置。
                     for (tag = wrap[0]; tag--;)
-                        html = html.lastChild;
+                    	div = div.lastChild;
 
-                    assert.isNode(html, "Dom.parseNode(html, context, cachable): 无法根据 {html} 创建节点。", srcHTML);
+					assert.isNode(div, "Dom.parseNode(html, context, cachable): 无法根据 {html} 创建节点。", srcHTML);
 
-                    // 如果解析包含了多个节点。
-                    if (html.previousSibling) {
-                        wrap = html.parentNode;
+					for(tag = div.firstChild; tag; tag = wrap) {
 
-                        html = new Dom();
-                        for (srcHTML = wrap.firstChild; srcHTML; srcHTML = srcHTML.nextSibling) {
-                            html.push(srcHTML);
-                        }
+                    	// 先记录 标签的下一个节点。
+                    	wrap = tag.nextSibling;
 
-                        cachable = false;
+                    	// 删除用于创建节点的父 DIV 标签。
+                    	div.removeChild(tag);
 
-                    } else {
+                    	// 保存节点。
+                    	html.push(tag);
 
-                        // 删除用于创建节点的父 DIV 标签。
-                        html.parentNode.removeChild(html);
 
-                        // 一般使用最后的节点， 如果存在最后的节点，使用父节点。
-                        // 如果有多节点，则复制到片段对象。
-                        if (cachable && !/<(?:script|object|embed|option|style)/i.test(srcHTML)) {
-                            parseCache[srcHTML] = html.cloneNode(true);
-                        }
+					}
 
-                        html = new Dom([html]);
+					div = null;
 
+                    // 如果可以，先进行缓存。优化下次的节点解析。
+                    if (cachable && !/<(?:script|object|embed|option|style)/i.test(srcHTML)) {
+                    	parseCache[srcHTML] = html.clone(true, false, true);
                     }
 
                 } else {
 
-                    // 创建文本节点。
-                    html = new Dom([context.createTextNode(srcHTML)]);
+            		// 创建文本节点。
+            		html.push(context.createTextNode(srcHTML));
                 }
 
             }
 
-        } else if (!(html instanceof Dom)) {
+        } else {
             html = Dom.query(html);
         }
 
@@ -529,44 +624,44 @@ var Dom = (function () {
 
     //#endregion
 
-    //#region Attr
+    //#region Attribute
 
     /**
 	 * 默认用于获取和设置属性的函数。
 	 */
     var defaultHook = {
-        getProp: function (elem, name) {
-            return name in elem ? elem[name] : null;
-        },
-        setProp: function (elem, name, value) {
+			getProp: function (elem, name) {
+				return name in elem ? elem[name] : null;
+			},
+			setProp: function (elem, name, value) {
 
-            // 不对 2,3,8 节点类型设置属性。
-            if ('238'.indexOf(elem.nodeType) === -1) {
-                elem[name] = value;
-            }
-        },
+				// 不对 2,3,8 节点类型设置属性。
+				if ('238'.indexOf(elem.nodeType) === -1) {
+					elem[name] = value;
+				}
+			},
 
-        get: function (elem, name) {
-            return elem.getAttribute ? elem.getAttribute(name) : this.getProp(elem, name);
-        },
-        set: function (elem, name, value) {
-            if (elem.setAttribute) {
+			get: function (elem, name) {
+				return elem.getAttribute ? elem.getAttribute(name) : this.getProp(elem, name);
+			},
+			set: function (elem, name, value) {
+				if (elem.setAttribute) {
 
-                // 如果设置值为 null, 表示删除属性。
-                if (value === null) {
-                    elem.removeAttribute(name);
-                } else {
-                    elem.setAttribute(name, value);
-                }
-            } else {
-                this.setProp(elem, name, value);
-            }
-        }
-    },
+					// 如果设置值为 null, 表示删除属性。
+					if (value === null) {
+						elem.removeAttribute(name);
+					} else {
+						elem.setAttribute(name, value);
+					}
+				} else {
+					this.setProp(elem, name, value);
+				}
+			}
+		},
 
 		/**
 		 * 获取和设置优先使用 prop 而不是 attr 的特殊属性的函数。
-		 * @remark 在 Dom.getAttr, Dom.setAttr, Dom.getText 使用。
+		 * @remark 在 Dom.getAttribute, Dom.setAttribute, Dom.getText 使用。
 		 */
 		propHook = {
 		    get: function (elem, name, type) {
@@ -844,9 +939,9 @@ var Dom = (function () {
 	 * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
 	 * @static
 	 */
-    Dom.getAttr = function (elem, name, type) {
+    Dom.getAttribute = function (elem, name, type) {
 
-        assert.isNode(elem, "Dom.getAttr(elem, name, type): {elem} ~");
+        assert.isNode(elem, "Dom.getAttribute(elem, name, type): {elem} ~");
 
         // 将小写的属性名改为骆驼形式。
         name = attrFix[name] || name;
@@ -873,7 +968,7 @@ var Dom = (function () {
 	 * &lt;img/&gt;
 	 * </pre>
 	 * #####JavaScript:
-	 * <pre>Dom.query("img").setAttr("src","test.jpg");</pre>
+	 * <pre>Dom.query("img").setAttribute("src","test.jpg");</pre>
 	 * #####结果:
 	 * <pre lang="htm" format="none">[ &lt;img src= "test.jpg" /&gt; , &lt;img src= "test.jpg" /&gt; ]</pre>
 	 *
@@ -881,11 +976,11 @@ var Dom = (function () {
 	 * #####HTML:
 	 * <pre lang="htm" format="none">&lt;img src="test.jpg"/&gt;</pre>
 	 * #####JavaScript:
-	 * <pre>Dom.query("img").setAttr("src");</pre>
+	 * <pre>Dom.query("img").setAttribute("src");</pre>
 	 * #####结果:
 	 * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
 	 */
-    Dom.setAttr = function (elem, name, value) {
+    Dom.setAttribute = function (elem, name, value) {
 
         name = attrFix[name] || name;
 
@@ -928,12 +1023,12 @@ var Dom = (function () {
         elem[textFix[elem.nodeName] || attrFix.innerText] = value;
     };
     
-    dp.getAttr = function (name, type) {
-        return this.length ? Dom.getAttr(this[0], name, type) : null;
+    dp.getAttribute = function (name, type) {
+        return this.length ? Dom.getAttribute(this[0], name, type) : null;
     };
 
-    dp.setAttr = function (name, value) {
-        return iterate(this, Dom.setAttr, name, value);
+    dp.setAttribute = function (name, value) {
+        return iterate(this, Dom.setAttribute, name, value);
     };
     
     dp.getText = function () {
@@ -1002,7 +1097,7 @@ var Dom = (function () {
                 }
 
                 // IE6 需要包装节点，此处解除包装的节点。
-                if (map[0] > 1) {
+                if (map[0] > 0) {
                     value = elem.lastChild;
                     elem.removeChild(elem.firstChild);
                     elem.removeChild(value);
@@ -1239,37 +1334,50 @@ var Dom = (function () {
 	 * @return {Number} 数字。
 	 */
 	function styleNumber(elem, name) {
-	    assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
+		//assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
 
-        // 优先从 style 获取。
-	    var value = parseFloat(elem.style[name]);
+		if (elem.style) {
 
-        // value 不能使 NaN
-	    if (!value && value !== 0) {
+			// 优先从 style 获取。
+			var value = parseFloat(elem.style[name]);
 
-	        // 如果获取不到值，则从 currentStyle 获取。
-			value = parseFloat(getCurrentStyle(elem, name));
-
-	        // value 不能使 NaN
+			// value 不能使 NaN
 			if (!value && value !== 0) {
 
-                // 处理 width/height，必须在 display 不是 none 的时候进行获取。
-			    if (name in styleHooks) {
+				// 如果获取不到值，则从 currentStyle 获取。
+				value = parseFloat(getCurrentStyle(elem, name));
 
-			        elem = elem.style;
+				// value 不能使 NaN
+				if (!value && value !== 0) {
 
-					var styles = {};
-					for (var name in Dom.displayFix) {
-					    styles[style] = elem[name];
+					// 处理 width/height，必须在 display 不是 none 的时候进行获取。
+					if (name in styleHooks) {
+
+						elem = elem.style;
+
+						var styles = {};
+						for (var name in Dom.displayFix) {
+							styles[style] = elem[name];
+						}
+
+						extend(elem, Dom.displayFix);
+						value = parseFloat(getCurrentStyle(elem, name)) || 0;
+						extend(elem, styles);
+					} else {
+						value = 0;
 					}
-
-					extend(elem, Dom.displayFix);
-					value = parseFloat(getCurrentStyle(elem, name)) || 0;
-					extend(elem, styles);
-				} else {
-					value = 0;
 				}
 			}
+
+		} else if (elem.nodeType === 9) {
+			elem = elem.documentElement;
+
+			elem = name === "height" ? elem.clientHeight :
+				name === "width" ? elem.clientWidth :
+				styleNumber(elem);
+
+
+
 		}
 
 		return value;
@@ -1298,15 +1406,6 @@ var Dom = (function () {
 	Dom.camelCase = function (name) {
 	    return name.replace(/-(\w)/g, toUpperCase);
 	};
-
-	//Dom.fetchStyles = function (style, styles) {
-	//    var ret = {};
-	//    for (var name in styles) {
-	//        ret[name] = elem[name];
-	//    }
-
-	//    return ret;
-	//};
 
 	/**
 	 * 根据不同的内容进行计算。
@@ -2205,16 +2304,6 @@ var Dom = (function () {
 	        return ret;
 	    };
 	}
-    
-    ///**
-	// * 快速判断一个节点满足制定的过滤器。
-	// * @param {Node} elem 元素。
-	// * @param {String/Function/Undefined} filter 过滤器。
-	// * @return {Boolean} 返回结果。
-	// */
-	//function applyFilter(elem, filter) {
-	//    return !filter || (typeof filter === 'string' ? /^(?:[-\w:]|[^\x00-\xa0]|\\.)+$/.test(filter) ? elem.tagName === filter.toUpperCase() : Dom.match(elem, filter) : filter(elem));
-    //}
 
 	dp.add = function (value) {
 	    this.push.apply(this, Dom.query(value));
@@ -2516,15 +2605,22 @@ var Dom = (function () {
 
             if (event) {
                 cloneDataAndEvent.$event = null;
-                dest = new Dom(destElem);
-                for (cloneDataAndEvent in event)
+                for (cloneDataAndEvent in event) {
 
-                    // 对每种事件。
-                    event[cloneDataAndEvent].handlers.forEach(function (handler) {
+                	// 对每种事件。
+                	event[cloneDataAndEvent].bindFn.forEach(function (handler) {
 
-                        // 如果源数据的 target 是 src， 则改 dest 。
-                        dest.on(cloneDataAndEvent, handler[0], handler[1].node === srcElem ? dest : handler[1]);
-                    });
+                		// 如果源数据的 target 是 src， 则改 dest 。
+                		Dom.on(dest, cloneDataAndEvent, handler[0], handler[1] === srcElem ? dest : handler[1]);
+                	});
+
+                	// 对每种事件。
+                	event[cloneDataAndEvent].delegateFn.forEach(function (handler) {
+
+                		// 如果源数据的 target 是 src， 则改 dest 。
+                		Dom.on(dest, cloneDataAndEvent + " " + handler[2], handler[0], handler[1] === srcElem ? dest : handler[1]);
+                	});
+                }
             }
 
         }
@@ -2574,7 +2670,7 @@ var Dom = (function () {
     dp.clone = function (deep, cloneDataAndEvent, keepId) {
         var ret = new Dom();
         for (var i = 0; i < this.length; i++) {
-            ret[ret.length++] = Dom.clone(this[i]);
+        	ret[ret.length++] = Dom.clone(this[i], deep, cloneDataAndEvent, keepId);
         }
         return ret;
     };
@@ -2593,11 +2689,15 @@ var Dom = (function () {
         if (elem.clearAttributes)
             elem.clearAttributes();
 
-        // 删除事件。
-        Dom.un(elem);
+    	// 删除句柄，以删除双重的引用。
+        if (elem.$data) {
 
-        // 删除句柄，以删除双重的引用。
-        elem.$data = null;
+        	// 删除事件。
+        	Dom.un(elem);
+
+        	elem.$data = null;
+
+        }
 
     }
      
@@ -2656,12 +2756,8 @@ var Dom = (function () {
      * </pre>
      */
     dp.appendTo = function (parent) {
-
-        // parent 肯能为 true
-        parent ? (parent.append ? parent : Dom.get(parent)).append(this) : this.attach(document.body, null);
-
+    	(parent && parent !== true ? Dom.query(parent, this[0]) : new Dom([document.body])).append(this);
         return this;
-
     };
     
     Object.each({
@@ -2671,8 +2767,8 @@ var Dom = (function () {
 		 * @param {String/Node/Dom} html 要插入的内容。
 		 * @return {Dom} 返回插入的新节点对象。
 		 */
-        append: function (ctrl, dom) {
-            return ctrl.insertBefore(dom, null);
+    	append: function (elem, node) {
+    		elem.appendChild(node);
         },
 
         /**
@@ -2680,8 +2776,8 @@ var Dom = (function () {
 		 * @param {String/Node/Dom} html 要插入的内容。
 		 * @return {Dom} 返回插入的新节点对象。
 		 */
-        prepend: function (ctrl, dom) {
-            return ctrl.insertBefore(dom, ctrl.first(null));
+    	prepend: function (elem, node) {
+    		elem.insertBefore(node, elem.firstChild);
         },
 
         /**
@@ -2689,9 +2785,8 @@ var Dom = (function () {
 		 * @param {String/Node/Dom} html 要插入的内容。
 		 * @return {Dom} 返回插入的新节点对象。
 		 */
-        before: function (ctrl, dom) {
-            var p = ctrl.parentControl || ctrl.parent();
-            return p ? p.insertBefore(dom, ctrl) : null;
+    	before: function (elem, node) {
+    		elem.parentNode && elem.parentNode.insertBefore(node, elem);
         },
 
         /**
@@ -2699,9 +2794,8 @@ var Dom = (function () {
 		 * @param {String/Node/Dom} html 要插入的内容。
 		 * @return {Dom} 返回插入的新节点对象。
 		 */
-        after: function (ctrl, dom) {
-            var p = ctrl.parentControl || ctrl.parent();
-            return p ? p.insertBefore(dom, ctrl.next(null)) : null;
+    	after: function (elem, node) {
+    		elem.parentNode && elem.parentNode.insertBefore(node, elem.nextSibling);
         },
 
         /**
@@ -2736,106 +2830,74 @@ var Dom = (function () {
 		 * &lt;/div&gt;
 		 * </pre>
 		 */
-        replaceWith: function (ctrl, dom) {
-            var parent;
-            if (parent = (ctrl.parentControl || ctrl.parent())) {
-                dom = parent.insertBefore(dom, ctrl);
-                parent.removeChild(ctrl);
+    	replaceWith: function (elem, node) {
+        	var parent = elem.parentNode;
+            if (parent) {
+            	parent.insertBefore(node, elem);
+            	parent.removeChild(elem);
             }
-            return dom;
         }
 
-    }, function (value, key) {
-        function insert(html) {
+    }, function (fn, fnName) {
 
-            var scripts,
-				i,
-				script,
-				t;
+    	dp[fnName] = function (html) {
 
-            if (html = Dom.parse(html, this)) {
-                if (html instanceof Dom) {
-                    t = getDocument(this.node).createDocumentFragment();
-                    for (i = 0; i < html.length; i++) {
-                        t.appendChild(html[i]);
-                    }
+    		var index = 0;
 
-                    t = new Dom(t);
-                    scripts = t.getElements('SCRIPT');
-                    if (!navigator.isStd) {
-                        scripts = new Dom(scripts);
-                    }
-                    value(this, t);
-                } else {
-                    t = html;
-                    if (t.node.tagName === 'SCRIPT') {
-                        scripts = [t.node];
-                    } else {
-                        scripts = t.getElements('SCRIPT');
-                        if (!navigator.isStd) {
-                            scripts = new Dom(scripts);
-                        }
-                    }
-                    html = value(this, t);
-                }
+			// 如果是 html,则每次插入一次。
+        	return iterate(this, function (elem, html) {
 
-                i = 0;
+        		var scripts,
+					i,
+					script,
+					fragment;
 
-                // 如果存在脚本，则一一执行。
-                while (script = scripts[i++]) {
-                    if (!script.type || /\/(java|ecma)script/i.test(script.type)) {
+        		if (html = typeof html === 'string' ? Dom.parse(html, elem) : index++ ? html.clone(true, false, true) : html) {
+        			fragment = getDocument(elem).createDocumentFragment();
+        			for (i = 0; i < html.length; i++) {
+        				fragment.appendChild(html[i]);
+        			}
 
-                        if (script.src) {
-                            assert(window.Ajax && Ajax.send, "必须载入 System.Ajax.Script 模块以支持动态执行 <script src=''>");
-                            Ajax.send({
-                                url: script.src,
-                                type: "GET",
-                                dataType: 'script',
-                                async: false
-                            });
-                            //    script.parentNode.removeChild(script);
-                        } else {
-                            window.execScript(script.text || script.textContent || script.innerHTML || "");
-                        }
+        			scripts = fragment[fragment.getElementsByTagName ? 'getElementsByTagName' : 'querySelectorAll']('SCRIPT');
 
-                    }
-                }
+        			// IE678 不支持更新 fragment 后保持 Scripts，这时先缓存。
+        			if (isIE678) {
+        				scripts = new Dom(scripts);
+        			}
 
-            }
+        			// 实际的插入操作。
+        			fn(elem, fragment);
 
-            return html;
-        };
+        			i = 0;
 
-        dp[key] = function (html) {
-            var r;
-            if (typeof html === 'string') {
-                r = new Dom(this.invoke(key, [html]));
-            } else {
-                r = new Dom;
-                html = Dom.get(html);
-                this.forEach(function (value) {
-                    var cloned = html.clone();
-                    Dom.get(value)[key](cloned);
-                    r.push(cloned.node);
-                });
-            }
-            return r;
+        			// 如果存在脚本，则一一执行。
+        			while (script = scripts[i++]) {
+        				if (!script.type || /\/(java|ecma)script/i.test(script.type)) {
+
+        					if (script.src) {
+        						assert(window.Ajax && Ajax.send, "必须载入 ajax/script.js 模块以支持动态执行 <script src=''>");
+        						Ajax.send({
+        							url: script.src,
+        							type: "GET",
+        							dataType: 'script',
+        							async: false
+        						});
+        					} else {
+        						window.execScript(script.text || script.textContent || script.innerHTML || "");
+        					}
+
+        				}
+        			}
+
+        			fragment = null;
+
+        		}
+
+        		// return html;
+        	}, html);
         };
 
     });
-    
-    ///**
-    // * 判断一个节点是否有子节点。
-    // * @param {Dom} dom 子节点。
-    // * @param {Boolean} allowSelf=false 如果为 true，则当当前节点等于指定的节点时也返回 true 。
-    // * @return {Boolean} 存在子节点则返回true 。
-    // */
-    //dp.contains = function (dom, allowSelf) {
-    //    if (typeof dom === "string")
-    //        return (allowSelf && this.match(dom)) || !!this.find(dom).length;
-
-    //    return (allowSelf && this[0] === dom) || Dom.contains(this[0], dom);
-    //};
 
     /**
      * 移除当前 Dom 对象或其子对象。
@@ -2863,15 +2925,16 @@ var Dom = (function () {
      * <pre lang="htm" format="none">how are &lt;p&gt;you?&lt;/p&gt;</pre>
      */
     dp.remove = function (child) {
-        assert(!arguments.length || child, 'Dom#remove(child): {child} 不是合法的节点', child);
+    	assert(!arguments.length || child, 'Dom#remove(child): {child} 不是合法的节点', child);
+		
+    	// 判断是删除子节点还是删除本身。
+    	child = arguments.length ? Dom.query(child, this) : this;
 
-        return arguments.length ?
-            typeof child === 'string' ?
-                this.query(child).remove() :
-                this.removeChild(child) :
-            (child = this.parentControl || this.parent()) ?
-                child.removeChild(this) :
-                this;
+    	for (var i = 0, elem; elem = child[i]; i++) {
+    		elem.parentNode && elem.parentNode.removeChild(elem);
+    	}
+
+        return this;
     };
 
     /**
@@ -2887,12 +2950,20 @@ var Dom = (function () {
      * <pre lang="htm" format="none">&lt;p&gt;&lt;/p&gt;</pre>
      */
     dp.empty = function () {
-        var elem = this.node;
-        //if (elem.nodeType == 1)
-        //	each(elem.getElementsByTagName("*"), clean);
-        while (elem = this.last(null))
-            this.removeChild(elem);
-        return this;
+    	for (var i = 0, elem; elem = this[i]; i++) {
+
+    		// 删除全部节点。
+    		while (elem.lastChild) {
+    			elem.removeChild(elem.lastChild);
+    		}
+
+    		// IE678 中, 删除 <select> 中的选中项。
+    		if (elem.options && elem.nodeName === "SELECT") {
+    			elem.options.length = 0;
+    		}
+    	}
+
+    	return this;
     };
 
     /**
@@ -2915,13 +2986,16 @@ var Dom = (function () {
      * <pre>Dom.query("p").dispose(".hello");</pre>
      */
     dp.dispose = function () {
-        var elem = this.node;
-        if (elem.nodeType == 1) {
-            each(elem.getElementsByTagName("*"), clean);
-            clean(elem);
-        }
+    	return iterate(this, function (elem) {
 
-        return this.remove();
+    		if (elem.nodeType == 1) {
+    			Object.each(elem.getElementsByTagName("*"), clean);
+    			clean(elem);
+    		}
+
+    		elem.parentNode && elem.parentNode.removeChild(elem);
+
+    	});
     };
 
     //#endregion
@@ -5622,7 +5696,7 @@ var Dom = (function () {
 
                     i = 0;
                     while (match = preResult[i++]) {
-                        actucalVal = Dom.getAttr(match, filter, 1);
+                        actucalVal = Dom.getAttribute(match, filter, 1);
                         switch (sep) {
                             case undefined:
                                 actucalVal = actucalVal != null;
@@ -5720,152 +5794,16 @@ var Dom = (function () {
         throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
     }
 
-    Dom.find = function (selector, context) {
-        return Dom.query(selector, context)[0]
+    Selector = {
+    	all: Sizzle,
+
+    	one: function (selector, context) {
+    		return Sizzle(select, context, new Dom()).item(0);
+    	}
+
     };
 
-    Dom.match = Dom.Selector.match;
-
-    
-    /**
-     * 搜索所有与指定表达式匹配的元素。
-     * @param {String} 用于查找的表达式。
-     * @return {NodeList} 返回满足要求的节点的列表。
-     * @example
-     * 从所有的段落开始，进一步搜索下面的span元素。与Dom.query("p span")相同。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.query("p").query("span")</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
-     */
-    dp.query = function (selector) {
-        assert.isString(selector, "Dom#find(selector): selector ~。");
-        assert(selector, "Dom#find(selector): {selector} 不能为空。", selector);
-        var elem = this.node, result;
-
-        if (elem.nodeType !== 1) {
-            return document.query.call(this, selector)
-        }
-
-        try {
-            var oldId = elem.id, displayId = oldId;
-            if (!oldId) {
-                elem.id = displayId = '__SELECTOR__';
-                oldId = 0;
-            }
-            result = elem.querySelectorAll('#' + displayId + ' ' + selector);
-        } catch (e) {
-            result = query(selector, this);
-        } finally {
-            if (oldId === 0) {
-                elem.removeAttribute('id');
-            }
-        }
-
-
-
-        return new Dom(result);
-    };
-
-    /**
-     * 搜索所有与指定CSS表达式匹配的第一个元素。
-     * @param {String} selecter 用于查找的表达式。
-     * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
-     * @example
-     * 从所有的段落开始，进一步搜索下面的span元素。与Dom.find("p span")相同。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.query("p").find("span")</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
-     */
-    dp.find = function (selector) {
-        assert.isString(selector, "Dom#find(selector): selector ~");
-        var elem = this.node, result;
-        if (elem.nodeType !== 1) {
-            return document.find.call(this, selector)
-        }
-
-        try {
-            var oldId = elem.id, displayId = oldId;
-            if (!oldId) {
-                elem.id = displayId = '__SELECTOR__';
-                oldId = 0;
-            }
-            result = elem.querySelector('#' + displayId + ' ' + selector);
-        } catch (e) {
-            result = query(selector, this)[0];
-        } finally {
-            if (oldId === 0) {
-                elem.removeAttribute('id');
-            }
-        }
-
-        return result ? new Dom(result) : null;
-    };
-
-    /**
-     * 检查当前 Dom 对象是否符合指定的表达式。
-     * @param {String} String
-     * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
-     * @example
-     * 由于input元素的父元素是一个表单元素，所以返回true。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;form&gt;&lt;input type="checkbox" /&gt;&lt;/form&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.query("input[type='checkbox']").match("input")</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">true</pre>
-     */
-    dp.match = function (selector) {
-        return Dom.match(this.node, selector);
-    };
-
-    
-    /**
-	 * 搜索所有与指定CSS表达式匹配的第一个元素。
-	 * @param {String} selecter 用于查找的表达式。
-	 * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
-	 * @example
-	 * 从所有的段落开始，进一步搜索下面的span元素。与Dom.find("p span")相同。
-	 * #####HTML:
-	 * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
-	 * #####JavaScript:
-	 * <pre>Dom.query("p").find("span")</pre>
-	 * #####结果:
-	 * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
-	 */
-	document.find = function (selector) {
-	    assert.isString(selector, "Dom#find(selector): selector ~");
-	    var result;
-	    try {
-	        result = this.querySelector(selector);
-	    } catch (e) {
-	        result = query(selector, this)[0];
-	    }
-	    return result ? new Dom(result) : null;
-	};
-
-    /**
-	 * 执行选择器。
-	 * @method
-	 * @param {String} selecter 选择器。 如 h2 .cls attr=value 。
-	 * @return {Element/undefined} 节点。
-	 */
-    document.query = function (selector) {
-        assert.isString(selector, "Dom#find(selector): selector ~。");
-        var result;
-        try {
-            result = this.querySelectorAll(selector);
-        } catch (e) {
-            result = query(selector, this);
-        }
-        return new Dom(result);
-    };
-
+    Dom.match = Sizzle.matchesSelector;
 
     //#endregion
 

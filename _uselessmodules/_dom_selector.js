@@ -1,12 +1,4 @@
 ﻿
-
-
-//  不修复 -ms-  样式
-//  不特殊处理  Chrome margin-right 的值。
-
-
-
-
 /**
  * 遍历 NodeList 对象。 
  * @param {NodeList} nodelist 要遍历的 NodeList。
@@ -294,3 +286,47 @@ function throwError(message) {
 }
 
 //#endregion
+
+
+
+/**
+ * 搜索所有与指定CSS表达式匹配的第一个元素。
+ * @param {String} selecter 用于查找的表达式。
+ * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+ * @example
+ * 从所有的段落开始，进一步搜索下面的span元素。与Dom.find("p span")相同。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;, how are you?&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>Dom.query("p").find("span")</pre>
+ * #####结果:
+ * <pre lang="htm" format="none">[ &lt;span&gt;Hello&lt;/span&gt; ]</pre>
+ */
+document.find = function (selector) {
+	assert.isString(selector, "Dom#find(selector): selector ~");
+	var result;
+	try {
+		result = this.querySelector(selector);
+	} catch (e) {
+		result = query(selector, this)[0];
+	}
+	return result ? new Dom(result) : null;
+};
+
+/**
+ * 执行选择器。
+ * @method
+ * @param {String} selecter 选择器。 如 h2 .cls attr=value 。
+ * @return {Element/undefined} 节点。
+ */
+document.query = function (selector) {
+	assert.isString(selector, "Dom#find(selector): selector ~。");
+	var result;
+	try {
+		result = this.querySelectorAll(selector);
+	} catch (e) {
+		result = query(selector, this);
+	}
+	return new Dom(result);
+};
+
