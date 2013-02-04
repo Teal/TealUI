@@ -1372,11 +1372,9 @@ var Dom = (function () {
 		} else if (elem.nodeType === 9) {
 			elem = elem.documentElement;
 
-			elem = name === "height" ? elem.clientHeight :
+			value = name === "height" ? elem.clientHeight :
 				name === "width" ? elem.clientWidth :
 				styleNumber(elem);
-
-
 
 		}
 
