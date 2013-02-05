@@ -328,7 +328,7 @@ var Dom = (function () {
      */
     dp.query = function (selector) {
 
-    	return Dom.query(selector, this);
+    	return multipleContexts(selector, this, new Dom());
 
     	assert.isString(selector, "Dom#find(selector): selector ~。");
     	assert(selector, "Dom#find(selector): {selector} 不能为空。", selector);
@@ -373,7 +373,7 @@ var Dom = (function () {
      */
     dp.find = function (selector) {
 
-    	return Selector.one(selector, this[0], new Dom());
+    	return this.query(selector).item(0);// Selector.one(selector, this[0], new Dom());
 
     	assert.isString(selector, "Dom#find(selector): selector ~");
     	var elem = this.node, result;
@@ -430,7 +430,7 @@ var Dom = (function () {
      */
     dp.match = function (selector) {
     	for (var i = 0; i < this.length; i++) {
-    		if (!Dom.match(elem, selector)) {
+    		if (!Dom.match(this[i], selector)) {
     			return false;
     		}
     	}
@@ -2571,7 +2571,7 @@ var Dom = (function () {
 
             // .on(event, value)
             else if (/^on(\w+)/.test(key))
-                value ? this.on(RegExp.$1, value) : me.un(RegExp.$1);
+            	value ? this.on(RegExp.$1, value) : this.un(RegExp.$1);
 
             // .setAttribute(attr, value);
             else
@@ -2787,6 +2787,63 @@ var Dom = (function () {
                 return false;
         return true;
     };
+
+    Dom.manip = function (dom, fn, html) {
+
+    	var index = 0;
+
+    	// 如果是 html,则每次插入一次。
+    	return iterate(dom, function (elem, html) {
+
+    		var scripts,
+				i,
+				script,
+				fragment;
+
+    		if (html = typeof html === 'string' ? Dom.parse(html, elem) : index++ ? html.clone(true, false, true) : html) {
+    			fragment = getDocument(elem).createDocumentFragment();
+    			for (i = 0; i < html.length; i++) {
+    				fragment.appendChild(html[i]);
+    			}
+
+    			scripts = fragment[fragment.getElementsByTagName ? 'getElementsByTagName' : 'querySelectorAll']('SCRIPT');
+
+    			// IE678 不支持更新 fragment 后保持 Scripts，这时先缓存。
+    			if (isIE678) {
+    				scripts = new Dom(scripts);
+    			}
+
+    			// 实际的插入操作。
+    			fn(elem, fragment);
+
+    			i = 0;
+
+    			// 如果存在脚本，则一一执行。
+    			while (script = scripts[i++]) {
+    				if (!script.type || /\/(java|ecma)script/i.test(script.type)) {
+
+    					if (script.src) {
+    						assert(window.Ajax && Ajax.send, "必须载入 ajax/script.js 模块以支持动态执行 <script src=''>");
+    						Ajax.send({
+    							url: script.src,
+    							type: "GET",
+    							dataType: 'script',
+    							async: false
+    						});
+    					} else {
+    						window.execScript(script.text || script.textContent || script.innerHTML || "");
+    					}
+
+    				}
+    			}
+
+    			fragment = null;
+
+    		}
+
+    		// return html;
+    	}, html);
+    };
     
     /**
      * 将当前 Dom 对象添加到其它节点或 Dom 对象中。
@@ -2816,145 +2873,92 @@ var Dom = (function () {
     	(parent ? Dom.query(parent, this[0]) : new Dom([document.body])).append(this);
         return this;
     };
-    
-    Object.each({
 
-        /**
-		 * 插入一个HTML 到末尾。
-		 * @param {String/Node/Dom} html 要插入的内容。
-		 * @return {Dom} 返回插入的新节点对象。
-		 */
-    	append: function (elem, node) {
+	/**
+	 * 插入一个HTML 到末尾。
+	 * @param {String/Node/Dom} html 要插入的内容。
+	 * @return {Dom} 返回插入的新节点对象。
+	 */
+    dp.append = function (html) {
+    	return Dom.manip(this, function (elem, node) {
     		elem.appendChild(node);
-        },
+    	}, html);
+    };
 
-        /**
-		 * 插入一个HTML 到顶部。
-		 * @param {String/Node/Dom} html 要插入的内容。
-		 * @return {Dom} 返回插入的新节点对象。
-		 */
-    	prepend: function (elem, node) {
+	/**
+	 * 插入一个HTML 到顶部。
+	 * @param {String/Node/Dom} html 要插入的内容。
+	 * @return {Dom} 返回插入的新节点对象。
+	 */
+    dp.prepend = function (html) {
+    	return Dom.manip(this, function (elem, node) {
     		elem.insertBefore(node, elem.firstChild);
-        },
+    	}, html);
+    };
 
-        /**
-		 * 插入一个HTML 到前面。
-		 * @param {String/Node/Dom} html 要插入的内容。
-		 * @return {Dom} 返回插入的新节点对象。
-		 */
-    	before: function (elem, node) {
+	/**
+	 * 插入一个HTML 到前面。
+	 * @param {String/Node/Dom} html 要插入的内容。
+	 * @return {Dom} 返回插入的新节点对象。
+	 */
+    dp.before = function (html) {
+    	return Dom.manip(this, function (elem, node) {
     		elem.parentNode && elem.parentNode.insertBefore(node, elem);
-        },
+    	}, html);
+    };
 
-        /**
-		 * 插入一个HTML 到后面。
-		 * @param {String/Node/Dom} html 要插入的内容。
-		 * @return {Dom} 返回插入的新节点对象。
-		 */
-    	after: function (elem, node) {
+	/**
+	 * 插入一个HTML 到后面。
+	 * @param {String/Node/Dom} html 要插入的内容。
+	 * @return {Dom} 返回插入的新节点对象。
+	 */
+    dp.after = function (html) {
+    	return Dom.manip(this, function (elem, node) {
     		elem.parentNode && elem.parentNode.insertBefore(node, elem.nextSibling);
-        },
-
-        /**
-		 * 将一个节点用另一个节点替换。
-		 * @param {String/Node/Dom} html 用于将匹配元素替换掉的内容。
-		 * @return {Element} 替换之后的新元素。
-		 * 将所有匹配的元素替换成指定的HTML或DOM元素。
-		 * @example
-		 * 把所有的段落标记替换成加粗的标记。
-		 * #####HTML:
-		 * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;cruel&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;</pre>
-		 * #####JavaScript:
-		 * <pre>Dom.query("p").replaceWith("&lt;b&gt;Paragraph. &lt;/b&gt;");</pre>
-		 * #####结果:
-		 * <pre lang="htm" format="none">&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;</pre>
-		 *
-		 * 用第一段替换第三段，可以发现他是移动到目标位置来替换，而不是复制一份来替换。
-		 * #####HTML:<pre lang="htm" format="none">
-		 * &lt;div class=&quot;container&quot;&gt;
-		 * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
-		 * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
-		 * &lt;div class=&quot;inner third&quot;&gt;Goodbye&lt;/div&gt;
-		 * &lt;/div&gt;
-		 * </pre>
-		 * #####JavaScript:
-		 * <pre>Dom.find('.third').replaceWith(Dom.find('.first'));</pre>
-		 * #####结果:
-		 * <pre lang="htm" format="none">
-		 * &lt;div class=&quot;container&quot;&gt;
-		 * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
-		 * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
-		 * &lt;/div&gt;
-		 * </pre>
-		 */
-    	replaceWith: function (elem, node) {
-        	var parent = elem.parentNode;
-            if (parent) {
-            	parent.insertBefore(node, elem);
-            	parent.removeChild(elem);
-            }
-        }
-
-    }, function (fn, fnName) {
-
-    	dp[fnName] = function (html) {
-
-    		var index = 0;
-
-			// 如果是 html,则每次插入一次。
-        	return iterate(this, function (elem, html) {
-
-        		var scripts,
-					i,
-					script,
-					fragment;
-
-        		if (html = typeof html === 'string' ? Dom.parse(html, elem) : index++ ? html.clone(true, false, true) : html) {
-        			fragment = getDocument(elem).createDocumentFragment();
-        			for (i = 0; i < html.length; i++) {
-        				fragment.appendChild(html[i]);
-        			}
-
-        			scripts = fragment[fragment.getElementsByTagName ? 'getElementsByTagName' : 'querySelectorAll']('SCRIPT');
-
-        			// IE678 不支持更新 fragment 后保持 Scripts，这时先缓存。
-        			if (isIE678) {
-        				scripts = new Dom(scripts);
-        			}
-
-        			// 实际的插入操作。
-        			fn(elem, fragment);
-
-        			i = 0;
-
-        			// 如果存在脚本，则一一执行。
-        			while (script = scripts[i++]) {
-        				if (!script.type || /\/(java|ecma)script/i.test(script.type)) {
-
-        					if (script.src) {
-        						assert(window.Ajax && Ajax.send, "必须载入 ajax/script.js 模块以支持动态执行 <script src=''>");
-        						Ajax.send({
-        							url: script.src,
-        							type: "GET",
-        							dataType: 'script',
-        							async: false
-        						});
-        					} else {
-        						window.execScript(script.text || script.textContent || script.innerHTML || "");
-        					}
-
-        				}
-        			}
-
-        			fragment = null;
-
-        		}
-
-        		// return html;
-        	}, html);
-        };
-
-    });
+    	}, html);
+    };
+	
+	/**
+	 * 将一个节点用另一个节点替换。
+	 * @param {String/Node/Dom} html 用于将匹配元素替换掉的内容。
+	 * @return {Element} 替换之后的新元素。
+	 * 将所有匹配的元素替换成指定的HTML或DOM元素。
+	 * @example
+	 * 把所有的段落标记替换成加粗的标记。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;cruel&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;</pre>
+	 * #####JavaScript:
+	 * <pre>Dom.query("p").replaceWith("&lt;b&gt;Paragraph. &lt;/b&gt;");</pre>
+	 * #####结果:
+	 * <pre lang="htm" format="none">&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;</pre>
+	 *
+	 * 用第一段替换第三段，可以发现他是移动到目标位置来替换，而不是复制一份来替换。
+	 * #####HTML:<pre lang="htm" format="none">
+	 * &lt;div class=&quot;container&quot;&gt;
+	 * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
+	 * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
+	 * &lt;div class=&quot;inner third&quot;&gt;Goodbye&lt;/div&gt;
+	 * &lt;/div&gt;
+	 * </pre>
+	 * #####JavaScript:
+	 * <pre>Dom.find('.third').replaceWith(Dom.find('.first'));</pre>
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * &lt;div class=&quot;container&quot;&gt;
+	 * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
+	 * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
+	 * &lt;/div&gt;
+	 * </pre>
+	 */
+	dp.replaceWith = function (html) {
+    	return Dom.manip(this, function (elem, node) {
+    		var parent = elem.parentNode;
+    		if (parent) {
+    			parent.insertBefore(node, elem);
+    			parent.removeChild(elem);
+    		}
+    	}, html);
+    };
 
     /**
      * 移除当前 Dom 对象或其子对象。
@@ -5412,8 +5416,9 @@ var Dom = (function () {
     var Selector = Dom.Selector = {
 		
         all: function (selector, parentNode) {
-            return select(selector, document, new Dom);
-        },
+        	return select(selector, parentNode, new Dom);
+        }
+
     };
 	
     var Selector2 = Dom.Selector = {

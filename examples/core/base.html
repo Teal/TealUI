@@ -56,16 +56,16 @@
                 'Array 扩展': '-',
                 'Array.isArray': 'Array.isArray([])',
                 'Array#indexOf': '[5,4].indexOf(5)',
-                'Array#item': function () {
-                    [5, 4].item(0); // 5
-                    [5, 4].item(1); // 4
-                    [5, 4].item(2); // undefined
-                    [5, 4].item(-1); // 取最后一个, 4
-                    [5, 4].item(-2); // 5
-                    [5, 4].item(-3); // undefined
-                },
+                //'Array#item': function () {
+                //    [5, 4].item(0); // 5
+                //    [5, 4].item(1); // 4
+                //    [5, 4].item(2); // undefined
+                //    [5, 4].item(-1); // 取最后一个, 4
+                //    [5, 4].item(-2); // 5
+                //    [5, 4].item(-3); // undefined
+                //},
                 'Array#forEach': '[5,4].forEach(alert)',
-                'Array#filter': '[5,4].filter(function(v){return v > 4;})',
+                //'Array#filter': '[5,4].filter(function(v){return v > 4;})',
 
                 'Array#unique': '[2, 5, 7, 5].unique()',
                 'Array#each': '[5,4].each(function(value){alert(value); return false;})',
@@ -81,8 +81,8 @@
                     String.format("{a}", { a: 1 }); // "1"
                 },
                 'String#trim': '"      abcd  ".trim()',
-                'String#capitalize': '"abcd".capitalize()',
-                'String#toCamelCase': '"font-size".toCamelCase()',
+                //'String#capitalize': '"abcd".capitalize()',
+                //'String#toCamelCase': '"font-size".toCamelCase()',
 
                 'Date 扩展': '-',
                 'Date.now': 'Date.now()',

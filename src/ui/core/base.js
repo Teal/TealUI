@@ -35,7 +35,7 @@ var Control = Class({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    tpl: '<div class="ui-control" />',
+    tpl: '<div class="{cssClass}" />',
 
     /**
 	 * 当被子类重写时，生成当前控件对应的原生节点。
@@ -46,7 +46,7 @@ var Control = Class({
     create: function () {
 
         // 转为对 tpl解析。
-    	return Dom.parse(this.tpl.replace(/\bui-control\b/g, this.cssClass));
+    	return Dom.parse(String.format(this.tpl, this));
     },
 
     /**
@@ -55,6 +55,28 @@ var Control = Class({
 	 * @protected virtual
 	 */
     init: Function.empty,
+
+	/**
+	 * 设置当前输入域的状态, 并改变控件的样式。
+     * @param {String} name 状态名。
+     * @param {Boolean} value=false 要设置的状态值。
+	 * @protected virtual
+	 */
+    state: function (name, value) {
+    	this.dom.toggleClass(this.cssClass + '-' + name, value);
+    },
+
+    attach: function (parentDom, refDom) {
+    	if (refDom) {
+    		refDom.before(this.dom);
+    	} else {
+    		parentDom.append(this.dom);
+    	}
+    },
+
+    detach: function () {
+    	this.dom.remove();
+    },
 
 	/**
 	 * 初始化一个新的控件。
@@ -98,30 +120,34 @@ var Control = Class({
     	me.set(opt);
     },
 
-    /**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。
-     * @param {Boolean} value=false 要设置的状态值。
-	 * @protected virtual
-	 */
-    state: function (name, value) {
-    	this.dom.toggleClass('x-' + this.cssClass + '-' + name, value);
-    },
-
-    attach: function (parent, ref) {
-    
-    },
-
-    detach: function (parent) {
-
-    },
-
-    appendTo: function (parent) {
-    	Dom.query(parent).append(this);
-    },
-
     set: function (options) {
+    	var key, value;
+    	for (key in options) {
+    		value = options[key];
+    		if (key in this) {
+    			if (typeof this[key] === 'function') {
+    				this[key](value);
+    			} else {
+    				this[key] = value;
+    			}
+    		} else if (/^on(\w+)/.test(key)) {
+    			value ? this.on(RegExp.$1, value) : this.un(RegExp.$1);
+    		} else {
+    			this.dom.set(key, value);
+    		}
+    	}
 
+    	return this;
+    },
+
+    renderTo: function (parent, refChild) {
+    	this.attach(Dom.query(parent, this.dom[0]), refChild);
+    	return this;
+    },
+
+    remove: function () {
+    	this.detach();
+    	return this;
     }
 
 });
