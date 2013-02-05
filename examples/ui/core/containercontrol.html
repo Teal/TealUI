@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=develop" />
+    <meta name="module-info" content="status=complete" />
     <title>容器组件基类</title>
 
     <script type="text/javascript" src="../../../src/boot.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
 
     <script type="text/javascript" src="../../../../apps/demo/demo.js"></script>
@@ -54,11 +55,11 @@
 
         <section class="demo demo-sample">
             <aside class="demo">
-                <div class="ui" id="containerControl">
-                    <div class="ui-header">
+                <div class="ui-control" id="containerControl">
+                    <div class="ui-control-header">
                         header
                     </div>
-                    <div class="ui-body">
+                    <div class="ui-control-body">
                         body
                     </div>
                 </div>
@@ -73,13 +74,13 @@
 
             Demo.writeExamples({
                 '标题': '-',
-                '设置标题': 'containerControl.setTitle("<em>这是使用 setTitle 设置的</em>")',
                 '获取标题': 'containerControl.getTitle()',
+                '设置标题': 'containerControl.setTitle("<em>这是使用 setTitle 设置的</em>")',
                 '删除标题': 'containerControl.setTitle(null)',
 
                 '内容': '-',
-                '设置内容': 'containerControl.setContent("<em>这是使用 setContent 设置的</em>")',
-                '获取内容': 'containerControl.getContent()'
+                '获取内容': 'containerControl.getContent()',
+                '设置内容': 'containerControl.setContent("<em>这是使用 setContent 设置的</em>")'
             });
         </script>
 
@@ -101,12 +102,12 @@
                 
                 // 获取当前容器用于存放标题的 Dom 对象。
                 header: function () {
-                    return this.dom.find('.' + this.ui + '-header');
+                    return this.dom.find('.' + this.cssClass + '-header');
                 },
 
                 // 获取当前容器用于存放内容的 Dom 对象。
                 body: function () {
-                    return this.dom.find('.' + this.ui + '-body') || this.dom;
+                    return this.dom.find('.' + this.cssClass + '-body') || this.dom;
                 }
 
             });

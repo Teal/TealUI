@@ -2,6 +2,7 @@
  * @author  xuld
  */
 
+include("ui/core/base.js");
 
 /**
  * 表示所有管理多个有序列的子控件的控件基类。
@@ -15,11 +16,9 @@ var ListControl = Control.extend({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-	tpl: '<ul class="ui-control"/>',
+	tpl: '<ul class="{cssClass}"/>',
 
-	cssClass: 'ui-listcontrol',
-
-	// 增删项
+	//#region Update
 
 	/**
 	 * 添加一个子控件到当前控件末尾。
@@ -27,15 +26,19 @@ var ListControl = Control.extend({
 	 * @return {Dom/this} 返回新添加的子控件，如果有多个参数，则返回 this。
 	 */
 	add: function (item) {
+		
+		var ret = new Dom();
 
 		// 如果有多个参数，按顺序插入。
 		if (arguments.length > 1) {
-			Object.each(arguments, this.insert, this);
-			return this;
+			Object.each(arguments, function (item) {
+				ret.add(this.insert(item));
+			}, this);
+		} else {
+			ret = this.insert(item);
 		}
 
-		// 调用插入。
-		return this.insert(item);
+		return ret;
 
 	},
 
@@ -61,19 +64,23 @@ var ListControl = Control.extend({
 		// 先处理 newChild 为标准 Dom 对象。
 
 		// 处理字符串。
-		newChild = Dom.parse(newChild);
+		newChild = Dom.parse(newChild, this.dom[0]);
 
-		// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
-		if (newChild[0].tagName !== 'LI') {
-			var li = Dom.create('LI');
-			li.append(newChild);
-			newChild = li;
-		}
+		if (newChild.length) {
 
-		if (refChild && refChild.before) {
-			refChild.before(newChild);
-		} else {
-			this.dom.append(newChild);
+			// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
+			if (newChild[0].tagName !== 'LI') {
+				var li = Dom.create('LI');
+				li.append(newChild);
+				newChild = li;
+			}
+
+			if (refChild && refChild.length) {
+				refChild.before(newChild);
+			} else {
+				this.dom.append(newChild);
+			}
+
 		}
 
 		// 返回新创建的子控件。
@@ -87,34 +94,14 @@ var ListControl = Control.extend({
 	 */
 	remove: function (child) {
 
-		// 仅处理存在 child 的情况。
-		if (child) {
-
-			// 如果 child 不是 <li>, 则肯能是 <li> 的子节点。尝试获取它的 父 <li> 标签。
-			if (child.parent()[0] !== this.dom[0]) {
-
-				// 获取包装的 <li>
-				var li = child.parent('li');
-
-				// 如果父节点不是 <li>, 说明是非法的子节点，不再继续处理。
-				if (!li) {
-					return null;
-				}
-
-				// 从 <li> 删除节点。
-				child.remove(li);
-
-				// 用于等下删除 <li> 自己。
-				child = li;
-			}
-
-			// 从 DOM 树删除。
-			this.dom.remove(child);
-
+		// 无参数，则删除本身。
+		if (!arguments.length) {
+			this.detach();
+			return this;
 		}
 
 		// 返回被删除的子控件。
-		return child || null;
+		return child.remove();
 	},
 
 	/**
@@ -124,6 +111,11 @@ var ListControl = Control.extend({
 	 */
 	removeAt: function (index) {
 		return this.remove(this.item(index));
+	},
+
+	empty: function () {
+		this.dom.empty();
+		return this;
 	},
 
 	/**
@@ -136,8 +128,7 @@ var ListControl = Control.extend({
 
 		// 如果 items 为数组，则批量设置当前的项。
 		if (Array.isArray(items)) {
-			this.dom.empty();
-			this.add.apply(this, items);
+			this.empty().add.apply(this, items);
 			return this;
 		}
 
@@ -145,7 +136,9 @@ var ListControl = Control.extend({
 		return Control.prototype.set.apply(this, arguments);
 	},
 
-	// 获取和查询
+	//#endregion
+
+	//#region Query
 
 	/**
 	 * 获取指定索引的项。
@@ -170,65 +163,35 @@ var ListControl = Control.extend({
 	},
 
 	each: function (fn, scope) {
-		return this.dom.children().each(fn, scope);
+		for (var c = this.item(0), next, i = 0 ; c.length ; c = next) {
+			next = c.next();
+
+			if (fn.call(scope, c, i++, this) === false) {
+				return false;
+			}
+		}
+
+		return true;
 	},
 
-	///**
-	// * 设置子控件某个事件发生之后，执行某个函数.
-	// * @param {String} eventName 事件名。
-	// * @param {String} fn 执行的函数。
-	// * @param {Object} scope 函数执行时的作用域。
-    // * @return this
-    // * @protected
-	// */
-	//itemOn: function (eventName, fn, scope) {
-	//	return this.dom.on(eventName, function (e) {
-	//		for (var c = this[0].firstChild, target = e.target; c; c = c.nextSibling) {
-	//			if (c === target || Dom.has(c, target)) {
-	//				return fn.call(scope || this, new Dom(c), e);
-	//			}
-	//		}
-	//	});
-	//}
+	/**
+	 * 设置子控件某个事件发生之后，执行某个函数.
+	 * @param {String} eventName 事件名。
+	 * @param {String} fn 执行的函数。
+	 * @param {Object} scope 函数执行时的作用域。
+     * @return this
+     * @protected
+	 */
+	itemOn: function (eventName, fn, scope) {
+		return this.dom.on(eventName, function (e) {
+			for (var c = this.firstChild, target = e.target; c; c = c.nextSibling) {
+				if (c === target || Dom.contains(c, target)) {
+					return fn.call(scope || c, new Dom([c]), e);
+				}
+			}
+		}, this.dom[0]);
+	}
+
+	//#endregion
 
 });
-
-///**
-// * 为非 ListControl 对象扩展 ListControl 的6个方法: add addAt remove removeAt set item
-// */
-//ListControl.aliasMethods = function (controlClass, targetProperty, removeChildProperty) {
-//	controlClass.delegateMethods(targetProperty, 'add addAt removeAt item');
-
-//	removeChildProperty = removeChildProperty || targetProperty;
-
-//	controlClass.prototype.set = function (items) {
-//		if (Array.isArray(items)) {
-
-//			// 尝试在代理的列表中删除项。
-//			var child = this[removeChildProperty];
-//			if (child)
-//				child.empty();
-
-//			// 通过 this.add 添加项。
-//			this.add.apply(this, items);
-
-//			return this;
-//		}
-
-//		return this.base('set');
-//	};
-
-//	controlClass.prototype.removeChild = function (childControl) {
-
-//		// 尝试在代理的列表中删除项。
-//		var child = this[removeChildProperty];
-//		if (child)
-//			childControl.remove(childControl);
-
-//		// 尝试在当前节点中正常删除。
-//		childControl.detach(this.node);
-
-//		return childControl;
-//	};
-
-//};

@@ -1949,7 +1949,7 @@ var Dom = (function () {
 		}
 
 		// 添加当前函数到队列末尾。
-		data = [fn, scope || elem, selector];
+		data = [fn, scope || (selector ? 0 : elem), selector];
 		eventName = selector ? 'delegateFn' : 'bindFn';
 
 		if (eventFix = eventHandler[eventName]) {
@@ -2263,7 +2263,7 @@ var Dom = (function () {
 	                }
 
 	                // 如果存在过滤器，执行过滤器。
-	                if (node && selector && Dom.match(node, selector)) {
+	                if (node && selector && !Dom.match(node, selector)) {
 	                    node = 0;
 	                }
 	            }
@@ -2801,9 +2801,19 @@ var Dom = (function () {
 				fragment;
 
     		if (html = typeof html === 'string' ? Dom.parse(html, elem) : index++ ? html.clone(true, false, true) : html) {
-    			fragment = getDocument(elem).createDocumentFragment();
-    			for (i = 0; i < html.length; i++) {
-    				fragment.appendChild(html[i]);
+
+				// 只一个节点，则加速添加。
+    			if (html.length === 1) {
+
+    				fragment = html[0];
+
+    			} else {
+
+    				fragment = getDocument(elem).createDocumentFragment();
+    				for (i = 0; i < html.length; i++) {
+    					fragment.appendChild(html[i]);
+    				}
+
     			}
 
     			scripts = fragment[fragment.getElementsByTagName ? 'getElementsByTagName' : 'querySelectorAll']('SCRIPT');
@@ -5344,7 +5354,7 @@ var Dom = (function () {
     function select(selector, context, results, seed) {
         var i, tokens, token, type, find,
 			match = tokenize(selector);
-        trace(selector, "->", match)
+     //  trace(selector, "->", match)
         if (!seed) {
             // Try to minimize operations if there is only one group
             if (match.length === 1) {

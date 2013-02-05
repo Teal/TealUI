@@ -6,6 +6,7 @@
     <title>列表组件基类</title>
 
     <script type="text/javascript" src="../../../src/boot.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
 
     <script type="text/javascript" src="../../../../apps/demo/demo.js"></script>
@@ -16,7 +17,7 @@
         <blockquote class="demo demo-info">ListControl 是列表组件基类。一个列表控件肯定是一个 ul 或 ol 标签。</blockquote>
 
         <script class="demo" type="code/html">
-            <ul class="ui-listcontrol">
+            <ul class="ui-control">
                 <li>选项1</li>
                 <li>选项2</li>
                 <li>选项3</li>
@@ -24,7 +25,7 @@
             </ul>
         </script>
 
-        <p class="demo">选中的项类名为 <code class="demo">ui-listcontrol-selected</code>, 鼠标移上后的高亮效果类名为 <code class="demo">ui-listcontrol-hover</code> 。</p>
+        <p class="demo">选中的项类名为 <code class="demo">ui-control-selected</code>, 鼠标移上后的高亮效果类名为 <code class="demo">ui-control-hover</code> 。</p>
 
     </article>
 
@@ -34,7 +35,7 @@
 
         <section class="demo demo-sample">
             <aside class="demo">
-                <ul id="listcontrol" class="ui-listcontrol">
+                <ul class="ui-listcontrol" id="listcontrol">
                     <li>选项1</li>
                     <li>选项2</li>
                 </ul>
@@ -51,17 +52,18 @@
 
                 Demo.writeExamples({
                     '增删项': '-',
-                    '增加一项': 'a.add("<em>这是通过 add 插入的</em>")',
-                    '插入一项到第一项之前': 'a.addAt(0, "<em>这是通过 addAt 插入的</em>")',
-                    '删除第一项': 'a.removeAt(0)',
-                    '删除某一项': 'a.remove(a.item(0))',
-                    '批量设置项': 'a.set(["<em>这是通过 set 插入的 0</em>", "<em>这是通过 set 插入的 1</em>"])',
+                    '增加一项': 'listControl.add("<em>这是通过 add 插入的</em>")',
+                    '插入一项到第一项之前': 'listControl.addAt(0, "<em>这是通过 addAt 插入的</em>")',
+                    '删除第一项': 'listControl.removeAt(0)',
+                    '删除某一项': 'listControl.remove(listControl.item(0))',
+                    '批量设置项': 'listControl.set(["<em>这是通过 set 插入的 0</em>", "<em>这是通过 set 插入的 1</em>"])',
 
                     '获取和遍历': '-',
-                    '获取项数': 'a.count()',
-                    '获取第一项': 'a.item(0)',
-                    '获取某一项在列表中的索引': 'a.indexOf(a.item(0))',
-                    '遍历每一项': 'a.each(function(item, index){ alert(item.getText()); })'
+                    '获取项数': 'listControl.count()',
+                    '获取第一项': 'listControl.item(0)',
+                    '获取某一项在列表中的索引': 'listControl.indexOf(listControl.item(0))',
+                    '遍历每一项': 'listControl.each(function(item, index){ alert(item.getText()); })',
+                    '绑定项点击事件': 'listControl.itemOn("click", function(item, e){alert(item.getText())})'
                 });
 
             </script>

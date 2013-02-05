@@ -1832,6 +1832,10 @@ if (typeof module !== 'object') {
 				len = me.data.length,
 				needEnd;
 
+			// Support For Alert
+			var _alert = window.alert;
+			window.alert = function (value) { console.info("alert: ", value); };
+
 			function work() {
 				if (i < len) {
 					if (me.data[i][0] === null) {
@@ -1852,8 +1856,10 @@ if (typeof module !== 'object') {
 						me.run(i++);
 						setTimeout(work, 1);
 					}
-				} else if (needEnd && console.groupEnd) {
-					console.groupEnd();
+
+				} else {
+					needEnd && console.groupEnd && console.groupEnd();
+					window.alert = _alert;
 				}
 			}
 
