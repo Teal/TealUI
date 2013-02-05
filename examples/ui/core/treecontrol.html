@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=develop" />
+    <meta name="module-info" content="status=complete" />
     <title>树组件基类</title>
 
     <script type="text/javascript" src="../../../src/boot.js"></script>
@@ -17,9 +17,9 @@
         <blockquote class="demo demo-info">TreeControl 是树组件基类。树组件是 ul 里嵌套 ul 的组件。</blockquote>
 
         <script class="demo" type="code/html">
-            <ul class="xtype">
+            <ul class="ui-control">
                 <li>A
-                    <ul class="xtype">
+                    <ul class="ui-control ui-control-sub">
                         <li>A-1</li>
                         <li>A-2</li>
                     </ul>
@@ -36,17 +36,18 @@
 
         <section class="demo demo-sample">
             <aside class="demo">
-                <ul id="treecontrol">
-                    <li>A<ul>
-                        <li>A-1</li>
-                        <li>A-2</li>
-                    </ul>
+                <ul class="ui-control" id="treecontrol">
+                    <li>A
+                         <ul class="ui-control ui-control-sub">
+                            <li>A-1</li>
+                            <li>A-2</li>
+                        </ul>
                     </li>
                     <li>A</li>
                 </ul>
 
                 <script>
-                    var treeControl  = new TreeControl('treecontrol');
+                    var treeControl  = new TreeControl('#treecontrol');
                 </script>
             </aside>
         </section>
@@ -54,9 +55,9 @@
         <section class="demo demo-api">
             <script>
                 Demo.writeExamples({
-                    '增加一个节点': 'a.add("<em>这是使用 add 增加的</em>")',
-                    '增加第一个节点的子节点': 'a.item(0).add("<em>这是使用 item(0).add 增加的</em>")',
-                    '删除第一个节点': 'a.removeAt(0)'
+                    '增加一个节点': 'treeControl.add("<em>这是使用 add 增加的</em>")',
+                    '增加第一个节点的子节点': 'treeControl.item(0).sub().add("<em>这是使用 item(0).sub().add 增加的</em>")',
+                    '删除第一个节点': 'treeControl.removeAt(0)'
                 });
             </script>
 

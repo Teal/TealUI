@@ -1,19 +1,34 @@
-/** * @author  */Dom.implement({	getOuterHtml: function() {
-		var elem = this.node;
+/**
+ * @author xuld
+ */
+
+include("dom/base.js");
+
+Dom.implement({
+
+	getOuterHtml: function () {
+		if (!this.length) {
+			return null;
+		}
+
+		var elem = this[0];
 		if ("outerHTML" in elem) {
 			return elem.outerHTML;
 		} else {
 			var div = Dom.getDocument(elem).createElement('div')
-			div.appendChild(this.clone().node);
+			div.appendChild(Dom.clone(elem));
 			return div.innerHTML;
 		}
-	}}).implement({	setOuterHtml: function(value) {
-		var elem = this.node;
-		if ("outerHTML" in this && !/<(?:script|style|link)/i.test(value)) {
-			elem.outerHTML = value;
-		} else {
-			this.before(value);
-			this.remove();
-		}
-		return this;
-	}});
+	},
+
+	setOuterHtml: function (value) {
+		return Dom.iterate(this, function (elem) {
+			if ("outerHTML" in elem && !/<(?:script|style|link)/i.test(value)) {
+				elem.outerHTML = value;
+			} else {
+				Dom.get(elem).before(value).remove();
+			}
+		});
+	}
+
+});

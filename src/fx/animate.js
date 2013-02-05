@@ -62,7 +62,7 @@ include("fx/tween.js");
 	});
 	
 	Object.map('left right top bottom', function(key, index) {
-		key = 'margin' + key.capitalize();
+		key = 'margin' + key.charAt(0).toUpperCase() + key.substr(1);
 		return function(options, elem, isShow) {
 
 			// 将父元素的 overflow 设为 hidden 。
@@ -146,23 +146,15 @@ include("fx/tween.js");
 	
 	}
 
+	Dom.fx = function (elem) {
+		var data = Dom.data(elem);
+		return data.$fx || (data.$fx = new Fx.Tween());
+	};
+
 	/**
 	 * @class Dom
 	 */
 	Dom.implement({
-		
-		/**
-		 * 获取和当前节点有关的 param 实例。
-		 * @return {Fx.Tween} 一个 Fx.Tween 对象。
-		 */
-		fx: function() {
-			var data = this.dataField();
-			return data.$fx || (data.$fx = new Fx.Tween());
-		}
-		
-	}, 2)
-	
-	.implement({
 		
 		/**
 		 * 变化到某值。
@@ -173,24 +165,33 @@ include("fx/tween.js");
 		 * @return this
 		 */
 		animate: function (params, duration, callback, link) {
-			assert.notNull(params, "Dom#animate(params, duration, oncomplete, link): {params} ~", params);
-				
-			if(params.params){
-				link = params.link;
-			} else {
-				params = {
-					params: params,
-					duration: duration,
-					complete: callback
-				};
-			}
-			
-			params.target = this;
 
-			assert(!params.duration || typeof params.duration === 'number', "Dom#animate(params, duration, callback, link): {duration} 必须是数字。如果需要制定为默认时间，使用 -1 。", params.duration);
-			assert(!params.complete || typeof params.complete === 'function', "Dom#animate(params, duration, callback, link): {callback} 必须是函数", params.complete);
-			
-			this.fx().run(params, link);
+			if (this.length > 1) {
+				this.each(function (elem) {
+					new Dom([elem]).animate(params, duration, callback, link);
+				});
+			} else {
+
+				assert.notNull(params, "Dom#animate(params, duration, oncomplete, link): {params} ~", params);
+
+				if (params.params) {
+					link = params.link;
+				} else {
+					params = {
+						params: params,
+						duration: duration,
+						complete: callback
+					};
+				}
+
+				params.dom = this;
+
+				assert(!params.duration || typeof params.duration === 'number', "Dom#animate(params, duration, callback, link): {duration} 必须是数字。如果需要制定为默认时间，使用 -1 。", params.duration);
+				assert(!params.complete || typeof params.complete === 'function', "Dom#animate(params, duration, callback, link): {callback} 必须是函数", params.complete);
+
+				Dom.fx(this[0]).run(params, link);
+
+			}
 			
 			return this;
 		},
@@ -212,25 +213,32 @@ include("fx/tween.js");
 		show: function() {
 			var me = this,
 				args = arguments;
+			
+			if (this.length > 1) {
+				this.each(function (elem) {
+					me.show.apply(new Dom([elem]), args);
+				});
+				return this;
+			}
 
 			// 加速空参数的 show 调用。
 			if (args.length === 0) {
-				Dom.show(me.node);
+				Dom.show(me[0]);
 			} else {
 				
 				args = initArgs(args);
 				
 				// 如果 duration === null，则使用同步方式显示。
 				if(args.duration == null){
-					Dom.show(me.node);
+					Dom.show(me[0]);
 					args.callback.call(me, false, false);
 				} else {
-					me.fx().run({
-						target: me,
+					Dom.fx(me[0]).run({
+						dom: me,
 						duration: args.duration,
 						start: function(options, fx) {
 	
-							var elem = this.node,
+							var elem = this[0],
 								t,
 								params,
 								param;
@@ -276,7 +284,7 @@ include("fx/tween.js");
 						complete: function(isAbort, fx) {
 	
 							// 拷贝回默认值。
-							Object.extend(this.node.style, fx.options.orignal);
+							Object.extend(this[0].style, fx.options.orignal);
 	
 							args.callback.call(me, false, isAbort);
 						}
@@ -303,27 +311,35 @@ include("fx/tween.js");
 		 * @return this
 		 */
 		hide: function () {
+
+			if (this.length > 1) {
+				this.each(function (elem) {
+					me.hide.apply(new Dom([elem]), args);
+				});
+				return this;
+			}
+
 			var me = this,
 				args = arguments;
 
 			// 加速空参数的 show 调用。
 			if (args.length === 0) {
-				Dom.hide(me.node);
+				Dom.hide(me[0]);
 			} else {
 
 				args = initArgs(args);
 				
 				// 如果 duration === null，则使用同步方式显示。
 				if(args.duration === null){
-					Dom.hide(me.node);
+					Dom.hide(me[0]);
 					args.callback.call(me, false, false);
 				} else {
-					me.fx().run({
-						target: me,
+					Dom.fx(me[0]).run({
+						dom: me,
 						duration: args.duration,
 						start: function(options, fx) {
 	
-							var elem = this.node,
+							var elem = this[0],
 								params,
 								param;
 	
@@ -347,7 +363,7 @@ include("fx/tween.js");
 						},
 						complete: function(isAbort, fx) {
 	
-							var elem = this.node;
+							var elem = this[0];
 	
 							// 最后显示元素。
 							Dom.hide(elem);
@@ -365,10 +381,18 @@ include("fx/tween.js");
 			return this;
 		},
 	
-		toggle: function(){
+		toggle: function () {
+
+			if (this.length > 1) {
+				this.each(function (elem) {
+					me.toggle.apply(new Dom([elem]), args);
+				});
+				return this;
+			}
+
 			var me = this;
-			me.fx().then(function (args) {
-				toggle.apply(me, args);
+			Dom.fx(me[0]).then(function (args) {
+				me[Dom.isHidden(me[0]) ? 'show' : 'hide'].apply(me, args);
 				return false;
 			}, arguments);
 

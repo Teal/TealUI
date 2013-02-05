@@ -26,8 +26,8 @@ Object.extend(Fx, {
 	 * 用于数字的动画引擎。
 	 */
 	numberTweener: {
-		get: function(target, name){
-			return Dom.styleNumber(target.node, name);
+		get: function(dom, name){
+			return Dom.styleNumber(dom[0], name);
 		},
 				
 		/**
@@ -44,8 +44,8 @@ Object.extend(Fx, {
 			return typeof value == "number" ? value : parseFloat(value);
 		},
 		
-		set: function(target, name, value){
-			target.node.style[name] = value;
+		set: function(dom, name, value){
+			dom[0].style[name] = value;
 		}
 	},
 
@@ -71,7 +71,7 @@ Object.extend(Fx, {
 		set: function(delta){
 			var options = this.options,
 				params = options.params,
-				target = options.target,
+				dom = options.dom,
 				tweener,
 				key,
 				value;
@@ -80,7 +80,7 @@ Object.extend(Fx, {
 			for (key in params) {
 				value = params[key];
 				tweener = value.tweener;
-				tweener.set(target, key, tweener.compute(value.from, value.to, delta));
+				tweener.set(dom, key, tweener.compute(value.from, value.to, delta));
 			}
 		},
 		
@@ -112,7 +112,7 @@ Object.extend(Fx, {
 				}
 
 				// 找到用于变化指定属性的解析器。
-				tweener = Fx.tweeners[key = key.toCamelCase()];
+				tweener = Fx.tweeners[key = Dom.camelCase(key)];
 				
 				// 已经编译过，直接使用， 否则找到合适的解析器。
 				if (!tweener) {
@@ -151,11 +151,11 @@ Object.extend(Fx, {
 				// 如果有特殊功能。 ( += -= a-b)
 				if(part){
 					parsed = part[2];
-					i = parsed ? tweener.parse(parsed) : tweener.get(options.target, key);
+					i = parsed ? tweener.parse(parsed) : tweener.get(options.dom, key);
 					parsed = parsed ? tweener.parse(value) : (i + parseFloat(part[1] === '+=' ? value : '-' + value));
 				} else {
 					parsed = tweener.parse(value);
-					i = tweener.get(options.target, key);
+					i = tweener.get(options.dom, key);
 				}
 				
 				params[key] = {
@@ -182,40 +182,40 @@ Object.extend(Fx, {
 Object.each(Dom.styleFix, function(value, key){
 	Fx.tweeners[key] = this;
 }, Fx.createTweener({
-	set: function (target, name, value) {
-		Dom.styleFix[name].call(target, value);
+	set: function (dom, name, value) {
+		Dom.styleFix[name].call(dom, value);
 	}
 }));
 
 Fx.tweeners.scrollTop = Fx.createTweener({
-	set: function (target, name, value) {
-		target.setScroll(null, value);
+	set: function (dom, name, value) {
+		dom.setScroll({ y: value });
 	},
-	get: function (target) {
-		return target.getScroll().y;
+	get: function (dom) {
+		return dom.getScroll().y;
 	}
 });
 
 Fx.tweeners.scrollLeft = Fx.createTweener({
-	set: function (target, name, value) {
-		target.setScroll(value);
+	set: function (dom, name, value) {
+		dom.setScroll({ x: value });
 	},
-	get: function (target) {
-		return target.getScroll().x;
+	get: function (dom) {
+		return dom.getScroll().x;
 	}
 });
 
 Fx.defaultTweeners.push(Fx.createTweener({
 
-	set: navigator.isStd ? function (target, name, value) {
-		
-		target.node.style[name] = value + 'px';
-	} : function(target, name, value) {
+	set: navigator.isIE678 ? function(dom, name, value) {
 		try {
 			
 			// ie 对某些负属性内容报错
-			target.node.style[name] = value;
+			dom[0].style[name] = value;
 		}catch(e){}
+	} : function (dom, name, value) {
+		
+		dom[0].style[name] = value + 'px';
 	}
 
 }));

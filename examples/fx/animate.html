@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="module-info" content="status=ok">
     <title>DOM 渐变特效</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 
@@ -55,19 +56,19 @@
             </div>
         </div>
         <script>
-            var a = $('a'), b = $('b'), c = $('c'), d = $('d'), o = $('o'), abcd = new DomList($('all').node.getElementsByTagName("div"));
+            var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d'), o = Dom.get('o'), abcd = new Dom(Dom.get('all')[0].getElementsByTagName("div"));
 
             Demo.writeExamples({
                 'Animate': '-',
                 'createAnimate': function () {
                     new Fx.Tween().run({
-                        target: a,
+                        dom: a,
                         params: { height: 500 }
                     }).run({
-                        target: a,
+                        dom: a,
                         params: { height: 200 }
                     }).run({
-                        target: a,
+                        dom: a,
                         params: { height: 100 }
                     })
 

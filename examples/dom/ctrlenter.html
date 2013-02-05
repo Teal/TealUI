@@ -2,17 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>CTRL+回车 事件</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/ctrlenter.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/ctrlenter.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
 <body>
     <article class="demo">
 
+        <h2 class="demo">监听 Ctrl+回车 事件</h2>
 
         <aside class="demo">
 
@@ -27,12 +29,23 @@
 
         </aside>
 
+        <h2 class="demo">Ctrl+回车后提交表单</h2>
+
         <aside class="demo">
-            <textarea id="res" ondblclick="this.value = ''"></textarea>
+            <form>
+                <textarea id="res" ondblclick="this.value = ''"></textarea>
+            </form>
             <script>
 
-                Dom.submitOnCtrlEnter('res', function () {
-                    alert('提交');
+                Dom.submitOnCtrlEnter('#res', function (value) {
+
+                    // 必须有文字才能提交。
+                    if (value.length == 0) {
+                        alert("必须先填写内容...");
+                        return false;
+                    }
+
+                    return true;
                 });
 
             </script>

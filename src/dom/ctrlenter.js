@@ -1,20 +1,22 @@
+/**
+ * @author xuld
+ */
 
+include("dom/base.js");
 
+Dom.defineEvents('ctrlenter', {
 
-
-Dom.addEvents('ctrlenter', {
-
-	initEvent: function(e){
+	filter: function(target, e){
 		return e.ctrlKey && (e.which == 13 || e.which == 10);
 	},
 	
-	base: 'keypress'
+	bindType: 'keypress'
 	
 });
 
 Dom.submitOnCtrlEnter = function (dom, check) {
-	Dom.get(dom).on('ctrlenter', function () {
-		if((!check || check(this.value) !== false) && this.node.form)
-			this.form.submit();
+	Dom.query(dom).on('ctrlenter', function () {
+		if((!check || check(this.value) !== false) && this.form)
+			Dom.get(this.form).submit();
 	});
 };

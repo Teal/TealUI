@@ -1,4 +1,8 @@
-/** * @author xuld */
+/**
+ * @author xuld
+ */
+
+include("ui/core/base.js");
 
 /**
  * 表示一个可以切换的选项卡。
@@ -12,11 +16,15 @@ var TabbableControl = Control.extend({
 	 */
 	collapseDuration: 200,
 
+	//#region 增删选项卡
+
 	/**
 	 * 获取指定位置的选项卡。
 	 * @return {Dom} 返回选项卡。
 	 */
-	item: Dom.prototype.child,
+	item: function (index) {
+		return this.dom.item(index);
+	},
 
 	/**
 	 * 添加一个选项卡到列表末尾。
@@ -36,15 +44,6 @@ var TabbableControl = Control.extend({
 	addAt: Function.empty,
 
 	/**
-     * 当被子类重写时，实现选项卡切换逻辑。
-     * @param {Dom} to 切换的目标选项卡。
-     * @param {Dom} from 切换的源选项卡。
-     * @param {Function} callbacl 切换完成后的回调函数。
-     * @protected abstract
-     */
-	onToggleTab: Function.empty,
-
-	/**
 	 * 删除指定位置选项卡。
 	 * @param {Integer} index 删除的位置。
 	 * @return {Dom} 被删除的选项卡。
@@ -55,6 +54,19 @@ var TabbableControl = Control.extend({
 		}
 		return this.removeChild(this.item(index));
 	},
+
+	//#endregion
+
+	//#region 切换选项卡
+
+	/**
+     * 当被子类重写时，实现选项卡切换逻辑。
+     * @param {Dom} to 切换的目标选项卡。
+     * @param {Dom} from 切换的源选项卡。
+     * @param {Function} callback 切换完成后的回调函数。
+     * @protected abstract
+     */
+	onToggleTab: Function.empty,
 
 	/**
 	 * 模拟选中一个选项卡。
@@ -107,4 +119,6 @@ var TabbableControl = Control.extend({
 		return this.setSelectedTab(this.item(value));
 	}
 
-}).addEvents('change');
+	//#endregion
+
+});

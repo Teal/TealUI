@@ -2,6 +2,7 @@
  * @author xuld
  */
 
+include("ui/core/base.js");
 
 /**
  * 所有内容控件的基类。
@@ -15,8 +16,8 @@ var ContentControl = Control.extend({
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-	tpl: '<div class="ui">\
-			<div class="ui-content"></div>\
+	tpl: '<div class="{cssClass}">\
+			<div class="{cssClass}-content"></div>\
 		</div>',
 
 	/**
@@ -25,7 +26,8 @@ var ContentControl = Control.extend({
      * @protected virtual
 	 */
 	content: function () {
-		return this.dom.frist() || this.dom;
+		var content = this.dom.first();
+		return content.length ? content : this.dom;
 	},
 
 	/**

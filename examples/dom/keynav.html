@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-        <meta name="module-info" content="status=ok" />
-		<title>键盘导航事件</title>
-		<script type="text/javascript" src="../../../src/core/base.js"></script>
-		<script type="text/javascript" src="../../../src/dom/keynav.js"></script>
-		
-		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>键盘导航事件</title>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/keynav.js"></script>
 
-        <article class="demo">
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-            <h2 class="demo">API</h2>
+    <article class="demo">
 
-            <script>
-                Demo.writeExamples({
-                    '示例': ''
-                });
-            </script>
+        <h2 class="demo">API</h2>
 
-        </article>
-		
-	</body>
+        <input id="a"/>
+
+        <script>
+            Demo.writeExamples({
+                '绑定键盘事件': 'Dom.get("a").keyNav({up: function(){alert("up")}})'
+            });
+        </script>
+
+    </article>
+
+</body>
 </html>

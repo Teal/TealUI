@@ -272,12 +272,6 @@ var Dom = (function () {
     };
 
     /**
-	 * 获取 window 对象的 Dom 对象封装示例。
-	 * @static
-	 */
-    Dom.window = new Dom([window]);
-
-    /**
 	 * 获取 document 对象的 Dom 对象封装示例。
 	 * @static
 	 */
@@ -294,7 +288,7 @@ var Dom = (function () {
 
         // 将数据绑定在原生节点上。
         // 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
-        return (elem.nodeType === 1 || elem.nodeType === 9) && (elem.$data || (elem.$data = {}));
+    	return (elem.nodeType === 1 || elem.nodeType === 9) ? (elem.$data || (elem.$data = {})) : elem === window ? (Dom.$winData || (Dom.$winData = {})) : null;
     };
 
     /**
@@ -1865,7 +1859,7 @@ var Dom = (function () {
 
 	                // 如果节点满足 CSS 选择器要求，则放入队列。
 	                // check 用于处理部分特殊的情况，不允许执行委托函数。（如 click 已禁用的按钮）
-	                if (Dom.match(delegateTarget, handler[2]) && (!filter || filter(delegateTarget, e) !== false)) {
+	                if (Dom.match(delegateTarget, handler[2]) && (!filter || filter(delegateTarget, e))) {
 
 	                    actualHandlers.push([handler[0], handler[1] || delegateTarget]);
 
@@ -1877,7 +1871,7 @@ var Dom = (function () {
 	    }
 
 	    // 将普通的句柄直接复制到 actualHandlers 。
-	    if ((!filter || filter(eventHandler.target, e) !== false) && eventHandler.bindFn) {
+	    if ((!filter || filter(eventHandler.target, e)) && eventHandler.bindFn) {
 	        actualHandlers.push.apply(actualHandlers, eventHandler.bindFn);
 	    }
 
@@ -2078,7 +2072,7 @@ var Dom = (function () {
 	        var e = new Dom.Event();
 	        e.target = elem;
 	        e.type = 'submit';
-	        this.trigger(e.type, e);
+	        Dom.trigger(elem, e.type, e);
 	        if (e.returnValue !== false) {
 	            elem.submit();
 	        }
@@ -3496,10 +3490,11 @@ var Dom = (function () {
                 if (offsetPoint.x != null) elem.scrollLeft = offsetPoint.x;
                 if (offsetPoint.y != null) elem.scrollTop = offsetPoint.y;
             } else {
+            	var scroll = Dom.getDocumentScroll(elem);
                 if (offsetPoint.x == null)
-                    offsetPoint.x = this.getScroll().x;
+                	offsetPoint.x = scroll.x;
                 if (offsetPoint.y == null)
-                    offsetPoint.y = this.getScroll().y;
+                	offsetPoint.y = scroll.y;
                 (elem.defaultView || elem.parentWindow).scrollTo(offsetPoint.x, offsetPoint.y);
             }
 

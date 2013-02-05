@@ -2,10 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
     <title>获取或设置外部 HTML</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/outerhtml.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/outerhtml.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -26,7 +29,7 @@
                 b = Dom.get('b'),
                 c = Dom.get('c'),
                 d = Dom.get('d'),
-                abcd = new DomList([a, b, c, d]);
+                abcd = new Dom([a, b, c, d]);
         </script>
 
         <script>

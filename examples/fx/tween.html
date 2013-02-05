@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="module-info" content="status=ok">
-		<title>类Flash的渐变特效</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>类Flash的渐变特效</title>
 
-        <script type="text/javascript" src="../../src/boot.js"></script>
-		<script type="text/javascript" src="../../src/core/base.js"></script>
-		<script type="text/javascript" src="../../src/fx/base.js"></script>
-        <script type="text/javascript" src="../../src/dom/base.js"></script>
-        <script type="text/javascript" src="../../src/fx/tween.js"></script>
-		
-		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
 
-        <article class="demo">
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-	        <div id="a" class="demo-box">
-	        
-	        </div>
-		    <script>
-		        var tween = new Fx.Tween();
-		        Demo.writeExamples({
-		            'Fx.Tween#run(100)': function() {
-		                 return tween.run({
-                            target: Dom.get('a'),
-                            params: {
-                              width: 100
-                            }
-                        });
-                    },
-                    'Fx.Tween#run("100")': function() {
-                         return tween.run({
-                            target: Dom.get('a'),
-                            params: {
-                              width: "100"
-                            }
-                        });
-                    },
-                    'Fx.Tween#run("+=10")': function() {
-                         return tween.run({
-                            target: Dom.get('a'),
-                            params: {
-                              width: '+=10'
-                            }
-                        });
-                    },
-                    'Fx.Tween#run("-=10")': function() {
-                         return tween.run({
-                            target: Dom.get('a'),
-                            params: {
-                              width: '-=10'
-                            }
-                        });
-                    },
-                    'Fx.Tween#run("0-100")': function() {
-                         return tween.run({
-                            target: Dom.get('a'),
-                            params: {
-                              width: "0-100"
-                            }
-                        });
-                    }
-		        }, {times: 8});
-		   
-		    </script>
+    <article class="demo">
 
-        </article>
-	</body>
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            var tween = new Fx.Tween();
+            Demo.writeExamples({
+                'Fx.Tween#run(100)': function () {
+                    return tween.run({
+                        dom: Dom.get('a'),
+                        params: {
+                            width: 100
+                        }
+                    });
+                },
+                'Fx.Tween#run("100")': function () {
+                    return tween.run({
+                        dom: Dom.get('a'),
+                        params: {
+                            width: "100"
+                        }
+                    });
+                },
+                'Fx.Tween#run("+=10")': function () {
+                    return tween.run({
+                        dom: Dom.get('a'),
+                        params: {
+                            width: '+=10'
+                        }
+                    });
+                },
+                'Fx.Tween#run("-=10")': function () {
+                    return tween.run({
+                        dom: Dom.get('a'),
+                        params: {
+                            width: '-=10'
+                        }
+                    });
+                },
+                'Fx.Tween#run("0-100")': function () {
+                    return tween.run({
+                        dom: Dom.get('a'),
+                        params: {
+                            width: "0-100"
+                        }
+                    });
+                }
+            }, { times: 8 });
+
+        </script>
+
+    </article>
+</body>
 </html>

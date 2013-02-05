@@ -18,7 +18,7 @@ var ListControl = Control.extend({
 	 */
 	tpl: '<ul class="{cssClass}"/>',
 
-	//#region Update
+	//#region 增删项
 
 	/**
 	 * 添加一个子控件到当前控件末尾。
@@ -101,7 +101,7 @@ var ListControl = Control.extend({
 		}
 
 		// 返回被删除的子控件。
-		return child.remove();
+		return child ? child.remove() : child;
 	},
 
 	/**
@@ -138,7 +138,7 @@ var ListControl = Control.extend({
 
 	//#endregion
 
-	//#region Query
+	//#region 获取和遍历
 
 	/**
 	 * 获取指定索引的项。
@@ -163,7 +163,7 @@ var ListControl = Control.extend({
 	},
 
 	each: function (fn, scope) {
-		for (var c = this.item(0), next, i = 0 ; c.length ; c = next) {
+		for (var c = this.item(0) || [], next, i = 0 ; c.length ; c = next) {
 			next = c.next();
 
 			if (fn.call(scope, c, i++, this) === false) {

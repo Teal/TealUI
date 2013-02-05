@@ -67,7 +67,7 @@ var Control = Class({
     },
 
     attach: function (parentDom, refDom) {
-    	if (refDom) {
+    	if (refDom && refDom.length) {
     		refDom.before(this.dom);
     	} else {
     		parentDom.append(this.dom);
