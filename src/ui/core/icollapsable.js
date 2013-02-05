@@ -2,9 +2,8 @@
  * @author  xuld
  */
 
-
 include("fx/animate.js");
-
+include("ui/core/base.js");
 
 /**
  * 表示一个可折叠的控件接口。
@@ -58,8 +57,8 @@ var ICollapsable = {
 	 * @virtual
 	 */
     isCollapsed: function () {
-        var body = this.body ? this.body() : this;
-        return !body || Dom.isHidden(body.node);
+        var body = this.body ? this.body() : this.dom;
+        return !body.length || Dom.isHidden(body[0]);
     },
 
     /**
@@ -76,19 +75,20 @@ var ICollapsable = {
 	 * @param {Integer} duration=#collapseDuration 折叠效果使用的时间。如果为 0 表示无效果。
      * @return this
 	 */
-    collapse: function () {
+    collapse: function (duration) {
         var me = this,
 			body,
 			callback;
 
         // 如果允许折叠，则继续执行。
-        if (me.onCollapsing() !== false && (body = me.body ? me.body() : me)) {
+        if (me.onCollapsing() !== false && (body = me.body ? me.body() : me.dom)) {
             
-			body.hide(arguments, {
+			body.hide({
+				args: duration,
 				effect: 'height', 
 				duration: me.collapseDuration, 
 				callback: function () {
-	                me.addClass('ui-' + me.xtype + '-collapsed');
+	                me.dom.addClass(me.cssClass + '-collapsed');
 	                me.onCollapse();
 	            }, 
 	            link: 'ignore'
@@ -103,7 +103,7 @@ var ICollapsable = {
 	 * @param {Integer} duration=#collapseDuration 折叠效果使用的时间。如果为 0 表示无效果。
      * @return this
 	 */
-    expand: function () {
+    expand: function (duration) {
 
         var me = this,
             body;
@@ -111,11 +111,12 @@ var ICollapsable = {
         // 如果允许展开，则继续执行。
         // 获取主体内容。
         // 仅当存在主体内容时才执行操作。
-        if (me.onExpanding() !== false && (body = me.body ? me.body() : me)) {
+        if (me.onExpanding() !== false && (body = me.body ? me.body() : me.dom)) {
 
-            me.removeClass('ui-' + me.xtype + '-collapsed');
+            me.dom.removeClass(me.cssClass + '-collapsed');
 			
-			body.show(arguments, {
+			body.show({
+				args: duration,
 				effect: 'height', 
 				duration: me.collapseDuration, 
 				callback: function () {

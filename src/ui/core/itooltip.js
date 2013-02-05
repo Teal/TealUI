@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-
+include("ui/core/base.js");
 include("dom/pin.js");
-
+include("fx/animate.js");
 
 /**
  * 表示一个工具提示应该实现的接口。
@@ -31,19 +31,19 @@ var IToolTip = {
     /**
 	 * 显示时使用的特效持续时间。
 	 */
-	showDuration: -2,
+	toggleArgs: -2,
 
 	show: function () {
-	    if (!this.closest('body').length) {
-	        this.appendTo();
+	    if (!this.dom.closest('body').length) {
+	        this.dom.appendTo();
 	    }
 
-	    this.dom.show(this.showDuration);
+	    this.dom.show(this.toggleArgs);
 	    return this;
 	},
 
 	hide: function () {
-		return this.hide.show(this.showDuration);
+		return this.dom.hide(this.toggleArgs);
 	},
 
 	showAt: function (p) {
@@ -62,10 +62,10 @@ var IToolTip = {
 	        'null': ['xc-bb', 0, 5, 1]
 	    }[this.getArrow()]);
 
-	    this.show().pin(ctrl, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
+	    this.show().dom.pin(ctrl, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
 		
 		if(configs[3] && e){
-			this.setPosition({ x: e.pageX + (offsetX || 0) });
+			this.dom.setPosition({ x: e.pageX + (offsetX || 0) });
 		}
 
 		return this;
@@ -73,9 +73,9 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-	    var arrow = this.find('.ui-arrow') || this.append(this.arrowTpl);
+	    var arrow = this.dom.find('.ui-arrow') || this.append(this.arrowTpl);
 	    if (value) {
-	        arrow.node.className = 'ui-arrow ui-arrow-' + value;
+	        arrow[0].className = 'ui-arrow ui-arrow-' + value;
 	    } else {
 	        arrow.remove();
 	    }
@@ -83,10 +83,10 @@ var IToolTip = {
 	},
 
 	getArrow: function () {
-	    var arrow = this.find('.ui-arrow'), r = null;
+	    var arrow = this.dom.find('.ui-arrow'), r = null;
 
-	    if (arrow) {
-	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow.node.className) || [0, r])[1];
+	    if (arrow.length) {
+	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow[0].className) || [0, r])[1];
 	    }
 	    return r;
 	},
@@ -99,7 +99,7 @@ var IToolTip = {
 
 	    var me = this;
 	    dom.on('mouseover', function (e) {
-	        var waitTimeout = me.isHidden() ? me.initialDelay : me.reshowDelay;
+	        var waitTimeout = Dom.isHidden(me.dom[0]) ? me.initialDelay : me.reshowDelay;
 	        if (me.showTimer)
 	            clearTimeout(me.showTimer);
 
@@ -107,9 +107,9 @@ var IToolTip = {
 	            me.showTimer = 0;
 
 	            if (caption)
-	                me.setText(caption);
+	                me.dom.setText(caption);
 
-	            me.showBy(ctrl, offsetX, offsetY, e);
+	            me.showBy(dom, offsetX, offsetY, e);
 	        }, waitTimeout);
 
 	    });

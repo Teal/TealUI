@@ -12,9 +12,9 @@
   *width: 240px;
   position: absolute;
   z-index: 1000;
-  -webkit-boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  -moz-boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  boui-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
   -moz-background-clip: padding;
   background-clip: padding-box;

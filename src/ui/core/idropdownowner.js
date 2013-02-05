@@ -2,6 +2,10 @@
  * @author xuld
  */
 
+include("dom/base.js");
+include("dom/pin.js");
+include("ui/core/base.js");
+include("fx/animate.js");
 
 /**
  * 所有支持下拉菜单的组件实现的接口。
@@ -49,16 +53,16 @@ var IDropDownOwner = {
 		this.trigger('dropdownhide');
 	},
 
-	attach: function (parentNode, refNode) {
+	attach: function (parentDom, refDom) {
 		var dropDown = this.dropDown;
-		if (dropDown && !dropDown.closest('body')) {
-			dropDown.attach(parentNode, refNode);
+		if (dropDown && !dropDown.closest('body').length) {
+			dropDown.attach(parentDom, refDom);
 		}
-		Dom.prototype.attach.call(this, parentNode, refNode);
+		Dom.prototype.attach.call(this, parentDom, refDom);
 	},
 
-	detach: function (parentNode) {
-		Dom.prototype.detach.call(this, parentNode);
+	detach: function () {
+		Control.prototype.detach.call(this);
 		if (this.dropDown) {
 			this.dropDown.detach(parentNode);
 		}
@@ -75,19 +79,19 @@ var IDropDownOwner = {
 		if (dom) {
 
 			// 修正下拉菜单为 Dom 对象。
-			dom = dom instanceof Dom ? dom : Dom.get(dom);
+			dom = Dom.query(dom);
 
 			// 初始化并保存下拉菜单。
 			this.dropDown = dom.addClass('ui-dropdown').hide();
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
-			if (!dom.closest('body')) {
+			if (!dom.closest('body').length) {
 
 				// 添加下拉菜单到 DOM 树。
 				this.after(dom);
 
 				// IE6/7 无法自动在父节点无 z-index 时处理 z-index 。
-				if (navigator.isQuirks && (dom = dom.parent()) && dom.getStyle('zIndex') === 0) {
+				if (navigator.isIE67 && (dom = dom.parent()).getStyle('zIndex') === 0) {
 					dom.setStyle('zIndex', 1);
 				}
 			}
@@ -116,7 +120,7 @@ var IDropDownOwner = {
      * @protected virtual
      */
 	isDropDownHidden: function () {
-		return this.dropDown && Dom.isHidden(this.dropDown.node);
+		return this.dropDown && Dom.isHidden(this.dropDown[0]);
 	},
 
 	/**
@@ -138,13 +142,13 @@ var IDropDownOwner = {
 		var me = this;
 
 		// 如果是因为 DOM 事件而切换菜单，则测试是否为 disabled 状态。
-		if (!e || !me.getAttr('disabled') && !me.getAttr('readonly')) {
+		if (!e || !me.dom.getAttribute('disabled') && !me.dom.getAttribute('readonly')) {
 
 			// 如果下拉菜单被隐藏，则先重设大小、定位。
 			if (me.isDropDownHidden()) {
 
 				// 重新设置位置。
-				var dropDown = me.dropDown.show().pin(me, 'b', 0, -1),
+				var dropDown = me.dropDown.show().pin(me.dom, 'b', 0, -1),
 	                dropDownWidth = me.dropDownWidth;
 
 				// 重新修改宽度。
@@ -152,7 +156,7 @@ var IDropDownOwner = {
 				if (dropDownWidth < 0) {
 
 					// 在当前目标元素的宽、下拉菜单的 min-width 属性、下拉菜单自身的宽度中找一个最大值。
-					dropDownWidth = Math.max(me.getSize().x, Dom.styleNumber(dropDown.node, 'min-width'), dropDown.getScrollSize().x);
+					dropDownWidth = Math.max(me.dom.getSize().x, Dom.styleNumber(dropDown[0], 'min-width'), dropDown.getScrollSize().x);
 
 				}
 
@@ -161,7 +165,7 @@ var IDropDownOwner = {
 				}
 
 				// 设置 mouseup 后自动隐藏菜单。
-				document.on('mouseup', me.hideDropDown, me);
+				Dom.document.on('mouseup', me.hideDropDown, me);
 
 			}
 
@@ -188,14 +192,14 @@ var IDropDownOwner = {
 				e = e.target;
 
 				// 如果事件源是来自下拉菜单自身，则不操作。
-				if (dropDown.node == e || this.node === e || Dom.has(dropDown.node, e) || Dom.has(this.node, e))
+				if (dropDown[0] == e || this.dom[0] === e || Dom.contains(dropDown[0], e) || Dom.contains(this.dom[0], e))
 					return this;
 			}
 
 			dropDown.hide();
 
 			// 删除 mouseup 回调。
-			document.un('mouseup', this.hideDropDown);
+			Dom.document.un('mouseup', this.hideDropDown);
 
 		}
 

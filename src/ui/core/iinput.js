@@ -2,9 +2,7 @@
  * @author xuld
  */
 
-
 include("dom/base.js");
-
 
 /**
  * 所有表单输入控件实现的接口。
@@ -26,22 +24,16 @@ var IInput = {
 	 * @protected virtual
 	 */
 	input: function () {
+		
+		if(!this.inputProxy) {
+			this.inputProxy = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.dom[0].tagName) ? this.dom : (Dom.get(this.dom.find("input,select,textarea")) || Dom.parse('<input type="hidden">').setAttribute('name', Dom.getAttribute(this[0], 'name')).appendTo(this));
+		}
         
 	    // 如果不存在隐藏域, 则创建一个。
 	    // 如果当前控件本身就是 INPUT|SELECT|TEXTAREA|BUTTON，则输入域为自身。
 	    // 否则在控件内部查找合适的输入域。
         // 如果找不到，则创建一个 input:hidden 。
-	    return this.inputProxy || (this.inputProxy = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.node.tagName) ? new Dom(this.node) : this.find("input,select,textarea") || Dom.parse('<input type="hidden">').setAttr('name', Dom.getAttr(this.node, 'name')).appendTo(this));
-	},
-
-    /**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。常用的状态如： disabled、readonly、checked、selected、actived 。
-     * @param {Boolean} value=false 要设置的状态值。
-	 * @protected virtual
-	 */
-	state: function (name, value) {
-	    this.toggleClass('ui-' + this.xtype + '-' + name, value);
+	    return this.inputProxy;
 	},
 	
 	/**
@@ -49,10 +41,10 @@ var IInput = {
 	 * @return {Dom} 返回当前控件所在的表单的 Dom 对象。
 	 */
 	form: function () {
-		return new Dom(this.input().node.form);
+		return new Dom(this.input()[0].form);
 	},
 
-	setAttr: function (name, value) {
+	setAttribute: function (name, value) {
 	    var dom = this;
 
 	    // 一些状态属性需执行 state() 
@@ -65,31 +57,13 @@ var IInput = {
 	        dom = this.input();
 	    }
 
-	    Dom.prototype.setAttr.call(dom, name, value);
+	    this.dom.setAttribute(name, value);
 	    return this;
 	},
 
-	getAttr: function (name, type) {
+	getAttribute: function (name, type) {
 	    // 几个特殊属性需要对 input() 操作。
-	    return Dom.getAttr((/^(disabled|readonly|checked|selected|actived|value|name|form)$/i.test(name) ? this.input() : this).node, name, type);
-	},
-
-	getText: function () {
-	    return Dom.getText(this.input().node);
-	},
-
-	setText: function () {
-	    Dom.prototype.setText.apply(this.input(), arguments);
-	    return this;
-	},
-	
-	/**
-	 * 选中当前控件。
-	 * @return this
-	 */
-	select: function(){
-		Dom.prototype.select.apply(this.input(), arguments);
-		return this;
+	    return this.dom.getAttribute((/^(disabled|readonly|checked|selected|actived|value|name|form)$/i.test(name) ? this.input() : this)[0], name, type);
 	}
 	
 };

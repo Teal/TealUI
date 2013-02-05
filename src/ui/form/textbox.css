@@ -8,19 +8,19 @@
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -moz-boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  boui-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear .2s, boui-shadow linear .2s;
-  -moz-transition: border linear .2s, boui-shadow linear .2s;
-  -o-transition: border linear .2s, boui-shadow linear .2s;
-  transition: border linear .2s, boui-shadow linear .2s;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear .2s, box-shadow linear .2s;
+  -moz-transition: border linear .2s, box-shadow linear .2s;
+  -o-transition: border linear .2s, box-shadow linear .2s;
+  transition: border linear .2s, box-shadow linear .2s;
 }
 .ui-textbox:focus {
   border-color: rgba(82, 168, 236, 0.8);
-  -webkit-boui-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  -moz-boui-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
-  boui-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   outline: 0;
 }
 .ui-textbox[disabled],
@@ -41,27 +41,27 @@ textarea.ui-textbox {
 }
 .ui-textboui-warning:focus {
   border-color: #a47e3c;
-  -webkit-boui-shadow: 0 0 6px #dbc59e;
-  -moz-boui-shadow: 0 0 6px #dbc59e;
-  boui-shadow: 0 0 6px #dbc59e;
+  -webkit-box-shadow: 0 0 6px #dbc59e;
+  -moz-box-shadow: 0 0 6px #dbc59e;
+  box-shadow: 0 0 6px #dbc59e;
 }
 .ui-textboui-error {
   border-color: #b94a48;
 }
 .ui-textboui-error:focus {
   border-color: #953b39;
-  -webkit-boui-shadow: 0 0 6px #d59392;
-  -moz-boui-shadow: 0 0 6px #d59392;
-  boui-shadow: 0 0 6px #d59392;
+  -webkit-box-shadow: 0 0 6px #d59392;
+  -moz-box-shadow: 0 0 6px #d59392;
+  box-shadow: 0 0 6px #d59392;
 }
 .ui-textboui-success {
   border-color: #468847;
 }
 .ui-textboui-success:focus {
   border-color: #356635;
-  -webkit-boui-shadow: 0 0 6px #7aba7b;
-  -moz-boui-shadow: 0 0 6px #7aba7b;
-  boui-shadow: 0 0 6px #7aba7b;
+  -webkit-box-shadow: 0 0 6px #7aba7b;
+  -moz-box-shadow: 0 0 6px #7aba7b;
+  box-shadow: 0 0 6px #7aba7b;
 }
 .ui-placeholder {
   color: #999999;

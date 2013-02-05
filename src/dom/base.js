@@ -268,7 +268,7 @@ var Dom = (function () {
 	 * </pre>
 	 */
     Dom.find = function (selector, context) {
-    	return typeof selector === "string" ? Selector.one(selector, context, new Dom()) : Dom.query(selector, context);
+    	return Dom.get(typeof selector === "string" ? Selector.one(selector, context, new Dom()) : selector);
     };
 
     /**

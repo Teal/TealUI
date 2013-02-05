@@ -24,9 +24,9 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   *margin-left: .3em;
-  -webkit-boui-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-  -moz-boui-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-  boui-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
 }
 .ui-button:hover,
 .ui-button:active,
@@ -54,9 +54,9 @@
   background-color: #d9d9d9 \9;
   background-image: none;
   outline: 0;
-  -webkit-boui-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
-  -moz-boui-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
-  boui-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.25), 0 1px 2px rgba(0,0,0,.15);
 }
 .ui-button[disabled],
 .ui-button-disabled {
@@ -64,9 +64,9 @@
   background-image: none;
   opacity: 0.6;
   filter: alpha(opacity=60);
-  -webkit-boui-shadow: none;
-  -moz-boui-shadow: none;
-  boui-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .ui-button-large {
   padding: 9px 24px;
@@ -240,9 +240,9 @@ input.ui-button-small {
   color: #333333;
   border-color: transparent;
   _border-color: #ffffff;
-  -webkit-boui-shadow: none;
-  -moz-boui-shadow: none;
-  boui-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 .ui-button-fixed {
   padding-left: 20px!important;

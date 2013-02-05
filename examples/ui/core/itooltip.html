@@ -2,11 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=ok">
+    <meta name="module-info" content="status=complete">
     <title>工具提示接口</title>
 
-    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
-
+    <script type="text/javascript" src="../../../src/boot.js"></script>
     <script type="text/javascript" src="../../../src/core/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
@@ -29,7 +28,7 @@
             <script>
 
                 // 初始化一个含有 IToolTip 功能的对象。
-                var target = Dom.get('tooltip');
+                var target = new Control(Dom.get('tooltip'));
                 Object.extend(target, IToolTip);
 
                 // 设置工具框指定的目标节点及对应的显示文字。

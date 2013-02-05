@@ -61,9 +61,8 @@ include("fx/tween.js");
 	    return 0;
 	});
 	
-	Object.map('left right top bottom', function(key, index) {
-		key = 'margin' + key.charAt(0).toUpperCase() + key.substr(1);
-		return function(options, elem, isShow) {
+	Object.map('Left Right Top Bottom', function(key, index) {
+		displayEffects[key.toLowerCase()] = function(options, elem, isShow) {
 
 			// 将父元素的 overflow 设为 hidden 。
 			elem.parentNode.style.overflow = 'hidden';
@@ -96,8 +95,9 @@ include("fx/tween.js");
 			return params;
 		
 		};
+		key = 'margin' + key;
 		
-	}, displayEffects);
+	});
 
 	/**
 	 * 初始化 show/hide 的参数。
@@ -109,25 +109,21 @@ include("fx/tween.js");
 	   // [300, function(){}, 'wait']
 	   // [{}]
 	   // [[opacity, 300], {}]
-	   
-		var defaultConfigs = args[1];
 		
-		// 如果有默认配置。
-		if(defaultConfigs && typeof defaultConfigs === 'object'){
-			args = args[0];
-		} else {
-			defaultConfigs = null;
-		}
-		
-		// 转换为真实的配置对象。
-		args = !args[0] || typeof args[0] !== 'object' ? {
+		var options = typeof args[0] === 'object' ? args[0] : {
 			duration: args[0],
 			callback: args[1],
 			link: args[2]
-		} : args[0];
+		}, userArgs = args.args;
 		
-		// 拷贝默认事件。
-		Object.extendIf(args, defaultConfigs);
+		// 允许通过 args 字段来定义默认参数。
+		if(userArgs != undefined) {
+			if(typeof userArgs === 'object'){
+				Object.extend(options, userArgs);
+			} else {
+				options.duration = userArgs;
+			}
+		}
 		
 		// 默认为 opacity 渐变。
 		if(!args.effect){
@@ -141,6 +137,7 @@ include("fx/tween.js");
 		args.callback = args.callback || Function.empty;
 		
 		assert(Fx.displayEffects[args.effect], "Dom#toggle(effect, duration, callback, link): 不支持 {effect} 。", args.effect);
+		
 		
 		return args;
 	

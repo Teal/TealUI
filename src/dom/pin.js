@@ -109,19 +109,15 @@ Dom.implement({
 		 *      ------------
 		 *      bl        br
 		 */
-	
-		return function(dom, position, offsetX, offsetY, enableReset) {
-					
-			assert(position, "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
-			
-			dom = dom instanceof Dom ? dom : Dom.get(dom);
+		
+		function pin(dom, target, position, offsetX, offsetY, enableReset) {
 			
 			var opt = {
-				s: this.getSize(),
-				ts: dom.getSize(),
-				tp: dom.getPosition(),
-				ds: document.getSize(),
-				dp: document.getPosition(),
+				s: dom.getSize(),
+				ts: target.getSize(),
+				tp: target.getPosition(),
+				ds: Dom.document.getSize(),
+				dp: Dom.document.getPosition(),
 				ox: offsetX || 0,
 				oy: offsetY || 0
 			}, r = enableReset === false ? 0 : 2, x, y;
@@ -144,7 +140,25 @@ Dom.implement({
 			aligners[x](opt, r);
 			aligners[y](opt, r);
 			
-			return this.setPosition(opt);
+			dom.setPosition(opt);
+			
+		}
+	
+		return function(target, position, offsetX, offsetY, enableReset) {
+					
+			assert(position, "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
+			
+			target = Dom.query(target);
+			
+			if(this.length === 1) {
+				pin(this, target, position, offsetX, offsetY, enableReset);
+				return this;
+			}
+			
+			return Dom.iterate(this, function (elem) {
+				return pin(new Dom([elem]), target, position, offsetX, offsetY, enableReset);
+			});
+			
 		};
 		
 	})()

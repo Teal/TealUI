@@ -6,60 +6,60 @@ include("core/class.js");
 include("dom/base.js");
 
 /**
- * ËùÓĞ UI ×é¼şµÄ»ùÀà¡£
+ * æ‰€æœ‰ UI ç»„ä»¶çš„åŸºç±»ã€‚
  * @class Control
  * @abstract
- * ¿Ø¼şµÄÉúÃüÖÜÆÚ£º
- * constructor - ´´½¨¿Ø¼ş¶ÔÓ¦µÄ Javascript Àà¡£²»½¨ÒéÖØĞ´¹¹Ôìº¯Êı£¬³ı·ÇÄãÖªµÀÄãÔÚ×öÊ²Ã´¡£
- * create - ´´½¨±¾ÉíµÄ dom ½Úµã¡£Ä¬ÈÏÎª½âÎö #tpl ¶ÔÓ¦µÄ HTML ×Ö·û´®£¬·µ»ØÏàÓ¦Ô­Éú½Úµã¡£
- * init - ³õÊ¼»¯¿Ø¼ş±¾Éí¡£Ä¬ÈÏÎª¿Õº¯Êı¡£
- * attach - Ìí¼Ó¿Ø¼ş¶ÔÓ¦µÄ½Úµãµ½ DOM Ê÷¡£²»½¨ÒéÖØĞ´£¬Èç¹ûÒ»¸ö¿Ø¼ş·â×°ÁË¶à¸ö DOM ½ÚµãÔòĞèÖØĞ´±¾º¯Êı¡£
- * detach - É¾³ı¿Ø¼ş¶ÔÓ¦µÄ½Úµã¡£²»½¨ÒéÖØĞ´£¬Èç¹ûÒ»¸ö¿Ø¼ş·â×°ÁË¶à¸ö DOM ½ÚµãÔòĞèÖØĞ´±¾º¯Êı¡£
+ * æ§ä»¶çš„ç”Ÿå‘½å‘¨æœŸï¼š
+ * constructor - åˆ›å»ºæ§ä»¶å¯¹åº”çš„ Javascript ç±»ã€‚ä¸å»ºè®®é‡å†™æ„é€ å‡½æ•°ï¼Œé™¤éä½ çŸ¥é“ä½ åœ¨åšä»€ä¹ˆã€‚
+ * create - åˆ›å»ºæœ¬èº«çš„ dom èŠ‚ç‚¹ã€‚é»˜è®¤ä¸ºè§£æ #tpl å¯¹åº”çš„ HTML å­—ç¬¦ä¸²ï¼Œè¿”å›ç›¸åº”åŸç”ŸèŠ‚ç‚¹ã€‚
+ * init - åˆå§‹åŒ–æ§ä»¶æœ¬èº«ã€‚é»˜è®¤ä¸ºç©ºå‡½æ•°ã€‚
+ * attach - æ·»åŠ æ§ä»¶å¯¹åº”çš„èŠ‚ç‚¹åˆ° DOM æ ‘ã€‚ä¸å»ºè®®é‡å†™ï¼Œå¦‚æœä¸€ä¸ªæ§ä»¶å°è£…äº†å¤šä¸ª DOM èŠ‚ç‚¹åˆ™éœ€é‡å†™æœ¬å‡½æ•°ã€‚
+ * detach - åˆ é™¤æ§ä»¶å¯¹åº”çš„èŠ‚ç‚¹ã€‚ä¸å»ºè®®é‡å†™ï¼Œå¦‚æœä¸€ä¸ªæ§ä»¶å°è£…äº†å¤šä¸ª DOM èŠ‚ç‚¹åˆ™éœ€é‡å†™æœ¬å‡½æ•°ã€‚
  */
 var Control = Class({
 
     /**
-	 * µ±Ç° UI ×é¼ş°ó¶¨µÄ Dom ¶ÔÏó¡£
+	 * å½“å‰ UI ç»„ä»¶ç»‘å®šçš„ Dom å¯¹è±¡ã€‚
 	 * @type {Dom}
 	 */
     dom: null,
 
     /**
-	 * µ±Ç° UI ×é¼şµÄ css Àà¡£
+	 * å½“å‰ UI ç»„ä»¶çš„ css ç±»ã€‚
 	 * @protected virtual
 	 */
     cssClass: "ui-control",
 
     /**
-	 * µ±Ç° UI ×é¼şµÄ HTML Ä£°å×Ö·û´®¡£ÆäÖĞ ui-control »á±»Ìæ»»Îª cssClass ÊôĞÔµÄÖµ¡£
+	 * å½“å‰ UI ç»„ä»¶çš„ HTML æ¨¡æ¿å­—ç¬¦ä¸²ã€‚å…¶ä¸­ ui-control ä¼šè¢«æ›¿æ¢ä¸º cssClass å±æ€§çš„å€¼ã€‚
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
     tpl: '<div class="{cssClass}" />',
 
     /**
-	 * µ±±»×ÓÀàÖØĞ´Ê±£¬Éú³Éµ±Ç°¿Ø¼ş¶ÔÓ¦µÄÔ­Éú½Úµã¡£
-	 * @param {Object} options Ñ¡Ïî¡£
-     * @return {Element} Ô­ÉúµÄ DOM ½Úµã¡£
+	 * å½“è¢«å­ç±»é‡å†™æ—¶ï¼Œç”Ÿæˆå½“å‰æ§ä»¶å¯¹åº”çš„åŸç”ŸèŠ‚ç‚¹ã€‚
+	 * @param {Object} options é€‰é¡¹ã€‚
+     * @return {Element} åŸç”Ÿçš„ DOM èŠ‚ç‚¹ã€‚
 	 * @protected virtual
 	 */
     create: function () {
 
-        // ×ªÎª¶Ô tpl½âÎö¡£
+        // è½¬ä¸ºå¯¹ tplè§£æã€‚
     	return Dom.parse(String.format(this.tpl, this));
     },
 
     /**
-	 * µ±±»×ÓÀàÖØĞ´Ê±£¬³õÊ¼»¯µ±Ç°¿Ø¼ş¡£
-	 * @param {Object} options µ±Ç°¿Ø¼şµÄ³õÊ¼»¯ÅäÖÃ¡£
+	 * å½“è¢«å­ç±»é‡å†™æ—¶ï¼Œåˆå§‹åŒ–å½“å‰æ§ä»¶ã€‚
+	 * @param {Object} options å½“å‰æ§ä»¶çš„åˆå§‹åŒ–é…ç½®ã€‚
 	 * @protected virtual
 	 */
     init: Function.empty,
 
 	/**
-	 * ÉèÖÃµ±Ç°ÊäÈëÓòµÄ×´Ì¬, ²¢¸Ä±ä¿Ø¼şµÄÑùÊ½¡£
-     * @param {String} name ×´Ì¬Ãû¡£
-     * @param {Boolean} value=false ÒªÉèÖÃµÄ×´Ì¬Öµ¡£
+	 * è®¾ç½®å½“å‰è¾“å…¥åŸŸçš„çŠ¶æ€, å¹¶æ”¹å˜æ§ä»¶çš„æ ·å¼ã€‚
+     * @param {String} name çŠ¶æ€åã€‚
+     * @param {Boolean} value=false è¦è®¾ç½®çš„çŠ¶æ€å€¼ã€‚
 	 * @protected virtual
 	 */
     state: function (name, value) {
@@ -79,32 +79,32 @@ var Control = Class({
     },
 
 	/**
-	 * ³õÊ¼»¯Ò»¸öĞÂµÄ¿Ø¼ş¡£
-	 * @param {String/Element/Dom/Object} [options] °ó¶¨µÄ½Úµã»ò½Úµã id »òÍêÕûµÄÅäÖÃ¶ÔÏó£¬ÓÃÓÚ³õÊ¼»¯µ±Ç°¿Ø¼ş¡£
+	 * åˆå§‹åŒ–ä¸€ä¸ªæ–°çš„æ§ä»¶ã€‚
+	 * @param {String/Element/Dom/Object} [options] ç»‘å®šçš„èŠ‚ç‚¹æˆ–èŠ‚ç‚¹ id æˆ–å®Œæ•´çš„é…ç½®å¯¹è±¡ï¼Œç”¨äºåˆå§‹åŒ–å½“å‰æ§ä»¶ã€‚
 	 */
     constructor: function (options) {
 
-    	// ÕâÊÇËùÓĞ¿Ø¼ş¹²ÓÃµÄ¹¹Ôìº¯Êı¡£
+    	// è¿™æ˜¯æ‰€æœ‰æ§ä»¶å…±ç”¨çš„æ„é€ å‡½æ•°ã€‚
     	var me = this,
 
-			// ÁÙÊ±µÄÅäÖÃ¶ÔÏó¡£
+			// ä¸´æ—¶çš„é…ç½®å¯¹è±¡ã€‚
 			opt = {};
 
-    	// Èç¹û´æÔÚÅäÖÃ¡£
+    	// å¦‚æœå­˜åœ¨é…ç½®ã€‚
     	if (options) {
 
-    		// Èç¹û options ÊÇ´¿ÅäÖÃ¡£
+    		// å¦‚æœ options æ˜¯çº¯é…ç½®ã€‚
     		if (options.constructor === Object) {
 
-    			// ½«ÅäÖÃ¿½±´µ½ opt ¶ÔÏó¡£
+    			// å°†é…ç½®æ‹·è´åˆ° opt å¯¹è±¡ã€‚
     			Object.extend(opt, options);
 
-    			// ´¦Àí dom ×Ö¶Î
-    			me.dom = opt.dom ? Dom.query(opt.dom) : me.create(opt);
+    			// å¤„ç† dom å­—æ®µ
+    			me.dom = opt.dom ? Dom.find(opt.dom) : me.create(opt);
 
     		} else {
 
-    			// ·ñÔò£¬³¢ÊÔ¸ù¾İ options ÕÒµ½½Úµã¡£
+    			// å¦åˆ™ï¼Œå°è¯•æ ¹æ® options æ‰¾åˆ°èŠ‚ç‚¹ã€‚
     			me.dom = Dom.query(options);
     		}
 
@@ -113,10 +113,10 @@ var Control = Class({
     		me.dom = me.create(opt);
     	}
 
-    	// µ÷ÓÃ init ³õÊ¼»¯¿Ø¼ş¡£
+    	// è°ƒç”¨ init åˆå§‹åŒ–æ§ä»¶ã€‚
     	me.init(opt);
 
-    	// ÉèÖÃÆäËüµÄ¸÷¸öÑ¡Ïî¡£
+    	// è®¾ç½®å…¶å®ƒçš„å„ä¸ªé€‰é¡¹ã€‚
     	me.set(opt);
     },
 
