@@ -2,17 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=ok">
+    <meta name="module-info" content="status=complete">
     <title>文本域</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
-
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/form/textbox.js"></script>
-    <script type="text/javascript" src="../../../src/ui/form/textarea.js"></script>
 
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
@@ -20,94 +14,46 @@
 
     <article class="demo">
 
-        <h2 class="demo">HTML 方式创建</h2>
+        <h3 class="demo">状态</h3>
 
-        <section class="demo">
+        默认:
+        <aside class="demo">
+            <textarea class="ui-textbox"></textarea>
+        </aside>
 
-            <h3 class="demo">状态</h3>
+        警告:
+        <aside class="demo">
+            <textarea class="ui-textbox ui-textboui-warning"></textarea>
+        </aside>
 
-            默认:
-            <aside class="demo">
-                <textarea class="ui-textbox"></textarea>
-            </aside>
+        错误:
+        <aside class="demo">
+            <textarea class="ui-textbox ui-textboui-error"></textarea>
+        </aside>
 
-            警告:
-            <aside class="demo">
-                <textarea class="ui-textbox ui-textboui-warning"></textarea>
-            </aside>
+        成功:
+        <aside class="demo">
+            <textarea class="ui-textbox ui-textboui-success"></textarea>
+        </aside>
 
-            错误:
-            <aside class="demo">
-                <textarea class="ui-textbox ui-textboui-error"></textarea>
-            </aside>
+        <h3 class="demo">交互</h3>
 
-            成功:
-            <aside class="demo">
-                <textarea class="ui-textbox ui-textboui-success"></textarea>
-            </aside>
+        只读:
+        <aside class="demo">
+            <textarea class="ui-textbox" readonly="readonly"></textarea>
+        </aside>
 
-        </section>
+        禁用:
+        <aside class="demo">
+            <textarea class="ui-textbox" disabled="disabled"></textarea>
+        </aside>
 
-        <hr class="demo">
-
-        <section class="demo">
-
-            <h3 class="demo">交互</h3>
-
-            只读:
-            <aside class="demo">
-                <textarea class="ui-textbox" readonly="readonly"></textarea>
-            </aside>
-
-            禁用:
-            <aside class="demo">
-                <textarea class="ui-textbox" disabled="disabled"></textarea>
-            </aside>
-
-            提示:
-            <aside class="demo">
-                <textarea class="ui-textbox" placeholder="请输入"></textarea>
-            </aside>
-
-        </section>
+        提示:
+        <aside class="demo">
+            <textarea class="ui-textbox" placeholder="请输入"></textarea>
+        </aside>
 
     </article>
-
-    <article class="demo">
-
-        <h2 class="demo">JavaScript 方式创建</h2>
-
-        <section class="demo">
-
-            <div id="container1"></div>
-
-            <aside class="demo demo-expand">
-                <script>
-                    var a = new TextArea({
-                        text: "这是动态创建的按钮",
-                        appendTo: "container1"
-                    });
-                </script>
-            </aside>
-
-        </section>
-
-        <section class="demo">
-
-            <script>
-
-                Demo.writeExamples({
-                    '更改文本框的文字': 'a.setText("这是通过 setText 设置的")',
-                    '设置文本框值改变后的回调': 'a.on("change", function(){alert("文本变了")})',
-                    '禁用文本框': 'a.setAttr("disabled", true)'
-                });
-
-            </script>
-
-        </section>
-
-    </article>
-
 
 </body>
 </html>

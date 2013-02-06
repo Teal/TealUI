@@ -2,6 +2,7 @@
  * @author xuld
  */
 
+include("ui/core/base.css");
 include("core/class.js");
 include("dom/base.js");
 
@@ -141,7 +142,7 @@ var Control = Class({
     },
 
     renderTo: function (parent, refChild) {
-    	this.attach(Dom.query(parent, this.dom[0]), refChild);
+    	this.attach(Dom.query(parent), refChild);
     	return this;
     },
 

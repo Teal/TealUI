@@ -2,16 +2,20 @@
  * @author xuld
  */
 
+include("ui/suggest/charcounter.css");
+include("ui/core/base.js");
 
 var CharCounter = Control.extend({
 
-    maxLength: 300,
+	maxLength: 300,
 
-    tpl: '<span class="ui-charcounter"></span>',
+	cssClass: 'ui-charcounter',
 
-    message: '还可以输入<span class="ui-charcounter-success"> {0} </span>个字符',
+	tpl: '<span class="{cssClass}"></span>',
 
-    errorMessage: '已超过<span class="ui-charcounter-error"> {0} </span>个字符',
+	message: '还可以输入<span class="{cssClass}-success"> {value} </span>个字符',
+
+	errorMessage: '已超过<span class="{cssClass}-error"> {value} </span>个字符',
     
     isValidated: function(){
     	return this.target.getText().length <= this.maxLength;
@@ -20,18 +24,30 @@ var CharCounter = Control.extend({
     update: function () {
         var len = this.target.getText().length - this.maxLength;
         if (len > 0) {
-            this.setHtml(String.format(this.errorMessage, len, this.maxLength));
+        	this.dom.setHtml(String.format(this.errorMessage, {
+        		cssClass: this.cssClass,
+        		value: len,
+        		maxLength: this.maxLength
+        	}));
         } else {
-            this.setHtml(String.format(this.message, -len, this.maxLength));
+        	this.dom.setHtml(String.format(this.message, {
+        		cssClass: this.cssClass,
+        		value: -len,
+        		maxLength: this.maxLength
+        	}));
         }
     },
 
     constructor: function (target, maxLength, tip) {
-        this.target = target = Dom.get(target);
+        this.target = target = Dom.find(target);
         if (maxLength)
             maxLength = this.maxLength;
-        tip = (tip ? Dom.get(tip) : target.siblings('.ui-charcounter').item(0)) || target.after(this.tpl);
-        this.node = tip.node;
+        tip = tip ? Dom.get(tip) : target.siblings('.ui-charcounter').item(0);
+        if (tip.length) {
+        	this.dom = tip;
+        } else {
+        	target.after(this.dom = this.create());
+        }
 
         target.on('keyup', this.update, this);
 

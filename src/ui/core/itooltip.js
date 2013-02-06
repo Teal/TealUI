@@ -73,7 +73,11 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-	    var arrow = this.dom.find('.ui-arrow') || this.append(this.arrowTpl);
+		var arrow = this.dom.find('.ui-arrow');
+		if(!arrow.length){
+			arrow = Dom.parse(this.arrowTpl).appendTo(this.dom);
+		}
+
 	    if (value) {
 	        arrow[0].className = 'ui-arrow ui-arrow-' + value;
 	    } else {
@@ -107,7 +111,7 @@ var IToolTip = {
 	            me.showTimer = 0;
 
 	            if (caption)
-	                me.dom.setText(caption);
+	                me.content().setText(caption);
 
 	            me.showBy(dom, offsetX, offsetY, e);
 	        }, waitTimeout);

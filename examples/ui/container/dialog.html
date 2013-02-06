@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
-    <title>对话框</title>
+    <meta name="module-info" content="status=complete">
+    <title>对话框(弹层/浮层)</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/closebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/mask.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/container/dialog.css" />
 
+    <script type="text/javascript" src="../../../src/boot.js"></script>
     <script type="text/javascript" src="../../../src/core/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
@@ -22,7 +23,7 @@
 
     <article class="demo">
 
-        <h2 class="demo">创建对话框(弹层)</h2>
+        <h2 class="demo">创建对话框</h2>
 
         <h3 class="demo">纯 JavaScript 创建最基本的对话框</h3>
         
@@ -46,14 +47,14 @@
         <script class="demo" type="code/html">
            <div id="dialog2">我是对话框2</div>
 
-            <\script>
+            < script>
             
                 // new Dialog(这里写id或 dom对象)。对应的 DOM 节点将被移到新创建的对话框内部。
                 var dialog2 = new Dialog('dialog2');
 
                 // 显示对话框。
                 dialog2.show();
-            </\script>
+            < /script>
         </script>
 
         <blockquote class="demo">创建含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="MessageBox.html">MessageBox</a> 组件。</blockquote>

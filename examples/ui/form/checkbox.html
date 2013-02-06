@@ -2,25 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>复选框</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/checkbox.css" />
-
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
-    <script type="text/javascript" src="../../../src/ui/form/checkbox.js"></script>
 
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
 <body>
 
     <article class="demo">
-
-        <h2 class="demo">使用 HTML 创建</h2>
 
         <aside class="demo">
 
@@ -37,32 +29,6 @@
             </label>
 
         </aside>
-
-    </article>
-
-    <article class="demo">
-
-        <h2 class="demo">使用 JavaScript 创建</h2>
-
-        <div id="ct"></div>
-
-        <script  class="demo">
-            var checkBox = new CheckBox({
-                appendTo: "ct"
-            });
-        </script>
-
-        <script>
-
-            Demo.writeExamples({
-                '获取选中状态': 'checkBox.getAttr("checked")',
-                '选中按钮': 'checkBox.setAttr("checked", true)',
-                '禁用按钮': 'checkBox.setAttr("disabled", true)'
-            });
-
-        </script>
-
-        <blockquote class="demo">关于输入框操作的 API 参考 <a href="../Core/IInput.html">IInput</a>。(CheckBox 实现了 IInput 接口)</blockquote>
 
     </article>
 

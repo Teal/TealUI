@@ -177,7 +177,7 @@ var Dom = (function () {
     Dom.query = function (selector, context) {
 
         // Dom.query("selector")
-        return typeof selector === 'string' ? Selector.all(selector, context && null, new Dom()) :
+        return typeof selector === 'string' ? Selector.all(selector, context, new Dom()) :
 
 				// Dom.query(dom)
 				selector instanceof Dom ? selector :
@@ -268,7 +268,7 @@ var Dom = (function () {
 	 * </pre>
 	 */
     Dom.find = function (selector, context) {
-    	return Dom.get(typeof selector === "string" ? Selector.one(selector, context, new Dom()) : selector);
+    	return Dom.get(typeof selector === "string" ? Selector.all(selector, context, new Dom()) : selector);
     };
 
     /**
@@ -2810,7 +2810,7 @@ var Dom = (function () {
 
     			}
 
-    			scripts = fragment[fragment.getElementsByTagName ? 'getElementsByTagName' : 'querySelectorAll']('SCRIPT');
+    			scripts = fragment.getElementsByTagName ? fragment.getElementsByTagName("SCRIPT") : fragment.querySelectorAll ? fragment.querySelectorAll('SCRIPT') : [];
 
     			// IE678 不支持更新 fragment 后保持 Scripts，这时先缓存。
     			if (isIE678) {
@@ -2874,7 +2874,7 @@ var Dom = (function () {
      * </pre>
      */
     dp.appendTo = function (parent) {
-    	(parent ? Dom.query(parent, this[0]) : new Dom([document.body])).append(this);
+    	(parent ? Dom.query(parent) : new Dom([document.body])).append(this);
         return this;
     };
 

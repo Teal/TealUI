@@ -1,100 +1,37 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-        <meta name="module-info" content="status=ok">
-        <title>文本框</title>
-		
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
-        
-        <script type="text/javascript" src="../../../src/core/base.js"></script>
-        <script type="text/javascript" src="../../../src/dom/base.js"></script>
-        <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-        <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
-		<script type="text/javascript" src="../../../src/ui/form/textbox.js"></script>
-		
-		<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>文本框</title>
 
-        <article class="demo">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
 
-            <h2 class="demo">HTML 方式创建</h2>
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-            <section class="demo">
+    <article class="demo">
 
-                <h3 class="demo">状态</h3>
+        <h3 class="demo">状态</h3>
 
-                <aside class="demo">
-                    默认:
-                    <input class="ui-textbox" type="text">
+        <aside class="demo">
+            默认: <input class="ui-textbox" type="text">
+            警告: <input class="ui-textbox ui-textboui-warning" type="text">
+            错误: <input class="ui-textbox ui-textboui-error" type="text">
+            成功: <input class="ui-textbox ui-textboui-success" type="text">
+        </aside>
 
-                    警告:
-                    <input class="ui-textbox ui-textboui-warning" type="text">
+        <h3 class="demo">交互</h3>
 
-                    错误:
-                    <input class="ui-textbox ui-textboui-error" type="text">
+        <aside class="demo">
+            只读: <input class="ui-textbox ui-textboui-readonly" readonly="readonly" type="text">
+            禁用: <input class="ui-textbox ui-textboui-disabled" disabled="disabled" type="text">
+            提示: <input class="ui-textbox" type="text" placeholder="请输入">
+        </aside>
 
-                    成功:
-                    <input class="ui-textbox ui-textboui-success" type="text">
-                </aside>
+    </article>
 
-            </section>
-
-            <section class="demo">
-
-                <h3 class="demo">交互</h3>
-
-                <aside class="demo">
-                    只读:
-                    <input class="ui-textbox ui-textboui-readonly" readonly="readonly" type="text">
-
-                    禁用:
-                    <input class="ui-textbox ui-textboui-disabled" disabled="disabled" type="text">
-
-                    提示:
-                    <input class="ui-textbox" type="text" placeholder="请输入">
-                </aside>
-
-            </section>
-
-        </article>
-
-        <article class="demo">
-
-            <h2 class="demo">JavaScript 方式创建</h2>
-
-            <section class="demo-control demo-absolute">
-
-                <div id="container1"></div>
-
-                <aside class="demo demo-expand">
-                    <script>
-                    var a = new TextBox({
-                        text: "这是动态创建的按钮",
-                        appendTo: "container1"
-                    });
-                    </script>
-                </aside>
-
-            </section>
-
-            <section class="demo-api">
-
-                <script>
-
-                Demo.writeExamples({
-                    '更改文本框的文字': 'a.setText("这是通过 setText 设置的")',
-                    '设置文本框值改变后的回调': 'a.on("change", function(){alert("文本变了")})',
-                    '禁用文本框': 'a.setAttr("disabled", true)'
-                });
-
-                </script>
-
-            </section>
-
-        </article>
-		
-	</body>
+</body>
 </html>

@@ -2,14 +2,11 @@
  * @author xuld
  */
 
-
 include("ui/part/arrow.css");
 include("ui/tip/tooltip.css");
 include("ui/core/contentcontrol.js");
 include("ui/core/itooltip.js");
 
-
-	
 /**
  * 表示一个工具提示。
  * @extends ContentControl
@@ -22,15 +19,11 @@ var ToolTip = ContentControl.extend(IToolTip).implement({
 	// */
 	//autoDelay: -1,
 	
-	xtype: 'tooltip',
+	cssClass: 'ui-tooltip',
 	
 	arrowTpl: '<span>\
 				<span class="ui-arrow-fore">◆</span>\
-			</span>',
-
-	content: function () {
-	    return this.find('.ui-tooltip-content');
-	}
+			</span>'
 
 });
 

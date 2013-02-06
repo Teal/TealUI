@@ -64,7 +64,7 @@ var Class = (function () {
                 eventHandler = data[type];
 
             // 生成默认的事件作用域。
-            scope = [eventHandler, scope || me];
+            scope = [fn, scope || me];
 
             // 如果未绑定过这个事件, 则不存在监听器，先创建一个有关的监听器。
             if (!eventHandler) {
@@ -88,12 +88,12 @@ var Class = (function () {
                 };
 
                 // 当前事件的全部函数。
-                eventListener.handlers = [scope];
+                eventHandler.handlers = [scope];
 
             } else {
 
                 // 添加到 handlers 。
-                eventListener.handlers.push(scope);
+            	eventHandler.handlers.push(scope);
             }
 
 

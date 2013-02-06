@@ -43,7 +43,7 @@ var MessageBox = Dialog.extend({
         }
 
         if (type == null) {
-            content.node.className = content.node.className.replace(/ui-dialog-iconbox\s+ui-dialog-iconboui-\w+/, '');
+            content[0].className = content[0].className.replace(/ui-dialog-iconbox\s+ui-dialog-iconboui-\w+/, '');
         } else {
             content.addClass('ui-dialog-iconbox ui-dialog-iconboui-' + type);
         }
@@ -61,19 +61,23 @@ var MessageBox = Dialog.extend({
     setButtons: function (options) {
 
         if (options == null) {
-            this.query('.ui-dialog-footer').remove();
+            this.dom.query('.ui-dialog-footer').remove();
         } else {
 
-            var footer = this.find('.ui-dialog-footer') || Dom.create('div', 'ui-dialog-footer').appendTo(this),
+            var footer = this.dom.find('.ui-dialog-footer'),
                 key,
                 value,
                 btn;
 
-            footer.empty();
+            if (footer.length) {
+            	footer.empty();
+            } else {
+            	footer = Dom.create('div', 'ui-dialog-footer').appendTo(this.dom);
+            }
 
             for (key in options) {
                 value = options[key];
-                btn = footer.append('<button class="ui-button"></button>').setText(key);
+                btn = Dom.parse('<button class="ui-button"></button>').setText(key).appendTo(footer);
                 switch (typeof value) {
                     case 'boolean':
                         value = value ? this.ok : this.cancel;

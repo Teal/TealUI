@@ -25,7 +25,7 @@ var Dialog = ContainerControl.extend({
 	
 	// 基本属性
 		
-	headerTpl: '<div class="ui-control-header"><a class="ui-control-close ui-closebutton">×</a><h4></h4></div>',
+	headerTpl: '<div class="{cssClass}-header"><a class="{cssClass}-close ui-closebutton">×</a><h4></h4></div>',
 
 	onCloseButtonClick: function () {
 	    this.close();
@@ -58,14 +58,22 @@ var Dialog = ContainerControl.extend({
 		// 默认隐藏对话框。
 		// 移除 script 脚本, 防止重复执行。
 		this.dom
-			.delegate('.ui-dialog-close', 'click', this.onCloseButtonClick.bind(this))
+			.on('click.ui-dialog-close', this.onCloseButtonClick, this)
 			.setStyle('display', 'none')
 			.query('script').remove();
 
 	},
 	
 	mask: function(opacity){
-		var mask = this.maskDom || (this.maskDom = Dom.find('.ui-mask-dialog') || Dom.create('div', 'ui-mask ui-mask-dialog').appendTo());
+		var mask = this.maskDom;
+		if (!mask) {
+			mask = Dom.find('.ui-mask-dialog');
+			if(!mask || !mask.length) {
+				mask = Dom.create('div', 'ui-mask ui-mask-dialog').appendTo();
+			}
+
+			this.maskDom = mask;
+		}
 		if (opacity === null) {
 			mask.hide();
 		} else {
@@ -100,7 +108,7 @@ var Dialog = ContainerControl.extend({
 	},
 	
 	setContent: function () {
-	    return this.base('setContent').center();
+		return ContainerControl.prototype.setContent.apply(this, arguments).center();
 	},
 	
 	/**
@@ -108,30 +116,27 @@ var Dialog = ContainerControl.extend({
 	 */
 	center: function(){
 		if(this._centerType & 1)
-			this.dom.setStyle('margin-top', - this.getHeight() / 2 + document.getScroll().y);
+			this.dom.setStyle('margin-top', - this.dom.getHeight() / 2 + Dom.document.getScroll().y);
 			
 		if(this._centerType & 2)
-			this.dom.setStyle('margin-left', -this.getWidth() / 2 + document.getScroll().x);
+			this.dom.setStyle('margin-left', -this.dom.getWidth() / 2 + Dom.document.getScroll().x);
 			
 		return this;
 	},
 
-	show: function(){
-		if (!this.dom.closest('body')) {
+	show: function (duration) {
+		if (!this.dom.closest('body').length) {
 			this.dom.appendTo();
 		}
-		this.dom.show(this.showDuration)
+		this.dom.show({
+			args: duration,
+			duration: this.showDuration
+		});
 		return this.center();
 	},
 	
 	showDialog: function(){
 		return this.show.apply(this.mask(), arguments);
-	},
-	
-	hide: function(){
-		if (this.maskDom) this.maskDom.hide();
-		this.dom.hide(this.showDuration);
-		return this;
 	},
 	
 	setContentSize: function(x, y){
@@ -140,14 +145,18 @@ var Dialog = ContainerControl.extend({
 		return this.center();
 	},
 	
-	close: function () {
+	close: function (duration) {
 	    var me = this;
-	    if (this.trigger('closing'))
-	        this.dom.hide({
-	        	callback: function () {
-		            this.trigger('close');
-		        }
-		    });
+	    if (this.trigger('closing')) {
+	    	if (this.maskDom) this.maskDom.hide();
+	    	this.dom.hide({
+	    		args: duration,
+	    		duration: this.showDuration,
+	    		callback: function () {
+	    			this.trigger('close');
+	    		}
+	    	});
+	    }
 		return this;
 	}
 	
