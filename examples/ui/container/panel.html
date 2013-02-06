@@ -2,24 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>面板</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/container/panel.css" />
-
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
-    <script type="text/javascript" src="../../../src/ui/container/panel.js"></script>
     
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
 <body>
 
     <article class="demo">
-        
-        <h2 class="demo">纯 HTML 方式创建</h2>
 
         <aside class="demo">
 
@@ -57,24 +50,6 @@
             </div>
 
         </aside>
-
-    </article>
-        
-    <article class="demo">
-        
-        <h2 class="demo">纯 JavaScript 方式创建</h2>
-        
-        <script class="demo" type="text/html">
-            
-            <div id="ct"></div>
-    
-            <\script>
-                var panel = new Panel().setHtml('<em>我是内容</em>').appendTo("ct");
-            </\script>
-                
-        </script>
-
-        <blockquote class="demo">其它 API 参考 <a href="../Core/ContainerControl.html">ContainerControl</a> 组件。(Panel 继承于 ContainerControl)</blockquote>
 
     </article>
 
