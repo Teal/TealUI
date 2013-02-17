@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>中文简繁体转换</title>
     <script type="text/javascript" src="../../src/text/tradionalchinese.js"></script>
 
@@ -12,13 +12,13 @@
     <article class="demo">
         输入中文: 
         <input type="text" class="demo" id="value" value="中文简繁体转换" />
-        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = Chinese.toTradionalChinese(document.getElementById('value').value)" />
-        <input type="button" value="转简体" onclick=" document.getElementById('value').value = Chinese.toSimpleChinese(document.getElementById('value').value)" />
+        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = TradionalChinese.toTradionalChinese(document.getElementById('value').value)" />
+        <input type="button" value="转简体" onclick=" document.getElementById('value').value = TradionalChinese.toSimpleChinese(document.getElementById('value').value)" />
 
         <script>
             Demo.writeExamples({
-                "简体转繁体": 'Chinese.toTradionalChinese("简")',
-                "繁体转简体": 'Chinese.toSimpleChinese("簡")'
+                "简体转繁体": 'TradionalChinese.toTradionalChinese("简")',
+                "繁体转简体": 'TradionalChinese.toSimpleChinese("簡")'
             });
         </script>
 

@@ -4,7 +4,6 @@
 
 include("core/base.js");
 
-
 var QueryString = {
 
     parse: function (value) {

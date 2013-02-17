@@ -2,8 +2,6 @@
  * @author xuld
  */
 
-
-	
 /**
  * 打开设为主页对话框。
  * @param {String} url 地址。

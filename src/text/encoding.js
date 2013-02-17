@@ -2,10 +2,8 @@
  * @author xuld
  */
 
-var Encoding = Encoding || {};
-
 //将utf8转gb2312
-Encoding.utf8ToGb2312 = function (str) {
+function utf8ToGb2312(str) {
     var result = "", index;
     for (var i = 0; i < str.length; i++) {
         var c = str.charAt(i);
@@ -23,7 +21,7 @@ Encoding.utf8ToGb2312 = function (str) {
 };
 
 //将gb2312转utf8
-Encoding.gb2312ToUtf8 = function (str) {
+function gb2312ToUtf8(str) {
     var result = '';
     for (var i = 0; i < str.length; i++) {
         var c = str.charAt(i);
@@ -65,7 +63,7 @@ Encoding.gb2312ToUtf8 = function (str) {
 };
 
 //将utf16转utf8
-Encoding.utf16ToUtf8 = function (str) {
+function utf16ToUtf8(str) {
 
     //http://wiki.orz.asia/owen/index.php?title=Js%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3&oldid=452&printable=yes
     //http://tech.byreach.com/node/222
@@ -90,7 +88,7 @@ Encoding.utf16ToUtf8 = function (str) {
 };
 
 //将utf8转utf16
-Encoding.utf8ToUtf16 = function (str) {
+function utf8ToUtf16(str) {
     var out, i, len, c;
     var char2, char3;
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>字符编码</title>
     <script type="text/javascript" src="../../src/text/encoding.js"></script>
 
@@ -12,17 +12,17 @@
     <article class="demo">
         输入中文: 
         <input type="text" class="demo" id="value" value="T4" />
-        <input type="button" value="GB2312 -> UTF8" onclick=" document.getElementById('value').value = Encoding.gb2312ToUtf8(document.getElementById('value').value)" />
-        <input type="button" value="UTF8 -> GB2312" onclick=" document.getElementById('value').value = Encoding.utf8ToGb2312(document.getElementById('value').value)" />
-        <input type="button" value="UTF8 -> UTF16" onclick=" document.getElementById('value').value = Encoding.utf8ToUtf16(document.getElementById('value').value)" />
-        <input type="button" value="UTF16 -> UTF8" onclick=" document.getElementById('value').value = Encoding.utf16ToUtf8(document.getElementById('value').value)" />
+        <input type="button" value="GB2312 -> UTF8" onclick=" document.getElementById('value').value = gb2312ToUtf8(document.getElementById('value').value)" />
+        <input type="button" value="UTF8 -> GB2312" onclick=" document.getElementById('value').value = utf8ToGb2312(document.getElementById('value').value)" />
+        <input type="button" value="UTF8 -> UTF16" onclick=" document.getElementById('value').value = utf8ToUtf16(document.getElementById('value').value)" />
+        <input type="button" value="UTF16 -> UTF8" onclick=" document.getElementById('value').value = utf16ToUtf8(document.getElementById('value').value)" />
 
         <script>
             Demo.writeExamples({
-                "GB2312 -> UTF8": 'Encoding.gb2312ToUtf8("")',
-                "UTF8 -> GB2312": 'Encoding.utf8ToGb2312("")',
-                "UTF8 -> UTF16": 'Encoding.utf8ToUtf16("")',
-                "UTF16 -> UTF8": 'Encoding.utf16ToUtf8("")'
+                "GB2312 -> UTF8": 'gb2312ToUtf8("")',
+                "UTF8 -> GB2312": 'utf8ToGb2312("")',
+                "UTF8 -> UTF16": 'utf8ToUtf16("")',
+                "UTF16 -> UTF8": 'utf16ToUtf8("")'
             });
         </script>
     </article>

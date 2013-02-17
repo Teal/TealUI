@@ -2,7 +2,6 @@
  * @author xuld
  */
 
-
 /**
  * 从字符串创建正则式。
  * @param {Object} regexp 字符串。

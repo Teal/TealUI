@@ -7,11 +7,11 @@
  * @param {String} s 字符串。
  * @return {String} md5 字符串。
  */
+var md5 = (function () {
 
-var Encryption = Encryption || {};
-
-
-(function () {
+	function md5(s) {
+		return md5.binl2hex(md5.md5c(md5.str2binl(s), s.length * charSize));
+	}
 
 	var hexcase = false;
 	var charSize = 8;
@@ -66,7 +66,7 @@ var Encryption = Encryption || {};
      * 转换字符串到二进制。
      * 如果字符大于 255 ， 高位被截掉。
      */
-	Encryption.str2binl = function (str) {
+	md5.str2binl = function (str) {
 	    var bin = Array(), chrsz = charSize;
 	    var mask = (1 << chrsz) - 1;
 	    for (var i = 0; i < str.length * chrsz; i += chrsz)
@@ -77,7 +77,7 @@ var Encryption = Encryption || {};
     /**
      * 计算一个数组的 MD5 值。
      */
-	Encryption.md5c = function (x, len) {
+	md5.md5c = function (x, len) {
 
 	    // 靠齐字符串
 	    x[len >> 5] |= 0x80 << ((len) % 32);
@@ -138,20 +138,11 @@ var Encryption = Encryption || {};
 	};
 
     /**
-     * 计算一个字符串的 MD5值。
-     * @param {String} s 字符串。
-     * @return {String} md5 字符串。
-     */
-	Encryption.md5 = function (s) {
-	    return Encryption.binl2hex(Encryption.md5c(Encryption.str2binl(s), s.length * charSize));
-	};
-
-    /**
      * 转换数组到十六进的字符串。
      * @param {Array} 二进制数组。
      * @return {String} 字符串。
      */
-	Encryption.binl2hex = function (binarray) {
+	md5.binl2hex = function (binarray) {
 	    var str = "";
 	    for (var i = 0; i < binarray.length * 4; i++) {
 	        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
@@ -159,6 +150,8 @@ var Encryption = Encryption || {};
 	    }
 	    return str;
 	};
+
+	return md5;
 
 })();
 
