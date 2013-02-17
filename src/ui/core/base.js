@@ -47,7 +47,7 @@ var Control = Class({
     create: function () {
 
         // 转为对 tpl解析。
-    	return Dom.parse(String.format(this.tpl, this))[0];
+        return Dom.parseNode(String.format(this.tpl, this));
     },
 
     /**
@@ -56,16 +56,6 @@ var Control = Class({
 	 * @protected virtual
 	 */
     init: Function.empty,
-
-	/**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。
-     * @param {Boolean} value=false 要设置的状态值。
-	 * @protected virtual
-	 */
-    state: function (name, value) {
-    	Dom.toggleClass(this.elem, this.cssClass + '-' + name, value);
-    },
 
     attach: function (parentNode, refNode) {
     	if (refNode) {
@@ -79,6 +69,16 @@ var Control = Class({
     	Dom.remove(this.elem);
     },
 
+    /**
+	 * 设置当前输入域的状态, 并改变控件的样式。
+     * @param {String} name 状态名。
+     * @param {Boolean} value=false 要设置的状态值。
+	 * @protected virtual
+	 */
+    state: function (name, value) {
+        Dom.toggleClass(this.elem, this.cssClass + '-' + name, value);
+    },
+
 	/**
 	 * 初始化一个新的控件。
 	 * @param {String/Element/Dom/Object} [options] 绑定的节点或节点 id 或完整的配置对象，用于初始化当前控件。
@@ -89,19 +89,27 @@ var Control = Class({
     	var me = this,
 
 			// 临时的配置对象。
-			opt = {};
+			opt = {},
+    	    
+			key,
+			    
+			value;
 
     	// 如果存在配置。
     	if (options) {
 
     		// 如果 options 是纯配置。
-    		if (options.constructor === Object) {
+    	    if (options.constructor === Object) {
 
-    			// 将配置拷贝到 opt 对象。
-    			Object.extend(opt, options);
+    	        // 将配置拷贝到 opt 对象。
+    	        Object.extend(opt, options);
 
-    			// 处理 dom 字段
-    			me.elem = opt.elem ? Dom.find(opt.elem) : me.create(opt);
+    	        if (opt.elem) {
+    	            me.elem = Dom.find(opt.elem);
+    	            delete opt.elem;
+    	        } else {
+    	            me.elem = me.create(opt);
+    	        }
 
     		} else {
 
@@ -118,25 +126,19 @@ var Control = Class({
     	me.init(opt);
 
     	// 设置其它的各个选项。
-    	me.set(opt);
-    },
+    	for (key in opt) {
+    	    value = opt[key];
 
-    set: function (options) {
-    	var key, value;
-    	for (key in options) {
-    		value = options[key];
-    		if (typeof this[key] === 'function') {
-    			this[key](value);
-    		} else {
-    			this[key] = value;
-    		}
+    	    if (typeof me[key] === 'function') {
+    	        me[key](value);
+    	    } else {
+    	        me[key] = value;
+    	    }
     	}
-
-    	return this;
     },
 
     renderTo: function (parent, refChild) {
-    	this.attach(Dom.query(parent), refChild);
+        this.attach(Dom.find(parent), refChild ? Dom.find(refChild) : null);
     	return this;
     },
 

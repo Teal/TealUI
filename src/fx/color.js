@@ -49,8 +49,8 @@ Fx.defaultTweeners.unshift({
 		return r;
 	},
 	
-	get: function(target, name){
-		return this.parse(Dom.styleString(target.node, name));
+	get: function(elem, name){
+	    return this.parse(Dom.styleString(elem, name));
 	}
 
 });

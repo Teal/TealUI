@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta;attr=#3" />
+    <meta name="module-info" content="status=develop;attr=#3" />
     <title>DOM 底层</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
@@ -48,102 +48,106 @@
                     // - Dom.find: 和 Dom.query 的唯一区别是 css 选择器仅返回匹配的第一个元素。
                     // - Dom.get: 只取一个，如果取不到则返回 null 。
                 },
-                'Dom.parse - 解析 HTML 源码生成 Dom 对象': function () {
+                'parse - 解析 HTML 源码生成 Dom 对象': function () {
                     Dom.parse("<div/>");
                     Dom.parse("<div><div />a<\/div>");
                     Dom.parse("   <div/> f <div/>");
                     Dom.parse("<object />");
                     Dom.parse("<input type=\'radio\' checked=\'checked\'>");
                 },
-                'Dom.create 0 动态创建 Dom 对象': 'Dom.create("div", "className")',
+                //'Dom.create 0 动态创建 Dom 对象': 'Dom.create("div", "className")',
 
-                'find - 返回第一个': 'a.find("div")',
-                'query - 返回全部节点': 'a.query("div")',
-                'match': 'a.match("div")',
+                //'find - 返回第一个': 'Dom.find(a, "div")',
+                //'query - 返回全部节点': 'Dom.query(a, "div")',
+                'match': 'Dom.match(a, "div")',
 
                 'DOM ready(DOMReady)': '-',
                 'ready': 'Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") })',
                 'load': 'Dom.load(function(){ alert("DOM 已经 load（引用的图片都已加载）") })',
 
                 '事件(Event)': '-',
-                'on - 绑定事件': 'a.on("click", function(){ alert("点击事件") });\r\na.on("click#c", function(){ alert("委托触发点击事件") });',
-                'un - 解绑事件': 'a.un("click")',
-                'once - 绑定一次性的事件': 'a.once("click", function(){ alert("一次性的点击事件（只在第一次点击时发生）") })',
-                'trigger - 手动触发事件': 'a.trigger("click")',
+                'on - 绑定事件': 'Dom.on(a, "click", function(){ alert("点击事件") });\r\nDom.on(a, "click", "#c", function(){ alert("委托触发点击事件") });',
+                'un - 解绑事件': 'Dom.un(a, "click")',
+                //'once - 绑定一次性的事件': 'Dom.once(a, "click", function(){ alert("一次性的点击事件（只在第一次点击时发生）") })',
+                'trigger - 手动触发事件': 'Dom.trigger(a, "click")',
 
                 '类(Class)': '-',
-                'addClass': 'a.addClass("light")',
-                'removeClass': 'a.removeClass("light")',
-                'toggleClass': 'a.toggleClass("light")',
-                'hasClass': 'a.hasClass("light")',
+                'addClass': 'Dom.addClass(a, "light")',
+                'removeClass': 'Dom.removeClass(a, "light")',
+                'toggleClass': 'Dom.toggleClass(a, "light")',
+                'hasClass': 'Dom.hasClass(a, "light")',
 
                 '样式(Style)': '-',
-                'setStyle': 'a.setStyle("font-size", 14)',
-                'getStyle': 'a.getStyle("font-size")',
-                //'show': 'a.show()',
-                //'hide': 'a.hide()',
-                //'toggle': 'a.toggle()',
-                //'unselectable': 'a.unselectable()',
+                'setStyle': 'Dom.setStyle(a, "font-size", 14)',
+                'getStyle': 'Dom.getStyle(a, "font-size")',
+                'isHidden': 'Dom.isHidden(a)',
+                //'show': 'Dom.show(a)',
+                //'hide': 'Dom.hide(a)',
+                //'toggle': 'Dom.toggle(a)',
+                //'unselectable': 'Dom.unselectable(a)',
 
                 '属性(Attribute)': '-',
-                'setAttribute': 'c.setAttribute("innerText", "12121")',
-                'getAttribute': 'c.getAttribute("innerText")',
-                'setText': 'c.setText("cv")',
-                'getText': 'c.getText()',
-                'setHtml': 'c.setHtml("cv")',
-                'getHtml': 'c.getHtml()',
+                'setAttribute': 'Dom.setAttribute(c, "innerText", "12121")',
+                'getAttribute': 'Dom.getAttribute(c, "innerText")',
+                'setText': 'Dom.setText(c, "cv")',
+                'getText': 'Dom.getText(c)',
+                'setHtml': 'Dom.setHtml(c, "cv")',
+                'getHtml': 'Dom.getHtml(c)',
                 //'set': 'c.set({"innerHTML": "cv"})',
 
                 '处理(Manipulation)': '-',
-                //'contains': 'a.contains(b)',
-                'append': 'a.append("append")',
-                'prepend': 'a.prepend("prepend")',
-                'after': 'a.after("after")',
-                'before': 'a.before("before")',
-                'appendTo': 'a.appendTo(document.body)',
+                'contains': 'Dom.contains(a, b)',
+                'append': 'Dom.append(a, "append")',
+                'prepend': 'Dom.prepend(a, "prepend")',
+                'after': 'Dom.after(a, "after")',
+                'before': 'Dom.before(a, "before")',
+                //'appendTo': 'Dom.appendTo(a, document.body)',
 
-                'empty': 'c.empty()',
-                'remove': 'c.remove()',
-                'dispose': 'c.dispose()',
+                'isEmpty': 'Dom.isEmpty(c)',
+                'empty': 'Dom.empty(c)',
+                'remove': 'Dom.remove(c)',
+                'dispose': 'Dom.dispose(c)',
 
-                'replaceWith': 'd.replaceWith("<div/>")',
+                'replaceWith': 'Dom.replaceWith(d, "<div/>")',
 
-                //'insertBefore': 'b.insertBefore(c, null)',
+                //'insertBefore': 'Dom.insertBefore(b,c, null)',
                 //'attach': 'd.attach(c.node, null)',
-                //'removeChild': 'b.removeChild(c)',
+                //'removeChild': 'Dom.removeChild(b,c)',
                 //'detach': 'd.detach(c.node)',
 
                 '转移(Traversing)': '-',
-                'add': 'b.add("div")',
-                'closest': 'b.closest("div")',
-                'parent': 'b.parent()',
-                'prev': 'b.prev()',
-                'next': 'b.next()',
-                'child': 'b.child(0)',
-                'first': 'b.first()',
-                'last': 'b.last()',
-                'parents': 'b.parents()',
-                'prevAll': 'b.prevAll()',
-                'nextAll': 'b.nextAll()',
-                'siblings': 'b.siblings()',
-                'children': 'b.children()',
-                'clone': 'a.clone()',
+                'closest': 'Dom.closest(b,"div")',
+                'parent': 'Dom.parent(b)',
+                'prev': 'Dom.prev(b)',
+                'next': 'Dom.next(b)',
+                'child': 'Dom.child(b,0)',
+                'first': 'Dom.first(b)',
+                'last': 'Dom.last(b)',
+                'parents': 'Dom.parents(b)',
+                'prevAll': 'Dom.prevAll(b)',
+                'nextAll': 'Dom.nextAll(b)',
+                'siblings': 'Dom.siblings(b)',
+                'children': 'Dom.children(b)',
+                'clone': 'Dom.clone(a)',
 
                 '尺寸(Dimension)': '-',
-                'getSize - 获取带 padding 和 border 的尺寸': 'a.getSize()',
-                'setSize': 'a.setSize({y: 300})',
-                'getWidth - 获取不带 padding 和 border 的宽': 'a.getWidth()',
-                'setWidth': 'a.setWidth(23)',
-                'getHeight - 获取不带 padding 和 border 的高': 'a.getHeight()',
-                'setHeight': 'a.setHeight(54)',
-                'getScrollSize': 'a.getScrollSize()',
+                'getSize - 获取带 padding 和 border 的尺寸': 'Dom.getSize(a)',
+                'setSize': 'Dom.setSize(a, {y: 300})',
+                'getWidth - 获取不带 padding 和 border 的宽': 'Dom.getWidth(a)',
+                'setWidth': 'Dom.setWidth(a, 23)',
+                'getHeight - 获取不带 padding 和 border 的高': 'Dom.getHeight(a)',
+                'setHeight': 'Dom.setHeight(a, 54)',
+                'getScrollSize': 'Dom.getScrollSize(a)',
 
                 '位置(Offset)': '-',
-                'getOffset - 获取 .offsetParent() 的偏移': 'a.getOffset()',
-                'setOffset': 'a.setOffset({x:2, y:5})',
-                'getPosition - 获取在整个窗口的绝对位置': 'a.getPosition()',
-                'setPosition': 'a.setPosition({x:2, y:5})',
-                'getScroll': 'a.getScroll()',
+                'getOffset - 获取 .offsetParent() 的偏移': 'Dom.getOffset(a)',
+                'setOffset': 'Dom.setOffset(a, {x:2, y:5})',
+                'getPosition - 获取在整个窗口的绝对位置': 'Dom.getPosition(a)',
+                'setPosition': 'Dom.setPosition(a, {x:2, y:5})',
+                'getScroll': 'Dom.getScroll(a)',
+
+                'Dom 对象': '-',
+                'add': 'Dom.query(b).add("div")'
 
             });
 

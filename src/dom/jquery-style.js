@@ -927,3 +927,453 @@ dp.dispose = function () {
 };
 
 //#endregion
+
+//#region Manipulation
+
+/**
+ * 将当前 Dom 对象添加到其它节点或 Dom 对象中。
+ * @param {Node/String} parent=document.body 节点 Dom 对象或节点的 id 字符串。
+ * @return this
+ * @remark
+ * this.appendTo(parent) 相当于 parent.append(this) 。
+ * @example
+ * 把所有段落追加到ID值为foo的元素中。
+ * #####HTML:
+ * <pre lang="htm" format="none">
+ * &lt;p&gt;I would like to say: &lt;/p&gt;&lt;div id="foo"&gt;&lt;/div&gt;
+ * </pre>
+ * #####JavaScript:
+ * <pre>Dom.query("p").appendTo("foo");</pre>
+ * #####结果:
+ * <pre lang="htm" format="none">
+ * &lt;div id="foo"&gt;&lt;p&gt;I would like to say: &lt;/p&gt;&lt;/div&gt;
+ * </pre>
+ *
+ * 创建一个新的div节点并添加到 document.body 中。
+ * <pre>
+ * Dom.create("div").appendTo();
+ * </pre>
+ */
+Dom.appendTo = function (node, parent) {
+    Dom.query(parent || document.body).append(node);
+};
+
+//#endregion
+
+//#region Dimension
+
+
+/**
+ * 设置当前 Dom 对象的显示大小。
+ * @param {Number/Point} x 要设置的宽或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+ * @param {Number} y 要设置的高。如果不设置，使用 null 。
+ * @return this
+ * @remark
+ * 设置元素实际占用大小（包括内边距和边框，但不包括滚动区域之外的大小）。
+ *
+ * 此方法对可见和隐藏元素均有效。
+ * @example
+ * 设置 id=myP 的段落的大小。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p id="myP"&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>Dom.get("myP").setSize({x:200,y:100});</pre>
+ */
+dp.setSize = function (value) {
+    return iterate(this, function (elem) {
+        if (value.x != null)
+            styleHooks.width.set(elem, value.x - Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight'));
+
+        if (value.y != null)
+            styleHooks.height.set(elem, value.y - Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight'));
+
+    });
+
+};
+
+/**
+ * 获取当前 Dom 对象的可视区域大小。包括 border 大小。
+ * @return {Point} 位置。
+ * @remark
+ * 此方法对可见和隐藏元素均有效。
+ * 
+ * 获取元素实际占用大小（包括内边距和边框）。
+ * @example
+ * 获取第一段落实际大小。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>Dom.query("p:first").getSize();</pre>
+ * #####结果:
+ * <pre lang="htm" format="none">{x=200,y=100}</pre>
+ */
+dp.getSize = function () {
+    var ret = null, elem;
+    if (this.length) {
+        elem = this[0];
+        if (elem.nodeType === 9) {
+            elem = elem.documentElement;
+            ret = {
+                x: elem.clientWidth,
+                y: elem.clientHeight
+            };
+        } else {
+            ret = {
+                x: elem.offsetWidth,
+                y: elem.offsetHeight
+            };
+        }
+    }
+
+    return ret;
+
+};
+
+/**
+ * 获取当前 Dom 对象设置CSS宽度(width)属性的值（不带滚动条）。
+ * @param {Number} value 设置的宽度值。
+ * @return this
+ * @example
+ * 将所有段落的宽设为 20。
+ * <pre>Dom.query("p").setWidth(20);</pre>
+ */
+dp.setWidth = function (value) {
+    return iterate(this, styleHooks.width.set, value);
+};
+
+/**
+ * 获取当前 Dom 对象的CSS width值。（不带滚动条）。
+ * @return {Number} 获取的值。
+ * 取得元素当前计算的宽度值（px）。
+ * @example
+ * 获取第一段的宽。
+ * <pre>Dom.query("p").item(0).getWidth();</pre>
+ * 
+ * 获取当前HTML文档宽度。
+ * <pre>document.getWidth();</pre>
+ */
+dp.getWidth = function () {
+    return this.length ? styleNumber(this[0], 'width') : null;
+};
+
+/**
+ * 获取当前 Dom 对象设置CSS高度(hidth)属性的值（不带滚动条）。
+ * @param {Number} value 设置的高度值。
+ * @return this
+ * @example
+ * 将所有段落的高设为 20。
+ * <pre>Dom.query("p").setHeight(20);</pre>
+ */
+dp.setHeight = function (value) {
+    return iterate(this, styleHooks.height.set, value);
+};
+
+/**
+ * 获取当前 Dom 对象的CSS height值。（不带滚动条）。
+ * @return {Number} 获取的值。
+ * 取得元素当前计算的高度值（px）。
+ * @example
+ * 获取第一段的高。
+ * <pre>Dom.query("p").item(0).getHeight();</pre>
+ * 
+ * 获取当前HTML文档高度。
+ * <pre>document.getHeight();</pre>
+ */
+dp.getHeight = function () {
+    return this.length ? styleNumber(this[0], 'height') : null;
+};
+
+/**
+ * 获取当前 Dom 对象的滚动区域大小。
+ * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+ * @remark
+ * getScrollSize 获取的值总是大于或的关于 getSize 的值。
+ * 
+ * 此方法对可见和隐藏元素均有效。
+ */
+dp.getScrollSize = function () {
+    var ret = null, elem, body;
+
+    if (this.length) {
+        elem = this[0];
+
+        if (elem.nodeType === 9) {
+            body = elem.body;
+            elem = elem.documentElement;
+            ret = {
+                x: Math.max(elem.scrollWidth, body.scrollWidth, elem.clientWidth),
+                y: Math.max(elem.scrollHeight, body.scrollHeight, elem.clientHeight)
+            };
+        } else {
+            ret = {
+                x: elem.scrollWidth,
+                y: elem.scrollHeight
+            };
+        }
+
+    }
+
+    return ret;
+};
+
+
+//#endregion
+
+//#region Offset
+
+
+/**
+ * 获取用于让当前 Dom 对象定位的父对象。
+ * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+ */
+dp.offsetParent = function () {
+    if (!this.length) {
+        return new Dom();
+    }
+    var me = this[0];
+    while ((me = me.offsetParent) && !rBody.test(me.nodeName) && styleString(me, "position") === "static");
+    return new Dom([me || getDocument(this.node).body]);
+};
+
+/**
+ * 获取当前 Dom 对象的绝对位置。
+ * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+ * @remark
+ * 此方法只对可见元素有效。
+ * @example
+ * 获取第二段的偏移
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>
+ * var p = Dom.query("p").item(1);
+ * var position = p.getPosition();
+ * trace( "left: " + position.x + ", top: " + position.y );
+ * </pre>
+ * #####结果:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 0, top: 35&lt;/p&gt;</pre>
+ */
+dp.getPosition = function () {
+
+    var elem;
+
+    if (!this.length) {
+        return null;
+    }
+
+    elem = this[0];
+
+    // 对于 document，返回 scroll 。
+    if (elem.nodeType === 9) {
+        return this.getScroll();
+    }
+
+    var bound = typeof elem.getBoundingClientRect !== "undefined" ? elem.getBoundingClientRect() : { x: 0, y: 0 },
+        doc = getDocument(elem),
+        html = doc.documentElement,
+        htmlScroll = Dom.getDocumentScroll(doc);
+    return {
+        x: bound.left + htmlScroll.x - html.clientLeft,
+        y: bound.top + htmlScroll.y - html.clientTop
+    };
+};
+
+/**
+ * 设置当前 Dom 对象的绝对位置。
+ * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+ * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
+ * @return this
+ * @remark
+ * 如果对象原先的position样式属性是static的话，会被改成relative来实现重定位。
+ * @example
+ * 设置第二段的位置。
+ * #####HTML:
+ * <pre lang="htm" format="none">
+ * &lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;
+ * </pre>
+ * #####JavaScript:
+ * <pre>
+ * Dom.query("p:last").setPosition({ x: 10, y: 30 });
+ * </pre>
+ */
+dp.setPosition = function (value) {
+
+    return iterate(this, function (elem) {
+
+        Dom.movable(elem);
+
+        var me = new Dom([elem]),
+            currentPosition = me.getPosition(),
+            offset = me.getOffset();
+
+        if (value.y != null) offset.y += value.y - currentPosition.y;
+        else offset.y = null;
+
+        if (value.x != null) offset.x += value.x - currentPosition.x;
+        else offset.x = null;
+
+        me.setOffset(offset);
+    });
+
+};
+
+/**
+ * 获取当前 Dom 对象的相对位置。
+ * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+ * @remark
+ * 此方法只对可见元素有效。
+ * 
+ * 获取匹配元素相对父元素的偏移。
+ * @example
+ * 获取第一段的偏移
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:<pre>
+ * var p = Dom.query("p").item(0);
+ * var offset = p.getOffset();
+ * trace( "left: " + offset.x + ", top: " + offset.y );
+ * </pre>
+ * #####结果:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 15, top: 15&lt;/p&gt;</pre>
+ */
+dp.getOffset = function () {
+
+    if (!this.length) {
+        return null;
+    }
+
+    // 如果设置过 left top ，这是非常轻松的事。
+    var elem = this[0],
+        left = styleString(elem, 'left'),
+        top = styleString(elem, 'top');
+
+    // 如果未设置过。
+    if ((!left || !top || left === 'auto' || top === 'auto') && styleString(elem, "position") === 'absolute') {
+
+        // 绝对定位需要返回绝对位置。
+        top = this.offsetParent();
+        left = this.getPosition();
+        if (!rBody.test(top.node.nodeName))
+            left = left.sub(top.getPosition());
+        left.x -= styleNumber(elem, 'marginLeft') + styleNumber(top.node, 'borderLeftWidth');
+        left.y -= styleNumber(elem, 'marginTop') + styleNumber(top.node, 'borderTopWidth');
+
+        return left;
+    }
+
+    // 碰到 auto ， 空 变为 0 。
+    return {
+        x: parseFloat(left) || 0,
+        y: parseFloat(top) || 0
+    };
+
+
+};
+
+/**
+ * 设置当前 Dom 对象相对父元素的偏移。
+ * @param {Point} offsetPoint 要设置的 x, y 对象。
+ * @return this
+ * @remark
+ * 此函数仅改变 CSS 中 left 和 top 的值。
+ * 如果当前对象的 position 是static，则此函数无效。
+ * 可以通过 {@link #setPosition} 强制修改 position, 或先调用 {@link Dom.movable} 来更改 position 。
+ *
+ * @example
+ * 设置第一段的偏移。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>
+ * Dom.query("p:first").setOffset({ x: 10, y: 30 });
+ * </pre>
+ * #####结果:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 15, top: 15&lt;/p&gt;</pre>
+ */
+dp.setOffset = function (offsetPoint) {
+
+    assert(offsetPoint, "Dom#setOffset(offsetPoint): {offsetPoint} 必须有 'x' 和 'y' 属性。", offsetPoint);
+
+    return iterate(this, function (elem) {
+
+        var style = elem.style;
+
+        if (offsetPoint.y != null)
+            style.top = offsetPoint.y + 'px';
+
+        if (offsetPoint.x != null)
+            style.left = offsetPoint.x + 'px';
+    });
+};
+
+/**
+ * 获取当前 Dom 对象的滚动条的位置。
+ * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+ * @remark
+ * 此方法对可见和隐藏元素均有效。
+ *
+ * @example
+ * 获取第一段相对滚动条顶部的偏移。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>
+ * var p = Dom.query("p").item(0);
+ * trace( "scrollTop:" + p.getScroll() );
+ * </pre>
+ * #####结果:
+ * <pre lang="htm" format="none">
+ * &lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;scrollTop: 0&lt;/p&gt;
+ * </pre>
+ */
+dp.getScroll = function () {
+
+    if (!this.length) {
+        return null;
+    }
+
+    var elem = this[0],
+        win,
+        x,
+        y;
+    if (elem.nodeType !== 9) {
+        x = elem.scrollLeft;
+        y = elem.scrollTop;
+    } else {
+        return Dom.getDocumentScroll(elem);
+    }
+
+    return {
+        x: x,
+        y: y
+    };
+};
+
+/**
+ * 设置当前 Dom 对象的滚动条位置。
+ * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+ * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
+ * @return this
+ */
+dp.setScroll = function (offsetPoint) {
+
+
+    return iterate(this, function (elem) {
+
+        if (elem.nodeType !== 9) {
+            if (offsetPoint.x != null) elem.scrollLeft = offsetPoint.x;
+            if (offsetPoint.y != null) elem.scrollTop = offsetPoint.y;
+        } else {
+            var scroll = Dom.getDocumentScroll(elem);
+            if (offsetPoint.x == null)
+                offsetPoint.x = scroll.x;
+            if (offsetPoint.y == null)
+                offsetPoint.y = scroll.y;
+            (elem.defaultView || elem.parentWindow).scrollTo(offsetPoint.x, offsetPoint.y);
+        }
+
+    });
+
+};
+
+//#endregion

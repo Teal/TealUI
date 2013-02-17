@@ -23,3 +23,18 @@ Dom.create = function (tagName, className) {
 		elem.className = className;
 	return new Dom([elem]);
 };
+
+// 如果 node 不是原生节点，认为 node 是一个 Dom 对象。
+if (!node.nodeType) {
+
+    // 第一个节点，直接添加。
+    if (node.length) {
+        html = Dom.manip(node[0], html, fn);
+
+        // 其它节点，复制后添加。
+        for (i = 1; node[i]; i++) {
+            Dom.manip(node[i], html.cloneNode(true), fn);
+        }
+    }
+
+} else {

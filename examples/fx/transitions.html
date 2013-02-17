@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>特效渐变方式</title>
     <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
@@ -10,6 +10,7 @@
     <script type="text/javascript" src="../../src/fx/base.js"></script>
     <script type="text/javascript" src="../../src/fx/animate.js"></script>
     <script type="text/javascript" src="../../src/fx/transitions.js"></script>
+
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
     <style>
         .p {
@@ -33,9 +34,9 @@
             <script>
                 var width = 200, duration = 3500, fps = 200;
 
-                Dom.get('v').setHeight(width);
-                Dom.get('b').setHeight(width);
-                Dom.get('t').setWidth(width + 20);
+                Dom.setHeight(Dom.get('v'), width);
+                Dom.setHeight(Dom.get('b'), width);
+                Dom.setWidth(Dom.get('t'), width + 20);
 
                 Fx.compute = function (from, to, delta) {
                     return (to - from) * delta + from;
@@ -57,13 +58,16 @@
                         var y = Fx.compute(this.options.from, this.options.to, delta);
                         this.options.y = width - y;
 
-                        Dom.create('div', 'p').appendTo('#v').setOffset(this.options);
+                        var div = document.createElement('div');
+                        div.className = 'p';
+                        Dom.get('v').appendChild(div);
+                        Dom.setOffset(div, this.options);
 
-                        Dom.get('f')[0].style.left = y + 'px';
+                        Dom.get('f').style.left = y + 'px';
                     },
 
                     start: function () {
-                        Dom.get('v').empty();
+                        Dom.empty(Dom.get('v'));
                     }
 
                 });

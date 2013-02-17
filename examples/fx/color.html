@@ -2,17 +2,22 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
     <title>支持颜色渐变</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/color.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
 <body>
     <article class="demo">
+        
+        <blockquote class="demo demo-info">本组件是 Tween 的扩展。它让 Tween 支持处理颜色的渐变值。</blockquote>
+
         <div id="a" class="demo-box">
         </div>
         <script>
@@ -20,7 +25,7 @@
             Demo.writeExamples({
                 'Fx.Tween#run(#000000)': function () {
                     return tween.run({
-                        target: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             backgroundColor: '#000000'
                         }
@@ -28,7 +33,7 @@
                 },
                 'Fx.Tween#run(rgb(0, 0, 0))': function () {
                     return tween.run({
-                        target: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             backgroundColor: 'rgb(0, 0, 0)'
                         }
@@ -36,7 +41,7 @@
                 },
                 'Fx.Tween#run("#000000-#ffffff")': function () {
                     return tween.run({
-                        target: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             backgroundColor: '#000000-#ffffff'
                         }

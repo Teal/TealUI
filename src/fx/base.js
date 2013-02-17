@@ -121,7 +121,7 @@ var Fx = (function() {
 				options.duration = duration !== -1 && duration != undefined ? duration < 0 ? -defaultOptions.duration / duration : duration : defaultOptions.duration;
 
 				// start
-				if (options.start && options.start.call(options.dom, options, me) === false) {
+				if (options.start && options.start.call(options.elem, options, me) === false) {
 					me.progress();
 				} else {
 					
@@ -148,7 +148,7 @@ var Fx = (function() {
 
 				// 调用回调函数。
 				if (me.options.complete) {
-					me.options.complete.call(me.options.dom, isAbort, me);
+					me.options.complete.call(me.options.elem, isAbort, me);
 				}
 			} finally {
 

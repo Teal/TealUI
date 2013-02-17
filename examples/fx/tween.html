@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>类Flash的渐变特效</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
@@ -24,7 +24,7 @@
             Demo.writeExamples({
                 'Fx.Tween#run(100)': function () {
                     return tween.run({
-                        dom: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             width: 100
                         }
@@ -32,7 +32,7 @@
                 },
                 'Fx.Tween#run("100")': function () {
                     return tween.run({
-                        dom: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             width: "100"
                         }
@@ -40,7 +40,7 @@
                 },
                 'Fx.Tween#run("+=10")': function () {
                     return tween.run({
-                        dom: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             width: '+=10'
                         }
@@ -48,7 +48,7 @@
                 },
                 'Fx.Tween#run("-=10")': function () {
                     return tween.run({
-                        dom: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             width: '-=10'
                         }
@@ -56,7 +56,7 @@
                 },
                 'Fx.Tween#run("0-100")': function () {
                     return tween.run({
-                        dom: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             width: "0-100"
                         }

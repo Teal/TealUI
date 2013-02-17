@@ -2,10 +2,8 @@
  * @author xuld
  */
 
-
 include("fx/base.js");
 include("dom/base.js");
-
 
 /**
  * @namespace Fx
@@ -26,9 +24,7 @@ Object.extend(Fx, {
 	 * 用于数字的动画引擎。
 	 */
 	numberTweener: {
-		get: function(dom, name){
-			return Dom.styleNumber(dom[0], name);
-		},
+	    get: Dom.styleNumber,
 				
 		/**
 		 * 常用计算。
@@ -44,8 +40,8 @@ Object.extend(Fx, {
 			return typeof value == "number" ? value : parseFloat(value);
 		},
 		
-		set: function(dom, name, value){
-			dom[0].style[name] = value;
+		set: function(elem, name, value){
+			elem.style[name] = value;
 		}
 	},
 
@@ -71,7 +67,7 @@ Object.extend(Fx, {
 		set: function(delta){
 			var options = this.options,
 				params = options.params,
-				dom = options.dom,
+				elem = options.elem,
 				tweener,
 				key,
 				value;
@@ -80,7 +76,7 @@ Object.extend(Fx, {
 			for (key in params) {
 				value = params[key];
 				tweener = value.tweener;
-				tweener.set(dom, key, tweener.compute(value.from, value.to, delta));
+				tweener.set(elem, key, tweener.compute(value.from, value.to, delta));
 			}
 		},
 		
@@ -151,11 +147,11 @@ Object.extend(Fx, {
 				// 如果有特殊功能。 ( += -= a-b)
 				if(part){
 					parsed = part[2];
-					i = parsed ? tweener.parse(parsed) : tweener.get(options.dom, key);
+					i = parsed ? tweener.parse(parsed) : tweener.get(options.elem, key);
 					parsed = parsed ? tweener.parse(value) : (i + parseFloat(part[1] === '+=' ? value : '-' + value));
 				} else {
 					parsed = tweener.parse(value);
-					i = tweener.get(options.dom, key);
+					i = tweener.get(options.elem, key);
 				}
 				
 				params[key] = {
@@ -179,43 +175,43 @@ Object.extend(Fx, {
 	
 });
 
-Object.each(Dom.styleFix, function(value, key){
+Object.each(Dom.styleHooks, function (value, key) {
 	Fx.tweeners[key] = this;
 }, Fx.createTweener({
-	set: function (dom, name, value) {
-		Dom.styleFix[name].call(dom, value);
+	set: function (elem, name, value) {
+	    Dom.styleHooks[name].set(elem, value);
 	}
 }));
 
 Fx.tweeners.scrollTop = Fx.createTweener({
-	set: function (dom, name, value) {
-		dom.setScroll({ y: value });
+	set: function (elem, name, value) {
+	    Dom.setScroll(elem, { y: value });
 	},
-	get: function (dom) {
-		return dom.getScroll().y;
+	get: function (elem) {
+	    return Dom.getScroll(elem).y;
 	}
 });
 
 Fx.tweeners.scrollLeft = Fx.createTweener({
-	set: function (dom, name, value) {
-		dom.setScroll({ x: value });
+	set: function (elem, name, value) {
+	    Dom.setScroll(elem, { x: value });
 	},
-	get: function (dom) {
-		return dom.getScroll().x;
+	get: function (elem) {
+	    return Dom.getScroll(elem).x;
 	}
 });
 
 Fx.defaultTweeners.push(Fx.createTweener({
 
-	set: navigator.isIE678 ? function(dom, name, value) {
+	set: navigator.isIE678 ? function(elem, name, value) {
 		try {
 			
 			// ie 对某些负属性内容报错
-			dom[0].style[name] = value;
+			elem.style[name] = value;
 		}catch(e){}
-	} : function (dom, name, value) {
+	} : function (elem, name, value) {
 		
-		dom[0].style[name] = value + 'px';
+		elem.style[name] = value + 'px';
 	}
 
 }));

@@ -2,19 +2,23 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>支持系统颜色</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/color.js"></script>
-    <script type="text/javascript" src="../../../src/fx/colorex.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
+    <script type="text/javascript" src="../../src/fx/colorex.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
 <body>
     <article class="demo">
+        
+        <blockquote class="demo demo-info">本组件是 Color 的扩展。它让 Color 支持识别系统内置颜色。</blockquote>
+
         <div id="a" class="demo-box">
         </div>
         <script>
@@ -22,7 +26,7 @@
             Demo.writeExamples({
                 'Fx.Tween#run(green-blue)': function () {
                     return tween.run({
-                        target: Dom.get('a'),
+                        elem: Dom.get('a'),
                         params: {
                             backgroundColor: 'green-blue'
                         }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta" />
+    <meta name="module-info" content="status=complete" />
     <title>下拉菜单接口</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
@@ -35,7 +35,7 @@
             dropDownOwner.setDropDown('#dropDownMenu1');
 
             // 绑定 click 之后，调用 a.toggleDropDown 切换菜单。
-            dropDownOwner.dom.on('click', dropDownOwner.toggleDropDown, dropDownOwner);
+            Dom.on(dropDownOwner.elem, 'click', dropDownOwner.toggleDropDown, dropDownOwner);
         </script>
 
         <script>

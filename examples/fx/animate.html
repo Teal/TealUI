@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>DOM 渐变特效</title>
     <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/core/class.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
     <script type="text/javascript" src="../../src/fx/animate.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
@@ -56,38 +57,38 @@
             </div>
         </div>
         <script>
-            var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d'), o = Dom.get('o'), abcd = new Dom(Dom.get('all')[0].getElementsByTagName("div"));
+            var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d'), o = Dom.get('o'), abcd = new Dom(Dom.get('all').getElementsByTagName("div"));
 
             Demo.writeExamples({
                 'Animate': '-',
                 'createAnimate': function () {
                     new Fx.Tween().run({
-                        dom: a,
+                        elem: a,
                         params: { height: 500 }
                     }).run({
-                        dom: a,
+                        elem: a,
                         params: { height: 200 }
                     }).run({
-                        dom: a,
+                        elem: a,
                         params: { height: 100 }
                     })
 
                 },
-                'animateHeight': 'd.animate({height: 500}).animate({height: 100}).animate({height: 30})',
-                'animateOpacity': 'a.animate({opacity: 0}).animate({opacity: 1}).animate({opacity: 0}).animate({opacity: 1})',
-                'animateScrollTop': 'Dom.document.animate({scrollTop: 400})',
-                'animateBackgroundColor': 'a.animate({"background-color": "#efefef"})',
+                'animateHeight': 'Dom.animate(d, {height: 500});Dom.animate(d,{height: 100});Dom.animate(d,{height: 30})',
+                'animateOpacity': 'Dom.animate(a,{opacity: 0});Dom.animate(a,{opacity: 1}); Dom.animate(a,{opacity: 0}); Dom.animate(a,{opacity: 1})',
+                'animateScrollTop': 'Dom.animate(document, {scrollTop: 400})',
+                'animateBackgroundColor': 'Dom.animate(a,{"background-color": "#efefef"})',
                 'Toggle': '-',
-                'toggle': 'a.toggle(1000)',
-                'toggleHeight': 'a.toggle("height", 1000)',
-                'toggleWidth': 'a.toggle("width", 1000)',
-                'toggleAll': 'a.toggle("all", 1000)',
-                'toggleLeft': 'a.toggle("left", 1000)',
-                'toggleTop': 'a.toggle("top", 1000)',
-                'toggleRight': 'a.toggle("right", 1000)',
-                'toggleBottom': 'a.toggle("bottom", 1000)',
-                'hide(1000)': 'a.hide(1000)',
-                'hide': 'a.hide(1);'
+                'toggle': 'Dom.toggle(a,1000)',
+                'toggleHeight': 'Dom.toggle(a,{effect:"height", duration:1000})',
+                'toggleWidth': 'Dom.toggle(a,{effect:"width", duration:1000})',
+                'toggleAll': 'Dom.toggle(a,{effect:"all", duration:1000})',
+                'toggleLeft': 'Dom.toggle(a,{effect:"left", duration:1000})',
+                'toggleTop': 'Dom.toggle(a,{effect:"top", duration:1000})',
+                'toggleRight': 'Dom.toggle(a,{effect:"right", duration:1000})',
+                'toggleBottom': 'Dom.toggle(a,{effect:"bottom", duration:1000})',
+                'hide(1000)': 'Dom.hide(a,1000)',
+                'hide': 'Dom.hide(a,1);'
             }, { times: 8 });
 
         </script>
