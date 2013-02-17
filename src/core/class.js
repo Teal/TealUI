@@ -330,24 +330,32 @@ var Class = (function () {
         var subClass = members && members.hasOwnProperty("constructor") ? members.constructor : function () {
 
             // 调用父类构造函数 。
-            arguments.callee.base.apply(this, arguments);
+            return arguments.callee.base.apply(this, arguments);
 
-        }, emptyFn = Function.empty;
+        }, delegateClass = function () {
+
+        	// 覆盖构造函数。
+        	this.constructor = subClass;
+        };
+
+    	// 在高级浏览器优先使用 __proto__ 以节约内存。
+        if (subClass.__proto__) {
+        	subClass.__proto__ = Base;
+        } else {
+        	Object.extend(subClass, Base);
+        }
 
         // 代理类 。
-        emptyFn.prototype = (subClass.base = this).prototype;
+        delegateClass.prototype = this.prototype;
 
         // 指定成员 。
-        subClass.prototype = Object.extend(new emptyFn, members);
+        subClass.prototype = Object.extend(new delegateClass, members);
 
-        // 覆盖构造函数。
-        subClass.prototype.constructor = subClass;
-
-        // 清空临时对象。
-        emptyFn.prototype = null;
+		// 绑定父类。
+        subClass.base = this;
 
         // 创建类 。
-        return Class.Native(subClass);
+        return subClass;
 
     };
 
@@ -388,35 +396,6 @@ var Class = (function () {
 	 * {@link Class.Base} 提供了全部类都具有的基本函数。
 	 */
     Class.Base = Base;
-
-    /**
-	 * 将一个原生的 Javascript 函数对象转换为一个类。
-	 * @param {Function/Class} constructor 用于转换的对象，将修改此对象，让它看上去和普通的类一样。
-	 * @return {Function} 返回生成的类。
-	 * @remark 转换后的类将有继承、扩展等功能。
-	 * @example <pre>
-	 * function myFunc(){}
-	 * 
-	 * Class.Native(myFunc);
-	 * 
-	 * // 现在可以直接使用 implement 函数了。
-	 * myFunc.implement({
-	 * 	  a: 2
-	 * });
-	 * </pre>
-	 */
-    Class.Native = function (constructor) {
-
-        assert.notNull(constructor, "Class.Native(constructor): constructor ~");
-
-        // 在高级浏览器优先使用 __proto__ 以节约内存。
-        if (constructor.__proto__) {
-            constructor.__proto__ = Class.Base;
-            return constructor;
-        }
-
-        return Object.extend(constructor, Class.Base);
-    };
 
     return Class;
 

@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta;attr=#2">
+    <meta name="module-info" content="status=complete;attr=#2">
     <title>类</title>
 
     <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/class/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -111,18 +111,18 @@
                     dog.say2();
 
                 },
-                '将一个已经定义好的 JavaScript 函数转为一个类': function () {
+                //'将一个已经定义好的 JavaScript 函数转为一个类': function () {
 
-                    function func() {
-                        alert("我是一个已经定义的 func 函数");
-                    }
+                //    function func() {
+                //        alert("我是一个已经定义的 func 函数");
+                //    }
 
-                    // 从一个 Javascript 函数创建一个类。
-                    Class.Native(func);
+                //    // 从一个 Javascript 函数创建一个类。
+                //    Class.Native(func);
 
-                    var a = new func();
+                //    var a = new func();
 
-                },
+                //},
                 '使用事件的功能': function () {
 
                     // 创建一个类。

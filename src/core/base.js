@@ -700,7 +700,7 @@ var JPlus = (function (undefined) {
 		 * 获取当前框架的版本号。
 		 * @getter
 		 */
-		version: /*@VERSION*/0.40
+		version: /*@VERSION*/0.41
 
 	};
 
