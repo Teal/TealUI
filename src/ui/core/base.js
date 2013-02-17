@@ -125,16 +125,10 @@ var Control = Class({
     	var key, value;
     	for (key in options) {
     		value = options[key];
-    		if (key in this) {
-    			if (typeof this[key] === 'function') {
-    				this[key](value);
-    			} else {
-    				this[key] = value;
-    			}
-    		} else if (/^on(\w+)/.test(key)) {
-    			value ? this.on(RegExp.$1, value) : this.un(RegExp.$1);
+    		if (typeof this[key] === 'function') {
+    			this[key](value);
     		} else {
-    			Dom.set(this.elem, key, value);
+    			this[key] = value;
     		}
     	}
 

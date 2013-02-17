@@ -14,7 +14,7 @@
 
     <article class="demo">
 
-        <blockquote class="demo demo-info">DOM 底层模块，定义 Dom 对象。</blockquote>
+        <blockquote class="demo demo-info">DOM 底层模块，定义 Dom 对象。如果需要链式操作 DOM, 参考 <a href="jquery-style.html" class="demo">jquery-style</a> 组件。</blockquote>
 
         <div id="all" class="demo-sample">
                 <div id="a" style="background: #DCDCDC; margin: 4px; padding: 8px;">
@@ -62,8 +62,8 @@
                 'match': 'a.match("div")',
 
                 'DOM ready(DOMReady)': '-',
-                'Dom.ready': 'Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") })',
-                'Dom.load': 'Dom.load(function(){ alert("DOM 已经 load（引用的图片都已加载）") })',
+                'ready': 'Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") })',
+                'load': 'Dom.load(function(){ alert("DOM 已经 load（引用的图片都已加载）") })',
 
                 '事件(Event)': '-',
                 'on - 绑定事件': 'a.on("click", function(){ alert("点击事件") });\r\na.on("click#c", function(){ alert("委托触发点击事件") });',
