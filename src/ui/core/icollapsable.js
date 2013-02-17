@@ -57,8 +57,7 @@ var ICollapsable = {
 	 * @virtual
 	 */
     isCollapsed: function () {
-        var body = this.body ? this.body() : this.dom;
-        return !body.length || Dom.isHidden(body[0]);
+        return Dom.isHidden(this.body ? this.body() : this.elem);
     },
 
     /**
@@ -83,12 +82,12 @@ var ICollapsable = {
         // 如果允许折叠，则继续执行。
         if (me.onCollapsing() !== false && (body = me.body ? me.body() : me.dom)) {
             
-			body.hide({
+        	Dom.hide(body, {
 				args: duration,
 				effect: 'height', 
 				duration: me.collapseDuration, 
 				callback: function () {
-	                me.dom.addClass(me.cssClass + '-collapsed');
+					Dom.addClass(me.elem, me.cssClass + '-collapsed');
 	                me.onCollapse();
 	            }, 
 	            link: 'ignore'
@@ -111,11 +110,11 @@ var ICollapsable = {
         // 如果允许展开，则继续执行。
         // 获取主体内容。
         // 仅当存在主体内容时才执行操作。
-        if (me.onExpanding() !== false && (body = me.body ? me.body() : me.dom)) {
+        if (me.onExpanding() !== false && (body = me.body ? me.body() : me.elem)) {
 
-            me.dom.removeClass(me.cssClass + '-collapsed');
+			Dom.removeClass(me.elem, me.cssClass + '-collapsed');
 			
-			body.show({
+            Dom.show(body, {
 				args: duration,
 				effect: 'height', 
 				duration: me.collapseDuration, 

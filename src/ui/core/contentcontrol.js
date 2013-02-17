@@ -26,8 +26,7 @@ var ContentControl = Control.extend({
      * @protected virtual
 	 */
 	content: function () {
-		var content = this.dom.first();
-		return content.length ? content : this.dom;
+		return Dom.first(this.elem) || this.elem;
 	},
 
 	/**
@@ -35,7 +34,7 @@ var ContentControl = Control.extend({
 	 * @param {Boolean} valueAsText 是否编码 *value* 中的 HTML 字符串。
 	 */
 	getContent: function (valueAsText) {
-		return this.content()[valueAsText ? 'getText' : 'getHtml']();
+		return Dom[valueAsText ? 'getText' : 'getHtml'](this.content());
 	},
 
 	/**
@@ -44,7 +43,7 @@ var ContentControl = Control.extend({
 	 * @param {Boolean} valueAsText 如果为 true，则编码内容中的 HTML 。否则返回原始的 HTML 源码。
 	 */
 	setContent: function (value, valueAsText) {
-		this.content()[valueAsText ? 'setText' : 'setHtml'](value);
+		Dom[valueAsText ? 'setText' : 'setHtml'](this.content(), value);
 		return this;
 	}
 

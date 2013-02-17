@@ -13,7 +13,7 @@ var Dom = (function () {
 	 * Object.extend 简写。
 	 * @type Function
 	 */
-    var extend = Object.extend,
+	var extend = Object.extend,
 
 		/**
 		 * Object.map 简写。
@@ -477,6 +477,10 @@ var Dom = (function () {
     parseFix.tbody = parseFix.tfoot = parseFix.colgroup = parseFix.caption = parseFix.thead;
     parseFix.th = parseFix.td;
 
+    Dom.parse = function (html, context, cachable) {
+    	return Dom.get(Dom.parseNode(html, context, cachable));
+    };
+
     /**
 	 * 根据提供的原始 HTML 标记字符串，解析并动态创建一个节点，并返回这个节点的 Dom 对象包装对象。
 	 * @param {String/Node} html 用于动态创建DOM元素的HTML字符串。
@@ -590,30 +594,6 @@ var Dom = (function () {
 
         return html;
 
-    };
-
-    /**
-	 * 创建一个指定标签的节点，并返回这个节点的 Dom 对象包装对象。
-	 * @param {String} tagName 要创建的节点标签名。
-	 * @param {String} className 用于新节点的 CSS 类名。
-	 * @static
-	 * @example
-	 * 动态创建一个 div 元素（以及其中的所有内容），并将它追加到 body 元素中。在这个函数的内部，是通过临时创建一个元素，并将这个元素的 innerHTML 属性设置为给定的标记字符串，来实现标记到 DOM 元素转换的。所以，这个函数既有灵活性，也有局限性。
-	 * #####JavaScript:
-	 * <pre>Dom.create("div", "cls").appendTo(document.body);</pre>
-	 *
-	 * 创建一个 div 元素同时设定 class 属性。
-	 * #####JavaScript:
-	 * <pre>Dom.create("div", "className");</pre>
-	 * #####结果:
-	 * <pre lang="htm" format="none">{&lt;div class="className"&gt;&lt;/div&gt;}</pre>
-	 */
-    Dom.create = function (tagName, className) {
-        assert.isString(tagName, 'Dom.create(tagName, className): {tagName} ~');
-        var elem = document.createElement(tagName);
-        if (className)
-            elem.className = className;
-        return new Dom([elem]);
     };
 
     //#endregion
@@ -5884,3 +5864,52 @@ var Dom = (function () {
 
 // 导出函数。
 var $ = $ || Dom.query, $$ = $$ || Dom.get;
+
+
+function each(obj, fn) {
+	for (var i in obj) {
+		fn(obj[i], i);
+	}
+}
+
+
+//Dom._find = Dom.find;
+
+//Dom.find = function (a, b) {
+//	return Dom._find(a, b)[0] || null;
+//}
+
+Dom._get = Dom.get;
+
+Dom.get = function (a, b) {
+	return Dom._get(a, b) && Dom._get(a, b)[0] || null;
+}
+
+each(Dom.prototype, function (a, mm) {
+	if (!Dom[mm]) {
+		Dom[mm] = function (elem, args1, args2, args3) {
+			return new Dom([elem])[mm](args1, args2, args3);
+		};
+	}
+});
+
+Dom.last = function (elem) {
+	return new Dom([elem]).last()[0] || null;
+};
+
+Dom.first = function (elem) {
+	return new Dom([elem]).first()[0] || null;
+};
+
+Dom.next = function (elem) {
+	return new Dom([elem]).next()[0] || null;
+};
+
+Dom.prev = function (elem) {
+	return new Dom([elem]).prev()[0] || null;
+};
+
+	
+Dom.remove = function (elem) {
+	return Dom.prototype.remove.apply(new Dom([elem]), [].slice.call(arguments, 1));
+}

@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=complete">
+    <meta name="module-info" content="status=beta">
     <title>倒计时</title>
 
-    <script type="text/javascript" src="../../../src/boot.js"></script>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/core/class/base.js"></script>
-    <script type="text/javascript" src="../../../src/utils/timecounter.js"></script>
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class/base.js"></script>
+    <script type="text/javascript" src="../../src/utils/countdown.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -20,7 +20,7 @@
         <script class="demo" type="text/html">
             离12月31号还有：<span id="timeCounter"></span>
             < script>
-                var timeCounter = new TimeCounter(function(day, hour, minite, second){
+                var timeCounter = new Countdown(function(day, hour, minite, second){
 
                     // 此函数会在每一秒执行一次，参数是当前时间的各个计数，可以在这里更新网页上的文字，并最终实现倒计时效果。
                     document.getElementById('timeCounter').innerHTML = String.format(
@@ -30,7 +30,7 @@
             < /script>
         </script>
 
-        <p class="demo">TimeCounter 会每秒调用一次回调函数，在回调函数里可以更新界面上的文字。</p>
+        <p class="demo">Countdown 会每秒调用一次回调函数，在回调函数里可以更新界面上的文字。</p>
 
         <p class="demo">如果不希望显示天，则可以将天转换为小时：</p>
 

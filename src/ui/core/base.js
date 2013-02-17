@@ -20,10 +20,10 @@ include("dom/base.js");
 var Control = Class({
 
     /**
-	 * 当前 UI 组件绑定的 Dom 对象。
-	 * @type {Dom}
+	 * 当前 UI 组件对应的原生节点。
+	 * @type {Element}
 	 */
-    dom: null,
+    elem: null,
 
     /**
 	 * 当前 UI 组件的 css 类。
@@ -47,7 +47,7 @@ var Control = Class({
     create: function () {
 
         // 转为对 tpl解析。
-    	return Dom.parse(String.format(this.tpl, this));
+    	return Dom.parse(String.format(this.tpl, this))[0];
     },
 
     /**
@@ -64,19 +64,19 @@ var Control = Class({
 	 * @protected virtual
 	 */
     state: function (name, value) {
-    	this.dom.toggleClass(this.cssClass + '-' + name, value);
+    	Dom.toggleClass(this.elem, this.cssClass + '-' + name, value);
     },
 
-    attach: function (parentDom, refDom) {
-    	if (refDom && refDom.length) {
-    		refDom.before(this.dom);
+    attach: function (parentNode, refNode) {
+    	if (refNode) {
+    		Dom.before(refNode, this.elem);
     	} else {
-    		parentDom.append(this.dom);
+    		Dom.append(parentNode, this.elem);
     	}
     },
 
     detach: function () {
-    	this.dom.remove();
+    	Dom.remove(this.elem);
     },
 
 	/**
@@ -101,17 +101,17 @@ var Control = Class({
     			Object.extend(opt, options);
 
     			// 处理 dom 字段
-    			me.dom = opt.dom ? Dom.find(opt.dom) : me.create(opt);
+    			me.elem = opt.elem ? Dom.find(opt.elem) : me.create(opt);
 
     		} else {
 
     			// 否则，尝试根据 options 找到节点。
-    			me.dom = Dom.query(options);
+    			me.elem = Dom.find(options);
     		}
 
     	} else {
 
-    		me.dom = me.create(opt);
+    		me.elem = me.create(opt);
     	}
 
     	// 调用 init 初始化控件。
@@ -134,7 +134,7 @@ var Control = Class({
     		} else if (/^on(\w+)/.test(key)) {
     			value ? this.on(RegExp.$1, value) : this.un(RegExp.$1);
     		} else {
-    			this.dom.set(key, value);
+    			Dom.set(this.elem, key, value);
     		}
     	}
 

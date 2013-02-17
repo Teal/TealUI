@@ -1,10 +1,8 @@
 /**
- * @author  xuld
+ * @author xuld
  */
 
-
 include("ui/core/base.js");
-
 
 /**
  * 所有容器控件的基类。
@@ -37,7 +35,7 @@ var ContainerControl = Control.extend({
      * @protected virtual
 	 */
 	header: function () {
-		return this.dom.find('.' + this.cssClass + '-header');
+		return Dom.find('.' + this.cssClass + '-header', this.elem);
 	},
 
 	/**
@@ -46,7 +44,7 @@ var ContainerControl = Control.extend({
      * @protected virtual
 	 */
 	body: function () {
-	    return this.dom.find('.' + this.cssClass + '-body') || this.dom;
+		return Dom.find('.' + this.cssClass + '-body', this.elem) || this.elem;
 	},
 
 	//#endregion
@@ -60,10 +58,10 @@ var ContainerControl = Control.extend({
 	getTitle: function (valueAsText) {
 
 		// 获取 header 。
-		var header = this.header(), title = header.last();
+		var header = this.header();
 
 		// 如果存在 header， 最后一个节点即  title 标签 。
-		return (title.length ? title : header)[valueAsText ? 'getText' : 'getHtml']();
+		return Dom[valueAsText ? 'getText' : 'getHtml'](header && Dom.last(header) || header);
 	},
 
 	/**
@@ -74,23 +72,19 @@ var ContainerControl = Control.extend({
 	setTitle: function (value, valueAsText) {
 
 		// 获取 header 。
-		var header = this.header(), title;
+		var header = this.header();
 
 		if (value === null) {
-			header && header.remove();
+			header && Dom.remove(header);
 		} else {
 
 			// 如果不存在标题，则创建一个。
-			if (!header.length) {
-				this.dom.prepend(String.format(this.headerTpl, this));
-				header = this.header();
+			if (!header) {
+				header = Dom.prepend(this.elem, String.format(this.headerTpl, this));
 			}
 
-			// 获取或创建 title 。
-			title = header.last();
-
 			// 设置内容。
-			(title.length ? title : header)[valueAsText ? 'setText' : 'setHtml'](value);
+			Dom[valueAsText ? 'setText' : 'setHtml'](header && Dom.last(header) || header, value);
 
 		}
 		return this;
@@ -102,16 +96,10 @@ var ContainerControl = Control.extend({
 	 */
 	getContent: function (valueAsText) {
 
-		var body = this.body(),
-			content = body.children('.' + this.cssClass + '-content');
-
-		// 如果不存在 content，则使用 body 作为 content。
-		if (!content.length) {
-			content = body;
-		}
+		var body = this.body();
 
 		// 获取实际的内容。
-		return content[valueAsText ? 'getText' : 'getHtml']();
+		return Dom[valueAsText ? 'getText' : 'getHtml'](Dom.find('>.' + this.cssClass + '-content', body) || body);
 
 	},
 
@@ -127,16 +115,16 @@ var ContainerControl = Control.extend({
 			contentClass = this.cssClass + '-content',
 
 			// 获取 content 。
-			content = body.find('.' + contentClass);
+			content = Dom.find('.' + contentClass, body);
 
 		// 如果不存在 content，则创建一个。
-		if (!content.length) {
-			body.setHtml('<div class="' + contentClass + '"></div>');
-			content = body.first();
+		if (!content) {
+			Dom.setHtml(body, '<div class="' + contentClass + '"></div>');
+			content = body.firstChild;
 		}
 
 		// 设置文本内容。
-		content[valueAsText ? 'setText' : 'setHtml'](value);
+		Dom[valueAsText ? 'setText' : 'setHtml'](content, value);
 		return this;
 
 	}
