@@ -27,6 +27,8 @@ var Class = (function () {
             return Object.prototype.toString.call(this);
         },
 
+        //#region Event
+
         /**
          * 增加一个事件监听者。
          * @param {String} eventName 事件名。
@@ -261,6 +263,8 @@ var Class = (function () {
                 this.un(type, fn).un(type, arguments.callee);
             }, this).on(type, fn, scope);
         }
+
+        //#endregion
 
     };
 

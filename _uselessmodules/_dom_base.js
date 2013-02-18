@@ -191,3 +191,55 @@ Dom.iterateDom = iterateDom;
 //};
 
 
+
+
+/**
+ * 获取当前 Dom 对象的全部兄弟节点对象。
+ * @param {Integer/String/Function/Boolean} [filter] 用于查找子元素的 CSS 选择器 或者 元素在Control对象中的索引 或者 用于筛选元素的过滤函数 或者 true 则同时接收包含文本节点的所有节点。
+ * @return {Dom} 返回一个 Dom 对象。
+ */
+Dom.siblings = function (node, selector) {
+    return Dom.prevAll(node, selector).add(Dom.nextAll(node, selector));
+};
+
+/**
+ * 将一个节点用另一个节点替换。
+ * @param {String/Node/Dom} html 用于将匹配元素替换掉的内容。
+ * @return {Element} 替换之后的新元素。
+ * 将所有匹配的元素替换成指定的HTML或DOM元素。
+ * @example
+ * 把所有的段落标记替换成加粗的标记。
+ * #####HTML:
+ * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;cruel&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;</pre>
+ * #####JavaScript:
+ * <pre>Dom.query("p").replaceWith("&lt;b&gt;Paragraph. &lt;/b&gt;");</pre>
+ * #####结果:
+ * <pre lang="htm" format="none">&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;&lt;b&gt;Paragraph. &lt;/b&gt;</pre>
+ *
+ * 用第一段替换第三段，可以发现他是移动到目标位置来替换，而不是复制一份来替换。
+ * #####HTML:<pre lang="htm" format="none">
+ * &lt;div class=&quot;container&quot;&gt;
+ * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
+ * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
+ * &lt;div class=&quot;inner third&quot;&gt;Goodbye&lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ * #####JavaScript:
+ * <pre>Dom.find('.third').replaceWith(Dom.find('.first'));</pre>
+ * #####结果:
+ * <pre lang="htm" format="none">
+ * &lt;div class=&quot;container&quot;&gt;
+ * &lt;div class=&quot;inner second&quot;&gt;And&lt;/div&gt;
+ * &lt;div class=&quot;inner first&quot;&gt;Hello&lt;/div&gt;
+ * &lt;/div&gt;
+ * </pre>
+ */
+Dom.replaceWith = function (node, html) {
+    return Dom.manip(node, html, function (node, html) {
+        var parent = node.parentNode;
+        if (parent) {
+            parent.insertBefore(html, node);
+            parent.removeChild(node);
+        }
+    });
+};

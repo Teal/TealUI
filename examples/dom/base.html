@@ -97,6 +97,7 @@
 
                 '处理(Manipulation)': '-',
                 'contains': 'Dom.contains(a, b)',
+                'insert': 'Dom.insert(a, "insert")',
                 'append': 'Dom.append(a, "append")',
                 'prepend': 'Dom.prepend(a, "prepend")',
                 'after': 'Dom.after(a, "after")',
@@ -108,7 +109,7 @@
                 'remove': 'Dom.remove(c)',
                 'dispose': 'Dom.dispose(c)',
 
-                'replaceWith': 'Dom.replaceWith(d, "<div/>")',
+                //'replaceWith': 'Dom.replaceWith(d, "<div/>")',
 
                 //'insertBefore': 'Dom.insertBefore(b,c, null)',
                 //'attach': 'd.attach(c.node, null)',
@@ -126,7 +127,7 @@
                 'parents': 'Dom.parents(b)',
                 'prevAll': 'Dom.prevAll(b)',
                 'nextAll': 'Dom.nextAll(b)',
-                'siblings': 'Dom.siblings(b)',
+                //'siblings': 'Dom.siblings(b)',
                 'children': 'Dom.children(b)',
                 'clone': 'Dom.clone(a)',
 
@@ -140,6 +141,7 @@
                 'getScrollSize': 'Dom.getScrollSize(a)',
 
                 '位置(Offset)': '-',
+                'offsetParent': 'Dom.offsetParent(a)',
                 'getOffset - 获取 .offsetParent() 的偏移': 'Dom.getOffset(a)',
                 'setOffset': 'Dom.setOffset(a, {x:2, y:5})',
                 'getPosition - 获取在整个窗口的绝对位置': 'Dom.getPosition(a)',
