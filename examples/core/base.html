@@ -40,14 +40,18 @@
                     });
                 },
                 'Object.map': function () {
+
+                    // 功能1: 参数是字符串，将字符串按空格分开后依次遍历。
                     Object.map("aa bb", function (value, key) {
                         alert(key + ' = ' + value);
                     });
 
+                    // 功能2: 相当于原生的 [].map() 。
                     var result1 = Object.map(["aa", "bb"], function (value, key) {
                         return value + value;
                     });  // 返回 ["aaaa","bbbb"]
 
+                    // 功能2: 相当于 [].map() 的 {} 版本。
                     var result2 = Object.map({ a: "aa", b: "bb" }, function (value, key) {
                         return value + value;
                     });  // 返回  {a:"aaaa",b:"bbbb"}
@@ -89,11 +93,11 @@
 
                 'navigator 扩展': '-',
                 '判断指定的浏览器(基于UA)': 'navigator.isIE6',
-                '判断是否支持 HTML5（非 IE6/7/8）': 'navigator.isStd',
-                '判断是否为老浏览器（IE6/7）': 'navigator.isQuirks',
-                '获取浏览器名字': 'navigator.name',
-                '获取浏览器版本': 'navigator.version',
-                '查看全部浏览器信息': 'navigator',
+                '判断 IE6/7(基于特性)': 'navigator.isIE67',
+                '判断 IE6/7/8(基于特性)': 'navigator.isIE678',
+                //'获取浏览器名字': 'navigator.name',
+                //'获取浏览器版本': 'navigator.version',
+                //'查看全部浏览器信息': 'navigator',
 
                 'JPlus & 全局': '-',
                 'window.execScript': 'window.execScript("alert(\'我是被 execScript 执行的\')")',

@@ -152,4 +152,3 @@ var Dialog = ContainerControl.extend({
 	}
 	
 });
-
