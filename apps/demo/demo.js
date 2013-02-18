@@ -49,8 +49,8 @@ Demo.Configs = {
                 <a href="~/apps/tools/codesegments/specialcharacters.html" target="_blank">特殊字符</a>\
                 <a href="~/apps/tools/codesegments/regexp.html" target="_blank">常用正则</a>\
                 <!--<a href="~/resources/index.html#tool" target="_blank">更多工具</a>-->\
-                <a href="javascript://浏览当前页面的源文件" onclick="Demo.Page.exploreSource();" style="border-top: 1px solid #EBEBEB;">浏览源文件</a>\
-                <a href="javascript://显示或隐藏页面中自动显示的源码片段" onclick="Demo.Page.toggleSources()">切换代码</a>',
+                <a href="javascript://显示或隐藏页面中自动显示的源码片段" onclick="Demo.Page.toggleSources()" style="border-top: 1px solid #EBEBEB;">折叠代码</a>\
+                <a href="javascript://浏览当前页面的源文件" onclick="Demo.Page.exploreSource();">浏览源文件</a>',
 
 	/**
 	 * 文档的下拉菜单 HTML 模板。

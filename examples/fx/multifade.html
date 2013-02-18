@@ -1,13 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="UTF-8">
     <title>多元素渐隐效果</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../../src/fx/multifade.js"></script>
+
+    <script type="text/javascript" src="../../src/boot.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/multifade.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 
@@ -15,14 +17,13 @@
 <body>
     <article class="demo">
         <div class="demo-box demo-blue"></div>
-        <div class="demo-box demo-purple"></div>
-        <div class="demo-box demo-indigo"></div>
+        <div class="demo-box demo-red"></div>
         <div class="demo-box demo-green"></div>
-        <div class="demo-box demo-purple"></div>
-        <div class="demo-box demo-indigo"></div>
+        <div class="demo-box demo-yellow"></div>
+        <div class="demo-box demo-blue"></div>
+        <div class="demo-box demo-red"></div>
         <script>
-            document.query(".demo-box").multiFade();
-
+            Dom.query(".demo-box").multiFade();
         </script>
     </article>
 </body>

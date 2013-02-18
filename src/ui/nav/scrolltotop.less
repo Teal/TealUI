@@ -12,7 +12,7 @@ html {
     bottom: 10px;
     right: 10px;
     _position: absolute;
-    _top: ~"expression(document.getScroll().y + document.getSize().y-65)";
+    _top: ~"expression(Dom.getScroll(document).y + Dom.getSize(document).y-65)";
 
     display: none;
     overflow: hidden;
@@ -27,6 +27,6 @@ html {
 	.opacity(0.8);
 }
 
-#toTop:active, #toTop:focus {
+.ui-scrolltotop:active, .ui-scrolltotop:focus {
     outline: none;
 }

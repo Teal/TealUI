@@ -15,20 +15,20 @@ Draggable.implement({
     limit: function (position, size) {
 
         if (typeof position.x !== 'number') {
-            position = position instanceof Dom ? position : Dom.get(position);
-            size = position.getSize();
-            position = position.getPosition();
+            position = Dom.find(position);
+            size = Dom.getSize(position);
+            position = Dom.getPosition(position);
         }
 
         var me = this;
 
-        me.proxy.setOffset({
+        Dom.setOffset(me.proxy, {
             x: me.offset.x + me.to.x - me.from.x,
             y: me.offset.y + me.to.y - me.from.y
         });
 
-		var myPosition = me.proxy.getPosition(),
-			mySize = me.proxy.getSize(),
+    	var myPosition = Dom.getPosition(me.proxy),
+			mySize = Dom.getSize(me.proxy),
 			deltaX = position.x - myPosition.x,
 			deltaY = position.y - myPosition.y;
 			
@@ -55,12 +55,12 @@ Draggable.implement({
 	
 	revert: function(){
 		var me = this.proxy;
-		me.draggable(false);
-		me.animate({
+		Dom.draggable(me, false);
+		Dom.animate(me, {
 			left: this.offset.x,
 			top: this.offset.y
 		}, -1, function () {
-			me.draggable();
+			Dom.draggable(me);
 		});
 	},
 	
@@ -72,11 +72,19 @@ Draggable.implement({
 	
 	autoScroll: function(target){
 		
-		var scroll = target.getScroll(),
-			top = this.proxy.getPosition().sub(target.getPosition()),
-			size = target.getSize(),
-			scollSize = target.getScrollSize().sub(size),
+		target = Dom.find(target);
+
+		var scroll = Dom.getScroll(target),
+			top = Dom.getPosition(this.proxy),
+			pos = Dom.getPosition(target),
+			size = Dom.getSize(target),
+			scollSize = Dom.getScrollSize(target),
 			delta;
+
+		top.x -= pos.x;
+		top.y -= pos.y;
+		scollSize.x -= size.x;
+		scollSize.y -= size.y;
 
 		if(top.y < 0)
 			scroll.y += top.y;
@@ -84,7 +92,8 @@ Draggable.implement({
 		if(top.x < 0)
 			scroll.x += top.x;
 		
-		top = top.add(this.proxy.getSize());
+		top.x += this.proxy.offsetWidth;
+		top.y += this.proxy.offsetHeight;
 		
 		delta = top.y - size.y;
 		
@@ -98,7 +107,7 @@ Draggable.implement({
 			scroll.x += delta;
 		}
 		
-		document.setScroll(scroll);
+		Dom.setScroll(document, scroll);
 	}
 	
 });

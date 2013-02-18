@@ -2,14 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta" />
+    <meta name="module-info" content="status=complete" />
     <title>列表组件基类</title>
 
     <script type="text/javascript" src="../../../src/boot.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
 
-    <script type="text/javascript" src="../../../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
 <body>
     <article class="demo">
@@ -62,8 +62,8 @@
                     '获取项数': 'listControl.count()',
                     '获取第一项': 'listControl.item(0)',
                     '获取某一项在列表中的索引': 'listControl.indexOf(listControl.item(0))',
-                    '遍历每一项': 'listControl.each(function(item, index){ alert(item.getText()); })',
-                    '绑定项点击事件': 'listControl.itemOn("click", function(item, e){alert(item.getText())})'
+                    '遍历每一项': 'listControl.each(function(item, index){ alert(Dom.getText(item)); })',
+                    '绑定项点击事件': 'listControl.itemOn("click", function(item, e){alert(Dom.getText(item))})'
                 });
 
             </script>

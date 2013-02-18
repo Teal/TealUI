@@ -80,7 +80,7 @@ var ICollapsable = {
 			callback;
 
         // 如果允许折叠，则继续执行。
-        if (me.onCollapsing() !== false && (body = me.body ? me.body() : me.dom)) {
+        if (me.onCollapsing() !== false && (body = me.body ? me.body() : me.elem)) {
             
         	Dom.hide(body, {
 				args: duration,

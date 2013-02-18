@@ -26,7 +26,8 @@ Dom.implement({
 			if ("outerHTML" in elem && !/<(?:script|style|link)/i.test(value)) {
 				elem.outerHTML = value;
 			} else {
-				Dom.get(elem).before(value).remove();
+				Dom.before(elem, value);
+				Dom.remove(elem);
 			}
 		});
 	}

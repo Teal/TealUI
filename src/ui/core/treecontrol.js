@@ -31,19 +31,13 @@ var TreeControl = ListControl.extend({
 	initNode: function (li) {
 
 		// 获取第一个子节点。
-		var sub = li.find('>ul');
+		var sub = Dom.find(li, '>ul');
 
 		// 如果不存在子树，也不需要创建子节点，则退出。
-		if (sub.length) {
+		if (sub) {
 
-			// 为了设置子菜单，将 li 转为 Node 对象。
-			// 根据节点创建一个 TreeControl.Node 对象。
-			if (!(li instanceof TreeControl.Node)) {
-				li = this.createNode(li);
-			}
-
-			// 设置子菜单。
-			li.setSub(sub);
+			// 创建子节点的示例并设置子菜单。
+			this.createNode(li).setSub(sub);
 
 		}
 
@@ -54,7 +48,7 @@ var TreeControl = ListControl.extend({
 	 * @protected override
 	 */
 	init: function () {
-		for (var c = this.dom.first() ; c.length; c = c.next()) {
+		for (var c = Dom.first(this.elem) ; c; c = Dom.next(c)) {
 			this.initNode(c);
 		}
 	},
@@ -65,26 +59,29 @@ var TreeControl = ListControl.extend({
 	 * @param {Control} refControl 元素被添加的位置。
 	 * @protected override
 	 */
-	insert: function (newChild, refChild) {
+	insert: function (newItem, refItem) {
 		
 		// 将参数转为 Node 对象。
-		if (!(newChild instanceof TreeControl.Node)) {
-			var t = newChild;
-			newChild = this.createNode();
-			newChild.content().append(t);
+		if (!(newItem instanceof TreeControl.Node)) {
+			var t = newItem;
+			newItem = this.createNode();
+			Dom.append(newItem.content(), t);
 		}
 
 		// 如果其内部有子树，则进行初始化。
-		this.initNode(newChild.dom);
+		this.initNode(newItem.elem);
 
-		newChild.attach(this.dom, refChild);
+		return Dom.insert(this.elem, newItem.elem, refItem);
+	},
 
-		return newChild;
+	parent: function () {
+		var ul = Dom.parent(Dom.parent(this.elem, 'li'), 'ul');
+		return ul ? new this.constructor(ul) : null;
 	},
 
 	item: function (index) {
-		index = this.dom.child(index);
-		return index.length ? this.createNode(index) : null;
+		index = Dom.child(this.elem, index);
+		return index && this.createNode(index);
 	}
 
 });
@@ -124,8 +121,8 @@ TreeControl.Node = ContentControl.extend({
 	uninitSub: Function.empty,
 
 	parent: function () {
-		var li = this.dom.parent('ul').parent('li');
-		return li.length ? new this.constructor(li) : null;
+		var li = Dom.parent(Dom.parent(this.elem, 'ul'), 'li');
+		return li ? new this.constructor(li) : null;
 	},
 
 	/**
@@ -150,7 +147,7 @@ TreeControl.Node = ContentControl.extend({
 	 */
 	getSub: function () {
 		// 子树的信息存在当前节点中。
-		return Dom.data(this.dom[0]).treeControlSub || null;
+		return Dom.data(this.elem).treeControlSub || null;
 	},
 
 	/**
@@ -165,12 +162,10 @@ TreeControl.Node = ContentControl.extend({
 			}
 
 			// 如果子树不在 DOM 树中，插入到当前节点后。
-			if (!treeControl.dom.closest('body').length) {
-				this.dom.append(treeControl.dom);
-			}
+			Dom.append(this.elem, treeControl.elem);
 
 			// 保存当前节点的子树对象。
-			Dom.data(this.dom[0]).treeControlSub = treeControl;
+			Dom.data(this.elem).treeControlSub = treeControl;
 
 			// 初始化子树。
 			this.initSub(treeControl);
@@ -182,7 +177,7 @@ TreeControl.Node = ContentControl.extend({
 			treeControl.remove();
 
 			// 删除对象。
-			delete Dom.dataField(this.dom[0]).treeControlSub;
+			delete Dom.data(this.elem).treeControlSub;
 
 			// 取消初始化子树。
 			this.uninitSub(treeControl);

@@ -2,10 +2,8 @@
  * @author xuld
  */
 
-
 include("fx/animate.js");
 include("ui/core/base.js");
-
 
 var ScrollToTop = Control.extend({
 
@@ -18,23 +16,23 @@ var ScrollToTop = Control.extend({
     minScroll: 130,
 
     onClick: function (e) {
-        e.preventDefault();
-        Dom.document.animate({scrollTop: 0}, this.scrollDuration);
+    	e.preventDefault();
+    	Dom.animate(document, { scrollTop: 0 }, this.scrollDuration);
     },
 
     init: function (options) {
-        var me = this;
-        document.on('scroll', function () {
-            if (document.getScroll().y > me.minScroll) {
-                me.show(me.showDuration);
+        
+        Dom.on(document, 'scroll', function () {
+        	if (Dom.getScroll(document).y > this.minScroll) {
+        		Dom.show(this.elem, this.showDuration);
             } else {
-                me.hide(me.showDuration);
+        		Dom.hide(this.elem, this.showDuration);
             }
-        });
-        this.on('click', this.onClick);
+        }, this);
+        Dom.on(this.elem, 'click', this.onClick, this);
 		
-		if(!this.closest('body')){
-			this.appendTo();
+		if(!Dom.closest(this.elem, 'body')){
+			document.body.appendChild(this.elem);
 		}
     }
 

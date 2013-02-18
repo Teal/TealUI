@@ -130,11 +130,11 @@ dp.match = function (selector) {
 //#region Attribute
 
 dp.getAttribute = function (name, type) {
-	return this.length ? Dom.getAttribute(this[0], name, type) : null;
+	return this.length ? Dom.getAttr(this[0], name, type) : null;
 };
 
 dp.setAttribute = function (name, value) {
-	return iterate(this, Dom.setAttribute, name, value);
+	return iterate(this, Dom.setAtt, name, value);
 };
 
 dp.getText = function () {

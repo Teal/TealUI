@@ -477,7 +477,7 @@ var Dom = (function () {
 	 * #####JavaScript:
 	 * <pre>
 	 * // 在 IE 中无效:
-	 * Dom.parse("&lt;input&gt;").setAttribute("type", "checkbox");
+	 * Dom.parse("&lt;input&gt;").setAttr("type", "checkbox");
 	 * // 在 IE 中有效:
 	 * Dom.parse("&lt;input type='checkbox'&gt;");
 	 * </pre>        
@@ -525,7 +525,7 @@ var Dom = (function () {
 
 		/**
 		 * 获取和设置优先使用 prop 而不是 attr 的特殊属性的函数。
-		 * @remark 在 Dom.getAttribute, Dom.setAttribute, Dom.getText 使用。
+		 * @remark 在 Dom.getAtt, Dom.setAtt, Dom.getText 使用。
 		 */
 		propHook = {
 		    get: function (elem, name, type) {
@@ -803,9 +803,9 @@ var Dom = (function () {
 	 * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
 	 * @static
 	 */
-    Dom.getAttribute = function (elem, name, type) {
+    Dom.getAttr = function (elem, name, type) {
 
-        assert.isNode(elem, "Dom.getAttribute(elem, name, type): {elem} ~");
+        assert.isNode(elem, "Dom.getAttr(elem, name, type): {elem} ~");
 
         // 将小写的属性名改为骆驼形式。
         name = attrFix[name] || name;
@@ -844,7 +844,7 @@ var Dom = (function () {
 	 * #####结果:
 	 * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
 	 */
-    Dom.setAttribute = function (elem, name, value) {
+    Dom.setAttr = function (elem, name, value) {
 
         name = attrFix[name] || name;
 
@@ -1799,19 +1799,16 @@ var Dom = (function () {
 
     Dom.un = function (elem, type, selector, fn) {
 
-        var data = (Dom.data(elem) || {}).$events, eventHandler, eventFix;
+    	var data = (Dom.data(elem) || {}).$events || emptyObj, eventHandler = data[type], eventFix;
 
         // 如果不传递 type, 表示删除当前 DOM 的全部事件。
         // 如果指定的节点无法存储数据，则不添加函数。
-        if (data && type) {
+    	if (eventHandler) {
 
             if (typeof selector !== 'string') {
                 fn = selector;
                 selector = null;
             }
-
-            // 获取事件类型。
-            eventHandler = data[type];
 
             // 如果指定了函数，则搜索指定的函数。
             if (fn) {
@@ -2482,6 +2479,12 @@ var Dom = (function () {
 
     };
 
+    Dom.insert = function (node, html, refNode) {
+		return Dom.manip(node, html, function (node, html) {
+			node.insertBefore(html, refNode || null);
+        });
+    };
+
     /**
 	 * 插入一个HTML 到末尾。
 	 * @param {String/Node/Dom} html 要插入的内容。
@@ -2803,6 +2806,24 @@ var Dom = (function () {
      */
     var rBody = /^(?:BODY|HTML|#document)$/i;
 
+    function getDocumentScroll(doc) {
+    	var p, win;
+    	if ('pageXOffset' in (win = doc.defaultView || doc.parentWindow)) {
+    		p = {
+    			x: win.pageXOffset,
+    			y: win.pageYOffset
+    		};
+    	} else {
+    		elem = doc.documentElement;
+    		p = {
+    			x: doc.scrollLeft,
+    			y: doc.scrollTop
+    		};
+    	}
+
+    	return p;
+    }
+
     /**
      * 获取用于让当前 Dom 对象定位的父对象。
      * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
@@ -2837,13 +2858,13 @@ var Dom = (function () {
 
         // 对于 document，返回 scroll 。
         if (elem.nodeType === 9) {
-            return Dom.getDocumentScroll(elem);
+            return getDocumentScroll(elem);
         }
 
         var bound = typeof elem.getBoundingClientRect !== "undefined" ? elem.getBoundingClientRect() : { x: 0, y: 0 },
             doc = getDocument(elem),
             html = doc.documentElement,
-            htmlScroll = Dom.getDocumentScroll(doc);
+            htmlScroll = getDocumentScroll(doc);
         return {
             x: bound.left + htmlScroll.x - html.clientLeft,
             y: bound.top + htmlScroll.y - html.clientTop
@@ -2966,24 +2987,6 @@ var Dom = (function () {
             elem.left = value.x + 'px';
     };
 
-    Dom.getDocumentScroll = function (doc) {
-        var p, win;
-        if ('pageXOffset' in (win = doc.defaultView || doc.parentWindow)) {
-            p = {
-                x: win.pageXOffset,
-                y: win.pageYOffset
-            };
-        } else {
-            elem = doc.documentElement;
-            p = {
-                x: doc.scrollLeft,
-                y: doc.scrollTop
-            };
-        }
-
-        return p;
-    };
-
     /**
      * 获取当前 Dom 对象的滚动条的位置。
      * @return {Point} 返回的对象包含两个整型属性：x 和 y。
@@ -3005,7 +3008,7 @@ var Dom = (function () {
      * </pre>
      */
     Dom.getScroll = function (elem) {
-        return elem.nodeType === 9 ? Dom.getDocumentScroll(elem) : {
+        return elem.nodeType === 9 ? getDocumentScroll(elem) : {
             x: elem.scrollLeft,
             y: elem.scrollTop
         };
@@ -3023,7 +3026,7 @@ var Dom = (function () {
             if (value.x != null) elem.scrollLeft = value.x;
             if (value.y != null) elem.scrollTop = value.y;
         } else {
-            var scroll = Dom.getDocumentScroll(elem);
+            var scroll = getDocumentScroll(elem);
             if (value.x == null)
                 value.x = scroll.x;
             if (value.y == null)
@@ -5294,7 +5297,7 @@ var Dom = (function () {
 
                     i = 0;
                     while (match = preResult[i++]) {
-                        actucalVal = Dom.getAttribute(match, filter, 1);
+                        actucalVal = Dom.getAttr(match, filter, 1);
                         switch (sep) {
                             case undefined:
                                 actucalVal = actucalVal != null;
@@ -5415,52 +5418,3 @@ var Dom = (function () {
 
 // 导出函数。
 var $ = $ || Dom.query, $$ = $$ || Dom.get;
-
-
-//function each(obj, fn) {
-//    for (var i in obj) {
-//        fn(obj[i], i);
-//    }
-//}
-
-
-////Dom._find = Dom.find;
-
-////Dom.find = function (a, b) {
-////	return Dom._find(a, b)[0] || null;
-////}
-
-//Dom._get = Dom.get;
-
-//Dom.get = function (a, b) {
-//    return Dom._get(a, b) && Dom._get(a, b)[0] || null;
-//}
-
-//each(Dom.prototype, function (a, mm) {
-//    if (!Dom[mm]) {
-//        Dom[mm] = function (elem, args1, args2, args3) {
-//            return new Dom([elem])[mm](args1, args2, args3);
-//        };
-//    }
-//});
-
-//Dom.last = function (elem) {
-//    return new Dom([elem]).last()[0] || null;
-//};
-
-//Dom.first = function (elem) {
-//    return new Dom([elem]).first()[0] || null;
-//};
-
-//Dom.next = function (elem) {
-//    return new Dom([elem]).next()[0] || null;
-//};
-
-//Dom.prev = function (elem) {
-//    return new Dom([elem]).prev()[0] || null;
-//};
-
-
-//Dom.remove = function (elem) {
-//    return Dom.prototype.remove.apply(new Dom([elem]), [].slice.call(arguments, 1));
-//}

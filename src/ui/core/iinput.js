@@ -26,7 +26,7 @@ var IInput = {
 	input: function () {
 		
 		if(!this.inputProxy) {
-			this.inputProxy = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.dom[0].tagName) ? this.dom : (Dom.get(this.dom.find("input,select,textarea")) || Dom.parse('<input type="hidden">').setAttribute('name', Dom.getAttribute(this[0], 'name')).appendTo(this));
+			this.inputProxy = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.dom[0].tagName) ? this.dom : (Dom.get(this.dom.find("input,select,textarea")) || Dom.parse('<input type="hidden">').setAttribute('name', Dom.getAttr(this[0], 'name')).appendTo(this));
 		}
         
 	    // 如果不存在隐藏域, 则创建一个。
@@ -57,13 +57,13 @@ var IInput = {
 	        dom = this.input();
 	    }
 
-	    this.dom.setAttribute(name, value);
+	    this.Dom.setAttr(name, value);
 	    return this;
 	},
 
 	getAttribute: function (name, type) {
 	    // 几个特殊属性需要对 input() 操作。
-	    return this.dom.getAttribute((/^(disabled|readonly|checked|selected|actived|value|name|form)$/i.test(name) ? this.input() : this)[0], name, type);
+	    return this.Dom.getAttr((/^(disabled|readonly|checked|selected|actived|value|name|form)$/i.test(name) ? this.input() : this)[0], name, type);
 	}
 	
 };

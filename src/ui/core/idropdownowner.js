@@ -54,18 +54,20 @@ var IDropDownOwner = {
 	},
 
 	attach: function (parentNode, refNode) {
-	    Control.prototype.attach.call(this, parentNode, refNode);
 		var dropDown = this.dropDown;
 		if (dropDown && !Dom.closest(dropDown, 'body')) {
-		    Dom.after(this.elem, dropDown);
+			Dom.insert(parentNode, dropDown, refNode);
 		}
+
+		Dom.insert(parentNode, this.elem, refNode);
 	},
 
 	detach: function () {
-		Control.prototype.detach.call(this);
 		if (this.dropDown) {
 			Dom.remove(this.dropDown);
 		}
+
+		Dom.remove(this.elem);
 	},
 
 	/**
@@ -143,7 +145,7 @@ var IDropDownOwner = {
 		var me = this;
 
 		// 如果是因为 DOM 事件而切换菜单，则测试是否为 disabled 状态。
-		if (!e || !Dom.getAttribute(me.elem, 'disabled') && !Dom.getAttribute(me.elem, 'readonly')) {
+		if (!e || !Dom.getAttr(me.elem, 'disabled') && !Dom.getAttr(me.elem, 'readonly')) {
 
 			// 如果下拉菜单被隐藏，则先重设大小、定位。
 			if (me.isDropDownHidden()) {
@@ -153,7 +155,7 @@ var IDropDownOwner = {
 	                dropDownWidth = me.dropDownWidth;
 
 				Dom.show(dropDown);
-				Dom.pin(me.elem, 'b', 0, -1)
+				Dom.pin(dropDown, me.elem, 'b', 0, -1)
 
 				// 重新修改宽度。
 

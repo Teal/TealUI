@@ -2,9 +2,7 @@
  * @author xuld
  */
 
-
 include("dom/base.js");
-
 
 /**
  * 处理用户拖动操作的类。
@@ -27,7 +25,7 @@ var Draggable = Class({
         // 绑定 draggable 和当前的 Draggable 对象。
         e.draggable = this;
 
-        return this.target.trigger(eventName, e);
+        return Dom.trigger(this.elem, eventName, e);
     },
 	
 	/**
@@ -37,12 +35,11 @@ var Draggable = Class({
 	 */
     onDragStart: function (e) {
 
-        if (!this.raiseEvent('dragstart', e)) {
+    	if (!this.raiseEvent('dragstart', e)) {
             return false;
         }
-
         // 记录当前的 offset, 用于在 onDrag 时设置位置。
-        this.offset = this.proxy.getOffset();
+        this.offset = Dom.getOffset(this.proxy);
     },
 	
 	/**
@@ -55,7 +52,7 @@ var Draggable = Class({
 
 	    me.raiseEvent('drag', e);
 
-	    me.proxy.setOffset({
+	    Dom.setOffset(me.proxy, {
 	        x: me.offset.x + me.to.x - me.from.x,
 	        y: me.offset.y + me.to.y - me.from.y
 	    });
@@ -94,8 +91,8 @@ var Draggable = Class({
 		var me = this;
 		
         // 记录当前的开始位置。
-		me.from = new Point(e.pageX, e.pageY);
-		me.to = new Point(e.pageX, e.pageY);
+		me.from = { x: e.pageX, y: e.pageY };
+		me.to = { x: e.pageX, y: e.pageY };
 		
 		// 设置当前处理  mousemove 的方法。
 		// 初始需设置 onDrag
@@ -109,7 +106,9 @@ var Draggable = Class({
 		}, me.dragDelay);
 		
 		// 设置文档  mouseup 和   mousemove
-		Dom.getDocument(me.handle.node).on('mouseup', me.handlerDragStop, me).on('mousemove', me.handlerMouseMove, me);
+		var doc = Dom.getDocument(me.handle);
+		Dom.on(doc, 'mouseup', me.handlerDragStop, me);
+		Dom.on(doc, 'mousemove', me.handlerMouseMove, me);
 	
 	},
 	
@@ -203,7 +202,7 @@ var Draggable = Class({
 	
 	beforeDrag: function (e) {
 	    this.oldCursor = document.documentElement.style.cursor;
-		document.documentElement.style.cursor = this.target.getStyle('cursor');
+	    document.documentElement.style.cursor = Dom.getStyle(this.elem, 'cursor');
 		if('pointerEvents' in document.body.style)
 			document.body.style.pointerEvents = 'none';
 		else if(document.body.setCapture)
@@ -223,9 +222,9 @@ var Draggable = Class({
 	constructor: function (options) {
 	    Object.extend(this, options);
 
-	    this.handle = this.handle || this.target;
+	    this.handle = this.handle || this.elem;
 
-	    this.proxy = this.proxy || this.target;
+	    this.proxy = this.proxy || this.elem;
 
 	    this.disable(false);
 	},
@@ -234,7 +233,9 @@ var Draggable = Class({
 	 * 停止当前对象的拖动。
 	 */
 	stopDragging: function(){
-	    Dom.getDocument(this.handle.node).un('mousemove', this.handlerMouseMove).un('mouseup', this.handlerDragStop);
+		var doc = Dom.getDocument(this.handle);
+		Dom.un(doc, 'mousemove', this.handlerMouseMove, this);
+		Dom.un(doc, 'mouseup', this.handlerDragStop, this);
 
 	    //   清空计时器。
 	    if (this.timer) {
@@ -249,10 +250,27 @@ var Draggable = Class({
 	 * 启用或禁用当前拖动功能的状态。
 	 */
 	disable: function (value) {
-	    this.handle[value === false ? 'on' : 'un']('mousedown', this.handlerMouseDown, this);
+		Dom[value === false ? 'on' : 'un'](this.handle, 'mousedown', this.handlerMouseDown, this);
 	}
 	
 });
+
+Dom.draggable = function (elem, options) {
+	
+	var draggable = Dom.data(elem).draggable;
+	if (options !== false) {
+		if (typeof options !== 'object') options = {};
+		if (draggable) {
+			Object.extend(draggable, options);
+			draggable.disable(false);
+		} else {
+			options.elem = elem;
+			Dom.movable(elem);
+			draggable = Dom.data(elem).draggable = new Draggable(options);
+		}
+	} else if (draggable)
+		draggable.disable();
+};
 
 /**
  * @class Dom
@@ -265,22 +283,7 @@ Dom.implement({
 	 * @return this
 	 */
     draggable: function (options) {
-		var draggable = this.dataField().draggable;
-		if (options !== false) {
-		    if (typeof options !== 'object') options = {};
-		    if (draggable) {
-		        Object.extend(draggable, options);
-				draggable.disable(false);
-			} else  {
-			    options.target = this;
-				Dom.movable(this.node);
-				draggable = this.dataField().draggable = new Draggable(options);
-			}
-			
-			
-		} else if(draggable)
-		    draggable.disable();
-		return this;
+    	return Dom.iterate(this, Dom.draggable, options);
 	}
 	
 });

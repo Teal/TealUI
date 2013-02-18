@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>工具提示接口</title>
 
     <script type="text/javascript" src="../../../src/boot.js"></script>
@@ -28,11 +28,11 @@
             <script>
 
                 // 初始化一个含有 IToolTip 功能的对象。
-                var target = new Control(Dom.get('tooltip'));
-                Object.extend(target, IToolTip);
+                var toolTip = new Control(Dom.get('tooltip'));
+                Object.extend(toolTip, IToolTip);
 
                 // 设置工具框指定的目标节点及对应的显示文字。
-                target.setToolTip(Dom.get('target'), '我是工具提示框');
+                toolTip.setToolTip(Dom.get('target'), '我是工具提示框');
             </script>
 
         </aside>

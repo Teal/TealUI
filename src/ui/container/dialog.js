@@ -2,14 +2,12 @@
  * @author xuld
  */
 
-
 include("ui/part/icon.css");
 include("ui/part/mask.css");
 include("ui/part/closebutton.css");
 include("ui/container/dialog.css");
 include("fx/animate.js");
 include("ui/core/containercontrol.js");
-
 
 /**
  * @class Dialog
@@ -35,21 +33,21 @@ var Dialog = ContainerControl.extend({
 		
 		// 如果用户传入了一个已经存在的节点，并且这个节点不是 ui-dialog 。
 		// 那么创建新的对话框容器，并且将节点作为这个对话框的内容。
-		if (!this.dom.hasClass('ui-dialog')) {
+		if (!Dom.hasClass(this.elem, 'ui-dialog')) {
 
 			// 如果这个节点已经调用过 new Dialog, 则其父元素就是 ui-dialog-body  了。
-			if (this.dom.parent('.ui-dialog-body')) {
-				this.dom = this.dom.parent().parent();
+			if (Dom.parent(this.elem, '.ui-dialog-body')) {
+				this.elem = Dom.parent(Dom.parent(this.elem));
 			} else {
 
 				// 保存当前节点。
-				var t = this.dom;
+				var t = this.elem;
 
 				// 创建新的对话框。
-				this.dom = this.create(options);
+				this.elem = this.create(options);
 
 				// 将节点加入到 body 中。
-				this.body().append(t);
+				Dom.append(this.body(), t);
 
 		    }
 		}
@@ -57,56 +55,55 @@ var Dialog = ContainerControl.extend({
 		// 关闭按钮。
 		// 默认隐藏对话框。
 		// 移除 script 脚本, 防止重复执行。
-		this.dom
-			.on('click.ui-dialog-close', this.onCloseButtonClick, this)
-			.setStyle('display', 'none')
-			.query('script').remove();
+		Dom.on(this.elem, 'click', '.ui-dialog-close', this.onCloseButtonClick, this);
+		Dom.setStyle(this.elem, 'display', 'none');
+		Dom.query('script', this.elem).each(Dom.remove);
 
 	},
 	
 	mask: function(opacity){
-		var mask = this.maskDom;
-		if (!mask) {
-			mask = Dom.find('.ui-mask-dialog');
-			if(!mask || !mask.length) {
-				mask = Dom.create('div', 'ui-mask ui-mask-dialog').appendTo();
-			}
+		var mask = this.maskNode || (this.maskNode = Dom.find('.ui-mask-dialog') || Dom.append(document.body, '<div class="ui-mask ui-mask-dialog"></div>'));
 
-			this.maskDom = mask;
-		}
 		if (opacity === null) {
-			mask.hide();
+			Dom.hide(mask);
 		} else {
-			mask.show();
-			mask.setSize(Dom.document.getScrollSize());
+			Dom.show(mask);
+			Dom.setSize(mask, Dom.getScrollSize(document));
 			if (opacity != null)
-				mask.setStyle('opacity', opacity);
+				Dom.setStyle(mask, 'opacity', opacity);
 		}
 		return this;
 	},
 	
-	setOffset: function(p){
+	setPosition: function(p){
 		if(p.x != null) {
 			this._centerType &= ~2;
-			this.setStyle('margin-left', 0);
+			Dom.setStyle(this.elem, 'margin-left', 0);
 		}
 		
 		if(p.y != null) {
 			this._centerType &= ~1;
-			this.setStyle('margin-top', 0);
+			Dom.setStyle(this.elem, 'margin-top', 0);
 		}
 		
-		return this.base('setOffset');
+		Dom.setPosition(this.elem, p);
+		return this;
 	},
-	
-	setWidth: function(){
-		return this.base('setWidth').center();
+
+	setSize: function (p) {
+		Dom.setSize(this.elem, p);
+		return this.center();
 	},
-	
-	setHeight: function(){
-		return this.base('setHeight').center();
+
+	setContentSize: function (x, y) {
+		Dom.setWidth(this.elem, 'auto');
+
+		var body = this.body();
+		Dom.setWidth(body, x)
+		Dom.setHeight(body, y);
+		return this.center();
 	},
-	
+
 	setContent: function () {
 		return ContainerControl.prototype.setContent.apply(this, arguments).center();
 	},
@@ -137,12 +134,6 @@ var Dialog = ContainerControl.extend({
 	
 	showDialog: function(){
 		return this.show.apply(this.mask(), arguments);
-	},
-	
-	setContentSize: function(x, y){
-		this.dom.setWidth('auto');
-		this.body().setWidth(x).setHeight(y);
-		return this.center();
 	},
 	
 	close: function (duration) {

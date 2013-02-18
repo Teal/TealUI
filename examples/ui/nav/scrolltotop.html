@@ -2,15 +2,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <meta name="module-info" content="status=plan" />
+        <meta name="module-info" content="status=complete" />
 		<title>滚到顶部</title>
 		
         <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
         <link rel="stylesheet" type="text/css" href="../../../src/ui/nav/scrolltotop.css" />
-        
+
+        <script type="text/javascript" src="../../../src/boot.js"></script>
         <script type="text/javascript" src="../../../src/core/base.js"></script>
         <script type="text/javascript" src="../../../src/dom/base.js"></script>
         <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+        <script type="text/javascript" src="../../../src/fx/base.js"></script>
+        <script type="text/javascript" src="../../../src/fx/animate.js"></script>
 		<script type="text/javascript" src="../../../src/ui/nav/scrolltotop.js"></script>
 		
 		<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
@@ -26,7 +29,7 @@
                 <a id="scrollToTop" href="#" class="ui-scrolltotop" title="返回顶部">返回顶部</a>
 
                 <script>
-                    var scrollToTop = new ScrollToTop('scrollToTop');
+                    var scrollToTop = new ScrollToTop('#scrollToTop');
                 </script>
 
             </aside>

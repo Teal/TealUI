@@ -58,33 +58,27 @@ var ListControl = Control.extend({
 	 * @param {Dom} refControl 元素被添加的位置。
 	 * @protected override
 	 */
-	insert: function (newChild, refChild) {
+	insert: function (newItem, refItem) {
 
 		// newChild 不一定是一个标准的 <li> 标签。
 		// 先处理 newChild 为标准 Dom 对象。
 
 		// 处理字符串。
-		newChild = Dom.parse(newChild, this.dom[0]);
-
-		if (newChild.length) {
+		if (newItem = Dom.parseNode(newItem, this.elem)) {
 
 			// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
-			if (newChild[0].tagName !== 'LI') {
-				var li = Dom.create('LI');
-				li.append(newChild);
-				newChild = li;
+			if (newItem.tagName !== 'LI') {
+				var li = document.createElement('li');
+				Dom.append(li, newItem);
+				newItem = li;
 			}
 
-			if (refChild && refChild.length) {
-				refChild.before(newChild);
-			} else {
-				this.dom.append(newChild);
-			}
+			Dom.insert(this.elem, newItem, refItem);
 
 		}
 
 		// 返回新创建的子控件。
-		return newChild;
+		return newItem;
 	},
 
 	/**
@@ -101,7 +95,7 @@ var ListControl = Control.extend({
 		}
 
 		// 返回被删除的子控件。
-		return child ? child.remove() : child;
+		return child ? Dom.remove(child) : null;
 	},
 
 	/**
@@ -110,11 +104,11 @@ var ListControl = Control.extend({
 	 * @return {Dom} 返回删除的子控件。如果删除失败（如索引超出范围）则返回 null 。
 	 */
 	removeAt: function (index) {
-		return this.remove(this.item(index));
+		return (index = this.item(index)) ? Dom.remove(index) : null;
 	},
 
 	empty: function () {
-		this.dom.empty();
+		Dom.empty(this.elem);
 		return this;
 	},
 
@@ -146,7 +140,7 @@ var ListControl = Control.extend({
 	 * @return {Dom} 指定容器控件包装的真实子控件。如果不存在相应的子控件，则返回自身。
 	 */
 	item: function (index) {
-		return this.dom.child(index);
+		return Dom.child(this.elem, index);
 	},
 
 	/**
@@ -155,18 +149,16 @@ var ListControl = Control.extend({
 	 * @return {Integer} 返回索引。如果不存在指定的子控件，则返回 -1 。
 	 */
 	indexOf: function (item) {
-		return item && item.parent && item.parent('ul')[0] === this.dom[0] ? item.index() : -1;
+		return item && item.parentNode === this.elem ? Dom.index(item) : -1;
 	},
 
 	count: function () {
-		return this.dom.children().length;
+		return Dom.children(this.elem).length;
 	},
 
 	each: function (fn, scope) {
-		for (var c = this.item(0) || [], next, i = 0 ; c.length ; c = next) {
-			next = c.next();
-
-			if (fn.call(scope, c, i++, this) === false) {
+		for (var i = 0, c; c = this.item(i) ; i++) {
+			if (fn.call(scope, c, i, this) === false) {
 				return false;
 			}
 		}
@@ -183,13 +175,13 @@ var ListControl = Control.extend({
      * @protected
 	 */
 	itemOn: function (eventName, fn, scope) {
-		return this.dom.on(eventName, function (e) {
+		return Dom.on(this.elem, eventName, function (e) {
 			for (var c = this.firstChild, target = e.target; c; c = c.nextSibling) {
 				if (c === target || Dom.contains(c, target)) {
-					return fn.call(scope || c, new Dom([c]), e);
+					return fn.call(scope || c, c, e);
 				}
 			}
-		}, this.dom[0]);
+		});
 	}
 
 	//#endregion

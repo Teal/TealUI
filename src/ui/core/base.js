@@ -58,11 +58,7 @@ var Control = Class({
     init: Function.empty,
 
     attach: function (parentNode, refNode) {
-    	if (refNode) {
-    		Dom.before(refNode, this.elem);
-    	} else {
-    		Dom.append(parentNode, this.elem);
-    	}
+    	Dom.insert(parentNode, this.elem, refNode);
     },
 
     detach: function () {

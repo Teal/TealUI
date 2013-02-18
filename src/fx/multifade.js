@@ -1,36 +1,29 @@
-//===========================================
-//  多个元素的效果
-//   A: xuld
-//===========================================
-
-
-
-
-
-
+/**
+ * @fileOverview 多个元素的效果
+ * @author xuld
+ */
 
 include("fx/animate.js");
 
-DomList.implement({
+Dom.implement({
 	
 	multiFade: function( opacity, onFade, onShow ) {
 		opacity = opacity === undefined ? 0.3 : opacity;
 		
-		var me = this;
-		
-		this.on('mouseenter', function(e){
-			me.each( function( elem ) {
-		    	if( elem != e.target ){
-					new Dom(elem).animate({opacity: opacity}, -1, onFade, 'abort');
+		this.each(function (elem) {
+
+			Dom.on(elem, 'mouseenter', function (e) {
+				if (elem != e.target) {
+					Dom.animate(elem, {opacity: opacity}, -1, onFade, 'abort');
 				}
-		    });
-		});
-		  
-		this.on('mouseleave', function(e) {
-		    me.each( function( elem ){
-		      if( elem != e.target )
-		      	new Dom(elem).animate({opacity: 1}, -1,onShow, 'abort');
-		    });
+			});
+
+			Dom.on(elem, 'mouseleave', function (e) {
+				if (elem != e.target) {
+					Dom.animate(elem, {opacity: 1}, -1,onShow, 'abort');
+				}
+			})
+
 		});
 		
 	}

@@ -34,25 +34,26 @@ var IToolTip = {
 	toggleArgs: -2,
 
 	show: function () {
-	    if (!this.dom.closest('body').length) {
-	        this.dom.appendTo();
+		if (!Dom.closest(this.elem, 'body')) {
+			document.body.appendChild(this.elem);
 	    }
 
-	    this.dom.show(this.toggleArgs);
+		Dom.show(this.elem, this.toggleArgs);
 	    return this;
 	},
 
 	hide: function () {
-		return this.dom.hide(this.toggleArgs);
+		Dom.hide(this.elem, this.toggleArgs);
+		return this;
 	},
 
-	showAt: function (p) {
-		this.show()
-		this.dom.setPosition(p);
+	showAt: function (position) {
+		this.show();
+		Dom.setPosition(this.elem, position);
 		return dom;
 	},
 
-	showBy: function (ctrl, offsetX, offsetY, e) {
+	showBy: function (target, offsetX, offsetY, e) {
 		
 	    var configs = ({
 	        left: ['rr-yc', 15, 0],
@@ -62,10 +63,10 @@ var IToolTip = {
 	        'null': ['xc-bb', 0, 5, 1]
 	    }[this.getArrow()]);
 
-	    this.show().dom.pin(ctrl, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
+	    Dom.pin(this.show().elem, target, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
 		
 		if(configs[3] && e){
-			this.dom.setPosition({ x: e.pageX + (offsetX || 0) });
+			Dom.setPosition(this.elem, { x: e.pageX + (offsetX || 0) });
 		}
 
 		return this;
@@ -73,24 +74,21 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-		var arrow = this.dom.find('.ui-arrow');
-		if(!arrow.length){
-			arrow = Dom.parse(this.arrowTpl).appendTo(this.dom);
-		}
+		var arrow = Dom.find(this.elem, '.ui-arrow') || Dom.append(this.elem, this.arrowTpl);
 
 	    if (value) {
-	        arrow[0].className = 'ui-arrow ui-arrow-' + value;
+	        arrow.className = 'ui-arrow ui-arrow-' + value;
 	    } else {
-	        arrow.remove();
+	    	Dom.remove(arrow);
 	    }
 	    return this;
 	},
 
 	getArrow: function () {
-	    var arrow = this.dom.find('.ui-arrow'), r = null;
+		var arrow = Dom.find(this.elem, '.ui-arrow'), r = null;
 
-	    if (arrow.length) {
-	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow[0].className) || [0, r])[1];
+	    if (arrow) {
+	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow.className) || [0, r])[1];
 	    }
 	    return r;
 	},
@@ -99,34 +97,35 @@ var IToolTip = {
      * 设置某个控件工具提示。
      */
 	setToolTip: function (dom, caption, offsetX, offsetY) {
-		dom = Dom.query(dom);
+		var me = this;
+		Dom.query(dom).each(function (elem) {
+			Dom.on(elem, 'mouseover', function (e) {
+				var waitTimeout = Dom.isHidden(me.elem) ? me.initialDelay : me.reshowDelay;
+				if (me.showTimer)
+					clearTimeout(me.showTimer);
 
-	    var me = this;
-	    dom.on('mouseover', function (e) {
-	        var waitTimeout = Dom.isHidden(me.dom[0]) ? me.initialDelay : me.reshowDelay;
-	        if (me.showTimer)
-	            clearTimeout(me.showTimer);
+				me.showTimer = setTimeout(function () {
+					me.showTimer = 0;
 
-	        me.showTimer = setTimeout(function () {
-	            me.showTimer = 0;
+					if (caption)
+						Dom.setText(me.content ? me.content() : me.elem, caption);
 
-	            if (caption)
-	                me.content().setText(caption);
+					me.showBy(elem, offsetX, offsetY, e);
+				}, waitTimeout);
 
-	            me.showBy(dom, offsetX, offsetY, e);
-	        }, waitTimeout);
+			});
 
-	    });
-		
-	    dom.on('mouseout', function () {
-	        if (me.showTimer) {
-	            clearTimeout(me.showTimer);
-	        }
+			Dom.on(elem, 'mouseout', function () {
+				if (me.showTimer) {
+					clearTimeout(me.showTimer);
+				}
 
-	        me.hide();
-	    });
-		
-		
+				me.hide();
+			});
+
+		});
+
+
 	    return this;
 		
 	}

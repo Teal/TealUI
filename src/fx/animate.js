@@ -111,9 +111,9 @@ include("fx/tween.js");
         // [elem, [opacity, 300], {}]
 
         var options = typeof args[1] === 'object' ? args[1] : {
-            duration: args[2],
-            callback: args[3],
-            link: args[4]
+            duration: args[1],
+            callback: args[2],
+            link: args[3]
         }, userArgs = args.args;
 
         // 允许通过 args 字段来定义默认参数。
@@ -238,7 +238,7 @@ include("fx/tween.js");
      */
     Dom.show = function (elem) {
         var args = arguments;
-
+        
         // 加速空参数的 show 调用。
         if (args.length === 1) {
 
@@ -262,7 +262,7 @@ include("fx/tween.js");
                     elem: elem,
                     duration: args.duration,
                     start: function (options, fx) {
-
+                    	
                         var elem = this,
                             t,
                             params,
@@ -270,7 +270,7 @@ include("fx/tween.js");
 
                         // 如果元素本来就是显示状态，则不执行后续操作。
                         if (!Dom.isHidden(elem)) {
-                            args.callback.call(me, true, true);
+                        	args.callback.call(elem, true, true);
                             return false;
                         }
 
@@ -307,7 +307,7 @@ include("fx/tween.js");
                         }
                     },
                     complete: function (isAbort, fx) {
-
+                    	
                         // 拷贝回默认值。
                         Object.extend(this.style, fx.options.orignal);
 
@@ -371,7 +371,7 @@ include("fx/tween.js");
 
                         // 如果元素本来就是隐藏状态，则不执行后续操作。
                         if (Dom.isHidden(elem)) {
-                            args.callback.call(me, false, true);
+                        	args.callback.call(elem, false, true);
                             return false;
                         }
 
