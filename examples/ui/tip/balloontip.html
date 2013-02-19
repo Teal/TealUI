@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/arrow.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/tip/balloontip.css" />
 
+    <script type="text/javascript" src="../../../src/boot.js"></script>
     <script type="text/javascript" src="../../../src/core/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
@@ -26,15 +27,15 @@
 
         <script class="demo">
 
-            var balloonTip1 = new BalloonTip().setToolTip('balloonTip_ct', '提示内容').setTitle("标题");
+            var balloonTip1 = new BalloonTip().setToolTip('#balloonTip_ct', '提示内容').setTitle("标题");
 
-            var balloonTip2 = new BalloonTip().setArrow('left').setToolTip('balloonTip_ct', '提示内容');
+            var balloonTip2 = new BalloonTip().setArrow('left').setToolTip('#balloonTip_ct', '提示内容');
 
-            var balloonTip3 = new BalloonTip().setArrow('bottom').setToolTip('balloonTip_ct', '提示内容');
+            var balloonTip3 = new BalloonTip().setArrow('bottom').setToolTip('#balloonTip_ct', '提示内容');
 
-            var balloonTip4 = new BalloonTip().setArrow('right').setToolTip('balloonTip_ct', '提示内容');
+            var balloonTip4 = new BalloonTip().setArrow('right').setToolTip('#balloonTip_ct', '提示内容');
 
-            var balloonTip5 = new BalloonTip().setArrow('top').setToolTip('balloonTip_ct', '提示内容');
+            var balloonTip5 = new BalloonTip().setArrow('top').setToolTip('#balloonTip_ct', '提示内容');
 
         </script>
 

@@ -2425,13 +2425,6 @@ var Dom = (function () {
         return false;
     };
 
-    Dom.isEmpty = function (elem) {
-        for (elem = elem.firstChild; elem; elem = elem.nextSibling)
-            if (elem.nodeType === 1 || elem.nodeType === 3)
-                return false;
-        return true;
-    };
-
     Dom.manip = function (node, html, fn) {
 
         var dom, i, script;
@@ -2489,6 +2482,18 @@ var Dom = (function () {
         return Dom.manip(node, html, function (node, html) {
             node.insertBefore(html, refNode || null);
         });
+    };
+
+	/**
+	 * 判断一个节点是否有元素节点或文本节点。
+	 * @param {Element} elem 要测试的元素。
+	 * @return {Boolean} 如果存在子节点，则返回 true，否则返回 false 。
+	 */
+    Dom.isEmpty = function (elem) {
+    	for (elem = elem.firstChild; elem; elem = elem.nextSibling)
+    		if (elem.nodeType === 1 || elem.nodeType === 3)
+    			return false;
+    	return true;
     };
 
     /**
