@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>模拟圆角</title>
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/borderradius.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <div style="background: yellow;" id="a">
+            <div style="background: red; width: 200px;" id="aa">id=aa<div style="background: black; color: white" id="aba">id=aba</div>
+            </div>
+            <div style="background: green; border: 10px purple solid;" id="ab">id=ab<input type="button" name="button" id="button" value="子控件" /></div>
+        </div>
+        <hr>
+
+        <div id="c" style="height: 300px;"></div>
+        <script>
+            JPlus.borderRadius(document.getDom('ab'), 3);
+
+            document.getDom('c').innerHTML = // '<v:roundrect   style="height:300px;  width: 578px; display: block;  behavior: url(#default#VML)" strokeWeight="1" arcsize=".01"></v:roundrect>';
+
+		'<v:roundrect style="height:300px;  width: 578px;display: block;behavior: url(#default#VML);background:green;z-index:0" strokeWeight="1" arcsize="1"></v:roundrect>'
+
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>自动填充</title>
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../../src/dom/autocomplete.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <div>
+            IP地址：   
+            <input type="text" id="a" />
+
+        </div>
+        <script>
+            Dom.get('a').autoComplete(function (value) {
+                return value + '_completed';
+            });
+        </script>
+    </article>
+</body>
+</html>

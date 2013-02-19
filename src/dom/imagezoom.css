@@ -1,0 +1,11 @@
+/**
+ * @author sun
+ */
+
+.ui-imagezoom-small{
+	cursor:url(images/zoom-tolarge.cur),pointer;
+}
+
+.ui-imagezoom-large{
+    cursor:url(images/zoom-tosmall.cur),pointer;
+}
