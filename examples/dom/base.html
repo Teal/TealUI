@@ -99,7 +99,7 @@
 
                 '处理(Manipulation)': '-',
                 'contains': 'Dom.contains(a, b)',
-                'insert': 'Dom.insert(a, "insert")',
+                'render': 'Dom.render(a)',
                 'append': 'Dom.append(a, "append")',
                 'prepend': 'Dom.prepend(a, "prepend")',
                 'after': 'Dom.after(a, "after")',
@@ -158,6 +158,68 @@
         </script>
 
         <blockquote class="demo">在没有冲突的情况下， Dom.query 可简写为 $</blockquote>
+
+        <p class="demo">dom/base 内置的选择器目标为轻量(仅 4k)，因此这个选择器仅提供常用的语法支持，同时忽略一些极端情况的错误。如果需要，用户可以自行选用其它选择器。</p>
+
+        <script>
+
+            Demo.writeExamples({
+
+                '支持的 CSS 选择器(CSS Selector)': '-',
+
+                '#id': 'Dom.query("#a")',
+                '.class': 'Dom.query(".a")',
+                'tagName': 'Dom.query("div")',
+                '*': 'Dom.query("*")',
+
+                '[attr]': 'Dom.query("[attr]")',
+                '[attr=val]': 'Dom.query("[attr=val]")',
+                '[attr^=val]': 'Dom.query("[attr^=val]")',
+                '[attr$=val]': 'Dom.query("[attr$=val]")',
+                '[attr~=val]': 'Dom.query("[attr~=val]")',
+                '[attr|=val]': 'Dom.query("[attr|=val]")',
+                '[attr!=val]': 'Dom.query("[attr!=val]")',
+                '[attr*=val]': 'Dom.query("[attr*=val]")',
+
+                '#id div': 'Dom.query("#b div")',
+                '#id>div': 'Dom.query("#b>div")',
+                '#id+div': 'Dom.query("#b+div")',
+                '#id~div': 'Dom.query("#b~div")',
+
+                ':target': 'Dom.query("#b:target")',
+                ':empty': 'Dom.query("#b:empty")',
+                ':contains(text)': 'Dom.query("#b:contains(#b)")',
+                ':not(selector)': 'Dom.query("#b:not(#b)")',
+                ':selected': 'Dom.query("#b:selected")',
+                ':checked': 'Dom.query("#b:checked")',
+                ':enabled': 'Dom.query("#b:enabled")',
+                ':disabled': 'Dom.query("#b:disabled")',
+                ':input': 'Dom.query("#b:target")',
+                ':nth-child(n) (不支持 2n+1 格式)': 'Dom.query("#b:nth-child(1)")',
+                ':nth-child(odd)': 'Dom.query("#b:nth-child(odd)")',
+                ':nth-child(even)': 'Dom.query("#b:nth-child(even)")',
+                ':first-child': 'Dom.query("#b:first-child")',
+                ':last-child': 'Dom.query("#b:last-child")',
+                ':only-child': 'Dom.query("#b:only-child")',
+
+                ':hidden': 'Dom.query("#b:hidden")',
+                ':visible': 'Dom.query("#b:visible")',
+                ':has(selector)': 'Dom.query("#b:has(#a)")'
+
+
+            });
+
+        </script>
+
+        <h4 class="demo">已知但未修复的 CSS 选择器 bug 及解决方案</h4>
+
+        <ul class="demo">
+            <li>IE8: <code class="demo">option:selected</code> 无法获取 selected="" 的 option 。解决方案：替换为 selected="selected"。</li>
+            <li>Webkit/Opera: <code class="demo">option:checked</code> 无法获取 selected="" 的 option 。解决方案：替换为 option:selected。</li>
+            <li>Opera 10-12/IE8: <code class="demo">[attr^=value]</code>肯能返回空属性的对象($= *= 同理) 。解决方案：不要对空属性操作。</li>
+            <li>Opera 10-11: <code class="demo">:x</code>不支持的伪类不报错 。解决方案：不要使用不支持的伪类。</li>
+            <li>不同浏览器返回的节点顺序不同。解决方案：不要依赖节点顺序。</li>
+        </ul>
 
     </article>
 

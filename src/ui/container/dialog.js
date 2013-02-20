@@ -122,9 +122,8 @@ var Dialog = ContainerControl.extend({
 	},
 
 	show: function (duration) {
-		if (!this.dom.closest('body').length) {
-			this.dom.appendTo();
-		}
+		Dom.render(this.elem);
+
 		this.dom.show({
 			args: duration,
 			duration: this.showDuration

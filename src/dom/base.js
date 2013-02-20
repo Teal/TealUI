@@ -130,22 +130,7 @@ var Dom = (function () {
 		/**
 		 * Dom.prototype 简写。
 		 */
-		dp = Dom.prototype,
-
-        /**
-         * 一个选择器引擎。
-         */
-        Selector;
-
-    /**
-	 * 获取元素的文档。
-	 * @param {Node} node 元素。
-	 * @return {Document} 文档。
-	 */
-    function getDocument(node) {
-        assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
-        return node.ownerDocument || node.document || node;
-    }
+		dp = Dom.prototype;
 
     // 复制数组函数。
     map("push indexOf each forEach splice slice sort unique", function (fnName, index) {
@@ -154,7 +139,497 @@ var Dom = (function () {
         };
     });
 
-    /**
+	//#endregion
+
+	//#region Selector
+
+	/**
+	 * 一个选择器引擎。
+	 */
+    var Selector, fixGetElementById, nativeQuerySelector, nativeMatchesSelector, rBackslash = /\\/g;
+
+    (function () {
+    	var div = document.createElement("div");
+    	div.innerHTML = '<a name="__SELECTOR__"/>';
+    	html.appendChild(div);
+
+    	fixGetElementById = !!document.getElementById('__SELECTOR__');
+    	nativeQuerySelector = !!div.querySelectorAll;
+    	nativeMatchesSelector = div.matchesSelector || div.mozMatchesSelector || div.webkitMatchesSelector;
+
+    	html.removeChild(div);
+    	div = null;
+    })();
+
+    function addElementsByTagName(elem, tagName, result) {
+
+    	if (elem.getElementsByTagName) {
+    		pushResult(elem.getElementsByTagName(tagName), result);
+    	} else if (elem.querySelectorAll) {
+    		pushResult(elem.querySelectorAll(tagName), result);
+    	}
+
+    }
+
+    function pushResult(nodelist, result) {
+    	for (var i = 0; nodelist[i]; i++) {
+    		result[result.length++] = nodelist[i];
+    	}
+    }
+
+	/**
+	 * 抛出选择器语法错误。 
+	 * @param {String} message 提示。
+	 */
+    function throwError(message) {
+    	throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
+    }
+
+    Selector = {
+
+    	all: function (selector, context) {
+
+    		context = context || document;
+
+    		// 如果原生支持 querySelectorAll, 则先尝试使用原生的。
+    		if (nativeQuerySelector) {
+
+    			// hack: div.query('div selector') 应该返回空。
+    			if (context.nodeType === 1) {
+
+    				var oldId = context.id, displayId = oldId;
+
+    				if (!oldId) {
+    					context.id = displayId = '__SELECTOR__';
+    					oldId = 0;
+    				}
+
+    				try {
+    					return new Dom(context.querySelectorAll('#' + displayId + ' ' + selector));
+    				} catch (e) {
+    				} finally {
+    					if (oldId === 0) {
+    						context.removeAttribute('id');
+    					}
+    				}
+    			} else {
+    				try {
+    					return new Dom(context.querySelectorAll(selector));
+    				} catch (e) {
+
+    				}
+    			}
+
+    		}
+
+    		return Selector.query(selector, context);
+    	},
+
+    	one: function (selector, context) {
+
+    		context = context || document;
+
+    		// 如果原生支持 querySelectorAll, 则先尝试使用原生的。
+    		if (nativeQuerySelector) {
+
+    			// hack: div.query('div selector') 应该返回空。
+    			if (context.nodeType === 1) {
+
+    				var oldId = context.id, displayId = oldId;
+
+    				if (!oldId) {
+    					context.id = displayId = '__SELECTOR__';
+    					oldId = 0;
+    				}
+
+    				try {
+    					return context.querySelector('#' + displayId + ' ' + selector);
+    				} catch (e) {
+    				} finally {
+    					if (oldId === 0) {
+    						context.removeAttribute('id');
+    					}
+    				}
+    			} else {
+    				try {
+    					return context.querySelector(selector);
+    				} catch (e) {
+
+    				}
+    			}
+
+    		}
+
+    		return Selector.query(selector, context)[0] || null;
+    	},
+
+    	match: function (elem, selector) {
+
+    		//if (elem.nodeType !== 1)
+    		//	return false;
+
+    		// 判断的第一步：使用原生的判断函数。
+
+    		try {
+    			return this.nativeMatchesSelector.call(elem, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
+    		} catch (e) {
+
+    		}
+
+    		// 判断的第二步：使用简单过滤器。
+
+    		var t = [elem], i, doc = elem.ownerDocument;
+
+    		if (!Selector.filter(selector, t)) {
+    			return t.length > 0;
+    		}
+
+    		// 判断的第三步：使用查询的方式判断。
+
+    		// 未添加到 DOM 树的节点是无法找到的，因此，首先将节点追加到 DOM 树进行判断。
+    		if (Dom.contains(doc.body, elem)) {
+    			try {
+    				t = doc.querySelectorAll(selector);
+    			} catch (e) {
+    				t = Selector.query(selector, doc);
+    			}
+    		} else {
+
+    			i = elem;
+    			while (i.parentNode)
+    				i = i.parentNode;
+
+    			doc.documentElement.appendChild(i);
+
+    			try {
+    				t = Selector.all(selector, doc);
+    			} finally {
+    				doc.documentElement.removeChild(i);
+    			}
+    		}
+
+    		for (i = 0; t[i]; i++)
+    			if (t[i] === elem)
+    				return true;
+
+    		return false;
+    	},
+
+    	/**
+		 * 使用指定的选择器代码对指定的结果集进行一次查找。
+		 * @param {String} selector 选择器表达式。
+		 * @param {DomList/Dom} result 上级结果集，将对此结果集进行查找。
+		 * @return {DomList} 返回新的结果集。
+		 */
+    	query: function (selector, context) {
+
+    		var result = new Dom(),
+				match,
+				value,
+				prevResult,
+				lastSelector,
+				elem,
+				i;
+
+    		selector = selector.trim();
+
+    		// 解析的第一步: 解析简单选择器
+
+    		// ‘*’ ‘tagName’ ‘.className’ ‘#id’
+    		if (match = /^(^|[#.])((?:[-\w]|[^\x00-\xa0]|\\.)+)$/.exec(selector)) {
+
+    			value = match[2].replace(rBackslash, "");
+
+    			switch (match[1]) {
+
+    				// ‘#id’
+    				case '#':
+
+    					// 仅对 document 使用 getElementById 。
+    					if (context.nodeType === 9) {
+    						prevResult = context.getElementById(value);
+    						if (prevResult && (!fixGetElementById || prevResult.getAttributeNode("id").nodeValue === value)) {
+    							result[result.length++] = prevResult;
+    						}
+    						return result;
+    					}
+
+    					break;
+
+    					// ‘.className’
+    				case '.':
+
+    					// 仅优化存在 getElementsByClassName 的情况。
+    					if (context.getElementsByClassName) {
+    						pushResult(context.getElementsByClassName(value), result);
+    						return result;
+    					}
+
+    					break;
+
+    					// ‘*’ ‘tagName’
+    				default:
+    					addElementsByTagName(context, value, result);
+    					return result;
+
+    			}
+
+    		}
+
+    		// 解析的第二步: 获取所有子节点。并不断进行筛选。
+
+    		prevResult = [context];
+
+    		// 解析分很多步进行，每次解析  selector 的一部分，直到解析完整个 selector 。
+    		for (; ;) {
+
+    			// 保存本次处理前的选择器。
+    			// 用于在本次处理后检验 selector 是否有变化。
+    			// 如果没变化，说明 selector 不能被正确处理，即 selector 包含非法字符。
+    			lastSelector = selector;
+
+    			// 解析的第三步: 获取所有子节点。第四步再一一筛选。
+    			// 针对子选择器和标签选择器优化(不需要获取全部子节点)。
+
+    			// ‘ selector’ ‘>selector’ ‘~selector’ ‘+selector’
+    			if (match = /^\s*([>+~\s])\s*(\*|(?:[-\w*]|[^\x00-\xa0]|\\.)*)/.exec(selector)) {
+
+    				selector = RegExp.rightContext;
+    				value = match[2].replace(rBackslash, "").toUpperCase() || "*";
+
+    				for (i = 0; elem = prevResult[i]; i++) {
+    					switch (match[1]) {
+    						case ' ':
+    							addElementsByTagName(elem, value, result);
+    							break;
+
+    						case '>':
+    							for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
+    								if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
+    									result[result.length++] = elem;
+    								}
+    							}
+    							break;
+
+    						case '+':
+    							while (elem = elem.nextSibling) {
+    								if (elem.nodeType === 1) {
+    									if ((value === "*" || value === elem.tagName)) {
+    										result[result.length++] = elem;
+    									}
+    									break;
+    								}
+    							}
+
+    							break;
+
+    						case '~':
+    							while (elem = elem.nextSibling) {
+    								if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
+    									result[result.length++] = elem;
+    								}
+    							}
+    							break;
+
+    						default:
+    							throwError(match[0]);
+    					}
+    				}
+
+
+    			} else {
+
+    				// ‘tagName’ ‘*’ 
+    				if (match = /^((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
+    					value = match[1].replace(rBackslash, "").toUpperCase();
+    					selector = RegExp.rightContext;
+    				}
+
+    				for (i = 0; elem = prevResult[i]; i++) {
+    					addElementsByTagName(elem, value || "*", result);
+    				}
+
+    			}
+
+    			if (prevResult.length > 1) {
+    				result.unique();
+    			}
+
+    			// 解析的第四步: 筛选第三步返回的结果。
+
+    			// 如果没有剩余的选择器，说明节点已经处理结束。
+    			if (selector) {
+
+    				// 进行过滤筛选。
+    				selector = Selector.filter(selector, result);
+
+    			}
+
+    			// 如果筛选后没有其它选择器。返回结果。
+    			if (!selector) {
+    				break;
+    			}
+
+    			// 解析的第五步: 解析, 如果存在，则继续。
+
+    			// ‘,selectpr’ 
+    			if (match = /^\s*,\s*/.exec(selector)) {
+    				result.add(Selector.query(RegExp.rightContext, context)).unique();
+    				break;
+    			}
+
+    			// 存储当前的结果值，用于下次继续筛选。
+    			prevResult = result;
+
+    			// 清空之前的属性值。
+    			result = new Dom();
+
+    			// 如果没有一个正则匹配选择器，则这是一个无法处理的选择器，向用户报告错误。
+    			if (lastSelector.length === selector.length) {
+    				throwError(selector);
+    			}
+    		}
+
+    		return result;
+    	},
+
+    	filter: function (selector, result) {
+
+    		var match, filterFn, value, code;
+
+    		// ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
+    		while (result.length && (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector))) {
+
+    			code = match[0];
+
+    			selector = RegExp.rightContext;
+
+    			filterFn = (Selector.filterFn || (Selector.filterFn = {}))[match[0]];
+
+    			// 如果不存在指定过滤器的特定函数，则先编译一个。
+    			if (!filterFn) {
+
+    				filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
+    				value = match[2].replace(rBackslash, "");
+
+    				switch (match[1]) {
+
+    					// ‘#id’
+    					case "#":
+    						filterFn += 'Dom.getAttr(e,"id")===v';
+    						break;
+
+    						// ‘.className’
+    					case ".":
+    						filterFn += 'Dom.hasClass(e,v)';
+    						break;
+
+    						// ‘:filter’
+    					case ":":
+
+    						filterFn += Selector.pseudos[value] || throwError(match[0]);
+
+    						// ‘selector:nth-child(2)’
+    						if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
+    							selector = RegExp.rightContext;
+    							value = match[3] || match[2] || match[1];
+    						}
+
+    						break;
+
+    						// ‘[attr’
+    					default:
+    						value = [value.toLowerCase()];
+
+    						// ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
+    						if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
+    							selector = RegExp.rightContext;
+    							if (match[1]) {
+    								value[1] = match[1];
+    								value[2] = match[3] || match[4];
+    								value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
+    									return String.fromCharCode(parseInt(y, 16));
+    								}).replace(rBackslash, "") : "";
+    							}
+    						}
+
+    						filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
+
+    				}
+
+    				filterFn += ';if(t)r[n++]=e;}r.splice(n);';
+
+    				Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
+
+    				filterFn.value = value;
+
+    			}
+
+    			filterFn(result, filterFn.value);
+
+    		}
+
+    		return selector;
+
+    	},
+
+    	/**
+		 * 用于查找所有支持的伪类的函数集合。
+		 * @private
+		 * @static
+		 */
+    	pseudos: {
+    		target: 'window.location&&window.location.hash;t=t&&t.slice(1)===e.id',
+    		empty: 'Dom.isEmpty(e)',
+    		contains: 'Dom.getText(e).indexOf(v)>=0',
+    		hidden: 'Dom.isHidden(e)',
+    		visible: '!Dom.isHidden(e)',
+
+    		not: '!Dom.match(e, v)',
+    		has: '!Dom.find(v, e)',
+
+    		selected: 'Dom.attrHooks.selected.get(e, "selected", 1)',
+    		checked: 'e.checked',
+    		enabled: 'e.disabled===false',
+    		disabled: 'e.disabled===true',
+
+    		input: '^(input|select|textarea|button)$/i.test(e.nodeName)',
+
+    		"nth-child": 'Dom.index(elem)+1;t=v==="odd"?t%2:v==="even"?t%2===0:t===v',
+    		"first-child": '!Dom.prev(elem)',
+    		"last-child": '!Dom.next(elem)',
+    		"only-child": '!Dom.prev(elem)&&!Dom.next(elem)'
+
+    	},
+
+    	relative: {
+    		'undefined': '!=null',
+    		'=': '===v[2]',
+    		'~=': ';t=(" "+t+" ").indexOf(" "+v[2]+" ")>=0',
+    		'!=': '!==v[2]',
+    		'|=': ';t=("-"+t+"-").indexOf("-"+v[2]+"-")>=0',
+    		'^=': ';t=t&&t.indexOf(v[2])===0',
+    		'$=': ';t=t&&t.indexOf(v[2].length-t.length)===v[2]',
+    		'*=': ';t=t&&t.indexOf(v[2])>=0'
+    	}
+
+    };
+
+	//#endregion
+
+	//#region Helper
+
+	/**
+	 * 获取元素的文档。
+	 * @param {Node} node 元素。
+	 * @return {Document} 文档。
+	 */
+    function getDocument(node) {
+    	assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
+    	return node.ownerDocument || node.document || node;
+    }
+
+	/**
 	 * 执行一个 CSS 选择器，返回一个新的 {@link Dom} 对象。
 	 * @param {String/NodeList/Dom/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点列表。
 	 * @return {Element} 如果没有对应的节点则返回一个空的 Dom 对象。
@@ -199,8 +674,8 @@ var Dom = (function () {
 	 */
     Dom.query = function (selector, context) {
 
-        // Dom.query("selector")
-        return typeof selector === 'string' ? Selector.all(selector, context, new Dom()) :
+    	// Dom.query("selector")
+    	return typeof selector === 'string' ? Selector.all(selector, context) :
 
 				// Dom.query(dom)
 				selector instanceof Dom ? selector :
@@ -213,7 +688,7 @@ var Dom = (function () {
 
     };
 
-    /**
+	/**
 	 * 根据一个 *id* 或原生节点获取一个 {@link Dom} 类的实例。
 	 * @param {String/Node/Dom/Dom} id 要获取元素的 id 或用于包装成 Dom 对象的任何元素，如是原生的 DOM 节点、原生的 DOM 节点列表数组或已包装过的 Dom 对象。。
 	 * @return {Dom} 此函数返回是一个 Dom 类型的变量。通过这个变量可以调用所有文档中介绍的 DOM 操作函数。如果无法找到指定的节点，则返回 null 。此函数可简写为 $。
@@ -243,10 +718,10 @@ var Dom = (function () {
 	 * <pre>{&lt;p id="a1"&gt;&lt;/p&gt;}</pre>
 	 */
     Dom.get = function (id) {
-        return typeof id !== "string" ? (!id || id.nodeType || id.setInterval ? id : id[0]) || null : document.getElementById(id);
+    	return typeof id !== "string" ? (!id || id.nodeType || id.setInterval ? id : id[0]) || null : document.getElementById(id);
     };
 
-    /**
+	/**
 	 * 执行一个 CSS 选择器，返回第一个元素对应的 {@link Dom} 对象。
 	 * @param {String/NodeList/Dom/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点。
 	 * @return {Element} 如果没有对应的节点则返回一个空的 Dom 对象。
@@ -286,16 +761,18 @@ var Dom = (function () {
 	 * </pre>
 	 */
     Dom.find = function (selector, context) {
-        return Dom.get(typeof selector === "string" ? Selector.all(selector, context, new Dom()) : selector);
+    	return typeof selector !== "string" ? (!selector || selector.nodeType || selector.setInterval ? selector : selector[0]) || null : Selector.one(selector, context);
     };
 
-    /**
-	 * 获取 document 对象的 Dom 对象封装示例。
-	 * @static
-	 */
-    Dom.document = new Dom([document]);
+    Dom.match = function (elem, selector) {
+    	if (elem.nodeType !== 1) {
+    		return false;
+    	}
 
-    /**
+    	return Selector.match(elem, selector);
+    };
+
+	/**
 	 * 获取当前类对应的数据字段。
 	 * @protected override
 	 * @return {Object} 一个可存储数据的对象。
@@ -304,12 +781,12 @@ var Dom = (function () {
 	 */
     Dom.data = function (node) {
 
-        // 将数据绑定在原生节点上。
-        // 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
-        return (node.nodeType === 1 || node.nodeType === 9 || node.setInterval) ? node.$data || (node.$data = {}) : null;
+    	// 将数据绑定在原生节点上。
+    	// 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
+    	return (node.nodeType === 1 || node.nodeType === 9 || node.setInterval) ? node.$data || (node.$data = {}) : null;
     };
 
-    /**
+	/**
 	 * 获取元素的文档。
 	 * @param {Element} elem 元素。
 	 * @return {Document} 文档。
@@ -317,7 +794,9 @@ var Dom = (function () {
 	 */
     Dom.getDocument = getDocument;
 
-    //#endregion
+    Dom.Selector = Selector;
+
+	//#endregion
 
     //#region Parse
 
@@ -2412,14 +2891,14 @@ var Dom = (function () {
     Dom.contains = html.compareDocumentPosition ? function (node, child) {
         assert.isNode(node, "Dom.contains(node, child): {elem} ~");
         assert.isNode(child, "Dom.contains(node, child): {child} ~");
-        return !!(child && (node.compareDocumentPosition(child) & 16));
+        return node === child || !!(child && (node.compareDocumentPosition(child) & 16));
     } : function (node, child) {
-        assert.isNode(elem, "Dom.contains(elem, child): {elem} ~");
+    	assert.isNode(node, "Dom.contains(elem, child): {elem} ~");
         assert.isNode(child, "Dom.contains(elem, child): {child} ~");
-        if (child) {
-            while (child = child.parentNode)
-                if (node === child)
-                    return true;
+        while (child) {
+        	if (node === child)
+        		return true;
+        	child = child.parentNode;
         }
 
         return false;
@@ -2478,10 +2957,12 @@ var Dom = (function () {
 
     };
 
-    Dom.insert = function (node, html, refNode) {
-        return Dom.manip(node, html, function (node, html) {
-            node.insertBefore(html, refNode || null);
-        });
+    Dom.render = function (node, parent, refNode) {
+    	if (parent) {
+    		parent.insertBefore(node, refNode || null);
+    	} else if(!Dom.contains(document.body, node)) {
+    		document.body.appendChild(node);
+    	}
     };
 
 	/**
@@ -3174,2206 +3655,6 @@ var Dom = (function () {
     } else {
         setTimeout(Dom.load, 1);
     }
-
-    //#endregion
-
-    //#region Selector
-
-    var i,
-		cachedruns,
-		Expr,
-		compile,
-		hasDuplicate,
-		outermostContext,
-
-		// Local document vars
-		setDocument,
-		docElem,
-		rbuggyQSA,
-		rbuggyMatches,
-		matches,
-		contains,
-		sortOrder,
-
-		// Instance-specific data
-		expando = "sizzle" + -(new Date()),
-		preferredDoc = window.document,
-		support = {},
-		dirruns = 0,
-		done = 0,
-		classCache = createCache(),
-		tokenCache = createCache(),
-		compilerCache = createCache(),
-
-		// General-purpose constants
-		strundefined = typeof undefined,
-		MAX_NEGATIVE = 1 << 31,
-
-		// Array methods
-		arr = [],
-		pop = arr.pop,
-		push = arr.push,
-		slice = arr.slice,
-		// Use a stripped-down indexOf if we can't use a native one
-		indexOf = arr.indexOf || function (elem) {
-		    var i = 0,
-				len = this.length;
-		    for (; i < len; i++) {
-		        if (this[i] === elem) {
-		            return i;
-		        }
-		    }
-		    return -1;
-		},
-
-
-		// Regular expressions
-
-		// Whitespace characters http://www.w3.org/TR/css3-selectors/#whitespace
-		whitespace = "[\\x20\\t\\r\\n\\f]",
-		// http://www.w3.org/TR/css3-syntax/#characters
-		characterEncoding = "(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",
-
-		// Loosely modeled on CSS identifier characters
-		// An unquoted value should be a CSS identifier http://www.w3.org/TR/css3-selectors/#attribute-selectors
-		// Proper syntax: http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
-		identifier = characterEncoding.replace("w", "w#"),
-
-		// Acceptable operators http://www.w3.org/TR/selectors/#attribute-selectors
-		operators = "([*^$|!~]?=)",
-		attributes = "\\[" + whitespace + "*(" + characterEncoding + ")" + whitespace +
-			"*(?:" + operators + whitespace + "*(?:(['\"])((?:\\\\.|[^\\\\])*?)\\3|(" + identifier + ")|)|)" + whitespace + "*\\]",
-
-		// Prefer arguments quoted,
-		//   then not containing pseudos/brackets,
-		//   then attribute selectors/non-parenthetical expressions,
-		//   then anything else
-		// These preferences are here to reduce the number of selectors
-		//   needing tokenize in the PSEUDO preFilter
-		pseudos = ":(" + characterEncoding + ")(?:\\(((['\"])((?:\\\\.|[^\\\\])*?)\\3|((?:\\\\.|[^\\\\()[\\]]|" + attributes.replace(3, 8) + ")*)|.*)\\)|)",
-
-		// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
-		rtrim = new RegExp("^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g"),
-
-		rcomma = new RegExp("^" + whitespace + "*," + whitespace + "*"),
-		rcombinators = new RegExp("^" + whitespace + "*([\\x20\\t\\r\\n\\f>+~])" + whitespace + "*"),
-		rpseudo = new RegExp(pseudos),
-		ridentifier = new RegExp("^" + identifier + "$"),
-
-		matchExpr = {
-		    "ID": new RegExp("^#(" + characterEncoding + ")"),
-		    "CLASS": new RegExp("^\\.(" + characterEncoding + ")"),
-		    "NAME": new RegExp("^\\[name=['\"]?(" + characterEncoding + ")['\"]?\\]"),
-		    "TAG": new RegExp("^(" + characterEncoding.replace("w", "w*") + ")"),
-		    "ATTR": new RegExp("^" + attributes),
-		    "PSEUDO": new RegExp("^" + pseudos),
-		    "CHILD": new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
-				"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
-				"*(\\d+)|))" + whitespace + "*\\)|)", "i"),
-		    // For use in libraries implementing .is()
-		    // We use this for POS matching in `select`
-		    "needsContext": new RegExp("^" + whitespace + "*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(" +
-				whitespace + "*((?:-\\d)?\\d*)" + whitespace + "*\\)|)(?=[^-]|$)", "i")
-		},
-
-		rsibling = /[\x20\t\r\n\f]*[+~]/,
-
-		rnative = /^[^{]+\{\s*\[native code/,
-
-		// Easily-parseable/retrievable ID or TAG or CLASS selectors
-		rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
-
-		rinputs = /^(?:input|select|textarea|button)$/i,
-
-		rescape = /'|\\/g,
-		rattributeQuotes = /\=[\x20\t\r\n\f]*([^'"\]]*)[\x20\t\r\n\f]*\]/g,
-
-		// CSS escapes http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
-		runescape = /\\([\da-fA-F]{1,6}[\x20\t\r\n\f]?|.)/g,
-		funescape = function (_, escaped) {
-		    var high = "0x" + escaped - 0x10000;
-		    // NaN means non-codepoint
-		    return high !== high ?
-		        escaped :
-				// BMP codepoint
-				high < 0 ?
-					String.fromCharCode(high + 0x10000) :
-					// Supplemental Plane codepoint (surrogate pair)
-					String.fromCharCode(high >> 10 | 0xD800, high & 0x3FF | 0xDC00);
-		};
-
-    // Use a stripped-down slice if we can't use a native one
-    try {
-        slice.call(preferredDoc.documentElement.childNodes, 0)[0].nodeType;
-    } catch (e) {
-        slice = function (i) {
-            var elem,
-				results = [];
-            while ((elem = this[i++])) {
-                results.push(elem);
-            }
-            return results;
-        };
-    }
-
-    /**
-	 * For feature detection
-	 * @param {Function} fn The function to test for native support
-	 */
-    function isNative(fn) {
-        return rnative.test(fn + "");
-    }
-
-    /**
-	 * Create key-value caches of limited size
-	 * @returns {Function(string, Object)} Returns the Object data after storing it on itself with
-	 *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
-	 *	deleting the oldest entry
-	 */
-    function createCache() {
-        var cache,
-			keys = [];
-
-        return (cache = function (key, value) {
-            // Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
-            if (keys.push(key += " ") > Expr.cacheLength) {
-                // Only keep the most recent entries
-                delete cache[keys.shift()];
-            }
-            return (cache[key] = value);
-        });
-    }
-
-    /**
-	 * Mark a function for special use by Sizzle
-	 * @param {Function} fn The function to mark
-	 */
-    function markFunction(fn) {
-        fn[expando] = true;
-        return fn;
-    }
-
-    /**
-	 * Support testing using an element
-	 * @param {Function} fn Passed the created div and expects a boolean result
-	 */
-    function assertFn(fn) {
-        var div = document.createElement("div");
-
-        try {
-            return fn(div);
-        } catch (e) {
-            return false;
-        } finally {
-            // release memory in IE
-            div = null;
-        }
-    }
-
-    function Sizzle(selector, context, results, seed) {
-        var match, elem, m, nodeType,
-			// QSA vars
-			i, groups, old, nid, newContext, newSelector;
-
-        if ((context ? context.ownerDocument || context : preferredDoc) !== document) {
-            setDocument(context);
-        }
-
-        context = context || document;
-        results = results || [];
-
-        if (!selector || typeof selector !== "string") {
-            return results;
-        }
-
-        if ((nodeType = context.nodeType) !== 1 && nodeType !== 9) {
-            return [];
-        }
-
-        if (!seed) {
-
-            // Shortcuts
-            if ((match = rquickExpr.exec(selector))) {
-                // Speed-up: Sizzle("#ID")
-                if ((m = match[1])) {
-                    if (nodeType === 9) {
-                        elem = context.getElementById(m);
-                        // Check parentNode to catch when Blackberry 4.6 returns
-                        // nodes that are no longer in the document #6963
-                        if (elem && elem.parentNode) {
-                            // Handle the case where IE, Opera, and Webkit return items
-                            // by name instead of ID
-                            if (elem.id === m) {
-                                results.push(elem);
-                                return results;
-                            }
-                        } else {
-                            return results;
-                        }
-                    } else {
-                        // Context is not a document
-                        if (context.ownerDocument && (elem = context.ownerDocument.getElementById(m)) &&
-							contains(context, elem) && elem.id === m) {
-                            results.push(elem);
-                            return results;
-                        }
-                    }
-
-                    // Speed-up: Sizzle("TAG")
-                } else if (match[2]) {
-                    push.apply(results, slice.call(context.getElementsByTagName(selector), 0));
-                    return results;
-
-                    // Speed-up: Sizzle(".CLASS")
-                } else if ((m = match[3]) && support.getByClassName && context.getElementsByClassName) {
-                    push.apply(results, slice.call(context.getElementsByClassName(m), 0));
-                    return results;
-                }
-            }
-
-            // QSA path
-            if (support.qsa && !rbuggyQSA.test(selector)) {
-                old = true;
-                nid = expando;
-                newContext = context;
-                newSelector = nodeType === 9 && selector;
-
-                // qSA works strangely on Element-rooted queries
-                // We can work around this by specifying an extra ID on the root
-                // and working up from there (Thanks to Andrew Dupont for the technique)
-                // IE 8 doesn't work on object elements
-                if (nodeType === 1 && context.nodeName.toLowerCase() !== "object") {
-                    groups = tokenize(selector);
-
-                    if ((old = context.getAttribute("id"))) {
-                        nid = old.replace(rescape, "\\$&");
-                    } else {
-                        context.setAttribute("id", nid);
-                    }
-                    nid = "[id='" + nid + "'] ";
-
-                    i = groups.length;
-                    while (i--) {
-                        groups[i] = nid + toSelector(groups[i]);
-                    }
-                    newContext = rsibling.test(selector) && context.parentNode || context;
-                    newSelector = groups.join(",");
-                }
-
-                if (newSelector) {
-                    try {
-                        push.apply(results, slice.call(newContext.querySelectorAll(
-							newSelector
-						), 0));
-                        return results;
-                    } catch (qsaError) {
-                    } finally {
-                        if (!old) {
-                            context.removeAttribute("id");
-                        }
-                    }
-                }
-            }
-        }
-
-        // All others
-        return select(selector.replace(rtrim, "$1"), context, results, seed);
-    }
-
-    /**
-	 * Sets document-related variables once based on the current document
-	 * @param {Element|Object} [doc] An element or document object to use to set the document
-	 * @returns {Object} Returns the current document
-	 */
-    setDocument = Sizzle.setDocument = function (node) {
-        var doc = node ? node.ownerDocument || node : preferredDoc;
-
-        // If no document and documentElement is available, return
-        if (doc === document || doc.nodeType !== 9 || !doc.documentElement) {
-            //return document;
-        }
-
-        // Set our document
-        //document = doc;
-        docElem = doc.documentElement;
-
-        // Check if getElementsByTagName("*") returns only elements
-        support.tagNameNoComments = assertFn(function (div) {
-            div.appendChild(doc.createComment(""));
-            return !div.getElementsByTagName("*").length;
-        });
-
-        // Check if attributes should be retrieved by attribute nodes
-        support.attributes = assertFn(function (div) {
-            div.innerHTML = "<select></select>";
-            var type = typeof div.lastChild.getAttribute("multiple");
-            // IE8 returns a string for some attributes even when not present
-            return type !== "boolean" && type !== "string";
-        });
-
-        // Check if getElementsByClassName can be trusted
-        support.getByClassName = assertFn(function (div) {
-            // Opera can't find a second classname (in 9.6)
-            div.innerHTML = "<div class='hidden e'></div><div class='hidden'></div>";
-            if (!div.getElementsByClassName || !div.getElementsByClassName("e").length) {
-                return false;
-            }
-
-            // Safari 3.2 caches class attributes and doesn't catch changes
-            div.lastChild.className = "e";
-            return div.getElementsByClassName("e").length === 2;
-        });
-
-        // Check if getElementById returns elements by name
-        // Check if getElementsByName privileges form controls or returns elements by ID
-        support.getByName = assertFn(function (div) {
-            // Inject content
-            div.id = expando + 0;
-            div.innerHTML = "<a name='" + expando + "'></a><div name='" + expando + "'></div>";
-            docElem.insertBefore(div, docElem.firstChild);
-
-            // Test
-            var pass = doc.getElementsByName &&
-				// buggy browsers will return fewer than the correct 2
-				doc.getElementsByName(expando).length === 2 +
-				// buggy browsers will return more than the correct 0
-				doc.getElementsByName(expando + 0).length;
-            support.getIdNotName = !doc.getElementById(expando);
-
-            // Cleanup
-            docElem.removeChild(div);
-
-            return pass;
-        });
-
-        // IE6/7 return modified attributes
-        Expr.attrHandle = assertFn(function (div) {
-            div.innerHTML = "<a href='#'></a>";
-            return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
-				div.firstChild.getAttribute("href") === "#";
-        }) ?
-		{} :
-		{
-
-		    "href": function (elem) {
-		        return elem.getAttribute("href", 2);
-		    },
-		    "type": function (elem) {
-		        return elem.getAttribute("type");
-		    }
-		};
-
-        // ID find and filter
-        if (support.getIdNotName) {
-            Expr.find["ID"] = function (id, context) {
-                if (typeof context.getElementById !== strundefined) {
-                    var m = context.getElementById(id);
-                    // Check parentNode to catch when Blackberry 4.6 returns
-                    // nodes that are no longer in the document #6963
-                    return m && m.parentNode ? [m] : [];
-                }
-            };
-            Expr.filter["ID"] = function (id) {
-                var attrId = id.replace(runescape, funescape);
-                return function (elem) {
-                    return elem.getAttribute("id") === attrId;
-                };
-            };
-        } else {
-            Expr.find["ID"] = function (id, context) {
-                if (typeof context.getElementById !== strundefined) {
-                    var m = context.getElementById(id);
-
-                    return m ?
-						m.id === id || typeof m.getAttributeNode !== strundefined && m.getAttributeNode("id").value === id ?
-							[m] :
-                        undefined :
-						[];
-                }
-            };
-            Expr.filter["ID"] = function (id) {
-                var attrId = id.replace(runescape, funescape);
-                return function (elem) {
-                    var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
-                    return node && node.value === attrId;
-                };
-            };
-        }
-
-        // Tag
-        Expr.find["TAG"] = support.tagNameNoComments ?
-			function (tag, context) {
-			    if (typeof context.getElementsByTagName !== strundefined) {
-			        return context.getElementsByTagName(tag);
-			    }
-			} :
-			function (tag, context) {
-			    var elem,
-					tmp = [],
-					i = 0,
-					results = context.getElementsByTagName(tag);
-
-			    // Filter out possible comments
-			    if (tag === "*") {
-			        while ((elem = results[i++])) {
-			            if (elem.nodeType === 1) {
-			                tmp.push(elem);
-			            }
-			        }
-
-			        return tmp;
-			    }
-			    return results;
-			};
-
-        // Name
-        Expr.find["NAME"] = support.getByName && function (tag, context) {
-            if (typeof context.getElementsByName !== strundefined) {
-                return context.getElementsByName(name);
-            }
-        };
-
-        // Class
-        Expr.find["CLASS"] = support.getByClassName && function (className, context) {
-            if (typeof context.getElementsByClassName !== strundefined) {
-                return context.getElementsByClassName(className);
-            }
-        };
-
-        // QSA and matchesSelector support
-
-        // matchesSelector(:active) reports false when true (IE9/Opera 11.5)
-        rbuggyMatches = [];
-
-        // qSa(:focus) reports false when true (Chrome 21),
-        // no need to also add to buggyMatches since matches checks buggyQSA
-        // A support test would require too much code (would include document ready)
-        rbuggyQSA = [":focus"];
-
-        if ((support.qsa = isNative(doc.querySelectorAll))) {
-            // Build QSA regex
-            // Regex strategy adopted from Diego Perini
-            assertFn(function (div) {
-                // Select is set to empty string on purpose
-                // This is to test IE's treatment of not explictly
-                // setting a boolean content attribute,
-                // since its presence should be enough
-                // http://bugs.jquery.com/ticket/12359
-                div.innerHTML = "<select><option selected=''></option></select>";
-
-                // IE8 - Some boolean attributes are not treated correctly
-                if (!div.querySelectorAll("[selected]").length) {
-                    rbuggyQSA.push("\\[" + whitespace + "*(?:checked|disabled|ismap|multiple|readonly|selected|value)");
-                }
-
-                // Webkit/Opera - :checked should return selected option elements
-                // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-                // IE8 throws error here and will not see later tests
-                if (!div.querySelectorAll(":checked").length) {
-                    rbuggyQSA.push(":checked");
-                }
-            });
-
-            assertFn(function (div) {
-
-                // Opera 10-12/IE8 - ^= $= *= and empty values
-                // Should not select anything
-                div.innerHTML = "<input type='hidden' i=''/>";
-                if (div.querySelectorAll("[i^='']").length) {
-                    rbuggyQSA.push("[*^$]=" + whitespace + "*(?:\"\"|'')");
-                }
-
-                // FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-                // IE8 throws error here and will not see later tests
-                if (!div.querySelectorAll(":enabled").length) {
-                    rbuggyQSA.push(":enabled", ":disabled");
-                }
-
-                // Opera 10-11 does not throw on post-comma invalid pseudos
-                div.querySelectorAll("*,:x");
-                rbuggyQSA.push(",.*:");
-            });
-        }
-
-        if ((support.matchesSelector = isNative((matches = docElem.matchesSelector ||
-			docElem.mozMatchesSelector ||
-			docElem.webkitMatchesSelector ||
-			docElem.oMatchesSelector ||
-			docElem.msMatchesSelector)))) {
-
-            assertFn(function (div) {
-                // Check to see if it's possible to do matchesSelector
-                // on a disconnected node (IE 9)
-                support.disconnectedMatch = matches.call(div, "div");
-
-                // This should fail with an exception
-                // Gecko does not error, returns false instead
-                matches.call(div, "[s!='']:x");
-                rbuggyMatches.push("!=", pseudos);
-            });
-        }
-
-        rbuggyQSA = new RegExp(rbuggyQSA.join("|"));
-        rbuggyMatches = new RegExp(rbuggyMatches.join("|"));
-
-        // Element contains another
-        // Purposefully does not implement inclusive descendent
-        // As in, an element does not contain itself
-        contains = isNative(docElem.contains) || docElem.compareDocumentPosition ?
-			function (a, b) {
-			    var adown = a.nodeType === 9 ? a.documentElement : a,
-					bup = b && b.parentNode;
-			    return a === bup || !!(bup && bup.nodeType === 1 && (
-					adown.contains ?
-						adown.contains(bup) :
-						a.compareDocumentPosition && a.compareDocumentPosition(bup) & 16
-				));
-			} :
-			function (a, b) {
-			    if (b) {
-			        while ((b = b.parentNode)) {
-			            if (b === a) {
-			                return true;
-			            }
-			        }
-			    }
-			    return false;
-			};
-
-        // Document order sorting
-        sortOrder = docElem.compareDocumentPosition ?
-		function (a, b) {
-		    var compare;
-
-		    if (a === b) {
-		        hasDuplicate = true;
-		        return 0;
-		    }
-
-		    if ((compare = b.compareDocumentPosition && a.compareDocumentPosition && a.compareDocumentPosition(b))) {
-		        if (compare & 1 || a.parentNode && a.parentNode.nodeType === 11) {
-		            if (a === doc || contains(preferredDoc, a)) {
-		                return -1;
-		            }
-		            if (b === doc || contains(preferredDoc, b)) {
-		                return 1;
-		            }
-		            return 0;
-		        }
-		        return compare & 4 ? -1 : 1;
-		    }
-
-		    return a.compareDocumentPosition ? -1 : 1;
-		} :
-		function (a, b) {
-		    var cur,
-				i = 0,
-				aup = a.parentNode,
-				bup = b.parentNode,
-				ap = [a],
-				bp = [b];
-
-		    // Exit early if the nodes are identical
-		    if (a === b) {
-		        hasDuplicate = true;
-		        return 0;
-
-		        // Parentless nodes are either documents or disconnected
-		    } else if (!aup || !bup) {
-		        return a === doc ? -1 :
-					b === doc ? 1 :
-					aup ? -1 :
-					bup ? 1 :
-					0;
-
-		        // If the nodes are siblings, we can do a quick check
-		    } else if (aup === bup) {
-		        return siblingCheck(a, b);
-		    }
-
-		    // Otherwise we need full lists of their ancestors for comparison
-		    cur = a;
-		    while ((cur = cur.parentNode)) {
-		        ap.unshift(cur);
-		    }
-		    cur = b;
-		    while ((cur = cur.parentNode)) {
-		        bp.unshift(cur);
-		    }
-
-		    // Walk down the tree looking for a discrepancy
-		    while (ap[i] === bp[i]) {
-		        i++;
-		    }
-
-		    return i ?
-				// Do a sibling check if the nodes have a common ancestor
-				siblingCheck(ap[i], bp[i]) :
-
-				// Otherwise nodes in our document sort first
-				ap[i] === preferredDoc ? -1 :
-				bp[i] === preferredDoc ? 1 :
-				0;
-		};
-
-        // Always assume the presence of duplicates if sort doesn't
-        // pass them to our comparison function (as in Google Chrome).
-        hasDuplicate = false;
-        [0, 0].sort(sortOrder);
-        support.detectDuplicates = hasDuplicate;
-
-        return document;
-    };
-
-    Sizzle.matches = function (expr, elements) {
-        return Sizzle(expr, null, null, elements);
-    };
-
-    Sizzle.matchesSelector = function (elem, expr) {
-        // Set document vars if needed
-        if ((elem.ownerDocument || elem) !== document) {
-            setDocument(elem);
-        }
-
-        // Make sure that attribute selectors are quoted
-        expr = expr.replace(rattributeQuotes, "='$1']");
-
-        // rbuggyQSA always contains :focus, so no need for an existence check
-        if (support.matchesSelector && (!rbuggyMatches || !rbuggyMatches.test(expr)) && !rbuggyQSA.test(expr)) {
-            try {
-                var ret = matches.call(elem, expr);
-
-                // IE 9's matchesSelector returns false on disconnected nodes
-                if (ret || support.disconnectedMatch ||
-                    // As well, disconnected nodes are said to be in a document
-                    // fragment in IE 9
-						elem.document && elem.document.nodeType !== 11) {
-                    return ret;
-                }
-            } catch (e) { }
-        }
-
-        return Sizzle(expr, document, null, [elem]).length > 0;
-    };
-
-    Sizzle.contains = function (context, elem) {
-        // Set document vars if needed
-        if ((context.ownerDocument || context) !== document) {
-            setDocument(context);
-        }
-        return contains(context, elem);
-    };
-
-    Sizzle.attr = function (elem, name) {
-        var val;
-
-        // Set document vars if needed
-        if ((elem.ownerDocument || elem) !== document) {
-            setDocument(elem);
-        }
-
-        name = name.toLowerCase();
-        if ((val = Expr.attrHandle[name])) {
-            return val(elem);
-        }
-        if (support.attributes) {
-            return elem.getAttribute(name);
-        }
-        return ((val = elem.getAttributeNode(name)) || elem.getAttribute(name)) && elem[name] === true ?
-            name :
-			val && val.specified ? val.value : null;
-    };
-
-    Sizzle.error = function (msg) {
-        throw new Error("Syntax error, unrecognized expression: " + msg);
-    };
-
-    // Document sorting and removing duplicates
-    Sizzle.uniqueSort = function (results) {
-        var elem,
-			duplicates = [],
-			i = 1,
-			j = 0;
-
-        // Unless we *know* we can detect duplicates, assume their presence
-        hasDuplicate = !support.detectDuplicates;
-        results.sort(sortOrder);
-
-        if (hasDuplicate) {
-            for (; (elem = results[i]) ; i++) {
-                if (elem === results[i - 1]) {
-                    j = duplicates.push(i);
-                }
-            }
-            while (j--) {
-                results.splice(duplicates[j], 1);
-            }
-        }
-
-        return results;
-    };
-
-    function siblingCheck(a, b) {
-        var cur = b && a,
-			diff = cur && (~b.sourceIndex || MAX_NEGATIVE) - (~a.sourceIndex || MAX_NEGATIVE);
-
-        // Use IE sourceIndex if available on both nodes
-        if (diff) {
-            return diff;
-        }
-
-        // Check if b follows a
-        if (cur) {
-            while ((cur = cur.nextSibling)) {
-                if (cur === b) {
-                    return -1;
-                }
-            }
-        }
-
-        return a ? 1 : -1;
-    }
-
-    // Returns a function to use in pseudos for positionals
-    function createPositionalPseudo(fn) {
-        return markFunction(function (argument) {
-            argument = +argument;
-            return markFunction(function (seed, matches) {
-                var j,
-					matchIndexes = fn([], seed.length, argument),
-					i = matchIndexes.length;
-
-                // Match elements found at the specified indexes
-                while (i--) {
-                    if (seed[(j = matchIndexes[i])]) {
-                        seed[j] = !(matches[j] = seed[j]);
-                    }
-                }
-            });
-        });
-    }
-
-    Expr = Sizzle.selectors = {
-
-        // Can be adjusted by the user
-        cacheLength: 50,
-
-        createPseudo: markFunction,
-
-        match: matchExpr,
-
-        find: {},
-
-        relative: {
-            ">": { dir: "parentNode", first: true },
-            " ": { dir: "parentNode" },
-            "+": { dir: "previousSibling", first: true },
-            "~": { dir: "previousSibling" }
-        },
-
-        preFilter: {
-            "ATTR": function (match) {
-                match[1] = match[1].replace(runescape, funescape);
-
-                // Move the given value to match[3] whether quoted or unquoted
-                match[3] = (match[4] || match[5] || "").replace(runescape, funescape);
-
-                if (match[2] === "~=") {
-                    match[3] = " " + match[3] + " ";
-                }
-
-                return match.slice(0, 4);
-            },
-
-            "CHILD": function (match) {
-                /* matches from matchExpr["CHILD"]
-					1 type (only|nth|...)
-					2 what (child|of-type)
-					3 argument (even|odd|\d*|\d*n([+-]\d+)?|...)
-					4 xn-component of xn+y argument ([+-]?\d*n|)
-					5 sign of xn-component
-					6 x of xn-component
-					7 sign of y-component
-					8 y of y-component
-				*/
-                match[1] = match[1].toLowerCase();
-
-                if (match[1].slice(0, 3) === "nth") {
-                    // nth-* requires argument
-                    if (!match[3]) {
-                        Sizzle.error(match[0]);
-                    }
-
-                    // numeric x and y parameters for Expr.filter.CHILD
-                    // remember that false/true cast respectively to 0/1
-                    match[4] = +(match[4] ? match[5] + (match[6] || 1) : 2 * (match[3] === "even" || match[3] === "odd"));
-                    match[5] = +((match[7] + match[8]) || match[3] === "odd");
-
-                    // other types prohibit arguments
-                } else if (match[3]) {
-                    Sizzle.error(match[0]);
-                }
-
-                return match;
-            },
-
-            "PSEUDO": function (match) {
-                var excess,
-					unquoted = !match[5] && match[2];
-
-                if (matchExpr["CHILD"].test(match[0])) {
-                    return null;
-                }
-
-                // Accept quoted arguments as-is
-                if (match[4]) {
-                    match[2] = match[4];
-
-                    // Strip excess characters from unquoted arguments
-                } else if (unquoted && rpseudo.test(unquoted) &&
-                    // Get excess from tokenize (recursively)
-					(excess = tokenize(unquoted, true)) &&
-                    // advance to the next closing parenthesis
-					(excess = unquoted.indexOf(")", unquoted.length - excess) - unquoted.length)) {
-
-                    // excess is a negative index
-                    match[0] = match[0].slice(0, excess);
-                    match[2] = unquoted.slice(0, excess);
-                }
-
-                // Return only captures needed by the pseudo filter method (type and argument)
-                return match.slice(0, 3);
-            }
-        },
-
-        filter: {
-
-            "TAG": function (nodeName) {
-                if (nodeName === "*") {
-                    return function () { return true; };
-                }
-
-                nodeName = nodeName.replace(runescape, funescape).toLowerCase();
-                return function (elem) {
-                    return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
-                };
-            },
-
-            "CLASS": function (className) {
-                var pattern = classCache[className + " "];
-
-                return pattern ||
-					(pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) &&
-					classCache(className, function (elem) {
-					    return pattern.test(elem.className || (typeof elem.getAttribute !== strundefined && elem.getAttribute("class")) || "");
-					});
-            },
-
-            "ATTR": function (name, operator, check) {
-                return function (elem) {
-                    var result = Sizzle.attr(elem, name);
-
-                    if (result == null) {
-                        return operator === "!=";
-                    }
-                    if (!operator) {
-                        return true;
-                    }
-
-                    result += "";
-
-                    return operator === "=" ? result === check :
-						operator === "!=" ? result !== check :
-						operator === "^=" ? check && result.indexOf(check) === 0 :
-						operator === "*=" ? check && result.indexOf(check) > -1 :
-						operator === "$=" ? check && result.slice(-check.length) === check :
-						operator === "~=" ? (" " + result + " ").indexOf(check) > -1 :
-						operator === "|=" ? result === check || result.slice(0, check.length + 1) === check + "-" :
-						false;
-                };
-            },
-
-            "CHILD": function (type, what, argument, first, last) {
-                var simple = type.slice(0, 3) !== "nth",
-					forward = type.slice(-4) !== "last",
-					ofType = what === "of-type";
-
-                return first === 1 && last === 0 ?
-
-					// Shortcut for :nth-*(n)
-					function (elem) {
-					    return !!elem.parentNode;
-					} :
-
-					function (elem, context, xml) {
-					    var cache, outerCache, node, diff, nodeIndex, start,
-							dir = simple !== forward ? "nextSibling" : "previousSibling",
-							parent = elem.parentNode,
-							name = ofType && elem.nodeName.toLowerCase(),
-							useCache = !xml && !ofType;
-
-					    if (parent) {
-
-					        // :(first|last|only)-(child|of-type)
-					        if (simple) {
-					            while (dir) {
-					                node = elem;
-					                while ((node = node[dir])) {
-					                    if (ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1) {
-					                        return false;
-					                    }
-					                }
-					                // Reverse direction for :only-* (if we haven't yet done so)
-					                start = dir = type === "only" && !start && "nextSibling";
-					            }
-					            return true;
-					        }
-
-					        start = [forward ? parent.firstChild : parent.lastChild];
-
-					        // non-xml :nth-child(...) stores cache data on `parent`
-					        if (forward && useCache) {
-					            // Seek `elem` from a previously-cached index
-					            outerCache = parent[expando] || (parent[expando] = {});
-					            cache = outerCache[type] || [];
-					            nodeIndex = cache[0] === dirruns && cache[1];
-					            diff = cache[0] === dirruns && cache[2];
-					            node = nodeIndex && parent.childNodes[nodeIndex];
-
-					            while ((node = ++nodeIndex && node && node[dir] ||
-
-					                // Fallback to seeking `elem` from the start
-									(diff = nodeIndex = 0) || start.pop())) {
-
-					                // When found, cache indexes on `parent` and break
-					                if (node.nodeType === 1 && ++diff && node === elem) {
-					                    outerCache[type] = [dirruns, nodeIndex, diff];
-					                    break;
-					                }
-					            }
-
-					            // Use previously-cached element index if available
-					        } else if (useCache && (cache = (elem[expando] || (elem[expando] = {}))[type]) && cache[0] === dirruns) {
-					            diff = cache[1];
-
-					            // xml :nth-child(...) or :nth-last-child(...) or :nth(-last)?-of-type(...)
-					        } else {
-					            // Use the same loop as above to seek `elem` from the start
-					            while ((node = ++nodeIndex && node && node[dir] ||
-									(diff = nodeIndex = 0) || start.pop())) {
-
-					                if ((ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1) && ++diff) {
-					                    // Cache the index of each encountered element
-					                    if (useCache) {
-					                        (node[expando] || (node[expando] = {}))[type] = [dirruns, diff];
-					                    }
-
-					                    if (node === elem) {
-					                        break;
-					                    }
-					                }
-					            }
-					        }
-
-					        // Incorporate the offset, then check against cycle size
-					        diff -= last;
-					        return diff === first || (diff % first === 0 && diff / first >= 0);
-					    }
-					};
-            },
-
-            "PSEUDO": function (pseudo, argument) {
-                // pseudo-class names are case-insensitive
-                // http://www.w3.org/TR/selectors/#pseudo-classes
-                // Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
-                // Remember that setFilters inherits from pseudos
-                var args,
-					fn = Expr.pseudos[pseudo] ||
-						Sizzle.error("unsupported pseudo: " + pseudo);
-
-                // The user may use createPseudo to indicate that
-                // arguments are needed to create the filter function
-                // just as Sizzle does
-                if (fn[expando]) {
-                    return fn(argument);
-                }
-
-                // But maintain support for old signatures
-                if (fn.length > 1) {
-                    args = [pseudo, pseudo, "", argument];
-                    return function (elem) {
-                        return fn(elem, 0, args);
-                    };
-                }
-
-                return fn;
-            }
-        },
-
-        pseudos: {
-            // Potentially complex pseudos
-            "not": markFunction(function (selector) {
-                // Trim the selector passed to compile
-                // to avoid treating leading and trailing
-                // spaces as combinators
-                var input = [],
-					results = [],
-					matcher = compile(selector.replace(rtrim, "$1"));
-
-                return matcher[expando] ?
-					markFunction(function (seed, matches, context, xml) {
-					    var elem,
-							unmatched = matcher(seed, null, xml, []),
-							i = seed.length;
-
-					    // Match elements unmatched by `matcher`
-					    while (i--) {
-					        if ((elem = unmatched[i])) {
-					            seed[i] = !(matches[i] = elem);
-					        }
-					    }
-					}) :
-					function (elem, context, xml) {
-					    input[0] = elem;
-					    matcher(input, null, xml, results);
-					    return !results.pop();
-					};
-            }),
-
-            "has": markFunction(function (selector) {
-                return function (elem) {
-                    return Sizzle(selector, elem).length > 0;
-                };
-            }),
-
-            "contains": markFunction(function (text) {
-                return function (elem) {
-                    return Dom.getText(elem).indexOf(text) >= 0;
-                };
-            }),
-
-            // "Whether an element is represented by a :lang() selector
-            // is based solely on the element's language value
-            // being equal to the identifier C,
-            // or beginning with the identifier C immediately followed by "-".
-            // The matching of C against the element's language value is performed case-insensitively.
-            // The identifier C does not have to be a valid language name."
-            // http://www.w3.org/TR/selectors/#lang-pseudo
-            "lang": markFunction(function (lang) {
-                // lang value must be a valid identifider
-                if (!ridentifier.test(lang || "")) {
-                    Sizzle.error("unsupported lang: " + lang);
-                }
-                lang = lang.replace(runescape, funescape).toLowerCase();
-                return function (elem) {
-                    var elemLang;
-                    do {
-                        if (elemLang = elem.getAttribute("xml:lang") || elem.getAttribute("lang")
-							) {
-
-                            elemLang = elemLang.toLowerCase();
-                            return elemLang === lang || elemLang.indexOf(lang + "-") === 0;
-                        }
-                    } while ((elem = elem.parentNode) && elem.nodeType === 1);
-                    return false;
-                };
-            }),
-
-            // Miscellaneous
-            "target": function (elem) {
-                var hash = window.location && window.location.hash;
-                return hash && hash.slice(1) === elem.id;
-            },
-
-            "root": function (elem) {
-                return elem === docElem;
-            },
-
-            "focus": function (elem) {
-                return elem === document.activeElement && (!document.hasFocus || document.hasFocus()) && !!(elem.type || elem.href || ~elem.tabIndex);
-            },
-
-            // Boolean properties
-            "enabled": function (elem) {
-                return elem.disabled === false;
-            },
-
-            "disabled": function (elem) {
-                return elem.disabled === true;
-            },
-
-            "checked": function (elem) {
-                // In CSS3, :checked should return both checked and selected elements
-                // http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-                var nodeName = elem.nodeName.toLowerCase();
-                return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
-            },
-
-            "selected": function (elem) {
-                // Accessing this property makes selected-by-default
-                // options in Safari work properly
-                if (elem.parentNode) {
-                    elem.parentNode.selectedIndex;
-                }
-
-                return elem.selected === true;
-            },
-
-            // Contents
-            "empty": function (elem) {
-                // http://www.w3.org/TR/selectors/#empty-pseudo
-                // :empty is only affected by element nodes and content nodes(including text(3), cdata(4)),
-                //   not comment, processing instructions, or others
-                // Thanks to Diego Perini for the nodeName shortcut
-                //   Greater than "@" means alpha characters (specifically not starting with "#" or "?")
-                for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
-                    if (elem.nodeName > "@" || elem.nodeType === 3 || elem.nodeType === 4) {
-                        return false;
-                    }
-                }
-                return true;
-            },
-
-            "parent": function (elem) {
-                return !Expr.pseudos["empty"](elem);
-            },
-
-            // Element/input types
-
-            "input": function (elem) {
-                return rinputs.test(elem.nodeName);
-            },
-
-            "button": function (elem) {
-                var name = elem.nodeName.toLowerCase();
-                return name === "input" && elem.type === "button" || name === "button";
-            },
-
-            "text": function (elem) {
-                var attr;
-                // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
-                // use getAttribute instead to test this case
-                return elem.nodeName.toLowerCase() === "input" &&
-					elem.type === "text" &&
-					((attr = elem.getAttribute("type")) == null || attr.toLowerCase() === elem.type);
-            },
-
-            // Position-in-collection
-            "first": createPositionalPseudo(function () {
-                return [0];
-            }),
-
-            "last": createPositionalPseudo(function (matchIndexes, length) {
-                return [length - 1];
-            }),
-
-            "eq": createPositionalPseudo(function (matchIndexes, length, argument) {
-                return [argument < 0 ? argument + length : argument];
-            }),
-
-            "even": createPositionalPseudo(function (matchIndexes, length) {
-                var i = 0;
-                for (; i < length; i += 2) {
-                    matchIndexes.push(i);
-                }
-                return matchIndexes;
-            }),
-
-            "odd": createPositionalPseudo(function (matchIndexes, length) {
-                var i = 1;
-                for (; i < length; i += 2) {
-                    matchIndexes.push(i);
-                }
-                return matchIndexes;
-            }),
-
-            "lt": createPositionalPseudo(function (matchIndexes, length, argument) {
-                var i = argument < 0 ? argument + length : argument;
-                for (; --i >= 0;) {
-                    matchIndexes.push(i);
-                }
-                return matchIndexes;
-            }),
-
-            "gt": createPositionalPseudo(function (matchIndexes, length, argument) {
-                var i = argument < 0 ? argument + length : argument;
-                for (; ++i < length;) {
-                    matchIndexes.push(i);
-                }
-                return matchIndexes;
-            })
-        }
-    };
-
-    function tokenize(selector, parseOnly) {
-        var matched, match, tokens, type,
-			soFar, groups, preFilters,
-			cached = tokenCache[selector + " "];
-
-        if (cached) {
-            return parseOnly ? 0 : cached.slice(0);
-        }
-
-        soFar = selector;
-        groups = [];
-        preFilters = Expr.preFilter;
-
-        while (soFar) {
-
-            // Comma and first run
-            if (!matched || (match = rcomma.exec(soFar))) {
-                if (match) {
-                    // Don't consume trailing commas as valid
-                    soFar = soFar.slice(match[0].length) || soFar;
-                }
-                groups.push(tokens = []);
-            }
-
-            matched = false;
-
-            // Combinators
-            if ((match = rcombinators.exec(soFar))) {
-                matched = match.shift();
-                tokens.push({
-                    value: matched,
-                    // Cast descendant combinators to space
-                    type: match[0].replace(rtrim, " ")
-                });
-                soFar = soFar.slice(matched.length);
-            }
-
-            // Filters
-            for (type in Expr.filter) {
-                if ((match = matchExpr[type].exec(soFar)) && (!preFilters[type] ||
-					(match = preFilters[type](match)))) {
-                    matched = match.shift();
-                    tokens.push({
-                        value: matched,
-                        type: type,
-                        matches: match
-                    });
-                    soFar = soFar.slice(matched.length);
-                }
-            }
-
-            if (!matched) {
-                break;
-            }
-        }
-
-        // Return the length of the invalid excess
-        // if we're just parsing
-        // Otherwise, throw an error or return tokens
-        return parseOnly ?
-			soFar.length :
-			soFar ?
-				Sizzle.error(selector) :
-				// Cache the tokens
-				tokenCache(selector, groups).slice(0);
-    }
-
-    function toSelector(tokens) {
-        var i = 0,
-			len = tokens.length,
-			selector = "";
-        for (; i < len; i++) {
-            selector += tokens[i].value;
-        }
-        return selector;
-    }
-
-    function addCombinator(matcher, combinator, base) {
-        var dir = combinator.dir,
-			checkNonElements = base && dir === "parentNode",
-			doneName = done++;
-
-        return combinator.first ?
-			// Check against closest ancestor/preceding element
-			function (elem, context, xml) {
-			    while ((elem = elem[dir])) {
-			        if (elem.nodeType === 1 || checkNonElements) {
-			            return matcher(elem, context, xml);
-			        }
-			    }
-			} :
-
-			// Check against all ancestor/preceding elements
-			function (elem, context, xml) {
-			    var data, cache, outerCache,
-					dirkey = dirruns + " " + doneName;
-
-			    // We can't set arbitrary data on XML nodes, so they don't benefit from dir caching
-			    if (xml) {
-			        while ((elem = elem[dir])) {
-			            if (elem.nodeType === 1 || checkNonElements) {
-			                if (matcher(elem, context, xml)) {
-			                    return true;
-			                }
-			            }
-			        }
-			    } else {
-			        while ((elem = elem[dir])) {
-			            if (elem.nodeType === 1 || checkNonElements) {
-			                outerCache = elem[expando] || (elem[expando] = {});
-			                if ((cache = outerCache[dir]) && cache[0] === dirkey) {
-			                    if ((data = cache[1]) === true || data === cachedruns) {
-			                        return data === true;
-			                    }
-			                } else {
-			                    cache = outerCache[dir] = [dirkey];
-			                    cache[1] = matcher(elem, context, xml) || cachedruns;
-			                    if (cache[1] === true) {
-			                        return true;
-			                    }
-			                }
-			            }
-			        }
-			    }
-			};
-    }
-
-    function elementMatcher(matchers) {
-        return matchers.length > 1 ?
-			function (elem, context, xml) {
-			    var i = matchers.length;
-			    while (i--) {
-			        if (!matchers[i](elem, context, xml)) {
-			            return false;
-			        }
-			    }
-			    return true;
-			} :
-			matchers[0];
-    }
-
-    function condense(unmatched, map, filter, context, xml) {
-        var elem,
-			newUnmatched = [],
-			i = 0,
-			len = unmatched.length,
-			mapped = map != null;
-
-        for (; i < len; i++) {
-            if ((elem = unmatched[i])) {
-                if (!filter || filter(elem, context, xml)) {
-                    newUnmatched.push(elem);
-                    if (mapped) {
-                        map.push(i);
-                    }
-                }
-            }
-        }
-
-        return newUnmatched;
-    }
-
-    function setMatcher(preFilter, selector, matcher, postFilter, postFinder, postSelector) {
-        if (postFilter && !postFilter[expando]) {
-            postFilter = setMatcher(postFilter);
-        }
-        if (postFinder && !postFinder[expando]) {
-            postFinder = setMatcher(postFinder, postSelector);
-        }
-        return markFunction(function (seed, results, context, xml) {
-            var temp, i, elem,
-				preMap = [],
-				postMap = [],
-				preexisting = results.length,
-
-				// Get initial elements from seed or context
-				elems = seed || multipleContexts(selector || "*", context.nodeType ? [context] : context, []),
-
-				// Prefilter to get matcher input, preserving a map for seed-results synchronization
-				matcherIn = preFilter && (seed || !selector) ?
-					condense(elems, preMap, preFilter, context, xml) :
-					elems,
-
-				matcherOut = matcher ?
-					// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
-					postFinder || (seed ? preFilter : preexisting || postFilter) ?
-
-						// ...intermediate processing is necessary
-						[] :
-
-						// ...otherwise use results directly
-                results :
-					matcherIn;
-
-            // Find primary matches
-            if (matcher) {
-                matcher(matcherIn, matcherOut, context, xml);
-            }
-
-            // Apply postFilter
-            if (postFilter) {
-                temp = condense(matcherOut, postMap);
-                postFilter(temp, [], context, xml);
-
-                // Un-match failing elements by moving them back to matcherIn
-                i = temp.length;
-                while (i--) {
-                    if ((elem = temp[i])) {
-                        matcherOut[postMap[i]] = !(matcherIn[postMap[i]] = elem);
-                    }
-                }
-            }
-
-            if (seed) {
-                if (postFinder || preFilter) {
-                    if (postFinder) {
-                        // Get the final matcherOut by condensing this intermediate into postFinder contexts
-                        temp = [];
-                        i = matcherOut.length;
-                        while (i--) {
-                            if ((elem = matcherOut[i])) {
-                                // Restore matcherIn since elem is not yet a final match
-                                temp.push((matcherIn[i] = elem));
-                            }
-                        }
-                        postFinder(null, (matcherOut = []), temp, xml);
-                    }
-
-                    // Move matched elements from seed to results to keep them synchronized
-                    i = matcherOut.length;
-                    while (i--) {
-                        if ((elem = matcherOut[i]) &&
-							(temp = postFinder ? indexOf.call(seed, elem) : preMap[i]) > -1) {
-
-                            seed[temp] = !(results[temp] = elem);
-                        }
-                    }
-                }
-
-                // Add elements to results, through postFinder if defined
-            } else {
-                matcherOut = condense(
-					matcherOut === results ?
-						matcherOut.splice(preexisting, matcherOut.length) :
-						matcherOut
-				);
-                if (postFinder) {
-                    postFinder(null, results, matcherOut, xml);
-                } else {
-                    push.apply(results, matcherOut);
-                }
-            }
-        });
-    }
-
-    function matcherFromTokens(tokens) {
-        var checkContext, matcher, j,
-			len = tokens.length,
-			leadingRelative = Expr.relative[tokens[0].type],
-			implicitRelative = leadingRelative || Expr.relative[" "],
-			i = leadingRelative ? 1 : 0,
-
-			// The foundational matcher ensures that elements are reachable from top-level context(s)
-			matchContext = addCombinator(function (elem) {
-			    return elem === checkContext;
-			}, implicitRelative, true),
-			matchAnyContext = addCombinator(function (elem) {
-			    return indexOf.call(checkContext, elem) > -1;
-			}, implicitRelative, true),
-			matchers = [function (elem, context, xml) {
-			    return (!leadingRelative && (xml || context !== outermostContext)) || (
-					(checkContext = context).nodeType ?
-						matchContext(elem, context, xml) :
-						matchAnyContext(elem, context, xml));
-			}];
-
-        for (; i < len; i++) {
-            if ((matcher = Expr.relative[tokens[i].type])) {
-                matchers = [addCombinator(elementMatcher(matchers), matcher)];
-            } else {
-                matcher = Expr.filter[tokens[i].type].apply(null, tokens[i].matches);
-
-                // Return special upon seeing a positional matcher
-                if (matcher[expando]) {
-                    // Find the next relative operator (if any) for proper handling
-                    j = ++i;
-                    for (; j < len; j++) {
-                        if (Expr.relative[tokens[j].type]) {
-                            break;
-                        }
-                    }
-                    return setMatcher(
-						i > 1 && elementMatcher(matchers),
-						i > 1 && toSelector(tokens.slice(0, i - 1)).replace(rtrim, "$1"),
-						matcher,
-						i < j && matcherFromTokens(tokens.slice(i, j)),
-						j < len && matcherFromTokens((tokens = tokens.slice(j))),
-						j < len && toSelector(tokens)
-					);
-                }
-                matchers.push(matcher);
-            }
-        }
-
-        return elementMatcher(matchers);
-    }
-
-    function matcherFromGroupMatchers(elementMatchers, setMatchers) {
-        // A counter to specify which element is currently being matched
-        var matcherCachedRuns = 0,
-			bySet = setMatchers.length > 0,
-			byElement = elementMatchers.length > 0,
-			superMatcher = function (seed, context, xml, results, expandContext) {
-			    var elem, j, matcher,
-					setMatched = [],
-					matchedCount = 0,
-					i = "0",
-					unmatched = seed && [],
-					outermost = expandContext != null,
-					contextBackup = outermostContext,
-					// We must always have either seed elements or context
-					elems = seed || byElement && Expr.find["TAG"]("*", expandContext && context.parentNode || context),
-					// Use integer dirruns iff this is the outermost matcher
-					dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1);
-
-			    if (outermost) {
-			        outermostContext = context !== document && context;
-			        cachedruns = matcherCachedRuns;
-			    }
-
-			    // Add elements passing elementMatchers directly to results
-			    // Keep `i` a string if there are no elements so `matchedCount` will be "00" below
-			    for (; (elem = elems[i]) != null; i++) {
-			        if (byElement && elem) {
-			            j = 0;
-			            while ((matcher = elementMatchers[j++])) {
-			                if (matcher(elem, context, xml)) {
-			                    results.push(elem);
-			                    break;
-			                }
-			            }
-			            if (outermost) {
-			                dirruns = dirrunsUnique;
-			                cachedruns = ++matcherCachedRuns;
-			            }
-			        }
-
-			        // Track unmatched elements for set filters
-			        if (bySet) {
-			            // They will have gone through all possible matchers
-			            if ((elem = !matcher && elem)) {
-			                matchedCount--;
-			            }
-
-			            // Lengthen the array for every element, matched or not
-			            if (seed) {
-			                unmatched.push(elem);
-			            }
-			        }
-			    }
-
-			    // Apply set filters to unmatched elements
-			    matchedCount += i;
-			    if (bySet && i !== matchedCount) {
-			        j = 0;
-			        while ((matcher = setMatchers[j++])) {
-			            matcher(unmatched, setMatched, context, xml);
-			        }
-
-			        if (seed) {
-			            // Reintegrate element matches to eliminate the need for sorting
-			            if (matchedCount > 0) {
-			                while (i--) {
-			                    if (!(unmatched[i] || setMatched[i])) {
-			                        setMatched[i] = pop.call(results);
-			                    }
-			                }
-			            }
-
-			            // Discard index placeholder values to get only actual matches
-			            setMatched = condense(setMatched);
-			        }
-
-			        // Add matches to results
-			        push.apply(results, setMatched);
-
-			        // Seedless set matches succeeding multiple successful matchers stipulate sorting
-			        if (outermost && !seed && setMatched.length > 0 &&
-						(matchedCount + setMatchers.length) > 1) {
-
-			            Sizzle.uniqueSort(results);
-			        }
-			    }
-
-			    // Override manipulation of globals by nested matchers
-			    if (outermost) {
-			        dirruns = dirrunsUnique;
-			        outermostContext = contextBackup;
-			    }
-
-			    return unmatched;
-			};
-
-        return bySet ?
-			markFunction(superMatcher) :
-			superMatcher;
-    }
-
-    compile = Sizzle.compile = function (selector, group /* Internal Use Only */) {
-        var i,
-			setMatchers = [],
-			elementMatchers = [],
-			cached = compilerCache[selector + " "];
-
-        if (!cached) {
-            // Generate a function of recursive functions that can be used to check each element
-            if (!group) {
-                group = tokenize(selector);
-            }
-            i = group.length;
-            while (i--) {
-                cached = matcherFromTokens(group[i]);
-                if (cached[expando]) {
-                    setMatchers.push(cached);
-                } else {
-                    elementMatchers.push(cached);
-                }
-            }
-
-            // Cache the compiled function
-            cached = compilerCache(selector, matcherFromGroupMatchers(elementMatchers, setMatchers));
-        }
-        return cached;
-    };
-
-    function multipleContexts(selector, contexts, results) {
-        var i = 0,
-			len = contexts.length;
-        for (; i < len; i++) {
-            Sizzle(selector, contexts[i], results);
-        }
-        return results;
-    }
-
-    function select(selector, context, results, seed) {
-        var i, tokens, token, type, find,
-			match = tokenize(selector);
-        //  trace(selector, "->", match)
-        if (!seed) {
-            // Try to minimize operations if there is only one group
-            if (match.length === 1) {
-
-                // Take a shortcut and set the context if the root selector is an ID
-                tokens = match[0] = match[0].slice(0);
-                if (tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-						context.nodeType === 9 &&
-						Expr.relative[tokens[1].type]) {
-
-                    context = Expr.find["ID"](token.matches[0].replace(runescape, funescape), context)[0];
-                    if (!context) {
-                        return results;
-                    }
-
-                    selector = selector.slice(tokens.shift().value.length);
-                }
-
-                // Fetch a seed set for right-to-left matching
-                i = matchExpr["needsContext"].test(selector) ? 0 : tokens.length;
-                while (i--) {
-                    token = tokens[i];
-
-                    // Abort if we hit a combinator
-                    if (Expr.relative[(type = token.type)]) {
-                        break;
-                    }
-
-                    if ((find = Expr.find[type])) {
-                        // Search, expanding context for leading sibling combinators
-                        if ((seed = find(
-							token.matches[0].replace(runescape, funescape),
-							rsibling.test(tokens[0].type) && context.parentNode || context
-						))) {
-
-                            // If seed is empty or no tokens remain, we can return early
-                            tokens.splice(i, 1);
-                            selector = seed.length && toSelector(tokens);
-                            if (!selector) {
-                                push.apply(results, slice.call(seed, 0));
-                                return results;
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Compile and execute a filtering function
-        // Provide `match` to avoid retokenization if we modified the selector above
-        compile(selector, match)(
-			seed,
-			context,
-			false,
-			results,
-			rsibling.test(selector)
-		);
-        return results;
-    }
-
-    // Deprecated
-    Expr.pseudos["nth"] = Expr.pseudos["eq"];
-
-    // Initialize with the default document
-    setDocument();
-
-    var Selector = Dom.Selector = {
-
-        all: function (selector, parentNode) {
-            return select(selector, parentNode, new Dom);
-        }
-
-    };
-
-    var Selector2 = Dom.Selector = {
-
-        all: function (selector, parentNode) {
-            try {
-                return new Dom(parentNode.querySelectorAll(selector));
-            } catch (e) {
-                return query(selector, new Dom([parentNode]));
-            }
-        },
-
-        qall: function (selector, dom) {
-
-            // 如果只有一个元素，加速遍历。
-            if (dom.length === 1) {
-                return Selector.all(selector, dom);
-            }
-
-        },
-
-        all: function (selector, context) {
-            assert.isString(selector, "Dom.Selector#all(selector): selector ~");
-
-            // 如果已经指定必须某个作用域下进行查找。
-            if (context) {
-
-                // 将作用域转为 Dom 对象。
-                context = Dom.query(context);
-
-            } else {
-                try {
-                    result = document.querySelectorAll(selector);
-                } catch (e) {
-                    result = query(selector, this);
-                }
-                var result;
-
-                result.push.apply(result)
-                return new Dom(result);
-            }
-
-            return query(selector, new Dom([context || document]));
-        },
-
-        one: function () {
-
-        },
-
-        match: function (elem, selector) {
-            //if (/^(?:[-\w:]|[^\x00-\xa0]|\\.)+$/.test(selector)) {
-            //	return elem.tagName === filter.toUpperCase();
-            //}
-
-            var r, i;
-
-
-            if (elem.parentNode) {
-
-                try {
-                    r = elem.parentNode.querySelectorAll(selector);
-                } catch (e) {
-                    r = [];
-                    query(selector, elem.parentNode, r);
-                    if (r.indexOf(elem) >= 0)
-                        return true;
-                }
-
-            } else {
-                r = Selector.all(selector, document);
-            }
-
-            i = 0;
-            while (r[i])
-                if (r[i++] === elem)
-                    return true;
-
-            return false;
-        },
-
-        /**
-		 * 用于查找所有支持的伪类的函数集合。
-		 * @private
-		 * @static
-		 */
-        pseudos: {
-
-            target: function (elem) {
-                var hash = window.location && window.location.hash;
-                return hash && hash.slice(1) === elem.id;
-            },
-
-            /**
-			 * 判断一个节点是否有元素节点或文本节点。
-			 * @param {Element} elem 要测试的元素。
-			 * @return {Boolean} 如果存在子节点，则返回 true，否则返回 false 。
-			 */
-            empty: Dom.isEmpty,
-
-            contains: function (elem, args) {
-                return Dom.getText(elem).indexOf(args) >= 0;
-            },
-
-            /**
-			 * 判断一个节点是否不可见。
-			 * @return {Boolean} 如果元素不可见，则返回 true 。
-			 */
-            hidden: Dom.isHidden,
-            visible: function (elem) { return !Dom.isHidden(elem); },
-
-            not: function (elem, args) { return !Dom.match(elem, args); },
-            has: function (elem, args) { return Dom.find(args, elem).length > 0; },
-
-            selected: function (elem) { return attrHooks.selected.get(elem, 'selected', 1); },
-            checked: function (elem) { return elem.checked; },
-            enabled: function (elem) { return elem.disabled === false; },
-            disabled: function (elem) { return elem.disabled === true; },
-
-            input: function (elem) { return /^(input|select|textarea|button)$/i.test(elem.nodeName); },
-
-            "nth-child": function (args, oldResult, result) {
-                var tmpResult = Selector.pseudos;
-                if (tmpResult[args]) {
-                    tmpResult[args](null, oldResult, result);
-                } else if (args = oldResult[args - 1])
-                    result.push(args);
-            },
-            "first-child": function (args, oldResult, result) {
-                if (args = oldResult[0])
-                    result.push(args);
-            },
-            "last-child": function (args, oldResult, result) {
-                if (args = oldResult[oldResult.length - 1])
-                    result.push(args);
-            },
-            "only-child": function (elem) {
-                var p = new Dom(elem.parentNode).first(elem.nodeName);
-                return p && p.next();
-            },
-            odd: function (args, oldResult, result) {
-                var index = 0, elem, tmpResult;
-                while (elem = oldResult[index++]) {
-                    if (args) {
-                        result.push(elem);
-                    }
-                }
-            },
-            even: function (args, oldResult, result) {
-                return Dom.pseudos.odd(!args, oldResult, result);
-            }
-
-        }
-
-    };
-
-    function query(selector, result) {
-        var rBackslash = /\\/g,
-			match,
-			lastSelector,
-			filter,
-			filterArgs,
-			preResult,
-			sep,
-			actucalVal,
-			i;
-
-        selector = selector.trim();
-
-        // 解析分很多步进行，每次解析  selector 的一部分，直到解析完整个 selector 。
-        while (selector) {
-
-            // 保存本次处理前的选择器。
-            // 用于在本次处理后检验 selector 是否有变化。
-            // 如果没变化，说明 selector 含非法字符，无法被成功处理。
-            lastSelector = selector;
-
-            // 解析的第一步: 解析简单选择器
-
-            // ‘*’ ‘tagName’ ‘.className’ ‘#id’
-            if (match = /^(^|[#.])((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
-
-                sep = match[1];
-
-                // 加速 query("#id", [document]); query(".className", [document]); query("tagName", [elem]);
-                if (!sep || (result[0][sep === '#' ? 'getElementById' : 'getElementsByClassName'])) {
-                    selector = RegExp.rightContext;
-                    switch (sep) {
-
-                        // ‘#id’
-                        case '#':
-                            result = iterateDom(result, function (elem) {
-                                elem = elem.getElementById(match[2]);
-                                return elem ? [elem] : [];
-                            });
-                            break;
-
-                            // ‘.className’
-                        case '.':
-                            result = iterateDom(result, function (elem) {
-                                return elem.getElementsByClassName(match[2]);
-                            });
-                            break;
-
-                            // ‘*’ ‘tagName’
-                        default:
-                            result = iterateDom(result, function (elem) {
-                                return getElements(elem, match[2].replace(rBackslash, ""));
-                            });
-                            break;
-
-                    }
-
-                    // 只有一个 #id .className tagName 选择器，直接返回。
-                    if (!selector) {
-                        break;
-                    }
-
-                    // 无法加速，取得全部子元素，等待第四步进行过滤。
-                } else {
-                    result = iterateDom(result, function (elem) {
-                        return getElements(elem, "*");
-                    });
-                }
-
-                // 解析的第二步: 解析父子关系操作符(比如子节点筛选)
-
-                // ‘a>b’ ‘a+b’ ‘a~b’ ‘a b’ ‘a *’
-            } else if (match = /^\s*([\s>+~<])\s*(\*|(?:[-\w*]|[^\x00-\xa0]|\\.)*)/.exec(selector)) {
-                selector = RegExp.rightContext;
-
-                filterArgs = match[2].replace(rBackslash, "") || "*";
-
-                switch (match[1]) {
-                    case ' ':
-                        result = iterateDom(result, function (elem) {
-                            return getElements(elem, filterArgs);
-                        });
-                        break;
-
-                    case '>':
-                        result = iterateDom(result, function (elem) {
-                            return iterateSibling(elem.firstChild, filterArgs);
-                        });
-                        break;
-
-                    case '+':
-                        result = iterateDom(result, function (elem) {
-                            while ((elem = elem.nextSibling) && elem.nodeType !== 1);
-                            return elem && Selector.match(elem, filterArgs) ? [elem] : [];
-                        });
-                        break;
-
-                    case '~':
-                        result = iterateDom(result, function (elem) {
-                            return iterateSibling(elem.nextSibling, filterArgs);
-                        });
-                        break;
-
-                    default:
-                        throwError(match[1]);
-                }
-
-                // ‘a>b’: match = ['>', 'b']
-                // ‘a>.b’: match = ['>', '']
-
-                // 解析的第三步: 解析剩余的选择器:获取所有子节点。第四步再一一筛选。
-            } else {
-                result = iterateDom(result, function (elem) {
-                    return getElements(elem, "*");
-                });
-            }
-
-            // 解析的第四步: 筛选以上三步返回的结果。
-
-            // ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
-            while (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
-                selector = RegExp.rightContext;
-
-                preResult = result;
-                result = new Dom();
-
-                sep = match[1];
-                filterArgs = match[2].replace(rBackslash, "");
-
-                // ‘#id’: match = ['#','id']
-
-                // 生成新的集合，并放入满足的节点。
-
-                // ‘:filter’
-                if (sep === ":") {
-                    filter = Selector.pseudos[filterArgs] || throwError(filterArgs);
-                    filterArgs = undefined;
-
-                    // ‘selector:nth-child(2)’
-                    if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
-                        selector = RegExp.rightContext;
-                        filterArgs = match[3] || match[2] || match[1];
-                    }
-
-                    // 仅有 2 个参数则传入 oldResult 和 result
-                    if (filter.length === 3) {
-                        filter(preResult, filterArgs, result);
-                    } else {
-                        i = 0;
-                        while (match = preResult[i++]) {
-                            if (filter(match, filterArgs))
-                                result.push(match);
-                        }
-                    }
-                } else {
-
-                    // ‘#id’
-                    if (sep == "#") {
-                        filter = "id";
-                        sep = "=";
-
-                        // ‘.className’
-                    } else if (sep == ".") {
-                        filter = "class";
-                        sep = "~=";
-
-                        // ‘[attr’
-                    } else {
-                        filter = filterArgs.toLowerCase();
-
-                        // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
-                        if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
-                            selector = RegExp.rightContext;
-                            if (match[1]) {
-                                sep = match[1];
-                                filterArgs = (match[3] || match[4] || "").replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
-                                    return String.fromCharCode(parseInt(y, 16));
-                                }).replace(rBackslash, "");
-                            }
-                        }
-                    }
-
-                    i = 0;
-                    while (match = preResult[i++]) {
-                        actucalVal = Dom.getAttr(match, filter, 1);
-                        switch (sep) {
-                            case undefined:
-                                actucalVal = actucalVal != null;
-                                break;
-                            case '=':
-                                actucalVal = actucalVal === filterArgs;
-                                break;
-                            case '~=':
-                                actucalVal = (' ' + actucalVal + ' ').indexOf(' ' + filterArgs + ' ') >= 0;
-                                break;
-                            case '!=':
-                                actucalVal = actucalVal !== filterArgs;
-                                break;
-                            case '|=':
-                                actucalVal = ('-' + actucalVal + '-').indexOf('-' + filterArgs + '-') >= 0;
-                                break;
-                            case '^=':
-                                actucalVal = actucalVal && actucalVal.indexOf(filterArgs) === 0;
-                                break;
-                            case '$=':
-                                actucalVal = actucalVal && actucalVal.substr(actucalVal.length - filterArgs.length) === filterArgs;
-                                break;
-                            case '*=':
-                                actucalVal = actucalVal && actucalVal.indexOf(filterArgs) >= 0;
-                                break;
-                            default:
-                                throwError('Not Support Operator : "' + filter[1] + '"');
-                        }
-
-                        if (actucalVal) {
-                            result.push(match);
-                        }
-                    }
-
-                }
-
-            }
-
-            // 最后解析 , 如果存在，则继续。
-
-            if (match = /^\s*,\s*/.exec(selector)) {
-                result.push.apply(result, query(RegExp.rightContext, context))
-                result = result.unique();
-                break;
-            }
-
-
-            if (lastSelector.length === selector.length) {
-                throwError(selector);
-            }
-        }
-
-        return result;
-    }
-
-    function iterateSibling(elem, selector) {
-        var r = [];
-
-        do {
-            if (elem.nodeType === 1 && Dom.match(elem, selector)) {
-                r.push(elem);
-            }
-
-        } while (elem = elem.nextSibling);
-
-        return r;
-    }
-
-    /**
-	 * 获取当前节点内的全部子节点。
-	 * @param {String} args 要查找的节点的标签名。 * 表示返回全部节点。
-	 * @return {NodeList} 返回一个 NodeList 对象。
-	 */
-    function getElements(elem, args) {
-
-        var funcName = 'getElementsByTagName';
-
-        if (elem[funcName]) {
-            return elem[funcName](args);
-        }
-
-        funcName = 'querySelectorAll';
-        if (elem[funcName]) {
-            return elem[funcName](args);
-        }
-
-        return [];
-    }
-
-    /**
-	 * 抛出选择器语法错误。 
-	 * @param {String} message 提示。
-	 */
-    function throwError(message) {
-        throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
-    }
-
-    Selector = {
-        all: Sizzle,
-
-        one: function (selector, context) {
-            return Sizzle(select, context, new Dom()).item(0);
-        }
-
-    };
-
-    Dom.match = Sizzle.matchesSelector;
 
     //#endregion
 

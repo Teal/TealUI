@@ -5,6 +5,10 @@
 
 var JPlus = (function (undefined) {
 
+	if (!window.include) {
+		trace = assert = amdreturn = exclude = include = function () { };
+	}
+
     //#region Functions
 
 	/**
@@ -90,8 +94,8 @@ var JPlus = (function (undefined) {
 			})
 				return extend;
 
+			// IE6: for in 不会遍历原生函数，所以手动拷贝这些元素函数。
 			extend.enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
-			// IE6 不会遍历系统对象需要复制，所以强制去测试，如果改写就复制 。
 			return function (dest, src) {
 				if (src) {
 					assert(dest != null, "Object.extend(dest, src): {dest} 不可为空。", dest);

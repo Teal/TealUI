@@ -247,7 +247,7 @@
 	/**
 	 * Exports a varName so that AMD loaders are able to load current file as a module.
 	 */
-	function exports(varName, value) {
+	function amdreturn(varName, value) {
 		if(typeof define === "function" && define.amd){
 			define(varName, [], value);
 		} else {
@@ -656,7 +656,7 @@
 		
 		include: include,
 		exclude: exclude,
-		exports: exports,
+		amdreturn: amdreturn,
 		trace: trace,
 		assert: assert
 	

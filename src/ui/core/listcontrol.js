@@ -73,7 +73,7 @@ var ListControl = Control.extend({
 				newItem = li;
 			}
 
-			Dom.insert(this.elem, newItem, refItem);
+			Dom.render(newItem, this.elem, refItem);
 
 		}
 

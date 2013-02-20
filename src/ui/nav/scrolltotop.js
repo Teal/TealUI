@@ -31,9 +31,7 @@ var ScrollToTop = Control.extend({
         }, this);
         Dom.on(this.elem, 'click', this.onClick, this);
 		
-		if(!Dom.closest(this.elem, 'body')){
-			document.body.appendChild(this.elem);
-		}
+        Dom.render(this.elem);
     }
 
 });

@@ -97,7 +97,7 @@ var TreeView = TreeControl.extend({
         if (/\bui-treenode-(minus|plus|loading)\b/.test(target.className))
             return;
 
-        if ((target = new Dom(target).closest('.ui-treenode')) && (target = target.dataField().control)) {
+        if ((target = Dom.closest(target, '.ui-treenode')) && (target = Dom.data(target).control)) {
             this.selectNode(target);
             return false;
         }

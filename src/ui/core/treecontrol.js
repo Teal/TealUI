@@ -71,7 +71,7 @@ var TreeControl = ListControl.extend({
 		// 如果其内部有子树，则进行初始化。
 		this.initNode(newItem.elem);
 
-		return Dom.insert(this.elem, newItem.elem, refItem);
+		return Dom.render(newItem.elem, this.elem, refItem);
 	},
 
 	parent: function () {

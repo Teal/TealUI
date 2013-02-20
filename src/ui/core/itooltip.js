@@ -34,10 +34,7 @@ var IToolTip = {
 	toggleArgs: -2,
 
 	show: function () {
-		if (!Dom.closest(this.elem, 'body')) {
-			document.body.appendChild(this.elem);
-	    }
-
+		Dom.render(this.elem);
 		Dom.show(this.elem, this.toggleArgs);
 	    return this;
 	},

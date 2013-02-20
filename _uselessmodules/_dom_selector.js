@@ -277,14 +277,6 @@ function query(selector, result) {
     return result;
 }
 
-/**
- * 抛出选择器语法错误。 
- * @param {String} message 提示。
- */
-function throwError(message) {
-    throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
-}
-
 //#endregion
 
 

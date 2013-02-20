@@ -55,11 +55,11 @@ var IDropDownOwner = {
 
 	attach: function (parentNode, refNode) {
 		var dropDown = this.dropDown;
-		if (dropDown && !Dom.closest(dropDown, 'body')) {
-			Dom.insert(parentNode, dropDown, refNode);
+		if (dropDown && !Dom.contains(document.body, dropDown)) {
+			Dom.render(dropDown, parentNode, refNode);
 		}
 
-		Dom.insert(parentNode, this.elem, refNode);
+		Dom.render(this.elem, parentNode, refNode);
 	},
 
 	detach: function () {
@@ -88,7 +88,7 @@ var IDropDownOwner = {
 		    Dom.hide(dom);
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
-		    if (!Dom.closest(dom, 'body')) {
+		    if (!Dom.contains(document.body, dom)) {
 
 				// 添加下拉菜单到 DOM 树。
 			    Dom.after(this.elem, dom);

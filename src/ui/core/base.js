@@ -58,7 +58,7 @@ var Control = Class({
     init: Function.empty,
 
     attach: function (parentNode, refNode) {
-    	Dom.insert(parentNode, this.elem, refNode);
+    	Dom.render(this.elem, parentNode, refNode);
     },
 
     detach: function () {

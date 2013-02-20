@@ -68,9 +68,7 @@ var Menu = TreeControl.extend({
     showAt: function (p) {
 
         // 确保菜单已添加到文档内。
-        if (!this.closest('body').length) {
-            this.appendTo();
-        }
+        Dom.render(this.elem);
 
         // 显示节点。
         this.show();
@@ -87,8 +85,8 @@ var Menu = TreeControl.extend({
     showBy: function (ctrl, pos, offsetX, offsetY, enableReset) {
 
         // 确保菜单已添加到文档内。
-        if (!this.closest('body')) {
-            this.appendTo(ctrl.parent());
+    	if (!Dom.contains(dicument.body, this.elem)) {
+    		Dom.append(ctrl.parentNode, this.elem);
         }
 
         // 显示节点。
