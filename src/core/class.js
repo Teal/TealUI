@@ -3,7 +3,7 @@
  * @fileOverview 提供类的支持。
  */
 
-include("core/base.js");
+//#include core/base.js
 
 var Class = (function () {
 
@@ -54,7 +54,7 @@ var Class = (function () {
          */
         on: function (type, fn, scope) {
 
-            assert.isFunction(fn, 'Class.Base#on(eventName, eventHandler, scope): {eventHandler} ~');
+            //#assert fn:Function @Class.Base#on
 
             // 获取本对象 本对象的数据内容 本事件值
             var me = this,
@@ -178,7 +178,7 @@ var Class = (function () {
          */
         un: function (type, fn) {
 
-            assert(!fn || typeof fn === 'function', 'Class.Base#un(eventName, eventHandler): {eventHandler} 必须是函数。', fn);
+            //#assert fn:Function? @Class.Base#un
 
             // 获取本对象 本对象的数据内容 本事件值
             var me = this,
@@ -256,7 +256,7 @@ var Class = (function () {
          */
         once: function (type, fn, scope) {
 
-            assert.isFunction(fn, 'Class.Base#once(type, fn): {fn} ~');
+            //#assert fn:Function @Class.Base#once
 
             // 先插入一个用于删除句柄的函数。
             return this.on(type, function () {
@@ -285,7 +285,7 @@ var Class = (function () {
 	 */
     Base.implement = function (members) {
 
-        assert(this.prototype, "MyClass.implement(members): 无法扩展当前类，因为当前类的 prototype 为空。");
+        //#assert this.prototype @MyClass.implement: MyClass.prototype is undefined.
 
         // 直接将成员复制到原型上即可 。
         Object.extend(this.prototype, members);

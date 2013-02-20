@@ -3,7 +3,7 @@
  * @fileOverview 提供 DOM 操作的辅助函数。
  */
 
-include("core/class.js");
+//#include core/class.js
 
 var Dom = (function () {
 
@@ -101,7 +101,7 @@ var Dom = (function () {
              */
 		    access: function (getter, setter, args, valueIndex, emptyGet) {
 
-                // 如果参数够数，则设置属性，否则为获取属性。
+		        // 如果参数够数，则设置属性，否则为获取属性。
 		        if (args.length > valueIndex) {
 		            for (var i = 0, len = this.length; i < len; i++) {
 		                setter(this[i], args[0], args[1])
@@ -139,191 +139,191 @@ var Dom = (function () {
         };
     });
 
-	//#endregion
+    //#endregion
 
-	//#region Selector
+    //#region Selector
 
-	/**
+    /**
 	 * 一个选择器引擎。
 	 */
     var Selector, fixGetElementById, nativeQuerySelector, nativeMatchesSelector, rBackslash = /\\/g;
 
     (function () {
-    	var div = document.createElement("div");
-    	div.innerHTML = '<a name="__SELECTOR__"/>';
-    	html.appendChild(div);
+        var div = document.createElement("div");
+        div.innerHTML = '<a name="__SELECTOR__"/>';
+        html.appendChild(div);
 
-    	fixGetElementById = !!document.getElementById('__SELECTOR__');
-    	nativeQuerySelector = !!div.querySelectorAll;
-    	nativeMatchesSelector = div.matchesSelector || div.mozMatchesSelector || div.webkitMatchesSelector;
+        fixGetElementById = !!document.getElementById('__SELECTOR__');
+        nativeQuerySelector = !!div.querySelectorAll;
+        nativeMatchesSelector = div.matchesSelector || div.mozMatchesSelector || div.webkitMatchesSelector;
 
-    	html.removeChild(div);
-    	div = null;
+        html.removeChild(div);
+        div = null;
     })();
 
     function addElementsByTagName(elem, tagName, result) {
 
-    	if (elem.getElementsByTagName) {
-    		pushResult(elem.getElementsByTagName(tagName), result);
-    	} else if (elem.querySelectorAll) {
-    		pushResult(elem.querySelectorAll(tagName), result);
-    	}
+        if (elem.getElementsByTagName) {
+            pushResult(elem.getElementsByTagName(tagName), result);
+        } else if (elem.querySelectorAll) {
+            pushResult(elem.querySelectorAll(tagName), result);
+        }
 
     }
 
     function pushResult(nodelist, result) {
-    	for (var i = 0; nodelist[i]; i++) {
-    		result[result.length++] = nodelist[i];
-    	}
+        for (var i = 0; nodelist[i]; i++) {
+            result[result.length++] = nodelist[i];
+        }
     }
 
-	/**
+    /**
 	 * 抛出选择器语法错误。 
 	 * @param {String} message 提示。
 	 */
     function throwError(message) {
-    	throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
+        throw new SyntaxError('An invalid or illegal string was specified : "' + message + '"!');
     }
 
     Selector = {
 
-    	all: function (selector, context) {
+        all: function (selector, context) {
 
-    		context = context || document;
+            context = context || document;
 
-    		// 如果原生支持 querySelectorAll, 则先尝试使用原生的。
-    		if (nativeQuerySelector) {
+            // 如果原生支持 querySelectorAll, 则先尝试使用原生的。
+            if (nativeQuerySelector) {
 
-    			// hack: div.query('div selector') 应该返回空。
-    			if (context.nodeType === 1) {
+                // hack: div.query('div selector') 应该返回空。
+                if (context.nodeType === 1) {
 
-    				var oldId = context.id, displayId = oldId;
+                    var oldId = context.id, displayId = oldId;
 
-    				if (!oldId) {
-    					context.id = displayId = '__SELECTOR__';
-    					oldId = 0;
-    				}
+                    if (!oldId) {
+                        context.id = displayId = '__SELECTOR__';
+                        oldId = 0;
+                    }
 
-    				try {
-    					return new Dom(context.querySelectorAll('#' + displayId + ' ' + selector));
-    				} catch (e) {
-    				} finally {
-    					if (oldId === 0) {
-    						context.removeAttribute('id');
-    					}
-    				}
-    			} else {
-    				try {
-    					return new Dom(context.querySelectorAll(selector));
-    				} catch (e) {
+                    try {
+                        return new Dom(context.querySelectorAll('#' + displayId + ' ' + selector));
+                    } catch (e) {
+                    } finally {
+                        if (oldId === 0) {
+                            context.removeAttribute('id');
+                        }
+                    }
+                } else {
+                    try {
+                        return new Dom(context.querySelectorAll(selector));
+                    } catch (e) {
 
-    				}
-    			}
+                    }
+                }
 
-    		}
+            }
 
-    		return Selector.query(selector, context);
-    	},
+            return Selector.query(selector, context);
+        },
 
-    	one: function (selector, context) {
+        one: function (selector, context) {
 
-    		context = context || document;
+            context = context || document;
 
-    		// 如果原生支持 querySelectorAll, 则先尝试使用原生的。
-    		if (nativeQuerySelector) {
+            // 如果原生支持 querySelectorAll, 则先尝试使用原生的。
+            if (nativeQuerySelector) {
 
-    			// hack: div.query('div selector') 应该返回空。
-    			if (context.nodeType === 1) {
+                // hack: div.query('div selector') 应该返回空。
+                if (context.nodeType === 1) {
 
-    				var oldId = context.id, displayId = oldId;
+                    var oldId = context.id, displayId = oldId;
 
-    				if (!oldId) {
-    					context.id = displayId = '__SELECTOR__';
-    					oldId = 0;
-    				}
+                    if (!oldId) {
+                        context.id = displayId = '__SELECTOR__';
+                        oldId = 0;
+                    }
 
-    				try {
-    					return context.querySelector('#' + displayId + ' ' + selector);
-    				} catch (e) {
-    				} finally {
-    					if (oldId === 0) {
-    						context.removeAttribute('id');
-    					}
-    				}
-    			} else {
-    				try {
-    					return context.querySelector(selector);
-    				} catch (e) {
+                    try {
+                        return context.querySelector('#' + displayId + ' ' + selector);
+                    } catch (e) {
+                    } finally {
+                        if (oldId === 0) {
+                            context.removeAttribute('id');
+                        }
+                    }
+                } else {
+                    try {
+                        return context.querySelector(selector);
+                    } catch (e) {
 
-    				}
-    			}
+                    }
+                }
 
-    		}
+            }
 
-    		return Selector.query(selector, context)[0] || null;
-    	},
+            return Selector.query(selector, context)[0] || null;
+        },
 
-    	match: function (elem, selector) {
+        match: function (elem, selector) {
 
-    		//if (elem.nodeType !== 1)
-    		//	return false;
+            //if (elem.nodeType !== 1)
+            //	return false;
 
-    		// 判断的第一步：使用原生的判断函数。
+            // 判断的第一步：使用原生的判断函数。
 
-    		try {
-    			return this.nativeMatchesSelector.call(elem, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
-    		} catch (e) {
+            try {
+                return this.nativeMatchesSelector.call(elem, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
+            } catch (e) {
 
-    		}
+            }
 
-    		// 判断的第二步：使用简单过滤器。
+            // 判断的第二步：使用简单过滤器。
 
-    		var t = [elem], i, doc = elem.ownerDocument;
+            var t = [elem], i, doc = elem.ownerDocument;
 
-    		if (!Selector.filter(selector, t)) {
-    			return t.length > 0;
-    		}
+            if (!Selector.filter(selector, t)) {
+                return t.length > 0;
+            }
 
-    		// 判断的第三步：使用查询的方式判断。
+            // 判断的第三步：使用查询的方式判断。
 
-    		// 未添加到 DOM 树的节点是无法找到的，因此，首先将节点追加到 DOM 树进行判断。
-    		if (Dom.contains(doc.body, elem)) {
-    			try {
-    				t = doc.querySelectorAll(selector);
-    			} catch (e) {
-    				t = Selector.query(selector, doc);
-    			}
-    		} else {
+            // 未添加到 DOM 树的节点是无法找到的，因此，首先将节点追加到 DOM 树进行判断。
+            if (Dom.contains(doc.body, elem)) {
+                try {
+                    t = doc.querySelectorAll(selector);
+                } catch (e) {
+                    t = Selector.query(selector, doc);
+                }
+            } else {
 
-    			i = elem;
-    			while (i.parentNode)
-    				i = i.parentNode;
+                i = elem;
+                while (i.parentNode)
+                    i = i.parentNode;
 
-    			doc.documentElement.appendChild(i);
+                doc.documentElement.appendChild(i);
 
-    			try {
-    				t = Selector.all(selector, doc);
-    			} finally {
-    				doc.documentElement.removeChild(i);
-    			}
-    		}
+                try {
+                    t = Selector.all(selector, doc);
+                } finally {
+                    doc.documentElement.removeChild(i);
+                }
+            }
 
-    		for (i = 0; t[i]; i++)
-    			if (t[i] === elem)
-    				return true;
+            for (i = 0; t[i]; i++)
+                if (t[i] === elem)
+                    return true;
 
-    		return false;
-    	},
+            return false;
+        },
 
-    	/**
+        /**
 		 * 使用指定的选择器代码对指定的结果集进行一次查找。
 		 * @param {String} selector 选择器表达式。
 		 * @param {DomList/Dom} result 上级结果集，将对此结果集进行查找。
 		 * @return {DomList} 返回新的结果集。
 		 */
-    	query: function (selector, context) {
+        query: function (selector, context) {
 
-    		var result = new Dom(),
+            var result = new Dom(),
 				match,
 				value,
 				prevResult,
@@ -331,305 +331,305 @@ var Dom = (function () {
 				elem,
 				i;
 
-    		selector = selector.trim();
+            selector = selector.trim();
 
-    		// 解析的第一步: 解析简单选择器
+            // 解析的第一步: 解析简单选择器
 
-    		// ‘*’ ‘tagName’ ‘.className’ ‘#id’
-    		if (match = /^(^|[#.])((?:[-\w]|[^\x00-\xa0]|\\.)+)$/.exec(selector)) {
+            // ‘*’ ‘tagName’ ‘.className’ ‘#id’
+            if (match = /^(^|[#.])((?:[-\w]|[^\x00-\xa0]|\\.)+)$/.exec(selector)) {
 
-    			value = match[2].replace(rBackslash, "");
+                value = match[2].replace(rBackslash, "");
 
-    			switch (match[1]) {
+                switch (match[1]) {
 
-    				// ‘#id’
-    				case '#':
+                    // ‘#id’
+                    case '#':
 
-    					// 仅对 document 使用 getElementById 。
-    					if (context.nodeType === 9) {
-    						prevResult = context.getElementById(value);
-    						if (prevResult && (!fixGetElementById || prevResult.getAttributeNode("id").nodeValue === value)) {
-    							result[result.length++] = prevResult;
-    						}
-    						return result;
-    					}
+                        // 仅对 document 使用 getElementById 。
+                        if (context.nodeType === 9) {
+                            prevResult = context.getElementById(value);
+                            if (prevResult && (!fixGetElementById || prevResult.getAttributeNode("id").nodeValue === value)) {
+                                result[result.length++] = prevResult;
+                            }
+                            return result;
+                        }
 
-    					break;
+                        break;
 
-    					// ‘.className’
-    				case '.':
+                        // ‘.className’
+                    case '.':
 
-    					// 仅优化存在 getElementsByClassName 的情况。
-    					if (context.getElementsByClassName) {
-    						pushResult(context.getElementsByClassName(value), result);
-    						return result;
-    					}
+                        // 仅优化存在 getElementsByClassName 的情况。
+                        if (context.getElementsByClassName) {
+                            pushResult(context.getElementsByClassName(value), result);
+                            return result;
+                        }
 
-    					break;
+                        break;
 
-    					// ‘*’ ‘tagName’
-    				default:
-    					addElementsByTagName(context, value, result);
-    					return result;
+                        // ‘*’ ‘tagName’
+                    default:
+                        addElementsByTagName(context, value, result);
+                        return result;
 
-    			}
+                }
 
-    		}
+            }
 
-    		// 解析的第二步: 获取所有子节点。并不断进行筛选。
+            // 解析的第二步: 获取所有子节点。并不断进行筛选。
 
-    		prevResult = [context];
+            prevResult = [context];
 
-    		// 解析分很多步进行，每次解析  selector 的一部分，直到解析完整个 selector 。
-    		for (; ;) {
+            // 解析分很多步进行，每次解析  selector 的一部分，直到解析完整个 selector 。
+            for (; ;) {
 
-    			// 保存本次处理前的选择器。
-    			// 用于在本次处理后检验 selector 是否有变化。
-    			// 如果没变化，说明 selector 不能被正确处理，即 selector 包含非法字符。
-    			lastSelector = selector;
+                // 保存本次处理前的选择器。
+                // 用于在本次处理后检验 selector 是否有变化。
+                // 如果没变化，说明 selector 不能被正确处理，即 selector 包含非法字符。
+                lastSelector = selector;
 
-    			// 解析的第三步: 获取所有子节点。第四步再一一筛选。
-    			// 针对子选择器和标签选择器优化(不需要获取全部子节点)。
+                // 解析的第三步: 获取所有子节点。第四步再一一筛选。
+                // 针对子选择器和标签选择器优化(不需要获取全部子节点)。
 
-    			// ‘ selector’ ‘>selector’ ‘~selector’ ‘+selector’
-    			if (match = /^\s*([>+~\s])\s*(\*|(?:[-\w*]|[^\x00-\xa0]|\\.)*)/.exec(selector)) {
+                // ‘ selector’ ‘>selector’ ‘~selector’ ‘+selector’
+                if (match = /^\s*([>+~\s])\s*(\*|(?:[-\w*]|[^\x00-\xa0]|\\.)*)/.exec(selector)) {
 
-    				selector = RegExp.rightContext;
-    				value = match[2].replace(rBackslash, "").toUpperCase() || "*";
+                    selector = RegExp.rightContext;
+                    value = match[2].replace(rBackslash, "").toUpperCase() || "*";
 
-    				for (i = 0; elem = prevResult[i]; i++) {
-    					switch (match[1]) {
-    						case ' ':
-    							addElementsByTagName(elem, value, result);
-    							break;
+                    for (i = 0; elem = prevResult[i]; i++) {
+                        switch (match[1]) {
+                            case ' ':
+                                addElementsByTagName(elem, value, result);
+                                break;
 
-    						case '>':
-    							for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
-    								if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
-    									result[result.length++] = elem;
-    								}
-    							}
-    							break;
+                            case '>':
+                                for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
+                                    if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
+                                        result[result.length++] = elem;
+                                    }
+                                }
+                                break;
 
-    						case '+':
-    							while (elem = elem.nextSibling) {
-    								if (elem.nodeType === 1) {
-    									if ((value === "*" || value === elem.tagName)) {
-    										result[result.length++] = elem;
-    									}
-    									break;
-    								}
-    							}
+                            case '+':
+                                while (elem = elem.nextSibling) {
+                                    if (elem.nodeType === 1) {
+                                        if ((value === "*" || value === elem.tagName)) {
+                                            result[result.length++] = elem;
+                                        }
+                                        break;
+                                    }
+                                }
 
-    							break;
+                                break;
 
-    						case '~':
-    							while (elem = elem.nextSibling) {
-    								if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
-    									result[result.length++] = elem;
-    								}
-    							}
-    							break;
+                            case '~':
+                                while (elem = elem.nextSibling) {
+                                    if (elem.nodeType === 1 && (value === "*" || value === elem.tagName)) {
+                                        result[result.length++] = elem;
+                                    }
+                                }
+                                break;
 
-    						default:
-    							throwError(match[0]);
-    					}
-    				}
+                            default:
+                                throwError(match[0]);
+                        }
+                    }
 
 
-    			} else {
+                } else {
 
-    				// ‘tagName’ ‘*’ 
-    				if (match = /^((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
-    					value = match[1].replace(rBackslash, "").toUpperCase();
-    					selector = RegExp.rightContext;
-    				}
+                    // ‘tagName’ ‘*’ 
+                    if (match = /^((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
+                        value = match[1].replace(rBackslash, "").toUpperCase();
+                        selector = RegExp.rightContext;
+                    }
 
-    				for (i = 0; elem = prevResult[i]; i++) {
-    					addElementsByTagName(elem, value || "*", result);
-    				}
+                    for (i = 0; elem = prevResult[i]; i++) {
+                        addElementsByTagName(elem, value || "*", result);
+                    }
 
-    			}
+                }
 
-    			if (prevResult.length > 1) {
-    				result.unique();
-    			}
+                if (prevResult.length > 1) {
+                    result.unique();
+                }
 
-    			// 解析的第四步: 筛选第三步返回的结果。
+                // 解析的第四步: 筛选第三步返回的结果。
 
-    			// 如果没有剩余的选择器，说明节点已经处理结束。
-    			if (selector) {
+                // 如果没有剩余的选择器，说明节点已经处理结束。
+                if (selector) {
 
-    				// 进行过滤筛选。
-    				selector = Selector.filter(selector, result);
+                    // 进行过滤筛选。
+                    selector = Selector.filter(selector, result);
 
-    			}
+                }
 
-    			// 如果筛选后没有其它选择器。返回结果。
-    			if (!selector) {
-    				break;
-    			}
+                // 如果筛选后没有其它选择器。返回结果。
+                if (!selector) {
+                    break;
+                }
 
-    			// 解析的第五步: 解析, 如果存在，则继续。
+                // 解析的第五步: 解析, 如果存在，则继续。
 
-    			// ‘,selectpr’ 
-    			if (match = /^\s*,\s*/.exec(selector)) {
-    				result.add(Selector.query(RegExp.rightContext, context)).unique();
-    				break;
-    			}
+                // ‘,selectpr’ 
+                if (match = /^\s*,\s*/.exec(selector)) {
+                    result.add(Selector.query(RegExp.rightContext, context)).unique();
+                    break;
+                }
 
-    			// 存储当前的结果值，用于下次继续筛选。
-    			prevResult = result;
+                // 存储当前的结果值，用于下次继续筛选。
+                prevResult = result;
 
-    			// 清空之前的属性值。
-    			result = new Dom();
+                // 清空之前的属性值。
+                result = new Dom();
 
-    			// 如果没有一个正则匹配选择器，则这是一个无法处理的选择器，向用户报告错误。
-    			if (lastSelector.length === selector.length) {
-    				throwError(selector);
-    			}
-    		}
+                // 如果没有一个正则匹配选择器，则这是一个无法处理的选择器，向用户报告错误。
+                if (lastSelector.length === selector.length) {
+                    throwError(selector);
+                }
+            }
 
-    		return result;
-    	},
+            return result;
+        },
 
-    	filter: function (selector, result) {
+        filter: function (selector, result) {
 
-    		var match, filterFn, value, code;
+            var match, filterFn, value, code;
 
-    		// ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
-    		while (result.length && (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector))) {
+            // ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
+            while (result.length && (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector))) {
 
-    			code = match[0];
+                code = match[0];
 
-    			selector = RegExp.rightContext;
+                selector = RegExp.rightContext;
 
-    			filterFn = (Selector.filterFn || (Selector.filterFn = {}))[match[0]];
+                filterFn = (Selector.filterFn || (Selector.filterFn = {}))[match[0]];
 
-    			// 如果不存在指定过滤器的特定函数，则先编译一个。
-    			if (!filterFn) {
+                // 如果不存在指定过滤器的特定函数，则先编译一个。
+                if (!filterFn) {
 
-    				filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
-    				value = match[2].replace(rBackslash, "");
+                    filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
+                    value = match[2].replace(rBackslash, "");
 
-    				switch (match[1]) {
+                    switch (match[1]) {
 
-    					// ‘#id’
-    					case "#":
-    						filterFn += 'Dom.getAttr(e,"id")===v';
-    						break;
+                        // ‘#id’
+                        case "#":
+                            filterFn += 'Dom.getAttr(e,"id")===v';
+                            break;
 
-    						// ‘.className’
-    					case ".":
-    						filterFn += 'Dom.hasClass(e,v)';
-    						break;
+                            // ‘.className’
+                        case ".":
+                            filterFn += 'Dom.hasClass(e,v)';
+                            break;
 
-    						// ‘:filter’
-    					case ":":
+                            // ‘:filter’
+                        case ":":
 
-    						filterFn += Selector.pseudos[value] || throwError(match[0]);
+                            filterFn += Selector.pseudos[value] || throwError(match[0]);
 
-    						// ‘selector:nth-child(2)’
-    						if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
-    							selector = RegExp.rightContext;
-    							value = match[3] || match[2] || match[1];
-    						}
+                            // ‘selector:nth-child(2)’
+                            if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
+                                selector = RegExp.rightContext;
+                                value = match[3] || match[2] || match[1];
+                            }
 
-    						break;
+                            break;
 
-    						// ‘[attr’
-    					default:
-    						value = [value.toLowerCase()];
+                            // ‘[attr’
+                        default:
+                            value = [value.toLowerCase()];
 
-    						// ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
-    						if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
-    							selector = RegExp.rightContext;
-    							if (match[1]) {
-    								value[1] = match[1];
-    								value[2] = match[3] || match[4];
-    								value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
-    									return String.fromCharCode(parseInt(y, 16));
-    								}).replace(rBackslash, "") : "";
-    							}
-    						}
+                            // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
+                            if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
+                                selector = RegExp.rightContext;
+                                if (match[1]) {
+                                    value[1] = match[1];
+                                    value[2] = match[3] || match[4];
+                                    value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
+                                        return String.fromCharCode(parseInt(y, 16));
+                                    }).replace(rBackslash, "") : "";
+                                }
+                            }
 
-    						filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
+                            filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
 
-    				}
+                    }
 
-    				filterFn += ';if(t)r[n++]=e;}r.splice(n);';
+                    filterFn += ';if(t)r[n++]=e;}r.splice(n);';
 
-    				Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
+                    Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
 
-    				filterFn.value = value;
+                    filterFn.value = value;
 
-    			}
+                }
 
-    			filterFn(result, filterFn.value);
+                filterFn(result, filterFn.value);
 
-    		}
+            }
 
-    		return selector;
+            return selector;
 
-    	},
+        },
 
-    	/**
+        /**
 		 * 用于查找所有支持的伪类的函数集合。
 		 * @private
 		 * @static
 		 */
-    	pseudos: {
-    		target: 'window.location&&window.location.hash;t=t&&t.slice(1)===e.id',
-    		empty: 'Dom.isEmpty(e)',
-    		contains: 'Dom.getText(e).indexOf(v)>=0',
-    		hidden: 'Dom.isHidden(e)',
-    		visible: '!Dom.isHidden(e)',
+        pseudos: {
+            target: 'window.location&&window.location.hash;t=t&&t.slice(1)===e.id',
+            empty: 'Dom.isEmpty(e)',
+            contains: 'Dom.getText(e).indexOf(v)>=0',
+            hidden: 'Dom.isHidden(e)',
+            visible: '!Dom.isHidden(e)',
 
-    		not: '!Dom.match(e, v)',
-    		has: '!Dom.find(v, e)',
+            not: '!Dom.match(e, v)',
+            has: '!Dom.find(v, e)',
 
-    		selected: 'Dom.attrHooks.selected.get(e, "selected", 1)',
-    		checked: 'e.checked',
-    		enabled: 'e.disabled===false',
-    		disabled: 'e.disabled===true',
+            selected: 'Dom.attrHooks.selected.get(e, "selected", 1)',
+            checked: 'e.checked',
+            enabled: 'e.disabled===false',
+            disabled: 'e.disabled===true',
 
-    		input: '^(input|select|textarea|button)$/i.test(e.nodeName)',
+            input: '^(input|select|textarea|button)$/i.test(e.nodeName)',
 
-    		"nth-child": 'Dom.index(elem)+1;t=v==="odd"?t%2:v==="even"?t%2===0:t===v',
-    		"first-child": '!Dom.prev(elem)',
-    		"last-child": '!Dom.next(elem)',
-    		"only-child": '!Dom.prev(elem)&&!Dom.next(elem)'
+            "nth-child": 'Dom.index(elem)+1;t=v==="odd"?t%2:v==="even"?t%2===0:t===v',
+            "first-child": '!Dom.prev(elem)',
+            "last-child": '!Dom.next(elem)',
+            "only-child": '!Dom.prev(elem)&&!Dom.next(elem)'
 
-    	},
+        },
 
-    	relative: {
-    		'undefined': '!=null',
-    		'=': '===v[2]',
-    		'~=': ';t=(" "+t+" ").indexOf(" "+v[2]+" ")>=0',
-    		'!=': '!==v[2]',
-    		'|=': ';t=("-"+t+"-").indexOf("-"+v[2]+"-")>=0',
-    		'^=': ';t=t&&t.indexOf(v[2])===0',
-    		'$=': ';t=t&&t.indexOf(v[2].length-t.length)===v[2]',
-    		'*=': ';t=t&&t.indexOf(v[2])>=0'
-    	}
+        relative: {
+            'undefined': '!=null',
+            '=': '===v[2]',
+            '~=': ';t=(" "+t+" ").indexOf(" "+v[2]+" ")>=0',
+            '!=': '!==v[2]',
+            '|=': ';t=("-"+t+"-").indexOf("-"+v[2]+"-")>=0',
+            '^=': ';t=t&&t.indexOf(v[2])===0',
+            '$=': ';t=t&&t.indexOf(v[2].length-t.length)===v[2]',
+            '*=': ';t=t&&t.indexOf(v[2])>=0'
+        }
 
     };
 
-	//#endregion
+    //#endregion
 
-	//#region Helper
+    //#region Helper
 
-	/**
+    /**
 	 * 获取元素的文档。
 	 * @param {Node} node 元素。
 	 * @return {Document} 文档。
 	 */
     function getDocument(node) {
-    	assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
-    	return node.ownerDocument || node.document || node;
+        assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
+        return node.ownerDocument || node.document || node;
     }
 
-	/**
+    /**
 	 * 执行一个 CSS 选择器，返回一个新的 {@link Dom} 对象。
 	 * @param {String/NodeList/Dom/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点列表。
 	 * @return {Element} 如果没有对应的节点则返回一个空的 Dom 对象。
@@ -674,8 +674,8 @@ var Dom = (function () {
 	 */
     Dom.query = function (selector, context) {
 
-    	// Dom.query("selector")
-    	return typeof selector === 'string' ? Selector.all(selector, context) :
+        // Dom.query("selector")
+        return typeof selector === 'string' ? Selector.all(selector, context) :
 
 				// Dom.query(dom)
 				selector instanceof Dom ? selector :
@@ -688,7 +688,7 @@ var Dom = (function () {
 
     };
 
-	/**
+    /**
 	 * 根据一个 *id* 或原生节点获取一个 {@link Dom} 类的实例。
 	 * @param {String/Node/Dom/Dom} id 要获取元素的 id 或用于包装成 Dom 对象的任何元素，如是原生的 DOM 节点、原生的 DOM 节点列表数组或已包装过的 Dom 对象。。
 	 * @return {Dom} 此函数返回是一个 Dom 类型的变量。通过这个变量可以调用所有文档中介绍的 DOM 操作函数。如果无法找到指定的节点，则返回 null 。此函数可简写为 $。
@@ -718,10 +718,10 @@ var Dom = (function () {
 	 * <pre>{&lt;p id="a1"&gt;&lt;/p&gt;}</pre>
 	 */
     Dom.get = function (id) {
-    	return typeof id !== "string" ? (!id || id.nodeType || id.setInterval ? id : id[0]) || null : document.getElementById(id);
+        return typeof id !== "string" ? (!id || id.nodeType || id.setInterval ? id : id[0]) || null : document.getElementById(id);
     };
 
-	/**
+    /**
 	 * 执行一个 CSS 选择器，返回第一个元素对应的 {@link Dom} 对象。
 	 * @param {String/NodeList/Dom/Array/Dom} 用来查找的 CSS 选择器或原生的 DOM 节点。
 	 * @return {Element} 如果没有对应的节点则返回一个空的 Dom 对象。
@@ -761,18 +761,14 @@ var Dom = (function () {
 	 * </pre>
 	 */
     Dom.find = function (selector, context) {
-    	return typeof selector !== "string" ? (!selector || selector.nodeType || selector.setInterval ? selector : selector[0]) || null : Selector.one(selector, context);
+        return typeof selector !== "string" ? (!selector || selector.nodeType || selector.setInterval ? selector : selector[0]) || null : Selector.one(selector, context);
     };
 
     Dom.match = function (elem, selector) {
-    	if (elem.nodeType !== 1) {
-    		return false;
-    	}
-
-    	return Selector.match(elem, selector);
+        return elem.nodeType === 1 && Selector.match(elem, selector);
     };
 
-	/**
+    /**
 	 * 获取当前类对应的数据字段。
 	 * @protected override
 	 * @return {Object} 一个可存储数据的对象。
@@ -781,12 +777,12 @@ var Dom = (function () {
 	 */
     Dom.data = function (node) {
 
-    	// 将数据绑定在原生节点上。
-    	// 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
-    	return (node.nodeType === 1 || node.nodeType === 9 || node.setInterval) ? node.$data || (node.$data = {}) : null;
+        // 将数据绑定在原生节点上。
+        // 这在 IE 6/7 存在内存泄露问题。由于 IE 6/7 即将退出市场。此处忽略。
+        return (node.nodeType === 1 || node.nodeType === 9 || node.setInterval) ? node.$data || (node.$data = {}) : null;
     };
 
-	/**
+    /**
 	 * 获取元素的文档。
 	 * @param {Element} elem 元素。
 	 * @return {Document} 文档。
@@ -796,7 +792,7 @@ var Dom = (function () {
 
     Dom.Selector = Selector;
 
-	//#endregion
+    //#endregion
 
     //#region Parse
 
@@ -2893,12 +2889,12 @@ var Dom = (function () {
         assert.isNode(child, "Dom.contains(node, child): {child} ~");
         return node === child || !!(child && (node.compareDocumentPosition(child) & 16));
     } : function (node, child) {
-    	assert.isNode(node, "Dom.contains(elem, child): {elem} ~");
+        assert.isNode(node, "Dom.contains(elem, child): {elem} ~");
         assert.isNode(child, "Dom.contains(elem, child): {child} ~");
         while (child) {
-        	if (node === child)
-        		return true;
-        	child = child.parentNode;
+            if (node === child)
+                return true;
+            child = child.parentNode;
         }
 
         return false;
@@ -2958,23 +2954,23 @@ var Dom = (function () {
     };
 
     Dom.render = function (node, parent, refNode) {
-    	if (parent) {
-    		parent.insertBefore(node, refNode || null);
-    	} else if(!Dom.contains(document.body, node)) {
-    		document.body.appendChild(node);
-    	}
+        if (parent) {
+            parent.insertBefore(node, refNode || null);
+        } else if (!Dom.contains(document.body, node)) {
+            document.body.appendChild(node);
+        }
     };
 
-	/**
+    /**
 	 * 判断一个节点是否有元素节点或文本节点。
 	 * @param {Element} elem 要测试的元素。
 	 * @return {Boolean} 如果存在子节点，则返回 true，否则返回 false 。
 	 */
     Dom.isEmpty = function (elem) {
-    	for (elem = elem.firstChild; elem; elem = elem.nextSibling)
-    		if (elem.nodeType === 1 || elem.nodeType === 3)
-    			return false;
-    	return true;
+        for (elem = elem.firstChild; elem; elem = elem.nextSibling)
+            if (elem.nodeType === 1 || elem.nodeType === 3)
+                return false;
+        return true;
     };
 
     /**
