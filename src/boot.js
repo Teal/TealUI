@@ -1,5 +1,5 @@
  /**
-  * Boot.js - An extended AMD module loader for browsers.
+  * Boot.js - A synchroniaed module loader for browsers.
   */
   
 (function(window){

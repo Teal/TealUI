@@ -2,7 +2,7 @@
  * @fileOverview 演示系统驱动文件。
  */
 
-/// #region 前后台公用的部分
+//#region 前后台公用的部分
 
 var Demo = Demo || {};
 
@@ -137,12 +137,12 @@ Demo.Module = {
 
 };
 
-/// #endregion
+//#endregion
 
 // 指示当前系统是否在后台运行。
 if (typeof module !== 'object') {
 
-	/// #region 前台专用的部分
+	//#region 前台专用的部分
 
 	/**
 	* DOM辅助处理模块。
@@ -1998,7 +1998,7 @@ if (typeof module !== 'object') {
 
 	Demo.Page.init();
 
-	/// #endregion
+	//#endregion
 
 } else {
 
