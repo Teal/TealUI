@@ -10,29 +10,39 @@
  * 表示一个列表框。
  * @extends ListControl
  */
-var ListBox = ListControl.implement({
+var ListBox = ListControl.implement(IInput).extend({
 
-    xtype: "listbox",
+	cssClass: "listbox",
+
+	/**
+     * 获取当前高亮项。
+     */
+	getSelectedItem: function () {
+		return Dom.find('.ui-' + this.cssClass + '-selected', this.elem);
+	},
 
     /**
      * 重新设置当前高亮项。
      */
     setSelectedItem: function (item) {
-        var clazz = 'ui-' + this.xtype + '-selected';
-        this.query('.' + clazz).removeClass(clazz);
+    	var clazz = 'ui-' + this.cssClass + '-selected';
+    	Dom.query('.' + clazz, this.elem).each(function (elem) {
+    		Dom.removeClass(clazz);
+    	});
 
         if(item) {
-            item.addClass(clazz);
+        	Dom.addClass(item, clazz);
         }
 
         return this;
     },
 
-    /**
-     * 获取当前高亮项。
-     */
-    getSelectedItem: function () {
-        return this.find('.ui-' + this.xtype + '-selected');
+    getSelectedIndex: function () {
+    	return this.indexOf(this.getSelectedItem());
+    },
+
+    setSelectedIndex: function (value) {
+    	return this.setSelectedItem(this.item(value));
     },
 
     /**
@@ -43,7 +53,7 @@ var ListBox = ListControl.implement({
             var old = this.getSelectedItem();
             this.setSelectedItem(item);
 
-            if (!(old ? old.equals(item) : item)) {
+            if (!(old ? old === item : item)) {
                 this.trigger('change');
             }
         }
