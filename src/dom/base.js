@@ -123,6 +123,22 @@ var Dom = (function () {
 		            fn.apply(Dom, args);
 		        }
 		        return this;
+		    },
+
+		    filter: function (selector) {
+		    	var newLength = 0,
+					fn = typeof selector === 'string' ? function (elem) {
+						return Dom.match(elem, selector);
+					} : fn;
+
+		    	for (var i = 0; i < this.length; i++) {
+		    		if (fn(this[i]) !== false) {
+		    			this[newLength++] = this[i];
+		    		}
+		    	}
+
+		    	return ap.splice.call(this, newLength);
+
 		    }
 
 		}),

@@ -2,10 +2,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
     <title>鼠标移上后的操作</title>
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/hover.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/hover.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 </head>
@@ -13,10 +15,10 @@
     <article class="demo">
         <span id="hover">移到我这里</span>
         <script class="demo">
-            Dom.get("hover").hover(function () {
-                this.setHtml('鼠标进来了');
+            Dom.query("#hover").hover(function () {
+                Dom.setHtml(this, '鼠标进来了');
             }, function () {
-                this.setHtml('鼠标走掉了');
+                Dom.setHtml(this, '鼠标走掉了');
             });
         </script>
     </article>
