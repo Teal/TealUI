@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-include("fx/base.js");
-include("dom/base.js");
+//#include fx/base.js
+//#include dom/base.js
 
 /**
  * @namespace Fx
@@ -160,7 +160,7 @@ Object.extend(Fx, {
 					to: parsed		
 				};
 				
-				assert(i !== null && parsed !== null, "Fx.Tween#init(options): 无法正确获取属性 {key} 的值({from} {to})。", key, i, parsed);
+				//assert(i !== null && parsed !== null, "Fx.Tween#init(options): 无法正确获取属性 {key} 的值({from} {to})。", key, i, parsed);
 				
 			}
 

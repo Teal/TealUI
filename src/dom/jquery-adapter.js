@@ -1,6 +1,6 @@
 
 
-include("core/class.js");
+//#include core/class.js
 
 var Dom = (function($){
 
@@ -41,7 +41,7 @@ var Dom = (function($){
     	},
 
     	create: function (tagName, className) {
-    		assert.isString(tagName, 'Dom.create(tagName, className): {tagName} ~');
+    		//assert.isString(tagName, 'Dom.create(tagName, className): {tagName} ~');
     		var div = document.createElement(tagName);
     		if (className)
     			div.className = className;
@@ -131,12 +131,12 @@ var Dom = (function($){
         },
 
         styleString: function (elem, name) {
-        	assert.isElement(elem, "Dom.styleString(elem, name): {elem} ~");
+        	//assert.isElement(elem, "Dom.styleString(elem, name): {elem} ~");
         	return elem.style[name] || Dom.getStyle(elem, name);
         },
 
         movable: function (elem, name) {
-        	assert.isElement(elem, "Dom.movable(elem): 参数 elem ~");
+        	//assert.isElement(elem, "Dom.movable(elem): 参数 elem ~");
         	if (!/^(?:abs|fix)/.test(Dom.styleString(elem, "position")))
         		elem.style.position = "relative";
         },
@@ -162,7 +162,7 @@ var Dom = (function($){
         },
 
         getDocument: function (node) {
-        	assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
+        	//assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
         	return node.ownerDocument || node.document || node;
         },
 

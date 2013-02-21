@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("dom/base.js");
+//#include dom/base.js
 
 Dom.defineEvents('ctrlenter', {
 
@@ -15,8 +15,8 @@ Dom.defineEvents('ctrlenter', {
 });
 
 Dom.submitOnCtrlEnter = function (dom, check) {
-	Dom.query(dom).on('ctrlenter', function () {
+	Dom.on(Dom.find(dom), 'ctrlenter', function () {
 		if((!check || check(this.value) !== false) && this.form)
-			Dom.get(this.form).submit();
+			this.form.submit();
 	});
 };

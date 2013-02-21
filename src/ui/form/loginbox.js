@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-include("ui/form/textbox.css");
-include("ui/form/form.css");
-include("ui/button/button.css");
-include("ui/container/dialog.js");
+//#include ui/form/textbox.css
+//#include ui/form/form.css
+//#include ui/button/button.css
+//#include ui/container/dialog.js
 
 
 var LoginBox = Dialog.extend({

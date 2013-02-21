@@ -2,7 +2,7 @@
 //  Swf      swiff.js  A
 //===========================================
 
-include("controls/control.js");
+//#include controls/control.js
 
 
 

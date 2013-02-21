@@ -6,7 +6,7 @@
 
 
 
-include("dom/drag.js");
+//#include dom/drag.js
 
 
 

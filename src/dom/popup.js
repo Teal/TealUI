@@ -2,159 +2,156 @@
  * @author xuld
  */
 
+//#include dom/base.js
+//#include fx/animte.js
 
-include("dom/base.js");
+Dom.popup = function (elem, options) {
 
+	if (options.constructor !== Object) {
+		options = { elem: Dom.find(options) };
+	}
+	// 默认事件是 mouseenter
+	options.event = options.event || 'mouseenter';
 
-Dom.implement({
-	
-    /**
-     * 定义一个菜单的弹出层。
-     */
-	popup: function(options){
+	var event = options.event,
+		selector = options.selector,
+		timer, atPopup, atTarget;
+
+	// 浮层首先是隐藏的。
+	Dom.hide(options.elem);
+
+	if (/^mouse(enter|over)$/.test(event)) {
+
+		options.delay = options.delay || 300;
+
+		Dom.on(options.elem, 'mouseenter', function () {
+			atPopup = true;
+		});
+
+		Dom.on(options.elem, 'mouseleave', function () {
+			atPopup = false;
+		});
 		
-		if(options.constructor !== Object){
-			options = {target: Dom.get(options)};
-		}
-		
-        // 浮层首先是隐藏的。
-		options.target.hide();
+		Dom.on(elem, event, selector, function (e) {
 
-        // 默认事件是 mouseenter
-		options.event = options.event || 'mouseenter';
-		
-		var me = this, timer, atPopup, atTarget;
+			var target = this;
+			
+			atTarget = true;
 
-		if (/^mouse(enter|over)\b/.test(options.event)) {
+			if (timer) {
+				clearTimeout(timer);
+			}
 
-		    options.delay = options.delay || 300;
+			timer = setTimeout(function () {
 
-		    options.target
-                .on('mouseenter', function () {
-                    atPopup = true;
-                })
-                .on('mouseleave', function () {
-                    atPopup = false;
-                });
-		    
-		    me.bind(options.event, function (e) {
-		        
-		        var target = this;
+				timer = 0;
 
-		        atTarget = true;
+				toggle('show', target);
 
-		        if (timer) {
-		            clearTimeout(timer);
-		        }
-		        
-		        timer = setTimeout(function () {
+			}, options.delay);
 
-		            timer = 0;
-		            
-		            toggle('show', target);
+		});
 
-		        }, options.delay);
+		Dom.on(elem, event.length === 9 ? 'mouseout' : 'mouseleave', selector, function (e) {
 
-		    });
+			var target = this;
+			
+			atTarget = false;
 
-		    me.bind(/^mouseenter/.test(options.event) ? options.event.replace('enter', 'leave') : options.event.replace('over', 'out'), function (e) {
+			if (timer) {
+				clearTimeout(timer);
+			}
+			
+			timer = setTimeout(function () {
 
-		        var target = this;
+				timer = 0;
 
-		        atTarget = false;
+				if (!atTarget) {
 
-		        if (timer) {
-		            clearTimeout(timer);
-		        }
+					if (!atPopup) {
+						toggle('hide', target);
 
-		        timer = setTimeout(function () {
+					} else {
+						setTimeout(arguments.callee, options.delay);
+					}
 
-		            timer = 0;
+				}
 
-		            if (!atTarget) {
+			}, options.delay);
 
-		                if (!atPopup) {
-		                    toggle('hide', target);
+		});
 
-		                } else {
-		                    setTimeout(arguments.callee, options.delay);
-		                }
+		// 点击后直接显示。
+		Dom.on(elem, "click", selector, function (e) {
+			
+			e.preventDefault();
 
-		            }
+			if (timer) {
+				clearTimeout(timer);
+			}
 
-		        }, options.delay);
+			toggle('show', this);
 
-		    });
+		})
 
-            // 点击后直接显示。
-		    me.bind(options.event.replace(/^\w+/, "click"), function (e) {
+	} else if (/^focus(in)?$/.test(event)) {
 
-		        e.preventDefault();
+		Dom.on(elem, event, selector, function (e) {
+			toggle('show', this);
+		});
 
-		        if (timer) {
-		            clearTimeout(timer);
-		        }
+		Dom.on(elem, event.length === 5 ? 'blur' : 'focusout', selector, function (e) {
+			toggle('hide', this);
+		});
 
-		        toggle('show', this);
+	} else {
 
-		    })
+		Dom.on(elem, event, function (e) {
 
-		} else if (/'focus(in)?\b/.test(options.event)) {
+			var target = this;
 
-		    me.bind(options.event, function (e) {
-		        toggle('show', this);
-		    });
+			e.preventDefault();
 
-		    me.bind(/'focusin/.test(options.event) ? options.event.replace('focusin', 'focusout') : options.event.replace('focus', 'blur'), function (e) {
-		        toggle('hide', this);
-		    });
+			toggle('show', target);
 
-		} else {
+			// 绑定 click 后隐藏菜单。
+			Dom.on(document, 'click', function (e) {
 
-		    me.bind(options.event, function (e) {
+				// 如果事件发生在弹窗上，忽略。
+				if (Dom.contains(options.elem, e.target)) {
+					return;
+				}
 
-		        e.preventDefault();
+				toggle('hide', target);
 
-	            var target = this;
+				// 删除 click 事件回调。
+				Dom.un(document, 'click', arguments.callee);
 
-	            toggle('show', target);
+			});
 
-                // 绑定 click 后隐藏菜单。
-                document.on('click', function (e) {
-                    
-                    // 如果事件发生在弹窗上，忽略。
-                    if (options.target.has(e.target, true)) {
-                        return;
-                    }
+			return false;
 
-                    toggle('hide', target);
+		});
 
-                    // 删除 click 事件回调。
-                    document.un('click', arguments.callee);
-
-                });
-            
-	            return false;
-
-		    });
-
-		}
-
-		function toggle(showOrHide, target) {
-
-		    // 显示或隐藏浮层。
-		    options.target[showOrHide]();
-
-		    // 回调。
-		    if (options[showOrHide]) {
-		        options[showOrHide](target);
-		    }
-
-
-		}
-		
-		return me;
-		
 	}
 
-});
+	function toggle(showOrHide, target) {
+
+		// 显示或隐藏浮层。
+		Dom[showOrHide](options.elem);
+
+		// 回调。
+		if (options[showOrHide]) {
+			options[showOrHide].call(elem, options.elem, target, options);
+		}
+
+	}
+
+};
+
+/**
+ * 定义一个菜单的弹出层。
+ */
+Dom.prototype.popup = function () {
+	return this.iterate(Dom.popup, arguments);
+};

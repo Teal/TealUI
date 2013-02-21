@@ -3,7 +3,7 @@
  */
 
 
-include("dom/base.js");
+//#include dom/base.js
 
 
 Dom.implement({

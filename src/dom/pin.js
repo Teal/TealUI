@@ -3,7 +3,7 @@
  */
 
 
-include("dom/base.js");
+//#include dom/base.js
 
 Dom.pin = (function(){
 
@@ -97,7 +97,7 @@ Dom.pin = (function(){
 	
 	return function (elem, target, position, offsetX, offsetY, enableReset) {
 					
-		assert(position, "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
+		//assert(position, "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
 			
 		target = Dom.find(target);
 
@@ -124,7 +124,7 @@ Dom.pin = (function(){
 			y = position.substr(3);
 		}
 
-		assert(aligners[x] && aligners[y], "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
+		//assert(aligners[x] && aligners[y], "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
 
 		aligners[x](opt, r);
 		aligners[y](opt, r);

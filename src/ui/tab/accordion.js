@@ -4,8 +4,8 @@
 
 
 
-include("ui/tab/accordion.css");
-include("ui/core/tabbablecontrol.js");
+//#include ui/tab/accordion.css
+//#include ui/core/tabbablecontrol.js
 
 
 var Accordion = TabbableControl.extend({

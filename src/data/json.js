@@ -1,7 +1,7 @@
 
 
 
-include("core/base.js");
+//#include core/base.js
 
 /**
  * 提供解析 JSON 的函数。

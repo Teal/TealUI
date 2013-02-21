@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-include("ui/form/listbox.css");
-include("ui/core/listcontrol.js");
+//#include ui/form/listbox.css
+//#include ui/core/listcontrol.js
 
 
 /**

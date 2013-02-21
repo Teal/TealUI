@@ -3,10 +3,10 @@
  */
 
 
-include("ui/button/menubutton.css");
-include("ui/core/idropdownowner.js");
-include("ui/button/button.js");
-include("ui/core/listcontrol.js");
+//#include ui/button/menubutton.css
+//#include ui/core/idropdownowner.js
+//#include ui/button/button.js
+//#include ui/core/listcontrol.js
 
 
 
@@ -20,7 +20,7 @@ var MenuButton = Button.extend(IDropDownOwner).implement({
 		if(existDom && !existDom.hasClass('ui-menu')){
 			return existDom;
 		}
-		assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 ui-menu 的菜单项。");
+		//assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 ui-menu 的菜单项。");
 		return new Menu(existDom).on('click', this.onDropDownClick, this);
 	},
 

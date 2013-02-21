@@ -2,7 +2,7 @@
  * @author  xuld
  */
 
-include("ui/core/base.js");
+//#include ui/core/base.js
 
 /**
  * 表示所有管理多个有序列的子控件的控件基类。

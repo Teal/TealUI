@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>CTRL+回车 事件</title>
-    <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/ctrlenter.js"></script>
 
@@ -21,7 +21,7 @@
             <input type="text" value="msg" id="name">
             <script>
 
-                Dom.get('name').on('ctrlenter', function () {
+                Dom.on(Dom.get('name'), 'ctrlenter', function () {
                     alert('提交');
                 });
 

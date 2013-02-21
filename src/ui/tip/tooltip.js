@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-include("ui/part/arrow.css");
-include("ui/tip/tooltip.css");
-include("ui/core/contentcontrol.js");
-include("ui/core/itooltip.js");
+//#include ui/part/arrow.css
+//#include ui/tip/tooltip.css
+//#include ui/core/contentcontrol.js
+//#include ui/core/itooltip.js
 
 /**
  * 表示一个工具提示。

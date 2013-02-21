@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-include("ui/core/base.css");
-include("core/class.js");
-include("dom/base.js");
+//#include ui/core/base.css
+//#include core/class.js
+//#include dom/base.js
 
 /**
  * 所有 UI 组件的基类。

@@ -1,6 +1,6 @@
 
 
-include("ajax/base.js");
+//#include ajax/base.js
 
 /**
  * 返回一个表单的参数表示形式。
@@ -8,7 +8,7 @@ include("ajax/base.js");
  * @return {String} 参数形式。
  */
 Ajax.paramForm = function(formElem) {
-	assert(formElem && formElem.tagName == "FORM", "HTMLFormElement.param(formElem): 参数 {formElem} 不是合法的 表单 元素", formElem);
+	//assert(formElem && formElem.tagName == "FORM", "HTMLFormElement.param(formElem): 参数 {formElem} 不是合法的 表单 元素", formElem);
 	var s = [], input, e = encodeURIComponent, value, name;
 	for (var i = 0, len = formElem.length; i < len; i++) {
 		input = formElem[i];

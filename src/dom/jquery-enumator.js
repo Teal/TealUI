@@ -1,4 +1,4 @@
-/** * @author xuld */include("dom/base.js");var jQuery = function (selector, context) {
+/** * @author xuld *///#include dom/base.jsvar jQuery = function (selector, context) {
 	if (!selector) {
 		return new Dom();
 	}

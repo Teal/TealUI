@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-include("ui/composite/progressbar.css");
-include("ui/core/base.js");
+//#include ui/composite/progressbar.css
+//#include ui/core/base.js
 
 
 var ProgressBar = Control.extend({

@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("core/class.js");
+//#include core/class.js
 
 /**
  * 用于异步执行任务时保证任务是串行的。
@@ -83,7 +83,7 @@ var Deferrable = Class({
 			case "ignore":
 				return true;
 			default:
-				assert(link === "wait", "Deferred#defer(args, link): 成员 {link} 必须是 wait、abort、stop、ignore、replace 之一。", link);
+				////assert(link === "wait", "Deferred#defer(args, link): 成员 {link} 必须是 wait、abort、stop、ignore、replace 之一。", link);
 		}
 
 		this.chain(this, args);

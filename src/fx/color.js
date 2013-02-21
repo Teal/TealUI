@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-include("fx/tween.js");
+//#include fx/tween.js
 
 
 Fx.defaultTweeners.unshift({

@@ -3,7 +3,7 @@
  */
 
 
-include("ui/suggest/combobox.js");
+//#include ui/suggest/combobox.js
 
 var CityChooser = Class({
 

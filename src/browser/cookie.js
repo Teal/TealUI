@@ -9,7 +9,7 @@ var Cookie = {
 	 * @param {String} 值。
 	 */
 	get: function (name) {
-		assert.isString(name, "Cookie.get(name): 参数 {name} ~");
+		//assert.isString(name, "Cookie.get(name): 参数 {name} ~");
 		var matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
 		return matches ? decodeURIComponent(matches[1]) : null;
 	},
@@ -21,7 +21,7 @@ var Cookie = {
 	 * @param {Object} options 其它属性。如 domain, path, secure， expires    。
 	 */
 	set: function (name, value, options) {
-		assert.isString(name, "Cookie.get(name): 参数 {name} ~");
+		//assert.isString(name, "Cookie.get(name): 参数 {name} ~");
 		var e = encodeURIComponent,
 				updatedCookie = e(name) + "=" + e(value),
 				expires = options && options.expires === undefined ?value === null ? -1 : 1000 : expires;
@@ -34,7 +34,7 @@ var Cookie = {
 			updatedCookie = updatedCookie + "; " + t + "=" + e(options[t]);
 		}
 	
-		assert(updatedCookie.length < 4096, "Cookie.set(name, value, expires, props): value 内容过长(大于 4096)，操作失败。");
+		//assert(updatedCookie.length < 4096, "Cookie.set(name, value, expires, props): value 内容过长(大于 4096)，操作失败。");
 
 		document.cookie = updatedCookie;
 

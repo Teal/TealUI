@@ -3,7 +3,7 @@
  */
 
 
-include("fx/tween.js");
+//#include fx/tween.js
 
 
 (function () {
@@ -136,7 +136,7 @@ include("fx/tween.js");
 
         options.callback = options.callback || Function.empty;
 
-        assert(Fx.displayEffects[options.effect], "Dom#toggle(effect, duration, callback, link): 不支持 {effect} 。", args.effect);
+        //assert(Fx.displayEffects[options.effect], "Dom#toggle(effect, duration, callback, link): 不支持 {effect} 。", args.effect);
 
 
         return options;
@@ -158,7 +158,7 @@ include("fx/tween.js");
      */
     Dom.animate = function (elem, params, duration, callback, link) {
 
-        assert.notNull(params, "Dom#animate(params, duration, oncomplete, link): {params} ~", params);
+        //assert.notNull(params, "Dom#animate(params, duration, oncomplete, link): {params} ~", params);
 
         if (params.params) {
             link = params.link;
@@ -172,8 +172,8 @@ include("fx/tween.js");
 
         params.elem = elem;
 
-        assert(!params.duration || typeof params.duration === 'number', "Dom#animate(params, duration, callback, link): {duration} 必须是数字。如果需要制定为默认时间，使用 -1 。", params.duration);
-        assert(!params.complete || typeof params.complete === 'function', "Dom#animate(params, duration, callback, link): {callback} 必须是函数", params.complete);
+        //assert(!params.duration || typeof params.duration === 'number', "Dom#animate(params, duration, callback, link): {duration} 必须是数字。如果需要制定为默认时间，使用 -1 。", params.duration);
+        //assert(!params.complete || typeof params.complete === 'function', "Dom#animate(params, duration, callback, link): {callback} 必须是函数", params.complete);
 
         Dom.tween(elem).run(params, link);
     };

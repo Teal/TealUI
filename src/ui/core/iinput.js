@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("dom/base.js");
+//#include dom/base.js
 
 /**
  * 所有表单输入控件实现的接口。

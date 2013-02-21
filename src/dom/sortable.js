@@ -1,4 +1,4 @@
-/** * @author xuld */include("dom/drag.js");Dom.implement({
+/** * @author xuld *///#include dom/drag.jsDom.implement({
     sortable: function () {
 
     }});

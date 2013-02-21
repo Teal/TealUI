@@ -2,12 +2,12 @@
  * @author xuld
  */
 
-include("ui/part/icon.css");
-include("ui/part/mask.css");
-include("ui/part/closebutton.css");
-include("ui/container/dialog.css");
-include("fx/animate.js");
-include("ui/core/containercontrol.js");
+//#include ui/part/icon.css
+//#include ui/part/mask.css
+//#include ui/part/closebutton.css
+//#include ui/container/dialog.css
+//#include fx/animate.js
+//#include ui/core/containercontrol.js
 
 /**
  * @class Dialog

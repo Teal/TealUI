@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("ui/suggest/combobox.js");
+//#include ui/suggest/combobox.js
 
 /**
  * 表示一个下拉列表。
@@ -64,7 +64,7 @@ var DropDownList = ComboBox.extend({
     },
 
     getValueOfItem: function (item) {
-        assert.notNull(item, "ComboBox#getValueOfItem(item): {item} ~", item);
+        //assert.notNull(item, "ComboBox#getValueOfItem(item): {item} ~", item);
         var option = item.dataField().option;
         return option ? option.value : (item.getAttr('data-value') || item.getText());
     },

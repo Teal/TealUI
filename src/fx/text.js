@@ -4,7 +4,7 @@
 
 
 
-include("fx/animate.js");
+//#include fx/animate.js
 
 
 

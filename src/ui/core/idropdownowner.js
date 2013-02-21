@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-include("dom/base.js");
-include("dom/pin.js");
-include("ui/core/base.js");
-include("fx/animate.js");
+//#include dom/base.js
+//#include dom/pin.js
+//#include ui/core/base.js
+//#include fx/animate.js
 
 /**
  * 所有支持下拉菜单的组件实现的接口。

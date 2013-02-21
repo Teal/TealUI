@@ -3,7 +3,7 @@
 
 
 
-include("ui/container/dialog.js");
+//#include ui/container/dialog.js
 
 var MessageBox = Dialog.extend({
 

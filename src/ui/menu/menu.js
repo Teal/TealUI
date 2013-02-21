@@ -3,9 +3,9 @@
  */
 
 
-include("ui/menu/menu.css");
-include("dom/pin.js");
-include("ui/core/treecontrol.js");
+//#include ui/menu/menu.css
+//#include dom/pin.js
+//#include ui/core/treecontrol.js
 
 
 var Menu = TreeControl.extend({

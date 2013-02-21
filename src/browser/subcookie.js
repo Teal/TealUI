@@ -1,6 +1,6 @@
 
-include("browser/base.js");
-include("browser/cookie.js");
+//#include browser/base.js
+//#include browser/cookie.js
 	
 Browser.getSubCookie = function (key, subkey) {
 		

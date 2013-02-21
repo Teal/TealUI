@@ -21,7 +21,7 @@ var JPlus = (function (undefined) {
 	 */
 	function extend(dest, src) {
 
-		//#assert dest!=null @Object.extend
+		//#//assert dest!=null @Object.extend
 
 	    // 直接遍历，不判断是否为真实成员还是原型的成员。
 	    for (var key in src)
@@ -37,7 +37,7 @@ var JPlus = (function (undefined) {
 	 */
 	function extendIf(dest, src) {
 
-		//#assert dest!=null @Object.extendIf
+		//#//assert dest!=null @Object.extendIf
 
 	    // 和 extend 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
 	    for (var b in src)
@@ -54,7 +54,7 @@ var JPlus = (function (undefined) {
 	 */
 	function each(fn, scope) {
 
-		//#assert fn:Function @Array.each(fn, scope)
+		//#//assert fn:Function @Array.each(fn, scope)
 
 	    var i = -1, me = this;
 
@@ -94,7 +94,7 @@ var JPlus = (function (undefined) {
 			extend.enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
 			return function (dest, src) {
 				if (src) {
-					//#assert dest!=null @Object.extend
+					//#//assert dest!=null @Object.extend
 					for (var i = extend.enumerables.length, value; i--;)
 					    if (Object.prototype.hasOwnProperty.call(src, value = extend.enumerables[i]))
 							dest[value] = src[value];
@@ -149,8 +149,8 @@ var JPlus = (function (undefined) {
 		 */
 		each: function (iterable, fn, scope) {
 
-			//#assert typeof iterable !== 'function' @Object.each
-			//#assert fn:Function @Object.each
+			//#//assert typeof iterable !== 'function' @Object.each
+			//#//assert fn:Function @Object.each
 
 			// 如果 iterable 是 null， 无需遍历 。
 			if (iterable != null) {
@@ -279,7 +279,7 @@ var JPlus = (function (undefined) {
 	 */
 	String.format = function (formatString, args) {
 
-		//#assert formatString:String? @String.format(formatString, ...)
+		//#//assert formatString:String? @String.format(formatString, ...)
 
 		// 支持参数2为数组或对象的直接格式化。
 		var toString = this;
@@ -359,7 +359,7 @@ var JPlus = (function (undefined) {
 		 */
 		window.execScript = function (statements) {
 
-			//#assert statements:String? @execScript
+			//#//assert statements:String? @execScript
 
 			// 如果正常浏览器，使用 window.eval 。
 			window["eval"].call(window, statements);

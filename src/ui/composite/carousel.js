@@ -3,9 +3,9 @@
  */
 
 
-include("ui/composite/carousel.css");
-include("fx/animate.js");
-include("ui/core/base.js");
+//#include ui/composite/carousel.css
+//#include fx/animate.js
+//#include ui/core/base.js
 
 
 var Carousel = Control.extend({

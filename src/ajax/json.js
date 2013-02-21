@@ -3,8 +3,8 @@
  * @author xuld
  */
 
-include("ajax/base.js");
-include("data/json.js");
+//#include ajax/base.js
+//#include data/json.js
 
 Ajax.accepts.json = "application/json, text/javascript";
 Ajax.dataParsers.json = function (xhrObject) {

@@ -3,7 +3,7 @@
  */
 
 
-include("utils/deferrable.js");
+//#include utils/deferrable.js
 
 /**
  * 用于发送和接收 AJAX 请求的工具。
@@ -103,7 +103,7 @@ var Ajax = (function () {
                     timeout: me.options.timeout
                 }, xhrObject);
 
-                assert(!xhrObject.url || xhrObject.url.replace, "Ajax#run(xhrObject): {xhrObject.url} 必须是字符串。", xhrObject.url);
+                //assert(!xhrObject.url || xhrObject.url.replace, "Ajax#run(xhrObject): {xhrObject.url} 必须是字符串。", xhrObject.url);
 
                 // url
                 xhrObject.url = xhrObject.url ? xhrObject.url.replace(/#.*$/, "") : me.options.url;

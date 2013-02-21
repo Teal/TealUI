@@ -3,7 +3,7 @@
  */
 
 
-include("ui/suggest/suggest.js");
+//#include ui/suggest/suggest.js
 
 var EmailSuggest = Suggest.extend({
 

@@ -2,12 +2,12 @@
  * @author xuld
  */
 
-include("dom/base.js");
+//#include dom/base.js
 
 (function() {
 
 	var hashchange = 'hashchange',
-		win = Dom.get(window),
+		win = window,
 		getHash = location.getHash,
 		startListen;
 
@@ -28,13 +28,13 @@ include("dom/base.js");
 				startListen = null;
 			}
 
-			win.on(hashchange, function () {
+			Dom.on(win, hashchange, function () {
 				fn(location.getHash());
 			});
 
 			fn(location.getHash());
 		} else {
-			win.trigger(hashchange);
+			Dom.trigger(win, hashchange);
 		}
 	};
 	
@@ -47,7 +47,7 @@ include("dom/base.js");
 		timer, 
 		
 		onChange = function() {
-			win.trigger(hashchange);
+			Dom.trigger(win, hashchange);
 		},
 		
 		poll = function() {
@@ -116,11 +116,13 @@ include("dom/base.js");
 		startListen = function () {
 			if (!iframe) {
 				Dom.ready(function(){
-					iframe = Dom.parse('<iframe style="display: none" height="0" width="0" tabindex="-1" title="empty"/>');
-					iframe.once('load', function() {
+					iframe = Dom.parseNode('<iframe style="display: none" height="0" width="0" tabindex="-1" title="empty"/>');
+					Dom.on(iframe, 'load', function () {
+
+						Dom.un(iframe, 'load', arguments.callee);
 						
 						// 绑定当 iframe 内容被重写后处理。
-						this.on("load", function() {
+						Dom.on(iframe, "load", function () {
 							// iframe 的 load 载入有 2 个原因：
 							//	1. hashchange 重写 iframe
 							//	2. 用户点击后退按钮
@@ -137,7 +139,7 @@ include("dom/base.js");
 								location.hash = currentHash = newHash;
 								
 								// 手动触发 hashchange 事件。
-								win.trigger(hashchange);
+								Dom.trigger(win, hashchange);
 							}
 							
 						});
@@ -147,7 +149,7 @@ include("dom/base.js");
 						poll();
 					});
 					
-					iframe.appendTo(document.body);
+					document.body.appendChild(iframe);
 					
 				});
 			} else {

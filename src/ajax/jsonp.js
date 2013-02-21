@@ -3,7 +3,7 @@
  */
 
 
-include("ajax/script.js");
+//#include ajax/script.js
 
 Ajax.transports.jsonp = function (xhrObject, parseData) {
 

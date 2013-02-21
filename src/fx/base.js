@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-include("utils/deferrable.js");
+//#include utils/deferrable.js
 
 /**
  * 特效算法基类。
@@ -117,7 +117,7 @@ var Fx = (function() {
 
 				// duration
 				duration = options.duration;
-				assert(duration == undefined || duration === 0 || +duration, "Fx#run(options, link): {duration} 必须是数字。如果需要使用默认的时间，使用 -1 。",  duration);
+				//assert(duration == undefined || duration === 0 || +duration, "Fx#run(options, link): {duration} 必须是数字。如果需要使用默认的时间，使用 -1 。",  duration);
 				options.duration = duration !== -1 && duration != undefined ? duration < 0 ? -defaultOptions.duration / duration : duration : defaultOptions.duration;
 
 				// start

@@ -1,7 +1,7 @@
 
 
 
-include("dom/base.js");Dom.implement({
+//#include dom/base.jsDom.implement({
 	
 	/**
 	 * 设置当文本框空的时候，显示的文本。

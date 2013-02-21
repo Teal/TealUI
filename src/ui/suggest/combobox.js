@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-include("ui/suggest/picker.js");
-include("ui/suggest/dropdownmenu.js");
+//#include ui/suggest/picker.js
+//#include ui/suggest/dropdownmenu.js
 
 /**
  * 表示一个组合框。

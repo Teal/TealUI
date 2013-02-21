@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-include("fx/animate.js");
+//#include fx/animate.js
 
 Dom.implement({
 	

@@ -3,9 +3,9 @@
  */
 
 
-include("ui/button/button.css");
-include("ui/core/iinput.js");
-include("ui/core/contentcontrol.js");
+//#include ui/button/button.css
+//#include ui/core/iinput.js
+//#include ui/core/contentcontrol.js
 
 
 var Button = ContentControl.extend({

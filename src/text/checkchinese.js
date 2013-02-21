@@ -3,7 +3,7 @@
  */
 
 
-include("text/base.js");
+//#include text/base.js
 
 Object.extend(Text, {
 

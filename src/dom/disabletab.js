@@ -3,8 +3,8 @@
 //===========================================
 
 
-include("dom/base.js");
-include("dom/selection.js");
+//#include dom/base.js
+//#include dom/selection.js
 
 
 /**

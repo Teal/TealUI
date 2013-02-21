@@ -625,7 +625,7 @@ var Dom = (function () {
 	 * @return {Document} 文档。
 	 */
     function getDocument(node) {
-        assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
+        ////assert.isNode(node, 'Dom.getDocument(node): {node} ~', node);
         return node.ownerDocument || node.document || node;
     }
 
@@ -857,7 +857,7 @@ var Dom = (function () {
             cachable = cachable !== false && srcHTML.length < 512;
             context = context && context.ownerDocument || document;
 
-            assert(context.createElement, 'Dom.parseNode(html, context, cachable): {context} 必须是 DOM 节点。', context);
+            ////assert(context.createElement, 'Dom.parseNode(html, context, cachable): {context} 必须是 DOM 节点。', context);
 
             // 查找是否存在缓存。
             if (cachable && (html = parseCache[srcHTML]) && html.ownerDocument === context) {
@@ -870,7 +870,7 @@ var Dom = (function () {
                 // 测试查找 HTML 标签。
                 if (tag = /<([!\w:]+)/.exec(srcHTML)) {
 
-                    assert.isString(srcHTML, 'Dom.parseNode(html, context, cachable): {html} ~');
+                    ////assert.isString(srcHTML, 'Dom.parseNode(html, context, cachable): {html} ~');
                     div = context.createElement("div");
 
                     wrap = Dom.parseFix[tag[1].toLowerCase()] || Dom.parseFix.$default;
@@ -893,7 +893,7 @@ var Dom = (function () {
                     for (tag = wrap[0]; tag--;)
                         div = div.lastChild;
 
-                    assert.isNode(div, "Dom.parseNode(html, context, cachable): 无法根据 {html} 创建节点。", srcHTML);
+                    ////assert.isNode(div, "Dom.parseNode(html, context, cachable): 无法根据 {html} 创建节点。", srcHTML);
 
                     // 获取第一个节点。
                     html = div.firstChild;
@@ -1296,7 +1296,7 @@ var Dom = (function () {
 	 */
     Dom.getAttr = function (elem, name, type) {
 
-        assert.isNode(elem, "Dom.getAttr(elem, name, type): {elem} ~");
+        ////assert.isNode(elem, "Dom.getAttr(elem, name, type): {elem} ~");
 
         // 将小写的属性名改为骆驼形式。
         name = attrFix[name] || name;
@@ -1357,7 +1357,7 @@ var Dom = (function () {
 	 * @static
 	 */
     Dom.getText = function (node) {
-        assert.isNode(node, "Dom.getText(node, name): {node} ~");
+        ////assert.isNode(node, "Dom.getText(node, name): {node} ~");
         return node[textFix[node.nodeName] || attrFix.innerText] || '';
     };
 
@@ -1467,7 +1467,7 @@ var Dom = (function () {
 		getCurrentStyle = Dom.currentStyle = window.getComputedStyle ? function (elem, name) {
 
 		    // getComputedStyle为标准浏览器获取样式。
-		    assert.isElement(elem, "Dom.getStyle(elem, name): {elem} ~");
+		    ////assert.isElement(elem, "Dom.getStyle(elem, name): {elem} ~");
 
 		    // 获取真实的样式owerDocument返回elem所属的文档对象
 		    // 调用getComputeStyle的方式为(elem,null)
@@ -1480,7 +1480,7 @@ var Dom = (function () {
 
 		} : function (elem, name) {
 
-		    assert.isElement(elem, "Dom.getStyle(elem, name): {elem} ~");
+		    ////assert.isElement(elem, "Dom.getStyle(elem, name): {elem} ~");
 
 		    var r, hook = styleHooks[name];
 
@@ -1583,8 +1583,8 @@ var Dom = (function () {
             set: function (elem, value) {
                 var style = elem.style;
 
-                assert(!+value || (value <= 1 && value >= 0), 'Dom#setStyle("opacity", value): {value} 必须在 0~1 间。', value);
-                assert.isElement(elem, "Dom#setStyle(name, value): 当前 dom 不支持样式");
+                ////assert(!+value || (value <= 1 && value >= 0), 'Dom#setStyle("opacity", value): {value} 必须在 0~1 间。', value);
+                ////assert.isElement(elem, "Dom#setStyle(name, value): 当前 dom 不支持样式");
 
                 if (value)
                     value *= 100;
@@ -1593,7 +1593,7 @@ var Dom = (function () {
                 // 获取真实的滤镜。
                 elem = styleString(elem, 'filter');
 
-                assert(!/alpha\([^)]*\)/i.test(elem) || rOpacity.test(elem), 'Dom#setOpacity(value): 当前元素的 {filter} CSS属性存在不属于 alpha 的 opacity， 将导致 setOpacity 不能正常工作。', elem);
+                ////assert(!/alpha\([^)]*\)/i.test(elem) || rOpacity.test(elem), 'Dom#setOpacity(value): 当前元素的 {filter} CSS属性存在不属于 alpha 的 opacity， 将导致 setOpacity 不能正常工作。', elem);
 
                 // 当元素未布局，IE会设置失败，强制使生效。
                 style.zoom = 1;
@@ -1655,7 +1655,7 @@ var Dom = (function () {
 	 * @return {String} 字符串。
 	 */
     function styleString(elem, name) {
-        assert.isElement(elem, "Dom.styleString(elem, name): {elem} ~");
+        ////assert.isElement(elem, "Dom.styleString(elem, name): {elem} ~");
         return elem.style[name] || getCurrentStyle(elem, name);
     }
 
@@ -1666,7 +1666,7 @@ var Dom = (function () {
 	 * @return {Number} 数字。
 	 */
     function styleNumber(elem, name) {
-        //assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
+        //////assert.isElement(elem, "Dom.styleNumber(elem, name): {elem} ~");
 
         var style = elem.style, value;
 
@@ -1784,8 +1784,8 @@ var Dom = (function () {
         }
 
         return function (elem, type) {
-            assert.isElement(elem, "Dom.calc(elem, type): {elem} ~");
-            assert.isString(type, "Dom.calc(elem, type): {type} ~");
+            ////assert.isElement(elem, "Dom.calc(elem, type): {elem} ~");
+            ////assert.isString(type, "Dom.calc(elem, type): {type} ~");
             return (parseCache[type] || (parseCache[type] = new Function("e", init + type.replace(/\w+/g, format))))(elem);
         }
     })();
@@ -1796,7 +1796,7 @@ var Dom = (function () {
 	 * @static
 	 */
     Dom.movable = function (elem) {
-        assert.isElement(elem, "Dom.movable(elem): 参数 elem ~");
+        ////assert.isElement(elem, "Dom.movable(elem): 参数 elem ~");
         if (!/^(?:abs|fix)/.test(styleString(elem, "position")))
             elem.style.position = "relative";
     };
@@ -1877,7 +1877,7 @@ var Dom = (function () {
 	 * @static
 	 */
 	Dom.show = function (elem) {
-	    assert.isElement(elem, "Dom.show(elem): {elem} ~");
+	    ////assert.isElement(elem, "Dom.show(elem): {elem} ~");
 
 	    // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
 	    elem.style.display = '';
@@ -1893,7 +1893,7 @@ var Dom = (function () {
 	 * @static
 	 */
 	Dom.hide = function (elem) {
-	    assert.isElement(elem, "Dom.hide(elem): {elem} ~");
+	    ////assert.isElement(elem, "Dom.hide(elem): {elem} ~");
 	    var currentDisplay = styleString(elem, 'display');
 	    if (currentDisplay !== 'none') {
 	        elem.style.defaultDisplay = currentDisplay;
@@ -1910,8 +1910,8 @@ var Dom = (function () {
             return styleHooks[name].get(elem);
         }
 
-        assert.isString(name, "Dom#getStyle(name): {name} ~");
-        assert(elem.style, "Dom#getStyle(name): 当 Dom 对象对应的节点不是元素，无法使用样式。");
+        ////assert.isString(name, "Dom#getStyle(name): {name} ~");
+        ////assert(elem.style, "Dom#getStyle(name): 当 Dom 对象对应的节点不是元素，无法使用样式。");
 
         return elem.style[name] || getCurrentStyle(elem, name);
     };
@@ -1930,8 +1930,8 @@ var Dom = (function () {
         // 将属性名转为骆驼形式。
         name = Dom.camelCase(name);
 
-        assert.isString(name, "Dom.setStyle(name, value): {name} ~");
-        //     assert.isElement(elem, "Dom.setStyle(name, value): 当前 dom 不支持样式");
+        ////assert.isString(name, "Dom.setStyle(name, value): {name} ~");
+        //     ////assert.isElement(elem, "Dom.setStyle(name, value): 当前 dom 不支持样式");
 
         // 特殊属性单独设置。
         if (name in styleHooks) {
@@ -2126,11 +2126,7 @@ var Dom = (function () {
             filter: function (target, e) {
 
                 // 如果浏览器原生支持 mouseenter/mouseleave, 不作操作。
-                if (e.type !== orig) {
-                    var relatedTarget = e.relatedTarget;
-                    e.orignalType = orig;
-                    return target !== relatedTarget && !Dom.contains(target, relatedTarget);
-                }
+                return e.type === orig || !Dom.contains(target, e.relatedTarget);
 
             },
 
@@ -2189,7 +2185,7 @@ var Dom = (function () {
 
                     // 如果节点满足 CSS 选择器要求，则放入队列。
                     // check 用于处理部分特殊的情况，不允许执行委托函数。（如 click 已禁用的按钮）
-                    if (Dom.match(delegateTarget, handler[2]) && (!filter || filter(delegateTarget, e))) {
+                    if (Dom.match(delegateTarget, handler[2]) && (!filter || filter(delegateTarget, e) !== false)) {
 
                         actualHandlers.push([handler[0], handler[1] || delegateTarget]);
 
@@ -2201,7 +2197,7 @@ var Dom = (function () {
         }
 
         // 将普通的句柄直接复制到 actualHandlers 。
-        if ((!filter || filter(eventHandler.target, e)) && eventHandler.bindFn) {
+        if ((!filter || filter(eventHandler.target, e) !== false) && eventHandler.bindFn) {
             actualHandlers.push.apply(actualHandlers, eventHandler.bindFn);
         }
 
@@ -2226,10 +2222,10 @@ var Dom = (function () {
 
     Dom.on = function (elem, type, selector, fn, scope) {
 
-        //assert.isString(selector, "Dom#delegate(selector, eventName, handler): {selector}  ~");
-        //assert.isString(eventName, "Dom#delegate(selector, eventName, handler): {eventName}  ~");
-        //assert.isFunction(handler, "Dom#delegate(selector, eventName, handler): {handler}  ~");
-        //assert(eventName, "Dom#bind(eventAndSelector, handler): {eventAndSelector} 中不存在事件信息。正确的 eventAndSelector 格式： click.selector");
+        ////assert.isString(selector, "Dom#delegate(selector, eventName, handler): {selector}  ~");
+        ////assert.isString(eventName, "Dom#delegate(selector, eventName, handler): {eventName}  ~");
+        ////assert.isFunction(handler, "Dom#delegate(selector, eventName, handler): {handler}  ~");
+        ////assert(eventName, "Dom#bind(eventAndSelector, handler): {eventAndSelector} 中不存在事件信息。正确的 eventAndSelector 格式： click.selector");
 
         var data = Dom.data(elem), eventHandler, eventFix, filter;
 
@@ -2238,7 +2234,7 @@ var Dom = (function () {
             return;
         }
 
-        if (typeof selector !== 'string') {
+        if (typeof selector === 'function') {
             scope = fn;
             fn = selector;
             selector = null;
@@ -2371,8 +2367,8 @@ var Dom = (function () {
      * @static
      */
     Dom.hasClass = function (elem, className) {
-        assert.isNode(elem, "Dom.hasClass(elem, className): {elem} ~");
-        assert(className && (!className.indexOf || !/[\s\r\n]/.test(className)), "Dom.hasClass(elem, className): {className} 不能空，且不允许有空格和换行。如果需要判断 2 个 class 同时存在，可以调用两次本函数： if(hasClass('A') && hasClass('B')) ...");
+        ////assert.isNode(elem, "Dom.hasClass(elem, className): {elem} ~");
+        ////assert(className && (!className.indexOf || !/[\s\r\n]/.test(className)), "Dom.hasClass(elem, className): {className} 不能空，且不允许有空格和换行。如果需要判断 2 个 class 同时存在，可以调用两次本函数： if(hasClass('A') && hasClass('B')) ...");
         return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
     };
 
@@ -2398,7 +2394,7 @@ var Dom = (function () {
 	 * <pre lang="htm" format="none">[ &lt;p class="selected highlight"&gt;Hello&lt;/p&gt; ]</pre>
      */
     Dom.addClass = function (elem, className) {
-        assert.isString(className, "Dom#addClass(className): {className} ~");
+        ////assert.isString(className, "Dom#addClass(className): {className} ~");
 
         var classList = className.split(/\s+/);
 
@@ -2431,7 +2427,7 @@ var Dom = (function () {
      * </pre>
      */
     Dom.removeClass = function (elem, className) {
-        assert(!className || className.split, "Dom#removeClass(className): {className} ~");
+        ////assert(!className || className.split, "Dom#removeClass(className): {className} ~");
 
         if (className) {
             var classList = className.split(/\s+/);
@@ -2651,7 +2647,7 @@ var Dom = (function () {
      */
     Dom.child = function (node, index) {
 
-        //assert(typeof index === 'function' || typeof index === 'number' || typeof index === 'string' , 'Dom#child(index): {index} 必须是函数、数字或字符串。');
+        ////assert(typeof index === 'function' || typeof index === 'number' || typeof index === 'string' , 'Dom#child(index): {index} 必须是函数、数字或字符串。');
 
         var first = 'firstChild',
             next = 'nextSibling';
@@ -2885,12 +2881,12 @@ var Dom = (function () {
 	 * @static
 	 */
     Dom.contains = html.compareDocumentPosition ? function (node, child) {
-        assert.isNode(node, "Dom.contains(node, child): {elem} ~");
-        assert.isNode(child, "Dom.contains(node, child): {child} ~");
+        ////assert.isNode(node, "Dom.contains(node, child): {elem} ~");
+        ////assert.isNode(child, "Dom.contains(node, child): {child} ~");
         return node === child || !!(child && (node.compareDocumentPosition(child) & 16));
     } : function (node, child) {
-        assert.isNode(node, "Dom.contains(elem, child): {elem} ~");
-        assert.isNode(child, "Dom.contains(elem, child): {child} ~");
+        ////assert.isNode(node, "Dom.contains(elem, child): {elem} ~");
+        ////assert.isNode(child, "Dom.contains(elem, child): {child} ~");
         while (child) {
             if (node === child)
                 return true;
@@ -2933,7 +2929,7 @@ var Dom = (function () {
             if (!script.type || /\/(java|ecma)script/i.test(script.type)) {
 
                 if (script.src) {
-                    assert(window.Ajax && Ajax.send, "必须载入 ajax/script.js 模块以支持动态执行 <script src=''>");
+                    ////assert(window.Ajax && Ajax.send, "必须载入 ajax/script.js 模块以支持动态执行 <script src=''>");
                     Ajax.send({
                         url: script.src,
                         type: "GET",
@@ -3422,7 +3418,7 @@ var Dom = (function () {
      */
     Dom.setOffset = function (elem, value) {
 
-        assert(value, "Dom#setOffset(value): {value} 必须有 'x' 和 'y' 属性。", value);
+        ////assert(value, "Dom#setOffset(value): {value} 必须有 'x' 和 'y' 属性。", value);
 
         elem = elem.style;
 

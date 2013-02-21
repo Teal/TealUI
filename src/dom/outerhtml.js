@@ -2,16 +2,10 @@
  * @author xuld
  */
 
-include("dom/base.js");
+//#include dom/base.js
 
-Dom.implement({
-
-	getOuterHtml: function () {
-		if (!this.length) {
-			return null;
-		}
-
-		var elem = this[0];
+Dom.prototype.outerHtml = function () {
+	return this.access(function (elem) {
 		if ("outerHTML" in elem) {
 			return elem.outerHTML;
 		} else {
@@ -19,17 +13,12 @@ Dom.implement({
 			div.appendChild(Dom.clone(elem));
 			return div.innerHTML;
 		}
-	},
-
-	setOuterHtml: function (value) {
-		return Dom.iterate(this, function (elem) {
-			if ("outerHTML" in elem && !/<(?:script|style|link)/i.test(value)) {
-				elem.outerHTML = value;
-			} else {
-				Dom.before(elem, value);
-				Dom.remove(elem);
-			}
-		});
-	}
-
-});
+	}, function (elem, value) {
+		if ("outerHTML" in elem && !/<(?:script|style|link)/i.test(value)) {
+			elem.outerHTML = value;
+		} else {
+			Dom.before(elem, value);
+			Dom.remove(elem);
+		}
+	}, arguments, 0);
+};

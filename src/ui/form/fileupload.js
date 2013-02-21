@@ -3,10 +3,10 @@
  */
 
 
-include("ui/button/button.css");
-include("ui/form/fileupload.css");
-include("ui/core/base.js");
-include("ui/core/iinput.js");
+//#include ui/button/button.css
+//#include ui/form/fileupload.css
+//#include ui/core/base.js
+//#include ui/core/iinput.js
 
 
 var FileUpload = Control.extend(IInput).implement({

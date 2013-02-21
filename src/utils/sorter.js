@@ -17,15 +17,15 @@ Sorter._defaultSorter = function (a, b) {
 
 Sorter._createFn = function (sortFn) {
 	return function (iteratable, compareFn, start, end) {
-		assert.isNumber(iteratable && iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {iteratable} 必须有 length 属性。");
+		//assert.isNumber(iteratable && iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {iteratable} 必须有 length 属性。");
 
 		compareFn = compareFn || Sorter._defaultSorter;
 		start = start || 0;
 		end = end || iteratable.length;
 
-		assert(start >= 0 && start <= end, "Sorter.sort(iteratable, start, end, compareFn): 参数 {start} ~。");
-		assert(end <= iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {end} ~。");
-		assert.isFunction(compareFn, "Sorter.sort(iteratable, start, end, compareFn): 参数 {compareFn} ~。");
+		//assert(start >= 0 && start <= end, "Sorter.sort(iteratable, start, end, compareFn): 参数 {start} ~。");
+		//assert(end <= iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {end} ~。");
+		//assert.isFunction(compareFn, "Sorter.sort(iteratable, start, end, compareFn): 参数 {compareFn} ~。");
 
 
 		sortFn(iteratable, compareFn, start, end);

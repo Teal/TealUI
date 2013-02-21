@@ -3,8 +3,8 @@
  */
 
 
-include("ui/core/idropdownowner.js");
-include("ui/suggest/dropdownmenu.js");
+//#include ui/core/idropdownowner.js
+//#include ui/suggest/dropdownmenu.js
 
 /**
  * 智能提示组件。

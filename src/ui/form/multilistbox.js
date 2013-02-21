@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("ui/form/listbox.js");
+//#include ui/form/listbox.js
 
 
 /**

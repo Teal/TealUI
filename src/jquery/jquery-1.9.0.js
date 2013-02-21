@@ -3862,7 +3862,7 @@
 		 * Support testing using an element
 		 * @param {Function} fn Passed the created div and expects a boolean result
 		 */
-		function assert(fn) {
+		function //assert(fn) {
 			var div = document.createElement("div");
 
 			try {
@@ -4017,13 +4017,13 @@
 			documentIsXML = isXML(doc);
 
 			// Check if getElementsByTagName("*") returns only elements
-			support.tagNameNoComments = assert(function (div) {
+			support.tagNameNoComments = //assert(function (div) {
 				div.appendChild(doc.createComment(""));
 				return !div.getElementsByTagName("*").length;
 			});
 
 			// Check if attributes should be retrieved by attribute nodes
-			support.attributes = assert(function (div) {
+			support.attributes = //assert(function (div) {
 				div.innerHTML = "<select></select>";
 				var type = typeof div.lastChild.getAttribute("multiple");
 				// IE8 returns a string for some attributes even when not present
@@ -4031,7 +4031,7 @@
 			});
 
 			// Check if getElementsByClassName can be trusted
-			support.getByClassName = assert(function (div) {
+			support.getByClassName = //assert(function (div) {
 				// Opera can't find a second classname (in 9.6)
 				div.innerHTML = "<div class='hidden e'></div><div class='hidden'></div>";
 				if (!div.getElementsByClassName || !div.getElementsByClassName("e").length) {
@@ -4045,7 +4045,7 @@
 
 			// Check if getElementById returns elements by name
 			// Check if getElementsByName privileges form controls or returns elements by ID
-			support.getByName = assert(function (div) {
+			support.getByName = //assert(function (div) {
 				// Inject content
 				div.id = expando + 0;
 				div.innerHTML = "<a name='" + expando + "'></a><div name='" + expando + "'></div>";
@@ -4066,7 +4066,7 @@
 			});
 
 			// IE6/7 return modified attributes
-			Expr.attrHandle = assert(function (div) {
+			Expr.attrHandle = //assert(function (div) {
 				div.innerHTML = "<a href='#'></a>";
 				return div.firstChild && typeof div.firstChild.getAttribute !== strundefined &&
 					div.firstChild.getAttribute("href") === "#";
@@ -4171,7 +4171,7 @@
 			if ((support.qsa = isNative(doc.querySelectorAll))) {
 				// Build QSA regex
 				// Regex strategy adopted from Diego Perini
-				assert(function (div) {
+				//assert(function (div) {
 					// Select is set to empty string on purpose
 					// This is to test IE's treatment of not explictly
 					// setting a boolean content attribute,
@@ -4192,7 +4192,7 @@
 					}
 				});
 
-				assert(function (div) {
+				//assert(function (div) {
 
 					// Opera 10-12/IE8 - ^= $= *= and empty values
 					// Should not select anything
@@ -4219,7 +4219,7 @@
 				docElem.oMatchesSelector ||
 				docElem.msMatchesSelector)))) {
 
-				assert(function (div) {
+				//assert(function (div) {
 					// Check to see if it's possible to do matchesSelector
 					// on a disconnected node (IE 9)
 					support.disconnectedMatch = matches.call(div, "div");

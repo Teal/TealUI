@@ -2,9 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>获取或设置外部 HTML</title>
-    <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/core/class.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
@@ -25,18 +24,14 @@
             </div>
         </div>
         <script>
-            var a = Dom.get('a'),
-                b = Dom.get('b'),
-                c = Dom.get('c'),
-                d = Dom.get('d'),
-                abcd = new Dom([a, b, c, d]);
+            var a = Dom.query('#a');
         </script>
 
         <script>
 
             Demo.writeExamples({
-                'Dom#getOuterHtml': 'a.getOuterHtml()',
-                'Dom#setOuterHtml': 'a.setOuterHtml("<div>a</div>")'
+                'Dom#outerHtml()': 'a.outerHtml()',
+                'Dom#outerHtml(value)': 'a.outerHtml("<div>a</div>")'
             });
         </script>
     </article>

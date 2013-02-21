@@ -4,7 +4,7 @@
  */
 
 
-include("core/class.js");
+//#include core/class.js
 	
 /**
  * 集合。
@@ -39,7 +39,7 @@ var Collection = Class({
 	onAfterSet: Function.empty,
 	
 	add: function(item){
-		assert.notNull(item, "Collection.prototype.add(item): 参数 {item} ~。");
+		//assert.notNull(item, "Collection.prototype.add(item): 参数 {item} ~。");
 		Array.prototype.push.call(this, item = this.initItem(item));
 		this.onAdd(item);
 		return item;
@@ -50,7 +50,7 @@ var Collection = Class({
 	},
 	
 	insert: function(index, item){
-		assert.notNull(item, "Collection.prototype.insert(item): 参数 {item} ~。");
+		//assert.notNull(item, "Collection.prototype.insert(item): 参数 {item} ~。");
 		index = Array.prototype.insert.call(this, index, item = this.initItem(item));
 		this.onInsert(item, index + 1);
 		return item;
@@ -69,7 +69,7 @@ var Collection = Class({
 	},
 	
 	remove: function(item){
-		assert.notNull(item, "Collection.prototype.remove(item): 参数 {item} ~。");
+		//assert.notNull(item, "Collection.prototype.remove(item): 参数 {item} ~。");
 		var index = this.indexOf(item);
 		this.removeAt(index);
 		return index;
@@ -92,8 +92,8 @@ var Collection = Class({
 		
 		if(typeof index === 'number'){
 			item = this.initItem(item);
-			assert.notNull(item, "Collection.prototype.set(item): 参数 {item} ~。");
-			assert(index >= 0 && index < me.length, 'Collection.prototype.set(index, item): 设置的 {index} 超出范围。请确保  0 <= index < ' + this.length, index);
+			//assert.notNull(item, "Collection.prototype.set(item): 参数 {item} ~。");
+			//assert(index >= 0 && index < me.length, 'Collection.prototype.set(index, item): 设置的 {index} 超出范围。请确保  0 <= index < ' + this.length, index);
 			item = me.onInsert(item, index);
 			me.onRemove(me[index], index);
 			me[index] = item;

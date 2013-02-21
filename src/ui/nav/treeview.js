@@ -3,9 +3,9 @@
  */
 
 
-include("ui/nav/treeview.css");
-include("ui/core/treecontrol.js");
-include("ui/core/icollapsable.js");
+//#include ui/nav/treeview.css
+//#include ui/core/treecontrol.js
+//#include ui/core/icollapsable.js
 
 
 var TreeView = TreeControl.extend({
@@ -383,7 +383,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 */
 	setDepth: function(value){
 		
-		assert(value >= 0, "TreeNode#setDepth(value): {value} 必须是不小于 0 的整数", value);
+		//assert(value >= 0, "TreeNode#setDepth(value): {value} 必须是不小于 0 的整数", value);
 		
 		var me = this,
 			currentDepth = me.getDepth(),

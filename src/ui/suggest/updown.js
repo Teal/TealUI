@@ -3,9 +3,9 @@
  */
 
 
-include("ui/suggest/updown.css");
-include("dom/keynav.js");
-include("ui/suggest/picker.js");
+//#include ui/suggest/updown.css
+//#include dom/keynav.js
+//#include ui/suggest/picker.js
 
 
 var UpDown = Picker.extend({

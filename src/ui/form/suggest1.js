@@ -4,7 +4,7 @@
 
 
 
-include("ui/core/base.js");
+//#include ui/core/base.js
 
 var Suggest1 = Control.extend({
 

@@ -4,9 +4,9 @@
 
 
 
-include("ui/part/icon.css");
-include("ui/suggest/picker.js");
-include("ui/composite/monthcalender.js");
+//#include ui/part/icon.css
+//#include ui/suggest/picker.js
+//#include ui/composite/monthcalender.js
 
 
 var DatePicker = Picker.extend({

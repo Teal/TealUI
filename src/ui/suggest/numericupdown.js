@@ -3,7 +3,7 @@
  */
 
 
-include("ui/suggest/updown.js");
+//#include ui/suggest/updown.js
 
 var NumericUpDown = UpDown.extend({
 

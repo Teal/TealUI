@@ -76,7 +76,7 @@ var Validator = Class({
             target = me.target,
             t = me.event;
 
-        assert.notNull(target, "Validator#constructor(options): {options.target} ~");
+        //assert.notNull(target, "Validator#constructor(options): {options.target} ~");
 
         me.tip = me.tip || target.next('.ui-tipbox');
 

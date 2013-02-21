@@ -3,8 +3,8 @@
  */
 
 
-include("fx/animate.js");
-include("dom/base.js");
+//#include fx/animate.js
+//#include dom/base.js
 
 var Marquee = Class({
 	

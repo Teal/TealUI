@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("core/base.js");
+//#include core/base.js
 
 var QueryString = {
 

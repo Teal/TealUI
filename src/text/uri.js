@@ -1,4 +1,4 @@
-/** * @author xuld * Modified from https://github.com/joyent/node/blob/master/lib/url.js, Joyent, Inc */include("data/querystring.js");var Uri = (function () {
+/** * @author xuld * Modified from https://github.com/joyent/node/blob/master/lib/url.js, Joyent, Inc *///#include data/querystring.jsvar Uri = (function () {
 
 	function Uri() {
 		this.protocol = null;

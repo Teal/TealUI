@@ -75,7 +75,7 @@ JPlus.Data.DataRow = Array.extend({
 	/// <params name="ownerTable" type="DataTable">所在的表格。</params>
     constructor : function(array,ownerTable){
     
-        assert(array == null || Array.isArray(array),"用于生成 dataRow 的参数 array必须是null或数组");
+        //assert(array == null || Array.isArray(array),"用于生成 dataRow 的参数 array必须是null或数组");
     
         if(array != null)
             array.cloneTo(this);
@@ -94,7 +94,7 @@ JPlus.Data.DataRow = Array.extend({
 	///	</summary>
 	titleBind : function(){
 	
-	    assert(this.ownerTable,"结合标题时必须指定行的所在表");
+	    //assert(this.ownerTable,"结合标题时必须指定行的所在表");
 	    
 		var title = this.ownerTable.title;
 		for(var i = title.length; i > 0; i--)
@@ -117,7 +117,7 @@ JPlus.Data.DataRow = Array.extend({
 	/// <returns type="Object">内容</returns>
 	valueAt : function(title,value){
 
-	    assert(typeof title == "number" || this.ownerTable,"通过标题时必须指定行的所在表");
+	    //assert(typeof title == "number" || this.ownerTable,"通过标题时必须指定行的所在表");
 	
 	    var index = typeof title == "number" ? title : this.ownerTable.title.indexOf(value);
 	    
@@ -166,7 +166,7 @@ JPlus.Data.DataTable = Array.extend({
     constructor : function(value,name,key){
         // [null,""]  ->标题
         
-        assert(value == null || Array.isArray(value),"初始化表格的value必须是数组或null值");
+        //assert(value == null || Array.isArray(value),"初始化表格的value必须是数组或null值");
         
         if(value == null) return;
         if(value.length || !Array.isArray(value[0]))  //二维数组

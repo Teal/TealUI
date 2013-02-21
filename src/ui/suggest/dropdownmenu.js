@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-include("ui/form/listbox.css");
-include("dom/keynav.js");
-include("ui/core/listcontrol.js");
+//#include ui/form/listbox.css
+//#include dom/keynav.js
+//#include ui/core/listcontrol.js
 
 /**
  * 表示一个下拉菜单。用于 Suggest 和 ComboBox 组件。
@@ -64,7 +64,7 @@ var DropDownMenu = ListControl.extend({
      */
     constructor: function (options) {
 
-        assert(options && options.owner && options.selectMethod, "DropDownMenu#constructor(options): {options} 必须有 owner 和 selectMethod 字段", options);
+        //assert(options && options.owner && options.selectMethod, "DropDownMenu#constructor(options): {options} 必须有 owner 和 selectMethod 字段", options);
         
         var me = this;
 

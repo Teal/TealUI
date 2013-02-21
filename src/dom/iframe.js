@@ -1,7 +1,7 @@
 //===========================================
 //  框架               iframe.js       A
 //===========================================
-include("controls/control.js");
+//#include controls/control.js
 
 /**
  * IFrame

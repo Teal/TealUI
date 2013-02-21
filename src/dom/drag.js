@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("dom/base.js");
+//#include dom/base.js
 
 /**
  * 处理用户拖动操作的类。

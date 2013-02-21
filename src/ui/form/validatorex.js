@@ -1,7 +1,7 @@
 /**
  * @author xuld
  */
-include("ui/form/validator.js");
+//#include ui/form/validator.js
 
 Validator.get = function (dom) {
     dom = Dom.get(dom);

@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("text/md5.js");
+//#include text/md5.js
 
 /**
  * 计算一个字符串的 MD5值。
@@ -17,8 +17,8 @@ md5.hmacMd5 = function (key, data) {
  * 计算 HMAC-MD5 。
  */
 md5.hmacMd5c = function (key, data) {
-    assert.notNull(key, "key");
-    assert.notNull(data, "data");
+    //assert.notNull(key, "key");
+    //assert.notNull(data, "data");
     var me = md5,
         charSize = 8,
         bkey = me.str2binl(key);
@@ -71,8 +71,8 @@ md5.binl2b64 = function (binarray, base64pad) {
  * @return {String} md5 字符串。
  */
 md5.base64HmacMd5 = function (key, data) {
-    assert.notNull(key, "key");
-    assert.notNull(data, "data");
+    //assert.notNull(key, "key");
+    //assert.notNull(data, "data");
     return md5.binl2b64(md5.md5c(key, data));
 };
 

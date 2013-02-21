@@ -18,8 +18,8 @@ dp.query = function (selector) {
 
 	return multipleContexts(selector, this, new Dom());
 
-	assert.isString(selector, "Dom#find(selector): selector ~。");
-	assert(selector, "Dom#find(selector): {selector} 不能为空。", selector);
+	//assert.isString(selector, "Dom#find(selector): selector ~。");
+	//assert(selector, "Dom#find(selector): {selector} 不能为空。", selector);
 	var elem = this.node, result;
 
 	if (elem.nodeType !== 1) {
@@ -63,7 +63,7 @@ dp.find = function (selector) {
 
 	return this.query(selector).item(0);// Selector.one(selector, this[0], new Dom());
 
-	assert.isString(selector, "Dom#find(selector): selector ~");
+	//assert.isString(selector, "Dom#find(selector): selector ~");
 	var elem = this.node, result;
 	if (elem.nodeType !== 1) {
 		return document.find.call(this, selector)
@@ -301,7 +301,7 @@ dp.submit = function () {
  * <pre lang="htm" format="none">[ &lt;p class="selected highlight"&gt;Hello&lt;/p&gt; ]</pre>
  */
 dp.addClass = function (className) {
-	assert.isString(className, "Dom#addClass(className): {className} ~");
+	//assert.isString(className, "Dom#addClass(className): {className} ~");
 
 	return iterate(this, function (elem, className, classList) {
 
@@ -341,7 +341,7 @@ dp.addClass = function (className) {
  * </pre>
  */
 dp.removeClass = function (className) {
-	assert(!className || className.split, "Dom#removeClass(className): {className} ~");
+	//assert(!className || className.split, "Dom#removeClass(className): {className} ~");
 
 	return iterate(this, function (elem, className, classList) {
 
@@ -568,7 +568,7 @@ dp.index = function (filter) {
  */
 dp.child = function (index) {
 
-	//assert(typeof index === 'function' || typeof index === 'number' || typeof index === 'string' , 'Dom#child(index): {index} 必须是函数、数字或字符串。');
+	////assert(typeof index === 'function' || typeof index === 'number' || typeof index === 'string' , 'Dom#child(index): {index} 必须是函数、数字或字符串。');
 
 	var first = 'firstChild',
 		next = 'nextSibling';
@@ -853,7 +853,7 @@ dp.replaceWith = function (html) {
  * <pre lang="htm" format="none">how are &lt;p&gt;you?&lt;/p&gt;</pre>
  */
 dp.remove = function (child) {
-	assert(!arguments.length || child, 'Dom#remove(child): {child} 不是合法的节点', child);
+	//assert(!arguments.length || child, 'Dom#remove(child): {child} 不是合法的节点', child);
 
 	// 判断是删除子节点还是删除本身。
 	child = arguments.length ? Dom.query(child, this) : this;
@@ -1292,7 +1292,7 @@ dp.getOffset = function () {
  */
 dp.setOffset = function (offsetPoint) {
 
-    assert(offsetPoint, "Dom#setOffset(offsetPoint): {offsetPoint} 必须有 'x' 和 'y' 属性。", offsetPoint);
+    //assert(offsetPoint, "Dom#setOffset(offsetPoint): {offsetPoint} 必须有 'x' 和 'y' 属性。", offsetPoint);
 
     return iterate(this, function (elem) {
 

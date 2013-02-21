@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>文本域自动放大缩小</title>
-    <script type="text/javascript" src="../../src/boot.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/autoresize.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
@@ -15,7 +16,7 @@
 
         <textarea id="a"></textarea>
         <script class="demo">
-            Dom.get("a").autoResize();
+            Dom.autoResize(Dom.get("a"));
         </script>
 
     </article>

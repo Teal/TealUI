@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-include("ui/core/base.js");
+//#include ui/core/base.js
 
 /**
  * 表示一个可以切换的选项卡。
