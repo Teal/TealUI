@@ -10,11 +10,11 @@ var NumericUpDown = UpDown.extend({
     delta: 1,
 
     onUp: function () {
-        this.setText((parseFloat(this.getText()) || 0) + this.delta);
+    	this.setValue((parseFloat(this.getValue()) || 0) + this.delta);
     },
 
     onDown: function () {
-        this.setText((parseFloat(this.getText()) || 0) - this.delta);
+    	this.setValue((parseFloat(this.getValue()) || 0) - this.delta);
     }
 
 });

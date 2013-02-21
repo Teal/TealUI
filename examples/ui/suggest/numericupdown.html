@@ -2,15 +2,28 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-        <meta name="module-info" content="status=plan">
+        <meta name="module-info" content="status=complete">
         <title>用于填数字的控件</title>
-		
+
         <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/numericupdown.css" />
-        
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/updown.css" />
+
         <script type="text/javascript" src="../../../src/core/base.js"></script>
+        <script type="text/javascript" src="../../../src/core/class.js"></script>
         <script type="text/javascript" src="../../../src/dom/base.js"></script>
+        <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+        <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
         <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+        <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+        <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+        <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+        <script type="text/javascript" src="../../../src/ui/suggest/updown.js"></script>
 		<script type="text/javascript" src="../../../src/ui/suggest/numericupdown.js"></script>
 		
 		<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
@@ -32,7 +45,7 @@
                 </span>
 
                 <script>
-                    var numericUpDown = new NumericUpDown('numericUpDown');
+                    var numericUpDown = new NumericUpDown('#numericUpDown');
                 </script>
 
             </aside>

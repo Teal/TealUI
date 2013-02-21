@@ -51,11 +51,11 @@ var IInput = {
 	},
 
 	getValue: function () {
-		return Dom.getText(this.elem);
+		return Dom.getText(this.input());
 	},
 
 	setValue: function (value) {
-		Dom.setText(this.elem, value);
+		Dom.setText(this.input(), value);
 		return this;
 	},
 

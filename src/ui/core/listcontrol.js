@@ -26,19 +26,16 @@ var ListControl = Control.extend({
 	 * @return {Dom/this} 返回新添加的子控件，如果有多个参数，则返回 this。
 	 */
 	add: function (item) {
-		
-		var ret = new Dom();
 
 		// 如果有多个参数，按顺序插入。
 		if (arguments.length > 1) {
 			Object.each(arguments, function (item) {
-				ret.add(this.insert(item));
+				this.insertBefore(item);
 			}, this);
+			return this;
 		} else {
-			ret = this.insert(item);
+			return this.insertBefore(item);
 		}
-
-		return ret;
 
 	},
 
@@ -49,7 +46,7 @@ var ListControl = Control.extend({
 	 * @return {Dom} 返回新添加的子控件。
 	 */
 	addAt: function (index, item) {
-		return this.insert(item, this.item(index));
+		return this.insertBefore(item, this.item(index));
 	},
 
 	/**
@@ -58,7 +55,7 @@ var ListControl = Control.extend({
 	 * @param {Dom} refControl 元素被添加的位置。
 	 * @protected override
 	 */
-	insert: function (newItem, refItem) {
+	insertBefore: function (newItem, refItem) {
 
 		// newChild 不一定是一个标准的 <li> 标签。
 		// 先处理 newChild 为标准 Dom 对象。
@@ -81,6 +78,11 @@ var ListControl = Control.extend({
 		return newItem;
 	},
 
+	removeChild: function (child) {
+		Dom.remove(child);
+		return child;
+	},
+
 	/**
 	 * 当新控件被移除时执行。
 	 * @param {Dom} childControl 新添加的元素。
@@ -95,7 +97,7 @@ var ListControl = Control.extend({
 		}
 
 		// 返回被删除的子控件。
-		return child ? Dom.remove(child) : null;
+		return child ? this.removeChild(child) : null;
 	},
 
 	/**
@@ -104,11 +106,13 @@ var ListControl = Control.extend({
 	 * @return {Dom} 返回删除的子控件。如果删除失败（如索引超出范围）则返回 null 。
 	 */
 	removeAt: function (index) {
-		return (index = this.item(index)) ? Dom.remove(index) : null;
+		return (index = this.item(index)) ? this.removeChild(index) : null;
 	},
 
 	empty: function () {
-		Dom.empty(this.elem);
+		while (this.item(0)) {
+			this.removeChild(this.item(0));
+		}
 		return this;
 	},
 

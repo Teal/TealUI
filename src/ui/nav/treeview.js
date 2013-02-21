@@ -2,11 +2,9 @@
  * @author xuld
  */
 
-
 //#include ui/nav/treeview.css
 //#include ui/core/treecontrol.js
 //#include ui/core/icollapsable.js
-
 
 var TreeView = TreeControl.extend({
 
@@ -14,29 +12,20 @@ var TreeView = TreeControl.extend({
 
     depth: 0,
 
-    createNode: function (child) {
+    createNode: function (exitsNode) {
+    	return new TreeNode(exitsNode);
+    },
 
-        if (!(childControl instanceof TreeNode)) {
+    insertBefore: function (newItem, refItem) {
+    	newItem = TreeControl.prototype.insertBefore.call(this, newItem, refItem);
 
-            // 保存原有 childControl 。
-            var t = childControl;
+    	newItem.setDepth(this.depth + 1);
 
-            childControl = new TreeNode();
+    	if (this.elem.parentNode) {
+    		Dom.data(this.elem.parentNode).update();
+    	}
 
-            childControl.content().append(t);
-
-        }
-
-        // 设置子节点的位置。
-        childControl.setDepth(this.depth + 1);
-
-        // 更新当前树的父节点。
-        if (this.owner) {
-            this.owner.update();
-            childControl.parentNode = this.owner;
-        }
-
-        return childControl;
+    	return newItem;
 
     },
 
@@ -54,15 +43,14 @@ var TreeView = TreeControl.extend({
         // 根据已有的 DOM 结构初始化菜单。
         TreeControl.prototype.init.call(this);
 
-        this.on('click', this.onClick);
+        Dom.on(this.elem, 'click', this.onClick, this);
     },
 
     invoke: function (funcName, args) {
         var subTree = this, c, target;
         args = args || [];
-        for (var c = subTree.first() ; c; c = c.next()) {
-            target = c.dataField().item;
-            target[funcName].apply(target, args);
+        for (var i = 0, c = subTree.item(0) ; c = subTree.item(i) ; i++) {
+            c[funcName].apply(target, args);
         }
         return this;
     },
@@ -97,7 +85,7 @@ var TreeView = TreeControl.extend({
         if (/\bui-treenode-(minus|plus|loading)\b/.test(target.className))
             return;
 
-        if ((target = Dom.closest(target, '.ui-treenode')) && (target = Dom.data(target).control)) {
+        if (target = Dom.data(target).treeNode) {
             this.selectNode(target);
             return false;
         }
@@ -155,7 +143,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @protected override
 	 */
 	body: function () {
-		return this.subControl;
+		return this.subTree && this.subTree.elem;
 	},
 	
 	/**
@@ -185,8 +173,8 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	initSubControl: function(treeControl){
 	    treeControl.depth = this.depth;
 
-        // 子树不需要选择节点的功能。
-	    treeControl.un('click', treeControl.onClick);
+		// 子树不需要选择节点的功能。
+	    Dom.un(treeControl.elem, 'click', treeControl.onClick);
 	},
 	
 	// 树节点的控制。
@@ -222,7 +210,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @protected
 	 */
 	span: function(index){
-		return this.content().prev(index);
+		return Dom.prev(this.content(), index);
 	},
 	
 	/**
@@ -234,7 +222,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		// 更新图标。
 		this.updateNodeType();
 		
-		var last = this.subControl.item(-1), lastNode;
+		var last = this.subTree.item(-1), lastNode;
 		
 		// 更新 lastNode
 		if(last){
@@ -253,7 +241,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @protected
 	 */
 	updateNodeType: function(){
-		this.setNodeType(this.subControl && this.subControl.first() ? this.isCollapsed() ? 'plus' : 'minus' : 'normal');
+		this.setNodeType(this.subTree && this.subTree.first() ? this.isCollapsed() ? 'plus' : 'minus' : 'normal');
 	},
 	
 	/**
@@ -273,10 +261,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	
 	init: function(options){
 		this.unselectable();
-		this.on('dblclick', this.onDblClick, this);
-
-		// 绑定节点和控件，方便发生事件后，根据事件源得到控件。
-		this.dataField().control = this;
+		Dom.on(this.elem, 'dblclick', this.onDblClick, this);
 	},
 	
 	/**
@@ -306,13 +291,13 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	},
 	
 	onExpanding: function(){
-	    this.setNodeType(this.subControl && this.subControl.first() ? 'minus' : 'normal');
+	    this.setNodeType(this.subTree && this.subTree.item(0) ? 'minus' : 'normal');
 	    ICollapsable.onExpanding.call(this);
 	},
 	
 	onExpand: function(){
-		if(this.subControl) {
-			this.subControl.node.style.height = 'auto';
+		if(this.subTree) {
+			this.subTree.elem.style.height = 'auto';
 		}
 		ICollapsable.onExpand.call(this);
 	},
@@ -324,7 +309,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return this
 	 */
 	expandAll: function(duration, maxDepth){
-		if (this.subControl && !(maxDepth === 0)) {
+		if (this.subTree && !(maxDepth === 0)) {
 			this.expand(duration);
 			this.invoke('expandAll', [duration, --maxDepth]);
 		}
@@ -338,7 +323,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return this
 	 */
 	collapseAll: function(duration, maxDepth){
-		if (this.subControl && !(maxDepth === 0)) {
+		if (this.subTree && !(maxDepth === 0)) {
 			this.invoke('collapseAll', [duration, --maxDepth]);
 			this.collapse(duration);
 		}
@@ -362,8 +347,8 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	},
 	
 	invoke: function(funcName, args){
-		if(this.subControl){
-			this.subControl.invoke(funcName, args);
+		if(this.subTree){
+			this.subTree.invoke(funcName, args);
 		}
 		return this;
 	},
@@ -373,7 +358,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return {Integer} 返回节点深度。
 	 */
 	getDepth: function(){
-		return Dom.dataField(this.dom[0]).treeViewDepth;
+		return Dom.data(this.dom[0]).treeViewDepth;
 	},
 
 	/**
