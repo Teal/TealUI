@@ -2,10 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta;attr=#13">
+    <meta name="module-info" content="status=complete;attr=#13">
     <title>表单控件接口</title>
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
@@ -42,11 +43,11 @@
             <script>
 
                 Demo.writeExamples({
-                    '设置禁用': 'input.setAttribute("disabled", true)',
-                    '取消禁用': 'input.setAttribute("disabled", false)',
-                    '设置只读': 'input.setAttribute("readonly", true)',
-                    '取消只读': 'input.setAttribute("readonly", false)',
-                    '设置 name': 'input.setAttribute("name", "name")',
+                    '设置禁用': 'input.setAttr("disabled", true)',
+                    '取消禁用': 'input.setAttr("disabled", false)',
+                    '设置只读': 'input.setAttr("readonly", true)',
+                    '取消只读': 'input.setAttr("readonly", false)',
+                    '设置 name': 'input.setAttr("name", "name")',
                     '获取表单': 'input.form()'
                 });
 

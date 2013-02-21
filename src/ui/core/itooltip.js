@@ -71,7 +71,7 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-		var arrow = Dom.find(this.elem, '.ui-arrow') || Dom.append(this.elem, this.arrowTpl);
+		var arrow = Dom.find('.ui-arrow', this.elem) || Dom.append(this.elem, this.arrowTpl);
 
 	    if (value) {
 	        arrow.className = 'ui-arrow ui-arrow-' + value;
@@ -82,7 +82,7 @@ var IToolTip = {
 	},
 
 	getArrow: function () {
-		var arrow = Dom.find(this.elem, '.ui-arrow'), r = null;
+		var arrow = Dom.find('.ui-arrow', this.elem), r = null;
 
 	    if (arrow) {
 	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow.className) || [0, r])[1];
@@ -104,8 +104,13 @@ var IToolTip = {
 				me.showTimer = setTimeout(function () {
 					me.showTimer = 0;
 
-					if (caption)
-						Dom.setText(me.content ? me.content() : me.elem, caption);
+					if (caption) {
+						if (me.setContent) {
+							me.setContent(caption);
+						} else {
+							Dom.setText(me.elem);
+						}
+					}
 
 					me.showBy(elem, offsetX, offsetY, e);
 				}, waitTimeout);

@@ -81,7 +81,7 @@ var IDropDownOwner = {
 		if (dom) {
 
 			// 修正下拉菜单为 Dom 对象。
-		    this.dropDown = dom = Dom.find(dom);
+			this.dropDown = dom = dom.elem || Dom.find(dom);
 
 			// 初始化并保存下拉菜单。
 		    Dom.addClass(dom, 'ui-dropdown');
@@ -171,7 +171,7 @@ var IDropDownOwner = {
 				}
 
 				// 设置 mouseup 后自动隐藏菜单。
-				Dom.document.on('mouseup', me.hideDropDown, me);
+				Dom.on(document, 'mouseup', me.hideDropDown, me);
 
 			}
 

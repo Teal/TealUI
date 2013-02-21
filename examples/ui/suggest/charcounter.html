@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-        <meta name="module-info" content="status=beta" />
-		<title>文字计数器</title>
-		
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/charcounter.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>文字计数器</title>
 
-            <script type="text/javascript" src="../../../src/core/base.js"></script>
-        <script type="text/javascript" src="../../../src/dom/base.js"></script>
-        <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-		<script type="text/javascript" src="../../../src/ui/suggest/charcounter.js"></script>
-		
-		<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/charcounter.css" />
 
-        <article class="demo">
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/charcounter.js"></script>
 
-            <script class="demo" type="text/html">
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-                <textarea id="charCounter"></textarea>
+    <article class="demo">
 
-                <span class="ui-charcounter"></span>
+        <script class="demo" type="text/html">
 
-                < script>
-                    var charCounter = new CharCounter('#charCounter');
-                < /script>
+            <textarea id="charCounter"></textarea>
+
+            <span class="ui-charcounter"></span>
+
+            < script>
+                var charCounter = new CharCounter('#charCounter');
+            < /script>
                 
-            </script>
+        </script>
 
-        </article>
-		
-	</body>
+    </article>
+
+</body>
 </html>

@@ -1,56 +1,61 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-        <meta name="module-info" content="status=ok">
-        <title>上下按钮的文本框</title>
-		
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
-        <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/updown.css" />
-        
-        <script type="text/javascript" src="../../../src/core/base.js"></script>
-        <script type="text/javascript" src="../../../src/dom/base.js"></script>
-        <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-        <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
-		<script type="text/javascript" src="../../../src/ui/suggest/updown.js"></script>
-		
-		<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
-	</head>
-	<body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>上下按钮的文本框</title>
 
-        <article class="demo">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/updown.css" />
 
-            <aside class="demo">
+    <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/updown.js"></script>
 
-                <span class="ui-picker ui-updown" id="upDown">
-                    <input type="text" class="ui-textbox">
-                    <button type="button" class="ui-button ui-updown-button-up">
-                        <span class="ui-menubutton-arrow"></span>
-                    </button>
-                    <button type="button" class="ui-button ui-updown-button-down">
-                        <span class="ui-menubutton-arrow"></span>
-                    </button>
-                </span>
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
 
-                <script>
-                    var upDown = new UpDown('upDown');
-                    upDown.onUp = function () {
-                        upDown.setText('点了 + 1');
-                    };
-                    upDown.onDown = function () {
-                        upDown.setText('点了 - 1');
-                    };
-                </script>
-                
-            </aside>
+    <article class="demo">
 
-        </article>
-		
-	</body>
+        <aside class="demo">
+
+            <span class="ui-picker ui-updown" id="upDown">
+                <input type="text" class="ui-textbox">
+                <button type="button" class="ui-button ui-updown-button-up">
+                    <span class="ui-menubutton-arrow"></span>
+                </button>
+                <button type="button" class="ui-button ui-updown-button-down">
+                    <span class="ui-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <script>
+                var upDown = new UpDown('#upDown');
+                upDown.onUp = function () {
+                    Dom.setText(upDown.input(), '+');
+                };
+                upDown.onDown = function () {
+                    Dom.setText(upDown.input(), '-');
+                };
+            </script>
+
+        </aside>
+
+    </article>
+
+</body>
 </html>

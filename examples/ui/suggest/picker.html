@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>数据选择器</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
@@ -48,9 +49,9 @@
 
             <input type="text" class="ui-textbox" id="picker1" />
 
-            <\script>
-                var picker1 = new Picker("picker1");
-            </\script>
+            < script>
+                var picker1 = new Picker("#picker1");
+            < /script>
             
         </script>
 
@@ -60,9 +61,9 @@
 
             <a href="javascript:;" class="ui-button" id="picker2">B</a>
 
-            <\script>
-                var picker2 = new Picker("picker2");
-            </\script>
+            < script>
+                var picker2 = new Picker("#picker2");
+            < /script>
             
         </script>
 
@@ -74,9 +75,9 @@
                 <input type="text" class="ui-textbox" />
             </span>
 
-            <\script>
-                var picker3 = new Picker("picker3");
-            </\script>
+            < script>
+                var picker3 = new Picker("#picker3");
+            < /script>
             
         </script>
 
@@ -92,9 +93,9 @@
                 紧跟的 class=ui-dropdown 项会被作为子菜单打开。
             </div>
 
-            <\script>
-                var picker4 = new Picker("picker4");
-            </\script>
+            < script>
+                var picker4 = new Picker("#picker4");
+            < /script>
             
         </script>
 
@@ -111,7 +112,7 @@
             <input type="text" class="ui-textbox" id="picker" />
             
             <script>
-                var picker = new Picker("picker");
+                var picker = new Picker("#picker");
             </script>
                 
         </section>
@@ -135,9 +136,9 @@
             
         </script>
 
-        <blockquote class="demo">要控制文本框， 参考 <a href="../Core/IInput.html">IInput</a> 组件。(Picker 实现了IInput 接口)</blockquote>
+        <blockquote class="demo">要控制文本框， 参考 <a href="../core/iinput.html">IInput</a> 组件。(Picker 实现了IInput 接口)</blockquote>
 
-        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 组件。(Picker 实现了 IDropDownOwner 接口)</blockquote>
+        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../core/idropdownowner.html">IDropDownOwner</a> 组件。(Picker 实现了 IDropDownOwner 接口)</blockquote>
 
     </article>
     

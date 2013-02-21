@@ -21,14 +21,14 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 	 * 当前控件是否为列表形式。如果列表模式则优先考虑使用下拉菜单。
      * @config {Boolean}
 	 */
-    listMode: true,
+	listMode: false,
 
     /**
 	 * 当前控件的 HTML 模板字符串。
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
-    tpl: '<span class="ui-picker">\
+	tpl: '<span class="ui-picker">\
 			<input type="text" class="ui-textbox"/>\
 		</span>',
 
@@ -43,7 +43,7 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 	 * 获取当前控件的按钮部分。
 	 */
     button: function () {
-        return this.find('button');
+    	return Dom.find('button', this.elem);
     },
 
     /**
@@ -83,13 +83,18 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
         if (name == "disabled" || name == "readonly") {
 
             // 为按钮增加 disabled 样式。
-            this.dom.query('.ui-button,button').setAttr("disabled", value).toggleClass("ui-button-disabled", value);
+        	Dom.query('.ui-button,button', this.elem).each(function (elem) {
+        		Dom.setAttr(elem, "disabled", value);
+        		Dom.toggleClass(elem, "ui-button-disabled", value);
+        	});
 
-            // 为文本框增加设置样式。
-            this.input().setAttr(name, value).toggleClass("ui-textboui-" + name, value);
+        	// 为文本框增加设置样式。
+            var input = this.input();
+            Dom.setAttr(input, name, value);
+            Dom.toggleClass(input, "ui-textboui-" + name, value);
 
         } else if (name == "actived") {
-            this.query('.ui-button,button').toggleClass("ui-button-actived", value);
+        	Dom.query('.ui-button,button', this.elem).iterate(Dom.toggleClass, ["ui-button-actived", value]);
         } else {
             IInput.state.call(this, name, value);
         }
@@ -111,73 +116,54 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 	 * @override
 	 */
     init: function (options) {
-
-        var me = this, elem;
+    	var me = this, elem = me.elem;
 
         // 如果是 <input> 或 <a> 直接替换为 ui-picker
-        if (!me.dom.first() && !me.dom.hasClass('ui-picker')) {
-            elem = me.node;
+    	if (!Dom.first(elem) && !Dom.hasClass(elem, 'ui-picker')) {
 
             // 创建 ui-picker 组件。
-            me.node = Dom.createNode('span', 'ui-picker ui-' + me.xtype);
+    		me.elem = Dom.parseNode('<span class="ui-picker ui-' + me.cssClass + '"></span>');
 
             // 替换当前节点。
             if (elem.parentNode) {
-                elem.parentNode.replaceChild(me.node, elem);
+            	elem.parentNode.replaceChild(me.elem, elem);
             }
 
             // 插入原始 <input> 节点。
-            me.prepend(elem);
+            Dom.prepend(me.elem, elem);
 
         }
 
         // 如果没有下拉菜单按钮，添加之。
         if (!me.button()) {
-            me.append(me.menuButtonTpl);
+        	Dom.append(me.elem, String.format(me.menuButtonTpl, me));
         }
 
         // 列表形式，则无法手动更改值，必须强制使用 listMode 。
         if ('listMode' in options) {
             me.listMode = options.listMode;
-        } else if (me.first().node.tagName !== 'INPUT') {
+        } else if (Dom.first(me.elem).tagName !== 'INPUT') {
             me.listMode = true;
         }
 
         // 初始化菜单。
-        me.setDropDown(me.createDropDown(me.next('.ui-dropdown')));
+        me.setDropDown(me.createDropDown(Dom.next(me.elem, '.ui-dropdown')));
 
         // 设置菜单显示的事件。
-        (me.listMode ? me : me.button()).on('click', me.toggleDropDown, me);
+        Dom.on(me.listMode ? me.elem : me.button(), 'click', me.toggleDropDown, me);
         
-        if(me.listMode && me.input().node.tagName === 'INPUT'){
-        	me.on('keyup', function(){
+        if(me.listMode && me.input().tagName === 'INPUT'){
+        	Dom.on(me.elem, 'keyup', function(){
         		this.updateDropDown();
         	}, this);
         }
 
     },
     
-    setText: function (value){
-    	this.input().setText(value);
+    setValue: function (value) {
+    	IInput.setValue.call(this, value);
     	this.updateDropDown();
     	return this;
-    },
-
-    setWidth: function (value) {
-        var first = this.first();
-        if (value >= 0) {
-            value -= this.getWidth() - first.getWidth();
-        }
-        first.setWidth(value);
-        return this;
     }
 
-}).addEvents('change select', {
-    add: function (picker, type, fn) {
-        Dom.$event.$default.add(picker.input(), type, fn);
-    },
-    remove: function (picker, type, fn) {
-        Dom.$event.$default.remove(picker.input(), type, fn);
-    }
 });
-

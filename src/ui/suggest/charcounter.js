@@ -18,19 +18,19 @@ var CharCounter = Control.extend({
 	errorMessage: '已超过<span class="{cssClass}-error"> {value} </span>个字符',
     
     isValidated: function(){
-    	return this.target.getText().length <= this.maxLength;
+    	return Dom.getText(this.target).length <= this.maxLength;
     },
 
     update: function () {
-        var len = this.target.getText().length - this.maxLength;
+    	var len = Dom.getText(this.target).length - this.maxLength;
         if (len > 0) {
-        	this.dom.setHtml(String.format(this.errorMessage, {
+        	Dom.setHtml(this.elem, String.format(this.errorMessage, {
         		cssClass: this.cssClass,
         		value: len,
         		maxLength: this.maxLength
         	}));
         } else {
-        	this.dom.setHtml(String.format(this.message, {
+        	Dom.setHtml(this.elem, String.format(this.message, {
         		cssClass: this.cssClass,
         		value: -len,
         		maxLength: this.maxLength
@@ -42,14 +42,9 @@ var CharCounter = Control.extend({
         this.target = target = Dom.find(target);
         if (maxLength)
             maxLength = this.maxLength;
-        tip = tip ? Dom.get(tip) : target.siblings('.ui-charcounter').item(0);
-        if (tip.length) {
-        	this.dom = tip;
-        } else {
-        	target.after(this.dom = this.create());
-        }
+        this.elem = tip = Dom.find(tip) || Dom.nextAll(target, '.ui-charcounter')[0] || Dom.prevAll(target, '.ui-charcounter')[0] || Dom.after(target, this.create());
 
-        target.on('keyup', this.update, this);
+        Dom.on(target, 'keyup', this.update, this);
 
         this.update();
     }

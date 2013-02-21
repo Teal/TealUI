@@ -65,16 +65,6 @@ var Control = Class({
     	Dom.remove(this.elem);
     },
 
-    /**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。
-     * @param {Boolean} value=false 要设置的状态值。
-	 * @protected virtual
-	 */
-    state: function (name, value) {
-        Dom.toggleClass(this.elem, this.cssClass + '-' + name, value);
-    },
-
 	/**
 	 * 初始化一个新的控件。
 	 * @param {String/Element/Dom/Object} [options] 绑定的节点或节点 id 或完整的配置对象，用于初始化当前控件。

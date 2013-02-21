@@ -1827,79 +1827,79 @@ var Dom = (function () {
         return styleString(elem, 'display') === 'none';
     };
 
-    /**
-	 * 获取一个标签的默认 display 属性。
-	 * @param {Element} elem 元素。
-	 */
-    Dom.defaultDisplay = function (elem) {
-        var displays = Dom.displays || (Dom.displays = {}),
-			tagName = elem.tagName,
-			display = displays[tagName],
-			iframe,
-			iframeDoc;
+    ///**
+	// * 获取一个标签的默认 display 属性。
+	// * @param {Element} elem 元素。
+	// */
+    //Dom.defaultDisplay = function (elem) {
+    //    var displays = Dom.displays || (Dom.displays = {}),
+	//		tagName = elem.tagName,
+	//		display = displays[tagName],
+	//		iframe,
+	//		iframeDoc;
 
-        if (!display) {
+    //    if (!display) {
 
-            elem = document.createElement(tagName);
-            document.body.appendChild(elem);
-            display = getCurrentStyle(elem, 'display');
-            document.body.removeChild(elem);
+    //        elem = document.createElement(tagName);
+    //        document.body.appendChild(elem);
+    //        display = getCurrentStyle(elem, 'display');
+    //        document.body.removeChild(elem);
 
-            // 如果简单的测试方式失败。使用 IFrame 测试。
-            if (display === "none" || display === "") {
-                iframe = document.body.appendChild(Dom.emptyIframe || (Dom.emptyIframe = Object.extend(document.createElement("iframe"), {
-                    frameBorder: 0,
-                    width: 0,
-                    height: 0
-                })));
+    //        // 如果简单的测试方式失败。使用 IFrame 测试。
+    //        if (display === "none" || display === "") {
+    //            iframe = document.body.appendChild(Dom.emptyIframe || (Dom.emptyIframe = Object.extend(document.createElement("iframe"), {
+    //                frameBorder: 0,
+    //                width: 0,
+    //                height: 0
+    //            })));
 
-                // Create a cacheable copy of the iframe document on first call.
-                // IE and Opera will allow us to reuse the iframeDoc without re-writing the fake HTML
-                // document to it; WebKit & Firefox won't allow reusing the iframe document.
-                iframeDoc = (iframe.contentWindow || iframe.contentDocument).document;
-                iframeDoc.write("<!doctype html><html><body>");
-                iframeDoc.close();
+    //            // Create a cacheable copy of the iframe document on first call.
+    //            // IE and Opera will allow us to reuse the iframeDoc without re-writing the fake HTML
+    //            // document to it; WebKit & Firefox won't allow reusing the iframe document.
+    //            iframeDoc = (iframe.contentWindow || iframe.contentDocument).document;
+    //            iframeDoc.write("<!doctype html><html><body>");
+    //            iframeDoc.close();
 
-                elem = iframeDoc.body.appendChild(iframeDoc.createElement(tagName));
-                display = getCurrentStyle(elem, 'display');
-                document.body.removeChild(iframe);
-            }
+    //            elem = iframeDoc.body.appendChild(iframeDoc.createElement(tagName));
+    //            display = getCurrentStyle(elem, 'display');
+    //            document.body.removeChild(iframe);
+    //        }
 
-            displays[tagName] = display;
-        }
+    //        displays[tagName] = display;
+    //    }
 
-        return display;
-    },
+    //    return display;
+    //},
 
-    /**
-	 * 通过设置 display 属性来显示元素。
-	 * @param {Element} elem 元素。
-	 * @static
-	 */
-	Dom.show = function (elem) {
-	    ////assert.isElement(elem, "Dom.show(elem): {elem} ~");
+    ///**
+	// * 通过设置 display 属性来显示元素。
+	// * @param {Element} elem 元素。
+	// * @static
+	// */
+	//Dom.show = function (elem) {
+	//    ////assert.isElement(elem, "Dom.show(elem): {elem} ~");
 
-	    // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
-	    elem.style.display = '';
+	//    // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
+	//    elem.style.display = '';
 
-	    // 如果元素的 display 仍然为 none , 说明通过 CSS 实现的隐藏。这里默认将元素恢复为 block。
-	    if (getCurrentStyle(elem, 'display') === 'none')
-	        elem.style.display = elem.style.defaultDisplay || Dom.defaultDisplay(elem);
-	},
+	//    // 如果元素的 display 仍然为 none , 说明通过 CSS 实现的隐藏。这里默认将元素恢复为 block。
+	//    if (getCurrentStyle(elem, 'display') === 'none')
+	//        elem.style.display = elem.style.defaultDisplay || Dom.defaultDisplay(elem);
+	//},
 
-    /**
-	 * 通过设置 display 属性来隐藏元素。
-	 * @param {Element} elem 元素。
-	 * @static
-	 */
-	Dom.hide = function (elem) {
-	    ////assert.isElement(elem, "Dom.hide(elem): {elem} ~");
-	    var currentDisplay = styleString(elem, 'display');
-	    if (currentDisplay !== 'none') {
-	        elem.style.defaultDisplay = currentDisplay;
-	        elem.style.display = 'none';
-	    }
-	};
+    ///**
+	// * 通过设置 display 属性来隐藏元素。
+	// * @param {Element} elem 元素。
+	// * @static
+	// */
+	//Dom.hide = function (elem) {
+	//    ////assert.isElement(elem, "Dom.hide(elem): {elem} ~");
+	//    var currentDisplay = styleString(elem, 'display');
+	//    if (currentDisplay !== 'none') {
+	//        elem.style.defaultDisplay = currentDisplay;
+	//        elem.style.display = 'none';
+	//    }
+	//};
 
     Dom.getStyle = function (elem, name) {
 

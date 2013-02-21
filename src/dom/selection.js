@@ -73,36 +73,23 @@ Dom.setCursor = function (elem, pos) {
 Dom.implement({
 
 	/**
-	 * 获取选区区域范围
+	 * 获取或设置选区区域范围
 	 * @return {Object} 返回 {start: 0, end: 3}  对象。
 	 */
-	getSelectionRange: function () {
-		return this.length ? Dom.getSelectionRange(this[0]) : null;
+	selectionRange: function () {
+		return this.access(Dom.getSelectionRange, Dom.setSelectionRange, arguments, 0);
 	},
 
 	/**
-	 * 设置选区区域范围
-	 * @param {Object} {start: 0, end: 3} 对象。
-	 */
-	setSelectionRange: function (rangeObj) {
-		return Dom.iterate(this, Dom.setSelectionRange, rangeObj);
-	},
-
-	/**
-	 * 获取选区文本
-	 * @return {String} 选中的文本
-	 */
-	getSelectedText: function () {
-		return this.length ? Dom.getSelectionRange(this[0]).text : null;
-	},
-
-	/**
-	 * 设置选区文本
+	 * 获取或设置选区文本
 	 * @param {String} 文本
 	 * @param {Boolean} true代表选中插入文本 false表示不选中
+	 * @return {String} 选中的文本
 	 */
-	setSelectedText: function (text, isSelect) {
-		return Dom.iterate(this, function (elem) {
+	selectedText: function (value, selectInsertedText) {
+		return this.access(function (elem) {
+			return Dom.getSelectionRange(elem).text;
+		}, function (elem) {
 			var val = Dom.getText(elem);
 
 			var s = Dom.getSelectionRange(elem);
@@ -110,16 +97,16 @@ Dom.implement({
 			var a = val.substring(0, s.start);
 			var b = val.substring(s.end);
 
-			Dom.setText(elem, a + text + b);
+			Dom.setText(elem, a + value + b);
 
-			s.end = s.start + text.length;
-			if (isSelect) {
+			s.end = s.start + value.length;
+			if (selectInsertedText) {
 				Dom.setSelectionRange(elem, s);
 			} else {
 				Dom.setCursor(elem, s.end);
 			}
 
-		});
+		}, arguments, 0);
 	}
 
 });

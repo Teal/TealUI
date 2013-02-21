@@ -2,7 +2,6 @@
  * @author xuld 
  */
 
-
 //#include dom/base.js
 
 Dom.pin = (function(){

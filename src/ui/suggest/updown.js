@@ -2,16 +2,13 @@
  * @author xuld
  */
 
-
 //#include ui/suggest/updown.css
 //#include dom/keynav.js
 //#include ui/suggest/picker.js
 
-
 var UpDown = Picker.extend({
 
     /**
-	 * ��ǰ�ؼ�������ť�� HTML ģ���ַ�����
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
@@ -28,7 +25,7 @@ var UpDown = Picker.extend({
 
     _bindEvent: function (d, fn) {
         var me = this;
-        d = this.find('.ui-updown-button-' + d).node;
+        d = Dom.find('.ui-updown-button-' + d, me.elem);
 
         d.onmousedown = function () {
             me[fn]();
@@ -47,14 +44,14 @@ var UpDown = Picker.extend({
     },
 
     init: function (options) {
-        this.base('init', options);
+    	Picker.prototype.init.call(this, options);
         this._bindEvent('up', 'onUp');
         this._bindEvent('down', 'onDown');
 
-        this.keyNav({
+        Dom.keyNav(this.elem, {
             up: this.onUp,
             down: this.onDown
-        });
+        }, this);
     },
 
     onUp: Function.empty,

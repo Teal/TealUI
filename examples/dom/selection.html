@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=beta">
+    <meta name="module-info" content="status=complete">
     <title>选区操作</title>
 
     <script type="text/javascript" src="../../src/core/base.js"></script>
@@ -19,14 +19,13 @@
         <textarea id="b">abcdefg</textarea>
 
         <script>
-            var a = Dom.get("a");
-            var b = Dom.get("b");
+            var a = Dom.query("#a");
 
             Demo.writeExamples({
-                "获取选区区域范围": 'a.getSelectionRange()',
-                "设置选区区域范围": 'a.setSelectionRange({start: 1, end: 4})',
-                "获取选区区域内容": 'a.getSelectedText()',
-                "设置选区区域内容": 'a.setSelectedText("文本", true)'
+                "获取选区区域范围": 'a.selectionRange()',
+                "设置选区区域范围": 'a.selectionRange({start: 1, end: 4})',
+                "获取选区区域内容": 'a.selectedText()',
+                "设置选区区域内容": 'a.selectedText("文本", true)'
             });
         </script>
     </article>
