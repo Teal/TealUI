@@ -62,7 +62,7 @@ var Dialog = ContainerControl.extend({
 	},
 	
 	mask: function(opacity){
-		var mask = this.maskNode || (this.maskNode = Dom.find('.ui-mask-dialog') || Dom.append(document.body, '<div class="ui-mask ui-mask-dialog"></div>'));
+		var mask = this.maskElem || (this.maskElem = Dom.find('.ui-mask-dialog') || Dom.append(document.body, '<div class="ui-mask ui-mask-dialog"></div>'));
 
 		if (opacity === null) {
 			Dom.hide(mask);
@@ -75,23 +75,23 @@ var Dialog = ContainerControl.extend({
 		return this;
 	},
 	
-	setPosition: function(p){
-		if(p.x != null) {
+	setPosition: function(value){
+		if (value.x != null) {
 			this._centerType &= ~2;
 			Dom.setStyle(this.elem, 'margin-left', 0);
 		}
 		
-		if(p.y != null) {
+		if (value.y != null) {
 			this._centerType &= ~1;
 			Dom.setStyle(this.elem, 'margin-top', 0);
 		}
 		
-		Dom.setPosition(this.elem, p);
+		Dom.setPosition(this.elem, value);
 		return this;
 	},
 
-	setSize: function (p) {
-		Dom.setSize(this.elem, p);
+	setSize: function (value) {
+		Dom.setSize(this.elem, value);
 		return this.center();
 	},
 
@@ -113,10 +113,10 @@ var Dialog = ContainerControl.extend({
 	 */
 	center: function(){
 		if(this._centerType & 1)
-			this.dom.setStyle('margin-top', - this.dom.getHeight() / 2 + Dom.document.getScroll().y);
+			Dom.setStyle(this.elem, 'margin-top', -Dom.getHeight(this.elem) / 2 + Dom.getScroll(document).y);
 			
 		if(this._centerType & 2)
-			this.dom.setStyle('margin-left', -this.dom.getWidth() / 2 + Dom.document.getScroll().x);
+			Dom.setStyle(this.elem, 'margin-left', -Dom.getWidth(this.elem) / 2 + Dom.getScroll(document).x);
 			
 		return this;
 	},
@@ -124,7 +124,7 @@ var Dialog = ContainerControl.extend({
 	show: function (duration) {
 		Dom.render(this.elem);
 
-		this.dom.show({
+		Dom.show(this.elem, {
 			args: duration,
 			duration: this.showDuration
 		});
@@ -138,12 +138,12 @@ var Dialog = ContainerControl.extend({
 	close: function (duration) {
 	    var me = this;
 	    if (this.trigger('closing')) {
-	    	if (this.maskDom) this.maskDom.hide();
-	    	this.dom.hide({
+	    	if (this.maskElem) Dom.hide(this.maskElem);
+	    	Dom.hide(this.elem, {
 	    		args: duration,
 	    		duration: this.showDuration,
 	    		callback: function () {
-	    			this.trigger('close');
+	    			me.trigger('close');
 	    		}
 	    	});
 	    }

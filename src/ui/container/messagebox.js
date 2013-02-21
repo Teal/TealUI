@@ -1,22 +1,21 @@
-
-
-
-
+/**
+ * @author xuld
+ */
 
 //#include ui/container/dialog.js
 
 var MessageBox = Dialog.extend({
 
+	onOk: function () {
+		return this.trigger('ok');
+	},
+
+	onCancel: function () {
+		return this.trigger('cancel');
+	},
+
     onCloseButtonClick: function () {
         this.cancel();
-    },
-
-    onOk: function () {
-        return this.trigger('ok');
-    },
-
-    onCancel: function () {
-        return this.trigger('cancel');
     },
 
     ok: function(){
@@ -35,17 +34,12 @@ var MessageBox = Dialog.extend({
 
         // 获取 body 。
         // 获取 content 。
-        var body = this.body(), content = body.last();
+    	var body = this.body(), content = Dom.last(body) || body;
 
-        // 如果存在多个 content，使用 body 作为 content。
-        if (!content || content.prev()) {
-            content = body;
-        }
-
-        if (type == null) {
-            content[0].className = content[0].className.replace(/ui-dialog-iconbox\s+ui-dialog-iconboui-\w+/, '');
+    	if (type == null) {
+    		content.className = content.className.replace(this.cssClass + '-iconbox ', ' ').replace(/\s.*?-iconboui-\w+/, '');
         } else {
-            content.addClass('ui-dialog-iconbox ui-dialog-iconboui-' + type);
+        	Dom.addClass(content, this.cssClass + '-iconbox ' + this.cssClass + '-iconboui-' + type);
         }
 
         return this;
@@ -60,36 +54,32 @@ var MessageBox = Dialog.extend({
 	 */
     setButtons: function (options) {
 
+    	var footerClass = this.cssClass + '-footer';
+
         if (options == null) {
-            this.dom.query('.ui-dialog-footer').remove();
+        	Dom.query('.' + footerClass, this.elem).each(Dom.remove);
         } else {
 
-            var footer = this.dom.find('.ui-dialog-footer'),
+        	var footer = Dom.find('.' + footerClass, this.elem) || Dom.append(this.elem, '<div class="' + footerClass + '"></div>'),
                 key,
                 value,
                 btn;
 
-            if (footer.length) {
-            	footer.empty();
-            } else {
-            	footer = Dom.create('div', 'ui-dialog-footer').appendTo(this.dom);
-            }
+        	Dom.empty(footer);
 
             for (key in options) {
                 value = options[key];
-                btn = Dom.parse('<button class="ui-button"></button>').setText(key).appendTo(footer);
+                btn = Dom.append(footer, '<button class="ui-button"></button>');
+                Dom.setText(btn, key);
                 switch (typeof value) {
                     case 'boolean':
                         value = value ? this.ok : this.cancel;
                     case 'function':
-                        btn.on('click', value, this);
-                        break;
-                    case 'object':
-                        btn.set(value);
+                        Dom.on(btn, 'click', value, this);
                         break;
                 }
 
-                footer.append('  ');
+                Dom.append(footer, '  ');
             }
 
         }
@@ -120,9 +110,10 @@ MessageBox.alert = function (text, title) {
 
 MessageBox.confirm = function (text, title, onOk, onCancel) {
 
-    var messageBox = MessageBox.show(text, title, 'confirm', {
+	var buttonClass = MessageBox.prototype.cssClass,
+		messageBox = MessageBox.show(text, title, 'confirm', {
         '确定': {
-            className: 'ui-button ui-button-info',
+        	className: buttonClass + ' ' + buttonClass + '-info',
             onclick: function () {
                 messageBox.ok();
             }
