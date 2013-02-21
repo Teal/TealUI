@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="subtitle=将用到的模块打包成一个文件，方便项目使用">
+    <title>模块打包工具</title>
+
+    <link href="../../../src/ui/core/base.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/core/common.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/form/textbox.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/button/button.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/button/linkbutton.css" rel="stylesheet" type="text/css">
+    <link href="assets/modulepackager.css" rel="stylesheet" type="text/css">
+
+    <script src="../../demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo" id="main">
+
+            <style>
+                .buttons {
+                    color: #333;
+                    font-size: 14px;
+                    text-decoration: none;
+                    display: inline-block;
+                    margin: 10px 0;
+                }
+
+                .buttons:hover {
+                    text-decoration: underline;
+                }
+            </style>
+        
+        <section class="panel">
+
+<!--            <div class="ui-hint">请选择打包的配置文件:</div>
+            
+            <a class="buttons" href="javascript:;">✚ 新建配置文件</a><br />
+            
+            <a class="buttons" href="javascript:;">打开配置文件</a><br />
+            
+            <a class="buttons" href="javascript:;">core/asdsad.js</a>-->
+
+            <h3>模块列表</h3>
+
+            <div class="ui-hint">请选择打包的配置文件:</div>
+
+            <div class="demo demo-toolbar"><a href="javascript://按顺序执行全部测试用例" onclick="DplBuilder.clearDpls();">清空列表</a></div>
+
+            <div onmouseout="this.className = this.className.replace(' demo-tip-hover', '');" onmouseover="this.className += ' demo-tip-hover'" class="demo-tip"><nav class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">查看引用</a> | <a onclick="DplBuilder.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a></nav><a href="http://localhost:50001/src/System/Core/Base.html" target="_blank" class="demo demo-mono">System.Core.Base</a>						    </div>
+
+            <input type="text" placeholder="输入要添加的模块路径..." class="ui-textbox">
+
+            <a onclick="DplBuilder.addDpl()" class="ui-button ui-button-fixed ui-button-success" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">添加</a>
+
+            <a onclick="DplBuilder.addDpl()" class="ui-button" href="javascript://添加一个组件" title="排除一个模块，确保生成的文件里不包含此模块">排除</a>
+            
+            <h3>合成选项</h3>
+
+            <label class="short"><input type="checkbox" class="x-checkbox" name="removeConsole">压缩代码</label>
+
+            <label class="short"><input type="checkbox" class="x-checkbox" name="removeConsole">添加合成注释</label>
+
+        </section>
+   
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>
