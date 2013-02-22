@@ -32,20 +32,18 @@ var DropDownMenu = ListControl.extend({
 
             // 显示菜单。
     		this.owner.showDropDown();
-        } else {
-
-            var item = this._hovering;
-
-            if (item) {
-            	item = Dom[next ? 'next' : 'prev'](item);
-            }
-
-            if (!item) {
-            	item = Dom[next ? 'first' : 'last'](this.elem);
-            }
-
-            this.hovering(item);
         }
+    	var item = this._hovering;
+
+    	if (item) {
+    		item = Dom[next ? 'next' : 'prev'](item);
+    	}
+
+    	if (!item) {
+    		item = Dom[next ? 'first' : 'last'](this.elem);
+    	}
+
+    	this.hovering(item);
     },
 
     /**
