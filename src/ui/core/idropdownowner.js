@@ -92,16 +92,21 @@ var IDropDownOwner = {
 		    Dom.hide(dom);
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
+
 		    if (!Dom.contains(document.body, dom)) {
 
-				// 添加下拉菜单到 DOM 树。
-			    Dom.after(this.elem, dom);
+		    	// 添加下拉菜单到 DOM 树。
+		    	if (this.elem.parentNode) {
+		    		Dom.after(this.elem, dom);
+		    	} else {
+		    		Dom.append(this.elem, dom);
+		    	}
+		    }
 
-				// IE6/7 无法自动在父节点无 z-index 时处理 z-index 。
-			    if (navigator.isIE67 && Dom.getStyle(dom = Dom.parent(dom), 'zIndex') === 0) {
-			        Dom.setStyle(dom, 'zIndex', 1);
-				}
-			}
+			// IE6/7 无法自动在父节点无 z-index 时处理 z-index 。
+		    if (navigator.isIE67 && Dom.getStyle(dom = Dom.parent(dom), 'zIndex') === 0) {
+		    	Dom.setStyle(dom, 'zIndex', 1);
+		    }
 
 			// dom = null 表示清空下拉菜单。
 		} else if (dom = this.dropDownNode) {

@@ -3287,11 +3287,9 @@ var Dom = (function () {
      * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
      */
     Dom.offsetParent = function (elem) {
-        if (!this.length) {
-            return new Dom();
-        }
-        while ((elem = elem.offsetParent) && !rBody.test(elem.nodeName) && styleString(elem, "position") === "static");
-        return elem || getDocument(elem).body;
+    	var p = elem;
+        while ((p = p.offsetParent) && !rBody.test(p.nodeName) && styleString(p, "position") === "static");
+        return p || getDocument(elem).body;
     };
 
     /**
@@ -3395,10 +3393,13 @@ var Dom = (function () {
             // 绝对定位需要返回绝对位置。
             top = Dom.offsetParent(elem);
             left = Dom.getPosition(elem);
-            if (!rBody.test(top.node.nodeName))
-                left = left.sub(top.getPosition());
-            left.x -= styleNumber(elem, 'marginLeft') + styleNumber(top.node, 'borderLeftWidth');
-            left.y -= styleNumber(elem, 'marginTop') + styleNumber(top.node, 'borderTopWidth');
+            if (!rBody.test(top.nodeName)) {
+            	var t = Dom.getPosition(top);
+            	left.x -= t.x;
+            	lefy.y -= t.y;
+            }
+            left.x -= styleNumber(elem, 'marginLeft') + styleNumber(top, 'borderLeftWidth');
+            left.y -= styleNumber(elem, 'marginTop') + styleNumber(top, 'borderTopWidth');
 
             return left;
         }

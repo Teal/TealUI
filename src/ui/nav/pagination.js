@@ -2,20 +2,18 @@
  * @author xuld
  */
 
-
 //#include ui/core/base.js
-
 
 var Pagination = Control.extend({
 
     pageCount: 1,
 
-    xtype: 'pagination',
+    cssClass: 'ui-pagination',
 
-    tpl: '<ul class="ui-control"></ul>',
+    tpl: '<ul class="{cssClass}"></ul>',
 
     onClick: function (e) {
-        var page = e.getTarget().getAttr('data-pagination');
+    	var page = Dom.getAttr(e.target, 'data-pagination');
         if (page) {
             this.update(page);
             this.trigger('change', page);
@@ -25,7 +23,7 @@ var Pagination = Control.extend({
 
     init: function () {
         this.update(1);
-        this.on('click', this.onClick);
+        Dom.on(this.elem, 'click', this.onClick);
     },
 
     update: function (value) {
@@ -52,7 +50,7 @@ var Pagination = Control.extend({
             html += '<li><a href="#" data-pagination="' + i + '">' + i + '</a></li>';
         }
 
-        this.node.innerHTML = html;
+        this.elem.innerHTML = html;
 
     }
 

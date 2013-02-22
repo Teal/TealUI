@@ -2,26 +2,36 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>下拉列表</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
-    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/dropdownmenu.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-	<script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/combobox.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/dropdownlist.js"></script>
 	
 	<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
@@ -44,9 +54,9 @@
                 <option value="1">选项3</option>
                 <option value="1">选项4</option>
             </select>
-            <\script>
-                var dropDownList1 = new DropDownList("dropDownList1");
-            </\script>
+            < script>
+                var dropDownList1 = new DropDownList("#dropDownList1");
+            < /script>
         </script>
 
         <h3 class="demo">基于 &lt;a&gt; 创建</h3>
@@ -59,9 +69,9 @@
                 <li>预定义的选项</li>
             </ul>
             
-            <\script>
-                var dropDownList2 = new DropDownList("dropDownList2");
-            </\script>
+            < script>
+                var dropDownList2 = new DropDownList("#dropDownList2");
+            < /script>
         </script>
 
         <h3 class="demo">完整 HTML 创建</h3>
@@ -78,7 +88,7 @@
             </ul>
             
             <script>
-                var dropDownList3 = new DropDownList("dropDownList3");
+                var dropDownList3 = new DropDownList("#dropDownList3");
             </script>
         </aside>
 
@@ -96,7 +106,7 @@
             </select>
             
             <script>
-                var dropDownList = new DropDownList("dropDownList");
+                var dropDownList = new DropDownList("#dropDownList");
             </script>
                 
         </section>

@@ -145,6 +145,7 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
         } else if (Dom.first(me.elem).tagName !== 'INPUT') {
             me.listMode = true;
         }
+		
 
         // 初始化菜单。
         me.setDropDown(me.createDropDown(Dom.next(me.elem, '.ui-dropdown')));

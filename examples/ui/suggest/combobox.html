@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>组合框</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
@@ -12,18 +12,25 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/combobox.css" />
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
-    <script type="text/javascript" src="../../../src/ui/form/textbox.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/combobox.js"></script>
 
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
@@ -46,9 +53,9 @@
                 <option value="1">选项3</option>
                 <option value="1">选项4</option>
             </select>
-            <\script>
-                var comboBox1 = new ComboBox("comboBox1");
-            </\script>
+            < script>
+                var comboBox1 = new ComboBox("#comboBox1");
+            < /script>
         </script>
 
         <h3 class="demo">基于 &lt;input&gt; 创建</h3>
@@ -61,9 +68,9 @@
                 <li>预定义的选项</li>
             </ul>
             
-            <\script>
-                var comboBox2 = new ComboBox("comboBox2");
-            </\script>
+            < script>
+                var comboBox2 = new ComboBox("#comboBox2");
+            < /script>
         </script>
 
         <h3 class="demo">完整 HTML 创建</h3>
@@ -80,7 +87,7 @@
             </ul>
             
             <script>
-                var comboBox3 = new ComboBox("comboBox3");
+                var comboBox3 = new ComboBox("#comboBox3");
             </script>
         </aside>
 
@@ -98,7 +105,7 @@
             </select>
             
             <script>
-                var comboBox = new ComboBox("comboBox");
+                var comboBox = new ComboBox("#comboBox");
             </script>
                 
         </section>
@@ -107,9 +114,9 @@
 
             Demo.writeExamples({
                 '内容相关': '-',
-                '动态增加一项': 'comboBox.add("<em>这是通过 add 插入的</em>").setAttr("data-value", "VAL")',
+                '动态增加一项': 'comboBox.dropDown.add("<em>这是通过 add 插入的</em>")',
                 '设置或获取当前选中的索引': 'comboBox.setSelectedIndex(1);comboBox.getSelectedIndex()',
-                '设置或获取选中的值(value), 这个值将被提交到后台': 'comboBox.setText("2");comboBox.getText()',
+                '设置或获取选中的值(value), 这个值将被提交到后台': 'comboBox.setValue("2");comboBox.getValue()',
                 '调整宽度以适应下拉菜单的大小': 'comboBox.resizeToFitItems()',
                 
                 '操作相关': '-',

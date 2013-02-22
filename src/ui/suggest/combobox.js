@@ -23,7 +23,7 @@ var ComboBox = Picker.extend({
 	 */
     listMode: false,
 	
-    xtype: 'combobox',
+    cssClass: 'combobox',
 	
     autoResize: true,
 	
@@ -34,7 +34,7 @@ var ComboBox = Picker.extend({
 	 */
     createDropDown: function (existDom) {
         return new DropDownMenu({
-            node: existDom,
+            elem: existDom,
             owner: this,
             selectMethod: 'selectItem'
         });
@@ -51,35 +51,36 @@ var ComboBox = Picker.extend({
     init: function (options) {
 		
         // 1. 处理 <select>
-        var selectDom;
+    	var selectNode;
 		
         // 如果初始化的时候传入一个 <select> 则替换 <select>, 并拷贝相关数据。
-        if(this.node.tagName === 'SELECT') {
+        if(this.elem.tagName === 'SELECT') {
 			
-            this.selectDom = selectDom = new Dom(this.node);
+        	this.selectNode = selectNode = this.elem;
 			
             // 调用 create 重新生成 dom 。
-            this.node = this.create();
+        	this.elem = this.create();
+
+        	// 插入当前节点。
+        	Dom.after(selectNode, this.elem);
 			
         }
 		
         // 2. 初始化文本框
 		
         // 初始化文本框
-        this.base('init');
+        Picker.prototype.init.call(this, options);
 		
         // 3. 设置默认项
 			
-        if(selectDom) {
+        if (selectNode) {
 			
             // 让 listBox 拷贝 <select> 的成员。
-            this.copyItemsFromSelect(selectDom);
-			
-            // 隐藏 <select> 为新的 dom。
-            selectDom.hide();
+        	this.copyItemsFromSelect(selectNode);
 
-            // 插入当前节点。
-            selectDom.after(this);
+        	// 隐藏 <select> 为新的 dom。
+        	Dom.hide(selectNode);
+
         }
 		
     },
@@ -92,9 +93,9 @@ var ComboBox = Picker.extend({
         var me = this, old;
     	
         if (me.trigger('selecting', item)) {
-            old = me.getText();
+            old = me.getValue();
             me.setSelectedItem(item);
-            if (old !== me.getText()) {
+            if (old !== me.getValue()) {
                 me.trigger('change');
             }
             me.hideDropDown();
@@ -109,7 +110,7 @@ var ComboBox = Picker.extend({
 	 * @return this
 	 */
     setSelectedItem: function (item) {
-        this.setText(item ? item.getText() : "");
+    	this.setValue(item ? Dom.getText(item) : "");
         return this;
     },
 
@@ -118,10 +119,17 @@ var ComboBox = Picker.extend({
 	 * @return {Dom} 选中的项。
 	 */
     getSelectedItem: function () {
-        var value = this.getText();
-        return this.dropDown.child(function (dom) {
-            return Dom.getText(dom) === value;
+    	var value = this.getValue();
+    	var ret = null;
+    	this.dropDown.each(function (item) {
+    		if (Dom.getText(item) === value) {
+    			ret = item;
+    			return false;
+
+        	}
         });
+
+    	return ret;
     },
 	
     setSelectedIndex: function(value){
@@ -136,49 +144,49 @@ var ComboBox = Picker.extend({
 	
     resizeToFitItems: function(){
         var dropDown = this.dropDown,
-			oldWidth = dropDown.getStyle('width'),
-			oldDisplay = dropDown.getStyle('display');
+			oldWidth = Dom.getStyle(dropDown.elem, 'width'),
+			oldDisplay = Dom.getStyle(dropDown.elem, 'display');
 			
-        dropDown.setStyle('display', 'inline-block');
-        dropDown.setWidth('auto');
+        Dom.setStyle(dropDown.elem, 'display', 'inline-block');
+        Dom.setWidth(dropDown.elem, 'auto');
 		
-        this.first().setSize(dropDown.getWidth());
+        Dom.setSize(Dom.first(this.elem), Dom.getWidth(dropDown.elem));
 		
-        dropDown.setStyle('width', oldWidth);
-        dropDown.setStyle('display', oldDisplay);
+        Dom.setStyle(dropDown.elem, 'width', oldWidth);
+        Dom.setStyle(dropDown.elem, 'display', oldDisplay);
         return this;
     },
 	
     copyItemsFromSelect: function(select) {
 		
-        this.dropDown.empty();
+    	this.dropDown.empty();
 		
-        for(var node = select.node.firstChild; node; node = node.nextSibling) {
+        for(var node = select.firstChild; node; node = node.nextSibling) {
             if(node.tagName  === 'OPTION') {
                 var item = this.dropDown.add(Dom.getText(node));
 				
-                item.dataField().option = node;
+                Dom.data(item).option = node;
                 if(node.selected){
                     this.setSelectedItem(item);
                 }
             }
         }
 		
-        if(select.node.onclick)
-            this.node.onclick = select.node.onclick;
+        if(select.onclick)
+            this.elem.onclick = select.onclick;
 		
-        if(select.node.onchange)
-            this.on('change', select.node.onchange);
+        if(select.onchange)
+        	Dom.on(this.elem, 'change', select.onchange, select);
 		
         if(this.autoResize)
-            this.setWidth(select.getWidth());
+        	Dom.setWidth(this.input(), Dom.getWidth(select) - Dom.getWidth(this.button()));
         
-        if(select.getAttr('disabled')) {
-            this.setAttr('disabled', true);
+        if(Dom.getAttr(select, 'disabled')) {
+        	Dom.setAttr(this.elem, 'disabled', true);
         }
 
-        if (select.getAttr('readonly')) {
-            this.setAttr('readonly', true);
+        if (Dom.getAttr(select, 'readonly')) {
+        	Dom.setAttr(this.elem, 'readonly', true);
         }
 		
     }
