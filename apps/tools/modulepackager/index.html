@@ -8,6 +8,9 @@
     <link href="../../../src/ui/core/base.css" rel="stylesheet" type="text/css">
     <link href="../../../src/ui/core/common.css" rel="stylesheet" type="text/css">
     <link href="../../../src/ui/form/textbox.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/form/form.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/typography/hr.css" rel="stylesheet" type="text/css">
+    <link href="../../../src/ui/tip/bubble.css" rel="stylesheet" type="text/css">
     <link href="../../../src/ui/button/button.css" rel="stylesheet" type="text/css">
     <link href="../../../src/ui/button/linkbutton.css" rel="stylesheet" type="text/css">
     <link href="assets/modulepackager.css" rel="stylesheet" type="text/css">
@@ -18,52 +21,276 @@
 
     <article class="demo" id="main">
 
-            <style>
-                .buttons {
-                    color: #333;
-                    font-size: 14px;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 10px 0;
-                }
+        <style>
+            #main {
+                width: 600px;
+                margin: 30px auto;
+                overflow: hidden;
+            }
 
-                .buttons:hover {
+            .panel {
+                padding: 0 50px;
+            }
+
+            .line {
+                margin: 2px 4px 2px 0;
+                line-height: 22px;
+                padding: 2px 10px;
+            }
+
+            .link {
+                color: #333;
+                text-decoration: none;
+            }
+
+                .link:hover {
                     text-decoration: underline;
                 }
-            </style>
-        
+
+            .link-url {
+                font-size: 14px;
+            }
+
+            .line .demo-toolbar {
+                display: none;
+            }
+
+            .line-hover {
+                background: #EEEEEE;
+            }
+
+                .line-hover .demo-toolbar {
+                    display: block;
+                }
+
+            .hint {
+                color: #AAA;
+                margin-top: 14px;
+                margin-bottom: 10px;
+            }
+
+            .panel h2 {
+                position: relative;
+                font-size: 20px;
+                margin: 0 0 24px 0;
+                line-height: 40px;
+            }
+
+            .backarrow {
+                background: url(assets/backarrow.png) left center no-repeat;
+                display: inline-block;
+                cursor: pointer;
+                height: 40px;
+                width: 40px;
+                position: absolute;
+                left: -46px;
+                top: 0;
+            }
+
+            .module-input {
+                width: 270px;
+            }
+
+            .line-input {
+                margin-bottom: 30px;
+            }
+
+            .col-arrow {
+                float: left;
+                font-size: 20px;
+                line-height: 16px;
+            }
+
+            textarea.code {
+                width: 470px;
+            }
+
+            .button-label {
+                background: none repeat scroll 0 0 #EEEEEE;
+                border-top: 1px solid #DDDDDD;
+                margin-bottom: 10px;
+                margin-top: 20px;
+                padding: 10px 40px;
+            }
+
+            .source {
+                margin: 4px 0 10px;
+                padding: 3px 10px;
+            }
+
+            .refs {
+                border-left: 3px solid #DDDDDD;
+                margin: 10px 0 10px 15px;
+                padding-left: 10px;
+            }
+
+            .large {
+                width: 300px;
+            }
+        </style>
+
         <section class="panel">
 
-<!--            <div class="ui-hint">请选择打包的配置文件:</div>
-            
-            <a class="buttons" href="javascript:;">✚ 新建配置文件</a><br />
-            
-            <a class="buttons" href="javascript:;">打开配置文件</a><br />
-            
-            <a class="buttons" href="javascript:;">core/asdsad.js</a>-->
+            <div class="main">
 
-            <h3>模块列表</h3>
+                <h2>选择打包配置</h2>
 
-            <div class="ui-hint">请选择打包的配置文件:</div>
+                <a onclick="DplBuilder.addDpl()" class="ui-button ui-button-success" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">✚ 新建打包配置</a>   <a onclick="DplBuilder.addDpl()" class="ui-button" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">打开现有配置文件</a>
 
-            <div class="demo demo-toolbar"><a href="javascript://按顺序执行全部测试用例" onclick="DplBuilder.clearDpls();">清空列表</a></div>
+                <div class="hint">已保存的配置文件  ────────────────────────────────────────────</div>
 
-            <div onmouseout="this.className = this.className.replace(' demo-tip-hover', '');" onmouseover="this.className += ' demo-tip-hover'" class="demo-tip"><nav class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">查看引用</a> | <a onclick="DplBuilder.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a></nav><a href="http://localhost:50001/src/System/Core/Base.html" target="_blank" class="demo demo-mono">System.Core.Base</a>						    </div>
+                <div class="line line-hover">
+                    <nav class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">打开</a> | <a onclick="DplBuilder.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">复制</a> |  <a onclick="DplBuilder.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">生成</a></nav>
+                    <a href="javascript:;" class="link link-url">core/asdsad.js</a>
+                </div>
 
-            <input type="text" placeholder="输入要添加的模块路径..." class="ui-textbox">
+                <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
 
-            <a onclick="DplBuilder.addDpl()" class="ui-button ui-button-fixed ui-button-success" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">添加</a>
+                <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
 
-            <a onclick="DplBuilder.addDpl()" class="ui-button" href="javascript://添加一个组件" title="排除一个模块，确保生成的文件里不包含此模块">排除</a>
-            
-            <h3>合成选项</h3>
-
-            <label class="short"><input type="checkbox" class="x-checkbox" name="removeConsole">压缩代码</label>
-
-            <label class="short"><input type="checkbox" class="x-checkbox" name="removeConsole">添加合成注释</label>
+            </div>
 
         </section>
-   
+
+        <hr />
+
+        <section class="panel">
+
+            <h2><span class="backarrow"></span>编辑打包配置</h2>
+
+            <div class="hint">模块列表  ─────────────────────────────────────────────────</div>
+
+            <!--            <div class="ui-hint">请选择打包的配置文件:</div>-->
+
+            <div class="line line-hover">
+                <nav class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">查看引用</a> | <a onclick="DplBuilder.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a></nav>
+                <a class="link link-url" href="javascript:;">core/asdsad.js</a>
+            </div>
+
+            <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+            <ul class="source ui-bubble">
+                <li><a target="_blank" class="ui-hint" href="http://localhost:50002/src/System/Core/assets/scripts/Base.js">D:\Projects\web\milk-xms\src\System\Core\assets\scripts\Base.js</a></li>
+            </ul>
+
+            <ul class="refs">
+                <li>
+                    <div class="line line-hover">
+                        <span class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="line line-hover">
+                        <span class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="line line-hover">
+                        <span class="demo demo-toolbar"><a onclick="DplBuilder.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="DplBuilder.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+            <div class="line line-input">
+
+                <input type="text" placeholder="输入要添加的模块路径..." class="ui-textbox module-input">
+
+                <a onclick="DplBuilder.addDpl()" class="ui-button ui-button-fixed ui-button-success" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">添加</a>
+
+                <a onclick="DplBuilder.addDpl()" class="ui-button" href="javascript://添加一个组件" title="排除一个模块，确保生成的文件里不包含此模块">排除</a>
+
+                <a href="javascript://按顺序执行全部测试用例" onclick="DplBuilder.clearDpls();" class="link">清空列表</a>
+
+            </div>
+
+            <div class="hint">打包选项  ─────────────────────────────────────────────────</div>
+
+            <div class="line">
+
+                <label class="short">
+                    <input type="checkbox" class="ui-checkbox" name="removeConsole">压缩代码</label>
+
+                <label class="short">
+                    <input type="checkbox" class="ui-checkbox" name="removeConsole">添加合成注释</label>
+
+            </div>
+
+            <div class="line">
+
+                <a href="javascript:;"><span class="demo-control-arrow">▸</span> 展开更多选项</a>
+
+                <a href="javascript:;"><span class="demo-control-arrow">▾</span> 展开更多选项</a>
+
+            </div>
+
+            <div>
+
+                <div class="line ui-hint">如果填写了以下路径，打包时代码将自动保存。</div>
+
+                <div class="ui-formfield">
+                    <label class="ui-formfield-label">配置文件:</label>
+                    <div class="ui-formfield-container">
+                        <input type="text" value="" class="ui-textbox large" name="js" placeholder="相对于基础路径的 .js 文件路径" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="ui-formfield">
+                    <label class="ui-formfield-label">js 文件:</label>
+                    <div class="ui-formfield-container">
+                        <input type="text" value="" class="ui-textbox large" name="js" placeholder="相对于基础路径的 .js 文件路径" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="ui-formfield">
+                    <label class="ui-formfield-label">css 文件:</label>
+                    <div class="ui-formfield-container">
+                        <input type="text" value="" class="ui-textbox large" name="js" placeholder="相对于基础路径的 .js 文件路径" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="ui-formfield">
+                    <label class="ui-formfield-label">图片资源文件夹:</label>
+                    <div class="ui-formfield-container">
+                        <input type="text" value="" class="ui-textbox large" name="js" placeholder="相对于基础路径的 .js 文件路径" autocomplete="off">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button-label">
+                <a href="javascript:;" class="ui-button ui-button-success" onclick="DplBuilder.saveAndBuildFile()">打包生成</a>
+            </div>
+
+        </section>
+
+        <hr />
+
+        <section class="panel">
+
+            <h2><span class="backarrow"></span>生成代码</h2>
+
+            <div>生成完成!</div>
+
+            <div class="hint">js 文件  ─────────────────────────────────────────────────</div>
+
+            <textarea class="ui-textbox code">aaa</textarea>
+
+            <div class="hint">css 文件  ─────────────────────────────────────────────────</div>
+
+            <textarea class="ui-textbox code">aaa</textarea>
+
+            <div class="hint">图片资源  ─────────────────────────────────────────────────</div>
+
+            <textarea class="ui-textbox code">aaa</textarea>
+
+            <div class="button-label">
+                <a href="javascript:;" class="ui-button" onclick="DplBuilder.saveAndBuildFile()">返回</a>
+            </div>
+
+        </section>
+
     </article>
 
     <script>

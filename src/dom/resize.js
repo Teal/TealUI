@@ -1,23 +1,12 @@
-
-
+/**
+ * @author xuld
+ */
 
 //#include dom/base.js
 
 Dom.resize = (function() {
 	
 	var timer;
-
-	Dom.addEvents('resize', {
-
-		add: function (ctrl, type, fn) {
-			Dom.$event.$default.add(ctrl, type, resizeProxy);
-		},
-
-		remove: function (ctrl, type, fn) {
-			Dom.$event.$default.remove(ctrl, type, resizeProxy);
-		}
-
-	});
 	
 	function resizeProxy(e){
 		if(timer)
@@ -25,14 +14,22 @@ Dom.resize = (function() {
 		
 		timer = setTimeout(function (){
 			timer = 0;
-			Dom.window.trigger('resize', e);
-		}, 100);
+			Dom.global.trigger('resize', e);
+		}, 200);
 	}
 	
-	
-	
-	return function(fn){
-		Dom.window[typeof fn === 'function' ? 'on' : 'trigger']('resize', fn);
+	return function (fn) {
+
+		if(typeof fn === 'function') {
+			Dom.global.on('resize', fn, window);
+
+			if (resizeProxy) {
+				Dom.on(window, 'resize', resizeProxy);
+				resizeProxy = null;
+			}
+		} else {
+			Dom.global.trigger('resize');
+		}
 	}
 
 	

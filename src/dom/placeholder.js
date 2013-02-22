@@ -1,39 +1,45 @@
+/**
+ * @author xuld
+ */
 
+//#include dom/base.js
 
-
-//#include dom/base.jsDom.implement({
+Dom.implement({
 	
 	/**
 	 * 设置当文本框空的时候，显示的文本。
 	 */
 	placeholder: function (value) {
-		var dom = this.node.form;
+
+		return this.each(function (elem) {
+
+			if (elem.form) {
+				Dom.on(elem.form, 'submit', function () {
+					hidePlaceHolder.call(elem);
+				}, this);
+			}
+
+			Dom.on(elem, 'focus', hidePlaceHolder);
+			Dom.on(elem, 'blur', showPlaceHolder);
+
+			hidePlaceHolder.call(elem);
+			showPlaceHolder.call(elem);
+
+		});
 
 		function hidePlaceHolder() {
-			if (this.getText() === value) {
-				this.removeClass('placeholder');
-				this.setText('');
+			if (Dom.getText(this) === value) {
+				Dom.removeClass(this, 'placeholder');
+				Dom.setText(this, '');
 			}
 		}
 
 		function showPlaceHolder() {
-			if (!this.getText()) {
-				this.setText(value);
-				this.addClass('placeholder');
+			if (!Dom.getText(this)) {
+				Dom.setText(this, value);
+				Dom.addClass(this, 'placeholder');
 			}
 		}
-
-		this.on('focus', hidePlaceHolder);
-		this.on('blur', showPlaceHolder);
-
-		if (dom) {
-			Dom.get(dom).on('submit',hidePlaceHolder, this);
-		}
-
-
-
-		hidePlaceHolder.call(this);
-		showPlaceHolder.call(this);
 	}
 
 });
