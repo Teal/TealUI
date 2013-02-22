@@ -20,6 +20,8 @@ var IDropDownOwner = {
 	 */
 	dropDown: null,
 
+	dropDownNode: null,
+
 	/**
 	 * 下拉菜单的宽度。
 	 * @config {String}
@@ -54,7 +56,7 @@ var IDropDownOwner = {
 	},
 
 	attach: function (parentNode, refNode) {
-		var dropDown = this.dropDown;
+		var dropDown = this.dropDownNode;
 		if (dropDown && !Dom.contains(document.body, dropDown)) {
 			Dom.render(dropDown, parentNode, refNode);
 		}
@@ -63,8 +65,8 @@ var IDropDownOwner = {
 	},
 
 	detach: function () {
-		if (this.dropDown) {
-			Dom.remove(this.dropDown);
+		if (this.dropDownNode) {
+			Dom.remove(this.dropDownNode);
 		}
 
 		Dom.remove(this.elem);
@@ -80,8 +82,10 @@ var IDropDownOwner = {
 
 		if (dom) {
 
+			this.dropDown = dom;
+
 			// 修正下拉菜单为 Dom 对象。
-			this.dropDown = dom = dom.elem || Dom.find(dom);
+			this.dropDownNode = dom = dom.elem || Dom.find(dom);
 
 			// 初始化并保存下拉菜单。
 		    Dom.addClass(dom, 'ui-dropdown');
@@ -100,9 +104,9 @@ var IDropDownOwner = {
 			}
 
 			// dom = null 表示清空下拉菜单。
-		} else if (dom = this.dropDown) {
+		} else if (dom = this.dropDownNode) {
 			Dom.remove(dom);
-			this.dropDown = null;
+			this.dropDown = this.dropDownNode = null;
 		}
 
 		return this;
@@ -123,7 +127,7 @@ var IDropDownOwner = {
      * @protected virtual
      */
 	isDropDownHidden: function () {
-		return this.dropDown && Dom.isHidden(this.dropDown);
+		return this.dropDownNode && Dom.isHidden(this.dropDownNode);
 	},
 
 	/**
@@ -151,7 +155,7 @@ var IDropDownOwner = {
 			if (me.isDropDownHidden()) {
 
 				// 重新设置位置。
-				var dropDown = me.dropDown,
+				var dropDown = me.dropDownNode,
 	                dropDownWidth = me.dropDownWidth;
 
 				Dom.show(dropDown);
@@ -188,7 +192,7 @@ var IDropDownOwner = {
      */
 	hideDropDown: function (e) {
 
-		var dropDown = this.dropDown;
+		var dropDown = this.dropDownNode;
 
 		// 仅在本来已显示的时候操作。
 		if (dropDown && !this.isDropDownHidden()) {

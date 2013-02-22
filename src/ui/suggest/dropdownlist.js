@@ -27,12 +27,12 @@ var DropDownList = ComboBox.extend({
 	 * @protected override
 	 */
     input: function () {
-        return this.selectDom || (this.selectDom = Dom.create('select').setAttr('name', Dom.getAttr(this.node, 'name')).hide().appendTo(this));
+    	return this.selectNode || (this.selectNode = Dom.append(this, '<select name="' + Dom.getAttr(this.node, 'name') + ' style="display:none">'));
     },
 
     init: function (options) {
         options.listMode = true;
-        this.base('init');
+        ComboBox.prototype.init.call(this, options);
     },
 
     /**

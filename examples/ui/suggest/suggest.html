@@ -2,23 +2,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>智能提示</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
 
     <!-- 以下文件仅用于演示 -->
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
     <!-- 以上文件仅用于演示 -->
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
-    <script type="text/javascript" src="../../../src/ui/form/listbox.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
     <script type="text/javascript" src="../../../src/ui/suggest/suggest.js"></script>
 
@@ -39,7 +45,7 @@
             <script>
 
 
-                var suggest1 = new Suggest('suggest1');
+                var suggest1 = new Suggest('#suggest1');
 
                 suggest1.setSuggestItems(["abc", "abcg", "abcer", "abcewrewr", "desssdasd", "dwerer"]);
 
@@ -56,7 +62,7 @@
             <script>
 
 
-                var suggest2 = new Suggest('suggest2');
+                var suggest2 = new Suggest('#suggest2');
 
                 suggest2.getSuggestItems = function () {
                     return ["abc", "abcg", "abcer"];
@@ -75,7 +81,7 @@
             <script>
 
 
-                var suggest3 = new Suggest('suggest3');
+                var suggest3 = new Suggest('#suggest3');
 
                 suggest3.getSuggestItems = function () {
                     return ["abc", "abcg", "abcer"];
@@ -84,7 +90,7 @@
                 // 选择一项后重新显示下拉菜单。
                 suggest3.selectItem = function (item) {
                     if (item) {
-                        this.setText(item.getText());
+                        Dom.setText(this.elem, Dom.getText(item));
                     }
                     return this.showDropDown();
                 };
@@ -102,23 +108,34 @@
             <script>
 
 
-                var suggest4 = new Suggest('suggest4');
+                var suggest4 = new Suggest('#suggest4');
+
+                var lastText;
 
                 // 选择一项后重新显示下拉菜单。
                 suggest4.onDropDownShow = function () {
 
                     var me = this;
 
-                    var text = me.getText();
+                    var text = Dom.getText(me.elem);
 
-                    me.dropDown.hide();
+                    // 如果文字内容没有改变，则不需要异步请求新的数据。
+                    if (lastText === text) {
+                        return;
+                    }
 
+                    lastText = text;
+
+                    // 请求数据前，隐藏下拉菜单。不能使用 me.hideDropDown() 是因为它会导致 onDropDownShow 重新调用。
+                    Dom.hide(me.dropDownNode);
+
+                    // 开始请求数据。
                     setTimeout(function () {
 
                         // 假如在用户回调完成前没有新的输入，则提示。
-                        if (me.getText() === text) {
+                        if (Dom.getText(me.elem) === lastText) {
 
-                            me.dropDown.show();
+                            Dom.show(me.dropDownNode);
 
                             me.dropDown.set(["a", "b", "c"]);
 
@@ -126,6 +143,7 @@
                             me.dropDown.hovering(me.dropDown.item(0));
 
                         }
+
                     }, 300);
 
                 };

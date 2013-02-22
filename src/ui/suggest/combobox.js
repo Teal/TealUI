@@ -184,6 +184,3 @@ var ComboBox = Picker.extend({
     }
 
 });
-
-ListControl.aliasMethods(ComboBox, 'dropDown');
-

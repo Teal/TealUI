@@ -2,22 +2,22 @@
  * @author xuld
  */
 
-
 //#include ui/composite/carousel.css
 //#include fx/animate.js
 //#include ui/core/base.js
 
-
 var Carousel = Control.extend({
+
+	cssClass: 'ui-carousel',
 	
 	onChange: function (from, to) {
-		var ul = this.find('.ui-carousel-header'), t;
+		var ul = Dom.find('.' + this.cssClass + '-header', this.elem), t;
 		if (ul) {
-			if (t = ul.child(from))
-				t.removeClass('ui-carousel-selected');
+			if (t = Dom.child(ul, from))
+				Dom.removeClass(t, this.cssClass + '-selected');
 
-			if (t = ul.child(to))
-				t.addClass('ui-carousel-selected');
+			if (t = Dom.child(ul, to))
+				Dom.addClass(t, this.cssClass + '-selected');
 		}
 		
 	},
@@ -36,15 +36,19 @@ var Carousel = Control.extend({
 	
 	init: function (options) {
 
-	    var me = this,
-            width = me.getWidth(),
-            items = me.items = me.query('.ui-carousel-body > li').hide();
+		var me = this,
+            width = Dom.getWidth(me.elem),
+            items = me.items = Dom.query('.' + this.cssClass + '-body > li', me.elem).hide();
 
-	    me.query('.ui-carousel-header > li').setWidth(width / items.length).on(options.event || 'mouseover', function (e) {
-	        me.moveTo(this.index());
-	    });
+		Dom.query('.' + this.cssClass + '-header > li', me.elem).each(function (elem, index) {
+			Dom.setWidth(elem, width / items.length);
 
-	    items.item(0).show();
+			Dom.on(elem, options.event || 'mouseover', function (e) {
+				me.moveTo(index);
+			});
+		});
+		
+		Dom.show(items[0]);
 	    me.onChange(null, 0);
 
 	    me.start();
@@ -53,7 +57,7 @@ var Carousel = Control.extend({
 	_slideTo: function (fromIndex, toIndex, ltr) {
 
 	    var me = this,
-            width = me.getWidth();
+            width = Dom.getWidth(me.elem);
 
 	    // 如果正在执行渐变，则记录 toIndex 为 finalIndex 。当前特效执行结束后回调函数继续处理 oldIndex 。
 	    if (me.animatingIndex == null) {
@@ -68,10 +72,13 @@ var Carousel = Control.extend({
 	            width = -width;
 	        }
 
-	        me.items.item(fromIndex).show().node.style.left = 0;
-	        me.items.item(toIndex).show().node.style.left = width + 'px';
+	        Dom.show(me.items[fromIndex]);
+	        me.items[fromIndex].style.left = 0;
 
-	        new Dom(me.items[0].parentNode).animate({
+	        Dom.show(me.items[toIndex]);
+	        me.items[toIndex].style.left = width + 'px';
+
+	        Dom.animate(me.items[0].parentNode, {
 	            left: '0-' + -width
 	        }, this.duration, function () {
 

@@ -178,14 +178,14 @@ var ListControl = Control.extend({
      * @return this
      * @protected
 	 */
-	itemOn: function (eventName, fn, scope) {
+	itemOn: function (eventName, fn) {
 		return Dom.on(this.elem, eventName, function (e) {
-			for (var c = this.firstChild, target = e.target; c; c = c.nextSibling) {
+			for (var c = this.elem.firstChild, target = e.target; c; c = c.nextSibling) {
 				if (c === target || Dom.contains(c, target)) {
-					return fn.call(scope || c, c, e);
+					return fn.call(this, c, e);
 				}
 			}
-		});
+		}, this);
 	}
 
 	//#endregion

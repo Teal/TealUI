@@ -50,15 +50,15 @@
 
 }
 
-.ui-listboui-selected {
+.ui-listbox-selected {
     background-color: @listBoxBackgroundColorSelected;
 }
 
-.ui-listboui-hover {
+.ui-listbox-hover {
     #gradient > .vertical(@listBoxBackgroundColorHover, darken(@listBoxBackgroundColorHover, 5%));
 }
 
-.ui-listbox .ui-listboui-selected, .ui-listbox .ui-listboui-hover {
+.ui-listbox .ui-listbox-selected, .ui-listbox .ui-listbox-hover {
     color: @listBoxTextColorHover;
 
     a {
@@ -66,15 +66,15 @@
     }
 }
 
-.ui-listboui-readonly {
+.ui-listbox-readonly {
     background-color: @grayLighter!important;
 }
 
-.ui-listboui-disabled {
+.ui-listbox-disabled {
     border-color: @grayBorder!important;
     background-color: @grayLighter!important;
 
-    .ui-listboui-selected {
+    .ui-listbox-selected {
         background-color: @gray;
     }
 }

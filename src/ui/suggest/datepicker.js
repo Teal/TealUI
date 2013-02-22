@@ -1,13 +1,10 @@
 /**
- * @author 
+ * @author xuld
  */
-
-
 
 //#include ui/part/icon.css
 //#include ui/suggest/picker.js
 //#include ui/composite/monthcalender.js
-
 
 var DatePicker = Picker.extend({
 	
@@ -41,19 +38,18 @@ var DatePicker = Picker.extend({
 	},
 	
 	updateDropDown: function(){
-		var d = new Date(this.getText());
+		var d = new Date(Dom.getText(this.input()));
 		if(!isNaN(d.getYear()))
 			this.dropDown.setValue(d);
 	},
 	
 	getValue: function(){
-		return new Date(this.getText());
+		return new Date(Dom.getText(this.input()));
 	},
 	
 	setValue: function(value){
-		return this.setText(value.toString(this.dataStringFormat));
+		Dom.setText(this.input(), value.toString(this.dataStringFormat));
+		return this;
 	}
 
 });
-
-

@@ -2,13 +2,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=ok">
+    <meta name="module-info" content="status=complete">
     <title>日历</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/composite/monthcalender.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/utils/date.js"></script>
     <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
@@ -27,9 +28,9 @@
         <script class="demo" type="text/html">
 
             <div id="ct"></div>
-            <\script>
-                var a = new MonthCalender().appendTo("ct");
-            </\script>
+            < script>
+                var a = new MonthCalender().renderTo("#ct");
+            < /script>
 			
         </script>
         
@@ -42,7 +43,7 @@
                     <div class="ui-monthcalender-header">
                         <a class="ui-monthcalender-next" href="javascript://下一个">▸
                         </a>
-                        <a class="ui-monthcalender-previous" href="javascript://上一个">◂
+                        <a class="ui-monthcalender-prev" href="javascript://上一个">◂
                         </a>
                         <a href="javascript://更改时间" class="ui-monthcalender-title">2011年11月
                         </a>
@@ -149,7 +150,7 @@
             <div class="ui-monthcalender">
                 <div class="ui-monthcalender-main">
                     <div class="ui-monthcalender-header">
-                        <a class="ui-monthcalender-previous" href="javascript://上一个">◂
+                        <a class="ui-monthcalender-prev" href="javascript://上一个">◂
                         </a>
                         <a href="javascript://更改时间" class="ui-monthcalender-title">2011年11月
                         </a>

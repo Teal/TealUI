@@ -2,9 +2,7 @@
  * @author xuld
  */
 
-
 //#include fx/tween.js
-
 
 (function () {
 
@@ -420,30 +418,20 @@
 	 */
     Dom.implement({
 
-        animate: function (params, duration, callback, link) {
-            return Dom.iterate(this, function (elem) {
-                Dom.animate(elem, params, duration, callback, link);
-            });
+        animate: function () {
+        	return this.iterate(Dom.animate, arguments);
         },
 
-        show: function (duration, callback, link) {
-            return Dom.iterate(this, Dom.show, initArgs(arguments));
+        show: function () {
+        	return this.iterate(Dom.show, arguments);
         },
 
-        hide: function (params, duration, callback, link) {
-            var args = arguments;
-            return Dom.iterate(this, function (elem) {
-                Dom.hide.apply(Dom, args);
-            });
+        hide: function () {
+        	return this.iterate(Dom.hide, arguments);
         },
 
-        toggle: function (params, duration, callback, link) {
-            var args = arguments;
-            [].unshift.call(arguments);
-            return Dom.iterate(this, function (elem) {
-                args[0] = elem;
-                Dom.toggle.apply(Dom, args);
-            });
+        toggle: function () {
+        	return this.iterate(Dom.toggle, arguments);
         }
 
     });

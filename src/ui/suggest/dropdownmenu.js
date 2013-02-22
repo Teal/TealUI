@@ -5,6 +5,7 @@
 //#include ui/form/listbox.css
 //#include dom/keynav.js
 //#include ui/core/listcontrol.js
+//#include ui/core/idropdownowner.js
 
 /**
  * 表示一个下拉菜单。用于 Suggest 和 ComboBox 组件。
@@ -12,7 +13,13 @@
  */
 var DropDownMenu = ListControl.extend({
 
-    xtype: "listbox",
+	cssClass: "ui-listbox",
+
+	owner: null,
+
+	selectMethod: null,
+
+	updateMethod: null,
 
     /**
 	 * 处理上下按键。
@@ -21,23 +28,23 @@ var DropDownMenu = ListControl.extend({
     _handleUpDown: function (next) {
 
         // 如果菜单未显示。
-        if (this.isDropDownHidden()) {
+    	if (this.owner.isDropDownHidden()) {
 
             // 显示菜单。
-            this.showDropDown();
+    		this.owner.showDropDown();
         } else {
 
-            var item = this.dropDown._hovering;
+            var item = this._hovering;
 
             if (item) {
-                item = item[next ? 'next' : 'prev']();
+            	item = Dom[next ? 'next' : 'prev'](item);
             }
 
             if (!item) {
-                item = this.dropDown[next ? 'first' : 'last']();
+            	item = Dom[next ? 'first' : 'last'](this.elem);
             }
 
-            this.dropDown.hovering(item);
+            this.hovering(item);
         }
     },
 
@@ -46,65 +53,54 @@ var DropDownMenu = ListControl.extend({
      * @private
 	 */
     _handleEnter: function (next) {
-        if (this.isDropDownHidden()) {
+        if (this.owner.isDropDownHidden()) {
             return true;
         }
 
-        // 交给下列菜单处理。
-        this[this.dropDown.selectMethod](this.dropDown._hovering);
+    	// 交给下列菜单处理。 
+        return this.onItemClick(this._hovering);
     },
 
     onItemClick: function (item) {
-        this.owner[this.selectMethod](item);
+    	if (this.selectMethod) {
+    		this.owner[this.selectMethod](item);
+    	}
         return false;
     },
 
     /**
      * 设置当前下拉菜单的所有者。绑定所有者的相关事件。
      */
-    constructor: function (options) {
+    init: function (options) {
 
-        //assert(options && options.owner && options.selectMethod, "DropDownMenu#constructor(options): {options} 必须有 owner 和 selectMethod 字段", options);
-        
-        var me = this;
+    	//assert(options && options.owner && options.selectMethod, "DropDownMenu#constructor(options): {options} 必须有 owner 和 selectMethod 字段", options);
 
-        // 复制一些属性。
-        me.owner = options.owner;
+    	var me = this;
 
-        me.selectMethod = options.selectMethod;
-
-        me.updateMethod = options.updateMethod;
-
-        // 创建原生节点。
-	    me.node = options.node ? Dom.getNode(options.node) : me.create();
-    	
-    	// 执行父类的构造函数。
-        ListControl.prototype.init.apply(me, arguments);
-    	
     	// 设置鼠标移到某项后高亮某项。
-        me.itemOn('mouseover', me.hovering);
+    	me.itemOn('mouseover', me.hovering);
         
         // 绑定下拉菜单的点击事件
-        me.itemOn('mousedown', me.onItemClick);
-
-        options.owner.keyNav({
+    	me.itemOn('mousedown', me.onItemClick);
+		
+    	Dom.keyNav(options.owner.elem, {
 
             up: function () {
-                me._handleUpDown.call(this, false);
+                me._handleUpDown(false);
             },
 
             down: function () {
-                me._handleUpDown.call(this, true);
+                me._handleUpDown(true);
             },
 
-            enter: me._handleEnter,
+            enter: me._handleEnter.bind(me),
 
             esc: function(){
-            	this.hideDropDown();
+            	me.owner.hideDropDown();
             },
 
             other: options.updateMethod && function () {
-                this[this.dropDown.updateMethod]();
+            	me.owner[me.updateMethod]();
             }
 
         });
@@ -115,13 +111,17 @@ var DropDownMenu = ListControl.extend({
      * 重新设置当前高亮项。
      */
 	hovering: function (item) {
-	    var clazz = 'ui-' + this.xtype + '-hover';
+	    var clazz = this.cssClass + '-hover';
 
 	    if (this._hovering) {
-	        this._hovering.removeClass(clazz);
+	    	Dom.removeClass(this._hovering, clazz);
 	    }
 
-	    this._hovering = item ? item.addClass(clazz) : null;
+	    if (item) {
+	    	Dom.addClass(item, clazz);
+	    }
+
+	    this._hovering = item;
 	    return this;
 	}
 

@@ -90,12 +90,7 @@ var Control = Class({
     	        // 将配置拷贝到 opt 对象。
     	        Object.extend(opt, options);
 
-    	        if (opt.elem) {
-    	            me.elem = Dom.find(opt.elem);
-    	            delete opt.elem;
-    	        } else {
-    	            me.elem = me.create(opt);
-    	        }
+    	        me.elem = opt.elem = opt.elem ? Dom.find(opt.elem) : me.create(opt);
 
     		} else {
 

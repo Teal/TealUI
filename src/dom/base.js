@@ -2918,15 +2918,15 @@ var Dom = (function () {
 
         html = Dom.parseNode(html, node);
 
-        if (html instanceof Dom) {
-            if (html.length === 1) {
+        if (!html.nodeType) {
+            if (html.length > 1) {
                 dom = html;
                 html = getDocument(node).createDocumentFragment();
                 for (i = 0; i < dom.length; i++) {
                     html.appendChild(dom[i]);
                 }
             } else {
-
+            	html = html[0];
             }
         }
 

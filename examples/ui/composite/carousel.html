@@ -2,19 +2,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan">
+    <meta name="module-info" content="status=complete">
     <title>图片轮播组件</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/composite/carousel.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
     <script type="text/javascript" src="../../../src/fx/base.js"></script>
     <script type="text/javascript" src="../../../src/fx/tween.js"></script>
     <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../../src/fx/marquee.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
     <script type="text/javascript" src="../../../src/ui/composite/carousel.js"></script>
 
@@ -25,15 +25,18 @@
     <article class="demo">
 
         <script class="demo" type="text/html">
-            
+
             <!-- 必须定义宽度和高度 -->
 
-            <div class="ui-carousel" id="carousel" style="width: 260px; height:180px;">
+            <div class="ui-carousel" id="carousel" style="width: 260px; height: 180px;">
 
                 <ul class="ui-carousel-body">
-                    <li><img src="../../../assets/demo/images/260x180.gif"></li>
-                    <li><img src="../../../assets/demo/images/260x180.gif"></li>
-                    <li><img src="../../../assets/demo/images/260x180.gif"></li>
+                    <li>
+                        <img src="../../../apps/demo/images/260x180.gif"></li>
+                    <li>
+                        <img src="../../../apps/demo/images/260x180.gif"></li>
+                    <li>
+                        <img src="../../../apps/demo/images/260x180.gif"></li>
                 </ul>
 
                 <ul class="ui-carousel-header">
@@ -44,22 +47,22 @@
 
             </div>
 
-            <\script>
-                var carousel = new Carousel('carousel');
-            </\script>
+            < script>
+                var carousel = new Carousel('#carousel');
+            < /script>
 
         </script>
-        
+
         <h2 class="demo">常用 API</h2>
 
         <script>
 
             Demo.writeExamples({
-                '设置滚动效果的时间': function(){
-                     carousel.delay = 900; // 自动滚动的时间。
-                     carousel.duration = 300; // 滚动效果使用的时间。    
-                     
-                     // 注意 carousel.delay 必须大于 carousel.duration
+                '设置滚动效果的时间': function () {
+                    carousel.delay = 900; // 自动滚动的时间。
+                    carousel.duration = 300; // 滚动效果使用的时间。    
+
+                    // 注意 carousel.delay 必须大于 carousel.duration
                 },
                 '停止自动播放': 'carousel.stop()',
                 '开始自动播放': 'carousel.start()',

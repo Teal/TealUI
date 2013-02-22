@@ -1,4 +1,4 @@
-.ui-monthcalender {
+﻿.ui-monthcalender {
   border: 1px solid #dddddd;
   font-size: 12px;
   font-family: Arial;
@@ -32,13 +32,13 @@
 .ui-monthcalender a:hover {
   color: #568cca;
 }
-.ui-monthcalender-previous,
+.ui-monthcalender-prev,
 .ui-monthcalender-next {
   display: block;
   width: 16px;
   font-size: 18px;
 }
-.ui-monthcalender-previous {
+.ui-monthcalender-prev {
   float: left;
 }
 .ui-monthcalender-next {
