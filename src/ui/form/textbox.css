@@ -1,5 +1,5 @@
-.ui-textbox {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+﻿.ui-textbox {
+  font-family: "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
   padding: 4px;
@@ -36,28 +36,28 @@ textarea.ui-textbox {
   height: 150px;
   line-height: 19px;
 }
-.ui-textboui-warning {
+.ui-textbox-warning {
   border-color: #c09853;
 }
-.ui-textboui-warning:focus {
+.ui-textbox-warning:focus {
   border-color: #a47e3c;
   -webkit-box-shadow: 0 0 6px #dbc59e;
   -moz-box-shadow: 0 0 6px #dbc59e;
   box-shadow: 0 0 6px #dbc59e;
 }
-.ui-textboui-error {
+.ui-textbox-error {
   border-color: #b94a48;
 }
-.ui-textboui-error:focus {
+.ui-textbox-error:focus {
   border-color: #953b39;
   -webkit-box-shadow: 0 0 6px #d59392;
   -moz-box-shadow: 0 0 6px #d59392;
   box-shadow: 0 0 6px #d59392;
 }
-.ui-textboui-success {
+.ui-textbox-success {
   border-color: #468847;
 }
-.ui-textboui-success:focus {
+.ui-textbox-success:focus {
   border-color: #356635;
   -webkit-box-shadow: 0 0 6px #7aba7b;
   -moz-box-shadow: 0 0 6px #7aba7b;

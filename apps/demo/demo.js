@@ -683,7 +683,7 @@ if (typeof module !== 'object') {
 					tpl = ' style="border-top: 1px solid #EBEBEB"';
 					sep = false;
 				}
-				return '<a' + tpl + ' onmouseover="Demo.Page.gotoSetListHover(this)" href="' + Demo.baseUrl + Demo.Configs.examples + "/" + path + '">' + path + '<small style="color: #999"> - ' + ModuleList.examples[path].name + '</small></a>';
+				return '<a' + tpl + ' onmouseover="Demo.Page.gotoSetListHover(this)" href="' + Demo.baseUrl + Demo.Configs.examples + "/" + path + '">' + path.replace(/\.\w+$/, "") + '<small style="color: #999"> - ' + ModuleList.examples[path].name + '</small></a>';
 			}
 
 			dropDown.lastChild.innerHTML = html + html2;
