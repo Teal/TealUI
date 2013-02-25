@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=ok">
+    <meta name="module-info" content="status=complete">
     <title>搜索框</title>
 
     <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
@@ -10,10 +10,11 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
-    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
     <link rel="stylesheet" type="text/css" href="../../../src/ui/form/searchtextbox.css" />
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
@@ -40,13 +41,13 @@
 
                 <input type="text" class="ui-textbox ui-searchtextbox" id="d1" />
 
-                <\script>
-                    var d1 = new SearchTextBox('d1');
+                < script>
+                    var d1 = new SearchTextBox('#d1');
 
                     d1.on('search', function (text) {
                         alert("准备搜索 " + text + " ...");
                     });
-                </\script>
+                < /script>
 
             </script>
 
@@ -60,11 +61,11 @@
 
                 <span class="ui-picker" id="d2">
                     <input type="text" class="ui-textbox ui-searchtextbox" />
-                    <button class="ui-searchtextboui-search"></button>
+                    <button class="ui-searchtextbox-search"></button>
                 </span>
 
                 <script>
-                    var d2 = new SearchTextBox('d2');
+                    var d2 = new SearchTextBox('#d2');
 
                     d2.on('search', function (text) {
                         alert("准备搜索 " + text + " ...");
@@ -85,7 +86,7 @@
 
             <span class="ui-picker" id="a">
                 <input type="text" class="ui-textbox ui-searchtextbox" placeholder="搜索组件..." />
-                <button class="ui-searchtextboui-search"></button>
+                <button class="ui-searchtextbox-search"></button>
             </span>
 
         </aside>

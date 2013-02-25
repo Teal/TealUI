@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @author 
  */
 .ui-searchtextbox {
@@ -10,7 +10,7 @@
   border-radius: 14px;
   *padding-left: 4px;
 }
-.ui-picker .ui-searchtextboui-search {
+.ui-picker .ui-searchtextbox-search {
   padding-left: 10px;
   padding-right: 20px;
   margin-left: 0;
@@ -24,7 +24,7 @@
   border: none;
   height: 28px;
 }
-.ui-searchtextboui-search:active {
+.ui-searchtextbox-search:active {
   right: -1px;
   top: 1px;
 }

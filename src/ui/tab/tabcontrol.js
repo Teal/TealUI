@@ -10,32 +10,32 @@
  */
 var TabControl = TabbableControl.extend({
 	
-	xtype: 'tabcontrol',
+	cssClass: 'ui-tabcontrol',
 	
-	tpl: '<div class="ui-tabcontrol">\
-			<ul class="ui-tabcontrol-header ui-tabbable">\
+	tpl: '<div class="{cssClass}">\
+			<ul class="{cssClass}-header ui-tabbable">\
 			</ul>\
-			<div class="ui-tabcontrol-body">\
+			<div class="{cssClass}-body">\
 	        </div>\
         </div>',
 
 	collapseDuration: undefined,
         
 	header: function () {
-	    return this.find('.ui-tabbable');
+		return Dom.find('.' + this.cssClass + '-header', this.elem);
 	},
         
 	body: function () {
-	    return this.find('.ui-tabcontrol-body');
-	},
-	
-	item: function(index){
-	    return this.header().child(index);
+		return Dom.find('.' + this.cssClass + '-body', this.elem);
 	},
 
-	getContentOf: function (tab) {
-	    var href = tab.getAttr('href');
-	    return /^#/.test(href) && Dom.get(href.substr(1)) || this.body().child(tab.index());
+	contentOf: function (tab) {
+		var href = Dom.getAttr(tab, 'href');
+		return /^#/.test(href) && Dom.get(href.substr(1)) || Dom.child(this.body(), Dom.index(tab));
+	},
+
+	getSelectedTab: function () {
+		return Dom.find('.ui-tabbable-selected', this.header());
 	},
 
 	init: function (options) {
@@ -43,77 +43,84 @@ var TabControl = TabbableControl.extend({
 	    var me = this;
 
 	    // 委托头部选择信息。
-	    this.header().delegate('>li', options.selectEvent || 'click', function (e) {
-	        var href = e.getTarget().getAttr('href');
-	        if (!href || href == '#' || href == 'javascript') {
+	    Dom.on(this.header(), options.selectEvent || 'click', 'li', function (e) {
+			
+	    	var href = Dom.getAttr(e.target, 'href');
+	        if (!href || /^(javascript|#)/.test(href)) {
 	            e.preventDefault();
 	        }
-	        me.selectTab(this);
+	        me.select(Dom.index(this));
 	    });
 
-	    var tab = me.getSelectedTab() || me.item(0);
+	    var tab = this.getSelectedTab() || Dom.first(this.header());
 
-	    me.header().children().removeClass('ui-tabbable-selected');
+	    Dom.children(me.header()).iterate(Dom.removeClass, ['ui-tabbable-selected']);
 
-	    me.body().children().hide();
+	    Dom.children(me.body()).hide();
 
 	    if (tab) {
-	        tab.addClass('ui-tabbable-selected');
-	        var content = me.getContentOf(tab);
+	    	Dom.addClass(tab, 'ui-tabbable-selected');
+	        var content = me.contentOf(tab);
 	        if (content) {
-	            content.show();
+	        	Dom.show(content);
 	        }
 	    }
 
 	},
 
-	onToggleTab: function (from, to) {
+	getSelectedIndex: function () {
+		var elem = this.getSelectedTab();
+		return elem ? Dom.index(elem) : -1;
+	},
+
+	setSelectedIndex: function (to) {
+
+		var from = this.getSelectedTab();
+
 	    if (from) {
-	        from.removeClass('ui-tabbable-selected');
-	        var content = this.getContentOf(from);
+	    	Dom.removeClass(from, 'ui-tabbable-selected');
+	    	var content = this.contentOf(from);
 	        if (content) {
-	            content.hide();
+	        	Dom.hide(content);
 	        }
 	    }
 
+	    to = Dom.child(this.header(), to);
+
 	    if (to) {
-	        to.addClass('ui-tabbable-selected');
-	        var content = this.getContentOf(to);
+	    	Dom.addClass(to, 'ui-tabbable-selected');
+	        var content = this.contentOf(to);
 	        if (content) {
-	            content.show(this.collapseDuration);
+	        	Dom.show(content, this.collapseDuration);
 	        }
 	    }
 	},
 	
 	addAt: function (index, title, content) {
 	    var header = this.header();
-	    var tab = header.insertBefore(Dom.parse('<li class="ui-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header.child(index));
+	    var tab = Dom.render(Dom.parseNode('<li class="ui-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header, Dom.child(header, index));
 	    var body = this.body();
-	    body.insertBefore(Dom.parse('<div class="ui-tabpage">' + content + '</div>').hide(), body.child(index));
-	    return tab;
+	    var tab = Dom.parseNode('<div class="ui-tabpage">' + content + '</div>');
+	    Dom.hide(tab);
+	    Dom.render(tab, body, Dom.child(body, index));
+	    return this;
 	},
 	
 	removeAt: function (index) {
-	    var tab = this.header().child(index);
+		var tab = Dom.child(this.header(), index);
 	    if (tab) {
 	        if (this.getSelectedIndex() === index) {
 	            this.setSelectedIndex(index + 1);
 	        }
-	        var content = this.getContentOf(tab);
+	        var content = this.contentOf(tab);
 	        if (content) {
-	            content.remove();
+	        	Dom.remove(content);
 	        }
 
-	        tab.remove();
+	        Dom.remove(tab);
 	    }
 
-	    return tab;
-	},
-
-	getSelectedTab: function () {
-	    return this.header().find('.ui-tabbable-selected');
+	    return this;
 	}
 
 });
-
-

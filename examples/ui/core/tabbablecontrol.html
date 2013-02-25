@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=plan;attr=#9" />
+    <meta name="module-info" content="status=complete;attr=#9" />
     <title>可切换组件基类</title>
 
     <script type="text/javascript" src="../../../src/core/base.js"></script>
@@ -23,7 +23,7 @@
             <div id="tabbablecontrol"></div>
 
             <script>
-                var tabbableControl = new TabbableControl("tabbablecontrol");
+                var tabbableControl = new TabbableControl("#tabbablecontrol");
             </script>
 
         </aside>
@@ -34,22 +34,13 @@
 
                 Demo.writeExamples({
                     '切换选项卡': '-',
-                    '切换到第一个选项卡': 'tabbableControl.setSelectedIndex(0)',
-                    '切换到某个选项卡': 'tabbableControl.setSelectedTab(tabbableControl.item(0))',
-                    '获取当前显示的选项卡': 'tabbableControl.getSelectedTab()',
+                    '切换到第一个选项卡': 'tabbableControl.select(0)',
                     '获取当前显示的选项卡索引': 'tabbableControl.getSelectedIndex()',
 
                     '增删选项卡': '-',
-                    '增加一个选项卡': 'a.add("标题", "内容")',
-                    '插入一个选项卡到第一个选项卡前': 'a.addAt(0, "标题", "内容")',
-                    '删除第一个选项卡': 'tabbableControl.removeAt(0)',
-                    '删除某一个选项卡': 'tabbableControl.remove(tabbableControl.item(0))',
-
-                    '获取和遍历': '-',
-                    '获取选项卡数': 'a.count()',
-                    '获取第一个选项卡': 'a.item(0)',
-                    '获取某一个选项卡在列表中的索引': 'a.indexOf(a.item(0))',
-                    '遍历每一个选项卡': 'a.each(function(item, index){ alert(item.getText()); })'
+                    '增加一个选项卡': 'tabbableControl.add("标题", "内容")',
+                    '插入一个选项卡到第一个选项卡前': 'tabbableControl.addAt(0, "标题", "内容")',
+                    '删除第一个选项卡': 'tabbableControl.removeAt(0)'
                 });
 
             </script>

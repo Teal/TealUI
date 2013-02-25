@@ -4,7 +4,6 @@
 
 //#include ui/form/listbox.js
 
-
 /**
  * 表示一个列表框。
  * @extends ListBox
@@ -15,10 +14,10 @@ var MultiListBox = ListBox.implement({
      * 重新设置当前高亮项。
      */
     setSelectedItems: function (items) {
-        if(items) {
-            items.addClass(clazz);
+    	if (items) {
+    		items.iterate(Dom.addClass, [clazz]);
         } else {
-            this.query('.ui-' + this.xtype + '-selected').removeClasss('ui-' + this.xtype + '-selected');
+    		Dom.query('.' + this.cssClass + '-selected', this.elem).iterate(Dom.removeClasss, [this.cssClass + '-selected']);
         }
 
         return this;
@@ -28,7 +27,7 @@ var MultiListBox = ListBox.implement({
      * 获取当前高亮项。
      */
     getSelectedItem: function () {
-        return this.query('.ui-' + this.xtype + '-selected');
+    	return Dom.query('.' + this.cssClass + '-selected', this.elem);
     },
 
     /**

@@ -19,14 +19,6 @@ var TabbableControl = Control.extend({
 	//#region 增删选项卡
 
 	/**
-	 * 获取指定位置的选项卡。
-	 * @return {Dom} 返回选项卡。
-	 */
-	item: function (index) {
-		return this.dom.item(index);
-	},
-
-	/**
 	 * 添加一个选项卡到列表末尾。
 	 * @param {String} title 添加的标题。
 	 * @param {String} content 添加的内容。
@@ -52,7 +44,12 @@ var TabbableControl = Control.extend({
 		if (this.getSelectedIndex() === index) {
 			this.setSelectedIndex(index + 1);
 		}
-		return this.removeChild(this.item(index));
+
+		if (index = Dom.child(this.elem, index)) {
+			Dom.remove(index);
+		}
+
+		return this;
 	},
 
 	//#endregion
@@ -60,25 +57,16 @@ var TabbableControl = Control.extend({
 	//#region 切换选项卡
 
 	/**
-     * 当被子类重写时，实现选项卡切换逻辑。
-     * @param {Dom} to 切换的目标选项卡。
-     * @param {Dom} from 切换的源选项卡。
-     * @param {Function} callback 切换完成后的回调函数。
-     * @protected abstract
-     */
-	onToggleTab: Function.empty,
-
-	/**
 	 * 模拟选中一个选项卡。
-	 * @param {Dom} value 要选中的选项卡。
+	 * @param {Dom} index 要选中的选项卡。
 	 * @return this
 	 */
-	selectTab: function (value) {
+	select: function (value) {
 		var me = this, old;
 		if (me.trigger('selecting', value) !== false) {
-			old = me.getSelectedTab();
-			me.onToggleTab(old, value);
-			if (!(old ? old.equals(value) : value)) {
+			old = me.getSelectedIndex();
+			me.setSelectedIndex(value);
+			if (old !== value) {
 				me.trigger('change');
 			}
 		}
@@ -86,38 +74,17 @@ var TabbableControl = Control.extend({
 	},
 
 	/**
-	 * 获取当前选中的选项卡。
-	 * @return {Dom} 选中的选项卡。
-	 */
-	getSelectedTab: Function.empty,
-
-	/**
-	 * 设置当前选中的选项卡。
-	 * @param {Dom} value 要选中的选项卡。
-	 * @return this
-	 */
-	setSelectedTab: function (value) {
-		this.onToggleTab(this.getSelectedTab(), value);
-		return this;
-	},
-
-	/**
 	 * 获取当前选中的选项卡位置。
 	 * @return {Integer} 选中的选项卡位置。
 	 */
-	getSelectedIndex: function () {
-		var tab = this.getSelectedTab();
-		return tab ? tab.index() : -1;
-	},
+	getSelectedIndex: Function.empty,
 
 	/**
 	 * 设置当前选中的选项卡位置。
 	 * @param {Integer} value 需要选中的位置。
 	 * @return this
 	 */
-	setSelectedIndex: function (value) {
-		return this.setSelectedTab(this.item(value));
-	}
+	setSelectedIndex: Function.empty
 
 	//#endregion
 

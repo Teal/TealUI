@@ -1,20 +1,20 @@
-
-
+/**
+ * @author xuld
+ */
 
 //#include ui/form/textbox.css
-//#include ui/suggest/searchtextbox.css
+//#include ui/form/searchtextbox.css
 //#include ui/suggest/picker.js
-
 
 var SearchTextBox = Picker.extend({
 	
-	xtype: 'searchtextbox',
+	cssClass: 'ui-searchtextbox',
 	
 	tpl: '<span class="ui-picker">\
-				<input type="text" class="ui-textbox ui-searchtextbox"/>\
+				<input type="text" class="ui-textbox {cssClass}"/>\
 			</span>',
 		
-	menuButtonTpl: '<button class="ui-searchtextboui-search"></button>',
+	menuButtonTpl: '<button type="button" class="{cssClass}-search"></button>',
 	
 	onKeyDown: function(e){
 		if(e.keyCode === 10 || e.keyCode === 13){
@@ -24,7 +24,7 @@ var SearchTextBox = Picker.extend({
 
 	search: function () {
 
-	    var text = this.getText();
+	    var text = this.getValue();
 	    if (text) {
 	        this.onSearch(text);
 	        this.trigger('search', text);
@@ -38,34 +38,34 @@ var SearchTextBox = Picker.extend({
 	init: function(){
 		
 		// 如果是 <input> 或 <a> 直接替换为 ui-picker
-		if(!this.first() && !this.hasClass('ui-picker')) {
-			var elem = this.node;
+		if (!Dom.first(this.elem) && !Dom.hasClass(this.elem, 'ui-picker')) {
+			var elem = this.elem;
 			
 			// 创建 ui-picker 组件。
-			this.node = Dom.createNode('span', 'ui-picker');
+			this.elem = Dom.parseNode('<span class="ui-picker"></span>');
 			
 			// 替换当前节点。
 			if(elem.parentNode){
-				elem.parentNode.replaceChild(this.node, elem);
+				elem.parentNode.replaceChild(this.elem, elem);
 			}
 			
 			// 插入原始 <input> 节点。
-			this.prepend(elem);
+			Dom.prepend(this.elem, elem);
 		}
 		
 		// 如果没有下拉菜单按钮，添加之。
 		if(!this.button()) {
-			this.append(this.menuButtonTpl);
+			Dom.append(this.elem, String.format(this.menuButtonTpl, this));
 		}
 		
 		var textBox = this.input();
-		textBox.on('focus', textBox.select);
+		Dom.on(textBox, 'focus', textBox.select, textBox);
 		
-		this.button().on('click', this.search, this);
-		textBox.on('keydown', this.onKeyDown, this);
+		Dom.on(this.button(), 'click', this.search, this);
+		Dom.on(textBox, 'keydown', this.onKeyDown, this);
 		
 		if(navigator.isIE6){
-			textBox.on('keypress', this.onKeyDown, this);
+			Dom.on(textBox, 'keypress', this.onKeyDown, this);
 		}
 	}
 });

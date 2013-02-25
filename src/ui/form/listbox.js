@@ -12,23 +12,21 @@
  */
 var ListBox = ListControl.implement(IInput).extend({
 
-	cssClass: "listbox",
+	cssClass: "ui-listbox",
 
 	/**
      * 获取当前高亮项。
      */
 	getSelectedItem: function () {
-		return Dom.find('.ui-' + this.cssClass + '-selected', this.elem);
+		return Dom.find('.' + this.cssClass + '-selected', this.elem);
 	},
 
     /**
      * 重新设置当前高亮项。
      */
     setSelectedItem: function (item) {
-    	var clazz = 'ui-' + this.cssClass + '-selected';
-    	Dom.query('.' + clazz, this.elem).each(function (elem) {
-    		Dom.removeClass(clazz);
-    	});
+    	var clazz = this.cssClass + '-selected';
+    	Dom.query('.' + clazz, this.elem).iterate(Dom.removeClass, [clazz]);
 
         if(item) {
         	Dom.addClass(item, clazz);

@@ -78,9 +78,9 @@ var ListControl = Control.extend({
 		return newItem;
 	},
 
-	removeChild: function (child) {
-		Dom.remove(child);
-		return child;
+	removeChild: function (item) {
+		Dom.remove(item);
+		return item;
 	},
 
 	/**
@@ -181,7 +181,7 @@ var ListControl = Control.extend({
 	itemOn: function (eventName, fn) {
 		return Dom.on(this.elem, eventName, function (e) {
 			for (var c = this.elem.firstChild, target = e.target; c; c = c.nextSibling) {
-				if (c === target || Dom.contains(c, target)) {
+				if (Dom.contains(c, target)) {
 					return fn.call(this, c, e);
 				}
 			}

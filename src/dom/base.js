@@ -279,7 +279,7 @@ var Dom = (function () {
             return Selector.query(selector, context)[0] || null;
         },
 
-        match: function (elem, selector) {
+        match: function (elem, selector, context) {
 
             //if (elem.nodeType !== 1)
             //	return false;
@@ -287,7 +287,7 @@ var Dom = (function () {
             // 判断的第一步：使用原生的判断函数。
 
             try {
-                return this.nativeMatchesSelector.call(elem, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
+                return nativeMatchesSelector.call(elem, selector.replace(/\[([^=]+)=\s*([^'"\]]+?)\s*\]/g, '[$1="$2"]'));
             } catch (e) {
 
             }
@@ -300,14 +300,16 @@ var Dom = (function () {
                 return t.length > 0;
             }
 
-            // 判断的第三步：使用查询的方式判断。
+        	// 判断的第三步：使用查询的方式判断。
+
+            context = context || doc;
 
             // 未添加到 DOM 树的节点是无法找到的，因此，首先将节点追加到 DOM 树进行判断。
             if (Dom.contains(doc.body, elem)) {
                 try {
-                    t = doc.querySelectorAll(selector);
+                	t = context.querySelectorAll(selector);
                 } catch (e) {
-                    t = Selector.query(selector, doc);
+                	t = Selector.query(selector, context);
                 }
             } else {
 
@@ -318,7 +320,7 @@ var Dom = (function () {
                 doc.documentElement.appendChild(i);
 
                 try {
-                    t = Selector.all(selector, doc);
+                	t = Selector.all(selector, context);
                 } finally {
                     doc.documentElement.removeChild(i);
                 }
@@ -780,8 +782,8 @@ var Dom = (function () {
         return typeof selector !== "string" ? (!selector || selector.nodeType || selector.setInterval ? selector : selector[0]) || null : Selector.one(selector, context);
     };
 
-    Dom.match = function (elem, selector) {
-        return elem.nodeType === 1 && Selector.match(elem, selector);
+    Dom.match = function (elem, selector, context) {
+    	return elem.nodeType === 1 && Selector.match(elem, selector, context);
     };
 
     /**
@@ -2201,7 +2203,7 @@ var Dom = (function () {
 
                     // 如果节点满足 CSS 选择器要求，则放入队列。
                     // check 用于处理部分特殊的情况，不允许执行委托函数。（如 click 已禁用的按钮）
-                    if (Dom.match(delegateTarget, handler[2]) && (!filter || filter(delegateTarget, e) !== false)) {
+                    if (Dom.match(delegateTarget, handler[2], target) && (!filter || filter(delegateTarget, e) !== false)) {
 
                         actualHandlers.push([handler[0], handler[1] || delegateTarget]);
 
@@ -2213,7 +2215,7 @@ var Dom = (function () {
         }
 
         // 将普通的句柄直接复制到 actualHandlers 。
-        if ((!filter || filter(eventHandler.target, e) !== false) && eventHandler.bindFn) {
+        if ((!filter || filter(target, e) !== false) && eventHandler.bindFn) {
             actualHandlers.push.apply(actualHandlers, eventHandler.bindFn);
         }
 
