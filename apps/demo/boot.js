@@ -72,6 +72,8 @@ var bootjs = (function (window) {
      */
     function toUrl(modulePath, currentPath) {
 
+        modulePath = modulePath.replace(/\\|\/\//g, "/");
+
         // If modulePath is relative path. Concat modulePath with basePath.
         if (modulePath.charAt(0) === '.') {
             modulePath = currentPath + "/" + modulePath;
@@ -116,7 +118,7 @@ var bootjs = (function (window) {
 
         var requires = [],
             imports = [],
-	        sourceCode = loadContent(moduleUrl).replace(/^(\s*)\/\/\s*#(\w+)\s+(.*)$/gm, function (all, indent, macro, args) {
+	        sourceCode = loadContent(moduleUrl).replace(/^(\s*)\/[\/\*]\s*#(\w+)\s+(.*)$/gm, function (all, indent, macro, args) {
 	            switch (macro) {
 	                case 'include':
 
@@ -148,6 +150,7 @@ var bootjs = (function (window) {
 	                    }
 	                    break;
 	                case 'exclude':
+	                case 'included':
 	                    modules[toUrl(args, moduleUrl)] = false;
 	                    break;
 	                case 'assert':

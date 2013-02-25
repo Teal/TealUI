@@ -51,7 +51,7 @@ var UI = {
         function add(includeOrExclude, prefix, postfix) {
             
             for (var i = 0, all = buildFile[includeOrExclude]; i < all.length; i++) {
-                html += '<div class="line" onmouseover="this.className += \' line-hover\'" onmouseout="this.className = this.className.replace(\' line-hover\', \'\');"><nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, \'' + all[i] + '\');return false;" href="javascript://查看当前模块对应的源文件">源文件</a> | <a onclick="UI.viewRefs(this, \'' + all[i] + '\');return false;" href="javascript://查看当前模块依赖的模块">查看引用</a>';
+                html += '<div class="line" onmouseover="this.className += \' line-hover\'" onmouseout="this.className = this.className.replace(\' line-hover\', \'\');"><nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, \'' + all[i] + '\');return false;" href="javascript://查看当前模块对应的源文件">源文件</a> | <a onclick="UI.viewRequires(this, \'' + all[i] + '\');return false;" href="javascript://查看当前模块依赖的模块">查看引用</a>';
                 
                 if (i > 0)
                     html += ' | <a href="javascript://上移生成的位置" onclick="UI.moveModule(\'' + includeOrExclude + '\', ' + i + ', false); return false;">上移</a>';
@@ -97,6 +97,8 @@ var UI = {
 
     updateBuildFile: function () {
         var buildFile = UI.currentBuildFile;
+
+        buildFile.basePath = Demo.baseUrl + Demo.Configs.src;
     },
 
     addModule: function (showErrorMessage) {
@@ -236,7 +238,7 @@ var UI = {
         //});
     },
 
-    viewRefs: function (node, module) {
+    viewRequires: function (node, module) {
         var div = node.parentNode.parentNode;
 
         if (div.nextSlibing && Dom.hasClass(div.nextSlibing, 'refs')) {
@@ -249,11 +251,11 @@ var UI = {
             return;
         }
 
-        ModuleBuilder.getRefs(module, function (data) {
+        ModuleBuilder.getRequires(module, function (data) {
             div = Dom.after(div, '<ul class="refs"></ul>');
             var html = '';
             for (var path in data) {
-                html += '<li><div class="line" onmouseover="this.className += \' line-hover\'" onmouseout="this.className = this.className.replace(\' line-hover\', \'\');"><span class="demo-toolbar"><a class="demo" href="javascript://查看关联的源文件" onclick="DplBuilder.viewSource(this, \'' + path + '\');return false;">源文件</a> | <a class="demo" href="javascript://查看当前模块引用的项" onclick="DplBuilder.viewRefs(this, \'' + path + '\');return false;">查看引用</a></span><a class="link" href="' + getModuleExampleUrl(path) + '">' + path + '</a></div></li>';
+                html += '<li><div class="line" onmouseover="this.className += \' line-hover\'" onmouseout="this.className = this.className.replace(\' line-hover\', \'\');"><span class="demo-toolbar"><a class="demo" href="javascript://查看关联的源文件" onclick="DplBuilder.viewSource(this, \'' + path + '\');return false;">源文件</a> | <a class="demo" href="javascript://查看当前模块引用的项" onclick="DplBuilder.viewRequires(this, \'' + path + '\');return false;">查看引用</a></span><a class="link" href="' + getModuleExampleUrl(path) + '">' + path + '</a></div></li>';
             }
             div.innerHTML = html || '<li>(无引用)</li>';
         });
@@ -292,28 +294,48 @@ var UI = {
     },
 
     build: function () {
+
+
+        UI.addModule(false);
+
         UI.updateBuildFile();
         UI.step(4);
 
         Dom.hide(Dom.get('step4_done'));
 
         ModuleBuilder.build({
-            info: function (info) {
+
+            file:  UI.currentBuildFile,
+
+            log: function (info) {
+                console.info(info);
                 Dom.get('step4_tip').innerHTML = Demo.Utils.encodeHTML(info);
             },
 
-            error: function (error) {
-                Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
-            },
+            //error: function (error) {
+            //    Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
+            //},
 
-            complete: function (js, css, imagesFrom, imagesTo) {
-
+            complete: function () {
+                a = this
                 Dom.show(Dom.get('step4_done'));
 
-                Dom.get('step4_js').value = js;
-                Dom.get('step4_css').value = css;
-                Dom.get('step4_imagesFrom').value = imagesFrom;
-                Dom.get('step4_imagesTo').value = imagesTo;
+                var jsStream = new StringStream();
+                var cssStream = new StringStream();
+
+                this.writeJs(jsStream);
+                this.writeCss(cssStream);
+
+                jsStream.end();
+                cssStream.end();
+
+                Dom.get('step4_js').value = jsStream.toString();
+                Dom.get('step4_css').value = cssStream.toString();
+                //Dom.get('step4_imagesFrom').value = imagesFrom;
+                //Dom.get('step4_imagesTo').value = imagesTo;
+
+
+                this.log("打包成功");
             }
         });
 
