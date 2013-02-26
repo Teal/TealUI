@@ -40,7 +40,7 @@ var Suggest = Control.extend(IDropDownOwner).implement({
 		var items = this.getSuggestItems(text);
 
 		// 如果智能提示的项为空或唯一项就是当前的项，则不提示。
-		if (!items || !items.length || (items.length === 1 && items[0] === text)) {
+		if (!items || !items.length || (items.length === 1 && (items[0] === text || items[0] === "<strong>" + text + "</strong>"))) {
 
 			// 隐藏菜单。
 			this.hideDropDown();

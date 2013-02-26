@@ -135,8 +135,9 @@ var bootjs = (function (window) {
 	                        requires.push.apply(requires, args.requires);
 	                        imports.push.apply(imports, args.imports);
 	                    }
-	                    break;
-	                case 'import':
+	                    break
+					case 'import':
+	                case 'imports':
 	                    args = toUrl(args, moduleUrl);
 
 	                    // Add .css automaticly if no extension is found.

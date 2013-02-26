@@ -88,25 +88,25 @@ var IDropDownOwner = {
 			this.dropDownNode = dom = dom.elem || Dom.find(dom);
 
 			// 初始化并保存下拉菜单。
-		    Dom.addClass(dom, 'ui-dropdown');
-		    Dom.hide(dom);
+			Dom.addClass(dom, 'ui-dropdown');
+			Dom.hide(dom);
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
 
-		    if (!Dom.contains(document.body, dom)) {
+			if (!Dom.contains(document.body, dom)) {
 
-		    	// 添加下拉菜单到 DOM 树。
-		    	if (this.elem.parentNode) {
-		    		Dom.after(this.elem, dom);
-		    	} else {
-		    		Dom.append(this.elem, dom);
-		    	}
-		    }
+				// 添加下拉菜单到 DOM 树。
+				if (this.elem.parentNode) {
+					Dom.after(this.elem, dom);
+				} else {
+					Dom.append(this.elem, dom);
+				}
+			}
 
 			// IE6/7 无法自动在父节点无 z-index 时处理 z-index 。
-		    if (navigator.isIE67 && Dom.getStyle(dom = Dom.parent(dom), 'zIndex') === 0) {
-		    	Dom.setStyle(dom, 'zIndex', 1);
-		    }
+			if (navigator.isIE67 && Dom.getStyle(dom = Dom.parent(dom), 'zIndex') === 0) {
+				Dom.setStyle(dom, 'zIndex', 1);
+			}
 
 			// dom = null 表示清空下拉菜单。
 		} else if (dom = this.dropDownNode) {
@@ -158,33 +158,34 @@ var IDropDownOwner = {
 
 			// 如果下拉菜单被隐藏，则先重设大小、定位。
 			if (me.isDropDownHidden()) {
+				Dom.show(me.dropDownNode);
+			}
 
-				// 重新设置位置。
+			me.onDropDownShow();
+
+			// 重新修改宽度。
+
+			// 重新设置位置。
+			if (!me.isDropDownHidden()) {
 				var dropDown = me.dropDownNode,
-	                dropDownWidth = me.dropDownWidth;
-
-				Dom.show(dropDown);
-				Dom.pin(dropDown, me.elem, 'b', 0, -1)
-
-				// 重新修改宽度。
+					dropDownWidth = me.dropDownWidth;
 
 				if (dropDownWidth < 0) {
 
 					// 在当前目标元素的宽、下拉菜单的 min-width 属性、下拉菜单自身的宽度中找一个最大值。
-				    dropDownWidth = Math.max(Dom.getSize(me.elem).x, Dom.styleNumber(dropDown, 'min-width'), Dom.getScrollSize(dropDown).x);
+					dropDownWidth = Math.max(Dom.getSize(me.elem).x, Dom.styleNumber(dropDown, 'min-width'), Dom.getScrollSize(dropDown).x);
 
 				}
 
 				if (dropDownWidth !== 'auto') {
-				    Dom.setSize(dropDown, { x: dropDownWidth });
+					Dom.setSize(dropDown, { x: dropDownWidth });
 				}
 
 				// 设置 mouseup 后自动隐藏菜单。
 				Dom.on(document, 'mouseup', me.hideDropDown, me);
 
+				Dom.pin(dropDown, me.elem, 'b', 0, -1);
 			}
-
-			me.onDropDownShow();
 
 		}
 

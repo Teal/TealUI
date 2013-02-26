@@ -3,11 +3,38 @@ var UI = {
 
     currentStep: 1,
 
-    usingXFly: false,
+    usingXFly: true,
 
     init: function () {
         Dom.query('.panel').hide();
         Dom.show(Dom.get('step1'));
+
+        var suggest = initModuleInputSuggest(Dom.get('step3_module'));
+
+        Dom.keyNav(Dom.get('step3_module'), {
+        	enter: function () {
+        		if (suggest.isDropDownHidden()) {
+        			UI.addModule();
+        		}
+        	}
+        });
+
+        if (UI.usingXFly) {
+        	UI.usingXFly = false;
+        	Ajax.jsonp(Demo.Configs.serverBaseUrl + Demo.Configs.apps + "/tools/modulebuilder/server/api.njs", function (data) {
+        		UI.usingXFly = true;
+        		Dom.get('step1_buildfilelist').style.display = 'block';
+
+
+        	}, function () {
+
+        	});
+        }
+
+    },
+
+    getBuildFileList: function (data) {
+    	var r = [];
     },
 
     step: function (id) {
@@ -78,8 +105,7 @@ var UI = {
         var buildFile = UI.currentBuildFile;
 
         Dom.get('step3_compress').checked = buildFile.compress;
-        Dom.get('step3_removeAssert').checked = buildFile.removeAssert;
-        Dom.get('step3_removeConsole').checked = buildFile.removeConsole;
+        Dom.get('step3_addAssert').checked = buildFile.addAssert;
 
         Dom.get('step3_buildfile').value = buildFile.path;
         Dom.get('step3_js').value = buildFile.js;
@@ -296,7 +322,12 @@ var UI = {
     build: function () {
 
 
-        UI.addModule(false);
+    	UI.addModule(false);
+
+    	if (!UI.currentBuildFile.includes.length) {
+    		alert("请先添加需要打包的模块");
+    		return;
+    	}
 
         UI.updateBuildFile();
         UI.step(4);
@@ -312,51 +343,117 @@ var UI = {
                 Dom.get('step4_tip').innerHTML = Demo.Utils.encodeHTML(info);
             },
 
-            //error: function (error) {
-            //    Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
-            //},
+            error: function (error) {
+                Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
+            },
 
             complete: function () {
-                a = this
-                Dom.show(Dom.get('step4_done'));
 
-                var jsStream = new StringStream();
-                var cssStream = new StringStream();
+            	var me = this;
+            	me.log("正在压缩代码...");
 
-                this.writeJs(jsStream);
-                this.writeCss(cssStream);
+            	setTimeout(function () {
 
-                jsStream.end();
-                cssStream.end();
+            		Dom.show(Dom.get('step4_done'));
 
-                setValue('step4_js', jsStream.toString());
-				
-                setValue('step4_css', cssStream.toString());
+                	var jsStream = new StringStream();
+                	var cssStream = new StringStream();
 
-                var imagesFrom = [];
-                var imagesTo = [];
+                	me.writeJs(jsStream);
 
-                for (var images in this.assets) {
-                	imagesFrom.push(this.assets[images].from);
-                	imagesTo.push(this.assets[images].relative);
-                }
+                	setTimeout(function () {
+                		jsStream.end();
+                		showResultForm('step4_js', jsStream.toString());
 
-                setValue('step4_imagesFrom', imagesFrom.join('\r\n'));
+                		me.writeCss(cssStream);
+                		cssStream.end();
+                		showResultForm('step4_css', cssStream.toString());
 
-                setValue('step4_imagesTo', imagesTo.join('\r\n'));
+                		setTimeout(function () {
+                			var assets = [];
 
-                this.log("打包成功 !");
+                			for (var images in me.assets) {
+                				assets.push(me.assets[images].relative);
+                			}
 
-                function setValue(id, value) {
-                	Dom.get(id).value = value;
-                	Dom.get(id).style.display = Dom.prev(Dom.get(id)).style.display = value ? '' : 'none';
-                }
+                			showResultForm('step4_assets', assets.join('\r\n'));
+
+                			me.log("打包成功 !");
+
+                		}, 0);
+
+                	}, 0);
+
+                }, 0);
             }
         });
 
     }
 
 };
+
+ModuleList.codes = (function () {
+  
+	var r = {};
+
+	for (var key in ModuleList.src) {
+
+		var type = ModuleList.src[key];
+
+		if (type === ".js") {
+			key = key.substr(0, key.length - 3);
+		} else if (type === ".css") {
+			key = key.substr(0, key.length - 4);
+		} else {
+			continue;
+		}
+
+		if (r[key]) {
+			r[key] = ".js+.css";
+		} else {
+			r[key] = type;
+		}
+	}
+
+
+	return r;
+	
+})();
+
+function showResultForm(id, value) {
+	Dom.get(id).value = value;
+	Dom.get(id).style.display = Dom.prev(Dom.get(id)).style.display = value ? '' : 'none';
+}
+
+function initModuleInputSuggest(input) {
+	var suggest = new Suggest(input);
+
+	suggest.getSuggestItems = function (text) {
+		var r = [];
+
+		if (!text) {
+			for (var key in ModuleList.codes) {
+				r.push(key);
+			}
+		} else if (/\.$/.test(text)) {
+			r.push(text.substr(0, text.length - 1), text + "js", text + "css");
+		} else {
+			for (var key in ModuleList.codes) {
+				if (key.indexOf(text) === 0) {
+					r.push("<strong>" + text + "</strong>" + key.substr(text.length));
+				} else if (key.indexOf("/" + text) >= 0) {
+					r.push(key.replace("/" + text, "/<strong>" + text + "</strong>"));
+				}
+			}
+		}
+
+		return r;
+	};
+
+
+	return suggest;
+
+}
 
 function getModuleExampleUrl(module) {
     return Demo.baseUrl + Demo.Configs.examples + module;

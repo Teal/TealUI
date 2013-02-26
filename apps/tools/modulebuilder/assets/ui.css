@@ -117,6 +117,6 @@ textarea.large {
     color: red;
 }
 
-#step3_advance,  #step4_done {
+#step3_advance,  #step4_done, #step1_buildfilelist {
     display: none;
 }
