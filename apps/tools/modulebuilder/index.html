@@ -52,20 +52,9 @@
                 <h2>选择打包方案</h2>
 
                 <a class="ui-button ui-button-success" href="javascript://新建一个空的打包方案" title="新建一个空的打包方案" onclick="UI.createNewBuildFile()">✚ 新建打包方案</a>
-                <a class="ui-button" href="javascript://打开之前保存的配置文件" title="添加打开之前保存的配置文件" onclick="UI.openBuildFile()">打开现有打包方案</a>
+                <a class="ui-button" href="javascript://打开之前保存的配置文件" title="添加打开之前保存的配置文件" onclick="UI.openOtherBuildFile()">打开现有打包方案</a>
 
                 <div id="step1_buildfilelist">
-
-                    <div class="hint">已保存的打包方案  ────────────────────────────────────────────</div>
-
-                    <div class="line line-hover">
-                        <nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">打开</a> | <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">复制</a> |  <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">生成</a></nav>
-                        <a href="javascript:;" class="link link-url">core/asdsad.js</a>
-                    </div>
-
-                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
-
-                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
 
                 </div>
 
@@ -75,22 +64,12 @@
 
                 <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(1);"></a>打开打包方案文件</h2>
 
-                <input type="text" class="ui-textbox large" placeholder="输入打包方案的路径, 使用 http:// 路径或本地文件位置。" title="如果是打开本地文件位置，则需要 xfly 服务器支持。" id="step2_url" />
+                <input type="text" class="ui-textbox large" placeholder="输入打包方案的路径, 使用 http:// 路径或本地文件位置。" title="如果是打开本地文件位置，则需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。" id="step2_url" />
 
-                <a onclick="UI.openBuildFileOf()" class="ui-button ui-button-success ui-button-fixed" href="javascript://打开">打开</a>
+                <a onclick="UI.openBuildFileOf()" class="ui-button ui-button-success" href="javascript://打开">打开</a>
+                <a onclick="UI.openBuildFileOf()" class="ui-button" href="javascript://打开">生成</a>
 
                 <div id="step2_buildfilelist">
-
-                    <div class="hint">最近打开的文件  ────────────────────────────────────────────</div>
-
-                    <div class="line line-hover">
-                        <nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">打开</a> | <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">复制</a> |  <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">生成</a></nav>
-                        <a href="javascript:;" class="link link-url">core/asdsad.js</a>
-                    </div>
-
-                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
-
-                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
 
                 </div>
 
@@ -137,33 +116,33 @@
 
                 <div id="step3_advance">
 
-                    <div class="line ui-hint">鼠标移到框内查看更多信息。</div>
+                    <div class="line ui-hint">以下全为非必填项。鼠标移到框内查看更多信息。</div>
 
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">配置文件保存位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_buildfile" placeholder="输入相对于 ../apps/ 的文件位置" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_buildfile" placeholder="输入.build文件位置(相对于 ../apps/ 文件夹)" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
                     </div>
 
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">js 文件保存位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_js" placeholder="输入相对于配置文件的 .js 文件路径" title="如果填了此内容，工具会将生成的代码自动保存到对应的文件里。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_js" placeholder="输入.js文件位置(相对于配置文件保存位置)" title="如果填了此内容，工具会将生成的 js 代码自动保存到对应的文件里。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
                     </div>
 
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">css 文件保存位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_css" placeholder="输入相对于配置文件的 .css 文件路径" title="如果填了此内容，工具会将生成的代码自动保存到对应的文件里。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_css" placeholder="输入.css文件位置(相对于配置文件保存位置)" title="如果填了此内容，工具会将生成的 css 代码自动保存到对应的文件里。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
                     </div>
 
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">图片文件夹位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_images" placeholder="输入相对于配置文件的文件夹路径, 资源文件将被拷贝进入" title="如果填了此内容，工具会将需要的图片及其它资源复制到此文件夹内。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_images" placeholder="输入文件夹位置(相对于配置文件保存位置)。末尾需加 /" title="如果填了此内容，工具会将需要的图片及其它资源复制到此文件夹内。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
                     </div>
 
@@ -172,7 +151,7 @@
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">排除相同模块:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" class="ui-textbox large" id="step3_uniqueBuildFiles" placeholder="输入相对于配置文件的路径, 多个路径用;隔开" autocomplete="off" title="如果填了此内容，相应的合成配置内包含的模块都将被排除。这可以确保 2 个不同的打包方案生成的文件里不包含重复的模块代码。">
+                            <input type="text" class="ui-textbox large" id="step3_uniqueBuildFiles" placeholder="输入配置文件位置(相对于配置文件保存位置)。多个位置用;隔开" autocomplete="off" title="如果填了此内容，对应的打包配置内已经包含的模块都将被排除。这可以确保 2 个不同的打包方案生成的文件里不包含重复的模块代码。">
                         </div>
 
                     </div>
@@ -180,7 +159,7 @@
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">模块源文件位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_src" placeholder="输入相对于配置文件的文件夹路径" autocomplete="off" title="如果填了此内容，将从指定文件夹中搜索模块路径。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_src" placeholder="输入全部模块源码位置(相对于配置文件保存位置)" autocomplete="off" title="如果填了此内容，将从指定文件夹中搜索模块源码。如果需要访问电脑上的任意文件夹位置，则需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
 
                     </div>
@@ -188,7 +167,7 @@
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">图片基地址:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_src" placeholder="输入相对于配置 css 路径的 URL。末尾需加 /" autocomplete="off" title="如果填了此内容，在 css 中，所有资源图片都会使用此地址作为路径。如将地址设为 http://cdn.com/">
+                            <input type="text" value="" class="ui-textbox large" id="step3_imageRelative" placeholder="输入 URL(相对于.css文件位置)。末尾需加 /" autocomplete="off" title="如果填了此内容，在 css 中所有资源图片都会使用此地址作为基地址。如将地址设为 http://cdn.com/">
                         </div>
 
                     </div>
@@ -214,7 +193,7 @@
                             <label class="short">
                                 <input type="checkbox" checked="checked" id="step3_parseMacro" class="ui-checkbox">解析宏</label>
                             预定义宏：
-                                <input type="text" placeholder="多个项之间用;隔开" value="" id="step3_defines" class="ui-textbox">
+                                <input type="text" placeholder="多个项之间用;隔开" value="" id="step3_defines" class="ui-textbox" title="关于宏的更多信息可查看帮助">
                             <!--<br />
 
                             <label class="short">

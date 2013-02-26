@@ -1,6 +1,12 @@
 ﻿
+var Demo = require('../../modulemanager/server/demo.js');
+
 switch(request.queryString.action){
-	case 'getrecentlist':
+	case 'recentbuildfiles':
+		var IO = require('utilskit/io');
+
+		IO.getFile(request.applicationInstance.physicalPath + "");
+
 		response.end();
 		break;
 	case 'getrecentlist':

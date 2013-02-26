@@ -1,11 +1,14 @@
-﻿
+﻿/**
+ * @fileOverview 模块打包工具。
+ */
+
 //#region BuildFile
 
 function BuildFile() {
 	this.includes = [];
 	this.excludes = [];
 
-	this.compress = false || 1;
+	this.compress = false;
 	this.addAssert = false;
 
 	this.path = '';
@@ -30,6 +33,14 @@ function BuildFile() {
 
 	this.relativeImages = "";
 }
+
+BuildFile.prototype.load = function () {
+
+};
+
+BuildFile.prototype.save = function () {
+
+};
 
 //#endregion
 
@@ -74,6 +85,12 @@ var Path = Path || require('path');
 function ModuleBuilder(buildFile) {
 
 	this.file = buildFile;
+
+	this.parsedModules = {};
+
+	this.js = [];
+	this.css = [];
+	this.assets = {};
 
 }
 
@@ -134,7 +151,6 @@ ModuleBuilder.prototype = {
 
 		return modulePath;
 	},
-
 
 	concatPath: function (pathA, pathB) {
 		return pathB.charAt(0) === '/' ? (/\/$/.test(pathA) ? pathA + pathB.substr(1) : (pathA + pathB)) : (/\/$/.test(pathA) ? pathA + pathB : (pathA + "/" + pathB));
@@ -292,6 +308,107 @@ ModuleBuilder.prototype = {
 
 	},
 
+	// 解析宏。
+	resolveMacro: function (content, define) {
+
+		var m = /^\/\/\/\s*#(\w+)(.*?)$/m;
+
+		var r = [];
+
+		while (content) {
+			var value = m.exec(content);
+
+			if (!value) {
+				r.push([content, 0, 0]);
+				break;
+			}
+
+			// 保留匹配部分的左边字符串。
+			r.push([content.substring(0, value.index), 0, 0]);
+
+			r.push(value);
+
+			// 截取匹配部分的右边字符串。
+			content = content.substring(value.index + value[0].length);
+		}
+
+
+		//console.log(r);
+
+		var codes = ['var $out="",$t;'];
+
+		r.forEach(function (value, index) {
+
+			if (!value[1]) {
+				codes.push('$out+=$r[' + index + '][0];');
+				return;
+			}
+
+			var v = value[2].trim();
+
+			switch (value[1]) {
+
+				case 'if':
+					codes.push('if(' + v.replace(/\b([a-z_$]+)\b/ig, "$d.$1") + '){');
+					break;
+
+				case 'else':
+					codes.push('}else{');
+					break;
+
+				case 'elsif':
+					codes.push('}else if(' + v.replace(/\b([a-z_$]+)\b/g, "$d.$1") + '){');
+					break;
+
+				case 'endif':
+				case 'endregion':
+					codes.push('}');
+					break;
+
+				case 'define':
+					var space = v.search(/\s/);
+					if (space === -1) {
+						codes.push('if(!(' + v + ' in $d))$d.' + v + "=true;");
+					} else {
+						codes.push('$d.' + v.substr(0, space) + "=" + v.substr(space) + ";");
+					}
+					break;
+
+				case 'undef':
+					codes.push('delete $d.' + v + ";");
+					break;
+
+				case 'ifdef':
+					codes.push('if(' + v + ' in $d){');
+					break;
+
+				case 'ifndef':
+					codes.push('if(!(' + v + ' in $d)){');
+					break;
+
+				case 'region':
+					codes.push('if($d.' + v + ' !== false){');
+					break;
+
+				case 'rem':
+					break;
+
+				default:
+					codes.push('$out+=$r[' + index + '][0];');
+					break;
+			}
+
+		});
+
+		codes.push('return $out;');
+
+		//	console.log(codes.join(''));
+
+		var fn = new Function("$r", "$d", codes.join(''));
+
+		return fn(r, define);
+	},
+
 	getNow: function () {
 		var d = new Date();
 		d = [d.getFullYear(), '/', d.getMonth() + 1, '/', d.getDate(), ' ', d.getHours(), ':', d.getMinutes()];
@@ -360,6 +477,11 @@ ModuleBuilder.prototype = {
 
 		if (exclude) {
 
+			// 删除已经添加的不需要的模块。
+			delete this.js[fullPath];
+			delete this.css[fullPath];
+			delete this.assets[fullPath];
+
 			if (callback) {
 				callback();
 			}
@@ -381,15 +503,28 @@ ModuleBuilder.prototype = {
 						return;
 					}
 
+					if (me.file.parseMacro) {
+						var defines = {};
+						(me.file.defines || "").split(';').forEach(function (value) {
+							defines[value] = true;
+						});
+
+						try {
+							content = me.resolveMacro(content, defines);
+						} catch (e) {
+							me.error("解析宏错误: " + e.message);
+						}
+					}
+
 					var modules = me.resolveJsRequires(content, modulePath, fullPath);
 
 					me.parseModules(modules, modulePath, function () {
-						me.js.push({
+						me.js[fullPath] = {
 							pre: preModulePath,
 							path: modulePath,
 							fullPath: fullPath,
 							content: modules.content || content
-						});
+						};
 
 						if (callback) {
 							callback();
@@ -413,12 +548,12 @@ ModuleBuilder.prototype = {
 					var modules = me.resolveCssRequires(content, modulePath, fullPath);
 
 					me.parseModules(modules, modulePath, function () {
-						me.css.push({
+						me.css[fullPath] = {
 							pre: preModulePath,
 							path: modulePath,
 							fullPath: fullPath,
 							content: modules.content || content
-						});
+						};
 
 						if (callback) {
 							callback();
@@ -465,15 +600,17 @@ ModuleBuilder.prototype = {
 
 		var me = this;
 
-		this.parsedModules = {};
-
-		this.js = [];
-		this.css = [];
-		this.assets = {};
-
 		this.start();
 		this.parseModules(this.file.excludes, this.file.path, null, true);
 		this.parseModules(this.file.includes, this.file.path, function () {
+
+			// 排除重复模块。
+			if (me.uniqueBuildFiles) {
+				me.uniqueBuildFiles.split(';').forEach(function (buildFile) {
+
+				});
+			}
+
 			setTimeout(function () {
 				me.complete();
 			}, 0);
@@ -506,115 +643,104 @@ ModuleBuilder.prototype = {
 
 	writeJs: function (writer) {
 
-		if (!this.js.length) {
-			return;
-		}
+		for (var hasModule in this.js) {
 
-		this.log("正在生成 js 代码...");
+			this.log("正在生成 js 代码...");
 
-		var comment = this.file.prependComments;
+			var comment = this.file.prependComments;
 
-		if (comment) {
+			if (comment) {
 
-			if (comment.indexOf("{time}") >= 0) {
-				comment = comment.replace("{time}", this.getNow());
-			}
-
-			if (comment.indexOf("{source}") >= 0) {
-				comment = comment.replace("{source}", this.file.path || "");
-			}
-
-			if (comment.indexOf("{modules}") >= 0) {
-				var list = [];
-				for (var i = 0; i < this.js.length; i++) {
-					list.push("//#included " + this.js[i].path);
-				}
-				for (var i = 0; i < this.css.length; i++) {
-					list.push("//#included " + this.css[i].path);
+				if (comment.indexOf("{time}") >= 0) {
+					comment = comment.replace("{time}", this.getNow());
 				}
 
-				list.sort();
-				comment = comment.replace("{modules}", list.join(this.file.lineBreak));
-			}
+				if (comment.indexOf("{source}") >= 0) {
+					comment = comment.replace("{source}", this.file.path || "");
+				}
 
-			writer.write(comment);
-			writer.write(this.file.lineBreak);
+				if (comment.indexOf("{modules}") >= 0) {
+					var list = [];
+					for (var i = 0; i < this.js.length; i++) {
+						list.push("//#included " + this.js[i].path);
+					}
+					for (var i = 0; i < this.css.length; i++) {
+						list.push("//#included " + this.css[i].path);
+					}
 
-		}
+					list.sort();
+					comment = comment.replace("{modules}", list.join(this.file.lineBreak));
+				}
 
-		for (var i = 0; i < this.js.length; i++) {
-			if (this.file.prependModuleComments) {
+				writer.write(comment);
 				writer.write(this.file.lineBreak);
-				writer.write(this.file.prependModuleComments.replace("{module}", this.js[i].path));
-				writer.write(this.file.lineBreak);
+
 			}
 
-			var content = this.js[i].content;
+			for (var i in this.js) {
+				if (this.file.prependModuleComments) {
+					writer.write(this.file.lineBreak);
+					writer.write(this.file.prependModuleComments.replace("{module}", this.js[i].path));
+					writer.write(this.file.lineBreak);
+				}
 
-			if (this.file.compress) {
-				content = this.compressJs(content);
+				var content = this.js[i].content;
+
+				if (this.file.compress) {
+					content = this.compressJs(content);
+				}
+
+				writer.write(content);
 			}
 
-			writer.write(content);
+			break;
 		}
 
 	},
 
 	writeCss: function (writer) {
 
-		if (!this.css.length) {
-			return;
+		for (var hasModule in this.css) {
+
+			this.log("正在生成 css 代码...");
+
+			var comment = this.file.prependComments;
+
+			if (comment) {
+
+				if (comment.indexOf("{time}") >= 0) {
+					comment = comment.replace("{time}", this.getNow());
+				}
+
+				if (comment.indexOf("{source}") >= 0) {
+					comment = comment.replace("{source}", this.file.path || "");
+				}
+
+				comment = comment.replace("{modules}", "");
+
+				writer.write(comment);
+
+			}
+
+			for (var i in this.css) {
+				if (this.file.prependModuleComments) {
+					writer.write(this.file.prependModuleComments.replace("{module}", this.css[i].path));
+				}
+
+				var content = this.css[i].content;
+
+				if (this.file.compress) {
+					content = this.compressCss(content);
+				}
+
+				writer.write(content);
+			}
+
+			break;
 		}
 
-		this.log("正在生成 css 代码...");
-
-		var comment = this.file.prependComments;
-
-		if (comment) {
-
-			if (comment.indexOf("{time}") >= 0) {
-				comment = comment.replace("{time}", this.getNow());
-			}
-
-			if (comment.indexOf("{source}") >= 0) {
-				comment = comment.replace("{source}", this.file.path || "");
-			}
-
-			comment = comment.replace("{modules}", "");
-
-			writer.write(comment);
-
-		}
-
-		for (var i = 0; i < this.css.length; i++) {
-			if (this.file.prependModuleComments) {
-				writer.write(this.file.prependModuleComments.replace("{module}", this.css[i].path));
-			}
-
-			var content = this.css[i].content;
-
-			if (this.file.compress) {
-				content = this.compressCss(content);
-			}
-
-			writer.write(content);
-		}
 
 	}
-
-};
-
-ModuleBuilder.build = function (options) {
-
-	var b = new ModuleBuilder();
-
-	for (var key in options) {
-		b[key] = options[key];
-	}
-
-	b.build();
-
-	return b;
 
 };
 
