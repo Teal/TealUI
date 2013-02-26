@@ -1,29 +1,33 @@
 ﻿
-Demo.Module.submitForm = function (formElem, redirectTo) {
-	var form = Dom.get(formElem);
-	var path = form.find('[name=path]').getText();
-	var name = form.find('[name=title]').getText();
-	var hasError = false;
+var UI = {
+	submitForm: function (formElem, redirectTo) {
+		var form = Dom.get(formElem);
+		var path = form.find('[name=path]').getText();
+		var name = form.find('[name=title]').getText();
+		var hasError = false;
 
-	form.query('.x-textbox-error').removeClass('x-textbox-error');
+		form.query('.x-textbox-error').removeClass('x-textbox-error');
 
-	if (!path) {
-		hasError = true;
-		form.find('[name=path]').addClass('x-textbox-error');
-	}
+		if (!path) {
+			hasError = true;
+			form.find('[name=path]').addClass('x-textbox-error');
+		}
 
-	if (hasError) {
-		return;
-	}
+		if (hasError) {
+			return;
+		}
 
-	form.find('[name=postback]').setText(redirectTo ? "" : location.href);
+		form.find('[name=postback]').setText(redirectTo ? "" : location.href);
 
-	form.submit();
+		form.submit();
 
-};
+	},
 
-Demo.Module.add = function (parentNode) {
-	parentNode.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/modulemanager/server/modulemanager.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="x-textbox textbox-path" placeholder="模块完整路径"> <input type="text" name="title" class="x-textbox textbox-name" placeholder="(可选)模块描述"> <input type="hidden" name="action" value="create"> <select class="x-textbox" name="tpl"><option value="jscss">js+css模块</option><option value="js">js模块</option><option value="css">css模块</option><option value="docs">文档</option></select> <input type="button" class="x-button x-button-info" value="添加并转到" onclick="Demo.Module.submitForm(this.parentNode, true)"> <input type="button" class="x-button" value="添加" onclick="Demo.Module.submitForm(this.parentNode, false)"></form>';
+
+}
+
+UI.add = function (parentNode) {
+	parentNode.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/modulemanager/server/modulemanager.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="x-textbox textbox-path" placeholder="模块完整路径"> <input type="text" name="title" class="x-textbox textbox-name" placeholder="(可选)模块描述"> <input type="hidden" name="action" value="create"> <select class="x-textbox" name="tpl"><option value="jscss">js+css模块</option><option value="js">js模块</option><option value="css">css模块</option><option value="docs">文档</option></select> <input type="button" class="x-button x-button-info" value="添加并转到" onclick="UI.submitForm(this.parentNode, true)"> <input type="button" class="x-button" value="添加" onclick="UI.submitForm(this.parentNode, false)"></form>';
 
 	var form = Dom.get(parentNode);
 
@@ -33,14 +37,14 @@ Demo.Module.add = function (parentNode) {
 
 		var r = [];
 
-		Demo.Module.tree = Demo.Module.tree || Demo.Module.listToTree(ModuleList.src);
+		UI.tree = UI.tree || UI.listToTree(ModuleList.src);
 
 		if (!text) {
-			for (var category in Demo.Module.tree) {
+			for (var category in UI.tree) {
 				r.push(category + "/");
 			}
 		} else if (text.indexOf('/') < 0) {
-			for (var category in Demo.Module.tree) {
+			for (var category in UI.tree) {
 				if (category.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
 					r.push(category + "/");
 				}
@@ -58,7 +62,7 @@ Demo.Module.add = function (parentNode) {
 
 };
 
-Demo.Module.listToTree = function (list, filter) {
+UI.listToTree = function (list, filter) {
 
 	var tree = {
 
@@ -133,7 +137,7 @@ Demo.Module.listToTree = function (list, filter) {
 Demo.writeModuleList = function (filter) {
 
 	var list = ModuleList.examples,
-		tree = Demo.Module.listToTree(list, filter),
+		tree = UI.listToTree(list, filter),
 		from = document.referrer || "",
 		html = "",
 		html2 = "",
@@ -147,7 +151,7 @@ Demo.writeModuleList = function (filter) {
 	html += '<article class="demo">';
 
 	if (Demo.local)
-		html += '<nav class="demo demo-toolbar" style="margin-top:-40px;"><a href="javascript://创建一个新的模块" class="x-linkbutton" onclick="Demo.Module.add(this.parentNode)">✚ 创建模块</a></nav>';
+		html += '<nav class="demo demo-toolbar" style="margin-top:-40px;"><a href="javascript://创建一个新的模块" class="x-linkbutton" onclick="UI.add(this.parentNode)">✚ 创建模块</a></nav>';
 
 	for (category in tree) {
 		data = tree[category];

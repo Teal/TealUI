@@ -1,5 +1,5 @@
 @IF EXIST "%~dp0\node.exe" (
-  "%~dp0\node.exe"  "%~dp0\server\start.js" %*
+  "%~dp0\node.exe"  "%~dp0\tools\server\start.js" %*
 ) ELSE (
-  node  "%~dp0\server\start.js" %*
+  node  "%~dp0\tools\server\start.js" %*
 )
