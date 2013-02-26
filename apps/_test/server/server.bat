@@ -1,4 +1,4 @@
-@cd ../../../apps
+@cd ../../../apps/node
 :start
 @"supervisor" "server/startserver.js"
 @pause

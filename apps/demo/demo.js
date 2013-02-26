@@ -1,5 +1,6 @@
 ﻿/**
- * @fileOverview 演示系统驱动文件。
+ * @fileOverview 演示系统驱动文件。此文件同时运行于浏览器端及 node 端。
+ * @author xuld
  */
 
 //#region 前后台公用的部分
@@ -44,7 +45,7 @@ Demo.Configs = {
 	/**
 	 * 工具的下拉菜单 HTML 模板。
 	 */
-	tool: '<a href="~/apps/modulemanager/dplfilelist.html" target="_blank">模块合成工具</a>\
+	tool: '<a href="~/apps/node/modulebuilder/index.html" target="_blank">模块合成工具</a>\
                 <a href="~/apps/tools/codehelper/index.html" target="_blank">代码工具</a>\
                 <a href="~/apps/tools/codesegments/specialcharacters.html" target="_blank">特殊字符</a>\
                 <a href="~/apps/tools/codesegments/regexp.html" target="_blank">常用正则</a>\
@@ -83,7 +84,7 @@ Demo.Configs = {
 	/**
 	 * 合法的浏览器。
 	 */
-	support: 'IE6|IE7|IE7|IE8|IE10|FireFox|Chrome|Opera|Safari'.split('|'),
+	support: 'IE6|IE7|IE7|IE8|IE10|FireFox|Chrome|Opera|Safari|Mobile'.split('|'),
 
 	/**
 	 * 整个项目标配使用的编码。
@@ -142,7 +143,7 @@ Demo.Module = {
 // 指示当前系统是否在后台运行。
 if (typeof module !== 'object') {
 
-	//#region 前台专用的部分
+	//#region 前台部分
 
 	/**
 	* DOM辅助处理模块。
@@ -417,7 +418,7 @@ if (typeof module !== 'object') {
 				case "demo-toolbar-goto":
 					dropDown.className = 'demo-toolbar-dropdown';
 					dropDown.style.width = '300px';
-					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="搜索模块路径/名字以快速转到..."><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
+					dropDown.innerHTML = '<input style="width:290px;padding:5px;border:0;border-bottom:1px solid #9B9B9B;" type="text" onfocus="this.select()" placeholder="输入模块路径/名称以快速转到"><div class="demo-toolbar-dropdown-menu" style="_height: 300px;_width:300px;word-break:break-all;max-height:300px;overflow:auto;"></div>';
 					dropDown.defaultButton = dropDown.firstChild;
 					dropDown.defaultButton.onkeydown = function (e) {
 						e = e || window.event;
@@ -456,7 +457,7 @@ if (typeof module !== 'object') {
 					var moduleInfo = Demo.moduleInfo;
 					dropDown.className = 'demo-toolbar-dropdown';
 					dropDown.style.cssText = 'padding:5px;*width:260px;';
-					var html = '<style>#demo-toolbar-controlstate input{vertical-align: -2px;}</style><form style="*margin-bottom:0" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/modulemanager/server/modulemanager.njs" method="get">\
+					var html = '<style>#demo-toolbar-controlstate input{vertical-align: -2px;}</style><form style="*margin-bottom:0" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulemanager/server/api.njs" method="get">\
                     <fieldset>\
                         <legend>进度</legend>';
 
@@ -492,7 +493,7 @@ if (typeof module !== 'object') {
                 </fieldset>\
 \
                 <input value="保存修改" class="demo-right" type="submit">\
-                <a href="javascript://彻底删除当前模块及相关源码" onclick="if(prompt(\'确定删除当前模块吗?  如果确认请输入 yes\') === \'yes\')location.href=\'' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/modulemanager/server/modulemanager.njs?action=delete&path=' + encodeURIComponent(Demo.moduleInfo.path) + '&postback=' + encodeURIComponent(Demo.Configs.serverBaseUrl + Demo.Configs.examples) + '\'">删除模块</a>\
+                <a href="javascript://彻底删除当前模块及相关源码" onclick="if(prompt(\'确定删除当前模块吗?  如果确认请输入 yes\') === \'yes\')location.href=\'' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulemanager/server/api.njs?action=delete&path=' + encodeURIComponent(Demo.moduleInfo.path) + '&postback=' + encodeURIComponent(Demo.Configs.serverBaseUrl + Demo.Configs.examples) + '\'">删除模块</a>\
 <input type="hidden" name="path" value="' + Demo.Utils.encodeHTML(location.pathname) + '">\
 <input type="hidden" name="action" value="update">\
 <input type="hidden" name="postback" value="' + Demo.Utils.encodeHTML(location.href) + '">\
@@ -813,15 +814,7 @@ if (typeof module !== 'object') {
 			}
 		}
 
-		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他模块" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="F">搜索' + space + '▾</a> | ';
-
-		if (Demo.local && isInDocs && isHomePage) {
-			html += '<a href="' + configs.serverBaseUrl + configs.apps + '/modulemanager/server/modulemanager.njs?action=updatelist&postback=' + encodeURIComponent(location.href) + ' " title="刷新模块列表缓存" accesskey="H">刷新列表</a>';
-		} else {
-			html += '<a href="' + Demo.baseUrl + configs.examples + '/index.html" title="返回模块列表" accesskey="H">返回列表</a>';
-		}
-
-		html += '</nav></aside>';
+		html += '<a href="javascript://常用文档" onclick="Demo.Page.showDropDown(\'demo-toolbar-doc\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-doc\')" onmouseout="Demo.Page.hideDropDown()" accesskey="D">文档' + space + '▾</a> | <a href="javascript://常用工具" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-tool\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-tool\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="T">工具' + space + '▾</a> | <a href="javascript://快速打开其他模块" onmouseover="Demo.Page.showDropDown(\'demo-toolbar-goto\')" onclick="Demo.Page.showDropDown(\'demo-toolbar-goto\', 1);return false;" onmouseout="Demo.Page.hideDropDown()" accesskey="F">搜索' + space + '▾</a> | <a href="' + Demo.baseUrl + configs.examples + '/index.html" title="返回模块列表" accesskey="H">返回列表</a></nav></aside>';
 
 		// 生成标题。
 		if (moduleInfo.name) {
@@ -1999,13 +1992,16 @@ if (typeof module !== 'object') {
 
 } else {
 
+    //#region 后台部分
+
+    Demo.basePath = require('path').resolve(__dirname, '../../') + require('path').sep;
+
 	// 导出 Demo 模块。
-	module.exports = Demo;
+    module.exports = Demo;
+
+    //#endregion
 
 }
-
-
-
 
 //#region trace
 
@@ -2255,4 +2251,4 @@ trace.time = function (fn) {
     return trace.info("[TIME] " + past / time);
 };
 
-//#endif
+//#endregion

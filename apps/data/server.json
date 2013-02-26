@@ -11,10 +11,6 @@
 		"physicalPath": ""
 	}],
 	
-	"urlRewrite": {
-		"(.*)\\.jss": "$1.js"
-	},
-	
 	"markdown": {
 		"tpl": "<!--  arkdown  -->"
 	}
