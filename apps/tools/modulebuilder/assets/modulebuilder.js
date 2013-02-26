@@ -28,6 +28,8 @@ function BuildFile() {
 
     this.lineBreak = "\r\n";
     this.basePath = "";
+
+    this.relativeImages = "images/";
 }
 
 //#endregion
@@ -66,7 +68,9 @@ StringStream.prototype.valueOf = StringStream.prototype.toString = function () {
 
 //#endregion
 
-//#region StringStream
+//#region ModuleBuilder
+
+var Path = Path || require('path');
 
 function ModuleBuilder(buildFile) {
 
@@ -120,6 +124,10 @@ ModuleBuilder.prototype = {
         return modulePath;
     },
 
+    concatPath: function (pathA, pathB) {
+    	return pathB.charAt(0) === '/' ? (/\/$/.test(pathA) ? pathA + pathB.substr(1) : (pathA + pathB)) : (/\/$/.test(pathA) ? pathA + pathB : (pathA + "/" + pathB));
+    },
+
     loadContent: function (fullPath, callback) {
         Ajax.send({
             url: fullPath,
@@ -130,37 +138,10 @@ ModuleBuilder.prototype = {
                 callback(null, content);
             }
         });
-
-
-
-
-    },
-
-    copyAsset: function (from, to) {
-    
-    },
-
-    parseRelativePath: function (pathA, pathB) {
-
-        if (pathA.indexOf('/') < 0) {
-            pathA += '/';
-        }
-
-        pathA = pathA.replace(/\/[^\/]*$/, "/") + pathB;
-
-        // Remove "/./" in path
-        pathA = pathA.replace(/\/(\.\/)+/g, "/");
-
-        // Remove "/../" in path
-        while (/\/[^\/]+\/\.\.\//.test(pathA)) {
-            pathA = pathA.replace(/\/[^\/]+\/\.\.\//, "/");
-        }
-
-        return pathA;
     },
 
     getModuleType: function (modulePath) {
-        return (/\.\w+$/.exec(modulePath) || [])[0];
+    	return Path.extname(modulePath);
     },
 
     /**
@@ -236,9 +217,43 @@ ModuleBuilder.prototype = {
         var me = this;
         var modules = [];
 
-        modules.content = content.replace(/@import\s+url\s*\(\s*(['"]?)(.+)\1\s*\)/g, function (all, indent, importPath, args) {
-            var path = me.parseRelativePath(fullPath, importPath);
+        content = content.replace(/@import\s+url\s*\(\s*(['"]?)(.+)\1\s*\)/g, function (all, indent, importPath, args) {
+        	var path = Path.resolve(Path.dirname(fullPath), importPath);
             modules.push(path);
+        });
+
+        var moduleFolder = Path.dirname(modulePath);
+        var cssFolder = Path.dirname(fullPath);
+		
+        modules.content = content.replace(/url\s*\((['""]?)(.*)\1\)/ig, function (all, c1, imgUrl, c3) {
+
+        	// 不处理绝对位置。
+        	if (imgUrl.indexOf(':') >= 0)
+        		return all;
+
+        	// 源图片的原始物理路径。
+        	var fromPath = me.concatPath(cssFolder, imgUrl);
+
+        	// 源图片的文件名。
+        	var name = me.concatPath(moduleFolder, Path.basename(imgUrl))
+
+        	var toPath = me.file.images;
+
+        	var asset = me.assets[fromPath];
+
+        	// 如果这个路径没有拷贝过。
+        	if (!asset) {
+        		me.assets[fromPath] = asset = {
+        			pres: [],
+        			from: fromPath,
+        			relative: me.concatPath(me.file.relativeImages.replace(/\\/g, "/"), name),
+        			to: me.concatPath(me.file.images, name)
+        		};
+			}
+        	
+        	asset.pres.push(modulePath);
+
+        	return "url(" + asset.relative + ")";
         });
 
         return modules;
@@ -407,7 +422,7 @@ ModuleBuilder.prototype = {
 
         this.js = [];
         this.css = [];
-        this.assets = [];
+        this.assets = {};
 
         this.start();
         this.parseModules(this.file.excludes, this.file.path, null, true);

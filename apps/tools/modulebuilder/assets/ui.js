@@ -329,13 +329,28 @@ var UI = {
                 jsStream.end();
                 cssStream.end();
 
-                Dom.get('step4_js').value = jsStream.toString();
-                Dom.get('step4_css').value = cssStream.toString();
-                //Dom.get('step4_imagesFrom').value = imagesFrom;
-                //Dom.get('step4_imagesTo').value = imagesTo;
+                setValue('step4_js', jsStream.toString());
+				
+                setValue('step4_css', cssStream.toString());
 
+                var imagesFrom = [];
+                var imagesTo = [];
 
-                this.log("打包成功");
+                for (var images in this.assets) {
+                	imagesFrom.push(this.assets[images].from);
+                	imagesTo.push(this.assets[images].relative);
+                }
+
+                setValue('step4_imagesFrom', imagesFrom.join('\r\n'));
+
+                setValue('step4_imagesTo', imagesTo.join('\r\n'));
+
+                this.log("打包成功 !");
+
+                function setValue(id, value) {
+                	Dom.get(id).value = value;
+                	Dom.get(id).style.display = Dom.prev(Dom.get(id)).style.display = value ? '' : 'none';
+                }
             }
         });
 

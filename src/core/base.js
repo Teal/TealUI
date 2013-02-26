@@ -641,6 +641,38 @@ var JPlus = (function (undefined) {
 		},
 
 		/**
+		 * 对数组每个元素通过一个函数过滤。返回所有符合要求的元素的数组。
+		 * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
+		 *
+		 * - {Object} value 当前元素的值。
+		 * - {Number} index 当前元素的索引。
+		 * - {Array} array 当前正在遍历的数组。
+		 *
+		 * 如果函数返回 **true**，则当前元素会被添加到返回值数组。
+		 * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
+		 * @return {Array} 返回一个新的数组，包含过滤后的元素。
+		 * @remark 目前除了 IE8-，主流浏览器都已内置此函数。
+		 * @see #each
+		 * @see #forEach
+		 * @see Object.map
+		 * @example
+		 * <pre>
+		 * [1, 7, 2].filter(function (key) {
+		 * 		return key < 5;
+		 * })  //  [1, 2]
+		 * </pre>
+		 */
+		filter: function (fn, scope) {
+			//#assert.isFunction(fn, "Array#filter(fn, scope): {fn} ~");
+			var r = [];
+			ap.forEach.call(this, function (value, i, array) {
+				if (fn.call(scope, value, i, array))
+					r.push(value);
+			});
+			return r;
+		},
+
+		/**
 		 * 遍历当前数组，并对数组的每个元素执行函数 *fn*。
 		 * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
 		 *
