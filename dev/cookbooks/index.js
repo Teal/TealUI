@@ -2,7 +2,7 @@
 Demo.writeNavbar({
     '概述': '-',
     'jPlusUI 设计思想': 'introduction.html',
-    '演示系统文档': '../library/apps.html',
+    '开发系统文档': '../library/apps.html',
 
     '规范': '-',
     '文件夹规范': 'folder.html',

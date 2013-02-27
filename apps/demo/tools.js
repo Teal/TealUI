@@ -17,6 +17,7 @@ document.write('<script type="text/javascript" src="../../../src/dom/keynav.js">
 document.write('<script type="text/javascript" src="../../../src/dom/pin.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/utils/path.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/utils/deferrable.js"></script>');
+document.write('<script type="text/javascript" src="../../../src/data/json.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/fx/base.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/fx/tween.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/fx/animate.js"></script>');

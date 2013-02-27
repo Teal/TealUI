@@ -1,5 +1,5 @@
 ﻿/**
- * @fileOverview 演示系统驱动文件。此文件同时运行于浏览器端及 node 端。
+ * @fileOverview 开发系统驱动文件。此文件同时运行于浏览器端及 node 端。
  * @author xuld
  */
 
@@ -13,7 +13,7 @@ var Demo = Demo || {};
 Demo.Configs = {
 
 	/**
-	 * 当前演示系统在处理文件操作时使用的远程服务器地址。
+	 * 当前开发系统在处理文件操作时使用的远程服务器地址。
 	 */
 	serverBaseUrl: 'http://localhost:8021/',
 
@@ -28,7 +28,7 @@ Demo.Configs = {
 	examples: "examples",
 
 	/**
-	 * 存放演示系统文件的文件夹。
+	 * 存放开发系统文件的文件夹。
 	 */
 	apps: "apps",
 
@@ -60,7 +60,7 @@ Demo.Configs = {
                 <a href="~/resources/cookbooks/jplusui-core-api/index.html" target="_blank">jPlusUI Core 文档</a>\
                 <a href="~/resources/cookbooks/jquery2jplus.html" target="_blank">jQuery 转 jPlusUI</a>\
                 <!--<a href="~/resources/cookbooks/dplsystem.html" target="_blank" style="border-top: 1px solid #EBEBEB;">模块开发教程</a>-->\
-                <a href="~/dev/cookbooks/develop/apps.html" target="_blank">演示系统文档</a>\
+                <a href="~/dev/cookbooks/develop/apps.html" target="_blank">开发系统文档</a>\
                 <a href="~/resources/cookbooks/classdiagram" target="_blank">类图</a>\
                 <!--<a href="~/resources/index.html#doc" target="_blank" style="border-top: 1px solid #EBEBEB;">更多文档</a>-->',
 
@@ -267,7 +267,7 @@ if (typeof module !== 'object') {
 
 			var configs = Demo.Configs;
 
-			// 判断当前演示系统是否在本地运行。
+			// 判断当前开发系统是否在本地运行。
 			Demo.local = location.protocol === 'file' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 			// 自动获取项目跟目录。
@@ -283,7 +283,7 @@ if (typeof module !== 'object') {
 			Demo.urlPrefix = pathname.substr(0, slashIndex);
 			Demo.urlPostfix = pathname.substr(slashIndex + 1);
 
-			// 判断当前演示系统的打开模式。
+			// 判断当前开发系统的打开模式。
 			// 如果是在一个网页上使用，则不生成其它额外的内容。
 			// 如果是在 docs 里使用，则自动生成标题部分。
 			if (Demo.urlPrefix) {

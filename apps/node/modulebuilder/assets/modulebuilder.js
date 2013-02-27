@@ -1,5 +1,6 @@
 ﻿/**
  * @fileOverview 模块打包工具。
+ * @author xuld
  */
 
 //#region BuildFile
@@ -34,12 +35,128 @@ function BuildFile() {
 	this.relativeImages = "";
 }
 
-BuildFile.prototype.load = function () {
+BuildFile.prototype.load = function (content) {
+
+	var me = this,
+		first = -1;
+
+	var lines = content.split(/\r?\n/), match, macro, args;
+
+	for(var i = 0; i < lines.length; i++) {
+		if (match = /^\s*\/[\/\*]\s*#(\w+)\s+(.*)$/.exec(lines[i])) {
+
+			if (first === -1) {
+				first = i;
+			}
+
+			macro = match[1];
+
+			args = match[2];
+
+			var fromLine = i;
+
+			// 如果结尾是 \， 则继续解析。
+			while(/\\$/.test(args) && i + 1 < lines.length){
+				args += '\r\n' + lines[++i].replace(/^\s*\/[\/\*]\s*#?/, "");
+			}
+
+			if(processMarco(macro, args)){
+				lines.splice(fromLine, i - fromLine + 1);
+
+				i = fromLine - 1;
+			} 
+
+		}
+	}
+
+	if (first === -1) {
+		this.prefix = "";
+		this.postfix = content;
+	} else {
+		this.prefix = lines.slice(0, first).join(this.lineBreak);
+		this.postfix = lines.slice(first).join(this.lineBreak);
+	}
+
+	function processMarco(macro, args) {
+		switch (macro) {
+			case 'include':
+			case 'import':
+			case 'imports':
+				me.includes.push(args);
+				break;
+
+			case 'exclude':
+			case 'included':
+				me.excludes.push(args);
+				break;
+
+			case 'define':
+				var m = /^\s*(\w+)\s+/.exec(args);
+				args = args.substr(m[0].length);
+
+				if (!args || args === "true") {
+					args = true;
+				} else if(args === "false"){
+					args = false;
+				}
+
+				me[m[1]] = args;
+				break;
+
+			default:
+				return false;
+		}
+
+		return true;
+	}
 
 };
 
 BuildFile.prototype.save = function () {
 
+	var contents = [], rest = [], defaultBuilds = new BuildFile();
+
+	this.includes.forEach(function (value) {
+		if (/\.css$/.test(value)) {
+			contents.push("//#import " + value);
+		} else {
+			rest.push("//#include " + value);
+		}
+	});
+
+	contents.push.apply(contents, rest);
+
+	this.excludes.forEach(function (value) {
+		contents.push("//#exclude " + value);
+	});
+
+	for (var key in this) {
+		if (this.hasOwnProperty(key)) {
+			switch (key) {
+				case "includes":
+				case "excludes":
+				case "lineBreak":
+				case "prefix":
+				case "postfix":
+					break;
+				default:
+					var value = this[key];
+
+					// 不写入默认的配置。
+					if (value !== defaultBuilds[key]) {
+
+						if (typeof value === 'string') {
+							value = value.replace(/(\r?\n)/g, "\\$1//#");
+						}
+						contents.push("//#define " + key + " " + value);
+
+					}
+					break;
+			}
+		}
+	}
+
+	return this.prefix + contents.join(this.lineBreak) + this.postfix;
 };
 
 //#endregion
@@ -50,7 +167,7 @@ function Stream() {
 
 }
 
-Stream.prototype.write = function () {
+Stream.prototype.write = Stream.prototype.end = function () {
 
 };
 
@@ -81,676 +198,741 @@ StringStream.prototype.valueOf = StringStream.prototype.toString = function () {
 //#region ModuleBuilder
 
 var Path = Path || require('path');
-
-function ModuleBuilder(buildFile) {
-
-	this.file = buildFile;
-
-	this.parsedModules = {};
-
-	this.js = [];
-	this.css = [];
-	this.assets = {};
-
-}
-
-ModuleBuilder.prototype = {
-
-	file: null,
-
-	start: function () {
-		console.info("正在打包...");
-	},
-
-	log: function (message) {
-		console.log(message);
-	},
-
-	info: function (message) {
-		console.info(message);
-	},
-
-	error: function (message) {
-		console.info(message);
-	},
-
-	complete: function () {
-		console.info("打包成功!");
-	},
-
-	loadContent: function (fullPath, callback) {
-		Ajax.send({
-			url: fullPath,
-			error: function (message, xhrObject) {
-				callback(new Error(message));
-			},
-			success: function (content) {
-				callback(null, content);
-			}
-		});
-	},
-
-	getFullPath: function (modulePath, preModulePath) {
-
-		modulePath = modulePath.replace(/\\|\/\//g, "/");
-
-		// If modulePath is relative path. Concat modulePath with basePath.
-		if (modulePath.charAt(0) === '.') {
-			modulePath = preModulePath + "/" + modulePath;
-		} else if (!/:\/\//.test(modulePath)) {
-			modulePath = this.file.basePath + "/" + modulePath;
-		}
-
-		// Remove "/./" in path
-		modulePath = modulePath.replace(/\/(\.\/)+/g, "/");
-
-		// Remove "/../" in path
-		while (/\/[^\/]+\/\.\.\//.test(modulePath)) {
-			modulePath = modulePath.replace(/\/[^\/]+\/\.\.\//, "/");
-		}
-
-		return modulePath;
-	},
-
-	concatPath: function (pathA, pathB) {
-		return pathB.charAt(0) === '/' ? (/\/$/.test(pathA) ? pathA + pathB.substr(1) : (pathA + pathB)) : (/\/$/.test(pathA) ? pathA + pathB : (pathA + "/" + pathB));
-	},
-
-	getModuleType: function (modulePath) {
-		return Path.extname(modulePath);
-	},
-
-	replaceAssert: function (args) {
-
-		// args = exp @fun(args): message
-
-		var at = args.indexOf('@'),
-            expr = at < 0 ? args : args.substr(0, at),
-            defaultMessage = expr,
-            message = at > 0 ? args.substr(at + 1) : "Assertion fails";
-
-		// value:type check
-		if ((at = /^(.+):\s*(\w+)(\??)\s*$/.exec(expr)) && at[2] in typeAsserts) {
-			expr = (at[3] ? at[1] + ' == null || ' : at[1] + ' != null && ') + typeAsserts[at[2]].replace(/\$/g, at[1]);
-			defaultMessage = at[1] + ' should be a(an) ' + at[2] + (at[3] ? ' or undefined.' : '.');
-		}
-
-		if (message.indexOf(':') < 0) {
-			message += ': ' + defaultMessage;
-		}
-
-		return 'if(!(' + (expr || 1) + ') && window.console && console.error) console.error("' + message.replace(/\"/g, "\\\"") + '");';
-	},
-
-	/**
-	 * 解析一个 DPL 所依赖的 DPL 项。
-     * @param {String} dplPath 当前的 DPL 路径。
-     * @param {Boolean} isStyle 当前的 DPL 为样式或脚本。
-     * @return {Object} 返回格式如： {js: [path1, path2], css: [path1, path2]}
-	 */
-	resolveJsRequires: function (content, modulePath, fullPath) {
-
-		var me = this;
-		var modules = [];
-
-		switch (this.file.dependencySyntax) {
-			case "boot":
-				modules.content = content.replace(/^(\s*)\/[\/\*]\s*#(\w+)\s+(.*)$/gm, function (all, indent, macro, args) {
-					switch (macro) {
-						case 'include':
-						case 'import':
-						case 'imports':
-							modules.push(args);
-							break;
-
-						case 'exclude':
-						case 'included':
-							me.parseModule(args, modulePath, null, true);
-							break;
-						case 'assert':
-							if (me.file.addAssert)
-								return indent + me.replaceAssert(args);
-							break;
-						case 'deprected':
-							if (me.file.addAssert)
-								return indent + 'if(window.console && console.warn) console.warn("' + (args.replace(/\"/g, "\\\"") || "This function is deprected.") + '")';
-							break;
-					}
-
-					return all;
-				});
-				break;
-				//case "amd":
-				//    content.replace(/define\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
-				//        modules.push(args);
-
-				//        return all;
-				//    });
-
-			case "cmd":
-				content.replace(/require\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
-					modules.push(args);
-
-					return all;
-				});
-				break;
-
-			case "yui":
-				content.replace(/YUI().use\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
-					modules.push(args);
-
-					return all;
-				});
-				break;
-
-			case "kissy":
-				content.replace(/KISSY.use\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
-					modules.push(args);
-
-					return all;
-				});
-				break;
-
-
-		}
-
-
-		return modules;
-
-
-	},
-
-	resolveCssRequires: function (content, modulePath, fullPath) {
-
-		var me = this;
-		var modules = [];
-
-		content = content.replace(/@import\s+url\s*\(\s*(['"]?)(.+)\1\s*\)/g, function (all, indent, importPath, args) {
-			var path = Path.resolve(Path.dirname(fullPath), importPath);
-			modules.push(path);
-		});
-
-		var moduleFolder = Path.dirname(modulePath);
-		var cssFolder = Path.dirname(fullPath);
-
-		modules.content = content.replace(/url\s*\((['""]?)(.*)\1\)/ig, function (all, c1, imgUrl, c3) {
-
-			// 不处理绝对位置。
-			if (imgUrl.indexOf(':') >= 0)
-				return all;
-
-			// 源图片的原始物理路径。
-			var fromPath = me.concatPath(cssFolder, imgUrl);
-
-			// 源图片的文件名。
-			var name = me.concatPath(moduleFolder, Path.basename(imgUrl))
-
-			var toPath = me.file.images;
-
-			var asset = me.assets[fromPath];
-
-			// 如果这个路径没有拷贝过。
-			if (!asset) {
-				me.assets[fromPath] = asset = {
-					pres: [],
-					from: fromPath,
-					relative: me.concatPath(me.file.relativeImages.replace(/\\/g, "/"), name),
-					to: me.concatPath(me.file.images, name)
-				};
-			}
-
-			asset.pres.push(modulePath);
-
-			return "url(" + asset.relative + ")";
-		});
-
-		return modules;
-
-	},
-
-	// 解析宏。
-	resolveMacro: function (content, define) {
-
-		var m = /^\/\/\/\s*#(\w+)(.*?)$/m;
-
-		var r = [];
-
-		while (content) {
-			var value = m.exec(content);
-
-			if (!value) {
-				r.push([content, 0, 0]);
-				break;
-			}
-
-			// 保留匹配部分的左边字符串。
-			r.push([content.substring(0, value.index), 0, 0]);
-
-			r.push(value);
-
-			// 截取匹配部分的右边字符串。
-			content = content.substring(value.index + value[0].length);
-		}
-
-
-		//console.log(r);
-
-		var codes = ['var $out="",$t;'];
-
-		r.forEach(function (value, index) {
-
-			if (!value[1]) {
-				codes.push('$out+=$r[' + index + '][0];');
-				return;
-			}
-
-			var v = value[2].trim();
-
-			switch (value[1]) {
-
-				case 'if':
-					codes.push('if(' + v.replace(/\b([a-z_$]+)\b/ig, "$d.$1") + '){');
-					break;
-
-				case 'else':
-					codes.push('}else{');
-					break;
-
-				case 'elsif':
-					codes.push('}else if(' + v.replace(/\b([a-z_$]+)\b/g, "$d.$1") + '){');
-					break;
-
-				case 'endif':
-				case 'endregion':
-					codes.push('}');
-					break;
-
-				case 'define':
-					var space = v.search(/\s/);
-					if (space === -1) {
-						codes.push('if(!(' + v + ' in $d))$d.' + v + "=true;");
-					} else {
-						codes.push('$d.' + v.substr(0, space) + "=" + v.substr(space) + ";");
-					}
-					break;
-
-				case 'undef':
-					codes.push('delete $d.' + v + ";");
-					break;
-
-				case 'ifdef':
-					codes.push('if(' + v + ' in $d){');
-					break;
-
-				case 'ifndef':
-					codes.push('if(!(' + v + ' in $d)){');
-					break;
-
-				case 'region':
-					codes.push('if($d.' + v + ' !== false){');
-					break;
-
-				case 'rem':
-					break;
-
-				default:
-					codes.push('$out+=$r[' + index + '][0];');
-					break;
-			}
-
-		});
-
-		codes.push('return $out;');
-
-		//	console.log(codes.join(''));
-
-		var fn = new Function("$r", "$d", codes.join(''));
-
-		return fn(r, define);
-	},
-
-	getNow: function () {
-		var d = new Date();
-		d = [d.getFullYear(), '/', d.getMonth() + 1, '/', d.getDate(), ' ', d.getHours(), ':', d.getMinutes()];
-
-		if (d[d.length - 1] < 10) {
-			d[d.length - 1] = '0' + d[d.length - 1];
-		}
-
-		if (d[d.length - 3] < 10) {
-			d[d.length - 3] = '0' + d[d.length - 3];
-		}
-
-		return d.join('');
-	},
-
-	/**
-     * 初始化整个对象。
-     */
-	init: function (buildFile) {
-
-		//this.dplList = ModuleManager.getModuleList('src');
-
-		//this.cacheJsFileName = {};
-
-		//this.cacheCssFileName = {};
-
-		//this.cacheJsRefs = {};
-
-		//this.cacheCssRefs = {};
-
-		//this.cacheJsContent = {};
-
-		//this.cacheCssContent = {};
-
-		//this.cacheRequires = {};
-
-	},
-
-	parseModule: function (modulePath, preModulePath, callback, exclude) {
-
-		var me = this, moduleType = this.getModuleType(modulePath);
-
-		if (!moduleType) {
-			this.parseModule(modulePath + ".css", preModulePath, function () {
-				me.parseModule(modulePath + ".js", preModulePath, callback, exclude);
-			}, exclude);
+var ModuleBuilder = typeof exports === 'object' ? exports : {};
+
+ModuleBuilder.BuildFile = BuildFile;
+
+//#region 载入存档
+
+/**
+ * 载入指定的配置文件。
+ */
+ModuleBuilder.load = function (buildFilePath, callback) {
+    
+	ModuleBuilder.loadContent(buildFilePath, function (error, content) {
+		if (error) {
 			return;
 		}
+		
+		var buildFile = new BuildFile();
 
-		var fullPath = this.getFullPath(modulePath, preModulePath);
+		buildFile.load(content);
 
-		if (this.parsedModules[fullPath]) {
+		callback(buildFile);
 
-			if (callback) {
-				callback();
-			}
+	});
 
-			return;
-		}
+};
 
-		if (!exclude) {
-			this.log("正在分析 " + modulePath + " ...");
-		}
+ModuleBuilder.loadContent = typeof exports === "object" ? function (fullPath, callback) {
+	require("fs").readFile(fullPath, "utf-8", callback);
+} : function (fullPath, callback) {
 
-		this.parsedModules[fullPath] = moduleType;
-
-		if (exclude) {
-
-			// 删除已经添加的不需要的模块。
-			delete this.js[fullPath];
-			delete this.css[fullPath];
-			delete this.assets[fullPath];
-
-			if (callback) {
-				callback();
-			}
-
-			return;
-		}
-
-		var me = this;
-
-		switch (moduleType) {
-
-			case ".js":
-
-				this.loadContent(fullPath, function (error, content) {
-					if (error) {
-						if (callback) {
-							callback();
-						}
-						return;
-					}
-
-					if (me.file.parseMacro) {
-						var defines = {};
-						(me.file.defines || "").split(';').forEach(function (value) {
-							defines[value] = true;
-						});
-
-						try {
-							content = me.resolveMacro(content, defines);
-						} catch (e) {
-							me.error("解析宏错误: " + e.message);
-						}
-					}
-
-					var modules = me.resolveJsRequires(content, modulePath, fullPath);
-
-					me.parseModules(modules, modulePath, function () {
-						me.js[fullPath] = {
-							pre: preModulePath,
-							path: modulePath,
-							fullPath: fullPath,
-							content: modules.content || content
-						};
-
-						if (callback) {
-							callback();
-						}
-					});
-
-				});
-
-				break;
-
-			case ".css":
-
-				this.loadContent(fullPath, function (error, content) {
-					if (error) {
-						if (callback) {
-							callback();
-						}
-						return;
-					}
-
-					var modules = me.resolveCssRequires(content, modulePath, fullPath);
-
-					me.parseModules(modules, modulePath, function () {
-						me.css[fullPath] = {
-							pre: preModulePath,
-							path: modulePath,
-							fullPath: fullPath,
-							content: modules.content || content
-						};
-
-						if (callback) {
-							callback();
-						}
-					});
-
-				});
-
-				break;
-
-			default:
-
-				if (callback) {
-					callback();
-				}
-
-		}
-
-	},
-
-	parseModules: function (modules, preModulePath, callback, exclude) {
-
-		var i = 0, me = this;
-
-		function step() {
-
-			if (i < modules.length) {
-				me.parseModule(modules[i++], preModulePath, step, exclude);
-			} else if (callback) {
-				callback();
-			}
-
-		}
-
-
-		step();
-
-	},
-
-	/**
-     * 开始打包操作。
-     */
-	build: function () {
-
-		var me = this;
-
-		this.start();
-		this.parseModules(this.file.excludes, this.file.path, null, true);
-		this.parseModules(this.file.includes, this.file.path, function () {
-
-			// 排除重复模块。
-			if (me.uniqueBuildFiles) {
-				me.uniqueBuildFiles.split(';').forEach(function (buildFile) {
-
-				});
-			}
-
-			setTimeout(function () {
-				me.complete();
-			}, 0);
-		});
-
-	},
-
-	compressCss: function (code) {
-		code = code.replace(/\n/ig, '');
-		code = code.replace(/(\s){2,}/ig, '$1');
-		code = code.replace(/\t/ig, '');
-		code = code.replace(/\n\}/ig, '\}');
-		code = code.replace(/\n\{\s*/ig, '\{');
-		code = code.replace(/(\S)\s*\}/ig, '$1\}');
-		code = code.replace(/(\S)\s*\{/ig, '$1\{');
-		code = code.replace(/\{\s*(\S)/ig, '\{$1');
-		return code;
-	},
-
-	compressJs: function (value) {
-		var ast = parse(value);
-		ast.figure_out_scope();
-		// https://github.com/mishoo/UglifyJS2#compressor-options
-		ast.transform(Compressor());
-		ast.figure_out_scope();
-		ast.compute_char_frequency();
-		ast.mangle_names();
-		return ast.print_to_string();
-	},
-
-	writeJs: function (writer) {
-
-		for (var hasModule in this.js) {
-
-			this.log("正在生成 js 代码...");
-
-			var comment = this.file.prependComments;
-
-			if (comment) {
-
-				if (comment.indexOf("{time}") >= 0) {
-					comment = comment.replace("{time}", this.getNow());
-				}
-
-				if (comment.indexOf("{source}") >= 0) {
-					comment = comment.replace("{source}", this.file.path || "");
-				}
-
-				if (comment.indexOf("{modules}") >= 0) {
-					var list = [];
-					for (var i = 0; i < this.js.length; i++) {
-						list.push("//#included " + this.js[i].path);
-					}
-					for (var i = 0; i < this.css.length; i++) {
-						list.push("//#included " + this.css[i].path);
-					}
-
-					list.sort();
-					comment = comment.replace("{modules}", list.join(this.file.lineBreak));
-				}
-
-				writer.write(comment);
-				writer.write(this.file.lineBreak);
-
-			}
-
-			for (var i in this.js) {
-				if (this.file.prependModuleComments) {
-					writer.write(this.file.lineBreak);
-					writer.write(this.file.prependModuleComments.replace("{module}", this.js[i].path));
-					writer.write(this.file.lineBreak);
-				}
-
-				var content = this.js[i].content;
-
-				if (this.file.compress) {
-					content = this.compressJs(content);
-				}
-
-				writer.write(content);
-			}
-
-			break;
-		}
-
-	},
-
-	writeCss: function (writer) {
-
-		for (var hasModule in this.css) {
-
-			this.log("正在生成 css 代码...");
-
-			var comment = this.file.prependComments;
-
-			if (comment) {
-
-				if (comment.indexOf("{time}") >= 0) {
-					comment = comment.replace("{time}", this.getNow());
-				}
-
-				if (comment.indexOf("{source}") >= 0) {
-					comment = comment.replace("{source}", this.file.path || "");
-				}
-
-				comment = comment.replace("{modules}", "");
-
-				writer.write(comment);
-
-			}
-
-			for (var i in this.css) {
-				if (this.file.prependModuleComments) {
-					writer.write(this.file.prependModuleComments.replace("{module}", this.css[i].path));
-				}
-
-				var content = this.css[i].content;
-
-				if (this.file.compress) {
-					content = this.compressCss(content);
-				}
-
-				writer.write(content);
-			}
-
-			break;
-		}
-
-
-	}
+	Ajax.get(fullPath, function (content) {
+		callback(null, content);
+	}, function (message, xhrObject) {
+		callback(new Error(message));
+	});
 
 };
 
 //#endregion
 
-if (typeof exports === "object") {
-	exports.ModuleBuilder = ModuleBuilder;
-	exports.BuildFile = BuildFile;
+//#region 编译生成
 
-	ModuleBuilder.prototype.loadContent = function (url, callback) {
-		require("fs").readFile(url, "utf-8", callback);
+/**
+ * 开始打包操作。
+ */
+ModuleBuilder.build = function (options) {
+
+	var buildContext = {
+
+		// 正在编译的文件。
+		file: null,
+
+		// 已经处理过的模块。
+		parsedModules: {},
+
+		// 文件源码缓存。
+		contents: {},
+
+		// 最终得到的 js 依赖项。
+		js: {},
+		
+		// 最终得到的 css 依赖项。
+		css: {},
+		
+		// 最终得到的资源依赖项。
+		assets: {},
+
+		start: function () {
+			this.log("正在打包...");
+		},
+
+		log: function (message) {
+			if(typeof console !== 'undefined' && console.log) {
+				console.log(message);
+			}
+		},
+
+		error: function (message) {
+			if(typeof console !== 'undefined' && console.error) {
+				console.error(message);
+			}
+		},
+
+		complete: function (buildContext) {
+			this.log("打包成功!");
+		}
+
 	};
-}
+
+	for(var key in options) {
+		buildContext[key] = options[key];
+	}
+
+	buildContext.start();
+
+	ModuleBuilder._parseModules(buildContext, buildContext.file.excludes, buildContext.file.path, null, true);
+	ModuleBuilder._parseModules(buildContext, buildContext.file.includes, buildContext.file.path, function () {
+
+		// 排除重复模块。
+		if (buildContext.file.uniqueBuildFiles) {
+			ModuleBuilder._excludeBuildFiles(buildContext, buildContext.file.uniqueBuildFiles.split(';'), function () {
+				buildContext.complete(buildContext);
+			});
+		} else {
+			buildContext.complete(buildContext);
+		}
+
+	});
+
+};
+
+ModuleBuilder._parseModules = function (buildContext, modules, preModulePath, callback, exclude) {
+
+	var i = 0;
+
+	function step() {
+
+		if (i < modules.length) {
+			ModuleBuilder._parseModule(buildContext, modules[i++], preModulePath, step, exclude);
+		} else if (callback) {
+			callback();
+		}
+
+	}
+
+	step();
+
+};
+
+ModuleBuilder._parseModule = function (buildContext, modulePath, preModulePath, callback, exclude) {
+
+	var moduleType = ModuleBuilder.getModuleType(modulePath);
+
+	// 如果一个模块没有指定模块类型，则同时解析对应的 js 和 css 模块。
+	if (!moduleType) {
+		this.parseModule(modulePath + ".css", preModulePath, function () {
+			me.parseModule(modulePath + ".js", preModulePath, callback, exclude);
+		}, exclude);
+		return;
+	}
+
+	callback = callback || function(){};
+
+	// 获取模块的完整路径。
+	var fullPath = ModuleBuilder.getFullPath(modulePath, preModulePath, buildContext.file.basePath);
+
+	// 如果模块已经解析过，则不再解析。
+	if (buildContext.parsedModules[fullPath]) {
+		buildContext.parsedModules[fullPath].push(preModulePath);
+		callback();
+		return;
+	}
+	
+	// 标记模块已经解析了。
+	buildContext.parsedModules[fullPath] = [preModulePath];
+
+	// 如果是需要排除模块，则删除之前添加的全部模块。
+	if (exclude) {
+
+		// 删除已经添加的不需要的模块。
+		delete buildContext.js[fullPath];
+		delete buildContext.css[fullPath];
+		delete buildContext.assets[fullPath];
+
+		callback();
+		return;
+	}
+
+	// 开始正式解析模块。
+	buildContext.log("正在分析 " + modulePath + " ...");
+
+	switch (moduleType) {
+
+		case ".js":
+
+			ModuleBuilder.loadContentWithCache(buildContext, fullPath, function (error, content) {
+				if (error) {
+					callback();
+					return;
+				}
+
+				// 解析宏。
+				if (buildContext.file.parseMacro) {
+					var defines = {};
+					(buildContext.file.defines || "").split(';').forEach(function (value) {
+						defines[value] = true;
+					});
+
+					try {
+						content = ModuleBuilder.resolveMacro(content, defines);
+					} catch (e) {
+						buildContext.error("解析宏错误: " + e.message + "(" + modulePath + ")");
+					}
+				}
+
+				// 解析 js 依赖项。
+				var r = ModuleBuilder.resolveJsRequires(content, buildContext.file);
+				ModuleBuilder._parseModules(buildContext, r.excludes, modulePath, null, true);
+				ModuleBuilder._parseModules(buildContext, r.includes, modulePath, function () {
+					buildContext.js[fullPath] = {
+						pre: preModulePath,
+						path: modulePath,
+						fullPath: fullPath,
+						content: r.content
+					};
+
+					callback();
+				});
+
+			});
+
+			break;
+
+		case ".css":
+
+			ModuleBuilder.loadContentWithCache(buildContext, fullPath, function (error, content) {
+				if (error) {
+					callback();
+					return;
+				}
+
+				var r = ModuleBuilder.resolveCssRequires(content, modulePath, fullPath, buildContext.assets, buildContext.file);
+
+				ModuleBuilder._parseModules(buildContext, r.imports, modulePath, function () {
+					buildContext.css[fullPath] = {
+						pre: preModulePath,
+						path: modulePath,
+						fullPath: fullPath,
+						content: r.content
+					};
+					callback();
+				});
+
+			});
+
+			break;
+
+		case ".less":
+		case ".sass":
+		case ".styue":
+		case ".coffee":
+
+		// 其它模块类型不支持解析。
+		default:
+			callback();
+			break;
+
+	}
+
+};
+
+ModuleBuilder.loadContentWithCache = function (buildContext, fullPath, callback) {
+
+	var contents = buildContext._contents[fullPath];
+
+	if (contents) {
+		callback(contents[0], contents[1]);
+	} else {
+		ModuleBuilder.loadContent(fullPath, function (error, content) {
+			buildContext._contents[fullPath] = [error, content];
+			callback(error, content);
+		});
+
+	}
+};
+
+ModuleBuilder.getModuleType = function (modulePath) {
+	return Path.extname(modulePath);
+};
+
+// 返回模块的完整路径。
+// 在浏览器端，返回 http://localhost/src/module.js
+// 在 node 端，返回 E:/file/src/module.js
+ModuleBuilder.getFullPath = function (modulePath, preModulePath, basePath) {
+
+	modulePath = modulePath.replace(/\\|\/\//g, "/");
+
+	// If modulePath is relative path. Concat modulePath with basePath.
+	if (modulePath.charAt(0) === '.') {
+		modulePath = preModulePath + "/" + modulePath;
+	} else if (!/:\/\//.test(modulePath)) {
+		modulePath = basePath + "/" + modulePath;
+	}
+
+	// Remove "/./" in path
+	modulePath = modulePath.replace(/\/(\.\/)+/g, "/");
+
+	// Remove "/../" in path
+	while (/\/[^\/]+\/\.\.\//.test(modulePath)) {
+		modulePath = modulePath.replace(/\/[^\/]+\/\.\.\//, "/");
+	}
+
+	return modulePath;
+};
+
+// 解析宏。
+ModuleBuilder.resolveMacro = function (content, define) {
+
+	var m = /^\/\/\/\s*#(\w+)(.*?)$/m;
+
+	var r = [];
+
+	while (content) {
+		var value = m.exec(content);
+
+		if (!value) {
+			r.push([content, 0, 0]);
+			break;
+		}
+
+		// 保留匹配部分的左边字符串。
+		r.push([content.substring(0, value.index), 0, 0]);
+
+		r.push(value);
+
+		// 截取匹配部分的右边字符串。
+		content = content.substring(value.index + value[0].length);
+	}
+
+	var codes = ['var $out="",$t;'];
+
+	r.forEach(function (value, index) {
+
+		if (!value[1]) {
+			codes.push('$out+=$r[' + index + '][0];');
+			return;
+		}
+
+		var v = value[2].trim();
+
+		switch (value[1]) {
+
+			case 'if':
+				codes.push('if(' + v.replace(/\b([a-z_$]+)\b/ig, "$d.$1") + '){');
+				break;
+
+			case 'else':
+				codes.push('}else{');
+				break;
+
+			case 'elsif':
+				codes.push('}else if(' + v.replace(/\b([a-z_$]+)\b/g, "$d.$1") + '){');
+				break;
+
+			case 'endif':
+			case 'endregion':
+				codes.push('}');
+				break;
+
+			case 'define':
+				var space = v.search(/\s/);
+				if (space === -1) {
+					codes.push('if(!(' + v + ' in $d))$d.' + v + "=true;");
+				} else {
+					codes.push('$d.' + v.substr(0, space) + "=" + v.substr(space) + ";");
+				}
+				break;
+
+			case 'undef':
+				codes.push('delete $d.' + v + ";");
+				break;
+
+			case 'ifdef':
+				codes.push('if(' + v + ' in $d){');
+				break;
+
+			case 'ifndef':
+				codes.push('if(!(' + v + ' in $d)){');
+				break;
+
+			case 'region':
+				codes.push('if($d.' + v + ' !== false){');
+				break;
+
+			case 'rem':
+				break;
+
+			default:
+				codes.push('$out+=$r[' + index + '][0];');
+				break;
+		}
+
+	});
+
+	codes.push('return $out;');
+
+	var fn = new Function("$r", "$d", codes.join(''));
+
+	return fn(r, define);
+};
+
+ModuleBuilder.resolveJsRequires = function (content, buildFile) {
+
+	var r = {
+		includes: [],
+		excludes: [],
+		content: content
+	};
+
+	switch (buildFile.dependencySyntax) {
+		case "boot":
+			r.content = content.replace(/^(\s*)\/[\/\*]\s*#(\w+)\s+(.*)$/gm, function (all, indent, macro, args) {
+				switch (macro) {
+					case 'include':
+					case 'import':
+					case 'imports':
+						r.includes.push(args);
+						break;
+
+					case 'exclude':
+					case 'included':
+						r.excludes.push(args);
+						break;
+					case 'assert':
+						if (buildFile.addAssert)
+							return indent + ModuleBuilder._replaceAssert(args);
+						break;
+					case 'deprected':
+						if (buildFile.addAssert)
+							return indent + 'if(window.console && console.warn) console.warn("' + (args.replace(/\"/g, "\\\"") || "This function is deprected.") + '")';
+						break;
+				}
+
+				return all;
+			});
+			break;
+
+		//case "amd":
+		//    content.replace(/define\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
+		//        modules.push(args);
+
+		//        return all;
+		//    });
+
+		//case "cmd":
+		//	content.replace(/require\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
+		//		modules.push(args);
+
+		//		return all;
+		//	});
+		//	break;
+
+		//case "yui":
+		//	content.replace(/YUI().use\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
+		//		modules.push(args);
+
+		//		return all;
+		//	});
+		//	break;
+
+		//case "kissy":
+		//	content.replace(/KISSY.use\s*\(\s*(['"])(\w+)\1\s*\)$/g, function (all, indent, macro, args) {
+		//		modules.push(args);
+
+		//		return all;
+		//	});
+		//	break;
+
+
+	}
+
+	return r;
+};
+
+ModuleBuilder._replaceAssert = function (args) {
+
+	// args = exp @fun(args): message
+
+	var at = args.indexOf('@'),
+		expr = at < 0 ? args : args.substr(0, at),
+		defaultMessage = expr,
+		message = at > 0 ? args.substr(at + 1) : "Assertion fails";
+
+	// value:type check
+	if ((at = /^(.+):\s*(\w+)(\??)\s*$/.exec(expr)) && at[2] in typeAsserts) {
+		expr = (at[3] ? at[1] + ' == null || ' : at[1] + ' != null && ') + typeAsserts[at[2]].replace(/\$/g, at[1]);
+		defaultMessage = at[1] + ' should be a(an) ' + at[2] + (at[3] ? ' or undefined.' : '.');
+	}
+
+	if (message.indexOf(':') < 0) {
+		message += ': ' + defaultMessage;
+	}
+
+	return 'if(!(' + (expr || 1) + ') && window.console && console.error) console.error("' + message.replace(/\"/g, "\\\"") + '");';
+},
+
+ModuleBuilder.resolveCssRequires = function (content, modulePath, fullPath, assets, buildFile) {
+	
+	var r = {
+		imports: [],
+		assets: assets,
+		content: content
+	};
+
+	r.content = content.replace(/(@import\s+)?(url\s*\(\s*(['"]?))(.+)(\3\s*\))/ig, function (all, isImport, q1, _, imgUrl, q2) {
+
+		// 不处理绝对位置。
+		if (imgUrl.indexOf(':') >= 0) {
+			return all;
+		}
+
+		if(isImport) {
+			r.imports.push(ModuleBuilder._parseRelativePath(modulePath, imgUrl));
+			return all;
+		}
+
+		// 源图片的原始物理路径。
+		var fromPath = ModuleBuilder._parseRelativePath(fullPath, imgUrl);
+
+		var asset = r.assets[fromPath];
+
+		// 如果这个路径没有拷贝过。
+		if (!asset) {
+
+			// 源图片的文件名。
+			var name = ModuleBuilder._concatPath(Path.dirname(modulePath), Path.basename(imgUrl));
+
+			r.assets[fromPath] = asset = {
+				pres: [],
+				name: name,
+				from: fromPath,
+				relative: ModuleBuilder._concatPath(buildFile.relativeImages, name),
+				to: ModuleBuilder._concatPath(buildFile.images, name)
+			};
+		}
+
+		asset.pres.push(modulePath);
+
+		return q1 + asset.relative + q2  ;
+	});
+
+	return r;
+
+};
+
+ModuleBuilder._parseRelativePath = function (basePath, relativePath) {
+	var protocol = /^\w+:\/\/[^\\]*?(\/|$)/.exec(basePath);
+	if(protocol) {
+		basePath = basePath.substr(protocol[0].length);
+	}
+	basePath = Path.resolve(Path.dirname(basePath), relativePath).replace(/\\/g, "/");
+	return protocol ? protocol[0] + basePath : basePath;
+};
+
+ModuleBuilder._concatPath = function (pathA, pathB) {
+	return pathB.charAt(0) === '/' ? (/\/$/.test(pathA) ? pathA + pathB.substr(1) : (pathA + pathB)) : (/\/$/.test(pathA) ? pathA + pathB : (pathA + "/" + pathB));
+};
+
+ModuleBuilder._excludeBuildFiles = function (buildContext, files, callback) {
+
+	var i = 0, me = this;
+
+	function step() {
+
+		if (i < files.length) {
+			ModuleBuilder.load(ModuleBuilder._parseRelativePath(buildContext.file.path, files[i]), function (buildFile) {
+				ModuleBuilder.build({
+
+					file: buildFile,
+
+					contents: buildContext.contents,
+
+					start: emptyFn,
+
+					complete: function (result) {
+
+						for (var fullPath in result.js) {
+							delete buildContext.js[fullPath];
+						}
+
+						for (var fullPath in result.css) {
+							delete buildContext.css[fullPath];
+						}
+
+						for (var fullPath in result.assets) {
+							delete buildContext.assets[fullPath];
+						}
+
+						step();
+					}
+
+				});
+			});
+
+		} else if (callback) {
+			callback();
+		}
+
+	}
+
+
+	function emptyFn() {
+
+	}
+
+
+	step();
+
+};
+
+//#endregion
+
+//#region 产出输出
+
+ModuleBuilder.writeJs = function (result, writer) {
+
+	for (var hasModule in result.js) {
+
+		result.log("正在生成 js 代码...");
+
+		var comment = result.file.prependComments;
+
+		if (comment) {
+
+			if (comment.indexOf("{time}") >= 0) {
+				comment = comment.replace("{time}", ModuleBuilder._getNow());
+			}
+
+			if (comment.indexOf("{source}") >= 0) {
+				comment = comment.replace("{source}", result.file.path || "");
+			}
+
+			if (comment.indexOf("{modules}") >= 0) {
+				var list = [];
+				for (var i = 0; i < result.js.length; i++) {
+					list.push("//#included " + result.js[i].path);
+				}
+				for (var i = 0; i < result.css.length; i++) {
+					list.push("//#included " + result.css[i].path);
+				}
+
+				list.sort();
+				comment = comment.replace("{modules}", list.join(result.file.lineBreak));
+			}
+
+			writer.write(comment);
+			writer.write(result.file.lineBreak);
+
+		}
+
+		for (var i in result.js) {
+			if (result.file.prependModuleComments) {
+				writer.write(result.file.lineBreak);
+				writer.write(result.file.prependModuleComments.replace("{module}", result.js[i].path));
+				writer.write(result.file.lineBreak);
+			}
+
+			var content = result.js[i].content;
+
+			if (result.file.compress) {
+				content = ModuleBuilder._compressJs(content);
+			}
+
+			writer.write(content);
+		}
+
+		break;
+	}
+
+};
+
+ModuleBuilder.writeCss = function (result, writer) {
+
+	for (var hasModule in result.css) {
+
+		this.log("正在生成 css 代码...");
+
+		var comment = result.file.prependComments;
+
+		if (comment) {
+
+			if (comment.indexOf("{time}") >= 0) {
+				comment = comment.replace("{time}", ModuleBuilder._getNow());
+			}
+
+			if (comment.indexOf("{source}") >= 0) {
+				comment = comment.replace("{source}", result.file.path || "");
+			}
+
+			comment = comment.replace("{modules}", "");
+
+			writer.write(comment);
+
+		}
+
+		for (var i in ModuleBuilder.css) {
+			if (result.file.prependModuleComments) {
+				writer.write(ModuleBuilder.file.prependModuleComments.replace("{module}", result.css[i].path));
+			}
+
+			var content = result.css[i].content;
+
+			if (result.file.compress) {
+				content = ModuleBuilder._compressCss(content);
+			}
+
+			writer.write(content);
+		}
+
+		break;
+	}
+
+
+};
+
+ModuleBuilder._getNow = function () {
+	var d = new Date();
+	d = [d.getFullYear(), '/', d.getMonth() + 1, '/', d.getDate(), ' ', d.getHours(), ':', d.getMinutes()];
+
+	if (d[d.length - 1] < 10) {
+		d[d.length - 1] = '0' + d[d.length - 1];
+	}
+
+	if (d[d.length - 3] < 10) {
+		d[d.length - 3] = '0' + d[d.length - 3];
+	}
+
+	return d.join('');
+};
+
+ModuleBuilder._compressCss = function (code) {
+	return cssmin(code);
+};
+
+ModuleBuilder._compressJs = function (value) {
+	var ast = parse(value);
+	ast.figure_out_scope();
+	// https://github.com/mishoo/UglifyJS2#compressor-options
+	ast.transform(Compressor());
+	ast.figure_out_scope();
+	ast.compute_char_frequency();
+	ast.mangle_names();
+	return ast.print_to_string();
+};
+
+//#endregion
+
+//#endregion

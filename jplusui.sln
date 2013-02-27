@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dark", ".", "{096E64AA-7FFE-40EC-BA51-5B6D4250F2B3}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "jplusui", ".", "{096E64AA-7FFE-40EC-BA51-5B6D4250F2B3}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/FormControlsPart2"
