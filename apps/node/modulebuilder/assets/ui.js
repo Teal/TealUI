@@ -23,7 +23,7 @@ var UI = {
 		Dom.show(Dom.get('step' + UI.currentStep));
 		UI.step(1);
 
-		ModuleBuilder.moduleBasePath = Demo.baseUrl + Demo.Configs.src + "/";
+		ModuleBuilder.moduleBasePath = Demo.baseUrl + Demo.Configs.src;
 
 	},
 
@@ -249,7 +249,7 @@ var UI = {
 		ModuleBuilder.load(buildFilePath, function (buildFile) {
 			UI.currentBuildFile = buildFile;
 
-			buildFile.js = buildFile.css = buildFile.images = buildFile.path = "";
+			buildFile.js = buildFile.css = buildFile.assets = buildFile.path = "";
 
 			UI.step(3);
 		});
@@ -324,6 +324,7 @@ var UI = {
 		UI._showModuleList();
 
 		var buildFile = UI.currentBuildFile;
+		buildFile.path = buildFile.path.replace(Demo.baseUrl, "");
 
 		Dom.get('step3_compress').checked = buildFile.compress;
 		Dom.get('step3_addAssert').checked = buildFile.addAssert;
@@ -331,7 +332,7 @@ var UI = {
 		Dom.get('step3_buildfile').value = buildFile.path;
 		Dom.get('step3_js').value = buildFile.js;
 		Dom.get('step3_css').value = buildFile.css;
-		Dom.get('step3_images').value = buildFile.images;
+		Dom.get('step3_assets').value = buildFile.assets;
 		Dom.get('step3_dependencySyntax').value = buildFile.dependencySyntax;
 		Dom.get('step3_uniqueBuildFiles').value = buildFile.uniqueBuildFiles;
 		Dom.get('step3_parseMacro').checked = buildFile.parseMacro;
@@ -373,15 +374,14 @@ var UI = {
 
 	_updateBuildFile: function () {
 		var buildFile = UI.currentBuildFile;
-		var defaultPath = buildFile.path;
 
 		buildFile.compress = Dom.get('step3_compress').checked;
 		buildFile.addAssert = Dom.get('step3_addAssert').checked;
 
-		buildFile.path = Dom.get('step3_buildfile').value || defaultPath;
+		buildFile.path = Dom.get('step3_buildfile').value;
 		buildFile.js = Dom.get('step3_js').value;
 		buildFile.css = Dom.get('step3_css').value;
-		buildFile.images = Dom.get('step3_images').value;
+		buildFile.assets = Dom.get('step3_assets').value;
 		buildFile.dependencySyntax = Dom.get('step3_dependencySyntax').value;
 		buildFile.uniqueBuildFiles = Dom.get('step3_uniqueBuildFiles').value;
 		buildFile.parseMacro = Dom.get('step3_parseMacro').checked;
@@ -648,8 +648,15 @@ var UI = {
 	// 开始打包。
 	_buildInternal: function () {
 
+		var needXFly = UI.currentBuildFile.js || UI.currentBuildFile.css || UI.currentBuildFile.assets || UI.currentBuildFile.path;
+
+		if (needXFly && !UI.usingXFly) {
+			UI._alertOpenXFlyError();
+			needXFly = false;
+		}
+
 		// 基于服务器生成。
-		if (UI.usingXFly && 0) {
+		if (needXFly) {
 
 			var form = Dom.get('step4_form');
 			Dom.show(form);
@@ -661,12 +668,12 @@ var UI = {
 			var doc = form.contentDocument;
 
 			doc.open();
-			doc.write('<form id="form" method="post" action="' + Demo.baseUrl + Demo.Configs.apps + '/node/modulebuilder/server/api.njs?action=build"><textarea id="data" name="data"></textarea></form>');
+			doc.write('<form id="form" method="post" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulebuilder/server/api.njs?action=build"><textarea id="data" name="data"></textarea></form>');
 			doc.close();
 
 			doc.getElementById('data').value = JSON.stringify(UI.currentBuildFile);
 			doc.getElementById('form').submit();
-
+			
 		} else {
 
 			ModuleBuilder.build({
@@ -684,8 +691,7 @@ var UI = {
 
 				complete: function (result) {
 
-					var me = this;
-					me.log("正在压缩代码...");
+					result.log("正在合并代码...");
 
 					setTimeout(function () {
 
@@ -713,7 +719,7 @@ var UI = {
 
 								UI._showResultForm('step4_assets', assets.join('\r\n'));
 
-								me.log("打包成功 !");
+								result.log("打包成功 !");
 
 							}, 0);
 

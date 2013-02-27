@@ -15,7 +15,7 @@ function BuildFile() {
 	this.path = '';
 	this.js = '';
 	this.css = '';
-	this.images = '';
+	this.assets = '';
 	this.src = '';
 	this.dependencySyntax = 'boot';
 	this.uniqueBuildFiles = '';
@@ -663,6 +663,7 @@ ModuleBuilder.resolveJsRequires = function (content, buildFile) {
 
 	}
 
+
 	return r;
 };
 
@@ -704,12 +705,12 @@ ModuleBuilder.resolveCssRequires = function (content, modulePath, fullPath, asse
 		}
 
 		if(isImport) {
-			r.imports.push(ModuleBuilder._parseRelativePath(modulePath, imgUrl));
+			r.imports.push(ModuleBuilder.parseRelativePath(modulePath, imgUrl));
 			return all;
 		}
 
 		// 源图片的原始物理路径。
-		var fromPath = ModuleBuilder._parseRelativePath(fullPath, imgUrl);
+		var fromPath = ModuleBuilder.parseRelativePath(fullPath, imgUrl);
 
 		var asset = r.assets[fromPath];
 
@@ -724,7 +725,7 @@ ModuleBuilder.resolveCssRequires = function (content, modulePath, fullPath, asse
 				name: name,
 				from: fromPath,
 				relative: ModuleBuilder._concatPath(buildFile.relativeImages, name),
-				to: ModuleBuilder._concatPath(buildFile.images, name)
+				to: ModuleBuilder._concatPath(buildFile.assets, name)
 			};
 		}
 
@@ -737,7 +738,7 @@ ModuleBuilder.resolveCssRequires = function (content, modulePath, fullPath, asse
 
 };
 
-ModuleBuilder._parseRelativePath = function (basePath, relativePath) {
+ModuleBuilder.parseRelativePath = function (basePath, relativePath) {
 	var protocol = /^\w+:\/\/[^\\]*?(\/|$)/.exec(basePath);
 	if(protocol) {
 		basePath = basePath.substr(protocol[0].length);
@@ -757,7 +758,7 @@ ModuleBuilder._excludeBuildFiles = function (buildContext, files, callback) {
 	function step() {
 
 		if (i < files.length) {
-			ModuleBuilder.load(ModuleBuilder._parseRelativePath(buildContext.file.path, files[i]), function (buildFile) {
+			ModuleBuilder.load(ModuleBuilder.parseRelativePath(buildContext.file.path, files[i]), function (buildFile) {
 				ModuleBuilder.build({
 
 					file: buildFile,
@@ -826,10 +827,10 @@ ModuleBuilder.writeJs = function (result, writer) {
 
 			if (comment.indexOf("{modules}") >= 0) {
 				var list = [];
-				for (var i = 0; i < result.js.length; i++) {
+				for (var i in result.js) {
 					list.push("//#included " + result.js[i].path);
 				}
-				for (var i = 0; i < result.css.length; i++) {
+				for (var i in result.css) {
 					list.push("//#included " + result.css[i].path);
 				}
 
