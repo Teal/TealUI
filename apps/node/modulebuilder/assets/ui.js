@@ -122,14 +122,6 @@ var UI = {
 
 				break;
 
-			case 4:
-
-				Dom.hide(Dom.get('step4_done'));
-
-				UI._buildInternal();
-
-				break;
-
 		}
 
 		// 从左到右渐变。
@@ -259,7 +251,7 @@ var UI = {
 	buildBuildFile: function (buildFilePath) {
 		ModuleBuilder.load(buildFilePath, function (buildFile) {
 			UI.currentBuildFile = buildFile;
-			UI.step(4);
+			UI._buildInternal();
 		});
 	},
 
@@ -620,7 +612,7 @@ var UI = {
 		}
 
 		UI._updateBuildFile();
-		UI.step(4);
+		UI._buildInternal();
 
 	},
 
@@ -637,16 +629,94 @@ var UI = {
 		}
 
 		UI._updateBuildFile();
+
 		UI.step(4);
 
-	},
+		var form = Dom.get('step4_result');
+		Dom.hide(Dom.get('step4_done'));
+		Dom.hide(Dom.get('step4_form'));
+		Dom.show(form);
 
-	showBackButton: function () {
-		alert('aa');
+		ModuleBuilder.build({
+
+			file: UI.currentBuildFile,
+
+			log: function (info) {
+				//  console.info(info);
+				Dom.get('step4_tip').innerHTML = Demo.Utils.encodeHTML(info);
+			},
+
+			error: function (error) {
+				Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
+			},
+
+			complete: function (result) {
+
+				result.log("正在合并代码...");
+
+				Dom.show(Dom.get('step4_done'));
+				
+				var r = [];
+				
+				for(var key in result.css) {
+					r.push('<link rel="stylesheet" type="text/css" href="' + Demo.baseUrl + Demo.Configs.src + '/' + result.css[key].path + '">');
+				}
+				
+				for(var key in result.js) {
+					r.push('<script type="text/javascript" src="' + Demo.baseUrl + Demo.Configs.src + '/' + result.js[key].path + '"></script>');
+				}
+
+				UI._showResultForm('step4_js', '');
+				UI._showResultForm('step4_css', '');
+				UI._showResultForm('step4_assets', '');
+				UI._showResultForm('step4_html', r.join('\r\n'));	
+
+				result.log("分析依赖完成!");		
+	
+			}
+
+		});
+
+
+	},
+	
+	save: function (){
+		
+		UI.step(4);
+
+		if (!UI.usingXFly) {
+			UI._alertOpenXFlyError();
+		} else {
+			UI._postApi('save');
+		}
+		
+	},
+	
+	_postApi: function (action, data){
+	
+		var form = Dom.get('step4_form');
+		Dom.hide(Dom.get('step4_result'));
+		Dom.show(form);
+
+		form.innerHTML = '<iframe src="about:blank" frameborder="0" style="width:100%" height="200px"></iframe>';
+
+		form = form.firstChild;
+
+		var doc = form.contentDocument;
+
+		doc.open();
+		doc.write('<form id="form" method="post" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulebuilder/server/api.njs?action=' + action + '" style="visibility:hidden;"><textarea id="data" name="data"></textarea></form>');
+		doc.close();
+
+		doc.getElementById('data').value = JSON.stringify(UI.currentBuildFile);
+		doc.getElementById('form').submit();
+		
 	},
 
 	// 开始打包。
 	_buildInternal: function () {
+		
+		UI.step(4);
 
 		var needXFly = UI.currentBuildFile.js || UI.currentBuildFile.css || UI.currentBuildFile.assets || UI.currentBuildFile.path;
 
@@ -657,24 +727,13 @@ var UI = {
 
 		// 基于服务器生成。
 		if (needXFly) {
-
-			var form = Dom.get('step4_form');
-			Dom.show(form);
-
-			form.innerHTML = '<iframe src="about:blank"></iframe>';
-
-			form = form.firstChild;
-
-			var doc = form.contentDocument;
-
-			doc.open();
-			doc.write('<form id="form" method="post" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulebuilder/server/api.njs?action=build"><textarea id="data" name="data"></textarea></form>');
-			doc.close();
-
-			doc.getElementById('data').value = JSON.stringify(UI.currentBuildFile);
-			doc.getElementById('form').submit();
-			
+			UI._postApi('build');
 		} else {
+
+			var form = Dom.get('step4_result');
+			Dom.hide(Dom.get('step4_done'));
+			Dom.hide(Dom.get('step4_form'));
+			Dom.show(form);
 
 			ModuleBuilder.build({
 
@@ -692,6 +751,7 @@ var UI = {
 				complete: function (result) {
 
 					result.log("正在合并代码...");
+					UI._showResultForm('step4_html', '');
 
 					setTimeout(function () {
 

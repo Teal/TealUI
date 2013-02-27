@@ -20,9 +20,10 @@ switch(request.queryString.action){
 		writeJsonp(context, "");
 		response.end();
 		break;
+	case 'save':
+		save(context, request.form.data);
+		break;
 	case 'build':
-		//var IO = require('utilskit/io');
-		//IO.deleteFile(Demo.basePath + request.queryString.path);
 		build(context, request.form.data);
 		break;
 	default:
@@ -42,13 +43,12 @@ function writeJsonp(context, data) {
 
 }
 
-function build(context, data){
+
+function save(context, data){
 	
 	var ModuleBuilder = require('../assets/modulebuilder.js');
 
 	data = JSON.parse(data);
-
-	context.response.buffer = false;
 
 	ModuleBuilder.moduleBasePath = Demo.basePath + Demo.Configs.src;
 	
@@ -58,6 +58,38 @@ function build(context, data){
 	
 	if(p) {
 		p = Path.resolve(Demo.basePath, p.replace(Demo.Configs.serverBaseUrl, ""));
+		
+		require('utilskit/io').writeFile(p, ModuleBuilder.BuildFile.prototype.save.call(data), Demo.Configs.encoding);
+		
+		context.response.write("<style>  body{font-size: 12px;}</style>保存成功!");
+	
+	}
+	
+	context.response.end();
+}
+
+function build(context, data){
+
+
+	context.response.bufferOutput = false;
+
+	context.response.write('<style>  body{font-size: 12px;}</style><div id="step4_tip">正在准备生成...</div><script>function log(m){document.getElementById(\"step4_tip\").innerHTML = m}</script>');   
+	
+	var ModuleBuilder = require('../assets/modulebuilder.js');
+
+	data = JSON.parse(data);
+
+	ModuleBuilder.moduleBasePath = Demo.basePath + Demo.Configs.src;
+	
+	var Path = require('path');
+
+	var p = data.path;
+	
+	if(p) {
+		p = Path.resolve(Demo.basePath, p.replace(Demo.Configs.serverBaseUrl, ""));
+		
+		require('utilskit/io').writeFile(p, ModuleBuilder.BuildFile.prototype.save.call(data), Demo.Configs.encoding);
+		
 	} else {
 		p = Demo.basePath;
 	}
@@ -81,9 +113,13 @@ function build(context, data){
 
 		file: data,
 
-		// log: function(){
+		log: function(message){
+			context.response.write("<script>log('" + message + "');</script>");
+		},
 
-		// }
+		error: function(message){
+			context.response.write("" + message + "<br>");
+		},
 
 		complete: function(result){
 			
@@ -96,6 +132,7 @@ function build(context, data){
 					});
 					ModuleBuilder.writeJs(result, stream);
 					stream.end();
+					context.response.write("生成 js 文件：<span>" + result.file.js + "</span><br>");
 				}
 
 				if(result.file.css && !isEmpty(result.css)) {
@@ -105,6 +142,7 @@ function build(context, data){
 					});
 					ModuleBuilder.writeCss(result, stream);
 					stream.end();
+					context.response.write("生成 css 文件：<span>" + result.file.css + "</span><br>");
 				}
 
 				if(result.file.assets) {
@@ -112,11 +150,15 @@ function build(context, data){
 					for(var key in result.assets){
 						IO.copyFile(result.assets[key].from,  result.assets[key].to);
 					}
+					
+					
+					context.response.write("生成图片文件夹：<span>" + result.file.assets + "</span><br>");
 				}
 
-				result.log("生成完成");
+				result.log("生成完成!");
+				
 
-			}catch(e){
+			} catch(e) {
 				result.error(e.message);
 			}
 

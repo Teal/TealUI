@@ -57,7 +57,7 @@ BuildFile.prototype.load = function (content) {
 
 			// 如果结尾是 \， 则继续解析。
 			while(/\\$/.test(args) && i + 1 < lines.length){
-				args += '\r\n' + lines[++i].replace(/^\s*\/[\/\*]\s*#?/, "");
+				args = args.substr(0, args.length - 1) + '\r\n' + lines[++i].replace(/^\s*\/[\/\*]\s*#?/, "");
 			}
 
 			if(processMarco(macro, args)){
@@ -927,14 +927,32 @@ ModuleBuilder._getNow = function () {
 };
 
 ModuleBuilder._compressCss = function (code) {
+	
+	if(typeof cssmin !== 'function') {
+		cssmin = require('cssmin/cssmin').cssmin;
+	}
+	
 	return cssmin(code);
 };
 
 ModuleBuilder._compressJs = function (value) {
+	
+	if(typeof parse !== 'function') {
+		parse = require('uglify-js').parse;
+		Compressor = require('uglify-js').Compressor;
+	}
+	
+	
+	
 	var ast = parse(value);
 	ast.figure_out_scope();
 	// https://github.com/mishoo/UglifyJS2#compressor-options
-	ast.transform(Compressor());
+	
+	var compressor = Compressor();
+	
+	compressor.options.warnings = false;
+	
+	ast.transform(compressor);
 	ast.figure_out_scope();
 	ast.compute_char_frequency();
 	ast.mangle_names();
