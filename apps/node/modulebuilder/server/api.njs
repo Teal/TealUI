@@ -20,11 +20,10 @@ switch(request.queryString.action){
 		writeJsonp(context, "");
 		response.end();
 		break;
-	case 'copybuildfile':
+	case 'build':
 		//var IO = require('utilskit/io');
 		//IO.deleteFile(Demo.basePath + request.queryString.path);
-		writeJsonp(context, "");
-		response.end();
+		build(context, request.form.data);
 		break;
 }
 
@@ -42,5 +41,35 @@ function writeJsonp(context, data) {
     } else {
         context.response.write(data);
     }
+
+}
+
+function build(context, data){
+	
+	var ModuleBuilder = require('../assets/modulebuilder.js');
+
+	data = JSON.parse(data);
+
+	context.response.buffer = false;
+
+	ModuleBuilder.moduleBasePath = Demo.basePath + Demo.apps;
+
+
+
+
+	ModuleBuilder.build({
+
+		file: data,
+
+		// log: function(){
+
+		// }
+
+		complete: function(){
+			context.response.end();
+		}
+
+	});
+
 
 }

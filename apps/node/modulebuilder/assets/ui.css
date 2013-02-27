@@ -82,7 +82,7 @@
     font-size: 20px;
 }
 
-textarea.code {
+html textarea.code {
     width: 470px;
 }
 

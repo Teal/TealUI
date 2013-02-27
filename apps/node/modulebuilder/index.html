@@ -90,7 +90,7 @@
                     <div class="ui-formfield">
                         <label class="ui-formfield-label">配置文件保存位置:</label>
                         <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_buildfile" placeholder="输入.build文件位置(相对于 ../apps/ 文件夹)" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
+                            <input type="text" value="" class="ui-textbox large" id="step3_buildfile" placeholder="输入配置文件位置(相对于 ../apps/ 文件夹)" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
                     </div>
 
@@ -121,14 +121,6 @@
                         <label class="ui-formfield-label">排除相同模块:</label>
                         <div class="ui-formfield-container">
                             <input type="text" class="ui-textbox large" id="step3_uniqueBuildFiles" placeholder="输入配置文件位置(相对于配置文件保存位置)。多个位置用;隔开" autocomplete="off" title="如果填了此内容，对应的打包配置内已经包含的模块都将被排除。这可以确保 2 个不同的打包方案生成的文件里不包含重复的模块代码。">
-                        </div>
-
-                    </div>
-
-                    <div class="ui-formfield">
-                        <label class="ui-formfield-label">模块源文件位置:</label>
-                        <div class="ui-formfield-container">
-                            <input type="text" value="" class="ui-textbox large" id="step3_src" placeholder="输入全部模块源码位置(相对于配置文件保存位置)" autocomplete="off" title="如果填了此内容，将从指定文件夹中搜索模块源码。如果需要访问电脑上的任意文件夹位置，则需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
                         </div>
 
                     </div>

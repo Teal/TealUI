@@ -23,6 +23,8 @@ var UI = {
 		Dom.show(Dom.get('step' + UI.currentStep));
 		UI.step(1);
 
+		ModuleBuilder.moduleBasePath = Demo.baseUrl + Demo.Configs.src + "/";
+
 	},
 
 	// 切换到不同的页面。
@@ -160,10 +162,11 @@ var UI = {
 
 			for (var i = 0; i < data.length; i++) {
 
-				var path = Demo.baseUrl + data[i],
+				var path = data[i],
                     name = path;
 
 				if (!fromOpenList) {
+					path = Demo.baseUrl + path;
 					name = Path.basename(name, ".js");
 				}
 
@@ -243,17 +246,19 @@ var UI = {
 
 	// 复制指定的打包方案。
 	copyBuildFile: function (buildFilePath) {
-		UI._api('copybuildfile', {
-			path: buildFilePath,
-		}, function (newBuildFilePath) {
-			UI.openBuildFile(newBuildFilePath);
+		ModuleBuilder.load(buildFilePath, function (buildFile) {
+			UI.currentBuildFile = buildFile;
+
+			buildFile.js = buildFile.css = buildFile.images = buildFile.path = "";
+
+			UI.step(3);
 		});
 	},
 
 	// 编译指定的打包方案。
 	buildBuildFile: function (buildFilePath) {
-		var buildFile = UI.currentBuildFile = new BuildFile();
-		buildFile.load(buildFilePath, function () {
+		ModuleBuilder.load(buildFilePath, function (buildFile) {
+			UI.currentBuildFile = buildFile;
 			UI.step(4);
 		});
 	},
@@ -282,6 +287,10 @@ var UI = {
 
 	_openOrBuildBuildFileOf: function (callback) {
 		UI._checkValue('step2_url', function (buildFilePath) {
+
+			if (/^\w+\//.test(buildFilePath)) {
+				buildFilePath = "/" + buildFilePath;
+			}
 
 			if (window.localStorage) {
 				var data = (localStorage.moduleBuilderOpenList || "").split(';');
@@ -316,20 +325,19 @@ var UI = {
 
 		var buildFile = UI.currentBuildFile;
 
-		buildFile.compress = Dom.get('step3_compress').checked;
-		buildFile.addAssert = Dom.get('step3_addAssert').checked;
+		Dom.get('step3_compress').checked = buildFile.compress;
+		Dom.get('step3_addAssert').checked = buildFile.addAssert;
 
-		buildFile.path = Dom.get('step3_buildfile').value;
-		buildFile.js = Dom.get('step3_js').value;
-		buildFile.css = Dom.get('step3_css').value;
-		buildFile.images = Dom.get('step3_images').value;
-		buildFile.src = Dom.get('step3_src').value;
-		buildFile.dependencySyntax = Dom.get('step3_dependencySyntax').value;
-		buildFile.uniqueBuildFiles = Dom.get('step3_uniqueBuildFiles').value;
-		buildFile.parseMacro = Dom.get('step3_parseMacro').checked;
-		buildFile.defines = Dom.get('step3_defines').value;
-		buildFile.prependComments = Dom.get('step3_prependComments').value;
-		buildFile.prependModuleComments = Dom.get('step3_prependModuleComments').value;
+		Dom.get('step3_buildfile').value = buildFile.path;
+		Dom.get('step3_js').value = buildFile.js;
+		Dom.get('step3_css').value = buildFile.css;
+		Dom.get('step3_images').value = buildFile.images;
+		Dom.get('step3_dependencySyntax').value = buildFile.dependencySyntax;
+		Dom.get('step3_uniqueBuildFiles').value = buildFile.uniqueBuildFiles;
+		Dom.get('step3_parseMacro').checked = buildFile.parseMacro;
+		Dom.get('step3_defines').value = buildFile.defines;
+		Dom.get('step3_prependComments').value = buildFile.prependComments;
+		Dom.get('step3_prependModuleComments').value = buildFile.prependModuleComments;
 
 	},
 
@@ -365,8 +373,21 @@ var UI = {
 
 	_updateBuildFile: function () {
 		var buildFile = UI.currentBuildFile;
+		var defaultPath = buildFile.path;
 
-		buildFile.basePath = Demo.baseUrl + Demo.Configs.src;
+		buildFile.compress = Dom.get('step3_compress').checked;
+		buildFile.addAssert = Dom.get('step3_addAssert').checked;
+
+		buildFile.path = Dom.get('step3_buildfile').value || defaultPath;
+		buildFile.js = Dom.get('step3_js').value;
+		buildFile.css = Dom.get('step3_css').value;
+		buildFile.images = Dom.get('step3_images').value;
+		buildFile.dependencySyntax = Dom.get('step3_dependencySyntax').value;
+		buildFile.uniqueBuildFiles = Dom.get('step3_uniqueBuildFiles').value;
+		buildFile.parseMacro = Dom.get('step3_parseMacro').checked;
+		buildFile.defines = Dom.get('step3_defines').value;
+		buildFile.prependComments = Dom.get('step3_prependComments').value;
+		buildFile.prependModuleComments = Dom.get('step3_prependModuleComments').value;
 	},
 
 	_getModuleExampleUrl: function (module) {
@@ -523,7 +544,7 @@ var UI = {
 		}
 
 		function checkFile(modulePath, callback) {
-			var fullPath = ModuleBuilder.getFullPath(modulePath, file.path, file.basePath);
+			var fullPath = ModuleBuilder.getFullPath(modulePath, file.path, file.moduleBasePath);
 			ModuleBuilder.loadContent(fullPath, function (error, content) {
 				if (!error) {
 					r[modulePath] = fullPath;
@@ -555,7 +576,7 @@ var UI = {
 		}
 
 		function checkFile(modulePath, callback) {
-			var fullPath = ModuleBuilder.getFullPath(modulePath, file.path, file.basePath);
+			var fullPath = ModuleBuilder.getFullPath(modulePath, file.path, file.moduleBasePath);
 			ModuleBuilder.loadContent(fullPath, function (error, content) {
 				if (!error) {
 					var type = ModuleBuilder.getModuleType(modulePath);
@@ -628,7 +649,7 @@ var UI = {
 	_buildInternal: function () {
 
 		// 基于服务器生成。
-		if (UI.usingXFly) {
+		if (UI.usingXFly && 0) {
 
 			var form = Dom.get('step4_form');
 			Dom.show(form);
@@ -640,80 +661,71 @@ var UI = {
 			var doc = form.contentDocument;
 
 			doc.open();
-			doc.write('<form id="form" action="' + Demo.baseUrl + Demo.Configs.apps + '/apps/node/modulebuilder/server/api.njs?action=build"><textarea id="data"></textarea></form>');
+			doc.write('<form id="form" method="post" action="' + Demo.baseUrl + Demo.Configs.apps + '/node/modulebuilder/server/api.njs?action=build"><textarea id="data" name="data"></textarea></form>');
 			doc.close();
 
 			doc.getElementById('data').value = JSON.stringify(UI.currentBuildFile);
 			doc.getElementById('form').submit();
 
-		}
+		} else {
 
+			ModuleBuilder.build({
 
+				file: UI.currentBuildFile,
 
+				log: function (info) {
+					//  console.info(info);
+					Dom.get('step4_tip').innerHTML = Demo.Utils.encodeHTML(info);
+				},
 
-		UI.buildInternal({
+				error: function (error) {
+					Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
+				},
 
-			file: UI.currentBuildFile,
+				complete: function (result) {
 
-			log: function (info) {
-				console.info(info);
-				Dom.get('step4_tip').innerHTML = Demo.Utils.encodeHTML(info);
-			},
-
-			error: function (error) {
-				Dom.get('step4_error').innerHTML += Demo.Utils.encodeHTML(error);
-			},
-
-			complete: function () {
-
-				var me = this;
-				me.log("正在压缩代码...");
-
-				setTimeout(function () {
-
-					Dom.show(Dom.get('step4_done'));
-
-					var jsStream = new StringStream();
-					var cssStream = new StringStream();
-
-					me.writeJs(jsStream);
+					var me = this;
+					me.log("正在压缩代码...");
 
 					setTimeout(function () {
-						jsStream.end();
-						showResultForm('step4_js', jsStream.toString());
 
-						me.writeCss(cssStream);
-						cssStream.end();
-						showResultForm('step4_css', cssStream.toString());
+						Dom.show(Dom.get('step4_done'));
+
+						var jsStream = new StringStream();
+						var cssStream = new StringStream();
+
+						ModuleBuilder.writeJs(result,   jsStream);
 
 						setTimeout(function () {
-							var assets = [];
+							jsStream.end();
+							UI._showResultForm('step4_js', jsStream.toString());
 
-							for (var images in me.assets) {
-								assets.push(me.assets[images].relative);
-							}
+							ModuleBuilder.writeCss(result,   cssStream);
+							cssStream.end();
+							UI._showResultForm('step4_css', cssStream.toString());
 
-							showResultForm('step4_assets', assets.join('\r\n'));
+							setTimeout(function () {
+								var assets = [];
 
-							me.log("打包成功 !");
+								for (var images in result.assets) {
+									assets.push(result.assets[images].relative);
+								}
+
+								UI._showResultForm('step4_assets', assets.join('\r\n'));
+
+								me.log("打包成功 !");
+
+							}, 0);
 
 						}, 0);
 
 					}, 0);
 
-				}, 0);
-			}
-		});
+				}
 
-		//var mb = new ModuleBuilder();
+			});
 
-		//for (var key in options) {
-		//    mb[key] = options[key];
-		//}
-
-		//mb.build();
-
-		//return mb;
+		}
 
 	},
 

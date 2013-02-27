@@ -30,7 +30,7 @@ function BuildFile() {
                                  ' ********************************************************/';
 
 	this.lineBreak = "\r\n";
-	this.basePath = "";
+	this.moduleBasePath = "";
 
 	this.relativeImages = "";
 }
@@ -202,6 +202,10 @@ var ModuleBuilder = typeof exports === 'object' ? exports : {};
 
 ModuleBuilder.BuildFile = BuildFile;
 
+
+// 模块基础路径。
+ModuleBuilder.moduleBasePath = "";
+
 //#region 载入存档
 
 /**
@@ -215,9 +219,9 @@ ModuleBuilder.load = function (buildFilePath, callback) {
 		}
 		
 		var buildFile = new BuildFile();
-
 		buildFile.load(content);
 
+		buildFile.path = buildFilePath;
 		callback(buildFile);
 
 	});
@@ -292,7 +296,7 @@ ModuleBuilder.build = function (options) {
 	}
 
 	buildContext.start();
-
+	
 	ModuleBuilder._parseModules(buildContext, buildContext.file.excludes, buildContext.file.path, null, true);
 	ModuleBuilder._parseModules(buildContext, buildContext.file.includes, buildContext.file.path, function () {
 
@@ -333,8 +337,8 @@ ModuleBuilder._parseModule = function (buildContext, modulePath, preModulePath, 
 
 	// 如果一个模块没有指定模块类型，则同时解析对应的 js 和 css 模块。
 	if (!moduleType) {
-		this.parseModule(modulePath + ".css", preModulePath, function () {
-			me.parseModule(modulePath + ".js", preModulePath, callback, exclude);
+		ModuleBuilder._parseModule(buildContext, modulePath + ".css", preModulePath, function () {
+			ModuleBuilder._parseModule(buildContext, modulePath + ".js", preModulePath, callback, exclude);
 		}, exclude);
 		return;
 	}
@@ -342,7 +346,7 @@ ModuleBuilder._parseModule = function (buildContext, modulePath, preModulePath, 
 	callback = callback || function(){};
 
 	// 获取模块的完整路径。
-	var fullPath = ModuleBuilder.getFullPath(modulePath, preModulePath, buildContext.file.basePath);
+	var fullPath = ModuleBuilder.getFullPath(modulePath, preModulePath, buildContext.file.moduleBasePath);
 
 	// 如果模块已经解析过，则不再解析。
 	if (buildContext.parsedModules[fullPath]) {
@@ -451,13 +455,13 @@ ModuleBuilder._parseModule = function (buildContext, modulePath, preModulePath, 
 
 ModuleBuilder.loadContentWithCache = function (buildContext, fullPath, callback) {
 
-	var contents = buildContext._contents[fullPath];
+	var contents = buildContext.contents[fullPath];
 
 	if (contents) {
 		callback(contents[0], contents[1]);
 	} else {
 		ModuleBuilder.loadContent(fullPath, function (error, content) {
-			buildContext._contents[fullPath] = [error, content];
+			buildContext.contents[fullPath] = [error, content];
 			callback(error, content);
 		});
 
@@ -479,7 +483,7 @@ ModuleBuilder.getFullPath = function (modulePath, preModulePath, basePath) {
 	if (modulePath.charAt(0) === '.') {
 		modulePath = preModulePath + "/" + modulePath;
 	} else if (!/:\/\//.test(modulePath)) {
-		modulePath = basePath + "/" + modulePath;
+		modulePath = (basePath || ModuleBuilder.moduleBasePath) + "/" + modulePath;
 	}
 
 	// Remove "/./" in path
@@ -863,7 +867,7 @@ ModuleBuilder.writeCss = function (result, writer) {
 
 	for (var hasModule in result.css) {
 
-		this.log("正在生成 css 代码...");
+		result.log("正在生成 css 代码...");
 
 		var comment = result.file.prependComments;
 
@@ -880,12 +884,15 @@ ModuleBuilder.writeCss = function (result, writer) {
 			comment = comment.replace("{modules}", "");
 
 			writer.write(comment);
+			writer.write(result.file.lineBreak);
 
 		}
 
-		for (var i in ModuleBuilder.css) {
+		for (var i in result.css) {
 			if (result.file.prependModuleComments) {
-				writer.write(ModuleBuilder.file.prependModuleComments.replace("{module}", result.css[i].path));
+				writer.write(result.file.lineBreak);
+				writer.write(result.file.prependModuleComments.replace("{module}", result.css[i].path));
+				writer.write(result.file.lineBreak);
 			}
 
 			var content = result.css[i].content;
