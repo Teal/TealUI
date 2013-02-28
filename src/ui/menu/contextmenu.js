@@ -1,1 +1,4 @@
-/** * @author  *///#include ui/menu/menu.jsvar ContextMenu = Menu.extend({		floating: true,		setControl: function(ctrl){	    ctrl.on('contextmenu', this.handlerContextMenu, this);				return this;	},		handlerContextMenu: function(e){ 		this.showAt(e.pageX, e.pageY);		e.preventDefault();		e.stopPropagation();	}	});
+/** * @author  *///#include ui/menu/menu.jsvar ContextMenu = Menu.extend({		floating: true,		setContextMenu: function (ctrl) {		Dom.on(ctrl.elem || ctrl, 'contextmenu', this.handlerContextMenu, this);				return this;	},		handlerContextMenu: function (e) {		this.showAt({
+			x: e.pageX,
+			y: e.pageY
+		});		e.preventDefault();		e.stopPropagation();	}	});

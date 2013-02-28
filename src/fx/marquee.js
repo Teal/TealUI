@@ -53,17 +53,17 @@ var Marquee = Class({
 	 */
 	
 	_getWidthBefore: function(ctrl, xy){
-		return ctrl && (ctrl = ctrl.prev()).length ? Dom.calc(ctrl[0], xy) + this._getWidthBefore(ctrl, xy) : 0;
+		return ctrl && (ctrl = Dom.prev(ctrl)) ? Dom.calc(ctrl, xy) + this._getWidthBefore(ctrl, xy) : 0;
 	},
 	
 	_getScrollByIndex: function (value) {
-		return this._getWidthBefore(this.dom.child(value), this._horizonal ? 'marginLeft+marginRight+width' : 'marginTop+marginBottom+height');
+		return this._getWidthBefore(Dom.child(this.elem, value), this._horizonal ? 'marginLeft+marginRight+width' : 'marginTop+marginBottom+height');
 	},
 	
 	_getTotalSize: function(){
 		var size = 0;
 		var xy = this._horizonal ? "marginLeft+marginRight+width" : "marginTop+marginBottom+height";
-		this.dom.children().each(function (child) {
+		Dom.children(this.elem).each(function (child) {
 			size += Dom.calc(child, xy);
 		});
 		return size;
@@ -90,7 +90,7 @@ var Marquee = Class({
 
 			obj = {};
 			obj[me._horizonal ? 'marginLeft' : 'marginTop'] = -me._getScrollByIndex(index);
-			me.dom.animate({
+			Dom.animate(me.elem, {
 				params: obj, 
 				duration: me.duration, 
 				complete: function () {
@@ -123,7 +123,7 @@ var Marquee = Class({
 			// 暂停自动播放，防止出现抢资源问题。
 			me.pause();
 			
-			me.dom.animate({
+			Dom.animate(me.elem, {
 				params: {},
 				duration: me.duration,
 				complete: function () {
@@ -143,7 +143,7 @@ var Marquee = Class({
 					// 实际所滚动的区域。
 					var actualIndex = index + me.length,
 							prop = me._horizonal ? 'marginLeft' : 'marginTop',
-							from = Dom.styleNumber(me.dom[0], prop),
+							from = Dom.styleNumber(me.elem, prop),
 							to = -me._getScrollByIndex(actualIndex);
 	
 					// 如果保证是平滑滚动，则修正错误的位置。
@@ -201,7 +201,7 @@ var Marquee = Class({
 	 * 更新节点状态。
 	 */
 	update: function () {
-		var children = this.dom.children(),
+		var children = Dom.children(this.elem),
 			size,
 			xy = this._horizonal ? 'Width' : 'Height';
 		
@@ -211,12 +211,16 @@ var Marquee = Class({
 			this.length = children.length;
 
 			// 如果不需要滚动，自动设为 disabled 属性。
-			this.disabled = this.dom.parent()['get' + xy]() >= size;
-			//  this.disabled = this.dom.getScrollSize()[this._horizonal ? 'x' : 'y'] > size;
+			this.disabled = Dom['get' + xy](Dom.parent(this.elem)) >= size;
+			//  this.disabled = Dom.getScrollSize(this.elem)[this._horizonal ? 'x' : 'y'] > size;
 
 			if (!this.disabled && this.loop) {
-				children.clone().appendTo(this.dom);
-				children.clone().appendTo(this.dom);
+				children.each(function (elem) {
+					Dom.append(this.elem, Dom.clone(elem));
+				}, this);
+				children.each(function (elem) {
+					Dom.append(this.elem, Dom.clone(elem));
+				}, this);
 				this.cloned = true;
 			}
 		}
@@ -224,7 +228,7 @@ var Marquee = Class({
 		size = this._getTotalSize();
 		this._size = this.cloned ? size / 3 : size;
 		
-		this.dom['set' + xy](size);
+		Dom['set' + xy](this.elem, size);
 		this.set(this.currentIndex);
 	},
 
@@ -242,10 +246,10 @@ var Marquee = Class({
 		}
 	},
 
-	constructor: function (dom, direction, loop, deferUpdate) {
-		dom = Dom.get(dom);
-		this.dom = dom.find('ul') || dom;
-		this.dom.parent().setStyle('overflow', 'hidden');
+	constructor: function (elem, direction, loop, deferUpdate) {
+		elem = Dom.find(elem);
+		this.elem = Dom.find('ul', elem) || elem;
+		Dom.setStyle(Dom.parent(this.elem), 'overflow', 'hidden');
 
 		if (loop === false) {
 			this.loop = false;
@@ -309,7 +313,7 @@ var Marquee = Class({
 
 				me._current = value;
 				
-				me.dom[0].style[me._prop] = value + 'px';
+				me.elem.style[me._prop] = value + 'px';
 				
 				me.timer = setTimeout(me.moving, me.duration);
 
@@ -318,7 +322,7 @@ var Marquee = Class({
 			me.step = function() {
 
 				me._prop = me._horizonal ? 'marginLeft' : 'marginTop';
-				me._current = Dom.styleNumber(me.dom[0], me._prop);
+				me._current = Dom.styleNumber(me.elem, me._prop);
 				me._unit = me._getScrollByIndex(me.length + 1);
 
 				if (me.loop) {
@@ -354,7 +358,7 @@ var Marquee = Class({
 		if (this.loop) {
 			index += this.length;
 		}
-		this.dom.setStyle(this._horizonal ? 'marginLeft' : 'marginTop', -this._getScrollByIndex(index));
+		Dom.setStyle(this.elem, this._horizonal ? 'marginLeft' : 'marginTop', -this._getScrollByIndex(index));
 		this.afterChange(index, this.currentIndex);
 		this.currentIndex = newIndex;
 		return this;

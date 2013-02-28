@@ -108,7 +108,7 @@
         // [elem, {}]
         // [elem, [opacity, 300], {}]
 
-        var options = typeof args[1] === 'object' ? args[1] : {
+    	var options = args[1] && typeof args[1] === 'object' ? args[1] : {
             duration: args[1],
             callback: args[2],
             link: args[3]

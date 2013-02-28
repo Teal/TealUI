@@ -57,7 +57,8 @@ var ICollapsable = {
 	 * @virtual
 	 */
     isCollapsed: function () {
-        return Dom.isHidden(this.body ? this.body() : this.elem);
+    	var body = this.body ? this.body() : this.elem;
+    	return body && Dom.isHidden(body);
     },
 
     /**
@@ -119,6 +120,7 @@ var ICollapsable = {
 				effect: 'height', 
 				duration: me.collapseDuration, 
 				callback: function () {
+					//   body.style.height = 'auto';
 	            	me.onExpand(); 
 	            }, 
 	            link: 'ignore'

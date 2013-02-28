@@ -13,13 +13,13 @@
 var TreeControl = ListControl.extend({
 
 	/**
-	 * 将已有的 DOM 节点转为 {@link TreeControl.Item} 对象。
+	 * 将已有的 DOM 节点转为 {@link TreeControl.Node} 对象。
 	 * @param {Dom} childControl 要转换的 DOM 对象。
 	 * @param {Dom} parent=null DOM 对象的父节点。
 	 * @protected virtual
 	 */
-	createNode: function (existsDom) {
-		return new TreeControl.Node(existsDom);
+	createNode: function (existsNode) {
+		return new TreeControl.Node(existsNode);
 	},
 
 	/**
@@ -28,7 +28,7 @@ var TreeControl = ListControl.extend({
 	 * @param {Dom} [childControl] 强制指定 li 内指定的子节点。
 	 * @private
 	 */
-	initChild: function (li) {
+	initChildNode: function (li) {
 
 		// 获取第一个子节点。
 		var sub = Dom.find('>ul', li);
@@ -49,7 +49,7 @@ var TreeControl = ListControl.extend({
 	 */
 	init: function () {
 		for (var c = Dom.first(this.elem) ; c; c = Dom.next(c)) {
-			this.initChild(c);
+			this.initChildNode(c);
 		}
 
 		Dom.data(this.elem).treeControl = this;
@@ -68,30 +68,45 @@ var TreeControl = ListControl.extend({
 			var t = newItem;
 			newItem = this.createNode();
 			Dom.append(newItem.content(), t);
-			Dom.data(newItem.elem).treeNode = newItem;
 		}
 
-		// 如果其内部有子树，则进行初始化。
-		this.initChild(newItem.elem);
+		// 插入当前节点。
+		ListControl.prototype.insertBefore.call(this, newItem.elem, refItem);
 
-		Dom.render(newItem.elem, this.elem, refItem && refItem.elem || refItem);
+		// 获取插入的 <li>
+		refItem = newItem.elem.parentNode;
+
+		Dom.data(refItem).treeNode = newItem;
+
+		// 如果其内部有子树，则进行初始化。
+		this.initChildNode(refItem);
 
 		return newItem;
 	},
 
-	removeChild: function (newItem) {
-		Dom.remove(newItem.elem || newItem);
-		return newItem;
+	removeChild: function (item) {
+
+		if (item.getSub()) {
+			item.getSub().remove();
+		}
+
+		Dom.remove(item.elem || item);
+		return item;
+	},
+
+	owner: function () {
+		var li = this.elem.parentNode;
+		return li ? Dom.data(li).treeNode : null;
 	},
 
 	parent: function () {
-		var li = this.elem.parentNode;
-		return li ? Dom.data(li.parentNode).treeControl : null;
+		var li = this.owner();
+		return li ? li.owner() : null;
 	},
 
 	itemOf: function (node) {
 		var data = Dom.data(node);
-		return data.treeNode || (data.treeNode = this.createNode(node));
+		return data.treeNode || (data.treeNode = this.createNode(Dom.first(node)));
 	},
 
 	item: function (index) {
@@ -109,9 +124,12 @@ TreeControl.Node = ContentControl.extend({
 
 	cssClass: "ui-treecontrol-node",
 
-	tpl: '<li><a class="ui-control"></a></li>',
+	tpl: '<a class="{cssClass}"></a>',
 
-	subTree: null,
+	/**
+	 * 当前节点的子树。
+	 */
+	_subTree: null,
 
 	/**
 	 * 当被子类重写时，用于创建子树。
@@ -138,12 +156,28 @@ TreeControl.Node = ContentControl.extend({
 	uninitSub: Function.empty,
 
 	owner: function () {
-		return Dom.data(this.elem.parentNode).treeControl;
+		var li = this.elem.parentNode;
+
+		if (li && (li = li.parentNode)) {
+
+			// 找到所有者的 li 节点。
+			li = Dom.data(li).treeControl;
+		}
+
+		return li;
 	},
 
 	parent: function () {
-		var li = this.elem.parentNode.parentNode;
-		return li ? Dom.data(li).treeNode : null;
+		var owner = this.owner();
+		return owner && owner.owner();
+	},
+
+	tree: function () {
+		var n = this;
+		while (n.parent())
+			n = n.parent();
+
+		return n;
 	},
 
 	/**
@@ -168,7 +202,7 @@ TreeControl.Node = ContentControl.extend({
 	 */
 	getSub: function () {
 		// 子树的信息存在当前节点中。
-		return this.subTree;
+		return this._subTree;
 	},
 
 	/**
@@ -182,23 +216,23 @@ TreeControl.Node = ContentControl.extend({
 				treeControl = this.createSub(treeControl);
 			}
 
-			// 如果子树不在 DOM 树中，插入到当前节点后。
-			Dom.append(this.elem, treeControl.elem);
+			// 插入子树节点。
+			Dom.after(this.elem, treeControl.elem);
 
 			// 保存当前节点的子树对象。
-			this.subTree = treeControl;
+			this._subTree = treeControl;
 
 			// 初始化子树。
 			this.initSub(treeControl);
 
-		// setSub(null)
+			// setSub(null)
 		} else if (treeControl = this.getSub()) {
 
 			// 删除子树的 DOM 。
 			treeControl.remove();
 
 			// 删除对象。
-			this.subTree = null;
+			this._subTree = null;
 
 			// 取消初始化子树。
 			this.uninitSub(treeControl);
@@ -207,3 +241,5 @@ TreeControl.Node = ContentControl.extend({
 	}
 
 });
+
+ListControl.alias(TreeControl.Node, "sub");

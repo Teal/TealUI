@@ -1,4 +1,4 @@
-//#include ui/container/dialog
+﻿//#include ui/container/dialog
 //#include ajax/json
 //#define compress true
 //#define path apps/data/buildfiles/_test.js

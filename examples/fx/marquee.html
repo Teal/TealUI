@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
     <title>走马灯</title>
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/core/class.js"></script>
@@ -74,7 +75,7 @@
 
 
             <script class="demo">
-                var a = new Marquee('a').start();
+                var a = new Marquee('#a').start();
             </script>
 
         </aside>
@@ -118,7 +119,7 @@
 
 
             <script class="demo">
-                var b = new Marquee('b', null, false).start();
+                var b = new Marquee('#b', null, false).start();
             </script>
 
         </aside>
@@ -152,7 +153,7 @@
 
 
             <script class="demo">
-                var b1 = new Marquee('b1', null);
+                var b1 = new Marquee('#b1', null);
                 b1.duration = 10;
                 b1.delay = 0;
                 b1.start(1);
@@ -189,7 +190,7 @@
 
 
             <script class="demo">
-                var c = new Marquee('c', 'right').start();
+                var c = new Marquee('#c', 'right').start();
             </script>
 
         </aside>
@@ -223,7 +224,7 @@
 
 
             <script class="demo">
-                var d = new Marquee('d', 'top').start();
+                var d = new Marquee('#d', 'top').start();
             </script>
 
         </aside>
@@ -257,7 +258,7 @@
 
 
             <script class="demo">
-                var e = new Marquee('e', 'bottom').start();
+                var e = new Marquee('#e', 'bottom').start();
             </script>
 
         </aside>

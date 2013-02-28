@@ -383,7 +383,7 @@ var UI = {
 	},
 
 	_getModuleExampleUrl: function (module) {
-		return Demo.baseUrl + Demo.Configs.examples + module;
+		return Demo.baseUrl + Demo.Configs.examples + "/" + module.replace(/\.\w+$/, "") + ".html";
 	},
 
 	addModule: function (showErrorMessage) {

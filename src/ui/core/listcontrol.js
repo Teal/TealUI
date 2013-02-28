@@ -123,15 +123,8 @@ var ListControl = Control.extend({
      * @protected override
 	 */
 	set: function (items) {
-
-		// 如果 items 为数组，则批量设置当前的项。
-		if (Array.isArray(items)) {
-			this.empty().add.apply(this, items);
-			return this;
-		}
-
-		// 否则，继承父类的 set 功能。
-		return Control.prototype.set.apply(this, arguments);
+		this.empty().add.apply(this, items);
+		return this;
 	},
 
 	//#endregion
@@ -191,3 +184,36 @@ var ListControl = Control.extend({
 	//#endregion
 
 });
+
+/**
+ * 将 ListControl 方法拷贝到其它类实例，让这个类能直接操作列表。
+ */
+ListControl.alias = function (controlType, propertyName) {
+
+	Object.map("add addAt removeAt item count indexOf each", function (methodName) {
+		controlType.prototype[methodName] = function () {
+			var property = this[propertyName]();
+			return property[methodName].apply(property, arguments);
+		};
+	});
+
+	controlType.prototype.remove = function (child) {
+
+		// 无参数，则删除本身。
+		if (!arguments.length) {
+			this.detach();
+			return this;
+		}
+
+		// 返回被删除的子控件。
+		return child ? this[propertyName]().removeChild(child) : null;
+	};
+
+	controlType.prototype.empty = function () {
+		this[propertyName]().empty();
+		return this;
+	};
+
+	controlType.prototype.set = ListControl.prototype.set;
+
+};

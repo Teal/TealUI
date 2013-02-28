@@ -16,41 +16,51 @@ var TreeView = TreeControl.extend({
     	return new TreeNode(exitsNode);
     },
 
-    insertBefore: function (newItem, refItem) {
-    	newItem = TreeControl.prototype.insertBefore.call(this, newItem, refItem);
+    initChildNode: function (li) {
+    	TreeControl.prototype.initChildNode.call(this, li);
 
-    	newItem.setDepth(this.depth + 1);
+		// 更新子节点的深度。
+    	this.itemOf(li).setDepth(this.depth + 1);
 
-    	if (this.elem.parentNode) {
-    		Dom.data(this.elem.parentNode).update();
+		// 如果当前树是子树，则更新所在节点的 + - 标记。
+    	if (this.owner()) {
+    		this.owner().update();
     	}
-
-    	return newItem;
-
     },
 
-    /**
-	 * 获取一个值，该值指示当前节点是否为最后一个节点。
-	 * @return {Boolean}
-	 * @protected
+	/**
+	 * 点击时触发。
 	 */
-    isLastNode: function () {
-        return false;
+    onClick: function (e) {
+		
+    	var target = e.target;
+
+    	if (/\bui-treenode-(minus|plus|loading)\b/.test(target.className))
+    		return;
+
+    	target = Dom.closest(target, "li");
+
+    	if (target = Dom.data(target).treeNode) {
+    		this.selectNode(target);
+    		return false;
+    	}
+
     },
 
     init: function () {
 
         // 根据已有的 DOM 结构初始化菜单。
-        TreeControl.prototype.init.call(this);
+    	TreeControl.prototype.init.call(this);
 
+		// 点击后展开/折叠子节点。
         Dom.on(this.elem, 'click', this.onClick, this);
     },
 
     invoke: function (funcName, args) {
-        var subTree = this, c, target;
+        var i, node;
         args = args || [];
-        for (var i = 0, c = subTree.item(0) ; c = subTree.item(i) ; i++) {
-            c[funcName].apply(target, args);
+        for (i = 0 ; node = this.item(i) ; i++) {
+        	node[funcName].apply(node, args);
         }
         return this;
     },
@@ -76,24 +86,6 @@ var TreeView = TreeControl.extend({
     },
 
     /**
-	 * 点击时触发。
-	 */
-    onClick: function (e) {
-
-        var target = e.target;
-
-        if (/\bui-treenode-(minus|plus|loading)\b/.test(target.className))
-            return;
-
-        if (target = Dom.data(target).treeNode) {
-            this.selectNode(target);
-            return false;
-        }
-
-
-    },
-
-    /**
 	 * 模拟点击一项。
 	 */
     selectNode: function (node) {
@@ -106,24 +98,24 @@ var TreeView = TreeControl.extend({
         return this;
     },
 
+    getSelectedNode: function () {
+    	return this.selectedNode;
+    },
+
     setSelectedNode: function (node) {
 
         // 先反选当前选择项。
         if (this.selectedNode)
-            this.selectedNode.state('selected', false);
+        	Dom.removeClass(this.selectedNode.elem, 'ui-treenode-selected');
 
         // 更新选择项。
         this.selectedNode = node;
 
         if (node != null) {
-            node.state('selected', true);
+        	Dom.addClass(node.elem, 'ui-treenode-selected');
         }
 
         return this;
-    },
-
-    getSelectedNode: function () {
-        return this.selectedNode;
     }
 
 });
@@ -131,11 +123,13 @@ var TreeView = TreeControl.extend({
 /**
  * 表示是 {@link TreeView} 中的一个节点。
  */
-var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
+var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	
 	cssClass: 'ui-treenode',
 	
-	tpl: '<a class="ui-control"><span></span></a>',
+	tpl: '<a class="{cssClass}"><span></span></a>',
+
+	depth: 0,
 	
 	/**
 	 * 获取当前用于折叠的容器对象。
@@ -143,7 +137,8 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @protected override
 	 */
 	body: function () {
-		return this.subTree && this.subTree.elem;
+		var sub = this.getSub();
+		return sub && sub.elem;
 	},
 	
 	/**
@@ -152,7 +147,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @protected override
 	 */
 	content: function(){
-		return this.last('span');
+		return Dom.last(this.elem);
 	},
 	
 	/**
@@ -161,8 +156,8 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return {TreeControl} 新的 {@link TreeControl} 对象。
 	 * @protected override
 	 */
-	createSubControl: function(control){
-		return new TreeView(control).removeClass('ui-treeview').addClass('ui-treeview-subtree');
+	createSub: function (existNode) {
+		return new TreeView(existNode);
 	},
 	
 	/**
@@ -170,37 +165,53 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @param {TreeControl} treeControl 要初始化的子树。
 	 * @protected override
 	 */
-	initSubControl: function(treeControl){
+	initSub: function (treeControl) {
+
+		// 更新子树的类。
+		Dom.removeClass(treeControl.elem, 'ui-treeview');
+		Dom.addClass(treeControl.elem, 'ui-treeview-subtree');
+
+		// 标记子树的深度。
 	    treeControl.depth = this.depth;
 
 		// 子树不需要选择节点的功能。
 	    Dom.un(treeControl.elem, 'click', treeControl.onClick);
 	},
-	
-	// 树节点的控制。
+
+	uninitSub: function (treeControl) {
+
+		// 更新子树的类。
+		Dom.addClass(treeControl.elem, 'ui-treeview');
+		Dom.removeClass(treeControl.elem, 'ui-treeview-subtree');
+
+		// 将树设为独立的树。
+		treeControl.depth = 0;
+
+		// 子树不需要选择节点的功能。
+		Dom.on(treeControl.elem, 'click', treeControl.onClick, treeControl);
+
+	},
 	
 	/**
 	 * 更新一个节点前面指定的占位符的类名。
 	 * @private
 	 */
 	_setSpan: function(depth, className){
-		
-		this.each(function(node){
-			var first = node.first(depth).node;
+		this.sub().each(function(node){
+			var first = Dom.first(node.elem, depth);
 			if(first.tagName == 'SPAN')
 				first.className = className;
 			node._setSpan(depth, className);
 		});
-		
 	},
 	
 	_markAsLastNode: function(){
-		this.addClass('ui-treenode-last');
+		Dom.addClass(this.elem, 'ui-treenode-last');
 		this._setSpan(this.depth - 1, 'ui-treenode-space ui-treenode-none');
 	},
 	
 	_clearMarkAsLastNode: function(){
-		this.removeClass('ui-treenode-last');
+		Dom.removeClass(this.elem, 'ui-treenode-last');
 		this._setSpan(this.depth - 1, 'ui-treenode-space');
 	},
 
@@ -220,18 +231,24 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	update: function(){
 		
 		// 更新图标。
-		this.updateNodeType();
-		
-		var last = this.subTree.item(-1), lastNode;
-		
-		// 更新 lastNode
-		if(last){
-			lastNode = this._lastNode;
-			if (!lastNode || lastNode.node !== last.node) {
-				last._markAsLastNode();
-				this._lastNode = last;
-				if (lastNode) lastNode._clearMarkAsLastNode();
+		this.updateType();
+
+		var sub = this.getSub();
+
+		if (sub) {
+
+			var last = sub.item(-1), lastNode;
+
+			// 更新 lastNode
+			if (last) {
+				lastNode = this._lastNode;
+				if (lastNode !== last.elem) {
+					last._markAsLastNode();
+					this._lastNode = last;
+					if (lastNode) lastNode._clearMarkAsLastNode();
+				}
 			}
+
 		}
 		
 	},
@@ -240,8 +257,9 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * 根据当前的节点情况更新当前节点的图标。
 	 * @protected
 	 */
-	updateNodeType: function(){
-		this.setNodeType(this.subTree && this.subTree.first() ? this.isCollapsed() ? 'plus' : 'minus' : 'normal');
+	updateType: function () {
+		var sub = this.getSub();
+		this.setType(sub && Dom.first(sub.elem) ? (this.isCollapsed() ? 'plus' : 'minus') : 'normal');
 	},
 	
 	/**
@@ -249,8 +267,9 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return {Boolean}
 	 * @protected
 	 */
-	isLastNode: function(){
-		return this.parentNode &&  this.parentNode._lastNode === this;
+	isLastNode: function () {
+		var parent = this.parent();
+		return parent && parent._lastNode === this;
 	},
 	
 	onDblClick: function(e){
@@ -258,18 +277,29 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		e.preventDefault();
 		e.stopPropagation();
 	},
-	
-	init: function(options){
-		this.unselectable();
+
+	onCollapse: function () {
+		ICollapsable.onCollapse.call(this);
+		this.updateType();
+	},
+
+	onExpanding: function () {
+		this.setType(this.isCollapsed() ? 'minus' : 'plus');
+		ICollapsable.onExpanding.call(this);
+	},
+
+	init: function (options) {
+		TreeControl.Node.prototype.init.call(this, options);
+		Dom.setStyle(this.elem, 'user-select', 'none');
 		Dom.on(this.elem, 'dblclick', this.onDblClick, this);
 	},
 	
 	/**
 	 * 获取当前节点的图标。
 	 */
-	getNodeType: function(){
+	getType: function(){
 		var span = this.span(0);
-		return span ? (/ui-treenode-(.+)/.exec(span.node.className.replace(/\bui-treenode-space\b/, '')) || [0, "line"])[1] : null;
+		return span ? (/ui-treenode-(.+)/.exec(span.className.replace(/\bui-treenode-space\b/, '')) || [0, "line"])[1] : null;
 	},
 	
 	/**
@@ -277,29 +307,12 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @param {String} type 类型。肯能的值如： 'normal' 'plus' 'minus' 'none' 'loading' 'line'。
 	 * @return this
 	 */
-	setNodeType: function(type){
+	setType: function(type){
 		var span = this.span(0);
 		if(span) {
-			span.node.className = 'ui-treenode-space ui-treenode-' + type;
+			span.className = 'ui-treenode-space ui-treenode-' + type;
 		}
 		return this;
-	},
-	
-	onCollapse: function () {
-	    ICollapsable.onCollapse.call(this);
-	    this.updateNodeType();
-	},
-	
-	onExpanding: function(){
-	    this.setNodeType(this.subTree && this.subTree.item(0) ? 'minus' : 'normal');
-	    ICollapsable.onExpanding.call(this);
-	},
-	
-	onExpand: function(){
-		if(this.subTree) {
-			this.subTree.elem.style.height = 'auto';
-		}
-		ICollapsable.onExpand.call(this);
 	},
 	
 	/**
@@ -309,7 +322,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return this
 	 */
 	expandAll: function(duration, maxDepth){
-		if (this.subTree && !(maxDepth === 0)) {
+		if (this.getSub() && !(maxDepth === 0)) {
 			this.expand(duration);
 			this.invoke('expandAll', [duration, --maxDepth]);
 		}
@@ -323,7 +336,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return this
 	 */
 	collapseAll: function(duration, maxDepth){
-		if (this.subTree && !(maxDepth === 0)) {
+		if (this.getSub() && !(maxDepth === 0)) {
 			this.invoke('collapseAll', [duration, --maxDepth]);
 			this.collapse(duration);
 		}
@@ -346,9 +359,10 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		this.invoke('collapseTo', [--depth, duration]);
 	},
 	
-	invoke: function(funcName, args){
-		if(this.subTree){
-			this.subTree.invoke(funcName, args);
+	invoke: function (funcName, args) {
+		var sub = this.getSub();
+		if (sub) {
+			sub.invoke(funcName, args);
 		}
 		return this;
 	},
@@ -358,7 +372,7 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 	 * @return {Integer} 返回节点深度。
 	 */
 	getDepth: function(){
-		return Dom.data(this.dom[0]).treeViewDepth;
+		return this.depth;
 	},
 
 	/**
@@ -378,52 +392,46 @@ var TreeNode = TreeControl.Item.extend(ICollapsable).implement({
 		// 删除多余的占位符。
 		
 		while(currentDepth > value){
-			me.removeChild(elem.first());
+			Dom.remove(Dom.first(this.elem));
 			currentDepth--;
 		}
 	
 		// 补上不够的占位符。
 		
 		while(currentDepth < value){
-			me.prepend(Dom.createNode('span', 'ui-treenode-space'));
+			Dom.prepend(this.elem, '<span class="ui-treenode-space"></span>');
 			currentDepth++;
 		}
 		
 		// 更新深度。
 		
-		Dom.dataField(this.dom[0]).treeViewDepth = value;
+		this.depth = value;
 		
 		// 绑定最后一个 span 的点击事件。
 		
+		// 获取第一个占位符。
 		span = this.span(0);
 		
 		if(currentDepth) {
-			span.un('click', this.onDblClick).on('click', this.onDblClick, this);
+			Dom.un(span, 'click', this.onDblClick);
+			Dom.on(span, 'click', this.onDblClick, this);
 		}
 		
 		// 更新 spans 的 class 状态。
 		
-		while((current = current.parentNode) && (span = span.prev())){
-			span.node.className = current.isLastNode() ? 'ui-treenode-space ui-treenode-none' : 'ui-treenode-space';
+		while ((current = current.parent()) && (span = Dom.prev(span))) {
+			span.className = current.isLastNode && current.isLastNode() ? 'ui-treenode-space ui-treenode-none' : 'ui-treenode-space';
 		}
 		
-		me.updateNodeType();
+		me.updateType();
 		
 		// 对子节点设置深度+1
 		me.invoke('setDepth', [++value]);
 	},
 	
-	getTreeView: function(){
-		var n = this;
-		while(n)
-			n = n.parentNode;
-		
-		return n ? n.parentControl : null;
-	},
-	
 	ensureVisible: function(duration){
 		var n = this;
-		while(n = n.parentNode) {
+		while(n = n.parent()) {
 			n.expand(duration);
 		}
 

@@ -12,13 +12,6 @@
     <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
     <!-- 以上文件演示用 -->
 
-    <script type="text/javascript" src="../../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
-    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
-    <script type="text/javascript" src="../../../src/ui/button/button.js"></script>
-
     <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
 </head>
 <body>
@@ -155,42 +148,6 @@
             <a class="ui-button">按钮B</a>
             <input type="button" class="ui-button" value="按钮B">
         </section> -->
-
-    </article>
-
-    <article class="demo">
-
-        <h2 class="demo">使用 JavaScript 创建</h2>
-
-        <section class="demo-sample">
-
-            <div id="ct"></div>
-
-            <aside class="demo demo-expand">
-                <script>
-                    var button = new Button({
-                        text: "这是动态创建的按钮",
-                        appendTo: "ct",
-                        onclick: function () {
-                            alert("点击了");
-                        }
-                    });
-                </script>
-            </aside>
-
-        </section>
-
-        <script>
-
-            Demo.writeExamples({
-                '更改按钮的文字': 'button.setText("这是通过 setText 设置的");',
-                '更改按钮的文字（带图标）': 'button.setHtml("<i class=\'ui-icon\'></i>这是通过 setHtml 设置的");',
-                '绑定点击后执行函数': 'button.on("click", function () { alert("我被点了"); });',
-                '禁用按钮': 'button.setAttr("disabled", true);'
-            });
-
-        </script>
-
 
     </article>
 

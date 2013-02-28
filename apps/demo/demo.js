@@ -45,7 +45,7 @@ Demo.Configs = {
 	/**
 	 * 工具的下拉菜单 HTML 模板。
 	 */
-	tool: '<a href="~/apps/node/modulebuilder/index.html" target="_blank">模块合成工具</a>\
+	tool: '<a href="~/apps/node/modulebuilder/index.html" target="_blank">模块打包工具</a>\
                 <a href="~/apps/tools/codehelper/index.html" target="_blank">代码工具</a>\
                 <a href="~/apps/tools/codesegments/specialcharacters.html" target="_blank">特殊字符</a>\
                 <a href="~/apps/tools/codesegments/regexp.html" target="_blank">常用正则</a>\

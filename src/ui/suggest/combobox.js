@@ -192,3 +192,5 @@ var ComboBox = Picker.extend({
     }
 
 });
+
+ListControl.alias(ComboBox, "getDropDown");

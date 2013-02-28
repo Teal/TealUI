@@ -2,47 +2,53 @@
  * @author xuld
  */
 
-
 //#include ui/menu/menu.css
 //#include dom/pin.js
+//#include fx/animate.js
 //#include ui/core/treecontrol.js
-
 
 var Menu = TreeControl.extend({
 
-    cssClass: 'ui-menu',
+	cssClass: 'ui-menu',
     
-    showDuration: null,
+	showArgs: null,
+
+	floating: false,
 
     createNode: function (existDom) {
     	return new MenuItem(existDom);
     },
 
-    insert: function (newChild, refChild) {
-
-		// 将 - 转为分隔符。
-    	if (newChild === "-") {
-    		newChild = new MenuSeperator();
-    	}
-
-    	return TreeControl.prototype.insert.call(newChild, refChild);
+	/**
+	 * 初始化并返回每一个 TreeItem 对象。
+	 * @param {Dom} li 包含树节点的  li 节点对象。
+	 * @param {Dom} [childControl] 强制指定 li 内指定的子节点。
+	 * @private
+	 */
+    initChildNode: function (li) {
+    	this.itemOf(li);
+    	TreeControl.prototype.initChildNode.call(this, li);
     },
 
-    init: function () {
+    insertBefore: function (newItem, refItem) {
 
-        // 绑定节点和控件，方便发生事件后，根据事件源得到控件。
-        Dom.dataField(this.dom[0]).menu = this;
+    	// 将 - 转为分隔符。
+    	if (newItem === "-") {
+    		newItem = new MenuSeperator();
+    	}
 
-        // 根据已有的 DOM 结构初始化菜单。
-        TreeControl.prototype.init.call(this);
+    	return TreeControl.prototype.insertBefore.call(this, newItem, refItem);
     },
 
     show: function () {
-    	this.dom.show(this.showDuration);
+    	Dom.show(this.elem, this.showArgs);
 
         // 如果菜单是浮动的，则点击后关闭菜单，否则，只关闭子菜单。
-    	if (Dom.dataField(this.dom[0]).menuFloating)
-            document.once('mouseup', this.hide, this);
+    	if (this.floating)
+    		Dom.on(document, 'mouseup', function () {
+    			Dom.un(document, 'mouseup', arguments.callee);
+    			this.hide();
+    		}, this);
         this.trigger('show');
         return this;
     },
@@ -51,12 +57,10 @@ var Menu = TreeControl.extend({
 	 * 关闭本菜单。
 	 */
     hide: function () {
-        Dom.prototype.hide.call(this, arguments, {
-        	duration: this.showDuration	
-        });
+    	Dom.hide(this.elem, this.showArgs);
 
         // 先关闭子菜单。
-        this.hideSubMenu();
+        this.hideSub();
         this.trigger('hide');
         return this;
     },
@@ -73,7 +77,7 @@ var Menu = TreeControl.extend({
         // 显示节点。
         this.show();
 
-        this.dom.setPosition(p);
+        Dom.setPosition(this.elem, p);
 
         return this;
     },
@@ -85,14 +89,14 @@ var Menu = TreeControl.extend({
     showBy: function (ctrl, pos, offsetX, offsetY, enableReset) {
 
         // 确保菜单已添加到文档内。
-    	if (!Dom.contains(dicument.body, this.elem)) {
+    	if (!Dom.contains(document.body, this.elem)) {
     		Dom.append(ctrl.parentNode, this.elem);
         }
 
         // 显示节点。
         this.show();
 
-        this.pin(ctrl, pos || 'r', offsetX != null ? offsetX : -5, offsetY != null ? offsetY : -5, enableReset);
+        Dom.pin(this.elem, ctrl.elem ||ctrl, pos || 'r', offsetX != null ? offsetX : -5, offsetY != null ? offsetY : -5, enableReset);
 
         return this;
     },
@@ -102,26 +106,30 @@ var Menu = TreeControl.extend({
 	 * @param {MenuItem} menuItem 子菜单项。
 	 * @protected
 	 */
-    showSubMenu: function (menuItem) {
+    showSub: function (menuItem) {
 
-        // 如果不是右键的菜单，在打开子菜单后监听点击，并关闭此子菜单。
-    	if (!Dom.dataField(this.dom[0]).menuFloating)
-            document.once('mouseup', this.hideSubMenu, this);
+    	// 如果不是右键的菜单，在打开子菜单后监听点击，并关闭此子菜单。
+    	if (!this.floating) {
+    		Dom.on(document, 'mouseup', function () {
+    			Dom.un(document, 'mouseup', arguments.callee);
+    			this.hideSub();
+    		}, this);
+    	}
 
         // 隐藏当前项子菜单。
-        this.hideSubMenu();
+        this.hideSub();
 
         // 激活本项。
-        menuItem.state("hover", true);
+        Dom.addClass(menuItem.elem, "ui-menuitem-hover");
 
         // 如果指定的项存在子菜单。
-        if (menuItem.subControl) {
+        if (menuItem.getSub()) {
 
             // 设置当前激活的项。
-            this.currentSubMenu = menuItem;
+            this.currentSub = menuItem;
 
             // 显示子菜单。
-            menuItem.subControl.showBy(menuItem);
+            menuItem.getSub().showBy(menuItem);
 
         }
 
@@ -131,29 +139,27 @@ var Menu = TreeControl.extend({
 	 * 关闭本菜单打开的子菜单。
 	 * @protected
 	 */
-    hideSubMenu: function () {
+    hideSub: function () {
 
         // 如果有子菜单，就隐藏。
-        if (this.currentSubMenu) {
+        if (this.currentSub) {
 
             // 关闭子菜单。
-            this.currentSubMenu.subControl.hide();
+        	this.currentSub.getSub().hide();
 
-            // 取消激活菜单。
-            this.currentSubMenu.state("hover", false);
-            this.currentSubMenu = null;
+        	// 取消激活菜单。
+        	Dom.removeClass(this.currentSub.elem, "ui-menuitem-hover");
+            this.currentSub = null;
         }
 
     }
 
 });
 
-
-
 /**
  * 表示菜单项。 
  */
-var MenuItem = TreeControl.Item.extend({
+var MenuItem = TreeControl.Node.extend({
 
 	cssClass: 'ui-menuitem',
 
@@ -172,11 +178,11 @@ var MenuItem = TreeControl.Item.extend({
 	 * @param {TreeControl} treeControl 要初始化的子树。
 	 * @protected override
 	 */
-	initSub: function(treeControl){
+	initSub: function (treeControl) {
 		treeControl.hide();
-		Dom.dataField(treeControl.dom[0]).menuFloating = false;
-		this.prepend('<i class="ui-menuitem-arrow"></i>');
-		this.on('mouseup', this._cancelHideMenu);
+		treeControl.floating = false;
+		Dom.prepend(this.elem, '<i class="ui-menuitem-arrow"></i>');
+		Dom.on(this.elem, 'mouseup', this._cancelHideMenu, this);
 	},
 	
 	/**
@@ -184,18 +190,18 @@ var MenuItem = TreeControl.Item.extend({
 	 * @param {TreeControl} treeControl 要删除初始化的子树。
 	 * @protected override
 	 */
-	uninitSub: function(treeControl){
-		Dom.dataField(treeControl.dom[0]).menuFloating = true;
-		this.remove('ui-menuitem-arrow');
-		this.un('mouseup', this._cancelHideMenu);
+	uninitSub: function (treeControl) {
+		treeControl.floating = true;
+		Dom.remove(Dom.find('ui-menuitem-arrow'));
+		Dom.un(this.elem, 'mouseup', this._cancelHideMenu);
 	},
 
-	onMouseOver: function() {
-		this.state("hover", true);
-		if (this.getSubMenu())
-			this.showSubMenu();
+	onMouseOver: function () {
+		Dom.addClass(this.elem, "ui-menuitem-hover");
+		if (this.getSub())
+			this.showSub();
 		else if(this.owner())
-			this.owner().hideSubMenu();
+			this.owner().hideSub();
 	},
 	
 	onMouseOut: function() {
@@ -204,19 +210,21 @@ var MenuItem = TreeControl.Item.extend({
 		// 否则，由父菜单取消当前菜单的状态。
 		// 因为如果有子菜单，必须在子菜单关闭后才能关闭激活。
 
-		if (!this.subControl)
-			this.state("hover", false);
+		if (!this.getSub()) {
+			Dom.removeClass(this.elem, "ui-menuitem-hover");
+		}
 
 	},
 	
 	/**
 	 *
 	 */
-	init: function() {
-		if(this.hasClass('ui-' + this.cssClass)) {
-			this.unselectable();
-			this.on('mouseover', this.onMouseOver);
-			this.on('mouseout', this.onMouseOut);
+	init: function (options) {
+		TreeControl.Node.prototype.init.call(this, options);
+		if(Dom.hasClass(this.elem, this.cssClass)) {
+			Dom.setStyle(this.elem, 'user-select', 'none');
+			Dom.on(this.elem, 'mouseover', this.onMouseOver, this);
+			Dom.on(this.elem, 'mouseout', this.onMouseOut, this);
 		}
 	},
 	
@@ -231,31 +239,27 @@ var MenuItem = TreeControl.Item.extend({
 		}
 
 		if (tg) {
-			Dom.dataField(tg).menu.hideSubMenu();
+			Dom.data(tg).treeControl.hideSub();
 		}
 
 	},
 
-	owner: function () {
-		if (!this._owner) {
-			this._owner = new Menu(this.parent('ul'));
-		}
+	showSub: function(){
 
-		return this._owner;
-	},
-
-	showSubMenu: function(){
+		var owner = this.owner();
 
 		// 使用父菜单打开本菜单，显示子菜单。
-		this.owner() && this.owner().showSubMenu(this);
+		owner && owner.showSub(this);
 		
 		return this;
 	},
 	
-	hideSubMenu: function(){
+	hideSub: function () {
+
+		var owner = this.owner();
 
 		// 使用父菜单打开本菜单，显示子菜单。
-		this.owner() && this.owner().hideSubMenu(this);
+		owner && owner.hideSub(this);
 		
 		return this;
 	}
@@ -264,7 +268,9 @@ var MenuItem = TreeControl.Item.extend({
 
 var MenuSeperator = MenuItem.extend({
 
-	tpl: '<li><div class="ui-menuseperator"></div></li>',
+	cssClass: 'ui-menuseperator',
+
+	tpl: '<div class="{cssClass}"></div>',
 
 	init: Function.empty
 
