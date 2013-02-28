@@ -8,6 +8,9 @@ document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/for
 document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/typography/hr.css">');
 document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/tip/bubble.css">');
 document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css">');
+document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/button/buttongroup.css">');
+document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css">');
+document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/button/splitbutton.css">');
 document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/button/linkbutton.css">');
 document.write('<link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/dropdownmenu.css">');
 document.write('<script type="text/javascript" src="../../../src/core/base.js"></script>');
@@ -25,7 +28,10 @@ document.write('<script type="text/javascript" src="../../../src/ajax/base.js"><
 document.write('<script type="text/javascript" src="../../../src/ajax/script.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ajax/jsonp.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ui/core/base.js"></script>');
+document.write('<script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>');
 document.write('<script type="text/javascript" src="../../../src/ui/suggest/suggest.js"></script>');
+document.write('<script type="text/javascript" src="../../../src/ui/button/menubutton.js"></script>');
+document.write('<script type="text/javascript" src="../../../src/ui/button/splitbutton.js"></script>');

@@ -7,12 +7,12 @@
 //#include dom/base.js
 
 var Marquee = Class({
-	
+
 	/**
 	 * 每次滚动的效果时间。
 	 */
-	duration:-1,
-	
+	duration: -1,
+
 	/**
 	 * 自动滚动的延时时间。
 	 */
@@ -42,25 +42,25 @@ var Marquee = Class({
 	 */
 	flow: true,
 
-    /**
+	/**
      * 当前正在显示的索引。
      */
 	currentIndex: 0,
-	
+
 	/**
 	 * 是否循环。
 	 * @property {Boolean} loop
 	 */
-	
-	_getWidthBefore: function(ctrl, xy){
+
+	_getWidthBefore: function (ctrl, xy) {
 		return ctrl && (ctrl = Dom.prev(ctrl)) ? Dom.calc(ctrl, xy) + this._getWidthBefore(ctrl, xy) : 0;
 	},
-	
+
 	_getScrollByIndex: function (value) {
 		return this._getWidthBefore(Dom.child(this.elem, value), this._horizonal ? 'marginLeft+marginRight+width' : 'marginTop+marginBottom+height');
 	},
-	
-	_getTotalSize: function(){
+
+	_getTotalSize: function () {
 		var size = 0;
 		var xy = this._horizonal ? "marginLeft+marginRight+width" : "marginTop+marginBottom+height";
 		Dom.children(this.elem).each(function (child) {
@@ -91,17 +91,17 @@ var Marquee = Class({
 			obj = {};
 			obj[me._horizonal ? 'marginLeft' : 'marginTop'] = -me._getScrollByIndex(index);
 			Dom.animate(me.elem, {
-				params: obj, 
-				duration: me.duration, 
+				params: obj,
+				duration: me.duration,
 				complete: function () {
-	
+
 					// 滚动完成后触发事件。
 					me.afterChange(index, oldIndex);
-	
+
 					// 如果本来正在自动播放中，这里恢复自动播放。
 					if (me.step)
 						me.resume();
-				}, 
+				},
 				link: 'abort'
 			});
 		}
@@ -122,53 +122,53 @@ var Marquee = Class({
 
 			// 暂停自动播放，防止出现抢资源问题。
 			me.pause();
-			
+
 			Dom.animate(me.elem, {
 				params: {},
 				duration: me.duration,
 				complete: function () {
-	
+
 					// 效果结束。
 					me._animatingTargetIndex = null;
-	
+
 					// 滚动完成后触发事件。
 					me.afterChange(index, oldIndex);
-	
+
 					// 如果本来正在自动播放中，这里恢复自动播放。
 					if (me.step)
 						me.resume();
 				},
 				start: function (options) {
-	
+
 					// 实际所滚动的区域。
 					var actualIndex = index + me.length,
 							prop = me._horizonal ? 'marginLeft' : 'marginTop',
 							from = Dom.styleNumber(me.elem, prop),
 							to = -me._getScrollByIndex(actualIndex);
-	
+
 					// 如果保证是平滑滚动，则修正错误的位置。
 					if (me.flow) {
-	
+
 						// 如果是往上、左方向滚。
 						if (lt) {
-	
+
 							// 确保 from > to
 							if (from > to) {
 								from -= me._size;
 							}
-	
+
 						} else {
-	
+
 							// 确保 from < to
 							if (from < to) {
 								from += me._size;
 							}
 						}
-	
+
 					}
-	
+
 					options.params[prop] = from + '-' + to;
-	
+
 					// 记录当前正在转向的目标索引。
 					me.currentIndex = index;
 				},
@@ -182,15 +182,15 @@ var Marquee = Class({
 	_fixIndex: function (index) {
 		return index = index >= 0 ? index % this.length : index + this.length;
 	},
-	
+
 	beforeChange: function (newIndex, oldIndex) {
 		return !this.disabled && this.trigger('changing', {
 			from: oldIndex,
 			to: newIndex
 		});
 	},
-	
-	afterChange: function(newIndex, oldIndex){
+
+	afterChange: function (newIndex, oldIndex) {
 		this.trigger('changed', {
 			from: oldIndex,
 			to: newIndex
@@ -204,7 +204,7 @@ var Marquee = Class({
 		var children = Dom.children(this.elem),
 			size,
 			xy = this._horizonal ? 'Width' : 'Height';
-		
+
 		if (!this.cloned) {
 
 			// 设置大小。
@@ -227,7 +227,7 @@ var Marquee = Class({
 
 		size = this._getTotalSize();
 		this._size = this.cloned ? size / 3 : size;
-		
+
 		Dom['set' + xy](this.elem, size);
 		this.set(this.currentIndex);
 	},
@@ -264,12 +264,12 @@ var Marquee = Class({
 			Dom.load(this.update.bind(this));
 		}
 	},
-	
+
 	/**
 	 * 暂停滚动
 	 * @method pause
 	 */
-	stop: function() {
+	stop: function () {
 		clearInterval(this.timer);
 		this.timer = 0;
 		this.step = null;
@@ -281,7 +281,7 @@ var Marquee = Class({
 		this._lt = /^[rb]/.test(direction);
 		this._horizonal = /^[lr]/.test(direction);
 	},
-	
+
 	/**
 	 * (重新)开始滚动
 	 * @method start
@@ -297,12 +297,12 @@ var Marquee = Class({
 		if (me._lt) {
 			delta = -delta;
 		}
-		
+
 		// 如果不延时。
 		if (me.delay === 0) {
-			
-			me.moving = function(){
-				
+
+			me.moving = function () {
+
 				var value = me._current - delta;
 
 				if (value <= me._min) {
@@ -312,14 +312,14 @@ var Marquee = Class({
 				}
 
 				me._current = value;
-				
+
 				me.elem.style[me._prop] = value + 'px';
-				
+
 				me.timer = setTimeout(me.moving, me.duration);
 
 			};
 
-			me.step = function() {
+			me.step = function () {
 
 				me._prop = me._horizonal ? 'marginLeft' : 'marginTop';
 				me._current = Dom.styleNumber(me.elem, me._prop);
@@ -338,7 +338,7 @@ var Marquee = Class({
 		} else {
 
 			// 设置单步的执行函数。
-			me.step = function() {
+			me.step = function () {
 				var index = me.currentIndex + delta;
 				index = me._fixIndex(index);
 				me[me.loop ? '_animateToWithLoop' : '_animateToWithoutLoop'](index, me._lt);
@@ -349,7 +349,7 @@ var Marquee = Class({
 
 		// 正式开始。
 		me.resume();
-		
+
 		return me;
 	},
 
@@ -381,5 +381,5 @@ var Marquee = Class({
 	next: function () {
 		return this.moveTo(this.currentIndex + 1, false);
 	}
-	
+
 });
