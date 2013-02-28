@@ -16,10 +16,6 @@ var CharCounter = Control.extend({
 	message: '还可以输入<span class="{cssClass}-success"> {value} </span>个字符',
 
 	errorMessage: '已超过<span class="{cssClass}-error"> {value} </span>个字符',
-    
-    isValidated: function(){
-    	return Dom.getText(this.target).length <= this.maxLength;
-    },
 
     update: function () {
     	var len = Dom.getText(this.target).length - this.maxLength;
@@ -44,7 +40,7 @@ var CharCounter = Control.extend({
             maxLength = this.maxLength;
         this.elem = tip = Dom.find(tip) || Dom.nextAll(target, '.ui-charcounter')[0] || Dom.prevAll(target, '.ui-charcounter')[0] || Dom.after(target, this.create());
 
-        Dom.on(target, 'keyup', this.update, this);
+        setInterval(this.update.bind(this), 10);
 
         this.update();
     }

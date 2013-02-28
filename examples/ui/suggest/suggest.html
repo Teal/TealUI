@@ -126,8 +126,8 @@
 
                     lastText = text;
 
-                    // 请求数据前，隐藏下拉菜单。不能使用 me.hideDropDown() 是因为它会导致 onDropDownShow 重新调用。
-                    Dom.hide(me.dropDownNode);
+                    // 请求数据前，隐藏下拉菜单。
+                    me.hideDropDown();
 
                     // 开始请求数据。
                     setTimeout(function () {
@@ -135,7 +135,7 @@
                         // 假如在用户回调完成前没有新的输入，则提示。
                         if (Dom.getText(me.elem) === lastText) {
 
-                            Dom.show(me.dropDownNode);
+                            me.showDropDown();
 
                             me.dropDown.set(["a", "b", "c"]);
 
