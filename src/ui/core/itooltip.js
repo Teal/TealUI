@@ -95,7 +95,7 @@ var IToolTip = {
      */
 	setToolTip: function (dom, caption, offsetX, offsetY) {
 		var me = this;
-		Dom.query(dom).each(function (elem) {
+		Dom.query(dom).forEach(function (elem) {
 			Dom.on(elem, 'mouseover', function (e) {
 				var waitTimeout = Dom.isHidden(me.elem) ? me.initialDelay : me.reshowDelay;
 				if (me.showTimer)

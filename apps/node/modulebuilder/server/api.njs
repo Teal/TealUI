@@ -63,6 +63,10 @@ function save(context, data){
 		
 		context.response.write("<style>  body{font-size: 12px;}</style>保存成功!");
 	
+	} else {
+		
+		context.response.write("<style>  body{font-size: 12px;}</style>请输入配置文件保存位置");
+	
 	}
 	
 	context.response.end();

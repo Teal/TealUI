@@ -138,6 +138,7 @@ BuildFile.prototype.save = function () {
 				case "lineBreak":
 				case "prefix":
 				case "postfix":
+				case "isNew":
 					break;
 				default:
 					var value = this[key];
@@ -156,7 +157,7 @@ BuildFile.prototype.save = function () {
 		}
 	}
 
-	return this.prefix + contents.join(this.lineBreak) + this.postfix;
+	return (this.prefix || "") + contents.join(this.lineBreak) + (this.postfix || "");
 };
 
 //#endregion
@@ -838,16 +839,20 @@ ModuleBuilder.writeJs = function (result, writer) {
 				comment = comment.replace("{modules}", list.join(result.file.lineBreak));
 			}
 
+			comment = comment.replace(/\r?\n/g, result.file.lineBreak);
+
 			writer.write(comment);
 			writer.write(result.file.lineBreak);
 
 		}
 
+		if (comment) {
+			comment = comment.replace(/\r?\n/g, result.file.lineBreak);
+		}
+
 		for (var i in result.js) {
-			if (result.file.prependModuleComments) {
-				writer.write(result.file.lineBreak);
-				writer.write(result.file.prependModuleComments.replace("{module}", result.js[i].path));
-				writer.write(result.file.lineBreak);
+			if (comment) {
+				writer.write(comment.replace("{module}", result.js[i].path));
 			}
 
 			var content = result.js[i].content;
@@ -884,15 +889,21 @@ ModuleBuilder.writeCss = function (result, writer) {
 
 			comment = comment.replace("{modules}", "");
 
+			comment = comment.replace(/\r?\n/g, result.file.lineBreak);
+
 			writer.write(comment);
 			writer.write(result.file.lineBreak);
 
 		}
 
+		if (comment) {
+			comment = comment.replace(/\r?\n/g, result.file.lineBreak);
+		}
+
 		for (var i in result.css) {
-			if (result.file.prependModuleComments) {
+			if (comment) {
 				writer.write(result.file.lineBreak);
-				writer.write(result.file.prependModuleComments.replace("{module}", result.css[i].path));
+				writer.write(comment.replace("{module}", result.css[i].path));
 				writer.write(result.file.lineBreak);
 			}
 

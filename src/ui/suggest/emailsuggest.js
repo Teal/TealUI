@@ -16,7 +16,7 @@ var EmailSuggest = Suggest.extend({
 
         var r = [], v = value.indexOf('@') !== -1 ? value.substr(0, value.indexOf('@')) : value;
 
-        this.mails.each(function (m) {
+        this.mails.forEach(function (m) {
             if ((v + m).indexOf(value) === 0)
                 r.push(v + m);
         });

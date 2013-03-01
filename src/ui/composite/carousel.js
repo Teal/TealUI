@@ -40,7 +40,7 @@ var Carousel = Control.extend({
             width = Dom.getWidth(me.elem),
             items = me.items = Dom.query('.' + this.cssClass + '-body > li', me.elem).hide();
 
-		Dom.query('.' + this.cssClass + '-header > li', me.elem).each(function (elem, index) {
+		Dom.query('.' + this.cssClass + '-header > li', me.elem).forEach(function (elem, index) {
 			Dom.setWidth(elem, width / items.length);
 
 			Dom.on(elem, options.event || 'mouseover', function (e) {

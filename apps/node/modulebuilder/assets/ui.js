@@ -682,6 +682,7 @@ var UI = {
 	
 	save: function (){
 		
+		UI._updateBuildFile();
 		UI.step(4);
 
 		if (!UI.usingXFly) {

@@ -25,7 +25,7 @@ var SplitButton = MenuButton.extend({
 
 	state: function (name, value) {
 		if (name == "disabled") {
-			Dom.query('.ui-button', this.elem).each(function (elem) {
+			Dom.query('.ui-button', this.elem).forEach(function (elem) {
 				Dom.setAttr(elem, name, value);
 				Dom.toggleClass(elem, 'ui-button-disabled', value);
 			});

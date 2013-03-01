@@ -56,7 +56,7 @@ var Dialog = ContainerControl.extend({
 		// 移除 script 脚本, 防止重复执行。
 		Dom.on(this.elem, 'click', '.ui-dialog-close', this.onCloseButtonClick, this);
 		Dom.setStyle(this.elem, 'display', 'none');
-		Dom.query('script', this.elem).each(Dom.remove);
+		Dom.query('script', this.elem).forEach(Dom.remove);
 
 	},
 	

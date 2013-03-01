@@ -57,7 +57,7 @@ var MessageBox = Dialog.extend({
     	var footerClass = this.cssClass + '-footer';
 
         if (options == null) {
-        	Dom.query('.' + footerClass, this.elem).each(Dom.remove);
+        	Dom.query('.' + footerClass, this.elem).forEach(Dom.remove);
         } else {
 
         	var footer = Dom.find('.' + footerClass, this.elem) || Dom.append(this.elem, '<div class="' + footerClass + '"></div>'),

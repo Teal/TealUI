@@ -83,7 +83,7 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
         if (name == "disabled" || name == "readonly") {
 
             // 为按钮增加 disabled 样式。
-        	Dom.query('.ui-button,button', this.elem).each(function (elem) {
+        	Dom.query('.ui-button,button', this.elem).forEach(function (elem) {
         		Dom.setAttr(elem, "disabled", value);
         		Dom.toggleClass(elem, "ui-button-disabled", value);
         	});

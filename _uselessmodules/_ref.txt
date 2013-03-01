@@ -1,0 +1,4 @@
+http://docs.kendoui.com
+http://simpleui.org/category/guides/
+http://w2ui.com/web/demos/#!forms/forms-1
+http://mostlyserious.io/

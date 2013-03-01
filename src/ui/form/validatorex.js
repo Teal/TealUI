@@ -48,7 +48,7 @@ Validator.init = (function(){
             }
         };
 
-        dom.query('[name]').each(function (dom) {
+        dom.query('[name]').forEach(function (dom) {
             dom = new Dom(dom);
             rules[dom.getAttr('name')] = initInput(dom);
         });
