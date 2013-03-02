@@ -846,6 +846,8 @@ ModuleBuilder.writeJs = function (result, writer) {
 
 		}
 
+		comment = result.file.prependModuleComments;
+
 		if (comment) {
 			comment = comment.replace(/\r?\n/g, result.file.lineBreak);
 		}
@@ -895,6 +897,8 @@ ModuleBuilder.writeCss = function (result, writer) {
 			writer.write(result.file.lineBreak);
 
 		}
+
+		comment = result.file.prependModuleComments;
 
 		if (comment) {
 			comment = comment.replace(/\r?\n/g, result.file.lineBreak);

@@ -1,9 +1,7 @@
 ﻿/**
  * J+ Library, 1.0
- * @projectDescription jPlusUI: 一个轻量但完整�?Web UI 组件库�?
- * @copyright 2011-2012 J+ Team
+ * @copyright 2011-2013 J+ Team
  * @license The BSD License
- * @author xuld
  */
 html,
 body,
@@ -100,7 +98,7 @@ audio:not([controls]) {
   display: none;
 }
 body {
-  font-family: Tahoma, Helvetica, Arial;
+  font-family: 'Open Sans', 'PT Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Microsoft YaHei', Arial;
   font-size: 12px;
   line-height: 18px;
   color: #333333;

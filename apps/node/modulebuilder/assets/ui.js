@@ -91,18 +91,22 @@ var UI = {
 						var r = [];
 
 						if (!text) {
-							for (var key in UI._suggestData) {
-								r.push(key);
+						    for (var key in UI._suggestData) {
+						        if (UI.currentBuildFile.includes.indexOf(key) < 0 && UI.currentBuildFile.excludes.indexOf(key)) {
+						            r.push(key);
+						        }
 							}
 						} else if (/\.$/.test(text)) {
 							r.push(text.substr(0, text.length - 1), text + "js", text + "css");
 						} else {
-							for (var key in UI._suggestData) {
-								if (key.indexOf(text) === 0) {
-									r.push("<strong>" + text + "</strong>" + key.substr(text.length));
-								} else if (key.indexOf("/" + text) >= 0) {
-									r.push(key.replace("/" + text, "/<strong>" + text + "</strong>"));
-								}
+						    for (var key in UI._suggestData) {
+						        if (UI.currentBuildFile.includes.indexOf(key) < 0 && UI.currentBuildFile.excludes.indexOf(key)) {
+						            if (key.indexOf(text) === 0) {
+						                r.push("<strong>" + text + "</strong>" + key.substr(text.length));
+						            } else if (key.indexOf("/" + text) >= 0) {
+						                r.push(key.replace("/" + text, "/<strong>" + text + "</strong>"));
+						            }
+						        }
 							}
 						}
 
