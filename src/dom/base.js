@@ -279,6 +279,19 @@ var Dom = (function () {
             return Selector.query(selector, context)[0] || null;
         },
 
+    	/**
+		 * 检查当前 Dom 对象是否符合指定的表达式。
+		 * @param {String} String
+		 * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
+		 * @example
+		 * 由于input元素的父元素是一个表单元素，所以返回true。
+		 * #####HTML:
+		 * <pre lang="htm" format="none">&lt;form&gt;&lt;input type="checkbox" /&gt;&lt;/form&gt;</pre>
+		 * #####JavaScript:
+		 * <pre>Dom.query("input[type='checkbox']").match("input")</pre>
+		 * #####结果:
+		 * <pre lang="htm" format="none">true</pre>
+		 */
         match: function (elem, selector, context) {
 
             //if (elem.nodeType !== 1)
