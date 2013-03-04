@@ -773,11 +773,11 @@ if (typeof module !== 'object') {
 
 		// 不支持 console 时，自动载入 firebug-lite 。
 		if (!window.console)
-			document.write('<script type="text/javascript" src="' + configs.baseUrl + configs.apps + '/demo/firebug-lite/build/firebug-lite.js"></script>');
+			document.write('<script type="text/javascript" src="' + Demo.baseUrl + configs.apps + '/demo/firebug-lite/build/firebug-lite.js"></script>');
 
 		// 非本地运行时，自动载入统计代码。
 		if (!Demo.local) {
-			document.write('<script type="text/javascript" src="' + configs.baseUrl + configs.apps + '/demo/social.js"></script>');
+			document.write('<script type="text/javascript" src="' + Demo.baseUrl + configs.apps + '/demo/social.js"></script>');
 		}
 
 		// IE 需要强制中止 <head>

@@ -14,7 +14,7 @@ var framewroks = {
 		}
 	},
 	'Mootools': {
-		js: '../../../src/mootools/mootools-core-1.4.5-full-nocompat.js',
+		js: '../../../src/mootools/mootools-core-1.4.5.js',
 		init:  function(window){
 			window.el = window.$("header");
 			window.fn = fn;
