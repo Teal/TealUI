@@ -5,19 +5,21 @@
 	var Dom = window.Dom,
 
 		dp = Dom.prototype;
+	
+	/**
+	 * 遍历 Dom 对象，并对每个元素执行 setter。
+	 */
+	dp.access = function (getter, setter, args, valueIndex, emptyGet) {
 
-	dp.pushStack = function (fn, args) {
-		var ret = new this.constructor(), t;
-		for (var i = 0 ; i < this.length; i++) {
-			if (t = fn(this[i], args)) {
-				if (t instanceof Dom) {
-					ret.push.apply(ret, t);
-				} else {
-					ret.push(t);
-				}
+		// 如果参数够数，则设置属性，否则为获取属性。
+		if (args.length > valueIndex) {
+			for (var i = 0, len = this.length; i < len; i++) {
+				setter(this[i], args[0], args[1])
 			}
+			return this;
 		}
-		return ret;
+
+		return this.length ? getter(this[0], args[0], args[1]) : emptyGet;
 	};
 
 	dp.check = function (fn, args) {
@@ -46,13 +48,13 @@
 
 	Object.map('Text Html Size Width Height Offset Position Scroll', function (funcName) {
 		dp[funcName.toLowerCase()] = function () {
-			return this.access(Dom['get' + funcName], arguments, 0);
+			return this.access(Dom['get' + funcName], Dom['set' + funcName], arguments, 0);
 		};
 	});
 
 	Object.map('closest parent prev next child first last parents prevAll nextAll children offsetParent clone', function (funcName) {
 		dp[funcName] = function (filter) {
-			return this.pushStack(Dom[funcName], filter);
+			return this.map(Dom[funcName], filter);
 		};
 	});
 

@@ -1,0 +1,89 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HTML 编码规范</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+    <style>
+        dt {
+            font-weight: bold;
+            line-height: 200%;
+        }
+
+        dd {
+            margin-left: 60px;
+            line-height: 150%;
+            font-size: 14px;
+            text-indent: -30px;
+        }
+
+            dd pre {
+                text-indent: 0;
+            }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <dl>
+            <dt>1. 目的</dt>
+            <dd>1.1 我们的目的是避免出现歧义、易错的代码。</dd>
+            <dd>1.2 我们尊重您的编码习惯和风格。</dd>
+            <dd>1.3 我们相信格式化工具可以有效规范代码格式，所以不会在代码格式上作任何限制。</dd>
+            <dd>1.4 我们相信压缩工具可以有效提高代码效率，所以不会因为效率而修改代码导致可读性下降。</dd>
+            <dt>2. 格式</dt>
+            <dd>2.1 缩进: 您可以使用 2 个空格、4 个空格 、1 个 Tab 创建缩进。</dd>
+            <dd>2.2 行宽: 建议不要让一行代码超过 80 个字符。当一条语句不能在单独一行写完时，可能有必要拆分它。在标签后进行拆分。</dd>
+            <dd>2.3 大小写: 元素的标签和属性名必须全部小写。</dd>
+            <dd>3.4 编码: 建议使用 HTML5 方式声明: 
+                <script type="code/html" class="demo">
+                <meta charset="utf-8" />
+                </script>
+            </dd>
+            <dd>2.5 空格: 去除比不必要的空格。
+            </dd>
+            <dd>2.6 引号: 全部使用双引号。双引号内部使用单引号。如：
+                <script type="code/html" class="demo">
+                    <a onclick="alert('value')">Sign in</a>
+                </script>
+            </dd>
+            <dt>3. 语义</dt>
+            <dd>3.1 标签的使用优先考虑其语义，而不能仅仅为了应用样式而使用一些特殊标签。</dd>
+            <dd>3.2 h1-h6: 在表示标题时使用。一般网站logo为 h1, 模块标题为 h2, 内容标题为 h3, 小标题为 h4。</dd>
+            <dd>3.3 p &amp; div: 如果需要展示一段文字（或图文），使用 p 标签。一般 p 标签和 h1-h6 标签会一起出现。其它大部分情况不使用 p 标签。</dd>
+            <dd>3.4 p &amp; br: p 的本意不是换行，而是换段。p 内部肯能含有 br 。br 则表示强制换行。</dd>
+            <dd>3.5 HTML 5 标签: 如果条件允许，尽量使用 HTML 新标签。</dd>
+            <dd>3.5 img: 仅在向用户展示图片时使用。不得将 img 用于修饰、定位等用于美化页面的场景。</dd>
+            <dd>3.6 button &amp; input[type=button]: 根据情况而定。但无论使用哪种，都必须定义 type="button"。</dd>
+            <dd>3.7 strong &amp; b, em &amp; i: 优先使用前者。</dd>
+            <dt>4. 其它</dt>
+            <dd>4.1 建议使用 UTF-8 无 BOM 编码 和 Windows 换行符 (换行回车)。</dd>
+            <dd>4.2 HTML 文件扩展名为 .html。</dd>
+            <dd>4.3 HTML 基本格式如下:
+                <script type="code/html" class="demo">
+                    <!doctype html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8" />
+                        <title>Sample page</title>
+                        <link rel="stylesheet" href="css_lib.css" />
+                        <style>
+                            /* 页面级 CSS 代码*/
+                        </style>
+                    </head>
+                    <body>
+                        < script src="js_lib.js">< /script>
+                        < script>
+                            // 页面级 JavaScript 代码。
+                        < /script>
+                    </body>
+                    </html>
+                </script>
+            </dd>
+        </dl>
+    </article>
+</body>
+</html>

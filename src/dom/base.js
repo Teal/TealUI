@@ -97,22 +97,6 @@ var Dom = (function () {
 		    },
 
 		    /**
-             * 遍历 Dom 对象，并对每个元素执行 setter。
-             */
-		    access: function (getter, setter, args, valueIndex, emptyGet) {
-
-		        // 如果参数够数，则设置属性，否则为获取属性。
-		        if (args.length > valueIndex) {
-		            for (var i = 0, len = this.length; i < len; i++) {
-		                setter(this[i], args[0], args[1])
-		            }
-		            return this;
-		        }
-
-		        return this.length ? getter(this[0], args[0], args[1]) : emptyGet;
-		    },
-
-		    /**
 	         * 遍历 Dom 对象，并对每个元素执行 setter。
 	         */
 		    iterate: function (fn, args) {
@@ -125,20 +109,26 @@ var Dom = (function () {
 		        return this;
 		    },
 
-		    filter: function (selector) {
-		    	var newLength = 0,
-					fn = typeof selector === 'string' ? function (elem) {
-						return Dom.match(elem, selector);
-					} : fn;
-
-		    	for (var i = 0; i < this.length; i++) {
-		    		if (fn(this[i]) !== false) {
-		    			this[newLength++] = this[i];
+		    map: function (fn, args) {
+		    	var me = this, ret = new me.constructor(), t;
+		    	for (var i = 0 ; i < me.length; i++) {
+		    		if (t = fn(me[i], args)) {
+		    			if (t instanceof Dom) {
+		    				ret.push.apply(ret, t);
+		    			} else {
+		    				ret.push(t);
+		    			}
 		    		}
 		    	}
+		    	return ret;
+		    },
 
-		    	return ap.splice.call(this, newLength);
-
+		    filter: function (selector) {
+		    	return this.map(typeof selector === 'string' ? function (elem, selector) {
+		    		return Dom.match(elem, selector) && elem;
+		    	} : function (elem, selector) {
+		    		return fn(elem) !== false && elem;
+		    	}, selector);
 		    }
 
 		}),

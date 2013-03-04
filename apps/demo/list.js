@@ -99,7 +99,7 @@ Demo.writeList = function (list, column) {
     		html += '</ul></section>';
     		html += '<section class="demo"><h3 class="demo" style="margin-top:0;">' + name + '</h3><ul class="demo demo-plain">';
     	} else {
-    		html += '<li style="margin:0;list-style:disc inside;color:#E2E2EB;font-size:14px;line-height:24px;height:24px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><a class="demo" href="' + data.replace(/^~\//, Demo.baseUrl) + '" title="' + name + '">' + name + '</a></li>';
+    		html += '<li style="margin:0;list-style:disc inside;color:#E2E2EB;font-size:14px;line-height:24px;height:24px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><a class="demo" href="' + data.replace(/^~\//, Demo.baseUrl) + '" title="' + name + '"' + (/http\s?:\/\//i.test(data) ? ' target="_blank"' : '') + '>' + name + '</a></li>';
 
     		// <small style="color: #999999;"> - ' + name + '</small>
     	}
