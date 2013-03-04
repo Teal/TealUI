@@ -664,12 +664,12 @@ var JPlus = (function (undefined) {
 		 */
 		filter: function (fn, scope) {
 			//#assert.isFunction(fn, "Array#filter(fn, scope): {fn} ~");
-			var r = [];
+			var ret = [];
 			ap.forEach.call(this, function (value, i, array) {
 				if (fn.call(scope, value, i, array))
-					r.push(value);
+					ret.push(value);
 			});
-			return r;
+			return ret;
 		},
 
 		/**

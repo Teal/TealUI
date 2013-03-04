@@ -1,0 +1,144 @@
+/* *****************************************************************************
+ *
+ * Copyright (c) 2011 Xuld. All rights reserved.
+ * 
+ * This source code is part of the SpeedMatch .
+ * 
+ * This code is licensed under MIT license.
+ * See the file License.html for the license details.
+ * 
+ * 
+ * You must not remove this notice, or any other, from this software.
+ *
+ * 
+ * ******************************************************************************/
+
+/* Part of the css code is from SlickSpeed, MIT License (http://mootools.net/slickspeed)  */
+
+
+body{
+	background: #f0f0f0 url(images/bg.gif) left top fixed no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #555;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: green;
+}
+
+
+#url {
+	height: 20px;
+	width: 500px;
+}
+
+.button {
+	color: #fff;
+	background: url(images/button-bg.gif) right center;
+	line-height: 30px;
+	height: 30px;
+	border: 0;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.button:hover {
+	color: yellow;
+}
+
+#wrap{
+	
+	width: 1000px;
+	margin: 0 auto;
+}
+
+#frames {
+	position: absolute;
+	top: -400px;
+}
+
+#buttonContainer {
+	text-align: right;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 7px;
+
+}
+
+#note {
+	padding: 0 20px;	
+}
+
+#testcases {
+	width: 100%;
+	margin: 20px 3px;
+	table-layout: fixed;
+}
+
+#testcases tr:first-of-type   {
+	text-shadow: 2px 2px 1px #B9ACAC;
+}
+
+#testcases th{
+	background: #D0C8C8;
+	padding: 7px;
+    color: #8A7575;
+}
+
+#testcases td{
+	 background: #C8CBD0;
+	 padding: 5px;
+}
+
+#testcases .testcase {
+	background: #D2E0E6;
+	color: #528CE0;
+}
+
+
+
+#tools {
+	border-top: 1px solid #CCCCCC;
+	padding: 6px;
+}
+
+
+#colors {
+	float: right;
+}
+
+#colors td{
+	padding: 6px;
+}
+
+#copyright {
+	text-align: center;
+}
+
+
+.time {
+color: #FFFFFF;
+}
+
+.normal {
+	background: #D0C8C8!important;
+    color: #8A7575!important;
+}
+
+.best {
+	background: #CFE773!important;
+	 color: #657528!important;
+}
+
+.worst {
+	background: #E8C896!important;
+	color: #657528!important;
+}
+
+.error {
+	background:#EE9A9A!important;
+    color: #B33F3F!important;
+}

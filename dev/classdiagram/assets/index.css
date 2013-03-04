@@ -1,0 +1,393 @@
+﻿
+body {
+    font-family: 'Segoe UI',Verdana,Arial;
+}
+
+/* #region 对象 */
+
+.object {
+    border: 1px solid #716F64;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: #D8D8D8 4px 4px;
+    -webkit-box-shadow: #D8D8D8 4px 4px;
+    box-shadow: #D8D8D8 4px 4px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 150px;
+    background: #fff;
+}
+
+    .object header {
+        background-image: linear-gradient(to right, #D3DCEF, #FEFFFF);
+        font-weight: bold;
+        -moz-border-radius: 10px 10px 0 0;
+        -webkit-border-radius: 10px 10px 0 0;
+        border-radius: 10px 10px 0 0;
+        font-size: 12px;
+        padding: 6px 10px 10px;
+        border-bottom: 1px solid #DFE1E3;
+    }
+
+        .object header a {
+            text-decoration: none;
+            color: #000;
+        }
+
+            .object header a:hover {
+                text-decoration: underline;
+            }
+
+.interface header {
+    background-image: linear-gradient(to right, #E6F0DB, #FEFFFF);
+}
+
+.object .collapse {
+    float: right;
+    width: 25px;
+    height: 20px;
+    background: url(arrow.png) no-repeat 100% -20px;
+    cursor: pointer;
+}
+
+.object header h4 {
+    float: left;
+    margin: 0;
+    font-size: 16px;
+    line-height: 20px;
+    width: 104px;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    font-family: inherit;
+}
+
+.object header .info {
+    clear: both;
+}
+
+.object dl {
+    margin: 0 0 10px;
+}
+
+.object dt {
+    background: #F0F2F9;
+    font-size: 12px;
+    padding: 0 5px;
+    font-weight: 300;
+    margin-top: 0;
+}
+
+.interface .object dt {
+    background: #F3F7F0;
+}
+
+.object dd {
+    margin-left: 0;
+}
+
+    .object dd a {
+        color: #000000;
+        text-decoration: none;
+        display: block;
+        line-height: 24px;
+        height: 24px;
+        overflow: hidden;
+        word-break: break-all;
+    }
+
+        .object dd a:hover {
+            background: #ebebeb;
+        }
+
+.rightarrow {
+    float: left;
+    width: 18px;
+    height: 20px;
+    background: url(arrow.png) no-repeat left bottom;
+}
+
+.collapsed header {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.collapsed .collapse {
+    background-position: right top;
+}
+
+.collapsed dl {
+    display: none;
+}
+
+/* #endregion 对象 */
+
+/* #region 图标 */
+
+.icon-member {
+    background: url(icons.gif) no-repeat left center;
+    width: 24px;
+    height: 20px;
+    margin-top: 4px;
+    float: left;
+}
+
+.icon-none {
+    width: 20px;
+    background: none;
+}
+
+
+.icon-static {
+    width: 20px;
+    background-position: 100% 4px;
+    background-image: url(static.gif);
+}
+
+
+.icon-extends {
+    background-position: center bottom;
+    background-image: url(extends.gif);
+}
+
+.icon-namespace {
+    background-position: 0 0;
+}
+
+.icon-class {
+    background-position: 0 -40px;
+}
+
+.icon-interface {
+    background-position: 0 -80px;
+}
+
+.icon-enum {
+    background-position: 0 -120px;
+}
+
+.icon-method, .icon-function {
+    background-position: 0 -160px;
+}
+
+.icon-property {
+    background-position: 0 -200px;
+}
+
+.icon-field {
+    background-position: 0 -240px;
+}
+
+.icon-event {
+    background-position: 0 -280px;
+}
+
+.icon-config {
+    background-position: 0 -320px;
+}
+
+.icon-example {
+    background-position: 0 -360px;
+}
+
+.icon-module {
+    background-position: 0 -400px;
+}
+
+.icon-book {
+    background-position: 0 -440px;
+}
+
+
+
+.icon-namespace-private {
+    background-position: 0 -500px;
+}
+
+.icon-class-private {
+    background-position: 0 -540px;
+}
+
+.icon-interface-private {
+    background-position: 0 -580px;
+}
+
+.icon-enum-private {
+    background-position: 0 -620px;
+}
+
+.icon-method-private, .icon-function-private {
+    background-position: 0 -660px;
+}
+
+.icon-property-private {
+    background-position: 0 -700px;
+}
+
+.icon-field-private {
+    background-position: 0 -740px;
+}
+
+.icon-event-private {
+    background-position: 0 -780px;
+}
+
+.icon-config-private {
+    background-position: 0 -820px;
+}
+
+.icon-example-private {
+    background-position: 0 -860px;
+}
+
+.icon-module-private {
+    background-position: 0 -900px;
+}
+
+.icon-book-private {
+    background-position: 0 -940px;
+}
+
+
+.icon-namespace-protected {
+    background-position: 0 -1000px;
+}
+
+.icon-class-protected {
+    background-position: 0 -1040px;
+}
+
+.icon-interface-protected {
+    background-position: 0 -1080px;
+}
+
+.icon-enum-protected {
+    background-position: 0 -1120px;
+}
+
+.icon-method-protected, .icon-function-protected {
+    background-position: 0 -1160px;
+}
+
+.icon-property-protected {
+    background-position: 0 -1200px;
+}
+
+.icon-field-protected {
+    background-position: 0 -1240px;
+}
+
+.icon-event-protected {
+    background-position: 0 -1280px;
+}
+
+.icon-config-protected {
+    background-position: 0 -1320px;
+}
+
+.icon-example-protected {
+    background-position: 0 -1360px;
+}
+
+.icon-module-protected {
+    background-position: 0 -1400px;
+}
+
+/* #endregion */
+
+/* #region 源码 */
+
+.source {
+    position: absolute;
+    z-index: 1010;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    border: 3px solid #333;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    min-width: 200px;
+}
+
+    .source .arrow {
+        font-family: "SimSun";
+        overflow: hidden;
+        display: block;
+        font-size: 21px;
+        line-height: 20px;
+        position: absolute;
+        content: "\25c6";
+        color: #000000;
+        height: 20px;
+        width: 10px;
+        left: -10px;
+        top: 15px;
+        color: #333;
+        margin-top: -10px;
+    }
+
+    .source .arrow-back {
+        position: absolute;
+        top: 0;
+        left: 1px;
+    }
+
+    .source pre {
+        margin: 0;
+    }
+
+/* #endregion 源码 */
+
+/* #region 绘图 */
+
+.arrow, .arrow-top, .arrow-circle, .line-horizonal, .line-vertical {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.arrow-top, .arrow-circle {
+    font-family: Arial, sans-serif;
+    color: #716F64;
+    font-size: 12px;
+}
+
+.arrow-circle {
+    font-size: 35px;
+}
+
+.line-horizonal {
+    height: 0;
+    border-top: 1px solid #716F64;
+}
+
+.line-vertical {
+    width: 0;
+    border-left: 1px solid #716F64;
+}
+
+#main {
+    width: 980px;
+    overflow: auto;
+    height: 600px;
+    position: relative;
+    border: 1px solid #999;
+}
+    #body {
+        cursor: move;
+        overflow: visible;
+    }
+
+    .source, #body > * {
+        position: absolute;
+    }
+
+/* #endregion 绘图 */

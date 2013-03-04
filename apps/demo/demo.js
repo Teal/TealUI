@@ -56,13 +56,13 @@ Demo.Configs = {
 	/**
 	 * 文档的下拉菜单 HTML 模板。
 	 */
-	doc: '<a href="~/resources/cookbooks/jplusui-full-api/index.html" target="_blank">jPlusUI API 文档</a>\
+	doc: '<!--<a href="~/resources/cookbooks/jplusui-full-api/index.html" target="_blank">jPlusUI API 文档</a>\
                 <a href="~/resources/cookbooks/jplusui-core-api/index.html" target="_blank">jPlusUI Core 文档</a>\
-                <a href="~/resources/cookbooks/jquery2jplus.html" target="_blank">jQuery 转 jPlusUI</a>\
+                <a href="~/resources/cookbooks/jquery2jplus.html" target="_blank">jQuery 转 jPlusUI</a>-->\
                 <!--<a href="~/resources/cookbooks/dplsystem.html" target="_blank" style="border-top: 1px solid #EBEBEB;">模块开发教程</a>-->\
-                <a href="~/dev/cookbooks/develop/apps.html" target="_blank">开发系统文档</a>\
-                <a href="~/resources/cookbooks/classdiagram" target="_blank">类图</a>\
-                <!--<a href="~/resources/index.html#doc" target="_blank" style="border-top: 1px solid #EBEBEB;">更多文档</a>-->',
+				<a href="~/dev/cookbooks/apps.html" target="_blank">开发系统文档</a>\
+                <!--<a href="~/resources/cookbooks/classdiagram" target="_blank">类图</a>-->\
+                <a href="~/dev/index.html" target="_blank" style="border-top: 1px solid #EBEBEB;">更多文档</a>',
 
 	/**
 	 * 底部 HTML 模板。
@@ -773,11 +773,11 @@ if (typeof module !== 'object') {
 
 		// 不支持 console 时，自动载入 firebug-lite 。
 		if (!window.console)
-			document.write('<script type="text/javascript" src="' + configs.baseUrl + configs.apps + '/demo/firebug-lite/build/firebug-lite.js"></script>');
+			document.write('<script type="text/javascript" src="' + Demo.baseUrl + configs.apps + '/demo/firebug-lite/build/firebug-lite.js"></script>');
 
 		// 非本地运行时，自动载入统计代码。
 		if (!Demo.local) {
-			document.write('<script type="text/javascript" src="' + configs.baseUrl + configs.apps + '/demo/social.js"></script>');
+			document.write('<script type="text/javascript" src="' + Demo.baseUrl + configs.apps + '/demo/social.js"></script>');
 		}
 
 		// IE 需要强制中止 <head>

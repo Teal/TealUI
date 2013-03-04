@@ -24,7 +24,7 @@ Demo.writeNavbar = function (list) {
 
         inUl = true;
 
-        html += '<li style="list-style:none"><a class="demo" href="' + list[key].replace(/^~\//, Demo.baseUrl) + '" title="' + key + '">' + key + '</a></li>';
+        html += '<li style="list-style:none"><a class="demo" href="' + list[key].replace(/^~\//, Demo.baseUrl) + '" title="' + key + '"' + (/http\s?:\/\//i.test(list[key]) ? ' target="_blank"' : '') + '>' + key + '</a></li>';
         
     }
 

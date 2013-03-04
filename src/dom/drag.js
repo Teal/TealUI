@@ -282,8 +282,8 @@ Dom.implement({
 	 * @param {Element} [handle] 拖动句柄。
 	 * @return this
 	 */
-    draggable: function (options) {
-    	return Dom.iterate(this, Dom.draggable, options);
+    draggable: function () {
+    	return this.iterate(Dom.draggable, arguments);
 	}
 	
 });

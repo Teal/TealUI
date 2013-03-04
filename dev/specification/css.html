@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CSS 编码规范</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+    <style>
+        dt {
+            font-weight: bold;
+            line-height: 200%;
+        }
+
+        dd {
+            margin-left: 60px;
+            line-height: 150%;
+            font-size: 14px;
+            text-indent: -30px;
+        }
+
+            dd pre {
+                text-indent: 0;
+            }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <dl>
+            <dt>1. 目的</dt>
+            <dd>1.1 我们的目的是避免出现歧义、易错的代码。</dd>
+            <dd>1.2 我们尊重您的编码习惯和风格。</dd>
+            <dd>1.3 我们相信格式化工具可以有效规范代码格式，所以不会在代码格式上作任何限制。</dd>
+            <dt>2. 格式</dt>
+            <dd>2.1 缩进: 您可以使用 2 个空格、4 个空格 、1 个 Tab 创建缩进。</dd>
+            <dd>2.2 行宽: 建议不要让一行代码超过 80 个字符。当一条语句不能在单独一行写完时，可能有必要拆分它。在标签后进行拆分。</dd>
+            <dd>2.3 大小写: 选择器必须全部小写。</dd>
+            <dd>3.4 编码: 建议使用 HTML5 方式声明: 
+                <script type="code/html" class="demo">
+                <meta charset="utf-8" />
+                </script>
+            </dd>
+            <dd>2.5 空格: 去除比不必要的空格。建议在选择器和css属性名冒号后加空格。如：
+                <script type="code/css" class="demo">
+                    /* 区域模块-2 */
+                    .tech {
+                        width: 950px;
+                        margin: 0 auto;
+                    }
+                    .tech .wd {
+                        width: 620px;
+                        float: left;
+                    }
+                </script>
+            </dd>
+            <dd>2.6 引号: 尽量省略引号。如果一定需要，使用双引号。如：
+                <script type="code/css" class="demo">
+                    background: url(bg.png);
+                </script>
+            </dd>
+            <dd>2.7 分号: 建议保留分号。</dd>
+            <dd>2.8 空行: 不同区块之间使用空行隔开。</dd>
+            <dt>3. 语义</dt>
+            <dd>3.1 命名: 选择器的命名应该根据语义，而不是根据样式本身。如:
+                <script type="code/css" class="demo">
+                    /* 正确： */
+                    .hint {
+                        color: #333;
+                    }
+
+                    /* 错误： */
+                    .gray {
+                       color: #333;
+                    }
+                </script>
+            </dd>
+            <dd>3.2 重复选择器: 尽量避免使用重复选择器。如:
+                <script type="code/css" class="demo">
+                    /* 不建议 */
+                    ul#id {}
+                    div.class {}
+                </script>
+            </dd>
+            <dd>3.3 简写属性: 尽量使用简写属性。如:
+                <script type="code/css" class="demo">
+                   padding: 0 1px;
+                </script>
+            </dd>
+            <dd>3.4 单位: 尽量使用px单位。如果值为 0，则不需要单位。如:
+                <script type="code/css" class="demo">
+                   padding: 0 1px;
+                </script>
+            </dd>
+            <dd>3.5 颜色值: 尽量使用#16进制 的颜色格式, 并且尽量缩写。如:
+                <script type="code/css" class="demo">
+                   #344
+                </script>
+            </dd>
+            <dd>3.6 CSS hack: Css hack 优先于 javascript hack。各浏览器 hack 方式如下:
+                <script type="code/css" class="demo">
+                    .IE-6{_property:value;}
+                    .IE-7{+property:value;}
+                    .lte-IE-7{*property:value;}
+                    .gte-IE-8{property:value\0;}
+                    :root .IE-9{property:value\0/;}
+                    .all-IE{property:value\9;}
+                    .not-IE{property//:value;}
+                    @-moz-document url-prefix() { .firefox{property:value;} }
+                    @media all and (-webkit-min-device-pixel-ratio:0) { .webkit{property:value;} }
+                    @media all and (-webkit-min-device-pixel-ratio:10000),not all and (-webkit-min-device-pixel-ratio:0) { .opera{property:value;} }
+                    @media screen and (max-device-width: 480px) { .iphone-or-mobile-s-webkit{property:value;} }
+                </script>
+            </dd>
+            <dt>4. 其它</dt>
+            <dd>4.1 建议使用 UTF-8 编码 和 Windows 换行符 (换行回车)。</dd>
+            <dd>4.2 建议于文件头部写明作者和功能。</dd>
+        </dl>
+    </article>
+</body>
+</html>

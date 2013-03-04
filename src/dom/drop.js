@@ -1,16 +1,10 @@
-//===========================================
-//  拖放         A
-//===========================================
-
-
-
-
+/**
+ * @author xuld
+ */
 
 //#include dom/drag.js
 
-
-
-(function(){
+var Droppable = (function(){
 	
 	/**
 	 * 全部的区。
@@ -19,12 +13,12 @@
 		
 		dp = Draggable.prototype,
 		
-		Droppable = window.Droppable = Class({
+		Droppable = Class({
 		
 		    raiseEvent: function (eventName, draggable, e) {
 		        e.draggable = draggable;
 				e.droppable = this;
-				return this.target.trigger(eventName, e);
+				return Dom.trigger(this.elem, eventName, e);
 			},
 			
 			/**
@@ -76,8 +70,12 @@
              * 判断当前区域是否接受指定的拖动块。
              */
 			init: function (draggable) {
-			    this.lt = this.target.getPosition();
-			    this.rb = this.lt.add(this.target.getSize());
+				this.lt = Dom.getPosition(this.elem);
+				var size = Dom.getSize(this.elem);
+				this.rb = {
+					x: this.lt.x + size.x,
+					y: this.lt.y + size.y
+				}
 			    return true;
 			},
 			
@@ -95,7 +93,12 @@
 			 * 使当前域处理当前的 drop 。
 			 */
 			disable: function (value) {
-			    droppables[value !== false ? 'remove' : 'include'](this);
+				if (value !== false) {
+					droppables.remove(this);
+				} else if (droppables.indexOf(this) < 0) {
+					droppables.push(this);
+
+				}
 			    return this;
 			}
 			
@@ -105,14 +108,14 @@
 		
 		afterDrag = dp.afterDrag,
 		
-		mouseEvents = Dom.$event.mousemove;
+		mouseEvents = Dom.eventFix.mousemove;
 	
     /**
      * 对 Draggable 扩展实现拖放判断。
      */
 	Draggable.implement({
 		
-		beforeDrag: function(e){
+		beforeDrag: function (e) {
 			var me = this;
 			beforeDrag.call(me, e);
 			me.availableDroppables = droppables.filter(function(droppable){
@@ -120,6 +123,7 @@
 			});
 			me.droppableFlags = new Array(me.availableDroppables.length);
 			me.droppables = [];
+
 		},
 		
 		doDrag: function(e){
@@ -161,22 +165,24 @@
 		}
 	});
 	
-	Dom.addEvents('dragenter dragleave dragover drop', {
-	    add: function (dom, type, fn) {
-	        Dom.$event.$default.add(dom, type, fn);
-	        fn = dom.dataField().droppable;
+	Dom.defineEvents('dragenter dragleave dragover drop', {
+		add: function (elem, type, fn) {
+			Dom.addListener(elem, type, fn);
+			fn = Dom.data(elem).droppable;
 			if(fn){
 				fn.disable(false);
 			} else {
-			    dom.dataField().droppable = new Droppable({ target: dom });
+				Dom.data(elem).droppable = new Droppable({ elem: elem });
 			}
 		},
-	    remove: function (dom, type, fn) {
-	        Dom.$event.$default.remove(dom, type, fn);
-	        dom.dataField().droppable.disable();
-	        delete dom.dataField().droppable;
+		remove: function (elem, type, fn) {
+			Dom.removeListener(elem, type, fn);
+			Dom.data(elem).droppable.disable();
+	        delete Dom.data(elem).droppable;
 		},
 		initEvent: mouseEvents && mouseEvents.initEvent
 	});
-})();
 
+	return Droppable;
+
+})();

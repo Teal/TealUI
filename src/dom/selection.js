@@ -77,7 +77,7 @@ Dom.implement({
 	 * @return {Object} 返回 {start: 0, end: 3}  对象。
 	 */
 	selectionRange: function () {
-		return this.access(Dom.getSelectionRange, Dom.setSelectionRange, arguments, 0);
+		return arguments.length === 0 ? this.length ? Dom.getSelectionRange(this[0]) : null : this.iterate(Dom.setSelectionRange, arguments);
 	},
 
 	/**
@@ -87,9 +87,7 @@ Dom.implement({
 	 * @return {String} 选中的文本
 	 */
 	selectedText: function (value, selectInsertedText) {
-		return this.access(function (elem) {
-			return Dom.getSelectionRange(elem).text;
-		}, function (elem) {
+		return arguments.length === 0 ? this.length ? Dom.getSelectionRange(this[0]).text : null : this.iterate(function (elem) {
 			var val = Dom.getText(elem);
 
 			var s = Dom.getSelectionRange(elem);
@@ -106,7 +104,7 @@ Dom.implement({
 				Dom.setCursor(elem, s.end);
 			}
 
-		}, arguments, 0);
+		}, arguments);
 	}
 
 });
