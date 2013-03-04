@@ -26,6 +26,14 @@ switch(request.queryString.action){
 	case 'build':
 		build(context, request.form.data);
 		break;
+	case 'read':
+		var IO = require('utilskit/io');
+		if(IO.exists(request.queryString.path)) {
+			var content = IO.readFile(request.queryString.path);
+			writeJsonp(context, content);
+		}
+		response.end();
+		break;
 	default:
 		response.end();
 		break;

@@ -138,7 +138,8 @@ BuildFile.prototype.save = function () {
 				case "lineBreak":
 				case "prefix":
 				case "postfix":
-				case "isNew":
+			    case "isNew":
+			    case "path":
 					break;
 				default:
 					var value = this[key];

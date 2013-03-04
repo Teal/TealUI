@@ -166,6 +166,8 @@ var UI = {
 					name = Path.basename(name, ".js");
 				}
 
+				path = path.replace(/\\/g, "/");
+
 
 				r.push('<div class="line" onmouseover="this.className += \' line-hover\'" onmouseout="this.className = this.className.replace(\' line-hover\', \'\');"><nav class="demo demo-toolbar"><a href="javascript://打开此打包方案" onclick="UI.openBuildFile(\'' + path + '\',' + fromOpenList + ');return false;">打开</a> | <a class="demo-viewsource-toggle" href="javascript://删除此打包方案" onclick="UI.deleteBuildFile(\'' + path + '\',' + fromOpenList + '); return false;">删除</a> | <a href="javascript://复制此打包方案" onclick="UI.copyBuildFile(\'' + path + '\',' + fromOpenList + ');return false;">复制</a> |  <a class="demo-viewsource-toggle" href="javascript://根据此打包方案重新生成" onclick="UI.buildBuildFile(\'' + path + '\',' + fromOpenList + '); return false;">生成</a></nav><a class="link" href="javascript://打开此打包方案" onclick="UI.openBuildFile(\'' + path + '\',' + fromOpenList + ');return false;">' + name + '</a></div>');
 			}
@@ -204,7 +206,7 @@ var UI = {
 
 	// 打开指定的打包方案。
 	openBuildFile: function (buildFilePath) {
-		ModuleBuilder.load(buildFilePath, function (buildFile) {
+	    UI._loadBuildFile(buildFilePath, function (buildFile) {
 			UI.currentBuildFile = buildFile;
 			UI.step(3);
 		});
@@ -232,7 +234,7 @@ var UI = {
 			if (!confirm("确认删除打包方案文件 " + buildFilePath + " 吗?"))
 				return;
 
-			UI._api('deletebuildfile', {
+			UI._jsonpNode('deletebuildfile', {
 				path: buildFilePath,
 			}, function () {
 				UI.step(1);
@@ -240,9 +242,36 @@ var UI = {
 		}
 	},
 
+	_loadBuildFile: function (buildFilePath, callback) {
+
+        // 绝对路径，基于服务器打开。
+	    if (buildFilePath.indexOf(':') >= 0 && buildFilePath.indexOf(location.protocol + '//' + location.host + '/') !== 0) {
+
+	        if (!UI.usingXFly) {
+	            UI._alertOpenXFlyError();
+	        } else {
+	            UI._jsonpNode('read', {
+	                path: buildFilePath
+	            }, function (content) {
+
+	                var buildFile = new BuildFile();
+	                buildFile.load(content);
+
+	                buildFile.path = buildFilePath;
+	                callback(buildFile);
+
+	            });
+	        }
+
+	    } else {
+	        ModuleBuilder.load(buildFilePath, callback);
+	    }
+
+	},
+
 	// 复制指定的打包方案。
 	copyBuildFile: function (buildFilePath) {
-		ModuleBuilder.load(buildFilePath, function (buildFile) {
+	    UI._loadBuildFile(buildFilePath, function (buildFile) {
 			UI.currentBuildFile = buildFile;
 
 			buildFile.js = buildFile.css = buildFile.assets = buildFile.path = "";
@@ -253,7 +282,7 @@ var UI = {
 
 	// 编译指定的打包方案。
 	buildBuildFile: function (buildFilePath) {
-		ModuleBuilder.load(buildFilePath, function (buildFile) {
+	    UI._loadBuildFile(buildFilePath, function (buildFile) {
 			UI.currentBuildFile = buildFile;
 			UI._buildInternal();
 		});
@@ -267,7 +296,7 @@ var UI = {
 		}
 	},
 
-	_api: function (action, data, callback) {
+	_jsonpNode: function (action, data, callback) {
 		Ajax.jsonp(Demo.Configs.serverBaseUrl + Demo.Configs.apps + "/node/modulebuilder/server/api.njs?action=" + action, data, callback, UI._alertOpenXFlyError);
 	},
 
@@ -692,12 +721,12 @@ var UI = {
 		if (!UI.usingXFly) {
 			UI._alertOpenXFlyError();
 		} else {
-			UI._postApi('save');
+			UI._postNode('save');
 		}
 		
 	},
 	
-	_postApi: function (action, data){
+	_postNode: function (action, data){
 	
 		var form = Dom.get('step4_form');
 		Dom.hide(Dom.get('step4_result'));
@@ -732,7 +761,7 @@ var UI = {
 
 		// 基于服务器生成。
 		if (needXFly) {
-			UI._postApi('build');
+			UI._postNode('build');
 		} else {
 
 			var form = Dom.get('step4_result');
