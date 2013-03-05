@@ -1,0 +1,2 @@
+1.  修改 resizeTo
+2. 修改  renderTo  支持组件本身。
