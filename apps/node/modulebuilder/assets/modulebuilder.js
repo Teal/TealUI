@@ -231,7 +231,15 @@ ModuleBuilder.load = function (buildFilePath, callback) {
 };
 
 ModuleBuilder.loadContent = typeof exports === "object" ? function (fullPath, callback) {
-	require("fs").readFile(fullPath, "utf-8", callback);
+	require("fs").readFile(fullPath, "utf-8", function (error, content) {
+
+		if (content) {
+			content = content.replace(/^\uFEFF/, '');
+		}
+
+		callback(error, content);
+
+	});
 } : function (fullPath, callback) {
 
 	Ajax.get(fullPath, function (content) {
