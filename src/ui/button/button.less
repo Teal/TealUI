@@ -29,7 +29,7 @@
 .buttonBackgroundColor(@startColor, @endColor) {
     #gradient > .bar(@startColor, @endColor);
     // in these cases the gradient won't cover the BackgroundColorColor, so we override
-    &:hover, &:active, &.ui-button-actived, &[disabled], &.ui-button-disabled {
+    &:hover, &:active, &.x-button-actived, &[disabled], &.x-button-disabled {
         background-color: @endColor;
     }
 }
@@ -37,7 +37,7 @@
 // Core
 // --------------------------------------------------
 
-.ui-button {
+.x-button {
 	.inline-block();
 	padding: 4px 14px;
 	font-size: @baseFontSize + 1;
@@ -56,7 +56,7 @@
 }
 	
 // Hover state
-.ui-button:hover {
+.x-button:hover {
 	color: @grayDark;
 	text-decoration: none;
 	background-color: darken(@white, 10%);
@@ -68,7 +68,7 @@
 }
 	
 // Active state
-.ui-button:active, .ui-button-actived {
+.x-button:active, .x-button-actived {
   background-color: darken(@white, 10%);
   background-color: darken(@white, 15%) e("\9");
   background-image: none;
@@ -77,7 +77,7 @@
 }
 	
 // Disabled state
-.ui-button[disabled], .ui-button-disabled {
+.x-button[disabled], .x-button-disabled {
   cursor: default;
   background-image: none;
   .opacity(0.6);
@@ -89,7 +89,7 @@
 // --------------------------------------------------
 
 // Large
-.ui-button-large {
+.x-button-large {
   padding: 9px 24px;
   line-height: 150%;
   font-size: @baseFontSize + 4px;
@@ -97,13 +97,13 @@
 }
 
 // Small
-.ui-button-small {
+.x-button-small {
   padding: 2px 9px;
   font-size: @baseFontSize - 2px;
 }
 
 // Smallest
-.ui-button-smallest {
+.x-button-smallest {
   padding: 1px 6px;
   font-size: @baseFontSize - 2px;
   line-height: @baseLineHeight - 4px;
@@ -115,12 +115,12 @@
 	
 // Set text color
 // -------------------------
-.ui-button-hint, .ui-button-hint:hover, .ui-button-success, .ui-button-success:hover, .ui-button-info, .ui-button-info:hover, .ui-button-warning, .ui-button-warning:hover, .ui-button-error, .ui-button-error:hover, .ui-button-highlight, .ui-button-highlight:hover, .ui-button-alt:hover, .ui-button-alt:active {
+.x-button-hint, .x-button-hint:hover, .x-button-success, .x-button-success:hover, .x-button-info, .x-button-info:hover, .x-button-warning, .x-button-warning:hover, .x-button-error, .x-button-error:hover, .x-button-highlight, .x-button-highlight:hover, .x-button-alt:hover, .x-button-alt:active {
   text-shadow: 0 -1px 0 rgba(0,0,0,.25);
   color: @white;
 }
 
-.ui-button-alt:hover, .ui-button-alt:active{
+.x-button-alt:hover, .x-button-alt:active{
 	 #gradient > .bar(@infoButtonBackgroundColor, @infoButtonBackgroundColorHover);
 }
 
@@ -128,31 +128,31 @@
 // -------------------------
 
 // Info appears as a neutral blue
-.ui-button-hint {
+.x-button-hint {
   .buttonBackgroundColor(@hintButtonBackgroundColor, @hintButtonBackgroundColorHover);
 }
 
 // Success appears as green
-.ui-button-success {
+.x-button-success {
   .buttonBackgroundColor(@successButtonBackgroundColor, @successButtonBackgroundColorHover);
 }
 	
 // Info appears as a neutral blue
-.ui-button-info {
+.x-button-info {
   .buttonBackgroundColor(@infoButtonBackgroundColor, @infoButtonBackgroundColorHover);
 }
 
 // Warning appears are orange
-.ui-button-warning {
+.x-button-warning {
   .buttonBackgroundColor(@warningButtonBackgroundColor, @warningButtonBackgroundColorHover);
 }
 
 // error and error appear as red
-.ui-button-error {
+.x-button-error {
   .buttonBackgroundColor(@errorButtonBackgroundColor, @errorButtonBackgroundColorHover);
 }
 
-.ui-button-highlight {
+.x-button-highlight {
   .buttonBackgroundColor(@highlightButtonBackgroundColor, @highlightButtonBackgroundColorHover);
 }
 
@@ -162,23 +162,23 @@
 
 button, input {
 
-  &.ui-button {
+  &.x-button {
     // IE7 has some default padding on button controls
     *padding: 4px 5px 0;
   }
  
-  &.ui-button-large {
+  &.x-button-large {
     *padding-top: 7px;
     *padding-bottom: 5px;
   }
 
-  &.ui-button-small {
+  &.x-button-small {
     *padding-top: 1px;
   }
   
 }
 
-.ui-button-plain {
+.x-button-plain {
   background: none;
   color: @grayDark;
   border-color: transparent;
@@ -186,7 +186,7 @@ button, input {
   .box-shadow(none);
 }
 
-.ui-button-fixed {
+.x-button-fixed {
   padding-left: 20px!important;
   padding-right: 20px!important;
 }

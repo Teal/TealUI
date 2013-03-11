@@ -1,21 +1,21 @@
-.ui-tabbable {
+.x-tabbable {
   border-bottom: 1px solid #dddddd;
   margin: 0;
   *zoom: 1;
 }
-.ui-tabbable:after {
+.x-tabbable:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.ui-tabbable li {
+.x-tabbable li {
   margin: 0 0 -1px;
   list-style: none;
   float: left;
 }
-.ui-tabbable a {
+.x-tabbable a {
   display: block;
   border: 1px solid transparent;
   _border-color: #ffffff;
@@ -25,13 +25,13 @@
   border-radius: 4px 4px 0 0;
   padding: 7px 12px;
 }
-.ui-tabbable a:hover {
+.x-tabbable a:hover {
   border-color: #eeeeee #eeeeee #dddddd;
   background-color: #eeeeee;
   text-decoration: none;
 }
-.ui-tabbable-selected a,
-.ui-tabbable-selected a:hover {
+.x-tabbable-selected a,
+.x-tabbable-selected a:hover {
   color: #555555;
   background-color: #ffffff;
   border: 1px solid #dddddd;
@@ -40,26 +40,26 @@
   _filter: chroma(color=#ffffff);
   cursor: default;
 }
-.ui-tabbable-alt {
+.x-tabbable-alt {
   border-bottom: none;
 }
-.ui-tabbable-alt li a,
-.ui-tabbable-alt li a:hover {
+.x-tabbable-alt li a,
+.x-tabbable-alt li a:hover {
   border-color: transparent;
   _border-color: #ffffff;
 }
-.ui-tabbable-alt li {
+.x-tabbable-alt li {
   margin-right: 2px;
 }
-.ui-tabbable-alt li a {
+.x-tabbable-alt li a {
   padding-top: 5px;
   padding-bottom: 5px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-.ui-tabbable-alt .ui-tabbable-selected a,
-.ui-tabbable-alt .ui-tabbable-selected a:hover {
+.x-tabbable-alt .x-tabbable-selected a,
+.x-tabbable-alt .x-tabbable-selected a:hover {
   color: #ffffff;
   background-color: #0088cc;
 }

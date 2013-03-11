@@ -9,7 +9,7 @@
 
 var Menu = TreeControl.extend({
 
-	cssClass: 'ui-menu',
+	cssClass: 'x-menu',
     
 	showArgs: null,
 
@@ -120,7 +120,7 @@ var Menu = TreeControl.extend({
         this.hideSub();
 
         // 激活本项。
-        Dom.addClass(menuItem.elem, "ui-menuitem-hover");
+        Dom.addClass(menuItem.elem, "x-menuitem-hover");
 
         // 如果指定的项存在子菜单。
         if (menuItem.getSub()) {
@@ -148,7 +148,7 @@ var Menu = TreeControl.extend({
         	this.currentSub.getSub().hide();
 
         	// 取消激活菜单。
-        	Dom.removeClass(this.currentSub.elem, "ui-menuitem-hover");
+        	Dom.removeClass(this.currentSub.elem, "x-menuitem-hover");
             this.currentSub = null;
         }
 
@@ -161,7 +161,7 @@ var Menu = TreeControl.extend({
  */
 var MenuItem = TreeControl.Node.extend({
 
-	cssClass: 'ui-menuitem',
+	cssClass: 'x-menuitem',
 
 	/**
 	 * 当被子类重写时，用于创建子树。
@@ -181,7 +181,7 @@ var MenuItem = TreeControl.Node.extend({
 	initSub: function (treeControl) {
 		treeControl.hide();
 		treeControl.floating = false;
-		Dom.prepend(this.elem, '<i class="ui-menuitem-arrow"></i>');
+		Dom.prepend(this.elem, '<i class="x-menuitem-arrow"></i>');
 		Dom.on(this.elem, 'mouseup', this._cancelHideMenu, this);
 	},
 	
@@ -192,12 +192,12 @@ var MenuItem = TreeControl.Node.extend({
 	 */
 	uninitSub: function (treeControl) {
 		treeControl.floating = true;
-		Dom.remove(Dom.find('ui-menuitem-arrow'));
+		Dom.remove(Dom.find('x-menuitem-arrow'));
 		Dom.un(this.elem, 'mouseup', this._cancelHideMenu);
 	},
 
 	onMouseOver: function () {
-		Dom.addClass(this.elem, "ui-menuitem-hover");
+		Dom.addClass(this.elem, "x-menuitem-hover");
 		if (this.getSub())
 			this.showSub();
 		else if(this.owner())
@@ -211,7 +211,7 @@ var MenuItem = TreeControl.Node.extend({
 		// 因为如果有子菜单，必须在子菜单关闭后才能关闭激活。
 
 		if (!this.getSub()) {
-			Dom.removeClass(this.elem, "ui-menuitem-hover");
+			Dom.removeClass(this.elem, "x-menuitem-hover");
 		}
 
 	},
@@ -234,7 +234,7 @@ var MenuItem = TreeControl.Node.extend({
 
 	_hideTargetMenu: function(e) {
 		var tg = e.relatedTarget;
-		while (tg && !Dom.hasClass(tg, 'ui-menu')) {
+		while (tg && !Dom.hasClass(tg, 'x-menu')) {
 			tg = tg.parentNode;
 		}
 
@@ -268,7 +268,7 @@ var MenuItem = TreeControl.Node.extend({
 
 var MenuSeperator = MenuItem.extend({
 
-	cssClass: 'ui-menuseperator',
+	cssClass: 'x-menuseperator',
 
 	tpl: '<div class="{cssClass}"></div>',
 

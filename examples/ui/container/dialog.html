@@ -80,7 +80,7 @@
                 
                 '关闭有关': '-',
                 '关闭对话框': 'dialog.close();',
-                '去掉关闭按钮': 'dialog.remove(".ui-closebutton");',
+                '去掉关闭按钮': 'dialog.remove(".x-closebutton");',
                 '设置关闭后的回调': 'dialog.on("close", function(){alert("对话框已经关闭了");});',
                 '设置关闭前的回调，并阻止关闭事件': 'dialog.on("closing", function(){alert("这个对话框时不允许被关闭的");return false;/*return false 阻止事件，这样将关闭不了对话框。*/});',
                 '设置双击对话框标题后关闭对话框': 'dialog.header().on("dblclick", dialog.close, dialog);'
@@ -122,13 +122,13 @@
     </article>
 
 
-    <!--<div class="ui-dialog" id="a">
-                <div class="ui-dialog-header">
-                    <a class="ui-closebutton">×</a>
+    <!--<div class="x-dialog" id="a">
+                <div class="x-dialog-header">
+                    <a class="x-closebutton">×</a>
                     <h4>header</h4>
                 </div>
-                <div class="ui-dialog-body">
-                    <div class="ui-dialog-content">A</div>
+                <div class="x-dialog-body">
+                    <div class="x-dialog-content">A</div>
                 </div>
             </div>-->
 

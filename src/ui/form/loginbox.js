@@ -10,24 +10,24 @@
 
 var LoginBox = Dialog.extend({
 
-    contentTpl: '<form class="ui-form">\
-                    <div class="ui-formfield">\
-                        <label class="ui-formfield-label">�û���:</label>\
-                        <div class="ui-formfield-content">\
-                            <input type="text" class="ui-textbox">\
-                            <span class="ui-tipbox ui-tipboui-error">AAA</span>\
+    contentTpl: '<form class="x-form">\
+                    <div class="x-formfield">\
+                        <label class="x-formfield-label">�û���:</label>\
+                        <div class="x-formfield-content">\
+                            <input type="text" class="x-textbox">\
+                            <span class="x-tipbox x-tipboui-error">AAA</span>\
                         </div>\
                     </div>\
-                    <div class="ui-formfield">\
-                        <label class="ui-formfield-label">����:</label>\
-                        <div class="ui-formfield-content">\
-                            <input type="text" class="ui-textbox">\
-                            <span class="ui-tipbox ui-tipboui-success ui-tipboui-plain">&nbsp;</span>\
+                    <div class="x-formfield">\
+                        <label class="x-formfield-label">����:</label>\
+                        <div class="x-formfield-content">\
+                            <input type="text" class="x-textbox">\
+                            <span class="x-tipbox x-tipboui-success x-tipboui-plain">&nbsp;</span>\
                         </div>\
                     </div>\
-                    <div class="ui-formfield">\
-                        <div class="ui-formfield-content">\
-                            <button class="ui-button" type="submit">ȷ��</button>\
+                    <div class="x-formfield">\
+                        <div class="x-formfield-content">\
+                            <button class="x-button" type="submit">ȷ��</button>\
                         </div>\
                     </div>\
                 </form>',

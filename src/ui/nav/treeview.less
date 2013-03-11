@@ -7,98 +7,98 @@
 
 
 
-.ui-treeview {
+.x-treeview {
     padding: 3px 0;
     overflow: auto;
     border: 1px solid #CCCCCC;
     .border-radius(@baseBorderRadius);
 }
 
-.ui-treeview-plain {
+.x-treeview-plain {
     border: 0;
 }
 
-.ui-treeview  li {
+.x-treeview  li {
     white-space: nowrap;
 }
 
-.ui-treenode, .ui-treeview a, .ui-treenode-space {
+.x-treenode, .x-treeview a, .x-treenode-space {
     height: 20px;
     vertical-align: top;
 }
 
-.ui-treenode {
+.x-treenode {
     cursor: default;
     display: block;
     color: @textColor;
     font-size: @baseFontSize + 2;
 }
 
-.ui-treenode-space {
+.x-treenode-space {
     display: inline-block;
     width: 19px;
     background-repeat: no-repeat;
     background-image: url(images/treeview.gif);
 }
 
-.ui-treenode-none {
+.x-treenode-none {
     background-image: none!important;
 }
 
-.ui-treenode-selected {
+.x-treenode-selected {
     background-color: #D9E8FB;
 }
 
-.ui-treenode:hover {
+.x-treenode:hover {
     background-color: #EEEEEE;
     text-decoration: none;
 }
 
 
 
-.ui-treenode-plus {
+.x-treenode-plus {
     background-position: 0 -30px;
 }
 
-.ui-treenode-minus {
+.x-treenode-minus {
     background-position: 0 -60px;
 }
 
-.ui-treenode-plus:hover {
+.x-treenode-plus:hover {
     background-position: -30px -30px;
 }
 
-.ui-treenode-minus:hover {
+.x-treenode-minus:hover {
     background-position: -30px -60px;
 }
 
-.ui-treeview-alt {
-    .ui-treenode-space {
+.x-treeview-alt {
+    .x-treenode-space {
         background-image: url(images/treeview-alt.gif);
     }
 
-    .ui-treenode-normal {
+    .x-treenode-normal {
         background-position: 0 -90px;
     }
 
-    .ui-treenode-last {
+    .x-treenode-last {
 
-        .ui-treenode-plus {
+        .x-treenode-plus {
             background-position: 0 -120px;
         }
 
-        .ui-treenode-minus {
+        .x-treenode-minus {
             background-position: 0 -150px;
         }
 
-        .ui-treenode-normal {
+        .x-treenode-normal {
             background-position: 0 -180px;
         }
     }
 }
 
 
-.ui-treenode-loading {
+.x-treenode-loading {
     background-image: url(images/loading.gif)!important;
     background-position: 50% 50%;
 }

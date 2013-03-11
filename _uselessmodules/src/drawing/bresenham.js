@@ -26,7 +26,7 @@
 		// if(p<0){
 			// p = p+4*x+6;
 		// }else{
-			// y--,p = p+4*(ui-y)+10;
+			// y--,p = p+4*(x-y)+10;
 		// }
 		// x++;
 	// }
@@ -117,7 +117,7 @@
 			// dy = -dy,dx = -dx,y = y2,x = x2,ret.push([x,y]),h = 2*dx+dy;
 			// while(y!=y1){
 				// if(h<0){
-					// h += 2*(dx+dy),ui--;
+					// h += 2*(dx+dy),x--;
 				// }else{
 					// h += 2*dx;
 				// }

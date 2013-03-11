@@ -43,7 +43,7 @@
 }
 
 // Outer container
-.ui-progressbar {
+.x-progressbar {
     overflow: hidden;
     height: @baseLineHeight;
 	line-height: @baseLineHeight;
@@ -52,8 +52,8 @@
     .border-radius(@baseBorderRadius);
 }
 
-// Bar of ui-progressbar
-.ui-progressbar-fore {
+// Bar of x-progressbar
+.x-progressbar-fore {
     width: 0%;
     height: 18px;
     color: @white;
@@ -68,13 +68,13 @@
 }
 
 // Striped bars
-.ui-progressbar-striped .ui-progressbar-fore {
+.x-progressbar-striped .x-progressbar-fore {
     #gradient > .striped(#62c462);
     .background-size(40px 40px);
 }
 
 // Call animation for the active one
-.ui-progressbar-actived .ui-progressbar-fore  {
+.x-progressbar-actived .x-progressbar-fore  {
     -webkit-animation: progress-bar-stripes 2s linear infinite;
     -moz-animation: progress-bar-stripes 2s linear infinite;
     animation: progress-bar-stripes 2s linear infinite;
@@ -86,28 +86,28 @@
 // ------
 
 // Danger (red)
-.ui-progressbar-error .ui-progressbar-fore {
+.x-progressbar-error .x-progressbar-fore {
     #gradient > .vertical(#ee5f5b, #c43c35);
 }
 
-.ui-progressbar-error.ui-progressbar-striped .ui-progressbar-fore {
+.x-progressbar-error.x-progressbar-striped .x-progressbar-fore {
     #gradient > .striped(#ee5f5b);
 }
 
 // Success (green)
-.ui-progressbar-success .ui-progressbar-fore {
+.x-progressbar-success .x-progressbar-fore {
     #gradient > .vertical(#62c462, #57a957);
 }
 
-.ui-progressbar-success.ui-progressbar-striped .ui-progressbar-fore {
+.x-progressbar-success.x-progressbar-striped .x-progressbar-fore {
     #gradient > .striped(#62c462);
 }
 
 // Info (teal)
-.ui-progressbar-info .ui-progressbar-fore {
+.x-progressbar-info .x-progressbar-fore {
     #gradient > .vertical(#5bc0de, #339bb9);
 }
 
-.ui-progressbar-info.ui-progressbar-striped .ui-progressbar-fore {
+.x-progressbar-info.x-progressbar-striped .x-progressbar-fore {
     #gradient > .striped(#5bc0de);
 }

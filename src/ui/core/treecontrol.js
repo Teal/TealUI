@@ -122,7 +122,7 @@ var TreeControl = ListControl.extend({
  */
 TreeControl.Node = ContentControl.extend({
 
-	cssClass: "ui-treecontrol-node",
+	cssClass: "x-treecontrol-node",
 
 	tpl: '<a class="{cssClass}"></a>',
 

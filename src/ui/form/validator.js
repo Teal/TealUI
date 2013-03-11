@@ -24,18 +24,18 @@ var Validator = Class({
         if (tip) {
             if (!success) {
                 if (message == null) {
-                    tip.setHtml(Validator.messages.waiting).node.className = 'ui-tipbox ui-tipboui-info';
+                    tip.setHtml(Validator.messages.waiting).node.className = 'x-tipbox x-tipboui-info';
                     tip.show(this.tipDuration);
                     success = true;
                 } else {
-                    tip.setHtml(message).node.className = 'ui-tipbox ui-tipboui-error';
+                    tip.setHtml(message).node.className = 'x-tipbox x-tipboui-error';
                     tip.show(this.tipDuration);
                 }
             } else if (message) {
-                tip.setHtml(message).node.className = 'ui-tipbox ui-tipboui-success';
+                tip.setHtml(message).node.className = 'x-tipbox x-tipboui-success';
                 tip.show(this.tipDuration);
             } else {
-                tip.setHtml('&nbsp;').node.className = 'ui-tipbox ui-tipboui-success ui-tipboui-plain';
+                tip.setHtml('&nbsp;').node.className = 'x-tipbox x-tipboui-success x-tipboui-plain';
                 if (message === '')
                     tip.show(this.tipDuration);
                 else
@@ -43,11 +43,11 @@ var Validator = Class({
             }
         }
 
-        if (target.hasClass('ui-textbox')) {
+        if (target.hasClass('x-textbox')) {
             if (success) {
-                target.removeClass('ui-textboui-error');
+                target.removeClass('x-textboui-error');
             } else {
-                target.addClass('ui-textboui-error');
+                target.addClass('x-textboui-error');
             }
         }
 
@@ -78,7 +78,7 @@ var Validator = Class({
 
         //assert.notNull(target, "Validator#constructor(options): {options.target} ~");
 
-        me.tip = me.tip || target.next('.ui-tipbox');
+        me.tip = me.tip || target.next('.x-tipbox');
 
         // 验证类型。
         if (t) {

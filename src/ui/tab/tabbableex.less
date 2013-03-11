@@ -3,20 +3,20 @@
 
 
 // Remove border on bottom, left, right
-.ui-tabbable-bottom, .ui-tabbable-right, .ui-tabbable-left {
+.x-tabbable-bottom, .x-tabbable-right, .x-tabbable-left {
     border-bottom: 0;
 }
 
-.ui-tabbable-bottom {
+.x-tabbable-bottom {
     border-top: 1px solid @grayBorder;
 }
 
-.ui-tabbable-bottom  li {
+.x-tabbable-bottom  li {
     margin-top: -1px;
     margin-bottom: 0;
 }
 
-.ui-tabbable-bottom  li a {
+.x-tabbable-bottom  li a {
     .border-radius(0 0 4px 4px);
 
     &:hover {
@@ -25,56 +25,56 @@
     }
 }
 
-.ui-tabbable-bottom .ui-tabbable-selected a, .ui-tabbable-bottom .ui-tabbable-selected a:hover {
+.x-tabbable-bottom .x-tabbable-selected a, .x-tabbable-bottom .x-tabbable-selected a:hover {
     border-color: transparent @grayBorder @grayBorder @grayBorder;
 }
 
 // Common styles
-.ui-tabbable-left  li, .ui-tabbable-right  li {
+.x-tabbable-left  li, .x-tabbable-right  li {
     float: none;
 }
 
-.ui-tabbable-left  li a,
-.ui-tabbable-right  li a {
+.x-tabbable-left  li a,
+.x-tabbable-right  li a {
     min-width: 74px;
     margin-right: 0;
     margin-bottom: 3px;
 }
 
 // tabbable on the left
-.ui-tabbable-left {
+.x-tabbable-left {
     float: left;
     border-right: 1px solid @grayBorder;
 }
 
-.ui-tabbable-left  li a {
+.x-tabbable-left  li a {
     margin-right: -1px;
     .border-radius(4px 0 0 4px);
 }
 
-.ui-tabbable-left  li a:hover {
+.x-tabbable-left  li a:hover {
     border-color: @grayLighter @grayBorder @grayLighter @grayLighter;
 }
 
-.ui-tabbable-left .ui-tabbable-selected a, .ui-tabbable-left .ui-tabbable-selected a:hover {
+.x-tabbable-left .x-tabbable-selected a, .x-tabbable-left .x-tabbable-selected a:hover {
     border-color: @grayBorder transparent @grayBorder @grayBorder;
 }
 
 // tabbable on the right
-.ui-tabbable-right {
+.x-tabbable-right {
     float: right;
     border-left: 1px solid @grayBorder;
 }
 
-.ui-tabbable-right  li a {
+.x-tabbable-right  li a {
     margin-left: -1px;
     .border-radius(0 4px 4px 0);
 }
 
-.ui-tabbable-right  li a:hover {
+.x-tabbable-right  li a:hover {
     border-color: @grayLighter @grayLighter @grayLighter @grayBorder;
 }
 
-.ui-tabbable-right .ui-tabbable-selected a, .ui-tabbable-right .ui-tabbable-selected a:hover {
+.x-tabbable-right .x-tabbable-selected a, .x-tabbable-right .x-tabbable-selected a:hover {
     border-color: @grayBorder @grayBorder @grayBorder transparent;
 }

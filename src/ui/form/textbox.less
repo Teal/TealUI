@@ -19,7 +19,7 @@
 	}
 }
 
-.ui-textbox {
+.x-textbox {
 	font-family: @serifFontFamily;
 	font-size: @baseFontSize + 1;
 	line-height: @baseLineHeight;
@@ -31,46 +31,46 @@
 	.transition(~"border linear .2s, box-shadow linear .2s");
 }
 
-.ui-textbox:focus {
+.x-textbox:focus {
 	border-color: rgba(82,168,236,.8);
 	.box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)");
 	outline: 0;
 	//		outline: thin dotted \9; /* IE6-9 */
 }
 
-.ui-textbox[disabled], .ui-textbox[readonly]{
+.x-textbox[disabled], .x-textbox[readonly]{
 	border-color: @grayBorder; 
 	background-color: @grayLighter; 
 }
 
-input.ui-textbox {
+input.x-textbox {
   height: @baseLineHeight; 
 }
 
-textarea.ui-textbox {
+textarea.x-textbox {
   width: 600px;
   height: 150px; 
   line-height: @baseLineHeight + 1;
 }
 
 // Warning
-.ui-textbox-warning {
+.x-textbox-warning {
 	.formFieldState(@warningTextColor, @warningTextColor, @warningBackgroundColor);
 }
 
 // Error
-.ui-textbox-error {
+.x-textbox-error {
 	.formFieldState(@errorTextColor, @errorTextColor, @errorBackgroundColor);
 }
 
 // Success
-.ui-textbox-success {
+.x-textbox-success {
 	.formFieldState(@successTextColor, @successTextColor, @successBackgroundColor);
 }
 
 // Placeholder
 
-.ui-placeholder {
+.x-placeholder {
 	color: @placeholderTextColor;
 }
 

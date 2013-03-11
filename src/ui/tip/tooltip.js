@@ -19,10 +19,10 @@ var ToolTip = ContentControl.extend(IToolTip).implement({
 	// */
 	//autoDelay: -1,
 	
-	cssClass: 'ui-tooltip',
+	cssClass: 'x-tooltip',
 	
 	arrowTpl: '<span>\
-				<span class="ui-arrow-fore">◆</span>\
+				<span class="x-arrow-fore">◆</span>\
 			</span>'
 
 });

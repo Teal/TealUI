@@ -1,4 +1,4 @@
-.ui-select {
+.x-select {
   padding: 4px;
   font-size: 14px;
   line-height: 18px;
@@ -11,12 +11,12 @@
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
-.ui-select-warning {
+.x-select-warning {
   border-color: #c09853;
 }
-.ui-select-error {
+.x-select-error {
   border-color: #b94a48;
 }
-.ui-select-success {
+.x-select-success {
   border-color: #468847;
 }

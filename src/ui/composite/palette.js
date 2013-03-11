@@ -11,7 +11,7 @@ var Palette = Control.extend({
     onItemClick: function (item) {
 
         // 如果此项是允许点击的。则生成新的日期对象，并设置为当前值。
-        if (!item.hasClass('ui-monthcalender-disabled')) {
+        if (!item.hasClass('x-monthcalender-disabled')) {
             this.selectItem(item);
         }
 
@@ -145,7 +145,7 @@ var Palette = Control.extend({
         var h = [], pIdx = this._paletteIdx = Math.abs(this._paletteIdx),
             opts = this.options,
             labels = opts.strings.split(',');
-        h.push('<div class="evo-pop', _ie, ' ui-widget ui-widget-content ui-corner-all"',
+        h.push('<div class="evo-pop', _ie, ' x-widget x-widget-content x-corner-all"',
             this._isPopup ? ' style="position:absolute"' : '', '>');
         h.push('<span>', this['_paletteHTML' + pIdx](), '</span>');
         h.push('<div class="evo-more"><a href="javascript:void(0)">', labels[1 + pIdx], '</a>');
@@ -176,7 +176,7 @@ var Palette = Control.extend({
         var h = [], labels = this.options.strings.split(','),
             oTD = '<td style="background-color:#',
             cTD = isIE ? '"><div style="width:2px;"></div></td>' : '"><span/></td>',
-            oTRTH = '<tr><th colspan="10" class="ui-widget-content">';
+            oTRTH = '<tr><th colspan="10" class="x-widget-content">';
         // base theme colors
         h.push('<table class="evo-palette', _ie, '">', oTRTH, labels[0], '</th></tr><tr>');
         for (var i = 0; i < 10; i++) {
@@ -252,7 +252,7 @@ var Palette = Control.extend({
             var labels = this.options.strings.split(',');
             if ($(link).hasClass('evo-hist')) {
                 // history
-                var h = ['<table class="evo-palette"><tr><th class="ui-widget-content">',
+                var h = ['<table class="evo-palette"><tr><th class="x-widget-content">',
                     labels[5], '</th></tr></tr></table>',
                     '<div class="evo-cHist">'];
                 if (history.length == 0) {

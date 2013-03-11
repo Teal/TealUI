@@ -6,7 +6,7 @@ var MySplitButton = SplitButton.extend({
 });
 
 Dom.ready(function () {
-	Dom.query('.ui-splitbutton').each(function (value) {
+	Dom.query('.x-splitbutton').each(function (value) {
 		new MySplitButton(value);
 	});
 });

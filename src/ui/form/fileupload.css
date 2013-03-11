@@ -1,4 +1,4 @@
-.ui-fileupload {
+.x-fileupload {
   overflow: hidden;
   display: inline-block;
   *display: inline;
@@ -8,7 +8,7 @@
   position: relative;
 }
 /* 文件上传   */
-.ui-fileupload input {
+.x-fileupload input {
   position: absolute;
   width: 84px;
   opacity: 0;

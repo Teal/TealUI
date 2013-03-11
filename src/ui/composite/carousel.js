@@ -8,7 +8,7 @@
 
 var Carousel = Control.extend({
 
-	cssClass: 'ui-carousel',
+	cssClass: 'x-carousel',
 	
 	onChange: function (from, to) {
 		var ul = Dom.find('.' + this.cssClass + '-header', this.elem), t;

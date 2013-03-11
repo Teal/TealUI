@@ -5,49 +5,49 @@
 @sideWidth: 230px;
 @extraWidth: 200px;
 
-.ui-grid {
+.x-grid {
     margin-top: 10px;
     .clear();
 }
 
-.ui-col {
+.x-col {
     float: left;
     margin-left: @gridGutterWidth;
 }
 
 // Container
-.ui-container {
+.x-container {
     width: @gridRowWidth;
     .center-block();
 }
 
-.ui-grid-1 .ui-col-main {
+.x-grid-1 .x-col-main {
     width: @gridRowWidth;
     margin-left: 0;
 }
 
-.ui-grid-2 .ui-col-side, .ui-grid-3 .ui-col-side {
+.x-grid-2 .x-col-side, .x-grid-3 .x-col-side {
     width: @sideWidth;
     margin-left: 0;
 }
 
-.ui-grid-2 .ui-col-main {
+.x-grid-2 .x-col-main {
     width: @gridRowWidth - @sideWidth - @gridGutterWidth;
 }
 
-.ui-grid-2x .ui-col-extra {
+.x-grid-2x .x-col-extra {
     width: @sideWidth;
 }
 
-.ui-grid-2x .ui-col-main {
+.x-grid-2x .x-col-main {
     width: @gridRowWidth - @sideWidth - @gridGutterWidth;
     margin-left: 0;
 }
 
-.ui-grid-3 .ui-col-extra {
+.x-grid-3 .x-col-extra {
     width: @extraWidth;
 }
 
-.ui-grid-3 .ui-col-main {
+.x-grid-3 .x-col-main {
     width: @gridRowWidth - @sideWidth - @extraWidth - @gridGutterWidth - @gridGutterWidth;
 }

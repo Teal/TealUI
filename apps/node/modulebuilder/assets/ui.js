@@ -333,10 +333,10 @@ var UI = {
 		id = Dom.get(id);
 
 		if (id.value) {
-			Dom.removeClass(id, 'ui-textbox-error');
+			Dom.removeClass(id, 'x-textbox-error');
 			callback(id.value);
 		} else {
-			Dom.addClass(Dom.get(id), 'ui-textbox-error');
+			Dom.addClass(Dom.get(id), 'x-textbox-error');
 		}
 	},
 
@@ -503,10 +503,10 @@ var UI = {
 		}
 
 		UI._getSource(module, function (data) {
-			div = Dom.after(div, '<ul class="source ui-bubble"></ul>');
+			div = Dom.after(div, '<ul class="source x-bubble"></ul>');
 			var html = '';
 			for (var path in data) {
-				html += '<li><a href="' + Demo.baseUrl + Demo.Configs.src + '/' + path + '" class="ui-hint" target="_blank">' + Demo.Utils.encodeHTML(data[path]) + '</a></li>';
+				html += '<li><a href="' + Demo.baseUrl + Demo.Configs.src + '/' + path + '" class="x-hint" target="_blank">' + Demo.Utils.encodeHTML(data[path]) + '</a></li>';
 			}
 			div.innerHTML = html || '<li>(无源码)</li>';
 		});

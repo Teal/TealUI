@@ -1,92 +1,92 @@
-﻿html .ui-left {
+﻿html .x-left {
   float: left;
 }
-html .ui-right {
+html .x-right {
   float: right;
 }
-html .ui-left,
-html .ui-right {
+html .x-left,
+html .x-right {
   _display: inline;
 }
-html .ui-middle {
+html .x-middle {
   vertical-align: middle;
 }
-.ui-center {
+.x-center {
   margin-left: auto;
   margin-right: auto;
 }
-html .ui-relative,
-html div.ui-relative {
+html .x-relative,
+html div.x-relative {
   position: relative;
 }
-html .ui-absolute,
-html div.ui-absolute {
+html .x-absolute,
+html div.x-absolute {
   position: absolute;
 }
-html .ui-inline {
+html .x-inline {
   display: inline;
 }
-html .ui-block {
+html .x-block {
   display: block;
 }
-html .ui-inline-block {
+html .x-inline-block {
   display: inline-block;
   *display: inline;
   *zoom: 1;
 }
-html .ui-hide,
-html div.ui-hide {
+html .x-hide,
+html div.x-hide {
   display: none;
 }
-html .ui-plain,
-html div.ui-plain {
+html .x-plain,
+html div.x-plain {
   margin: 0;
   padding: 0;
 }
-.ui-break-word {
+.x-break-word {
   -ms-word-wrap: break-word;
   word-wrap: break-word;
   -ms-word-break: break-all;
   word-break: break-all;
 }
-.ui-clear {
+.x-clear {
   *zoom: 1;
 }
-.ui-clear:after {
+.x-clear:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.ui-hint {
+.x-hint {
   color: #999999;
 }
-.ui-success {
+.x-success {
   color: #468847 !important;
 }
-.ui-info {
+.x-info {
   color: #3a87ad !important;
 }
-.ui-warning {
+.x-warning {
   color: #c09853 !important;
 }
-.ui-error {
+.x-error {
   color: #b94a48 !important;
 }
-.ui-highlight {
+.x-highlight {
   color: #ff6600 !important;
 }
-html .ui-row {
+html .x-row {
   margin-bottom: 10px;
 }
-.ui-blank {
+.x-blank {
   height: 10px;
   display: block;
   visibility: hidden;
   color: #ffffff;
 }
-.ui-debug {
+.x-debug {
   background: #C03!important;
   color: #fff!important;
 }

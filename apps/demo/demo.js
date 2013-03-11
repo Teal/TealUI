@@ -459,7 +459,7 @@ if (typeof module !== 'object') {
 					dropDown.style.cssText = 'padding:5px;*width:260px;';
 					var html = '<style>#demo-toolbar-controlstate input{vertical-align: -2px;}</style><form style="*margin-bottom:0" action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulemanager/server/api.njs" method="get">\
                     <fieldset>\
-                        <legend>进度</legend>';
+                        <legend>状态</legend>';
 
 					var i = 1, key;
 					for (key in Demo.Configs.status) {
@@ -488,7 +488,7 @@ if (typeof module !== 'object') {
 
 					html += '</fieldset>\
                     <fieldset>\
-                        <legend>标题</legend>\
+                        <legend>描述</legend>\
                     <input style="width:224px" type="text" name="title" value="' + moduleInfo.name + '">\
                 </fieldset>\
 \

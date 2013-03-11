@@ -11,7 +11,7 @@ var Accordion = TabbableControl.extend({
 	 * xtype
 	 * @type String
 	 */
-	cssClass: 'ui-accordion',
+	cssClass: 'x-accordion',
 
 	tpl: '<div class="{cssClass}"></div>',
 

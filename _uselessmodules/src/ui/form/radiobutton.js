@@ -10,6 +10,6 @@ var RadioButton = Control.extend(IInput).implement({
 
     xtype: 'radiobutton',
 
-    tpl: '<input type="radio" class="ui-control">'
+    tpl: '<input type="radio" class="x-control">'
 
 });

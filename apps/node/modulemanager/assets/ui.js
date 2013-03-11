@@ -34,7 +34,7 @@ var UI = {
 
                 url = Demo.baseUrl + Demo.Configs.examples + "/" + data[name];
 
-                html += '<li style="margin:0;list-style:disc inside;color:#E2E2EB;font-size:14px;line-height:24px;height:24px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><a class="demo status-' + info.status + (from === url ? ' current' : '') + '" href="' + url + '" title="' + name + ' ' + (info.version || "1.0") + '&#13;&#10;名字：' + info.name + '&#13;&#10;状态：' + (Demo.Configs.status[info.status] || '已完成') + '">' + name + '</a>' + (info["attr"] ? '<sup class="ui-highlight">' + info["attr"] + '</sup>' : '') + '<small style="color: #999999;"> - ' + info.name + '</small></li>';
+                html += '<li style="margin:0;list-style:disc inside;color:#E2E2EB;font-size:14px;line-height:24px;height:24px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><a class="demo status-' + info.status + (from === url ? ' current' : '') + '" href="' + url + '" title="' + name + ' ' + (info.version || "1.0") + '&#13;&#10;名字：' + info.name + '&#13;&#10;状态：' + (Demo.Configs.status[info.status] || '已完成') + '">' + name + '</a>' + (info["attr"] ? '<sup class="x-highlight">' + info["attr"] + '</sup>' : '') + '<small style="color: #999999;"> - ' + info.name + '</small></li>';
 
                 if (!counts[info.status]) {
                     counts[info.status] = 1;
@@ -184,11 +184,11 @@ var UI = {
         var pathInput = Dom.find('[name=path]', form);
         
         if(!pathInput.value) {
-            Dom.addClass(pathInput, 'ui-textbox-error');
+            Dom.addClass(pathInput, 'x-textbox-error');
             return;
         }
 
-        Dom.removeClass(pathInput, 'ui-textbox-error');
+        Dom.removeClass(pathInput, 'x-textbox-error');
 
         Dom.find('[name=postback]', form).value = redirectTo ? "" : location.href;
 
@@ -204,7 +204,7 @@ var UI = {
 
         var form = Dom.get('addmodule');
 
-        form.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulemanager/server/api.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="ui-textbox modulepath" placeholder="输入模块路径" title="模块路径将作为模块的唯一标识符，模块路径不得尾缀扩展名，区分大小写"> <input type="text" name="title" class="ui-textbox moduletitle" placeholder="(可选)输入模块名称" title="用于在模块示例页显示的模块名称"> <select class="ui-textbox" name="tpl" title="创建新模块使用的模板"><option value="jscss">js+css模块</option><option value="js">js模块</option><option value="css">css模块</option><option value="docs">空模块</option></select><input type="hidden" name="action" value="create"> <input type="button" class="ui-button ui-button-info" value="创建并转到" onclick="UI.submitForm(true)" title="创建模块，并且转到新创建的模块示例页面"> <input type="button" class="ui-button" value="创建" onclick="UI.submitForm(false)" title="创建模块，并且刷新本模块列表页"> <input type="button" class="ui-button" value="返回" onclick="UI.cancelAddModule()"></form>';
+        form.innerHTML = '<form action="' + Demo.Configs.serverBaseUrl + Demo.Configs.apps + '/node/modulemanager/server/api.njs" method="GET"><input type="hidden" name="postback" value=""><input type="text" name="path" class="x-textbox modulepath" placeholder="输入模块路径" title="模块路径将作为模块的唯一标识符，模块路径不得尾缀扩展名，区分大小写"> <input type="text" name="title" class="x-textbox moduletitle" placeholder="(可选)输入模块名称" title="用于在模块示例页显示的模块名称"> <select class="x-textbox" name="tpl" title="创建新模块使用的模板"><option value="jscss">js+css模块</option><option value="js">js模块</option><option value="css">css模块</option><option value="docs">空模块</option></select><input type="hidden" name="action" value="create"> <input type="button" class="x-button x-button-info" value="创建并转到" onclick="UI.submitForm(true)" title="创建模块，并且转到新创建的模块示例页面"> <input type="button" class="x-button" value="创建" onclick="UI.submitForm(false)" title="创建模块，并且刷新本模块列表页"> <input type="button" class="x-button" value="返回" onclick="UI.cancelAddModule()"></form>';
 
         var suggest = new Suggest(Dom.find('[name=path]', form));
 	

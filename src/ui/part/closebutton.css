@@ -1,4 +1,4 @@
-.ui-closebutton {
+.x-closebutton {
   font-size: 20px;
   font-weight: bold;
   -webkit-user-select: none;
@@ -13,7 +13,7 @@
   cursor: pointer;
   float: right;
 }
-.ui-closebutton:hover {
+.x-closebutton:hover {
   color: #000000;
   text-decoration: none;
   opacity: 40;

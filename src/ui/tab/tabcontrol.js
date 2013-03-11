@@ -10,10 +10,10 @@
  */
 var TabControl = TabbableControl.extend({
 	
-	cssClass: 'ui-tabcontrol',
+	cssClass: 'x-tabcontrol',
 	
 	tpl: '<div class="{cssClass}">\
-			<ul class="{cssClass}-header ui-tabbable">\
+			<ul class="{cssClass}-header x-tabbable">\
 			</ul>\
 			<div class="{cssClass}-body">\
 	        </div>\
@@ -35,7 +35,7 @@ var TabControl = TabbableControl.extend({
 	},
 
 	getSelectedTab: function () {
-		return Dom.find('.ui-tabbable-selected', this.header());
+		return Dom.find('.x-tabbable-selected', this.header());
 	},
 
 	init: function (options) {
@@ -54,12 +54,12 @@ var TabControl = TabbableControl.extend({
 
 	    var tab = this.getSelectedTab() || Dom.first(this.header());
 
-	    Dom.children(me.header()).iterate(Dom.removeClass, ['ui-tabbable-selected']);
+	    Dom.children(me.header()).iterate(Dom.removeClass, ['x-tabbable-selected']);
 
 	    Dom.children(me.body()).hide();
 
 	    if (tab) {
-	    	Dom.addClass(tab, 'ui-tabbable-selected');
+	    	Dom.addClass(tab, 'x-tabbable-selected');
 	        var content = me.contentOf(tab);
 	        if (content) {
 	        	Dom.show(content);
@@ -78,7 +78,7 @@ var TabControl = TabbableControl.extend({
 		var from = this.getSelectedTab();
 
 	    if (from) {
-	    	Dom.removeClass(from, 'ui-tabbable-selected');
+	    	Dom.removeClass(from, 'x-tabbable-selected');
 	    	var content = this.contentOf(from);
 	        if (content) {
 	        	Dom.hide(content);
@@ -88,7 +88,7 @@ var TabControl = TabbableControl.extend({
 	    to = Dom.child(this.header(), to);
 
 	    if (to) {
-	    	Dom.addClass(to, 'ui-tabbable-selected');
+	    	Dom.addClass(to, 'x-tabbable-selected');
 	        var content = this.contentOf(to);
 	        if (content) {
 	        	Dom.show(content, this.collapseDuration);
@@ -98,9 +98,9 @@ var TabControl = TabbableControl.extend({
 	
 	addAt: function (index, title, content) {
 	    var header = this.header();
-	    var tab = Dom.render(Dom.parseNode('<li class="ui-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header, Dom.child(header, index));
+	    var tab = Dom.render(Dom.parseNode('<li class="x-tabbable-item"><a href="javascript:;">' + title + '</a></li>'), header, Dom.child(header, index));
 	    var body = this.body();
-	    var tab = Dom.parseNode('<div class="ui-tabpage">' + content + '</div>');
+	    var tab = Dom.parseNode('<div class="x-tabpage">' + content + '</div>');
 	    Dom.hide(tab);
 	    Dom.render(tab, body, Dom.child(body, index));
 	    return this;

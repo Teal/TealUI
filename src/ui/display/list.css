@@ -1,12 +1,12 @@
-ul.ui-list,
-.ui-list ul {
+ul.x-list,
+.x-list ul {
   margin: 0 0 9px 25px;
   padding: 0;
 }
-li.ui-list,
-.ui-list li {
+li.x-list,
+.x-list li {
   list-style-type: disc;
 }
-.ui-list .ui-list {
+.x-list .x-list {
   margin-bottom: 0;
 }

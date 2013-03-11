@@ -1,4 +1,4 @@
-.ui-bubble {
+.x-bubble {
   padding: 15px;
   background-color: #f5f5f5;
   border: 1px solid #eeeeee;
@@ -10,7 +10,7 @@
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-.ui-bubble blockquote {
+.x-bubble blockquote {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }

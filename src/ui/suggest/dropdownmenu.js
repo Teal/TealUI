@@ -13,7 +13,7 @@
  */
 var DropDownMenu = ListControl.extend({
 
-	cssClass: "ui-listbox",
+	cssClass: "x-listbox",
 
 	owner: null,
 

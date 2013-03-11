@@ -1,7 +1,7 @@
 ﻿html {
   _text-overflow: ellipsis;
 }
-.ui-scrolltotop {
+.x-scrolltotop {
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -14,12 +14,12 @@
   text-indent: -9999px;
   background: url(images/scrolltotop.png) no-repeat left top;
 }
-.ui-scrolltotop:hover {
+.x-scrolltotop:hover {
   background-position: 0 -51px;
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
-.ui-scrolltotop:active,
-.ui-scrolltotop:focus {
+.x-scrolltotop:active,
+.x-scrolltotop:focus {
   outline: none;
 }

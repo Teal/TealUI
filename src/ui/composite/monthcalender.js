@@ -8,7 +8,7 @@
 
 var MonthCalender = Control.extend({
 
-	cssClass: 'ui-monthcalender',
+	cssClass: 'x-monthcalender',
 
 	tpl: '<div class="{cssClass}">\
 		       <div class="{cssClass}-main">\

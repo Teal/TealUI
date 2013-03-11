@@ -7,7 +7,7 @@
 
 var ProgressBar = Control.extend({
 
-	cssClass: 'ui-progressbar',
+	cssClass: 'x-progressbar',
 
 	tpl: '<div class="{cssClass}">\
                 <div class="{cssClass}-fore"></div>\

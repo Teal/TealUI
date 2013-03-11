@@ -1,31 +1,31 @@
-.ui-formfield {
+.x-formfield {
   line-height: 28px;
   margin-bottom: 10px;
   *zoom: 1;
 }
-.ui-formfield:after {
+.x-formfield:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.ui-formfield-label {
+.x-formfield-label {
   width: 100px;
   display: block;
   text-align: right;
   margin-right: 10px;
   float: left;
 }
-.ui-formfield-content {
+.x-formfield-content {
   margin-left: 110px;
 }
-.ui-form-vertical .ui-formfield-label {
+.x-form-vertical .x-formfield-label {
   float: none;
   width: auto;
   text-align: left;
   margin-right: 0;
 }
-.ui-form-vertical .ui-formfield-content {
+.x-form-vertical .x-formfield-content {
   margin-left: 0;
 }

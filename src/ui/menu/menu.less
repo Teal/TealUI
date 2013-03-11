@@ -10,7 +10,7 @@
 @menuBackgroundColorHover:			@linkColor;
 @menuArrowColor:					#333;
 
-.ui-menu {
+.x-menu {
     // display: none; // none by default, but block on "open" of the menu
     background-color: @menuBackgroundColor;
     border: 1px solid #ccc;
@@ -32,13 +32,13 @@
 	text-align: left;
 }
 
-.ui-menu li {
+.x-menu li {
     line-height: @baseLineHeight;
 	_height: @baseLineHeight;
 }
 
 // Links within the dropdown menu
-.ui-menuitem {
+.x-menuitem {
     display: block;
     padding: 3px 10px;
     white-space: nowrap;
@@ -46,12 +46,12 @@
     _width: 100%;
 }
 
-.ui-menuitem, .ui-menuitem a {
+.x-menuitem, .x-menuitem a {
     color: @menuTextColor;
 }
 
 // Dividers (basically an hr) within the dropdown
-.ui-menuseperator {
+.x-menuseperator {
     height: 1px;
     margin: 1px;
     overflow: hidden;
@@ -67,21 +67,21 @@
 }
 
 // Hover state
-.ui-menuitem:hover {
+.x-menuitem:hover {
     text-decoration: none;
 }
 
-.ui-menuitem-hover {
+.x-menuitem-hover {
     #gradient > .vertical(@menuBackgroundColorHover, darken(@menuBackgroundColorHover, 5%));
 }
 
-.ui-menuitem-hover, .ui-menuitem-hover a {
+.x-menuitem-hover, .x-menuitem-hover a {
     color: @menuTextColorHover!important;
 }
 
 // Submenu
 
-.ui-menuitem-arrow {
+.x-menuitem-arrow {
 	border-color: transparent transparent transparent @menuArrowColor;
 	_border-color: @menuBackgroundColor @menuBackgroundColor @menuBackgroundColor @menuArrowColor;
     border-style: solid;
@@ -96,7 +96,7 @@
 	_line-height: 0;
 }
 
-.ui-menuitem-hover .ui-menuitem-arrow {
+.x-menuitem-hover .x-menuitem-arrow {
 	border-color: transparent transparent transparent @menuTextColorHover;
 	_border-color: @menuBackgroundColorHover @menuBackgroundColorHover @menuBackgroundColorHover @menuTextColorHover;
 }

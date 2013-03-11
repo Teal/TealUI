@@ -53,7 +53,7 @@ namespace(".Swiff", JPlus.Control.extend({
 			properties.classid = 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000';
 			params.movie = path;
 		} else {
-			properties.type = 'application/ui-shockwave-flash';
+			properties.type = 'application/x-shockwave-flash';
 		}
 		properties.data = path;
 

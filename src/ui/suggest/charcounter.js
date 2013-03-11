@@ -9,7 +9,7 @@ var CharCounter = Control.extend({
 
 	maxLength: 300,
 
-	cssClass: 'ui-charcounter',
+	cssClass: 'x-charcounter',
 
 	tpl: '<span class="{cssClass}"></span>',
 
@@ -38,7 +38,7 @@ var CharCounter = Control.extend({
         this.target = target = Dom.find(target);
         if (maxLength)
             maxLength = this.maxLength;
-        this.elem = tip = Dom.find(tip) || Dom.nextAll(target, '.ui-charcounter')[0] || Dom.prevAll(target, '.ui-charcounter')[0] || Dom.after(target, this.create());
+        this.elem = tip = Dom.find(tip) || Dom.nextAll(target, '.x-charcounter')[0] || Dom.prevAll(target, '.x-charcounter')[0] || Dom.after(target, this.create());
 
         setInterval(this.update.bind(this), 10);
 

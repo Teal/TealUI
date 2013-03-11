@@ -9,7 +9,7 @@
 @listBoxBackgroundColorHover:			@linkColor;
 @listBoxBackgroundColorSelected:		darken(@listBoxBackgroundColorHover, 15%);
 
-.ui-listbox {
+.x-listbox {
     .inline-block();
     background-color: @listBoxBackgroundColor;
     border-color: #ccc;
@@ -28,7 +28,7 @@
 }
 
 // Links within the dropdown menu
-.ui-listbox li {
+.x-listbox li {
     display: block;
     padding: 3px 10px;
     color: @gray;
@@ -50,15 +50,15 @@
 
 }
 
-.ui-listbox-selected {
+.x-listbox-selected {
     background-color: @listBoxBackgroundColorSelected;
 }
 
-.ui-listbox-hover {
+.x-listbox-hover {
     #gradient > .vertical(@listBoxBackgroundColorHover, darken(@listBoxBackgroundColorHover, 5%));
 }
 
-.ui-listbox .ui-listbox-selected, .ui-listbox .ui-listbox-hover {
+.x-listbox .x-listbox-selected, .x-listbox .x-listbox-hover {
     color: @listBoxTextColorHover;
 
     a {
@@ -66,15 +66,15 @@
     }
 }
 
-.ui-listbox-readonly {
+.x-listbox-readonly {
     background-color: @grayLighter!important;
 }
 
-.ui-listbox-disabled {
+.x-listbox-disabled {
     border-color: @grayBorder!important;
     background-color: @grayLighter!important;
 
-    .ui-listbox-selected {
+    .x-listbox-selected {
         background-color: @gray;
     }
 }

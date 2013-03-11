@@ -1,4 +1,4 @@
-.ui-balloontip {
+.x-balloontip {
   position: absolute;
   top: 0;
   left: 0;
@@ -17,18 +17,18 @@
   min-width: 200px;
   display: none;
 }
-.ui-balloontip-body {
+.x-balloontip-body {
   overflow: hidden;
   background-color: #ffffff;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
-.ui-balloontip-content {
+.x-balloontip-content {
   padding: 8px 14px;
   overflow: auto;
 }
-.ui-balloontip-header {
+.x-balloontip-header {
   padding: 8px 14px;
   line-height: 1;
   background-color: #f5f5f5;
@@ -40,17 +40,17 @@
   -moz-border-radius-topleft: 6px;
   border-top-left-radius: 6px;
 }
-.ui-balloontip-header h4 {
+.x-balloontip-header h4 {
   font-size: 14px;
   line-height: 16px;
   margin: 0;
 }
-.ui-balloontip .ui-arrow {
+.x-balloontip .x-arrow {
   font-size: 26px;
 }
-.ui-balloontip .ui-arrow-fore {
+.x-balloontip .x-arrow-fore {
   color: rgba(0, 0, 0, 0.2);
 }
-.ui-balloontip .ui-arrow-back {
+.x-balloontip .x-arrow-back {
   color: #ffffff;
 }

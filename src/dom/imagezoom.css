@@ -2,10 +2,10 @@
  * @author sun
  */
 
-.ui-imagezoom-small{
+.x-imagezoom-small{
 	cursor:url(images/zoom-tolarge.cur),pointer;
 }
 
-.ui-imagezoom-large{
+.x-imagezoom-large{
     cursor:url(images/zoom-tosmall.cur),pointer;
 }

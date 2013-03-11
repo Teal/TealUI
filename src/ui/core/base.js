@@ -29,10 +29,10 @@ var Control = Class({
 	 * 当前 UI 组件的 css 类。
 	 * @protected virtual
 	 */
-    cssClass: "ui-control",
+    cssClass: "x-control",
 
     /**
-	 * 当前 UI 组件的 HTML 模板字符串。其中 ui-control 会被替换为 cssClass 属性的值。
+	 * 当前 UI 组件的 HTML 模板字符串。其中 x-control 会被替换为 cssClass 属性的值。
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */

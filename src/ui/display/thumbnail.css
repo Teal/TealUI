@@ -1,4 +1,4 @@
-.ui-thumbnail {
+.x-thumbnail {
   display: inline-block;
   *display: inline;
   padding: 4px;
@@ -12,7 +12,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
   *padding: 0;
 }
-a.ui-thumbnail:hover {
+a.x-thumbnail:hover {
   border-color: #0088cc;
   -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
@@ -22,7 +22,7 @@ a.ui-thumbnail:hover {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-.ui-thumbnail img {
+.x-thumbnail img {
   display: block;
   maui-width: 100%;
   margin-left: auto;

@@ -5106,7 +5106,14 @@ Dom.implement({
 
 /*********************************************************
  * utils/path.js
- ********************************************************//** * @author xuld * Modified from https://github.com/joyent/node/blob/master/lib/path.js *///#include core/base.jsvar Path = {
+ ********************************************************//**
+ * @author xuld
+ * Modified from https://github.com/joyent/node/blob/master/lib/path.js
+ */
+
+//#include core/base.js
+
+var Path = {
 
 	// resolves . and .. elements in a path array with directory names there
 	// must be no slashes, empty elements, or device names (c:\) in the array
@@ -6773,7 +6780,7 @@ var Ajax = (function () {
 
         // headers['Content-Type']
         if (xhrObject.data) {
-            headers['Content-Type'] = "application/ui-www-form-urlencoded; charset=" + (xhrObject.charset || "UTF-8");
+            headers['Content-Type'] = "application/x-www-form-urlencoded; charset=" + (xhrObject.charset || "UTF-8");
         }
 
         // headers['Accept-Charset']
@@ -6781,9 +6788,9 @@ var Ajax = (function () {
             headers["Accept-Charset"] = value;
         }
 
-        // headers['ui-Requested-With']
+        // headers['x-Requested-With']
         if (!xhrObject.crossDomain) {
-            headers['ui-Requested-With'] = 'XMLHttpRequest';
+            headers['x-Requested-With'] = 'XMLHttpRequest';
         }
 
         // 如果参数有 headers, 复制到当前 headers 。
@@ -7160,10 +7167,10 @@ var Control = Class({
 	 * 当前 UI 组件的 css 类。
 	 * @protected virtual
 	 */
-    cssClass: "ui-control",
+    cssClass: "x-control",
 
     /**
-	 * 当前 UI 组件的 HTML 模板字符串。其中 ui-control 会被替换为 cssClass 属性的值。
+	 * 当前 UI 组件的 HTML 模板字符串。其中 x-control 会被替换为 cssClass 属性的值。
 	 * @getter {String} tpl
 	 * @protected virtual
 	 */
@@ -7654,7 +7661,7 @@ var IDropDownOwner = {
 			this.dropDownNode = dom = dom.elem || Dom.find(dom);
 
 			// 初始化并保存下拉菜单。
-			Dom.addClass(dom, 'ui-dropdown');
+			Dom.addClass(dom, 'x-dropdown');
 			Dom.hide(dom);
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。
@@ -7857,15 +7864,15 @@ var ContentControl = Control.extend({
 
 var MenuButton = Control.extend(IDropDownOwner).implement(IInput).implement({
 	
-	cssClass: 'ui-menubutton',
+	cssClass: 'x-menubutton',
 	
-	tpl: '<button class="ui-button {cssClass}" type="button"><span class="{cssClass}-arrow"></span></button>',
+	tpl: '<button class="x-button {cssClass}" type="button"><span class="{cssClass}-arrow"></span></button>',
 	
 	createDropDown: function (existDom) {
-		if(existDom && !Dom.hasClass(existDom, 'ui-menu')){
+		if(existDom && !Dom.hasClass(existDom, 'x-menu')){
 			return existDom;
 		}
-		//assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 ui-menu 的菜单项。");
+		//assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 x-menu 的菜单项。");
 		existDom = new Menu(existDom);
 		Dom.on(existDom.elem, 'click', this.onDropDownClick, this);
 		return existDom;
@@ -7873,7 +7880,7 @@ var MenuButton = Control.extend(IDropDownOwner).implement(IInput).implement({
 	},
 	
 	init: function () {
-	    this.setDropDown(this.createDropDown(Dom.next(this.elem, '.ui-dropdown')));
+	    this.setDropDown(this.createDropDown(Dom.next(this.elem, '.x-dropdown')));
 	    Dom.on(this.elem, 'click', this.toggleDropDown, this);
 	},
 	
@@ -7906,15 +7913,15 @@ ListControl.alias(MenuButton, 'getDropDown');
 
 var SplitButton = MenuButton.extend({
 
-	cssClass: 'ui-splitbutton',
+	cssClass: 'x-splitbutton',
 
-	tpl: '<span class="{cssClass} ui-buttongroup">\
-				<button class="ui-button"></button>\
-				<button class="ui-button"><span class="ui-menubutton-arrow ui-menubutton-arrow-down"></span></button>\
+	tpl: '<span class="{cssClass} x-buttongroup">\
+				<button class="x-button"></button>\
+				<button class="x-button"><span class="x-menubutton-arrow x-menubutton-arrow-down"></span></button>\
 			</span>',
 
 	content: function () {
-		return Dom.find('.ui-button', this.elem);
+		return Dom.find('.x-button', this.elem);
 	},
 
 	input: function () {
@@ -7923,12 +7930,12 @@ var SplitButton = MenuButton.extend({
 
 	state: function (name, value) {
 		if (name == "disabled") {
-			Dom.query('.ui-button', this.elem).forEach(function (elem) {
+			Dom.query('.x-button', this.elem).forEach(function (elem) {
 				Dom.setAttr(elem, name, value);
-				Dom.toggleClass(elem, 'ui-button-disabled', value);
+				Dom.toggleClass(elem, 'x-button-disabled', value);
 			});
 		} else if (name == "actived") {
-			Dom.toggleClass(Dom.last(this.elem, '.ui-button'), 'ui-button-actived', value !== false);
+			Dom.toggleClass(Dom.last(this.elem, '.x-button'), 'x-button-actived', value !== false);
 		} else {
 			MenuButton.prototype.state.call(this, name, value);
 		}
@@ -7936,8 +7943,8 @@ var SplitButton = MenuButton.extend({
 	},
 
 	init: function () {
-		this.setDropDown(this.createDropDown(Dom.next(this.elem, '.ui-dropdown')));
-		Dom.on(Dom.find('>.ui-button:last-child', this.elem), 'click', this.toggleDropDown, this);
+		this.setDropDown(this.createDropDown(Dom.next(this.elem, '.x-dropdown')));
+		Dom.on(Dom.find('>.x-button:last-child', this.elem), 'click', this.toggleDropDown, this);
 	}
 
 });
@@ -7958,7 +7965,7 @@ var SplitButton = MenuButton.extend({
  */
 var DropDownMenu = ListControl.extend({
 
-	cssClass: "ui-listbox",
+	cssClass: "x-listbox",
 
 	owner: null,
 
@@ -8096,7 +8103,7 @@ var Suggest = Control.extend(IDropDownOwner).implement({
 			updateMethod: 'showDropDown'
 		});
 
-		Dom.addClass(dropDown.elem, 'ui-suggest');
+		Dom.addClass(dropDown.elem, 'x-suggest');
 
 
 		return dropDown;
@@ -8136,7 +8143,7 @@ var Suggest = Control.extend(IDropDownOwner).implement({
 		Dom.setAttr(this.elem, 'autocomplete', 'off');
 
 		// 创建并设置提示的下拉菜单。
-		this.setDropDown(this.createDropDown(Dom.next(this.elem, 'ui-suggest')))
+		this.setDropDown(this.createDropDown(Dom.next(this.elem, 'x-suggest')))
 
 		// 获取焦点后更新智能提示显示状态。
 		Dom.on(this.elem, 'focus', this.showDropDown, this);

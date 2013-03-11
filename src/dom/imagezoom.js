@@ -7,13 +7,13 @@
 
 Dom.imageZoom = function (elem, getUrlCallback) {
 
-    Dom.addClass(elem, 'ui-imagezoom-small');
+    Dom.addClass(elem, 'x-imagezoom-small');
     Dom.on(elem, 'click', function (e) {
         var oldState, data = Dom.data(this);
 
-        if (Dom.hasClass(this, 'ui-imagezoom-small')) {
-            Dom.removeClass(this, 'ui-imagezoom-small');
-            Dom.addClass(this, 'ui-imagezoom-large');
+        if (Dom.hasClass(this, 'x-imagezoom-small')) {
+            Dom.removeClass(this, 'x-imagezoom-small');
+            Dom.addClass(this, 'x-imagezoom-large');
             if (getUrlCallback) {
                 data.imageZoomSrc = this.src;
                 this.src = getUrlCallback(this.src);
@@ -23,8 +23,8 @@ Dom.imageZoom = function (elem, getUrlCallback) {
                 this.style.width = this.style.height = 'auto';
             }
         } else {
-            Dom.addClass(this, 'ui-imagezoom-small');
-            Dom.removeClass(this, 'ui-imagezoom-large');
+            Dom.addClass(this, 'x-imagezoom-small');
+            Dom.removeClass(this, 'x-imagezoom-large');
             if (getUrlCallback) {
                 this.src = data.imageZoomSrc;
             } else {

@@ -1,17 +1,17 @@
-.ui-carousel {
+.x-carousel {
   position: relative;
   height: 200px;
   width: 100%;
   overflow: hidden;
 }
-.ui-carousel-header {
+.x-carousel-header {
   position: absolute;
   bottom: 0;
   left: 0;
   height: 32px;
   z-index: 10;
 }
-.ui-carousel-header li {
+.x-carousel-header li {
   float: left;
   width: 120px;
   text-align: center;
@@ -22,17 +22,17 @@
   color: #ffffff;
   cursor: pointer;
 }
-.ui-carousel-header .ui-carousel-selected {
+.x-carousel-header .x-carousel-selected {
   font-weight: bold;
   background-color: #F2F2F2;
   color: #000000;
 }
-.ui-carousel-body,
-.ui-carousel-body li {
+.x-carousel-body,
+.x-carousel-body li {
   position: absolute;
   top: 0;
   left: 0;
 }
-.ui-carousel-body li li {
+.x-carousel-body li li {
   position: static;
 }

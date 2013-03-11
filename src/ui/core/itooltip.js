@@ -24,8 +24,8 @@ var IToolTip = {
     reshowDelay: 100,
 	
 	arrowTpl: '<span>\
-	    <span class="ui-arrow-fore">◆</span>\
-        <span class="ui-arrow-back">◆</span>\
+	    <span class="x-arrow-fore">◆</span>\
+        <span class="x-arrow-back">◆</span>\
     </span>',
 
     /**
@@ -71,10 +71,10 @@ var IToolTip = {
 	},
 
 	setArrow: function (value) {
-		var arrow = Dom.find('.ui-arrow', this.elem) || Dom.append(this.elem, this.arrowTpl);
+		var arrow = Dom.find('.x-arrow', this.elem) || Dom.append(this.elem, this.arrowTpl);
 
 	    if (value) {
-	        arrow.className = 'ui-arrow ui-arrow-' + value;
+	        arrow.className = 'x-arrow x-arrow-' + value;
 	    } else {
 	    	Dom.remove(arrow);
 	    }
@@ -82,7 +82,7 @@ var IToolTip = {
 	},
 
 	getArrow: function () {
-		var arrow = Dom.find('.ui-arrow', this.elem), r = null;
+		var arrow = Dom.find('.x-arrow', this.elem), r = null;
 
 	    if (arrow) {
 	        r = (/\bui-arrow-(top|bottom|left|right)/.exec(arrow.className) || [0, r])[1];

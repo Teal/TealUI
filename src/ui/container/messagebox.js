@@ -69,7 +69,7 @@ var MessageBox = Dialog.extend({
 
             for (key in options) {
                 value = options[key];
-                btn = Dom.append(footer, '<button class="ui-button"></button>');
+                btn = Dom.append(footer, '<button class="x-button"></button>');
                 Dom.setText(btn, key);
                 switch (typeof value) {
                     case 'boolean':

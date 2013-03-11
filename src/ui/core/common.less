@@ -5,27 +5,27 @@
 // align
 html {
 	
-	.ui-left {
+	.x-left {
 		float: left;
 	}
 	
-	.ui-right {
+	.x-right {
 		float: right;
 	}
 	
 	/// IE6
 	// fix double margin bug for IE6
-	.ui-left, .ui-right {
+	.x-left, .x-right {
 		_display: inline;
 	}
 	
-	.ui-middle {
+	.x-middle {
 		vertical-align: middle;	
 	}
 
 }
 
-.ui-center {
+.x-center {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -33,11 +33,11 @@ html {
 // position
 html {
 		
-	.ui-relative, div.ui-relative {
+	.x-relative, div.x-relative {
 		position: relative;	
 	}
 	
-	.ui-absolute, div.ui-absolute {
+	.x-absolute, div.x-absolute {
 		position: absolute;	
 	}
 
@@ -46,24 +46,24 @@ html {
 // display
 html {
 	
-	.ui-inline {
+	.x-inline {
 		display: inline;	
 	}
 	
-	.ui-block {
+	.x-block {
 		display: block;	
 	}
 	
-	.ui-inline-block {
+	.x-inline-block {
 		.inline-block();
 	}
 	
-	.ui-hide, div.ui-hide{
+	.x-hide, div.x-hide{
 		display: none;
 	}
 	
 	// plain
-	.ui-plain, div.ui-plain {
+	.x-plain, div.x-plain {
 		margin: 0;
 		padding: 0;
 	}
@@ -71,7 +71,7 @@ html {
 }
 
 // text
-.ui-break-word {
+.x-break-word {
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 	-ms-word-break: break-all;
@@ -79,51 +79,51 @@ html {
 }
 
 // clear
-.ui-clear {
+.x-clear {
 	.clear();
 }
 
 // colors
 
-.ui-hint {
+.x-hint {
 	color: @hintTextColor;
 }
 
-.ui-success {
+.x-success {
 	color: @successTextColor!important;
 }
 
-.ui-info {
+.x-info {
 	color: @infoTextColor!important;
 }
 
-.ui-warning {
+.x-warning {
 	color: @warningTextColor!important;
 }
 
-.ui-error {
+.x-error {
 	color: @errorTextColor!important;
 }
 
-.ui-highlight {
+.x-highlight {
 	color: @highlightTextColor!important;
 }
 
 // misc
 html {
-	.ui-row {
+	.x-row {
 		margin-bottom: 10px;
 	}
 }
 	
-.ui-blank {
+.x-blank {
 	height: 10px;
 	display: block;
 	visibility: hidden;
 	color: @white;
 }
 
-.ui-debug {
+.x-debug {
 	background: #C03!important;
 	color: #fff!important;
 }

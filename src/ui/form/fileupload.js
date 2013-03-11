@@ -9,11 +9,11 @@
 
 var FileUpload = Control.extend(IInput).implement({
 
-	cssClass: 'ui-fileupload',
+	cssClass: 'x-fileupload',
 
 	tpl: '<span class="{cssClass}">\
 			<input type="file" size="1">\
-			<button class="ui-button">浏览...</button>\
+			<button class="x-button">浏览...</button>\
     	</span>',
 
     init: function(){
@@ -39,7 +39,7 @@ var FileUpload = Control.extend(IInput).implement({
     state: function (name, value) {
         if (name === 'disabled' || name === 'readonly') {
         	Dom.setAttr(this.input(), 'disabled', value);
-            Dom.toggleClass(this.find('.ui-button'), 'ui-button-disabled', value);
+            Dom.toggleClass(this.find('.x-button'), 'x-button-disabled', value);
         } else {
             IInput.state.call(name, value);
         }

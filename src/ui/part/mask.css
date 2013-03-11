@@ -1,5 +1,5 @@
-.ui-mask,
-.ui-mask iframe {
+.x-mask,
+.x-mask iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -7,13 +7,13 @@
   width: 100%;
   height: 100%;
 }
-.ui-mask {
+.x-mask {
   z-index: 1040;
   background: #000;
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
-.ui-mask iframe {
+.x-mask iframe {
   z-index: -1;
   filter: mask();
 }

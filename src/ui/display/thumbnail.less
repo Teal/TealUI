@@ -1,7 +1,7 @@
 @import "../core/less/variables.less";
 @import "../core/less/mixins.less";
 
-.ui-thumbnail {
+.x-thumbnail {
     display: inline-block;
     *display: inline;
     padding: 4px;
@@ -13,14 +13,14 @@
 }
 
 // Add a hover state for linked versions only
-a.ui-thumbnail:hover {
+a.x-thumbnail:hover {
     border-color: @linkColor;
     .box-shadow(0 1px 4px rgba(0,105,214,.25));
 	.transition(all .2s ease-in-out);
 }
 
 // Images and captions
-.ui-thumbnail img {
+.x-thumbnail img {
     display: block;
     maui-width: 100%;
     margin-left: auto;

@@ -12,7 +12,7 @@
  */
 var ListBox = ListControl.implement(IInput).extend({
 
-	cssClass: "ui-listbox",
+	cssClass: "x-listbox",
 
 	/**
      * 获取当前高亮项。
@@ -113,7 +113,7 @@ var ListBox = ListControl.implement(IInput).extend({
 //	onClick: function (e) {
 		
 //		// 如果无法更改值，则直接忽略。
-//		if(this.hasClass('ui-' + this.xtype + '-disabled') || this.hasClass('ui-' + this.xtype + '-readonly'))
+//		if(this.hasClass('x-' + this.xtype + '-disabled') || this.hasClass('x-' + this.xtype + '-readonly'))
 //			return;
 			
 //		//获取当前项。

@@ -64,15 +64,15 @@
 
         <h3 class="demo">统一 980px 宽</h3>
 
-        <p class="demo">使用 <code class="demo">ui-container</code> 即可设置宽度为 980px 。</p>
+        <p class="demo">使用 <code class="demo">x-container</code> 即可设置宽度为 980px 。</p>
 
         <script class="demo-noformat" type="code/html">
-               <div id="body" class="ui-container">
+               <div id="body" class="x-container">
                     ...
                </div>
             </script>
 
-        <p class="demo ui-hint">如果需要定义网页为其它宽度值（如 940px) ，可更改 <code class="demo">src/Controls/Core/assets/less/variables.less</code> 内的变量配置, 并重新编译 less。</p>
+        <p class="demo x-hint">如果需要定义网页为其它宽度值（如 940px) ，可更改 <code class="demo">src/Controls/Core/assets/less/variables.less</code> 内的变量配置, 并重新编译 less。</p>
 
         <p class="demo link">此 class 由 <a href="../src/Controls/Layout/Grid.html" target="_blank">Grid 组件</a> 提供。</p>
 
@@ -82,55 +82,55 @@
 
         <p class="demo">将一个页面主体部分分成很多行(grid)，每行分很多列(col)。</p>
 
-        <div class="ui-grid ui-grid-fluid">
-            <div class="ui-col ui-col-first ui-col-3 demo-gray">
+        <div class="x-grid x-grid-fluid">
+            <div class="x-col x-col-first x-col-3 demo-gray">
                 左侧导航栏
                
             </div>
-            <div class="ui-col ui-col-7 demo-gray">
+            <div class="x-col x-col-7 demo-gray">
                 主体
                
             </div>
-            <div class="ui-col ui-col-2 demo-gray">
+            <div class="x-col x-col-2 demo-gray">
                 右侧广告栏
                
             </div>
         </div>
 
         <script class="demo-noformat" type="code/html">
-                <div id="body" class="ui-container">
-                    <div class="ui-grid ui-grid-fluid">
-                        <div id="sidebar" class="ui-col ui-col-first ui-col-3">
+                <div id="body" class="x-container">
+                    <div class="x-grid x-grid-fluid">
+                        <div id="sidebar" class="x-col x-col-first x-col-3">
                             左侧导航栏
                         </div>
-                        <div id="main" class="ui-col ui-col-7">
+                        <div id="main" class="x-col x-col-7">
                             主体
                         </div>
-                        <div id="extrabar" class="ui-col ui-col-2">
+                        <div id="extrabar" class="x-col x-col-2">
                             右侧广告栏
                         </div>
                     </div>
                 </div>
             </script>
 
-        <p class="demo">其中，确保 <code class="demo">ui-col-</code> 后的数字加起来等于 12，即可占满一行。 添加 <code class="demo">ui-col-first</code> 是为了兼容 IE6 。</p>
+        <p class="demo">其中，确保 <code class="demo">x-col-</code> 后的数字加起来等于 12，即可占满一行。 添加 <code class="demo">x-col-first</code> 是为了兼容 IE6 。</p>
 
-        <p class="demo"><strong>默认地， </strong><code class="demo"><strong>ui-grid</strong></code><strong> 使用固定的宽度值，添加 </strong><code class="demo"><strong>ui-grid-fluid</strong></code><strong> 即可改用相对百分比。</strong></p>
+        <p class="demo"><strong>默认地， </strong><code class="demo"><strong>x-grid</strong></code><strong> 使用固定的宽度值，添加 </strong><code class="demo"><strong>x-grid-fluid</strong></code><strong> 即可改用相对百分比。</strong></p>
 
         <h3 class="demo">三栏布局法</h3>
 
         <p class="demo">对于大多数网站来说，网站分栏方式是固定的，因此只需使用固定的三栏布局法。</p>
 
         <script class="demo-noformat" type="code/html">
-                <div id="body" class="ui-container">
-                    <div class="ui-grid ui-grid-3">
-　　                    <div class="ui-col ui-col-side">
+                <div id="body" class="x-container">
+                    <div class="x-grid x-grid-3">
+　　                    <div class="x-col x-col-side">
 　　　　                    side
 　　                    </div>
-　　                    <div class="ui-col ui-col-main">
+　　                    <div class="x-col x-col-main">
 　　　　                    main
 　　                    </div>
-                        <div class="ui-col ui-col-extra">
+                        <div class="x-col x-col-extra">
 　　　　                    extra
 　　                    </div>
                     </div>

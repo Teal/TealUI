@@ -2,45 +2,45 @@
 @import "../core/less/mixins.less";
 
 // Tabs
-.ui-stackable {
+.x-stackable {
     border-bottom: none;
 }
 
 // Make the list-items overlay the bottom border
-.ui-stackable li {
+.x-stackable li {
     float: none;
 }
 
 // Make links block level
-.ui-stackable  li a {
+.x-stackable  li a {
     .border-radius(0);
     border-color: @grayBorder;
 }
 
-.ui-stackable  li:first-child a {
+.x-stackable  li:first-child a {
     .border-radius(@baseBorderRadius @baseBorderRadius 0 0);
 }
 
-.ui-stackable  li:last-child a {
+.x-stackable  li:last-child a {
     .border-radius(0 0 @baseBorderRadius @baseBorderRadius);
 }
 
-.ui-stackable  li a:hover {
+.x-stackable  li a:hover {
     border-color: @grayBorder;
     z-index: 2;
 }
 
 // Pills
-.ui-tabbable-alt.ui-stackable  li a {
+.x-tabbable-alt.x-stackable  li a {
     border-color: transparent;
 	.ie6-border-transparent(@backgroundColor);
     .border-radius(@baseBorderRadius);
 }
 
-.ui-tabbable-alt.ui-stackable  li {
+.x-tabbable-alt.x-stackable  li {
     margin-bottom: 3px;
 }
 
-.ui-tabbable-alt.ui-stackable li:last-child {
+.x-tabbable-alt.x-stackable li:last-child {
     margin-bottom: 0; // decrease margin to match sizing of alt tabs
 }

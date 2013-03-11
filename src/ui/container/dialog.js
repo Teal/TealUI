@@ -16,13 +16,13 @@ var Dialog = ContainerControl.extend({
 
     _centerType: 1 | 2,
 	
-	cssClass: 'ui-dialog',
+	cssClass: 'x-dialog',
 
 	showDuration: -1,
 	
 	// 基本属性
 		
-	headerTpl: '<div class="{cssClass}-header"><a class="{cssClass}-close ui-closebutton">×</a><h4></h4></div>',
+	headerTpl: '<div class="{cssClass}-header"><a class="{cssClass}-close x-closebutton">×</a><h4></h4></div>',
 
 	onCloseButtonClick: function () {
 	    this.close();
@@ -30,12 +30,12 @@ var Dialog = ContainerControl.extend({
 	
 	init: function(options){
 		
-		// 如果用户传入了一个已经存在的节点，并且这个节点不是 ui-dialog 。
+		// 如果用户传入了一个已经存在的节点，并且这个节点不是 x-dialog 。
 		// 那么创建新的对话框容器，并且将节点作为这个对话框的内容。
-		if (!Dom.hasClass(this.elem, 'ui-dialog')) {
+		if (!Dom.hasClass(this.elem, 'x-dialog')) {
 
-			// 如果这个节点已经调用过 new Dialog, 则其父元素就是 ui-dialog-body  了。
-			if (Dom.parent(this.elem, '.ui-dialog-body')) {
+			// 如果这个节点已经调用过 new Dialog, 则其父元素就是 x-dialog-body  了。
+			if (Dom.parent(this.elem, '.x-dialog-body')) {
 				this.elem = Dom.parent(Dom.parent(this.elem));
 			} else {
 
@@ -54,14 +54,14 @@ var Dialog = ContainerControl.extend({
 		// 关闭按钮。
 		// 默认隐藏对话框。
 		// 移除 script 脚本, 防止重复执行。
-		Dom.on(this.elem, 'click', '.ui-dialog-close', this.onCloseButtonClick, this);
+		Dom.on(this.elem, 'click', '.x-dialog-close', this.onCloseButtonClick, this);
 		Dom.setStyle(this.elem, 'display', 'none');
 		Dom.query('script', this.elem).forEach(Dom.remove);
 
 	},
 	
 	mask: function(opacity){
-		var mask = this.maskElem || (this.maskElem = Dom.find('.ui-mask-dialog') || Dom.append(document.body, '<div class="ui-mask ui-mask-dialog"></div>'));
+		var mask = this.maskElem || (this.maskElem = Dom.find('.x-mask-dialog') || Dom.append(document.body, '<div class="x-mask x-mask-dialog"></div>'));
 
 		if (opacity === null) {
 			Dom.hide(mask);

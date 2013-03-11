@@ -88,7 +88,7 @@ var IDropDownOwner = {
 			this.dropDownNode = dom = dom.elem || Dom.find(dom);
 
 			// 初始化并保存下拉菜单。
-			Dom.addClass(dom, 'ui-dropdown');
+			Dom.addClass(dom, 'x-dropdown');
 			Dom.hide(dom);
 
 			// 如果下拉菜单未添加到 DOM 树，则添加到当前节点后。

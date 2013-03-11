@@ -1,8 +1,8 @@
-.ui-splitbutton .ui-button:last-child {
+.x-splitbutton .x-button:last-child {
   padding-left: 8px;
   padding-right: 8px;
 }
-.ui-splitbutton .ui-menubutton-arrow {
+.x-splitbutton .x-menubutton-arrow {
   margin-left: 0;
   *margin-top: 7px;
   *margin-bottom: 7px;

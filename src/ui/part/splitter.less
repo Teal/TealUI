@@ -1,20 +1,20 @@
 @import "../core/less/variables.less";
 @import "../core/less/mixins.less";
 
-.ui-splitter {
+.x-splitter {
     z-index: 100;
     overflow: hidden;
     position: absolute;
 }
 
-.ui-splitter-proxy {
+.x-splitter-proxy {
     position: absolute;
     overflow: hidden;
     background: none repeat scroll 0 0 #CCCCCC;
     z-index: @zindexDialogBackdrop;
 }
 
-.ui-splitter-left, .ui-splitter-right {
+.x-splitter-left, .x-splitter-right {
     cursor: e-resize;
     cursor: col-resize;
     width: 6px;
@@ -22,7 +22,7 @@
     top: 0;
 }
 
-.ui-splitter-top, .ui-splitter-bottom {
+.x-splitter-top, .x-splitter-bottom {
     cursor: n-resize;
     cursor: row-resize;
     width: 100%;

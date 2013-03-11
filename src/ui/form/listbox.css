@@ -1,4 +1,4 @@
-﻿.ui-listbox {
+﻿.x-listbox {
   display: inline-block;
   *display: inline;
   *zoom: 1;
@@ -19,7 +19,7 @@
   *overflow-x: hidden;
   text-align: left;
 }
-.ui-listbox li {
+.x-listbox li {
   display: block;
   padding: 3px 10px;
   color: #555555;
@@ -30,17 +30,17 @@
   *text-indent: -16px;
   _text-indent: 0;
 }
-.ui-listbox li a {
+.x-listbox li a {
   color: #333333;
   cursor: default;
 }
-.ui-listbox li a:hover {
+.x-listbox li a:hover {
   text-decoration: none;
 }
-.ui-listbox-selected {
+.x-listbox-selected {
   background-color: #005580;
 }
-.ui-listbox-hover {
+.x-listbox-hover {
   background-color: #0077b3;
   background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
@@ -49,21 +49,21 @@
   background-image: linear-gradient(to bottom, #0088cc, #0077b3);
   background-repeat: repeat-x;
 }
-.ui-listbox .ui-listbox-selected,
-.ui-listbox .ui-listbox-hover {
+.x-listbox .x-listbox-selected,
+.x-listbox .x-listbox-hover {
   color: #ffffff;
 }
-.ui-listbox .ui-listbox-selected a,
-.ui-listbox .ui-listbox-hover a {
+.x-listbox .x-listbox-selected a,
+.x-listbox .x-listbox-hover a {
   color: #ffffff;
 }
-.ui-listbox-readonly {
+.x-listbox-readonly {
   background-color: #eeeeee !important;
 }
-.ui-listbox-disabled {
+.x-listbox-disabled {
   border-color: #dddddd !important;
   background-color: #eeeeee !important;
 }
-.ui-listbox-disabled .ui-listbox-selected {
+.x-listbox-disabled .x-listbox-selected {
   background-color: #555555;
 }

@@ -12,7 +12,7 @@ var DatePicker = Picker.extend({
 	
 	dropDownWidth: 'auto',
 	
-	menuButtonTpl: '<button class="ui-button" type="button"><span class="ui-icon ui-icon-calendar"></span></button>',
+	menuButtonTpl: '<button class="x-button" type="button"><span class="x-icon x-icon-calendar"></span></button>',
 	
 	createDropDown: function(existDom){
 		return new MonthCalender(existDom).on('selecting', this.onItemClick, this);

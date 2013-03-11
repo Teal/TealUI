@@ -1,53 +1,53 @@
-.ui-grid {
+.x-grid {
   margin-top: 10px;
   *zoom: 1;
 }
-.ui-grid:after {
+.x-grid:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.ui-col {
+.x-col {
   float: left;
   margin-left: 16px;
 }
-.ui-container {
+.x-container {
   width: 980px;
   margin-left: auto;
   margin-right: auto;
   *zoom: 1;
 }
-.ui-container:after {
+.x-container:after {
   content: ".";
   display: block;
   height: 0;
   clear: both;
   visibility: hidden;
 }
-.ui-grid-1 .ui-col-main {
+.x-grid-1 .x-col-main {
   width: 980px;
   margin-left: 0;
 }
-.ui-grid-2 .ui-col-side,
-.ui-grid-3 .ui-col-side {
+.x-grid-2 .x-col-side,
+.x-grid-3 .x-col-side {
   width: 230px;
   margin-left: 0;
 }
-.ui-grid-2 .ui-col-main {
+.x-grid-2 .x-col-main {
   width: 734px;
 }
-.ui-grid-2x .ui-col-extra {
+.x-grid-2x .x-col-extra {
   width: 230px;
 }
-.ui-grid-2x .ui-col-main {
+.x-grid-2x .x-col-main {
   width: 734px;
   margin-left: 0;
 }
-.ui-grid-3 .ui-col-extra {
+.x-grid-3 .x-col-extra {
   width: 200px;
 }
-.ui-grid-3 .ui-col-main {
+.x-grid-3 .x-col-main {
   width: 518px;
 }

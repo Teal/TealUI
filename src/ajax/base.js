@@ -375,7 +375,7 @@ var Ajax = (function () {
 
         // headers['Content-Type']
         if (xhrObject.data) {
-            headers['Content-Type'] = "application/ui-www-form-urlencoded; charset=" + (xhrObject.charset || "UTF-8");
+            headers['Content-Type'] = "application/x-www-form-urlencoded; charset=" + (xhrObject.charset || "UTF-8");
         }
 
         // headers['Accept-Charset']
@@ -383,9 +383,9 @@ var Ajax = (function () {
             headers["Accept-Charset"] = value;
         }
 
-        // headers['ui-Requested-With']
+        // headers['x-Requested-With']
         if (!xhrObject.crossDomain) {
-            headers['ui-Requested-With'] = 'XMLHttpRequest';
+            headers['x-Requested-With'] = 'XMLHttpRequest';
         }
 
         // 如果参数有 headers, 复制到当前 headers 。

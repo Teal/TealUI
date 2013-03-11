@@ -1,7 +1,7 @@
-.ui-tabpage-content {
+.x-tabpage-content {
   padding: 10px;
 }
-.ui-tabcontrol-alt .ui-tabcontrol-body {
+.x-tabcontrol-alt .x-tabcontrol-body {
   border-width: 0 1px 1px;
   border-style: solid;
   border-color: #DDD;
@@ -10,20 +10,20 @@
   -moz-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
 }
-.ui-tabcontrol-alt li a {
+.x-tabcontrol-alt li a {
   margin-right: 10px;
   border-color: #dddddd;
   background-color: #F5F5F5;
   color: #555555;
 }
-.ui-tabcontrol-alt li a:hover {
+.x-tabcontrol-alt li a:hover {
   background-color: #ffffff;
   -webkit-transition: background-color 0.1s linear;
   -moz-transition: background-color 0.1s linear;
   -o-transition: background-color 0.1s linear;
   transition: background-color 0.1s linear;
 }
-.ui-tabcontrol-alt .ui-tabbable-selected a {
+.x-tabcontrol-alt .x-tabbable-selected a {
   background-color: #ffffff;
   border-bottom-color: transparent;
 }

@@ -10,7 +10,7 @@ var Placholder = Control.extend({
 
 	maxLength: 300,
 
-	cssClass: 'ui-placeholder',
+	cssClass: 'x-placeholder',
 
 	tpl: '<span class="{cssClass}"></span>',
 
@@ -25,7 +25,7 @@ var Placholder = Control.extend({
 
     constructor: function (target, content, placeholder) {
         this.target = target = Dom.find(target);
-        placeholder = (placeholder ? Dom.find(placeholder) : Dom.next(target, '.ui-placeholder')) || Dom.after(target, this.create());
+        placeholder = (placeholder ? Dom.find(placeholder) : Dom.next(target, '.x-placeholder')) || Dom.after(target, this.create());
         this.elem = placeholder;
 
         if (content) {

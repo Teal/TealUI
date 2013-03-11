@@ -720,7 +720,7 @@ console.log(Ext.Date.format(dt, Ext.Date.patterns.ShortDate));
 //     * <p>Custom parsing functions may be inserted into this object, keyed by a name which from then on
 //     * may be used as a format string to {@link #parse}.<p>
 //     * <p>Example:</p><pre><code>
-//Ext.Date.parseFunctions['ui-date-format'] = myDateParser;
+//Ext.Date.parseFunctions['x-date-format'] = myDateParser;
 //</code></pre>
 //     * <p>A parsing function should return a Date object, and is passed the following parameters:<div class="mdetail-params"><ul>
 //     * <li><code>date</code> : String<div class="sub-desc">The date string to parse.</div></li>
@@ -752,7 +752,7 @@ console.log(Ext.Date.format(dt, Ext.Date.patterns.ShortDate));
 //     * date formats are requested for Ext standard formatting strings.</p>
 //     * <p>Custom formatting functions may be inserted into this object, keyed by a name which from then on
 //     * may be used as a format string to {@link #format}. Example:</p><pre><code>
-//Ext.Date.formatFunctions['ui-date-format'] = myDateFormatter;
+//Ext.Date.formatFunctions['x-date-format'] = myDateFormatter;
 //</code></pre>
 //     * <p>A formatting function should return a string representation of the passed Date object, and is passed the following parameters:<div class="mdetail-params"><ul>
 //     * <li><code>date</code> : Date<div class="sub-desc">The Date to format.</div></li>

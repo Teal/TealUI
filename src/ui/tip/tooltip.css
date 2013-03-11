@@ -1,4 +1,4 @@
-.ui-tooltip {
+.x-tooltip {
   position: absolute;
   z-index: 1020;
   display: none;
@@ -6,7 +6,7 @@
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
-.ui-tooltip-content {
+.x-tooltip-content {
   maui-width: 200px;
   padding: 4px 9px;
   color: #ffffff;

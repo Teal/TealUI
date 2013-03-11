@@ -1,4 +1,4 @@
-.ui-textbox {
+.x-textbox {
   font-family: "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
@@ -16,54 +16,54 @@
   -o-transition: border linear .2s, box-shadow linear .2s;
   transition: border linear .2s, box-shadow linear .2s;
 }
-.ui-textbox:focus {
+.x-textbox:focus {
   border-color: rgba(82, 168, 236, 0.8);
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
   outline: 0;
 }
-.ui-textbox[disabled],
-.ui-textbox[readonly] {
+.x-textbox[disabled],
+.x-textbox[readonly] {
   border-color: #dddddd;
   background-color: #eeeeee;
 }
-input.ui-textbox {
+input.x-textbox {
   height: 18px;
 }
-textarea.ui-textbox {
+textarea.x-textbox {
   width: 600px;
   height: 150px;
   line-height: 19px;
 }
-.ui-textbox-warning {
+.x-textbox-warning {
   border-color: #c09853;
 }
-.ui-textbox-warning:focus {
+.x-textbox-warning:focus {
   border-color: #a47e3c;
   -webkit-box-shadow: 0 0 6px #dbc59e;
   -moz-box-shadow: 0 0 6px #dbc59e;
   box-shadow: 0 0 6px #dbc59e;
 }
-.ui-textbox-error {
+.x-textbox-error {
   border-color: #b94a48;
 }
-.ui-textbox-error:focus {
+.x-textbox-error:focus {
   border-color: #953b39;
   -webkit-box-shadow: 0 0 6px #d59392;
   -moz-box-shadow: 0 0 6px #d59392;
   box-shadow: 0 0 6px #d59392;
 }
-.ui-textbox-success {
+.x-textbox-success {
   border-color: #468847;
 }
-.ui-textbox-success:focus {
+.x-textbox-success:focus {
   border-color: #356635;
   -webkit-box-shadow: 0 0 6px #7aba7b;
   -moz-box-shadow: 0 0 6px #7aba7b;
   box-shadow: 0 0 6px #7aba7b;
 }
-.ui-placeholder {
+.x-placeholder {
   color: #999999;
 }
 :-moz-placeholder {

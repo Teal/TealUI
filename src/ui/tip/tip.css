@@ -1,4 +1,4 @@
-.ui-tip {
+.x-tip {
   padding: 2px 4px 3px;
   font-size: 10.2px;
   font-weight: bold;
@@ -9,31 +9,31 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-.ui-tip:hover {
+.x-tip:hover {
   color: #ffffff;
   text-decoration: none;
 }
-.ui-tip-info {
+.x-tip-info {
   background-color: #3a87ad;
 }
-.ui-tip-info:hover {
+.x-tip-info:hover {
   background-color: #2d6987;
 }
-.ui-tip-success {
+.x-tip-success {
   background-color: #468847;
 }
-.ui-tip-success:hover {
+.x-tip-success:hover {
   background-color: #356635;
 }
-.ui-tip-warning {
+.x-tip-warning {
   background-color: #c09853;
 }
-.ui-tip-warning:hover {
+.x-tip-warning:hover {
   background-color: #a47e3c;
 }
-.ui-tip-error {
+.x-tip-error {
   background-color: #b94a48;
 }
-.ui-tip-error:hover {
+.x-tip-error:hover {
   background-color: #953b39;
 }
