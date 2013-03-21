@@ -1,14 +1,11 @@
 /**
- * @author 
+ * @author chunterg, xuld
  */
 
-
-
-/**
- * @author chunterg
- */
-
-var Starrating = {
+var Starrating = Control.extend({
+	
+	cssClass: 'x-starrating',
+	
     init: function () {
         var me = this;
         me.setRate();
@@ -25,6 +22,7 @@ var Starrating = {
             Dom.query('.x-starrating-readonly').setStyle('z-index', 10);
         }
     },
+    
     setRate: function (rate, isClick, grade) {
         var current = Dom.query('.x-starrating-current');
         if (rate && isClick) {
@@ -46,5 +44,4 @@ var Starrating = {
         }
 
     }
-}
-
+});

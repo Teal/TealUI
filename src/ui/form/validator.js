@@ -7,51 +7,12 @@
  * 验证一个字段的工具。
  */
 var Validator = Class({
+	
+	elem: null,
 
     event: 'keyup',
 
     tipDuration: 100,
-
-    isValidated: function () {
-        return this.validate() === '';
-    },
-
-    updateState: function (success, message) {
-
-        var target = this.target,
-            tip = this.tip;
-
-        if (tip) {
-            if (!success) {
-                if (message == null) {
-                    tip.setHtml(Validator.messages.waiting).node.className = 'x-tipbox x-tipboui-info';
-                    tip.show(this.tipDuration);
-                    success = true;
-                } else {
-                    tip.setHtml(message).node.className = 'x-tipbox x-tipboui-error';
-                    tip.show(this.tipDuration);
-                }
-            } else if (message) {
-                tip.setHtml(message).node.className = 'x-tipbox x-tipboui-success';
-                tip.show(this.tipDuration);
-            } else {
-                tip.setHtml('&nbsp;').node.className = 'x-tipbox x-tipboui-success x-tipboui-plain';
-                if (message === '')
-                    tip.show(this.tipDuration);
-                else
-                    tip.hide();
-            }
-        }
-
-        if (target.hasClass('x-textbox')) {
-            if (success) {
-                target.removeClass('x-textboui-error');
-            } else {
-                target.addClass('x-textboui-error');
-            }
-        }
-
-    },
 
     handlerEvent: function () {
         var me = this;
@@ -65,33 +26,74 @@ var Validator = Class({
         }, 200);
     },
 
-    getText: function () {
-        return this.target.getText().trim();
+    updateState: function (success, message) {
+
+        var elem = this.elem,
+            tip = this.tip;
+
+        if (tip) {
+            if (!success) {
+                if (message == null) {
+                    tip.className = 'x-tipbox x-tipbox-info';
+                    Dom.setHtml(tip, Validator.messages.waiting);
+                    Dom.show(tip, this.tipDuration);
+                    success = true;
+                } else {
+                    tip.className = 'x-tipbox x-tipbox-error';
+                    Dom.setHtml(tip, message);
+                    Dom.show(tip, this.tipDuration);
+                }
+            } else if (message) {
+                tip.className = 'x-tipbox x-tipbox-success';
+                Dom.setHtml(tip, message);
+                Dom.show(tip, this.tipDuration);
+            } else {
+            	tip.className = 'x-tipbox x-tipbox-success x-tipbox-plain';
+                Dom.setHtml(tip, '&nbsp;');
+                if (message === '')
+                    Dom.show(tip, this.tipDuration);
+                else
+                    Dom.hide(tip);
+            }
+        }
+
+        if (Dom.hasClass(elem, 'x-textbox')) {
+            if (success) {
+                Dom.removeClass(elem, 'x-textbox-error');
+            } else {
+                Dom.addClass(elem, 'x-textbox-error');
+            }
+        }
+
+    },
+
+    getValue: function () {
+        return Dom.getText(this.elem).trim();
     },
 
     constructor: function (options) {
 
         // 自动填充一些属性。
         var me = Object.extend(this, options),
-            target = me.target,
+            elem = me.elem,
             t = me.event;
 
-        //assert.notNull(target, "Validator#constructor(options): {options.target} ~");
+        //assert.notNull(elem, "Validator#constructor(options): {options.elem} ~");
 
-        me.tip = me.tip || target.next('.x-tipbox');
+        me.tip = me.tip || Dom.next(elem, '.x-tipbox');
 
         // 验证类型。
         if (t) {
-            target.on(t, this.handlerEvent, this);
+            Dom.on(elem, t, this.handlerEvent, this);
 
             // 如果是 keyup 进行的验证，还需要在 blur 时执行。
             if (t === 'keyup') {
-                target.on('blur', this.handlerEvent, this);
+                Dom.on(elem, 'blur', this.handlerEvent, this);
             }
         }
 
         // 第一次验证。
-        if (me.getText()) {
+        if (me.getValue()) {
             me.validate();
         } else {
             me.reset();
@@ -105,7 +107,7 @@ var Validator = Class({
 
         var me = this,
             rule,
-            text = me.getText(),
+            text = me.getValue(),
             errorMessage = '',
             t,
             messages = me.messages;
@@ -126,7 +128,7 @@ var Validator = Class({
             // 执行验证器，并返回验证错误信息。
             // 如果验证信息存在内容，则显示错误信息。
             // 如果错误信息是 null ，则表示正在异步验证，此时应该忽略掉 validated 的调用。
-            if ((text || rule === 'required') && (t = Validator.defaultValidators[rule]) && (errorMessage = t.call(me, text, me.rules[rule], messages && messages[rule] || Validator.messages[rule])) != '') {
+            if ((text || rule === 'required') && (t = Validator.defaultValidators[rule]) && (errorMessage = t.call(me, text, me.rules[rule], messages && messages[rule] || Validator.messages[rule] || Validator.messages['$default'])) != '') {
 
                 break;
             }
@@ -144,6 +146,10 @@ var Validator = Class({
 
     },
 
+    isValidated: function () {
+        return this.validate() === '';
+    },
+    
     /**
      * 通知验证器验证结果。
      */
@@ -156,7 +162,7 @@ var Validator = Class({
         this.updateState(success, message);
 
         if (success) {
-            me._validatedText = me.getText();
+            me._validatedText = me.getValue();
             if (me.success) {
                 me.success(message);
             }
@@ -177,7 +183,7 @@ var Validator = Class({
             // me.form.errorFields.remove(this);
             // if (!me.form.errorFields.length) {
                 // me.form.errorFields = [];
-                // me.form.target.submit();
+                // me.form.elem.submit();
             // }
         // }
 
@@ -195,7 +201,7 @@ var Validator = Class({
 /**
  * 验证一个表单的工具。
  */
-Validator.Form = Class({
+Validator.Form = Validator.extend({
 
     event: 'submit',
 
@@ -208,7 +214,7 @@ Validator.Form = Class({
     constructor: function (options) {
 
         var me = Object.extend(this, options),
-            target = me.target,
+            elem = me.elem,
             rule,
             t;
 
@@ -216,15 +222,19 @@ Validator.Form = Class({
         for (rule in me.rules) {
             t = me.rules[rule];
             me.rules[rule] = new Validator({
-            	target: target.query('[name="' + rule + '"]'),
+            	elem: Dom.find('[name="' + rule + '"]', elem),
             	rules: t
            	});
         }
 
         if (this.event) {
-            target.on(this.event, this.handlerEvent, this);
+            Dom.on(elem, this.event, this.handlerEvent, this);
         }
 
+    },
+    
+    add: function(validator){
+    	this.rules[JPlus.id++] = validator;
     },
     
     /**
@@ -299,7 +309,7 @@ Validator.defaultValidators = {
     },
 
     type: function (text, args, errorMessage) {
-        return Validator.types[args].exec(text) ? '' : (errorMessage || Validator.messages[args]);
+        return Validator.types[args].exec(text) ? '' : (errorMessage || Validator.messages[args] || Validator.messages['$default']);
     },
 
     range: function (text, args, errorMessage) {
@@ -307,7 +317,7 @@ Validator.defaultValidators = {
     },
 
     equalsTo: function (text, args, errorMessage) {
-        return Dom.get(args).getText() === text ? '' : errorMessage;
+        return Dom.getText(args) === text ? '' : errorMessage;
     },
 
     other: function (text, args, errorMessage) {
@@ -339,6 +349,8 @@ Validator.types = {
 };
 
 Validator.messages = {
+	
+	'$default': '格式不正确',
 
     required: '此项为必填项',
 
