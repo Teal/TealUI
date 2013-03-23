@@ -20,15 +20,10 @@
 //#include ui/display/table
 //#include ui/display/thumbnail
 //#include ui/display/videoplaceholder
-//#define path apps/data/buildfiles/jplus-all.js
+//#include dom/drag
+//#include dom/popup
+//#include dom/hashchange
+//#include ui/suggest/suggest
 //#define js ../../../build/jplus-all.js
 //#define css ../../../build/jplus-all.css
 //#define assets ../../../build/images
-//#define prependComments /*********************************************************\
-//# * This file is created by a tool at {time}\
-//# ********************************************************/\
-//#\
-//#{modules}
-//#define prependModuleComments /*********************************************************\
-//# * {module}\
-//# ********************************************************/

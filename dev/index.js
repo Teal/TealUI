@@ -14,6 +14,7 @@ var DevIndex = {
 	'Goggle 编码规范': 'http://google-styleguide.googlecode.com/svn/trunk/',
 
 	'测试': '-',
+	'类图': '~/dev/classdiagram/index.html',
 	'速度比较': '~/dev/speedmatch/index.html',
 	'单元测试': '~/dev/unittest/index.html'
 

@@ -1,11 +1,15 @@
 /*********************************************************
- * This file is created by a tool at 2013/3/2 13:46
+ * This file is created by a tool at 2013/3/23 14:10
  ********************************************************/
 
 //#included core/base.js
 //#included core/class.js
 //#included dom/base.js
+//#included dom/drag.js
+//#included dom/hashchange.js
+//#included dom/keynav.js
 //#included dom/pin.js
+//#included dom/popup.js
 //#included fx/animate.js
 //#included fx/base.js
 //#included fx/tween.js
@@ -16,20 +20,24 @@
 //#included ui/core/common.css
 //#included ui/core/idropdownowner.js
 //#included ui/core/iinput.js
+//#included ui/core/listcontrol.js
 //#included ui/display/label.css
 //#included ui/display/line.css
 //#included ui/display/list.css
 //#included ui/display/table.css
 //#included ui/display/thumbnail.css
 //#included ui/display/videoplaceholder.css
+//#included ui/form/listbox.css
 //#included ui/form/searchtextbox.css
 //#included ui/form/searchtextbox.js
 //#included ui/form/textbox.css
 //#included ui/layout/grid-fluid.css
 //#included ui/layout/grid.css
 //#included ui/part/icon.css
+//#included ui/suggest/dropdownmenu.js
 //#included ui/suggest/picker.css
 //#included ui/suggest/picker.js
+//#included ui/suggest/suggest.js
 //#included ui/typography/blockquote.css
 //#included ui/typography/code.css
 //#included ui/typography/dl.css
@@ -708,12 +716,12 @@ var JPlus = (function (undefined) {
 		 */
 		filter: function (fn, scope) {
 			//#assert.isFunction(fn, "Array#filter(fn, scope): {fn} ~");
-			var r = [];
+			var ret = [];
 			ap.forEach.call(this, function (value, i, array) {
 				if (fn.call(scope, value, i, array))
-					r.push(value);
+					ret.push(value);
 			});
-			return r;
+			return ret;
 		},
 
 		/**
@@ -784,7 +792,7 @@ var JPlus = (function (undefined) {
 })();
 /*********************************************************
  * core/class.js
- ********************************************************/﻿/**
+ ********************************************************//**
  * @author xuld
  * @fileOverview 提供类的支持。
  */
@@ -1291,22 +1299,6 @@ var Dom = (function () {
 		    },
 
 		    /**
-             * 遍历 Dom 对象，并对每个元素执行 setter。
-             */
-		    access: function (getter, setter, args, valueIndex, emptyGet) {
-
-		        // 如果参数够数，则设置属性，否则为获取属性。
-		        if (args.length > valueIndex) {
-		            for (var i = 0, len = this.length; i < len; i++) {
-		                setter(this[i], args[0], args[1])
-		            }
-		            return this;
-		        }
-
-		        return this.length ? getter(this[0], args[0], args[1]) : emptyGet;
-		    },
-
-		    /**
 	         * 遍历 Dom 对象，并对每个元素执行 setter。
 	         */
 		    iterate: function (fn, args) {
@@ -1319,20 +1311,26 @@ var Dom = (function () {
 		        return this;
 		    },
 
-		    filter: function (selector) {
-		    	var newLength = 0,
-					fn = typeof selector === 'string' ? function (elem) {
-						return Dom.match(elem, selector);
-					} : fn;
-
-		    	for (var i = 0; i < this.length; i++) {
-		    		if (fn(this[i]) !== false) {
-		    			this[newLength++] = this[i];
+		    map: function (fn, args) {
+		    	var me = this, ret = new me.constructor(), t;
+		    	for (var i = 0 ; i < me.length; i++) {
+		    		if (t = fn(me[i], args)) {
+		    			if (t instanceof Dom) {
+		    				ret.push.apply(ret, t);
+		    			} else {
+		    				ret.push(t);
+		    			}
 		    		}
 		    	}
+		    	return ret;
+		    },
 
-		    	return ap.splice.call(this, newLength);
-
+		    filter: function (selector) {
+		    	return this.map(typeof selector === 'string' ? function (elem, selector) {
+		    		return Dom.match(elem, selector) && elem;
+		    	} : function (elem, selector) {
+		    		return fn(elem) !== false && elem;
+		    	}, selector);
 		    }
 
 		}),
@@ -1473,6 +1471,19 @@ var Dom = (function () {
             return Selector.query(selector, context)[0] || null;
         },
 
+    	/**
+		 * 检查当前 Dom 对象是否符合指定的表达式。
+		 * @param {String} String
+		 * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
+		 * @example
+		 * 由于input元素的父元素是一个表单元素，所以返回true。
+		 * #####HTML:
+		 * <pre lang="htm" format="none">&lt;form&gt;&lt;input type="checkbox" /&gt;&lt;/form&gt;</pre>
+		 * #####JavaScript:
+		 * <pre>Dom.query("input[type='checkbox']").match("input")</pre>
+		 * #####结果:
+		 * <pre lang="htm" format="none">true</pre>
+		 */
         match: function (elem, selector, context) {
 
             //if (elem.nodeType !== 1)
@@ -6774,3 +6785,1180 @@ var SearchTextBox = Picker.extend({
 
 
 
+/*********************************************************
+ * dom/drag.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include dom/base.js
+
+/**
+ * 处理用户拖动操作的类。
+ */
+var Draggable = Class({
+
+    /**
+     * 从鼠标按下到开始拖动的延时。
+     */
+    dragDelay: 500,
+
+    /**
+	 * 触发原生的 DOM 事件。
+	 * @param {String} eventName 触发的事件名。
+	 * @param {Event} e mousemove 事件参数对象。
+     * @protected virtual
+	 */
+    raiseEvent: function (eventName, e) {
+
+        // 绑定 draggable 和当前的 Draggable 对象。
+        e.draggable = this;
+
+        return Dom.trigger(this.elem, eventName, e);
+    },
+	
+	/**
+	 * 当 dragstart 事件发生时执行。
+	 * @param {Event} e 原生的 mousemove 事件。
+     * @protected virtual
+	 */
+    onDragStart: function (e) {
+
+    	if (!this.raiseEvent('dragstart', e)) {
+            return false;
+        }
+        // 记录当前的 offset, 用于在 onDrag 时设置位置。
+        this.offset = Dom.getOffset(this.proxy);
+    },
+	
+	/**
+	 * 当 drag 事件发生时执行。
+	 * @param {Event} e 原生的 mousemove 事件。
+     * @protected virtual
+	 */
+	onDrag: function (e) {
+	    var me = this;
+
+	    me.raiseEvent('drag', e);
+
+	    Dom.setOffset(me.proxy, {
+	        x: me.offset.x + me.to.x - me.from.x,
+	        y: me.offset.y + me.to.y - me.from.y
+	    });
+	},
+	
+	/**
+	 * 当 dragend 事件发生时执行。
+	 * @param {Event} e 原生的 mouseup 事件。
+     * @protected virtual
+	 */
+	onDragEnd: function (e) {
+	    this.raiseEvent('dragend', e);
+	    this.offset = null;
+	},
+	
+	/**
+	 * 处理 mousedown 事件。
+	 * 初始化拖动，当单击时，执行这个函数，但不触发 dragStart。
+	 * 只有鼠标移动时才会继续触发 dragStart。
+	 * @param {Event} e 事件参数。
+	 */
+	handlerMouseDown: function (e) {
+
+		// 左键才继续
+		if(e.which !== 1)
+			return;
+		
+        // 如果当前正在拖动，通知当前拖动对象停止拖动。
+		if(Draggable.current) {
+			Draggable.current.stopDrag(e);
+		}
+		
+        // 阻止默认事件。
+		e.preventDefault();
+
+		var me = this;
+		
+        // 记录当前的开始位置。
+		me.from = { x: e.pageX, y: e.pageY };
+		me.to = { x: e.pageX, y: e.pageY };
+		
+		// 设置当前处理  mousemove 的方法。
+		// 初始需设置 onDrag
+		// 由 onDrag 设置为    onDrag
+		me.currentHandler = me.handlerDragStart;
+		
+        // 延时拖动。
+		me.timer = setTimeout(function () {
+		    me.timer = 0;
+		    me.currentHandler(e);
+		}, me.dragDelay);
+		
+		// 设置文档  mouseup 和   mousemove
+		var doc = Dom.getDocument(me.handle);
+		Dom.on(doc, 'mouseup', me.handlerDragStop, me);
+		Dom.on(doc, 'mousemove', me.handlerMouseMove, me);
+	
+	},
+	
+	/**
+	 * 处理 mousemove 事件。
+	 * @param {Event} e 事件参数。
+	 */
+	handlerMouseMove: function (e) {
+		
+		e.preventDefault();
+		
+        // 更新当前的鼠标位置。
+		this.to.x = e.pageX;
+		this.to.y = e.pageY;
+		
+		// 调用当前的处理句柄来处理此函数。
+		this.currentHandler(e);
+	},
+	
+	/**
+	 * 处理 mousedown 或 mousemove 事件。开始准备拖动。
+	 * @param {Event} e 事件。
+	 * 这个函数调用 onDragStart 和 beforeDrag
+	 */
+	handlerDragStart: function (e) {
+		
+		var me = this;
+		
+	    //   清空计时器。
+		if (me.timer) {
+		    clearTimeout(me.timer);
+		    me.timer = 0;
+		}
+		
+        // 设置当前正在拖动的对象。
+		Draggable.current = me;
+		
+	    // 设置下次 mousemove 时的处理函数。
+		me.currentHandler = me.handlerDrag;
+		
+	    // 触发 dragstart 事件，  就完全停止拖动。
+		if (me.onDragStart(e) !== false) {
+		    me.beforeDrag(e);
+		    me.handlerDrag(e, true);
+		} else {
+			// 停止。
+			me.stopDragging();
+		}
+	},
+	
+	/**
+	 * 处理 mousemove 事件。处理拖动。
+	 * @param {Event} e 事件参数。
+	 * 这个函数调用 onDrag 和 doDrag
+	 */
+	handlerDrag: function (e) {
+		this.onDrag(e);
+		this.doDrag(e);
+	},
+	
+	/**
+	 * 处理 mouseup 事件。
+	 * @param {Event} e 事件参数。
+	 * 这个函数调用 onDragEnd 和 afterDrag
+	 */
+	handlerDragStop: function (e) {
+		
+		// 只有鼠标左键松开， 才认为是停止拖动。
+		if(e.which !== 1)
+			return;
+		
+		e.preventDefault();
+
+	    // 在 stopDragging 前记录 Draggable.current 。
+		var isCurrentDraggable = Draggable.current === this;
+
+		this.stopDragging();
+		
+		// 检查是否拖动。
+		// 有些浏览器效率较低，肯能出现这个函数多次被调用。
+		// 为了安全起见，检查 current 变量。
+		if (isCurrentDraggable) {
+
+		    // 改变结束的鼠标类型，一般这个函数将恢复鼠标样式。
+		    this.afterDrag(e);
+			
+			this.onDragEnd(e);
+		
+		}
+	},
+	
+	beforeDrag: function (e) {
+	    this.oldCursor = document.documentElement.style.cursor;
+	    document.documentElement.style.cursor = Dom.getStyle(this.elem, 'cursor');
+		if('pointerEvents' in document.body.style)
+			document.body.style.pointerEvents = 'none';
+		else if(document.body.setCapture)
+			document.body.setCapture();
+	},
+
+    doDrag: Function.empty,
+	
+	afterDrag: function(){
+		if(document.body.style.pointerEvents === 'none')
+			document.body.style.pointerEvents = '';
+		else if(document.body.releaseCapture)
+			document.body.releaseCapture();
+		document.documentElement.style.cursor = this.oldCursor;
+	},
+	
+	constructor: function (options) {
+	    Object.extend(this, options);
+
+	    this.handle = this.handle || this.elem;
+
+	    this.proxy = this.proxy || this.elem;
+
+	    this.disable(false);
+	},
+
+	/**
+	 * 停止当前对象的拖动。
+	 */
+	stopDragging: function(){
+		var doc = Dom.getDocument(this.handle);
+		Dom.un(doc, 'mousemove', this.handlerMouseMove, this);
+		Dom.un(doc, 'mouseup', this.handlerDragStop, this);
+
+	    //   清空计时器。
+	    if (this.timer) {
+	        clearTimeout(this.timer);
+	        this.timer = 0;
+	    }
+
+		Draggable.current = null;
+	},
+
+    /**
+	 * 启用或禁用当前拖动功能的状态。
+	 */
+	disable: function (value) {
+		Dom[value === false ? 'on' : 'un'](this.handle, 'mousedown', this.handlerMouseDown, this);
+	}
+	
+});
+
+Dom.draggable = function (elem, options) {
+	
+	var draggable = Dom.data(elem).draggable;
+	if (options !== false) {
+		if (typeof options !== 'object') options = {};
+		if (draggable) {
+			Object.extend(draggable, options);
+			draggable.disable(false);
+		} else {
+			options.elem = elem;
+			Dom.movable(elem);
+			draggable = Dom.data(elem).draggable = new Draggable(options);
+		}
+	} else if (draggable)
+		draggable.disable();
+};
+
+/**
+ * @class Dom
+ */
+Dom.implement({
+	
+	/**
+	 * 使当前元素支持拖动。
+	 * @param {Element} [handle] 拖动句柄。
+	 * @return this
+	 */
+    draggable: function () {
+    	return this.iterate(Dom.draggable, arguments);
+	}
+	
+});
+	
+
+/*********************************************************
+ * dom/popup.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include dom/base.js
+//#include fx/animte.js
+
+Dom.popup = function (elem, options) {
+
+	if (options.constructor !== Object) {
+		options = { elem: Dom.find(options) };
+	}
+	// 默认事件是 mouseenter
+	options.event = options.event || 'mouseenter';
+
+	var event = options.event,
+		selector = options.selector,
+		timer, atPopup, atTarget;
+
+	// 浮层首先是隐藏的。
+	Dom.hide(options.elem);
+
+	if (/^mouse(enter|over)$/.test(event)) {
+
+		options.delay = options.delay || 300;
+
+		Dom.on(options.elem, 'mouseenter', function () {
+			atPopup = true;
+		});
+
+		Dom.on(options.elem, 'mouseleave', function () {
+			atPopup = false;
+		});
+		
+		Dom.on(elem, event, selector, function (e) {
+
+			var target = this;
+			
+			atTarget = true;
+
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			timer = setTimeout(function () {
+
+				timer = 0;
+
+				toggle('show', target);
+
+			}, options.delay);
+
+		});
+
+		Dom.on(elem, event.length === 9 ? 'mouseout' : 'mouseleave', selector, function (e) {
+
+			var target = this;
+			
+			atTarget = false;
+
+			if (timer) {
+				clearTimeout(timer);
+			}
+			
+			timer = setTimeout(function () {
+
+				timer = 0;
+
+				if (!atTarget) {
+
+					if (!atPopup) {
+						toggle('hide', target);
+
+					} else {
+						setTimeout(arguments.callee, options.delay);
+					}
+
+				}
+
+			}, options.delay);
+
+		});
+
+		// 点击后直接显示。
+		Dom.on(elem, "click", selector, function (e) {
+			
+			e.preventDefault();
+
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			toggle('show', this);
+
+		})
+
+	} else if (/^focus(in)?$/.test(event)) {
+
+		Dom.on(elem, event, selector, function (e) {
+			toggle('show', this);
+		});
+
+		Dom.on(elem, event.length === 5 ? 'blur' : 'focusout', selector, function (e) {
+			toggle('hide', this);
+		});
+
+	} else {
+
+		Dom.on(elem, event, function (e) {
+
+			var target = this;
+
+			e.preventDefault();
+
+			toggle('show', target);
+
+			// 绑定 click 后隐藏菜单。
+			Dom.on(document, 'click', function (e) {
+
+				// 如果事件发生在弹窗上，忽略。
+				if (Dom.contains(options.elem, e.target)) {
+					return;
+				}
+
+				toggle('hide', target);
+
+				// 删除 click 事件回调。
+				Dom.un(document, 'click', arguments.callee);
+
+			});
+
+			return false;
+
+		});
+
+	}
+
+	function toggle(showOrHide, target) {
+
+		// 显示或隐藏浮层。
+		Dom[showOrHide](options.elem);
+
+		// 回调。
+		if (options[showOrHide]) {
+			options[showOrHide].call(elem, options.elem, target, options);
+		}
+
+	}
+
+};
+
+/**
+ * 定义一个菜单的弹出层。
+ */
+Dom.prototype.popup = function () {
+	return this.iterate(Dom.popup, arguments);
+};
+/*********************************************************
+ * dom/hashchange.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include dom/base.js
+
+(function() {
+
+	var hashchange = 'hashchange',
+		win = window,
+		getHash = location.getHash,
+		startListen;
+
+	location.getHash = function () {
+		var href = location.href,
+		i = href.indexOf("#");
+
+		return i >= 0 ? href.substr(i + 1) : '';
+	};
+
+	/**
+	 * 当 hashchange 事件发生时，执行函数。
+	 */
+	Dom[hashchange] = function (fn) {
+		if (typeof fn === 'function') {
+			if (startListen) {
+				startListen();
+				startListen = null;
+			}
+
+			Dom.on(win, hashchange, function () {
+				fn(location.getHash());
+			});
+
+			fn(location.getHash());
+		} else {
+			Dom.trigger(win, hashchange);
+		}
+	};
+	
+	// 并不是所有浏览器都支持 hashchange 事件，
+	// 当浏览器不支持的时候，使用自定义的监视器，每隔50ms监听当前hash是否被修改。
+	if ('on' + hashchange in window && !(document.documentMode < 8)) return;
+
+	var currentHash, 
+	
+		timer, 
+		
+		onChange = function() {
+			Dom.trigger(win, hashchange);
+		},
+		
+		poll = function() {
+			var newToken = getHash();
+	
+			if (currentHash !== newToken) {
+				currentHash = newToken;
+				onChange();
+			}
+			timer = setTimeout(poll, 50);
+	
+		},
+		
+		iframe,
+			
+		/**
+		 * Convert certain characters (&, <, >, and ") to their HTML character equivalents for literal display in web pages.
+		 * @param {String} value The string to encode
+		 * @return {String} The encoded text
+		 * @method
+		 */
+		htmlEncode = (function() {
+			var entities = {
+				'&': '&amp;',
+				'>': '&gt;',
+				'<': '&lt;',
+				'"': '&quot;'
+			};
+    
+			function match(match, capture){
+				return entities[capture];
+			}
+    
+			return function(value) {
+				return value ? value.replace(/[&><"]/g, match) : '';
+			};
+		})();
+
+	startListen = function () {
+		currentHash = getHash();
+		timer = setTimeout(poll, 50);
+	};
+		
+	// 如果是 IE6/7，使用 iframe 模拟成历史记录。
+	if (navigator.isIE67) {
+
+		// iframe: onChange 时，保存状态到 iframe 。
+		onChange = function () {
+
+			var hash = getHash();
+
+			// 将历史记录存到 iframe 。
+			var html = "<html><body>" + htmlEncode(hash) + "</body></html>";
+
+			try {
+				var doc = iframe.contentWindow.document;
+				doc.open();
+				doc.write(html);
+				doc.close();
+			} catch (e) { }
+
+			win.trigger(hashchange);
+		};
+
+		// 初始化的时候，同时创建 iframe
+		startListen = function () {
+			if (!iframe) {
+				Dom.ready(function(){
+					iframe = Dom.parseNode('<iframe style="display: none" height="0" width="0" tabindex="-1" title="empty"/>');
+					Dom.on(iframe, 'load', function () {
+
+						Dom.un(iframe, 'load', arguments.callee);
+						
+						// 绑定当 iframe 内容被重写后处理。
+						Dom.on(iframe, "load", function () {
+							// iframe 的 load 载入有 2 个原因：
+							//	1. hashchange 重写 iframe
+							//	2. 用户点击后退按钮
+							
+							// 获取当前保存的 hash
+							var newHash = iframe.contentWindow.document.body.innerText,
+								oldHash = getHash();
+							
+							
+							// 如果是用户点击后退按钮导致的iframe load， 则 oldHash !== newHash
+							if (oldHash != newHash) {
+								
+								// 将当前的 hash 更新为旧的 newHash
+								location.hash = currentHash = newHash;
+								
+								// 手动触发 hashchange 事件。
+								Dom.trigger(win, hashchange);
+							}
+							
+						});
+						
+						// 首次执行，先保存状态。
+						currentHash = getHash();
+						poll();
+					});
+					
+					document.body.appendChild(iframe);
+					
+				});
+			} else {
+				
+				// 开始监听。
+				currentHash = getHash();
+				poll();
+			}
+
+		};
+		
+	}
+
+})();
+/*********************************************************
+ * dom/keynav.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include dom/base.js
+
+/**
+ * 常用键名的简写。
+ */
+Dom.keys = {
+    '13': 'enter',
+    '10': 'enter',
+    up: 38,
+    down: 40,
+    left: 37,
+    right: 39,
+    esc: 27,
+    tab: 9,
+    backspace: 8,
+    'delete': 46,
+    space: 32
+};
+
+Dom.keyNav = function (elem, options, scope) {
+	var opt = {}, key;
+
+	// 按照 Dom.keys 重新匹配键值。
+	for (key in options) {
+		opt[Dom.keys[key] || key] = options[key];
+	}
+
+	Dom.on(elem, 'keydown', function (e) {
+		var keyCode = e.keyCode;
+
+		// 如果绑定了指定的键值。
+		if (opt[keyCode]) {
+			return opt[keyCode].call(this, e) === true;
+		}
+
+	}, scope);
+
+	// 如果绑定了回车事件。
+	// IE 6 只能在 keypress 监听到回车事件。
+	if (opt.enter || opt.ctrlEnter) {
+		Dom.on(elem, 'keypress', function (e) {
+			var keyCode = e.keyCode;
+			if (keyCode === 13 || keyCode === 10) {
+				return opt[opt.ctrlEnter && e.ctrlKey ? 'ctrlEnter' : 'enter'].call(this, e) === true;
+			}
+		}, scope);
+	}
+
+	if (opt.other) {
+		Dom.on(elem, 'keyup', function (e) {
+			var keyCode = e.keyCode;
+			if (!opt[keyCode] && !(opt.enter && (keyCode === 13 || keyCode === 10))) {
+				return opt.other.call(this, e);
+			}
+		}, scope);
+	}
+};
+
+/**
+ * 绑定某按键执行后的回调函数。
+ * @param {Object} {keyCode: func} 形式的 JSON 对象。 keyCode 可以使用 Dom.keys 的简写。
+ * @return this
+ */
+Dom.prototype.keyNav = function () {
+	return this.iterate(Dom.keyNav, arguments);
+};
+/*********************************************************
+ * ui/core/listcontrol.js
+ ********************************************************//**
+ * @author  xuld
+ */
+
+//#include ui/core/base.js
+
+/**
+ * 表示所有管理多个有序列的子控件的控件基类。
+ * @abstract class
+ * @extends Control
+ */
+var ListControl = Control.extend({
+
+	/**
+	 * 当前控件的 HTML 模板字符串。
+	 * @getter {String} tpl
+	 * @protected virtual
+	 */
+	tpl: '<ul class="{cssClass}"/>',
+
+	//#region 增删项
+
+	/**
+	 * 添加一个子控件到当前控件末尾。
+	 * @param {Dom/String} ... 要添加的子节点。
+	 * @return {Dom/this} 返回新添加的子控件，如果有多个参数，则返回 this。
+	 */
+	add: function (item) {
+
+		// 如果有多个参数，按顺序插入。
+		if (arguments.length > 1) {
+			Object.each(arguments, function (item) {
+				this.insertBefore(item);
+			}, this);
+			return this;
+		} else {
+			return this.insertBefore(item);
+		}
+
+	},
+
+	/**
+	 * 在指定位置插入一个子控件。
+	 * @param {Integer} index 添加的子控件的索引。
+	 * @param {Dom} item 要添加的子控件。
+	 * @return {Dom} 返回新添加的子控件。
+	 */
+	addAt: function (index, item) {
+		return this.insertBefore(item, this.item(index));
+	},
+
+	/**
+	 * 当新控件被添加时执行。
+	 * @param {Dom} childControl 新添加的元素。
+	 * @param {Dom} refControl 元素被添加的位置。
+	 * @protected override
+	 */
+	insertBefore: function (newItem, refItem) {
+
+		// newChild 不一定是一个标准的 <li> 标签。
+		// 先处理 newChild 为标准 Dom 对象。
+
+		// 处理字符串。
+		if (newItem = Dom.parseNode(newItem, this.elem)) {
+
+			// 如果 childControl 不是 <li>, 则包装一个 <li> 标签。
+			if (newItem.tagName !== 'LI') {
+				var li = document.createElement('li');
+				Dom.append(li, newItem);
+				newItem = li;
+			}
+
+			Dom.render(newItem, this.elem, refItem);
+
+		}
+
+		// 返回新创建的子控件。
+		return newItem;
+	},
+
+	removeChild: function (item) {
+		Dom.remove(item);
+		return item;
+	},
+
+	/**
+	 * 当新控件被移除时执行。
+	 * @param {Dom} childControl 新添加的元素。
+	 * @protected override
+	 */
+	remove: function (child) {
+
+		// 无参数，则删除本身。
+		if (!arguments.length) {
+			this.detach();
+			return this;
+		}
+
+		// 返回被删除的子控件。
+		return child ? this.removeChild(child) : null;
+	},
+
+	/**
+	 * 删除指定索引的子控件。
+	 * @param {Integer} index 删除的子控件的索引。
+	 * @return {Dom} 返回删除的子控件。如果删除失败（如索引超出范围）则返回 null 。
+	 */
+	removeAt: function (index) {
+		return (index = this.item(index)) ? this.removeChild(index) : null;
+	},
+
+	empty: function () {
+		while (this.item(0)) {
+			this.removeChild(this.item(0));
+		}
+		return this;
+	},
+
+	/**
+	 * 批量设置当前的项列表。
+     * @param {Array/Object} items 要设置的项的数组。
+     * @return this
+     * @protected override
+	 */
+	set: function (items) {
+		this.empty().add.apply(this, items);
+		return this;
+	},
+
+	//#endregion
+
+	//#region 获取和遍历
+
+	/**
+	 * 获取指定索引的项。
+	 * @param {Integer} index 索引值。如果值小于 0, 则表示倒数的项。
+	 * @return {Dom} 指定容器控件包装的真实子控件。如果不存在相应的子控件，则返回自身。
+	 */
+	item: function (index) {
+		return Dom.child(this.elem, index);
+	},
+
+	/**
+	 * 获取某一项在列表中的索引。
+     * @param {Dom} item 要获取索引的项。
+	 * @return {Integer} 返回索引。如果不存在指定的子控件，则返回 -1 。
+	 */
+	indexOf: function (item) {
+		return item && item.parentNode === this.elem ? Dom.index(item) : -1;
+	},
+
+	count: function () {
+		return Dom.children(this.elem).length;
+	},
+
+	each: function (fn, scope) {
+		for (var i = 0, c; c = this.item(i) ; i++) {
+			if (fn.call(scope, c, i, this) === false) {
+				return false;
+			}
+		}
+
+		return true;
+	},
+
+	/**
+	 * 设置子控件某个事件发生之后，执行某个函数.
+	 * @param {String} eventName 事件名。
+	 * @param {String} fn 执行的函数。
+	 * @param {Object} scope 函数执行时的作用域。
+     * @return this
+     * @protected
+	 */
+	itemOn: function (eventName, fn) {
+		return Dom.on(this.elem, eventName, function (e) {
+			for (var c = this.elem.firstChild, target = e.target; c; c = c.nextSibling) {
+				if (Dom.contains(c, target)) {
+					return fn.call(this, c, e);
+				}
+			}
+		}, this);
+	}
+
+	//#endregion
+
+});
+
+/**
+ * 将 ListControl 方法拷贝到其它类实例，让这个类能直接操作列表。
+ */
+ListControl.alias = function (controlType, propertyName) {
+
+	Object.map("add addAt removeAt item count indexOf each", function (methodName) {
+		controlType.prototype[methodName] = function () {
+			var property = this[propertyName]();
+			return property[methodName].apply(property, arguments);
+		};
+	});
+
+	controlType.prototype.remove = function (child) {
+
+		// 无参数，则删除本身。
+		if (!arguments.length) {
+			this.detach();
+			return this;
+		}
+
+		// 返回被删除的子控件。
+		return child ? this[propertyName]().removeChild(child) : null;
+	};
+
+	controlType.prototype.empty = function () {
+		this[propertyName]().empty();
+		return this;
+	};
+
+	controlType.prototype.set = ListControl.prototype.set;
+
+};
+/*********************************************************
+ * ui/suggest/dropdownmenu.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include ui/form/listbox.css
+//#include dom/keynav.js
+//#include ui/core/listcontrol.js
+//#include ui/core/idropdownowner.js
+
+/**
+ * 表示一个下拉菜单。用于 Suggest 和 ComboBox 组件。
+ * @extends ListControl
+ */
+var DropDownMenu = ListControl.extend({
+
+	cssClass: "x-listbox",
+
+	owner: null,
+
+	selectMethod: null,
+
+	updateMethod: null,
+
+    /**
+	 * 处理上下按键。
+     * @private
+	 */
+    _handleUpDown: function (next) {
+
+        // 如果菜单未显示。
+    	if (this.owner.isDropDownHidden()) {
+
+            // 显示菜单。
+    		this.owner.showDropDown();
+        }
+    	var item = this._hovering;
+
+    	if (item) {
+    		item = Dom[next ? 'next' : 'prev'](item);
+    	}
+
+    	if (!item) {
+    		item = Dom[next ? 'first' : 'last'](this.elem);
+    	}
+
+    	this.hovering(item);
+    },
+
+    /**
+	 * 处理回车键。
+     * @private
+	 */
+    _handleEnter: function (next) {
+        if (this.owner.isDropDownHidden()) {
+            return true;
+        }
+
+    	// 交给下列菜单处理。 
+        return this.onItemClick(this._hovering);
+    },
+
+    onItemClick: function (item) {
+    	if (this.selectMethod) {
+    		this.owner[this.selectMethod](item);
+    	}
+        return false;
+    },
+
+    /**
+     * 设置当前下拉菜单的所有者。绑定所有者的相关事件。
+     */
+    init: function (options) {
+
+    	//assert(options && options.owner && options.selectMethod, "DropDownMenu#constructor(options): {options} 必须有 owner 和 selectMethod 字段", options);
+
+    	var me = this;
+
+    	// 设置鼠标移到某项后高亮某项。
+    	me.itemOn('mouseover', me.hovering);
+        
+        // 绑定下拉菜单的点击事件
+    	me.itemOn('mousedown', me.onItemClick);
+		
+    	Dom.keyNav(options.owner.elem, {
+
+            up: function () {
+                me._handleUpDown(false);
+            },
+
+            down: function () {
+                me._handleUpDown(true);
+            },
+
+            enter: me._handleEnter.bind(me),
+
+            esc: function(){
+            	me.owner.hideDropDown();
+            },
+
+            other: options.updateMethod && function () {
+            	me.owner[me.updateMethod]();
+            }
+
+        });
+		
+	},
+
+    /**
+     * 重新设置当前高亮项。
+     */
+	hovering: function (item) {
+	    var clazz = this.cssClass + '-hover';
+
+	    if (this._hovering) {
+	    	Dom.removeClass(this._hovering, clazz);
+	    }
+
+	    if (item) {
+	    	Dom.addClass(item, clazz);
+	    }
+
+	    this._hovering = item;
+	    return this;
+	}
+
+});/*********************************************************
+ * ui/suggest/suggest.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include ui/core/idropdownowner.js
+//#include ui/suggest/dropdownmenu.js
+
+/**
+ * 智能提示组件。
+ * @extends Control
+ */
+var Suggest = Control.extend(IDropDownOwner).implement({
+
+	/**
+	 * 创建当前 Suggest 的菜单。
+	 * @return {Dom} 下拉菜单。
+	 * @protected virtual
+	 */
+	createDropDown: function (existDom) {
+		var dropDown = new DropDownMenu({
+			elem: existDom,
+			owner: this,
+			selectMethod: 'selectItem',
+			updateMethod: 'showDropDown'
+		});
+
+		Dom.addClass(dropDown.elem, 'x-suggest');
+
+
+		return dropDown;
+	},
+
+	/**
+	 * 当下拉菜单被显示时执行。
+     * @protected override
+	 */
+	onDropDownShow: function () {
+
+		var text = Dom.getText(this.elem);
+		var items = this.getSuggestItems(text);
+
+		// 如果智能提示的项为空或唯一项就是当前的项，则不提示。
+		if (!items || !items.length || (items.length === 1 && (items[0] === text || items[0] === "<strong>" + text + "</strong>"))) {
+
+			// 隐藏菜单。
+			this.hideDropDown();
+		} else {
+
+			this.dropDown.set(items);
+
+			// 默认选择当前值。
+			this.dropDown.hovering(this.dropDown.item(0));
+
+		}
+
+		IDropDownOwner.onDropDownShow.apply(this, arguments);
+	},
+
+	init: function (options) {
+
+		var inSuggest;
+
+		// 关闭原生的智能提示。
+		Dom.setAttr(this.elem, 'autocomplete', 'off');
+
+		// 创建并设置提示的下拉菜单。
+		this.setDropDown(this.createDropDown(Dom.next(this.elem, 'x-suggest')))
+
+		// 获取焦点后更新智能提示显示状态。
+		Dom.on(this.elem, 'focus', this.showDropDown, this);
+
+		var me = this;
+
+		// 失去焦点后隐藏菜单。
+		Dom.on(this.elem, 'blur', function () {
+			setTimeout(function () {
+				if (!inSuggest) {
+					me.hideDropDown();
+				}
+			}, 20);
+		});
+
+		Dom.setStyle(this.dropDownNode, 'outline', 'none');
+		Dom.setStyle(this.dropDownNode, 'tabindex', -1);
+		Dom.on(this.dropDownNode, 'mousedown', function () {
+			inSuggest = true;
+		});
+		Dom.on(this.dropDownNode, 'mouseleave', function () {
+			inSuggest = false;
+		});
+
+	},
+
+	/**
+     * 根据当前的文本框值获取智能提示的项。
+     */
+	getSuggestItems: function (text) {
+		if (!text) {
+			return this.suggestItems;
+		}
+
+		text = text.toLowerCase();
+
+		var r = [];
+		for (var i = 0; i < this.suggestItems.length; i++) {
+			var value = this.suggestItems[i];
+			var index = value.toLowerCase().indexOf(text);
+			if (index === 0) {
+				r.push("<strong>" + value.substr(0, text.length) + "</strong>" + value.substr(text.length));
+			}
+		}
+
+		return r;
+	},
+
+	/**
+     * 强制设置当前选中的项。
+     */
+	setSuggestItems: function (value) {
+		this.suggestItems = value || [];
+		return this;
+	},
+
+	/**
+     * 模拟用户选择一项。
+     */
+	selectItem: function (item) {
+		if (item) {
+			Dom.setText(this.elem, Dom.getText(item));
+			this.elem.focus();
+		}
+		return this.hideDropDown();
+	}
+
+});

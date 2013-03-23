@@ -419,10 +419,12 @@ function initUI(){
     
     var body = Dom.get('body');
     var main = Dom.get('main');
-    body.delegate('.collapse', 'click', function () {
-        this.parent().parent().toggleClass('collapsed');
-    }).delegate('.object', 'click', function () {
-        this.setStyle('zIndex', zIndex++);
+    Dom.on(body, 'click', '.collapse', function () {
+        Dom.toggleClass(Dom.parent(Dom.parent(this)), 'collapsed');
+    });
+    
+    Dom.on(body, 'click', '.object', function () {
+        Dom.setStyle(this, 'zIndex', zIndex++);
     });
 
 
@@ -430,42 +432,41 @@ function initUI(){
 
         onDragStart: function (e) {
             var me = this;
-            this.offset = main.getScroll();
+            this.offset = Dom.getScroll(main);
         },
 
         onDrag: function (e) {
 
             var me = this;
 
-            main.setScroll(me.offset.x - me.to.x + me.from.x, me.offset.y - me.to.y + me.from.y);
+            Dom.setScroll(main, me.offset.x - me.to.x + me.from.x, me.offset.y - me.to.y + me.from.y);
 
         }
 
     });
 
 
-    new MyDraggable({target: body});
+    new MyDraggable({elem: body});
     
-    
-    body.popup({
+    Dom.popup(body, {
     	event: 'click dd a',
     	
-    	target: Dom.parse('<aside class="source">\
+    	elem: Dom.append(main, '<aside class="source">\
             <span class="arrow"><span class="arrow-fore">◆</span></span>\
             <pre class="sh">AAAA</pre>\
-        </aside>').appendTo(main),
+        </aside>'),
     	
     	show: function(dom){
-    		var classInfo = dom.getAttr('data-class');
-    		var memeberType = dom.getAttr('data-memberType');
-    		var fieldInfo = dom.getAttr('data-field');
+    		var classInfo = Dom.getAttr(dom, 'data-class');
+    		var memeberType = Dom.getAttr(dom, 'data-memberType');
+    		var fieldInfo = Dom.getAttr(dom, 'data-field');
     		
     		var value = classes[classInfo][memeberType][fieldInfo].value;
     		
-    		this.target.find('pre').setText(String(value));
-			Demo.SyntaxHighligher.one(this.target.find('pre').node, memeberType == 'methods' ? 'js' : '');
+    		Dom.setText(Dom.find('pre', this.elem), String(value));
+			Demo.SyntaxHighligher.one(Dom.find('pre', this.elem), memeberType == 'methods' ? 'js' : '');
 			
-    		this.target.pin(dom, 'r', 0, -4, false);
+    		Dom.pin(this.elem, dom, 'r', 0, -4, false);
     		
     	}
     });
@@ -479,13 +480,13 @@ function initUI(){
     	
     	if(info){
     		
-    		main.animate({scrollLeft: info.x - main.getWidth() / 2, scrollTop: info.y - main.getHeight() / 2 + objectHeight});
+    		Dom.animate(main, {scrollLeft: info.x - Dom.getWidth(main) / 2, scrollTop: info.y - Dom.getHeight(main) / 2 + objectHeight});
     		
     	}
     	
     });
     
-    var d1 = new SearchTextBox('d1');
+    var d1 = new SearchTextBox('#d1');
         
         　　d1.on('search', function(text) {
         	location.hash = text;
@@ -494,8 +495,8 @@ function initUI(){
     var suggest = new Suggest(d1.input());
     
     suggest.selectItem = function(item){
-    	suggest.setText(item.getText());
-    	location.hash = item.getText();
+    	suggest.setText(Dom.getText(item));
+    	location.hash = Dom.getText(item);
     	return this.hideDropDown();
     };
     
