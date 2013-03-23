@@ -1,4 +1,4 @@
-/** * @author  *///#include fx/animate.jsDom.implement({
+/** * @author xuld *///#include fx/animate.jsDom.implement({
 	scrollTo: function(y, x, duration, callback) {
 		var obj = {};
 		if (y != null) {
@@ -7,6 +7,4 @@
 		if (x != null) {
 			obj.scrollLeft = x;
 		}
-		return this.animate(obj, duration, callback, 'abort');	},	scrollBy: document.scrollBy = function(y, x, duration, callback) {
-		var scroll = this.getScroll();
-		return this.scrollTo(y == null ? y : (scroll.y + y), x == null ? x : (scroll.x + x), duration, callback);	}});document.scrollTo = function(y, x, duration, callback){	Dom.get(this).scrollTo(y, x, duration, callback);};
+		return this.animate(obj, duration, callback, 'abort');	},	scrollBy: function(y, x, duration, callback) {		return this.forEach(function(elem) {			var scroll = Dom.getScroll(elem);			return Dom.query(elem).scrollTo(y == null ? y : (scroll.y + y), x == null ? x : (scroll.x + x), duration, callback);		});	}});
