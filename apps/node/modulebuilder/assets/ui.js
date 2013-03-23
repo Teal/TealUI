@@ -331,10 +331,12 @@ var UI = {
 
 	_checkValue: function (id, callback) {
 		id = Dom.get(id);
+		
+		var value = id.value.trim();
 
-		if (id.value) {
+		if (value) {
 			Dom.removeClass(id, 'x-textbox-error');
-			callback(id.value);
+			callback(value);
 		} else {
 			Dom.addClass(Dom.get(id), 'x-textbox-error');
 		}

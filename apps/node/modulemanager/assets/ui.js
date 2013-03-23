@@ -229,8 +229,8 @@ var UI = {
                     }
                 } else {
                     for (var category in UI._tree) {
-                        if (category.indexOf(part[1]) === 0) {
-                            r.push("<strong>" + part[1] + "</strong>" + category.substr(part[1].length) + "/" + part[2]);
+                        if (category.indexOf(text) === 0) {
+                            r.push("<strong>" + text + "</strong>" + category.substr(text.length) + "/");
                         }
                     }
                 }

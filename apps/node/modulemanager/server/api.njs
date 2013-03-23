@@ -72,7 +72,7 @@ function redirect(context, url) {
     	if (!/^http:/.test(url)) {
     		url = url.replace(/^file:\/\/\//, '').replace(/\\/g, "/");
             var Demo = require('../../../demo/demo.js');
-            url = url.replace(Demo.basePath.replace(/\\/g, "/"), Demo.Configs.serverBaseUrl.replace(/\/$/, ""));
+            url = url.replace(Demo.basePath.replace(/\\/g, "/"), Demo.Configs.serverBaseUrl);
             context.response.redirect(url);
 
         } else {
