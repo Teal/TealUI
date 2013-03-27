@@ -221,10 +221,8 @@ Validator.Form = Validator.extend({
         // 创建每个 rules 的子 Validator 。
         for (rule in me.rules) {
             t = me.rules[rule];
-            me.rules[rule] = new Validator({
-            	elem: Dom.find('[name="' + rule + '"]', elem),
-            	rules: t
-           	});
+            t.elem = t.elem || Dom.find('[name="' + rule + '"]', elem);
+            me.rules[rule] = new Validator(t);
         }
 
         if (this.event) {

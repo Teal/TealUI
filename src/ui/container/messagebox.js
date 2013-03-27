@@ -94,6 +94,7 @@ MessageBox.show = function (text, title, icon, buttons) {
     var messageBox = MessageBox.showInstance || (MessageBox.showInstance = new MessageBox());
 
     return messageBox
+    	.un()
         .setContent(text)
         .setTitle(title || "提示")
         .setIcon(icon || null)
@@ -112,14 +113,11 @@ MessageBox.confirm = function (text, title, onOk, onCancel) {
 
 	var buttonClass = MessageBox.prototype.cssClass,
 		messageBox = MessageBox.show(text, title, 'confirm', {
-        '确定': {
-        	className: buttonClass + ' ' + buttonClass + '-info',
-            onclick: function () {
-                messageBox.ok();
-            }
-        },
+        '确定': true,
         '取消': false
     });
+    
+    Dom.find('.' + messageBox.cssClass + '-footer .x-button', messageBox.elem).className += " x-button-info";
 
     if(onOk)
         messageBox.on('ok', onOk);

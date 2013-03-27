@@ -94,13 +94,18 @@ var Dialog = ContainerControl.extend({
 		return this.center();
 	},
 
-	setContentSize: function (x, y) {
+	setContentSize: function (value) {
 		Dom.setWidth(this.elem, 'auto');
 
 		var body = this.body();
-		Dom.setWidth(body, x)
-		Dom.setHeight(body, y);
+		Dom.setWidth(body, value.x)
+		Dom.setHeight(body, value.y);
 		return this.center();
+	},
+
+	removeCloseButton: function () {
+	    Dom.remove(Dom.find(".x-closebutton", this.elem));
+	    return this;
 	},
 
 	setContent: function () {

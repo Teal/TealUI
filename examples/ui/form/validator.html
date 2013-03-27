@@ -128,12 +128,16 @@
                 rules: {
                     
                     validator2_1: {
-                        required: true,
-                        minLength: 2
+	                    rules: {
+	                        required: true,
+	                        minLength: 2
+	                    }
                     },
                     
                     validator2_2: {
-                        maxLength: 2
+                    	rules:{
+	                        maxLength: 2
+	                    }
                     }
                     
                 }

@@ -72,18 +72,18 @@
         <script>
             Demo.writeExamples({
                 '显示有关': '-',
-                '创建模式对话框（对话框后有阴影）': 'dialog.showDialog(); // 使用此函数显示对话框即可。',
-                '让对话框允许拖动标题': 'using("System.Dom.Drag"); /* 载入拖动模块。 */ dialog.draggable({handle:dialog.header().setStyle("cursor", "move")});dialog.setPosition(dialog.getPosition());// 因为对话框默认为居中的，强制对话框使用绝对定位方式，这样可以保证拖动效果正常执行。',
-                '设置对话框内容的大小': 'dialog.setContentSize(300, 100);',
-                '设置对话框的位置': 'dialog.setPosition(300, 100);',
-                '往对话框追加内容': 'dialog.body().append("<em>追加的内容</em>");dialog.body().append(document.getElementById("id"));',
+                '显示对话框（无阴影）': 'dialog.show();',
+                '创建模式对话框（对话框后有阴影）': 'dialog.showDialog();',
+                '设置阴影透明': 'dialog.mask(0).show();',
+                '设置对话框内容的大小': 'dialog.setContentSize({x:300, y:100});',
+                '设置对话框的位置': 'dialog.setPosition({x:300, y:100});',
                 
                 '关闭有关': '-',
                 '关闭对话框': 'dialog.close();',
-                '去掉关闭按钮': 'dialog.remove(".x-closebutton");',
+                '去掉关闭按钮': 'dialog.removeCloseButton();',
                 '设置关闭后的回调': 'dialog.on("close", function(){alert("对话框已经关闭了");});',
                 '设置关闭前的回调，并阻止关闭事件': 'dialog.on("closing", function(){alert("这个对话框时不允许被关闭的");return false;/*return false 阻止事件，这样将关闭不了对话框。*/});',
-                '设置双击对话框标题后关闭对话框': 'dialog.header().on("dblclick", dialog.close, dialog);'
+                '设置双击对话框标题后关闭对话框': 'Dom.on(dialog.header(), "dblclick", dialog.close, dialog);'
                 
             });
         </script>
@@ -102,11 +102,11 @@
                 init: function(options){
 
                     // 调用父类的对话框 init 函数。
-                    this.base('init');
+                    Dialog.prototype.init.call(this, options);
 
                     this.setTitle('固定的标题');
 
-                    this.setHtml('固定的内容');
+                    this.setContent('固定的内容');
                 }
 
             });

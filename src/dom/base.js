@@ -464,10 +464,12 @@ var Dom = (function () {
                     if (match = /^((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
                         value = match[1].replace(rBackslash, "").toUpperCase();
                         selector = RegExp.rightContext;
+                    } else {
+                    	value = "*";
                     }
 
                     for (i = 0; elem = prevResult[i]; i++) {
-                        addElementsByTagName(elem, value || "*", result);
+                        addElementsByTagName(elem, value, result);
                     }
 
                 }
@@ -519,74 +521,78 @@ var Dom = (function () {
             var match, filterFn, value, code;
 
             // ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
-            while (result.length && (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector))) {
-
-                code = match[0];
+            while (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
 
                 selector = RegExp.rightContext;
+                
+                if(result.length) {
+	
+                	code = match[0];
 
-                filterFn = (Selector.filterFn || (Selector.filterFn = {}))[match[0]];
-
-                // 如果不存在指定过滤器的特定函数，则先编译一个。
-                if (!filterFn) {
-
-                    filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
-                    value = match[2].replace(rBackslash, "");
-
-                    switch (match[1]) {
-
-                        // ‘#id’
-                        case "#":
-                            filterFn += 'Dom.getAttr(e,"id")===v';
-                            break;
-
-                            // ‘.className’
-                        case ".":
-                            filterFn += 'Dom.hasClass(e,v)';
-                            break;
-
-                            // ‘:filter’
-                        case ":":
-
-                            filterFn += Selector.pseudos[value] || throwError(match[0]);
-
-                            // ‘selector:nth-child(2)’
-                            if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
-                                selector = RegExp.rightContext;
-                                value = match[3] || match[2] || match[1];
-                            }
-
-                            break;
-
-                            // ‘[attr’
-                        default:
-                            value = [value.toLowerCase()];
-
-                            // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
-                            if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
-                                selector = RegExp.rightContext;
-                                if (match[1]) {
-                                    value[1] = match[1];
-                                    value[2] = match[3] || match[4];
-                                    value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
-                                        return String.fromCharCode(parseInt(y, 16));
-                                    }).replace(rBackslash, "") : "";
-                                }
-                            }
-
-                            filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
-
-                    }
-
-                    filterFn += ';if(t)r[n++]=e;}r.splice(n);';
-
-                    Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
-
-                    filterFn.value = value;
-
+	                filterFn = (Selector.filterFn || (Selector.filterFn = {}))[code];
+	
+	                // 如果不存在指定过滤器的特定函数，则先编译一个。
+	                if (!filterFn) {
+	
+	                    filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
+	                    value = match[2].replace(rBackslash, "");
+	
+	                    switch (match[1]) {
+	
+	                        // ‘#id’
+	                        case "#":
+	                            filterFn += 'Dom.getAttr(e,"id")===v';
+	                            break;
+	
+	                            // ‘.className’
+	                        case ".":
+	                            filterFn += 'Dom.hasClass(e,v)';
+	                            break;
+	
+	                            // ‘:filter’
+	                        case ":":
+	
+	                            filterFn += Selector.pseudos[value] || throwError(match[0]);
+	
+	                            // ‘selector:nth-child(2)’
+	                            if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
+	                                selector = RegExp.rightContext;
+	                                value = match[3] || match[2] || match[1];
+	                            }
+	
+	                            break;
+	
+	                            // ‘[attr’
+	                        default:
+	                            value = [value.toLowerCase()];
+	
+	                            // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
+	                            if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
+	                                selector = RegExp.rightContext;
+	                                if (match[1]) {
+	                                    value[1] = match[1];
+	                                    value[2] = match[3] || match[4];
+	                                    value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
+	                                        return String.fromCharCode(parseInt(y, 16));
+	                                    }).replace(rBackslash, "") : "";
+	                                }
+	                            }
+	
+	                            filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
+	
+	                    }
+	
+	                    filterFn += ';if(t)r[n++]=e;}while(r.length>n)delete r[--r.length];';
+	
+	                    Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
+	
+	                    filterFn.value = value;
+	
+	                }
+	
+	                filterFn(result, filterFn.value);
+	                
                 }
-
-                filterFn(result, filterFn.value);
 
             }
 
@@ -1507,7 +1513,7 @@ var Dom = (function () {
 
 		    // 特殊样式保存在 styleHooks 。
 		    if (hook && hook.compute) {
-		        return hook.compute();
+		        return hook.compute(elem);
 		    }
 
 		    // currentStyle：IE的样式获取方法,runtimeStyle是获取运行时期的样式。
@@ -3078,8 +3084,8 @@ var Dom = (function () {
     Dom.empty = function (node) {
 
         // 删除全部节点。
-        while (node.lastChild) {
-            node.removeChild(node.lastChild);
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
         }
 
         // IE678 中, 删除 <select> 中的选中项。
@@ -3279,8 +3285,8 @@ var Dom = (function () {
         } else {
             elem = doc.documentElement;
             p = {
-                x: doc.scrollLeft,
-                y: doc.scrollTop
+                x: elem.scrollLeft,
+                y: elem.scrollTop
             };
         }
 

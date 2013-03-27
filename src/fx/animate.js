@@ -11,7 +11,7 @@
     },
 
         displayEffects = Fx.displayEffects = {
-            opacity: function () {
+            opacity: function (options, elem) {
                 return opacity0;
             }
         },
@@ -289,6 +289,11 @@
                         for (param in t) {
                             options.orignal[param] = elem.style[param];
                         }
+		                       
+		                // IE6-8 仅支持 filter 设置。 
+		            	if(navigator.isIE678 && ('opacity' in t)) {
+		            		options.orignal.filter = elem.style.filter;
+		            	}
 
                         // 因为当前是显示元素，因此将值为 0 的项修复为当前值。
                         for (param in t) {
@@ -378,12 +383,19 @@
 
                         // 获取指定特效实际用于展示的css字段。
                         options.params = params = Fx.displayEffects[args.effect](options, elem, false);
-
+						
                         // 保存原有的css值。
                         // 用于在show的时候可以正常恢复。
                         for (param in params) {
                             options.orignal[param] = elem.style[param];
                         }
+		                       
+		                // IE6-8 仅支持 filter 设置。 
+		            	if(navigator.isIE678 && ('opacity' in params)) {
+		            		delete options.orignal.opacity;
+		            		options.orignal.filter = elem.style.filter;
+		            	}
+
                     },
                     complete: function (isAbort, fx) {
 
