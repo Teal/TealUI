@@ -11,9 +11,13 @@ var UI = {
         }
     },
 
-    initMenu: function (menuObject, baseTitle, index) {
+    initMenu: function (docData) {
 
+        var links = docData.links = {};
         var menu = Dom.get("menu");
+        UI.docData = docData;
+
+        // 树实现。
 
         function toggleMenu() {
             var first = Dom.first(this);
@@ -38,14 +42,7 @@ var UI = {
             return toggleMenu.call(this.parentNode);
         });
 
-        //function getMenu(path) {
-        //    var p = menuObject;
-        //    path.split("/").forEach(function (value) {
-        //        p = p[value] || {};
-        //    });
-
-        //    return p;
-        //}
+        // 导航。
 
         function selectMenu() {
             var old = Dom.find('#menu .tree-selected');
@@ -58,10 +55,15 @@ var UI = {
         }
 
         function openMenu(path) {
-            // 获取对应的菜单项。
-            var menuItem = Dom.find('#menu a[href="#' + path + '"]');
 
-            if (menuItem) {
+            path = path.replace("!", "");
+
+            var data = links[path];
+
+            if (data) {
+
+                // 获取对应的菜单项。
+                var menuItem = Dom.find('#menu a[href="#!' + path + '"]');
 
                 var p = menuItem;
 
@@ -73,68 +75,78 @@ var UI = {
                 // 选中项。
                 selectMenu.call(menuItem);
 
-                var obj = { sub: menuObject };
-                var r = [baseTitle];
-                var lastPath = '';
+                // 如果存在实际的页面。
+                if (data.url) {
 
-                path = path.replace("!", "").split("/");
-                path.forEach(function (value, index) {
-                    obj = (obj.sub || {})[value] || {};
+                    var r = ['<span>' + data.value + '</span>'];
 
-                    if (path.length == index + 1) {
-                        r.push('<span>' + (obj.name || value) + '</span>');
-                    } else {
-                        r.push('<a href="#!' + lastPath + value + '">' + (obj.name || value) + '</a> » ');
+                    p = data;
+                    while (p = p.parent) {
+                        r.push('<a href="#!' + p.path + '">' + p.value + '</a> » ');
                     }
-
-                    lastPath += value + '/';
-                });
-
-                if (obj.url) {
+                    r.push(docData.nav);
+                    r = r.reverse();
                     Dom.get('breadcrumb').innerHTML = r.join('');
-                    Dom.get('contentiframe').src = Dom.get('opennew').href = obj.url;
+                    Dom.get('contentiframe').src = Dom.get('opennew').href = data.url;
                 }
 
             }
         }
 
-        function addMenus(menuObject, r, basePath, indent) {
-            // collspae
-            for (var menuItem in menuObject) {
+        // 初始化树。
 
-                var p = menuObject[menuItem];
+        function initMenus(data, parent, r, indent) {
+            for (var key in data.sub) {
+
+                var obj = data.sub[key];
+
+                obj.path = obj.path || obj.url || key;
+                obj.value = key;
+                obj.parent = parent;
+                links[obj.path] = obj;
 
                 r.push('<li>');
 
-                r.push('<a href="#!' + (basePath + menuItem) + '" data-url="' + (p.url || "") + '" style="padding-left:' + indent + 'px"><span class="tree-span">' + (p.sub ? "✚" : "") + '</span><span title="' + (p.title || p.name || menuItem) + '"><i class="x-icon icon-' + (p.icon || (p.sub ? "folder" : "page")) + '"></i>' + (p.name || menuItem) + ' <small class="x-hint">' + (p.subname || "") + '</small></span></a>');
+                r.push('<a href="#!' + obj.path + '" style="padding-left:' + indent + 'px"><span class="tree-span">' + (obj.sub ? "✚" : "") + '</span><span title="' + (obj.title || key) + '"><i class="x-icon icon-' + (obj.icon || (obj.sub ? "folder" : "page")) + '"></i>' + key + ' <small class="x-hint">' + (obj.name || "") + '</small></span></a>');
 
-                if (p.sub) {
+                if (obj.sub) {
                     r.push('<ul style="display:none">');
-                    addMenus(p.sub, r, basePath + menuItem + '/', indent + 16);
+                    initMenus(obj, obj, r, indent + 16);
                     r.push('</ul>');
                 }
 
                 r.push('</li>');
-
-
-
             }
-
         }
 
         var r = [];
 
-        addMenus(menuObject, r, "", 0);
+        initMenus(docData, null, r, 0);
         
         menu.innerHTML = r.join("");
 
         Dom.hashchange(openMenu);
 
-        openMenu("!" + index);
-
-        //Dom.first(menu).className = 'tree-selected';
+        // 如果当前不存在任何选中的项，使用第一个项。
+        if (!Dom.find('#menu .tree-selected')) {
+            for (var index in links) {
+                if (links[index].url) {
+                    openMenu("!" + index);
+                    break;
+                }
+            }
+        }
 
     },
+
+    initSearchBox: function () {
+
+        var d1 = new SearchTextBox('#d1');
+
+        d1.on('search', function (text) {
+            alert("准备搜索 " + text + " ...");
+        });
+    }
 
     //toggleMenu: function (path) {
 
