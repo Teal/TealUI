@@ -118,9 +118,6 @@ function build(context, data){
 		data.assets = ModuleBuilder.parseRelativePath(p, data.assets);
 	}
 	
-	if(!data.relativeImages && data.css && data.assets){
-		data.relativeImages = Path.relative(Path.dirname(data.css), data.assets).replace(/\\/g, '/');
-	}
 	ModuleBuilder.build({
 
 		file: data,
@@ -157,7 +154,7 @@ function build(context, data){
 					context.response.write("生成 css 文件：<span>" + result.file.css + "</span><br>");
 				}
 
-				if(result.file.assets) {
+				if(result.file.assets && !isEmpty(result.assets)) {
 					result.log("正在复制资源...");
 					for(var key in result.assets){
 						IO.copyFile(result.assets[key].from,  result.assets[key].to);

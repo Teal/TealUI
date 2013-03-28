@@ -1,5 +1,5 @@
-@IF EXIST "%~dp0\node.exe" (
-  "%~dp0\node.exe"  "%~dp0\tools\modulebuilder\bin\build.js" %*
+@IF EXIST "%~dp0\node\node.exe" (
+  "%~dp0\node\node.exe"  "%~dp0\node\modulebuilder\server\build.js" %*
 ) ELSE (
-  node  "%~dp0\tools\modulebuilder\bin\build.js" %*
+  node  "%~dp0\node\modulebuilder\server\build.js" %*
 )

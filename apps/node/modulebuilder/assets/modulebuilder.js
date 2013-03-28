@@ -305,6 +305,10 @@ ModuleBuilder.build = function (options) {
 		buildContext[key] = options[key];
 	}
 
+	if (!buildContext.file.relativeImages && buildContext.file.css && buildContext.file.assets) {
+	    buildContext.file.relativeImages = Path.relative(Path.dirname(buildContext.file.css), buildContext.file.assets).replace(/\\/g, '/');
+	}
+
 	buildContext.start();
 	
 	ModuleBuilder._parseModules(buildContext, buildContext.file.excludes, buildContext.file.path, null, true);

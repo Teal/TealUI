@@ -5,11 +5,11 @@ case `uname` in
     *CYGWIN*) basedir=`cygpath -w "$basedir"`;;
 esac
 
-if [ -x "$basedir/node" ]; then
-  "$basedir/node"  "$basedir/tools/server/startserver.js" "$@"
+if [ -x "$basedir/node/node" ]; then
+  "$basedir/node/node"  "$basedir/node/server/startserver.js" "$@"
   ret=$?
 else 
-  node  "$basedir/tools/server/startserver.js" "$@"
+  node  "$basedir/node/server/startserver.js" "$@"
   ret=$?
 fi
 exit $ret
