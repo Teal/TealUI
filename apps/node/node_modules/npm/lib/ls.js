@@ -9,26 +9,34 @@ module.exports = exports = ls
 
 var npm = require("./npm.js")
   , readInstalled = require("read-installed")
-  , output = require("./utils/output.js")
   , log = require("npmlog")
   , path = require("path")
   , archy = require("archy")
+  , semver = require("semver")
 
 ls.usage = "npm ls"
+
+ls.completion = require("./utils/completion/installed-deep.js")
 
 function ls (args, silent, cb) {
   if (typeof cb !== "function") cb = silent, silent = false
 
-  if (args.length) {
-    // TODO: it would actually be nice to maybe show the locally
-    // installed packages only matching the argument names.
-    log.warn("ls doesn't take positional args. Try the 'search' command")
-  }
-
   var dir = path.resolve(npm.dir, "..")
 
+  // npm ls 'foo@~1.3' bar 'baz@<2'
+  if (!args) args = []
+  else args = args.map(function (a) {
+    var nv = a.split("@")
+      , name = nv.shift()
+      , ver = semver.validRange(nv.join("@")) || ""
+
+    return [ name, ver ]
+  })
+
   readInstalled(dir, npm.config.get("depth"), function (er, data) {
-    var lite = getLite(bfsify(data))
+    var bfs = bfsify(data, args)
+      , lite = getLite(bfs)
+
     if (er || silent) return cb(er, data, lite)
 
     var long = npm.config.get("long")
@@ -36,7 +44,7 @@ function ls (args, silent, cb) {
       , out
     if (json) {
       var seen = []
-      var d = long ? bfsify(data) : lite
+      var d = long ? bfs : lite
       // the raw data can be circular
       out = JSON.stringify(d, function (k, o) {
         if (typeof o === "object") {
@@ -46,12 +54,23 @@ function ls (args, silent, cb) {
         return o
       }, 2)
     } else if (npm.config.get("parseable")) {
-      out = makeParseable(bfsify(data), long, dir)
+      out = makeParseable(bfs, long, dir)
     } else if (data) {
-      out = makeArchy(bfsify(data), long, dir)
+      out = makeArchy(bfs, long, dir)
     }
-    output.write(out, function (er) { cb(er, data, lite) })
+    console.log(out)
+
+    // if any errors were found, then complain and exit status 1
+    if (lite.problems && lite.problems.length) {
+      er = lite.problems.join('\n')
+    }
+    cb(er, data, lite)
   })
+}
+
+// only include
+function filter (data, args) {
+
 }
 
 function alphasort (a, b) {
@@ -76,19 +95,24 @@ function getLite (data, noname) {
                       + " " + (data.path || "") )
   }
 
-  if (data._from) {
-    var from = data._from
-    if (from.indexOf(data.name + "@") === 0) {
-      from = from.substr(data.name.length + 1)
-    }
-    var u = url.parse(from)
-    if (u.protocol) lite.from = from
-  }
+  if (data._from)
+    lite.from = data._from
+
+  if (data._resolved)
+    lite.resolved = data._resolved
 
   if (data.invalid) {
     lite.invalid = true
     lite.problems = lite.problems || []
     lite.problems.push( "invalid: "
+                      + data.name + "@" + data.version
+                      + " " + (data.path || "") )
+  }
+
+  if (data.peerInvalid) {
+    lite.peerInvalid = true
+    lite.problems = lite.problems || []
+    lite.problems.push( "peer invalid: "
                       + data.name + "@" + data.version
                       + " " + (data.path || "") )
   }
@@ -124,7 +148,7 @@ function getLite (data, noname) {
   return lite
 }
 
-function bfsify (root, current, queue, seen) {
+function bfsify (root, args, current, queue, seen) {
   // walk over the data, and turn it from this:
   // +-- a
   // |   `-- b
@@ -134,6 +158,7 @@ function bfsify (root, current, queue, seen) {
   // +-- a
   // `-- b
   // which looks nicer
+  args = args || []
   current = current || root
   queue = queue || []
   seen = seen || [root]
@@ -153,10 +178,37 @@ function bfsify (root, current, queue, seen) {
     queue.push(dep)
     seen.push(dep)
   })
-  if (!queue.length) return root
-  return bfsify(root, queue.shift(), queue, seen)
+
+  if (!queue.length) {
+    // if there were args, then only show the paths to found nodes.
+    return filterFound(root, args)
+  }
+  return bfsify(root, args, queue.shift(), queue, seen)
 }
 
+function filterFound (root, args) {
+  if (!args.length) return root
+  var deps = root.dependencies
+  if (deps) Object.keys(deps).forEach(function (d) {
+    var dep = filterFound(deps[d], args)
+
+    // see if this one itself matches
+    var found = false
+    for (var i = 0; !found && i < args.length; i ++) {
+      if (d === args[i][0]) {
+        found = semver.satisfies(dep.version, args[i][1])
+      }
+    }
+    // included explicitly
+    if (found) dep._found = true
+    // included because a child was included
+    if (dep._found && !root._found) root._found = 1
+    // not included
+    if (!dep._found) delete deps[d]
+  })
+  if (!root._found) root._found = false
+  return root
+}
 
 function makeArchy (data, long, dir) {
   var out = makeArchy_(data, long, dir, 0)
@@ -164,36 +216,56 @@ function makeArchy (data, long, dir) {
 }
 
 function makeArchy_ (data, long, dir, depth, parent, d) {
+  var color = npm.color
   if (typeof data === "string") {
     if (depth < npm.config.get("depth")) {
       // just missing
       var p = parent.link || parent.path
-      log.warn("unmet dependency", "%s in %s", d+" "+data, p)
-      data = "\033[31;40mUNMET DEPENDENCY\033[0m " + d + " " + data
+      var unmet = "UNMET DEPENDENCY"
+      if (color) {
+        unmet = "\033[31;40m" + unmet + "\033[0m"
+      }
+      data = unmet + " " + d + " " + data
     } else {
-      data = d+"@"+ data +" (max depth reached)"
+      data = d+"@"+ data
     }
     return data
   }
 
   var out = {}
   // the top level is a bit special.
-  out.label = data._id ? data._id + " " : ""
-  if (data.link) out.label += "-> " + data.link
+  out.label = data._id || ""
+  if (data._found === true && data._id) {
+    var pre = color ? "\033[33;40m" : ""
+      , post = color ? "\033[m" : ""
+    out.label = pre + out.label.trim() + post + " "
+  }
+  if (data.link) out.label += " -> " + data.link
 
   if (data.invalid) {
     if (data.realName !== data.name) out.label += " ("+data.realName+")"
-    out.label += " \033[31;40minvalid\033[0m"
+    out.label += " " + (color ? "\033[31;40m" : "")
+              + "invalid"
+              + (color ? "\033[0m" : "")
+  }
+
+  if (data.peerInvalid) {
+    out.label += " " + (color ? "\033[31;40m" : "")
+              + "peer invalid"
+              + (color ? "\033[0m" : "")
   }
 
   if (data.extraneous && data.path !== dir) {
-    out.label += " \033[32;40mextraneous\033[0m"
+    out.label += " " + (color ? "\033[32;40m" : "")
+              + "extraneous"
+              + (color ? "\033[0m" : "")
   }
 
   if (long) {
     if (dir === data.path) out.label += "\n" + dir
     out.label += "\n" + getExtras(data, dir)
   } else if (dir === data.path) {
+    if (out.label) out.label += " "
     out.label += dir
   }
 
@@ -237,14 +309,16 @@ function makeParseable (data, long, dir, depth, parent, d) {
     .sort(alphasort).map(function (d) {
       return makeParseable(data.dependencies[d], long, dir, depth + 1, data, d)
     }))
+  .filter(function (x) { return x })
   .join("\n")
 }
 
 function makeParseable_ (data, long, dir, depth, parent, d) {
+  if (data.hasOwnProperty("_found") && data._found !== true) return ""
+
   if (typeof data === "string") {
     if (data.depth < npm.config.get("depth")) {
       var p = parent.link || parent.path
-      log.warn("unmet dependency", "%s in %s", d+" "+data, p)
       data = npm.config.get("long")
            ? path.resolve(parent.path, "node_modules", d)
            + ":"+d+"@"+JSON.stringify(data)+":INVALID:MISSING"
@@ -268,4 +342,5 @@ function makeParseable_ (data, long, dir, depth, parent, d) {
        + ":" + (data.realPath !== data.path ? data.realPath : "")
        + (data.extraneous ? ":EXTRANEOUS" : "")
        + (data.invalid ? ":INVALID" : "")
+       + (data.peerInvalid ? ":PEERINVALID" : "")
 }

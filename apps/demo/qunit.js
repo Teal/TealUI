@@ -102,7 +102,7 @@ Test.prototype = {
 
 			// `a` initialized at top of scope
 			a = document.createElement( "a" );
-			a.innerHTML = "重新执行";
+			a.innerHTML = "Rerun";
 			a.href = QUnit.url({ testNumber: this.testNumber });
 
 			li = document.createElement( "li" );
@@ -115,8 +115,16 @@ Test.prototype = {
 		}
 	},
 	setup: function() {
-		if ( this.module !== config.previousModule ) {
-			if ( config.previousModule ) {
+		if (
+			// Emit moduleStart when we're switching from one module to another
+			this.module !== config.previousModule ||
+				// They could be equal (both undefined) but if the previousModule property doesn't
+				// yet exist it means this is the first test in a suite that isn't wrapped in a
+				// module, in which case we'll just emit a moduleStart event for 'undefined'.
+				// Without this, reporters can get testStart before moduleStart  which is a problem.
+				!hasOwn.call( config, 'previousModule' )
+		) {
+			if ( hasOwn.call( config, 'previousModule' ) ) {
 				runLoggingCallbacks( "moduleDone", QUnit, {
 					name: config.previousModule,
 					failed: config.moduleStats.bad,
@@ -126,10 +134,6 @@ Test.prototype = {
 			}
 			config.previousModule = this.module;
 			config.moduleStats = { all: 0, bad: 0 };
-			runLoggingCallbacks( "moduleStart", QUnit, {
-				name: this.module
-			});
-		} else if ( config.autorun ) {
 			runLoggingCallbacks( "moduleStart", QUnit, {
 				name: this.module
 			});
@@ -162,7 +166,7 @@ Test.prototype = {
 		try {
 			this.testEnvironment.setup.call( this.testEnvironment );
 		} catch( e ) {
-			QUnit.pushFailure( "初始化 " + this.testName + " 失败: " + ( e.message || e ), extractStacktrace( e, 1 ) );
+			QUnit.pushFailure( "Setup failed on " + this.testName + ": " + ( e.message || e ), extractStacktrace( e, 1 ) );
 		}
 	},
 	run: function() {
@@ -171,7 +175,7 @@ Test.prototype = {
 		var running = id( "qunit-testresult" );
 
 		if ( running ) {
-			running.innerHTML = "正在执行: " + this.nameHtml;
+			running.innerHTML = "Running: <br/>" + this.nameHtml;
 		}
 
 		if ( this.async ) {
@@ -192,7 +196,7 @@ Test.prototype = {
 		} catch( e ) {
 			this.callbackRuntime = +new Date() - this.callbackStarted;
 
-			QUnit.pushFailure( "在执行 #" + (this.assertions.length + 1) + " " + this.stack + " 时出现异常: " + ( e.message || e ), extractStacktrace( e, 0 ) );
+			QUnit.pushFailure( "Died on test #" + (this.assertions.length + 1) + " " + this.stack + ": " + ( e.message || e ), extractStacktrace( e, 0 ) );
 			// else next test will carry the responsibility
 			saveGlobal();
 
@@ -214,7 +218,7 @@ Test.prototype = {
 			try {
 				this.testEnvironment.teardown.call( this.testEnvironment );
 			} catch( e ) {
-				QUnit.pushFailure( "清理 " + this.testName + " 失败: " + ( e.message || e ), extractStacktrace( e, 1 ) );
+				QUnit.pushFailure( "Teardown failed on " + this.testName + ": " + ( e.message || e ), extractStacktrace( e, 1 ) );
 			}
 		}
 		checkPollution();
@@ -222,11 +226,11 @@ Test.prototype = {
 	finish: function() {
 		config.current = this;
 		if ( config.requireExpects && this.expected === null ) {
-			QUnit.pushFailure( "应该调用 expect() 来通知 QUnit 本测试用例中确认的个数", this.stack );
+			QUnit.pushFailure( "Expected number of assertions to be defined, but expect() was not called.", this.stack );
 		} else if ( this.expected !== null && this.expected !== this.assertions.length ) {
-			QUnit.pushFailure( "共 " + this.expected + " 个确认, 但只执行了 " + this.assertions.length + " 个", this.stack );
+			QUnit.pushFailure( "Expected " + this.expected + " assertions, but " + this.assertions.length + " were run", this.stack );
 		} else if ( this.expected === null && !this.assertions.length ) {
-			QUnit.pushFailure( "应该至少有一个确认 - 手动调用 expect(0) 忽略本错误", this.stack );
+			QUnit.pushFailure( "Expected at least one assertion, but none were run - call expect(0) to accept zero assertions.", this.stack );
 		}
 
 		var i, assertion, a, b, time, li, ol,
@@ -419,7 +423,7 @@ QUnit = {
 		test.queue();
 	},
 
-	// Specify the number of expected assertions to gurantee that failed test (no assertions are run at all) don't slip through.
+	// Specify the number of expected assertions to guarantee that failed test (no assertions are run at all) don't slip through.
 	expect: function( asserts ) {
 		if (arguments.length === 1) {
 			config.current.expected = asserts;
@@ -449,7 +453,7 @@ QUnit = {
 		// ignore if start is called more often then stop
 		if ( config.semaphore < 0 ) {
 			config.semaphore = 0;
-			QUnit.pushFailure( "start() 重复调用 (QUnit.config.semaphore 已经为 0)", null, sourceFromStacktrace(2) );
+			QUnit.pushFailure( "Called start() while already started (QUnit.config.semaphore was 0 already)", null, sourceFromStacktrace(2) );
 			return;
 		}
 		// A slight delay, to avoid any current callbacks
@@ -478,7 +482,7 @@ QUnit = {
 		if ( config.testTimeout && defined.setTimeout ) {
 			clearTimeout( config.timeout );
 			config.timeout = window.setTimeout(function() {
-				QUnit.ok( false, "测试超时" );
+				QUnit.ok( false, "Test timed out" );
 				config.semaphore = 1;
 				QUnit.start();
 			}, config.testTimeout );
@@ -487,7 +491,7 @@ QUnit = {
 };
 
 // `assert` initialized at top of scope
-// Asssert helpers
+// Assert helpers
 // All of these must either call QUnit.push() or manually do:
 // - runLoggingCallbacks( "log", .. );
 // - config.current.assertions.push({ .. });
@@ -502,7 +506,7 @@ assert = {
 	 */
 	ok: function( result, msg ) {
 		if ( !config.current ) {
-			throw new Error( "ok() 在测试用例外被调用，调用堆栈：" + sourceFromStacktrace(2) );
+			throw new Error( "ok() assertion outside test context, was " + sourceFromStacktrace(2) );
 		}
 		result = !!result;
 
@@ -514,14 +518,14 @@ assert = {
 				message: msg
 			};
 
-		msg = escapeText( msg || (result ? "通过" : "失败" ) );
+		msg = escapeText( msg || (result ? "okay" : "failed" ) );
 		msg = "<span class='test-message'>" + msg + "</span>";
 
 		if ( !result ) {
 			source = sourceFromStacktrace( 2 );
 			if ( source ) {
 				details.source = source;
-				msg += "<table><tr class='test-source'><th>源: </th><td><pre>" + escapeText( source ) + "</pre></td></tr></table>";
+				msg += "<table><tr class='test-source'><th>Source: </th><td><pre>" + escapeText( source ) + "</pre></td></tr></table>";
 			}
 		}
 		runLoggingCallbacks( "log", QUnit, details );
@@ -642,13 +646,13 @@ assert = {
 
 			QUnit.push( ok, actual, expectedOutput, message );
 		} else {
-			QUnit.pushFailure( message, null, '未抛出异常。' );
+			QUnit.pushFailure( message, null, 'No exception was thrown.' );
 		}
 	}
 };
 
 /**
- * @deprecate since 1.8.0
+ * @deprecated since 1.8.0
  * Kept assertion helpers in root for backwards compatibility.
  */
 extend( QUnit, assert );
@@ -665,10 +669,10 @@ QUnit.raises = assert[ "throws" ];
  * Kept to avoid TypeErrors for undefined methods.
  */
 QUnit.equals = function() {
-	QUnit.push( false, false, false, "QUnit.equals 自 2009 (e88049a0) 起已过时，使用 QUnit.equal 代替" );
+	QUnit.push( false, false, false, "QUnit.equals has been deprecated since 2009 (e88049a0), use QUnit.equal instead" );
 };
 QUnit.same = function() {
-	QUnit.push( false, false, false, "QUnit.same 自 2009 (e88049a0) 起已过时, 使用 QUnit.deepEqual 代替" );
+	QUnit.push( false, false, false, "QUnit.same has been deprecated since 2009 (e88049a0), use QUnit.deepEqual instead" );
 };
 
 // We want access to the constructor's prototype
@@ -711,13 +715,13 @@ config = {
 	urlConfig: [
 		{
 			id: "noglobals",
-			label: "检查全局污染",
-			tooltip: "勾选此项后可检查是否有测试用例污染了全局 `window` 对象。"
+			label: "Check for Globals",
+			tooltip: "Enabling this will test if any test introduces new properties on the `window` object. Stored as query-strings."
 		},
 		{
 			id: "notrycatch",
-			label: "不捕获异常",
-			tooltip: "勾选此项后，将不会对测试用例包一层 try catch。所有的错误将由浏览器自行处理。"
+			label: "No try-catch",
+			tooltip: "Enabling this will run tests outside of a try-catch block. Makes debugging exceptions in IE reasonable. Stored as query-strings."
 		}
 	],
 
@@ -831,7 +835,7 @@ extend( QUnit, {
 			result.id = "qunit-testresult";
 			result.className = "result";
 			tests.parentNode.insertBefore( result, tests );
-			result.innerHTML = "正在执行...<br/>&nbsp;";
+			result.innerHTML = "Running...<br/>&nbsp;";
 		}
 	},
 
@@ -896,7 +900,7 @@ extend( QUnit, {
 
 	push: function( result, actual, expected, message ) {
 		if ( !config.current ) {
-			throw new Error( "push() 在测试用例外被调用，调用堆栈：" + sourceFromStacktrace() );
+			throw new Error( "assertion outside test context, was " + sourceFromStacktrace() );
 		}
 
 		var output, source,
@@ -916,18 +920,18 @@ extend( QUnit, {
 		if ( !result ) {
 			expected = escapeText( QUnit.jsDump.parse(expected) );
 			actual = escapeText( QUnit.jsDump.parse(actual) );
-			output += "<table><tr class='test-expected'><th>应该返回: </th><td><pre>" + expected + "</pre></td></tr>";
+			output += "<table><tr class='test-expected'><th>Expected: </th><td><pre>" + expected + "</pre></td></tr>";
 
 			if ( actual !== expected ) {
-				output += "<tr class='test-actual'><th>实际返回: </th><td><pre>" + actual + "</pre></td></tr>";
-				output += "<tr class='test-diff'><th>区别: </th><td><pre>" + QUnit.diff( expected, actual ) + "</pre></td></tr>";
+				output += "<tr class='test-actual'><th>Result: </th><td><pre>" + actual + "</pre></td></tr>";
+				output += "<tr class='test-diff'><th>Diff: </th><td><pre>" + QUnit.diff( expected, actual ) + "</pre></td></tr>";
 			}
 
 			source = sourceFromStacktrace();
 
 			if ( source ) {
 				details.source = source;
-				output += "<tr class='test-source'><th>源: </th><td><pre>" + escapeText( source ) + "</pre></td></tr>";
+				output += "<tr class='test-source'><th>Source: </th><td><pre>" + escapeText( source ) + "</pre></td></tr>";
 			}
 
 			output += "</table>";
@@ -943,7 +947,7 @@ extend( QUnit, {
 
 	pushFailure: function( message, source, actual ) {
 		if ( !config.current ) {
-			throw new Error( "pushFailure() 在测试用例外被调用，调用堆栈：" + sourceFromStacktrace(2) );
+			throw new Error( "pushFailure() assertion outside test context, was " + sourceFromStacktrace(2) );
 		}
 
 		var output,
@@ -961,12 +965,12 @@ extend( QUnit, {
 		output += "<table>";
 
 		if ( actual ) {
-			output += "<tr class='test-actual'><th>结果: </th><td><pre>" + escapeText( actual ) + "</pre></td></tr>";
+			output += "<tr class='test-actual'><th>Result: </th><td><pre>" + escapeText( actual ) + "</pre></td></tr>";
 		}
 
 		if ( source ) {
 			details.source = source;
-			output += "<tr class='test-source'><th>源: </th><td><pre>" + escapeText( source ) + "</pre></td></tr>";
+			output += "<tr class='test-source'><th>Source: </th><td><pre>" + escapeText( source ) + "</pre></td></tr>";
 		}
 
 		output += "</table>";
@@ -997,7 +1001,10 @@ extend( QUnit, {
 
 	extend: extend,
 	id: id,
-	addEvent: addEvent
+	addEvent: addEvent,
+	addClass: addClass,
+	hasClass: hasClass,
+	removeClass: removeClass
 	// load, equiv, jsDump, diff: Attached later
 });
 
@@ -1062,7 +1069,7 @@ QUnit.load = function() {
 			val = {
 				id: val,
 				label: val,
-				tooltip: "[无可用提示]"
+				tooltip: "[no tooltip available]"
 			};
 		}
 		config[ val.id ] = QUnit.urlParams[ val.id ];
@@ -1082,9 +1089,9 @@ QUnit.load = function() {
 	moduleNames.sort( function( a, b ) {
 		return a.localeCompare( b );
 	});
-	moduleFilterHtml += "<label for='qunit-modulefilter'>模块: </label><select id='qunit-modulefilter' name='modulefilter'><option value='' " +
+	moduleFilterHtml += "<label for='qunit-modulefilter'>Module: </label><select id='qunit-modulefilter' name='modulefilter'><option value='' " +
 		( config.module === undefined  ? "selected='selected'" : "" ) +
-		">[所有模块]</option>";
+		">< All Modules ></option>";
 
 
 	for ( i = 0; i < numModules; i++) {
@@ -1144,8 +1151,8 @@ QUnit.load = function() {
 		// `label` initialized at top of scope
 		label = document.createElement( "label" );
 		label.setAttribute( "for", "qunit-filter-pass" );
-		label.setAttribute( "title", "只显示未通过的测试。本配置存储在 sessionStorage 中。" );
-		label.innerHTML = "隐藏已通过的测试";
+		label.setAttribute( "title", "Only show tests and assertions that fail. Stored in sessionStorage." );
+		label.innerHTML = "Hide passed tests";
 		toolbar.appendChild( label );
 
 		urlConfigCheckboxesContainer = document.createElement("span");
@@ -1195,7 +1202,7 @@ addEvent( window, "load", QUnit.load );
 onErrorFnPrev = window.onerror;
 
 // Cover uncaught exceptions
-// Returning true will surpress the default browser handler,
+// Returning true will suppress the default browser handler,
 // returning false will let it run.
 window.onerror = function ( error, filePath, linerNr ) {
 	var ret = false;
@@ -1204,7 +1211,7 @@ window.onerror = function ( error, filePath, linerNr ) {
 	}
 
 	// Treat return value as window.onerror itself does,
-	// Only do our handling if not surpressed.
+	// Only do our handling if not suppressed.
 	if ( ret !== true ) {
 		if ( QUnit.config.current ) {
 			if ( QUnit.config.current.ignoreGlobalErrors ) {
@@ -1241,16 +1248,16 @@ function done() {
 		runtime = +new Date() - config.started,
 		passed = config.stats.all - config.stats.bad,
 		html = [
-			"测试完成。用时：",
+			"Tests completed in ",
 			runtime,
-			" ms。",
-			"共 <span class='total'>",
-			config.stats.all,
-			"</span> 个测试，其中通过 <span class='passed'>",
+			" milliseconds.<br/>",
+			"<span class='passed'>",
 			passed,
-			"</span> ，未通过 <span class='failed'>",
+			"</span> assertions of <span class='total'>",
+			config.stats.all,
+			"</span> passed, <span class='failed'>",
 			config.stats.bad,
-			"</span> 。"
+			"</span> failed."
 		].join( "" );
 
 	if ( banner ) {
@@ -1459,12 +1466,12 @@ function checkPollution() {
 
 	newGlobals = diff( config.pollution, old );
 	if ( newGlobals.length > 0 ) {
-		QUnit.pushFailure( "意外污染了全局变量: " + newGlobals.join(", ") );
+		QUnit.pushFailure( "Introduced global variable(s): " + newGlobals.join(", ") );
 	}
 
 	deletedGlobals = diff( old, config.pollution );
 	if ( deletedGlobals.length > 0 ) {
-		QUnit.pushFailure( "意外删除了全局变量: " + deletedGlobals.join(", ") );
+		QUnit.pushFailure( "Deleted global variable(s): " + deletedGlobals.join(", ") );
 	}
 }
 
@@ -1542,7 +1549,7 @@ function removeClass( elem, name ) {
 	while ( set.indexOf(" " + name + " ") > -1 ) {
 		set = set.replace(" " + name + " " , " ");
 	}
-	// If possible, trim it for prettiness, but not neccecarily
+	// If possible, trim it for prettiness, but not necessarily
 	elem.className = window.jQuery ? jQuery.trim( set ) : ( set.trim ? set.trim() : set );
 }
 
@@ -1603,7 +1610,7 @@ QUnit.equiv = (function() {
 			function useStrictEquality( b, a ) {
 				/*jshint eqeqeq:false */
 				if ( b instanceof a.constructor || a instanceof b.constructor ) {
-					// to catch short annotaion VS 'new' annotation of a
+					// to catch short annotation VS 'new' annotation of a
 					// declaration
 					// e.g. var i = 1;
 					// var j = new Number(1);
@@ -1632,7 +1639,7 @@ QUnit.equiv = (function() {
 					return QUnit.objectType( b ) === "regexp" &&
 						// the regex itself
 						a.source === b.source &&
-						// and its modifers
+						// and its modifiers
 						a.global === b.global &&
 						// (gmi) ...
 						a.ignoreCase === b.ignoreCase &&
@@ -1905,7 +1912,7 @@ QUnit.jsDump = (function() {
 				error: function(error) {
 					return "Error(\"" + error.message + "\")";
 				},
-				unknown: "[未知]",
+				unknown: "[Unknown]",
 				"null": "null",
 				"undefined": "undefined",
 				"function": function( fn ) {
@@ -2170,7 +2177,7 @@ QUnit.diff = (function() {
 	};
 }());
 
-// for CommonJS enviroments, export everything
+// for CommonJS environments, export everything
 if ( typeof exports !== "undefined" ) {
 	extend( exports, QUnit );
 }

@@ -10,6 +10,7 @@ var log = require("npmlog")
   , isRoot = process.getuid && myUID === 0
   , constants = require("constants")
   , uidNumber = require("uid-number")
+  , once = require("once")
 
 function exec (cmd, args, env, takeOver, cwd, uid, gid, cb) {
   if (typeof cb !== "function") cb = gid, gid = null
@@ -45,13 +46,15 @@ function exec (cmd, args, env, takeOver, cwd, uid, gid, cb) {
   var stdout = ""
     , stderr = ""
     , cp = spawn(cmd, args, env, takeOver, cwd, uid, gid)
+  cb = once(cb)
+  cp.on("error", cb)
   cp.stdout && cp.stdout.on("data", function (chunk) {
     if (chunk) stdout += chunk
   })
   cp.stderr && cp.stderr.on("data", function (chunk) {
     if (chunk) stderr += chunk
   })
-  cp.on("exit", function (code) {
+  cp.on("close", function (code) {
     var er = null
     if (code) er = new Error("`"+cmd
                             +(args.length ? " "
