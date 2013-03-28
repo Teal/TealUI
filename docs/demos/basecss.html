@@ -37,86 +37,42 @@
 
         <h2 class="demo">Common CSS(常用样式)</h2>
 
-        <dl class="demo">
-            <dt>色系
-            </dt>
-            <dd>默认: 正文 <a href="#">链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-hint</code>: <span class="x-hint">提示</span> <a href="#" class="x-hint">提示链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-highlight</code>: <span class="x-highlight">强调</span> <a href="#" class="x-highlight">重要链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-success</code>: <span class="x-success">成功</span> <a href="#" class="x-success">成功链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-warning</code>: <span class="x-warning">警告</span> <a href="#" class="x-warning">警告链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-error</code>: <span class="x-error">失败</span> <a href="#" class="x-error">失败链接</a>
-            </dd>
-            <dd>
-                <code class="demo">x-info</code>: <span class="x-info">信息</span> <a href="#" class="x-info">信息链接</a>
-            </dd>
-            <dt>位置
-            </dt>
-            <dd>
-                <code class="demo">x-left</code>: 左浮动
-            </dd>
-            <dd>
-                <code class="demo">x-center</code>: 居中
-            </dd>
-            <dd>
-                <code class="demo">x-right</code>: 右浮动
-            </dd>
-            <dd>
-                <code class="demo">x-middle</code>: 文字垂直居中
-            </dd>
-            <dd>
-                <code class="demo">x-clear</code>: 清除浮动
-            </dd>
-            <dt>显示
-            </dt>
-            <dd>
-                <code class="demo">x-inline</code>: 内联
-            </dd>
-            <dd>
-                <code class="demo">x-block</code>: 块
-            </dd>
-            <dd>
-                <code class="demo">x-inline-block</code>: 内联块
-            </dd>
-            <dd>
-                <code class="demo">x-hide</code>: 隐藏元素（display:none)
-            </dd>
-            <dt>定位
-            </dt>
-            <dd>
-                <code class="demo">x-relative</code>: 相对定位
-            </dd>
-            <dd>
-                <code class="demo">x-absolute</code>: 绝对定位
-            </dd>
-            <dt>杂项
-            </dt>
-            <dd>
-                <code class="demo">x-plain</code>: 重置 margin=0, padding=0
-            </dd>
-            <dd>
-                <code class="demo">x-row</code>: margin-bottom=10px
-            </dd>
-            <dd>
-                <code class="demo">x-blank</code>: 空行（10px高）<div class="x-blank"></div>
-            </dd>
-            <dd>
-                <code class="demo">x-break-word</code>: 强制文本换行，避免长单词不换行
-            </dd>
-            <dd>
-                <code class="demo">x-debug</code>: <span class="x-debug">调试突出</span>
-            </dd>
-        </dl>
+        <table class="demo">
+            <tr>
+                <th>色系</th>
+                <td><span class="x-hint">x-hint(提示)</span></td>
+                <td><span class="x-highlight">x-highlight(强调)</span></td>
+                <td><span class="x-success">x-success(成功)</span></td>
+                <td><span class="x-warning">x-warning(警告)</span></td>
+                <td><span class="x-error">x-error(失败)</span></td>
+                <td><span class="x-info">x-info(信息)</span></td>
+            </tr>
+            <tr>
+                <th>位置</th>
+                <td><span>x-left(左浮动)</span></td>
+                <td><span>x-right(右浮动)</span></td>
+                <td><span>x-center(居中)</span></td>
+                <td><span>x-middle(垂直)</span></td>
+                <td><span>x-relative(相对)</span></td>
+                <td><span>x-absolute(绝对)</span></td>
+            </tr>
+            <tr>
+                <th>显示</th>
+                <td><span>x-inline(内联)</span></td>
+                <td><span>x-block(块)</span></td>
+                <td><span>x-hide(隐藏)</span></td>
+                <td colspan="2"><span>x-inline-block(内联块)</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>杂项</th>
+                <td><span>x-plain(重置)</span></td>
+                <td><span>x-row(行间距)</span></td>
+                <td><span>x-blank(空行)</span></td>
+                <td><span class="x-debug">x-debug(突出)</span></td>
+                <td colspan="2"><span>x-break-word(强制断词)</span></td>
+            </tr>
+        </table>
 
     </article>
 
@@ -126,12 +82,10 @@
 
         <h2 class="demo">网页基础布局</h2>
 
-        <h3 class="demo">统一 980px 宽居中</h3>
-
-        <p class="demo">使用 <code class="demo">x-container</code> 即可设置容器宽度为 980px 。</p>
+        <h3 class="demo">980px 宽居中</h3>
 
         <script class="demo" type="code/html">
-            <div id="body" class="x-container">
+            <div id="body" class="__x-container__">
                 ...
             </div>
         </script>
@@ -200,9 +154,9 @@
 
     <article class="demo">
 
-        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/heading.html" target="_blank">heading</a></nav>
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/heading.html" target="_blank">heading</a>,<a href="../../examples/ui/typography/paragraph.html" target="_blank">paragraph</a></nav>
 
-        <h2 class="demo">H1-H6（标题）</h2>
+        <h2 class="demo">H1-H6,P（标题、段落）</h2>
 
         <aside class="demo demo-container">
             <h1>标题1 Heading <small>备注 Hint</small></h1>
@@ -211,18 +165,6 @@
             <h4>标题4 Heading <small>备注 Hint</small></h4>
             <h5>标题5 Heading <small>备注 Hint</small></h5>
             <h6>标题6 Heading <small>备注 Hint</small></h6>
-        </aside>
-
-    </article>
-
-    <article class="demo">
-
-        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/paragraph.html" target="_blank">paragraph</a></nav>
-
-        <h2 class="demo">P（段落）</h2>
-
-        <aside class="demo demo-container">
-            <h3>标题 Heading</h3>
             <p>正文 content</p>
         </aside>
 
@@ -230,16 +172,20 @@
 
     <article class="demo">
 
-        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/blockquote.html" target="_blank">blockquote</a></nav>
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/thumbnail.html" target="_blank">thumbnail</a>,<a href="../../examples/ui/display/videoplaceholder.html" target="_blank">videoplaceholder</a></nav>
 
-        <h2 class="demo">Blockquote（引用）</h2>
+        <h2 class="demo">图片</h2>
 
-        <aside class="demo demo-container">
+        <aside class="demo">
 
-            <blockquote>
-                <p>引用 blockquote </p>
-                <small>引用<cite title="作者">作者</cite></small>
-            </blockquote>
+            <a class="x-thumbnail" href="#">
+                <img alt="" src="../assets/images/100x100.gif">
+            </a>
+
+            <a class="x-videoplaceholder" href="#">
+                <img alt="" src="../assets/images/100x100.gif">
+                <span class="x-videoplaceholder-icon"></span>
+            </a>
 
         </aside>
 
@@ -250,44 +196,67 @@
         <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/list.html" target="_blank">list</a>,<a href="../../examples/ui/typography/dl.html" target="_blank">dl</a></nav>
 
         <h2 class="demo">列表</h2>
+        
+        <div class="demo-clear">
 
-        <h3 class="demo">无序列表</h3>
+            <div style="width: 32%;margin-right:10px;float: left;">
 
-        <aside class="demo demo-container">
+                <h3 class="demo">无序列表</h3>
 
-            <ul class="x-list">
-                <li>列表项</li>
-                <li>列表项</li>
-            </ul>
+                <aside class="demo demo-container">
 
-        </aside>
+                    <ul class="x-list">
+                        <li>列表项1</li>
+                        <li>列表项2</li>
+                        <li>列表项3</li>
+                        <li>列表项4</li>
+                        <li>列表项5</li>
+                        <li>列表项6</li>
+                    </ul>
 
-        <h3 class="demo">有序列表</h3>
+                </aside>
 
-        <aside class="demo demo-container">
+            </div>
 
-            <ol>
-                <li>列表项1</li>
-                <li>列表项2</li>
-            </ol>
+            <div style="width: 32%;margin-right:10px;float: left;">
 
-        </aside>
+                <h3 class="demo">有序列表</h3>
 
-        <h3 class="demo">定义列表</h3>
+                <aside class="demo demo-container">
 
-        <aside class="demo demo-container">
+                    <ol>
+                        <li>列表项1</li>
+                        <li>列表项2</li>
+                        <li>列表项3</li>
+                        <li>列表项4</li>
+                        <li>列表项5</li>
+                        <li>列表项6</li>
+                    </ol>
 
-            <dl>
-                <dt>标题</dt>
-                <dd>内容</dd>
-                <dd>内容</dd>
-                <dt>标题</dt>
-                <dd>内容</dd>
-                <dd>内容</dd>
-            </dl>
+                </aside>
 
-        </aside>
+            </div>
+        
+            <div style="width: 31%;float: left;">
 
+                <h3 class="demo">定义列表</h3>
+
+                <aside class="demo demo-container">
+
+                    <dl>
+                        <dt>标题</dt>
+                        <dd>内容</dd>
+                        <dd>内容</dd>
+                        <dt>标题</dt>
+                        <dd>内容</dd>
+                    </dl>
+
+                </aside>
+            
+            </div>
+        
+        </div>
+        
     </article>
 
     <article class="demo">
@@ -391,27 +360,6 @@
 
     <article class="demo">
 
-        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/thumbnail.html" target="_blank">thumbnail</a>,<a href="../../examples/ui/display/videoplaceholder.html" target="_blank">videoplaceholder</a></nav>
-
-        <h2 class="demo">图片</h2>
-
-        <aside class="demo">
-
-            <a class="x-thumbnail" href="#">
-                <img alt="" src="../assets/images/100x100.gif">
-            </a>
-
-            <a class="x-videoplaceholder" href="#">
-                <img alt="" src="../assets/images/100x100.gif">
-                <span class="x-videoplaceholder-icon"></span>
-            </a>
-
-        </aside>
-
-    </article>
-
-    <article class="demo">
-
         <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/hr.html" target="_blank">hr</a>,<a href="../../examples/ui/display/line.html" target="_blank">line</a></nav>
 
         <h2 class="demo">水平线</h2>
@@ -423,6 +371,23 @@
             <hr class="x-line x-line-dotted">
 
             <hr class="x-line x-line-dashed">
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/blockquote.html" target="_blank">blockquote</a></nav>
+
+        <h2 class="demo">Blockquote（引用）</h2>
+
+        <aside class="demo demo-container">
+
+            <blockquote>
+                <p>引用 blockquote </p>
+                <small>引用<cite title="作者">作者</cite></small>
+            </blockquote>
+
         </aside>
 
     </article>

@@ -1,37 +1,45 @@
 ﻿
 var Demos = {
 
-    "CSS 样式库": {
+    css: {
 
-        url: "",
+        name: "CSS 样式库",
         
         sub: {
-            "基本结构": {
+            base: {
 
-                url: "",
+                name: "基本结构",
+
+                url: "basecss.html"
 
             }
         }
 
     },
 
-    "表单": {
+    form: {
+
+        name: "表单",
 
         sub: {
 
-            "表单": {
+            form: {
+                name: "表单",
 
+                url: "_test.html"
             },
 
-            "文本框": {
-
+            textbox: {
+                name: "文本框"
             }
 
         }
 
     },
 
-    "按钮": {
+    button: {
+
+        name: "按钮",
         
         sub: {
 

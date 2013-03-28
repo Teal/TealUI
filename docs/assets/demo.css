@@ -455,3 +455,8 @@ html .demo-info {
 a.demo-toolbar-dropdown-menu-hover {
   background-color: #EBEBEB;
 }
+
+
+.demo-toolbar {
+    margin-top: 10px;
+}

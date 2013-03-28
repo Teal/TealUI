@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/common.css">
     <script type="text/javascript" src="../../build/jplus-all.js"></script>
     <script type="text/javascript" src="../assets/common.js"></script>
+    <script type="text/javascript" src="index.js"></script>
 </head>
 <body>
     <div id="header">
@@ -29,9 +30,9 @@
 
         <div id="navbar" class="x-clear">
             <ul class="container">
-                <li class="selected"><a href="#" title="首页">首页</a></li>
+                <li><a href="#" title="首页">首页</a></li>
                 <li><a href="#" title="如何开始">如何开始</a></li>
-                <li><a href="#" title="组件演示">演示</a></li>
+                <li class="selected"><a href="#" title="组件演示">演示</a></li>
                 <li><a href="#" title="API 文档">文档</a></li>
             </ul>
         </div>
@@ -42,14 +43,18 @@
 
             <h2>示例列表</h2>
 
+            <!--<ul id="menu">
+                <li>正在加载列表...</li>
+            </ul>-->
+
             <ul id="menu">
                 <li>
-                    <a href="#">
+                    <a href="#" data-path="">
                         <span class="tree-span">✚</span><span><i class="x-icon icon-folder"></i>弹窗 <small class="x-hint">AAA</small></span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="tree-selected">
+                    <a href="#" class="tree-selected" data-path="1">
                         <span class="tree-span">━</span><span><i class="x-icon icon-folder"></i>表单</span>
                     </a>
                     <ul>
@@ -71,13 +76,17 @@
 
         <div id="main">
 
-            <nav class="x-right"><a target="_blank" href="http://localhost:8021/docs/demos/basecss.html">❒ 在新窗口打开</a></nav>
+            <nav class="x-right"><a target="_blank" href="http://localhost:8021/docs/demos/basecss.html" id="opennew">❒ 在新窗口打开</a></nav>
 
-            <div id="breadcrumb"><a href="/">Home</a> » <a href="/api">API Reference</a> » <span>gdfd</span></div>
-            
-            <iframe frameborder="0" src="basecss.html" style="width:100%;height: 600px;" onload="UI.resetIFrame(this)"></iframe>
+            <div id="breadcrumb"></div>
+
+            <iframe id="contentiframe" frameborder="0" style="width: 100%; height: 600px;" onload="UI.resetIFrame(this)"></iframe>
 
         </div>
+
+        <script>
+            UI.initMenu(Demos, '<a href="../index.html">首页</a> » <a href="index.html">演示</a> » ', 'css/base');
+        </script>
 
     </div>
     <div id="footer">

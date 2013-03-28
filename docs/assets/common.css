@@ -125,7 +125,7 @@
     background-image: linear-gradient(center bottom, #3A8ACD, #69B1E0);
     background-color: #3A8ACD;
     color: white;
-    font-size: 14px;
+    /*font-size: 14px;*/
     text-shadow: 0 0 3px #333333
 }
 
@@ -144,10 +144,6 @@
     vertical-align: -5px;
     width: 19px;
     height: 18px;
-}
-
-#menu ul {
-    margin-left: 16px;
 }
 
 .icon-folder {

@@ -8,15 +8,16 @@
 
 	var hashchange = 'hashchange',
 		win = window,
-		getHash = location.getHash,
 		startListen;
 
-	location.getHash = function () {
-		var href = location.href,
-		i = href.indexOf("#");
+	function getHash() {
+	    var href = location.href,
+        i = href.indexOf("#");
 
-		return i >= 0 ? href.substr(i + 1) : '';
-	};
+	    return i >= 0 ? href.substr(i + 1) : '';
+	}
+
+	(!navigator.isFirefox && location.constructor ? location.constructor.prototype : location).getHash = gatHash;
 
 	/**
 	 * 当 hashchange 事件发生时，执行函数。
@@ -29,10 +30,10 @@
 			}
 
 			Dom.on(win, hashchange, function () {
-				fn(location.getHash());
+				fn(getHash());
 			});
 
-			fn(location.getHash());
+			fn(getHash());
 		} else {
 			Dom.trigger(win, hashchange);
 		}
