@@ -3,7 +3,7 @@
 //#include ui/form/textbox
 //#include ui/form/searchtextbox
 //#include ui/typography/heading
-//#define path apps/data/buildfiles/jplus-docs.js
+//#include ui/nav/scrolltotop
 //#define js ../../../docs/assets/jplus-docs.js
 //#define css ../../../docs/assets/jplus-docs.css
 //#define assets ../../../docs/assets/images

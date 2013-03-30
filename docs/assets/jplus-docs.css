@@ -1,5 +1,5 @@
 /*********************************************************
- * This file is created by a tool at 2013/3/28 22:23
+ * This file is created by a tool at 2013/3/29 09:35
  ********************************************************/
 
 
@@ -729,4 +729,33 @@ h3 small {
 h6,
 h4 small {
   font-size: 12px;
+}
+
+/*********************************************************
+ * ui/nav/scrolltotop.css
+ ********************************************************/
+html {
+  _text-overflow: ellipsis;
+}
+.x-scrolltotop {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  _position: absolute;
+  _top: expression(Dom.getScroll(document).y + Dom.getSize(document).y-65);
+  display: none;
+  overflow: hidden;
+  width: 51px;
+  height: 51px;
+  text-indent: -9999px;
+  background: url(images/ui/nav/scrolltotop.png) no-repeat left top;
+}
+.x-scrolltotop:hover {
+  background-position: 0 -51px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.x-scrolltotop:active,
+.x-scrolltotop:focus {
+  outline: none;
 }

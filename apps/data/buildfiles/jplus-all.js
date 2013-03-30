@@ -24,6 +24,8 @@
 //#include dom/popup
 //#include dom/hashchange
 //#include ui/suggest/suggest
+//#include ui/nav/scrolltotop
+//#include dom/jquery-style
 //#define js ../../../build/jplus-all.js
 //#define css ../../../build/jplus-all.css
 //#define assets ../../../build/images

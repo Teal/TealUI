@@ -1,5 +1,5 @@
 /*********************************************************
- * This file is created by a tool at 2013/3/23 14:10
+ * This file is created by a tool at 2013/3/30 09:33
  ********************************************************/
 
 //#included core/base.js
@@ -7,6 +7,7 @@
 //#included dom/base.js
 //#included dom/drag.js
 //#included dom/hashchange.js
+//#included dom/jquery-style.js
 //#included dom/keynav.js
 //#included dom/pin.js
 //#included dom/popup.js
@@ -33,6 +34,8 @@
 //#included ui/form/textbox.css
 //#included ui/layout/grid-fluid.css
 //#included ui/layout/grid.css
+//#included ui/nav/scrolltotop.css
+//#included ui/nav/scrolltotop.js
 //#included ui/part/icon.css
 //#included ui/suggest/dropdownmenu.js
 //#included ui/suggest/picker.css
@@ -48,9 +51,11 @@
 //#included ui/typography/ol.css
 //#included ui/typography/paragraph.css
 //#included utils/deferrable.js
+
 /*********************************************************
  * core/base.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  * @fileOverview 为浏览器环境扩展一些必要的方法。
  */
@@ -792,7 +797,8 @@ var JPlus = (function (undefined) {
 })();
 /*********************************************************
  * core/class.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  * @fileOverview 提供类的支持。
  */
@@ -1200,7 +1206,8 @@ var Class = (function () {
 })();
 /*********************************************************
  * dom/base.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  * @fileOverview 提供 DOM 操作的辅助函数。
  */
@@ -1666,10 +1673,12 @@ var Dom = (function () {
                     if (match = /^((?:[-\w\*]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
                         value = match[1].replace(rBackslash, "").toUpperCase();
                         selector = RegExp.rightContext;
+                    } else {
+                    	value = "*";
                     }
 
                     for (i = 0; elem = prevResult[i]; i++) {
-                        addElementsByTagName(elem, value || "*", result);
+                        addElementsByTagName(elem, value, result);
                     }
 
                 }
@@ -1721,74 +1730,78 @@ var Dom = (function () {
             var match, filterFn, value, code;
 
             // ‘#id’ ‘.className’ ‘:filter’ ‘[attr’
-            while (result.length && (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector))) {
-
-                code = match[0];
+            while (match = /^([#\.:]|\[\s*)((?:[-\w]|[^\x00-\xa0]|\\.)+)/.exec(selector)) {
 
                 selector = RegExp.rightContext;
+                
+                if(result.length) {
+	
+                	code = match[0];
 
-                filterFn = (Selector.filterFn || (Selector.filterFn = {}))[match[0]];
-
-                // 如果不存在指定过滤器的特定函数，则先编译一个。
-                if (!filterFn) {
-
-                    filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
-                    value = match[2].replace(rBackslash, "");
-
-                    switch (match[1]) {
-
-                        // ‘#id’
-                        case "#":
-                            filterFn += 'Dom.getAttr(e,"id")===v';
-                            break;
-
-                            // ‘.className’
-                        case ".":
-                            filterFn += 'Dom.hasClass(e,v)';
-                            break;
-
-                            // ‘:filter’
-                        case ":":
-
-                            filterFn += Selector.pseudos[value] || throwError(match[0]);
-
-                            // ‘selector:nth-child(2)’
-                            if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
-                                selector = RegExp.rightContext;
-                                value = match[3] || match[2] || match[1];
-                            }
-
-                            break;
-
-                            // ‘[attr’
-                        default:
-                            value = [value.toLowerCase()];
-
-                            // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
-                            if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
-                                selector = RegExp.rightContext;
-                                if (match[1]) {
-                                    value[1] = match[1];
-                                    value[2] = match[3] || match[4];
-                                    value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
-                                        return String.fromCharCode(parseInt(y, 16));
-                                    }).replace(rBackslash, "") : "";
-                                }
-                            }
-
-                            filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
-
-                    }
-
-                    filterFn += ';if(t)r[n++]=e;}r.splice(n);';
-
-                    Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
-
-                    filterFn.value = value;
-
+	                filterFn = (Selector.filterFn || (Selector.filterFn = {}))[code];
+	
+	                // 如果不存在指定过滤器的特定函数，则先编译一个。
+	                if (!filterFn) {
+	
+	                    filterFn = 'for(var n=0,i=0,e,t;e=r[i];i++){t=';
+	                    value = match[2].replace(rBackslash, "");
+	
+	                    switch (match[1]) {
+	
+	                        // ‘#id’
+	                        case "#":
+	                            filterFn += 'Dom.getAttr(e,"id")===v';
+	                            break;
+	
+	                            // ‘.className’
+	                        case ".":
+	                            filterFn += 'Dom.hasClass(e,v)';
+	                            break;
+	
+	                            // ‘:filter’
+	                        case ":":
+	
+	                            filterFn += Selector.pseudos[value] || throwError(match[0]);
+	
+	                            // ‘selector:nth-child(2)’
+	                            if (match = /^\(\s*("([^"]*)"|'([^']*)'|[^\(\)]*(\([^\(\)]*\))?)\s*\)/.exec(selector)) {
+	                                selector = RegExp.rightContext;
+	                                value = match[3] || match[2] || match[1];
+	                            }
+	
+	                            break;
+	
+	                            // ‘[attr’
+	                        default:
+	                            value = [value.toLowerCase()];
+	
+	                            // ‘selector[attr]’ ‘selector[attr=value]’ ‘selector[attr='value']’  ‘selector[attr="value"]’    ‘selector[attr_=value]’
+	                            if (match = /^\s*(?:(\S?=)\s*(?:(['"])(.*?)\2|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/.exec(selector)) {
+	                                selector = RegExp.rightContext;
+	                                if (match[1]) {
+	                                    value[1] = match[1];
+	                                    value[2] = match[3] || match[4];
+	                                    value[2] = value[2] ? value[2].replace(/\\([0-9a-fA-F]{2,2})/g, function (x, y) {
+	                                        return String.fromCharCode(parseInt(y, 16));
+	                                    }).replace(rBackslash, "") : "";
+	                                }
+	                            }
+	
+	                            filterFn += 'Dom.getAttr(e,v[0])' + (Selector.relative[value[1]] || throwError(code));
+	
+	                    }
+	
+	                    filterFn += ';if(t)r[n++]=e;}while(r.length>n)delete r[--r.length];';
+	
+	                    Selector.filterFn[code] = filterFn = new Function('r', 'v', filterFn);
+	
+	                    filterFn.value = value;
+	
+	                }
+	
+	                filterFn(result, filterFn.value);
+	                
                 }
-
-                filterFn(result, filterFn.value);
 
             }
 
@@ -2709,7 +2722,7 @@ var Dom = (function () {
 
 		    // 特殊样式保存在 styleHooks 。
 		    if (hook && hook.compute) {
-		        return hook.compute();
+		        return hook.compute(elem);
 		    }
 
 		    // currentStyle：IE的样式获取方法,runtimeStyle是获取运行时期的样式。
@@ -4280,8 +4293,8 @@ var Dom = (function () {
     Dom.empty = function (node) {
 
         // 删除全部节点。
-        while (node.lastChild) {
-            node.removeChild(node.lastChild);
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
         }
 
         // IE678 中, 删除 <select> 中的选中项。
@@ -4481,8 +4494,8 @@ var Dom = (function () {
         } else {
             elem = doc.documentElement;
             p = {
-                x: doc.scrollLeft,
-                y: doc.scrollTop
+                x: elem.scrollLeft,
+                y: elem.scrollTop
             };
         }
 
@@ -4886,7 +4899,8 @@ var Dom = (function () {
 var $ = $ || Dom.query, $$ = $$ || Dom.get;
 /*********************************************************
  * ui/core/base.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -5019,7 +5033,8 @@ var Control = Class({
 });
 /*********************************************************
  * ui/core/iinput.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -5100,7 +5115,8 @@ var IInput = {
 };
 /*********************************************************
  * dom/pin.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld 
  */
 
@@ -5258,7 +5274,8 @@ Dom.implement({
 
 /*********************************************************
  * utils/deferrable.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -5434,7 +5451,8 @@ var Deferrable = Class({
 });
 /*********************************************************
  * fx/base.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @fileOverview 提供底层的 特效算法支持。
  * @author xuld
  */
@@ -5650,7 +5668,8 @@ var Fx = (function() {
 })();
 /*********************************************************
  * fx/tween.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -5869,7 +5888,8 @@ Fx.defaultTweeners.push(Fx.createTweener({
 }));
 /*********************************************************
  * fx/animate.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -5882,7 +5902,7 @@ Fx.defaultTweeners.push(Fx.createTweener({
     },
 
         displayEffects = Fx.displayEffects = {
-            opacity: function () {
+            opacity: function (options, elem) {
                 return opacity0;
             }
         },
@@ -6160,6 +6180,11 @@ Fx.defaultTweeners.push(Fx.createTweener({
                         for (param in t) {
                             options.orignal[param] = elem.style[param];
                         }
+		                       
+		                // IE6-8 仅支持 filter 设置。 
+		            	if(navigator.isIE678 && ('opacity' in t)) {
+		            		options.orignal.filter = elem.style.filter;
+		            	}
 
                         // 因为当前是显示元素，因此将值为 0 的项修复为当前值。
                         for (param in t) {
@@ -6249,12 +6274,19 @@ Fx.defaultTweeners.push(Fx.createTweener({
 
                         // 获取指定特效实际用于展示的css字段。
                         options.params = params = Fx.displayEffects[args.effect](options, elem, false);
-
+						
                         // 保存原有的css值。
                         // 用于在show的时候可以正常恢复。
                         for (param in params) {
                             options.orignal[param] = elem.style[param];
                         }
+		                       
+		                // IE6-8 仅支持 filter 设置。 
+		            	if(navigator.isIE678 && ('opacity' in params)) {
+		            		delete options.orignal.opacity;
+		            		options.orignal.filter = elem.style.filter;
+		            	}
+
                     },
                     complete: function (isAbort, fx) {
 
@@ -6310,7 +6342,8 @@ Fx.defaultTweeners.push(Fx.createTweener({
 })();
 /*********************************************************
  * ui/core/idropdownowner.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -6538,7 +6571,8 @@ var IDropDownOwner = {
 
 };/*********************************************************
  * ui/suggest/picker.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author  xuld
  */
 
@@ -6710,7 +6744,8 @@ var Picker = Control.extend(IInput).implement(IDropDownOwner).implement({
 });
 /*********************************************************
  * ui/form/searchtextbox.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -6787,7 +6822,8 @@ var SearchTextBox = Picker.extend({
 
 /*********************************************************
  * dom/drag.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7080,7 +7116,8 @@ Dom.implement({
 
 /*********************************************************
  * dom/popup.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7239,7 +7276,8 @@ Dom.prototype.popup = function () {
 };
 /*********************************************************
  * dom/hashchange.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7249,15 +7287,16 @@ Dom.prototype.popup = function () {
 
 	var hashchange = 'hashchange',
 		win = window,
-		getHash = location.getHash,
 		startListen;
 
-	location.getHash = function () {
-		var href = location.href,
-		i = href.indexOf("#");
+	function getHash() {
+	    var href = location.href,
+        i = href.indexOf("#");
 
-		return i >= 0 ? href.substr(i + 1) : '';
-	};
+	    return i >= 0 ? href.substr(i + 1) : '';
+	}
+
+	(!navigator.isFirefox && location.constructor ? location.constructor.prototype : location).getHash = getHash;
 
 	/**
 	 * 当 hashchange 事件发生时，执行函数。
@@ -7270,10 +7309,10 @@ Dom.prototype.popup = function () {
 			}
 
 			Dom.on(win, hashchange, function () {
-				fn(location.getHash());
+				fn(getHash());
 			});
 
-			fn(location.getHash());
+			fn(getHash());
 		} else {
 			Dom.trigger(win, hashchange);
 		}
@@ -7281,133 +7320,136 @@ Dom.prototype.popup = function () {
 	
 	// 并不是所有浏览器都支持 hashchange 事件，
 	// 当浏览器不支持的时候，使用自定义的监视器，每隔50ms监听当前hash是否被修改。
-	if ('on' + hashchange in window && !(document.documentMode < 8)) return;
+	if (!('on' + hashchange in window) || document.documentMode < 8) {
 
-	var currentHash, 
-	
-		timer, 
-		
-		onChange = function() {
-			Dom.trigger(win, hashchange);
-		},
-		
-		poll = function() {
-			var newToken = getHash();
-	
-			if (currentHash !== newToken) {
-				currentHash = newToken;
-				onChange();
-			}
-			timer = setTimeout(poll, 50);
-	
-		},
-		
-		iframe,
-			
-		/**
-		 * Convert certain characters (&, <, >, and ") to their HTML character equivalents for literal display in web pages.
-		 * @param {String} value The string to encode
-		 * @return {String} The encoded text
-		 * @method
-		 */
-		htmlEncode = (function() {
-			var entities = {
-				'&': '&amp;',
-				'>': '&gt;',
-				'<': '&lt;',
-				'"': '&quot;'
-			};
-    
-			function match(match, capture){
-				return entities[capture];
-			}
-    
-			return function(value) {
-				return value ? value.replace(/[&><"]/g, match) : '';
-			};
-		})();
+	    var currentHash,
 
-	startListen = function () {
-		currentHash = getHash();
-		timer = setTimeout(poll, 50);
-	};
-		
-	// 如果是 IE6/7，使用 iframe 模拟成历史记录。
-	if (navigator.isIE67) {
+            timer,
 
-		// iframe: onChange 时，保存状态到 iframe 。
-		onChange = function () {
+            onChange = function () {
+                Dom.trigger(win, hashchange);
+            },
 
-			var hash = getHash();
+            poll = function () {
+                var newToken = getHash();
 
-			// 将历史记录存到 iframe 。
-			var html = "<html><body>" + htmlEncode(hash) + "</body></html>";
+                if (currentHash !== newToken) {
+                    currentHash = newToken;
+                    onChange();
+                }
+                timer = setTimeout(poll, 50);
 
-			try {
-				var doc = iframe.contentWindow.document;
-				doc.open();
-				doc.write(html);
-				doc.close();
-			} catch (e) { }
+            },
 
-			win.trigger(hashchange);
-		};
+            iframe,
 
-		// 初始化的时候，同时创建 iframe
-		startListen = function () {
-			if (!iframe) {
-				Dom.ready(function(){
-					iframe = Dom.parseNode('<iframe style="display: none" height="0" width="0" tabindex="-1" title="empty"/>');
-					Dom.on(iframe, 'load', function () {
+            /**
+             * Convert certain characters (&, <, >, and ") to their HTML character equivalents for literal display in web pages.
+             * @param {String} value The string to encode
+             * @return {String} The encoded text
+             * @method
+             */
+            htmlEncode = (function () {
+                var entities = {
+                    '&': '&amp;',
+                    '>': '&gt;',
+                    '<': '&lt;',
+                    '"': '&quot;'
+                };
 
-						Dom.un(iframe, 'load', arguments.callee);
-						
-						// 绑定当 iframe 内容被重写后处理。
-						Dom.on(iframe, "load", function () {
-							// iframe 的 load 载入有 2 个原因：
-							//	1. hashchange 重写 iframe
-							//	2. 用户点击后退按钮
-							
-							// 获取当前保存的 hash
-							var newHash = iframe.contentWindow.document.body.innerText,
-								oldHash = getHash();
-							
-							
-							// 如果是用户点击后退按钮导致的iframe load， 则 oldHash !== newHash
-							if (oldHash != newHash) {
-								
-								// 将当前的 hash 更新为旧的 newHash
-								location.hash = currentHash = newHash;
-								
-								// 手动触发 hashchange 事件。
-								Dom.trigger(win, hashchange);
-							}
-							
-						});
-						
-						// 首次执行，先保存状态。
-						currentHash = getHash();
-						poll();
-					});
-					
-					document.body.appendChild(iframe);
-					
-				});
-			} else {
-				
-				// 开始监听。
-				currentHash = getHash();
-				poll();
-			}
+                function match(match, capture) {
+                    return entities[capture];
+                }
 
-		};
-		
+                return function (value) {
+                    return value ? value.replace(/[&><"]/g, match) : '';
+                };
+            })();
+
+	    startListen = function () {
+	        currentHash = getHash();
+	        timer = setTimeout(poll, 50);
+	    };
+
+	    // 如果是 IE6/7，使用 iframe 模拟成历史记录。
+	    if (navigator.isIE67) {
+
+	        // iframe: onChange 时，保存状态到 iframe 。
+	        onChange = function () {
+
+	            var hash = getHash();
+
+	            // 将历史记录存到 iframe 。
+	            var html = "<html><body>" + htmlEncode(hash) + "</body></html>";
+
+	            try {
+	                var doc = iframe.contentWindow.document;
+	                doc.open();
+	                doc.write(html);
+	                doc.close();
+	            } catch (e) { }
+
+	            win.trigger(hashchange);
+	        };
+
+	        // 初始化的时候，同时创建 iframe
+	        startListen = function () {
+	            if (!iframe) {
+	                Dom.ready(function () {
+	                    iframe = Dom.parseNode('<iframe style="display: none" height="0" width="0" tabindex="-1" title="empty"/>');
+	                    Dom.on(iframe, 'load', function () {
+
+	                        Dom.un(iframe, 'load', arguments.callee);
+
+	                        // 绑定当 iframe 内容被重写后处理。
+	                        Dom.on(iframe, "load", function () {
+	                            // iframe 的 load 载入有 2 个原因：
+	                            //	1. hashchange 重写 iframe
+	                            //	2. 用户点击后退按钮
+
+	                            // 获取当前保存的 hash
+	                            var newHash = iframe.contentWindow.document.body.innerText,
+                                    oldHash = getHash();
+
+
+	                            // 如果是用户点击后退按钮导致的iframe load， 则 oldHash !== newHash
+	                            if (oldHash != newHash) {
+
+	                                // 将当前的 hash 更新为旧的 newHash
+	                                location.hash = currentHash = newHash;
+
+	                                // 手动触发 hashchange 事件。
+	                                Dom.trigger(win, hashchange);
+	                            }
+
+	                        });
+
+	                        // 首次执行，先保存状态。
+	                        currentHash = getHash();
+	                        poll();
+	                    });
+
+	                    document.body.appendChild(iframe);
+
+	                });
+	            } else {
+
+	                // 开始监听。
+	                currentHash = getHash();
+	                poll();
+	            }
+
+	        };
+
+	    }
+
 	}
 
 })();
 /*********************************************************
  * dom/keynav.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7479,7 +7521,8 @@ Dom.prototype.keyNav = function () {
 };
 /*********************************************************
  * ui/core/listcontrol.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author  xuld
  */
 
@@ -7700,7 +7743,8 @@ ListControl.alias = function (controlType, propertyName) {
 };
 /*********************************************************
  * ui/suggest/dropdownmenu.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7827,7 +7871,8 @@ var DropDownMenu = ListControl.extend({
 
 });/*********************************************************
  * ui/suggest/suggest.js
- ********************************************************//**
+ ********************************************************/
+/**
  * @author xuld
  */
 
@@ -7962,3 +8007,135 @@ var Suggest = Control.extend(IDropDownOwner).implement({
 	}
 
 });
+/*********************************************************
+ * ui/nav/scrolltotop.js
+ ********************************************************/
+/**
+ * @author xuld
+ */
+
+//#include fx/animate.js
+//#include ui/core/base.js
+
+var ScrollToTop = Control.extend({
+
+    tpl: '<a href="#" class="x-scrolltotop" title="返回顶部">返回顶部</a>',
+
+    showDuration: -1,
+
+    scrollDuration: -1,
+
+    minScroll: 130,
+
+    onClick: function (e) {
+    	e.preventDefault();
+    	Dom.animate(document, { scrollTop: 0 }, this.scrollDuration);
+    },
+
+    init: function (options) {
+        
+        Dom.on(document, 'scroll', function () {
+        	if (Dom.getScroll(document).y > this.minScroll) {
+        		Dom.show(this.elem, this.showDuration);
+            } else {
+        		Dom.hide(this.elem, this.showDuration);
+            }
+        }, this);
+        Dom.on(this.elem, 'click', this.onClick, this);
+		
+        Dom.render(this.elem);
+    }
+
+});
+/*********************************************************
+ * dom/jquery-style.js
+ ********************************************************/
+
+
+(function () {
+
+	var Dom = window.Dom,
+
+		dp = Dom.prototype;
+	
+	/**
+	 * ���� Dom ���󣬲���ÿ��Ԫ��ִ�� setter��
+	 */
+	dp.access = function (getter, setter, args, valueIndex, emptyGet) {
+
+		// �����������������������ԣ�����Ϊ��ȡ���ԡ�
+		if (args.length > valueIndex) {
+			for (var i = 0, len = this.length; i < len; i++) {
+				setter(this[i], args[0], args[1])
+			}
+			return this;
+		}
+
+		return this.length ? getter(this[0], args[0], args[1]) : emptyGet;
+	};
+
+	dp.check = function (fn, args) {
+		var ret = new this.constructor(), t;
+		for (var i = 0 ; i < this.length; i++) {
+			if (fn(this[i], args)) {
+				return true;
+			}
+		}
+		return false;
+	};
+
+	Object.map("on un trigger addClass removeClass toggleClass empty remove dispose", function (funcName) {
+		dp[funcName] = function () {
+			return this.iterate(Dom[funcName], arguments);
+		};
+	});
+
+	dp.style = function () {
+		return this.access(Dom.getStyle, Dom.setStyle, arguments, 1);
+	};
+
+	dp.attr = function () {
+		return this.access(Dom.getAttr, Dom.setAttr, arguments, 1);
+	};
+
+	Object.map('Text Html Size Width Height Offset Position Scroll', function (funcName) {
+		dp[funcName.toLowerCase()] = function () {
+			return this.access(Dom['get' + funcName], Dom['set' + funcName], arguments, 0);
+		};
+	});
+
+	Object.map('closest parent prev next child first last parents prevAll nextAll children offsetParent clone', function (funcName) {
+		dp[funcName] = function (filter) {
+			return this.map(Dom[funcName], filter);
+		};
+	});
+
+	dp.hasClass = function (filter) {
+		return this.check(Dom.hasClass, filter);
+	};
+
+	Object.map('append prepend after before', function (funcName) {
+		dp[funcName] = function (html) {
+
+			if (typeof html === 'string') {
+				this.iterate(Dom[funcName], arguments);
+			} else if (this.length) {
+
+				Dom[funcName](this[0], html);
+
+				for (var i = 1; i < this.length; i++) {
+					Dom[funcName](this[i], html instanceof Dom ? html.clone() : Dom.clone(html));
+				}
+
+			}
+
+			return this;
+		};
+	});
+
+	dp.appendTo = function (parent) {
+		Dom.query(parent).append(this);
+		return this;
+	};
+
+})();

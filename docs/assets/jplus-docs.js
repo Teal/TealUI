@@ -1,5 +1,5 @@
 /*********************************************************
- * This file is created by a tool at 2013/3/28 22:23
+ * This file is created by a tool at 2013/3/29 09:35
  ********************************************************/
 
 //#included core/base.js
@@ -19,6 +19,8 @@
 //#included ui/form/searchtextbox.css
 //#included ui/form/searchtextbox.js
 //#included ui/form/textbox.css
+//#included ui/nav/scrolltotop.css
+//#included ui/nav/scrolltotop.js
 //#included ui/suggest/picker.css
 //#included ui/suggest/picker.js
 //#included ui/typography/heading.css
@@ -6778,3 +6780,42 @@ var SearchTextBox = Picker.extend({
 
 
 
+/*********************************************************
+ * ui/nav/scrolltotop.js
+ ********************************************************//**
+ * @author xuld
+ */
+
+//#include fx/animate.js
+//#include ui/core/base.js
+
+var ScrollToTop = Control.extend({
+
+    tpl: '<a href="#" class="x-scrolltotop" title="返回顶部">返回顶部</a>',
+
+    showDuration: -1,
+
+    scrollDuration: -1,
+
+    minScroll: 130,
+
+    onClick: function (e) {
+    	e.preventDefault();
+    	Dom.animate(document, { scrollTop: 0 }, this.scrollDuration);
+    },
+
+    init: function (options) {
+        
+        Dom.on(document, 'scroll', function () {
+        	if (Dom.getScroll(document).y > this.minScroll) {
+        		Dom.show(this.elem, this.showDuration);
+            } else {
+        		Dom.hide(this.elem, this.showDuration);
+            }
+        }, this);
+        Dom.on(this.elem, 'click', this.onClick, this);
+		
+        Dom.render(this.elem);
+    }
+
+});

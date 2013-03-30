@@ -1,1 +1,0 @@
-/** * @author  xuld */include("ui/core/containercontrol.js");/** * 内容显示面板。 * @class Panel * @extends ContainerControl */var Panel = ContainerControl.extend({		/**	 * xtype	 * @type String	 */	xtype: 'panel'	});

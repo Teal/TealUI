@@ -1,1 +1,0 @@
-/** * @author  xuld */include("ui/form/textbox.css");include("ui/form/textbox.js");var TextArea = TextBox.extend({		xtype: 'textarea',		tpl: '<textarea class="x-textbox"></textarea>'	});

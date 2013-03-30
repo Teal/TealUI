@@ -148,16 +148,8 @@ var UI = {
         });
     }
 
-    //toggleMenu: function (path) {
-
-    //    // 获取实际的菜单项。
-    //    var menuItem = Dom.find('#menu a[data-path="' + path + '"]');
-
-    //    // 切换加减号。
-    //    Dom.first(menuItem).innerHTML = Dom.isHidden(Dom.next(menuItem)) ? "━" : "✚";
-
-    //    // 切换子菜单显示。
-    //    Dom.toggle(Dom.next(menuItem));
-    //}
-
 };
+
+Dom.ready(function () {
+    var scrollToTop = new ScrollToTop().renderTo();
+});

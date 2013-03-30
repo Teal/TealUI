@@ -1,12 +1,14 @@
 /*********************************************************
- * This file is created by a tool at 2013/3/23 14:10
+ * This file is created by a tool at 2013/3/30 09:33
  ********************************************************/
+
 
 
 
 /*********************************************************
  * ui/core/base.css
  ********************************************************/
+
 /**
  * J+ Library, 1.0
  * @copyright 2011-2013 J+ Team
@@ -127,6 +129,7 @@ a:focus {
 /*********************************************************
  * ui/core/common.css
  ********************************************************/
+
 html .x-left {
   float: left;
 }
@@ -223,6 +226,7 @@ html .x-row {
 /*********************************************************
  * ui/form/textbox.css
  ********************************************************/
+
 .x-textbox {
   font-family: "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
   font-size: 13px;
@@ -302,6 +306,7 @@ textarea.x-textbox {
 /*********************************************************
  * ui/form/searchtextbox.css
  ********************************************************/
+
 /**
  * @author 
  */
@@ -336,6 +341,7 @@ textarea.x-textbox {
 /*********************************************************
  * ui/button/button.css
  ********************************************************/
+
 .x-button {
   display: inline-block;
   *display: inline;
@@ -590,6 +596,7 @@ input.x-button-small {
 /*********************************************************
  * ui/button/menubutton.css
  ********************************************************/
+
 .x-menubutton-arrow {
   display: inline-block;
   vertical-align: middle;
@@ -629,6 +636,7 @@ input.x-button-small {
 /*********************************************************
  * ui/suggest/picker.css
  ********************************************************/
+
 .x-picker {
   position: relative;
   display: inline-block;
@@ -677,6 +685,7 @@ input.x-button-small {
 /*********************************************************
  * ui/typography/heading.css
  ********************************************************/
+
 h1,
 h2,
 h3,
@@ -734,6 +743,7 @@ h4 small {
 /*********************************************************
  * ui/part/icon.css
  ********************************************************/
+
 .x-icon {
   display: inline-block;
   width: 14px;
@@ -1183,6 +1193,7 @@ h4 small {
 /*********************************************************
  * ui/layout/grid-fluid.css
  ********************************************************/
+
 .x-grid-fluid .x-col {
   margin-left: 1.632653061%;
 }
@@ -1226,6 +1237,7 @@ h4 small {
 /*********************************************************
  * ui/layout/grid.css
  ********************************************************/
+
 .x-grid {
   margin-top: 10px;
   *zoom: 1;
@@ -1298,6 +1310,7 @@ h4 small {
 /*********************************************************
  * ui/typography/blockquote.css
  ********************************************************/
+
 blockquote {
   padding: 0 0 0 15px;
   margin: 18px 0;
@@ -1331,6 +1344,7 @@ blockquote.x-right small {
 /*********************************************************
  * ui/typography/code.css
  ********************************************************/
+
 code {
   padding: 0 4px;
   color: #1E347B;
@@ -1352,6 +1366,7 @@ pre code {
 /*********************************************************
  * ui/typography/dl.css
  ********************************************************/
+
 dl {
   margin-bottom: 18px;
 }
@@ -1366,6 +1381,7 @@ dd {
 /*********************************************************
  * ui/typography/fieldset.css
  ********************************************************/
+
 fieldset {
   padding: 0;
   margin: 0;
@@ -1390,6 +1406,7 @@ legend small {
 /*********************************************************
  * ui/typography/hr.css
  ********************************************************/
+
 hr {
   clear: both;
   float: none;
@@ -1406,6 +1423,7 @@ hr {
 /*********************************************************
  * ui/typography/misc.css
  ********************************************************/
+
 abbr {
   font-size: 90%;
   text-transform: uppercase;
@@ -1420,6 +1438,7 @@ cite {
 /*********************************************************
  * ui/typography/ol.css
  ********************************************************/
+
 ol {
   margin: 0 0 9px 25px;
   padding: 0;
@@ -1431,6 +1450,7 @@ ol ol {
 /*********************************************************
  * ui/typography/paragraph.css
  ********************************************************/
+
 p {
   margin: 10px 0;
 }
@@ -1441,6 +1461,7 @@ p small {
 /*********************************************************
  * ui/display/label.css
  ********************************************************/
+
 .x-label {
   display: inline-block;
   *display: inline;
@@ -1452,6 +1473,7 @@ p small {
 /*********************************************************
  * ui/display/line.css
  ********************************************************/
+
 @import url(../typography/hr.css);
 .x-line {
   border-color: #dddddd;
@@ -1466,6 +1488,7 @@ p small {
 /*********************************************************
  * ui/display/list.css
  ********************************************************/
+
 ul.x-list,
 .x-list ul {
   margin: 0 0 9px 25px;
@@ -1482,6 +1505,7 @@ li.x-list,
 /*********************************************************
  * ui/display/table.css
  ********************************************************/
+
 .x-table {
   maui-width: 100%;
   width: 100%;
@@ -1574,6 +1598,7 @@ li.x-list,
 /*********************************************************
  * ui/display/thumbnail.css
  ********************************************************/
+
 .x-thumbnail {
   display: inline-block;
   *display: inline;
@@ -1608,6 +1633,7 @@ a.x-thumbnail:hover {
 /*********************************************************
  * ui/display/videoplaceholder.css
  ********************************************************/
+
 .x-videoplaceholder {
   display: inline-block;
   *display: inline;
@@ -1663,6 +1689,7 @@ a.x-videoplaceholder:hover {
 /*********************************************************
  * ui/form/listbox.css
  ********************************************************/
+
 .x-listbox {
   display: inline-block;
   *display: inline;
@@ -1731,4 +1758,34 @@ a.x-videoplaceholder:hover {
 }
 .x-listbox-disabled .x-listbox-selected {
   background-color: #555555;
+}
+
+/*********************************************************
+ * ui/nav/scrolltotop.css
+ ********************************************************/
+
+html {
+  _text-overflow: ellipsis;
+}
+.x-scrolltotop {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  _position: absolute;
+  _top: expression(Dom.getScroll(document).y + Dom.getSize(document).y-65);
+  display: none;
+  overflow: hidden;
+  width: 51px;
+  height: 51px;
+  text-indent: -9999px;
+  background: url(images/ui/nav/scrolltotop.png) no-repeat left top;
+}
+.x-scrolltotop:hover {
+  background-position: 0 -51px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.x-scrolltotop:active,
+.x-scrolltotop:focus {
+  outline: none;
 }
