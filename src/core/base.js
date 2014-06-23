@@ -227,7 +227,8 @@ var JPlus = (function (undefined) {
 
 			// 遍历对象。
 			Object.each(iterable, dest ? function (value, key, array) {
-			    this[value] = fn(value, key, array);
+			    //this[value] = fn(value, key, array); 无法对dest进行正确的赋值
+			    this[key] = fn(value, key, array);
 			} : fn, dest);
 
 			// 返回目标。
