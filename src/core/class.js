@@ -32,7 +32,7 @@ var Class = (function () {
         /**
          * 增加一个事件监听者。
          * @param {String} eventName 事件名。
-         * @param {Function} eventHandler 监听函数。当事件被处罚时会执行此函数。
+         * @param {Function} eventHandler 监听函数。当事件被触发时会执行此函数。
          * @param {Object} scope=this *eventHandler* 执行时的作用域。
          * @return this
          * @example
