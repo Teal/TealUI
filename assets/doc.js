@@ -72,7 +72,7 @@ Doc.Configs = {
             path: 'demo',
             pageName: '组件',
             pageTitle: '组件列表',
-            pageDescription: 'TealUI 提供了 300 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。'
+            pageDescription: 'TealUI 提供了 200 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。'
         },
 
         /**

@@ -9,7 +9,7 @@
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  padding: 0.3em 1.25em;
+  padding: 4px 1.25em;
   background-color: #e6e6e6;
   border: 1px solid #e6e6e6;
   color: #212121;
@@ -63,13 +63,13 @@
   background-color: #429842;
   border-color: #429842;
 }
-.x-button-warn {
+.x-button-warning {
   color: #ffffff;
   background-color: #e9985e;
   border-color: #e9985e;
 }
-.x-button-warn:hover,
-.x-button-warn:focus {
+.x-button-warning:hover,
+.x-button-warning:focus {
   background-color: #e27628;
   border-color: #e27628;
 }
@@ -84,5 +84,5 @@
   border-color: #c62b26;
 }
 .x-button-small {
-  padding: 0 0.4em;
+  padding: 0 .4em;
 }
