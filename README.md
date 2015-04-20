@@ -1,6 +1,6 @@
 # TealUI 3.0 全新升级 ！
 
-TealUI 是一个完整的前端 UI 组件库。
+TealUI 是一个完整的前端界面组件库。
 
 * 无需设计：快速搭建漂亮页面；同时支持电脑和手机！
 
@@ -22,7 +22,7 @@ TealUI 完全免费和开源，不作限制。但不得基于本库开发新的 
 
 [访问项目主页](http://teal.github.com/TealUI)
 
-[下载整个项目](https://github.com/TealUI/TealUI/zipball/master)
+[下载整个项目](https://github.com/Teal/TealUI/zipball/master)
 
 #### Git
 

@@ -1392,7 +1392,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.Page = {
 
-        title: ' - TealUI | 更懂你的前端组件库',
+        title: ' - TealUI | 更懂你的前端界面组件库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <div id="doc_progress"></div>\
@@ -1434,7 +1434,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <a href="{basePath}{folder_docs}/about/{index}">关于我们</a> |\
                     <a href="{basePath}{folder_docs}/about/joinus.html">加入我们</a> |\
                     <a href="{basePath}{folder_docs}/about/license.html">开源协议</a> |\
-                    <a href="https://github.com/TealUI/TealUI/issues/new" target="_blank">问题反馈</a>\
+                    <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a>\
                 </div>\
                 &copy; 2011-2015 TealUI Team. All Rights Reserved.',
 

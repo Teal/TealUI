@@ -92,7 +92,7 @@ Base.extend = function (members) {
  * });
  * </pre>
  */
-Base.prototype.on = function (eventName, /*Function*/eventListener) {
+Base.prototype.on = function (eventName, eventListener) {
 
     var me = this,
 
@@ -184,7 +184,7 @@ Base.prototype.trigger = function (eventName, eventArgs) {
  * 
  * </pre>
  */
-Base.prototype.off = function (eventName, /*Function?*/eventListener) {
+Base.prototype.off = function (eventName, eventListener) {
 
     // 获取本对象 本对象的数据内容 本事件值
     var me = this,

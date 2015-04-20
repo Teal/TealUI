@@ -1,13 +1,11 @@
 /**
- * @fileOverview 所有 UI 控件的基类。
+ * @fileOverview 所有控件的基类。
  */
 
-//#include ui/core/base.css
-//#include core/class.js
-//#include dom/base.js
+//#include ../utility/class.js
 
 /**
- * 表示一个 UI 控件。
+ * 表示一个控件。
  * @class
  * @abstract
  * 控件的生命周期：
@@ -132,3 +130,20 @@ var Control = Base.extend({
     }
 
 });
+
+/**
+ * 存储所有已注册的控件类型。
+ */
+Control.types = {};
+
+/**
+ * 重定义控件的继承方式，以方便捕获所有已定义的组件类型。
+ */
+Control.extend = function (members) {
+    var controlClass = Base.extend.apply(this, arguments);
+    var type = controlClass.prototype.type;
+    if (type) {
+        Control.types[type] = controlClass;
+    }
+    return controlClass;
+};
