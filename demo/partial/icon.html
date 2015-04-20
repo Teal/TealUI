@@ -41,7 +41,7 @@
         document.write('<li><i class="x-icon">　</i>empty:<code>&amp;#' + '　'.charCodeAt(0) + ';</code></li>');
 
         for (var i = 0; i < document.styleSheets.length; i++) {
-            if (/iconex/.test(document.styleSheets[i].href)) {
+            if (/iconex/i.test(document.styleSheets[i].href)) {
                 var iconex = document.styleSheets[i];
                 for (var j = 0; j < iconex.cssRules.length; j++) {
                     iconex.cssRules[j].cssText.replace(/\.x-icon-(.+)::?before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {

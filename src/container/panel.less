@@ -17,6 +17,7 @@
 
 .x-panel-header {
     border-bottom: 1px solid @border-color;
+
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
         font-weight: 700;
@@ -34,22 +35,10 @@
     box-sizing: border-box;
 }
 
-// 折叠效果
-.x-panel-collapsed {
-
-    .x-panel-header {
-        border-bottom: 0;
-    }
-    
-    .x-panel-body {
-        display: none;
-    }
-
-}
-
 // 不同颜色
 .x-panel-info {
     border-color: @info-border-color;
+
     .x-panel-header {
         background-color: @info-background-color;
         border-color: @info-border-color;
@@ -59,6 +48,7 @@
 
 .x-panel-success {
     border-color: @success-border-color;
+
     .x-panel-header {
         background-color: @success-background-color;
         border-color: @success-border-color;
@@ -68,6 +58,7 @@
 
 .x-panel-warning {
     border-color: @warning-border-color;
+
     .x-panel-header {
         background-color: @warning-background-color;
         border-color: @warning-border-color;
@@ -77,6 +68,7 @@
 
 .x-panel-error {
     border-color: @error-border-color;
+
     .x-panel-header {
         background-color: @error-background-color;
         border-color: @error-border-color;
@@ -84,14 +76,49 @@
     }
 }
 
+// 折叠效果
+.x-panel-collapsed {
 
+    .x-panel-header {
+        border-bottom: 0;
+    }
 
-// 折叠支持
+    .x-panel-body {
+        display: none;
+    }
+}
+
 .x-panel-expanded, .x-panel-collapsed {
     .x-panel-header {
         cursor: pointer;
     }
+
     .x-panel-header:before {
-        content: ''
+        content: "\f0d7";
+        font-family: 'IcoMoon';
+        float: left;
+        line-height: @base-line-height;
+        margin-right: @base-box-padding-h;
+        -moz-transition: -moz-transform .3s, height .3s, padding .3s;
+        -o-transition: -o-transform .3s, height .3s, padding .3s;
+        -webkit-transition: -webkit-transform .3s, height .3s, padding .3s;
+        transition: transform .3s, height .3s, padding .3s;
+        -moz-transform: rotate(0);
+        -ms-transform: rotate(0);
+        -o-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
     }
+}
+
+.x-panel-collapsed .x-panel-header:before, .x-panel-collapsing .x-panel-header:before {
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.x-panel-collapsing {
+    
 }

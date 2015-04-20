@@ -8,8 +8,14 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/container/panel.css" />
 
+    <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../src/utility/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+    <script type="text/javascript" src="../../src/container/panel.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于演示 -->
@@ -177,8 +183,11 @@
     <h2>折叠</h2>
     <aside class="doc-demo">
         <section class="x-panel x-panel-collapsed" x-control="panel">
-            <div class="x-panel-header">
+            <header class="x-panel-header">
                 <h5>我是被折叠起来的面板</h5>
+            </header>
+            <div class="x-panel-body">
+                我是面板内容
             </div>
         </section>
     </aside>
