@@ -222,7 +222,6 @@
 
     .doc-toolbar a, .doc-toolbar a:hover {
         color: #333;
-        margin-left: 1em;
     }
 
 /* 示例专用 */
@@ -646,6 +645,14 @@ small.doc-list-hide, .doc-toolbar-module {
 
 .doc-list-todo a{
     color: #AAA!important;
+}
+
+.doc-toolbar-module input {
+    vertical-align: -2px;
+}
+
+.doc-toolbar-module a{
+    margin-left: 1em;
 }
 
 #doc_pager {

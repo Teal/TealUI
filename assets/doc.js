@@ -1396,14 +1396,14 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <div id="doc_progress"></div>\
-                    <a href="{basePath}index.html" id="doc_logo" class="doc-left">TealUI <sup>{version}</sup></a>\
+                    <a href="{basePath}{index}" id="doc_logo" class="doc-left">TealUI <sup>{version}</sup></a>\
                     <span id="doc_navbar_trigger" class="doc-right" onclick="this.classList.toggle(\'doc-trigger-actived\')" ontouchstart="this.onclick(); return false;">≡</span>\
                     <ul id="doc_navbar">\
-                        <li{folder_actived_docs}><a href="{basePath}{folder_docs}/index.html">开始使用</a></li>\
-                        <li{folder_actived_demos}><a href="{basePath}{folder_demos}/index.html">文档和演示</a></li>\
-                        <li{folder_actived_tools_customize}><a href="{basePath}{folder_tools}/customize/index.html">下载和定制</a></li>\
-                        <li{folder_actived_tools_devtools}><a href="{basePath}{folder_tools}/devtools/index.html">开发者工具</a></li>\
-                        <li class="doc-right"><a href="v2/" target="_blank">历史版本</a></li>\
+                        <li{folder_actived_docs}><a href="{basePath}{folder_docs}/{index}">开始使用</a></li>\
+                        <li{folder_actived_demos}><a href="{basePath}{folder_demos}/{index}">文档和演示</a></li>\
+                        <li{folder_actived_tools_customize}><a href="{basePath}{folder_tools}/customize/{index}">下载和定制</a></li>\
+                        <li{folder_actived_tools_devtools}><a href="{basePath}{folder_tools}/devTools/{index}">开发者工具</a></li>\
+                        <li class="doc-right"><a href="http://jplusui.github.com/" target="_blank">历史版本</a></li>\
                     </ul>\
                 </nav>\
                 <header id="doc_header" class="doc-container doc-section">\
@@ -1431,7 +1431,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 <h1>{title} <small>{path}</small></h1>',
 
         footer: '<div>\
-                    <a href="{basePath}{folder_docs}/about/index.html">关于我们</a> |\
+                    <a href="{basePath}{folder_docs}/about/{index}">关于我们</a> |\
                     <a href="{basePath}{folder_docs}/about/joinus.html">加入我们</a> |\
                     <a href="{basePath}{folder_docs}/about/license.html">开源协议</a> |\
                     <a href="https://github.com/TealUI/TealUI/issues/new" target="_blank">问题反馈</a>\
@@ -1665,7 +1665,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     path: Doc.path.replace(/\..*$/, ""),
                     newWindowUrl: location.href + (location.search ? '&' : '?') + 'frame=none',
                     listsPath: Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js',
-                    docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : ''
+                    docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '',
+                    index: location.protocol === 'file:' ? 'index.html' : ''
                 };
 
                 // 更新导航条高亮。
@@ -1693,8 +1694,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         div.className = 'ds-thread';
                         document.body.appendChild(div);
 
-                        window.duoshuoQuery = { short_name: "TealUI" };
-                        Doc.Dom.loadScript('http://static.duoshuo.com/embed.js');
+                        window.duoshuoQuery = { short_name: "teal" };
+                        Doc.Dom.loadScript('//static.duoshuo.com/embed.js');
                     }
 
                     // 插入底部。
