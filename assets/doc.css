@@ -693,6 +693,9 @@ small.doc-list-hide, .doc-toolbar-module {
 
 a#doc_pager_up {
     font-size: 18px;
+    font-weight: bold;
+    line-height: 34px;
+    padding-top: 6px;
 }
 
 .doc-pager-hide {

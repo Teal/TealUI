@@ -1416,7 +1416,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
                 <nav id="doc_pager" class="doc-section">\
-                    <div><a accesskey="W" title="返回顶部" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">⇧</a></div>\
+                    <div><a accesskey="W" title="返回顶部" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
                     <div>\
                         <a accesskey="A" title="上一页" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
                         <a accesskey="S" title="{pageName}列表" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
