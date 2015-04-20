@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>分享到</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/social/shareto.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/social/shareto.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <aside class="demo">
+
+            <div class="x-shareto">
+                <span>分享到:&nbsp;</span>
+                <a href="http://v.t.sina.com.cn/share/share.php?title={title}&url={url}" class="x-shareto-content x-shareto-sina" title="分享到新浪微博">新浪微博</a>&nbsp;
+			<a href="http://v.t.qq.com/share/share.php?title={title}&url={url}" class="x-shareto-content x-shareto-qqt" title="分享到腾讯微博">腾讯微博</a>&nbsp;
+			<a href="http://t.163.com/article/user/checkLogin.do?info={title}{url}&link={url}" class="x-shareto-content x-shareto-163" title="分享到网易微博">网易微博</a>&nbsp;
+			<a href="http://share.renren.com/share/buttonshare?title={title}{url}&link={url}" class="x-shareto-content x-shareto-renren" title="分享到人人网">人人网</a>&nbsp;
+			<a href="http://www.douban.com/recommend/?title={title}&url={url}" class="x-shareto-content x-shareto-douban" title="分享到豆瓣">豆瓣</a>
+            </div>
+        </aside>
+
+        <aside class="demo">
+
+            <div class="x-shareto x-shareto-plain">
+                <span>分享到:&nbsp;</span>
+                <a href="http://v.t.sina.com.cn/share/share.php?title={title}&url={url}" class="x-shareto-content x-shareto-sina" title="分享到新浪微博">新浪微博</a>&nbsp;
+			<a href="http://v.t.qq.com/share/share.php?title={title}&url={url}" class="x-shareto-content x-shareto-qqt" title="分享到腾讯微博">腾讯微博</a>&nbsp;
+			<a href="http://t.163.com/article/user/checkLogin.do?info={title}{url}&link={url}" class="x-shareto-content x-shareto-163" title="分享到网易微博">网易微博</a>&nbsp;
+			<a href="http://share.renren.com/share/buttonshare?title={title}{url}&link={url}" class="x-shareto-content x-shareto-renren" title="分享到人人网">人人网</a>&nbsp;
+			<a href="http://www.douban.com/recommend/?title={title}&url={url}" class="x-shareto-content x-shareto-douban" title="分享到豆瓣">豆瓣</a>
+            </div>
+
+        </aside>
+
+        <aside class="demo">
+            <script>
+                ShareTo.write('内容', '地址', '分享到:&nbsp;');
+            </script>
+        </aside>
+
+        <aside class="demo">
+
+            <script>
+                ShareTo.write('内容', '地址', '分享到:&nbsp;', true);
+            </script>
+        </aside>
+
+    </article>
+
+</body>
+</html>

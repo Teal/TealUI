@@ -1,0 +1,44 @@
+@import "../core/mixins.less";
+
+.x-arrow {
+    display: block;
+    position: absolute;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    height: 0;
+    width: 0;
+    font: 0;
+    border: 10px solid transparent;
+}
+
+.x-arrow-top, .x-arrow-bottom {
+    left: 50%;
+    margin-left: -10px;
+}
+
+.x-arrow-top {
+    border-bottom-color: inherit;
+    top: -20px;
+}
+
+.x-arrow-bottom {
+    border-top-color: inherit;
+    bottom: -20px;
+}
+
+.x-arrow-left, .x-arrow-right {
+    top: 50%;
+    margin-top: -10px;
+}
+
+.x-arrow-left {
+    border-right-color: inherit;
+    left: -20px;
+}
+
+.x-arrow-right {
+    border-left-color: inherit;
+    right: -20px;
+}

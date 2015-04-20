@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="index=1, parent-title=小部件, parent-index=3, package=default, group=icon">
+    <title>图标</title>
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <!-- 添加此 class 可以实现通过 class 定义图标 -->
+    <link rel="stylesheet" type="text/css" href="../../src/partial/iconex.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <style>
+        #list li {
+            width: 240px;
+            float: left;
+            list-style: none;
+            line-height: 24px;
+        }
+    </style>
+
+    <blockquote>本组件提供图标。图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供，原理上使用字体实现。</blockquote>
+
+    <aside class="doc-demo">
+        <a href="###"><i class="x-icon">&#61446;</i>你好</a>
+        <a href="###"><i class="x-icon x-icon-spin">&#61712;</i>你好</a>
+    </aside>
+
+    <script>
+        document.write('<ul id="list" class="doc-clear">');
+        document.write('<li><i class="x-icon">　</i>empty:<code>&amp;#' + '　'.charCodeAt(0) + ';</code></li>');
+
+        for (var i = 0; i < document.styleSheets.length; i++) {
+            if (/iconex/.test(document.styleSheets[i].href)) {
+                var iconex = document.styleSheets[i];
+                for (var j = 0; j < iconex.cssRules.length; j++) {
+                    iconex.cssRules[j].cssText.replace(/\.x-icon-(.+)::?before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
+                        unicode = parseInt(unicode, 16) || unicode.charCodeAt(0);
+                        document.write('<li><i class="x-icon">' + String.fromCharCode(unicode) + '</i>' + name + ':<code>&amp;#' + unicode + ';</code></li>');
+                    });
+
+                }
+            }
+        }
+
+        document.write('</ul>');
+    </script>
+</body>
+</html>

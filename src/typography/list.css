@@ -1,0 +1,30 @@
+﻿.x-list > li {
+  border-top: 1px solid #e0e0e0;
+  padding: 0.3em 0;
+}
+.x-list > li:first-child {
+  border-top: 0;
+}
+.x-list-stripped > li:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.x-list-bordered {
+  border: 1px solid #e0e0e0;
+}
+.x-list-bordered > li {
+  padding: 0.3em 0.6em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.x-list-buttongroup li {
+  padding: 0;
+}
+.x-list-buttongroup li > a {
+  display: block;
+  padding: 0.3em 0.6em;
+}
+.x-list-buttongroup li > a:hover {
+  background-color: #f3f3f3;
+  text-decoration: none;
+}

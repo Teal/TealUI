@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>菜单按钮</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/menu/menu.css" />
+
+    <!-- 以下文件仅用于演示 -->
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+    <!-- 以上文件仅用于演示 -->
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/button/menubutton.js"></script>
+
+    <!-- 以下文件仅用于演示 -->
+    <script type="text/javascript" src="../../../src/ui/core/treecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/menu/menu.js"></script>
+    <!-- 以上文件仅用于演示 -->
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <p class="demo">MenuButton 使用 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 创建和管理下拉菜单。其默认的菜单类型是 <a href="../Menu/Menu.html">Menu</a>。另可参考类似的 <a href="../Form/ComboBox.html">ComboBox</a> 组件。</p>
+
+        <h2 class="demo">JavaScript 方式</h2>
+
+        <h3 class="demo">自动生成菜单</h3>
+
+        <p class="demo"><strong>必须手动引入 Controls.Menu.Menu 组件，才能自动生成菜单。</strong></p>
+
+        <script class="demo" type="text/html">
+            <button type="button" id="d1" class="x-button x-menubutton">菜单Menu<i class="x-menubutton-arrow"> </i></button>
+            < script>
+                var d1 = new MenuButton('#d1');
+                var newItem = d1.add('这是通过 add 添加的');
+                Dom.on(newItem.elem, 'click', function(){alert("菜单项点击了")});
+            < /script>
+        </script>
+
+        <h3 class="demo">HTML 方式定制菜单</h3>
+
+        <p class="demo">按钮后面的 <code class="demo">x-dropdown</code> 会被自动认为是当前按钮的子菜单。</p>
+
+        <script class="demo" type="text/html">
+            <button type="button" id="d2" class="x-button x-menubutton"><i class="x-icon"></i>菜单Menu<i class="x-menubutton-arrow"> </i></button>
+            <ul class="x-dropdown x-menu">
+                <li>预定义的第1个菜单
+                </li>
+                <li>
+                    <a href="javascript:;" class="x-menuitem" onclick="alert('点击了')">预定义的第2个菜单</a>
+                </li>
+                <li>
+                    <em>预定义的第3个菜单</em>
+                </li>
+            </ul>
+            < script>
+                var d2 = new MenuButton('#d2');
+            < /script>
+        </script>
+
+        <blockquote class="demo">相关 API 分别参考 <a href="../Menu/Menu.html">Menu</a> 和 <a href="Button.html">Button</a> 。</blockquote>
+
+    </article>
+
+</body>
+</html>

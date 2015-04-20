@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <title>MD5 加密</title>
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../../src/utilities/text/md5.js"></script>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+
+    <blockquote>纯 JavaScript 实现的 MD5 加密算法。</blockquote>
+    
+    <blockquote class="demo demo-info">如需更复杂的 MD5 加密算法请参考：<a href="md5ex.html">MD5 扩展</a></blockquote>
+    
+    <section>
+        <input type="text" id="input" style="width: 300px;" />
+        <input type="button" value="MD5 加密" onclick="document.getElementById('input').value = md5(document.getElementById('input').value)" />
+    </section>
+
+    <script>
+        Demo.writeExamples({
+            "MD5 加密": 'md5("abc")'
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>监听哈希值改变</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/hashchange.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <aside class="demo">
+
+            <a class="demo" href="#test1">test1</a>
+            <a class="demo" href="#test2">test2</a>
+            <a class="demo" href="#test3">test3</a>
+            <a class="demo" href="#test4">test4</a>
+
+        </aside>
+
+        <script class="demo">
+            Dom.hashchange(function (hash) {
+                if (hash) {
+                    alert('当前哈希值=' + hash);
+                }
+            });
+        </script>
+
+    </article>
+</body>
+</html>

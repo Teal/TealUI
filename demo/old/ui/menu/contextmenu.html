@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>右键菜单</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/menu/menu.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/treecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/menu/menu.js"></script>
+    <script type="text/javascript" src="../../../src/ui/menu/contextmenu.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <div id="d">右击我(id=d)</div>
+
+        <script class="demo">
+
+            // 创建一个新的菜单。
+            var a = new ContextMenu();
+
+            // 增加一个子菜单。
+            a.add("第一个菜单");
+            Dom.on(a.elem, "click", function () { alert("第一个菜单被点了") });
+
+            // 绑定右击事件。
+            a.setContextMenu(Dom.get('d'));
+
+
+        </script>
+
+        <script>
+
+            Demo.writeExamples({
+
+                "添加一个菜单": 'Dom.on(a.add("菜单").elem, "click", function(){ alert("我被点了") })',
+
+                "添加一个分隔线": 'a.add("-")',
+
+                "在第一个菜单中添加一个子菜单": 'a.item(0).add("子菜单")',
+
+                "删除一个菜单": 'a.removeAt(0)'
+
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

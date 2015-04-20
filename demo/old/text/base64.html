@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="module-info" content="status=complete">
+        <title>Base64 转 ASCII</title>
+		<script type="text/javascript" src="../../src/text/base64.js"></script>
+		
+		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
+	</head>
+	<body>
+
+        <article class="demo">
+            输入英文: 
+            <input type="text" class="demo" id="value" value="abcefg" />
+            <input type="button" value="Base64 编码" onclick=" document.getElementById('value').value = btoa(document.getElementById('value').value)" />
+            <input type="button" value="Base64 解码" onclick=" document.getElementById('value').value = atob(document.getElementById('value').value)" />
+
+            <script>
+                Demo.writeExamples({
+                    "btoa - Base64 编码": 'btoa("abcefg")',
+                    "atob - Base64 解码": 'atob("YWJjZWZn")'
+                });
+            </script>
+
+        </article>
+		
+	</body>
+</html>

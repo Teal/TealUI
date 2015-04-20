@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>搜索框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/searchtextbox.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/searchtextbox.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <h2 class="demo">JavaScript 方式创建</h2>
+
+        <p class="demo">SearchTextBox 完整的创建方法参考 <a href="Picker.html">Picker</a>。</p>
+
+        <section class="demo">
+
+            <h3 class="demo">最简单的方式: 使用 input</h3>
+
+            <script class="demo" type="text/html">
+
+                <input type="text" class="x-textbox x-searchtextbox" id="d1" />
+
+                < script>
+                    var d1 = new SearchTextBox('#d1');
+
+                    d1.on('search', function (text) {
+                        alert("准备搜索 " + text + " ...");
+                    });
+                < /script>
+
+            </script>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">完整 HTML </h3>
+
+            <aside class="demo">
+
+                <span class="x-picker" id="d2">
+                    <input type="text" class="x-textbox x-searchtextbox" />
+                    <button class="x-searchtextbox-search"></button>
+                </span>
+
+                <script>
+                    var d2 = new SearchTextBox('#d2');
+
+                    d2.on('search', function (text) {
+                        alert("准备搜索 " + text + " ...");
+                    });
+                </script>
+
+            </aside>
+
+        </section>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">HTML 方式创建</h2>
+
+        <aside class="demo">
+
+            <span class="x-picker" id="a">
+                <input type="text" class="x-textbox x-searchtextbox" placeholder="搜索组件..." />
+                <button class="x-searchtextbox-search"></button>
+            </span>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

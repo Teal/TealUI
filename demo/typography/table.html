@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="">
+    <title>表格</title>
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/table.css" />
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+
+    <blockquote>
+        表格样式主要用于展示常规表格。如果需要用于展示大量数据的表格，请参考 <a href="###">数据报表</a> 控件，此组件包含排序、筛选、行选择、相应式、分页等常用功能。
+    </blockquote>
+
+    <h3>默认风格</h3>
+    <aside class="doc-demo">
+        <table>
+            <tr>
+                <th>1</th>
+                <th>Td 1</th>
+                <th>Td 2</th>
+                <th>Td 3</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Td 1</td>
+                <td>Td 2</td>
+                <td>Td 3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Td 1</td>
+                <td>Td 2</td>
+                <td>Td 3</td>
+            </tr>
+        </table>
+    </aside>
+
+    <h3>展示型表格</h3>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <aside class="doc-demo">
+        <table class="x-table x-table-stripped">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    <th>Th 1</th>
+                    <th>Th 2</th>
+                    <th>Th 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="x-table-actived">
+                    <td>1</td>
+                    <td class="x-table-info">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-table-error x-center">Td 3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="x-table-info">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-table-error x-center">Td 3</td>
+                </tr>
+                <tr class="x-table-error">
+                    <td>2</td>
+                    <td class="x-table-info">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-center">Td 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </aside>
+
+    <h3>小表格</h3>
+    <aside class="doc-demo">
+        <table class="x-table x-table-small">
+            <tr>
+                <th>1</th>
+                <th>Td 1</th>
+                <th>Td 2</th>
+                <th>Td 3</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Td 1</td>
+                <td>Td 2</td>
+                <td>Td 3</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Td 1</td>
+                <td>Td 2</td>
+                <td>Td 3</td>
+            </tr>
+        </table>
+    </aside>
+</body>
+</html>

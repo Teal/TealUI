@@ -1,0 +1,18 @@
+﻿.x-article img {
+  margin: 0 auto 1em;
+  display: block;
+}
+.x-article img.x-left,
+.x-article img[align=left] {
+  margin-right: 1em;
+}
+.x-article img.x-right,
+.x-article img[align=right] {
+  margin-left: 1em;
+}
+.x-article figure {
+  text-align: center;
+}
+.x-article figure *:first-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>下拉列表</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/dropdownmenu.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/combobox.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownlist.js"></script>
+	
+	<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <h2 class="demo">创建下拉列表</h2>
+
+        <p class="demo">DropDownList 用于美化 <a href="../Form/Select.html">Select</a> 组件。另参考 <a href="../Button/MenuButton.html">MenuButton</a> 和 <a href="ComboBox.html">ComboBox</a> 。</p>
+
+        <h3 class="demo">最简单方式： 基于 &lt;select&gt; 创建</h3>
+
+        <p class="demo">让 DropDownList 成为 Select 的代理， Select 的 placeholder onclick onchange readonly disabled 属性会被复制。</p>
+
+        <script class="demo" type="text/html">
+            <select id="dropDownList1" name="dropDownList1">
+                <option value="1">选项1</option>
+                <option value="2" selected="selected">选项2</option>
+                <option value="1">选项3</option>
+                <option value="1">选项4</option>
+            </select>
+            < script>
+                var dropDownList1 = new DropDownList("#dropDownList1");
+            < /script>
+        </script>
+
+        <h3 class="demo">基于 &lt;a&gt; 创建</h3>
+        
+        <script class="demo" type="text/html">
+            <a href="javascript:;" class="x-button" id="dropDownList2">B</a>
+            
+            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
+            <ul class="x-dropdown x-listbox">
+                <li>预定义的选项</li>
+            </ul>
+            
+            < script>
+                var dropDownList2 = new DropDownList("#dropDownList2");
+            < /script>
+        </script>
+
+        <h3 class="demo">完整 HTML 创建</h3>
+        
+        <aside class="demo">
+            <span class="x-picker" id="dropDownList3">
+                <a href="javascript:;" class="x-button">C</a>
+                <button class="x-button"><span class="x-menubutton-arrow"></span></button>
+            </span>
+            
+            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
+            <ul class="x-dropdown x-listbox">
+                <li>预定义的选项</li>
+            </ul>
+            
+            <script>
+                var dropDownList3 = new DropDownList("#dropDownList3");
+            </script>
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">常用 API</h2>
+        
+        <section class="demo-sample">
+            
+            <select id="dropDownList" name="dropDownList">
+                <option value="1">选项1</option>
+                <option value="2" selected="selected">选项2</option>
+            </select>
+            
+            <script>
+                var dropDownList = new DropDownList("#dropDownList");
+            </script>
+                
+        </section>
+
+        <script>
+
+            Demo.writeExamples({
+                '内容相关': '-',
+                '动态增加一项': 'dropDownList.add("<em>这是通过 add 插入的</em>").setAttr("data-value", "VAL")',
+                '设置或获取当前选中的索引': 'dropDownList.setSelectedIndex(1);dropDownList.getSelectedIndex()',
+                '设置或获取选中的值(value), 这个值将被提交到后台': 'dropDownList.setText("2");dropDownList.getText()',
+                '调整宽度以适应下拉菜单的大小': 'dropDownList.resizeToFitItems()',
+                
+                '操作相关': '-',
+                '设置值更改后的回调': 'dropDownList.on("change", function(){alert("值被改变了 " + this.getText())})',
+                '设置被选中前的回调，并阻止选择事件': 'dropDownList.on("selecting", function(){alert("选择前执行"); return false; /* 阻止事件，这样就永远不会选中项了。*/})',
+                '手动展开下拉菜单': 'dropDownList.showDropDown()',
+                
+                '状态相关': '-',
+                '禁用': function(){
+                    dropDownList.setAttr("disabled", true); // 设置
+                    dropDownList.setAttr("disabled", false); // 取消
+                    dropDownList.getAttr("disabled"); // 获取目前状态
+                },
+                '只读': function(){
+                    dropDownList.setAttr("readOnly", true); // 设置
+                    dropDownList.setAttr("readOnly", false); // 取消
+                    dropDownList.getAttr("readOnly"); // 获取目前状态
+                }
+            });
+            
+        </script>
+        
+        <blockquote class="demo">其它 API 参考 <a href="Combobox.html">ComboBox</a> 组件。(DropDownList 继承于 ComboBox)</blockquote>
+
+        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 组件。(DropDownList 实现了 IDropDownOwner 接口)</blockquote>
+
+        <blockquote class="demo">DropDownList 使用 <a href="DropDownMenu.html">DropDownMenu</a> 组件作为下拉菜单。</blockquote>
+
+    </article>
+	
+</body>
+</html>

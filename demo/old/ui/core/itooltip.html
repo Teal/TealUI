@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#11">
+    <title>工具提示接口</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/itooltip.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">鼠标移上去几秒后显示的提醒框叫工具提示。</blockquote>
+
+        <aside class="demo">
+
+            <span id="target">鼠标移到我这里</span>
+
+            <div id="tooltip" style="position: absolute"></div>
+
+            <script>
+
+                // 初始化一个含有 IToolTip 功能的对象。
+                var toolTip = new Control(Dom.get('tooltip'));
+                Object.extend(toolTip, IToolTip);
+
+                // 设置工具框指定的目标节点及对应的显示文字。
+                toolTip.setToolTip(Dom.get('target'), '我是工具提示框');
+            </script>
+
+        </aside>
+    </article>
+
+
+</body>
+</html>

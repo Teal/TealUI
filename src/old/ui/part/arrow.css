@@ -1,0 +1,84 @@
+.x-arrow {
+  font-family: "SimSun";
+  overflow: hidden;
+  display: block;
+  font-size: 21px;
+  line-height: 20px;
+  position: absolute;
+  content: "\25c6";
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.x-arrow-fore {
+  position: absolute;
+}
+.x-arrow-back {
+  position: absolute;
+}
+.x-arrow-top,
+.x-arrow-bottom {
+  height: 10px;
+  width: 20px;
+}
+.x-arrow-top .x-arrow-fore {
+  top: 1px;
+  left: 0;
+}
+.x-arrow-top .x-arrow-back {
+  top: 2px;
+  left: 0;
+}
+.x-arrow-bottom .x-arrow-fore {
+  bottom: 0;
+  left: 0;
+}
+.x-arrow-bottom .x-arrow-back {
+  bottom: 1px;
+  left: 0;
+}
+.x-arrow-left,
+.x-arrow-right {
+  height: 20px;
+  width: 10px;
+}
+.x-arrow-left .x-arrow-fore {
+  top: 0;
+  left: 0;
+}
+.x-arrow-left .x-arrow-back {
+  top: 0;
+  left: 1px;
+}
+.x-arrow-right .x-arrow-fore {
+  top: 0;
+  right: 0;
+}
+.x-arrow-right .x-arrow-back {
+  top: 0;
+  right: 1px;
+}
+.x-arrow-bottom {
+  bottom: -10px;
+  left: 50%;
+  margin-left: -10px;
+}
+.x-arrow-top {
+  _font-size: 20px;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+}
+.x-arrow-left {
+  left: -10px;
+  top: 50%;
+  margin-top: -10px;
+}
+.x-arrow-right {
+  top: 50%;
+  margin-top: -10px;
+  right: -10px;
+}

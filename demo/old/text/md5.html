@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>MD5 加密</title>
+    <script type="text/javascript" src="../../src/text/md5.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <input type="text" value="" id="value" style="width: 300px;" />
+        <input type="button" value="MD5 加密" onclick=" document.getElementById('value').value = md5(document.getElementById('value').value)" />
+
+
+        <script>
+            Demo.writeExamples({
+                "MD5 加密": 'md5("abc")'
+            });
+        </script>
+    </article>
+</body>
+</html>

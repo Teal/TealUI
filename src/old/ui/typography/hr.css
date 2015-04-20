@@ -1,0 +1,12 @@
+hr {
+  clear: both;
+  float: none;
+  height: 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  display: block;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 12px 0;
+  *margin: 4px 0;
+}

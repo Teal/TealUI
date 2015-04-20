@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>IcoMoon 图标</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icomoon.css" />
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+    <style>
+			#list li {
+				width: 80px;
+				float: left;
+				list-style: none;	
+                line-height: 24px;
+			}
+
+            #list span {
+                margin-right: 4px;
+            }
+		</style>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">使用字体实现的图标，图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供。</blockquote>
+
+        <aside class="demo">
+
+            <span class="x-icomoon">1</span>
+
+            <span class="x-icomoon x-icomoon-social">1</span>
+
+            <span class="x-icomoon x-icomoon-large">1</span>
+
+            <span class="x-icomoon x-icomoon-larger">1</span>
+
+            <span class="x-icomoon x-icomoon-largest">1</span>
+
+        </aside>
+
+        <ul id="list" class="demo-clear">
+            <script>
+                for (var span = 33; span < 128; span++) {
+                    var value = String.fromCharCode(span);
+                    document.write('<li><span class="x-icomoon">' + value + '</span> ' + value + '</li>');
+                }
+            </script>
+
+            <script>
+                for (var span = 33; span < 128; span++) {
+                    var value = String.fromCharCode(span);
+                    document.write('<li><span class="x-icomoon x-icomoon-social">' + value + '</span> ' + value + '</li>');
+                }
+            </script>
+        </ul>
+
+    </article>
+</body>
+</html>

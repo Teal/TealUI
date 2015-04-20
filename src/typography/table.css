@@ -1,0 +1,33 @@
+﻿.x-table {
+  max-width: 100%;
+  width: 100%;
+}
+.x-table tbody tr:hover {
+  background-color: #f3f3f3;
+}
+.x-table-stripped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+.x-table-info {
+  background-color: rgba(59, 180, 242, 0.15) !important;
+  color: #049cdb;
+}
+.x-table-success {
+  background-color: rgba(94, 185, 94, 0.15) !important;
+  color: #5eb95e;
+}
+.x-table-warn {
+  background-color: rgba(243, 123, 29, 0.15) !important;
+  color: #e9985e;
+}
+.x-table-error {
+  background-color: rgba(221, 81, 76, 0.15) !important;
+  color: #dd514c;
+}
+.x-table-actived {
+  background-color: #ffd !important;
+}
+.x-table-small th,
+.x-table-small td {
+  padding: 2px 4px;
+}

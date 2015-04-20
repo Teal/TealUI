@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo">
+    <title>工具提示</title>
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/arrow.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/tip/tooltip.css" />
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/itooltip.js"></script>
+    <script type="text/javascript" src="../../src/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../src/tip/tooltip.js"></script>
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+    
+    <blockquote>工具提示也即 HTML 的 title 效果，可以在鼠标移上之后显示一些提示层。</blockquote>
+    
+    <h2>基本用法</h2>
+
+    <aside class="doc-demo">
+        <div style="display: inline-block">
+            鼠标移到我上面，然后稍等
+            <div class="x-tooltip" x-control="tooltip">我是工具提示</div>
+        </div>
+    </aside>
+
+    <h2>动态生成</h2>
+    <span id="toolTip_ct" style="display: inline-block">鼠标移到我上面，然后稍等</span>
+    <script>
+
+        var toolTip1 = new ToolTip().setToolTip('#toolTip_ct', 'ToolTip1');
+
+        var toolTip2 = new ToolTip().setArrow('left').setToolTip('#toolTip_ct', 'ToolTip2');
+
+        var toolTip3 = new ToolTip().setArrow('bottom').setToolTip('#toolTip_ct', 'ToolTip3');
+
+        var toolTip4 = new ToolTip().setArrow('right').setToolTip('#toolTip_ct', 'ToolTip4');
+
+        var toolTip5 = new ToolTip().setArrow('top').setToolTip('#toolTip_ct', 'ToolTip5');
+
+    </script>
+    </article>
+
+    <article class="demo demo-tooltip">
+
+        <h2>仅样式</h2>
+
+        <style>
+            .demo-tooltip .x-tooltip {
+                display: block;
+            }
+
+            .demo-tooltip aside.demo {
+                position: relative;
+                height: 29px;
+            }
+        </style>
+        <aside class="doc-demo">
+            <div class="x-tooltip">
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+        </aside>
+        <aside class="doc-demo">
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-top">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+        </aside>
+        <aside class="doc-demo">
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-left">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+        </aside>
+        <aside class="doc-demo">
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-right">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+        </aside>
+        <aside class="doc-demo">
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-bottom">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+        </aside>
+
+</body>
+</html>

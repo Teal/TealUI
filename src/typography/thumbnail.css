@@ -1,0 +1,12 @@
+﻿.x-thumbnail {
+  padding: 3px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+  -moz-transition: border-color 0.2s ease-in-out;
+  -o-transition: border-color 0.2s ease-in-out;
+  -webkit-transition: border-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
+}
+a:hover .x-thumbnail {
+  border-color: #095f8b;
+}

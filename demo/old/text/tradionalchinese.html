@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>中文简繁体转换</title>
+    <script type="text/javascript" src="../../src/text/tradionalchinese.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        输入中文: 
+        <input type="text" class="demo" id="value" value="中文简繁体转换" />
+        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = TradionalChinese.toTradionalChinese(document.getElementById('value').value)" />
+        <input type="button" value="转简体" onclick=" document.getElementById('value').value = TradionalChinese.toSimpleChinese(document.getElementById('value').value)" />
+
+        <script>
+            Demo.writeExamples({
+                "简体转繁体": 'TradionalChinese.toTradionalChinese("简")',
+                "繁体转简体": 'TradionalChinese.toSimpleChinese("簡")'
+            });
+        </script>
+
+        <h3 class="demo">实现原理</h3>
+
+        <p class="demo">在库文件中有一个繁简字数据表，函数会查询此表并返回对应繁体/简体。</p>
+    </article>
+</body>
+</html>

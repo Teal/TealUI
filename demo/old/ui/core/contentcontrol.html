@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#6" />
+    <title>内容组件基类</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">ContainerControl 是内容组件基类。内容组件本质上是一个没有标题的纯内容展示性组件。</blockquote>
+
+        <script class="demo" type="code/html">
+
+            <div class="x-control">
+                <span class="x-control-content">content</span>
+            </div>
+
+        </script>
+
+        <p class="demo">如上例，<code class="demo">x-control-content</code> 才是真正的存放内容的节点，这种结构统一使用 ContentControl 处理。</p>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">API</h2>
+
+        <section class="demo demo-sample">
+            <aside class="demo">
+                <div class="ui" id="contentcontrol">
+                    <span class="x-content">content</span>
+                </div>
+
+                <script>
+                    var contentControl = new ContentControl('#contentcontrol');
+                </script>
+            </aside>
+        </section>
+
+        <section class="demo demo-api">
+            <script>
+                Demo.writeExamples({
+                    '获取内容': 'contentControl.getContent()',
+                    '设置内容': 'contentControl.setContent("<em>这是使用 setContent 设置的</em>")'
+                });
+            </script>
+        </section>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">扩展 ContentControl</h2>
+
+        <p class="demo">
+            子类可以重写一个成员。具体如下：
+        </p>
+
+        <script class="demo" type="code/javascript">
+            var MyContainer = ContentControl.extend({
+                
+                // 获取当前容器用于存放内容的 Dom 对象。
+                content: function () {
+                    return this.dom.find('.' + this.cssClass + '-header');
+                }
+
+            });
+        </script>
+
+    </article>
+
+</body>
+</html>

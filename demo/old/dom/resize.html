@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>窗口大小改变事件</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/resize.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        改变窗口大小^-^
+		<script>
+
+		    Dom.resize(function (e) {
+		        trace('resized');
+		    });
+
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo" />
+    <title>表格数据控件</title>
+
+    <!-- 以下是本组件需要的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/dataView/dataGridView.css" />
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+    <script type="text/javascript" src="../../src/dataView/dataGridView.js"></script>
+
+</head>
+<body>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <blockquote>本组件提供了(什么功能)。</blockquote>
+
+    <aside class="doc-demo">
+        <table id="dataGridView1" class="x-table" x-control="dataGridView" x-pagecount="20">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </aside>
+
+    <script class="doc-demo">
+
+        var dataGridView = $('#dataGridView1').control();
+
+        dataGridView.on('sort', function (col) {
+
+        });
+
+        //var dataGridView = new DataGridView('#dataGridView1');
+
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>拖放</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/drag.js"></script>
+    <script type="text/javascript" src="../../../src/dom/drop.js"></script>
+
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <style>
+        #drag {
+            height: 90px;
+        }
+
+        .zone {
+            height: 60px;
+            padding: 10px;
+            border: 1px #C6D880 solid;
+            margin-bottom: 30px;
+        }
+
+        .demo-box-small {
+            cursor: move;
+            border: 1px dotted transparent;
+        }
+
+        .hover {
+            border: 1px dotted blue;
+            color: #999;
+            background: none;
+        }
+
+        .drag-proxy {
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <article class="demo">
+        <div id="drag">
+            <div id="d1" class="demo-box-small demo-blue">1</div>
+            <div id="d2" class="demo-box-small demo-purple">2</div>
+            <div id="d3" class="demo-box-small demo-indigo">3</div>
+            <div id="d4" class="demo-box-small demo-green">4</div>
+            <div id="d5" class="demo-box-small demo-purple">5</div>
+            <div id="d6" class="demo-box-small demo-indigo">6</div>
+            <div id="d7" class="demo-box-small demo-blue">7</div>
+        </div>
+        <div id="drop">
+            <div id="z1" class="zone"></div>
+            <div id="z2" class="zone"></div>
+            <div id="z3" class="zone"></div>
+        </div>
+        <script class="demo">
+
+            // 让 小方块 可拖动。
+            Dom.query('.demo-box-small').draggable(true).forEach(function (elem) {
+                Dom.on(elem, 'dragstart', function (e) {
+                    // 拖动前先创建一个副本。
+                    e.draggable.proxy = Dom.append(Dom.find('#drag'), Dom.clone(e.draggable.elem));
+                    Dom.addClass(e.draggable.proxy, 'drag-proxy');
+                    Dom.setPosition(e.draggable.proxy, Dom.getPosition(this));
+                });
+                
+                Dom.on(elem, 'dragend', function (e) {
+                    // 拖动前先创建一个副本。
+                    Dom.remove(e.draggable.proxy);
+                });
+            });
+
+            // 拖入之后，创建虚位。
+            Dom.query('.zone').forEach(function (elem) {
+                Dom.on(elem, 'dragenter', function (e) {
+
+                    // 在 zone 创建虚线放开。
+                    e.draggable.hover = Dom.parseNode('<div class="demo-box-small hover"></div>');
+                    Dom.setHtml(e.draggable.hover, e.draggable.elem.id.substr(1));
+                    Dom.append(this, e.draggable.hover);
+
+                    // 拖到外面时，隐藏虚位。
+                });
+                
+                Dom.on(elem, 'dragleave', function (e) {
+
+                    // 删除虚线。
+                    Dom.remove(e.draggable.hover);
+
+                });
+                
+                Dom.on(elem, 'drop', function (e) {
+
+                    // 放置时，隐藏虚位，并添加方块。
+                    Dom.remove(e.draggable.hover);
+                    Dom.append(this, e.draggable.elem);
+                    Dom.setOffset(e.draggable.elem, { x: 0, y: 0 });
+                });
+
+            });
+
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,186 @@
+/**
+ * TealUI 3.0
+ * @copyright 2011-2015 The TealUI Team
+ * @license The BSD License
+ */
+
+@import "../core/mixins.less";
+
+//--------------------------------
+// HTML5 标签重置
+//--------------------------------
+
+// IE 6-9：修复部分 HTML5 标签显示。
+// IE 6-11、Firefox：修复 details, summary 标签显示。
+// IE 6-11：修复 main 标签显示。
+// hgroup 已被从 HTML5 标准移除。
+article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
+    display: block;
+}
+
+img, textarea, progress, input, audio, video, table, canvas {
+    display: inline-block; // IE6-8: 修复默认显示方式。
+    max-width: 100%; // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
+}
+
+// IE 6-10：隐藏 [hidden]。
+// IE 6-11、Safari、Firefox 2-21：隐藏 template
+// 不显示缺少 controls 的 audio 标记。
+[hidden], template, audio:not([controls]) {
+    display: none;
+}
+
+//--------------------------------
+// 表单标签修复
+//--------------------------------
+
+// 禁止表单元素单独指定字体。
+input, button, select, textarea, optgroup {
+    font: inherit;
+}
+
+// Firefox 4+：删除表单元素默认 2px 边距。
+button::-moz-focus-inner, input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+// 重置输入框对齐高度。
+input[type=checkbox], input[type=radio] {
+    margin-top: 1px \9; // IE8-9
+    vertical-align: -2px;
+}
+
+textarea {
+    overflow: auto;  // IE 6-9：删除默认滚动条。
+    vertical-align: top; // 改进文本框对齐方式。
+}
+
+//--------------------------------
+// 全局字体边距设置
+//--------------------------------
+
+body {
+    margin: 0;
+    // Windows Vista+：Segoe UI Symbol, Segoe UI
+    // iOS7+, OSX 10.10+：Lucida Grande
+    // Ubuntu：FreeSans
+    font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
+    font-size: @base-font-size;
+    line-height: 100% * @base-line-height / @base-font-size;
+    color: @text-color;
+    background-color: @background-color; // IE 会使用系统背景色作为默认的背景色。
+}
+
+// 块级元素边距
+p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
+    margin: 0 0 @base-margin;
+}
+
+// 链接
+a {
+    color: @link-text-color;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// 标题
+h1, h2, h3, h4, h5, h6 {
+    margin: @base-margin / 2 0;
+    font-weight: 500;
+    line-height: 150%;
+    color: #333;
+}
+
+h1 {
+    font-size: @base-font-size + 14px;
+}
+
+h2 {
+    font-size: @base-font-size + 8px;
+}
+
+h3 {
+    font-size: @base-font-size + 4px;
+}
+
+h4 {
+    font-size: @base-font-size + 2px;
+}
+
+h5 {
+    font-size: @base-font-size;
+}
+
+h6 {
+    font-size: @base-font-size - 2px;
+}
+
+// 水平线
+hr {
+    border-color: @border-color;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box; // Firefox: 统一浏览器行为。
+    height: 0;
+}
+
+// 列表
+ul, ol, dl {
+    ul, ol, dl {
+        margin: 0;
+    }
+}
+
+dt {
+    font-weight: 600;
+    margin-top: @base-margin / 2;
+}
+
+// 表格
+table {
+    border-collapse: collapse;
+    border-spacing: 0; // 删除默认边距。
+    empty-cells: show;
+}
+
+th, td {
+    padding: @base-font-size / 2 @base-font-size;
+    border: 1px solid @border-color;
+}
+
+// 图片
+img {
+    border: 0; // 删除链接内图片边框。
+}
+
+// 代码
+code {
+    padding: 2px 4px;
+    color: #990000;
+    background-color: #f8f8f8;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+
+// 小字
+small {
+    font-weight: 100;
+    color: @hint-color;
+}
+
+// 地址
+address, cite {
+    font-style: normal;
+}
+
+// IE 8-11、Safari、Chrome: 添加下划线。
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+// 设置全局占位符颜色。
+.placeholder();

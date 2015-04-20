@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=todo" />
+    <title>邮件地址自动填充</title>
+
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/listbox.css" />
+
+    <!-- 以下文件仅用于演示 -->
+    <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
+    <!-- 以上文件仅用于演示 -->
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../src/suggest/dropdownmenu.js"></script>
+    <script type="text/javascript" src="../../src/suggest/suggest.js"></script>
+    <script type="text/javascript" src="../../src/suggest/emailsuggest.js"></script>
+
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+
+    <article>
+
+        <aside class="doc-demo">
+
+            <input type="text" class="x-textbox" id="emailSuggest" placeholder="输入邮箱地址...">
+
+            <script>
+
+                var emailSuggest = new EmailSuggest('#emailSuggest');
+
+            </script>
+
+        </aside>
+
+        <blockquote>EmailSuggest 继承于 <a href="Suggest.html">Suggest</a> 组件。</blockquote>
+
+    </article>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=release">
+    <title>大整数运算</title>
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../../src/utilities/misc/biginteger.js"></script>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+
+    <blockquote>实现无误差的大正整数加法、乘法和次方。</blockquote>
+    
+    <input type="text" id="x" />
+    <input type="text" id="y" />
+    
+    <input type="button" value="求和" onclick="document.getElementById('result').innerHTML = BigInteger.add(document.getElementById('x').value, document.getElementById('y').value)" />
+    <input type="button" value="求积" onclick="document.getElementById('result').innerHTML = BigInteger.mul(document.getElementById('x').value, document.getElementById('y').value)" />
+    <input type="button" value="求幂" onclick="document.getElementById('result').innerHTML = BigInteger.pow(document.getElementById('x').value, document.getElementById('y').value)" />
+    
+    <span id="result"></span>
+
+    <script>
+        Demo.writeExamples({
+            "大数加": 'BigInteger.add("1", "4")',
+            "大数乘": 'BigInteger.mul("1", "4")',
+            "大数方": 'BigInteger.pow("1", "4")',
+        });
+    </script>
+</body>
+</html>

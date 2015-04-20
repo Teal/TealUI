@@ -1,0 +1,24 @@
+.x-accordion {
+  margin-bottom: 18px;
+}
+.x-accordion-panel {
+  margin-bottom: 2px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-accordion-header {
+  border-bottom: 0;
+  padding: 8px 15px;
+}
+.x-accordion-body {
+  overflow: hidden;
+}
+.x-accordion-collapsed .x-accordion-body {
+  height: 0;
+}
+.x-accordion-content {
+  padding: 9px 15px;
+  border-top: 1px solid #e5e5e5;
+}

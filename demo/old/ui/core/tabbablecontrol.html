@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#9" />
+    <title>可切换组件基类</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/tabbablecontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">TabbableControl 是可切换组件基类。可切换组件有很多面板，但一次只显示其中一个，用户可以通过操作切换面板。</blockquote>
+
+        <aside class="demo">
+
+            <div id="tabbablecontrol"></div>
+
+            <script>
+                var tabbableControl = new TabbableControl("#tabbablecontrol");
+            </script>
+
+        </aside>
+
+        <section class="demo">
+
+            <script>
+
+                Demo.writeExamples({
+                    '切换选项卡': '-',
+                    '切换到第一个选项卡': 'tabbableControl.select(0)',
+                    '获取当前显示的选项卡索引': 'tabbableControl.getSelectedIndex()',
+
+                    '增删选项卡': '-',
+                    '增加一个选项卡': 'tabbableControl.add("标题", "内容")',
+                    '插入一个选项卡到第一个选项卡前': 'tabbableControl.addAt(0, "标题", "内容")',
+                    '删除第一个选项卡': 'tabbableControl.removeAt(0)'
+                });
+
+            </script>
+
+        </section>
+
+    </article>
+</body>
+</html>

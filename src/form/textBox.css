@@ -1,0 +1,44 @@
+﻿.x-textbox {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  outline: 0;
+}
+.x-textbox:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 0 6px rgba(174, 214, 246, 0.8);
+}
+.x-textbox[disabled],
+.x-textbox[readonly] {
+  box-shadow: none !important;
+  background-color: #efefef;
+}
+textarea.x-textbox {
+  width: 600px;
+  height: 150px;
+}
+.x-textbox-success,
+.x-textbox-success:focus {
+  border-color: #5eb95e;
+}
+.x-textbox-success:focus {
+  box-shadow: 0 0 6px #a5d8a5;
+}
+.x-textbox-warning,
+.x-textbox-warning:focus {
+  border-color: #e9985e;
+}
+.x-textbox-warning:focus {
+  box-shadow: 0 0 6px #f5d1b8;
+}
+.x-textbox-error,
+.x-textbox-error:focus {
+  border-color: #dd514c;
+}
+.x-textbox-error:focus {
+  box-shadow: 0 0 6px #eda4a2;
+}

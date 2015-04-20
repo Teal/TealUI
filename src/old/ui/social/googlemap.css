@@ -1,0 +1,11 @@
+/**
+ * @author 
+ */
+
+.x-googlemap {
+    -moz-boui-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}

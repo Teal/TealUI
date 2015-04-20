@@ -1,0 +1,9 @@
+﻿.x-breadcrumb li {
+  padding-right: .5em;
+  font-size: .95em;
+  color: #ccc;
+}
+.x-breadcrumb a,
+.x-breadcrumb span {
+  color: #666;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>图片放大缩小</title>
+    <link rel="stylesheet" type="text/css" href="../../src/dom/imagezoom.css" />
+    
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/imagezoom.js"></script>
+    
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <aside class="demo">
+            <img src="../../apps/demo/resources/260x180.gif" id="imageZoom1" class="x-imagezoom" style="width: 100px;">
+            
+            <script>
+                Dom.imageZoom(Dom.get('imageZoom1'));
+            </script>
+        </aside>
+        
+        <aside class="demo">
+            <img src="../../apps/demo/resources/100x100.gif" id="imageZoom2" class="x-imagezoom">
+            
+            <script>
+                Dom.imageZoom(Dom.get('imageZoom2'), function(url){
+                    return "../../apps/demo/resources/260x180.gif";
+                });
+            </script>
+        </aside>
+    </article>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#10" />
+    <title>下拉菜单接口</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">如果一个控件包含了一个自定义的下拉菜单，则可以让这个控件实现 IDropDownOwner 接口。</blockquote>
+
+        <input type="button" id="targetBtn" value="按钮 #a" />
+
+        <div id="dropDownMenu1">
+            这是菜单
+        </div>
+
+        <script class="demo">
+
+            // 获取目标按钮对象。
+            var dropDownOwner = new Control(Dom.get('targetBtn'));
+
+            // 将 IDropDownOwner 接口的所有方法直接拷贝给 targetBtn，这样可以通过 targetBtn 直接调用下拉菜单的全部方法。
+            Object.extend(dropDownOwner, IDropDownOwner);
+
+            // 核心代码， 设置 a 的下拉菜单为 id=dropDownMenu 的节点。
+            // 此操作还会为 #dropDownMenu1 增加 x-dropdown 的 class 。
+            dropDownOwner.setDropDown('#dropDownMenu1');
+
+            // 绑定 click 之后，调用 a.toggleDropDown 切换菜单。
+            Dom.on(dropDownOwner.elem, 'click', dropDownOwner.toggleDropDown, dropDownOwner);
+        </script>
+
+        <script>
+            Demo.writeExamples({
+                '手动显示菜单': 'dropDownOwner.showDropDown()',
+                '手动隐藏菜单': 'dropDownOwner.hideDropDown()',
+
+                '获取菜单节点': 'dropDownOwner.getDropDown()',
+                '重新对齐菜单': 'dropDownOwner.realignDropDown()',
+
+                '设置菜单打开后的回调': 'dropDownOwner.on("dropdownshow", function(){alert("菜单打开了")})'
+            });
+        </script>
+
+    </article>
+</body>
+</html>

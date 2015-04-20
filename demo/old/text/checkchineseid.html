@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>身份证检查</title>
+    <script type="text/javascript" src="../../src/text/checkchineseid.js"></script>
+    
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        输入身份证号码: 
+        <input type="text" class="demo" id="value" />
+        <input type="button" value="验证" onclick="checkNow ()" />
+
+        <div class="demo" id="result">
+        </div>
+        
+        <script>
+        
+            function checkNow () {
+            	var idInfo = checkChineseId(document.getElementById('value').value);
+            	document.getElementById('result').innerHTML = '合法: ' + idInfo.valid + '<br>性别：' + idInfo.sex + '<br>省份： ' + (idInfo.province || "") + '<br>生日： ' + idInfo.birthday;
+            }
+            
+        </script>
+
+        <script>
+            Demo.writeExamples({
+                "检查身份证信息": 'checkChineseId("21223")'
+            });
+        </script>
+    </article>
+</body>
+</html>

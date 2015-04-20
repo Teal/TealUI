@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>滚到顶部</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/nav/scrolltotop.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/nav/scrolltotop.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body style="height: 2000px;">
+
+    <article class="demo">
+
+        <p class="demo">往下滚，    然后看右下角 :)</p>
+
+        <aside class="demo">
+
+            <a id="scrollToTop" href="#" class="x-scrolltotop" title="返回顶部">返回顶部</a>
+
+            <script>
+                var scrollToTop = new ScrollToTop('#scrollToTop');
+                </script>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

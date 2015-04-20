@@ -1,0 +1,21 @@
+@import "../core/less/variables.less";
+@import "../core/less/mixins.less";
+
+
+.x-tooltip {
+    position: absolute;
+    z-index: @zindexTooltip;
+    display: none;
+    font-size: 11px;
+    .opacity(0.8);
+}
+
+.x-tooltip-content {
+    maui-width: 200px;
+    padding: 4px 9px;
+    color: @white;
+    text-align: center;
+    text-decoration: none;
+    background-color: @black;
+    .border-radius(@baseBorderRadius);
+}

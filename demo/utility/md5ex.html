@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <title>MD5 加密扩展</title>
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../../src/utilities/text/md5.js"></script>
+    <script type="text/javascript" src="../../../src/utilities/text/md5ex.js"></script>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+
+    <blockquote>提供更复杂的 MD5 加密算法。</blockquote>
+
+    <blockquote class="demo demo-info">如只需简单的 MD5 加密算法请参考：<a href="md5.html">MD5</a></blockquote>
+
+    <section>
+
+        <input type="text" id="value" style="width: 300px;" />
+        <input type="button" value="HMAC MD5 加密" onclick="document.getElementById('value').value = md5.hmacMd5(document.getElementById('value').value, 'key')" />
+        <input type="button" value="base64 Md5 加密" onclick="document.getElementById('value').value = md5.base64Md5(document.getElementById('value').value)" />
+        <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('value').value = md5.base64HmacMd5(document.getElementById('value').value, 'key')" />
+    </section>
+
+    <script>
+        Demo.writeExamples({
+            "MD5 & base64 加密": 'md5.base64Md5("abc")',
+            "HMD5 加密": 'md5.hmacMd5("abc", "key")',
+            "HMD5 & base64 加密": 'md5.base64HmacMd5("abc", "key")'
+        });
+    </script>
+
+</body>
+</html>

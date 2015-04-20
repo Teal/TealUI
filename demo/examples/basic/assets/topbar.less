@@ -1,0 +1,64 @@
+@import "../core/mixins.less";
+
+#topbar {
+    background: rgba(54, 55, 62, 0.8);
+    color: #807e7e;
+    margin-bottom: @base-margin;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+
+    a {
+        color: #e9e9e9;
+        display: inline-block;
+        text-decoration: none;
+        padding: .5em 1.5em;
+    }
+
+    a:hover, .x-actived a {
+        color: #fff;
+        background-color: #404040;
+    }
+}
+
+#logo {
+    margin-right: @base-margin;
+    font-weight: 600;
+
+    a&:hover {
+        background-color: transparent;
+    }
+}
+
+#logo img {
+    line-height: 0;
+    vertical-align: middle;
+}
+
+#searchform {
+    margin: .3em 0 0 .3em;
+
+    input {
+        background: #f1f1f1;
+        -moz-border-radius: 3px 0 0 3px;
+        -webkit-border-radius: 3px 0 0 3px;
+        border-radius: 3px 0 0 3px;
+        padding: .2em .5em;
+        border: 1px solid #ccc;
+
+        &:focus {
+            background: #fff;
+            -moz-transition: background 0.2s ease-in-out 0s;
+            -o-transition: background 0.2s ease-in-out 0s;
+            -webkit-transition: background 0.2s ease-in-out 0s;
+            transition: background 0.2s ease-in-out 0s;
+        }
+    }
+
+    button {
+        padding: .2em .5em;
+        border: 1px solid #ccc;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+        margin-left: -1px;
+    }
+}

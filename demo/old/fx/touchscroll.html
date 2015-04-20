@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>触摸滚屏</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/scrollto.js"></script>
+    <script type="text/javascript" src="../../src/fx/touchscroll.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+
+    <style>
+        #a {
+            height: 400px;
+            border: 1px solid #dddddd;
+            line-height: 40px;
+            font-size: 40px;
+            overflow: auto;
+        }
+
+        #c {
+            height: 900px;
+        }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+
+        <div id="a">
+            <div id="c">
+                <script>
+                    for (var i = 1; i < 1000; i++)
+                        document.write(i + '<br>');
+                </script>
+            </div>
+        </div>
+
+        <script class="demo">
+            new Fx.TouchScroll(Dom.get("a"));
+        </script>
+
+
+    </article>
+</body>
+</html>

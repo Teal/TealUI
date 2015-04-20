@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>自动完成</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/listcontrol.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/autocomplete.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/textbox.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/combinedtextbox.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/listbox.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/autocomplete.js"></script>
+
+    <script type="text/javascript" src="../../assets/demo/less.js"></script>
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+
+
+    <article class="demo">
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" id="a" placeholder="输入 a...">
+
+            <script>
+				
+				
+                var a = new AutoComplete('a');
+				
+                a.add("abc");
+                a.add("abcg");
+                a.add("abcer");
+                a.add("abcewrewr");
+                a.add("desssdasd");
+                a.add("dwerer");
+				
+            </script>
+
+        </aside>
+
+        <script class="demo" type="text/html">
+
+            <input type="text" class="x-textbox" id="a" placeholder="输入 a...">
+
+            <script>
+				
+				
+                var a = new AutoComplete('a');
+				
+                a.items.add("abc");
+                a.items.add("abcg");
+                a.items.add("abcer");
+                a.items.add("abcewrewr");
+                a.items.add("desssdasd");
+                a.items.add("dwerer");
+				
+                </\script>
+			
+            </script>
+    </article>
+</body>
+</html>

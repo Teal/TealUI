@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>jQuery 适配器</title>
+
+    <!-- 本组件需要以下文件 -->
+    <script type="text/javascript" src="../../src/3rdlib/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/jquery-adapter.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件通过 7K 代码（未压缩）让所有 UI 组件可以兼容 jQuery。</blockquote>
+
+        <div id="all" class="demo-sample">
+            <div id="a" style="background: #DCDCDC; margin: 4px; padding: 8px;">
+                id=a margin=4 padding=8
+				                <div id="b" style="background: #EDEDED; padding: 8px;">
+                                    id=b padding=8
+					                <div id="c" style="background: #EAF2F5; border: 1px solid #ffffff; margin: 4px auto; width: 300px; text-align: center;">id=c border=1 margin=4 auto width=300</div>
+                                </div>
+                <div id="d" style="background: #EAF2F5; border: 10px solid #BEDCE7; padding: 8px;">id=d border=10 padding=8</div>
+                <script>
+                    var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d');
+                </script>
+            </div>
+        </div>
+
+        <script>
+
+            Demo.writeExamples({
+                '核心(Core)': '-',
+                '获取 Dom 对象': function () {
+                    Dom.query("#all div"); // 找到 CSS 选择器匹配的全部元素。
+                    Dom.find("#all div");  // 找到 CSS 选择器匹配的第一个元素。
+                    Dom.get("a");          // 根据 ID 获取。
+                },
+                'parse - 解析 HTML 源码生成 Dom 对象': function () {
+                    Dom.parse("<div/>");
+                    Dom.parse("   <div/> f <div/>");
+                    Dom.parse("<object />");
+                    Dom.parse("<input type=\'radio\' checked=\'checked\'>");
+                },
+                //'Dom.create 0 动态创建 Dom 对象': 'Dom.create("div", "className")',
+
+                //'find - 返回第一个': 'Dom.find(a, "div")',
+                //'query - 返回全部节点': 'Dom.query(a, "div")',
+                'matches': 'Dom.matches(a, "div")',
+
+                'DOM ready(DOMReady)': '-',
+                'ready': 'Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") })',
+
+                '事件(Event)': '-',
+                'on - 绑定事件': 'Dom.on(a, "click", function(){ alert("点击事件") });',
+                'off - 解绑事件': 'Dom.off(a, "click")',
+                'trigger - 手动触发事件': 'Dom.trigger(a, "click")',
+
+                '类(Class)': '-',
+                'addClass': 'Dom.addClass(a, "light")',
+                'removeClass': 'Dom.removeClass(a, "light")',
+                'toggleClass': 'Dom.toggleClass(a, "light")',
+                'hasClass': 'Dom.hasClass(a, "light")',
+
+                '样式(Style)': '-',
+                'setStyle': 'Dom.setStyle(a, "font-size", 14)',
+                'getStyle': 'Dom.getStyle(a, "font-size")',
+                'isHidden': 'Dom.isHidden(a)',
+                //'show': 'Dom.show(a)',
+                //'hide': 'Dom.hide(a)',
+                //'toggle': 'Dom.toggle(a)',
+                //'unselectable': 'Dom.unselectable(a)',
+
+                '属性(Attribute)': '-',
+                'setAttr': 'Dom.setAttr(c, "innerText", "12121")',
+                'getAttr': 'Dom.getAttr(c, "innerText")',
+                'setText': 'Dom.setText(c, "cv")',
+                'getText': 'Dom.getText(c)',
+                'setHtml': 'Dom.setHtml(c, "cv")',
+                'getHtml': 'Dom.getHtml(c)',
+
+                '处理(Manipulation)': '-',
+                'contains': 'Dom.contains(a, b)',
+                'render': 'Dom.render(a)',
+                'append': 'Dom.append(a, "append")',
+                'prepend': 'Dom.prepend(a, "prepend")',
+                'after': 'Dom.after(a, "after")',
+                'before': 'Dom.before(a, "before")',
+
+                'remove': 'Dom.remove(c)',
+
+                '转移(Traversing)': '-',
+                'closest': 'Dom.closest(b,"div")',
+                'parent': 'Dom.parent(b)',
+                'prev': 'Dom.prev(b)',
+                'next': 'Dom.next(b)',
+                'first': 'Dom.first(b)',
+                'last': 'Dom.last(b)',
+                'children': 'Dom.children(b)',
+                'clone': 'Dom.clone(a)',
+
+                '尺寸(Dimension)': '-',
+                'getSize - 获取带 padding 和 border 的尺寸': 'Dom.getSize(a)',
+                'setSize': 'Dom.setSize(a, {y: 300})',
+                'getScrollSize': 'Dom.getScrollSize(a)',
+
+                '位置(Offset)': '-',
+                'offsetParent': 'Dom.offsetParent(a)',
+                'getOffset - 获取 .offsetParent() 的偏移': 'Dom.getOffset(a)',
+                'setOffset': 'Dom.setOffset(a, {x:2, y:5})',
+                'getPosition - 获取在整个窗口的绝对位置': 'Dom.getPosition(a)',
+                'setPosition': 'Dom.setPosition(a, {x:2, y:5})',
+                'getScroll': 'Dom.getScroll(a)',
+                'getScroll': 'Dom.setScroll(a, {x:2, y:5})',
+
+            });
+
+        </script>
+
+
+        <blockquote class="demo">在没有冲突的情况下， Dom.query 可简写为 $</blockquote>
+
+        <p class="demo">dom/base 内置的选择器目标为轻量(仅 4k)，因此这个选择器仅提供常用的语法支持，同时忽略一些极端情况的错误。如果需要，用户可以自行选用其它选择器。</p>
+
+        <script>
+
+            Demo.writeExamples({
+
+                '支持的 CSS 选择器(CSS Selector)': '-',
+
+                '#id': 'Dom.query("#a")',
+                '.class': 'Dom.query(".a")',
+                'tagName': 'Dom.query("div")',
+                '*': 'Dom.query("*")',
+
+                '[attr]': 'Dom.query("[attr]")',
+                '[attr=val]': 'Dom.query("[attr=val]")',
+                '[attr^=val]': 'Dom.query("[attr^=val]")',
+                '[attr$=val]': 'Dom.query("[attr$=val]")',
+                '[attr~=val]': 'Dom.query("[attr~=val]")',
+                '[attr|=val]': 'Dom.query("[attr|=val]")',
+                '[attr!=val]': 'Dom.query("[attr!=val]")',
+                '[attr*=val]': 'Dom.query("[attr*=val]")',
+
+                '#id div': 'Dom.query("#b div")',
+                '#id>div': 'Dom.query("#b>div")',
+                '#id+div': 'Dom.query("#b+div")',
+                '#id~div': 'Dom.query("#b~div")',
+
+                ':target': 'Dom.query("#b:target")',
+                ':empty': 'Dom.query("#b:empty")',
+                ':contains(text)': 'Dom.query("#b:contains(#b)")',
+                ':not(selector)': 'Dom.query("#b:not(#b)")',
+                ':selected': 'Dom.query("#b:selected")',
+                ':checked': 'Dom.query("#b:checked")',
+                ':enabled': 'Dom.query("#b:enabled")',
+                ':disabled': 'Dom.query("#b:disabled")',
+                ':input': 'Dom.query("#b:target")',
+                ':nth-child(n) (不支持 2n+1 格式)': 'Dom.query("#b:nth-child(1)")',
+                ':nth-child(odd)': 'Dom.query("#b:nth-child(odd)")',
+                ':nth-child(even)': 'Dom.query("#b:nth-child(even)")',
+                ':first-child': 'Dom.query("#b:first-child")',
+                ':last-child': 'Dom.query("#b:last-child")',
+                ':only-child': 'Dom.query("#b:only-child")',
+
+                ':hidden': 'Dom.query("#b:hidden")',
+                ':visible': 'Dom.query("#b:visible")',
+                ':has(selector)': 'Dom.query("#b:has(#a)")'
+
+
+            });
+
+        </script>
+
+        <h4 class="demo">已知但未修复的 CSS 选择器 bug 及解决方案</h4>
+
+        <ul class="demo">
+            <li>IE8: <code class="demo">option:selected</code> 无法获取 selected="" 的 option 。解决方案：替换为 selected="selected"。</li>
+            <li>Webkit/Opera: <code class="demo">option:checked</code> 无法获取 selected="" 的 option 。解决方案：替换为 option:selected。</li>
+            <li>Opera 10-12/IE8: <code class="demo">[attr^=value]</code>肯能返回空属性的对象($= *= 同理) 。解决方案：不要对空属性操作。</li>
+            <li>Opera 10-11: <code class="demo">:x</code>不支持的伪类不报错 。解决方案：不要使用不支持的伪类。</li>
+            <li>不同浏览器返回的节点顺序不同。解决方案：不要依赖节点顺序。</li>
+        </ul>
+
+    </article>
+
+</body>
+</html>

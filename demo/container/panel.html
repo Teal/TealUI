@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="parent-index=容器, parent-index=5">
+    <title>面板</title>
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/container/panel.css" />
+
+</head>
+<body>
+    <!-- 以下代码仅用于演示 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <blockquote>面板是网页一个区块。</blockquote>
+
+    <h2>基本用法</h2>
+
+    <aside class="doc-demo">
+        <section class="x-panel">
+            <header class="x-panel-header">
+                <h5>我是面板标题</h5>
+            </header>
+            <div class="x-panel-body">
+                我是面板内容
+            </div>
+        </section>
+    </aside>
+    
+    <h2>多种组合方式</h2>
+
+    <aside class="doc-demo">
+        <section class="x-panel">
+            <div class="x-panel-body">
+                这个面板只有内容没有标题
+            </div>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel">
+            <div class="x-panel-body">
+                这个面板有底部
+            </div>
+            <footer class="x-panel-footer">
+                <a href="###">底部链接</a>
+            </footer>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel x-panel-collapsed">
+            <div class="x-panel-header">
+                <h5>我是被折叠起来的面板</h5>
+            </div>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel">
+            <header class="x-panel-header">
+                <h4>面板嵌套</h4>
+            </header>
+            <div class="x-panel-body">
+                <section class="x-panel">
+                    <header class="x-panel-header">
+                        <h5>我是面板标题</h5>
+                    </header>
+                    <div class="x-panel-body">
+                        我是面板内容
+                    </div>
+                </section>
+                <section class="x-panel">
+                    <header class="x-panel-header">
+                        <h5>我是面板标题</h5>
+                    </header>
+                    <div class="x-panel-body">
+                        我是面板内容
+                    </div>
+                </section>
+            </div>
+        </section>
+    </aside>
+
+    <h2>不同的颜色</h2>
+
+    <aside class="doc-demo">
+        <section class="x-panel x-panel-info">
+            <header class="x-panel-header">
+                <a href="###" class="x-right">工具</a>
+                <h4>顶部</h4>
+            </header>
+            <div class="x-panel-body">
+                内容
+            </div>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel x-panel-success">
+            <header class="x-panel-header">
+                <a href="###" class="x-right">工具</a>
+                <h4>顶部</h4>
+            </header>
+            <div class="x-panel-body">
+                内容
+            </div>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel x-panel-warning">
+            <header class="x-panel-header">
+                <a href="###" class="x-right">工具</a>
+                <h4>顶部</h4>
+            </header>
+            <div class="x-panel-body">
+                内容
+            </div>
+        </section>
+    </aside>
+
+    <aside class="doc-demo">
+        <section class="x-panel x-panel-error">
+            <header class="x-panel-header">
+                <a href="###" class="x-right">工具</a>
+                <h4>顶部</h4>
+            </header>
+            <div class="x-panel-body">
+                内容
+            </div>
+        </section>
+    </aside>
+
+    <h2>并排显示的面板</h2>
+    
+    <blockquote class="demo demo-info">和布局组件一起可以实现并排展示的面板区域。另参考：<a href="../layout/grid.html">布局组件</a></blockquote>
+    <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
+
+    <aside class="doc-demo">
+        <div class="x-grid">
+
+            <div class="x-col x-col-4">
+                <section class="x-panel x-panel-info">
+                    <header class="x-panel-header">
+                        <a href="###" class="x-right">工具</a>
+                        <h4>顶部</h4>
+                    </header>
+                    <div class="x-panel-body">
+                        内容
+                    </div>
+                </section>
+            </div>
+
+            <div class="x-col x-col-4">
+                <section class="x-panel">
+                    <header class="x-panel-header">
+                        <a href="###" class="x-right">工具</a>
+                        <h4>顶部</h4>
+                    </header>
+                    <div class="x-panel-body">
+                        内容
+                    </div>
+                </section>
+            </div>
+
+            <div class="x-col x-col-4">
+                <section class="x-panel x-panel-error">
+                    <header class="x-panel-header">
+                        <a href="###" class="x-right">工具</a>
+                        <h4>顶部</h4>
+                    </header>
+                    <div class="x-panel-body">
+                        内容
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </aside>
+
+</body>
+</html>

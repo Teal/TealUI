@@ -1,0 +1,32 @@
+
+@import "../core/mixins.less";
+
+.x-closebutton {
+    color: @text-color;
+    opacity: .6;
+    line-height: @base-line-height;
+    margin-left: 1em;
+    cursor: pointer;
+    float: right;
+    -moz-transition: transform .3s, opacity .3s;
+    -o-transition: transform .3s, opacity .3s;
+    -webkit-transition: transform .3s, opacity .3s;
+    transition: transform .3s, opacity .3s;
+
+    &:hover {
+        opacity: .3;
+        text-decoration: none;
+    }
+
+    &:before {
+        content: '\e603'
+    }
+}
+
+.x-closebutton-spin:hover {
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}

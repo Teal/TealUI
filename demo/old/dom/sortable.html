@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="module-info" content="status=obsolete" />
+		<title>可排序的对象</title>
+		<script type="text/javascript" src="../../../src/core/core.js"></script>
+		<script type="text/javascript" src="../../../src/dom/sortable.js"></script>
+		
+		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
+	</head>
+	<body>
+
+        <article class="demo">
+
+            <h2 class="demo">API</h2>
+
+            <ul id="sortable">
+                <li>AAA</li>
+                <li>BBB</li>
+                <li>CCC</li>
+                <li>DDD</li>
+            </ul>
+
+            <script>
+                
+                Dom.get('sortable').children().draggable().on('dragend', function (e) {
+                    Dom.get('sortable').append(e.draggable.target).setOffset({ x: 0, y: 0 });
+                });
+
+
+            </script>
+
+        </article>
+		
+	</body>
+</html>

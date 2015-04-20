@@ -1,0 +1,39 @@
+﻿.x-tipbox {
+  display: block;
+  padding: 4px 8px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+span.x-tipbox {
+  display: inline-block;
+}
+.x-tipbox-warning {
+  border: 1px solid #fbd0ae;
+  background-color: rgba(243, 123, 29, 0.15);
+  color: #e9985e;
+}
+.x-tipbox-success {
+  background-color: rgba(94, 185, 94, 0.15);
+  border-color: #c9e7c9;
+  color: #5eb95e;
+}
+.x-tipbox-error {
+  background-color: rgba(221, 81, 76, 0.15);
+  border-color: #f5cecd;
+  color: #dd514c;
+}
+.x-tipbox-info {
+  background-color: rgba(59, 180, 242, 0.15);
+  border-color: #caebfb;
+  color: #049cdb;
+}
+.x-tipbox-large {
+  padding: 7px 14px;
+}
+.x-tipbox-plain {
+  background-color: transparent;
+  border-color: transparent;
+}

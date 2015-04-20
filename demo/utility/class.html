@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo" />
+    <title>创建类支持</title>
+
+    <!-- 以下是本组件需要的全部源码 -->
+    <script type="text/javascript" src="../../src/utility/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+
+</head>
+<body>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <blockquote>为 JavaScript 提供创建类的功能。</blockquote>
+
+    <h2>创建最简单的类</h2>
+
+    <pre>
+        var Animal = Base.extend();
+    </pre>
+
+    <h2>定义字段和方法</h2>
+
+    <pre>
+        // 创建一个类。
+        var Animal = Base.extend({
+            
+            name: '小黑',
+
+            say: function () {
+                alert(this.name + "调用了 say 方法");
+            }
+
+        });
+
+        var ani = new Animal(); // 创建一个类的实例。
+        ani.name = '大白'; // 为字段赋值。
+        ani.say(); // 调用 Animal 类的 say 方法。
+    </pre>
+
+    <h2>定义构造函数</h2>
+
+    <pre>
+        var Animal = Base.extend({
+            constructor: function (args) {
+                alert("正在执行 Animal 类的构造函数。");
+            }
+        });
+
+        var ani = new Animal(); // 创建一个类的实例，同时会调用类构造函数。
+    </pre>
+
+    <h2>类的继承</h2>
+
+    <pre>
+        var Animal = Base.extend({
+            say: function () {
+                alert("正在执行 Animal 类的 say 方法");
+            },
+            constructor: function (args) {
+                alert("正在执行 Animal 类的构造函数。");
+            }
+        });
+
+        // 继承 Animal 类创建子类。
+        var Dog = Animal.extend({
+            say2: function () {
+                alert("正在执行 Dog 类的 say 方法");
+            }
+        });
+        
+        var dog = new Dog(); // 创建一个类的实例。
+        dog.say(); // 调用 Animal 类的 say 方法。
+        dog.say2(); // 调用 Dog 类的 say2 方法。
+    </pre>
+
+    <h2>类的事件</h2>
+
+    <pre>
+        var Animal = Base.extend();
+        var ani = new Animal();
+        ani.on('needsay', function (name) {
+            alert("needsay事件被触发了， 参数 name=" + name);
+        });
+        ani.trigger('needsay', "触发needsay事件时的参数");
+    </pre>
+
+</body>
+</html>

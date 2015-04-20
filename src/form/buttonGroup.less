@@ -1,0 +1,42 @@
+
+@import "../core/mixins.less";
+
+.x-buttongroup {
+    display: inline-block;
+    .clearfix();
+    //.ie7-restore-left-whitespace();
+    .x-button {
+        float: left;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+
+        &:not(:first-child) {
+            border-left-color: darken(@border-color, 3%);
+            margin-left: -1px;
+        }
+
+    }
+
+
+}
+
+.x-buttongroup-2 .x-button{
+    width: 100% / 2;
+}
+
+.x-buttongroup-3 .x-button{
+    width: 100% / 3;
+}
+
+.x-buttongroup-4 .x-button{
+    width: 100% / 4;
+}
+
+.x-buttongroup-5 .x-button{
+    width: 100% / 5;
+}
+
+.x-buttongroup-6 .x-button{
+    width: 100% / 6;
+}

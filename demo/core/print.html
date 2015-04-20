@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="index=2">
+    <title>打印样式</title>
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/core/print.css" />
+
+</head>
+<body>
+
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <blockquote>本组件定义了标签的打印时样式。</blockquote>
+
+    <blockquote class="doc-info">提示：本页示例需点击浏览器菜单 文件/打印/打印预览 查看效果。</blockquote>
+
+    <h2>全局样式优化</h2>
+
+    <ul>
+        <li>将网页转为黑色以提升打印速度。</li>
+        <li>关闭背景和阴影。</li>
+        <li>修复部分标签防止被分页（如图片不允许分页）。</li>
+    </ul>
+
+    <h2>显示链接和描述</h2>
+
+    <p>链接在打印时将隐藏下划线，并在链接文字后追加地址。</p>
+
+    <aside class="doc-demo">
+        <a href="http://github.com/TealUI/TealUI/">我是链接</a>
+        <abbr title="我是 ABBR 描述">ABBR</abbr>
+    </aside>
+
+    <h2>辅助类：打印时显示和隐藏</h2>
+
+    <aside class="doc-demo">
+        <div class="x-hide-print">
+            我只能在浏览器看到，打印时看不到
+        </div>
+        <div class="x-show-print">
+            我只能在打印时看到，浏览器看不到
+        </div>
+    </aside>
+
+</body>
+</html>

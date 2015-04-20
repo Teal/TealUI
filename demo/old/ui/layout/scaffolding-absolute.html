@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="module-info" content="status=complete">
+	<title>绝对定位网页结构</title>
+		
+	<link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+		
+	<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">
+            本组件不含任何代码，只提供一种使用绝对布局的方式书写 980px 宽的网页的解决方案。对于一次性网页，采用绝对布局方式开发可以提高生产率。
+        </blockquote>
+
+        <script class="demo" type="code/html">
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title></title>
+                <style>
+
+                    body, #main {
+                        background: url(images/bg.png) no-repeat center top;
+                    }
+
+                    #main {
+                        position: relative;
+                        width: 980px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                </style>
+            </head>
+            <body>
+                <div id="topbar"></div>
+                <div id="main" style="height:1000px;">
+                    <a class="x-absolute" href="#" style="left:300px;top:400px;">链接</a>
+                </div>
+                <div id="footer"></div>
+            </body>
+            </html>
+        </script>
+    </article>
+</body>
+</html>

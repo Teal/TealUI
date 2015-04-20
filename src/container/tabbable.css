@@ -1,0 +1,65 @@
+.x-tabbable {
+  border-bottom: 1px solid #dddddd;
+  margin: 0;
+  *zoom: 1;
+}
+.x-tabbable:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-tabbable li {
+  margin: 0 0 -1px;
+  list-style: none;
+  float: left;
+}
+.x-tabbable a {
+  display: block;
+  border: 1px solid transparent;
+  _border-color: #ffffff;
+  _filter: chroma(color=#ffffff);
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  padding: 7px 12px;
+}
+.x-tabbable a:hover {
+  border-color: #eeeeee #eeeeee #dddddd;
+  background-color: #eeeeee;
+  text-decoration: none;
+}
+.x-tabbable-selected a,
+.x-tabbable-selected a:hover {
+  color: #555555;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-bottom-color: transparent;
+  _border-bottom-color: #ffffff;
+  _filter: chroma(color=#ffffff);
+  cursor: default;
+}
+.x-tabbable-alt {
+  border-bottom: none;
+}
+.x-tabbable-alt li a,
+.x-tabbable-alt li a:hover {
+  border-color: transparent;
+  _border-color: #ffffff;
+}
+.x-tabbable-alt li {
+  margin-right: 2px;
+}
+.x-tabbable-alt li a {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-tabbable-alt .x-tabbable-selected a,
+.x-tabbable-alt .x-tabbable-selected a:hover {
+  color: #ffffff;
+  background-color: #0088cc;
+}

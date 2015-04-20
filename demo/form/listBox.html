@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <title>列表框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/listbox.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../src/core/iinput.js"></script>
+    <script type="text/javascript" src="../../src/form/listbox.js"></script>
+
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+</head>
+<body>
+    <article>
+
+        <aside class="doc-demo">
+            <ul class="x-listbox x-listboui-disabled" id="listBox">
+                <li>内容 tmp</li>
+                <li class="x-listboui-selected"><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容   tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+            </ul>
+        </aside>
+        <script>
+            var listBox = new ListBox('#listBox');
+
+            Demo.writeExamples({
+                '设置禁用': 'listBox.setSelectedItem(0)',
+                '设置禁用': 'listBox.getSelectedItem()'
+            });
+        </script>
+
+
+    </article>
+
+
+
+</body>
+</html>

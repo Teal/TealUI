@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#8" />
+    <title>树组件基类</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/treecontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">TreeControl 是树组件基类。树组件是 ul 里嵌套 ul 的组件。</blockquote>
+
+        <script class="demo" type="code/html">
+            <ul class="x-control">
+                <li>A
+                    <ul class="x-control x-control-sub">
+                        <li>A-1</li>
+                        <li>A-2</li>
+                    </ul>
+                </li>
+                <li>B</li>
+            </ul>
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">API</h2>
+
+        <section class="demo demo-sample">
+            <aside class="demo">
+                <ul class="x-control" id="treecontrol">
+                    <li>A
+                         <ul class="x-control x-control-sub">
+                            <li>A-1</li>
+                            <li>A-2</li>
+                        </ul>
+                    </li>
+                    <li>A</li>
+                </ul>
+
+                <script>
+                    var treeControl  = new TreeControl('#treecontrol');
+                </script>
+            </aside>
+        </section>
+
+        <section class="demo demo-api">
+            <script>
+                Demo.writeExamples({
+                    '增加一个节点': 'treeControl.add("<em>这是使用 add 增加的</em>")',
+                    '增加第一个节点的子节点': 'treeControl.item(0).sub().add("<em>这是使用 item(0).sub().add 增加的</em>")',
+                    '删除第一个节点': 'treeControl.removeAt(0)'
+                });
+            </script>
+
+        </section>
+
+        <blockquote class="demo">树组件本身也是一个列表组件，更多列表操作的 API 参考 <a href="listcontrol.html" class="demo">ListControl</a> 。</blockquote>
+    </article>
+</body>
+</html>

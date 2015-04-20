@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>委托</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/delegate.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">委托可以模拟函数，并封装多个函数。</blockquote>
+
+        <script class="demo">
+
+            // 创建新的委托。
+            var delegate = new Delegate(function () {
+                trace(1);
+            }, function () {
+                trace(2);
+            });
+
+            // 动态增加函数。
+            delegate.add(function () {
+                trace(5);
+            });
+
+            // 执行函数。
+            delegate();
+
+            // 使用 call 执行函数。
+            delegate.call(this, 1);
+
+        </script>
+    </article>
+</body>
+</html>

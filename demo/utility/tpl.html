@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="" />
+    <title>模板引擎</title>
+
+    <!-- 以下是本组件需要的全部源码 -->
+    <script type="text/javascript" src="../../src/utility/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/tpl.js"></script>
+
+</head>
+<body>
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <blockquote>最轻量、高性能的模板引擎，语法和 JavaScript 完全一样，一看就会!</blockquote>
+    <style>
+        textarea {
+            width: 800px;
+            height: 190px;
+            display: block;
+        }
+    </style>
+
+    <h2>基本演示</h2>
+
+    <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
+        &lt;ul>
+            {foreach a in $data.dataArr}
+                {if a % 2 == 1}&lt;li>{a}&lt;/li>{end}
+            {end}
+        &lt;/ul></textarea>
+
+    输入数据:
+    <input type="text" value="{dataArr: [3,2,1,0]}" id="data">&nbsp;
+    <input onclick="document.getElementById('to').value = Tpl.parse(document.getElementById('from').value, eval('(' + document.getElementById('data').value + ')'))" type="button" value="解析模板"><br>
+    <textarea id="to"></textarea>
+
+    <h2>语法介绍</h2>
+    <pre>
+        Tpl.parse("{for p in $data.path}{p}{end}", {path: [1,2,3]});
+    </pre>
+
+    <h3>常量</h3>
+    <p>模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 {，使用 }} 代替 }</p>
+
+    <h3>逻辑</h3>
+    <p>所有的表达式语法和 JavaScript 相同。</p>
+
+    <h4>if 语句</h4>
+    <pre>
+        {if true}
+            text1
+        {else if false}
+            text2
+        {else}
+            text3
+        {end}
+    </pre>
+
+    <h4>foreach 语句</h4>
+    <pre>
+        {foreach value, key in [0,1,2]}
+            {key} = {value}
+        {end}
+    </pre>
+    <p>foreach 语句同时支持数组和对象。</p>
+
+    <h4>for 语句</h4>
+    <pre>
+        {for var i=0; i < 3; i++ }
+            text{i}
+        {end}
+        {for var key in obj }
+            text{key}
+        {end}
+    </pre>
+
+    <h4>while 语句</h4>
+    <pre>
+        {while false }
+            text
+        {end}
+    </pre>
+
+    <h4>var 语句</h4>
+    <pre>
+        {var a = 2;}
+    </pre>
+
+    <h4>function 语句</h4>
+    <pre>
+        {function a()}
+            func
+        {end}
+        {a() // 函数调用}
+    </pre>
+
+    <h4>void 语句</h4>
+    <p>void 语句用于执行代码，但不会在模板字符串内添加任何内容。</p>
+    <pre>
+            {void alert("alert")}
+        </pre>
+
+    <h3>内置宏变量</h3>
+    <p>在模板内部可以直接使用一些内置宏变量。</p>
+
+    <h4>$data</h4>
+    <p>被解析的数据。</p>
+
+    <h4>$key</h4>
+    <p>foreach 语句中获取最近的循环索引或键。</p>
+
+    <h4>$target</h4>
+    <p>foreach 语句中获取最近的循环对象。</p>
+
+</body>
+</html>

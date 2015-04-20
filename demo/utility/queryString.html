@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo" />
+    <title>查询字符串解析</title>
+
+    <!-- 以下是本组件需要的全部源码 -->
+    <script type="text/javascript" src="../../src/utility/querystring.js"></script>
+
+</head>
+<body>
+
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <blockquote>本组件提供查询字符串（如 ?a=b&amp;c=d）的解析功能。</blockquote>
+
+    <h2>解析查询字符串</h2>
+    
+    <pre>
+        QueryString.parse("a=2&c=4")
+    </pre>
+
+    <h2>格式化查询字符串</h2>
+
+    <pre>
+        QueryString.stringify({ a: "2", c: "4" })
+    </pre>
+
+</body>
+</html>

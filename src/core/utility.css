@@ -1,0 +1,103 @@
+﻿.x-left {
+  float: left !important;
+}
+.x-right {
+  float: right !important;
+}
+.x-clear:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.x-middle {
+  vertical-align: middle !important;
+}
+.x-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.x-relative {
+  position: relative !important;
+}
+.x-absolute {
+  position: absolute !important;
+}
+.x-inline {
+  display: inline !important;
+}
+.x-block {
+  display: block !important;
+}
+.x-inline-block {
+  display: inline-block !important;
+}
+.x-hide {
+  display: none;
+}
+.x-break-word {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.x-ellipsis {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.x-hint {
+  color: #bdbdbd;
+}
+.x-info {
+  color: #049cdb !important;
+}
+.x-success {
+  color: #5eb95e !important;
+}
+.x-warn {
+  color: #e9985e !important;
+}
+.x-error {
+  color: #dd514c !important;
+}
+.x-row {
+  display: block !important;
+  margin-bottom: 1em;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.x-radius {
+  border-radius: 2px;
+}
+.x-horizonal,
+.x-vertical {
+  margin: 0;
+  padding: 0;
+}
+.x-horizonal > * {
+  float: left;
+  list-style: none;
+}
+.x-vertical .x-vertical {
+  margin-left: 1em;
+}
+.x-vertical > * {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  list-style: none;
+}
+@media only screen and (max-width: 1024px) {
+  .x-hide-small {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .x-hide-large {
+    display: none;
+  }
+}

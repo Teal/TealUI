@@ -1,0 +1,7 @@
+.x-label {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 12px;
+  line-height: 18px;
+}

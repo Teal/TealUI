@@ -1,0 +1,204 @@
+﻿//================================
+// 全局配置和公用样式
+//================================
+
+//--------------------------------
+// 颜色
+//--------------------------------
+
+// 页面
+@background-color:          #fff;
+@text-color:                darken(@background-color, 87%);
+@text-secondary-color:      darken(@background-color, 54%);
+@border-color:              darken(@background-color, 12%);
+@hint-color:                darken(@background-color, 26%);
+
+// 状态
+@link-text-color:           #095f8b;
+@link-background-color:     rgba(59,180,242,.15);
+@link-border-color:         #caebfb;
+
+@info-text-color:           #049cdb;
+@info-background-color:     rgba(59,180,242,.15);
+@info-border-color:         #caebfb;
+
+@success-text-color:        #5eb95e;
+@success-background-color:  rgba(94,185,94,.15);
+@success-border-color:      #c9e7c9;
+
+@warning-text-color:        #e9985e;
+@warning-background-color:  rgba(243,123,29,.15);
+@warning-border-color:      #fbd0ae;
+
+@error-text-color:          #dd514c;
+@error-background-color:    rgba(221,81,76,.15);
+@error-border-color:        #f5cecd;
+
+//--------------------------------
+// 全局配置
+//--------------------------------
+
+// 字体
+@base-font-size:            14px;
+@base-line-height:          24px;
+
+// 间距
+@base-padding:              @base-font-size / 2;   
+@base-margin:               1em;
+@base-border-radius:        4px;
+
+// Z-index
+@z-index-dropdown:          1000;
+@z-index-tooltip:           1010;
+@z-index-fixed:             1020;
+@z-index-dialog:            1030;
+
+//--------------------------------
+// 响应式
+//--------------------------------
+
+@screen-smaller:            640px;  // 手机
+@screen-small:              1024px; // 平板
+@screen-large:              1280px; // 电脑
+@screen-larger:             1440px; // 电视
+@screen-largest:            1920px; // 高清电视
+
+@small:                     e(%("only screen and (max-width: %d)", @screen-small));
+@large:                     e(%("only screen and (min-width: %d)", (@screen-small + 1)));
+
+//--------------------------------
+// 工具函数
+//--------------------------------
+
+// 清除浮动
+// 另参考：http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix() {
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+// 提示文案
+.placeholder(@color: @hint-color) {
+	&:-moz-placeholder {
+		color: @color;
+	}
+	&:-ms-input-placeholder, &::-webkit-input-placeholder {
+		color: @color;
+	}
+}
+
+// 文本超流
+.text-overflow(@behavior: ellipsis) {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: @behavior;
+}
+
+// 隐藏文本。参考 https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+.hide-text() {
+	font: 0/0 a;
+	color: transparent;
+    text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+// Opacity
+.opacity(@opacity: 1) {
+	opacity: @opacity;
+    filter: e(%("alpha(opacity=%d)", @opacity * 100));
+}
+
+// BACKGROUNDS
+// --------------------------------------------------
+
+// Add an alphatransparency value to any background or border color (via Elyse Holladay)
+#translucent {
+	.background(@color: #fff, @alpha: 1) {
+		background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+	}
+	.border(@color: #fff, @alpha: 1) {
+		border-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+		-webkit-background-clip: padding-box;
+		-moz-background-clip: padding;
+		background-clip: padding-box;
+	}
+}
+
+// Gradients
+#gradient {
+    .horizontal(@startColor: #555, @endColor: #333) {
+        background-color: @endColor;
+        background-image: -moz-linear-gradient(left, @startColor, @endColor);
+        background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor));
+        background-image: -webkit-linear-gradient(left, @startColor, @endColor);
+        background-image: -o-linear-gradient(left, @startColor, @endColor);
+        background-image: linear-gradient(to right, @startColor, @endColor);
+        background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@startColor),argb(@endColor)));
+    }
+
+    .vertical(@startColor: #555, @endColor: #333) {
+        background-color: @endColor;
+        background-image: -moz-linear-gradient(top, @startColor, @endColor);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor));
+        background-image: -webkit-linear-gradient(top, @startColor, @endColor);
+        background-image: -o-linear-gradient(top, @startColor, @endColor);
+        background-image: linear-gradient(to bottom, @startColor, @endColor);
+        background-repeat: repeat-x;
+    }
+
+	.vertical-all(@startColor: #555, @endColor: #333){
+		.vertical(@startColor, @endColor);
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor)));
+	}
+
+    .directional(@startColor: #555, @endColor: #333, @deg: 45deg) {
+        background-color: @endColor;
+        background-repeat: repeat-x;
+        background-image: -moz-linear-gradient(@deg, @startColor, @endColor);
+        background-image: -webkit-linear-gradient(@deg, @startColor, @endColor);
+        background-image: -o-linear-gradient(@deg, @startColor, @endColor);
+        background-image: linear-gradient(@deg, @startColor, @endColor);
+    }
+
+    .vertical-three-colors(@startColor: #00b3ee, @midColor: #7a43b6, @colorStop: 50%, @endColor: #c3325f) {
+        background-color: mix(@midColor, @endColor, 80%);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), color-stop(@colorStop, @midColor), to(@endColor));
+        background-image: -webkit-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+        background-image: -moz-linear-gradient(top, @startColor, @midColor @colorStop, @endColor);
+        background-image: -o-linear-gradient(@startColor, @midColor @colorStop, @endColor);
+        background-image: linear-gradient(@startColor, @midColor @colorStop, @endColor);
+        background-repeat: no-repeat;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor)));
+    }
+
+    .radial(@innerColor: #555, @outerColor: #333) {
+        background-color: @outerColor;
+        background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(@innerColor), to(@outerColor));
+        background-image: -webkit-radial-gradient(circle, @innerColor, @outerColor);
+        background-image: -moz-radial-gradient(circle, @innerColor, @outerColor);
+        background-image: -o-radial-gradient(circle, @innerColor, @outerColor);
+        background-repeat: no-repeat;
+    }
+
+    .striped(@color: #555, @angle: 45deg) {
+        background-color: @color;
+        background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(255,255,255,.15)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255,255,255,.15)), color-stop(.75, rgba(255,255,255,.15)), color-stop(.75, transparent), to(transparent));
+        background-image: -webkit-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+        background-image: -moz-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+        background-image: linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+    }
+
+    .bar(@primaryColor, @secondaryColor) {
+        .vertical(@primaryColor, @secondaryColor);
+        border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
+        border-color: rgba(0,0,0,.1) rgba(0,0,0,.15) fadein(rgba(0,0,0,.1), 15%);
+    }
+}
+

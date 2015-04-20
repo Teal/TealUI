@@ -1,0 +1,90 @@
+
+
+@import "../core/mixins.less";
+
+.x-panel {
+    background: @background-color;
+    border: 1px solid @border-color;
+    margin-bottom: @base-margin;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.x-panel:last-child {
+    margin-bottom: 0;
+}
+
+.x-panel-header, .x-panel-footer {
+    background-color: #F7F7F7;
+    line-height: 150%;
+    padding: @base-padding / 2 @base-padding;
+}
+
+.x-panel-header {
+    border-bottom: 1px solid @border-color;
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        color: inherit;
+    }
+}
+
+.x-panel-footer {
+    border-top: 1px solid @border-color;
+}
+
+.x-panel-body {
+    padding: @base-padding;
+}
+
+// 折叠效果
+.x-panel-collapsed {
+
+    .x-panel-header {
+        border-bottom: 0;
+    }
+    
+    .x-panel-body {
+        display: none;
+    }
+
+}
+
+// 不同颜色
+.x-panel-info {
+    border-color: @info-border-color;
+
+    .x-panel-header {
+        background-color: @info-background-color;
+        border-color: @info-border-color;
+        color: @info-text-color;
+    }
+}
+
+.x-panel-success {
+    border-color: @success-border-color;
+
+    .x-panel-header {
+        background-color: @success-background-color;
+        border-color: @success-border-color;
+        color: @success-text-color;
+    }
+}
+
+.x-panel-warning {
+    border-color: @warning-border-color;
+
+    .x-panel-header {
+        background-color: @warning-background-color;
+        border-color: @warning-border-color;
+        color: @warning-text-color;
+        
+    }
+}
+
+.x-panel-error {
+    border-color: @error-border-color;
+    .x-panel-header {
+        background-color: @error-background-color;
+        border-color: @error-border-color;
+        color: @error-text-color;
+    }
+}

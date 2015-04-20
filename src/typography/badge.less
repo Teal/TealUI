@@ -1,0 +1,49 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+
+.x-badge {
+    display: inline-block;
+    font-size: .8em;
+    margin-right: .4em;
+    color: #fff;
+    line-height: 155%;
+    padding: 0 .4em;
+    -moz-border-radius: @base-border-radius;
+    -webkit-border-radius: @base-border-radius;
+    border-radius: @base-border-radius;
+    background-color: @hint-color;
+    -moz-transition: opacity .3s ease-out;
+    -o-transition: opacity .3s ease-out;
+    -webkit-transition: opacity .3s ease-out;
+    transition: opacity .3s ease-out;
+
+    sup&{
+        margin-left: .4em;
+        vertical-align: top;
+    }
+    
+    a&:hover {
+        text-decoration: none;
+        opacity: .8;
+    }
+}
+
+.x-badge-info {
+    background: @info-text-color;
+}
+
+.x-badge-success {
+    background: @success-text-color;
+}
+
+.x-badge-warning {
+    background: @warning-text-color;
+}
+
+.x-badge-error {
+    background: @error-text-color;
+}

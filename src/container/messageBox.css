@@ -1,0 +1,8 @@
+.x-dialog-buttons {
+  padding: 10px 5px;
+  background-color: #F7F7F7;
+  border-top: 1px solid #dddddd;
+  -webkit-box-shadow: 0 1px 0 #ffffff inset;
+  -moz-box-shadow: 0 1px 0 #ffffff inset;
+  box-shadow: 0 1px 0 #ffffff inset;
+}

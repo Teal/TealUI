@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#7" />
+    <title>列表组件基类</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">ListControl 是列表组件基类。一个列表控件肯定是一个 ul 或 ol 标签。</blockquote>
+
+        <script class="demo" type="code/html">
+            <ul class="x-control">
+                <li>选项1</li>
+                <li>选项2</li>
+                <li>选项3</li>
+                <li>选项4</li>
+            </ul>
+        </script>
+
+        <p class="demo">选中的项类名为 <code class="demo">x-control-selected</code>, 鼠标移上后的高亮效果类名为 <code class="demo">x-control-hover</code> 。</p>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">常用 API</h2>
+
+        <section class="demo demo-sample">
+            <aside class="demo">
+                <ul class="x-listcontrol" id="listcontrol">
+                    <li>选项1</li>
+                    <li>选项2</li>
+                </ul>
+
+                <script>
+                    var listControl = new ListControl('#listcontrol');
+                </script>
+            </aside>
+        </section>
+
+        <section class="demo">
+
+            <script>
+
+                Demo.writeExamples({
+                    '增删项': '-',
+                    '增加一项': 'listControl.add("<em>这是通过 add 插入的</em>")',
+                    '插入一项到第一项之前': 'listControl.addAt(0, "<em>这是通过 addAt 插入的</em>")',
+                    '删除第一项': 'listControl.removeAt(0)',
+                    '删除某一项': 'listControl.remove(listControl.item(0))',
+                    '批量设置项': 'listControl.set(["<em>这是通过 set 插入的 0</em>", "<em>这是通过 set 插入的 1</em>"])',
+
+                    '获取和遍历': '-',
+                    '获取项数': 'listControl.count()',
+                    '获取第一项': 'listControl.item(0)',
+                    '获取某一项在列表中的索引': 'listControl.indexOf(listControl.item(0))',
+                    '遍历每一项': 'listControl.each(function(item, index){ alert(Dom.getText(item)); })',
+                    '绑定项点击事件': 'listControl.itemOn("click", function(item, e){alert(Dom.getText(item))})'
+                });
+
+            </script>
+
+        </section>
+
+    </article>
+</body>
+</html>

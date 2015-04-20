@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>对齐</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
+
+    <script type="text/javascript" src="../../src/dom/drag.js"></script>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        对齐方式: 
+        <select id="position" onchange="realign()" onkeyup="realign()">
+            <option value="b" selected="selected">b</option>
+            <option value="r">r</option>
+
+            <option value="rr-bt">rr-bt</option>
+            <option value="ll-tb">ll-tb</option>
+            <option value="ll-bt">ll-bt</option>
+            <option value="rl-tt">rl-tt</option>
+            <option value="lr-tt">lr-tt</option>
+            <option value="rl-bb">rl-bb</option>
+            <option value="rr-yc">rr-yc</option>
+            <option value="xc-bb">xc-bb</option>
+            <option value="xc-tt">xc-tt</option>
+            <option value="ll-yc">ll-yc</option>
+            <option value="xc-yc">xc-yc</option>
+
+            <option value="lr-bt">lr-bt</option>
+            <option value="rl-tb">rl-tb</option>
+            <option value="rl-bt">rl-bt</option>
+            <option value="lr-tb">lr-tb</option>
+            <option value="rl-yc">rl-yc</option>
+            <option value="xc-bt">xc-bt</option>
+            <option value="xc-tb">xc-tb</option>
+            <option value="lr-yc">lr-yc</option>
+
+            <option value="ll-bb">ll-bb</option>
+            <option value="rr-tt">rr-tt</option>
+            <option value="rr-bb">rr-bb</option>
+            <option value="ll-tt">ll-tt</option>
+        </select>
+
+
+
+        <div id="target" class="demo-box demo-blue" style="z-index: 8; cursor: move;">
+            拖动这里
+        </div>
+
+        <div id="a" class="demo-box-large demo-green" style="left: 400px; position: absolute; top: 50px;"></div>
+
+
+        <script class="demo">
+
+
+            var a = Dom.get('a');
+            var t = Dom.get('target');
+
+            Dom.setStyle(t, 'user-select', 'none');
+            Dom.draggable(t);
+            Dom.on(t, 'dragend', realign);
+
+            function realign() {
+
+                // 真正的对齐函数。
+                Dom.pin(a, t, Dom.get('position').value, 0, 0);
+            }
+
+
+        </script>
+
+    </article>
+
+</body>
+</html>

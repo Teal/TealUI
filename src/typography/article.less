@@ -1,0 +1,28 @@
+
+@import "../core/mixins.less";
+
+.x-article {
+    
+    img {
+        margin: 0 auto @base-margin;
+        display: block;
+        
+        &.x-left, &[align=left] {
+            margin-right: @base-margin;
+        }
+              
+        &.x-right, &[align=right] {
+            margin-left: @base-margin;
+        }
+
+    }
+    
+    // ²åÍ¼»ò²å±í
+    figure {
+        text-align: center;
+        *:first-child {
+            margin-bottom: 0;
+        }
+    }
+
+}

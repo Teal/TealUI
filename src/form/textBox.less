@@ -1,0 +1,50 @@
+
+@import "../core/mixins.less";
+
+.x-textbox {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    background-color: @background-color;
+    -moz-transition: border linear .2s, box-shadow linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s;
+    -webkit-transition: border linear .2s, box-shadow linear .2s;
+    transition: border linear .2s, box-shadow linear .2s;
+    outline: 0;
+
+    &:focus {
+        border-color: rgba(82,168,236,.8);
+        box-shadow: 0 0 6px lighten(rgba(82,168,236,.8), 20%);
+    }
+
+    &[disabled], &[readonly] {
+        box-shadow: none !important;
+        background-color: #efefef;
+    }
+
+    textarea& {
+        width: 600px;
+        height: 150px;
+    }
+}
+
+.textbox-state(@borderColor) {
+    &, &:focus {
+        border-color: @borderColor;
+    }
+
+    &:focus {
+        box-shadow: 0 0 6px lighten(@borderColor, 20%);
+    }
+}
+
+.x-textbox-success {
+    .textbox-state(@success-text-color);
+}
+
+.x-textbox-warning {
+    .textbox-state(@warning-text-color);
+}
+
+.x-textbox-error {
+    .textbox-state(@error-text-color);
+}

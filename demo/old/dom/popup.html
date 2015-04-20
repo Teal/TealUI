@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>浮层</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/popup.js"></script>
+
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <p class="demo">浮层不仅仅是简单的 mouseenter/mouseleave 的实现，还需要很多的缓冲效果才能保证最佳用户体验。因此实现一个浮层的效果是非常复杂的。 Popup 将这些复杂的逻辑封装到一起，使用 Popup 可以很方便地实现用户体验较高的浮层效果。</p>
+
+        <h3 class="demo">最简单的例子：鼠标移上去后显示浮层</h3>
+
+        <div id="popup-box" class="demo-box demo-absolute">我是浮层</div>
+
+        <span id="popup1">鼠标移到我这里
+        </span>
+
+        <script class="demo">
+            Dom.popup(Dom.get('popup1'), Dom.get('popup-box'));
+        </script>
+
+        <h3 class="demo">自定义浮层显示逻辑</h3>
+
+        <span id="popup2">鼠标移到我这里</span>
+
+        <script class="demo">
+            Dom.popup(Dom.get('popup2'), {
+                elem: Dom.get('popup-box'),
+                show: function (popup, target) {
+                    Dom.pin(popup, target, 'b'); // 手动显示浮层并定位浮层。
+                }
+            });
+        </script>
+
+        <h3 class="demo">自定义浮层显示逻辑</h3>
+
+        <span id="popup3">鼠标点击这里</span>
+
+        <script class="demo">
+            Dom.popup(Dom.get('popup3'), {
+                elem: Dom.get('popup-box'),
+                event: 'click',
+                show: function (popup, target) {
+                    Dom.pin(popup, target, 'b'); // 手动显示浮层并定位浮层。
+                }
+            });
+        </script>
+
+        <h3 class="demo">代替子元素</h3>
+
+        <span id="popup4">
+            <a href="#">我是文字</a>
+            <a href="#">我是文字</a>
+            <a href="#">我是文字</a>
+            <a href="#">我是文字</a>
+            <a href="#">我是文字</a>
+            <a href="#">我是文字</a>
+        </span>
+
+        <script class="demo">
+            Dom.popup(Dom.get('popup4'), {
+                elem: Dom.get('popup-box'),
+                event: 'mouseenter',
+                selector: 'a',
+                show: function (popup, target) {
+                    Dom.pin(popup, target, 'b'); // 手动显示浮层并定位浮层。
+                }
+            });
+        </script>
+
+        <table class="demo">
+            <tr>
+                <th>配置</th>
+                <th>说明</th>
+                <th>示例</th>
+            </tr>
+            <tr>
+                <td>target</td>
+                <td>浮层的目标节点。如果指定了 target，则显示浮层时，会自动调用 target.show()。隐藏时调用 target.hide()</td>
+                <td>target: Dom.get('popup')</td>
+            </tr>
+            <tr>
+                <td>show</td>
+                <td>浮层时显示之后的回调，用于重定位浮层。 函数的第一个参数 dom 是引发浮层显示的节点。</td>
+                <td>show: function(dom){  this.target.pin(dom, 'b');  }</td>
+            </tr>
+            <tr>
+                <td>hide</td>
+                <td>浮层时隐藏之后的回调。 函数的第一个参数 dom 是引发浮层显示的节点。</td>
+                <td>hide: function(dom){    }</td>
+            </tr>
+            <tr>
+                <td>event</td>
+                <td>触发浮层显示的事件。 默认为 mouseenter 。如果需要委托子节点的浮层事件。使用 click.cls 的格式。</td>
+                <td>event: 'click'</td>
+            </tr>
+            <tr>
+                <td>delay</td>
+                <td>如果 event 是 mouseenter, 缓冲浮层显示和消失的毫秒。默认为 300 。</td>
+                <td>delay: 400</td>
+            </tr>
+        </table>
+
+    </article>
+
+</body>
+</html>
