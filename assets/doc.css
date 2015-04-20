@@ -225,20 +225,24 @@
     }
 
 /* 示例专用 */
+.doc-info {
+    color: #468847 !important;
+    background-color: #E7F5E7 !important;
+    border: 1px solid #c9e7c9 !important;
+}
+
+    .doc-info:before {
+        background-color: #468847 !important;
+    }
+
 .doc-warning {
     color: #b94a48 !important;
     background-color: #F8E6E6 !important;
     border: 1px solid #e3b7b7 !important;
 }
 
-.doc-info {
-    color: #468847 !important;
-    background-color: #dff0d8 !important;
-    border: 1px solid #9bcc9c !important;
-}
-
-    .doc-warning:before, .doc-info:before {
-        display: none;
+    .doc-warning:before {
+        background-color: #b94a48 !important;
     }
 
 .doc-box, .doc-box-small, .doc-box-large {
@@ -643,15 +647,15 @@ small.doc-list-hide, .doc-toolbar-module {
     display: none;
 }
 
-.doc-list-todo a{
-    color: #AAA!important;
+.doc-list-todo a {
+    color: #AAA !important;
 }
 
 .doc-toolbar-module input {
     vertical-align: -2px;
 }
 
-.doc-toolbar-module a{
+.doc-toolbar-module a {
     margin-left: 1em;
 }
 
@@ -692,7 +696,7 @@ a#doc_pager_up {
 }
 
 .doc-pager-hide {
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 /* 底部 */

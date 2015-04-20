@@ -1425,7 +1425,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 </nav>\
                 <script type="text/javascript" src="{listsPath}"><\/script>\
                 <div class="doc-toolbar doc-toolbar-module doc-right doc-section">\
-                    <label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"{docPackageChecked}>打包此组件</label>\
+                    {packager}\
                     <a href="{newWindowUrl}" target="_blank">❒ 在新窗口打开</a>\
                 </div>\
                 <h1>{title} <small>{path}</small></h1>',
@@ -1666,7 +1666,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     newWindowUrl: location.href + (location.search ? '&' : '?') + 'frame=none',
                     listsPath: Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js',
                     docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '',
-                    index: location.protocol === 'file:' ? 'index.html' : ''
+                    index: location.protocol === 'file:' ? 'index.html' : '',
+                    packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : ''
                 };
 
                 // 更新导航条高亮。
