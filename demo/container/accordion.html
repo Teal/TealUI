@@ -1,13 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo">
     <title>手风琴</title>
-
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/tab/accordion.css" />
-
+    <link rel="stylesheet" type="text/css" href="../../src/container/accordion.css" />
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/core.js"></script>
@@ -18,74 +17,65 @@
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/core/tabbablecontrol.js"></script>
     <script type="text/javascript" src="../../src/tab/accordion.js"></script>
-
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
 
-    <article>
+    <script type="text/javascript" src="../../assets/doc.js"></script>
 
-        <aside class="doc-demo">
-
-            <div class="x-accordion" id="accordion">
-                <div class="x-accordion-panel">
-                    <div class="x-accordion-header">
-                        <a href="javascript:;">标题 title 1
-                        </a>
-                    </div>
-                    <div class="x-accordion-body">
-                        <div class="x-accordion-content">
-                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                        </div>
-                    </div>
+    <aside class="doc-demo">
+        <div class="x-accordion" id="accordion">
+            <div class="x-accordion-panel">
+                <div class="x-accordion-header">
+                    <a href="javascript:;">
+                        标题 title 1
+                    </a>
                 </div>
-                <div class="x-accordion-panel x-accordion-collapsed">
-                    <div class="x-accordion-header">
-                        <a href="javascript:;" class="x-accordion-toggle">标题 title 2
-                        </a>
-                    </div>
-                    <div class="x-accordion-body">
-                        <div class="x-accordion-content">
-                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                        </div>
-                    </div>
-                </div>
-                <div class="x-accordion-panel x-accordion-collapsed">
-                    <div class="x-accordion-header">
-                        <a href="javascript:;" class="x-accordion-toggle">标题 title 3
-                        </a>
-                    </div>
-                    <div class="x-accordion-body collapse">
-                        <div class="x-accordion-content">
-                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                        </div>
+                <div class="x-accordion-body">
+                    <div class="x-accordion-content">
+                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
                     </div>
                 </div>
             </div>
+            <div class="x-accordion-panel x-accordion-collapsed">
+                <div class="x-accordion-header">
+                    <a href="javascript:;" class="x-accordion-toggle">
+                        标题 title 2
+                    </a>
+                </div>
+                <div class="x-accordion-body">
+                    <div class="x-accordion-content">
+                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
+                    </div>
+                </div>
+            </div>
+            <div class="x-accordion-panel x-accordion-collapsed">
+                <div class="x-accordion-header">
+                    <a href="javascript:;" class="x-accordion-toggle">
+                        标题 title 3
+                    </a>
+                </div>
+                <div class="x-accordion-body collapse">
+                    <div class="x-accordion-content">
+                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var accordion = new Accordion('#accordion');
+        </script>
+    </aside>
+    <section>
+        <script>
 
-            <script>
-                var accordion = new Accordion('#accordion');
-            </script>
+            Demo.writeExamples({
+                '切换到第2个面板': 'accordion.setSelectedIndex(1)',
+                '增加一个面板': 'accordion.add("标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                '插入一个面板到第一个位置': 'accordion.addAt(0, "标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                '删除第1个面板': 'accordion.removeAt(0)'
+            });
 
-
-        </aside>
-
-        <section>
-
-            <script>
-
-                Demo.writeExamples({
-                    '切换到第2个面板': 'accordion.setSelectedIndex(1)',
-                    '增加一个面板': 'accordion.add("标题", "<div class=\'x-tabpage-content\'>内容</div>")',
-                    '插入一个面板到第一个位置': 'accordion.addAt(0, "标题", "<div class=\'x-tabpage-content\'>内容</div>")',
-                    '删除第1个面板': 'accordion.removeAt(0)'
-                });
-
-            </script>
-
-        </section>
-
-    </article>
-
+        </script>
+    </section>
 </body>
 </html>

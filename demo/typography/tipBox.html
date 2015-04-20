@@ -7,6 +7,9 @@
     <title>提示框</title>
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.css" />
+
+    <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.js" />
 </head>
 <body>
     <!-- 以下文件仅用于演示 -->
@@ -15,7 +18,6 @@
     <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
     
     <h2>基本用法</h2>
     <aside class="doc-demo">
@@ -24,7 +26,15 @@
 
     <h2>带图标和关闭按钮</h2>
     <aside class="doc-demo">
-        <div class="x-tipbox" id="tipBox1"><a href="javascript://隐藏提示" class="x-icon x-closebutton" onclick="$(this.parentNode).slideUp()" ontouchstart="this.onclick(); return false;"></a> <i class="x-icon">&#61446;</i>我是工具提示</div>
+        <div class="x-tipbox"><a href="javascript://隐藏提示" class="x-icon x-closebutton" onclick="$(this.parentNode).slideUp()" ontouchstart="this.onclick(); return false;"></a> <i class="x-icon">&#61446;</i>我是工具提示</div>
+    </aside>
+
+    <h2>完整控件方式</h2>
+    <aside class="doc-demo">
+        <div class="x-tipbox" x-control="tipBox">
+            <a href="javascript://隐藏提示" class="x-icon x-closebutton"></a>
+            <i class="x-icon">&#61446;</i>我是工具提示
+        </div>
     </aside>
 
     <h2>色系</h2>

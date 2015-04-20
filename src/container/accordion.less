@@ -1,16 +1,13 @@
 
 @import "../core/mixins.less";
 
-// Parent container
 .x-accordion {
-    margin-bottom: @baseLineHeight;
+    margin-bottom: @base-margin;
 }
 
-// Group == heading + body
 .x-accordion-panel {
     margin-bottom: 2px;
-    border: 1px solid @grayBorderLight;
-    .border-radius(@baseBorderRadius);
+    border: 1px solid @border-color;
 }
 
 .x-accordion-header {
@@ -26,8 +23,7 @@
     height: 0;
 }
 
-// Inner needs the styles because you can't animate properly with any styles on the element
 .x-accordion-content {
     padding: 9px 15px;
-    border-top: 1px solid @grayBorderLight;
+    border-top: 1px solid @border-color;
 }

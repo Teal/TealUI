@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <!-- 添加此 class 可以实现通过 class 定义图标 -->
-    <link rel="stylesheet" type="text/css" href="../../src/partial/iconex.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/iconEx.css" />
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -24,6 +24,12 @@
     </style>
 
     <blockquote>本组件提供图标。图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供，原理上使用字体实现。</blockquote>
+    
+    <script>
+        if (location.protocol === 'file:') {
+            document.write(navigator.userAgent.indexOf('Firefox') >= 0 ? '<blockquote class="doc-warning">由于安全限制，火狐不允许在 file 协议加载字体，请改用 http 协议打开本页面或使用其它浏览器。</blockquote>' : '<blockquote class="doc-warning">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>');
+        }
+    </script>
 
     <aside class="doc-demo">
         <a href="###"><i class="x-icon">&#61446;</i>你好</a>

@@ -147,3 +147,8 @@ Control.extend = function (members) {
     }
     return controlClass;
 };
+
+
+$(document).ready(function() {
+    
+});

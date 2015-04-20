@@ -771,7 +771,7 @@ a#doc_pager_up {
     }
 
     .doc-grid {
-        margin: 0 -14px;
+        margin: 0 -7px;
     }
 
     .doc-col {
@@ -779,7 +779,7 @@ a#doc_pager_up {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-        padding: 0 14px;
+        padding: 0 7px;
     }
 
     .doc-grid-4 > .doc-col {

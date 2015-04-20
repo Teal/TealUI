@@ -6,24 +6,20 @@
     background: @background-color;
     border: 1px solid @border-color;
     margin-bottom: @base-margin;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-.x-panel:last-child {
-    margin-bottom: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
 .x-panel-header, .x-panel-footer {
     background-color: #F7F7F7;
     line-height: 150%;
-    padding: @base-padding / 2 @base-padding;
+    padding: @base-box-padding;
 }
 
 .x-panel-header {
     border-bottom: 1px solid @border-color;
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
-        color: inherit;
+        font-weight: 700;
     }
 }
 
@@ -32,7 +28,10 @@
 }
 
 .x-panel-body {
-    padding: @base-padding;
+    padding: @base-box-padding-h;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 // 折叠效果
@@ -51,7 +50,6 @@
 // 不同颜色
 .x-panel-info {
     border-color: @info-border-color;
-
     .x-panel-header {
         background-color: @info-background-color;
         border-color: @info-border-color;
@@ -61,7 +59,6 @@
 
 .x-panel-success {
     border-color: @success-border-color;
-
     .x-panel-header {
         background-color: @success-background-color;
         border-color: @success-border-color;
@@ -71,12 +68,10 @@
 
 .x-panel-warning {
     border-color: @warning-border-color;
-
     .x-panel-header {
         background-color: @warning-background-color;
         border-color: @warning-border-color;
         color: @warning-text-color;
-        
     }
 }
 
@@ -86,5 +81,17 @@
         background-color: @error-background-color;
         border-color: @error-border-color;
         color: @error-text-color;
+    }
+}
+
+
+
+// 折叠支持
+.x-panel-expanded, .x-panel-collapsed {
+    .x-panel-header {
+        cursor: pointer;
+    }
+    .x-panel-header:before {
+        content: ''
     }
 }
