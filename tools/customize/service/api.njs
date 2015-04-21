@@ -257,6 +257,9 @@ function updateModuleList(folderName) {
 
                     if (PinYin) {
                         moduleInfo.titlePinYin = PinYin.getPinYin(moduleInfo.title, ' ').toLowerCase();
+                        if(moduleInfo.tags) {
+                            moduleInfo.tags += ';' + PinYin.getPinYin(moduleInfo.tags).toLowerCase() + PinYin.getPY(moduleInfo.tags).toLowerCase();
+                        }
                     }
 
                     // 添加到当前模块。
@@ -272,6 +275,9 @@ function updateModuleList(folderName) {
 
             if (PinYin) {
                 categoryInfo.titlePinYin = PinYin.getPinYin(categoryInfo.title, ' ').toLowerCase();
+                if (categoryInfo.tags) {
+                    categoryInfo.tags += ';' + PinYin.getPinYin(categoryInfo.tags).toLowerCase() + PinYin.getPY(categoryInfo.tags).toLowerCase();
+                }
             }
 
             if (categoryInfo.children.length) {
