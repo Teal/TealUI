@@ -431,7 +431,7 @@ Doc.SyntaxHighligher = (function () {
         guessLanguage: function (sourceCode) {
             // Treat it as markup if the first non whitespace character is a < and
             // the last non-whitespace character is a >.
-            return /^\s*</.test(sourceCode) ? 'html' : /\w+\s+\w+/.test(sourceCode) ? 'js' : /\w+\s*:/.test(sourceCode) ? 'css' : 'default';
+            return /^\s*</.test(sourceCode) ? 'html' : /=|\)\./.test(sourceCode) ? 'js' : /\w+\s*:/.test(sourceCode) ? 'css' : 'default';
         },
 
         /**
@@ -1423,7 +1423,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         <a accesskey="D" title="下一页" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
                     </div>\
                 </nav>\
-                <script type="text/javascript" src="{listsPath}"><\/script>\
                 <div class="doc-toolbar doc-toolbar-module doc-right doc-section">\
                     {packager}\
                     <a href="{newWindowUrl}" target="_blank">❒ 在新窗口打开</a>\
@@ -1462,6 +1461,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var index = link ? dds.indexOf(link) : -1;
             if (link = index >= 0 && dds[index + (up ? -1 : 1)] || dds[up ? dds.length - 1 : 0]) {
                 link.className = 'doc-actived';
+                Doc.Page.scrollActivedItemIntoView(up);
+            }
+        },
+
+        scrollActivedItemIntoView: function (up) {
+            var link = document.querySelector('#doc_list .doc-actived');
+            if (link) {
                 var offsetTop = link.offsetTop,
                     docList = document.getElementById('doc_list'),
                     scrollTop = docList.scrollTop;
@@ -1654,7 +1660,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (!/[?&]frame=none/i.test(location.search)) {
 
                 docPageClass = ' doc-page';
-
+                
                 var args = {
                     basePath: Doc.basePath,
                     version: Doc.Configs.version,
@@ -1664,7 +1670,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     title: document.title,
                     path: Doc.path.replace(/\..*$/, ""),
                     newWindowUrl: location.href + (location.search ? '&' : '?') + 'frame=none',
-                    listsPath: Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js',
                     docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '',
                     index: location.protocol === 'file:' ? 'index.html' : '',
                     packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : ''
@@ -1682,10 +1687,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 args['folder_actived_' + activedFolder] = ' class="doc-actived"';
                 frame += Doc.Utility.formatString(Doc.Page.header, args);
 
-                // 插入百度统计代码。
-                if (!Doc.local) {
-                    frame += '<script src="http://hm.baidu.com/h.js?a37192ce04370b8eb0c50aa13e48a15b" type="text/javascript"></script>'.replace('http:', location.protocol);
-                }
+                Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
 
                 Doc.Dom.ready(function () {
 
@@ -1707,10 +1709,17 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     document.body.appendChild(footer);
 
                     // 底部影响边栏大小。
-                    setTimeout(Doc.Page.updateSidebar, 0);
+                    Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js', Doc.Page.updateSidebar);
+
                 });
 
                 document.title += Doc.Page.title;
+
+                // 插入百度统计代码。
+                if (!Doc.local) {
+                    Doc.Dom.loadScript("http://hm.baidu.com/h.js?a37192ce04370b8eb0c50aa13e48a15b".replace('http:', location.protocol));
+                }
+
             }
 
             // 插入页面框架。
@@ -1982,6 +1991,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (localStorage.doc_listScrollTop) {
                 document.getElementById('doc_list').scrollTop = localStorage.doc_listScrollTop;
             }
+            Doc.Page.scrollActivedItemIntoView(true);
         },
 
         /**

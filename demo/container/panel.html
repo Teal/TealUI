@@ -181,8 +181,11 @@
     </aside>
 
     <h2>折叠</h2>
+    
+    <p>为 <code>.x-panel</code> 添加 <code>[x-panel]</code>，即可支持面板的折叠效果。</p>
+
     <aside class="doc-demo">
-        <section class="x-panel x-panel-collapsed" x-control="panel">
+        <section class="x-panel x-panel-collapsed" x-panel>
             <header class="x-panel-header">
                 <h5>我是被折叠起来的面板</h5>
             </header>
@@ -191,6 +194,12 @@
             </div>
         </section>
     </aside>
+    
+    <h5>手动切换折叠</h5>
+
+    <pre>
+        $('[x-panel]').panel().toggleCollapse();
+    </pre>
 
 </body>
 </html>
