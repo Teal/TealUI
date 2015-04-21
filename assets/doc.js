@@ -431,7 +431,7 @@ Doc.SyntaxHighligher = (function () {
         guessLanguage: function (sourceCode) {
             // Treat it as markup if the first non whitespace character is a < and
             // the last non-whitespace character is a >.
-            return /^\s*</.test(sourceCode) ? 'html' : /\w+\s+\w+/.test(sourceCode) ? 'js' : /\w+\s*:/.test(sourceCode) ? 'css' : 'default';
+            return /^\s*</.test(sourceCode) ? 'html' : /=|\)\./.test(sourceCode) ? 'js' : /\w+\s*:/.test(sourceCode) ? 'css' : 'default';
         },
 
         /**
@@ -1411,19 +1411,18 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <p>{pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeypress="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
+                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
                     <div id="doc_list" class="doc-section"></div>\
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
                 <nav id="doc_pager" class="doc-section">\
-                    <div><a accesskey="W" title="返回顶部" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
+                    <div><a accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
                     <div>\
-                        <a accesskey="A" title="上一页" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
-                        <a accesskey="S" title="{pageName}列表" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
-                        <a accesskey="D" title="下一页" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
+                        <a accesskey="A" title="上一页(Alt{shift}+A)" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
+                        <a accesskey="S" title="{pageName}列表(Alt{shift}+S)" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
+                        <a accesskey="D" title="下一页(Alt+Shift+D)" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
                     </div>\
                 </nav>\
-                <script type="text/javascript" src="{listsPath}"><\/script>\
                 <div class="doc-toolbar doc-toolbar-module doc-right doc-section">\
                     {packager}\
                     <a href="{newWindowUrl}" target="_blank">❒ 在新窗口打开</a>\
@@ -1462,6 +1461,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var index = link ? dds.indexOf(link) : -1;
             if (link = index >= 0 && dds[index + (up ? -1 : 1)] || dds[up ? dds.length - 1 : 0]) {
                 link.className = 'doc-actived';
+                Doc.Page.scrollActivedItemIntoView(up);
+            }
+        },
+
+        scrollActivedItemIntoView: function (up) {
+            var link = document.querySelector('#doc_list .doc-actived');
+            if (link) {
                 var offsetTop = link.offsetTop,
                     docList = document.getElementById('doc_list'),
                     scrollTop = docList.scrollTop;
@@ -1495,24 +1501,26 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
         },
 
-        togglePackage: function() {
+        togglePackage: function () {
             var docPackages = localStorage.doc_packages ? JSON.parse(localStorage.doc_packages) : {};
             docPackages[Doc.path] = document.getElementById('doc_package_current').checked;
             localStorage.doc_packages = JSON.stringify(docPackages);
         },
 
         /**
-         * 生成组件列表。
+         * 应用过滤项重新渲染列表。
          */
         filterList: function () {
 
-            var filter = document.getElementById('doc_list_filter').value.trim().toLowerCase();
+            // 获取过滤的关键字。
+            var filter = document.getElementById('doc_list_filter').value.trim().toLowerCase(),
+                filterRegExp = filter && new RegExp('(' + filter.replace(/([\-.*+?^${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
+                docList = document.getElementById('doc_list'),
+                nonHintText = docList.firstChild;
 
-            var docList = document.getElementById('doc_list'),
-                lastNonHint = docList.firstChild;
-
-            if (lastNonHint) {
-                lastNonHint.className = '';
+            // 重新显示找不到的提示文案。
+            if (nonHintText) {
+                nonHintText.className = '';
             }
 
             for (var i = 0, h2dl, lastH2; h2dl = docList.childNodes[i]; i++) {
@@ -1524,7 +1532,68 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         // 判断当前项是否需要显示。
                         var title = dtdd.getAttribute('data-title'),
                             name = dtdd.getAttribute('data-name'),
-                            shouldShow = !filter || title.toLowerCase().indexOf(filter) >= 0 || name.toLowerCase().indexOf(filter) >= 0;
+                            shouldShow = false;
+
+                        if (filter) {
+
+                            // 先验证是否在名字中。
+                            var t = name.replace(filterRegExp, '<span class="doc-red">$1</span>');
+                            if (t.length !== name.length) {
+                                shouldShow = true;
+                                name = t;
+                            }
+
+                            // 再验证是否在标题中。
+                            t = title.replace(filterRegExp, '<span class="doc-red">$1</span>');
+                            if (t.length !== title.length) {
+                                shouldShow = true;
+                                title = t;
+                            } else {
+
+                                // 最后验证是否符合拼音。
+                                var titlePinYin = (dtdd.getAttribute('data-title-pin-yin') || "");
+
+                                // 验证是否符合拼音首字母。
+                                t = titlePinYin.replace(/(\S)\S+\s?/g, "$1").indexOf(filter);
+                                if (t >= 0) {
+                                    shouldShow = true;
+                                    title = title.substr(0, t) + '<span class="doc-red">' + title.substr(t, filter.length) + '</span>' + title.substr(t + filter.length);
+                                } else {
+
+                                    // 验证是否符合拼音全拼。
+                                    var titlePinYinArray = titlePinYin.split(' ');
+                                    var titlePinYinString = titlePinYinArray.join('');
+                                    var prefixLength = 0;
+                                    for (var k = 0; k < titlePinYinArray.length; k++) {
+
+                                        // 从当前位置查找全拼。
+                                        if (titlePinYinString.indexOf(filter, prefixLength) === prefixLength) {
+                                            
+                                            // 根据输入的拼音长度确定实际匹配到的中文数。
+                                            var len = 0, maxK = k;
+                                            for (; maxK < titlePinYinArray.length; maxK++) {
+                                                len += titlePinYinArray[maxK].length;
+                                                if (len >= filter.length) {
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            shouldShow = true;
+                                            title = title.substr(0, k) + '<span class="doc-red">' + title.substr(k, maxK - k + 1) + '</span>' + title.substr(maxK + 1);
+
+                                            break;
+
+                                        }
+
+                                        prefixLength += titlePinYinArray[k].length;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
                         if (dtdd.tagName === 'DD') {
 
                             // 如果父项被筛选出，则同时筛选子项。允许根据路径搜索。
@@ -1542,9 +1611,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                                 lastH2 = null;
                             }
 
-                            if (lastNonHint && shouldShow) {
-                                lastNonHint.className = 'doc-list-hide';
-                                lastNonHint = null;
+                            // 如果有任一项被筛选出，则隐藏找不到的文案。
+                            if (nonHintText && shouldShow) {
+                                nonHintText.className = 'doc-list-hide';
+                                nonHintText = null;
                             }
 
                             dtdd = dtdd.firstChild;
@@ -1556,7 +1626,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                         // 首先隐藏节点，如果子项存在则显示节点。
                         dtdd.className = shouldShow ? '' : 'doc-list-hide';
-                        dtdd.innerHTML = appendFilter(title) + ' <small>' + appendFilter(name) + '</small>';
+                        dtdd.innerHTML = title + ' <small>' + name + '</small>';
 
                     }
 
@@ -1664,10 +1734,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     title: document.title,
                     path: Doc.path.replace(/\..*$/, ""),
                     newWindowUrl: location.href + (location.search ? '&' : '?') + 'frame=none',
-                    listsPath: Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js',
                     docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '',
                     index: location.protocol === 'file:' ? 'index.html' : '',
-                    packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : ''
+                    packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : '',
+                    shift: navigator.userAgent.indexOf('Firefox') >= 0 ? '+Shift' : ''
                 };
 
                 // 更新导航条高亮。
@@ -1682,10 +1752,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 args['folder_actived_' + activedFolder] = ' class="doc-actived"';
                 frame += Doc.Utility.formatString(Doc.Page.header, args);
 
-                // 插入百度统计代码。
-                if (!Doc.local) {
-                    frame += '<script src="http://hm.baidu.com/h.js?a37192ce04370b8eb0c50aa13e48a15b" type="text/javascript"></script>'.replace('http:', location.protocol);
-                }
+                Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
 
                 Doc.Dom.ready(function () {
 
@@ -1693,6 +1760,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     if (!Doc.local) {
                         var div = document.createElement('div');
                         div.className = 'ds-thread';
+                        div.setAttribute('data-thread-key', location.pathname);
+                        div.setAttribute('data-title', document.title);
+                        div.setAttribute('data-url', location.pathname);
                         document.body.appendChild(div);
 
                         window.duoshuoQuery = { short_name: "teal" };
@@ -1707,10 +1777,20 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     document.body.appendChild(footer);
 
                     // 底部影响边栏大小。
-                    setTimeout(Doc.Page.updateSidebar, 0);
+                    Doc.Page.updateSidebar();
+
+                    // 载入列表。
+                    Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js', Doc.Page.updateSidebar);
+
                 });
 
                 document.title += Doc.Page.title;
+
+                // 插入百度统计代码。
+                if (!Doc.local) {
+                    Doc.Dom.loadScript("http://hm.baidu.com/h.js?a37192ce04370b8eb0c50aa13e48a15b".replace('http:', location.protocol));
+                }
+
             }
 
             // 插入页面框架。
@@ -1921,7 +2001,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                             // 如果是这行发生错误说明是用户编辑的脚本有错误。
                             result = window["eval"].call(window, content);
-                           
+
                         } finally {
                             try {
                                 if (result !== undefined) {
@@ -1956,13 +2036,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             html += '<dl>';
             for (var i = 0; i < list.length ; i++) {
                 var itemI = list[i];
-                html += Doc.Utility.formatString('<dt data-title="{title}" data-name="{name}">{title} <small>{name}</small></dt>', itemI);
+                html += Doc.Utility.formatString('<dt data-title="{title}" data-name="{name}" data-title-pin-yin="{titlePinYin}">{title} <small>{name}</small></dt>', itemI);
                 for (var j = 0; j < (itemI.children && itemI.children.length) ; j++) {
                     var itemJ = itemI.children[j];
                     itemJ.activedClass = itemJ.path === Doc.path ? ' class="doc-actived"' : '';
                     itemJ.fullPath = Doc.basePath + Doc.Configs.folders[Doc.folder].path + '/' + itemJ.path;
                     itemJ.status = itemJ.status || 'done';
-                    html += Doc.Utility.formatString('<dd{activedClass} data-title="{title}" data-name="{name}" data-tags="{tags}" class="doc-list-{status}"><a href="{fullPath}">{title} <small>{name}</small></a></dd>', itemJ);
+                    html += Doc.Utility.formatString('<dd{activedClass} data-title="{title}" data-name="{name}" data-tags="{tags}" data-title-pin-yin="{titlePinYin}" class="doc-list-{status}"><a href="{fullPath}">{title} <small>{name}</small></a></dd>', itemJ);
                 }
             }
             html += '</dl>';
@@ -1982,6 +2062,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (localStorage.doc_listScrollTop) {
                 document.getElementById('doc_list').scrollTop = localStorage.doc_listScrollTop;
             }
+            Doc.Page.scrollActivedItemIntoView(true);
         },
 
         /**
@@ -2039,7 +2120,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             // 更新进度条位置。
             document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
-            
+
         },
 
         /**

@@ -409,12 +409,15 @@ var PinYin = (function () {
 		'Zuo': '昨左佐做作坐座阼唑嘬怍胙祚酢'
 	};
 
-	function concat(value, fn) {
+	function concat(value, fn, joinChar) {
+	    if (!value) {
+	        return '';
+	    }
 		var r = new Array(value.length);
 		for (var i = 0; i < value.length; i++) {
 			r[i] = fn(value.charAt(i));
 		}
-		return r.join('');
+		return r.join(joinChar || '');
 	}
 
 	return {
@@ -433,16 +436,15 @@ var PinYin = (function () {
 		},
 
 		getPYChar: function (ch) {
-			ch = PinYin.getPinYinChar(ch);
-			return (ch.match(/\wh?/) || [ch])[0];
+		    return PinYin.getPinYinChar(ch)[0];
 		},
 
-		getPY: function (value) {
-			return concat(value, PinYin.getPYChar);
+		getPY: function (value, joinChar) {
+		    return concat(value, PinYin.getPYChar, joinChar);
 		},
 
-		getPinYin: function (value) {
-			return concat(value, PinYin.getPinYinChar);
+		getPinYin: function (value, joinChar) {
+		    return concat(value, PinYin.getPinYinChar, joinChar);
 		}
 	};
 

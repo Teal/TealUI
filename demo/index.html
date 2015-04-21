@@ -17,9 +17,13 @@
     <p>通过网页右下角的翻页按钮可以阅读下一个组件，或 <a href="core/base.html">点此进入第一个组件</a>。</p>
 
     <script>
-        var listCount = document.getElementById('listCount');
-        listCount.innerHTML = document.querySelectorAll('#doc_list dd').length;
-        listCount.title = "已完成：" + document.querySelectorAll('#doc_list dd.doc-list-done').length + "\r\n" + "计划中：" + document.querySelectorAll('#doc_list dd.doc-list-todo').length;
+        var oldInitList = Doc.Page.initList;
+        Doc.Page.initList = function(list) {
+            oldInitList(list);
+            var listCount = document.getElementById('listCount');
+            listCount.innerHTML = document.querySelectorAll('#doc_list dd').length;
+            listCount.title = "已完成：" + document.querySelectorAll('#doc_list dd.doc-list-done').length + "\r\n" + "计划中：" + document.querySelectorAll('#doc_list dd.doc-list-todo').length;
+        };
     </script>
 
 </body>

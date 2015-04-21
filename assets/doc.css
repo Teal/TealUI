@@ -294,7 +294,7 @@
 
 /* 示例框 */
 .doc-demo {
-    padding: 10px;
+    padding: 14px 14px 7px;
     border: 1px solid #DADADA;
     position: relative;
     margin-bottom: 14px;
@@ -327,7 +327,7 @@
 /* 代码区域按钮 */
 .doc-toolbar-code a {
     float: right;
-    padding: 0 6px;
+    padding: 0 7px;
     display: inline-block;
     color: #999;
     border: 1px solid #DADADA;

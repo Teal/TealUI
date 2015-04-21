@@ -198,6 +198,8 @@ function updateModuleList(folderName) {
         return;
     }
 
+    var PinYin = getPinYin();
+
     // 区分是否是源码。
     var isSrc = folderName === 'sources';
     var folder = Path.resolve(Doc.basePath, Doc.Configs.folders[folderName].path);
@@ -253,6 +255,13 @@ function updateModuleList(folderName) {
                         continue;
                     }
 
+                    if (PinYin) {
+                        moduleInfo.titlePinYin = PinYin.getPinYin(moduleInfo.title, ' ').toLowerCase();
+                        if(moduleInfo.tags) {
+                            moduleInfo.tags += ';' + PinYin.getPinYin(moduleInfo.tags).toLowerCase() + PinYin.getPY(moduleInfo.tags).toLowerCase();
+                        }
+                    }
+
                     // 添加到当前模块。
                     categoryInfo.children.push(moduleInfo);
 
@@ -262,6 +271,13 @@ function updateModuleList(folderName) {
             // 隐藏分类信息。
             if (categoryInfo.ignore === "true" || categoryInfo.ignore === "1") {
                 continue;
+            }
+
+            if (PinYin) {
+                categoryInfo.titlePinYin = PinYin.getPinYin(categoryInfo.title, ' ').toLowerCase();
+                if (categoryInfo.tags) {
+                    categoryInfo.tags += ';' + PinYin.getPinYin(categoryInfo.tags).toLowerCase() + PinYin.getPY(categoryInfo.tags).toLowerCase();
+                }
             }
 
             if (categoryInfo.children.length) {
@@ -376,6 +392,15 @@ function updateModuleInfo(htmlPath, title, moduleInfo) {
 
     updateModuleList();
 };
+
+function getPinYin() {
+    if (!this.PinYin) {
+        var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/utility/pinYin.js'));
+        eval(src);
+        this.PinYin = PinYin;
+    }
+    return this.PinYin;
+}
 
 function getFileByName(path) {
     var folder = Path.dirname(path);

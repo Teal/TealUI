@@ -3,8 +3,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
-    <title>对话框(弹层/浮层)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo, tags=弹层;弹窗;tanchuang;tc;浮层;alert">
+    <title>对话框</title>
 
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/closebutton.css" />
@@ -31,10 +31,10 @@
 
     <script class="doc-demo">
         $.dialog().title('我是标题').content('<em>我是内容</em>');
-    </script>
+        </script>
 
     <blockquote>如果需要一个含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="messageBox.html">信息框（messageBox）</a> 组件。</blockquote>
-
+        
     <h2>基于已有的 HTML 创建对话框</h2>
 
     <script type="text/html" class="doc-demo">
@@ -47,12 +47,12 @@
                 <em>我是内容</em>
             </div>
         </div>
-    </script>
+        </script>
 
-    <h2>常用 API </h2>
+        <h2>常用 API </h2>
 
     <h3>自定义遮罩层（模式对话框）</h3>
-
+                
     <h4>不显示遮罩层</h4>
 
     <pre>
@@ -68,7 +68,7 @@
     <h3>关闭按钮</h3>
 
     <h4>不显示关闭按钮</h4>
-
+                
     <pre>
         $.dialog().closeButton(false);
     </pre>
@@ -84,7 +84,7 @@
     <pre>
         $.dialog().on("close", function(){
             alert("对话框已经关闭了");
-        });
+            });
     </pre>
 
     <h4>设置用户关闭对话框后的回调，并阻止关闭事件</h4>
@@ -104,14 +104,14 @@
     </pre>
 
     <!--<div class="x-dialog" id="a">
-            <div class="x-dialog-header">
-                <a class="x-closebutton">×</a>
-                <h4>header</h4>
-            </div>
-            <div class="x-dialog-body">
-                <div class="x-dialog-content">A</div>
-            </div>
-        </div>-->
+                <div class="x-dialog-header">
+                    <a class="x-closebutton">×</a>
+                    <h4>header</h4>
+                </div>
+                <div class="x-dialog-body">
+                    <div class="x-dialog-content">A</div>
+                </div>
+            </div>-->
 
 </body>
 
