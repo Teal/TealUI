@@ -22,60 +22,55 @@
 
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
+    <blockquote>手风琴即多个面板的组合，但只有一个面板是展开状态。</blockquote>
+
+    <h2>基本用法</h2>
+
     <aside class="doc-demo">
-        <div class="x-accordion" id="accordion">
-            <div class="x-accordion-panel">
-                <div class="x-accordion-header">
-                    <a href="javascript:;">
-                        标题 title 1
-                    </a>
+        <div class="x-accordion" x-accordion>
+            <div class="x-panel x-panel-collapsed">
+                <div class="x-header">
+                    标题 1
                 </div>
                 <div class="x-accordion-body">
-                    <div class="x-accordion-content">
-                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                    </div>
+                    <em>正文 1</em>
                 </div>
             </div>
-            <div class="x-accordion-panel x-accordion-collapsed">
-                <div class="x-accordion-header">
-                    <a href="javascript:;" class="x-accordion-toggle">
-                        标题 title 2
-                    </a>
+            <div class="x-panel x-panel-expanded">
+                <div class="x-header">
+                    标题 2
                 </div>
                 <div class="x-accordion-body">
-                    <div class="x-accordion-content">
-                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                    </div>
+                    <em>正文 2</em>
                 </div>
             </div>
-            <div class="x-accordion-panel x-accordion-collapsed">
-                <div class="x-accordion-header">
-                    <a href="javascript:;" class="x-accordion-toggle">
-                        标题 title 3
-                    </a>
+            <div class="x-panel x-panel-collapsed">
+                <div class="x-header">
+                    标题 3
                 </div>
-                <div class="x-accordion-body collapse">
-                    <div class="x-accordion-content">
-                        正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
-                    </div>
+                <div class="x-accordion-body">
+                    <em>正文 3</em>
                 </div>
             </div>
         </div>
-        <script>
-            var accordion = new Accordion('#accordion');
-        </script>
     </aside>
-    <section>
-        <script>
 
-            Demo.writeExamples({
-                '切换到第2个面板': 'accordion.setSelectedIndex(1)',
-                '增加一个面板': 'accordion.add("标题", "<div class=\'x-tabpage-content\'>内容</div>")',
-                '插入一个面板到第一个位置': 'accordion.addAt(0, "标题", "<div class=\'x-tabpage-content\'>内容</div>")',
-                '删除第1个面板': 'accordion.removeAt(0)'
-            });
+    <h2>常用 API</h2>
 
-        </script>
-    </section>
+    <h3>手动切换当前展开的面板</h3>
+
+    <pre>
+        $('.x-accordion').accordion().selectedIndex(1);
+    </pre>
+
+    <h3>动态插入一个面板</h3>
+
+    <pre>
+        $('.x-accordion').append('<div class="x-panel">\
+            <div class="x-panel-header">面板标题</div>\
+            <div class="x-panel-body">面板正文</div>\
+        </div>');
+    </pre>
+
 </body>
 </html>

@@ -27,14 +27,14 @@
 
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
+    <blockquote>经典对话框效果。如果需要一个含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="messageBox.html">信息框（messageBox）</a> 组件。</blockquote>
+
     <h2>创建最简单的对话框</h2>
 
     <script class="doc-demo">
         $.dialog().title('我是标题').content('<em>我是内容</em>');
-        </script>
+    </script>
 
-    <blockquote>如果需要一个含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="messageBox.html">信息框（messageBox）</a> 组件。</blockquote>
-        
     <h2>基于已有的 HTML 创建对话框</h2>
 
     <script type="text/html" class="doc-demo">
@@ -94,13 +94,6 @@
             alert("对话框即将关闭");
             return false; // return false 阻止事件，这样将关闭不了对话框。
         });
-    </pre>
-
-    <pre>
-        $.dialog({closeButton: false}); // 不显示关闭按钮。
-        $.dialog().close();     // 手动关闭对话框。        
-        $.dialog().on("close", function(){alert("对话框已经关闭了");});    // 设置关闭后的回调。        
-        $.dialog().on("close", function(){alert("对话框已经关闭了");});    // 设置关闭后的回调。
     </pre>
 
     <!--<div class="x-dialog" id="a">

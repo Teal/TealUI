@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -25,50 +25,35 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
+    
+    <h2>基本功能</h2>
 
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" placeholder="输入 a...">
+        <script>
+            $('.x-textbox').autoComplete([
+                "abc",
+                "abcg",
+                "abcer",
+                "abcewrewr",
+                "desssdasd",
+                "dwerer"
+            ]);
+        </script>
+    </aside>
 
+    <h2>后台动态载入自动填充列表</h2>
 
-    <article>
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" placeholder="输入 a...">
+        <script>
+            $('.x-textbox').autoComplete(function (value, callback) {
+                setTimeout(function() {
+                    callback(value);
+                }, 400);
+            });
+        </script>
+    </aside>
 
-        <aside class="doc-demo">
-
-            <input type="text" class="x-textbox" id="a" placeholder="输入 a...">
-
-            <script>
-				
-				
-                var a = new AutoComplete('a');
-				
-                a.add("abc");
-                a.add("abcg");
-                a.add("abcer");
-                a.add("abcewrewr");
-                a.add("desssdasd");
-                a.add("dwerer");
-				
-            </script>
-
-        </aside>
-
-        <script type="text/html">
-
-            <input type="text" class="x-textbox" id="a" placeholder="输入 a...">
-
-            <script>
-				
-				
-                var a = new AutoComplete('a');
-				
-                a.items.add("abc");
-                a.items.add("abcg");
-                a.items.add("abcer");
-                a.items.add("abcewrewr");
-                a.items.add("desssdasd");
-                a.items.add("dwerer");
-				
-                </\script>
-			
-            </script>
-    </article>
 </body>
 </html>
