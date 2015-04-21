@@ -1411,16 +1411,16 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <p>{pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeypress="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
+                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
                     <div id="doc_list" class="doc-section"></div>\
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
                 <nav id="doc_pager" class="doc-section">\
-                    <div><a accesskey="W" title="返回顶部" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
+                    <div><a accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
                     <div>\
-                        <a accesskey="A" title="上一页" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
-                        <a accesskey="S" title="{pageName}列表" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
-                        <a accesskey="D" title="下一页" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
+                        <a accesskey="A" title="上一页(Alt{shift}+A)" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
+                        <a accesskey="S" title="{pageName}列表(Alt{shift}+S)" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
+                        <a accesskey="D" title="下一页(Alt+Shift+D)" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
                     </div>\
                 </nav>\
                 <div class="doc-toolbar doc-toolbar-module doc-right doc-section">\
@@ -1672,7 +1672,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     newWindowUrl: location.href + (location.search ? '&' : '?') + 'frame=none',
                     docPackageChecked: localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '',
                     index: location.protocol === 'file:' ? 'index.html' : '',
-                    packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : ''
+                    packager: Doc.path && Doc.folder === 'demos' ? '<label><input type="checkbox" id="doc_package_current" onclick="Doc.Page.togglePackage()"' + (localStorage.doc_packages && JSON.parse(localStorage.doc_packages)[Doc.path] ? ' checked="checked"' : '') + '>打包此组件</label>' : '',
+                    shift: navigator.userAgent.indexOf('Firefox') >= 0 ? '+Shift' : ''
                 };
 
                 // 更新导航条高亮。
@@ -1709,6 +1710,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     document.body.appendChild(footer);
 
                     // 底部影响边栏大小。
+                    Doc.Page.updateSidebar();
+
+                    // 载入列表。
                     Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js', Doc.Page.updateSidebar);
 
                 });
