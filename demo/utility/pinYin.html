@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
     <title>获取中文拼音</title>
-    <script type="text/javascript" src="../../src/utility/text/pinyin.js"></script>
+    <script type="text/javascript" src="../../src/utility/pinYin.js"></script>
 
     <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
@@ -13,8 +13,14 @@
         输入中文: 
         <input type="text" id="value" value="中文" />
         <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = PinYin.getPinYin(document.getElementById('value').value)" />
-
+        //http://tech.byreach.com/node/222
         <div id="result"></div>
+
+        <h5>获取全拼</h5>
+
+        <pre>
+            md5("abc");
+        </pre>
 
         <script>
             Demo.writeExamples({
