@@ -28,9 +28,56 @@
     <script type="text/javascript" src="../../src/suggest/dropdownmenu.js"></script>
     <script type="text/javascript" src="../../src/suggest/suggest.js"></script>
 
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
+
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <h2>基本功能</h2>
+
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" placeholder="输入 a...">
+        <script>
+            $('.x-textbox').suggest([
+                "abc",
+                "abcg",
+                "abcer",
+                "abcewrewr",
+                "desssdasd",
+                "dwerer"
+            ]);
+        </script>
+    </aside>
+
+    <h2>后台动态载入自动填充列表</h2>
+
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" placeholder="输入 a...">
+        <script>
+            $('.x-textbox').suggest(function (value, callback) {
+                setTimeout(function () {
+                    callback(value);
+                }, 400);
+            });
+        </script>
+    </aside>
+
+    <h2>自定义点击项后的回调</h2>
+
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" placeholder="输入 a...">
+        <script>
+            $('.x-textbox').suggest([
+                "abc",
+                "abcg",
+                "abcer",
+                "abcewrewr",
+                "desssdasd",
+                "dwerer"
+            ], function(value, index) {
+                return '自动追加的 ' + value;
+            });
+        </script>
+    </aside>
 
 
 
