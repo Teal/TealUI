@@ -22,46 +22,46 @@ var reModuleInfo = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Doc.Configs.mo
 
 response.contentType = 'text/html';
 
-switch(request.queryString['cmd']){
-	case 'updatemodulelist':
-		updateModuleList();
-		//redirect(context);
-		break;
-	case 'createmodule':
-		var html = createModule(request.queryString.path, request.queryString.tpl, request.queryString.title);
-		context.response.write(html);
-		break;
-	case 'deletemodule':
-		deleteModule(request.queryString.path);
-		//redirect(context);
-		break;
-	case 'updatemodule':
-		var moduleInfo = {
-			status: request.queryString.status
-		};
+switch (request.queryString['cmd']) {
+    case 'updatemodulelist':
+        updateModuleList();
+        //redirect(context);
+        break;
+    case 'createmodule':
+        var html = createModule(request.queryString.path, request.queryString.tpl, request.queryString.title);
+        context.response.write(html);
+        break;
+    case 'deletemodule':
+        deleteModule(request.queryString.path);
+        //redirect(context);
+        break;
+    case 'updatemodule':
+        var moduleInfo = {
+            status: request.queryString.status
+        };
 
-		if(request.queryString.support) {
-			if(request.queryString.support.length !== require('../../demo/demo.js').Configs.support.length){
-				moduleInfo.support = request.queryString.support.join("|");
-			} else {
-				moduleInfo.support = '';
-			}
-		}
+        if (request.queryString.support) {
+            if (request.queryString.support.length !== require('../../demo/demo.js').Configs.support.length) {
+                moduleInfo.support = request.queryString.support.join("|");
+            } else {
+                moduleInfo.support = '';
+            }
+        }
 
-		if(request.queryString.ignore) {
-			moduleInfo.ignore = request.queryString.hide == "on";
-		}
+        if (request.queryString.ignore) {
+            moduleInfo.ignore = request.queryString.hide == "on";
+        }
 
-		updateModuleInfo(request.queryString.path, request.queryString.title, moduleInfo);
-		//redirect(context);
-		break;
-	case 'getlist':
-		var list = getModuleList(request.queryString.type || require('../../demo/demo.js').Configs.src);
-		writeJsonp(context, list);
-		break;
-	default:
-		redirect(context);
-		break;
+        updateModuleInfo(request.queryString.path, request.queryString.title, moduleInfo);
+        //redirect(context);
+        break;
+    case 'getlist':
+        var list = getModuleList(request.queryString.type || require('../../demo/demo.js').Configs.src);
+        writeJsonp(context, list);
+        break;
+    default:
+        redirect(context);
+        break;
 
 }
 
@@ -87,8 +87,8 @@ function redirect(context, url) {
 
     if (url) {
 
-    	if (!/^http:/.test(url)) {
-    		url = url.replace(/^file:\/\/\//, '').replace(/\\/g, "/");
+        if (!/^http:/.test(url)) {
+            url = url.replace(/^file:\/\/\//, '').replace(/\\/g, "/");
             var Demo = require('../../demo/demo.js');
             url = url.replace(Demo.basePath.replace(/\\/g, "/"), Demo.Configs.serverBaseUrl);
             context.response.redirect(url);
@@ -153,12 +153,12 @@ function createModule(path, tpl, title) {
     });
 
     content = content.replace(/<title>.*?<\/title>/, "<title>" + (title || path) + "</title>");
-    
+
     // 写入文件。
     if (!IO.exists(targetPath)) {
         IO.writeFile(targetPath, content, Doc.Configs.encoding);
     }
-    
+
     updateModuleList();
 
     return targetPath;
@@ -215,9 +215,9 @@ function updateModuleList(folderName) {
                 title: folders[i],
                 path: folders[i],
                 name: folders[i].replace(/\..*$/, ''),
-                children: []
+                children: [], toString: function () { return this.name }
             };
-            
+
             var files = FS.readdirSync(folderPath);
             for (var j = 0; j < files.length; j++) {
                 var filePath = folderPath + Path.sep + files[j];
@@ -257,7 +257,7 @@ function updateModuleList(folderName) {
 
                     if (PinYin) {
                         moduleInfo.titlePinYin = PinYin.getPinYin(moduleInfo.title, ' ').toLowerCase();
-                        if(moduleInfo.tags) {
+                        if (moduleInfo.tags) {
                             moduleInfo.tags += ';' + PinYin.getPinYin(moduleInfo.tags).toLowerCase() + PinYin.getPY(moduleInfo.tags).toLowerCase();
                         }
                     }
@@ -281,21 +281,62 @@ function updateModuleList(folderName) {
             }
 
             if (categoryInfo.children.length) {
-                categoryInfo.children.sort(sortFn);
+                categoryInfo.children = sortArray(categoryInfo.children);
                 moduleList.push(categoryInfo);
             }
-            
+
         }
     }
+    moduleList = sortArray(moduleList);
 
-    moduleList.sort(sortFn);
-
+    context.response.contentType = 'text/html;charset=utf-8'
+    folderName === 'demos' && context.response.write(JSON.stringify(moduleList))
     IO.writeFile(Path.resolve(Doc.basePath, Doc.Configs.listsPath, Doc.Configs.folders[folderName].path + '.js'), 'Doc.Page.initList(' + JSON.stringify(moduleList) + ');', Doc.Configs.encoding);
 
-    function sortFn(x, y) {
-        var xIndex = x.index == null ? Infinity : x.index;
-        var yIndex = y.index == null ? Infinity : y.index;
-        return xIndex - yIndex;
+    function sortArray(list) {
+        var newList = [];
+
+        while (list.length) {
+            processOne(list[0]);
+        }
+
+        return newList;
+
+        function processOne(item) {
+
+            // 将其从数组中删除，表示元素已处理。
+            list.splice(list.indexOf(item), 1);
+
+            // 置顶模块。
+            if (item.order ? item.order === '^' : item['parent-order']) {
+                newList.unshift(item);
+                return;
+            }
+
+            // 插入到前置项后面。
+            if (item.order) {
+
+                // 确保前置项已经被插入到列表。
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].name === item.order) {
+                        processOne(list[i]);
+                        break;
+                    }
+                }
+
+                // 插入到前置项后面。
+                for (var i = newList.length - 1; i >= 0; i--) {
+                    if (newList[i].name === item.order) {
+                        newList.splice(i + 1, 0, item);
+                        return;
+                    }
+                }
+            }
+           
+            // 如果没有合理位置则插入到末尾。
+            newList.push(item);
+        }
+
     }
 
 };

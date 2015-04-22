@@ -1777,10 +1777,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     document.body.appendChild(footer);
 
                     // 底部影响边栏大小。
-                    Doc.Page.updateSidebar();
+                    Doc.Page.updateSidebar(true);
 
                     // 载入列表。
-                    Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js', Doc.Page.updateSidebar);
+                    Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
 
                 });
 
@@ -2049,7 +2049,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             document.getElementById('doc_list').innerHTML = html;
 
             // 更新列表大小。
-            Doc.Page.updateSidebar();
+            Doc.Page.updateSidebar(true);
 
             // 实现边栏菜单固定位置显示。
             window.addEventListener('resize', Doc.Page.updateSidebar, false);
@@ -2068,8 +2068,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         /**
          * 更新侧边尺寸。
          */
-        updateSidebar: function () {
-
+        updateSidebar: function (lazy) {
+            
             var sidebar = document.getElementById('doc_sidebar');
             var list = document.getElementById('doc_list');
             var filter = document.getElementById('doc_list_filter');
@@ -2107,19 +2107,23 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 document.body.insertBefore(div, footer);
             }
 
-            var contentHeight = mainBottom - mainTop - bodyHeight;
+            if (lazy !== true) {
 
-            // 减去评论框的高度。
-            var thread = document.getElementById('ds-thread');
-            if (thread) {
-                contentHeight -= thread.offsetHeight;
+                // 更新返回顶部按钮。
+                document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
+
+                var contentHeight = mainBottom - mainTop - bodyHeight;
+
+                // 减去评论框的高度。
+                var thread = document.getElementById('ds-thread');
+                if (thread) {
+                    contentHeight -= thread.offsetHeight;
+                }
+
+                // 更新进度条位置。
+                document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
+
             }
-
-            // 更新返回顶部按钮。
-            document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
-
-            // 更新进度条位置。
-            document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
 
         },
 
@@ -2129,7 +2133,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         toggleSidebar: function () {
             var sidebar = document.getElementById('doc_sidebar');
             if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
-                Doc.Page.updateSidebar();
+                Doc.Page.updateSidebar(true);
             }
         },
 
