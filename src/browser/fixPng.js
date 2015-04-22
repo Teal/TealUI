@@ -2,8 +2,9 @@
  * @author xuld
  */
 
-	
-
+/**
+ * ÈÃ IE6 Ö§³ÖÍ¸Ã÷ PNG¡£
+ */
 function fixPng(image) {
 	
 	if(typeof XMLHttpRequest !== "undefined") {

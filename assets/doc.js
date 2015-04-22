@@ -1752,6 +1752,11 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 args['folder_actived_' + activedFolder] = ' class="doc-actived"';
                 frame += Doc.Utility.formatString(Doc.Page.header, args);
 
+                var metaDdescription = document.querySelector('meta[name=description]');
+                if (metaDdescription) {
+                    frame += '<blockquote>' + metaDdescription.content + '</blockquote>';
+                }
+
                 Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
 
                 Doc.Dom.ready(function () {

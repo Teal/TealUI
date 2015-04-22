@@ -4,8 +4,7 @@
 
 /**
  * 打开设为主页对话框。
- * @param {String} url 地址。
- * @return {Boolean} 是否成功。
+ * @param {String} url 设置的地址。 * @return {Boolean} 指示本次操作是否成功。
  */
 function setHomePage(url) {
 	url = url || location.href;
@@ -18,5 +17,3 @@ function setHomePage(url) {
 	
 	return false;
 }
-
-

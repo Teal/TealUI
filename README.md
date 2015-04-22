@@ -20,7 +20,7 @@ TealUI 完全免费和开源，不作限制。但不得基于本库开发新的 
 
 #### 如何开始
 
-[访问项目主页](http://teal.github.com/TealUI)
+[访问项目主页](http://teal.github.io/TealUI)
 
 [下载整个项目](https://github.com/Teal/TealUI/zipball/master)
 

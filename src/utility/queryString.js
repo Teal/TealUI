@@ -2,8 +2,6 @@
  * @fileOverview 处理查询字符串。
  */
 
-// #include core/core.js
-
 /**
  * 提供处理查询字符串的方法。
  * @class
@@ -16,32 +14,37 @@ var QueryString = {
      * @param {String} value 要解析的字符串。
      * @returns {Object} 已解析的对象。
      */
-    parse: function (/*String*/value) {
-        var r = {};
+    parse: function (value) {
+        var result = {};
         if (value) {
-            value.replace(/^\?/, "").replace(/\+/g, '%20').split('&').forEach(function (value, key) {
-                value = value.split('=');
-                key = value[0];
-                value = value[1];
+            value = value.replace(/^\?/, "").replace(/\+/g, '%20').split('&');
+            for (var i = 0; i < value.length; i++) {
+                var t = value[i].indexOf('='),
+                    key = t >= 0 ? value[i].substr(0, t) : value[i];
+                    val = value[i].substr(key.length + 1);
 
                 try {
                     key = decodeURIComponent(key);
-                    value = decodeURIComponent(value);
                 } catch (e) {
                 }
 
-                if (r.hasOwnProperty(key)) {
-                    if (r[key].constructor === String) {
-                        r[key] = [r[key], value];
+                try {
+                    val = decodeURIComponent(val);
+                } catch (e) {
+                }
+
+                if (result.hasOwnProperty(key)) {
+                    if (result[key].constructor === String) {
+                        result[key] = [result[key], val];
                     } else {
-                        r[key].push(value);
+                        result[key].push(val);
                     }
                 } else {
-                    r[key] = value;
+                    result[key] = val;
                 }
-            });
+            }
         }
-        return r;
+        return result;
     },
 
     /**
@@ -49,18 +52,16 @@ var QueryString = {
      * @param {Object} obj 要格式化的对象。
      * @returns {String} 已处理的字符串。
      */
-    stringify: function (obj, /*String?*/name) {
-
+    stringify: function (obj, name) {
         if (obj && typeof obj === 'object') {
             var s = [];
-            Object.each(obj, function (value, key) {
-                s.push(QueryString.stringify(value, name || key));
-            });
+            for (var key in obj) {
+                s.push(QueryString.stringify(obj[key], name || key));
+            }
             obj = s.join('&');
         } else if (name) {
             obj = encodeURIComponent(name) + "=" + encodeURIComponent(obj);
         }
-
         return obj;
     },
 

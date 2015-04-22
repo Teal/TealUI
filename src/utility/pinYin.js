@@ -6,13 +6,15 @@
  * 根据简体中文获取拼音。
  * @param {String} value 要获取的中文。
  * @param {Boolean} firstLetterOnly = false 是否只获取首字母。
- * @param {String} joinChar = '' 用于连接各组成部分的字符。
+ * @param {String} joinChar = '' 用于连接各组成部分的字符。如果设置为 null，则不连接。
  */
 function getPinYin(value, firstLetterOnly, joinChar) {
     var result = [];
-    for (var i = 0; i < value.length; i++) {
-        var pinyin = getPinYin.lookup(value[i]);
-        result[i] = firstLetterOnly ? pinyin[0] : pinyin;
+    if (value) {
+        for (var i = 0; i < value.length; i++) {
+            var pinyin = getPinYin.lookup(value[i]);
+            result[i] = firstLetterOnly ? pinyin[0] : pinyin;
+        }
     }
     return joinChar === null ? result : result.join(joinChar === undefined ? ' ' : joinChar);
 }
