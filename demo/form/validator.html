@@ -1,17 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>表单验证</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
 
+    <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-
     <!-- 以下文件仅用于演示 -->
     <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/tip/tipbox.css" />
     <!-- 以上文件仅用于演示 -->
-
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/core.js"></script>
@@ -22,20 +24,16 @@
     <script type="text/javascript" src="../../../src/fx/animate.js"></script>
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/form/validator.js"></script>
-
-    <script type="text/javascript" src="../../assets/doc.js"></script>
-
 </head>
 <body>
+
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
     <article>
-
         <h3>验证单一字段</h3>
-
         <aside class="doc-demo">
-
             <input type="text" class="x-textbox" name="validator1" id="validator1" />
             <span class="x-tipbox"></span>
-
             <script>
                 var validator1 = new Validator({
                     elem: Dom.get('validator1'),
@@ -60,9 +58,8 @@
                     }
                 });
             </script>
-
         </aside>
-        
+
         <table>
             <tr>
                 <th>验证字段</th>
@@ -110,48 +107,43 @@
                 <td>other: function(text){ return text > 0 ? '必须大于 0' : ''}</td>
             </tr>
         </table>
-
         <h3>验证表单</h3>
-        
+
         <form id="validator2" action="?">
             <input type="text" class="x-textbox" name="validator2_1" /> <span class="x-tipbox"></span> <br>
             <input type="text" class="x-textbox" name="validator2_2" /> <span class="x-tipbox"></span> <br>
-            
+
             <button type="submit" class="x-button">提交</button>
         </form>
-        
+
         <script>
             var validator2 = new Validator.Form({
-                
+
                 elem: Dom.get('validator2'),
-                
+
                 rules: {
-                    
+
                     validator2_1: {
-	                    rules: {
-	                        required: true,
-	                        minLength: 2
-	                    }
+                        rules: {
+                            required: true,
+                            minLength: 2
+                        }
                     },
-                    
+
                     validator2_2: {
-                    	rules:{
-	                        maxLength: 2
-	                    }
+                        rules: {
+                            maxLength: 2
+                        }
                     }
-                    
+
                 }
-                
+
             });
         </script>
-
         <h3>自定义验证逻辑</h3>
-
         <aside class="doc-demo">
-
             <input type="text" class="x-textbox" name="validator3" id="validator3" />
             <span class="x-tipbox"></span>
-
             <script>
                 var validator3 = new Validator({
                     elem: Dom.get('validator3'),
@@ -164,16 +156,11 @@
                     }
                 });
             </script>
-
         </aside>
-
         <h3>自定义异步后台验证</h3>
-
         <aside class="doc-demo">
-
             <input type="text" class="x-textbox" name="validator4" id="validator4" />
             <span class="x-tipbox"></span>
-
             <script>
                 var validator4 = new Validator({
                     elem: Dom.get('validator4'),
@@ -195,62 +182,50 @@
                     }
                 });
             </script>
-
         </aside>
-
         <h3 id="predefined">内置数据类型</h3>
-
         <p>下列常用的数据类型验证都可以直接使用。</p>
-
         <div>
-            email： 
-           
+            email：
+
             <input type="text" class="x-textbox" id="validator5_1">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             number：
             <input type="text" class="x-textbox" id="validator5_2">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             phone
             <input type="text" class="x-textbox" id="validator5_3">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             id
             <input type="text" class="x-textbox" id="validator5_4">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             letter
             <input type="text" class="x-textbox" id="validator5_5">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             url
             <input type="text" class="x-textbox" id="validator5_6">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             mobile
             <input type="text" class="x-textbox" id="validator5_7">
             <span class="x-tipbox"></span>
         </div>
-
         <div>
             qq
             <input type="text" class="x-textbox" id="validator5_8">
             <span class="x-tipbox"></span>
         </div>
-
         <script>
             var validator5_1 = new Validator({
                 elem: Dom.get('validator5_1'),
@@ -303,6 +278,5 @@
             });
         </script>
     </article>
-
 </body>
 </html>

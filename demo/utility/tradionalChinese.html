@@ -1,30 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>中文简繁体转换</title>
-    <script type="text/javascript" src="../../src/utility/text/tradionalchinese.js"></script>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="中文简繁体转换。">
 
-    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/utility/tradionalChinese.js"></script>
 </head>
 <body>
-    <article>
-        输入中文: 
-        <input type="text" id="value" value="中文简繁体转换" />
-        <input type="button" value="转繁体" onclick=" document.getElementById('value').value = TradionalChinese.toTradionalChinese(document.getElementById('value').value)" />
-        <input type="button" value="转简体" onclick=" document.getElementById('value').value = TradionalChinese.toSimpleChinese(document.getElementById('value').value)" />
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
 
-        <script>
-            Demo.writeExamples({
-                "简体转繁体": 'TradionalChinese.toTradionalChinese("简")',
-                "繁体转简体": 'TradionalChinese.toSimpleChinese("簡")'
-            });
-        </script>
+    <h5>简体转繁体</h5>
+    <pre>TradionalChinese.toTradionalChinese("简");</pre>
 
-        <h3>实现原理</h3>
+    <h5>繁体转简体</h5>
+    <pre>TradionalChinese.toSimpleChinese("簡");</pre>
 
-        <p>在库文件中有一个繁简字数据表，函数会查询此表并返回对应繁体/简体。</p>
-    </article>
+    输入中文:
+    <input type="text" id="value" value="中文简繁体转换" />
+    <input type="button" value="转繁体" onclick=" document.getElementById('value').value = TradionalChinese.toTradionalChinese(document.getElementById('value').value)" />
+    <input type="button" value="转简体" onclick=" document.getElementById('value').value = TradionalChinese.toSimpleChinese(document.getElementById('value').value)" />
+
+    <blockquote class="doc-info">实现原理: 在库文件中有一个繁简字数据表，函数会查询此表并返回对应繁体/简体。</blockquote>
+
 </body>
 </html>

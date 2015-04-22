@@ -3,32 +3,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="module-info" content="">
     <title>提示框</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+
+    <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.css" />
-
     <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.js" />
 </head>
 <body>
-    <!-- 以下文件仅用于演示 -->
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
-    <script type="text/javascript" src="../../assets/doc.js"></script>
-    
+
     <h2>基本用法</h2>
     <aside class="doc-demo">
         <span class="x-tipbox x-tipbox-large">我是工具提示</span>
     </aside>
-
     <h2>带图标和关闭按钮</h2>
     <aside class="doc-demo">
         <div class="x-tipbox"><a href="javascript://隐藏提示" class="x-icon x-closebutton" onclick="$(this.parentNode).slideUp()" ontouchstart="this.onclick(); return false;"></a> <i class="x-icon">&#61446;</i>我是工具提示</div>
     </aside>
-
     <h2>完整控件方式</h2>
     <aside class="doc-demo">
         <div class="x-tipbox" x-control="tipBox">
@@ -36,16 +38,13 @@
             <i class="x-icon">&#61446;</i>我是工具提示
         </div>
     </aside>
-
     <h2>色系</h2>
-
     <aside class="doc-demo">
         <span class="x-tipbox x-tipbox-success"><i class="x-icon">&#61452;</i>成功</span>
         <span class="x-tipbox x-tipbox-warning"><i class="x-icon">&#61553;</i>警告</span>
         <span class="x-tipbox x-tipbox-error"><i class="x-icon">&#61546;</i>错误</span>
         <span class="x-tipbox x-tipbox-info"><i class="x-icon">&#61530;</i>提示</span>
     </aside>
-
     <h2>功能和垂直对齐</h2>
     <aside class="doc-demo">
         正确：<input type="text" class="x-textbox x-textbox-success" /> <span class="x-tipbox x-tipbox-success x-tipbox-plain"><i class="x-icon">&#61452;</i></span>

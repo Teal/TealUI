@@ -1,21 +1,24 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="module-info" content="status=todo" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>串联异步操作</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="Deferrable 用于管理异步操作（如Ajax），确保两个操作不会同时执行以导致临界资源冲突。">
 
+    <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/utility/core/core.js"></script>
     <script type="text/javascript" src="../../src/utility/core/class.js"></script>
     <script type="text/javascript" src="../../src/utility/misc/deferrable.js"></script>
 
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <article>
-
-        <blockquote class="demo demo-info">Deferrable 用于管理异步操作（如Ajax），确保两个操作不会同时执行以导致临界资源冲突。</blockquote>
 
 <!--        <p>假如我们需要先用间隔显示红蓝2个颜色，每种颜色分别显示 2 秒后切换。</p>
 

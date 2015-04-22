@@ -6,7 +6,7 @@
 
     #doc_header h1 {
         margin: 0;
-        padding: 1em 0 .2em;
+        padding: 1em 0 .4em;
     }
 
     #doc_header h2 {
@@ -41,7 +41,7 @@
     }
 
 .secondary {
-    margin: 1.2em 0 .4em;
+    margin: 1.6em 0 .4em;
 }
 
     .secondary a {
