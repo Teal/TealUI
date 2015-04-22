@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <title>MD5 加密扩展</title>
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/utility/text/md5.js"></script>
-    <script type="text/javascript" src="../../src/utility/text/md5ex.js"></script>
+    <script type="text/javascript" src="../../src/utility/text/md5Ex.js"></script>
 
     <!-- 以下代码仅用于演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
@@ -17,7 +17,7 @@
 
     <blockquote>提供更复杂的 MD5 加密算法。</blockquote>
 
-    <blockquote class="demo demo-info">如只需简单的 MD5 加密算法请参考：<a href="md5.html">MD5</a></blockquote>
+    <blockquote class="doc-info">如只需简单的 MD5 加密算法请参考：<a href="md5.html">MD5</a></blockquote>
 
     <section>
 
@@ -27,13 +27,23 @@
         <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('value').value = md5.base64HmacMd5(document.getElementById('value').value, 'key')" />
     </section>
 
-    <script>
-        Demo.writeExamples({
-            "MD5 & base64 加密": 'md5.base64Md5("abc")',
-            "HMD5 加密": 'md5.hmacMd5("abc", "key")',
-            "HMD5 & base64 加密": 'md5.base64HmacMd5("abc", "key")'
-        });
-    </script>
+    <h5>MD5 & base64 加密</h5>
+
+    <pre>
+        md5.base64Md5("abc");
+    </pre>
+
+    <h5>HMD5 加密</h5>
+
+    <pre>
+        md5.hmacMd5("abc", "key");
+    </pre>
+
+    <h5>HMD5 & base64 加密</h5>
+
+    <pre>
+        md5.base64HmacMd5("abc", "key");
+    </pre>
 
 </body>
 </html>
