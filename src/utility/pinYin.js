@@ -428,9 +428,9 @@ getPinYin.dictionary = {
  * @param {String} ch 单个字符。
  */
 getPinYin.lookup = function(ch) {
-    for (var pinyin in dict) {
-        if (dict[pinyin].indexOf(ch) >= 0) {
-            return key;
+    for (var pinyin in getPinYin.dictionary) {
+        if (getPinYin.dictionary[pinyin].indexOf(ch) >= 0) {
+            return pinyin;
         }
     }
     return ch;

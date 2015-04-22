@@ -2,36 +2,33 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="module-info" content="status=todo">
     <title>获取中文拼音</title>
     <script type="text/javascript" src="../../src/utility/pinYin.js"></script>
-
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
-    <article>
-        输入中文: 
-        <input type="text" id="value" value="中文" />
-        <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = PinYin.getPinYin(document.getElementById('value').value)" />
-        //http://tech.byreach.com/node/222
-        <div id="result"></div>
+    <script type="text/javascript" src="../../assets/doc.js"></script>
 
-        <h5>获取全拼</h5>
+    <h5>获取全拼</h5>
 
-        <pre>
-            md5("abc");
-        </pre>
+    <pre>
+        getPinYin("中文");
+    </pre>
 
-        <script>
-            Demo.writeExamples({
-                "PinYin.getPinYin - 获取全拼": 'PinYin.getPinYin("中文")',
-                "PinYin.getPY - 获取拼音首字母": 'PinYin.getPY("中文")'
-            });
-        </script>
+    <h5>获取拼音首字母</h5>
 
-        <h3>实现原理</h3>
+    <pre>
+        getPinYin("中文", true);
+    </pre>
 
-        <p>在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</p>
-    </article>
+    输入中文:
+    <input type="text" id="value" value="中文" />
+    <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = getPinYin(document.getElementById('value').value)" />
+    http://tech.byreach.com/node/222
+    <div id="result"></div>
+
+    <blockquote class="doc-info">实现原理: 在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
+
 </body>
 </html>

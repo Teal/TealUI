@@ -198,7 +198,7 @@ function updateModuleList(folderName) {
         return;
     }
 
-    var PinYin = getPinYin();
+    var getPinYin = getPinYinFn();
 
     // 区分是否是源码。
     var isSrc = folderName === 'sources';
@@ -255,10 +255,10 @@ function updateModuleList(folderName) {
                         continue;
                     }
 
-                    if (PinYin) {
-                        moduleInfo.titlePinYin = PinYin.getPinYin(moduleInfo.title, ' ').toLowerCase();
+                    if (getPinYin) {
+                        moduleInfo.titlePinYin = getPinYin(moduleInfo.title, ' ').toLowerCase();
                         if (moduleInfo.tags) {
-                            moduleInfo.tags += ';' + PinYin.getPinYin(moduleInfo.tags).toLowerCase() + PinYin.getPY(moduleInfo.tags).toLowerCase();
+                            moduleInfo.tags += ';' + getPinYin(moduleInfo.tags).toLowerCase() + getPinYin(moduleInfo.tags, true).toLowerCase();
                         }
                     }
 
@@ -273,10 +273,10 @@ function updateModuleList(folderName) {
                 continue;
             }
 
-            if (PinYin) {
-                categoryInfo.titlePinYin = PinYin.getPinYin(categoryInfo.title, ' ').toLowerCase();
+            if (getPinYin) {
+                categoryInfo.titlePinYin = getPinYin(categoryInfo.title, ' ').toLowerCase();
                 if (categoryInfo.tags) {
-                    categoryInfo.tags += ';' + PinYin.getPinYin(categoryInfo.tags).toLowerCase() + PinYin.getPY(categoryInfo.tags).toLowerCase();
+                    categoryInfo.tags += ';' + getPinYin(categoryInfo.tags).toLowerCase() + getPinYin(categoryInfo.tags, true).toLowerCase();
                 }
             }
 
@@ -434,13 +434,13 @@ function updateModuleInfo(htmlPath, title, moduleInfo) {
     updateModuleList();
 };
 
-function getPinYin() {
-    if (!this.PinYin) {
+function getPinYinFn() {
+    if (!this.getPinYin) {
         var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/utility/pinYin.js'));
         eval(src);
-        this.PinYin = PinYin;
+        this.getPinYin = getPinYin;
     }
-    return this.PinYin;
+    return this.getPinYin;
 }
 
 function getFileByName(path) {
