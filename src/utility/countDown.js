@@ -1,1 +1,30 @@
-/** * @author xuld *///#include core/class.jsvar Countdown = Base.extend({		/**	 * @param {Number} month	 * @param {Number} day	 * @param {Number} hour	 * @param {Number} minite	 * @param {Number} second	 */	update: Function.empty,		constructor: function(callback){		if(callback)			this.update = callback;	},		step: function () {		var leftTime = this.targetTime - Date.now(); 		if(leftTime <= 0) {			this.update(0, 0, 0, 0, 0);			this.stop();			return;		}				var s = 0 | (leftTime / 1000 ),			t = s,			d = Math.floor(s / 86400),			h = Math.floor((t -= d * 86400) / 3600),			m = Math.floor((t -= h * 3600) / 60); 		this.update(d, h, m, Math.floor(t -= m * 60), s);	},		start: function(year, month, day, hour, minute){		if(arguments.length > 1) {			this.targetTime = new Date(year, month - 1, day || 1, hour || 0, minute || 0).getTime();		} else if(arguments.length == 1){			this.targetTime = year;		}		this.step();		this.timer = window.setInterval(this.step.bind(this), 1000);		return this;	},		stop: function(){		clearInterval(this.timer);		return this;	}	});
+/** * @author xuld *//**
+ * 从指定时刻到指定时刻进行倒计时。
+ * @param {Date/String} startDate? 开始倒计时的时间。如果省略则从当前时间开始倒计时。
+ * @param {Date/String} endDate 结束倒计时的时间。
+ * @param {Function} callback 每秒倒计时的回调。function(day, hour, minute, second, leftTime)
+ * @return {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
+ */function countDown(startDate, endDate, callback) {
+
+    function step() {
+        var leftTime = endDate - new Date() + startDateOffset;
+        if (leftTime <= 0) {
+            callback(0, 0, 0, 0, 0);            return;
+        }
+        var second = Math.floor(leftTime / 1000),			t = second,			day = Math.floor(second / 86400),			hour = Math.floor((t -= day * 86400) / 3600),			minute = Math.floor((t -= hour * 3600) / 60);        callback(day, hour, minute, Math.floor(t - minute * 60), second);
+    }
+
+    // 填充第一个参数。
+    if (!callback) {
+        callback = endDate;
+        endDate = startDate;
+        startDate = 0;
+    }
+
+    var startDateOffset = startDate ? (new Date() - (startDate instanceof Date ? startDate : new Date(startDate))) : 0;
+    endDate = +(endDate instanceof Date ? endDate : new Date(endDate));
+
+    step();
+
+    return setInterval(step, 1000);
+}

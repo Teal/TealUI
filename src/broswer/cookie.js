@@ -1,15 +1,16 @@
 
 var Cookie = {
+
     /**
     * 获取 Cookie 。
     * @param {String} name 名字。
     * @param {String} 值。
     */
     get: function (name) {
-        //assert.isString(name, "Cookie.get(name): 参数 {name} ~");
         var matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
         return matches ? decodeURIComponent(matches[1]) : null;
     },
+
     /**
     * 设置 Cookie 。
     * @param {String} name 名字。
@@ -20,7 +21,6 @@ var Cookie = {
     * @param {Object} secure 安全限制。
     */
     set: function (name, value, expires, path, domain, secure) {
-        //assert.isString(name, "Cookie.set(name): 参数 {name} ~");
         var e = encodeURIComponent,
         updatedCookie = e(name) + "=" + e(value),
         options = { path: path, domain: domain, secure: secure },
@@ -33,8 +33,13 @@ var Cookie = {
                 updatedCookie = updatedCookie + "; " + t + "=" + e(options[t]);
             }
         }
-        //assert(updatedCookie.length < 4096, "Cookie.set(name, value, expires, path, domain, secure): value 内容过长(大于 4096)，操作失败。");
+
+        if (updatedCookie.length > 4096) {
+            console.warn('Cookie 过长（超过 4096），可能导致 Cookie 写入失败');
+        }
+
         document.cookie = updatedCookie;
         return value;
     }
+
 };

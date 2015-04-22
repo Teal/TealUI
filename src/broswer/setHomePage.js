@@ -7,7 +7,7 @@
  * @param {String} url 地址。
  * @return {Boolean} 是否成功。
  */
-function setHomepage(url) {
+function setHomePage(url) {
 	url = url || location.href;
 	
 	if (document.body && document.body.setHomePage) {

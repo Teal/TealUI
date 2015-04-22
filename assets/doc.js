@@ -431,7 +431,7 @@ Doc.SyntaxHighligher = (function () {
         guessLanguage: function (sourceCode) {
             // Treat it as markup if the first non whitespace character is a < and
             // the last non-whitespace character is a >.
-            return /^\s*</.test(sourceCode) ? 'html' : /=|\)\./.test(sourceCode) ? 'js' : /\w+\s*:/.test(sourceCode) ? 'css' : 'default';
+            return /^\s*</.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s*\w|\w\(|\)\./.test(sourceCode) ? 'js' : 'default';
         },
 
         /**
@@ -1824,7 +1824,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     language = 'html';
                 }
 
-                language = language || Doc.SyntaxHighligher.guessLanguage(content);
+                language = language || (pre && (/\bdoc-sh-(\w+)\b/.exec(pre.className) || [])[1]) ||Doc.SyntaxHighligher.guessLanguage(content);
                 if (!pre) {
                     pre = document.createElement('pre');
                     node.parentNode.insertBefore(pre, node.nextSibling);

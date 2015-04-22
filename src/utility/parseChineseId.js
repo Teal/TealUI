@@ -5,13 +5,13 @@
 
 
 /**
- * 检查中国身份证合法性。
+ * 中国身份证解析。
  */
-var checkChineseId = (function (data) {
+var parseChineseId = (function (idNumber) {
 	
 	return function(id){
 		
-		var province = data[parseInt(id.substring(0, 2))], valid = !!province;
+	    var province = idNumber[parseInt(id.substring(0, 2))], valid = !!province;
 		
 		var birthdayYear = parseInt(id.substr(6, 4)),
 			birthdayMonth = parseInt(id.substr(10, 2)),

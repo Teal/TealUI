@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
-    <title>Base64 转 ASCII</title>
+    <meta name="module-info" content="">
+    <title>Base64 编码</title>
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../../src/utilities/text/base64.js"></script>
+    <script type="text/javascript" src="../../src/utility/base64.js"></script>
 
-    <!-- 以下代码仅用于演示 -->
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
-
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
     <blockquote>纯 JavaScript 实现 Base64 编码/解码算法。</blockquote>
 
     <section>
@@ -22,13 +21,18 @@
         <input type="button" value="Base64 编码" onclick="document.getElementById('input').value = btoa(document.getElementById('input').value)" />
         <input type="button" value="Base64 解码" onclick="document.getElementById('input').value = atob(document.getElementById('input').value)" />
     </section>
+    
+    <h5>Base64 编码</h5>
+    
+    <pre>
+        btoa("abcefg");
+    </pre>
 
-    <script>
-        Demo.writeExamples({
-            "btoa - Base64 编码": 'btoa("abcefg")',
-            "atob - Base64 解码": 'atob("YWJjZWZn")'
-        });
-    </script>
+    <h5>Base64 解码</h5>
+
+    <pre>
+        atob("YWJjZWZn");
+    </pre>
 
 </body>
 
