@@ -29,8 +29,8 @@
     <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
         &lt;ul>
             {foreach a in $data.dataArr}
-                {if a % 2 == 1}&lt;li>{a}&lt;/li>{end}
-            {end}
+                {if a % 2 == 1}&lt;li>{a}&lt;/li>{/if}
+            {/foreach}
         &lt;/ul></textarea>
 
     输入数据:
@@ -57,14 +57,14 @@
             text2
         {else}
             text3
-        {end}
+        {/if}
     </pre>
 
     <h4>foreach 语句</h4>
     <pre>
         {foreach value, key in [0,1,2]}
             {key} = {value}
-        {end}
+        {/foreach}
     </pre>
     <p>foreach 语句同时支持数组和对象。</p>
 
@@ -72,17 +72,17 @@
     <pre>
         {for var i=0; i < 3; i++ }
             text{i}
-        {end}
+        {/for}
         {for var key in obj }
             text{key}
-        {end}
+        {/for}
     </pre>
 
     <h4>while 语句</h4>
     <pre>
         {while false }
             text
-        {end}
+        {/while}
     </pre>
 
     <h4>var 语句</h4>
@@ -94,7 +94,7 @@
     <pre>
         {function a()}
             func
-        {end}
+        {/function}
         {a() // 函数调用}
     </pre>
 
