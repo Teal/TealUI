@@ -16,6 +16,8 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
+
+
     <aside class="doc-demo">
         <style>
             .slider {
@@ -30,19 +32,18 @@
                     -o-transition: left .2s;
                     -webkit-transition: left .2s;
                     transition: left .2s;*/
+                    -moz-transform: translateX(0) translateZ(0);
+                    -ms-transform: translateX(0) translateZ(0);
+                    -o-transform: translateX(0) translateZ(0);
+                    -webkit-transform: translateX(0) translateZ(0);
+                    transform: translateX(0) translateZ(0);
                 }
 
-            .slider li {
-                float: left;
-                list-style: none;
-            }
+                .slider li {
+                    float: left;
+                    list-style: none;
+                }
 
-            .ss {
-                -moz-transition: transform .2s;
-                    -o-transition: transform .2s;
-                    -webkit-transition: transform .2s;
-                    transition: transform .2s;
-            }
         </style>
         
         <div class="slider">
@@ -60,7 +61,7 @@
         </div>
 
         <script>
-            $('.slider ul').touchScroll('h');
+            $('.slider ul').touchScroll();
         </script>
     </aside>
 

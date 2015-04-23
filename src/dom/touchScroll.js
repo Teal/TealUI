@@ -14,14 +14,16 @@ $.fn.touchScroll = function (options) {
     return this.on('touchstart', function (e) {
         var me = $(this);
 
-        trace("touchstart")
-
         // 确保元素可偏移。
         //if (options.property === 'left' && me.css('position') === 'static') {
         //    me.css('position', 'relative');
         //}
-       // me.css('transition', 'none');
-        me.removeClass('ss');
+        me.css({
+            '-moz-transition': 'none',
+            '-o-transition': 'none',
+            '-webkit-transition': 'none',
+            'transition': 'none'
+        });
 
         // jQuery: e.originalEvent.touches
         // Zepto: e.touches
@@ -51,16 +53,20 @@ $.fn.touchScroll = function (options) {
 
                     // 宽度超过当前坐标，则最后显示坐落在当前帧内。
                     if (width > endX) {
-                        endX = i < items.length - 1 && (endX > oldWidth + (width - oldWidth) / 2) ? width : oldWidth;
+                        endX = i < items.length - 1 && (endX > oldWidth + (width - oldWidth) / 4) ? width : oldWidth;
                         break;
                     }
 
                 }
 
                 // 开始恢复定位逻辑。
-                me.addClass('ss');
-                //me.css("transition", options.property + ' 1s');
-                me.css('transform', 'translateX(' + -endX + 'px)');
+                me.css({
+                    '-moz-transition': '-webkit-transform .6s',
+                    '-o-transition': '-webkit-transform .6s',
+                    '-webkit-transition': '-webkit-transform .6s',
+                    'transition': 'transform .6s'
+                });
+                me.css('transform', 'translateX(' + -endX + 'px) translateZ(0)');
 
             },
             touchMove: function (e) {
@@ -70,7 +76,7 @@ $.fn.touchScroll = function (options) {
                 // 如果滚动方向是垂直滚动，作为屏幕滚动。
                 if (ratio <= .5) {
                     e.preventDefault();
-                    me.css('transform', 'translateX(' + (session.startLeft + (touch.clientX - session.startX)) + 'px)');
+                    me.css('transform', 'translateX(' + (session.startLeft + (touch.clientX - session.startX)) + 'px) translateZ(0)');
                 }
 
             }
