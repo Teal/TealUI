@@ -436,7 +436,7 @@ function updateModuleInfo(htmlPath, title, moduleInfo) {
 
 function getPinYinFn() {
     if (!this.getPinYin) {
-        var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/utility/pinYin.js'));
+        var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/text/pinYin.js'));
         eval(src);
         this.getPinYin = getPinYin;
     }

@@ -173,7 +173,7 @@ var Tpl = {
             commandMatch = /^\s*(\/?)(\w+)\b/.exec(commandText) || [];
 
             if (commandMatch[1]) {
-                if (!commandsStack.length || commandsStack[commandsStack.length - 1] !== commandMatch[1]) {
+                if (!commandsStack.length || commandsStack[commandsStack.length - 1] !== commandMatch[2]) {
                     throw new SyntaxError("模板编译错误：发现多余的" + commandText + "\r\n在“" + tplSource.substring(blockStart - 20, blockStart) + "”附近");
                 }
                 compiledCode += commandsStack.pop() === 'foreach' ? '},this)\n' : '}\n';
