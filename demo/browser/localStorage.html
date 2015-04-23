@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>本地存储</title>
-    <meta name="module-info" content="">
+    <meta name="module-info" content="compact=IE6">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="让所有浏览器支持本地存储。">
 
@@ -19,19 +19,12 @@
     <blockquote class="doc-info">在本不支持本地存储的浏览器，统一使用 Cookie 保存，请确保数据大小。</blockquote>
 
     <h5>获取本地存储数据</h5>
-    <pre>
-        localStorage.getItem("sample"); // 如果不存在则返回 null。
-    </pre>
+    <pre>localStorage.getItem("sample"); // 如果不存在则返回 null。</pre>
 
     <h5>设置本地存储数据</h5>
-    <pre>
-        localStorage.setItem("sample", "1");
-    </pre>
+    <pre>localStorage.setItem("sample", "1");</pre>
 
     <h5>删除本地存储数据</h5>
-    <pre>
-        localStorage.removeItem("sample");
-    </pre>
-
+    <pre>localStorage.removeItem("sample");</pre>
 </body>
 </html>

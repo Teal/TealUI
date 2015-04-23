@@ -3,15 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="module-info" content="status=release">
     <title>大整数运算</title>
     <meta name="module-info" content="status=todo">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="实现无误差的大正整数加法、乘法和次方。">
+    <meta name="description" content="实现无误差的大整数加减乘法。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../src/utility/misc/biginteger.js"></script>
-
+    <script type="text/javascript" src="../../src/utility/bigInteger.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -19,19 +17,22 @@
 
     <input type="text" id="x" />
     <input type="text" id="y" />
-    
-    <input type="button" value="求和" onclick="document.getElementById('result').innerHTML = BigInteger.add(document.getElementById('x').value, document.getElementById('y').value)" />
-    <input type="button" value="求积" onclick="document.getElementById('result').innerHTML = BigInteger.mul(document.getElementById('x').value, document.getElementById('y').value)" />
-    <input type="button" value="求幂" onclick="document.getElementById('result').innerHTML = BigInteger.pow(document.getElementById('x').value, document.getElementById('y').value)" />
-    
+
+    <input type="button" value="求和" onclick="document.getElementById('result').innerHTML = BigNumber.add(document.getElementById('x').value, document.getElementById('y').value)" />
+    <input type="button" value="求差" onclick="document.getElementById('result').innerHTML = BigNumber.sub(document.getElementById('x').value, document.getElementById('y').value)" />
+    <input type="button" value="求积" onclick="document.getElementById('result').innerHTML = BigNumber.mul(document.getElementById('x').value, document.getElementById('y').value)" />
+
     <span id="result"></span>
 
-    <script>
-        Demo.writeExamples({
-            "大数加": 'BigInteger.add("1", "4")',
-            "大数乘": 'BigInteger.mul("1", "4")',
-            "大数方": 'BigInteger.pow("1", "4")',
-        });
-    </script>
+    <h5>大数加</h5>
+    <pre>BigInteger.add("2", "4");</pre>
+
+    <h5>大数减</h5>
+    <pre>BigInteger.sub("2", "4");</pre>
+
+    <h5>大数乘</h5>
+    <pre>BigInteger.mul("2", "4");</pre>
+
+    <blockquote>如果需要支持小数和更多运算，请使用 <a href="bigNumber.html">大数(bigNumber)</a> 组件。</blockquote>
 </body>
 </html>

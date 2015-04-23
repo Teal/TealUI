@@ -7,6 +7,7 @@
     <meta name="module-info" content="order=addToFavorite">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="支持和传统 ASP 兼容的子 Cookie 功能。">
+
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/browser/cookie.js"></script>
     <script type="text/javascript" src="../../src/utility/queryString.js"></script>
@@ -17,19 +18,13 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h5>获取子 Cookie</h5>
-    <pre>
-        Cookie.getSub("sample", "subName") // 如果 Cookie 不存在，返回 null 。
-    </pre>
+    <pre>Cookie.getSub("sample", "subName") // 如果 Cookie 不存在，返回 null 。</pre>
 
     <h5>设置子 Cookie</h5>
-    <pre>
-        Cookie.setSub("sample", "subName", "the value")
-    </pre>
+    <pre>Cookie.setSub("sample", "subName", "the value")</pre>
 
     <h5>删除子 Cookie</h5>
-    <pre>
-        Cookie.setSub("sample", "subName", null)
-    </pre>
+    <pre>Cookie.setSub("sample", "subName", null)</pre>
 
     <blockquote class="doc-info">如果只需要基本 Cookie 功能, 请使用 <a href="cookie.html">Cookie 操作</a> 组件。</blockquote>
 </body>

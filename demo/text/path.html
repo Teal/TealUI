@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="module-info" content="status=todo" />
+    <title>路径处理</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="处理路径问题。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/text/base.js"></script>
+    <script type="text/javascript" src="../../src/text/path.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <h5>切换目录</h5>
+    <pre>Path.resolve("a/b", "../", "c")</pre>
+
+    <h5>规范化路径</h5>
+    <pre>Path.normalize("a/b/../c/d/e")</pre>
+
+    <h5>组合路径</h5>
+    <pre>Path.join("a", "d")</pre>
+
+    <h5>获取相对路径</h5>
+    <pre>Path.relative("a/b", "a/c")</pre>
+
+    <h5>获取文件夹名</h5>
+    <pre>Path.dirname("a/b/c")</pre>
+
+    <h5>获取文件名</h5>
+    <pre>Path.basename("a/b/c")</pre>
+
+    <h5>获取扩展名</h5>
+    <pre>Path.extname("a.js")</pre>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /**
- *   @author 
+ * @author xuld
  */
 
 var Sorter = Sorter || {};
@@ -12,26 +12,17 @@ var Sorter = Sorter || {};
  *   @private
  */
 Sorter._defaultSorter = function (a, b) {
-	return a < b; 
+    return a < b;
 };
 
 Sorter._createFn = function (sortFn) {
-	return function (iteratable, compareFn, start, end) {
-		//assert.isNumber(iteratable && iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {iteratable} 必须有 length 属性。");
-
-		compareFn = compareFn || Sorter._defaultSorter;
-		start = start || 0;
-		end = end || iteratable.length;
-
-		//assert(start >= 0 && start <= end, "Sorter.sort(iteratable, start, end, compareFn): 参数 {start} ~。");
-		//assert(end <= iteratable.length, "Sorter.sort(iteratable, start, end, compareFn): 参数 {end} ~。");
-		//assert.isFunction(compareFn, "Sorter.sort(iteratable, start, end, compareFn): 参数 {compareFn} ~。");
-
-
-		sortFn(iteratable, compareFn, start, end);
-		return iteratable;
-
-	};
+    return function (iteratable, compareFn, start, end) {
+        compareFn = compareFn || Sorter._defaultSorter;
+        start = start || 0;
+        end = end || iteratable.length;
+        sortFn(iteratable, compareFn, start, end);
+        return iteratable;
+    };
 };
 
 /**
@@ -42,16 +33,16 @@ Sorter._createFn = function (sortFn) {
  * @param {Function} compareFn 比较函数。
 */
 Sorter.bubble = Sorter._createFn(function (iteratable, compareFn, start, end) {
-
-	for (; start < end; start++)
-		for (var k = start + 1; k < end; k++)
-			if (compareFn(iteratable[k], iteratable[start])) {
-				var c = iteratable[start];
-				iteratable[start] = iteratable[k];
-				iteratable[k] = c;
-			}
-
-	return iteratable;
+    for (; start < end; start++) {
+        for (var k = start + 1; k < end; k++) {
+            if (compareFn(iteratable[k], iteratable[start])) {
+                var c = iteratable[start];
+                iteratable[start] = iteratable[k];
+                iteratable[k] = c;
+            }
+        }
+    }
+    return iteratable;
 }),
 
 /**
@@ -63,17 +54,15 @@ Sorter.bubble = Sorter._createFn(function (iteratable, compareFn, start, end) {
  *  @memberOf JPlus.Sorter
  */
 Sorter.shell = Sorter._createFn(function (iteratable, compareFn, start, end) {
-
-	for (var gap = (end - start) >> 1; gap > 0; gap = gap >> 1) {
-		for (var i = gap + start; i < end; i++) {
-			for (var temp = iteratable[i], j = i; (j - gap >= start) && compareFn(temp, iteratable[j - gap]) ; j -= gap) {
-				iteratable[j] = iteratable[j - gap];
-			}
-			iteratable[j] = temp;
-		}
-	}
-
-	return iteratable;
+    for (var gap = (end - start) >> 1; gap > 0; gap = gap >> 1) {
+        for (var i = gap + start; i < end; i++) {
+            for (var temp = iteratable[i], j = i; (j - gap >= start) && compareFn(temp, iteratable[j - gap]) ; j -= gap) {
+                iteratable[j] = iteratable[j - gap];
+            }
+            iteratable[j] = temp;
+        }
+    }
+    return iteratable;
 }),
 
 /**
@@ -86,30 +75,30 @@ Sorter.shell = Sorter._createFn(function (iteratable, compareFn, start, end) {
 */
 Sorter.quick = Sorter._createFn(function (iteratable, compareFn, start, end) {
 
-	if (start >= end)
-		return;
+    if (start >= end)
+        return;
 
-	var temp = iteratable[start], low = start, high = end;
-	do {
-		while (high > low && !compareFn(iteratable[high], temp))
-			high--;
+    var temp = iteratable[start], low = start, high = end;
+    do {
+        while (high > low && !compareFn(iteratable[high], temp))
+            high--;
 
-		if (low < high)
-			iteratable[low++] = iteratable[high];
+        if (low < high)
+            iteratable[low++] = iteratable[high];
 
 
-		while (low < high && compareFn(iteratable[low], temp))
-			low++;
+        while (low < high && compareFn(iteratable[low], temp))
+            low++;
 
-		if (low < high)
-			iteratable[high--] = iteratable[low];
+        if (low < high)
+            iteratable[high--] = iteratable[low];
 
-	} while (low < high);
-	iteratable[low] = temp;
+    } while (low < high);
+    iteratable[low] = temp;
 
-	var qsort = arguments.callee;
-	qsort(iteratable, compareFn, start, high - 1);
-	qsort(iteratable, compareFn, high + 1, end);
+    var qsort = arguments.callee;
+    qsort(iteratable, compareFn, start, high - 1);
+    qsort(iteratable, compareFn, high + 1, end);
 
 });
 

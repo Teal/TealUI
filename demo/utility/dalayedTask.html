@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>延时的任务</title>
     <meta name="module-info" content="status=todo">
     <meta name="author" content="xuld@vip.qq.com">
@@ -10,22 +11,19 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../src/utility/misc/dalayedtask.js"></script>
-
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
-    <article>
-        <script>
-            var delayedTask = new DelayedTask(function () {
-                trace('task');
-            });
+    <script class="doc-demo">
+        var delayedTask = new DelayedTask(function () {
+            trace('task');
+        });
 
-            delayedTask.delay(100);
-            delayedTask.start(33);
-            delayedTask.stop();
-        </script>
-    </article>
+        delayedTask.delay(100);
+        delayedTask.start(33);
+        delayedTask.stop();
+    </script>
 </body>
 </html>

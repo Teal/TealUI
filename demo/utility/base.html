@@ -4,21 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>基础函数</title>
-    <meta name="module-info" content="parent-title=工具函数,parent-order=browser, status=todo">
+    <meta name="module-info" content="parent-title=工具函数, parent-order=text, status=todo">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="提供三个最常用的基础函数。">
+    <meta name="description" content="提供三个最常用的基础函数。同时为低版本浏览器填补了标准 API。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/utility/base.js"></script>
-
 </head>
 <body>
-    
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h5><code>Object.extend</code>: 复制成员</h5>
-
     <pre>
         var src = {a: 1};
         var dest = {};
@@ -27,7 +24,6 @@
     </pre>
 
     <h5><code>Object.each</code>: 迭代对象或数组</h5>
-
     <pre>
         Object.each([1, 2, 3], function(item, index){
             console.log(item);
@@ -38,15 +34,11 @@
     </pre>
 
     <h5><code>String.format</code>: 字符串格式化</h5>
-
     <pre>
         String.format("{0}转换", 1); //  "1转换"
         String.format("{1}翻译",0,1); // "1翻译"
         String.format("{a}翻译",{a:"也可以"}); // 也可以翻译
         String.format("{{0}}不转换, {0}转换", 1); //  "{0}不转换1转换"
     </pre>
-    
-    <blockquote class="doc-info">本组件同时为低版本浏览器填补了标准 API。</blockquote>
-
 </body>
 </html>

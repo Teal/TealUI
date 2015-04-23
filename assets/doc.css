@@ -3,17 +3,21 @@
  */
 
 /*
-    色系：Deep Purple
-    50#EDE7F6
-    100#D1C4E9
-    200#B39DDB
-    300#9575CD
-    400#7E57C2
-    500#673AB7
-    600#5E35B1
-    700#512DA8
-    800#4527A0
-    900#311B92
+    色系：Teal
+    50#E0F2F1
+    100#B2DFDB
+    200#80CBC4
+    300#4DB6AC
+    400#26A69A
+    500#009688
+    600#00897B
+    700#00796B
+    800#00695C
+    900#004D40
+    A100#A7FFEB
+    A200#64FFDA
+    A400#1DE9B6
+    A700#00BFA5
 
     灰色：
     分割：#DADADA
@@ -31,7 +35,7 @@
     color: #212121;
 }
 
-.doc > img, .doc > table, .doc > textarea, .doc > input, .doc > video, .doc > audio, .doc > canvas {
+.doc > img, .doc > table, .doc > textarea, .doc > input, .doc > video, .doc > audio, .doc > canvas, .doc > input, .doc > button {
     max-width: 100%;
 }
 
@@ -152,7 +156,7 @@
         left: -1px;
         top: -1px;
         bottom: -1px;
-        background-color: #673AB7;
+        background-color: #009688;
     }
 
     .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > pre, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
@@ -338,7 +342,7 @@
 }
 
     .doc-toolbar-code a:hover, .doc-toolbar-code a.doc-hover {
-        background-color: #673AB7;
+        background-color: #009688;
         color: #FFF;
         text-decoration: none;
     }
@@ -381,12 +385,12 @@
 /* #region 文档页面样式 */
 
 ::-moz-selection {
-    background: #9575CD;
+    background: #4DB6AC;
     color: #fff;
 }
 
 ::selection {
-    background: #9575CD;
+    background: #4DB6AC;
     color: #fff;
 }
 
@@ -409,7 +413,7 @@ body.doc, body.doc-section {
     -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
     width: 0;
     height: 1px;
-    background-color: #512DA8;
+    background-color: #00796B;
     top: 0;
     left: 0;
     z-index: 10003;
@@ -418,7 +422,7 @@ body.doc, body.doc-section {
 /* 顶部 */
 #doc_topbar {
     margin-top: -7px;
-    background-color: #512DA8;
+    background-color: #00796B;
     padding: 0;
 }
 
@@ -430,7 +434,7 @@ body.doc, body.doc-section {
     }
 
         #doc_topbar a:hover, #doc_topbar .doc-actived a {
-            background-color: #311B92;
+            background-color: #004D40;
             color: #FFF;
         }
 
@@ -461,7 +465,7 @@ body.doc, body.doc-section {
 }
 
     #doc_navbar_trigger:active, .doc-trigger-actived {
-        background-color: #311B92;
+        background-color: #004D40;
     }
 
         .doc-trigger-actived + #doc_navbar {
@@ -487,7 +491,7 @@ body.doc, body.doc-section {
     }
 
 #doc_header {
-    background-color: #673AB7;
+    background-color: #009688;
     color: #FFF;
     padding-bottom: 2em;
     margin-bottom: 1em;
@@ -568,7 +572,7 @@ body.doc, body.doc-section {
 }
 
     #doc_list_filter:hover, #doc_list_filter:focus {
-        border-bottom-color: #673AB7;
+        border-bottom-color: #009688;
     }
 
 #doc_list {
@@ -607,7 +611,7 @@ body.doc, body.doc-section {
     }
 
     #doc_list dt {
-        border-left: 2px solid #673AB7;
+        border-left: 2px solid #009688;
         line-height: 120%;
         margin: 0.4em 0;
         font-weight: 600;

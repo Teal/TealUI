@@ -2,13 +2,19 @@
  * @author xuld
  */
 
-
-function formatTime(t) {
-	var diff = Math.round((new Date() - t) / 1000),
+/**
+ * 格式化时间为 N 天前格式。
+ * @param {Date/String} 要格式化的时间。
+ * @param {now} 当前时间。
+ */
+function formatTime(date, now) {
+    var timeOffset = Math.round(((now || new Date()) - date) / 1000),
 		mf = Math.floor,
-		t;
-	return (t = mf(diff / 86400)) !== 0 ? t + '天前' : 
-		(t = mf(diff / 3600 % 24)) !== 0 ? t + '小时前' : 
-		(t = mf(diff / 60 % 60)) !== 0 ? t + '分前' : 
-		(t = mf(diff % 60)) > 5 ? t + '秒前' : '刚刚';
+		date;
+
+    return timeOffset > 86400 * 4 || timeOffset < 0 ? date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日' :
+        (date = mf(timeOffset / 86400)) !== 0 ? date + '天前' :
+		(date = mf(timeOffset / 3600 % 24)) !== 0 ? date + '小时前' :
+		(date = mf(timeOffset / 60 % 60)) !== 0 ? date + '分前' :
+		(date = mf(timeOffset % 60)) > 4 ? date + '秒前' : '刚刚';
 }

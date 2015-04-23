@@ -1,80 +1,47 @@
 
 /**
- * 委托。
+ * 表示一个委托。
  * @class Delegate
  */
-var Delegate = Base.extend({
-	
-	/**
-	 * 初始化一个委托。
-	 * @param {Function} ... 创建委托的函数。
-	 */
-	constructor: function(){
-		
-		/**
-		 * 执行委托。
-		 * @return {Boolean} 是否成功调用所有委托成员。
-		 */
-		var fn = function(){
-			arguments.callee.apply(this, arguments);
-		};
-		
-		Object.extend(fn, this);
-		fn.handlers = [].slice.call(arguments);
-		return fn;
-		
-	},
-	
-	/**
-	 * 增加一个函数。
-	 * @param {Function} f 函数。
-	 * @return {Delegate} this。
-	 */
-	add: function(f){
-		this.handlers.push(f);
-		return this;
-	},
+function Delegate() {
+    var delegate = function() {
+        for (var i = 0; i < arguments.callee.handlers.length; i++) {
+            arguments.callee.handlers[i].apply(this, arguments);
+        }
+    };
+    for (var key in Delegate.prototype) {
+        delegate[key] = Delegate.prototype[key];
+    }
+    delegate.handlers = [];
+    delegate.handlers.push.apply(delegate.handlers, arguments);
+    return delegate;
+}
 
-	/**
-	 * 删除一个函数。
-	 * @param {Function} f 函数。
-	 * @return {Delegate} this。
-	 */
-	remove:  function(f){
-		this.handlers.remove(f);
-		return this;
-	},
-	
-	/**
-	 * 删除所有函数。
-	 * @param {Function} f 函数。
-	 * @return {Delegate} this。
-	 */
-	clear: function(){
-		this.handlers.length = 0;
-		return this;
-	},
-	
-	/**
-	 * 对一个对象调用委托。
-	 * @param {Object} bind 对象。
-	 * @param {Array} args 参数。
-	 * @return {Boolean} 是否成功调用所有委托成员。
-	 */
-	apply: function(bind, args){
-		return this.handlers.each(function(f){
-			return f.apply(bind, args);
-		});
-	},
-	
-	/**
-	 * 对一个对象调用委托。
-	 * @param {Object} bind 对象。
-	 * @param {Object} ... 参数。
-	 * @return {Boolean} 是否成功调用所有委托成员。
-	 */
-	call: function(bind){
-		return this.apply(bind, [].slice.call(arguments, 1));
-	}
-							   
-});
+/**
+ * 增加一个函数。
+ * @param {Function} fn 函数。
+ * @return {Delegate} this。
+ */
+Delegate.prototype.add = function (fn) {
+    this.handlers.push(fn);
+    return this;
+};
+
+/**
+ * 删除一个函数。
+ * @param {Function} fn 函数。
+ * @return {Delegate} this。
+ */
+Delegate.prototype.remove = function (fn) {
+    this.handlers.indexOf(fn) >= 0 && this.handlers.splice(this.handlers.indexOf(fn), 1);
+    return this;
+};
+
+/**
+ * 删除所有函数。
+ * @return {Delegate} this。
+ */
+Delegate.prototype.clear = function () {
+    this.handlers.length = 0;
+    return this;
+};
