@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>获取中文拼音</title>
+    <meta name="module-info" content="status=todo, order=tradionalChinese">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="根据简体中文获取拼音。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/text/pinYin.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    输入中文:
+    <input type="text" id="value" value="中文" />
+    <input type="button" value="输出拼音" onclick="document.getElementById('result').innerHTML = getPinYin(document.getElementById('value').value)" />
+    http://tech.byreach.com/node/222
+    <div id="result"></div>
+
+    <h5>获取全拼</h5>
+    <pre>getPinYin("中文");</pre>
+
+    <h5>获取拼音首字母</h5>
+    <pre>getPinYin("中文", true);</pre>
+
+    <blockquote class="doc-info">实现原理: 在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
+
+    <blockquote class="doc-warning">注意：不支持多音字。</blockquote>
+
+</body>
+</html>
