@@ -10,19 +10,15 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-
 </head>
 <body>
-
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h2>CSS 重置 <small>(CSS Normalize/Reset)</small></h2>
-
     <p>为了方便前端开发，统一浏览器默认行为，TealUI 对部分标签的样式进行统一重置。主要有：</p>
 
     <h3>重置 HTML5 新标签</h3>
-
     <pre>
         article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
             display: block;
@@ -33,7 +29,6 @@
     </pre>
 
     <h3>重置表单标签</h3>
-
     <pre>
         input, button, select, textarea, optgroup {
             font: inherit;
@@ -45,22 +40,18 @@
     </pre>
 
     <h3>重置默认字体</h3>
-
     <p>为保证中文排版更加美观，TealUI 使用了 14px 大号字体。用户也可通过修改 less 配置默认字体。</p>
-
     <pre>
         body {
             margin: 0;
-            font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
+            font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
             font-size: 14px;
-            line-height: 28px;
+            line-height: 171.42857143%; /* 24px */
         }
     </pre>
 
     <h3>重置默认间距</h3>
-
     <p>为语义化块级标签定义外边距：</p>
-
     <pre>
         p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
             margin: 0 0 14px;
@@ -68,13 +59,11 @@
     </pre>
 
     <h2>浏览器修复</h2>
-
     <p>
         为精简代码，TealUI 并未重置其它标签。另参考：<a href="https://github.com/necolas/normalize.css">normalize.css<i class="x-icon x-icon-external-link"></i></a>
     </p>
     
     <h3>关于 -webkit-text-size-adjust</h3>
-    
     <p>Chrome 最小支持 12px 的字号，使用 CSS -webkit-text-size-adjust: none 可以打破这个限制，但是最新版本的 Chrome 已删除了此属性支持。要想显示小于 12px 的字号，可以使用 em 或 rem 单位的字号。</p>
     
     <aside class="doc-demo">
@@ -84,13 +73,11 @@
     <h2>标签默认样式</h2>
 
     <h3>链接</h3>
-
     <aside class="doc-demo">
         <a href="###">我是链接</a>
     </aside>
 
     <h3>标题</h3>
-
     <aside class="doc-demo">
         <h1>标题1：标题标题标题标题标题标题标题标题标题标题 Heading <small>副标题 Subheading</small></h1>
         <h2>标题2：标题标题标题标题标题标题标题标题标题标题 Heading <small>副标题 Subheading</small></h2>
@@ -101,7 +88,6 @@
     </aside>
 
     <h3>段落</h3>
-
     <aside class="doc-demo" id="article_demo">
         <style>
             #article_demo h3 {
@@ -119,7 +105,6 @@
     </aside>
 
     <h3>水平线</h3>
-
     <aside class="doc-demo">
         <hr />
     </aside>
@@ -127,7 +112,6 @@
     <blockquote class="doc-info">更多水平线样式请参考 <a href="../typography/line.html">水平线</a> 组件。</blockquote>
 
     <h3>列表</h3>
-
     <aside class="doc-demo">
         <ul>
             <li>列表1</li>
@@ -157,7 +141,6 @@
     <blockquote class="doc-info">更多列表样式请参考 <a href="../typography/list.html">列表</a> 组件。</blockquote>
 
     <h3>表格</h3>
-
     <aside class="doc-demo">
         <table>
             <tr>
@@ -178,7 +161,6 @@
     <blockquote class="doc-info">更多表格样式请参考 <a href="../typography/table.html">表格</a> 组件。</blockquote>
 
     <h3>图片</h3>
-
     <aside class="doc-demo">
         <img src="../../assets/resources/260x180.gif" />
         <img src="../../assets/resources/260x180.gif" style="border-radius: 10px" />
@@ -188,9 +170,7 @@
     <blockquote class="doc-info">更多图片样式请参考<a href="../typography/article.html">文章</a> 组件、<a href="../typography/thumbnail.html">缩略图</a> 组件、<a href="../typography/videoplaceholder.html">视频缩略图</a> 组件和 <a href="../typography/face.html">头像</a> 组件。</blockquote>
 
     <h3>表单</h3>
-
     <p>TealUI 提供了专门的表单组件，因此基础样式中未定义表单标签的样式，只负责修复表单默认样式。另参考 <a href="../form/form.html">表单</a> 组件。</p>
-
     <aside class="doc-demo">
         <label>文本</label>:
         <input type="text" value="文本框" />
@@ -212,7 +192,6 @@
     <blockquote class="doc-info">更多表单样式请参考 <a href="../form/form.html">表单</a> 组件。</blockquote>
 
     <h3>其它块级标签</h3>
-
     <aside class="doc-demo">
         <address>address</address>
         <blockquote>blockquote</blockquote>
@@ -221,7 +200,6 @@
     <blockquote class="doc-info">用于表示名言引入的块级引用请参考 <a href="../typography/blockquote.html">块级引用</a> 组件。</blockquote>
 
     <h3>其它内联标签</h3>
-
     <aside class="doc-demo">
         文本：
         <code>code</code>
@@ -244,7 +222,6 @@
     </aside>
 
     <h3>HTML5 新标签</h3>
-
     <aside class="doc-demo">
         <aside>aside</aside>
 
@@ -275,6 +252,5 @@
             template 不应该被显示
         </template>
     </aside>
-
 </body>
 </html>

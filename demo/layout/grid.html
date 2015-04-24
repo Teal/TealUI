@@ -4,15 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>栅格布局</title>
-    <meta name="module-info" content="status=todo, parent-title=布局, parent-order=core, package=default">
+    <meta name="module-info" content="parent-title=布局, parent-order=core, package=default">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="网页的基本布局方法为：将网页先分成 N 行，每行分成 N 列。栅格法即将每行先分成 12 列，然后将任意 N 列合并，最终实现左窄右宽、左中右平分等常见分列布局效果。">
+    <meta name="description" content="栅格布局法：将网页先分成 N 行，每行分成 N 列。每列都是网页中的一个模块。">
 
     <!-- 以下是本组件的全部源码 -->
-    <!-- 以下是本组件需要的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
-    
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -29,147 +27,50 @@
         }
     </style>
 
-    <blockquote class="doc-info">栅格布局会根据屏幕自动调整大小。调整浏览器窗口大小可以查看效果。</blockquote>
-
-    <h2>栅格布局法</h2>
-    
-    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，列的宽度分别使用<code>.x-col-*</code>(其中 * 是 0-12 的整数) 标识。只要一行内的所有列宽度后缀加起来等于 12，即可占满一行。</p>
-
-    <aside class="doc-demo">
-        <div class="x-container x-grid">
-            <div class="x-col x-col-4"><span>左</span></div>
-            <div class="x-col x-col-8"><span>右</span></div>
-        </div>
-    </aside>
-
-    <h2>响应式布局</h2>
-
-    <p>通过不同的前缀，可以为不同分辨率指定不同的分列方式：</p>
-    <ul>
-        <li><code>.x-col-*</code>: 小屏（默认）按此宽度布局。</li>
-        <li><code>.x-col-large-*</code>: 大屏按此宽度布局。</li>
-    </ul>
-
-    <p>比如，大屏（电脑）上显示 2 列，小屏（手机）上显示 1 列：</p>
+    <h2>基本用法</h2>
+    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
     <aside class="doc-demo">
         <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-6">
-                <span>A</span>
-            </div>
-            <div class="x-col x-col-12 x-col-large-6">
-                <span>B</span>
-            </div>
+            <div class="x-col" style="width:25%;"><span>左</span></div>
+            <div class="x-col" style="width:75%;"><span>右</span></div>
         </div>
     </aside>
 
     <h2>容器</h2>
-    <p>容器的主要功能是定义一个居中的区域以显示网页内容。这个区域自动调整宽度，但不超过 1000px。</p>
-
+    <p>容器的功能是定义一个居中的区域以显示网页内容。这个区域会自动适应宽度，但不超过 1000px。</p>
     <aside class="doc-demo">
         <div class="x-container">我是居中的容器，不超过 1000px 宽</div>
     </aside>
-    
-    <h2>常见布局</h2>
 
-    <blockquote class="doc-info">常用的页面左右分栏效果（手机上导航自动缩进），可参考<a href="###">侧边栏组件</a>。</blockquote>
+    <p>可以将 <code>.x-container</code> 和 <code>.x-grid</code> 一起使用，实现常见的网页居中布局效果。</p>
+    <script class="doc-demo" type="text/html">
+        <body>
+            <div class="x-container x-grid">
+                <div class="x-col" style="width:25%;"><span>左</span></div>
+                <div class="x-col" style="width:75%;"><span>右</span></div>
+            </div>
+        </body>
+    </script>
 
-    <h3>左小右大</h3>
+    <h2>布局嵌套</h2>
+    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
     <aside class="doc-demo">
         <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-3"><span>左边栏</span></div>
-            <div class="x-col x-col-12 x-col-large-9"><span>主体</span></div>
-        </div>
-    </aside>
-
-    <h3>左大右小</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-9"><span>主体</span></div>
-            <div class="x-col x-col-12 x-col-large-3"><span>右边栏</span></div>
-        </div>
-    </aside>
-
-    <h3>左右平分</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-6"><span>主体 1</span></div>
-            <div class="x-col x-col-12 x-col-large-6"><span>主体 2</span></div>
-        </div>
-    </aside>
-
-    <h3>左中右</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-3"><span>左边栏</span></div>
-            <div class="x-col x-col-12 x-col-large-7"><span>主体</span></div>
-            <div class="x-col x-col-12 x-col-large-2"><span>右边栏</span></div>
-        </div>
-    </aside>
-
-    <h3>三等分</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-4"><span>主体 1</span></div>
-            <div class="x-col x-col-12 x-col-large-4"><span>主体 2</span></div>
-            <div class="x-col x-col-12 x-col-large-4"><span>主体 3</span></div>
-        </div>
-    </aside>
-
-    <h3>四等分</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12 x-col-large-3"><span>主体 1</span></div>
-            <div class="x-col x-col-12 x-col-large-3"><span>主体 2</span></div>
-            <div class="x-col x-col-12 x-col-large-3"><span>主体 3</span></div>
-            <div class="x-col x-col-12 x-col-large-3"><span>主体 4</span></div>
-        </div>
-    </aside>
-
-    <h3>其它</h3>
-    <aside class="doc-demo">
-        <div class="x-grid">
-            <div class="x-col x-col-12">
-                <span>1/1</span>
+            <div class="x-col" style="width:25%;"><span>左</span></div>
+            <div class="x-col" style="width:75%;">
+                <div class="x-grid">
+                    <div class="x-col" style="width:25%;"><span>右1</span></div>
+                    <div class="x-col" style="width:75%;"><span>右2</span></div>
+                </div>
             </div>
         </div>
-        <div class="x-grid">
-            <div class="x-col x-col-6"><span>1/2</span></div>
-            <div class="x-col x-col-6"><span>1/2</span></div>
-        </div>
-        <div class="x-grid">
-            <div class="x-col x-col-4"><span>1/3</span></div>
-            <div class="x-col x-col-4"><span>1/3</span></div>
-            <div class="x-col x-col-4"><span>1/3</span></div>
-        </div>
-        <div class="x-grid">
-            <div class="x-col x-col-3"><span>1/4</span></div>
-            <div class="x-col x-col-3"><span>1/4</span></div>
-            <div class="x-col x-col-3"><span>1/4</span></div>
-            <div class="x-col x-col-3"><span>1/4</span></div>
-        </div>
-        <div class="x-grid">
-            <div class="x-col x-col-2"><span>1/6</span></div>
-            <div class="x-col x-col-2"><span>1/6</span></div>
-            <div class="x-col x-col-2"><span>1/6</span></div>
-            <div class="x-col x-col-2"><span>1/6</span></div>
-            <div class="x-col x-col-2"><span>1/6</span></div>
-            <div class="x-col x-col-2"><span>1/6</span></div>
-        </div>
-        <div class="x-grid">
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-            <div class="x-col x-col-1"><span>1/12</span></div>
-        </div>
     </aside>
+
+    <blockquote class="doc-info">如果想快速设置列宽和自适应，可使用 <a href="grid12.html">12栅格布局法(grid12)</a> 组件。</blockquote>
+
+    <blockquote class="doc-info">如果只需等分布局，可使用 <a href="flex.html">等分布局(flex)</a> 组件。</blockquote>
+
+    <blockquote class="doc-info">如果只需基本的左右布局方式，可使用 <a href="sideBar.html">侧边栏(sideBar)</a> 组件。</blockquote>
 
 </body>
 </html>

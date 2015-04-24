@@ -2,7 +2,6 @@
 @import "../core/mixins.less";
 
 .x-table {
-    max-width: 100%;
     width: 100%;
 
     tbody {
@@ -29,9 +28,9 @@
     color: @success-text-color;
 }
 
-.x-table-warn {
-    background-color: @warn-background-color !important;
-    color: @warn-text-color;
+.x-table-warning {
+    background-color: @warning-background-color !important;
+    color: @warning-text-color;
 }
 
 .x-table-error {
@@ -44,8 +43,8 @@
     background-color: #ffd !important;
 }
 
-.x-table-small {
+.x-table-large {
     th, td {
-        padding: 2px 4px;
+        padding: @base-font-size / 2 @base-font-size;
     }
 }

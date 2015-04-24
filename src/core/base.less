@@ -18,7 +18,7 @@ article, aside, section, header, footer, nav, menu, figcaption, figure, main, de
     display: block;
 }
 
-img, textarea, progress, input, audio, video, table, canvas {
+img, textarea, progress, input, audio, video, canvas {
     display: inline-block; // IE6-8: 修复默认显示方式。
     max-width: 100%; // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
 }
@@ -145,10 +145,11 @@ table {
     border-collapse: collapse;
     border-spacing: 0; // 删除默认边距。
     empty-cells: show;
+    max-width: 100%;
 }
 
 th, td {
-    padding: @base-font-size / 2 @base-font-size;
+    padding: 4px 8px;
     border: 1px solid @border-color;
 }
 
@@ -168,6 +169,7 @@ code {
 // 小字
 small {
     font-weight: 100;
+    font-size: small;
     color: @hint-color;
 }
 

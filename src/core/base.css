@@ -23,7 +23,6 @@ progress,
 input,
 audio,
 video,
-table,
 canvas {
   display: inline-block;
   max-width: 100%;
@@ -137,10 +136,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: show;
+  max-width: 100%;
 }
 th,
 td {
-  padding: 7px 14px;
+  padding: 4px 8px;
   border: 1px solid #e0e0e0;
 }
 img {
@@ -154,6 +154,7 @@ code {
 }
 small {
   font-weight: 100;
+  font-size: small;
   color: #bdbdbd;
 }
 address,

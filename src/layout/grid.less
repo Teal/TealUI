@@ -1,38 +1,14 @@
 ﻿
 @import "../core/mixins.less";
 
-
-.generateColumnStep(@classPrefix, @index, @count) when (@index =< @count) {
-    .x-col@{classPrefix}-@{index} {
-        width: 100% * @index / @count;
-    }
-    .generateColumnStep(@classPrefix, (@index + 1), @count);
-}
-
-.generateColumns(@classPrefix: ~'') {
-    .generateColumnStep(@classPrefix, 1, 12);
-}
-
 // 布局行
 .x-grid {
-    margin: 0 -@base-padding;
+    margin-left: -@base-padding;
+    margin-right: -@base-padding;
     .clearfix();
 }
 
-// 容器
-.x-container {
-    max-width: 1000px + @base-padding * 2;
-    margin: 0 auto;
-    padding: 0 @base-padding * 2;
-    position: relative;
-}
-
-// 当容器和布局行一起使用时，不需要设置 margin
-.x-container.x-grid {
-    padding: 0 @base-padding;
-}
-
-// 列
+// 布局列
 .x-col {
     float: left;
     padding: 0 @base-padding;
@@ -42,8 +18,16 @@
     box-sizing: border-box;
 }
 
-.generateColumns();
+// 容器
+.x-container {
+    max-width: 1000px + @base-padding * 2;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 @base-padding * 2;
+    position: relative;
+}
 
-@media @large {
-    .generateColumns(-large);
+// 当容器和布局行一起使用时，margin: -@base-padding 使用 padding: @base-padding 代替。
+.x-container.x-grid {
+    padding: 0 @base-padding;
 }

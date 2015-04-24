@@ -298,7 +298,7 @@
 
 /* 示例框 */
 .doc-demo {
-    padding: 14px 14px 7px;
+    padding: 14px;
     border: 1px solid #DADADA;
     position: relative;
     margin-bottom: 14px;
@@ -307,13 +307,12 @@
     .doc-demo:before {
         content: "示例";
         font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
-        padding: 0 6px;
         font-size: 10px;
         line-height: 20px;
-        color: #bcbcbc;
+        color: rgba(94, 94, 94, .5);
         position: absolute;
         top: 0;
-        right: 0;
+        right: 7px;
         cursor: default;
     }
 

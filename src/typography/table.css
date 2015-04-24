@@ -1,5 +1,4 @@
 ﻿.x-table {
-  max-width: 100%;
   width: 100%;
 }
 .x-table tbody tr:hover {
@@ -16,7 +15,7 @@
   background-color: rgba(94, 185, 94, 0.15) !important;
   color: #5eb95e;
 }
-.x-table-warn {
+.x-table-warning {
   background-color: rgba(243, 123, 29, 0.15) !important;
   color: #e9985e;
 }
@@ -27,7 +26,7 @@
 .x-table-actived {
   background-color: #ffd !important;
 }
-.x-table-small th,
-.x-table-small td {
-  padding: 2px 4px;
+.x-table-large th,
+.x-table-large td {
+  padding: 7px 14px;
 }

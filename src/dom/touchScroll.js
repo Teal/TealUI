@@ -1,4 +1,6 @@
-/** * @author [作者] */
+/**
+ * @author [作者]
+ */
 
 /**
  * 让当前元素支持触摸滚动。
@@ -90,4 +92,5 @@ $.fn.touchScroll = function (options) {
         me.on('touchend', session.touchEnd).on('touchmove', session.touchMove);
 
     });
-};
+};
+

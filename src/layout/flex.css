@@ -1,4 +1,7 @@
-﻿.x-grid-2 > .x-col {
+﻿.x-grid-1 > .x-col {
+  width: 100%;
+}
+.x-grid-2 > .x-col {
   width: 50%;
 }
 .x-grid-3 > .x-col {
@@ -14,6 +17,9 @@
   width: 16.66666667%;
 }
 @media only screen and (min-width: 1025px) {
+  .x-grid-large-1 > .x-col {
+    width: 100%;
+  }
   .x-grid-large-2 > .x-col {
     width: 50%;
   }
