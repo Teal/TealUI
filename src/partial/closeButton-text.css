@@ -8,20 +8,23 @@
   -webkit-user-select: none;
   user-select: none;
   color: #212121;
-  opacity: .8;
+  opacity: .6;
   cursor: pointer;
   float: right;
-  -moz-transition: transform .3s, opacity .3s;
-  -o-transition: transform .3s, opacity .3s;
-  -webkit-transition: transform .3s, opacity .3s;
+  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+  -o-transition: -o-transform 0.3s, opacity 0.3s;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
   transition: transform .3s, opacity .3s;
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -o-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
   display: block;
 }
 .x-closebutton:hover {
   text-decoration: none;
-  opacity: .4;
-}
-.x-closebutton-spin:hover {
+  opacity: .3;
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
