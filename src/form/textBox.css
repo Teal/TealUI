@@ -21,24 +21,24 @@ textarea.x-textbox {
   width: 600px;
   height: 150px;
 }
-.x-textbox-success,
-.x-textbox-success:focus {
+.x-textbox.x-success,
+.x-textbox.x-success:focus {
   border-color: #5eb95e;
 }
-.x-textbox-success:focus {
+.x-textbox.x-success:focus {
   box-shadow: 0 0 6px #a5d8a5;
 }
-.x-textbox-warning,
-.x-textbox-warning:focus {
+.x-textbox.x-warning,
+.x-textbox.x-warning:focus {
   border-color: #e9985e;
 }
-.x-textbox-warning:focus {
+.x-textbox.x-warning:focus {
   box-shadow: 0 0 6px #f5d1b8;
 }
-.x-textbox-error,
-.x-textbox-error:focus {
+.x-textbox.x-error,
+.x-textbox.x-error:focus {
   border-color: #dd514c;
 }
-.x-textbox-error:focus {
+.x-textbox.x-error:focus {
   box-shadow: 0 0 6px #eda4a2;
 }

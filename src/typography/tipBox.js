@@ -1,14 +1,12 @@
 ﻿
 var TipBox = Control.extend({
 
-    init: function() {
-        this.dom.on('click', '.x-closebutton', function() {
-            $(this).hide();
-        });
+    init: function () {
+        Dom.on(this.elem, 'click', '.x-closebutton', this.close.bind(this));
     },
 
     close: function() {
-        this.dom.slideUp();
+        Dom.slideDown(this.elem);
     }
 
 });

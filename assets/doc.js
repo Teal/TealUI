@@ -1392,7 +1392,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.Page = {
 
-        title: ' - TealUI | 更懂你的前端界面组件库',
+        title: ' - TealUI | 更懂你的前端代码库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <div id="doc_progress"></div>\

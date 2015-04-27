@@ -37,52 +37,51 @@
     .x-icon:last-child {
         width: 0.8em;
     }
-
-}
-
-.x-button:active, .x-button-actived {
-    box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
-}
-
-.x-button[disabled], .x-button-disabled {
-    pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
-    border-color: transparent;
-    opacity: 0.5;
-    box-shadow: none;
-    cursor: not-allowed; // 由于 pointer-events: none 可能不生效
-}
-
-// 色系
-
-.button-state(@color) {
-    color: @background-color;
-    background-color: @color;
-    border-color: @color;
-
-    &:hover, &:focus {
-        background-color: darken(@color, 12%);
-        border-color: darken(@color, 12%);
+    
+    &:active, &.x-actived {
+        box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
     }
-}
 
-.x-button-info {
-    .button-state(@info-text-color);
-}
+    &[disabled], &.x-disabled {
+        pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+        border-color: transparent;
+        opacity: 0.5;
+        box-shadow: none;
+        cursor: not-allowed; // 由于 pointer-events: none 可能不生效
+    }
+    
+    // 色系
 
-.x-button-success {
-    .button-state(@success-text-color);
-}
+    .button-state(@color) {
+        color: @background-color;
+        background-color: @color;
+        border-color: @color;
 
-.x-button-warning {
-    .button-state(@warning-text-color);
-}
+        &:hover, &:focus {
+            background-color: darken(@color, 12%);
+            border-color: darken(@color, 12%);
+        }
+    }
 
-.x-button-error {
-    .button-state(@error-text-color);
-}
+    &.x-info {
+        .button-state(@info-text-color);
+    }
 
-// 尺寸
+    &.x-success {
+        .button-state(@success-text-color);
+    }
 
-.x-button-small {
-    padding: 0 .4em;
+    &.x-warning {
+        .button-state(@warning-text-color);
+    }
+
+    &.x-error {
+        .button-state(@error-text-color);
+    }
+    
+    // 尺寸
+    &.x-small {
+        padding: 0 @base-font-size * .4;
+    }
+
 }

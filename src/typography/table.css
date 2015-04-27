@@ -7,26 +7,32 @@
 .x-table-stripped tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
-.x-table-info {
+tr.x-info,
+th.x-info,
+td.x-info {
   background-color: rgba(59, 180, 242, 0.15) !important;
   color: #049cdb;
 }
-.x-table-success {
+tr.x-success,
+th.x-success,
+td.x-success {
   background-color: rgba(94, 185, 94, 0.15) !important;
   color: #5eb95e;
 }
-.x-table-warning {
+tr.x-warning,
+th.x-warning,
+td.x-warning {
   background-color: rgba(243, 123, 29, 0.15) !important;
   color: #e9985e;
 }
-.x-table-error {
+tr.x-error,
+th.x-error,
+td.x-error {
   background-color: rgba(221, 81, 76, 0.15) !important;
   color: #dd514c;
 }
-.x-table-actived {
+tr.x-actived,
+th.x-actived,
+td.x-actived {
   background-color: #ffd !important;
-}
-.x-table-large th,
-.x-table-large td {
-  padding: 7px 14px;
 }

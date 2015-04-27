@@ -25,15 +25,15 @@ a.x-badge:hover {
   text-decoration: none;
   opacity: .8;
 }
-.x-badge-info {
+.x-badge.x-info {
   background: #049cdb;
 }
-.x-badge-success {
+.x-badge.x-success {
   background: #5eb95e;
 }
-.x-badge-warning {
+.x-badge.x-warning {
   background: #e9985e;
 }
-.x-badge-error {
+.x-badge.x-error {
   background: #dd514c;
 }

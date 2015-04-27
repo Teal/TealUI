@@ -18,33 +18,30 @@
 }
 
 // ÑÕÉ«
-.x-table-info {
-    background-color: @info-background-color !important;
-    color: @info-text-color;
-}
-
-.x-table-success {
-    background-color: @success-background-color !important;
-    color: @success-text-color;
-}
-
-.x-table-warning {
-    background-color: @warning-background-color !important;
-    color: @warning-text-color;
-}
-
-.x-table-error {
-    background-color: @error-background-color !important;
-    color: @error-text-color;
-}
-
-// ¼¤»î×´Ì¬¡£
-.x-table-actived {
-    background-color: #ffd !important;
-}
-
-.x-table-large {
-    th, td {
-        padding: @base-font-size / 2 @base-font-size;
+tr, th, td {
+    &.x-info {
+        background-color: @info-background-color !important;
+        color: @info-text-color;
     }
+
+    &.x-success {
+        background-color: @success-background-color !important;
+        color: @success-text-color;
+    }
+
+    &.x-warning {
+        background-color: @warning-background-color !important;
+        color: @warning-text-color;
+    }
+
+    &.x-error {
+        background-color: @error-background-color !important;
+        color: @error-text-color;
+    }
+
+    // ¼¤»î×´Ì¬¡£
+    &.x-actived {
+        background-color: #ffd !important;
+    }
+
 }

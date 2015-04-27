@@ -9,8 +9,9 @@
     -o-transition: border-color .2s ease-in-out;
     -webkit-transition: border-color .2s ease-in-out;
     transition: border-color .2s ease-in-out;
-}
+    
+    a:hover & {
+        border-color: @link-text-color;
+    }
 
-a:hover .x-thumbnail {
-    border-color: @link-text-color;
 }

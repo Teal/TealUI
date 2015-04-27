@@ -46,21 +46,6 @@
   text-overflow: ellipsis;
   display: block;
 }
-.x-hint {
-  color: #bdbdbd;
-}
-.x-info {
-  color: #049cdb !important;
-}
-.x-success {
-  color: #5eb95e !important;
-}
-.x-warn {
-  color: #e9985e !important;
-}
-.x-error {
-  color: #dd514c !important;
-}
 .x-row {
   display: block !important;
   margin-bottom: 1em;
@@ -90,6 +75,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   list-style: none;
+}
+.x-scrollable-horizontal {
+  overflow: hidden;
+  overflow-x: auto;
+  width: 100%;
 }
 @media only screen and (max-width: 1024px) {
   .x-hide-small {

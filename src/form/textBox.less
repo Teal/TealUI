@@ -25,26 +25,27 @@
         width: 600px;
         height: 150px;
     }
-}
+    
+    .textbox-state(@borderColor) {
+        &, &:focus {
+            border-color: @borderColor;
+        }
 
-.textbox-state(@borderColor) {
-    &, &:focus {
-        border-color: @borderColor;
+        &:focus {
+            box-shadow: 0 0 6px lighten(@borderColor, 20%);
+        }
     }
 
-    &:focus {
-        box-shadow: 0 0 6px lighten(@borderColor, 20%);
+    &.x-success {
+        .textbox-state(@success-text-color);
     }
-}
 
-.x-textbox-success {
-    .textbox-state(@success-text-color);
-}
+    &.x-warning {
+        .textbox-state(@warning-text-color);
+    }
 
-.x-textbox-warning {
-    .textbox-state(@warning-text-color);
-}
+    &.x-error {
+        .textbox-state(@error-text-color);
+    }
 
-.x-textbox-error {
-    .textbox-state(@error-text-color);
 }
