@@ -256,7 +256,7 @@ function updateModuleList(folderName) {
                     }
 
                     if (getPinYin) {
-                        moduleInfo.titlePinYin = getPinYin(moduleInfo.title, ' ').toLowerCase();
+                        moduleInfo.titlePinYin = getPinYin(moduleInfo.title, false, ' ').toLowerCase();
                         if (moduleInfo.tags) {
                             moduleInfo.tags += ';' + getPinYin(moduleInfo.tags).toLowerCase() + getPinYin(moduleInfo.tags, true).toLowerCase();
                         }
@@ -308,7 +308,7 @@ function updateModuleList(folderName) {
             list.splice(list.indexOf(item), 1);
 
             // 置顶模块。
-            if (item.order ? item.order === '^' : item['parent-order']) {
+            if (item.order === '^') {
                 newList.unshift(item);
                 return;
             }
