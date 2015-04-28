@@ -8,26 +8,26 @@
 }
 .x-buttongroup .x-button {
   float: left;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .x-buttongroup .x-button:not(:first-child) {
   border-left-color: #d9d9d9;
   margin-left: -1px;
 }
-.x-buttongroup-2 .x-button {
+.x-buttongroup-1 > .x-button {
+  width: 100%;
+}
+.x-buttongroup-2 > .x-button {
   width: 50%;
 }
-.x-buttongroup-3 .x-button {
+.x-buttongroup-3 > .x-button {
   width: 33.33333333%;
 }
-.x-buttongroup-4 .x-button {
+.x-buttongroup-4 > .x-button {
   width: 25%;
 }
-.x-buttongroup-5 .x-button {
+.x-buttongroup-5 > .x-button {
   width: 20%;
 }
-.x-buttongroup-6 .x-button {
+.x-buttongroup-6 > .x-button {
   width: 16.66666667%;
 }

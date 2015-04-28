@@ -6,4 +6,5 @@
 .x-breadcrumb a,
 .x-breadcrumb span {
   color: #666;
+  padding-right: .5em;
 }

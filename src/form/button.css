@@ -9,27 +9,27 @@
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  padding: 4px 1.25em;
-  background-color: #e6e6e6;
-  border: 1px solid #e6e6e6;
+  padding: 4px 14px;
+  background-color: #eee;
+  border: 1px solid #eee;
   color: #212121;
   outline: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   -moz-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   -o-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   transition: background-color 300ms ease-out, border-color 300ms ease-out;
 }
 .x-button:focus {
-  background-color: #dcdcdc;
+  background-color: #e4e4e4;
 }
 .x-button:hover,
 .x-button:active {
-  background-color: #c7c7c7;
-  border-color: #c7c7c7;
+  background-color: #cfcfcf;
+  border-color: #cfcfcf;
   text-decoration: none;
-}
-.x-button .x-icon:last-child {
-  width: 0.8em;
 }
 .x-button:active,
 .x-button.x-actived {

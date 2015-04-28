@@ -6,7 +6,7 @@
     <title>图标</title>
     <meta name="module-info" content="order=^, parent-title=小部件, parent-order=typography, package=default, group=icon">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="本组件提供图标。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -26,37 +26,46 @@
         }
     </style>
 
-    <blockquote>本组件提供图标。图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供，原理上使用字体实现。</blockquote>
+    <blockquote class="doc-info">所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供，原理上使用字体实现。</blockquote>
     
-    <script>
-        if (!document.styleSheets || !document.styleSheets[0] || !document.styleSheets[0].cssRules) {
-            document.write('<blockquote class="doc-warning">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>');
-        }
-    </script>
-
+    <h2>基本用法</h2>
     <aside class="doc-demo">
-        <a href="###"><i class="x-icon">&#61446;</i>你好</a>
-        <a href="###"><i class="x-icon x-icon-spin">&#61712;</i>你好</a>
+        <a href="###"><i class="x-icon">&#9733;</i> 你好</a>
+        <a href="###"><i class="x-icon x-icon-spin">&#1161;</i> 你好</a>
     </aside>
 
+    <h2>固宽字体</h2>
+    <aside class="doc-demo">
+        <a href="###"><i class="x-icon x-icon-fixed">&#9733;</i>你好</a>
+        <a href="###"><i class="x-icon x-icon-fixed x-icon-spin">&#1161;</i>你好</a>
+    </aside>
+
+    <h2>所有图标</h2>
     <script>
-        document.write('<ul id="list" class="doc-clear">');
-        document.write('<li><i class="x-icon">　</i>empty:<code>&amp;#' + '　'.charCodeAt(0) + ';</code></li>');
 
-        for (var i = 0; i < document.styleSheets.length; i++) {
-            if (/iconex/i.test(document.styleSheets[i].href)) {
-                var iconex = document.styleSheets[i];
-                for (var j = 0; j < iconex.cssRules.length; j++) {
-                    iconex.cssRules[j].cssText.replace(/\.x-icon-(.+)::?before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
-                        unicode = parseInt(unicode, 16) || unicode.charCodeAt(0);
-                        document.write('<li><i class="x-icon">' + String.fromCharCode(unicode) + '</i>' + name + ':<code>&amp;#' + unicode + ';</code></li>');
-                    });
+        var html = '<ul id="list" class="doc-clear">';
 
+        html += '<li><i class="x-icon">　</i>empty:<code>&amp;#' + '　'.charCodeAt(0) + ';</code></li>';
+
+        try {
+
+            for (var i = 0; i < document.styleSheets.length; i++) {
+                if (/iconex/i.test(document.styleSheets[i].href)) {
+                    var iconex = document.styleSheets[i];
+                    for (var j = 0; j < iconex.cssRules.length; j++) {
+                        iconex.cssRules[j].cssText.replace(/\.x-icon-(.+):before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
+                            html += '<li><i class="x-icon">' + unicode + '</i> ' + name + ':<code>&amp;#' + unicode.charCodeAt(0) + ';</code></li>';
+                        });
+                    }
                 }
             }
+
+            html += '</ul>';
+        } catch (e) {
+            html = '<blockquote class="doc-warning">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
         }
 
-        document.write('</ul>');
+        document.write(html);
     </script>
 </body>
 </html>
