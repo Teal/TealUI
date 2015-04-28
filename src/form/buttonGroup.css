@@ -1,17 +1,15 @@
 ﻿.x-buttongroup {
-  display: inline-block;
+  display: inline-table;
 }
-.x-buttongroup:after {
-  content: " ";
-  display: table;
-  clear: both;
+.x-buttongroup > * {
+  display: table-cell;
+  border-right: 0;
 }
-.x-buttongroup .x-button {
-  float: left;
-}
-.x-buttongroup .x-button:not(:first-child) {
+.x-buttongroup > *:not(:first-child) {
   border-left-color: #d9d9d9;
-  margin-left: -1px;
+}
+.x-buttongroup.x-row {
+  display: table!important;
 }
 .x-buttongroup-1 > .x-button {
   width: 100%;

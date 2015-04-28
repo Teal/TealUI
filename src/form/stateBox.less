@@ -1,0 +1,24 @@
+
+@import "../core/mixins.less";
+
+.x-statebox {
+
+    input {
+        position: absolute;
+        visibility: hidden;
+
+        &:checked + .x-icon, .x-radiobutton-checked + .x-icon, &:not(:checked) + .x-icon + .x-icon, .x-radiobutton-unchecked + .x-icon + .x-icon {
+            display: none;
+        }
+
+        &[disabled]~ .x-icon, &[readonly] ~ .x-icon{
+            color: @hint-color;
+        }
+
+    }
+
+    .x-icon {
+        color: @link-text-color;
+    }
+
+}

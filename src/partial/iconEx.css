@@ -456,7 +456,7 @@
 }
 
 .x-icon-comments-o:before {
-	content: "\260d";
+	content: "\270c";
 }
 
 .x-icon-desktop:before {
@@ -511,7 +511,10 @@
 	content: "\2745";
 }
 
+.x-icon-chain:before {
+	content: "\260d";
+}
+
 .x-icon-palette:before {
 	content: "\65";
 }
-
