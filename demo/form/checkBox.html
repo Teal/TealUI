@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>复选框</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="复选框。">
 
     <!-- 以下是本组件的全部源码 -->
 
@@ -18,9 +18,21 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
+    
+    <h2>原生样式</h2>
     <aside class="doc-demo">
+        <label>
+            <input type="checkbox">默认
+        </label>
 
+        <label>
+            <input type="checkbox" class="x-checkbox" disabled="disabled" checked="checked">禁用
+        </label>
+
+    </aside>
+
+    <h2>自定义样式</h2>
+    <aside class="doc-demo">
         <label class="x-statebox">
             <input type="checkbox" name="checkbox1">
             <i class="x-icon">&#9746;</i>
@@ -48,27 +60,6 @@
             <i class="x-icon">&#9680;</i>
             默认
         </label>
-
     </aside>
-    <article>
-
-        <aside class="doc-demo">
-
-            <label>
-                <input type="checkbox" class="x-checkbox">默认
-            </label>
-
-        </aside>
-
-        <aside class="doc-demo">
-
-            <label>
-                <input type="checkbox" class="x-checkbox" disabled="disabled" checked="checked">禁用
-            </label>
-
-        </aside>
-
-    </article>
-
 </body>
 </html>

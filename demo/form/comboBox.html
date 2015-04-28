@@ -7,16 +7,14 @@
     <meta name="module-info" content="status=todo">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
-
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/core/idropdownowner.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/button/menubutton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/form/listbox.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/suggest/picker.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/suggest/combobox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/picker.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../src/form/combobox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
@@ -34,18 +32,18 @@
     <script type="text/javascript" src="../../src/suggest/picker.js"></script>
     <script type="text/javascript" src="../../src/suggest/dropdownmenu.js"></script>
     <script type="text/javascript" src="../../src/suggest/combobox.js"></script>
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h2>基本用法</h2>
-    
-    <span class="x-picker" id="comboBox3">
-        <input class="x-textbox" value="C">
-        <button class="x-button"><span class="x-menubutton-arrow"></span></button>
-    </span>
+    <aside class="doc-demo">
+        <span class="x-picker">
+            <input type="text" class="x-textbox" />
+            <button class="x-button"><i class="x-icon">&#9662;</i></button>
+        </span>
+    </aside>
 
     <article>
         <h2>创建组合框</h2>

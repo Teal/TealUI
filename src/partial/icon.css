@@ -20,7 +20,7 @@
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  vertical-align: -1px;
+  vertical-align: -0.5px;
   text-align: center;
 }
 .x-icon-fixed {
