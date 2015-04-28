@@ -23,7 +23,7 @@
     text-decoration: none;
     padding: 8px 24px;
     background-color: #fff;
-    color: teal;
+    color: #009688;
     -moz-transition: all 300ms ease-out;
     -o-transition: all 300ms ease-out;
     -webkit-transition: all 300ms ease-out;
@@ -31,7 +31,7 @@
 }
 
     .primary a:hover {
-        color: #673AB7;
+        color: #00796B;
         background-color: #F5F5F5;
         text-decoration: none;
     }
