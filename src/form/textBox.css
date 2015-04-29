@@ -1,12 +1,16 @@
 ﻿.x-textbox {
   padding: 4px 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   background-color: #ffffff;
+  outline: 0;
+  width: 180px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
-  outline: 0;
 }
 .x-textbox:focus {
   border-color: rgba(82, 168, 236, 0.8);

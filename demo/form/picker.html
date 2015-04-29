@@ -6,7 +6,7 @@
     <title>选择器</title>
     <meta name="module-info" content="status=doing">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="将文本框和按钮组合在一起，方便用户快速输入信息。">
+    <meta name="description" content="带选择功能的文本框，方便用户快速输入信息。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -25,7 +25,6 @@
     <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
     <script type="text/javascript" src="../../src/core/iinput.js"></script>
     <script type="text/javascript" src="../../src/suggest/picker.js"></script>
-
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -38,15 +37,22 @@
             <button class="x-button"><i class="x-icon">&#9662;</i></button>
         </span>
     </aside>
-
+    
+    <h2>状态</h2>
     <aside class="doc-demo">
         <span class="x-picker">
+            <input type="text" class="x-textbox" readonly="readonly" />
             <button class="x-button"><i class="x-icon">&#9662;</i></button>
-            <input type="text" class="x-textbox" />
         </span>
     </aside>
-    
-    
+
+    <h2>状态</h2>
+    <aside class="doc-demo">
+        <span class="x-picker">
+            <input type="text" class="x-textbox x-success" />
+            <button class="x-button x-success"><i class="x-icon">&#9662;</i></button>
+        </span>
+    </aside>
 
     <article>
 
@@ -55,12 +61,10 @@
         <h3>HTML 结构</h3>
         
         <aside class="doc-demo">
-
             <span class="x-picker">
                 <input type="text" class="x-textbox" />
                 <button class="x-button"><span class="x-menubutton-arrow"></span></button>
             </span>
-            
         </aside>
         
         <p>Picker 标准结构如上。Picker 会在 init 中会对不满足上述结构的 HTML 重新渲染。</p>

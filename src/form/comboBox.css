@@ -1,1 +1,8 @@
-﻿
+﻿.x-combobox {
+  background-color: #ffffff;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.x-combobox .x-icon:last-child {
+  margin-left: 4px;
+}

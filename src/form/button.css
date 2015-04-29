@@ -9,37 +9,35 @@
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  padding: 4px 14px;
-  background-color: #eee;
-  border: 1px solid #eee;
-  color: #212121;
-  outline: 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  color: #212121;
+  outline: 0;
+  padding: 4px 14px;
+  background-color: #eeeeee;
+  border: 1px solid #eeeeee;
   -moz-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   -o-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
   transition: background-color 300ms ease-out, border-color 300ms ease-out;
 }
-.x-button:focus {
-  background-color: #e4e4e4;
-}
 .x-button:hover,
-.x-button:active {
-  background-color: #cfcfcf;
-  border-color: #cfcfcf;
+.x-button:focus {
+  background-color: #e1e1e1;
   text-decoration: none;
 }
 .x-button:active,
 .x-button.x-actived {
+  background-color: #cfcfcf;
+  border-color: #cfcfcf;
   box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.15);
 }
 .x-button[disabled],
 .x-button.x-disabled {
   pointer-events: none;
   border-color: transparent;
-  opacity: 0.5;
+  opacity: .5;
   box-shadow: none;
   cursor: not-allowed;
 }
@@ -83,6 +81,10 @@
   background-color: #c62b26;
   border-color: #c62b26;
 }
+.x-button.x-plain {
+  background: transparent;
+}
 .x-button.x-small {
   padding: 0 5.6px;
+  border: 0;
 }

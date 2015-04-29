@@ -2,18 +2,43 @@
 @import "../core/mixins.less";
 
 .x-picker {
-    display: inline-table;
-    
-    > * {
-        display: table-cell;
-    }
-    
-    > .x-button {
-        border-color: #ccc;
-        width: @base-font-size * 3 - @base-box-padding-y;
+    position: relative;
+    display: inline-block;
+
+    .x-textbox {
+        padding-right: @base-box-padding-x + @base-line-height;
     }
 
-    .x-textbox ~ .x-button, .x-button ~.x-textbox {
-        border-left: 0;
+    .x-button {
+        position: absolute;
+        right: .9px;
+        top: .9px;
+        width: @base-box-padding-x + @base-line-height - 4px;
+        border-width: 0 0 0 1px;
+        border-color: @textbox-border-color;
+        /*&:not(:hover):not(:active):not(.x-actived) {
+            background-color: transparent;
+            border-left-color: transparent;
+        }*/
+    }
+    
+    .x-textbox:hover + .x-button, .x-button:hover, .x-button:active, .x-button.x-actived {
+        border-left-color: @textbox-border-color;
+    }
+
+    .x-textbox:focus + .x-button:hover {
+        border-left-color: rgba(82,168,236,.8);
+    }
+
+    .x-success + .x-button:not(:hover):not(:active):not(.x-actived) {
+        color: @success-text-color;
+    }
+    
+    .x-warning + .x-button:not(:hover):not(:active):not(.x-actived) {
+        color: @warning-text-color;
+    }
+
+    .x-error + .x-button:not(:hover):not(:active):not(.x-actived) {
+        color: @error-text-color;
     }
 }

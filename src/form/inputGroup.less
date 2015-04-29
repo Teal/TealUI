@@ -1,0 +1,26 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-inputgroup {
+    display: inline-table;
+
+    > * {
+        display: table-cell;
+    }
+
+    > .x-button, > .x-tipbox {
+        display: table-cell;
+        border-color: @textbox-border-color;
+    }
+
+    .x-icon {
+        width: @base-font-size - @base-box-padding-y / 2;
+    }
+
+    *:not(:first-child) {
+        border-left: 0;
+    }
+}

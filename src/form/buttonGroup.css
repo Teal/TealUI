@@ -6,7 +6,7 @@
   border-right: 0;
 }
 .x-buttongroup > *:not(:first-child) {
-  border-left-color: #d9d9d9;
+  border-left-color: #dfdfdf;
 }
 .x-buttongroup.x-row {
   display: table!important;

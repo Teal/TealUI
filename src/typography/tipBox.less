@@ -9,41 +9,38 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    
+    span& {
+        display: inline-block;
+    }
+
+    &.x-warning {
+        border: 1px solid @warning-border-color;
+        background-color: @warning-background-color;
+        color: @warning-text-color;
+    }
+
+    &.x-success {
+        background-color: @success-background-color;
+        border-color: @success-border-color;
+        color: @success-text-color;
+    }
+
+    &.x-error {
+        background-color: @error-background-color;
+        border-color: @error-border-color;
+        color: @error-text-color;
+    }
+
+    &.x-info {
+        background-color: @info-background-color;
+        border-color: @info-border-color;
+        color: @info-text-color;
+    }
+
 }
 
-span.x-tipbox {
-    display: inline-block;
-}
-
-.x-tipbox-warning {
-    border: 1px solid @warning-border-color;
-    background-color: @warning-background-color;
-    color: @warning-text-color;
-}
-
-.x-tipbox-success {
-    background-color: @success-background-color;
-    border-color: @success-border-color;
-    color: @success-text-color;
-}
-
-.x-tipbox-error {
-    background-color: @error-background-color;
-    border-color: @error-border-color;
-    color: @error-text-color;
-}
-
-.x-tipbox-info {
-    background-color: @info-background-color;
-    border-color: @info-border-color;
-    color: @info-text-color;
-}
-
-.x-tipbox-large {
-    padding: @base-font-size / 2 @base-font-size;
-}
-
-.x-tipbox-plain {
+.x-tipbox.x-tipbox-plain {
     background-color: transparent;
     border-color: transparent;
 }

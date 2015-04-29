@@ -2,6 +2,8 @@
 @import "../core/mixins.less";
 
 .x-button {
+
+    // 按钮样式重置。
     -moz-appearance: none;
     -webkit-appearance: none;
     background-image: none;
@@ -12,44 +14,42 @@
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    padding: @base-box-padding-y @base-font-size;
-    background-color: #eee;
-    border: 1px solid #eee;
-    color: @text-color;
-    outline: 0; // Webkit: 删除默认边距。
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    color: @text-color;
+    outline: 0;
+    
+    // 按钮风格定义。
+    padding: @base-box-padding-y @base-font-size;
+    background-color: @button-border-color;
+    border: 1px solid @button-border-color;
 
     -moz-transition: background-color 300ms ease-out, border-color 300ms ease-out;
     -o-transition: background-color 300ms ease-out, border-color 300ms ease-out;
     -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
     transition: background-color 300ms ease-out, border-color 300ms ease-out;
 
-    &:focus {
-        background-color: darken(#eee, 4%);
-    }
-
-    &:hover, &:active {
-        background-color: darken(#eee, 12%);
-        border-color: darken(#eee, 12%);
+    &:hover, &:focus {
+        background-color: darken(@button-border-color, 5%);
         text-decoration: none;
     }
 
     &:active, &.x-actived {
+        background-color: darken(@button-border-color, 12%);
+        border-color: darken(@button-border-color, 12%);
         box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
     }
-
+    
     &[disabled], &.x-disabled {
         pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
         border-color: transparent;
-        opacity: 0.5;
+        opacity: .5;
         box-shadow: none;
         cursor: not-allowed; // 由于 pointer-events: none 可能不生效
     }
     
     // 色系
-
     .button-state(@color) {
         color: @background-color;
         background-color: @color;
@@ -77,9 +77,14 @@
         .button-state(@error-text-color);
     }
     
+    &.x-plain {
+        background: transparent;
+    }
+
     // 尺寸
     &.x-small {
         padding: 0 @base-font-size * .4;
+        border: 0;
     }
-
+    
 }

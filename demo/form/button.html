@@ -6,7 +6,7 @@
     <title>按钮</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="按钮风格。">
+    <meta name="description" content="经典按钮效果。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -15,46 +15,64 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
         按钮：
-        <a href="javascript:;" class="x-button">a 按钮</a>
+        <a href="###" class="x-button">a 按钮</a>
         <input type="button" class="x-button" value="input 按钮">
         <button type="button" class="x-button">button 按钮</button>
         <span class="x-button">span 按钮</span>
     </aside>
 
-    <h2>状态和色系</h2>
-
-    <h3>功能</h3>
+    <h2>色系</h2>
     <aside class="doc-demo">
-        <button class="x-button">正常</button>
-        <button class="x-button x-actived">按下状态</button>
-        <button class="x-button x-disabled" type="button">禁用</button>
-        <button class="x-button x-small">小</button>
-    </aside>
-
-    <h3>色系</h3>
-    <aside class="doc-demo">
-        <button class="x-button">正常</button>
+        <button class="x-button">默认</button>
+        <button class="x-button x-plain">透明</button>
         <button class="x-button x-info">信息</button>
         <button class="x-button x-success">成功</button>
         <button class="x-button x-warning">警告</button>
         <button class="x-button x-error">错误</button>
     </aside>
 
+    <h2>状态</h2>
+
     <h3>禁用</h3>
     <aside class="doc-demo">
-        <button class="x-button" disabled="disabled">正常</button>
+        <button class="x-button">正常</button>
+        <button class="x-button" disabled="disabled">默认</button>
+        <button class="x-button x-plain" disabled="disabled">透明</button>
         <button class="x-button x-info" disabled="disabled">信息</button>
         <button class="x-button x-success" disabled="disabled">成功</button>
         <button class="x-button x-warning" disabled="disabled">警告</button>
         <button class="x-button x-error" disabled="disabled">错误</button>
     </aside>
 
+    <h3>按下</h3>
+    <aside class="doc-demo">
+        <button class="x-button">正常</button>
+        <button class="x-button x-actived">默认</button>
+        <button class="x-button x-plain x-actived">透明</button>
+        <button class="x-button x-info x-actived">信息</button>
+        <button class="x-button x-success x-actived">成功</button>
+        <button class="x-button x-warning x-actived">警告</button>
+        <button class="x-button x-error x-actived">错误</button>
+    </aside>
+
+    <h2>尺寸</h2>
+    <p>小按钮可以直接插入到普通行内而不影响行高。小按钮默认可以显示成一个正方形。</p>
+    <aside class="doc-demo">
+        小按钮：<button class="x-button x-small">按</button>
+    </aside>
+
     <h2>使用场景</h2>
-    
+
+    <h3>圆角</h3>
+    <aside class="doc-demo">
+        <button class="x-button x-radius">圆角</button>
+    </aside>
+
     <h3>图标</h3>
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <aside class="doc-demo">
@@ -67,13 +85,15 @@
     <h3>占满一行</h3>
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <aside class="doc-demo">
-        <button class="x-button x-info x-row"><i class="x-icon">&#8560;</i> 登录</button>
+        <button class="x-button x-row x-info"><i class="x-icon">&#8560;</i> 登录</button>
         <button class="x-button x-row"><i class="x-icon">&#9998;</i> 注册</button>
     </aside>
 
-    <h3>圆角</h3>
+    <h3>多行文本</h3>
     <aside class="doc-demo">
-        <button class="x-button x-radius">圆角</button>
+        <a href="###" class="x-button"><i class="x-icon">&#8615;</i><br />立即下载</a>
     </aside>
+    
+    <blockquote>将按钮和其它组件组合使用，另参考：<a href="menuButton.html">菜单按钮(menuButton)</a> 组件、<a href="splitButton.html">分隔按钮(splitButton)</a> 组件、<a href="buttonGroup.html">按钮组(buttonGroup)</a> 组件和 <a href="comboBox.html">组合框(comboBox)</a> 组件。</blockquote>
 </body>
 </html>

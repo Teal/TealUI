@@ -1,1 +1,18 @@
-﻿
+﻿.x-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+.x-checkbox + .x-icon,
+.x-checkbox + .x-icon + .x-icon {
+  color: #095f8b;
+}
+.x-checkbox[disabled] + .x-icon,
+.x-checkbox[disabled] + .x-icon + .x-icon,
+.x-checkbox[readonly] + .x-icon,
+.x-checkbox[readonly] + .x-icon + .x-icon {
+  color: #bdbdbd;
+}
+.x-checkbox:checked + .x-icon,
+.x-checkbox:not(:checked) + .x-icon + .x-icon {
+  display: none;
+}

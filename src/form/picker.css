@@ -1,14 +1,37 @@
 ﻿.x-picker {
-  display: inline-table;
+  position: relative;
+  display: inline-block;
 }
-.x-picker > * {
-  display: table-cell;
+.x-picker .x-textbox {
+  padding-right: 32px;
 }
-.x-picker > .x-button {
-  border-color: #ccc;
-  width: 38px;
+.x-picker .x-button {
+  position: absolute;
+  right: .9px;
+  top: .9px;
+  width: 28px;
+  border-width: 0 0 0 1px;
+  border-color: #cccccc;
+  /*&:not(:hover):not(:active):not(.x-actived) {
+            background-color: transparent;
+            border-left-color: transparent;
+        }*/
 }
-.x-picker .x-textbox ~ .x-button,
-.x-picker .x-button ~ .x-textbox {
-  border-left: 0;
+.x-picker .x-textbox:hover + .x-button,
+.x-picker .x-button:hover,
+.x-picker .x-button:active,
+.x-picker .x-button.x-actived {
+  border-left-color: #cccccc;
+}
+.x-picker .x-textbox:focus + .x-button:hover {
+  border-left-color: rgba(82, 168, 236, 0.8);
+}
+.x-picker .x-success + .x-button:not(:hover):not(:active):not(.x-actived) {
+  color: #5eb95e;
+}
+.x-picker .x-warning + .x-button:not(:hover):not(:active):not(.x-actived) {
+  color: #e9985e;
+}
+.x-picker .x-error + .x-button:not(:hover):not(:active):not(.x-actived) {
+  color: #dd514c;
 }

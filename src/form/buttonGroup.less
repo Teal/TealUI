@@ -2,34 +2,18 @@
 @import "../core/mixins.less";
 
 .x-buttongroup {
-    //display: inline-block;
-    //vertical-align: -@base-font-size / 2 - @base-box-padding-y;
-    //.clearfix();
-
-    //> .x-button {
-    //    float: left;
-    //
-    //    &:not(:first-child) {
-    //        border-left-color: darken(@border-color, 3%);
-    //        margin-left: -1px;
-    //    }
-    //}
-
     display: inline-table;
-
     > * {
         display: table-cell;
         border-right: 0;
 
         &:not(:first-child) {
-            border-left-color: darken(@border-color, 3%);
+            border-left-color: darken(@button-border-color, 6%);
         }
     }
-    
     &.x-row {
         display: table!important;
     }
-
 }
 
 .generateButtonGroupColumns(@index: 1, @count: 6) when (@index =< @count) {

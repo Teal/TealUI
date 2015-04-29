@@ -1,0 +1,20 @@
+﻿/**
+ * @author xuld
+ */
+.x-inputgroup {
+  display: inline-table;
+}
+.x-inputgroup > * {
+  display: table-cell;
+}
+.x-inputgroup > .x-button,
+.x-inputgroup > .x-tipbox {
+  display: table-cell;
+  border-color: #cccccc;
+}
+.x-inputgroup .x-icon {
+  width: 12px;
+}
+.x-inputgroup *:not(:first-child) {
+  border-left: 0;
+}

@@ -1,6 +1,20 @@
 
-/*.x-checkbox {
-    margin: 4px 6px 0 0;
-    margin-top: 1px \9; // IE8-9
-    vertical-align: text-top;
-}*/
+@import "../core/mixins.less";
+
+.x-checkbox {
+    position: absolute;
+    visibility: hidden;
+
+    & + .x-icon, & + .x-icon + .x-icon {
+        color: @link-text-color;
+    }
+    
+    &[disabled] + .x-icon, &[disabled] + .x-icon + .x-icon, &[readonly] + .x-icon, &[readonly] + .x-icon + .x-icon {
+        color: @hint-color;
+    }
+
+    &:checked + .x-icon, &:not(:checked) + .x-icon + .x-icon {
+        display: none;
+    }
+
+}

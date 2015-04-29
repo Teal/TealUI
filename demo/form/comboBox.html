@@ -4,17 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>组合框</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="status=doing">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="将文本框和按钮自由组合成新的组件。">
+
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/comboBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/picker.css" />
 
-    <link rel="stylesheet" type="text/css" href="../../src/form/combobox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
@@ -38,6 +39,13 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h2>基本用法</h2>
+    
+    <h3>不可编辑的选择框</h3>
+    <aside class="doc-demo">
+        <button class="x-button x-combobox"><span>asdasdas</span> <i class="x-icon">&#9662;</i></button>
+    </aside>
+
+    <h3>可编辑的选择框</h3>
     <aside class="doc-demo">
         <span class="x-picker">
             <input type="text" class="x-textbox" />

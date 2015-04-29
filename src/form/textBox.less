@@ -3,13 +3,19 @@
 
 .x-textbox {
     padding: @base-box-padding;
-    border: 1px solid #ccc;
+    border: 1px solid @textbox-border-color;
     background-color: @background-color;
+    outline: 0;
+    width: 180px;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
     -moz-transition: border linear .2s, box-shadow linear .2s;
     -o-transition: border linear .2s, box-shadow linear .2s;
     -webkit-transition: border linear .2s, box-shadow linear .2s;
     transition: border linear .2s, box-shadow linear .2s;
-    outline: 0;
 
     &:focus {
         border-color: rgba(82,168,236,.8);
