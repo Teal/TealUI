@@ -2,13 +2,11 @@
   display: inline-block;
   margin: 0;
   padding: 0;
+  list-style: none;
   background-color: #ffffff;
   border: 1px solid #cccccc;
   overflow: auto;
   max-height: 240px;
-}
-.x-listbox > li {
-  list-style: none;
 }
 .x-listbox > li > a {
   display: block;

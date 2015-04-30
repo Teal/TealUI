@@ -1,5 +1,40 @@
 ﻿/**
- * @author [作者]
+ * @author xuld
  */
 
 @import "../core/mixins.less";
+
+.x-pager {
+    display: inline-table;
+
+    li {
+        display: table-cell;
+        padding: 0 @base-box-padding-y + 1px;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        min-width: @base-line-height;
+        background-color: @background-color;
+        border: 1px solid @border-color;
+        padding: @base-box-padding-y @base-box-padding-y + 1px;
+
+        &:hover {
+            background-color: @dropdown-hover-color;
+            text-decoration: none;
+        }
+
+    }
+    
+    .x-selected a {
+        background-color: @link-text-color;
+        border-color: @link-text-color;
+        color: #fff;
+    }
+
+    .x-disabled a {
+        color: @hint-color;
+        background-color: @background-color!important;
+    }
+}

@@ -1,0 +1,31 @@
+﻿/**
+ * @author xuld
+ */
+.x-pager {
+  display: inline-table;
+}
+.x-pager li {
+  display: table-cell;
+  padding: 0 5px;
+}
+.x-pager a {
+  display: block;
+  text-align: center;
+  min-width: 24px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 4px 5px;
+}
+.x-pager a:hover {
+  background-color: #f5f5f5;
+  text-decoration: none;
+}
+.x-pager .x-selected a {
+  background-color: #095f8b;
+  border-color: #095f8b;
+  color: #fff;
+}
+.x-pager .x-disabled a {
+  color: #bdbdbd;
+  background-color: #ffffff !important;
+}

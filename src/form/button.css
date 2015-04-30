@@ -48,8 +48,8 @@
 }
 .x-button.x-info:hover,
 .x-button.x-info:focus {
-  background-color: #03719f;
-  border-color: #03719f;
+  background-color: #21bbfb;
+  border-color: #21bbfb;
 }
 .x-button.x-success {
   color: #ffffff;
@@ -58,8 +58,8 @@
 }
 .x-button.x-success:hover,
 .x-button.x-success:focus {
-  background-color: #429842;
-  border-color: #429842;
+  background-color: #89cc89;
+  border-color: #89cc89;
 }
 .x-button.x-warning {
   color: #ffffff;
@@ -68,8 +68,8 @@
 }
 .x-button.x-warning:hover,
 .x-button.x-warning:focus {
-  background-color: #e27628;
-  border-color: #e27628;
+  background-color: #f0ba94;
+  border-color: #f0ba94;
 }
 .x-button.x-error {
   color: #ffffff;
@@ -78,8 +78,8 @@
 }
 .x-button.x-error:hover,
 .x-button.x-error:focus {
-  background-color: #c62b26;
-  border-color: #c62b26;
+  background-color: #e7837f;
+  border-color: #e7837f;
 }
 .x-button.x-plain {
   background: transparent;

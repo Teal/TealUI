@@ -1,43 +1,47 @@
 
 @import "../core/mixins.less";
 
-
-
-@menuTextColor:						@gray;
-@menuBackgroundColor:				@white;
-@menuBorderColor:					rgba(0,0,0,.2);
-@menuTextColorHover:				@white;
-@menuBackgroundColorHover:			@linkColor;
-@menuArrowColor:					#333;
-
 .x-menu {
-    // display: none; // none by default, but block on "open" of the menu
-    background-color: @menuBackgroundColor;
-    border: 1px solid #ccc;
-    border-color: @menuBorderColor;
-    .border-radius(5px);
-    min-width: 140px;
-    padding: 4px 0;
-    margin: 0; // override default ul
+    display: inline-block;
+    background-color: @background-color;
+    border: 1px solid @border-color;
+    min-width: @base-font-size * 10;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    *width: 240px;
-    position: absolute;
-    z-index: @zindexDropdown;
-    .box-shadow(0 5px 10px rgba(0,0,0,.2));
-    -webkit-background-clip: padding-box;
-    -moz-background-clip: padding;
-    background-clip: padding-box;
-	_display: block;
-	_zoom: 0;
-	text-align: left;
+
+    > li {
+        
+        > .x-icon:first-child {
+            float: right;
+            line-height: @base-line-height;
+            padding: @base-box-padding-y / 2 @base-box-padding-x;
+        }
+
+        > a {
+            display: block;
+            color: @text-color;
+            padding: @base-box-padding-y / 2 @base-box-padding-x;
+            
+		    &:hover {
+                background-color: @dropdown-hover-color;
+			    text-decoration: none;
+		    }
+        }
+        
+        &.x-selected > a {
+            color: @background-color;
+            background-color: @dropdown-selected-color;
+        }
+
+        > hr {
+            margin: 0;
+        }
+
+    }
 }
 
-.x-menu li {
-    line-height: @baseLineHeight;
-	_height: @baseLineHeight;
-}
-
-// Links within the dropdown menu
+/*// Links within the dropdown menu
 .x-menuitem {
     display: block;
     padding: 3px 10px;
@@ -99,4 +103,4 @@
 .x-menuitem-hover .x-menuitem-arrow {
 	border-color: transparent transparent transparent @menuTextColorHover;
 	_border-color: @menuBackgroundColorHover @menuBackgroundColorHover @menuBackgroundColorHover @menuTextColorHover;
-}
+}*/
