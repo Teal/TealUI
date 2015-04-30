@@ -25,22 +25,19 @@ textarea.x-textbox {
   width: 600px;
   height: 150px;
 }
-.x-textbox.x-success,
-.x-textbox.x-success:focus {
+.x-textbox.x-success {
   border-color: #5eb95e;
 }
 .x-textbox.x-success:focus {
   box-shadow: 0 0 6px #a5d8a5;
 }
-.x-textbox.x-warning,
-.x-textbox.x-warning:focus {
+.x-textbox.x-warning {
   border-color: #e9985e;
 }
 .x-textbox.x-warning:focus {
   box-shadow: 0 0 6px #f5d1b8;
 }
-.x-textbox.x-error,
-.x-textbox.x-error:focus {
+.x-textbox.x-error {
   border-color: #dd514c;
 }
 .x-textbox.x-error:focus {

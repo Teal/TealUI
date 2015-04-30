@@ -7,38 +7,45 @@
 
     .x-textbox {
         padding-right: @base-box-padding-x + @base-line-height;
-    }
 
+        &:focus + .x-button:not(.x-success):not(.x-warning):not(.x-error):hover {
+            border-color: rgba(82,168,236,.8);
+        }
+    }
+    
     .x-button {
         position: absolute;
-        right: .9px;
-        top: .9px;
-        width: @base-box-padding-x + @base-line-height - 4px;
-        border-width: 0 0 0 1px;
+        right: 0;
+        top: 0;
         border-color: @textbox-border-color;
-        /*&:not(:hover):not(:active):not(.x-actived) {
+
+        padding-left: 0;
+        padding-right: 0;
+        width: @base-box-padding-x + @base-line-height - 2px;
+
+        &:not(:focus):not(:hover):not(:active):not(.x-actived) {
             background-color: transparent;
-            border-left-color: transparent;
-        }*/
+            border-color: transparent;
+        }
+        
+        .button-state(@color) {
+            &:not(:focus):not(:hover):not(:active):not(.x-actived) {
+                color: @color;
+            }
+        }
+    
+        &.x-success {
+            .button-state(@success-text-color);
+        }
+    
+        &.x-warning {
+            .button-state(@warning-text-color);
+        }
+
+        &.x-error {
+            .button-state(@error-text-color);
+        }
+
     }
     
-    .x-textbox:hover + .x-button, .x-button:hover, .x-button:active, .x-button.x-actived {
-        border-left-color: @textbox-border-color;
-    }
-
-    .x-textbox:focus + .x-button:hover {
-        border-left-color: rgba(82,168,236,.8);
-    }
-
-    .x-success + .x-button:not(:hover):not(:active):not(.x-actived) {
-        color: @success-text-color;
-    }
-    
-    .x-warning + .x-button:not(:hover):not(:active):not(.x-actived) {
-        color: @warning-text-color;
-    }
-
-    .x-error + .x-button:not(:hover):not(:active):not(.x-actived) {
-        color: @error-text-color;
-    }
 }

@@ -50,14 +50,14 @@
     }
     
     // ɫϵ
-    .button-state(@color) {
+    .button-state(@border-color) {
         color: @background-color;
-        background-color: @color;
-        border-color: @color;
+        background-color: @border-color;
+        border-color: @border-color;
 
         &:hover, &:focus {
-            background-color: darken(@color, 12%);
-            border-color: darken(@color, 12%);
+            background-color: darken(@border-color, 12%);
+            border-color: darken(@border-color, 12%);
         }
     }
 
