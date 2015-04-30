@@ -28,3 +28,7 @@
   background-color: #f3f3f3;
   text-decoration: none;
 }
+.x-list-buttongroup li.x-selected > a {
+  background-color: #095f8b;
+  color: #ffffff;
+}

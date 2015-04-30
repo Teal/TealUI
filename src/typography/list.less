@@ -8,6 +8,7 @@
     &:first-child {
         border-top: 0;
     }
+    
 }
 
 .x-list-stripped {
@@ -25,6 +26,7 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+
 }
 
 .x-list-buttongroup {
@@ -39,6 +41,11 @@
                 background-color: #f3f3f3;
                 text-decoration: none;
             }
+        }
+        
+        &.x-selected > a {
+            background-color: @link-text-color;
+            color: @background-color;
         }
     }
 }
