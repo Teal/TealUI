@@ -11,6 +11,8 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
     
     -moz-transition: border linear .2s, box-shadow linear .2s;
     -o-transition: border linear .2s, box-shadow linear .2s;
@@ -19,7 +21,7 @@
 
     &:focus {
         border-color: rgba(82,168,236,.8);
-        box-shadow: 0 0 6px lighten(rgba(82,168,236,.8), 20%);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(rgba(82,168,236,.8), 20%);
     }
 
     &[disabled], &[readonly] {
@@ -38,7 +40,7 @@
         }
 
         &:focus {
-            box-shadow: 0 0 6px lighten(@borderColor, 20%);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(@borderColor, 20%);
         }
     }
 

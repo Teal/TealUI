@@ -1,45 +1,29 @@
-.x-dialog {
+﻿.x-dialog {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1050;
+  z-index: 1030;
   min-width: 200px;
   *width: 400px;
   margin-left: -100px;
   background-color: #ffffff;
-  border: 7px solid #999;
-  border: 7px solid rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
 }
 .x-dialog-header {
-  padding: 7px 10px;
+  padding: 4px 8px;
   border-bottom: 1px solid #D9D9D9;
-  background-color: #f5f5f5;
-  background-image: -moz-linear-gradient(top, #f9f9f9, #f5f5f5);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#f5f5f5));
-  background-image: -webkit-linear-gradient(top, #f9f9f9, #f5f5f5);
-  background-image: -o-linear-gradient(top, #f9f9f9, #f5f5f5);
-  background-image: linear-gradient(to bottom, #f9f9f9, #f5f5f5);
-  background-repeat: repeat-x;
+  background-color: #F7F7F7;
 }
 .x-dialog-header h4 {
   font-size: 16px;
-  line-height: 18px;
+  line-height: 24px;
   margin: 0;
 }
 .x-dialog-body {
   overflow: hidden;
 }
 .x-dialog-content {
-  padding: 10px;
+  padding: 4px 8px;
   overflow-y: auto;
 }
 .x-dialog-iconbox {

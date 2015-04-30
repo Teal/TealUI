@@ -7,6 +7,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
@@ -14,7 +15,7 @@
 }
 .x-textbox:focus {
   border-color: rgba(82, 168, 236, 0.8);
-  box-shadow: 0 0 6px rgba(174, 214, 246, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(174, 214, 246, 0.8);
 }
 .x-textbox[disabled],
 .x-textbox[readonly] {
@@ -29,17 +30,17 @@ textarea.x-textbox {
   border-color: #5eb95e;
 }
 .x-textbox.x-success:focus {
-  box-shadow: 0 0 6px #a5d8a5;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px #a5d8a5;
 }
 .x-textbox.x-warning {
   border-color: #e9985e;
 }
 .x-textbox.x-warning:focus {
-  box-shadow: 0 0 6px #f5d1b8;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px #f5d1b8;
 }
 .x-textbox.x-error {
   border-color: #dd514c;
 }
 .x-textbox.x-error:focus {
-  box-shadow: 0 0 6px #eda4a2;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px #eda4a2;
 }

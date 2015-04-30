@@ -10,11 +10,12 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/partial/closebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/container/dialog.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/container/messagebox.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/container/messageBox.css" />
+
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
     <script type="text/javascript" src="../../../src/dom/core.js"></script>
@@ -26,7 +27,6 @@
     <script type="text/javascript" src="../../src/core/containercontrol.js"></script>
     <script type="text/javascript" src="../../src/container/dialog.js"></script>
     <script type="text/javascript" src="../../src/container/messagebox.js"></script>
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -34,13 +34,31 @@
 
     <blockquote>如果需要一个空的对话框，请使用 <a href="messageBox.html">对话框（dialog）</a> 组件。</blockquote>
 
+    <aside class="doc-demo">
+        <div class="x-dialog" x-dialog>
+            <div class="x-dialog-header">
+                <a class="x-closebutton"></a>
+                <h4>我是标题</h4>
+            </div>
+            <div class="x-dialog-body">
+                <div class="x-dialog-content">
+                    adasdas<br />asdasdasd
+                </div>
+                <div class="x-dialog-buttons">
+                    <button class="x-button x-info">确定</button>
+                    <button class="x-button">取消</button>
+                </div>
+            </div>
+        </div>
+    </aside>
+
     <h2>基本用法</h2>
 
     <h3>警告框(模拟 alert)</h3>
 
     <pre>
-            $.alert('<em>内容</em>', '我是标题');
-        </pre>
+        $.alert('<em>内容</em>', '我是标题');
+    </pre>
 
     <h3>确认框(模拟 confirm)</h3>
 
