@@ -3,7 +3,7 @@
   border: 1px solid #cccccc;
   background-color: #ffffff;
   outline: 0;
-  width: 180px;
+  width: 196px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -22,8 +22,8 @@
   background-color: #efefef;
 }
 textarea.x-textbox {
-  width: 600px;
-  height: 150px;
+  width: 588px;
+  height: 132px;
 }
 .x-textbox.x-success {
   border-color: #5eb95e;

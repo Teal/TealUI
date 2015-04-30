@@ -6,7 +6,7 @@
     display: inline-block;
 
     .x-textbox {
-        padding-right: @base-box-padding-x + @base-line-height;
+        padding-right: @base-box-padding-x + @base-line-height + 2px;
 
         &:focus + .x-button:not(.x-success):not(.x-warning):not(.x-error):hover {
             border-color: rgba(82,168,236,.8);
@@ -21,7 +21,7 @@
 
         padding-left: 0;
         padding-right: 0;
-        width: @base-box-padding-x + @base-line-height - 2px;
+        width: @base-box-padding-x + @base-line-height;
 
         &:not(:focus):not(:hover):not(:active):not(.x-actived) {
             background-color: transparent;

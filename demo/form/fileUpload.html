@@ -4,15 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>文件上传域</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="status=doing">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="文件上传域，可用于选择文件。">
 
     <!-- 以下是本组件的全部源码 -->
-
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/form/fileupload.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/fileUpload.css" />
 
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
@@ -20,68 +19,59 @@
     <script type="text/javascript" src="../../src/core/base.js"></script>
     <script type="text/javascript" src="../../src/core/iinput.js"></script>
     <script type="text/javascript" src="../../src/form/fileupload.js"></script>
-
-    <script type="text/javascript" src="../../assets/doc.js"></script>
 </head>
-    <body>
-        <!-- 以下代码仅用于文档演示 -->
-        <script type="text/javascript" src="../../assets/doc.js"></script>
-        <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
+    
+    <h2>原生风格</h2>
+    <aside class="doc-demo">
+        <input type="file" size="1" name="upload">
+    </aside>
 
-        <article>
+    <h2>美化效果</h2>
+    <aside class="doc-demo">
+        <span class="x-fileupload">
+            <input type="file" size="1" name="upload">
+            <button class="x-button">浏览...</button>
+        </span>
+    </aside>
 
-            <h2>使用 HTML 创建</h2>
+    <h2>更多效果</h2>
+    <aside class="doc-demo">
+        请选择文件：
+        <span class="x-fileupload">
+            <input type="file" size="1" name="upload" onchange="document.getElementById('fileUpload1').value=this.value">
+            <button class="x-button">浏览...</button>
+        </span>
+        <input type="text" class="x-textbox" readonly="readonly" id="fileUpload1" />
+    </aside>
 
-            <h3>只显示一个按钮</h3>
+    <article>
 
-            <aside class="doc-demo">
+        <h2>使用 JavaScript 创建</h2>
 
-                <span class="x-fileupload">
-                    <input type="file" size="1" name="upload">
-                    <button class="x-button">浏览...</button>
-                </span>
+        <h3>显示文件框和按钮</h3>
 
-            </aside>
+        <script type="text/html">
 
-            <h3>显示文件框和按钮</h3>
+            <!-- 相邻的 [type=text] 会被自动作为上传域的文本框。 -->
+            <input type="text" readonly="readonly" class="x-textbox" />
 
-            <aside class="doc-demo">
+            <span class="x-fileupload" id="fileUpload2">
+                <input type="file" size="1" name="upload">
+                <button class="x-button">浏览...</button>
+            </span>
 
-                <input type="text" class="x-textbox" readonly="readonly" id="fileUpload1" />
+            < script>
+            var fileUpload2 = new FileUpload("#fileUpload2");
+            < /script>
 
-                <span class="x-fileupload">
-                    <input type="file" size="1" name="upload" onchange="document.getElementById('fileUpload1').value=this.value">
-                    <button class="x-button">浏览...</button>
-                </span>
+        </script>
 
-            </aside>
+        <blockquote>关于文本框操作的 API 参考 <a href="../Core/IInput.html">IInput</a>。(FileUpload 实现了 IInput 接口)</blockquote>
 
-        </article>
-
-        <article>
-
-            <h2>使用 JavaScript 创建</h2>
-
-            <h3>显示文件框和按钮</h3>
-
-            <script type="text/html">
-            
-                <!-- 相邻的 [type=text] 会被自动作为上传域的文本框。 -->
-                <input type="text" readonly="readonly" class="x-textbox" />
-
-                <span class="x-fileupload" id="fileUpload2">
-                    <input type="file" size="1" name="upload">
-                    <button class="x-button">浏览...</button>
-                </span>
-
-                < script>
-                var fileUpload2 = new FileUpload("#fileUpload2");
-                < /script>
-
-            </script>
-        
-            <blockquote>关于文本框操作的 API 参考 <a href="../Core/IInput.html">IInput</a>。(FileUpload 实现了 IInput 接口)</blockquote>
-
-        </article>
-    </body>
+    </article>
+</body>
 </html>

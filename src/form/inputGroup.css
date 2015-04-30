@@ -4,17 +4,20 @@
 .x-inputgroup {
   display: inline-table;
 }
-.x-inputgroup > * {
+.x-inputgroup > *,
+.x-inputgroup .x-textbox {
   display: table-cell;
 }
-.x-inputgroup > .x-button,
-.x-inputgroup > .x-tipbox {
+.x-inputgroup .x-button,
+.x-inputgroup .x-tipbox {
   display: table-cell;
   border-color: #cccccc;
 }
-.x-inputgroup .x-icon {
-  width: 12px;
+.x-inputgroup .x-button:first-child,
+.x-inputgroup .x-tipbox:first-child {
+  border-right: 0;
 }
-.x-inputgroup *:not(:first-child) {
+.x-inputgroup .x-button:last-child,
+.x-inputgroup .x-tipbox:last-child {
   border-left: 0;
 }

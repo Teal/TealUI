@@ -6,7 +6,7 @@
     border: 1px solid @textbox-border-color;
     background-color: @background-color;
     outline: 0;
-    width: 180px;
+    width: @base-font-size * 14;
 
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -28,8 +28,8 @@
     }
 
     textarea& {
-        width: 600px;
-        height: 150px;
+        width: @base-font-size * 42;
+        height: @base-line-height * 5 + @base-box-padding-y * 2 + 4px;
     }
     
     .textbox-state(@borderColor) {

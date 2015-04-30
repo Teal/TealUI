@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>文本提示</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>占位符</title>
+    <meta name="module-info" content="status=doing">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="自定义文本提示内容。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/suggest/placeholder.css" />
-
     <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/placeholder.css" />
 
     <script type="text/javascript" src="../../../src/core/core.js"></script>
     <script type="text/javascript" src="../../../src/core/class.js"></script>
@@ -28,19 +28,11 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
-    <article>
-
-        <aside class="doc-demo">
-
-            <input type="text" id="placeholder" class="x-textbox" />
-
-            <script>
-                var placeholder = new Placholder("#placeholder", "<em>输入文字...</em>");
-            </script>
-
-        </aside>
-
-    </article>
-
+    <aside class="doc-demo">
+        <span class="x-placeholder"><u>输入文字...</u></span>
+        <input type="text" id="placeholder" class="x-textbox" />
+    </aside>
+    
+    <blockquote>如果只需简单的占位符，直接使用 HTML5 的 <code>placeholder</code> 属性即可。本组件主要用于自定义更复杂的占位符（如图片）。</blockquote>
 </body>
 </html>

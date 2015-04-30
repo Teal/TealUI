@@ -3,7 +3,7 @@
   display: inline-block;
 }
 .x-picker .x-textbox {
-  padding-right: 32px;
+  padding-right: 34px;
 }
 .x-picker .x-textbox:focus + .x-button:not(.x-success):not(.x-warning):not(.x-error):hover {
   border-color: rgba(82, 168, 236, 0.8);
@@ -15,7 +15,7 @@
   border-color: #cccccc;
   padding-left: 0;
   padding-right: 0;
-  width: 30px;
+  width: 32px;
 }
 .x-picker .x-button:not(:focus):not(:hover):not(:active):not(.x-actived) {
   background-color: transparent;

@@ -1,11 +1,11 @@
 ﻿.x-buttongroup {
   display: inline-table;
 }
-.x-buttongroup > * {
+.x-buttongroup * {
   display: table-cell;
   border-right: 0;
 }
-.x-buttongroup > *:not(:first-child) {
+.x-buttongroup *:not(:first-child) {
   border-left-color: #dfdfdf;
 }
 .x-buttongroup.x-row {

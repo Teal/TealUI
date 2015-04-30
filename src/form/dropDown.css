@@ -1,4 +1,7 @@
-﻿.x-dropdown {
+﻿/**
+ * @author xuld
+ */
+.x-dropdown {
   position: absolute;
   z-index: 1000;
   max-height: 480px;
