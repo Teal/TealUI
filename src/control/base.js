@@ -149,11 +149,11 @@ Control.types = {};
  */
 Control.extend = function (members) {
     var controlClass = Base.extend.apply(this, arguments);
-    var type = controlClass.prototype.type;
-    if (type) {
-        Control.types[type] = controlClass;
-        $.fn[type] = function (options) {
-            var propName = '__' + type + '__';
+    var role = controlClass.prototype.role;
+    if (role) {
+        Control.types[role] = controlClass;
+        $.fn[role] = function (options) {
+            var propName = '__' + role + '__';
             if (this[0][propName]) {
                 return this[0][propName].setOptions(options);
             }
@@ -165,9 +165,9 @@ Control.extend = function (members) {
 
 
 $(document).ready(function() {
-    $('[x-control]').each(function() {
+    $('[data-role]').each(function () {
         var me = $(this);
-        var type = me.attr('x-control');
+        var type = me.attr('data-role');
         me[type]();
     });
 });

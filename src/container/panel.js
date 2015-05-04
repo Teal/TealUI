@@ -1,9 +1,12 @@
 ﻿
+/**
+ * 表示一个面板。
+ */
 var Panel = Control.extend({
 
-    type: 'panel',
+    role: 'panel',
 
-    init: function (options) {
+    init: function () {
         this.dom.on('click', '.x-panel-header', function() {
             this.toggleCollapse();
         }.bind(this));
@@ -23,3 +26,7 @@ var Panel = Control.extend({
     }
 
 });
+
+
+
+

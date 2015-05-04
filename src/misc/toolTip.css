@@ -1,0 +1,16 @@
+﻿.x-tooltip {
+  position: absolute;
+  z-index: 1010;
+  display: none;
+  font-size: .8em;
+  opacity: .8;
+}
+.x-tooltip-content {
+  text-align: center;
+  text-decoration: none;
+  max-width: 200px;
+  padding: 4px 8px;
+  color: #ffffff;
+  background-color: #212121;
+  border-radius: 4px;
+}

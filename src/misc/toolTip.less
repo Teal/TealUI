@@ -1,19 +1,20 @@
+
+@import "../core/mixins.less";
+
 .x-tooltip {
-  position: absolute;
-  z-index: 1020;
-  display: none;
-  font-size: 11px;
-  opacity: 0.8;
-  filter: alpha(opacity=80);
+    position: absolute;
+    z-index: @z-index-tooltip;
+    display: none;
+    font-size: .8em;
+    opacity: .8;
 }
+
 .x-tooltip-content {
-  max-width: 200px;
-  padding: 4px 9px;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  background-color: #000000;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    max-width: 200px;
+    padding: @base-box-padding;
+    color: @background-color;
+    background-color: @text-color;
+    border-radius: @base-border-radius;
 }

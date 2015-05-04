@@ -4,77 +4,77 @@
   margin-bottom: 1em;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-.x-panel-header,
-.x-panel-footer {
+.x-panel .x-header,
+.x-panel .x-footer {
   background-color: #F7F7F7;
   line-height: 150%;
   padding: 4px 8px;
 }
-.x-panel-header {
+.x-panel .x-header {
   border-bottom: 1px solid #e0e0e0;
 }
-.x-panel-header h1,
-.x-panel-header h2,
-.x-panel-header h3,
-.x-panel-header h4,
-.x-panel-header h5,
-.x-panel-header h6 {
+.x-panel .x-header h1,
+.x-panel .x-header h2,
+.x-panel .x-header h3,
+.x-panel .x-header h4,
+.x-panel .x-header h5,
+.x-panel .x-header h6 {
   margin: 0;
   font-weight: 700;
 }
-.x-panel-footer {
+.x-panel .x-footer {
   border-top: 1px solid #e0e0e0;
 }
-.x-panel-body {
+.x-panel .x-body {
   padding: 8px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.x-panel-info {
+.x-panel.x-info {
   border-color: #caebfb;
 }
-.x-panel-info .x-panel-header {
+.x-panel.x-info .x-header {
   background-color: rgba(59, 180, 242, 0.15);
   border-color: #caebfb;
   color: #049cdb;
 }
-.x-panel-success {
+.x-panel.x-success {
   border-color: #c9e7c9;
 }
-.x-panel-success .x-panel-header {
+.x-panel.x-success .x-header {
   background-color: rgba(94, 185, 94, 0.15);
   border-color: #c9e7c9;
   color: #5eb95e;
 }
-.x-panel-warning {
+.x-panel.x-warning {
   border-color: #fbd0ae;
 }
-.x-panel-warning .x-panel-header {
+.x-panel.x-warning .x-header {
   background-color: rgba(243, 123, 29, 0.15);
   border-color: #fbd0ae;
   color: #e9985e;
 }
-.x-panel-error {
+.x-panel.x-error {
   border-color: #f5cecd;
 }
-.x-panel-error .x-panel-header {
+.x-panel.x-error .x-header {
   background-color: rgba(221, 81, 76, 0.15);
   border-color: #f5cecd;
   color: #dd514c;
 }
-.x-panel-collapsed .x-panel-header {
+.x-panel.x-collapsed .x-header {
   border-bottom: 0;
 }
-.x-panel-collapsed .x-panel-body {
+.x-panel.x-collapsed .x-body {
   display: none;
 }
-.x-panel-expanded .x-panel-header,
-.x-panel-collapsed .x-panel-header {
+.x-panel.x-expanded .x-header,
+.x-panel.x-collapsed .x-header {
   cursor: pointer;
 }
-.x-panel-expanded .x-panel-header:before,
-.x-panel-collapsed .x-panel-header:before {
+.x-panel.x-expanded .x-header:before,
+.x-panel.x-collapsed .x-header:before {
   content: "\25be";
   font-family: 'IcoMoon';
   float: left;
@@ -90,8 +90,8 @@
   -webkit-transform: rotate(0);
   transform: rotate(0);
 }
-.x-panel-collapsed .x-panel-header:before,
-.x-panel-collapsing .x-panel-header:before {
+.x-panel.x-collapsed .x-header:before,
+.x-panel.x-collapsing .x-header:before {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
