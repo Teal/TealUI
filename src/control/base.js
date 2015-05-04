@@ -72,6 +72,10 @@ var Control = Base.extend({
 	 */
     constructor: function (options) {
 
+        this.dom = $(options);
+        this.init();
+        return;
+
     	// 这是所有控件共用的构造函数。
     	var me = this,
 
@@ -127,6 +131,10 @@ var Control = Base.extend({
     remove: function () {
     	this.detach();
     	return this;
+    },
+
+    setOptions: function() {
+        return this;
     }
 
 });
@@ -144,11 +152,22 @@ Control.extend = function (members) {
     var type = controlClass.prototype.type;
     if (type) {
         Control.types[type] = controlClass;
+        $.fn[type] = function (options) {
+            var propName = '__' + type + '__';
+            if (this[0][propName]) {
+                return this[0][propName].setOptions(options);
+            }
+            return this[0][propName] = new controlClass(this).setOptions(options);
+        };
     }
     return controlClass;
 };
 
 
 $(document).ready(function() {
-    
+    $('[x-control]').each(function() {
+        var me = $(this);
+        var type = me.attr('x-control');
+        me[type]();
+    });
 });

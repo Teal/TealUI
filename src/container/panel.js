@@ -1,17 +1,25 @@
 ﻿
-$.fn.panelToggleCollapse = function (value) {
-    value = value === undefined ? this.hasClass('x-panel-collapsed') : !value;
-    if (value) {
-        this.addClass('x-panel-expanded').removeClass('x-panel-collapsed');
-        this.find('.x-panel-body').slideDown();
-    } else {
-        var me = this.addClass('x-panel-collapsing');
-        this.find('.x-panel-body').slideUp(function () {
-            me.addClass('x-panel-collapsed').removeClass('x-panel-expanded x-panel-collapsing');
-        });
-    }
-};
+var Panel = Control.extend({
 
-$(document).on('click', '.x-panel-collapsed .x-panel-header, .x-panel-expanded .x-panel-header', function () {
-    $(this).parent().panelToggleCollapse();
+    type: 'panel',
+
+    init: function (options) {
+        this.dom.on('click', '.x-panel-header', function() {
+            this.toggleCollapse();
+        }.bind(this));
+    },
+
+    toggleCollapse: function (value) {
+        value = value === undefined ? this.dom.hasClass('x-panel-collapsed') : !value;
+        if (value) {
+            this.dom.addClass('x-panel-expanded').removeClass('x-panel-collapsed');
+            this.dom.find('.x-panel-body').show('top');
+        } else {
+            this.dom.addClass('x-panel-collapsing');
+            this.dom.find('.x-panel-body').hide('top', function () {
+                this.dom.removeClass('x-panel-collapsing').addClass('x-panel-collapsed').removeClass('x-panel-expanded');
+            }.bind(this));
+        }
+    }
+
 });

@@ -143,6 +143,7 @@
 
     <blockquote class="demo demo-info">和布局组件一起可以实现并排展示的面板区域。另参考：<a href="../layout/grid.html">布局组件</a></blockquote>
     <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/layout/grid12.css" />
     <aside class="doc-demo">
         <div class="x-grid">
             <div class="x-col x-col-4">
@@ -186,7 +187,7 @@
     <p>为 <code>.x-panel</code> 添加 <code>[x-panel]</code>，即可支持面板的折叠效果。</p>
 
     <aside class="doc-demo">
-        <section class="x-panel x-panel-collapsed" x-panel>
+        <section class="x-panel x-panel-collapsed" x-control="panel">
             <header class="x-panel-header">
                 <h5>我是被折叠起来的面板</h5>
             </header>
@@ -199,7 +200,7 @@
     <h5>手动切换折叠</h5>
 
     <pre>
-        $('[x-panel]').panel().toggleCollapse();
+        $('[x-control=panel]').panel().toggleCollapse();
     </pre>
 
 </body>
