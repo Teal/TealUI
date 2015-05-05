@@ -1,0 +1,9 @@
+﻿/**
+ * @author xuld
+ */
+.x-sorttoolbar {
+  font-size: .9em;
+}
+.x-sorttoolbar .x-actived {
+  font-weight: bold;
+}
