@@ -1,0 +1,26 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-toolbar {
+    color: @hint-color;
+}
+
+.x-toolbar a {
+    color: #808080;
+    margin-right: 1.5em;
+}
+
+.x-hover-show {
+    opacity: 0;
+    -moz-transition: opacity .2s;
+    -o-transition: opacity .2s;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+
+.x-hover-trigger:hover .x-hover-show {
+    opacity: 1;
+}

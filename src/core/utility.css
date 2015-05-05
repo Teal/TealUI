@@ -1,13 +1,13 @@
-﻿.x-left {
+﻿.x-clear:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+.x-left {
   float: left !important;
 }
 .x-right {
   float: right !important;
-}
-.x-clear:after {
-  content: " ";
-  display: table;
-  clear: both;
 }
 .x-middle {
   vertical-align: middle !important;
@@ -16,46 +16,6 @@
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-}
-.x-relative {
-  position: relative !important;
-}
-.x-absolute {
-  position: absolute !important;
-}
-.x-inline {
-  display: inline !important;
-}
-.x-block {
-  display: block !important;
-}
-.x-inline-block {
-  display: inline-block !important;
-}
-.x-hide {
-  display: none;
-}
-.x-break-word {
-  word-wrap: break-word;
-  word-break: break-all;
-}
-.x-ellipsis {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-.x-row {
-  display: block !important;
-  margin-bottom: 1em;
-  width: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-.x-radius {
-  border-radius: 2px;
 }
 .x-horizonal,
 .x-vertical {
@@ -76,10 +36,8 @@
   text-overflow: ellipsis;
   list-style: none;
 }
-.x-scrollable-horizontal {
-  overflow: hidden;
-  overflow-x: auto;
-  width: 100%;
+.x-hide {
+  display: none;
 }
 @media only screen and (max-width: 1024px) {
   .x-hide-small {
@@ -90,4 +48,31 @@
   .x-hide-large {
     display: none;
   }
+}
+.x-break-word {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.x-ellipsis {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.x-fill {
+  display: block !important;
+  margin-bottom: 1em;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.x-radius {
+  border-radius: 2px;
+}
+.x-scrollable-horizontal {
+  overflow: hidden;
+  overflow-x: auto;
+  width: 100%;
 }

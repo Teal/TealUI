@@ -87,15 +87,15 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0.5em 0;
+  margin: 0 0 0.5em;
   font-weight: 500;
-  line-height: 150%;
+  line-height: 105%;
 }
 h1 {
-  font-size: 28px;
+  font-size: 30px;
 }
 h2 {
-  font-size: 22px;
+  font-size: 20px;
 }
 h3 {
   font-size: 18px;
@@ -129,7 +129,6 @@ dl dl {
   margin: 0;
 }
 dt {
-  font-weight: 600;
   margin-top: 0.5em;
 }
 table {
@@ -156,7 +155,6 @@ code {
   background-color: #f8f8f8;
 }
 pre {
-  border: 1px solid #DADADA;
   white-space: pre-wrap;
   -ms-word-break: break-all;
   word-break: break-all;
@@ -168,8 +166,8 @@ pre {
 }
 small {
   font-weight: 100;
-  font-size: small;
-  color: #bdbdbd;
+  font-size: 13px;
+  color: #aaaaaa;
 }
 address,
 cite {
@@ -179,9 +177,9 @@ abbr[title] {
   border-bottom: 1px dotted;
 }
 :-moz-placeholder {
-  color: #bdbdbd;
+  color: #aaaaaa;
 }
 :-ms-input-placeholder,
 ::-webkit-input-placeholder {
-  color: #bdbdbd;
+  color: #aaaaaa;
 }

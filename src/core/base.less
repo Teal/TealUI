@@ -89,17 +89,17 @@ a {
 
 // ±êÌâ
 h1, h2, h3, h4, h5, h6 {
-    margin: @base-margin / 2 0;
+    margin: 0 0 @base-margin / 2;
     font-weight: 500;
-    line-height: 150%;
+    line-height: 105%;
 }
 
 h1 {
-    font-size: @base-font-size + 14px;
+    font-size: @base-font-size + 16px;
 }
 
 h2 {
-    font-size: @base-font-size + 8px;
+    font-size: @base-font-size + 6px;
 }
 
 h3 {
@@ -136,7 +136,6 @@ ul, ol, dl {
 }
 
 dt {
-    font-weight: 600;
     margin-top: @base-margin / 2;
 }
 
@@ -170,7 +169,6 @@ code {
 }
 
 pre {
-    border: 1px solid #DADADA;
     white-space: pre-wrap;
     -ms-word-break: break-all;
     word-break: break-all;
@@ -184,7 +182,7 @@ pre {
 // Ð¡×Ö
 small {
     font-weight: 100;
-    font-size: small;
+    font-size: @base-font-size - 1px;
     color: @hint-color;
 }
 

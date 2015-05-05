@@ -1,7 +1,11 @@
 ﻿
 @import "../core/mixins.less";
 
-// 浮动
+// 浮动。
+.x-clear {
+    .clearfix();
+}
+
 .x-left {
     float: left !important;
 }
@@ -10,11 +14,7 @@
     float: right !important;
 }
 
-.x-clear {
-    .clearfix();
-}
-
-// 居中
+// 居中。
 .x-middle {
     vertical-align: middle !important;
 }
@@ -25,59 +25,7 @@
     text-align: center;
 }
 
-// 定位
-.x-relative {
-    position: relative !important;
-}
-
-.x-absolute {
-    position: absolute !important;
-}
-
-// 显示
-.x-inline {
-    display: inline !important;
-}
-
-.x-block {
-    display: block !important;
-}
-
-.x-inline-block {
-    display: inline-block !important;
-}
-
-.x-hide {
-    display: none;
-}
-
-// 文本
-.x-break-word {
-    word-wrap: break-word;
-    word-break: break-all;
-}
-
-.x-ellipsis {
-    .text-overflow();
-    display: block;
-}
-
-// 空隙。
-.x-row {
-    display: block !important;
-    margin-bottom: @base-margin;
-    width: 100%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-// 圆角。
-.x-radius {
-    border-radius: 2px;
-}
-
-// 水平和垂直布局。
+// 列表。
 .x-horizonal, .x-vertical {
     margin: 0;
     padding: 0;
@@ -100,11 +48,9 @@
     }
 }
 
-// 超出内容后显示滚动条
-.x-scrollable-horizontal {
-    overflow: hidden;
-    overflow-x: auto;
-    width: 100%;
+// 隐藏。
+.x-hide {
+    display: none;
 }
 
 @media @small {
@@ -117,4 +63,37 @@
     .x-hide-large {
         display: none;
     }
+}
+
+// 文本。
+.x-break-word {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.x-ellipsis {
+    .text-overflow();
+    display: block;
+}
+
+// 空隙。
+.x-fill {
+    display: block !important;
+    margin-bottom: @base-margin;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+// 圆角。
+.x-radius {
+    border-radius: 2px;
+}
+
+// 超出内容后显示滚动条。
+.x-scrollable-horizontal {
+    overflow: hidden;
+    overflow-x: auto;
+    width: 100%;
 }

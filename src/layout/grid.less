@@ -25,9 +25,10 @@
     margin-right: auto;
     padding: 0 @base-padding * 2;
     position: relative;
-}
+    
+    // 当容器和布局行一起使用时，margin: -@base-padding 使用 padding: @base-padding 代替。
+    &.x-grid {
+        padding: 0 @base-padding;
+    }
 
-// 当容器和布局行一起使用时，margin: -@base-padding 使用 padding: @base-padding 代替。
-.x-container.x-grid {
-    padding: 0 @base-padding;
 }

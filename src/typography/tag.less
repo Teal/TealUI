@@ -4,30 +4,28 @@
 
 @import "../core/mixins.less";
 
-.x-badge {
+.x-tag {
     display: inline-block;
-    font-size: .8em;
-    margin-right: .4em;
-    color: #fff;
-    line-height: 155%;
-    padding: 0 .4em;
-    -moz-border-radius: @base-border-radius;
-    -webkit-border-radius: @base-border-radius;
+    margin-right: .3em;
+    font-size: @base-font-size - 2px;
+    line-height: 150%;
+    padding: 0 1em * 4px / (@base-font-size - 2px);
     border-radius: @base-border-radius;
+    color: @background-color;
     background-color: @hint-color;
-    -moz-transition: opacity .3s ease-out;
-    -o-transition: opacity .3s ease-out;
-    -webkit-transition: opacity .3s ease-out;
-    transition: opacity .3s ease-out;
-
-    sup&{
-        margin-left: .4em;
-        vertical-align: top;
-    }
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
     
     a&:hover {
         text-decoration: none;
         opacity: .8;
+    }
+    
+    sup&{
+        margin-left: .6em;
+        vertical-align: top;
     }
     
     &.x-info {
@@ -44,6 +42,10 @@
 
     &.x-error {
         background: @error-text-color;
+    }
+
+    &.x-radius {
+        border-radius: @base-border-radius * 2;
     }
 
 }

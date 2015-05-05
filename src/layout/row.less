@@ -1,0 +1,22 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-row {
+    display: table;
+}
+
+.x-cell {
+    display: table-cell;
+    vertical-align: top;
+
+    & ~ .x-cell {
+        padding-left: @base-font-size - 4px;
+    }
+
+    img {
+        max-width: none;
+    }
+}

@@ -1,0 +1,35 @@
+﻿/**
+ * @author xuld
+ */
+.x-comment {
+  margin: .5em 0 1.5em;
+}
+.x-comment .x-toolbar {
+  color: #999;
+  font-size: .95em;
+}
+.x-comment-content p:first-child {
+  margin-top: 0;
+}
+.x-comment-reply-content {
+  border-left: 3px solid #ccc;
+  font-size: 13px;
+  margin: 6px 0 6px 14px;
+  padding-left: 14px;
+}
+.x-comment-reply-content p {
+  margin: 2px 0 2px 2em;
+  text-indent: -2em;
+}
+.x-comment-reply {
+  margin: 10px 0;
+}
+.x-comment-reply .textbox {
+  width: 445px;
+}
+.x-comment-add .textbox {
+  width: 475px;
+}
+.x-comment-add textarea.textbox {
+  width: 562px;
+}

@@ -1,0 +1,24 @@
+﻿/**
+ * @author xuld
+ */
+.x-imagetext {
+  display: table;
+}
+.x-imagetext-image,
+.x-imagetext-text {
+  display: table-cell;
+  vertical-align: top;
+}
+.x-imagetext-image img {
+  max-width: none;
+  margin-top: .4em;
+}
+.x-imagetext-image:first-child img {
+  margin-right: .5em;
+}
+.x-imagetext-image:last-child img {
+  margin-left: .5em;
+}
+.x-imagetext-text {
+  width: 100%;
+}

@@ -1,0 +1,40 @@
+﻿/**
+ * @author xuld
+ */
+.x-tag {
+  display: inline-block;
+  margin-right: .3em;
+  font-size: 12px;
+  line-height: 150%;
+  padding: 0 0.33333333em;
+  border-radius: 4px;
+  color: #ffffff;
+  background-color: #aaaaaa;
+  -moz-transition: opacity .3s;
+  -o-transition: opacity .3s;
+  -webkit-transition: opacity .3s;
+  transition: opacity .3s;
+}
+a.x-tag:hover {
+  text-decoration: none;
+  opacity: .8;
+}
+sup.x-tag {
+  margin-left: .6em;
+  vertical-align: top;
+}
+.x-tag.x-info {
+  background: #049cdb;
+}
+.x-tag.x-success {
+  background: #5eb95e;
+}
+.x-tag.x-warning {
+  background: #e9985e;
+}
+.x-tag.x-error {
+  background: #dd514c;
+}
+.x-tag.x-radius {
+  border-radius: 8px;
+}

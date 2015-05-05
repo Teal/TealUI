@@ -6,7 +6,7 @@
     <title>栅格布局</title>
     <meta name="module-info" content="parent-title=布局, parent-order=core, package=default">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="栅格布局法：将网页先分成 N 行，每行分成 N 列。每列都是网页中的一个模块。">
+    <meta name="description" content="栅格布局法：将网页分成 N 行，每行分成 N 列。通过此方法对整体网页分成多个模块进行排版。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -53,7 +53,7 @@
     </script>
 
     <h2>布局嵌套</h2>
-    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
+    <p>在任一列中又可以继续应用栅格方法继续细分。</p>
     <aside class="doc-demo">
         <div class="x-grid">
             <div class="x-col" style="width:25%;"><span>左</span></div>
@@ -70,7 +70,6 @@
 
     <blockquote class="doc-info">如果只需等分布局，可使用 <a href="flex.html">等分布局(flex)</a> 组件。</blockquote>
 
-    <blockquote class="doc-info">如果只需基本的左右布局方式，可使用 <a href="sideBar.html">侧边栏(sideBar)</a> 组件。</blockquote>
-
+    <blockquote class="doc-info">对于一般网站，可直接复制现成的 <a href="../../examples/layout/grid2.html">二栏布局(grid2)</a> 代码或 <a href="../../examples/layout/grid2.html">三栏布局(grid3)</a> 代码。</blockquote>
 </body>
 </html>

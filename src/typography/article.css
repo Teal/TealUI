@@ -1,5 +1,13 @@
-﻿.x-article img {
-  margin: 0 auto 1em;
+﻿.x-article table,
+.x-article img,
+.x-article audio,
+.x-article video,
+.x-article canvas {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
+.x-article img {
   display: block;
 }
 .x-article img.x-left,

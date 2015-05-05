@@ -1,0 +1,16 @@
+﻿/**
+ * @author xuld
+ */
+.x-row {
+  display: table;
+}
+.x-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+.x-cell ~ .x-cell {
+  padding-left: 10px;
+}
+.x-cell img {
+  max-width: none;
+}

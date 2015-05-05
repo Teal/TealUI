@@ -2,9 +2,14 @@
 @import "../core/mixins.less";
 
 .x-article {
+
+    table, img, audio, video, canvas {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: @base-margin;
+    }
     
     img {
-        margin: 0 auto @base-margin;
         display: block;
         
         &.x-left, &[align=left] {
