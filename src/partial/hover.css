@@ -1,7 +1,7 @@
 ﻿/**
  * @author xuld
  */
-.x-hide-hover {
+.x-hover-hide {
   opacity: 0;
   filter: alpha(opacity=0);
   -moz-transition: opacity 0.2s;
@@ -9,7 +9,7 @@
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
 }
-.x-show-hover:hover .x-hide-hover {
+.x-hover:hover .x-hover-hide {
   opacity: 1;
   filter: alpha(opacity=100);
 }

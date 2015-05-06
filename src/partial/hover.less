@@ -4,11 +4,11 @@
 
 @import "../core/mixins.less";
 
-.x-hide-hover {
+.x-hover-hide {
     .opacity(0);
     .transition(opacity .2s);
     
-    .x-show-hover:hover & {
+    .x-hover:hover & {
         .opacity(1);
     }
 }

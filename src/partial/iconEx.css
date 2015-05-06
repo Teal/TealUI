@@ -1,4 +1,7 @@
-﻿
+﻿.x-icon-spinner:before {
+	content: "\489";
+}
+
 .x-icon-home:before {
 	content: "\6e9";
 }
@@ -91,10 +94,6 @@
 	content: "\21ba";
 }
 
-.x-icon-spinner:before {
-	content: "\489";
-}
-
 .x-icon-arrow-up:before {
 	content: "\2191";
 }
@@ -159,12 +158,20 @@
 	content: "\ff1e";
 }
 
-.x-icon-chevron-circle-up:before {
+.x-icon-arrow-circle-up:before {
 	content: "\21e7";
 }
 
-.x-icon-chevron-circle-down:before {
+.x-icon-arrow-circle-down:before {
 	content: "\21e9";
+}
+
+.x-icon-arrow-circle-left:before {
+	content: "\21e6";
+}
+
+.x-icon-arrow-circle-right:before {
+	content: "\21e8";
 }
 
 .x-icon-upload:before {
@@ -255,8 +262,12 @@
 	content: "\21aa";
 }
 
-.x-icon-mail-reply-all:before {
+.x-icon-mail-reply:before {
 	content: "\21a9";
+}
+
+.x-icon-mail-reply-all:before {
+	content: "\2325";
 }
 
 .x-icon-share-square-o:before {
@@ -518,3 +529,4 @@
 .x-icon-palette:before {
 	content: "\65";
 }
+
