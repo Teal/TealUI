@@ -1,0 +1,31 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-tree {
+    font-size: .95em;
+
+    li {
+        list-style: none;
+        .text-overflow(ellipsis);
+    }
+}
+
+.outlinetree {
+    font-size: 12px;
+    line-height: 22px;
+}
+.outlinetree, .outlinetree ul, .outlinetree li {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+.outlinetree ul {
+    margin-left: 14px;
+}
+.outlinetree .selected a {
+    color: #e9985e;
+    font-weight: bold;
+}

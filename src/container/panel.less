@@ -7,73 +7,34 @@
     border: 1px solid @border-color;
     margin-bottom: @base-margin;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    .x-header, .x-footer {
-        background-color: #F7F7F7;
-        line-height: 150%;
-        padding: @box-padding;
-    }
 
-    .x-header {
-        border-bottom: 1px solid @border-color;
+    .status(@text-color, @background-color, @border-color){
+        border-color: @border-color;
 
-        h1, h2, h3, h4, h5, h6 {
-            margin: 0;
-            font-weight: 700;
+        .x-panel-header {
+            background-color: @background-color;
+            border-color: @border-color;
+            color: @text-color;
         }
-    }
-
-    .x-footer {
-        border-top: 1px solid @border-color;
-    }
-
-    .x-body {
-        padding: @box-padding-x;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
     }
 
     // 色系
     &.x-info {
-        border-color: @info-border-color;
-
-        .x-header {
-            background-color: @info-background-color;
-            border-color: @info-border-color;
-            color: @info-text-color;
-        }
+        .status(@info-text-color, @info-background-color, @info-border-color);
     }
 
     &.x-success {
-        border-color: @success-border-color;
-
-        .x-header {
-            background-color: @success-background-color;
-            border-color: @success-border-color;
-            color: @success-text-color;
-        }
+        .status(@success-text-color, @success-background-color, @success-border-color);
     }
-
+    
     &.x-warning {
-        border-color: @warning-border-color;
-
-        .x-header {
-            background-color: @warning-background-color;
-            border-color: @warning-border-color;
-            color: @warning-text-color;
-        }
+        .status(@warning-text-color, @warning-background-color, @warning-border-color);
     }
 
     &.x-error {
-        border-color: @error-border-color;
-
-        .x-header {
-            background-color: @error-background-color;
-            border-color: @error-border-color;
-            color: @error-text-color;
-        }
+        .status(@error-text-color, @error-background-color, @error-border-color);
     }
-
+    
     // 折叠效果
     &.x-collapsed {
 
@@ -97,26 +58,40 @@
             float: left;
             line-height: @base-line-height;
             margin-right: @box-padding-x;
+            .transform(rotate(0));
             -moz-transition: -moz-transform .3s, height .3s, padding .3s;
             -o-transition: -o-transform .3s, height .3s, padding .3s;
             -webkit-transition: -webkit-transform .3s, height .3s, padding .3s;
             transition: transform .3s, height .3s, padding .3s;
-            -moz-transform: rotate(0);
-            -ms-transform: rotate(0);
-            -o-transform: rotate(0);
-            -webkit-transform: rotate(0);
-            transform: rotate(0);
         }
     }
 
     &.x-collapsed .x-header:before, &.x-collapsing .x-header:before {
-        -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-        -o-transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
-        transform: rotate(-90deg);
+        .transform(rotate(-90deg));
     }
 
-    &.x-collapsing {
+}
+
+.x-panel-header, .x-panel-footer {
+    background-color: @panel-background-color;
+    line-height: 150%;
+    padding: @box-padding;
+}
+
+.x-panel-header {
+    border-bottom: 1px solid @border-color;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        line-height: 150%;
     }
+}
+
+.x-panel-footer {
+    border-top: 1px solid @border-color;
+}
+
+.x-panel-body {
+    padding: @box-padding-x;
+    .box-sizing(border-box);
 }
