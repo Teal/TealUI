@@ -10,33 +10,36 @@
             background-color: #f3f3f3;
         }
     }
-}
+    
+    // 表格间隔行高亮。
+    &.x-stripped tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
 
-// 表格间隔行高亮。
-.x-table-stripped tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
 }
 
 // 颜色
 tr, th, td {
-    &.x-info {
-        background-color: @info-background-color !important;
-        color: @info-text-color;
+
+    .status(@text-color, @background-color){
+        background-color: @background-color !important;
+        color: @text-color;
     }
 
+    &.x-info {
+        .status(@info-text-color, @info-background-color);
+    }
+    
     &.x-success {
-        background-color: @success-background-color !important;
-        color: @success-text-color;
+        .status(@success-text-color, @success-background-color);
     }
 
     &.x-warning {
-        background-color: @warning-background-color !important;
-        color: @warning-text-color;
+        .status(@warning-text-color, @warning-background-color);
     }
 
     &.x-error {
-        background-color: @error-background-color !important;
-        color: @error-text-color;
+        .status(@error-text-color, @error-background-color);
     }
 
     // 激活状态。

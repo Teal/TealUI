@@ -10,7 +10,8 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/typography/toolbar.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/hover.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/nav/toolbar.css" />
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -27,13 +28,11 @@
 
     <h2>鼠标移上后才显示</h2>
     <aside class="doc-demo">
-        <aside class="x-toolbar x-hover-trigger">
+        <aside class="x-toolbar x-hover">
             <a href="###">工具项1</a>
             <a href="###">工具项2</a>
             <a href="###">工具项3</a>
-            <span class="x-hover-show">
-                <a href="###">工具项4</a>
-            </span>
+            <a href="###" class="x-hover-hide">工具项4</a>
         </aside>
     </aside>
 </body>

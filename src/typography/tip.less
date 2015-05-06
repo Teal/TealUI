@@ -5,21 +5,26 @@
 @import "../core/mixins.less";
 
 .x-tip {
-    color: #808080;
-
-    &.x-info {
-        color: @info-text-color;
+    color: @tip-text-color;
+    
+    .status(@text-color) {
+        color: @text-color;
     }
 
+    &.x-info {
+        .status(@info-text-color);
+    }
+    
     &.x-success {
-        color: @success-text-color;
+        .status(@success-text-color);
     }
 
     &.x-warning {
-        color: @warning-text-color;
+        .status(@warning-text-color);
     }
 
     &.x-error {
-        color: @error-text-color;
+        .status(@error-text-color);
     }
+
 }
