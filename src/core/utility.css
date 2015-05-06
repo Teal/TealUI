@@ -1,13 +1,13 @@
-﻿.x-clear:after {
-  content: " ";
-  display: table;
-  clear: both;
-}
-.x-left {
+﻿.x-left {
   float: left !important;
 }
 .x-right {
   float: right !important;
+}
+.x-clear:after {
+  content: " ";
+  display: table;
+  clear: both;
 }
 .x-middle {
   vertical-align: middle !important;
@@ -62,11 +62,11 @@
 }
 .x-fill {
   display: block !important;
-  margin-bottom: 1em;
   width: 100%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  margin-bottom: 1em;
 }
 .x-radius {
   border-radius: 2px;

@@ -123,20 +123,18 @@ hr {
     border-color: @border-color;
     border-width: 1px 0 0 0;
     border-style: solid;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box; // Firefox: 统一浏览器行为。
+    -moz-box-sizing: content-box; // Firefox: 统一浏览器行为。
     height: 0;
 }
 
 // 列表
-ul, ol, dl {
-    ul, ol, dl {
-        margin: 0;
-    }
+ul ul, dd {
+    margin: 0;
 }
 
 dt {
     margin-top: @base-margin / 2;
+    font-weight: 500;
 }
 
 // 表格
@@ -170,7 +168,6 @@ code {
 
 pre {
     white-space: pre-wrap;
-    -ms-word-break: break-all;
     word-break: break-all;
     line-height: 150%;
     font-size: .95em;
@@ -182,8 +179,16 @@ pre {
 // 小字
 small {
     font-weight: 100;
-    font-size: @base-font-size - 1px;
-    color: @hint-color;
+    font-size: @small-font-size;
+    color: @small-text-color;
+}
+
+// sup,sub
+sup {
+    vertical-align: top;
+}
+sub {
+    vertical-align: bottom;
 }
 
 // 地址

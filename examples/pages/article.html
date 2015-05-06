@@ -13,39 +13,43 @@
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/typography/imageText.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/nav/pager.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/hover.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/imageText.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/article.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/userFace.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tag.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/comment.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tip.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/typography/toolbar.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/sortToolbar.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/toolbar.css" />
 
     <style>
-        #article-toolbar {
-            margin-top: 2em;
-        }
-
-        .user-info {
-            font-size: .9em;
-            margin-bottom: 1em;
-        }
-
-        #aboutauthor img.x-bordered {
-            margin: 0 1em 0 0;
-        }
-
-        #aboutauthor h3 a {
-            color: #333;
-        }
-
+        
         .x-article dd {
             margin: 0;
         }
+
+        #article_author img.x-bordered {
+            margin: 0 1em 1em 0;
+        }
+
+        #article_author h3 a {
+            color: #333;
+        }
+        
+        .user-info {
+            font-size: .9em;
+            margin-bottom: 1em;
+            line-height: 160%;
+        }
+
+        #article_toolbar {
+            margin-top: 2em;
+        }
+
     </style>
 </head>
 <body>
@@ -68,7 +72,7 @@
             </ul>
         </aside>
 
-        <h1>主标题<sup class="x-tag x-error">精品</sup></h1>
+        <h1>主标题 <sup class="x-tag x-error">精品</sup></h1>
         <h2>副标题</h2>
 
         <div class="x-imagetext">
@@ -104,27 +108,43 @@
 
         <p class="x-tip">描述</p>
 
-        <section id="article-content" class="x-article">
+        <section id="article_content" class="x-article">
             <h2>目录</h2>
             <h3 class="x-center">第一部分：基础</h3>
             <dl>
                 <dt><a href="###">第一章：.NET编程语言C#</a></dt>
                 <dd><a href="###">1.1 Microsoft.NET&mdash;&mdash;一场新的革命</a></dd>
-                <dd><a href="###">1.2 .NET 与C#</a></dd>
+                <dd><a href="###">1.2 .NET 与 C#</a></dd>
+                <dd><a href="###">1.2.1 .NET 与 C# 1</a></dd>
+                <dd><a href="###">1.2.1 .NET 与 C# 2</a></dd>
+                <dd><a href="###">1.3 .NET 与 VB</a></dd>
                 <dt><a href="###">第一章：.NET编程语言C#</a></dt>
                 <dd><a href="###">1.1 Microsoft.NET&mdash;&mdash;一场新的革命</a></dd>
                 <dd><a href="###">1.2 .NET 与C#</a></dd>
             </dl>
             <h2>标题1</h2>
+            <h2>标题2</h2>
+            <h3>标题3</h3>
+            <h4>标题4</h4>
+            <h5>标题5</h5>
+            <h6>标题6</h6>
             <p>短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。</p>
-            <h2>标题1</h2>
-            <h3>标题1</h3>
-            <h4>标题1</h4>
-            <h5>标题1</h5>
-            <h6>标题1</h6>
-            <img width="150" height="150" src="../../static/images/u8.png" alt="作者头像">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra <code>vulputate</code>, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
+            <div class="x-hover-trigger">
+                <div class="x-hover-show x-sorttoolbar x-right">
+                    <a href="###">折叠</a> &nbsp;|&nbsp;
+                    <a href="###">执行</a> &nbsp;|&nbsp;
+                    <a href="###">复制</a> &nbsp;
+                </div>
+                <pre class="sh"><code>using System;
+   
+class Program {
+    int a;                            
+}                          
+</code></pre>
+            </div>
+            <img width="150" height="150" src="../../assets/resources/userface.png" alt="插图">
             <table>
                 <tbody>
                     <tr>
@@ -141,17 +161,6 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="hovershow-container">
-                <div class="hovershow-element sorttoolbar right">
-                    <a href="###">折叠</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="###">执行</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="###">复制</a>&nbsp;&nbsp;
-                </div>
-                <pre class="sh"><code>using System;
-   
-class Program {
-    int a;                            
-}                          
-</code></pre>
-            </div>
             <ul>
                 <li>AAAA</li>
                 <li>AAAA</li>
@@ -164,10 +173,9 @@ class Program {
                 <li>AAAA</li>
                 <li>AAAA</li>
             </ol>
-            <strong>aaa</strong>
         </section>
 
-        <section id="aboutauthor">
+        <section id="article_author">
             <h2>关于作者</h2>
             <div class="x-imagetext">
                 <div class="x-imagetext-image">
@@ -180,9 +188,7 @@ class Program {
                         地址：广东<br>
                     </div>
                     <p class="x-tip user-signature">种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。</p>
-                    <div>
-                        <a class="x-button x-success" href="###"><i class="x-icon">&#10010;</i>关注</a>
-                    </div>
+                    <p><a class="x-button x-success" href="###"><i class="x-icon">&#10010;</i> 关注</a></p>
                 </div>
             </div>
             <p>原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。短文学-短篇原创文学。本频道提供各种经典励志文章,人生感悟文章,伤感爱情文章在线阅读。也有生活随笔文章,好看的短篇小说等。</p>
@@ -193,7 +199,7 @@ class Program {
             <div><a href="###"><i class="x-icon">&#171;</i>上一文：标题2</a></div>
         </nav>
 
-        <aside class="x-toolbar" id="article-toolbar">
+        <aside class="x-toolbar" id="article_toolbar">
             <a href="###"><i class="x-icon">&#9757;</i>对我有用(23)</a>
             <a href="###"><i class="x-icon">&#9759;</i>对我没用(23)</a>
             <a href="###"><i class="x-icon">&#10032;</i>收藏(23)</a>
@@ -204,12 +210,13 @@ class Program {
         <small class="x-fill" id="article-copyright">本文，包括相关的源码和文件，基于 CC 2.0 协议发布，未经授权禁止转载</small>
 
         <!-- 评论模块 -->
-        <section id="article-comments">
-            <div class="x-sorttoolbar x-right">
-                排序：<a class="x-actived" href="###">最新</a>&nbsp;&nbsp;
+        <section id="article_comments">
+            <nav class="x-sorttoolbar x-right">
+                排序：
+                <a class="x-actived" href="###">最新</a>&nbsp;&nbsp;
                 <a href="###">最早</a>&nbsp;&nbsp;
                 <a href="###">最热</a>
-            </div>
+            </nav>
             <h2>评论<small>(23)</small></h2>
 
             <div class="x-comment x-imagetext x-hover-trigger">
@@ -217,7 +224,7 @@ class Program {
                     <a href="###"><img class="x-userface" width="45" height="45" alt="作者头像" src="../../assets/resources/userface.png"></a>
                 </div>
                 <div class="x-imagetext-text">
-                    <small><a href="###">作者</a> - 一句话描述</small>
+                    <small><a href="###">作者</a> 2014/10/11</small>
                     <div class="x-comment-content">
                         <p>
                             写的太好了写的太好了写的了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了
@@ -240,11 +247,10 @@ class A{
                         <p><a href="">作者</a> 回复 <a href="">作者</a>：你好</p>
                     </div>
                     <div class="x-toolbar">
-                        <span class="x-right">2014/5/20 12:11:00</span>
                         <a href=""><i class="x-icon">&#8617;</i>回复</a>
                         <a href=""><i class="x-icon">&#9757;</i>赞(0)</a>
                         <a href=""><i class="x-icon">&#9759;</i>踩(0)</a>
-                        <a class="x-hover-show" href=""><i class="x-icon">&#8599;</i>分享</a>
+                        <a class="x-hover-show" href=""><i class="x-icon">&#10147;</i>分享</a>
                         <a class="x-hover-show" href=""><i class="x-icon">&#10032;</i>收藏</a>
                         <a class="x-hover-show" href=""><i class="x-icon">&#9990;</i>举报</a>
                     </div>
@@ -254,13 +260,25 @@ class A{
                 </div>
             </div>
 
+            <nav class="x-pager">
+                <a class="x-disabled" href="###"><i class="x-icon">«</i></a>
+                <a class="x-selected" href="###">1</a>
+                <a href="###">2</a>
+                ...
+                <a href="###">99</a>
+                <a href="###">100</a>
+                <a href="###"><i class="x-icon">»</i></a>
+            </nav>
+
             <div class="x-comment-add">
                 <input type="text" placeholder="发表我的评论..." class="x-textbox"> <input type="button" value="发表评论" class="x-button x-info">
                 <br>
                 <textarea class="x-textbox"></textarea><br>
                 <input type="button" value="发表评论" class="x-button x-info">
             </div>
+
         </section>
+
     </article>
 
 </body>

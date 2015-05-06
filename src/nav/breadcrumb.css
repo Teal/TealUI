@@ -1,10 +1,12 @@
-﻿.x-breadcrumb li {
-  padding-right: .5em;
+﻿.x-breadcrumb {
   font-size: .95em;
-  color: #ccc;
 }
+.x-breadcrumb,
 .x-breadcrumb a,
 .x-breadcrumb span {
-  color: #666;
-  padding-right: .5em;
+  color: #757575;
+}
+.x-breadcrumb-divider {
+  text-align: center;
+  color: #aaaaaa;
 }

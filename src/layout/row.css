@@ -11,7 +11,3 @@
 .x-cell ~ .x-cell {
   padding-left: 10px;
 }
-.x-cell img {
-  max-width: none;
-  margin-top: .4em;
-}

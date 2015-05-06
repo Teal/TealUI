@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>对话框</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="经典对话框弹层效果。">
+    <meta name="keywords" content="弹层, 弹窗, tanchuang, tc, 浮层, alert">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/container/dialog.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/core/containercontrol.js"></script>
+    <script type="text/javascript" src="../../src/container/dialog.js"></script>
+    
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <h2>创建最简单的对话框</h2>
+
+    <script class="doc-demo">
+        $.dialog().title('我是标题').content('<em>我是内容</em>');
+    </script>
+
+    <h2>基于已有的 HTML 创建对话框</h2>
+
+    <aside class="doc-demo">
+        <div class="x-dialog" x-dialog>
+            <div class="x-dialog-header">
+                <a class="x-closebutton"></a>
+                <h4>我是标题</h4>
+            </div>
+            <div class="x-dialog-body">
+                <em>我是内容</em>
+            </div>
+        </div>
+   </aside>
+
+        <h2>常用 API </h2>
+
+    <h3>自定义遮罩层（模式对话框）</h3>
+                
+    <h4>不显示遮罩层</h4>
+
+    <pre>
+        $.dialog().mask(false);
+    </pre>
+
+    <h4>显示透明度为 0.5 的遮罩层</h4>
+
+    <pre>
+        $.dialog().mask(0.5);
+    </pre>
+
+    <h3>关闭按钮</h3>
+
+    <h4>不显示关闭按钮</h4>
+                
+    <pre>
+        $.dialog().closeButton(false);
+    </pre>
+
+    <h4>手动关闭对话框</h4>
+
+    <pre>
+        $.dialog().close();
+    </pre>
+
+    <h4>设置用户关闭对话框后的回调</h4>
+
+    <pre>
+        $.dialog().on("close", function(){
+            alert("对话框已经关闭了");
+            });
+    </pre>
+
+    <h4>设置用户关闭对话框后的回调，并阻止关闭事件</h4>
+
+    <pre>
+        $.dialog().on("closing", function(){
+            alert("对话框即将关闭");
+            return false; // return false 阻止事件，这样将关闭不了对话框。
+        });
+    </pre>
+
+    <!--<div class="x-dialog" id="a">
+                <div class="x-dialog-header">
+                    <a class="x-closebutton">×</a>
+                    <h4>header</h4>
+                </div>
+                <div class="x-dialog-body">
+                    <div class="x-dialog-content">A</div>
+                </div>
+            </div>-->
+
+    <blockquote>如果需要一个含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="messageBox.html">信息框（messageBox）</a> 组件。</blockquote>
+</body>
+</html>

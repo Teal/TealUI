@@ -8,35 +8,35 @@
 
 // 页面
 @background-color:          #fff;
-@text-color:                darken(@background-color, 87%);
-@text-secondary-color:      darken(@background-color, 54%);
-@border-color:              darken(@background-color, 12%);
-@hint-color:                #aaa;
+@hover-background-color:    #f5f5f5;
+@selected-background-color: #0e90d2;
 
+@border-color:              darken(@background-color, 12%);
 @textbox-border-color:      #ccc;
 @button-border-color:       #eee;
-@dropdown-hover-color:      #f5f5f5;
-@dropdown-selected-color:   #0e90d2;
+
+@text-color:                darken(@background-color, 87%);
+@tip-text-color:            darken(@background-color, 54%);
+@disabled-text-color:       darken(@background-color, 26%);
+@small-text-color:          #aaa;
+@link-text-color:           #095f8b;
 
 // 状态
-@link-text-color:           #095f8b;
-@link-background-color:     rgba(59,180,242,.15);
-@link-border-color:         #caebfb;
 
 @info-text-color:           #049cdb;
-@info-background-color:     rgba(59,180,242,.15);
+@info-background-color:     rgba(59, 180, 242, .15);
 @info-border-color:         #caebfb;
 
 @success-text-color:        #5eb95e;
-@success-background-color:  rgba(94,185,94,.15);
+@success-background-color:  rgba(94, 185, 94, .15);
 @success-border-color:      #c9e7c9;
 
 @warning-text-color:        #e9985e;
-@warning-background-color:  rgba(243,123,29,.15);
+@warning-background-color:  rgba(243, 123, 29, .15);
 @warning-border-color:      #fbd0ae;
 
 @error-text-color:          #dd514c;
-@error-background-color:    rgba(221,81,76,.15);
+@error-background-color:    rgba(221, 81, 76, .15);
 @error-border-color:        #f5cecd;
 
 //--------------------------------
@@ -46,14 +46,16 @@
 // 字体
 @base-font-size:            14px;
 @base-line-height:          24px;
+@small-font-size:           .85em;
 
 // 间距
-@base-padding:              @base-font-size / 2;   
-@base-margin:               1em;
-@base-box-padding-y:        4px;
-@base-box-padding-x:        @base-box-padding-y * 2;
-@base-box-padding:          @base-box-padding-y @base-box-padding-x;
 @base-border-radius:        4px;
+@base-margin:               1em;
+@base-padding:              @base-font-size / 2;   
+
+@box-padding-y:             (@base-line-height - @base-font-size) / 2 - 1px;
+@box-padding-x:             @box-padding-y * 2;
+@box-padding:               @box-padding-y @box-padding-x;
 
 // Z-index
 @z-index-dropdown:          1000;
@@ -89,7 +91,7 @@
 }
 
 // 提示文案
-.placeholder(@color: @hint-color) {
+.placeholder(@color: @small-text-color) {
 	&:-moz-placeholder {
 		color: @color;
 	}
@@ -99,11 +101,11 @@
 }
 
 // 文本超流
-.text-overflow(@behavior: ellipsis) {
+.text-overflow(@text-overflow: ellipsis) {
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: @behavior;
+    text-overflow: @text-overflow;
 }
 
 // 隐藏文本。参考 https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
@@ -121,10 +123,26 @@
     filter: e(%("alpha(opacity=%d)", @opacity * 100));
 }
 
-// BACKGROUNDS
-// --------------------------------------------------
+.transition(@transition: all .3s){
+    -moz-transition: @transition;
+    -o-transition: @transition;
+    -webkit-transition: @transition;
+    transition: @transition;
+}
 
-// Add an alphatransparency value to any background or border color (via Elyse Holladay)
+.animation(@animation) {
+    -moz-animation: @animation;
+    -o-animation: @animation;
+    -webkit-animation: @animation;
+    animation: @animation;
+}
+
+.box-sizing(@box-sizing: border-box) {
+    -moz-box-sizing: @box-sizing;
+    -webkit-box-sizing: @box-sizing;
+    box-sizing: @box-sizing;
+}
+
 #translucent {
 	.background(@color: #fff, @alpha: 1) {
 		background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
@@ -137,7 +155,6 @@
 	}
 }
 
-// Gradients
 #gradient {
     .horizontal(@startColor: #555, @endColor: #333) {
         background-color: @endColor;
@@ -209,4 +226,3 @@
         border-color: rgba(0,0,0,.1) rgba(0,0,0,.15) fadein(rgba(0,0,0,.1), 15%);
     }
 }
-

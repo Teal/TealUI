@@ -2,7 +2,7 @@
 @import "../core/mixins.less";
 
 .x-textbox {
-    padding: @base-box-padding;
+    padding: @box-padding;
     border: 1px solid @textbox-border-color;
     background-color: @background-color;
     outline: 0;
@@ -31,7 +31,7 @@
 
     textarea& {
         width: @base-font-size * 42;
-        height: @base-line-height * 5 + @base-box-padding-y * 2 + 4px;
+        height: @base-line-height * 5 + @box-padding-y * 2 + 4px;
     }
     
     .textbox-state(@borderColor) {

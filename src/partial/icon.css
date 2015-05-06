@@ -21,36 +21,8 @@
   -webkit-user-select: none;
   user-select: none;
   vertical-align: -0.5px;
-  text-align: center;
-  margin-right: 4px;
+  width: 1.25em;
 }
-@-moz-keyframes icon-spin {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(359deg);
-  }
-}
-@-webkit-keyframes icon-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-  }
-}
-@keyframes icon-spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(359deg);
-  }
-}
-.x-spin {
-  -moz-animation: 2s linear 0s normal none infinite running icon-spin;
-  -o-animation: 2s linear 0s normal none infinite running icon-spin;
-  -webkit-animation: 2s linear 0s normal none infinite running icon-spin;
-  animation: 2s linear 0s normal none infinite running icon-spin;
+.x-icon-only {
+  width: auto;
 }

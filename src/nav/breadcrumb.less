@@ -2,13 +2,15 @@
 @import "../core/mixins.less";
 
 .x-breadcrumb {
-    li {
-        padding-right: .5em;
-        font-size: .95em;
-        color: #ccc;
+    font-size: .95em;
+
+    &, & a, & span{
+        color: @tip-text-color;
     }
-    a, span{
-        color: #666;
-        padding-right: .5em;
-    }
+
+}
+
+.x-breadcrumb-divider {
+    text-align: center;
+    color: @small-text-color;
 }

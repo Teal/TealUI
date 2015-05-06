@@ -114,22 +114,15 @@ hr {
   border-width: 1px 0 0 0;
   border-style: solid;
   -moz-box-sizing: content-box;
-  box-sizing: content-box;
   height: 0;
 }
 ul ul,
-ol ul,
-dl ul,
-ul ol,
-ol ol,
-dl ol,
-ul dl,
-ol dl,
-dl dl {
+dd {
   margin: 0;
 }
 dt {
   margin-top: 0.5em;
+  font-weight: 500;
 }
 table {
   border-collapse: collapse;
@@ -156,7 +149,6 @@ code {
 }
 pre {
   white-space: pre-wrap;
-  -ms-word-break: break-all;
   word-break: break-all;
   line-height: 150%;
   font-size: .95em;
@@ -166,8 +158,14 @@ pre {
 }
 small {
   font-weight: 100;
-  font-size: 13px;
+  font-size: 0.85em;
   color: #aaaaaa;
+}
+sup {
+  vertical-align: top;
+}
+sub {
+  vertical-align: bottom;
 }
 address,
 cite {

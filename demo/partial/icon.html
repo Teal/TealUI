@@ -10,6 +10,7 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/spin.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <!-- 添加此 class 可以实现通过 class 定义图标 -->
     <link rel="stylesheet" type="text/css" href="../../src/partial/iconEx.css" />
@@ -31,7 +32,15 @@
     <h2>基本用法</h2>
     <aside class="doc-demo">
         <a href="###"><i class="x-icon">&#9733;</i>你好</a>
-        <a href="###"><i class="x-icon x-spin">&#1161;</i>你好</a>
+    </aside>
+    
+    <p>默认图标包含 0.25em 右边距，在图标和文字一起出现时可获得最佳视觉效果。如果图标单独使用则会影响美观，此时可添加 <code>.x-icon-only</code> 删除右边距。</p>
+    
+    <h2>加载图标</h2>
+    <p>结合 <a href="spin.html">旋转效果(spin)</a> 组件，可以实现旋转的组件效果。</p>
+    <aside class="doc-demo">
+        <i class="x-icon x-spin">&#1161;</i> 正在加载...<br />
+        <i class="x-icon x-spin">&#8634;</i> 正在加载...<br />
     </aside>
 
     <h2>所有图标</h2>
@@ -48,7 +57,7 @@
                     var iconex = document.styleSheets[i];
                     for (var j = 0; j < iconex.cssRules.length; j++) {
                         iconex.cssRules[j].cssText.replace(/\.x-icon-(.+):before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
-                            html += '<li><i class="x-icon">' + unicode + '</i> ' + name + ':<code>&amp;#' + unicode.charCodeAt(0) + ';</code></li>';
+                            html += '<li><i class="x-icon">' + unicode + '</i>' + name + ':<code>&amp;#' + unicode.charCodeAt(0) + ';</code></li>';
                         });
                     }
                 }

@@ -9,10 +9,10 @@
     margin-right: .3em;
     font-size: @base-font-size - 2px;
     line-height: 150%;
-    padding: 0 1em * 4px / (@base-font-size - 2px);
+    padding: 0 4px;
     border-radius: @base-border-radius;
+    background-color: @small-text-color;
     color: @background-color;
-    background-color: @hint-color;
     -moz-transition: opacity .3s;
     -o-transition: opacity .3s;
     -webkit-transition: opacity .3s;
@@ -21,11 +21,6 @@
     a&:hover {
         text-decoration: none;
         opacity: .8;
-    }
-    
-    sup&{
-        margin-left: .6em;
-        vertical-align: top;
     }
     
     &.x-info {

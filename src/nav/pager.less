@@ -5,36 +5,34 @@
 @import "../core/mixins.less";
 
 .x-pager {
-    display: inline-table;
-
-    li {
-        display: table-cell;
-        padding: 0 @base-box-padding-y + 1px;
-    }
-
+    text-align: center;
+    margin: 2em 0;
+    
     a {
-        display: block;
-        text-align: center;
-        min-width: @base-line-height;
-        background-color: @background-color;
+        display: inline-block;
+        min-width: @base-line-height - @box-padding-x + 2px; // 2px 视觉差
         border: 1px solid @border-color;
-        padding: @base-box-padding-y @base-box-padding-y + 1px;
+        padding: @box-padding;
+
+        & + a {
+            margin-left: @box-padding-x / 2;
+        }
 
         &:hover {
-            background-color: @dropdown-hover-color;
+            background-color: @hover-background-color;
             text-decoration: none;
         }
 
-    }
-    
-    .x-selected a {
-        background-color: @link-text-color;
-        border-color: @link-text-color;
-        color: #fff;
-    }
+        &.x-selected {
+            background-color: @link-text-color;
+            border-color: @link-text-color;
+            color: @background-color;
+        }
 
-    .x-disabled a {
-        color: @hint-color;
-        background-color: @background-color!important;
+        &.x-disabled {
+            color: @disabled-text-color;
+            pointer-events: none;
+        }
+
     }
 }

@@ -1,0 +1,14 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-hide-hover {
+    .opacity(0);
+    .transition(opacity .2s);
+    
+    .x-show-hover:hover & {
+        .opacity(1);
+    }
+}

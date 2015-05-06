@@ -5,22 +5,14 @@
 @import "../core/mixins.less";
 
 .x-toolbar {
-    color: @hint-color;
-}
+    color: @small-text-color;
 
-.x-toolbar a {
-    color: #808080;
-    margin-right: 1.5em;
-}
+    a {
+        color: @tip-text-color;
 
-.x-hover-show {
-    opacity: 0;
-    -moz-transition: opacity .2s;
-    -o-transition: opacity .2s;
-    -webkit-transition: opacity .2s;
-    transition: opacity .2s;
-}
+        + a {
+            margin-left: 1.5em;
+        }
 
-.x-hover-trigger:hover .x-hover-show {
-    opacity: 1;
+    }
 }

@@ -13,14 +13,12 @@
     float: left;
     padding: 0 @base-padding;
     margin-bottom: @base-margin;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    .box-sizing(border-box);
 }
 
 // 容器
 .x-container {
-    max-width: 1000px + @base-padding * 2;
+    max-width: 980px + @base-padding * 2;
     margin-left: auto;
     margin-right: auto;
     padding: 0 @base-padding * 2;
