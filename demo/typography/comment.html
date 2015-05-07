@@ -4,17 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>评论框</title>
-    <meta name="module-info" content="status=todo, order=article">
-    <meta name="author" content="">
-    <meta name="description" content="">
+    <meta name="module-info" content="order=article">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="评论区域完整显示效果">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/layout/row.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/imageText.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/nav/pager.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/nav/toolbar.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/nav/sortToolbar.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/hover.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/userFace.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/toolbar.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tip.css" />
@@ -25,20 +29,22 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <aside class="doc-demo">
-        <section id="article-comments">
-            <div class="x-sorttoolbar x-right">
-                排序：<a class="x-actived" href="###">最新</a>&nbsp;&nbsp;
+        <section>
+            <nav class="x-sorttoolbar x-right">
+                排序：
+                <a class="x-actived" href="###">最新</a>&nbsp;&nbsp;
                 <a href="###">最早</a>&nbsp;&nbsp;
                 <a href="###">最热</a>
-            </div>
+            </nav>
+
             <h2>评论<small>(23)</small></h2>
 
-            <div class="x-comment x-row x-hover-trigger">
-                <div class="x-cell">
+            <div class="x-comment x-imagetext x-hover">
+                <div class="x-imagetext-image">
                     <a href="###"><img class="x-userface" width="45" height="45" alt="作者头像" src="../../assets/resources/userface.png"></a>
                 </div>
-                <div class="x-cell">
-                    <small><a href="###">作者</a> - 一句话描述</small>
+                <div class="x-imagetext-text">
+                    <small><a href="###">作者</a> 2014/10/11</small>
                     <div class="x-comment-content">
                         <p>
                             写的太好了写的太好了写的了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了写的太好了
@@ -61,25 +67,34 @@ class A{
                         <p><a href="">作者</a> 回复 <a href="">作者</a>：你好</p>
                     </div>
                     <div class="x-toolbar">
-                        <span class="x-right">2014/5/20 12:11:00</span>
                         <a href=""><i class="x-icon">&#8617;</i>回复</a>
                         <a href=""><i class="x-icon">&#9757;</i>赞(0)</a>
                         <a href=""><i class="x-icon">&#9759;</i>踩(0)</a>
-                        <a class="x-hover-show" href=""><i class="x-icon">&#8599;</i>分享</a>
-                        <a class="x-hover-show" href=""><i class="x-icon">&#10032;</i>收藏</a>
-                        <a class="x-hover-show" href=""><i class="x-icon">&#9990;</i>举报</a>
+                        <a class="x-hover-hide" href=""><i class="x-icon">&#10147;</i>分享</a>
+                        <a class="x-hover-hide" href=""><i class="x-icon">&#10032;</i>收藏</a>
+                        <a class="x-hover-hide" href=""><i class="x-icon">&#9990;</i>举报</a>
                     </div>
-                    <div class="comment-reply">
+                    <div class="x-comment-reply">
                         <input type="text" placeholder="回复..." class="x-textbox"> <input type="button" value="回复" class="x-button x-info">
                     </div>
                 </div>
             </div>
 
-            <div class="comment-add">
-                <input type="text" placeholder="发表我的评论..." class="textbox"> <input type="button" value="发表评论" class="button">
+            <nav class="x-pager">
+                <a class="x-disabled" href="###"><i class="x-icon">«</i></a>
+                <a class="x-selected" href="###">1</a>
+                <a href="###">2</a>
+                ...
+                <a href="###">99</a>
+                <a href="###">100</a>
+                <a href="###"><i class="x-icon">»</i></a>
+            </nav>
+
+            <div class="x-comment-add">
+                <input type="text" placeholder="发表我的评论..." class="x-textbox"> <input type="button" value="发表评论" class="x-button x-info">
                 <br>
-                <textarea class="textbox"></textarea><br>
-                <input type="button" value="发表评论" class="button">
+                <textarea class="x-textbox"></textarea><br>
+                <input type="button" value="发表评论" class="x-button x-info">
             </div>
         </section>
     </aside>

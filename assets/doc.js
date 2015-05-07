@@ -2044,10 +2044,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 html += Doc.Utility.formatString('<dt data-title="{title}" data-name="{name}" data-title-pin-yin="{titlePinYin}">{title} <small>{name}</small></dt>', itemI);
                 for (var j = 0; j < (itemI.children && itemI.children.length) ; j++) {
                     var itemJ = itemI.children[j];
-                    itemJ.activedClass = itemJ.path === Doc.path ? ' class="doc-actived"' : '';
+                    itemJ.activedClass = itemJ.path === Doc.path ? ' doc-actived' : '';
                     itemJ.fullPath = Doc.basePath + Doc.Configs.folders[Doc.folder].path + '/' + itemJ.path;
                     itemJ.status = itemJ.status || 'done';
-                    html += Doc.Utility.formatString('<dd{activedClass} data-title="{title}" data-name="{name}" data-tags="{tags}" data-title-pin-yin="{titlePinYin}" class="doc-list-{status}"><a href="{fullPath}">{title} <small>{name}</small></a></dd>', itemJ);
+                    html += Doc.Utility.formatString('<dd data-title="{title}" data-name="{name}" data-tags="{tags}" data-title-pin-yin="{titlePinYin}" class="doc-list-{status}{activedClass}"><a href="{fullPath}">{title} <small>{name}</small></a></dd>', itemJ);
                 }
             }
             html += '</dl>';
