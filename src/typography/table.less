@@ -11,40 +11,27 @@
         }
     }
     
-    // 表格间隔行高亮。
-    &.x-stripped tbody tr:nth-child(odd) {
-        background-color: #f9f9f9;
-    }
+}
 
+// 表格间隔行高亮。
+.x-table-stripped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
 }
 
 // 颜色
-tr, th, td {
-
-    .status(@text-color, @background-color){
-        background-color: @background-color !important;
-        color: @text-color;
+.x-table-status(@status){
+    .x-table-@{status} {
+        background-color: ~"@{@{status}-background-color}";
+        color: ~"@{@{status}-text-color}";
     }
+}
 
-    &.x-info {
-        .status(@info-text-color, @info-background-color);
-    }
-    
-    &.x-success {
-        .status(@success-text-color, @success-background-color);
-    }
+.x-table-status(info);
+.x-table-status(success);
+.x-table-status(warning);
+.x-table-status(error);
 
-    &.x-warning {
-        .status(@warning-text-color, @warning-background-color);
-    }
-
-    &.x-error {
-        .status(@error-text-color, @error-background-color);
-    }
-
-    // 激活状态。
-    &.x-actived {
-        background-color: #ffd !important;
-    }
-
+// 激活状态。
+.x-table-actived {
+    background-color: #ffd;
 }

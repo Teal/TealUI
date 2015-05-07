@@ -4,35 +4,25 @@
 .x-table tbody tr:hover {
   background-color: #f3f3f3;
 }
-.x-table.x-stripped tbody tr:nth-child(odd) {
+.x-table-stripped tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
-tr.x-info,
-th.x-info,
-td.x-info {
-  background-color: rgba(59, 180, 242, 0.15) !important;
+.x-table-info {
+  background-color: rgba(59, 180, 242, 0.15);
   color: #049cdb;
 }
-tr.x-success,
-th.x-success,
-td.x-success {
-  background-color: rgba(94, 185, 94, 0.15) !important;
+.x-table-success {
+  background-color: rgba(94, 185, 94, 0.15);
   color: #5eb95e;
 }
-tr.x-warning,
-th.x-warning,
-td.x-warning {
-  background-color: rgba(243, 123, 29, 0.15) !important;
+.x-table-warning {
+  background-color: rgba(243, 123, 29, 0.15);
   color: #e9985e;
 }
-tr.x-error,
-th.x-error,
-td.x-error {
-  background-color: rgba(221, 81, 76, 0.15) !important;
+.x-table-error {
+  background-color: rgba(221, 81, 76, 0.15);
   color: #dd514c;
 }
-tr.x-actived,
-th.x-actived,
-td.x-actived {
-  background-color: #ffd !important;
+.x-table-actived {
+  background-color: #ffd;
 }

@@ -7,73 +7,10 @@
     border: 1px solid @border-color;
     margin-bottom: @base-margin;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-
-    .status(@text-color, @background-color, @border-color){
-        border-color: @border-color;
-
-        .x-panel-header {
-            background-color: @background-color;
-            border-color: @border-color;
-            color: @text-color;
-        }
-    }
-
-    // 色系
-    &.x-info {
-        .status(@info-text-color, @info-background-color, @info-border-color);
-    }
-
-    &.x-success {
-        .status(@success-text-color, @success-background-color, @success-border-color);
-    }
-    
-    &.x-warning {
-        .status(@warning-text-color, @warning-background-color, @warning-border-color);
-    }
-
-    &.x-error {
-        .status(@error-text-color, @error-background-color, @error-border-color);
-    }
-    
-    // 折叠效果
-    &.x-collapsed {
-
-        .x-header {
-            border-bottom: 0;
-        }
-
-        .x-body {
-            display: none;
-        }
-    }
-
-    &.x-expanded, &.x-collapsed {
-        .x-header {
-            cursor: pointer;
-        }
-
-        .x-header:before {
-            content: "\25be";
-            font-family: 'IcoMoon';
-            float: left;
-            line-height: @base-line-height;
-            margin-right: @box-padding-x;
-            .transform(rotate(0));
-            -moz-transition: -moz-transform .3s, height .3s, padding .3s;
-            -o-transition: -o-transform .3s, height .3s, padding .3s;
-            -webkit-transition: -webkit-transform .3s, height .3s, padding .3s;
-            transition: transform .3s, height .3s, padding .3s;
-        }
-    }
-
-    &.x-collapsed .x-header:before, &.x-collapsing .x-header:before {
-        .transform(rotate(-90deg));
-    }
-
 }
 
 .x-panel-header, .x-panel-footer {
-    background-color: @panel-background-color;
+    background-color: @panal-background-color;
     line-height: 150%;
     padding: @box-padding;
 }
@@ -93,5 +30,59 @@
 
 .x-panel-body {
     padding: @box-padding-x;
+    overflow: hidden;
     .box-sizing(border-box);
+}
+
+// 色系
+.x-panel-status(@status){
+    .x-panel-@{status} {
+        border-color: ~"@{@{status}-border-color}";
+        .x-panel-header {
+            background-color: ~"@{@{status}-background-color}";
+            border-color: ~"@{@{status}-border-color}";
+            color: ~"@{@{status}-text-color}";
+        }
+    }
+}
+
+.x-panel-status(info);
+.x-panel-status(success);
+.x-panel-status(warning);
+.x-panel-status(error);
+
+// 折叠效果
+.x-panel-expanded, .x-panel-collapsed {
+    .x-panel-header {
+        cursor: pointer;
+
+        &:before {
+            content: "\25be";
+            font-family: 'IcoMoon';
+            float: left;
+            line-height: @base-line-height;
+            margin-right: .3em;
+            -moz-transition: -moz-transform .3s, height .3s, padding .3s;
+            -o-transition: -o-transform .3s, height .3s, padding .3s;
+            -webkit-transition: -webkit-transform .3s, height .3s, padding .3s;
+            transition: transform .3s, height .3s, padding .3s;
+        }
+    }
+}
+
+.x-panel-collapsed {
+    .x-panel-header {
+        border-bottom: 0;
+
+        &:before {
+            .transform(rotate(-90deg));
+        }
+    }
+
+    .x-panel-body {
+        height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
 }

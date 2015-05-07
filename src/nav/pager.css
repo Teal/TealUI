@@ -18,12 +18,12 @@
   background-color: #f5f5f5;
   text-decoration: none;
 }
-.x-pager a.x-selected {
-  background-color: #095f8b;
-  border-color: #095f8b;
+.x-pager a.x-pager-actived {
+  background-color: #337ab7;
+  border-color: #337ab7;
   color: #ffffff;
 }
-.x-pager a.x-disabled {
+.x-pager a.x-pager-disabled {
   color: #bdbdbd;
   pointer-events: none;
 }

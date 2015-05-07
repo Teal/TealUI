@@ -5,30 +5,34 @@
 .x-list > li:first-child {
   border-top: 0;
 }
-.x-list.x-stripped > li:nth-child(even) {
+.x-list-stripped > li:nth-child(even) {
   background-color: #f9f9f9;
 }
-.x-list.x-bordered {
+.x-list-bordered {
   border: 1px solid #e0e0e0;
 }
-.x-list.x-bordered > li {
+.x-list-bordered > li {
   padding: 0.3em 0.6em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.x-buttongroup li {
+.x-list-buttongroup li {
   padding: 0;
 }
-.x-buttongroup li > a {
+.x-list-buttongroup li a {
   display: block;
   padding: 0.3em 0.6em;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
 }
-.x-buttongroup li > a:hover {
-  background-color: #f3f3f3;
+.x-list-buttongroup li a:hover {
+  background-color: #f5f5f5;
   text-decoration: none;
 }
-.x-buttongroup li.x-selected > a {
-  background-color: #095f8b;
+.x-list-buttongroup li.x-list-selected a {
+  background-color: #337ab7;
   color: #ffffff;
 }

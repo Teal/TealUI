@@ -11,44 +11,41 @@
             border-top: 0;
         }
     }
-    
-    &.x-stripped {
-        > li:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-    }
-
-    &.x-bordered {
-        border: 1px solid @border-color;
-
-        > li {
-            padding: 0.3em 0.6em;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-    }
-
 }
 
-.x-buttongroup {
+.x-list-stripped {
+    > li:nth-child(even) {
+        background-color: @stripped-background-color;
+    }
+}
+
+.x-list-bordered {
+    border: 1px solid @border-color;
+
+    > li {
+        padding: 0.3em 0.6em;
+        .box-sizing(border-box);
+    }
+}
+
+.x-list-buttongroup {
     li {
         padding: 0;
 
-        > a {
+        a {
             display: block;
             padding: 0.3em 0.6em;
+            .transition(background-color .3s);
 
             &:hover {
-                background-color: #f3f3f3;
+                background-color: @hover-background-color;
                 text-decoration: none;
             }
         }
-        
-        &.x-selected > a {
-            background-color: @link-text-color;
-            color: @background-color;
+
+        &.x-list-selected a {
+            background-color: @selected-background-color;
+            color: @selected-text-color;
         }
     }
 }

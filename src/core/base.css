@@ -116,13 +116,12 @@ hr {
   -moz-box-sizing: content-box;
   height: 0;
 }
-ul ul,
-dd {
-  margin: 0;
-}
 dt {
   margin-top: 0.5em;
   font-weight: 500;
+}
+dd {
+  margin: 0;
 }
 table {
   border-collapse: collapse;
