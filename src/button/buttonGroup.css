@@ -14,6 +14,3 @@
 .x-buttongroup.x-radius .x-button:last-child {
   border-radius: 0 4px 4px 0;
 }
-.x-buttongroup-justify {
-  width: 100%;
-}

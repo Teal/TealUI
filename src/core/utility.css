@@ -60,8 +60,11 @@
   text-overflow: ellipsis;
   display: block;
 }
-.x-fill {
+.x-blank {
   margin-bottom: 1em;
+}
+.x-justify {
+  width: 100%;
 }
 .x-radius {
   border-radius: 4px;

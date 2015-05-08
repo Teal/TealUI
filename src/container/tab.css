@@ -23,11 +23,10 @@
   border-width: 1px 1px 0 1px;
   top: 1px;
 }
-.x-tab-justify {
-  width: 100%;
+.x-tab.x-justify {
   display: table;
 }
-.x-tab-justify li {
+.x-tab.x-justify li {
   display: table-cell;
 }
 .x-tab-body {
