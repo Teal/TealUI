@@ -2,7 +2,6 @@
 @import "../core/mixins.less";
 
 .x-button {
-
     // 按钮样式重置。
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -10,81 +9,62 @@
     display: inline-block;
     text-align: center;
     white-space: nowrap;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    .user-select(none);
+    .box-sizing(border-box);
     color: @text-color;
     outline: 0;
-    
     // 按钮风格定义。
     padding: @box-padding-y @base-font-size;
     background-color: @button-border-color;
     border: 1px solid @button-border-color;
-
-    -moz-transition: background-color 300ms ease-out, border-color 300ms ease-out;
-    -o-transition: background-color 300ms ease-out, border-color 300ms ease-out;
-    -webkit-transition: background-color 300ms ease-out, border-color 300ms ease-out;
-    transition: background-color 300ms ease-out, border-color 300ms ease-out;
+    .transition(~"background-color .3s ease-out, border-color .3s ease-out");
 
     &:hover, &:focus {
         background-color: darken(@button-border-color, 5%);
         text-decoration: none;
     }
 
-    &:active, &.x-actived {
-        background-color: darken(@button-border-color, 12%);
-        border-color: darken(@button-border-color, 12%);
-        box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
+    // 删除按钮内部图标内边距，以方便生成仅有一个图标的按钮。
+    .x-icon {
+        margin-right: 0;
     }
-    
-    &[disabled], &.x-disabled {
-        pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
-        border-color: transparent;
-        opacity: .5;
-        box-shadow: none;
-        cursor: not-allowed; // 由于 pointer-events: none 可能不生效
-    }
-    
-    // 色系
-    .button-state(@border-color) {
-        color: @background-color;
-        background-color: @border-color;
-        border-color: @border-color;
+}
+
+.x-button:active, .x-button-actived {
+    background-color: darken(@button-border-color, 12%);
+    border-color: darken(@button-border-color, 12%);
+    box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
+}
+
+.x-button[disabled], .x-button-disabled {
+    pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+    cursor: not-allowed; // 由于 pointer-events: none 可能不生效
+    border-color: transparent;
+    .opacity(.5);
+    box-shadow: none;
+}
+
+// 色系
+.x-button-state(@state) {
+    .x-button-@{state} {
+        color: @selected-text-color;
+        background-color: ~"@{@{state}-text-color}";
+        border-color: ~"@{@{state}-text-color}";
 
         &:hover, &:focus {
-            background-color: darken(@border-color, 12%);
-            border-color: darken(@border-color, 12%);
+            background-color: darken(color(~"@{@{state}-text-color}"), 12%);
+            border-color: darken(color(~"@{@{state}-text-color}"), 12%);
         }
     }
+}
 
-    &.x-info {
-        .button-state(@info-text-color);
-    }
+.x-button-state(info);
+.x-button-state(success);
+.x-button-state(warning);
+.x-button-state(error);
 
-    &.x-success {
-        .button-state(@success-text-color);
-    }
-
-    &.x-warning {
-        .button-state(@warning-text-color);
-    }
-
-    &.x-error {
-        .button-state(@error-text-color);
-    }
-    
-    &.x-plain {
-        background: transparent;
-    }
-
-    // 尺寸
-    &.x-small {
-        padding: 0 @base-font-size * .4;
-        border: 0;
-    }
-    
+// 尺寸
+.x-button-small {
+    padding: 0 @base-font-size * .4;
+    border: 0;
 }

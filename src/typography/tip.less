@@ -6,25 +6,16 @@
 
 .x-tip {
     color: @tip-text-color;
-    
-    .status(@text-color) {
-        color: @text-color;
-    }
-
-    &.x-info {
-        .status(@info-text-color);
-    }
-    
-    &.x-success {
-        .status(@success-text-color);
-    }
-
-    &.x-warning {
-        .status(@warning-text-color);
-    }
-
-    &.x-error {
-        .status(@error-text-color);
-    }
-
 }
+
+// 色系
+.x-tip-state(@state){
+    .x-tip-@{state} {
+        color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-tip-state(info);
+.x-tip-state(success);
+.x-tip-state(warning);
+.x-tip-state(error);

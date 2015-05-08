@@ -35,21 +35,21 @@
 }
 
 // 色系
-.x-panel-status(@status){
-    .x-panel-@{status} {
-        border-color: ~"@{@{status}-border-color}";
+.x-panel-state(@state){
+    .x-panel-@{state} {
+        border-color: ~"@{@{state}-border-color}";
         .x-panel-header {
-            background-color: ~"@{@{status}-background-color}";
-            border-color: ~"@{@{status}-border-color}";
-            color: ~"@{@{status}-text-color}";
+            background-color: ~"@{@{state}-background-color}";
+            border-color: ~"@{@{state}-border-color}";
+            color: ~"@{@{state}-text-color}";
         }
     }
 }
 
-.x-panel-status(info);
-.x-panel-status(success);
-.x-panel-status(warning);
-.x-panel-status(error);
+.x-panel-state(info);
+.x-panel-state(success);
+.x-panel-state(warning);
+.x-panel-state(error);
 
 // 折叠效果
 .x-panel-expanded, .x-panel-collapsed {

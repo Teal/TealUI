@@ -14,31 +14,21 @@
         display: inline-block;
     }
 
-    &.x-warning {
-        border: 1px solid @warning-border-color;
-        background-color: @warning-background-color;
-        color: @warning-text-color;
-    }
-
-    &.x-success {
-        background-color: @success-background-color;
-        border-color: @success-border-color;
-        color: @success-text-color;
-    }
-
-    &.x-error {
-        background-color: @error-background-color;
-        border-color: @error-border-color;
-        color: @error-text-color;
-    }
-
-    &.x-info {
-        background-color: @info-background-color;
-        border-color: @info-border-color;
-        color: @info-text-color;
-    }
-
 }
+
+// ɫϵ
+.x-tipbox-state(@state){
+    .x-tipbox-@{state} {
+        background-color: ~"@{@{state}-background-color}";
+        border-color: ~"@{@{state}-border-color}";
+        color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-tipbox-state(info);
+.x-tipbox-state(success);
+.x-tipbox-state(warning);
+.x-tipbox-state(error);
 
 .x-tipbox.x-tipbox-plain {
     background-color: transparent;

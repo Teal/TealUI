@@ -49,7 +49,7 @@
 // 字体
 @base-font-size:            14px;
 @base-line-height:          24px;
-@small-font-size:           .9em;
+@small-font-size:           1em * (@base-font-size - 2px) / @base-font-size;
 
 // 间距
 @base-border-radius:        4px;
@@ -152,6 +152,13 @@
     -moz-box-sizing: @box-sizing;
     -webkit-box-sizing: @box-sizing;
     box-sizing: @box-sizing;
+}
+
+.user-select(@user-select: none) {
+    -moz-user-select: @user-select;
+    -ms-user-select: @user-select;
+    -webkit-user-select: @user-select;
+    user-select: @user-select;
 }
 
 #translucent {

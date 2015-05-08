@@ -19,19 +19,19 @@
 }
 
 // ÑÕÉ«
-.x-table-status(@status){
-    .x-table-@{status} {
-        background-color: ~"@{@{status}-background-color}";
-        color: ~"@{@{status}-text-color}";
+.x-table-state(@state){
+    .x-table-@{state} {
+        background-color: ~"@{@{state}-background-color}"!important;
+        color: ~"@{@{state}-text-color}";
     }
 }
 
-.x-table-status(info);
-.x-table-status(success);
-.x-table-status(warning);
-.x-table-status(error);
+.x-table-state(info);
+.x-table-state(success);
+.x-table-state(warning);
+.x-table-state(error);
 
 // ¼¤»î×´Ì¬¡£
 .x-table-actived {
-    background-color: #ffd;
+    background-color: #ffd!important;
 }

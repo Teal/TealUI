@@ -6,18 +6,10 @@
     border: 1px solid @textbox-border-color;
     background-color: @background-color;
     outline: 0;
-    width: @base-font-size * 14;
 
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-
+    .box-sizing(border-box);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    
-    -moz-transition: border linear .2s, box-shadow linear .2s;
-    -o-transition: border linear .2s, box-shadow linear .2s;
-    -webkit-transition: border linear .2s, box-shadow linear .2s;
-    transition: border linear .2s, box-shadow linear .2s;
+    .transition(~"border linear .2s, box-shadow linear .2s");
 
     &:focus {
         border-color: rgba(82,168,236,.8);
@@ -29,31 +21,22 @@
         background-color: #efefef;
     }
 
-    textarea& {
-        width: @base-font-size * 42;
-        height: @base-line-height * 5 + @box-padding-y * 2 + 4px;
-    }
-    
-    .textbox-state(@borderColor) {
-        & {
-            border-color: @borderColor;
-        }
+}
+
+// ɫϵ
+.x-textbox-state(@state){
+    .x-textbox-@{state} {
+        border-color: ~"@{@{state}-text-color}";
 
         &:focus {
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(@borderColor, 20%);
+            border-color: ~"@{@{state}-text-color}";
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(color(~"@{@{state}-text-color}"), 20%);
         }
-    }
-
-    &.x-success {
-        .textbox-state(@success-text-color);
-    }
-
-    &.x-warning {
-        .textbox-state(@warning-text-color);
-    }
-
-    &.x-error {
-        .textbox-state(@error-text-color);
     }
 
 }
+
+.x-textbox-state(info);
+.x-textbox-state(success);
+.x-textbox-state(warning);
+.x-textbox-state(error);

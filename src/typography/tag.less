@@ -7,40 +7,35 @@
 .x-tag {
     display: inline-block;
     margin-right: .3em;
-    font-size: @base-font-size - 2px;
-    line-height: 150%;
+    font-size: @small-font-size;
+    line-height: 149%;
     padding: 0 4px;
     border-radius: @base-border-radius;
     background-color: @small-text-color;
-    color: @background-color;
-    -moz-transition: opacity .3s;
-    -o-transition: opacity .3s;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
+    color: @selected-text-color;
+    min-width: 1em;
+    text-align: center;
+    .transition(opacity .3s);
     
     a&:hover {
         text-decoration: none;
-        opacity: .8;
+        .opacity(.8);
     }
     
-    &.x-info {
-        background: @info-text-color;
-    }
-
-    &.x-success {
-        background: @success-text-color;
-    }
-
-    &.x-warning {
-        background: @warning-text-color;
-    }
-
-    &.x-error {
-        background: @error-text-color;
-    }
-
     &.x-radius {
         border-radius: @base-border-radius * 2;
     }
 
 }
+
+// 色系
+.x-tag-state(@state){
+    .x-tag-@{state} {
+        background-color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-tag-state(info);
+.x-tag-state(success);
+.x-tag-state(warning);
+.x-tag-state(error);

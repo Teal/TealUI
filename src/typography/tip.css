@@ -4,15 +4,15 @@
 .x-tip {
   color: #757575;
 }
-.x-tip.x-info {
+.x-tip-info {
   color: #049cdb;
 }
-.x-tip.x-success {
+.x-tip-success {
   color: #5eb95e;
 }
-.x-tip.x-warning {
+.x-tip-warning {
   color: #e9985e;
 }
-.x-tip.x-error {
+.x-tip-error {
   color: #dd514c;
 }

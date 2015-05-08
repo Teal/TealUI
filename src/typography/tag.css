@@ -4,33 +4,36 @@
 .x-tag {
   display: inline-block;
   margin-right: .3em;
-  font-size: 12px;
-  line-height: 150%;
+  font-size: 0.85714286em;
+  line-height: 149%;
   padding: 0 4px;
   border-radius: 4px;
   background-color: #aaaaaa;
   color: #ffffff;
-  -moz-transition: opacity .3s;
-  -o-transition: opacity .3s;
-  -webkit-transition: opacity .3s;
-  transition: opacity .3s;
+  min-width: 1em;
+  text-align: center;
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 a.x-tag:hover {
   text-decoration: none;
-  opacity: .8;
-}
-.x-tag.x-info {
-  background: #049cdb;
-}
-.x-tag.x-success {
-  background: #5eb95e;
-}
-.x-tag.x-warning {
-  background: #e9985e;
-}
-.x-tag.x-error {
-  background: #dd514c;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 .x-tag.x-radius {
   border-radius: 8px;
+}
+.x-tag-info {
+  background-color: #049cdb;
+}
+.x-tag-success {
+  background-color: #5eb95e;
+}
+.x-tag-warning {
+  background-color: #e9985e;
+}
+.x-tag-error {
+  background-color: #dd514c;
 }

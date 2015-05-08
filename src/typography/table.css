@@ -8,21 +8,21 @@
   background-color: #f9f9f9;
 }
 .x-table-info {
-  background-color: rgba(59, 180, 242, 0.15);
+  background-color: rgba(59, 180, 242, 0.15) !important;
   color: #049cdb;
 }
 .x-table-success {
-  background-color: rgba(94, 185, 94, 0.15);
+  background-color: rgba(94, 185, 94, 0.15) !important;
   color: #5eb95e;
 }
 .x-table-warning {
-  background-color: rgba(243, 123, 29, 0.15);
+  background-color: rgba(243, 123, 29, 0.15) !important;
   color: #e9985e;
 }
 .x-table-error {
-  background-color: rgba(221, 81, 76, 0.15);
+  background-color: rgba(221, 81, 76, 0.15) !important;
   color: #dd514c;
 }
 .x-table-actived {
-  background-color: #ffd;
+  background-color: #ffd!important;
 }
