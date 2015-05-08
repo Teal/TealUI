@@ -8,13 +8,10 @@
         border-right: 0;
 
         &:not(:first-child) {
-            border-left-color: @textbox-border-color;
+            border-left-color: darken(#eee, 10%);
         }
     }
-    &.x-fill {
-        display: table!important;
-    }
-
+    
     &.x-radius {
 
         .x-button:first-child {
@@ -28,12 +25,6 @@
     }
 }
 
-.generateButtonGroupColumns(@index: 1, @count: 6) when (@index =< @count) {
-    .x-buttongroup-@{index} > .x-button {
-        width: 100% / @index;
-    }
-
-    .generateButtonGroupColumns((@index + 1), @count);
+.x-buttongroup-justify {
+    width: 100%;
 }
-
-.generateButtonGroupColumns();

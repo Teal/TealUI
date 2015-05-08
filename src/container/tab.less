@@ -1,15 +1,57 @@
 
 @import "../core/mixins.less";
 
-
-.x-tabbable {
-    // Give the tabs something to sit on
-    border-bottom: 1px solid @grayBorder;
+.x-tab {
+    border-bottom: 1px solid @border-color;
     margin: 0;
-    .clear();
+    padding: 0;
+
+    li {
+        display: inline-block;
+        list-style: none;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        padding: @box-padding-y @font-size;
+        position: relative;
+
+        &:hover {
+            background-color: @hover-background-color;
+            text-decoration: none;
+        }
+    }
 }
 
-// Make the list-items overlay the bottom border
+.x-tab-selected a{
+    background-color: @background-color!important;
+    border: 1px solid @border-color;
+    border-bottom: none;
+    top: 1px;
+}
+
+.x-tab-justify {
+    width: 100%;
+    display:table;
+
+    li {
+        display: table-cell;
+    }
+}
+
+.x-tab-body {
+    border: 1px solid @border-color;
+    border-top: 0;
+    padding: @box-padding-x;
+    .box-sizing(border-box);
+}
+
+.x-tab.x-radius a{
+    border-radius: @border-radius @border-radius 0 0;
+} 
+
+/*// Make the list-items overlay the bottom border
 .x-tabbable li {
     margin: 0 0 -1px;
     list-style: none;
@@ -69,4 +111,4 @@
 .x-tabbable-alt .x-tabbable-selected a, .x-tabbable-alt .x-tabbable-selected a:hover {
     color: @white;
     background-color: @linkColor;
-}
+}*/

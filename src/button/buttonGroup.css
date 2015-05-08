@@ -6,10 +6,7 @@
   border-right: 0;
 }
 .x-buttongroup *:not(:first-child) {
-  border-left-color: #cccccc;
-}
-.x-buttongroup.x-fill {
-  display: table!important;
+  border-left-color: #d5d5d5;
 }
 .x-buttongroup.x-radius .x-button:first-child {
   border-radius: 4px 0 0 4px;
@@ -17,21 +14,6 @@
 .x-buttongroup.x-radius .x-button:last-child {
   border-radius: 0 4px 4px 0;
 }
-.x-buttongroup-1 > .x-button {
+.x-buttongroup-justify {
   width: 100%;
-}
-.x-buttongroup-2 > .x-button {
-  width: 50%;
-}
-.x-buttongroup-3 > .x-button {
-  width: 33.33333333%;
-}
-.x-buttongroup-4 > .x-button {
-  width: 25%;
-}
-.x-buttongroup-5 > .x-button {
-  width: 20%;
-}
-.x-buttongroup-6 > .x-button {
-  width: 16.66666667%;
 }
