@@ -8,11 +8,23 @@
         border-right: 0;
 
         &:not(:first-child) {
-            border-left-color: darken(@button-border-color, 6%);
+            border-left-color: @textbox-border-color;
         }
     }
     &.x-fill {
         display: table!important;
+    }
+
+    &.x-radius {
+
+        .x-button:first-child {
+            border-radius: @border-radius 0 0  @border-radius;
+        }
+        
+        .x-button:last-child {
+            border-radius: 0 @border-radius @border-radius 0;
+        }
+
     }
 }
 

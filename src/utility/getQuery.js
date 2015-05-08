@@ -1,4 +1,5 @@
 /**
+ * @author xuld
  * @fileOverview 处理查询字符串。
  */
 

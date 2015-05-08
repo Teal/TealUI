@@ -30,7 +30,7 @@ span.x-tipbox {
   border-color: #f5cecd;
   color: #dd514c;
 }
-.x-tipbox.x-tipbox-plain {
+.x-tipbox-transparent {
   background-color: transparent;
   border-color: transparent;
 }

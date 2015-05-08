@@ -21,3 +21,9 @@
 .x-inputgroup .x-tipbox:last-child {
   border-left: 0;
 }
+.x-inputgroup.x-radius *:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.x-inputgroup.x-radius *:last-child {
+  border-radius: 0 4px 4px 0;
+}
