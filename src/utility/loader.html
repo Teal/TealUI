@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>资源文件动态载入</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="动态载入 js、css 和 图片。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/utility/loader.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <h5>动态载入脚本</h5>
+    <pre>Loader.loadScript("../../assets/resources/ajax/test.js", trace);</pre>
+
+    <h5>动态载入样式</h5>
+    <pre>Loader.loadStyle("../../assets/resources/ajax/test.css", trace);</pre>
+
+    <h5>动态载入图片</h5>
+    <pre>Loader.loadImage("../../assets/resources/test.png", trace);</pre>
+
+    <h5>动态载入所有图片</h5>
+    <pre>Loader.loadImages(["../../assets/resources/test.png", "../../assets/resources/100x100.gif"], trace);</pre>
+</body>
+</html>

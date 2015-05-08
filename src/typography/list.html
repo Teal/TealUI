@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>列表</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="有序列表和无序列表。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/list.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <ul>
+            <li>列表 list</li>
+            <li>
+                列表 list
+                <ul>
+                    <li>
+                        子列表 list
+                        <ul>
+                            <li>子列表 list</li>
+                            <li>子列表 list</li>
+                        </ul>
+                    </li>
+                    <li>
+                        子列表 list
+                        <ol>
+                            <li>子列表 list</li>
+                            <li>子列表 list</li>
+                        </ol>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </aside>
+
+    <h2>垂直列表</h2>
+
+    <h3>默认风格</h3>
+    <p>添加 <code>.x-list</code> 可以让列表项之间有分割线。</p>
+    <aside class="doc-demo">
+        <ul class="x-list x-vertical">
+            <li><a href="###">一</a></li>
+            <li><a href="###">二</a></li>
+            <li><a href="###">三</a></li>
+        </ul>
+    </aside>
+
+    <h3>带边框和间隔色</h3>
+    <p>添加 <code>.x-list-stripped</code> 可以让列表项有间隔色。添加 <code>.x-list-bordered</code> 可以让列表项整体有边框。</p>
+    <aside class="doc-demo">
+        <ul class="x-list x-vertical x-list-bordered x-list-stripped">
+            <li><a href="###">一</a></li>
+            <li><a href="###">二</a></li>
+            <li><a href="###">三</a></li>
+        </ul>
+    </aside>
+
+    <h3>按钮组</h3>
+    <p>添加 <code>.x-list-buttongroup</code> 让列表内的<code>&lt;a&gt;</code> 占满整行。</p>
+    <aside class="doc-demo">
+        <ul class="x-list x-vertical x-list-stripped x-list-bordered x-list-buttongroup">
+            <li class="x-list-selected"><a href="###">A. 10</a></li>
+            <li><a href="###">B. 20</a></li>
+            <li><a href="###">C. 30</a></li>
+            <li><a href="###">D. 40</a></li>
+        </ul>
+    </aside>
+
+    <h2>水平列表</h2>
+    <p>水平列表主要用于网页布局时经典的 <code>&lt;li&gt;</code> 横向布局效果。</p>
+    <aside class="doc-demo">
+        <ul class="x-horizonal">
+            <li><a href="###">一</a></li>
+            <li><a href="###">二</a></li>
+            <li><a href="###">三</a></li>
+        </ul>
+    </aside>
+</body>
+</html>

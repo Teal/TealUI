@@ -192,9 +192,12 @@ function updateModuleList(folderName) {
 
     // 不提供参数则更新全部文件夹。
     if (!folderName) {
-        for (var folderName in Doc.Configs.folders) {
-            updateModuleList(folderName);
-        }
+        //for (var folderName in Doc.Configs.folders) {
+		//	if(folderName !== "src"){
+		//		updateModuleList(folderName);
+		//	}
+        //}
+		updateModuleList("demos");
         return;
     }
 

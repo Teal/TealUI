@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>文本框</title>
+    <meta name="module-info" content="order=^">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="文本框也叫输入框，用于输入文字。">
+    <meta name="keywords" content="输入框,文本域,input,text">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/textBox.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <style>
+        .x-textbox {
+            margin-bottom: 1em;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../src/form/button.css" />
+    
+    <h2>基本用法</h2>
+
+    <h3>输入框</h3>
+    <aside class="doc-demo">
+        请输入：<input type="text" class="x-textbox" placeholder="请输入内容...">
+    </aside>
+
+    <h3>输入域</h3>
+    <aside class="doc-demo">
+        文本域：<textarea class="x-textbox" placeholder="请输入内容..."></textarea>
+    </aside>
+
+    <h2>状态</h2>
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox" readonly="readonly" value="只读">
+        <input type="text" class="x-textbox" disabled="disabled" value="禁用">
+    </aside>
+
+    <h2>色系</h2>
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox x-textbox-info" placeholder="信息">
+        <input type="text" class="x-textbox x-textbox-success" placeholder="成功">
+        <input type="text" class="x-textbox x-textbox-warning" placeholder="警告">
+        <input type="text" class="x-textbox x-textbox-error" placeholder="错误">
+    </aside>
+
+    <h2>占满行</h2>
+    
+    <blockquote>结合 <a href="../core/utility.html">辅助样式(utility)</a> 组件的 <code>.x-row</code> 可以实现占满整行的文本框。</blockquote>
+
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox x-fill" placeholder="任意内容...">
+    </aside>
+</body>
+</html>

@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>表单布局</title>
+    <meta name="module-info" content="parent-title=表单, parent-order=container, status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="本组件包含了常见的三种表单布局。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/form.css" />
+
+    <!-- 以下文件仅用于演示 -->
+    <link rel="stylesheet" type="text/css" href="../../src/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/checkbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/form/radiobutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/core/common.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/tip/tipbox.css" />
+
+</head>
+<body>
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <article>
+
+        <p>本组件包含了常见的三种表单布局。</p>
+
+        <h3>水平表单</h3>
+
+        <aside class="doc-demo">
+            <form class="x-form">
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段1:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段2:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <span class="x-tipbox x-tipboui-error">错误提示</span>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">(选填)字段3:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        &nbsp; <span class="x-hint">如：hello world</span>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段4:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <label>
+                            <input type="radio" name="radio" checked="checked" class="x-radiobutton">value</label>
+                        <label>
+                            <input type="radio" name="radio" class="x-radiobutton">value</label>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段5:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <br>
+                        <input type="text" class="x-textbox">
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段6:</label>
+                    <textarea class="x-textbox"></textarea>
+                </div>
+                <div class="x-formfield">
+                    <div class="x-formfield-content">
+                        <button type="submit" class="x-button">确定</button>
+                    </div>
+                </div>
+            </form>
+        </aside>
+    
+        <h3>垂直表单</h3>
+        
+        <aside class="doc-demo">
+            <form class="x-form x-form-vertical">
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段1:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段2:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <span class="x-tipbox x-tipboui-error">错误提示</span>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">(选填)字段3:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        &nbsp; <span class="x-hint">如：hello world</span>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段4:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <label>
+                            <input type="radio" name="radio" checked="checked" class="x-radiobutton">value</label>
+                        <label>
+                            <input type="radio" name="radio" class="x-radiobutton">value</label>
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段5:</label>
+                    <div class="x-formfield-content">
+                        <input type="text" class="x-textbox">
+                        <br>
+                        <input type="text" class="x-textbox">
+                    </div>
+                </div>
+                <div class="x-formfield">
+                    <label class="x-formfield-label">字段6:</label>
+                    <textarea class="x-textbox"></textarea>
+                </div>
+                <div class="x-formfield">
+                    <div class="x-formfield-content">
+                        <button type="submit" class="x-button">确定</button>
+                    </div>
+                </div>
+            </form>
+        </aside>
+    
+        <h3>内联表单</h3>
+        
+        <aside class="doc-demo">
+            <form class="x-form x-form-inline">
+                <input type="text" class="x-textbox" placeholder="用户名">
+                <input type="password" class="x-textbox" placeholder="密码">
+                <label>
+                    <input type="checkbox" class="x-checkbox">记住密码
+                </label>
+                <button type="submit" class="x-button">登陆</button>
+            </form>
+        </aside>
+        
+        <blockquote>另参考 <a href="Validator.html">表单验证组件</a> 。</blockquote>
+    
+    </article>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>表格</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="表格样式主要用于展示常规表格。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel=" stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/table.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <table>
+            <tr>
+                <th>序号</th>
+                <th>项目名称</th>
+                <th>项目地址</th>
+            </tr>
+            <tr>
+                <th>1</th>
+                <td>TealUI</td>
+                <td>http://teal.github.com/TealUI</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td>TealLang</td>
+                <td>http://teal.github.com/TealLang</td>
+            </tr>
+        </table>
+    </aside>
+
+    <h2>色系</h2>
+    <p>添加 <code>.x-table-stripped</code> 可以让表格行有间隔色。</p>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <aside class="doc-demo">
+        <table class="x-table x-table-stripped">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    <th>Th 1</th>
+                    <th>Th 2</th>
+                    <th>Th 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="x-table-actived">
+                    <td>1</td>
+                    <td class="x-table-warning">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-table-error x-center">Td 3</td>
+                </tr>
+                <tr class="x-table-error">
+                    <td>2</td>
+                    <td class="x-table-info">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-table-error x-center">Td 3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="x-table-info">Td 1</td>
+                    <td>Td 2</td>
+                    <td class="x-center">Td 3</td>
+                </tr>
+            </tbody>
+        </table>
+    </aside>
+
+    <h2>响应式</h2>
+    <p>通过 <a href="../core/utility.html">工具样式(utility)</a> 组件的 <code>.x-scrollable-horizontal</code> 可以实现超出内容后自动添加滚动条</p>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
+    <aside class="doc-demo">
+        <div class="x-scrollable-horizontal">
+            <table>
+                <tr>
+                    <th>序号</th>
+                    <th>项目名称</th>
+                    <th>项目地址</th>
+                </tr>
+                <tr>
+                    <th>1</th>
+                    <td>TealUI</td>
+                    <td>http://teal.github.com/TealUI</td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>TealLang</td>
+                    <td>http://teal.github.com/TealLang</td>
+                </tr>
+            </table>
+        </div>
+    </aside>
+
+    <blockquote class="doc-info">如果需要用于展示大量数据的表格，请参考 <a href="../dataView/dataGridView.html">数据报表(dataGridView)</a> 控件，此组件包含排序、筛选、行选择、相应式、分页等常用功能。</blockquote>
+</body>
+</html>

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Cookie 操作</title>
+    <meta name="module-info" content="parent-title=浏览器相关">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供 Cookie 操作功能。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/browser/cookie.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <h5>获取 Cookie</h5>
+    <pre>Cookie.get("sample") // 如果 Cookie 不存在，返回 null 。</pre>
+
+    <h5>设置 Cookie</h5>
+    <pre>Cookie.set("sample", "the value")</pre>
+
+    <h5>删除 Cookie</h5>
+    <pre>Cookie.set("sample", null)</pre>
+
+    <blockquote class="doc-info">如果需要支持子 Cookie, 请使用 <a href="subcookie.html">子 Cookie 操作</a> 组件。</blockquote>
+</body>
+</html>

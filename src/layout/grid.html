@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>栅格布局</title>
+    <meta name="module-info" content="parent-title=布局, parent-order=core, package=default">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="栅格布局法：将网页分成 N 行，每行分成 N 列。通过此方法对整体网页分成多个模块进行排版。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <style>
+        .x-col span {
+            background: #EEEEEE;
+            height: 20px;
+            width: 100%;
+            text-align: center;
+            line-height: 20px;
+            color: #555555;
+            display: block;
+        }
+    </style>
+
+    <h2>基本用法</h2>
+    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
+    <aside class="doc-demo">
+        <div class="x-grid">
+            <div class="x-col" style="width:25%;"><span>左</span></div>
+            <div class="x-col" style="width:75%;"><span>右</span></div>
+        </div>
+    </aside>
+
+    <h2>容器</h2>
+    <p>容器的功能是定义一个居中的区域以显示网页内容。这个区域会自动适应宽度，但不超过 980px。</p>
+    <aside class="doc-demo">
+        <div class="x-container">我是居中的容器</div>
+    </aside>
+
+    <p>可以将 <code>.x-container</code> 和 <code>.x-grid</code> 一起使用，实现常见的网页居中布局效果。</p>
+    <script class="doc-demo" type="text/html">
+        <body>
+            <div class="x-container x-grid">
+                <div class="x-col" style="width:25%;"><span>左</span></div>
+                <div class="x-col" style="width:75%;"><span>右</span></div>
+            </div>
+        </body>
+    </script>
+
+    <h2>布局嵌套</h2>
+    <p>在任一列中又可以继续应用栅格方法继续细分。</p>
+    <aside class="doc-demo">
+        <div class="x-grid">
+            <div class="x-col" style="width:25%;"><span>左</span></div>
+            <div class="x-col" style="width:75%;">
+                <div class="x-grid">
+                    <div class="x-col" style="width:25%;"><span>右1</span></div>
+                    <div class="x-col" style="width:75%;"><span>右2</span></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <blockquote class="doc-info">如果想快速设置列宽和自适应，可使用 <a href="grid12.html">12栅格布局法(grid12)</a> 组件。</blockquote>
+
+    <blockquote class="doc-info">如果只需等分布局，可使用 <a href="flex.html">等分布局(flex)</a> 组件。</blockquote>
+
+    <blockquote class="doc-info">对于一般网站，可直接复制现成的 <a href="../../examples/layout/grid2.html">二栏布局(grid2)</a> 代码或 <a href="../../examples/layout/grid2.html">三栏布局(grid3)</a> 代码。</blockquote>
+</body>
+</html>
