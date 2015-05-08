@@ -2,33 +2,40 @@
 @import "../core/mixins.less";
 
 .x-tab {
-    border-bottom: 1px solid @border-color;
     margin: 0;
     padding: 0;
+    border-color: @border-color;
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    .clearfix();
 
     li {
-        display: inline-block;
         list-style: none;
+        float: left;
     }
 
     a {
         display: block;
         text-align: center;
         padding: @box-padding-y @font-size;
-        position: relative;
-
+        margin-bottom: -1px;
+        color: @text-color;
+        border-color: @border-color;
+        border-style: solid;
+        border-width: 1px 1px 1px 0;
+        background-color: @header-background-color;
+        
         &:hover {
-            background-color: @hover-background-color;
+            background-color: darken(@header-background-color, 5%);
             text-decoration: none;
         }
     }
+
 }
 
 .x-tab-actived a{
     background-color: @background-color!important;
-    border: 1px solid @border-color;
-    border-width: 1px 1px 0 1px;
-    top: 1px;
+    border-bottom-color: @background-color;
 }
 
 .x-tab.x-justify {
@@ -36,6 +43,7 @@
 
     li {
         display: table-cell;
+        float: none;
     }
 }
 
@@ -46,9 +54,17 @@
     .box-sizing(border-box);
 }
 
-.x-tab.x-radius a{
-    border-radius: @border-radius @border-radius 0 0;
-} 
+.x-tab.x-radius {
+
+    li:first-child a {
+        border-top-left-radius: @border-radius;
+    }
+    
+    li:last-child a {
+        border-top-right-radius: @border-radius;
+    }
+
+}
 
 /*// Make the list-items overlay the bottom border
 .x-tabbable li {

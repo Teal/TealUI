@@ -1,45 +1,56 @@
 
 @import "../core/mixins.less";
 
-.x-tab-bottom, .x-tab-right, .x-tab-left {
+.x-tab-bottom, .x-tab-left, .x-tab-right {
     border-bottom: 0;
 }
 
 .x-tab-bottom {
-    border-top: 1px solid @border-color;
-
+    border-width: 1px 0 0 1px;
+    a {
+        margin-top: -1px;
+        margin-bottom: 0;
+    }
     .x-tab-actived a{
-        border-width: 0 1px 1px 1px;
-        top: -1px;
+        border-color: @background-color @border-color @border-color @border-color;
     }
 }
 
 .x-tab-left, .x-tab-right {
     li {
         display: block;
+        float: none;
     }
 }
 
 .x-tab-left {
     float: left;
     margin-right: @margin;
-    border-right: 1px solid @border-color;
+    border-width: 1px 1px 0 0;
+
+    a {
+        margin-right: -1px;
+        margin-bottom: 0;
+        border-width: 0 1px 1px 1px;
+    }
     
     .x-tab-actived a{
-        border-width: 1px 0 1px 1px;
-        top: auto;
-        left: 1px;
+        border-color: @border-color @background-color @border-color @border-color;
     }
 }
 
 .x-tab-right {
     float: right;
     margin-left: @margin;
-    border-left: 1px solid @border-color;
+    border-width: 1px 0 0 1px;
+    
+    a {
+        margin-left: -1px;
+        margin-bottom: 0;
+        border-width: 0 1px 1px 1px;
+    }
     
     .x-tab-actived a{
-        border-width: 1px 1px 1px 0;
-        top: auto;
-        left: -1px;
+        border-color: @border-color @border-color @border-color @background-color;
     }
 }

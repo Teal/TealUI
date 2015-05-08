@@ -1,36 +1,46 @@
 ﻿.x-tab-bottom,
-.x-tab-right,
-.x-tab-left {
+.x-tab-left,
+.x-tab-right {
   border-bottom: 0;
 }
 .x-tab-bottom {
-  border-top: 1px solid #e0e0e0;
+  border-width: 1px 0 0 1px;
+}
+.x-tab-bottom a {
+  margin-top: -1px;
+  margin-bottom: 0;
 }
 .x-tab-bottom .x-tab-actived a {
-  border-width: 0 1px 1px 1px;
-  top: -1px;
+  border-color: #ffffff #e0e0e0 #e0e0e0 #e0e0e0;
 }
 .x-tab-left li,
 .x-tab-right li {
   display: block;
+  float: none;
 }
 .x-tab-left {
   float: left;
   margin-right: 1em;
-  border-right: 1px solid #e0e0e0;
+  border-width: 1px 1px 0 0;
+}
+.x-tab-left a {
+  margin-right: -1px;
+  margin-bottom: 0;
+  border-width: 0 1px 1px 1px;
 }
 .x-tab-left .x-tab-actived a {
-  border-width: 1px 0 1px 1px;
-  top: auto;
-  left: 1px;
+  border-color: #e0e0e0 #ffffff #e0e0e0 #e0e0e0;
 }
 .x-tab-right {
   float: right;
   margin-left: 1em;
-  border-left: 1px solid #e0e0e0;
+  border-width: 1px 0 0 1px;
+}
+.x-tab-right a {
+  margin-left: -1px;
+  margin-bottom: 0;
+  border-width: 0 1px 1px 1px;
 }
 .x-tab-right .x-tab-actived a {
-  border-width: 1px 1px 1px 0;
-  top: auto;
-  left: -1px;
+  border-color: #e0e0e0 #e0e0e0 #e0e0e0 #ffffff;
 }
