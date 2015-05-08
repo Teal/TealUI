@@ -5,7 +5,7 @@
 .x-list > li:first-child {
   border-top: 0;
 }
-.x-list-stripped > li:nth-child(even) {
+.x-list-striped > li:nth-child(even) {
   background-color: #f9f9f9;
 }
 .x-list-bordered {

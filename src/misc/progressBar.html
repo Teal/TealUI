@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>进度条</title>
-    <meta name="module-info" content="status=todo, parent-title=混合, parent-order=form">
+    <meta name="module-info" content="parent-title=混合, parent-order=form">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
-
+    <meta name="description" content="进度条。">
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/misc/progressBar.css" />
@@ -21,37 +20,41 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
+    <h2>基本用法</h2>
     <aside class="doc-demo">
-        <div class="x-progressbar">
-            <div style="width: 60%;" class="x-progressbar-fore"></div>
+        进度条 <div class="x-progressbar">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
         </div>
     </aside>
 
-    <article>
-        <aside class="doc-demo">
-            <div class="x-progressbar x-progressbar-info
-    x-progressbar-striped">
-                <div class="x-progressbar-fore"
-                     style="width: 20%;">
-                </div>
-            </div>
-        </aside>
-        <aside class="doc-demo">
-            <div class="x-progressbar">
-                <div style="width: 60%;" class="x-progressbar-fore"></div><span class="x-progressbar-error"><div style="width: 20%;" class="x-progressbar-fore"></div></span>
-            </div>
-        </aside>
+    <h2>色系</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-info">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-success">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-warning">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-error">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+    </aside>
 
-        <aside class="doc-demo">
-            <div class="x-progressbar x-progressbar-error
-    x-progressbar-striped x-progressbar-actived">
-                <div class="x-progressbar-fore"
-                     style="width: 40%;">
-                </div>
-            </div>
+    <h2>间隔线</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-striped">
+            <div class="x-progressbar-fore" style="width: 60%;"></div>
+        </div>
+    </aside>
 
-        </aside>
-    </article>
-
+    <h2>动画</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-striped x-progressbar-actived">
+            <div class="x-progressbar-fore" style="width: 60%;"></div>
+        </div>
+    </aside>
 </body>
 </html>

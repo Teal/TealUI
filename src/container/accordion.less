@@ -2,6 +2,20 @@
 @import "../core/mixins.less";
 
 .x-accordion {
+
+    margin-bottom: @margin;
+
+    .x-panel {
+        margin-bottom: 0;
+    }
+
+    .x-panel + .x-panel {
+        border-top: 0;
+    }
+
+}
+
+/*.x-accordion {
     margin-bottom: @margin;
 }
 
@@ -26,4 +40,4 @@
 .x-accordion-content {
     padding: 9px 15px;
     border-top: 1px solid @border-color;
-}
+}*/

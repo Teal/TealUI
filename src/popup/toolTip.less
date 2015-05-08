@@ -5,16 +5,12 @@
     position: absolute;
     z-index: @z-index-tooltip;
     display: none;
-    font-size: .8em;
-    opacity: .8;
-}
-
-.x-tooltip-content {
-    text-align: center;
-    text-decoration: none;
-    max-width: 200px;
-    padding: @box-padding;
-    color: @background-color;
+    font-size: @small-font-size;
+    line-height: 150%;
     background-color: @text-color;
-    border-radius: @border-radius;
+    color: @selected-text-color;
+    padding: 0 4px;
+    border-radius: @border-radius / 2;
+    max-width: @font-size * 15;
+    border: 2px solid @text-color;
 }

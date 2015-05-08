@@ -2,15 +2,12 @@
   position: absolute;
   z-index: 1010;
   display: none;
-  font-size: .8em;
-  opacity: .8;
-}
-.x-tooltip-content {
-  text-align: center;
-  text-decoration: none;
-  max-width: 200px;
-  padding: 4px 8px;
-  color: #ffffff;
+  font-size: 0.85714286em;
+  line-height: 150%;
   background-color: #212121;
-  border-radius: 4px;
+  color: #ffffff;
+  padding: 0 4px;
+  border-radius: 2px;
+  max-width: 210px;
+  border: 2px solid #212121;
 }

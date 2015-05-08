@@ -1,0 +1,36 @@
+﻿.x-tab-bottom,
+.x-tab-right,
+.x-tab-left {
+  border-bottom: 0;
+}
+.x-tab-bottom {
+  border-top: 1px solid #e0e0e0;
+}
+.x-tab-bottom .x-tab-actived a {
+  border-width: 0 1px 1px 1px;
+  top: -1px;
+}
+.x-tab-left li,
+.x-tab-right li {
+  display: block;
+}
+.x-tab-left {
+  float: left;
+  margin-right: 1em;
+  border-right: 1px solid #e0e0e0;
+}
+.x-tab-left .x-tab-actived a {
+  border-width: 1px 0 1px 1px;
+  top: auto;
+  left: 1px;
+}
+.x-tab-right {
+  float: right;
+  margin-left: 1em;
+  border-left: 1px solid #e0e0e0;
+}
+.x-tab-right .x-tab-actived a {
+  border-width: 1px 1px 1px 0;
+  top: auto;
+  left: -1px;
+}

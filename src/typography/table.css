@@ -4,7 +4,7 @@
 .x-table tbody tr:hover {
   background-color: #f3f3f3;
 }
-.x-table-stripped tbody tr:nth-child(odd) {
+.x-table-striped tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
 }
 .x-table-info {
