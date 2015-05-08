@@ -65,16 +65,16 @@ body {
     // Windows Vista+：Segoe UI Symbol, Segoe UI
     // iOS7+, OSX 10.10+：Lucida Grande
     // Ubuntu：FreeSans
-    font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
-    font-size: @base-font-size;
-    line-height: 100% * @base-line-height / @base-font-size;
+    font-family: @font-family, sans-serif;
+    font-size: @font-size;
+    line-height: 100% * @line-height / @font-size;
     color: @text-color;
     background-color: @background-color; // IE 会使用系统背景色作为默认的背景色。
 }
 
 // 块级元素边距
 p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
-    margin: 0 0 @base-margin;
+    margin: 0 0 @margin;
 }
 
 // 链接
@@ -89,33 +89,33 @@ a {
 
 // 标题
 h1, h2, h3, h4, h5, h6 {
-    margin: 0 0 @base-margin / 2;
+    margin: 0 0 @margin / 2;
     font-weight: 500;
-    line-height: 105%;
+    line-height: 105%; // 标题换行更宽松。
 }
 
 h1 {
-    font-size: @base-font-size + 16px;
+    font-size: @font-size + 16px;
 }
 
 h2 {
-    font-size: @base-font-size + 6px;
+    font-size: @font-size + 6px;
 }
 
 h3 {
-    font-size: @base-font-size + 4px;
+    font-size: @font-size + 4px;
 }
 
 h4 {
-    font-size: @base-font-size + 2px;
+    font-size: @font-size + 2px;
 }
 
 h5 {
-    font-size: @base-font-size;
+    font-size: @font-size;
 }
 
 h6 {
-    font-size: @base-font-size - 2px;
+    font-size: @font-size - 2px;
 }
 
 // 水平线
@@ -129,7 +129,7 @@ hr {
 
 // 列表
 dt {
-    margin-top: @base-margin / 2;
+    margin-top: @margin / 2;
     font-weight: 500;
 }
 
@@ -157,7 +157,7 @@ img {
 
 // 代码
 pre, code {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-family: Monaco, Menlo, Consolas, "Courier New", @font-family, monospace;
 }
 
 code {
@@ -171,7 +171,7 @@ pre {
     word-break: break-all;
     line-height: 150%;
     font-size: .95em;
-    padding: 6px;
+    padding: @padding;
     color: inherit;
     background-color: #f7f7f7;
 }

@@ -16,7 +16,7 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
     
     <h2>默认字体</h2>
-    <p>为保证中文排版更加美观，TealUI 使用了 14px 大号字体。用户也可通过修改 less 配置默认字体。</p>
+    <p>为保证中文排版更加美观，TealUI 使用了 14px 大号字体。用户也可通过修改 mixins.less 配置默认字体。</p>
     <pre>
         body {
             margin: 0;
@@ -149,8 +149,10 @@
         }
     </pre>
     <aside class="doc-demo">
+        <input type="radio" />
+        <input type="checkbox" />
         <label>文本</label>:
-        <input type="text" value="文本框" />
+        <input type="text" placeholder="文本框" />
         <select>
             <optgroup label="选择组">
                 <option>选择框1</option>
@@ -174,7 +176,12 @@
 
     <h3>整段代码</h3>
     <aside class="doc-demo">
-        <pre>var x = 1</pre>
+        <pre>var x = 1;
+var y = 2;
+function fn(){
+    return 4;
+}
+</pre>
     </aside>
 
     <h2>HTML5 新标签</h2>

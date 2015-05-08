@@ -21,8 +21,7 @@
   -webkit-user-select: none;
   user-select: none;
   vertical-align: -1px;
-  margin-right: .32em;
 }
-.x-icon-only {
-  margin-right: 0;
+a .x-icon {
+  margin-right: .32em;
 }

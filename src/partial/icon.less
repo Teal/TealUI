@@ -29,9 +29,9 @@
     -webkit-user-select: none;
     user-select: none;
     vertical-align: -1px;
-    margin-right: .32em;
-}
 
-.x-icon-only {
-    margin-right: 0;
+    // 链接内部图标必须添加空白区域，以保证图标+文字效果更完美。
+    a & {
+        margin-right: .32em;
+    }
 }

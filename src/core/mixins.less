@@ -7,9 +7,10 @@
 //--------------------------------
 
 // 页面
+
 @background-color:          #fff;
-@panal-background-color:    #F7F7F7;
 @stripped-background-color: #F9F9F9;
+@header-background-color:   #F7F7F7;
 @hover-background-color:    #f5f5f5;
 @selected-background-color: #337AB7;
 
@@ -22,7 +23,7 @@
 @disabled-text-color:       darken(@background-color, 26%);
 @small-text-color:          #aaa;
 @link-text-color:           #095f8b;
-@selected-text-color:       #fff;
+@selected-text-color:       @background-color;
 
 // 状态
 
@@ -47,16 +48,17 @@
 //--------------------------------
 
 // 字体
-@base-font-size:            14px;
-@base-line-height:          24px;
-@small-font-size:           1em * (@base-font-size - 2px) / @base-font-size;
+@font-family:               "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo;
+@font-size:                 14px;
+@line-height:               @font-size + 10px;
+@small-font-size:           1em * (@font-size - 2px) / @font-size;
 
 // 间距
-@base-border-radius:        4px;
-@base-margin:               1em;
-@base-padding:              @base-font-size / 2;   
+@border-radius:             4px;
+@margin:                    1em;
+@padding:                   @font-size / 2;   
 
-@box-padding-y:             (@base-line-height - @base-font-size) / 2 - 1px;
+@box-padding-y:             (@line-height - @font-size) / 2 - 1px;
 @box-padding-x:             @box-padding-y * 2;
 @box-padding:               @box-padding-y @box-padding-x;
 

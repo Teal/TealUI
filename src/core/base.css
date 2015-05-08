@@ -139,7 +139,7 @@ img {
 }
 pre,
 code {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
 }
 code {
   padding: 2px 4px;
@@ -151,7 +151,7 @@ pre {
   word-break: break-all;
   line-height: 150%;
   font-size: .95em;
-  padding: 6px;
+  padding: 7px;
   color: inherit;
   background-color: #f7f7f7;
 }
