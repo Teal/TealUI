@@ -2,10 +2,10 @@
 @import "../core/mixins.less";
 
 .x-scrolltotop {
+    display: none;
     position: fixed;
     bottom: 10px;
     right: 10px;
-    display: none;
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -18,9 +18,13 @@
     text-align: center;
     .opacity(.5);
     .transition(opacity .3s);
-    
+
     &:hover {
         .opacity(.8);
     }
-
+    
+    .x-icon {
+        margin-right: 0;
+    }
+    
 }

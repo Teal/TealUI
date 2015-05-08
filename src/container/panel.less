@@ -10,7 +10,7 @@
 }
 
 .x-panel-header, .x-panel-footer {
-    background-color: @panal-background-color;
+    background-color: @header-background-color;
     line-height: 150%;
     padding: @box-padding;
 }
@@ -62,10 +62,7 @@
             float: left;
             line-height: @line-height;
             margin-right: .3em;
-            -moz-transition: -moz-transform .3s, height .3s, padding .3s;
-            -o-transition: -o-transform .3s, height .3s, padding .3s;
-            -webkit-transition: -webkit-transform .3s, height .3s, padding .3s;
-            transition: transform .3s, height .3s, padding .3s;
+            .transition(~"transform .3s, height .3s, padding .3s");
         }
     }
 }

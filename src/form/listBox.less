@@ -11,25 +11,23 @@
     overflow: auto;
     max-height: @line-height * 10;
 
-    > li {
+    a {
+        display: block;
+        color: @text-color;
+        padding: @box-padding-y / 2 @box-padding-x;
 
-        > a {
-            display: block;
-            color: @text-color;
-            padding: @box-padding-y / 2 @box-padding-x;
-
-            &:hover {
-                background-color: @dropdown-hover-color;
-                text-decoration: none;
-            }
-        }
-
-        &.x-selected > a {
-            background-color: darken(@dropdown-hover-color, 5%);
+        &:hover {
+            background-color: @hover-background-color;
+            text-decoration: none;
         }
     }
+}
 
-    &.x-readonly, &.x-disabled {
-        background-color: @dropdown-hover-color;
-    }
+.x-listbox-selected a {
+    background-color: @selected-background-color!important;
+    color: @selected-text-color;
+}
+
+.x-listbox-readonly, .x-listbox-disabled {
+    background-color: @header-background-color!important;
 }

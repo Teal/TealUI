@@ -24,10 +24,6 @@
         text-decoration: none;
     }
 
-    // 删除按钮内部图标内边距，以方便生成仅有一个图标的按钮。
-    .x-icon {
-        margin-right: 0;
-    }
 }
 
 .x-button:active, .x-button-actived {
@@ -62,6 +58,10 @@
 .x-button-state(success);
 .x-button-state(warning);
 .x-button-state(error);
+
+.x-button-plain {
+    background-color: transparent;
+}
 
 // 尺寸
 .x-button-small {

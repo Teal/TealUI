@@ -5,7 +5,7 @@
 //#include ui/button/button.css
 //#include ui/button/menubutton.css
 //#include ui/suggest/picker.css
-//#include ui/form/textbox.css
+//#include ui/input/textBox.css
 //#include ui/core/base.js
 //#include ui/core/iinput.js
 //#include ui/core/idropdownowner.js

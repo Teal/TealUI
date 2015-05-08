@@ -2,7 +2,7 @@
  * 拖动 
  */
 
-//#include dom/drag.js
+//#require ../dom/drag.js
 
 
 

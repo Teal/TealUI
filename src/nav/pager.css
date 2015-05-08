@@ -27,3 +27,6 @@
   color: #bdbdbd;
   pointer-events: none;
 }
+.x-pager .x-icon {
+  margin-right: 0;
+}

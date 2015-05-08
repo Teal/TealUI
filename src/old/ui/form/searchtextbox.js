@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include ui/form/textbox.css
+//#include ui/input/textBox.css
 //#include ui/form/searchtextbox.css
 //#include ui/suggest/picker.js
 

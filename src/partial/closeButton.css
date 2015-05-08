@@ -1,30 +1,19 @@
 ﻿.x-closebutton {
   color: #212121;
-  opacity: .6;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
   line-height: 24px;
+  margin-right: 0;
   margin-left: 1em;
   cursor: pointer;
   float: right;
-  font-size: 1em;
-  -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-  -o-transition: -o-transform 0.3s, opacity 0.3s;
-  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-  transition: transform .3s, opacity .3s;
-  -moz-transform: rotate(-180deg);
-  -ms-transform: rotate(-180deg);
-  -o-transform: rotate(-180deg);
-  -webkit-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+  -moz-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 .x-closebutton:hover {
-  opacity: .3;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
   text-decoration: none;
-  -moz-transform: rotate(0);
-  -ms-transform: rotate(0);
-  -o-transform: rotate(0);
-  -webkit-transform: rotate(0);
-  transform: rotate(0);
-}
-.x-closebutton:before {
-  content: '\2716';
 }

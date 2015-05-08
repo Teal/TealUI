@@ -8,19 +8,20 @@
   overflow: auto;
   max-height: 240px;
 }
-.x-listbox > li > a {
+.x-listbox a {
   display: block;
   color: #212121;
   padding: 2px 8px;
 }
-.x-listbox > li > a:hover {
+.x-listbox a:hover {
   background-color: #f5f5f5;
   text-decoration: none;
 }
-.x-listbox > li.x-selected > a {
-  background-color: #e8e8e8;
+.x-listbox-selected a {
+  background-color: #337ab7 !important;
+  color: #ffffff;
 }
-.x-listbox.x-readonly,
-.x-listbox.x-disabled {
-  background-color: #f5f5f5;
+.x-listbox-readonly,
+.x-listbox-disabled {
+  background-color: #f7f7f7 !important;
 }
