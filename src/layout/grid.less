@@ -11,9 +11,15 @@
 // 布局列
 .x-col {
     float: left;
-    padding: 0 @padding;
     margin-bottom: @margin;
     .box-sizing(border-box);
+    position: relative;
+}
+
+// 当容器和布局行一起使用时，margin: -@padding 使用 padding: @padding 代替。
+.x-col, .x-grid.x-container {
+    padding-left: @padding;
+    padding-right: @padding;
 }
 
 // 容器
@@ -21,12 +27,7 @@
     max-width: 980px + @padding * 2;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 @padding * 2;
+    padding-left: @padding * 2;
+    padding-right: @padding * 2;
     position: relative;
-    
-    // 当容器和布局行一起使用时，margin: -@padding 使用 padding: @padding 代替。
-    &.x-grid {
-        padding: 0 @padding;
-    }
-
 }

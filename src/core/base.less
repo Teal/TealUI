@@ -7,77 +7,77 @@
 @import "../core/mixins.less";
 
 //--------------------------------
-// HTML5 ±êÇ©ÖØÖÃ
+// HTML5 æ ‡ç­¾é‡ç½®
 //--------------------------------
 
-// IE 6-9£ºĞŞ¸´²¿·Ö HTML5 ±êÇ©ÏÔÊ¾¡£
-// IE 6-11¡¢Firefox£ºĞŞ¸´ details, summary ±êÇ©ÏÔÊ¾¡£
-// IE 6-11£ºĞŞ¸´ main ±êÇ©ÏÔÊ¾¡£
-// hgroup ÒÑ±»´Ó HTML5 ±ê×¼ÒÆ³ı¡£
+// IE 6-9ï¼šä¿®å¤éƒ¨åˆ† HTML5 æ ‡ç­¾æ˜¾ç¤ºã€‚
+// IE 6-11ã€Firefoxï¼šä¿®å¤ details, summary æ ‡ç­¾æ˜¾ç¤ºã€‚
+// IE 6-11ï¼šä¿®å¤ main æ ‡ç­¾æ˜¾ç¤ºã€‚
+// hgroup å·²è¢«ä» HTML5 æ ‡å‡†ç§»é™¤ã€‚
 article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
     display: block;
 }
 
 img, textarea, progress, input, audio, video, canvas {
-    display: inline-block; // IE6-8: ĞŞ¸´Ä¬ÈÏÏÔÊ¾·½Ê½¡£
-    max-width: 100%; // ±ÜÃâÄ¬ÈÏ inline-block µÄÔªËØÓ°ÏìÒ³Ãæ×î´ó¿í¶Èµ¼ÖÂ³öÏÖ¹ö¶¯Ìõ¡£
+    display: inline-block; // IE6-8: ä¿®å¤é»˜è®¤æ˜¾ç¤ºæ–¹å¼ã€‚
+    max-width: 100%; // é¿å…é»˜è®¤ inline-block çš„å…ƒç´ å½±å“é¡µé¢æœ€å¤§å®½åº¦å¯¼è‡´å‡ºç°æ»šåŠ¨æ¡ã€‚
 }
 
-// IE 6-10£ºÒş²Ø [hidden]¡£
-// IE 6-11¡¢Safari¡¢Firefox 2-21£ºÒş²Ø template
-// ²»ÏÔÊ¾È±ÉÙ controls µÄ audio ±ê¼Ç¡£
+// IE 6-10ï¼šéšè— [hidden]ã€‚
+// IE 6-11ã€Safariã€Firefox 2-21ï¼šéšè— template
+// ä¸æ˜¾ç¤ºç¼ºå°‘ controls çš„ audio æ ‡è®°ã€‚
 [hidden], template, audio:not([controls]) {
     display: none;
 }
 
 //--------------------------------
-// ±íµ¥±êÇ©ĞŞ¸´
+// è¡¨å•æ ‡ç­¾ä¿®å¤
 //--------------------------------
 
-// ½ûÖ¹±íµ¥ÔªËØµ¥¶ÀÖ¸¶¨×ÖÌå¡£
+// ç¦æ­¢è¡¨å•å…ƒç´ å•ç‹¬æŒ‡å®šå­—ä½“ã€‚
 input, button, select, textarea, optgroup {
     font: inherit;
 }
 
-// Firefox 4+£ºÉ¾³ı±íµ¥ÔªËØÄ¬ÈÏ 2px ±ß¾à¡£
+// Firefox 4+ï¼šåˆ é™¤è¡¨å•å…ƒç´ é»˜è®¤ 2px è¾¹è·ã€‚
 button::-moz-focus-inner, input::-moz-focus-inner {
     padding: 0;
     border: 0;
 }
 
-// ÖØÖÃÊäÈë¿ò¶ÔÆë¸ß¶È¡£
+// é‡ç½®è¾“å…¥æ¡†å¯¹é½é«˜åº¦ã€‚
 input[type=checkbox], input[type=radio] {
     margin-top: 1px \9; // IE8-9
     vertical-align: -2px;
 }
 
 textarea {
-    overflow: auto; // IE 6-9£ºÉ¾³ıÄ¬ÈÏ¹ö¶¯Ìõ¡£
-    vertical-align: top; // ¸Ä½øÎÄ±¾¿ò¶ÔÆë·½Ê½¡£
+    overflow: auto; // IE 6-9ï¼šåˆ é™¤é»˜è®¤æ»šåŠ¨æ¡ã€‚
+    vertical-align: top; // æ”¹è¿›æ–‡æœ¬æ¡†å¯¹é½æ–¹å¼ã€‚
 }
 
 //--------------------------------
-// È«¾Ö×ÖÌå±ß¾àÉèÖÃ
+// å…¨å±€å­—ä½“è¾¹è·è®¾ç½®
 //--------------------------------
 
 body {
     margin: 0;
-    // Windows Vista+£ºSegoe UI Symbol, Segoe UI
-    // iOS7+, OSX 10.10+£ºLucida Grande
-    // Ubuntu£ºFreeSans
+    // Windows Vista+ï¼šSegoe UI Symbol, Segoe UI
+    // iOS7+, OSX 10.10+ï¼šLucida Grande
+    // Ubuntuï¼šFreeSans
     font-family: @font-family, sans-serif;
     font-size: @font-size;
     line-height: 100% * @line-height / @font-size;
     color: @text-color;
-    background-color: @background-color; // IE »áÊ¹ÓÃÏµÍ³±³¾°É«×÷ÎªÄ¬ÈÏµÄ±³¾°É«¡£
+    background-color: @background-color; // IE ä¼šä½¿ç”¨ç³»ç»ŸèƒŒæ™¯è‰²ä½œä¸ºé»˜è®¤çš„èƒŒæ™¯è‰²ã€‚
 }
 
-// ¿é¼¶ÔªËØ±ß¾à
+// å—çº§å…ƒç´ è¾¹è·
 p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
     margin: 0 0 @margin;
 }
 
-// Á´½Ó
+// é“¾æ¥
 a {
     color: @link-text-color;
     text-decoration: none;
@@ -87,11 +87,11 @@ a {
     }
 }
 
-// ±êÌâ
+// æ ‡é¢˜
 h1, h2, h3, h4, h5, h6 {
     margin: 0 0 @margin / 2;
     font-weight: 500;
-    line-height: 105%; // ±êÌâ»»ĞĞ¸ü¿íËÉ¡£
+    line-height: 105%; // æ ‡é¢˜æ¢è¡Œæ›´å®½æ¾ã€‚
 }
 
 h1 {
@@ -118,16 +118,16 @@ h6 {
     font-size: @font-size - 2px;
 }
 
-// Ë®Æ½Ïß
+// æ°´å¹³çº¿
 hr {
     border-color: @border-color;
     border-width: 1px 0 0 0;
     border-style: solid;
-    -moz-box-sizing: content-box; // Firefox: Í³Ò»ä¯ÀÀÆ÷ĞĞÎª¡£
+    -moz-box-sizing: content-box; // Firefox: ç»Ÿä¸€æµè§ˆå™¨è¡Œä¸ºã€‚
     height: 0;
 }
 
-// ÁĞ±í
+// åˆ—è¡¨
 dt {
     margin-top: @margin / 2;
     font-weight: 500;
@@ -137,10 +137,10 @@ dd {
     margin: 0;
 }
 
-// ±í¸ñ
+// è¡¨æ ¼
 table {
     border-collapse: collapse;
-    border-spacing: 0; // É¾³ıÄ¬ÈÏ±ß¾à¡£
+    border-spacing: 0; // åˆ é™¤é»˜è®¤è¾¹è·ã€‚
     empty-cells: show;
     max-width: 100%;
 }
@@ -150,12 +150,12 @@ th, td {
     border: 1px solid @border-color;
 }
 
-// Í¼Æ¬
+// å›¾ç‰‡
 img {
-    border: 0; // É¾³ıÁ´½ÓÄÚÍ¼Æ¬±ß¿ò¡£
+    border: 0; // åˆ é™¤é“¾æ¥å†…å›¾ç‰‡è¾¹æ¡†ã€‚
 }
 
-// ´úÂë
+// ä»£ç 
 pre, code {
     font-family: Monaco, Menlo, Consolas, "Courier New", @font-family, monospace;
 }
@@ -176,7 +176,7 @@ pre {
     background-color: #f7f7f7;
 }
 
-// Ğ¡×Ö
+// å°å­—
 small {
     font-weight: 100;
     font-size: @small-font-size;
@@ -191,15 +191,15 @@ sub {
     vertical-align: bottom;
 }
 
-// µØÖ·
+// åœ°å€
 address, cite {
     font-style: normal;
 }
 
-// IE 8-11¡¢Safari¡¢Chrome: Ìí¼ÓÏÂ»®Ïß¡£
+// IE 8-11ã€Safariã€Chrome: æ·»åŠ ä¸‹åˆ’çº¿ã€‚
 abbr[title] {
     border-bottom: 1px dotted;
 }
 
-// ÉèÖÃÈ«¾ÖÕ¼Î»·ûÑÕÉ«¡£
+// è®¾ç½®å…¨å±€å ä½ç¬¦é¢œè‰²ã€‚
 .placeholder();

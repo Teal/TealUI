@@ -9,19 +9,22 @@
 }
 .x-col {
   float: left;
-  padding: 0 7px;
   margin-bottom: 1em;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  position: relative;
+}
+.x-col,
+.x-grid.x-container {
+  padding-left: 7px;
+  padding-right: 7px;
 }
 .x-container {
   max-width: 994px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 14px;
+  padding-left: 14px;
+  padding-right: 14px;
   position: relative;
-}
-.x-container.x-grid {
-  padding: 0 7px;
 }

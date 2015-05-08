@@ -6,7 +6,7 @@
     <title>工具条</title>
     <meta name="module-info" content="order=breadcrumb">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="工具条。">
+    <meta name="description" content="网页工具条，显示常用链接。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -16,7 +16,9 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/partial/hover.css" />
     
+    <h2>基本用法</h2>
     <aside class="doc-demo">
         <aside class="x-toolbar">
             <a href="###"><i class="x-icon">☝</i>对我有用(23)</a>
@@ -24,6 +26,18 @@
             <a href="###"><i class="x-icon">✰</i>收藏(23)</a>
             <a href="###"><i class="x-icon">✍</i>编辑</a>
             <a href="###"><i class="x-icon">✆</i>举报</a>
+        </aside>
+    </aside>
+
+    <h2>隐藏部分按钮</h2>
+    <p>引入 <a href="../partial/hover.html">悬停显示(hover)</a> 组件可以实现鼠标移上后显示。</p>
+    <aside class="doc-demo">
+        <aside class="x-toolbar x-hover">
+            <a href="###"><i class="x-icon">☝</i>对我有用(23)</a>
+            <a href="###"><i class="x-icon">☟</i>对我没用(23)</a>
+            <a href="###"><i class="x-icon">✰</i>收藏(23)</a>
+            <a href="###" class="x-hover-hide"><i class="x-icon">✍</i>编辑</a>
+            <a href="###" class="x-hover-hide"><i class="x-icon">✆</i>举报</a>
         </aside>
     </aside>
 </body>
