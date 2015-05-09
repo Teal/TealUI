@@ -1,5 +1,8 @@
-/** * @author xuld *///#include dom/drag.jsvar Slider = Control.extend({    role: 'slider',    tpl: '<div class="x-slider-fore" style="{start}">52%</div>\
-            <a href="###" class="x-slider-handle" style="left: 52%;"></a>',    options: {
+/** * @author xuld *///#include dom/drag.jsvar Slider = Control.extend({    role: 'slider',        tpl: '<div class="x-slider" data-role="slider">\
+            <div class="x-slider-fore" style="{start}"></div>\
+            <a href="###" class="x-slider-handle" style="{start}" ondrag="{dragEvent}"></a>\
+            <a href="###" class="x-slider-handle" style="left: 76%;" ondrag="{dragEvent}"></a>\
+        </div>',    options: {
         step: 1,
         min: 1,
         max: 100
