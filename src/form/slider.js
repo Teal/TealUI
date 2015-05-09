@@ -1,1 +1,19 @@
-/** * @author xuld *///#include dom/drag.jsvar Slider = Control.extend({    tpl: '<div class="x-slider">\                <div class="x-slider-range"></div>\                <a href="javascript:;" class="x-slider-handle"></a>\            </div>',    init: function () {        this.query('.x-slider-handle').draggable();    },    setValue: function (value) {        this.find('.x-slider-range').setWidth(value + '%');        return this;    },    getValue: function () {        return parseInt(this.find('.x-slider-range').getWidth());    }});
+/** * @author xuld *///#include dom/drag.jsvar Slider = Control.extend({    role: 'slider',    tpl: '<div class="x-slider-fore" style="{start}">52%</div>\
+            <a href="###" class="x-slider-handle" style="left: 52%;"></a>',    options: {
+        step: 1,
+        min: 1,
+        max: 100
+    },    init: function (elem, options) {
+        Dom.draggable(elem, {
+            onDrag: function(e) {
+                
+            }
+        });    },    getStart: function (value) {
+        this.elem.find('.x-slider-handle:first-child').styleNumber('left');        return this;
+    },    setStart: function (value) {
+        this.elem.find('.x-slider-fore').setStyle('left', value + '%');
+        this.elem.find('.x-slider-handle:first-child').setStyle('left', value + '%');        return this;    },    getEnd: function (value) {
+        return this;
+    },    setEnd: function (value) {
+        return this;
+    },    getValue: function () {        return parseInt(this.find('.x-slider-range').getWidth());    }});
