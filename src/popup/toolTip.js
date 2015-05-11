@@ -13,120 +13,122 @@
  */
 var ToolTip = Control.extend({
 
-    ///**
-    // * 当指针在具有指定工具提示文本的控件内保持静止时，工具提示保持可见的时间期限。-1表示不自动隐藏。 0 表示始终不显示。
-    // * @type Number
-    // */
-    //autoDelay: -1,
+    /**
+     * 设置当前控件的角色。
+     */
+    role: 'toolTip',
+
+    /**
+     * 当前工具提示和目标文本的距离。
+     */
+    distance: 15,
 
     /**
      * 工具提示显示之前经过的时间。
      * @type Integer
      */
-    initialDelay: 500,
+    initialDelay: 300,
 
     /**
-     * 指针从一个控件移到另一控件时，必须经过多长时间才会出现后面的工具提示窗口。
-     * @type Integer
+     * 初始化当前控件。
+     * @param {Object} options 传入的只读选项。
      */
-    reshowDelay: 100,
+    init: function (options) {
 
-    /**
-	 * 显示时使用的特效持续时间。
-	 */
-    toggleTimeout: 100,
+        // 设置关闭按钮事件。
+        Dom.on(this.elem, 'click', '.x-closebutton', this.hide.bind(this));
 
-    /**
-     * 隐藏当前工具提示。
-     */
-    hide: function () {
-        this.dom.hide('opacity', this.toggleTimeout);
-        return this.trigger('hide');
+        // 绑定目标节点的工具提示。
+        this.setToolTip(options.target);
     },
 
     /**
-     * 显示当前工具提示。
+     * 设置某个控件的工具提示为当前工具提示。
+     * @param {Dom} targets 要设置的目标节点。
      */
-    show: function () {
-        this.dom.show('opacity', this.toggleTimeout);
-        return this.trigger('show');
+    setToolTip: function (targets) {
+        var me = this;
+        Dom.query(targets).each(function(target) {
+            Dom.hover(function (e) {
+
+                // 根据目标节点的 data-title 自动绑定当前节点的属性。
+                var title = Dom.getAttr(target, 'data-title');
+                if (title) {
+                    Dom.setHtml(target, title);
+                }
+
+                // 显示工具提示。
+                me.show(me.getArrow() ? target : e);
+            }, me.hide.bind(me), me.initialDelay);
+        });
+        return me;
     },
 
     /**
-     * 在指定位置显示当前工具提示。
+     * 获取当前工具提示的箭头。
      */
-    showAt: function (position) {
-        this.dom.setPosition(position);
-        this.show();
+    getArrow: function () {
+        var arrowDom = Dom.first(this.elem);
+        return arrowDom && (/\bx-arrow-(\w+)\b/.exec(arrowDom.className) || [])[1] || null;
+    },
+
+    /**
+     * 设置当前工具提示的箭头。
+     * @param {String} arrow 要设置的箭头方向。可以是 null, 'top', 'bottom', 'center', 'right'。
+     */
+    setArrow: function (arrow) {
+        var arrowDom = Dom.first(this.elem);
+        if (arrow) {
+            (arrowDom || Dom.prepend(this.elem, '<i></i>')).className = 'x-arrow x-arrow-' + arrow;
+        } else {
+            arrowDom && Dom.remove(arrowDom);
+        }
         return this;
     },
 
     /**
      * 在指定节点附近显示当前工具提示。
+     * @param {Object/Dom/Event} target 依靠的元素位置。可以是 {left: 100, top: 400} 或一个节点或一个事件节点。
      */
-    showBy: function (target, offsetX, offsetY, e) {
+    show: function (target) {
 
-        this.dom.appendTo(Dom.get(elem).parent());
+        // 渲染当前节点。
+        Dom.render(this.elem, Dom.offsetParent(target));
 
-        var configs = ({
-            left: ['rr-yc', 15, 0],
-            right: ['ll-yc', 15, 0],
-            top: ['xc-bb', 0, 15],
-            bottom: ['xc-tt', 0, 15]
-        }[this.dom.getAttr('data-arrow')]) || ['xc-bb', 0, 5, 1];
-
-        this.dom.pin(target, configs[0], offsetX === undefined ? configs[1] : offsetX, offsetY === undefined ? configs[2] : offsetY, false);
-        this.show();
-
-        if (configs[3] && e) {
-            Dom.setPosition(this.elem, { x: e.pageX + (offsetX || 0) });
+        // 设置箭头。
+        var currentArrow = this.getArrow();
+        if (currentArrow !== arrow) {
+            this.setArrow(currentArrow = arrow);
         }
 
-        return this;
+        // 显示当前元素。
+        Dom.show(this.elem, 'opacity');
+
+        // 设置位置。
+        if (target) {
+            Dom.pin(this.elem, target, currentArrow, this.distance);
+        }
+        
+        return this.trigger('show', target);
 
     },
 
     /**
-     * 设置某个控件工具提示。
+     * 隐藏当前工具提示。
      */
-    setToolTip: function (target, offsetX, offsetY) {
-        var me = this;
-        Dom.query(target).hover(function(e) {
-            me.showBy(elem, offsetX, offsetY, e);
-        }, me.hide.bind(me), me.initialDelay);
-        return me;
-    },
-
-    init: function (options) {
-        this.on('click', '.x-closebutton', this.hide.bind(this));
-        this.setToolTip(options.target);
+    hide: function () {
+        Dom.hide(this.elem, 'opacity');
+        return this.trigger('hide');
     }
 
 });
-
-/**
- * 获取或设置工具提示的默认方向。
- */
-ToolTip.defaultArrow = 'none';
 
 Dom.ready(function () {
 
     // 初始化所有 [data-title] 节点。
     var domNeedToolTip = Dom.query('[data-title]');
     if (domNeedToolTip.length) {
-        ToolTip.global = Dom.parse('<span class="x-tooltip" />')
-            .setAttr('data-arrow', ToolTip.defaultArrow)
-            .toolTip({
-                target: domNeedToolTip
-            });
+        ToolTip.global = Dom.parse('<span class="x-tooltip" />').toolTip().setToolTip(domNeedToolTip);
     }
 
-    // 初始化所有 [data-tooltip] 节点。
-    Dom.query('[data-tooltip]').each(function (elem) {
-        Dom.query(Dom.get(elem).getAttr('data-tooltip')).toolTip({
-            target: elem
-        })
-    });
-
 });
-

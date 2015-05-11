@@ -6,15 +6,197 @@
     <title>DOM 操作框架</title>
     <meta name="module-info" content="status=todo, parent-title=DOM, parent-order=utility">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="只在滚到到图片时才会真正加载图片。">
+    <meta name="description" content="DOM 操作底层。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../src/3rdlibs/zepto.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <div class="doc-box"></div>
+    
+    <h2>核心</h2>
 
+    <h5>获取节点</h5>
+    <pre>Dom.get("id")</pre>
+
+    <h5>查找节点</h5>
+    <pre>Dom.find(".doc-box")</pre>
+
+    <h5>解析节点</h5>
+    <pre>Dom.parse("<a>你好</a>")</pre>
+
+    <h5>Dom Ready</h5>
+    <pre>Dom.ready(function(){ alert("DOM 已经 ready（引用的图片未开始加载）") });</pre>
+    <h2>事件</h2>
+
+    <h5>$ = Dom.get + Dom.find + Dom.parse + Dom Ready</h5>
+    <pre>$(".doc-box")</pre>
+
+    <h5>绑定事件</h5>
+    <pre>$(".doc-box").on('click', function(){ alert("点击事件") });</pre>
+
+    <h5>解绑事件</h5>
+    <pre>$(".doc-box").off('click', function(){ alert("点击事件2") });</pre>
+
+    <h5>手动触发事件</h5>
+    <pre>$(".doc-box").trigger('click', function(){ alert("点击事件") });</pre>
+
+    <h2>文档遍历</h2>
+
+    <h5>文档</h5>
+    <pre>$(".doc-box").document();</pre>
+
+    <h5>父节点</h5>
+    <pre>$(".doc-box").parent();</pre>
+
+    <h5>最近父节点</h5>
+    <pre>$(".doc-box").closest("body");</pre>
+
+    <h5>下一兄弟节点</h5>
+    <pre>$(".doc-box").next();</pre>
+
+    <h5>上一兄弟节点</h5>
+    <pre>$(".doc-box").prev();</pre>
+
+    <h5>第一个子节点</h5>
+    <pre>$(".doc-box").first();</pre>
+
+    <h5>最后一个子节点</h5>
+    <pre>$(".doc-box").last();</pre>
+
+    <h5>所有子节点</h5>
+    <pre>$(".doc-box").children();</pre>
+
+    <h2>增删操作</h2>
+
+    <h5>插到末尾</h5>
+    <pre>$(".doc-box").append("append");</pre>
+
+    <h5>插到前尾</h5>
+    <pre>$(".doc-box").prepend("prepend");</pre>
+
+    <h5>插到后面</h5>
+    <pre>$(".doc-box").after("after");</pre>
+
+    <h5>插到前面</h5>
+    <pre>$(".doc-box").before("before");</pre>
+
+    <h5>渲染节点</h5>
+    <pre>$(".doc-box").render();</pre>
+
+    <h5>删除节点</h5>
+    <pre>$(".doc-box").remove();</pre>
+
+    <h5>复制节点</h5>
+    <pre>$(".doc-box").clone();</pre>
+
+    <h2>属性和样式</h2>
+
+    <h5>判断类</h5>
+    <pre>$(".doc-box").hasClass("light");</pre>
+
+    <h5>添加类</h5>
+    <pre>$(".doc-box").addClass("light");</pre>
+
+    <h5>删除类</h5>
+    <pre>$(".doc-box").removeClass("light");</pre>
+
+    <h5>切换类</h5>
+    <pre>$(".doc-box").toggleClass("light");</pre>
+
+    <h5>读写属性</h5>
+    <pre>$(".doc-box").attr("className");</pre>
+
+    <h5>读写文本</h5>
+    <pre>$(".doc-box").text();</pre>
+
+    <h5>读写内容</h5>
+    <pre>$(".doc-box").html();</pre>
+
+    <h5>读写样式</h5>
+    <pre>$(".doc-box").css("font-size");</pre>
+
+    <h5>计算样式</h5>
+    <pre>$(".doc-box").calc("fontSize");</pre>
+
+    <h2>效果</h2>
+
+    <h5>显示</h5>
+    <pre>$(".doc-box").show('height');</pre>
+
+    <h5>隐藏</h5>
+    <pre>$(".doc-box").hide('height');</pre>
+
+    <h5>切换</h5>
+    <pre>$(".doc-box").toggle();</pre>
+
+    <h5>判断是否隐藏</h5>
+    <pre>$(".doc-box").isHidden();</pre>
+
+    <h5>自定义</h5>
+    <pre>$(".doc-box").animate({width: 100}, {width: 400});</pre>
+
+    <h2>尺寸和定位</h2>
+
+    <h5>大小</h5>
+    <pre>$(".doc-box").size();</pre>
+
+    <h5>滚动大小</h5>
+    <pre>$(".doc-box").scrollSize();</pre>
+
+    <h5>相对位置</h5>
+    <pre>$(".doc-box").offset();</pre>
+
+    <h5>绝对位置</h5>
+    <pre>$(".doc-box").position();</pre>
+
+    <h5>滚动位置</h5>
+    <pre>$(".doc-box").scroll();</pre>
+
+    <h2>节点选择</h2>
+
+    <h5>查找子元素</h5>
+    <pre>$(".doc-box").find("a");</pre>
+
+    <h5>判断是否匹配</h5>
+    <pre>$(".doc-box").is("a");</pre>
+
+    <h5>判断是否包含</h5>
+    <pre>$(".doc-box").contains($("a"));</pre>
+
+    <h2>数组</h2>
+
+    <h5>获取长度</h5>
+    <pre>$(".doc-box").length;</pre>
+
+    <h5>获取元素</h5>
+    <pre>$(".doc-box")[0];</pre>
+
+    <h5>获取索引</h5>
+    <pre>$(".doc-box").indexOf($(".doc-box")[0]);</pre>
+
+    <h5>排序</h5>
+    <pre>$(".doc-box").sort();</pre>
+
+    <h5>遍历</h5>
+    <pre>$(".doc-box").each(function(elem){});</pre>
+
+    <h5>添加元素</h5>
+    <pre>$(".doc-box").addAll([]);</pre>
+    
+    <h2>关于 dom/base 和 jQuery 的区别</h2>
+    
+    <p>dom/base 组件更适于组件开发，而 jQuery 更适于业务逻辑。这决定了它们的区别：</p>
+    
+    <ul>
+        <li>dom/base 不提供各种 hack，代码更短更快。但对 js 基础不好的用户使用 dom/base 可能会发现一些问题，而这些问题在 jQuery 不会出现。</li>
+        <li>dom/base 体积是 jQuery 的 1/10，我们提供这个组件，让用户可以直接使用 UI 组件而不依赖 jQuery, 特别是在 React 框架下，jQuery 已经不那么必要。</li>
+        <li>dom/base 提供的 API 更利于计算。</li>
+    </ul>
+    
+    <blockquote class="doc-warning">dom/base 只提供组件开发所需要的必须函数，并且只考虑最新浏览器的兼容性，它的许多 API 和 jQuery 同名但不同功能，用户可以自己选择使用 dom/base 提供的功能（仅 6k 体积）或者直接使用 jQuery。</blockquote>
 </body>
 </html>
