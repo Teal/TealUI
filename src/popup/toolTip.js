@@ -9,7 +9,7 @@
 
 /**
  * 表示一个工具提示。
- * @extends ContentControl
+ * @extends Control
  */
 var ToolTip = Control.extend({
 
@@ -19,27 +19,40 @@ var ToolTip = Control.extend({
     role: 'toolTip',
 
     /**
-     * 当前工具提示和目标文本的距离。
+     * 当前控件的选项。
      */
-    distance: 15,
+    options: {
+
+        /**
+         * 当前工具提示和目标文本的距离。
+         */
+        distance: 15,
+
+        /**
+         * 工具提示显示之前经过的时间。
+         * @type Integer
+         */
+        initialDelay: 300,
+
+        /**
+         * 当前控件的目标。
+         */
+        target: null,
+
+    },
 
     /**
-     * 工具提示显示之前经过的时间。
-     * @type Integer
+     * 当前控件的事件。
      */
-    initialDelay: 300,
+    events: {
+        'click.x-closebutton': 'hide'
+    },
 
     /**
      * 初始化当前控件。
-     * @param {Object} options 传入的只读选项。
      */
-    init: function (options) {
-
-        // 设置关闭按钮事件。
-        Dom.on(this.elem, 'click', '.x-closebutton', this.hide.bind(this));
-
-        // 绑定目标节点的工具提示。
-        this.setToolTip(options.target);
+    init: function () {
+        this.setToolTip(this.options.target);
     },
 
     /**
@@ -59,7 +72,7 @@ var ToolTip = Control.extend({
 
                 // 显示工具提示。
                 me.show(me.getArrow() ? target : e);
-            }, me.hide.bind(me), me.initialDelay);
+            }, me.hide.bind(me), me.options.initialDelay);
         });
         return me;
     },
@@ -106,7 +119,7 @@ var ToolTip = Control.extend({
 
         // 设置位置。
         if (target) {
-            Dom.pin(this.elem, target, currentArrow, this.distance);
+            Dom.pin(this.elem, target, currentArrow, this.options.distance);
         }
         
         return this.trigger('show', target);

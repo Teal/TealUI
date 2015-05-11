@@ -142,7 +142,7 @@ var Control = Base.extend({
 /**
  * 存储所有已注册的控件类型。
  */
-Control.types = {};
+Control.roles = {};
 
 /**
  * 重定义控件的继承方式，以方便捕获所有已定义的组件类型。
@@ -151,7 +151,7 @@ Control.extend = function (members) {
     var controlClass = Base.extend.apply(this, arguments);
     var role = controlClass.prototype.role;
     if (role) {
-        Control.types[role] = controlClass;
+        Control.roles[role] = controlClass;
         $.fn[role] = function (options) {
             var propName = '__' + role + '__';
             if (this[0][propName]) {
@@ -163,11 +163,51 @@ Control.extend = function (members) {
     return controlClass;
 };
 
-
-$(document).ready(function() {
-    $('[data-role]').each(function () {
-        var me = $(this);
-        var type = me.attr('data-role');
-        me[type]();
+/**
+ * 初始化指定节点内的全部控件。
+ */
+Control.initAll = function (elem) {
+    Dom.query(elem, '[data-role]').each(function (controlElem) {
+        var dom = new Dom([controlElem]),
+            role = Dom.getAttr(controlElem, 'data-role');
+        if (dom[role]) {
+            dom[role]();
+        }
     });
+};
+
+/**
+ * 将指定的节点初始化为指定的控件类型。
+ */
+Control.init = function (elem, role) {
+    var propName = '__' + role + '__',
+        instance = elem[propName];
+
+    // 已经初始化则不再初始化。
+    if (!instance) {
+
+        // 获取相应的组件类。
+        var controlClass = Control.roles[role];
+        if (!controlClass) {
+            return;
+        }
+
+        // 生成组件配置项。
+        var prototypeOptions = {};
+
+        // 创建组件实例。
+        instance = new controlClass();
+
+    }
+
+    return instance;
+};
+
+$.prototype.initControls = function () {
+    this.each(Control.initAll);
+};
+
+// 默认初始化一次页面全部组件。
+Dom.ready(function() {
+    Control.initAll(document);
 });

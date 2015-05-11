@@ -7,19 +7,15 @@
 
 var ProgressBar = Control.extend({
 
-	cssClass: 'x-progressbar',
-
-	tpl: '<div class="{cssClass}">\
-                <div class="{cssClass}-fore"></div>\
-            </div>',
+	role: 'progressBar',
 
     setValue: function (value) {
-    	Dom.find('.' + this.cssClass + '-fore', this.elem).style.width = value + '%';
+        Dom.find('.x-progressbar-fore', this.elem).style.width = (value * 100) + '%';
         return this;
     },
 
     getValue: function () {
-    	return parseInt(Dom.find('.' + this.cssClass + '-fore', this.elem).style.width);
+        return parseInt(Dom.find('.x-progressbar-fore', this.elem).style.width) / 100;
     }
 
 });
