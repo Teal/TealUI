@@ -1,188 +1,129 @@
-﻿
-// #region 核心
-
-/**
- * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
- * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
- * @return {Dom} 返回匹配的节点列表。
+﻿/**
+ * @author xuld
+ * @fileOverview 提供 DOM 操作的辅助函数。
  */
-var $ = $ || function (selector) {
-    return selector instanceof Function ? Dom.ready(selector) :
-        selector && selector.constructor === String ?
-            /^</.test(selector) ? Dom.parse(selector) : Dom.find(selector) :
-            new Dom([selector]);
-};
 
 /**
- * 提供操作 DOM 的高效方法。
+ * 提供操作 DOM 的静态高效方法。
+ * @static
  * @class
  */
-function Dom(nodeList) {
-    if (nodeList) {
-        this.addAll(nodeList);
-    }
-}
+var Dom = {
 
-/**
- * 根据 *id* 获取节点。
- * @param {String/Node} id 要获取元素的 ID。
- * @return {Dom} 返回匹配的节点。
- * @static
- * @example
- * 找到 id 为 a 的元素。
- * #####HTML:
- * <pre lang="htm" format="none">
- * &lt;p id="a"&gt;once&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
- * </pre>
- * #####JavaScript:
- * <pre>Dom.get("a");</pre>
- * #####结果:
- * <pre>&lt;p id="a"&gt;once&lt;/p&gt;</pre>
- */
-Dom.get = function (id) {
-    return new Dom([id && id.constructor === String ? document.getElementById(id) : id]);
-};
-
-/**
- * 执行一个 CSS 选择器，返回所有匹配的节点列表。
- * @param {String} selector 要执行的 CSS 选择器。
- * @param {Document} context 执行的上下文文档。
- * @return {Dom} 返回匹配的节点列表。
- * @example
- * 找到所有 p 元素。
- * #####HTML:
- * <pre lang="htm" format="none">
- * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
- * </pre>
- * 
- * #####Javascript:
- * <pre>
- * Dom.query("p");
- * </pre>
- * 
- * #####结果:
- * <pre lang="htm" format="none">
- * [  &lt;p&gt;one&lt;/p&gt; ,&lt;p&gt;two&lt;/p&gt;, &lt;p&gt;three&lt;/p&gt;  ]
- * </pre>
- * 
- * <br>
- * 找到所有 p 元素，并且这些元素都必须是 div 元素的子元素。
- * #####HTML:
- * <pre lang="htm" format="none">
- * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;</pre>
- * 
- * #####Javascript:
- * <pre>
- * Dom.query("div &gt; p");
- * </pre>
- * 
- * #####结果:
- * <pre lang="htm" format="none">
- * [ &lt;p&gt;two&lt;/p&gt; ]
- * </pre>
- * 
- * <br>
- * 查找所有的单选按钮(即: type 值为 radio 的 input 元素)。
- * <pre>Dom.query("input[type=radio]");</pre>
- */
-Dom.find = function (selector) {
-    return new Dom(document.querySelectorAll(selector));
-};
-
-/**
- * 解析一个 html 字符串，返回相应的 DOM 对象。
- * @param {String} html 要解析的 HTML 字符串。如果解析的字符串是一个 HTML 字符串，则此函数会忽略字符串前后的空格。
- * @return {Dom} 返回包含所有已解析的节点的 DOM 对象。
- * @static
- */
-Dom.parse = function (html, context) {
-    if (typeof html !== 'object') {
-        context = context && context !== document ? context.createElement('div') : (Dom._parseContainer || (Dom._parseContainer = document.createElement('div')));
-        context.innerHTML = html;
-        html = new Dom(context.childNodes);
-    }
-    return html;
-};
-
-/**
- * 设置在 DOM 解析完成后的回调函数。
- * @param {Function} callback 当 DOM 解析完成后的回调函数。
- */
-Dom.ready = function(callback) {
-    if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
-        callback.call(document);
-    } else {
-        document.addEventListener('DOMContentLoaded', callback, false);
-    }
-};
-
-// #endregion
-
-// #region 内部工具函数
-
-// #endregion
-
-Dom.prototype = {
-
-    // #region 数组
-
-    constructor: Dom,
-    length: 0,
-    indexOf: Array.prototype.length,
-    sort: Array.prototype.sort,
-    splice: Array.prototype.splice, // 让 Firebug 和 Chrome 调试器显示为数组。
+    // #region 通用
 
     /**
-     * 连接已有的数组项。
-     * @param {NodeList} nodeList 要添加的节点列表。
-     */
-    addAll: function (nodeList) {
-        for (var i = 0, node; node = nodeList[i]; i++) {
-            this[this.length++] = node;
-        }
-        return this;
-    },
-
-    /**
-     * 遍历当前对象并对每个节点执行回调。
-     * @param {Function} callback 对每个元素运行的函数。函数的参数依次为:
+     * 遍历指定的节点列表并对每个节点执行回调。
+     * @param {NodeList} nodeList 要遍历的节点列表:
+     * @param {Function} callback 对每个元素运行的回调函数。函数的参数依次为:
      *
-     * - {Object} value 当前元素的值。
+     * - {Node} elem 当前元素。
      * - {Number} index 当前元素的索引。
      * - {Dom} array 当前正在遍历的数组。
      *
      * 可以让函数返回 **false** 来强制中止循环。
-     * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
-     * @return {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
+     * @param {Object} [bind] 定义 *callback* 执行时 **this** 的值。
+     * @return {Boolean} 如果循环是因为 *callback* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
      */
-    each: function(callback, bind) {
-        for (var i = 0; i < this.length; i++) {
-            if (callback.call(bind, this[i], i, this) === false) {
+    each: function (nodeList, callback, bind) {
+        for (var i = 0, node; node = nodeList[i]; i++) {
+            if (callback.call(bind, node, i, nodeList) === false) {
                 return false;
             }
         }
         return true;
     },
 
-    // #endregion
-
-    // #region 节点选择
+    /**
+     * 设置在 DOM 解析完成后的回调函数。
+     * @param {Function} callback 当 DOM 解析完成后的回调函数。
+     */
+    ready: function (callback) {
+        if (/complete|loaded|interactive/.test(document.readyState) && document.body) {
+            callback.call(document);
+        } else {
+            document.addEventListener('DOMContentLoaded', callback, false);
+        }
+    },
 
     /**
-	 * 执行一个 CSS 选择器，返回匹配的节点。
+     * 解析一个 html 字符串，返回相应的 DOM 对象。
+     * @param {String} html 要解析的 HTML 字符串。如果解析的字符串是一个 HTML 字符串，则此函数会忽略字符串前后的空格。
+     * @return {Element} 返回包含所有已解析的节点的 DOM 对象。
+     * @static
+     */
+    parse: function (html, context) {
+        if (typeof html !== 'object') {
+            context = context && context !== document ? context.createElement('div') : (Dom._parseContainer || (Dom._parseContainer = document.createElement('div')));
+            context.innerHTML = html;
+            html = context.firstChild;
+        }
+        return html;
+    },
+
+    // #endregion
+
+    // #region 获取节点
+
+    /**
+	 * 执行一个 CSS 选择器，返回所有匹配的节点列表。
 	 * @param {String} selector 要执行的 CSS 选择器。
+	 * @param {Document} context 执行的上下文文档。
+	 * @return {NodeList} 返回匹配的节点列表。
+	 * @example
+	 * 找到所有 p 元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
+	 * </pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.query("p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * [  &lt;p&gt;one&lt;/p&gt; ,&lt;p&gt;two&lt;/p&gt;, &lt;p&gt;three&lt;/p&gt;  ]
+	 * </pre>
+	 * 
+	 * <br>
+	 * 找到所有 p 元素，并且这些元素都必须是 div 元素的子元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;</pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.query("div &gt; p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * [ &lt;p&gt;two&lt;/p&gt; ]
+	 * </pre>
+	 * 
+	 * <br>
+	 * 查找所有的单选按钮(即: type 值为 radio 的 input 元素)。
+	 * <pre>Dom.query("input[type=radio]");</pre>
+	 */
+    query: function (selector, context) {
+        return (context || document).querySelectorAll(selector);
+    },
+
+    /**
+	 * 执行一个 CSS 选择器，返回匹配的第一个节点。
+	 * @param {String} selector 要执行的 CSS 选择器。
+	 * @param {Document} context 执行的上下文文档。
 	 * @return {Element} 返回匹配的节点。
 	 */
-    find: function (selector) {
-        var result = new Dom();
-        this.each(function(elem) {
-            result.addAll(elem.querySelectorAll(selector));
-        });
-        return result;
+    find: function (selector, context) {
+        return (context || document).querySelector(selector);
     },
 
     /**
      * 判断指定节点是否符合指定的选择器。
+     * @param {Element} elem 要测试的元素。
 	 * @param {String} selector 要测试的 CSS 选择器。
      * @return {Boolean} 如果表达式匹配则返回 true，否则返回  false 。
      * @example
@@ -194,35 +135,23 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">true</pre>
      */
-    is: function (selector) {
+    matches: function (elem, selector) {
 
         // 基于原生的判断。
-        var elem = this[0],
-            nativeMatchesSelector = elem.matchesSelector || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.oMatchesSelector;
+        var nativeMatchesSelector = elem.matchesSelector || elem.webkitMatchesSelector || elem.mozMatchesSelector || elem.oMatchesSelector;
         if (nativeMatchesSelector) {
             return nativeMatchesSelector.call(elem, selector);
         }
 
         // 原生不支持：使用内置的判断。
-        var parent = elem.parentNode, tempParent = !parent && this.document().body;
+        var parent = elem.parentNode, tempParent = !parent && Dom.getDocument(elem).body;
         tempParent && tempParent.appendChild(elem);
         try {
-            return Array.prototype.indexOf.call(Dom.get(parent).find(selector), elem) >= 0;
+            return Array.prototype.indexOf.call(Dom.query(selector, parent), elem) >= 0;
         } finally {
             tempParent && tempParent.removeChild(elem);
         }
 
-    },
-
-    /**
-     * 判断指定节点是否包含目标节点。
-     * @param {Element} node 要判断的容器节点。
-     * @param {Element} child 要判断的子节点。
-     * @return {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
-     * @static
-     */
-    contains: function (child) {
-        return this[0].contains(child instanceof Dom ? child[0] : child);
     },
 
     // #endregion
@@ -231,31 +160,62 @@ Dom.prototype = {
 
     /**
      * 为指定元素添加一个事件监听器。
+     * @param {Element} elem 要处理的元素。
      * @param {String} eventName 要添加的事件名。
-     * @param {Element} proxyChild? 要委托执行的子元素。
-     * @param {Function} eventHandler 要添加的事件监听器。
+     * @param {String} [proxySelector] 代理的选择器。
+     * @param {Function} eventListener 要添加的事件监听器。
      */
-    on: function(eventName, proxyChild, eventHandler) {
-        
+    on: function (elem, eventName, proxySelector, eventListener) {
+        if (!eventListener) {
+            eventListener = proxySelector;
+            proxySelector = '';
+        }
+
+        if (proxySelector) {
+            var oldListener = eventListener;
+            eventListener = function(e) {
+                var actucalTarget = Dom.closest(e.target, proxySelector, elem);
+                return actucalTarget && oldListener.call(actucalTarget, e);
+            };
+        }
+
+        elem.addEventListener(eventName, eventListener, false);
     },
 
     /**
-     * 删除指定元素的一个事件监听器。
+     * 删除指定元素的一个或多个事件监听器。
+     * @param {Element} elem 要处理的元素。
      * @param {String} eventName 要删除的事件名。
-     * @param {Element} proxyChild? 要委托执行的子元素。
-     * @param {Function} eventHandler 要删除的事件处理函数。
+     * @param {Function} eventListener 要删除的事件处理函数。
      */
-    off: function (eventName, proxyChild, eventHandler) {
-
+    off: function (elem, eventName, eventListener) {
+        if (!eventListener) {
+            eventListener = proxyClass;
+            proxyClass = '';
+        }
+        elem.removeEventListener(eventName, eventListener, false);
     },
 
     /**
      * 触发一个事件，执行已添加的监听器。
+     * @param {Element} elem 要处理的元素。
      * @param {String} eventName 要触发的事件名。
      * @param {Object} eventArgs 传递给监听器的事件对象。
      */
-    trigger: function (eventName, eventArgs) {
+    trigger: function (elem, eventName, eventArgs) {
+        var eventFix = Dom.triggerFix;
+        if (!eventFix) {
+            Dom.triggerFix = eventFix = {};
+            eventFix.click = eventFix.mousedown = eventFix.mouseup = eventFix.mousemove = 'MouseEvents';
+        }
 
+        var event = document.createEvent(eventFix[eventName] || 'Events'),
+            bubbles = true;
+        for (var name in eventArgs) {
+            name === 'bubbles' ? (bubbles = !!e[name]) : (event[name] = eventArgs[name]);
+        }
+        event.initEvent(eventName, bubbles, true);
+        elem.dispatchEvent(event);
     },
 
     // #endregion
@@ -263,16 +223,46 @@ Dom.prototype = {
     // #region 文档遍历
 
     /**
+     * 判断指定节点是否包含目标节点。
+     * @param {Element} node 要判断的容器节点。
+     * @param {Element} child 要判断的子节点。
+     * @return {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
+     * @static
+     */
+    contains: function (node, child) {
+        return node.contains(child);
+    },
+
+    /**
+     * 获取指定节点及父节点对象中第一个满足指定 CSS 选择器或函数的节点。
+     * @param {Node} node 节点。
+     * @param {String} selector 用于判断的元素的 CSS 选择器。
+     * @param {Node} [context=document] 只在指定的节点内搜索此元素。
+     * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+     */
+    closest: function (node, selector, context) {
+        while (node && node != context) {
+            if (Dom.matches(node, selector)) {
+                return node;
+            }
+            node = node.parentNode;
+        }
+        return null;
+    },
+
+    /**
 	 * 获取指定节点的文档。
-	 * @return {Dom} 文档。
+	 * @param {Node} node 要获取的节点。
+	 * @return {Document} 文档。
 	 */
-    document: function () {
-        return Dom.get(this[0].ownerDocument || this[0].document || this[0]);
+    getDocument: function (node) {
+        return node.ownerDocument || node.document || node;
     },
 
     /**
      * 获取指定节点的父元素。
-     * @return {Dom} 返回父节点。
+     * @param {Node} node 要获取的节点。
+     * @return {Element} 返回父节点。如果不存在，则返回 null 。
      * @example
      * 找到每个span元素的所有祖先元素。
      * #####HTML:
@@ -280,31 +270,42 @@ Dom.prototype = {
      * #####JavaScript:
      * <pre>Dom.parent(Dom.find("span"))</pre>
      */
-    parent: function () {
-        return new Dom([this[0].parentNode]);
+    getParent: function (node) {
+        return node.parentNode;
     },
 
     /**
-     * 获取指定节点及父节点对象中第一个满足指定 CSS 选择器或函数的节点。
-     * @param {String} selector 用于判断的元素的 CSS 选择器。
-     * @param {Node} [context=document] 只在指定的节点内搜索此元素。
-     * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+     * 获取指定节点的第一个子元素。
+     * @param {Node} node 要获取的节点。
+     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @example
+     * 获取匹配的第二个元素
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.first(Dom.find("p"))</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
      */
-    closest: function (selector, context) {
-        while (node) {
+    getFirst: function (node) {
+        return node.firstElementChild;
+    },
 
-            // 如果 node 到达了指定上下文，则停止查找。
-            if (context && node === context) {
-                break;
-            }
-
-            if (Dom.matches(node, selector)) {
-                break;
-            }
-
-            node = node.parentNode;
-        }
-        return node;
+    /**
+     * 获取指定节点的最后一个子节点对象。
+     * @param {Node} node 要获取的节点。
+     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @example
+     * 获取匹配的第二个元素。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.last(Dom.find("p"))</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
+     */
+    getLast: function (node) {
+        return node.lastElementChild;
     },
 
     /**
@@ -320,7 +321,7 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">[ &lt;p&gt;Hello Again&lt;/p&gt;, &lt;div&gt;&lt;span&gt;And Again&lt;/span&gt;&lt;/div&gt; ]</pre>
      */
-    next: function () {
+    getNext: function (node) {
         return node.nextElementSibling;
     },
 
@@ -345,42 +346,8 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
      */
-    prev: function (node) {
+    getPrev: function (node) {
         return node.previousElementSibling;
-    },
-
-    /**
-     * 获取指定节点的第一个子元素。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 获取匹配的第二个元素
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.first(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
-     */
-    first: function () {
-        return Dom.get(this[0].firstElementChild);
-    },
-
-    /**
-     * 获取指定节点的最后一个子节点对象。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 获取匹配的第二个元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.last(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
-     */
-    last: function (/*Node*/node) {
-        return Dom.get(this[0].lastElementChild);
     },
 
     /**
@@ -405,7 +372,7 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
      */
-    children: function (node) {
+    getChildren: function (node) {
         return node.children;
     },
 
@@ -442,17 +409,7 @@ Dom.prototype = {
     },
 
     /**
-     * 插入一个HTML 到后面。
-	 * @param {Node} node 要获取的节点。
-     * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
-     */
-    after: function (node, html) {
-        return node.nextSibling ? Dom.before(node.nextSibling, html) : Dom.append(node.parentNode, html);
-    },
-
-    /**
-     * 插入一个HTML 到前面。
+     * 插入一段 HTML 到前面。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
      * @return {Node} 返回插入的新节点对象。
@@ -466,17 +423,13 @@ Dom.prototype = {
     },
 
     /**
-     * 如果指定节点未添加到指定父节点或 DOM 树，则进行添加。
+     * 插入一段 HTML 到后面。
 	 * @param {Node} node 要获取的节点。
-	 * @param {Node} parentNode 渲染的父节点。
-	 * @param {Node} refNode 插入的引用节点。
+     * @param {String} html 要插入的内容。
+     * @return {Node} 返回插入的新节点对象。
      */
-    render: function (parentNode, refNode) {
-        if (parentNode) {
-            parentNode.insertBefore(node, refNode || null);
-        } else if (!Dom.contains(Dom.getDocument(node), node)) {
-            Dom.getDocument(node).body.appendChild(node);
-        }
+    after: function (node, html) {
+        return node.nextSibling ? Dom.before(node.nextSibling, html) : Dom.append(node.parentNode, html);
     },
 
     /**
@@ -497,11 +450,11 @@ Dom.prototype = {
      * #####HTML:
      * <pre lang="htm" format="none">&lt;p class="hello"&gt;Hello&lt;/p&gt; how are &lt;p&gt;you?&lt;/p&gt;</pre>
      * #####JavaScript:
-     * <pre>Dom.query("p").remove(".hello");</pre>
+     * <pre>Dom.each(Dom.query("p"), Dom.remove);</pre>
      * #####结果:
      * <pre lang="htm" format="none">how are &lt;p&gt;you?&lt;/p&gt;</pre>
      */
-    remove: function (/*Node*/node) {
+    remove: function (node) {
         node.parentNode && node.parentNode.removeChild(node);
     },
 
@@ -518,11 +471,11 @@ Dom.prototype = {
      * #####HTML:
      * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;, how are you?&lt;/p&gt;</pre>
      * #####JavaScript:
-     * <pre>Dom.query("b").clone().prependTo("p");</pre>
+     * <pre>Dom.prepend(Dom.find("p"), Dom.clone(Dom.find("b"));</pre>
      * #####结果:
      * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;, how are you?&lt;/p&gt;</pre>
      */
-    clone: function (/*Node*/node, deep) {
+    clone: function (node, deep) {
         return node.cloneNode(deep !== false);
     },
 
@@ -537,17 +490,7 @@ Dom.prototype = {
      * @return {Boolean} 如果存在返回 true。
      * @static
      */
-    hasClass: function (/*Element*/elem, className) {
-        // #assert className && (!className.indexOf || !/[\s\r\n]/.test(className)), 'className 不能为空，且不允许有空格和换行；如果需要判断 2 个 class 同时存在，可以调用两次本函数： if(hasClass('A') && hasClass('B')) ...")'
-
-        // #if CompactMode
-
-        if (!elem.classList) {
-            return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
-        }
-
-        // #endif
-
+    hasClass: function (elem, className) {
         return elem.classList.contains(className);
     },
 
@@ -572,20 +515,12 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">[ &lt;p class="selected highlight"&gt;Hello&lt;/p&gt; ]</pre>
      */
-    addClass: function (/*Element*/elem, className) {
-
-        // #if CompactMode
-
-        if (!elem.classList) {
-            if ((" " + elem.className + " ").indexOf(className) < 0) {
-                elem.className += ' ' + className;
-            }
-            return;
+    addClass: function (elem, className) {
+        if (elem.classList) {
+            elem.classList.add(className);
+        } else if ((" " + elem.className + " ").indexOf(className) < 0) {
+            elem.className += ' ' + className;
         }
-
-        // #endif
-
-        elem.classList.add(className);
     },
 
     /**
@@ -605,18 +540,12 @@ Dom.prototype = {
      * [ &lt;p class="first"&gt;Hello&lt;/p&gt; ]
      * </pre>
      */
-    removeClass: function (/*Element*/elem, className) {
-
-        // #if CompactMode
-
-        if (!elem.classList) {
+    removeClass: function (elem, className) {
+        if (elem.classList) {
+            elem.classList.remove(className);
+        } else {
             elem.className = className ? (" " + elem.className + " ").replace(" " + classList[i] + " ", " ").trim() : '';
-            return;
         }
-
-        // #endif
-
-        className ? elem.classList.remove(className) : (elem.className = '');
     },
 
     /**
@@ -636,219 +565,91 @@ Dom.prototype = {
      * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello&lt;/p&gt;, &lt;p&gt;Hello Again&lt;/p&gt; ]</pre>
      */
     toggleClass: function (elem, className, value) {
-
-        // #if CompactMode
-
-        if (!elem.classList) {
-            ((value == undefined ? Dom.hasClass(elem, className) : !value) ? Dom.removeClass : Dom.addClass)(elem, className);
-            return;
-        }
-
-        // #endif
-
-        elem.classList.toggle(className, value);
+        (value == undefined ? Dom.hasClass(elem, className) : !value) ? Dom.removeClass(elem, className) : Dom.addClass(elem, className);
     },
 
-    ///**
-    // * 修复部分属性的获取和设置方式。
-    // */
-    //_fixAttr: function (name) {
-    //    var attrHooks = Dom._attrHooks;
-    //    if (!attrHooks) {
-
-    //        Dom._attrHooks = attrHooks = {
-
-    //            // 默认用于获取和设置属性的钩子。
-    //            _: function (elem, name, getting, value) {
-    //                if (getting) {
-    //                    return !(name in elem) && elem.getAttribute ? elem[name] : elem.getAttribute(name);
-    //                }
-
-    //                if (name in elem || !elem.setAttribute) {
-    //                    elem[name] = value;
-    //                } else if (value === null) {
-    //                    elem.removeAttribute(name);
-    //                } else {
-    //                    elem.setAttribute(name, value);
-    //                }
-
-    //            },
-
-    //            style: function (elem, name, getting, value) {
-    //                elem = elem[name];
-    //                if (getting) {
-    //                    return elem.cssText;
-    //                }
-    //                elem.cssText = value;
-    //            },
-
-    //            //// NOTE: 不同浏览器获取不支持 tabIndex 的节点的 tabIndex 属性时返回值不同。
-    //            //// 由于 tabIndex 使用频率低，因此框架不提供兼容支持，参考：
-    //            //// http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
-    //            //tabIndex: function (elem, name, getting, value) {
-    //            //    if (getting) {
-    //            //        var value = elem.getAttributeNode(name);
-    //            //        value = value && value.specified && value.value || null;
-    //            //        return type ? value : +value;
-    //            //    }
-    //            //    elem[name] = value;
-    //            //},
-
-    //            selected: function (elem, name, getting, value) {
-
-    //                // Webkit、IE 误报 selected 属性。
-    //                // 通过调用 parentNode 属性修复。
-    //                var parent = elem.parentNode;
-
-    //                // 激活 select, 更新 option 的 select 状态。
-    //                if (parent) {
-    //                    parent.selectedIndex;
-
-    //                    // 同理，处理 optgroup 
-    //                    if (parent.parentNode) {
-    //                        parent.parentNode.selectedIndex;
-    //                    }
-    //                }
-
-    //                return attrHooks._(elem, name, getting, value);
-
-    //            }
-
-    //        };
-
-    //        // #if CompactMode
-
-    //        if (!+"\v") {
-    //            attrHooks._default = attrHooks._;
-    //            attrHooks._ = function (elem, name, getting, value) {
-
-    //                // 不是节点则获取属性。
-    //                if (!elem.getAttributeNode) {
-    //                    return attrHooks._default(elem, name, getting, value);
-    //                }
-
-    //                var node = elem.getAttributeNode(name);
-    //                if (getting) {
-    //                    return name ? name.value || (name.specified ? "" : null) : null;
-    //                }
-
-    //                // 如果 value === null 表示删除节点。
-    //                if (value === null) {
-    //                    if (node) {
-    //                        node.nodeValue = '';
-    //                        elem.removeAttributeNode(node);
-    //                    }
-    //                } else if (node) {
-    //                    node.nodeValue = value;
-    //                } else {
-    //                    elem.setAttribute(name, value);
-    //                }
-
-    //            };
-    //        }
-
-    //        // #endif
-
-    //        Dom._attrFix = {
-    //            'for': 'htmlFor',
-    //            'class': 'className',
-    //            'tabindex': 'tabIndex',
-    //            'readonly': 'readOnly',
-    //            'maxlength': 'maxLength',
-    //            'cellspacing': 'cellSpacing',
-    //            'cellpadding': 'cellPadding',
-    //            'rowspan': 'rowSpan',
-    //            'colspan': 'colSpan',
-    //            'usemap': 'useMap',
-    //            'frameborder': 'frameBorder',
-    //            'contenteditable': 'contentEditable'
-    //        };
-
-    //    }
-
-    //    // NOTE: <form> 元素会获取内部存在指定 ID 的节点。
-
-    //    return attrHooks[Dom._attrFix[name] || name] || attrHooks._default;
-    //},
-
     /**
-     * 获取或设置元素的属性值。
+     * 获取元素的属性值。
      * @param {Element} elem 要获取的元素。
      * @param {String} name 要获取的属性名称。
      * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
      * @static
      */
-    attr: function (/*Element*/elem, name) {
-        return Dom._fixAttr(name)(elem, name, true);
+    getAttr: function (elem, name) {
+        return name in elem ? elem[name] : elem.getAttribute(name);
     },
 
-    ///**
-    // * 设置或删除一个 HTML 属性值。
-    // * @param {String} name 要设置的属性名称。
-    // * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-    // * @return this
-    // * @example
-    // * 为图像设置 src 属性。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">
-    // * &lt;img/&gt;
-    // * </pre>
-    // * #####JavaScript:
-    // * <pre>Dom.setAttr(Dom.find("img"), "src","test.jpg");</pre>
-    // * #####结果:
-    // * <pre lang="htm" format="none">[ &lt;img src= "test.jpg" /&gt; , &lt;img src= "test.jpg" /&gt; ]</pre>
-    // *
-    // * 将文档中图像的src属性删除
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;img src="test.jpg"/&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>Dom.setAttr(Dom.find("img"), "src");</pre>
-    // * #####结果:
-    // * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
-    // */
-    //setAttr: function (elem, name, value) {
-    //    return Dom._fixAttr(name)(elem, name, false, value);
-    //},
+    /**
+     * 设置或删除一个 HTML 属性值。
+     * @param {String} name 要设置的属性名称。
+     * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
+     * @return this
+     * @example
+     * 为图像设置 src 属性。
+     * #####HTML:
+     * <pre lang="htm" format="none">
+     * &lt;img/&gt;
+     * </pre>
+     * #####JavaScript:
+     * <pre>Dom.setAttr(Dom.find("img"), "src","test.jpg");</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;img src= "test.jpg" /&gt; , &lt;img src= "test.jpg" /&gt; ]</pre>
+     *
+     * 将文档中图像的src属性删除
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;img src="test.jpg"/&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.setAttr(Dom.find("img"), "src");</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
+     */
+    setAttr: function (elem, name, value) {
+        if (name in elem) {
+            elem[name] = value;
+        } else if (value === null) {
+            elem.removeAttribute(name);
+        } else {
+            elem.setAttribute(name, value);
+        }
+    },
 
-    //_fixText: function (node) {
-    //    return (Dom._textFix || (Dom._textFix = {
-    //        'INPUT': 'value',
-    //        'SELECT': 'value',
-    //        'TEXTAREA': 'value',
-    //        '#text': 'nodeValue',
-    //        '#comment': 'nodeValue'
-    //    }))[node.nodeName] || ('textContent' in document ? 'textContent' : 'innerText');
-    //},
+    _textAttrFix: {
+        'INPUT': 'value',
+        'SELECT': 'value',
+        'TEXTAREA': 'value',
+        '#text': 'nodeValue',
+        '#comment': 'nodeValue'
+    },
 
     /**
-     * 获取或设置元素对应的文本。
-     * @param {Element} node 元素。
+     * 获取一个元素对应的文本。
+     * @param {Node} node 元素。
      * @return {String} 值。对普通节点返回 text 属性。
      * @static
      */
-    text: function (/*Element*/node) {
-        return node[Dom._fixText(node)] || '';
+    getText: function (node) {
+        return node[Dom._textAttrFix[node.nodeName] || 'textContent'] || '';
     },
 
-    ///**
-    // * 设置指定节点的文本内容。对于输入框则设置其输入的值。
-    // * @param {String} 用于设置元素内容的文本。
-    // * @return this
-    // * @see #setHtml
-    // * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
-    // * @example
-    // * 设定文本框的值。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;input type="text"/&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>Dom.setText(Dom.find("input"),"hello world!");</pre>
-    // */
-    //setText: function (/*Element*/node, value) {
-    //    node[Dom._fixText(node)] = value;
-    //},
+    /**
+     * 设置指定节点的文本内容。对于输入框则设置其输入的值。
+     * @param {String} 用于设置元素内容的文本。
+     * @return this
+     * @see #setHtml
+     * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
+     * @example
+     * 设定文本框的值。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;input type="text"/&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.setText(Dom.find("input"),"hello world!");</pre>
+     */
+    setText: function (node, value) {
+        node[Dom._textAttrFix[node.nodeName] || 'textContent'] = value;
+    },
 
     /**
-     * 获取或设置指定节点的 HTML。
+     * 获取指定节点的 Html。
      * @return {String} HTML 字符串。
      * @example
      * 获取 id="a" 的节点的内部 html。
@@ -859,103 +660,24 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">"&lt;p/&gt;"</pre>
      */
-    html: function (/*Element*/elem) {
+    getHtml: function (elem) {
         return elem.innerHTML;
     },
 
-    ///**
-    // * 设置指定节点的 Html。
-    // * @param {String} value 要设置的 Html。
-    // * @example
-    // * 设置一个节点的内部 html
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>Dom.setHtml(Dom.get("a"), "&lt;a/&gt;");</pre>
-    // * #####结果:
-    // * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;a/&gt;&lt;/div&gt;</pre>
-    // */
-    //setHtml: function (/*Element*/elem, value) {
-
-    //    // #if CompactMode
-
-    //    // IE6-8: 需要处理特殊标签。
-    //    if (!+"\v") {
-    //        Dom.empty(elem);
-    //        Dom.append(elem, value);
-    //        return;
-    //    }
-
-    //    // #endif
-
-    //    elem.innerHTML = value;
-    //},
-
-    ///**
-    // * 删除指定节点的所有子节点。
-    // * @return this
-    // * @example
-    // * 把所有段落的子元素（包括文本节点）删除。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;p&gt;Hello, &lt;span&gt;Person&lt;/span&gt; &lt;a href="#"&gt;and person&lt;/a&gt;&lt;/p&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>Dom.query("p").empty();</pre>
-    // * #####结果:
-    // * <pre lang="htm" format="none">&lt;p&gt;&lt;/p&gt;</pre>
-    // */
-    //empty: function (elem) {
-    //    elem.innerHTML = '';
-    //},
-
     /**
-     * 读取指定节点的当前样式，返回字符串。
-     * @param {Element} elem 要获取的元素。
-     * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
-     * @return {String} 字符串。
+     * 设置指定节点的 Html。
+     * @param {String} value 要设置的 Html。
+     * @example
+     * 设置一个节点的内部 html
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.setHtml(Dom.get("a"), "&lt;a/&gt;");</pre>
+     * #####结果:
+     * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;a/&gt;&lt;/div&gt;</pre>
      */
-    styleString: function (/*Element*/elem, camelizedCssPropertyName) {
-
-        // #if CompactMode
-
-        if (!window.getComputedStyle) {
-            if (camelizedCssPropertyName === 'width') {
-                return elem.offsetWidth === 0 ? 'auto' : elem.offsetWidth - Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
-            }
-            if (camelizedCssPropertyName === 'height') {
-                return elem.offsetHeight === 0 ? 'auto' : elem.offsetHeight - Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
-            }
-            if (camelizedCssPropertyName === 'opacity') {
-                return /opacity=([^)]*)/.test(Dom.styleString(elem, 'filter')) ? parseInt(RegExp.$1) / 100 + '' : '1';
-            }
-
-            // currentStyle：IE的样式获取方法,runtimeStyle是获取运行时期的样式。
-            // currentStyle是运行时期样式与style属性覆盖之后的样式
-            var r = elem.currentStyle[name];
-
-            // 来自 jQuery
-            // 如果返回值不是一个带px的 数字。 转换为像素单位
-            if (/^-?\d/.test(r) && !/^-?\d+(?:px)?$/i.test(r)) {
-
-                // 保存初始值
-                var style = elem.style, left = style.left, rsLeft = elem.runtimeStyle.left;
-
-                // 放入值来计算
-                elem.runtimeStyle.left = elem.currentStyle.left;
-                style.left = name === "fontSize" ? "1em" : (r || 0);
-                r = style.pixelLeft + "px";
-
-                // 回到初始值
-                style.left = left;
-                elem.runtimeStyle.left = rsLeft;
-
-            }
-
-            return r;
-        }
-
-        // #endif
-
-        return elem.style[camelizedCssPropertyName] || elem.ownerDocument.defaultView.getComputedStyle(elem, '')[camelizedCssPropertyName];
+    setHtml: function (elem, value) {
+        elem.innerHTML = value;
     },
 
     /**
@@ -964,84 +686,10 @@ Dom.prototype = {
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
      * @return {Number} 数值。
      */
-    styleNumber: function (/*Element*/elem, camelizedCssPropertyName) {
-
-        // #if CompactMode
-
-        if (!window.getComputedStyle) {
-            return parseFloat(Dom.styleString(elem, camelizedCssPropertyName));
-        }
-
-        // #endif
-
-        var value = elem.style[camelizedCssPropertyName];
-        return value && (value = parseFloat(value)) != null ? value : (parseFloat(elem.ownerDocument.defaultView.getComputedStyle(elem, '')[camelizedCssPropertyName]) || 0);
+    getStyleNumber: function (elem, cssPropertyName) {
+        var value = elem.style[cssPropertyName];
+        return value && (value = parseFloat(value)) != null ? value : (parseFloat(elem.ownerDocument.defaultView.getComputedStyle(elem, '')[cssPropertyName]) || 0);
     },
-
-    /**
-     * 到骆驼模式。
-     * @param {String} name 匹配的内容。
-     * @return {String} 返回的内容。
-     */
-    camelCase: function (name) {
-        return name === 'float' ? +"\v" ? 'cssFloat' : 'styleFloat' : name.replace(/-+(\w?)/g, function (match, chr) { return chr.toUpperCase() });
-    },
-
-    /**
-     * 获取或设置指定节点的样式。
-     * @param {Element} elem 要获取的元素。
-     * @param {String} cssPropertyName CSS 属性名。
-     * @return {String} 字符串。
-     */
-    css: function (/*Element*/elem, /*String*/cssPropertyName) {
-        return Dom.styleString(elem, Dom.camelCase(cssPropertyName));
-    },
-
-    ///**
-    // * 设置指定节点的样式。
-    // * @param {Element} elem 要设置的元素。
-    // * @param {String} cssPropertyName CSS 属性名或 CSS 字符串。
-    // * @param {String/Number} value CSS属性值，数字如果不加单位，则会自动添加像素单位。
-    // * @example
-    // * 将所有段落的字体颜色设为红色并且背景为蓝色。
-    // * <pre>Dom.query("p").setStyle('color', "#ff0011");</pre>
-    // */
-    //setStyle: function (/*Element*/elem, /*String*/cssPropertyName, value) {
-
-    //    // 将属性名转为骆驼形式。
-    //    cssPropertyName = Dom.camelCase(cssPropertyName);
-
-    //    if (!window.getComputedStyle && value === 'opacity') {
-
-    //    }
-
-    //    // 为数字自动添加 px 单位。
-    //    if (value != null && value.constructor === Number) {
-    //        var styleNumbers = Dom.styleNumbers;
-    //        if (!styleNumbers) {
-    //            Dom.styleNumbers = styleNumbers = {};
-    //            'fillOpacity fontWeight lineHeight opacity orphans widows zIndex columnCount zoom'.replace(/\b\w+\b/g, function (value) {
-    //                styleNumbers[value] = 1;
-    //            });
-    //        }
-    //        if (!(cssPropertyName in styleNumbers)) {
-    //            value += 'px';
-    //        }
-    //    }
-
-    //    elem.style[cssPropertyName] = value;
-
-    //},
-
-    ///**
-    // * 设置一个元素可移动。
-    // * @param {Element} elem 要处理的元素。
-    // * @static
-    // */
-    //movable: function (/*Element*/elem) {
-    //    if (!/^(?:abs|fix)/.test(Dom.styleString(elem, "position")))
-    //        elem.style.position = "relative";
-    //},
 
     /**
 	 * 根据不同的内容进行计算。
@@ -1050,23 +698,42 @@ Dom.prototype = {
 	 * @return {Number} 返回计算的值。
 	 * @static
 	 */
-    calc: function (/*Element*/elem, expression) {
-
-        // #if CompactMode
-
-        if (!window.getComputedStyle) {
-            return eval(expression.replace(/(\w+)/g, 'Dom.styleNumber(elem, "$1")'));
-        }
-
-        // #endif
-
+    calcStyle: function (elem, expression) {
         var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
         return eval(expression.replace(/(\w+)/g, '(parseFloat(computedStyle.$1)||0)'));
     },
 
-    // #endregion
+    /**
+     * 获取指定节点的样式。
+     * @param {Element} elem 要获取的元素。
+     * @param {String} cssPropertyName CSS 属性名。
+     * @return {String} 字符串。
+     */
+    getStyle: function (elem, cssPropertyName) {
+        return elem.style[cssPropertyName] || elem.ownerDocument.defaultView.getComputedStyle(elem, '')[cssPropertyName];
+    },
 
-    // #region 效果
+    /**
+     * 设置指定节点的样式。
+     * @param {Element} elem 要设置的元素。
+     * @param {String} cssPropertyName CSS 属性名或 CSS 字符串。
+     * @param {String/Number} value CSS属性值，数字如果不加单位，则会自动添加像素单位。
+     * @example
+     * 将所有段落的字体颜色设为红色并且背景为蓝色。
+     * <pre>Dom.query("p").setStyle('color', "#ff0011");</pre>
+     */
+    setStyle: function (elem, cssPropertyName, value) {
+        elem.style[cssPropertyName] = value;
+    },
+
+    /**
+     * 判断当前元素是否是隐藏的。
+     * @param {Element} elem 要判断的元素。
+     * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
+     */
+    isHidden: function (elem) {
+        return Dom.getStyle(elem, 'display') === 'none';
+    },
 
     /**
      * 通过设置 display 属性来显示元素。
@@ -1087,7 +754,7 @@ Dom.prototype = {
                 if (!defaultDisplay) {
                     var elem = document.createElement(nodeName);
                     document.body.appendChild(elem);
-                    defaultDisplay = Dom.styleString(elem);
+                    defaultDisplay = Dom.getStyle(elem);
                     if (defaultDisplay === 'none') {
                         defaultDisplay = 'block';
                     }
@@ -1105,8 +772,8 @@ Dom.prototype = {
      * @param {Element} elem 要处理的元素。
      * @static
      */
-    hide: function (/*Element*/elem) {
-        var currentDisplay = Dom.styleString(elem, 'display');
+    hide: function (elem) {
+        var currentDisplay = Dom.getStyle(elem, 'display');
         if (currentDisplay !== 'none') {
             elem.style.defaultDisplay = currentDisplay;
             elem.style.display = 'none';
@@ -1119,21 +786,8 @@ Dom.prototype = {
      * @param {Boolean?} value 要设置的元素。
      * @static
      */
-    toggle: function (/*Element*/elem, value) {
+    toggle: function (elem, value) {
         (value == null ? Dom.isHidden(elem) : value) ? Dom.show(elem) : Dom.hide(elem);
-    },
-
-    /**
-     * 判断当前元素是否是隐藏的。
-     * @param {Element} elem 要判断的元素。
-     * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
-     */
-    isHidden: function (/*Element*/elem) {
-        return Dom.styleString(elem, 'display') === 'none';
-    },
-
-    animate: function (from, to, callback) {
-
     },
 
     // #endregion
@@ -1141,7 +795,7 @@ Dom.prototype = {
     // #region 尺寸和定位
 
     /**
-     * 获取或设置指定节点的可视区域大小。包括 border 大小。
+     * 获取指定节点的可视区域大小。包括 border 大小。
 	 * @param {Element} elem 要计算的元素。
      * @return {Point} 大小。
      * @remark
@@ -1156,40 +810,40 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">{x=200,y=100}</pre>
      */
-    size: function (/*Element*/elem) {
+    getSize: function (elem) {
         return elem.nodeType === 9 ? {
-            x: elem.documentElement.clientWidth,
-            y: elem.documentElement.clientHeight,
+            width: elem.documentElement.clientWidth,
+            height: elem.documentElement.clientHeight,
         } : {
-            x: elem.offsetWidth,
-            y: elem.offsetHeight
+            width: elem.offsetWidth,
+            height: elem.offsetHeight
         };
     },
 
-    ///**
-    // * 设置指定节点的可视区域大小。
-    // * @param {Element} elem 要设置的元素。
-    // * @param {Number/Point} x 要设置的宽或一个包含 x、y 属性的对象。如果不设置，使用 null 。
-    // * @param {Number} y 要设置的高。如果不设置，使用 null 。
-    // * @return this
-    // * @remark
-    // * 设置元素实际占用大小（包括内边距和边框，但不包括滚动区域之外的大小）。
-    // * 此方法对可见和隐藏元素均有效。
-    // * @example
-    // * 设置 id=myP 的段落的大小。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;p id="myP"&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>Dom.setSize(Dom.get("myP"), {x:200,y:100});</pre>
-    // */
-    //setSize: function (/*Element*/elem, value) {
-    //    if (value.x != null) {
-    //        elem.style.width = value.x - Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
-    //    }
-    //    if (value.y != null) {
-    //        elem.style.height = value.y - Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
-    //    }
-    //},
+    /**
+     * 设置指定节点的可视区域大小。
+     * @param {Element} elem 要设置的元素。
+     * @param {Number/Point} x 要设置的宽或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+     * @param {Number} y 要设置的高。如果不设置，使用 null 。
+     * @return this
+     * @remark
+     * 设置元素实际占用大小（包括内边距和边框，但不包括滚动区域之外的大小）。
+     * 此方法对可见和隐藏元素均有效。
+     * @example
+     * 设置 id=myP 的段落的大小。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p id="myP"&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>Dom.setSize(Dom.get("myP"), {x:200,y:100});</pre>
+     */
+    setSize: function (elem, value) {
+        if (value.width != null) {
+            elem.style.width = value.width - Dom.calcStyle(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
+        }
+        if (value.height != null) {
+            elem.style.height = value.height - Dom.calcStyle(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
+        }
+    },
 
     /**
      * 获取指定节点的滚动区域大小。
@@ -1199,36 +853,36 @@ Dom.prototype = {
      * getScrollSize 获取的值总是大于或的关于 getSize 的值。
      * 此方法对可见和隐藏元素均有效。
      */
-    scrollSize: function (/*Element*/elem) {
+    getScrollSize: function (elem) {
         return elem.nodeType === 9 ? {
-            x: Math.max(elem.documentElement.scrollWidth, elem.body.scrollWidth, elem.clientWidth),
-            y: Math.max(elem.documentElement.scrollHeight, elem.body.scrollHeight, elem.clientHeight)
+            width: Math.max(elem.documentElement.scrollWidth, elem.body.scrollWidth, elem.clientWidth),
+            height: Math.max(elem.documentElement.scrollHeight, elem.body.scrollHeight, elem.clientHeight)
         } : {
-            x: elem.scrollWidth,
-            y: elem.scrollHeight
+            width: elem.scrollWidth,
+            height: elem.scrollHeight
         };
     },
 
     /**
      * 获取文档的滚动位置。
 	 * @param {Document} doc 要计算的文档。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @return {Point} 返回的对象包含两个整型属性：left 和 top。
      */
-    getDocumentScroll: function (/*Document*/doc) {
+    documentScroll: function (doc) {
         var win;
         return 'pageXOffset' in (win = doc.defaultView || doc.parentWindow) ? {
-            x: win.pageXOffset,
-            y: win.pageYOffset
+            left: win.pageXOffset,
+            top: win.pageYOffset
         } : {
-            x: doc.documentElement.scrollLeft,
-            y: doc.documentElement.scrollTop
+            left: doc.documentElement.scrollLeft,
+            top: doc.documentElement.scrollTop
         };
     },
 
     /**
-     * 获取或设置指定节点的相对位置。
+     * 获取指定节点的相对位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @return {Point} 返回的对象包含两个整型属性：left 和 top。
      * @remark
      * 此方法只对可见元素有效。
      * 
@@ -1245,87 +899,81 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 15, top: 15&lt;/p&gt;</pre>
      */
-    offset: function (/*Element*/elem) {
+    getOffset: function (elem) {
 
         // 如果设置过 left top ，这是非常轻松的事。
-        var left = Dom.styleString(elem, 'left'),
-            top = Dom.styleString(elem, 'top');
+        var left = Dom.getStyle(elem, 'left'),
+            top = Dom.getStyle(elem, 'top');
 
         // 如果未设置过。
-        if ((!left || !top || left === 'auto' || top === 'auto') && Dom.styleString(elem, "position") === 'absolute') {
+        if ((!left || !top || left === 'auto' || top === 'auto') && Dom.getStyle(elem, "position") === 'absolute') {
 
             // 绝对定位需要返回绝对位置。
             top = Dom.offsetParent(elem);
             left = Dom.getPosition(elem);
             if (!/^(?:BODY|HTML|#document)$/i.test(top.nodeName)) {
                 var t = Dom.getPosition(top);
-                left.x -= t.x;
-                lefy.y -= t.y;
+                left.left -= t.left;
+                lefy.top -= t.top;
             }
-            left.x -= Dom.styleNumber(elem, 'marginLeft') + Dom.styleNumber(top, 'borderLeftWidth');
-            left.y -= Dom.styleNumber(elem, 'marginTop') + Dom.styleNumber(top, 'borderTopWidth');
+            left.left -= Dom.getStyleNumber(elem, 'marginLeft') + Dom.getStyleNumber(top, 'borderLeftWidth');
+            left.top -= Dom.getStyleNumber(elem, 'marginTop') + Dom.getStyleNumber(top, 'borderTopWidth');
 
             return left;
         }
 
         // 碰到 auto ， 空 变为 0 。
         return {
-            x: parseFloat(left) || 0,
-            y: parseFloat(top) || 0
+            left: parseFloat(left) || 0,
+            top: parseFloat(top) || 0
         };
 
     },
 
-    ///**
-    // * 设置指定节点相对父元素的偏移。
-    // * @param {Element} elem 要设置的元素。
-    // * @param {Point} value 要设置的 x, y 对象。
-    // * @return this
-    // * @remark
-    // * 此函数仅改变 CSS 中 left 和 top 的值。
-    // * 如果当前对象的 position 是static，则此函数无效。
-    // * 可以通过 {@link #setPosition} 强制修改 position, 或先调用 {@link Dom.movable} 来更改 position 。
-    // *
-    // * @example
-    // * 设置第一段的偏移。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
-    // * #####JavaScript:
-    // * <pre>
-    // * Dom.query("p:first").setOffset({ x: 10, y: 30 });
-    // * </pre>
-    // * #####结果:
-    // * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 15, top: 15&lt;/p&gt;</pre>
-    // */
-    //setOffset: function (/*Element*/elem, value) {
-
-    //    //#assert(value, "Dom#setOffset(value): {value} 必须有 'x' 和 'y' 属性。", value);
-
-    //    elem = elem.style;
-
-    //    if (value.y != null) {
-    //        elem.top = value.y + 'px';
-    //    }
-
-    //    if (value.x != null) {
-    //        elem.left = value.x + 'px';
-    //    }
-
-    //},
-
-    ///**
-    // * 获取用于让指定节点定位的父对象。
-    // * @param {Element} elem 要设置的元素。
-    // * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
-    // */
-    //offsetParent: function (/*Element*/elem) {
-    //    var p = elem;
-    //    while ((p = p.offsetParent) && !/^(?:BODY|HTML|#document)$/i.test(p.nodeName) && Dom.styleString(p, "position") === "static");
-    //    return p || Dom.getDocument(elem).body;
-    //},
+    /**
+     * 设置指定节点相对父元素的偏移。
+     * @param {Element} elem 要设置的元素。
+     * @param {Point} value 要设置的 x, y 对象。
+     * @return this
+     * @remark
+     * 此函数仅改变 CSS 中 left 和 top 的值。
+     * 如果当前对象的 position 是static，则此函数无效。
+     * 可以通过 {@link #setPosition} 强制修改 position, 或先调用 {@link Dom.movable} 来更改 position 。
+     *
+     * @example
+     * 设置第一段的偏移。
+     * #####HTML:
+     * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;</pre>
+     * #####JavaScript:
+     * <pre>
+     * Dom.query("p:first").setOffset({ x: 10, y: 30 });
+     * </pre>
+     * #####结果:
+     * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 15, top: 15&lt;/p&gt;</pre>
+     */
+    setOffset: function (elem, value) {
+        elem = elem.style;
+        if (value.top != null) {
+            elem.top = value.top + 'px';
+        }
+        if (value.left != null) {
+            elem.left = value.left + 'px';
+        }
+    },
 
     /**
-     * 获取或设置指定节点的绝对位置。
+     * 获取用于让指定节点定位的父对象。
+     * @param {Element} elem 要设置的元素。
+     * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+     */
+    offsetParent: function (elem) {
+        var p = elem;
+        while ((p = p.offsetParent) && !/^(?:BODY|HTML|#document)$/i.test(p.nodeName) && Dom.getStyle(p, "position") === "static");
+        return p || Dom.getDocument(elem).body;
+    },
+
+    /**
+     * 获取指定节点的绝对位置。
 	 * @param {Element} elem 要计算的元素。
      * @return {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
@@ -1343,59 +991,85 @@ Dom.prototype = {
      * #####结果:
      * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;left: 0, top: 35&lt;/p&gt;</pre>
      */
-    position: function (/*Element*/elem) {
+    getPosition: function (elem) {
 
         // 对于 document，返回 scroll 。
         if (elem.nodeType === 9) {
             return Dom.getDocumentScroll(elem);
         }
 
-        var bound = elem.getBoundingClientRect !== undefined ? elem.getBoundingClientRect() : { x: 0, y: 0 },
+        var bound = elem.getBoundingClientRect !== undefined ? elem.getBoundingClientRect() : { left: 0, top: 0 },
             doc = Dom.getDocument(elem),
             html = doc.documentElement,
             htmlScroll = Dom.getDocumentScroll(doc);
         return {
-            x: bound.left + htmlScroll.x - html.clientLeft,
-            y: bound.top + htmlScroll.y - html.clientTop
+            left: bound.left + htmlScroll.left - html.clientLeft,
+            top: bound.top + htmlScroll.top - html.clientTop
         };
     },
 
-    ///**
-    // * 设置指定节点的绝对位置。
-    // * @param {Element} elem 要设置的元素。
-    // * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
-    // * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-    // * @return this
-    // * @remark
-    // * 如果对象原先的position样式属性是static的话，会被改成relative来实现重定位。
-    // * @example
-    // * 设置第二段的位置。
-    // * #####HTML:
-    // * <pre lang="htm" format="none">
-    // * &lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;
-    // * </pre>
-    // * #####JavaScript:
-    // * <pre>
-    // * Dom.query("p:last").setPosition({ x: 10, y: 30 });
-    // * </pre>
-    // */
-    //setPosition: function (/*Element*/elem, value) {
+    /**
+     * 设置指定节点的绝对位置。
+     * @param {Element} elem 要设置的元素。
+     * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+     * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
+     * @return this
+     * @remark
+     * 如果对象原先的position样式属性是static的话，会被改成relative来实现重定位。
+     * @example
+     * 设置第二段的位置。
+     * #####HTML:
+     * <pre lang="htm" format="none">
+     * &lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;2nd Paragraph&lt;/p&gt;
+     * </pre>
+     * #####JavaScript:
+     * <pre>
+     * Dom.query("p:last").setPosition({ x: 10, y: 30 });
+     * </pre>
+     */
+    setPosition: function (elem, value) {
 
-    //    // 确保对象可移动。
-    //    Dom.movable(elem);
+        // 确保对象可移动。
+        Dom.movable(elem);
 
-    //    var currentPosition = Dom.getPosition(elem),
-    //        offset = Dom.getOffset(elem);
+        var currentPosition = Dom.getPosition(elem),
+            offset = Dom.getOffset(elem);
 
-    //    offset.x = value.x == null ? null : offset.x + value.x - currentPosition.x;
-    //    offset.y = value.y == null ? null : offset.y + value.y - currentPosition.y;
+        offset.left = value.left == null ? null : offset.left + value.left - currentPosition.left;
+        offset.top = value.top == null ? null : offset.top + value.top - currentPosition.top;
 
-    //    Dom.setOffset(elem, offset);
+        Dom.setOffset(elem, offset);
 
-    //},
+    },
 
     /**
-     * 获取或设置指定节点的滚动条的位置。
+     * 设置一个元素可移动。
+     * @param {Element} elem 要处理的元素。
+     * @static
+     */
+    movable: function (elem) {
+        if (!/^(?:abs|fix)/.test(Dom.getStyle(elem, "position")))
+            elem.style.position = "relative";
+    },
+
+    /**
+     * 获取文档的滚动位置。
+	 * @param {Document} doc 要计算的文档。
+     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     */
+    getDocumentScroll: function (doc) {
+        var win;
+        return 'pageXOffset' in (win = doc.defaultView || doc.parentWindow) ? {
+            left: win.pageXOffset,
+            top: win.pageYOffset
+        } : {
+            left: doc.documentElement.scrollLeft,
+            top: doc.documentElement.scrollTop
+        };
+    },
+
+    /**
+     * 获取指定节点的滚动条的位置。
 	 * @param {Element} elem 要计算的元素。
      * @return {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
@@ -1415,36 +1089,64 @@ Dom.prototype = {
      * &lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;scrollTop: 0&lt;/p&gt;
      * </pre>
      */
-    scroll: function (/*Element*/elem) {
+    getScroll: function (elem) {
         return elem.nodeType === 9 ? Dom.getDocumentScroll(elem) : {
-            x: elem.scrollLeft,
-            y: elem.scrollTop
+            left: elem.scrollLeft,
+            top: elem.scrollTop
         };
     },
 
-    ///**
-    // * 设置指定节点的滚动条位置。
-    // * @param {Element} elem 要设置的元素。
-    // * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
-    // * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-    // * @return this
-    // */
-    //setScroll: function (/*Element*/elem, value) {
-    //    if (elem.nodeType === 9) {
-    //        (elem.defaultView || elem.parentWindow).scrollTo(
-    //            value.x != null ? value.x : Dom.getDocumentScroll(elem).x,
-    //            value.y != null ? value.y : Dom.getDocumentScroll(elem).y
-    //        );
-    //    } else {
-    //        if (value.x != null) {
-    //            elem.scrollLeft = value.x;
-    //        }
-    //        if (value.y != null) {
-    //            elem.scrollTop = value.y;
-    //        }
-    //    }
-    //}
+    /**
+     * 设置指定节点的滚动条位置。
+     * @param {Element} elem 要设置的元素。
+     * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
+     * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
+     * @return this
+     */
+    setScroll: function (elem, value) {
+        if (elem.nodeType === 9) {
+            (elem.defaultView || elem.parentWindow).scrollTo(
+                value.left != null ? value.left : Dom.getDocumentScroll(elem).left,
+                value.top != null ? value.top : Dom.getDocumentScroll(elem).top
+            );
+        } else {
+            if (value.left != null) {
+                elem.scrollLeft = value.left;
+            }
+            if (value.top != null) {
+                elem.scrollTop = value.top;
+            }
+        }
+    }
 
     // #endregion
 
 };
+
+/**
+ * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
+ * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
+ * @return {Dom} 返回匹配的节点列表。
+ */
+var $ = $ || (function() {
+    function $(selector) {
+        if (selector) {
+            if (selector.constructor === String) {
+                return new addAll(/^</.test(selector) ? Dom.parse(selector).parentNode.childNodes : Dom.query(selector));
+            }
+            if (selector instanceof Function) {
+                return Dom.ready(selector);
+            }
+        }
+        return new addAll([selector]);
+    }
+
+    function addAll(domList) {
+        domList && Dom.each(domList, function (elem) {
+            this[this.length++] = elem;
+        }, this);
+    }
+
+    $.prototype = addAll.prototype = [];
+    return $;
+})();

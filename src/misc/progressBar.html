@@ -10,11 +10,14 @@
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/misc/progressBar.css" />
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/composite/progressbar.js"></script>
+
+    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
+    <script type="text/javascript" src="../../src/utility/common.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
+    <script type="text/javascript" src="../../src/misc/progressBar.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -56,5 +59,28 @@
             <div class="x-progressbar-fore" style="width: 60%;"></div>
         </div>
     </aside>
+    
+    <h2>API</h2>
+
+    <div class="x-progressbar" data-role="progressBar">
+        <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+    </div>
+
+    <h5>获取进度值</h5>
+    <pre>$('[data-role=progressBar]').role().getValue()</pre>
+
+    <h5>设置进度值</h5>
+    <pre>$('[data-role=progressBar]').role().setValue(0.5)</pre>
+
+    <h5>慢慢变化</h5>
+    <script type="code/javascript" class="doc-demo">
+        var i = 0; 
+        var timer = setInterval(function(){ 
+            $('[data-role=progressBar]').role().setValue( i += 0.01 );
+            if(i >= 1) {
+                clearInterval(timer);
+            }
+        }, 300);
+    </script>
 </body>
 </html>

@@ -2,20 +2,24 @@
  * @author xuld
  */
 
-//#include ui/composite/progressbar.css
-//#include ui/core/base.js
+//#require ../control/base.js
 
 var ProgressBar = Control.extend({
 
 	role: 'progressBar',
 
-    setValue: function (value) {
-        Dom.find('.x-progressbar-fore', this.elem).style.width = (value * 100) + '%';
+	setValue: function (value) {
+	    var fore = Dom.find('.x-progressbar-fore', this.elem);
+	    value = (value * 100).toFixed(0) + '%';
+	    fore.style.width = value;
+	    if (Dom.getText(fore)) {
+	        Dom.setText(fore, value);
+	    }
         return this;
     },
 
     getValue: function () {
-        return parseInt(Dom.find('.x-progressbar-fore', this.elem).style.width) / 100;
+        return parseFloat(Dom.find('.x-progressbar-fore', this.elem).style.width) / 100;
     }
 
 });

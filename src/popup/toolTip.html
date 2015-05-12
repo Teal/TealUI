@@ -12,17 +12,14 @@
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/arrow.css" />
     <link rel="stylesheet" type="text/css" href="../../src/popup/toolTip.css" />
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
-    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/itooltip.js"></script>
-    <script type="text/javascript" src="../../src/core/contentcontrol.js"></script>
+
+    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
+    <script type="text/javascript" src="../../src/utility/common.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
     <script type="text/javascript" src="../../src/popup/toolTip.js"></script>
 </head>
 <body>
@@ -39,13 +36,14 @@
     <aside class="doc-demo">
         <button id="target1">鼠标移到我上面，然后稍等</button>
         <span class="x-tooltip">我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-options="target: #target1"><i class="x-arrow x-arrow-top"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-options="target: #target1"><i class="x-arrow x-arrow-left"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-options="target: #target1"><i class="x-arrow x-arrow-bottom"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-options="target: #target1"><i class="x-arrow x-arrow-right"></i>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-top"></i>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-left"></i>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-bottom"></i>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-right"></i>我是提示文案</span>
     </aside>
 
     <h2>常用 API</h2>
+    
     <h5>手动显示工具提示</h5>
     <pre>$('.x-tooltip').toolTip().show();</pre>
 
