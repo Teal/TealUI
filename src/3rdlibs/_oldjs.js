@@ -3697,3 +3697,38 @@ if (!document.contains) {
 }
 
 // #endif
+
+///**
+// * 设置指定元素特效执行完之后的回调。
+// * @param {Element} elem 要设置的节点。
+// * @param {Function} callback 要设置的回调。
+// * @param {Number} duration=0.3 指定特效的执行时间。
+// */
+//transitionEnd: function (elem, callback, duration) {
+
+//    var timer;
+
+//    function proxy(e) {
+
+//        // 删除二次回调。
+//        if (timer) {
+//            clearTimeout(timer);
+
+//            elem.removeEventListener('webkitTransitionEnd', proxy, false);
+//            elem.removeEventListener('transitionend', proxy, false);
+//            elem.removeEventListener('oTransitionEnd', proxy, false);
+//            elem.removeEventListener('otransitionend', proxy, false);
+
+//            return callback.call(elem, e);
+//        }
+
+//    }
+
+//    elem.addEventListener('webkitTransitionEnd', proxy, false);
+//    elem.addEventListener('transitionend', proxy, false);
+//    elem.addEventListener('oTransitionEnd', proxy, false);
+//    elem.addEventListener('otransitionend', proxy, false);
+
+//    timer = setTimeout(callback, duration || 0.3);
+
+//}

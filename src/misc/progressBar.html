@@ -59,12 +59,13 @@
             <div class="x-progressbar-fore" style="width: 60%;"></div>
         </div>
     </aside>
-    
-    <h2>API</h2>
 
-    <div class="x-progressbar" data-role="progressBar">
-        <div class="x-progressbar-fore" style="width: 60%;">60%</div>
-    </div>
+    <h2>API</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar" data-role="progressBar" data-value="0.2">
+            <div class="x-progressbar-fore">-%</div>
+        </div>
+    </aside>
 
     <h5>获取进度值</h5>
     <pre>$('[data-role=progressBar]').role().getValue()</pre>
@@ -74,13 +75,26 @@
 
     <h5>慢慢变化</h5>
     <script type="code/javascript" class="doc-demo">
-        var i = 0; 
-        var timer = setInterval(function(){ 
+        var i = 0;
+        var timer = setInterval(function(){
             $('[data-role=progressBar]').role().setValue( i += 0.01 );
             if(i >= 1) {
                 clearInterval(timer);
             }
         }, 300);
+    </script>
+    
+    <h5>根据进度自动变化颜色</h5>
+    <script type="code/javascript" class="doc-demo">
+        $('[data-role=progressBar]').role().on('change', function(){
+            Dom.removeClass(this.elem, 'x-progressbar-error');
+            Dom.removeClass(this.elem, 'x-progressbar-success');
+            if(this.getValue() <= 0.2){
+                Dom.addClass(this.elem, 'x-progressbar-error');
+            } else if(this.getValue() >= 0.8){
+                Dom.addClass(this.elem, 'x-progressbar-success');
+            }
+        }).trigger('change');
     </script>
 </body>
 </html>

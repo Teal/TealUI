@@ -8,18 +8,19 @@
     width: 100%;
     background-color: @hover-background-color;
     box-shadow: inset 0 0 4px rgba(0,0,0,.1);
-}
-
-.x-progressbar-fore {
-    width: 0;
     height: @font-size;
     font-size: @small-font-size;
     line-height: @font-size;
     text-align: center;
+}
+
+.x-progressbar-fore {
+    width: 100%;
+    height: 100%;
     color: @selected-text-color;
     background-color: @selected-background-color;
     .box-sizing(border-box);
-    .transition(~"width .3s ease, color .3s ease");
+    .transition(~"width .3s linear, background-color .3s ease");
     overflow: hidden;
 }
 

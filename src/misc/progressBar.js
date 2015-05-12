@@ -9,13 +9,13 @@ var ProgressBar = Control.extend({
 	role: 'progressBar',
 
 	setValue: function (value) {
+	    value = (value < 0 ? 0 : value > 1 ? 100 : (value * 100).toFixed(0)) + '%';
 	    var fore = Dom.find('.x-progressbar-fore', this.elem);
-	    value = (value * 100).toFixed(0) + '%';
 	    fore.style.width = value;
 	    if (Dom.getText(fore)) {
 	        Dom.setText(fore, value);
 	    }
-        return this;
+        return this.trigger('change');
     },
 
     getValue: function () {

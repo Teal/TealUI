@@ -191,3 +191,8 @@ $.prototype.role = function (roleName) {
     }
     return result;
 };
+
+// 支持 Zepto
+if ($.fn) {
+    $.fn.role = $.prototype.role;
+}

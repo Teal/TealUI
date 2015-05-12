@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/container/panel.css" />
 
-    <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="../../src/utility/base.js"></script>
+    <script type="text/javascript" src="../../src/3rdlibs/zepto.js"></script>
+    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
+    <script type="text/javascript" src="../../src/utility/common.js"></script>
     <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
+
     <script type="text/javascript" src="../../src/container/panel.js"></script>
 </head>
 <body>
@@ -193,9 +196,8 @@
     </aside>
     
     <h5>手动切换折叠</h5>
-
     <pre>
-        $('[data-role=panel]').panel().toggleCollapse();
+        $('[data-role=panel]').role().toggleCollapse();
     </pre>
 </body>
 </html>

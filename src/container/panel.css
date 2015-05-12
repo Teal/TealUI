@@ -73,15 +73,19 @@
   content: "\25be";
   font-family: 'IcoMoon';
   float: left;
-  line-height: 24px;
   margin-right: .3em;
-  -moz-transition: transform .3s, height .3s, padding .3s;
-  -o-transition: transform .3s, height .3s, padding .3s;
-  -webkit-transition: transform .3s, height .3s, padding .3s;
-  transition: transform .3s, height .3s, padding .3s;
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -o-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+  -moz-transition: -moz-transform 0.3s;
+  -o-transition: -o-transform 0.3s;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform .3s;
 }
 .x-panel-collapsed .x-panel-header {
-  border-bottom: 0;
+  border-bottom-width: 0;
 }
 .x-panel-collapsed .x-panel-header:before {
   -moz-transform: rotate(-90deg);
@@ -94,4 +98,13 @@
   height: 0;
   padding-top: 0;
   padding-bottom: 0;
+}
+.x-panel-fx .x-panel-header {
+  border-bottom-width: 1px;
+}
+.x-panel-fx .x-panel-body {
+  -moz-transition: height .3s, padding .3s;
+  -o-transition: height .3s, padding .3s;
+  -webkit-transition: height .3s, padding .3s;
+  transition: height .3s, padding .3s;
 }
