@@ -376,6 +376,17 @@ var Dom = {
         return node.children;
     },
 
+    /**
+     * 获取当前节点在父节点的索引。
+     */
+    getIndex: function (node) {
+        var i = 0;
+        while (node = Dom.getPrev(node)) {
+            i++;
+        }
+        return i;
+    },
+
     // #endregion
 
     // #region 增删操作
@@ -1280,10 +1291,10 @@ var Dom = {
  * @return {Dom} 返回匹配的节点列表。
  */
 var $ = $ || (function() {
-    function $(selector) {
+    function $(selector, context) {
         if (selector) {
             if (selector.constructor === String) {
-                return new addAll(/^</.test(selector) ? Dom.parse(selector).parentNode.childNodes : Dom.query(selector));
+                return new addAll(/^</.test(selector) ? Dom.parse(selector, context).parentNode.childNodes : Dom.query(selector, context));
             }
             if (selector instanceof Function) {
                 return Dom.ready(selector);

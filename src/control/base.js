@@ -21,7 +21,7 @@ var Control = Base.extend({
      * 当前控件的角色。
 	 * @type {String}
      */
-    role: null,
+    role: 'control',
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
@@ -105,6 +105,10 @@ var Control = Base.extend({
             this[optionName](delayedOptions[optionName]);
         }
 
+    },
+
+    toString: function() {
+        return this.role;
     }
 
 });

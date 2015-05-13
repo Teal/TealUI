@@ -1,9 +1,13 @@
 /**
  * @author xuld
+ * @fileOverview 序業訳。
  */
 
 //#require ../control/base.js
 
+/**
+ * 序業訳。
+ */
 var ProgressBar = Control.extend({
 
 	role: 'progressBar',

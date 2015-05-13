@@ -7,3 +7,10 @@
 .x-accordion .x-panel + .x-panel {
   border-top: 0;
 }
+.x-accordion.x-radius .x-panel:first-child {
+  border-radius: 4px 4px 0 0;
+}
+.x-accordion.x-radius .x-panel:last-child,
+.x-accordion.x-radius .x-panel-collapsed:last-child .x-panel-header {
+  border-radius: 0 0 4px 4px;
+}
