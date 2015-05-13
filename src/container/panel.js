@@ -15,36 +15,31 @@ var Panel = Control.extend({
     },
 
     toggleCollapse: function (value) {
+
         value = value === undefined ? Dom.hasClass(this.elem, 'x-panel-collapsed') : !value;
         var body = Dom.find('.x-panel-body', this.elem);
 
         if (value) {
 
             // 切换折叠效果。
-            Dom.removeClass(this.elem, 'x-panel-collapsed');
             Dom.addClass(this.elem, 'x-panel-expanded');
+            Dom.removeClass(this.elem, 'x-panel-collapsed');
 
-            Dom.animate(body, {
-                height: 0,
-                paddingTop: 0,
-                paddingBottom: 0
-            }, {
-                height: 'auto',
-                paddingTop: 'auto',
-                paddingBottom: 'auto'
-            }, 4000);
+            Dom.slideDown(body);
 
-        } else {
-            Dom.addClass(this.elem, 'x-panel-collapsed');
-            Dom.removeClass(this.elem, 'x-panel-expanded');
+        } else if (!Dom.hasClass(this.elem, 'x-panel-collapsing')) {
 
-            //Dom.hide(Dom.find('.x-panel-body', this.elem));
+            Dom.addClass(this.elem, 'x-panel-collapsing');
+            
+            Dom.slideUp(body, null, null, function() {
+                Dom.addClass(this.elem, 'x-panel-collapsed');
+                Dom.removeClass(this.elem, 'x-panel-collapsing');
+                Dom.removeClass(this.elem, 'x-panel-expanded');
+            }.bind(this));
 
-            //this.dom.addClass('x-panel-collapsing');
-            //this.dom.find('.x-panel-body').hide('top', function () {
-            //    this.dom.removeClass('x-panel-collapsing').addClass('x-panel-collapsed').removeClass('x-panel-expanded');
-            //}.bind(this));
         }
+
+        return this;
     }
 
 });

@@ -87,24 +87,16 @@
 .x-panel-collapsed .x-panel-header {
   border-bottom-width: 0;
 }
+.x-panel-collapsed .x-panel-body {
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.x-panel-collapsing .x-panel-header:before,
 .x-panel-collapsed .x-panel-header:before {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
-}
-.x-panel-collapsed .x-panel-body {
-  height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.x-panel-fx .x-panel-header {
-  border-bottom-width: 1px;
-}
-.x-panel-fx .x-panel-body {
-  -moz-transition: height .3s, padding .3s;
-  -o-transition: height .3s, padding .3s;
-  -webkit-transition: height .3s, padding .3s;
-  transition: height .3s, padding .3s;
 }
