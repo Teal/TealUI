@@ -397,6 +397,7 @@
 body.doc, body.doc-section {
     margin: 7px 14px;
     overflow-y: scroll; /* 防止页面之间跳转由于滚动条变化所导致的抖动 */
+    background-color: #fff;
 }
 
 /* 容器 */

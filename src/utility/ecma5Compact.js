@@ -156,18 +156,19 @@ if (!Date.now) {
         return;
     }
 
-    var extend = Object.extend;
-    extend.enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
-    Object.extend = function (dest, src) {
-        if (src) {
+    Object._enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
+    Object.assign = function (target, source) {
+        if (source) {
             //#assert dest != null
-            for (var i = extend.enumerables.length, value; i--;)
-                if (Object.prototype.hasOwnProperty.call(src, value = extend.enumerables[i]))
-                    dest[value] = src[value];
-            extend(dest, src);
+            for (var i = Object._enumerables.length, value; i--;)
+                if (Object.prototype.hasOwnProperty.call(source, value = Object._enumerables[i]))
+                    target[value] = source[value];
+            for (var key in source) {
+                target[value] = source[value];
+            }
         }
 
-        return dest;
+        return target;
     };
 
 })();

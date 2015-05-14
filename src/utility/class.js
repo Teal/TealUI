@@ -2,9 +2,6 @@
  * @fileOverview 实现类、类继承以及类事件。
  */
 
-// 对于不支持 __proto__ 的浏览器，依赖 Object.extend
-//#include ../utility/base.js
-
 /**
  * 所有自定义类的基类。
  * @class
@@ -52,18 +49,24 @@ Base.extend = function (members) {
     var subClass = members.constructor;
 
     // 设置派生类的原型。
+    subClass.prototype = members;
     subClass.__proto__ = this;
     members.__proto__ = this.prototype;
-    subClass.prototype = members;
 
     // #if CompactMode
 
     // IE6-9: 不支持 __proto__
     if (!('__proto__' in Object.prototype)) {
-        Object.extend(subClass, this);
-        var delegateClass = function() { };
+        var key, delegateClass = function() {
+            for (key in members) {
+                this[key] = members[key];
+            }
+        };
+        for (key in this) {
+            subClass[key] = this[key];
+        }
         delegateClass.prototype = this.prototype;
-        subClass.prototype = Object.extend(new delegateClass, members);
+        subClass.prototype = new delegateClass;
         subClass.prototype.constructor = subClass;
     }
 
@@ -74,6 +77,38 @@ Base.extend = function (members) {
 };
 
 //#region 事件支持
+
+/**
+ * 手动触发一个监听器。
+ * @param {String} eventName 要触发的事件名。
+ * @param {Object} eventArgs 传递给监听器的事件对象。
+ * @return 如果事件被阻止则返回 false，否则返回 true。
+ * @example <pre>
+ *
+ * // 创建一个实例。
+ * var a = new Base();
+ *
+ * // 绑定一个 click 事件。
+ * a.on('click', function (e) {
+ * 		return true;
+ * });
+ *
+ * // 手动触发 click， 即执行  on('click') 过的函数。
+ * a.trigger('click');
+ * </pre>
+ */
+Base.prototype.trigger = function (eventName, eventArgs) {
+    var eventListeners = this.__events__;
+    if (eventListeners && (eventListeners = eventListeners[eventName])) {
+        eventListeners = eventListeners.slice(0);
+        for (var eventListener, i = 0; eventListener = eventListeners[i]; i++) {
+            if (eventListener.call(this, eventArgs) === false) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
 
 /**
  * 添加一个事件监听器。
@@ -110,42 +145,6 @@ Base.prototype.on = function (eventName, eventListener) {
     }
 
     return me;
-};
-
-/**
- * 手动触发一个监听器。
- * @param {String} eventName 要触发的事件名。
- * @param {Object} eventArgs 传递给监听器的事件对象。
- * @return 如果事件被阻止则返回 false，否则返回 true。
- * @example <pre>
- *
- * // 创建一个实例。
- * var a = new Base();
- *
- * // 绑定一个 click 事件。
- * a.on('click', function (e) {
- * 		return true;
- * });
- *
- * // 手动触发 click， 即执行  on('click') 过的函数。
- * a.trigger('click');
- * </pre>
- */
-Base.prototype.trigger = function (eventName, eventArgs) {
-
-    // 检索所有绑定的事件监听器。
-    var eventListeners = this.__events__;
-    if (eventListeners && (eventListeners = eventListeners[eventName])) {
-        eventListeners = eventListeners.slice(0);
-        for (var eventListener, i = 0; eventListener = eventListeners[i]; i++) {
-            if (eventListener.call(this, eventArgs) === false) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-
 };
 
 /**
@@ -199,7 +198,8 @@ Base.prototype.off = function (eventName, eventListener) {
             // 如果删除特定的处理函数。
             // 搜索特定的处理函数。
             if (eventListener) {
-                eventListeners.remove(eventListener);
+                var index = eventListeners.indexOf(eventListener);
+                index >= 0 && eventListeners.splice(eventListener, index);
                 eventListener = eventListeners.length;
             }
 

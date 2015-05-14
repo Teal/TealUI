@@ -4,19 +4,19 @@
 
 /**
  * 复制对象的所有属性到其它对象。
- * @param {Object} dest 复制的目标对象。
- * @param {Object} src 复制的源对象。
+ * @param {Object} target 复制的目标对象。
+ * @param {Object} source 复制的源对象。
  * @return {Object} 返回  *dest *。
  * @example <pre>
  * var a = {v: 3}, b = {g: 2};
- * Object.extend(a, b);
+ * Object.assign(a, b);
  * trace(a); // {v: 3, g: 2}
  * </pre>
  */
-Object.assign = Object.assign || function (dest, src) {
-    for (var key in src)
-        dest[key] = src[key];
-    return dest;
+Object.assign = Object.assign || function (target, source) {
+    for (var key in source)
+        target[key] = source[key];
+    return target;
 };
 
 /**

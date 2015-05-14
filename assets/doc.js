@@ -100,7 +100,7 @@ Doc.Configs = {
     /**
 	 * 整个项目标配使用的编码。
 	 */
-    encoding: 'utf-8',
+    encoding: 'utf-8'
 
     ///**
     // * 组件访问历史最大值。
@@ -1349,7 +1349,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 		 * 设置 DOM ready 后的回调。
 		 */
         ready: function (callback) {
-            document.addEventListener('DOMContentLoaded', callback, false);
+            document.addEventListener && document.addEventListener('DOMContentLoaded', callback, false);
         },
 
         /**
@@ -1721,7 +1721,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var docPageClass = '';
 
             // 如果地址存在 ?frame=none，则不加载文档顶部和底部。
-            if (!/[?&]frame=none/i.test(location.search)) {
+            if (!/[?&]frame=none/i.test(location.search) && +"\v1") {
 
                 docPageClass = ' doc-page';
 
@@ -1818,7 +1818,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 // 获取源码和语言。
                 var pre, content, language;
                 if (node.tagName === 'PRE') {
-                    content = node.innerHTML;
+                    content = node.textContent;
                     pre = node;
                 } else if (node.tagName === 'SCRIPT') {
                     content = node.textContent;
@@ -2140,7 +2140,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
                 Doc.Page.updateSidebar(true);
             }
-        },
+        }
 
     };
 

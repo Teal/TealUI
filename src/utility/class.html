@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>创建类支持</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="为 JavaScript 提供创建类的功能。">
 
@@ -17,13 +17,11 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <h2>创建最简单的类</h2>
-
     <pre>
         var Animal = Base.extend();
     </pre>
 
-    <h2>定义字段和方法</h2>
-
+    <h2>为类定义字段和方法</h2>
     <pre>
         // 创建一个类。
         var Animal = Base.extend({
@@ -42,7 +40,6 @@
     </pre>
 
     <h2>定义构造函数</h2>
-
     <pre>
         var Animal = Base.extend({
             constructor: function (args) {
@@ -54,7 +51,6 @@
     </pre>
 
     <h2>类的继承</h2>
-
     <pre>
         var Animal = Base.extend({
             say: function () {
@@ -78,7 +74,6 @@
     </pre>
 
     <h2>类的事件</h2>
-
     <pre>
         var Animal = Base.extend();
         var ani = new Animal();
@@ -87,6 +82,5 @@
         });
         ani.trigger('needsay', "触发needsay事件时的参数");
     </pre>
-
 </body>
 </html>
