@@ -138,7 +138,7 @@ Control.extend = function (members) {
 Control.get = function (elem, roleName) {
 
     // 默认根据 data-role 指定角色名。
-    roleName = roleName || Dom.getAttr(elem, 'data-role');
+    roleName = roleName || elem.getAttribute('data-role');
 
     var propName = '_role_' + roleName,
         instance = elem[propName];

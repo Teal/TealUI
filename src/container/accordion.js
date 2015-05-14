@@ -16,7 +16,7 @@ var Accordion = Control.extend({
 
         var triggerBySelf = false;
 
-	    Dom.each(Dom.getChildren(this.elem), function (panelElem, index) {
+	    Dom.each(Dom.getProp(this.elem, 'children'), function (panelElem, index) {
 
             // ³õÊ¼ÎªÃæ°å¡£
 	        var panel = panels[index] = Control.get(panelElem, 'panel');

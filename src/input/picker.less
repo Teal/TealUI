@@ -8,7 +8,7 @@
     .x-textbox {
         padding-right: @box-padding-x + @line-height + 2px;
 
-        &:focus + .x-button:not(.x-success):not(.x-warning):not(.x-error):hover {
+        &:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error):hover {
             border-color: rgba(82,168,236,.8);
         }
     }
@@ -28,24 +28,17 @@
             border-color: transparent;
         }
         
-        .button-state(@color) {
-            &:not(:focus):not(:hover):not(:active):not(.x-actived) {
-                color: @color;
-            }
-        }
-    
-        &.x-success {
-            .button-state(@success-text-color);
-        }
-    
-        &.x-warning {
-            .button-state(@warning-text-color);
-        }
-
-        &.x-error {
-            .button-state(@error-text-color);
-        }
-
     }
     
+    // ɫϵ
+    .x-button-state(@state){
+        .x-button-@{state}:not(:focus):not(:hover):not(:active):not(.x-actived) {
+            color: ~"@{@{state}-text-color}";
+        }
+    }
+
+    .x-button-state(success);
+    .x-button-state(warning);
+    .x-button-state(error);
+
 }

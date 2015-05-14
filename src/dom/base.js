@@ -259,132 +259,140 @@ var Dom = {
         return node.ownerDocument || node.document || node;
     },
 
-    /**
-     * 获取指定节点的父元素。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回父节点。如果不存在，则返回 null 。
-     * @example
-     * 找到每个span元素的所有祖先元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;/p&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.parent(Dom.find("span"))</pre>
-     */
-    getParent: function (node) {
-        return node.parentNode;
-    },
+    ///////**
+    ////// * 获取指定节点的父元素。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {Element} 返回父节点。如果不存在，则返回 null 。
+    ////// * @example
+    ////// * 找到每个span元素的所有祖先元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;html&gt;&lt;body&gt;&lt;div&gt;&lt;p&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;/p&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.parent(Dom.find("span"))</pre>
+    ////// */
+    //////getParent: function (node) {
+    //////    return node.parentNode;
+    //////},
 
-    /**
-     * 获取指定节点的第一个子元素。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 获取匹配的第二个元素
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.first(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
-     */
-    getFirst: function (node) {
-        return node.firstElementChild;
-    },
+    ///////**
+    ////// * 获取指定节点的第一个子元素。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+    ////// * @example
+    ////// * 获取匹配的第二个元素
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.first(Dom.find("p"))</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
+    ////// */
+    //////getFirst: function (node) {
+    //////    return node.firstElementChild;
+    //////},
 
-    /**
-     * 获取指定节点的最后一个子节点对象。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 获取匹配的第二个元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.last(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
-     */
-    getLast: function (node) {
-        return node.lastElementChild;
-    },
+    ///////**
+    ////// * 获取指定节点的最后一个子节点对象。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+    ////// * @example
+    ////// * 获取匹配的第二个元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;p&gt; This is just a test.&lt;/p&gt; &lt;p&gt; So is this&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.last(Dom.find("p"))</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;p&gt; So is this&lt;/p&gt; ]</pre>
+    ////// */
+    //////getLast: function (node) {
+    //////    return node.lastElementChild;
+    //////},
 
-    /**
-     * 获取指定节点的下一个相邻节点对象。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 找到每个段落的后面紧邻的同辈元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;Hello Again&lt;/p&gt;&lt;div&gt;&lt;span&gt;And Again&lt;/span&gt;&lt;/div&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.next(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p&gt;Hello Again&lt;/p&gt;, &lt;div&gt;&lt;span&gt;And Again&lt;/span&gt;&lt;/div&gt; ]</pre>
-     */
-    getNext: function (node) {
-        return node.nextElementSibling;
-    },
+    ///////**
+    ////// * 获取指定节点的下一个相邻节点对象。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+    ////// * @example
+    ////// * 找到每个段落的后面紧邻的同辈元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;p&gt;Hello Again&lt;/p&gt;&lt;div&gt;&lt;span&gt;And Again&lt;/span&gt;&lt;/div&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.next(Dom.find("p"))</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;p&gt;Hello Again&lt;/p&gt;, &lt;div&gt;&lt;span&gt;And Again&lt;/span&gt;&lt;/div&gt; ]</pre>
+    ////// */
+    //////getNext: function (node) {
+    //////    return node.nextElementSibling;
+    //////},
 
-    /**
-     * 获取指定节点的上一个相邻的节点对象。
-     * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
-     * @example
-     * 找到每个段落紧邻的前一个同辈元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.query("p").getPrevious()</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt; ]</pre>
-     *
-     * 找到每个段落紧邻的前一个同辈元素中类名为selected的元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;div&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;/div&gt;&lt;p class="selected"&gt;Hello Again&lt;/p&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.prev(Dom.find("p"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
-     */
-    getPrev: function (node) {
-        return node.previousElementSibling;
-    },
+    ///////**
+    ////// * 获取指定节点的上一个相邻的节点对象。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+    ////// * @example
+    ////// * 找到每个段落紧邻的前一个同辈元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.query("p").getPrevious()</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt; ]</pre>
+    ////// *
+    ////// * 找到每个段落紧邻的前一个同辈元素中类名为selected的元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;div&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;/div&gt;&lt;p class="selected"&gt;Hello Again&lt;/p&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.prev(Dom.find("p"))</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
+    ////// */
+    //////getPrev: function (node) {
+    //////    return node.previousElementSibling;
+    //////},
 
-    /**
-     * 获取指定节点的全部直接子元素。
-     * @param {Node} node 要获取的节点。
-     * @return {NodeList} 返回所有元素列表。
-     * @example
-     *
-     * 查找DIV中的每个子元素。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.query("div").getChildren()</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;span&gt;Hello Again&lt;/span&gt; ]</pre>
-     *
-     * 在每个div中查找 div。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;div&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;p class="selected"&gt;Hello Again&lt;/p&gt;&lt;p&gt;And Again&lt;/p&gt;&lt;/div&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.children(Dom.find("div"))</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
-     */
-    getChildren: function (node) {
-        return node.children;
-    },
+    ///////**
+    ////// * 获取指定节点的全部直接子元素。
+    ////// * @param {Node} node 要获取的节点。
+    ////// * @return {NodeList} 返回所有元素列表。
+    ////// * @example
+    ////// *
+    ////// * 查找DIV中的每个子元素。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;p&gt;Hello&lt;/p&gt;&lt;div&gt;&lt;span&gt;Hello Again&lt;/span&gt;&lt;/div&gt;&lt;p&gt;And Again&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.query("div").getChildren()</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;span&gt;Hello Again&lt;/span&gt; ]</pre>
+    ////// *
+    ////// * 在每个div中查找 div。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;div&gt;&lt;span&gt;Hello&lt;/span&gt;&lt;p class="selected"&gt;Hello Again&lt;/p&gt;&lt;p&gt;And Again&lt;/p&gt;&lt;/div&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.children(Dom.find("div"))</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;p class="selected"&gt;Hello Again&lt;/p&gt; ]</pre>
+    ////// */
+    //////getChildren: function (node) {
+    //////    return node.children;
+    //////},
 
     /**
      * 获取当前节点在父节点的索引。
      */
     getIndex: function (node) {
         var i = 0;
-        while (node = Dom.getPrev(node)) {
+        while (node = Dom.getProp(node, 'previousElementSibling')) {
             i++;
         }
         return i;
+    },
+
+    getProp: function (node, propName) {
+        return node[propName];
+    },
+
+    setProp: function (node, propName, value) {
+        node[propName] = value;
     },
 
     // #endregion
@@ -469,26 +477,26 @@ var Dom = {
         node.parentNode && node.parentNode.removeChild(node);
     },
 
-    /**
-     * 创建并返回指定节点的副本。
-	 * @param {Node} node 要获取的节点。
-     * @param {Boolean} deep=true 是否复制子元素。
-     * @param {Boolean} cloneDataAndEvent=false 是否复制数据和事件。
-     * @param {Boolean} keepId=false 是否复制 id 。
-     * @return {Node} 新节点对象。
-     *
-     * @example
-     * 克隆所有b元素（并选中这些克隆的副本），然后将它们前置到所有段落中。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;, how are you?&lt;/p&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.prepend(Dom.find("p"), Dom.clone(Dom.find("b"));</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;, how are you?&lt;/p&gt;</pre>
-     */
-    clone: function (node, deep) {
-        return node.cloneNode(deep !== false);
-    },
+    ///////**
+    ////// * 创建并返回指定节点的副本。
+	////// * @param {Node} node 要获取的节点。
+    ////// * @param {Boolean} deep=true 是否复制子元素。
+    ////// * @param {Boolean} cloneDataAndEvent=false 是否复制数据和事件。
+    ////// * @param {Boolean} keepId=false 是否复制 id 。
+    ////// * @return {Node} 新节点对象。
+    ////// *
+    ////// * @example
+    ////// * 克隆所有b元素（并选中这些克隆的副本），然后将它们前置到所有段落中。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;, how are you?&lt;/p&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.prepend(Dom.find("p"), Dom.clone(Dom.find("b"));</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">&lt;b&gt;Hello&lt;/b&gt;&lt;p&gt;&lt;b&gt;Hello&lt;/b&gt;, how are you?&lt;/p&gt;</pre>
+    ////// */
+    //////clone: function (node, deep) {
+    //////    return node.cloneNode(deep !== false);
+    //////},
 
     // #endregion
 
@@ -579,117 +587,117 @@ var Dom = {
         (value == undefined ? Dom.hasClass(elem, className) : !value) ? Dom.removeClass(elem, className) : Dom.addClass(elem, className);
     },
 
-    /**
-     * 获取元素的属性值。
-     * @param {Element} elem 要获取的元素。
-     * @param {String} name 要获取的属性名称。
-     * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
-     * @static
-     */
-    getAttr: function (elem, name) {
-        return name in elem ? elem[name] : elem.getAttribute(name);
-    },
+    ///////**
+    ////// * 获取元素的属性值。
+    ////// * @param {Element} elem 要获取的元素。
+    ////// * @param {String} name 要获取的属性名称。
+    ////// * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
+    ////// * @static
+    ////// */
+    //////getAttr: function (elem, name) {
+    //////    return name in elem ? elem[name] : elem.getAttribute(name);
+    //////},
 
-    /**
-     * 设置或删除一个 HTML 属性值。
-     * @param {String} name 要设置的属性名称。
-     * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-     * @return this
-     * @example
-     * 为图像设置 src 属性。
-     * #####HTML:
-     * <pre lang="htm" format="none">
-     * &lt;img/&gt;
-     * </pre>
-     * #####JavaScript:
-     * <pre>Dom.setAttr(Dom.find("img"), "src","test.jpg");</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;img src= "test.jpg" /&gt; , &lt;img src= "test.jpg" /&gt; ]</pre>
-     *
-     * 将文档中图像的src属性删除
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;img src="test.jpg"/&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.setAttr(Dom.find("img"), "src");</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
-     */
-    setAttr: function (elem, name, value) {
-        if (name in elem) {
-            elem[name] = value;
-        } else if (value === null) {
-            elem.removeAttribute(name);
-        } else {
-            elem.setAttribute(name, value);
-        }
-    },
+    ///////**
+    ////// * 设置或删除一个 HTML 属性值。
+    ////// * @param {String} name 要设置的属性名称。
+    ////// * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
+    ////// * @return this
+    ////// * @example
+    ////// * 为图像设置 src 属性。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">
+    ////// * &lt;img/&gt;
+    ////// * </pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.setAttr(Dom.find("img"), "src","test.jpg");</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;img src= "test.jpg" /&gt; , &lt;img src= "test.jpg" /&gt; ]</pre>
+    ////// *
+    ////// * 将文档中图像的src属性删除
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;img src="test.jpg"/&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.setAttr(Dom.find("img"), "src");</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">[ &lt;img /&gt; ]</pre>
+    ////// */
+    //////setAttr: function (elem, name, value) {
+    //////    if (name in elem) {
+    //////        elem[name] = value;
+    //////    } else if (value === null) {
+    //////        elem.removeAttribute(name);
+    //////    } else {
+    //////        elem.setAttribute(name, value);
+    //////    }
+    //////},
 
-    _textAttrFix: {
-        'INPUT': 'value',
-        'SELECT': 'value',
-        'TEXTAREA': 'value',
-        '#text': 'nodeValue',
-        '#comment': 'nodeValue'
-    },
+    //////_textAttrFix: {
+    //////    'INPUT': 'value',
+    //////    'SELECT': 'value',
+    //////    'TEXTAREA': 'value',
+    //////    '#text': 'nodeValue',
+    //////    '#comment': 'nodeValue'
+    //////},
 
-    /**
-     * 获取一个元素对应的文本。
-     * @param {Node} node 元素。
-     * @return {String} 值。对普通节点返回 text 属性。
-     * @static
-     */
-    getText: function (node) {
-        return node[Dom._textAttrFix[node.nodeName] || 'textContent'] || '';
-    },
+    ///////**
+    ////// * 获取一个元素对应的文本。
+    ////// * @param {Node} node 元素。
+    ////// * @return {String} 值。对普通节点返回 text 属性。
+    ////// * @static
+    ////// */
+    //////getText: function (node) {
+    //////    return node[Dom._textAttrFix[node.nodeName] || 'textContent'] || '';
+    //////},
 
-    /**
-     * 设置指定节点的文本内容。对于输入框则设置其输入的值。
-     * @param {String} 用于设置元素内容的文本。
-     * @return this
-     * @see #setHtml
-     * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
-     * @example
-     * 设定文本框的值。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;input type="text"/&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.setText(Dom.find("input"),"hello world!");</pre>
-     */
-    setText: function (node, value) {
-        node[Dom._textAttrFix[node.nodeName] || 'textContent'] = value;
-    },
+    ///////**
+    ////// * 设置指定节点的文本内容。对于输入框则设置其输入的值。
+    ////// * @param {String} 用于设置元素内容的文本。
+    ////// * @return this
+    ////// * @see #setHtml
+    ////// * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
+    ////// * @example
+    ////// * 设定文本框的值。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;input type="text"/&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.setText(Dom.find("input"),"hello world!");</pre>
+    ////// */
+    //////setText: function (node, value) {
+    //////    node[Dom._textAttrFix[node.nodeName] || 'textContent'] = value;
+    //////},
 
-    /**
-     * 获取指定节点的 Html。
-     * @return {String} HTML 字符串。
-     * @example
-     * 获取 id="a" 的节点的内部 html。
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.getHtml(document.body);</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">"&lt;p/&gt;"</pre>
-     */
-    getHtml: function (elem) {
-        return elem.innerHTML;
-    },
+    ///////**
+    ////// * 获取指定节点的 Html。
+    ////// * @return {String} HTML 字符串。
+    ////// * @example
+    ////// * 获取 id="a" 的节点的内部 html。
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.getHtml(document.body);</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">"&lt;p/&gt;"</pre>
+    ////// */
+    //////getHtml: function (elem) {
+    //////    return elem.innerHTML;
+    //////},
 
-    /**
-     * 设置指定节点的 Html。
-     * @param {String} value 要设置的 Html。
-     * @example
-     * 设置一个节点的内部 html
-     * #####HTML:
-     * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
-     * #####JavaScript:
-     * <pre>Dom.setHtml(Dom.get("a"), "&lt;a/&gt;");</pre>
-     * #####结果:
-     * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;a/&gt;&lt;/div&gt;</pre>
-     */
-    setHtml: function (elem, value) {
-        elem.innerHTML = value;
-    },
+    ///////**
+    ////// * 设置指定节点的 Html。
+    ////// * @param {String} value 要设置的 Html。
+    ////// * @example
+    ////// * 设置一个节点的内部 html
+    ////// * #####HTML:
+    ////// * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;p/&gt;&lt;/div&gt;</pre>
+    ////// * #####JavaScript:
+    ////// * <pre>Dom.setHtml(Dom.getgetHtml("a"), "&lt;a/&gt;");</pre>
+    ////// * #####结果:
+    ////// * <pre lang="htm" format="none">&lt;div id="a"&gt;&lt;a/&gt;&lt;/div&gt;</pre>
+    ////// */
+    //////setHtml: function (elem, value) {
+    //////    elem.innerHTML = value;
+    //////},
 
     /**
      * 读取指定节点的当前样式，返回数值。
@@ -724,18 +732,18 @@ var Dom = {
         return elem.style[cssPropertyName] || elem.ownerDocument.defaultView.getComputedStyle(elem, '')[cssPropertyName];
     },
 
-    /**
-     * 设置指定节点的样式。
-     * @param {Element} elem 要设置的元素。
-     * @param {String} cssPropertyName CSS 属性名或 CSS 字符串。
-     * @param {String/Number} value CSS属性值，数字如果不加单位，则会自动添加像素单位。
-     * @example
-     * 将所有段落的字体颜色设为红色并且背景为蓝色。
-     * <pre>Dom.query("p").setStyle('color', "#ff0011");</pre>
-     */
-    setStyle: function (elem, cssPropertyName, value) {
-        elem.style[cssPropertyName] = value;
-    },
+    ///////**
+    ////// * 设置指定节点的样式。
+    ////// * @param {Element} elem 要设置的元素。
+    ////// * @param {String} cssPropertyName CSS 属性名或 CSS 字符串。
+    ////// * @param {String/Number} value CSS属性值，数字如果不加单位，则会自动添加像素单位。
+    ////// * @example
+    ////// * 将所有段落的字体颜色设为红色并且背景为蓝色。
+    ////// * <pre>Dom.query("p").setStyle('color', "#ff0011");</pre>
+    ////// */
+    //////setStyle: function (elem, cssPropertyName, value) {
+    //////    elem.style[cssPropertyName] = value;
+    //////},
 
     /**
      * 判断当前元素是否是隐藏的。
@@ -879,7 +887,7 @@ var Dom = {
 	 * @param {Document} doc 要计算的文档。
      * @return {Point} 返回的对象包含两个整型属性：left 和 top。
      */
-    documentScroll: function (doc) {
+    getDocumentScroll: function (doc) {
         var win;
         return 'pageXOffset' in (win = doc.defaultView || doc.parentWindow) ? {
             left: win.pageXOffset,
@@ -1129,157 +1137,6 @@ var Dom = {
             }
         }
     },
-
-    // #endregion
-
-    // #region 特效
-
-    /**
-     * 基于 CSS 3 实现动画效果。
-     * @param {Element} elem 要设置的节点。
-     * @param {Function} callback 要设置的回调。
-     * @param {Number} duration=300 指定特效的执行时间。
-     */
-    animate: function (elem, to, duration, ease, callback, dalay) {
-
-        if (duration instanceof Function) {
-            callback = duration;
-            ease = duration = null;
-        }
-
-        if (duration == undefined) {
-            duration = 300;
-        }
-
-        ease = ease || 'ease-in';
-        dalay = dalay || 0;
-
-        // 获取或初始化配置对象。
-        var fxOptions = Dom._fxOptions;
-        if (!fxOptions) {
-            Dom._fxOptions = fxOptions = {};
-
-            fxOptions.prefix = '';
-            var prefix = {
-                transition: '',
-                webkitTransition: 'webkit',
-                mozTransition: 'moz',
-                oTransition: 'o'
-            };
-            for (var key in prefix) {
-                if (key in elem.style) {
-                    fxOptions.prefix = prefix[key];
-                    break;
-                }
-            }
-
-            fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
-            fxOptions.transition = fxOptions.prefix ? fxOptions.prefix + 'Transition' : 'transition';
-            fxOptions.transform = fxOptions.prefix ? fxOptions.prefix + 'Transform' : 'transform';
-        }
-        
-        // 直接支持 transforms 属性。
-        for (var key in to) {
-            if (/^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i.test(key)) {
-                to.transforms = to.transforms || '';
-                to.transforms = key + '(' + to[key] + ') ' + to.transforms;
-                delete to[key];
-                key = 'transforms';
-            }
-            // 设置初始值。
-            elem.style[key] = elem.style[key] || Dom.getStyle(elem, key);
-        }
-
-        setTimeout(function () {
-
-            // 设置回调函数。
-            var timer;
-            var proxy = function (e) {
-
-                // 确保事件不是冒泡的。
-                if (e && e.target !== e.currentTarget) {
-                    return;
-                }
-
-                // 确保当前函数只执行一次。
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = 0;
-
-                    // 删除特效。
-                    elem.style[fxOptions.transition] = '';
-
-                    // 解绑事件。
-                    elem.removeEventListener(fxOptions.transitionEnd, proxy, false);
-
-                    // 执行回调。
-                    callback && callback.call(this)
-                }
-
-            };
-
-            // 生成渐变样式。
-            var transitions = [];
-            for (var key in to) {
-                transitions.push(key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ');
-            }
-
-            elem.style[fxOptions.transition] = transitions.join(',');
-            //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
-
-            elem.addEventListener(fxOptions.transitionEnd, proxy, false);
-            timer = setTimeout(proxy, duration);
-
-            // 触发页面重计算以保证效果可以触发。
-            elem.offsetWidth && elem.clientLeft;
-
-            // 设置 CSS 属性以激活样式。
-            for (var key in to) {
-                elem.style[key] = to[key];
-            }
-        }, 0)
-    },
-
-    /**
-     * 通过一定的预设特效显示元素。
-     */
-    slideUp: function (elem, duration, ease, callback, dalay) {
-        elem.style.overflow = 'hidden';
-        Dom.animate(elem, {
-            marginTop: 0,
-            borderTopWidth: 0,
-            paddingTop: 0,
-            height: 0,
-            paddingBottom: 0,
-            borderBottomWidth: 0,
-            marginBottom: 0,
-        }, duration, ease, callback, dalay);
-    },
-
-    /**
-     * 通过一定的预设特效隐藏元素。
-     */
-    slideDown: function (elem, duration, ease, callback, dalay) {
-        var properties = {
-            //marginTop: 0,
-            //borderTopWidth: 0,
-            paddingTop: 0,
-            height: 0,
-            paddingBottom: 0,
-            //borderBottomWidth: 0,
-            //marginBottom: 0
-        }, key;
-        for (key in properties) {
-            elem.style[key] = '';
-        }
-        for (key in properties) {
-            properties[key] = Dom.getStyle(elem, key);
-        }
-        for (key in properties) {
-            elem.style[key] = '0';
-        }
-        Dom.animate(elem, properties, duration, ease, callback, dalay);
-    }
 
     // #endregion
 

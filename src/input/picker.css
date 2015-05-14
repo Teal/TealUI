@@ -5,7 +5,7 @@
 .x-picker .x-textbox {
   padding-right: 34px;
 }
-.x-picker .x-textbox:focus + .x-button:not(.x-success):not(.x-warning):not(.x-error):hover {
+.x-picker .x-textbox:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error):hover {
   border-color: rgba(82, 168, 236, 0.8);
 }
 .x-picker .x-button {
@@ -21,12 +21,12 @@
   background-color: transparent;
   border-color: transparent;
 }
-.x-picker .x-button.x-success:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-success:not(:focus):not(:hover):not(:active):not(.x-actived) {
   color: #5eb95e;
 }
-.x-picker .x-button.x-warning:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-warning:not(:focus):not(:hover):not(:active):not(.x-actived) {
   color: #e9985e;
 }
-.x-picker .x-button.x-error:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-error:not(:focus):not(:hover):not(:active):not(.x-actived) {
   color: #dd514c;
 }

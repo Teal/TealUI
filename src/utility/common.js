@@ -13,7 +13,7 @@
  * trace(a); // {v: 3, g: 2}
  * </pre>
  */
-Object.extend = function (dest, src) {
+Object.assign = Object.assign || function (dest, src) {
     for (var key in src)
         dest[key] = src[key];
     return dest;
