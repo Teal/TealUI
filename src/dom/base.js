@@ -189,10 +189,6 @@ var Dom = {
      * @param {Function} eventListener 要删除的事件处理函数。
      */
     off: function (elem, eventName, eventListener) {
-        if (!eventListener) {
-            eventListener = proxyClass;
-            proxyClass = '';
-        }
         elem.removeEventListener(eventName, eventListener, false);
     },
 
@@ -771,14 +767,14 @@ var Dom = {
                 var defaultDisplayCache = Dom.defaultDisplayCache || (Dom.defaultDisplayCache = {});
                 defaultDisplay = defaultDisplayCache[elem.nodeName];
                 if (!defaultDisplay) {
-                    var elem = document.createElement(nodeName);
-                    document.body.appendChild(elem);
-                    defaultDisplay = Dom.getStyle(elem);
+                    var tmp = document.createElement(elem.nodeName);
+                    document.body.appendChild(tmp);
+                    defaultDisplay = Dom.getStyle(tmp, 'display');
                     if (defaultDisplay === 'none') {
                         defaultDisplay = 'block';
                     }
-                    defaultDisplayCache[nodeName] = defaultDisplay;
-                    document.body.removeChild(elem);
+                    defaultDisplayCache[elem.nodeName] = defaultDisplay;
+                    document.body.removeChild(tmp);
                 }
             }
             elem.style.display = defaultDisplay;

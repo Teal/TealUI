@@ -19,10 +19,59 @@ var Picker = Control.extend({
     
     role: 'picker',
 
-    init: function() {
-        
-    }
+    dropDownWidth: '100%',
 
+    init: function () {
+        var dropDown = Dom.getProp(this.elem, 'nextElementSibling');
+        this.dropDown = dropDown = dropDown && Dom.hasClass(dropDown, 'x-dropdown') && Control.get(dropDown, 'dropDown');
+        dropDown.setDropDown(Dom.find('.x-button', this.elem));
+        var me = this;
+        dropDown.onShow = function () {
+
+            Dom.fadeIn(this.elem);
+
+            // 更新下拉菜单尺寸。
+            if (me.dropDownWidth) {
+                var width = /%$/.test(me.dropDownWidth) ? me.elem.offsetWidth * parseFloat(me.dropDownWidth) / 100 : parseFloat(me.dropDownWidth);
+                Dom.setSize(dropDown.elem, { width: width });
+            }
+
+            me.updateDropDown();
+            me.onDropDownShow();
+        };
+        dropDown.onHide = function () {
+
+            Dom.fadeOut(this.elem);
+
+            me.onDropDownHide();
+        };
+    },
+    
+    /**
+	 * 当被子类重写时，负责将当前文本的值同步到下拉菜单。
+	 * @protected 
+	 * @virtual
+	 */
+    updateDropDown: function () {},
+
+    /**
+     * 当下拉菜单被显示时执行。
+     * @protected override
+     */
+    onDropDownShow: function () {
+        //this.updateDropDown();
+        //this.setState('actived', true);
+        //IDropDownOwner.onDropDownShow.apply(this, arguments);
+    },
+
+    /**
+     * 当下拉菜单被隐藏时执行。
+     * @protected override
+     */
+    onDropDownHide: function () {
+        //this.setState('actived', false);
+        //IDropDownOwner.onDropDownHide.apply(this, arguments);
+    },
 
 });
 
@@ -57,32 +106,6 @@ var Picker = Control.extend({
 //	 */
 //    button: function () {
 //    	return Dom.find('button', this.elem);
-//    },
-
-//    /**
-//	 * 将当前文本的值同步到下拉菜单。
-//	 * @protected virtual
-//	 */
-//    updateDropDown: Function.empty,
-
-//    /**
-//	 * 当下拉菜单被显示时执行。
-//     * @protected override
-//	 */
-//    onDropDownShow: function () {
-//        // 默认选择当前值。
-//        this.updateDropDown();
-//        this.state('actived', true);
-//        IDropDownOwner.onDropDownShow.apply(this, arguments);
-//    },
-
-//    /**
-//	 * 当下拉菜单被隐藏时执行。
-//     * @protected override
-//	 */
-//    onDropDownHide: function () {
-//        this.state('actived', false);
-//        IDropDownOwner.onDropDownHide.apply(this, arguments);
 //    },
 
 //    /**

@@ -9,7 +9,7 @@
 
 /**
  * 所有支持下拉菜单的组件实现的接口。
- * @interface IDropDownOwner
+ * @interface
  */
 var IDropDownOwner = {
 

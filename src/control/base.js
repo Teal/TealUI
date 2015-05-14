@@ -98,7 +98,7 @@ var Control = Base.extend({
         }
 
         // 调用初始化函数。
-        this.init(options);
+        this.init(options || {});
 
         // 最后延时申请。
         for (var optionName in delayedOptions) {
@@ -150,13 +150,12 @@ Control.get = function (elem, roleName) {
         var controlClass = Control.roles[roleName] || Control;
 
         // 生成组件配置项。
-        var options;
+        var options = {};
 
         // 从 DOM 载入配置。
         for (var i = 0; i < elem.attributes.length; i++) {
             var attr = elem.attributes[i];
             if (/^data-/i.test(attr.name) && attr.name !== 'data-role') {
-                options = options || {};
                 options[attr.name.substr('data-'.length).replace(/-(\w)/, function (_, w) {
                     return w.toUpperCase();
                 })] = attr.value;

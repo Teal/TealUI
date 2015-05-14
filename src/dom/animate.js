@@ -150,3 +150,6 @@ Dom.slideDown = function (elem, duration, ease, callback, dalay) {
     }
     Dom.animate(elem, properties, duration, ease, callback, dalay);
 };
+
+Dom.fadeIn = Dom.show;
+Dom.fadeOut = Dom.hide;

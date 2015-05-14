@@ -1,0 +1,6 @@
+﻿.x-popover {
+  position: absolute;
+  z-index: 1010;
+  max-height: 480px;
+  display: none;
+}
