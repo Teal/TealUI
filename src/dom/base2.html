@@ -12,7 +12,7 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/ecma5.js"></script>
     <!--[if lte IE 8]><script type="text/javascript" src="../../src/shim/html5.js"></script><![endif]-->
-    <!--<script type="text/javascript" src="../../src/dom/base.js"></script>-->
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -31,11 +31,17 @@
     </div>
     <script>
         var a = document.getElementById('a');
-        //Dom.on(a, 'mouseenter', '#b', function(e) {
+        var b = document.getElementById('b');
+        var c = document.getElementById('c');
+        //Dom.on(a, 'focus', '#b', function(e) {
         //    a.firstChild.innerHTML = e.pageX;
-        //    trace(this, e);
+        //    trace("成功", this, e);
         //});
-        $('#a').on('mouseenter', '#b', trace);
+        Dom.on(a, 'click', '#c', function (e) {
+            a.firstChild.innerHTML = e.pageX;
+            trace("成功", this, e);
+        });
+        //  $('#a').on('mouseenter', '#b', trace);
     </script>
 
 </body>
