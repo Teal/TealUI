@@ -17,6 +17,17 @@ if (!Element.prototype.matches) {
     };
 }
 
+if (!Element.prototype.contains) {
+    Element.prototype.contains = function (node) {
+        for (;node;node = node.parentNode) {
+            if (node == this) {
+                return true;
+            }
+        }
+        return false
+    };
+}
+
 if (!('classList' in Element.prototype)) {
     Object.defineProperty(Element.prototype, 'classList', {
         get: function() {
@@ -173,24 +184,53 @@ var Dom = {
      * @param {Function} eventListener 要添加的事件监听器。
      */
     on: function (elem, eventName, proxySelector, eventListener) {
+
+        // 允许不传递 proxySelector 参数。
         if (!eventListener) {
             eventListener = proxySelector;
             proxySelector = '';
         }
 
-        if (proxySelector) {
-            var oldListener = eventListener;
-            oldListener.proxy = eventListener = function(e) {
+        var events = elem.__events__ || (elem.__events__ = {}),
+            eventInfo = events[eventName] || (events[eventName] = []),
+
+            // 获取特殊处理的事件。
+            eventFix = Dom.eventFix[eventName],
+            
+            // 代理触发事件。
+            actualListener = proxySelector ? function (e) {
                 var actucalTarget = Dom.closest(e.target, proxySelector, elem);
-                return actucalTarget && oldListener.call(actucalTarget, e);
+                console.log("判断是否是委托", e, actucalTarget, e.target, proxySelector, elem);
+                return actucalTarget && eventListener.call(actucalTarget, e);
+            } : eventListener;
+
+        // 区分是特殊事件还是普通事件。
+        if (eventFix) {
+            actualListener = eventFix.proxy(elem, eventName, actualListener);
+        }
+
+        // 相同的事件绑定两次只执行一次，需要生成新的引用。
+        // 对于特殊事件或委托事件，每次都会重新生成新的代理函数，不会进入 if。
+        if (eventInfo.indexOf(actualListener) >= 0) {
+            actualListener = function (e) {
+                return eventListener.call(this, e);
             };
         }
 
-        if (Dom.eventFix[eventName]) {
-            return Dom.eventFix[eventName].add(elem, eventName, eventListener);
+        // 实际添加句柄。
+        if (eventFix) {
+            actualListener && elem.addEventListener((proxySelector ? eventFix.delegate : eventFix.bind) || eventName, actualListener, false);
+        } else{
+            elem.addEventListener(eventName, actualListener, false);
         }
+        
+        // 添加当前处理函数到集合。以便之后删除事件或触发事件。
+        if (actualListener !== eventListener) {
+            eventName += 'Proxy';
+            (events[eventName] || (events[eventName] = []))[eventInfo.length] = actualListener;
+        }
+        eventInfo.push(eventListener);
 
-        elem.addEventListener(eventName, eventListener, false);
     },
 
     /**
@@ -206,6 +246,17 @@ var Dom = {
         }
 
         elem.removeEventListener(eventName, eventListener.proxy || eventListener, false);
+
+        var eventInfo = elem.__events__ && elem.__events__[eventName];
+
+        // if (eventInfo)
+
+        if (eventProxy) {
+            eventName += 'Proxy';
+            (events[eventName] || (events[eventName] = []))[eventInfo.length] = eventProxy;
+        }
+        eventInfo.push(eventListener);
+
     },
 
     /**
@@ -233,6 +284,10 @@ var Dom = {
         }
         event.initEvent(eventName, bubbles, true);
         elem.dispatchEvent(event);
+    },
+
+    defineEvent: function (eventName, options) {
+        Dom.eventFix[eventName] = options;
     },
 
     // #endregion
@@ -463,102 +518,128 @@ var Dom = {
 
 };
 
-Dom.delegateEvent = function(from, to, filter) {
-    Dom.eventFix[from] = {
-        add: function (elem, eventName, eventListener) {
-            var newListener = eventListener.proxy = function (e) {
-                if (!filter || filter(e) !== false) {
+// #region 事件补丁
+
+(function() {
+
+    var eventFix = Dom.eventFix;
+    var html = document.documentElement;
+
+    // 火狐浏览器不支持 mousewheel 事件。
+    if(html.onmousewheel === undefined){
+        eventFix.mousewheel = {
+            bind: 'DOMMouseScroll',
+            proxy: function (elem, eventName, eventListener) {
+                return function(e) {
+                    e.wheelDelta = -(event.detail || 0) / 3;
                     return eventListener.call(this, e);
+                };
+            }
+        };
+    }
+	
+    // mouseenter/mouseleave 事件不支持委托。
+    // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
+    function defineMouseMoveEvent(eventName, delegateEvent){
+        eventFix[eventName] = {
+            delegate: delegateEvent,
+            bind: html.onmouseenter === undefined && delegateEvent,
+            proxy: function (elem, eventName, eventListener) {
+                return function (e) {
+                    console.log("判断是否是 mouseenter", e, e.type === eventName, !this.contains(e.relatedTarget));
+                    // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
+                    if (e.type === eventName || !this.contains(e.relatedTarget)) {
+                        return eventListener.call(this, e);
+                    }
+                };
+            }
+        };
+    }
+    defineMouseMoveEvent('mouseenter', 'mouseover');
+    defineMouseMoveEvent('mouseleave', 'mouseout');
+	
+    // 部分标准浏览器不支持 focusin/focusout 事件
+    if (html.onfocusin === undefined){
+        eventFix.focusin = eventFix.focusout = {
+            proxy: function(elem, eventName, eventListener) {
+                var propName = '__' + eventName + '__',
+                    doc = Dom.getDocument(elem);
+                if (!doc[propName]) {
+                    doc.addEventListener(eventName === 'focusin' ? 'focus' : 'blur', doc[propName] = function(e) {
+                        if (e.eventPhase <= 1) {
+                            var p = elem;
+                            while (p && p.parentNode) {
+                                if (!Dom.trigger(p, eventName, e)) {
+                                    return;
+                                }
+
+                                p = p.parentNode;
+                            }
+                        }
+                    }, true);
                 }
-            };
-            elem.addEventListener(to, newListener, false);
-        },
-        remove: function (elem, eventName, eventListener) {
-            elem.removeEventListener(to, eventListener.proxy || eventListener, false);
-        },
-        trigger: function (elem, eventName, eventArgs) {
-            Dom.trigger(elem, to, eventArgs);
-        }
+            }
+        };
+    }
+	
+    // focus/blur 事件不支持委托。
+    eventFix.focus = {
+        delegate: 'focusin'
     };
-};
+    eventFix.blur = {
+        delegate: 'focusout'
+    };
 
-if (!('onmousewheel' in document.documentElement)) {
-    Dom.delegateEvent('mousewheel', 'DOMMouseScroll');
-}
+    eventFix.focus.proxy = eventFix.blur.proxy = function(elem, eventName, eventListener) {
+        return eventListener;
+    };
 
-if (!('onmouseenter' in document.documentElement)) {
-    Dom.eventFix.mouseleave = Dom.eventFix.mouseenter = {
-        add: function (elem, eventName, eventListener) {
-            var newListener = eventListener.proxy = function (e) {
-                if (!this.contains(e.relatedTarget)) {
-                    eventListener.call(this, e);
+    // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
+    if (window.TouchEvent) {
+        eventFix.mousedown = {
+            bind: 'touchstart'
+        };
+        eventFix.mousemove = {
+            bind: 'touchmove'
+        };
+        eventFix.mouseup = {
+            bind: 'touchend'
+        };
+        eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy =function(elem, eventName, eventListener) {
+            return function (e) {
+                if (e.touches.length) {
+                    e.__defineGetter__("pageX", function () {
+                        return this.touches[0].pageX;
+                    });
+                    e.__defineGetter__("pageY", function () {
+                        return this.touches[0].pageY;
+                    });
+                    e.__defineGetter__("which", function () {
+                        return 1;
+                    });
                 }
+                return eventListener.call(this, e);
             };
-            elem.addEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', newListener, false);
-        },
-        remove: function (elem, eventName, eventListener) {
-            elem.removeEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventListener.proxy, false);
-        },
-        trigger: function (elem, eventName, eventArgs) {
-            Dom.trigger(elem, eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventArgs);
-        }
-    };
-}
+        };
 
-if (window.TouchEvent) {
-    Dom.delegateEvent('mousedown', 'touchstart', function (e) {
-        e.__defineGetter__("pageX", function () {
-            return this.touches[0].pageX;
-        });
-        e.__defineGetter__("pageY", function () {
-            return this.touches[0].pageY;
-        });
-    });
-    Dom.delegateEvent('mousemove', 'touchmove', function (e) {
-        e.__defineGetter__("pageX", function () {
-            return this.touches[0].pageX;
-        });
-        e.__defineGetter__("pageY", function () {
-            return this.touches[0].pageY;
-        });
-    });
-    Dom.delegateEvent('mouseup', 'touchend', function (e) {
-        e.__defineGetter__("pageX", function () {
-            return this.touches[0].pageX;
-        });
-        e.__defineGetter__("pageY", function () {
-            return this.touches[0].pageY;
-        });
-    });
-    //Dom.eventFix.click = {
-    //    add: function (elem, eventName, eventListener) {
-    //        var newListener = eventListener.proxy = function (e) {
-    //            if (!this.contains(e.relatedTarget)) {
-    //                eventListener.call(this, e);
-    //            }
-    //        };
-    //        elem.addEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', newListener, false);
-    //    },
-    //    remove: function (elem, eventName, eventListener) {
-    //        elem.removeEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventListener.proxy, false);
-    //    },
-    //    trigger: function (elem, eventName, eventArgs) {
-    //        Dom.trigger(elem, eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventArgs);
-    //    }
-    //};
-}
+        // 让浏览器快速响应 click 事件，而非等待 300ms 。
+        eventFix.click = {
+            bind: 'touchstart',
+            proxy: function (elem, eventName, eventListener) {
+                return function (e) {
+                    var doc = Dom.getDocument(elem);
+                    doc.addEventListener('touchend', function (e) {
+                        doc.removeEventListener('touchend', arguments.callee, true);
+                        return eventListener.call(elem, e);
+                    }, true);
+                };
+            }
+        };
+    }
 
-//Dom.eventFix.click = {
-//    add: function (elem, eventName, eventListener) {
-//        elem.addEventListener('DOMMouseScroll', eventListener, false);
-//    },
-//    remove: function (elem, eventName, eventListener) {
-//        elem.removeEventListener('DOMMouseScroll', eventListener, false);
-//    },
-//    trigger: function (elem, eventName, eventArgs) {
-//        Dom.trigger(elem, 'DOMMouseScroll', eventArgs);
-//    }
-//};
+})();
+
+// #endregion
 
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。

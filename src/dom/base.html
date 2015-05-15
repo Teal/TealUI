@@ -169,7 +169,17 @@
 
     <h5>判断是否隐藏</h5>
     <pre>Dom.isHidden(elem);</pre>
-    
+
+    <h2>事件</h2>
+    <div id="a" class="doc-box"><a href="###">asdasd</a></div>
+    <script>
+        var a = document.getElementById('a');
+        Dom.on(a, 'mouseenter', 'a', function(e) {
+            a.firstChild.innerHTML = e.pageX;
+            trace(this, e);
+        });
+    </script>
+
     <h2>关于 dom/base 和 jQuery 的区别</h2>
     
     <p>dom/base 组件更适于组件开发，而 jQuery 更适于业务逻辑。这决定了它们的区别：</p>

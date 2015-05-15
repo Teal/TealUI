@@ -1,9 +1,23 @@
 /**
  * @author xuld
  * @fileOverview 为低版本浏览器提供 ECMA5 的部分常用函数。
+ * @remark 
+ * 本文件主要针对 IE6-8 以及老版本 FireFox, Safari 和 Chrome。
  */
 
-// IE6-8, FF2-4: 不支持 Function.prototype.bind
+// http://kangax.github.io/compat-table/es5/
+
+if (!Object.defineProperty) {
+    Object.defineProperty = function (obj, propName, property) {
+        if (property.get) {
+            obj.__defineGetter__(propName, property.get);
+        }
+        if (property.set) {
+            obj.__defineSetter__(propName, property.set);
+        }
+    };
+}
+
 if (!Function.prototype.bind) {
 
     /**
@@ -27,7 +41,23 @@ if (!Function.prototype.bind) {
 
 }
 
-// IE6-8, FF2-4: 不支持 Array.isArray
+if (!Date.now) {
+
+    /**
+     * 获取当前时间的数字表示。
+     * @return {Number} 当前的时间点。
+     * @static
+     * @example
+     * <pre>
+     * Date.now(); //   相当于 new Date().getTime()
+     * </pre>
+     */
+    Date.now = function () {
+        return +new Date;
+    };
+
+}
+
 if (!Array.isArray) {
 
     /**
@@ -47,7 +77,6 @@ if (!Array.isArray) {
 
 }
 
-// IE6-8: 不支持 Array.prototype.forEach
 if (!Array.prototype.forEach) {
 
     /**
@@ -112,63 +141,3 @@ if (!String.prototype.trim) {
     };
 
 }
-
-// IE6-8: 不支持 Array.prototype.indexOf
-if (!Array.prototype.indexOf) {
-
-    /**
-     * 返回当前数组中某个值的第一个位置。
-     * @param {Object} item 成员。
-     * @param {Number} startIndex=0 开始查找的位置。
-     * @return {Number} 返回 *vaue* 的索引，如果不存在指定的值， 则返回-1 。
-     */
-    Array.prototype.indexOf = function (value, startIndex) {
-        startIndex = startIndex || 0;
-        for (var len = this.length; startIndex < len; startIndex++)
-            if (this[startIndex] === value)
-                return startIndex;
-        return -1;
-    };
-
-}
-
-// IE6-9: 不支持 Date.now
-if (!Date.now) {
-
-    /**
-     * 获取当前时间的数字表示。
-     * @return {Number} 当前的时间点。
-     * @static
-     * @example
-     * <pre>
-     * Date.now(); //   相当于 new Date().getTime()
-     * </pre>
-     */
-    Date.now = function () {
-        return +new Date;
-    };
-
-}
-
-// IE6: for in 不会遍历原生函数，所以手动拷贝这些元素函数。
-(function () {
-    for (var item in { toString: 1 }) {
-        return;
-    }
-
-    Object._enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
-    Object.assign = function (target, source) {
-        if (source) {
-            //#assert dest != null
-            for (var i = Object._enumerables.length, value; i--;)
-                if (Object.prototype.hasOwnProperty.call(source, value = Object._enumerables[i]))
-                    target[value] = source[value];
-            for (var key in source) {
-                target[value] = source[value];
-            }
-        }
-
-        return target;
-    };
-
-})();
