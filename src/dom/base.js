@@ -170,6 +170,18 @@ var Dom = {
             selector.length !== undefined ? selector : [selector] : [];
     },
 
+    _dataId: 1,
+
+    _datas: {},
+
+    /**
+     * 获取和节点绑定的数据容器。
+     */
+    getData: function (elem) {
+        var dataId = elem.__dataId__ || (elem.__dataId__ = Dom._dataId++);
+        return Dom._datas[dataId] || (Dom._datas[dataId] = {});
+    },
+
     // #endregion
 
     // #region 事件
