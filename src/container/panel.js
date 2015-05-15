@@ -12,21 +12,31 @@ var Panel = Control.extend({
     role: 'panel',
 
     init: function () {
-        if (Dom.hasClass(this.elem, 'x-panel-collapsed') || Dom.hasClass(this.elem, 'x-panel-expanded')) {
+        if (this.elem.classList.contains('x-panel-collapsed') || this.elem.classList.contains('x-panel-expanded')) {
             Dom.on(this.elem, 'click', '.x-panel-header', function () {
                 this.toggleCollapse();
             }.bind(this));
         }
     },
 
+    /**
+     * 判断当前面板是否是折叠状态。
+     * @returns {Boolean}
+     */
     isCollapsed: function() {
-        return Dom.hasClass(this.elem, 'x-panel-collapsed');
+        return this.elem.classList.contains('x-panel-collapsed');
     },
 
+    /**
+     * 切换当前面板的折叠状态。
+     * @param {Boolean?} value 如果指定为 true，则强制折叠，如果指定为 false，则强制展开。否则切换当前折叠状态。
+     * @returns this
+     */
     toggleCollapse: function (value) {
 
         var isCollapsed = this.isCollapsed();
 
+        // 如果折叠结果无变化则忽略。
         if (value == undefined) {
             value = !isCollapsed;
         } else if (value == isCollapsed) {
@@ -36,27 +46,22 @@ var Panel = Control.extend({
         // value 最终是 true: 表示即将折叠。
         // value 最终是 false: 表示即将展开。
 
-        if (!Dom.hasClass(this.elem, 'x-panel-collapsing') && this.trigger('collapsing', value)) {
+        var classList = this.elem.classList;
+        if (!classList.contains('x-panel-collapsing') && this.trigger('collapsing', value)) {
 
-            var body = Dom.find('.x-panel-body', this.elem);
+            var body = this.elem.querySelector('.x-panel-body');
 
             if (value) {
-
-                Dom.addClass(this.elem, 'x-panel-collapsing');
-
+                classList.add('x-panel-collapsing');
                 Dom.slideUp(body, function () {
-                    Dom.addClass(this.elem, 'x-panel-collapsed');
-                    Dom.removeClass(this.elem, 'x-panel-collapsing');
-                    Dom.removeClass(this.elem, 'x-panel-expanded');
-                }.bind(this));
-
+                    classList.add('x-panel-collapsed');
+                    classList.remove('x-panel-collapsing');
+                    classList.remove('x-panel-expanded');
+                });
             } else {
-
-                Dom.addClass(this.elem, 'x-panel-expanded');
-                Dom.removeClass(this.elem, 'x-panel-collapsed');
-
+                classList.add('x-panel-expanded');
+                classList.remove('x-panel-collapsed');
                 Dom.slideDown(body);
-
             }
 
             this.trigger('collapse', value);
@@ -66,7 +71,5 @@ var Panel = Control.extend({
     }
 
 });
-
-
 
 

@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>语言兼容补丁</title>
-    <meta name="module-info" content="">
+    <title>HTML5 兼容包</title>
+    <meta name="module-info" content="compat=2-3, parent-title=兼容性, parent-order=browser">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="为低版本浏览器提供 ECMA5 的部分常用函数。如果希望本库所有函数能兼容所有浏览器（包括 IE6 )，建议先引入本组件。">
+    <meta name="description" content="为 B 类浏览器提供 HTML5 兼容。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <![endif]-->
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->

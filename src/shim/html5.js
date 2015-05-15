@@ -1,9 +1,15 @@
 /**
  * @author xuld
- * @fileOverview 为低版本浏览器提供 ECMA5 的部分常用函数。
+ * @fileOverview 为低版本浏览器提供 HTML5 的部分功能。
+ * @remark 
+ * 本文件主要针对 IE6-8 以及老版本 FireFox, Safari 和 Chrome。
+ * 如果只需要兼容 IE6-8, 则可以使用 HTML IE 判断是否加载本文件。
  */
 
-// IE6-8, FF2-4: 不支持 Function.prototype.bind
+// http://kangax.github.io/compat-table/es5/
+
+// #region IE6-8, FireFox 2-4, Safari 3-5.0, Chrome 1-6
+
 if (!Function.prototype.bind) {
 
     /**
@@ -27,7 +33,23 @@ if (!Function.prototype.bind) {
 
 }
 
-// IE6-8, FF2-4: 不支持 Array.isArray
+if (!Date.now) {
+
+    /**
+     * 获取当前时间的数字表示。
+     * @return {Number} 当前的时间点。
+     * @static
+     * @example
+     * <pre>
+     * Date.now(); //   相当于 new Date().getTime()
+     * </pre>
+     */
+    Date.now = function () {
+        return +new Date;
+    };
+
+}
+
 if (!Array.isArray) {
 
     /**
@@ -47,7 +69,6 @@ if (!Array.isArray) {
 
 }
 
-// IE6-8: 不支持 Array.prototype.forEach
 if (!Array.prototype.forEach) {
 
     /**
@@ -113,6 +134,10 @@ if (!String.prototype.trim) {
 
 }
 
+// #endregion
+
+// #region IE6-8
+
 // IE6-8: 不支持 Array.prototype.indexOf
 if (!Array.prototype.indexOf) {
 
@@ -132,84 +157,33 @@ if (!Array.prototype.indexOf) {
 
 }
 
-// IE6-9: 不支持 Date.now
-if (!Date.now) {
+// #endregion
 
-    /**
-     * 获取当前时间的数字表示。
-     * @return {Number} 当前的时间点。
-     * @static
-     * @example
-     * <pre>
-     * Date.now(); //   相当于 new Date().getTime()
-     * </pre>
-     */
-    Date.now = function () {
-        return +new Date;
-    };
+// #region IE8
 
-}
+if (!+"\v1" && Object.defineProperty && this.Element) {
 
-// IE6: for in 不会遍历原生函数，所以手动拷贝这些元素函数。
-(function () {
-    for (var item in { toString: 1 }) {
-        return;
-    }
-
-    Object._enumerables = "toString hasOwnProperty valueOf constructor isPrototypeOf".split(' ');
-    Object.assign = function (target, source) {
-        if (source) {
-            //#assert dest != null
-            for (var i = Object._enumerables.length, value; i--;)
-                if (Object.prototype.hasOwnProperty.call(source, value = Object._enumerables[i]))
-                    target[value] = source[value];
-            for (var key in source) {
-                target[value] = source[value];
+    Document.prototype.createEvent = function(eventName) {
+        return {
+            eventType: eventName,
+            initEvent: function (eventName, bubbles, type) {
+                this.type = eventName;
             }
-        }
-
-        return target;
+        };
     };
 
-})();
-
-// IE6-8, FF2-4: 不支持 JSON
-var JSON = JSON || {};
-if (!JSON.stringify) {
-
-    JSON.specialChars = { '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' };
-
-    JSON.replaceChars = function (chr) {
-        return JSON.specialChars[chr] || '\\u00' + Math.floor(chr.charCodeAt() / 16).toString(16) + (chr.charCodeAt() % 16).toString(16);
+    Element.prototype.dispatchEvent = function(event) {
+        this.fireEvent('on' + event.type, event);
     };
 
-    JSON.stringify = function (obj) {
-        switch (typeof obj) {
-            case 'string':
-                return '"' + obj.replace(/[\x00-\x1f\\"]/g, JSON.replaceChars) + '"';
-            case 'object':
-                if (obj) {
-                    var s = [];
-                    if (obj instanceof Array) {
-                        for (var i = 0; i < obj.length; i++) {
-                            s[i] = JSON.stringify(obj[i]);
-                        }
-                        return '[' + s + ']';
-                    }
-
-                    for (var key in obj) {
-                        s.push(JSON.stringify(key) + ':' + JSON.stringify(obj[key]));
-                    }
-                    return '{' + s + '}';
-                }
-                // 直接转到 default
-            default:
-                return String(obj);
-        }
+    Element.prototype.addEventListener = function(eventName, eventHandler) {
+        this.attachEvent('on' + eventName, eventHandler);
     };
 
-    JSON.parse = function (str) {
-        return new Function('return ' + str)();
+    Element.prototype.removeEventListener = function (eventName, eventHandler) {
+        this.detachEvent('on' + eventName, eventHandler);
     };
 
 }
+
+// #endregion

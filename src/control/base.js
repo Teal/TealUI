@@ -2,7 +2,8 @@
  * @fileOverview 所有控件的基类。
  */
 
-//#include ../utility/class.js
+//#require ../utility/class.js
+//#require ../dom/base.js
 
 /**
  * 表示一个控件。
@@ -21,7 +22,7 @@ var Control = Base.extend({
      * 当前控件的角色。
 	 * @type {String}
      */
-    role: 'control',
+    role: null,
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
@@ -172,7 +173,7 @@ Control.get = function (elem, roleName) {
 
 // 默认初始化一次页面全部组件。
 Dom.ready(function () {
-    Dom.each(Dom.query('[data-role]'), function(elem) {
+    Dom.each(document.querySelectorAll('[data-role]'), function(elem) {
         Control.get(elem);
     });
 });

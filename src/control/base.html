@@ -3,127 +3,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta name="module-info" content="parent-title=控件, parent-order=dom" />
     <title>控件基类</title>
+    <meta name="module-info" content="parent-title=控件, parent-order=dom" />
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="控件即 UI 组件，本组件定义了所有 UI 组件的通用使用方式。">
 
     <!-- 本组件需要以下文件 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
 
-    <script type="text/javascript" src="../../src/3rdlibs/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="../../src/utility/base.js"></script>
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <![endif]-->
     <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
-    
 </head>
 <body>
-
+    <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
-    <blockquote>
-        本组件是所有控件的基类。
-    </blockquote>
-
-    <blockquote class="demo demo-info">
-        本组件是 UI 组件的公用底层。主要提供：
-        <ol>
-            <li>css reset。</li>
-            <li>js Control 类，所有标准 UI 组件都继承于此类。</li>
-        </ol>
-    </blockquote>
-
-    <article>
-
-        <h2>1. Css Reset <small>样式重置</small></h2>
-
-        <section>
-            <h3>文本 <small>Body</small></h3>
-
-            <p>定义默认样式: <code>字体=Tahoma</code>、<code>字号=12px</code>、<code>行高=18px</code>、<code>颜色=#333333</code></p>
-
-        </section>
-
-        <section>
-
-            <h3>表格和列表 </h3>
-
-            <p>表格边框、列表的点都被删除，方便布局。</p>
-
-            <p>如果希望显示默认样式，可参考 <a href="../typography/List.html">列表组件</a> 和  <a href="../typography/Table.html">表格组件</a> 。</p>
-
-            <aside class="demo demo-container">
-                <ul>
-                    <li>列表1</li>
-                    <li>列表 2
-                        <ul>
-                            <li>列表 2.1</li>
-                            <li>列表 2.2</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <table>
-                    <tr>
-                        <td>表格 1-1</td>
-                        <td>表格 1-2</td>
-                    </tr>
-                    <tr>
-                        <td>表格 2-1</td>
-                        <td>表格 2-2</td>
-                    </tr>
-                    <tr>
-                        <td>表格 3-1</td>
-                        <td>表格 3-2</td>
-                    </tr>
-                </table>
-            </aside>
-
-        </section>
-
-        <section>
-
-            <h3>链接 <small>A</small></h3>
-
-            <p>链接默认样式: <code>颜色=#0088CC</code>、<code>悬停颜色=#005580</code>、<code>悬停后出现下划线</code></p>
-
-            <aside class="demo demo-container demo-noformat">
-                <a href="javascript:alert('我是链接');" title="链接">链接 Link</a>
-            </aside>
-
-        </section>
-
-        <section>
-
-            <h3>行内样式</h3>
-
-            <aside class="demo demo-container">
-                <p>段落 <strong>加粗</strong> <em>斜体</em> <big>大字</big><small>小字</small> <sup>上标</sup>  <sub>下标</sub>  <small>备注 Hint</small></p>
-            </aside>
-
-        </section>
-
-        <section>
-
-            <h3>其它标签</h3>
-
-            <p>其它标签的默认样式不属于本组件的范畴，可参考 typography 分类下的其它组件：</p>
-
-            <ul>
-                <li><a href="../typography/heading.html">H1-H6 标签</a></li>
-                <li><a href="../typography/paragraph.html">P 标签</a></li>
-                <li><a href="../typography/hr.html">Hr 标签</a></li>
-                <li><a href="../typography/code.html">Code、Pre 标签</a></li>
-                <li><a href="../typography/misc.html">Abbr、 Address、Cite 标签</a></li>
-                <li><a href="../typography/blockquote.html">Blockquote 标签</a></li>
-                <li><a href="../typography/ol.html">Ol、Dl 标签</a></li>
-                <li><a href="../display/list.html">带样式的 Ul 标签</a></li>
-                <li><a href="../display/table.html">带样式的 Table 标签</a></li>
-                <li><a href="../form/frm.html">表单元素</a></li>
-                <li><a href="../button/button.html">按钮</a></li>
-                <li><a href="../core/common.html">不同的文本颜色</a></li>
-            </ul>
-        </section>
-
-    </article>
 
     <article>
 

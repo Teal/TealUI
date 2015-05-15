@@ -13,13 +13,14 @@
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/container/panel.css" />
 
-    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
-    <script type="text/javascript" src="../../src/utility/common.js"></script>
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <![endif]-->
     <script type="text/javascript" src="../../src/utility/class.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
 
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/container/panel.js"></script>
 </head>
 <body>
@@ -40,7 +41,6 @@
     </aside>
 
     <h2>自由组合</h2>
-
     <aside class="doc-demo">
         <section class="x-panel">
             <header class="x-panel-header">
@@ -57,7 +57,6 @@
     </aside>
 
     <h2>面板嵌套</h2>
-
     <aside class="doc-demo">
         <section class="x-panel">
             <header class="x-panel-header">

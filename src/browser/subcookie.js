@@ -1,6 +1,6 @@
 
-//#include cookie.js
-//#include ../utility/queryString.js
+//#require cookie.js
+//#require ../text/queryString.js
 	
 /**
  * 获取一个子 Cookie 值。
@@ -8,15 +8,15 @@
  * @param {String} name 子名字。
  * @returns {String} 值。
  */
-Cookie.getSub = function (name, subname) {
-    var cookie = Cookie.get(name);
+function getSubCookie(name, subname) {
+    var cookie = getCookie(name);
     if (!cookie) {
         return null;
     }
 
     cookie = QueryString.parse(cookie);
     return subname === undefined ? cookie : subname in cookie ? cookie[subname] : null;
-};
+}
 
 /**
  * 设置一个子 Cookie 值。
@@ -28,8 +28,8 @@ Cookie.getSub = function (name, subname) {
  * @param {Object} secure 安全限制。
  * @returns {String} 返回 value。
  */
-Cookie.setSub = function (name, subname, value, expires, path, domain, secure) {
-    var all = Cookie.getSub(name);
+function setSubCookie(name, subname, value, expires, path, domain, secure) {
+    var all = getSubCookie(name);
     if (value === null) {
         if (!all) {
             return null;
@@ -39,11 +39,11 @@ Cookie.setSub = function (name, subname, value, expires, path, domain, secure) {
             subname = null;
             break;
         }
-        subname && Cookie.set(name, null);
+        subname && setCookie(name, null);
     } else {
         all = all || {};
         all[subname] = value;
     }
-    Cookie.set(name, QueryString.stringify(all), expires, path, domain, secure);
+    setCookie(name, QueryString.stringify(all), expires, path, domain, secure);
     return value;
-};
+}
