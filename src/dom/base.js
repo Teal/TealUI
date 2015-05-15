@@ -649,12 +649,18 @@ var Dom = {
         };
         eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy = function (elem, eventName, eventListener) {
             return function (e) {
-                if (e.touches.length) {
+                if (e.changedTouches.length) {
                     e.__defineGetter__("pageX", function () {
-                        return this.touches[0].pageX;
+                        return this.changedTouches[0].pageX;
                     });
                     e.__defineGetter__("pageY", function () {
-                        return this.touches[0].pageY;
+                        return this.changedTouches[0].pageY;
+                    });
+                    e.__defineGetter__("clientX", function () {
+                        return this.changedTouches[0].clientX;
+                    });
+                    e.__defineGetter__("clientY", function () {
+                        return this.changedTouches[0].clientY;
                     });
                     e.__defineGetter__("which", function () {
                         return 1;
