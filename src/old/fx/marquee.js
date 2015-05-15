@@ -3,8 +3,8 @@
  */
 
 
-//#include fx/animate.js
-//#include dom/base.js
+//#require fx/animate.js
+//#require dom/base.js
 
 var Marquee = Base.extend({
 

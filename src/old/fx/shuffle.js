@@ -5,7 +5,7 @@
 
 
 
-//#include fx/element.js
+//#require fx/element.js
 
 
 

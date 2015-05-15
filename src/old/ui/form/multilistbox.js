@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include ui/form/listbox.js
+//#require ui/form/listbox.js
 
 /**
  * 表示一个列表框。

@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include dom/drag.js
+//#require dom/drag.js
 
 var Droppable = (function(){
 	

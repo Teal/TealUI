@@ -3,7 +3,7 @@
  */
 
 
-//#include utils/deferrable.js
+//#require utils/deferrable.js
 
 /**
  * 用于发送和接收 AJAX 请求的工具。

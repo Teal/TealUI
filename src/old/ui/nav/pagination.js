@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include ui/core/base.js
+//#require ui/core/base.js
 
 var Pagination = Control.extend({
 

@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include dom/base.js
+//#require dom/base.js
 
 Dom.resize = (function() {
 	

@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#include ui/button/buttongroup.css
-//#include ui/button/splitbutton.css
-//#include ui/button/menubutton.js
+//#require ui/button/buttongroup.css
+//#require ui/button/splitbutton.css
+//#require ui/button/menubutton.js
 
 var SplitButton = MenuButton.extend({
 

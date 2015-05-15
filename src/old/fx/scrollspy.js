@@ -2,7 +2,7 @@
  * @author 
  */
 
-//#include dom/base.jsDom.implement({	
+//#require dom/base.jsDom.implement({	
 	scrollSpy: function(){
 		var me = this,
 			initY = me.getPosition().y,

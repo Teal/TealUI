@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-// #include ui/suggest/placeholder.css
-// #include fx/animate.js
-// #include ui/core/base.js
+// #require ui/suggest/placeholder.css
+// #require fx/animate.js
+// #require ui/core/base.js
 
 var Placholder = Control.extend({
 

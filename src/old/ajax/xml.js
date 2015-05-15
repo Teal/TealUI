@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-//#include ajax/base.js
+//#require ajax/base.js
 
 
 Ajax.accepts.xml = "application/xml, text/xml";

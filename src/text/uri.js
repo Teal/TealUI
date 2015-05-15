@@ -5,7 +5,7 @@
 
 
 
-//#include data/querystring.js
+//#require data/querystring.js
 
 
 var Uri = (function () {

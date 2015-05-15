@@ -3,7 +3,7 @@
  */
 
 // 为了支持 foreach 模板使用的 Object.each 函数。
-// #include ../utility/base.js
+// #require ../utility/base.js
 
 /**
  * 表示一个 JavaScript 模板解析器。

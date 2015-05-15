@@ -2,8 +2,8 @@
  * @author  xuld
  */
 
-//#include fx/animate.js
-//#include ui/core/base.js
+//#require fx/animate.js
+//#require ui/core/base.js
 
 /**
  * 表示一个可折叠的控件接口。

@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#include dom/base.js
-//#include fx/animte.js
+//#require dom/base.js
+//#require fx/animte.js
 
 Dom.popup = function (elem, options) {
 

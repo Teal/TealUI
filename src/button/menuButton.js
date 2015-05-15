@@ -2,12 +2,12 @@
  * @author  xuld
  */
 
-//#include ui/button/menubutton.css
-//#include ui/core/idropdownowner.js
-//#include ui/button/button.css
-//#include ui/core/iinput.js
-//#include ui/core/contentcontrol.js
-//#include ui/core/listcontrol.js
+//#require ui/button/menubutton.css
+//#require ui/core/idropdownowner.js
+//#require ui/button/button.css
+//#require ui/core/iinput.js
+//#require ui/core/contentcontrol.js
+//#require ui/core/listcontrol.js
 
 var MenuButton = Control.extend(IDropDownOwner).implement(IInput).implement({
 	

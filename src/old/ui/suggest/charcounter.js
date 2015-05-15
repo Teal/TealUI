@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#include ui/suggest/charcounter.css
-//#include ui/core/base.js
+//#require ui/suggest/charcounter.css
+//#require ui/core/base.js
 
 var CharCounter = Control.extend({
 

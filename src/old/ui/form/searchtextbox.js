@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#include ui/input/textBox.css
-//#include ui/form/searchtextbox.css
-//#include ui/suggest/picker.js
+//#require ui/input/textBox.css
+//#require ui/form/searchtextbox.css
+//#require ui/suggest/picker.js
 
 var SearchTextBox = Picker.extend({
 	

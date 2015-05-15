@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#include dom/base.js
-//#include ajax/base.js
-//#include ajax/html.js
+//#require dom/base.js
+//#require ajax/base.js
+//#require ajax/html.js
 
 /**
  * 从一个地址，载入到本元素， 并使用 setHtml 设置内容。

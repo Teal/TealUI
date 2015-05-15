@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include fx/tween.js
+//#require fx/tween.js
 
 (function () {
 

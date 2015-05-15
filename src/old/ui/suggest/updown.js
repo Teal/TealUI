@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#include ui/suggest/updown.css
-//#include dom/keynav.js
-//#include ui/suggest/picker.js
+//#require ui/suggest/updown.css
+//#require dom/keynav.js
+//#require ui/suggest/picker.js
 
 var UpDown = Picker.extend({
 

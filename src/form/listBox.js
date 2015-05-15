@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#include ui/form/listbox.css
-//#include ui/core/listcontrol.js
+//#require ui/form/listbox.css
+//#require ui/core/listcontrol.js
 
 
 /**
@@ -81,7 +81,7 @@ var ListBox = ListControl.implement(IInput).extend({
  * @author xuld
  */
 
-//#include ui/form/listbox.js
+//#require ui/form/listbox.js
 
 /**
  * 表示一个列表框。

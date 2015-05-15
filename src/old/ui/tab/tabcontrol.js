@@ -2,8 +2,8 @@
  * @author 
  */
 
-//#include ui/tab/tabbable.css
-//#include ui/core/tabbablecontrol.js
+//#require ui/tab/tabbable.css
+//#require ui/core/tabbablecontrol.js
 
 /**
  * TAB 选项卡。

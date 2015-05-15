@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include ui/core/base.js
+//#require ui/core/base.js
 
 /**
  * 所有容器控件的基类。

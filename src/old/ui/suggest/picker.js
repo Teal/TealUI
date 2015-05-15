@@ -2,13 +2,13 @@
  * @author  xuld
  */
 
-//#include ui/button/button.css
-//#include ui/button/menubutton.css
-//#include ui/suggest/picker.css
-//#include ui/input/textBox.css
-//#include ui/core/base.js
-//#include ui/core/iinput.js
-//#include ui/core/idropdownowner.js
+//#require ui/button/button.css
+//#require ui/button/menubutton.css
+//#require ui/suggest/picker.css
+//#require ui/input/textBox.css
+//#require ui/core/base.js
+//#require ui/core/iinput.js
+//#require ui/core/idropdownowner.js
 
 /**
  * 表示一个数据选择器。

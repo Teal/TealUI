@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#include ui/tab/accordion.css
-//#include ui/core/tabbablecontrol.js
+//#require ui/tab/accordion.css
+//#require ui/core/tabbablecontrol.js
 
 var Accordion = TabbableControl.extend({
 

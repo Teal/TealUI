@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-//#include ajax/base.js
+//#require ajax/base.js
 
 Ajax.accepts.script = "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript";
 

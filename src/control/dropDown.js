@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#include dom/base.js
-//#include dom/pin.js
-//#include ui/core/base.js
-//#include fx/animate.js
+//#require dom/base.js
+//#require dom/pin.js
+//#require ui/core/base.js
+//#require fx/animate.js
 
 var DropDown = Control.extend({
 
