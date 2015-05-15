@@ -463,11 +463,34 @@ var Dom = {
 
 };
 
-if (!document.documentElement.onmouseenter) {
+Dom.delegateEvent = function(from, to, filter) {
+    Dom.eventFix[from] = {
+        add: function (elem, eventName, eventListener) {
+            var newListener = eventListener.proxy = function (e) {
+                if (!filter || filter(e) !== false) {
+                    return eventListener.call(this, e);
+                }
+            };
+            elem.addEventListener(to, newListener, false);
+        },
+        remove: function (elem, eventName, eventListener) {
+            elem.removeEventListener(to, eventListener.proxy || eventListener, false);
+        },
+        trigger: function (elem, eventName, eventArgs) {
+            Dom.trigger(elem, to, eventArgs);
+        }
+    };
+};
+
+if (!('onmousewheel' in document.documentElement)) {
+    Dom.delegateEvent('mousewheel', 'DOMMouseScroll');
+}
+
+if (!('onmouseenter' in document.documentElement)) {
     Dom.eventFix.mouseleave = Dom.eventFix.mouseenter = {
         add: function (elem, eventName, eventListener) {
             var newListener = eventListener.proxy = function (e) {
-                if (e.type === eventName && !e.target.contains(e.relatedTarget)) {
+                if (!this.contains(e.relatedTarget)) {
                     eventListener.call(this, e);
                 }
             };
@@ -481,6 +504,61 @@ if (!document.documentElement.onmouseenter) {
         }
     };
 }
+
+if (window.TouchEvent) {
+    Dom.delegateEvent('mousedown', 'touchstart', function (e) {
+        e.__defineGetter__("pageX", function () {
+            return this.touches[0].pageX;
+        });
+        e.__defineGetter__("pageY", function () {
+            return this.touches[0].pageY;
+        });
+    });
+    Dom.delegateEvent('mousemove', 'touchmove', function (e) {
+        e.__defineGetter__("pageX", function () {
+            return this.touches[0].pageX;
+        });
+        e.__defineGetter__("pageY", function () {
+            return this.touches[0].pageY;
+        });
+    });
+    Dom.delegateEvent('mouseup', 'touchend', function (e) {
+        e.__defineGetter__("pageX", function () {
+            return this.touches[0].pageX;
+        });
+        e.__defineGetter__("pageY", function () {
+            return this.touches[0].pageY;
+        });
+    });
+    //Dom.eventFix.click = {
+    //    add: function (elem, eventName, eventListener) {
+    //        var newListener = eventListener.proxy = function (e) {
+    //            if (!this.contains(e.relatedTarget)) {
+    //                eventListener.call(this, e);
+    //            }
+    //        };
+    //        elem.addEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', newListener, false);
+    //    },
+    //    remove: function (elem, eventName, eventListener) {
+    //        elem.removeEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventListener.proxy, false);
+    //    },
+    //    trigger: function (elem, eventName, eventArgs) {
+    //        Dom.trigger(elem, eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventArgs);
+    //    }
+    //};
+}
+
+//Dom.eventFix.click = {
+//    add: function (elem, eventName, eventListener) {
+//        elem.addEventListener('DOMMouseScroll', eventListener, false);
+//    },
+//    remove: function (elem, eventName, eventListener) {
+//        elem.removeEventListener('DOMMouseScroll', eventListener, false);
+//    },
+//    trigger: function (elem, eventName, eventArgs) {
+//        Dom.trigger(elem, 'DOMMouseScroll', eventArgs);
+//    }
+//};
 
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
