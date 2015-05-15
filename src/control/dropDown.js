@@ -97,10 +97,10 @@ var DropDown = Control.extend({
             Dom.on(document, 'mousedown', function (e) {
                 
                 // 不处理下拉菜单本身事件。
-                if (!Dom.contains(me.elem, e.target)) {
+                if (!me.elem.contains(e.target)) {
 
                     // 如果在目标节点点击，则直接由目标节点调用 hide()。
-                    if (!me.target || !Dom.contains(me.target, e.target)) {
+                    if (!me.target || !me.target.contains(e.target)) {
                         me.hide();
                     }
 

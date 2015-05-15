@@ -16,7 +16,12 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
-    <h2>尺寸和定位</h2>
+    <div id="elem" class="doc-box"></div>
+    <script>
+        var elem = document.getElementById('elem');
+    </script>
+
+    <h2>尺寸</h2>
 
     <h5>获取大小</h5>
     <pre>Dom.getSize(elem);</pre>
@@ -24,8 +29,7 @@
     <h5>设置大小</h5>
     <pre>Dom.setSize(elem, {width:200, height:400});</pre>
 
-    <h5>获取滚动区域大小</h5>
-    <pre>Dom.getScrollSize(elem);</pre>
+    <h2>定位</h2>
 
     <h5>获取相对偏移节点</h5>
     <pre>Dom.getOffsetParent(elem);</pre>
@@ -41,6 +45,11 @@
 
     <h5>设置绝对位置</h5>
     <pre>Dom.setPosition(elem, {left:100, top: 500});</pre>
+
+    <h2>滚动</h2>
+
+    <h5>获取滚动区域大小</h5>
+    <pre>Dom.getScrollSize(elem);</pre>
 
     <h5>获取滚动位置</h5>
     <pre>Dom.getScroll(elem);</pre>

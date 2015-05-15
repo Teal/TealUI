@@ -101,6 +101,64 @@ var Dom = {
         return html;
     },
 
+    /**
+	 * 执行一个 CSS 选择器，返回匹配的第一个节点。
+	 * @param {String} selector 要执行的 CSS 选择器。
+	 * @param {Document} context 执行的上下文文档。
+	 * @return {Element} 返回匹配的节点。
+	 */
+    find: function (selector, context) {
+        return selector ? selector.constructor === String ? (context || document).querySelector(selector) : selector : null;
+    },
+
+    /**
+	 * 执行一个 CSS 选择器，返回所有匹配的节点列表。
+	 * @param {String} selector 要执行的 CSS 选择器。
+	 * @param {Document} context 执行的上下文文档。
+	 * @return {NodeList} 返回匹配的节点列表。
+	 * @example
+	 * 找到所有 p 元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;
+	 * </pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.query("p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * [  &lt;p&gt;one&lt;/p&gt; ,&lt;p&gt;two&lt;/p&gt;, &lt;p&gt;three&lt;/p&gt;  ]
+	 * </pre>
+	 * 
+	 * <br>
+	 * 找到所有 p 元素，并且这些元素都必须是 div 元素的子元素。
+	 * #####HTML:
+	 * <pre lang="htm" format="none">
+	 * &lt;p&gt;one&lt;/p&gt; &lt;div&gt;&lt;p&gt;two&lt;/p&gt;&lt;/div&gt; &lt;p&gt;three&lt;/p&gt;</pre>
+	 * 
+	 * #####Javascript:
+	 * <pre>
+	 * Dom.query("div &gt; p");
+	 * </pre>
+	 * 
+	 * #####结果:
+	 * <pre lang="htm" format="none">
+	 * [ &lt;p&gt;two&lt;/p&gt; ]
+	 * </pre>
+	 * 
+	 * <br>
+	 * 查找所有的单选按钮(即: type 值为 radio 的 input 元素)。
+	 * <pre>Dom.query("input[type=radio]");</pre>
+	 */
+    query: function (selector, context) {
+        return selector ? selector.constructor === String ? 
+            (context || document).querySelectorAll(selector) :
+            selector.length !== undefined ? selector : [selector] : [];
+    },
+
     // #endregion
 
     // #region 事件

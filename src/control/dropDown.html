@@ -11,13 +11,14 @@
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
 
-    <script type="text/javascript" src="../../src/utility/ecma5Compact.js"></script>
-    <script type="text/javascript" src="../../src/utility/common.js"></script>
+    <!--[if lte IE 8]>
+        <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <![endif]-->
     <script type="text/javascript" src="../../src/utility/class.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
 
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/control/dropDown.js"></script>
 </head>
 <body>
@@ -30,44 +31,16 @@
         <button id="button1">按钮</button>
         <div class="x-dropdown" data-role="dropDown" data-target="#button1">我是弹出菜单</div>
     </aside>
+    
+    <h2>API</h2>
+    
+    <h5>手动显示菜单</h5>
+    <pre>$('[data-role=dropDown]').role().show();</pre>
 
-    <!--<article>
-        <blockquote class="demo demo-info">如果一个控件包含了一个自定义的下拉菜单，则可以让这个控件实现 IDropDownOwner 接口。</blockquote>
+    <h5>手动隐藏菜单</h5>
+    <pre>$('[data-role=dropDown]').role().hide();</pre>
 
-        <input type="button" id="targetBtn" value="按钮 #a" />
-
-        <div id="dropDownMenu1">
-            这是菜单
-        </div>
-
-        <script>
-
-            // 获取目标按钮对象。
-            var dropDownOwner = new Control(Dom.get('targetBtn'));
-
-            // 将 IDropDownOwner 接口的所有方法直接拷贝给 targetBtn，这样可以通过 targetBtn 直接调用下拉菜单的全部方法。
-            Object.extend(dropDownOwner, IDropDownOwner);
-
-            // 核心代码， 设置 a 的下拉菜单为 id=dropDownMenu 的节点。
-            // 此操作还会为 #dropDownMenu1 增加 x-dropdown 的 class 。
-            dropDownOwner.setDropDown('#dropDownMenu1');
-
-            // 绑定 click 之后，调用 a.toggleDropDown 切换菜单。
-            Dom.on(dropDownOwner.elem, 'click', dropDownOwner.toggleDropDown, dropDownOwner);
-        </script>
-
-        <script>
-            Demo.writeExamples({
-                '手动显示菜单': 'dropDownOwner.showDropDown()',
-                '手动隐藏菜单': 'dropDownOwner.hideDropDown()',
-
-                '获取菜单节点': 'dropDownOwner.getDropDown()',
-                '重新对齐菜单': 'dropDownOwner.realignDropDown()',
-
-                '设置菜单打开后的回调': 'dropDownOwner.on("dropdownshow", function(){alert("菜单打开了")})'
-            });
-        </script>
-
-    </article>-->
+    <h5>设置菜单打开后的回调</h5>
+    <pre>$('[data-role=dropDown]').role().on('show', function(){   alert("菜单打开了") } );</pre>
 </body>
 </html>
