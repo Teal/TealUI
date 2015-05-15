@@ -2,7 +2,50 @@
  * @author xuld 
  */
 
-//#require dom/base.js
+// #require base.js
+// #require offset.js
+
+/**
+ * 基于某个控件，设置当前控件的位置。改函数让控件显示都目标的右侧。
+ * @param {Dom} dom 目标的控件。
+ * @param {String} align 设置的位置。如 ll-bb 。完整的说明见备注。
+ * @param {Number} offsetX=0 偏移的X大小。
+ * @param {Number} offsetY=0 偏移的y大小。
+ * @param {Boolean} enableReset=true 如果元素超出屏幕范围，是否自动更新节点位置。
+ */
+Dom.pin = function (elem, target, position, offsetX, offsetY, enableReset) {
+
+    var opt = {
+        s: Dom.getSize(elem),
+        ts: Dom.getSize(target),
+        tp: Dom.getPosition(target),
+        ds: Dom.getSize(document),
+        dp: Dom.getPosition(document),
+        ox: offsetX || 0,
+        oy: offsetY || 0
+    }, r = enableReset === false ? 0 : 2, x, y;
+
+    if (position.length <= 1) {
+        if (position === 'r') {
+            x = 'rr';
+            y = 'tb';
+        } else {
+            x = 'lr';
+            y = 'bb';
+        }
+    } else {
+        x = position.substr(0, 2);
+        y = position.substr(3);
+    }
+
+    //assert(aligners[x] && aligners[y], "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
+
+    aligners[x](opt, r);
+    aligners[y](opt, r);
+
+    Dom.setPosition(elem, opt);
+
+};
 
 Dom.pin = (function(){
 
@@ -133,24 +176,3 @@ Dom.pin = (function(){
 	};
 		
 })();
-
-/**
- * 为控件提供按控件定位的方法。
- * @class Dom
- */
-Dom.implement({
-
-	/**
-	 * 基于某个控件，设置当前控件的位置。改函数让控件显示都目标的右侧。
-	 * @param {Dom} dom 目标的控件。
-	 * @param {String} align 设置的位置。如 ll-bb 。完整的说明见备注。
-	 * @param {Number} offsetX=0 偏移的X大小。
-	 * @param {Number} offsetY=0 偏移的y大小。
-	 * @param {Boolean} enableReset=true 如果元素超出屏幕范围，是否自动更新节点位置。
-	 */
-	pin: function () {
-
-	}
-	
-});
-

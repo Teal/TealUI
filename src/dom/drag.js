@@ -90,7 +90,7 @@ Dom.draggable = function (elem, options) {
         handlerMouseDown: function (e) {
 
             // 只处理左键拖动。
-            if (e.which === 1) {
+            if (!e.which || e.which === 1) {
 
                 // 阻止默认事件。
                 e.preventDefault();
@@ -147,7 +147,7 @@ Dom.draggable = function (elem, options) {
         handlerMouseUp: function (e) {
 
             // 只有鼠标左键松开， 才认为是停止拖动。
-            if (e.which === 1) {
+            if (!e.which || e.which === 1) {
 
                 e.preventDefault();
 

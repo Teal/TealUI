@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>鼠标悬浮事件</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="鼠标悬浮事件">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/dom/hover.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <aside class="doc-demo">
+        <button id="elem">移到我这里</button>
+        <script>
+            Dom.hover(document.getElementById('elem'), function() {
+                this.innerHTML = '鼠标进来了';
+            }, function() {
+                this.innerHTML = '鼠标出去了';
+            });
+        </script>
+    </aside>
+</body>
+</html>

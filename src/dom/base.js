@@ -163,6 +163,8 @@ var Dom = {
 
     // #region 事件
 
+    eventFix: {},
+
     /**
      * 为指定元素添加一个事件监听器。
      * @param {Element} elem 要处理的元素。
@@ -178,10 +180,14 @@ var Dom = {
 
         if (proxySelector) {
             var oldListener = eventListener;
-            eventListener = function(e) {
+            oldListener.proxy = eventListener = function(e) {
                 var actucalTarget = Dom.closest(e.target, proxySelector, elem);
                 return actucalTarget && oldListener.call(actucalTarget, e);
             };
+        }
+
+        if (Dom.eventFix[eventName]) {
+            return Dom.eventFix[eventName].add(elem, eventName, eventListener);
         }
 
         elem.addEventListener(eventName, eventListener, false);
@@ -194,7 +200,12 @@ var Dom = {
      * @param {Function} eventListener 要删除的事件处理函数。
      */
     off: function (elem, eventName, eventListener) {
-        elem.removeEventListener(eventName, eventListener, false);
+
+        if (Dom.eventFix[eventName]) {
+            return Dom.eventFix[eventName].remove(elem, eventName, eventListener);
+        }
+
+        elem.removeEventListener(eventName, eventListener.proxy || eventListener, false);
     },
 
     /**
@@ -204,13 +215,18 @@ var Dom = {
      * @param {Object} eventArgs 传递给监听器的事件对象。
      */
     trigger: function (elem, eventName, eventArgs) {
-        var eventFix = Dom.triggerFix;
-        if (!eventFix) {
-            Dom.triggerFix = eventFix = {};
-            eventFix.click = eventFix.mousedown = eventFix.mouseup = eventFix.mousemove = 'MouseEvents';
+
+        if (Dom.eventFix[eventName]) {
+            return Dom.eventFix[eventName].trigger(elem, eventName, eventArgs);
         }
 
-        var event = document.createEvent(eventFix[eventName] || 'Events'),
+        var triggerFix = Dom.triggerFix;
+        if (!triggerFix) {
+            Dom.triggerFix = triggerFix = {};
+            triggerFix.click = triggerFix.mousedown = triggerFix.mouseup = triggerFix.mousemove = 'MouseEvents';
+        }
+
+        var event = document.createEvent(triggerFix[eventName] || 'Events'),
             bubbles = true;
         for (var name in eventArgs) {
             name === 'bubbles' ? (bubbles = !!e[name]) : (event[name] = eventArgs[name]);
@@ -446,6 +462,25 @@ var Dom = {
     // #endregion
 
 };
+
+if (!document.documentElement.onmouseenter) {
+    Dom.eventFix.mouseleave = Dom.eventFix.mouseenter = {
+        add: function (elem, eventName, eventListener) {
+            var newListener = eventListener.proxy = function (e) {
+                if (e.type === eventName && !e.target.contains(e.relatedTarget)) {
+                    eventListener.call(this, e);
+                }
+            };
+            elem.addEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', newListener, false);
+        },
+        remove: function (elem, eventName, eventListener) {
+            elem.removeEventListener(eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventListener.proxy, false);
+        },
+        trigger: function (elem, eventName, eventArgs) {
+            Dom.trigger(elem, eventName === 'mouseenter' ? 'mouseover' : 'mouseout', eventArgs);
+        }
+    };
+}
 
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
