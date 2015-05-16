@@ -186,6 +186,18 @@ var Dom = {
 
     // #region 事件
 
+    /**
+     * 特殊事件集合。
+     * @remark
+     * 对于特殊处理的事件。每个事件都包含以下信息：
+     * 
+     * - proxy: 创建封装用户处理程序的代理句柄。在内部判断是否启用该事件。
+     * - bindType: 在绑定事件时映射为另一个事件。
+     * - delegateType: 在绑定委托事件时映射为另一个事件。
+     * - add: 自定义事件添加逻辑。
+     * - remove: 自定义事件删除逻辑。
+     * - trigger: 自定义事件触发逻辑。
+     */
     eventFix: {},
 
     /**
@@ -208,62 +220,53 @@ var Dom = {
             eventInfo = events[eventName] || (events[eventName] = []),
 
             // 获取特殊处理的事件。
-            eventFix = Dom.eventFix[eventName],
+            eventFix = Dom.eventFix[eventName] || 0,
 
-            orignalListener = eventListener,
+            // 对特殊事件进行包装，只在满足要求才会触发事件。
+            prxoyListener = eventFix.proxy ? eventFix.proxy(elem, eventName, eventListener) : eventListener,
 
+            // 最后绑定的实际函数。
             actualListener;
-
-        // 对特殊事件进行包装，只在满足要求才会触发事件。
-        if (eventFix && eventFix.proxy) {
-            eventListener = eventFix.proxy(elem, eventName, eventListener);
-            eventName = eventFix.bindType || eventName;
-        }
 
         // 如果当前事件的委托事件，则先添加选择器过滤器。
         if (targetSelector) {
 
             // 通过指定的委托事件触发事件。
-            if (eventFix && eventFix.delegateType) {
-                eventFix = Dom.eventFix[eventName = eventFix.delegateType];
+            if (eventFix.delegateType) {
+                eventFix = Dom.eventFix[eventName = eventFix.delegateType] || 0;
 
                 // 指定的委托事件可能本身就是特殊事件。
-                if (eventFix) {
-                    eventListener = eventFix.proxy(elem, eventName, eventListener);
-                    eventName = eventFix.bindType || eventName;
+                if (eventFix.proxy) {
+                    prxoyListener = eventFix.proxy(elem, eventName, prxoyListener);
                 }
             }
 
             // 对委托事件进行包装，只在满足要求才触发事件。
             actualListener = function (e) {
-
-                // 在当前节点范围内找到匹配的目标节点。
+                // 找到匹配的委托节点并触发其委托事件。
                 var actucalTarget = Dom.closest(e.target, targetSelector, this);
-                return actucalTarget && eventListener.call(actucalTarget, e);
+                return actucalTarget && prxoyListener.call(actucalTarget, e);
             };
 
             //actualListener.selector = targetSelector;
 
         } else {
-            actualListener = eventListener;
-        }
 
-        // 相同的事件绑定两次只执行一次，需要生成新的引用。
-        // 对于特殊事件或委托事件，每次都会重新生成新的代理函数，不会进入 if。
-        if (eventInfo.indexOf(actualListener) >= 0) {
-            actualListener = function (e) {
-                return eventListener.call(this, e);
+            // 相同的事件绑定两次只执行一次，需要生成新的引用。
+            // 对于特殊事件或委托事件，每次都会重新生成新的代理函数，不会进入 if。
+            actualListener = eventInfo.indexOf(prxoyListener) < 0 ? prxoyListener : function (e) {
+                return prxoyListener.call(this, e);
             };
         }
 
-        // 实际添加句柄。
-        elem.addEventListener(eventName, actualListener, eventFix ? !!eventFix.useCapture : false);
+        // 添加函数句柄。
+        eventFix.add ? eventFix.add(elem, eventName, actualListener) : elem.addEventListener(eventFix.bindType || eventName, actualListener, false);
 
         // 添加当前处理函数到集合。以便之后删除事件或触发事件。
-        if (actualListener !== orignalListener) {
-            (eventInfo.proxy || (eventInfo.proxy = []))[eventInfo.length] = actualListener;
+        if (actualListener !== eventListener) {
+            eventInfo['proxy' + eventInfo.length] = actualListener;
         }
-        eventInfo.push(orignalListener);
+        eventInfo.push(eventListener);
 
     },
 
@@ -295,11 +298,11 @@ var Dom = {
             if (index >= 0) {
 
                 // 获取实际绑定的处理函数。
-                actualListener = events.proxy ? events.proxy[index] : eventListener;
+                actualListener = events['proxy' + index] || actualListener;
 
                 // 删除数组。
                 events.splice(index, 1);
-                events.proxy && events.proxy.splice(index, 1);
+                delete events['proxy' + index];
 
                 // 清空整个事件函数。
                 if (!events.length) {
@@ -309,12 +312,10 @@ var Dom = {
             }
 
             // 解析特殊事件。
-            eventFix = Dom.eventFix[eventName];
-            if (eventFix && eventFix.bindType) {
-                eventName = eventFix.bindType;
-            }
+            eventFix = Dom.eventFix[eventName] || 0;
 
-            elem.removeEventListener(eventName, actualListener, eventFix ? !!eventFix.useCapture : false);
+            // 删除函数句柄。
+            eventFix.remove ? eventFix.remove(elem, eventName, actualListener) : elem.removeEventListener(eventFix.bindType || eventName, actualListener, false);
 
         }
 
@@ -576,16 +577,47 @@ var Dom = {
 
 (function () {
 
-    var triggerFix = Dom.triggerFix;
     var eventFix = Dom.eventFix;
     var html = document.documentElement;
 
-    // 火狐浏览器不支持 mousewheel 事件。
+    // mouseenter/mouseleave 事件不支持委托。
+    // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
+    eventFix.mouseenter = { delegateType: 'mouseover' };
+    eventFix.mouseleave = { delegateType: 'mouseout' };
+    if (html.onmouseenter === undefined) {
+        eventFix.mouseenter.proxy = eventFix.mouseleave.proxy = function (elem, eventName, eventListener) {
+            return function (e) {
+                // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
+                if (!this.contains(e.relatedTarget)) {
+                    return eventListener.call(this, e);
+                }
+            };
+        };
+    }
+
+    // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
+    eventFix.focus = { delegateType: 'focusin' };
+    eventFix.blur = { delegateType: 'focusout' };
+
+    // Firefox: 不支持 focusin/focusout 事件。
+    if (html.onfocusin === undefined) {
+        eventFix.focusin = { bindType: 'focus' };
+        eventFix.focusout = { bindType: 'blur' };
+        eventFix.focusin.add = eventFix.focusout.add = function (elem, eventName, eventListener) {
+            elem.addEventListener(bindType, this.bindType, true);
+        };
+        eventFix.focusin.remove = eventFix.focusout.remove = function (elem, eventName, eventListener) {
+            elem.removeEventListener(bindType, this.bindType, true);
+        };
+    }
+
+    // Firefox: 不支持 mousewheel 事件。
     if (html.onmousewheel === undefined) {
         eventFix.mousewheel = {
             bindType: 'DOMMouseScroll',
             proxy: function (elem, eventName, eventListener) {
                 return function (e) {
+                    // 修正滚轮单位。
                     e.wheelDelta = -(event.detail || 0) / 3;
                     return eventListener.call(this, e);
                 };
@@ -593,63 +625,21 @@ var Dom = {
         };
     }
 
-    // mouseenter/mouseleave 事件不支持委托。
-    // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
-    function defineMouseMoveEvent(eventName, delegateEvent) {
-        eventFix[eventName] = {
-            delegateType: delegateEvent,
-            bindType: html.onmouseenter === undefined && delegateEvent,
-            proxy: function (elem, eventName, eventListener) {
-                return function (e) {
-                    // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
-                    if (!this.contains(e.relatedTarget)) {
-                        return eventListener.call(this, e);
-                    }
-                };
-            }
-        };
-    }
-    defineMouseMoveEvent('mouseenter', 'mouseover');
-    defineMouseMoveEvent('mouseleave', 'mouseout');
-
-    // focus/blur 事件不支持委托。
-    eventFix.focus = {
-        delegateType: 'focusin'
-    };
-    eventFix.blur = {
-        delegateType: 'focusout'
-    };
-
-    eventFix.focus.proxy = eventFix.blur.proxy = function (elem, eventName, eventListener) {
-        return eventListener;
-    };
-
-    // Firefox 浏览器不支持 focusin/focusout 事件。
-    if (html.onfocusin === undefined) {
-        eventFix.focusin = {
-            bindType: 'focus'
-        };
-        eventFix.focusout = {
-            bindType: 'blur'
-        };
-        eventFix.focusin.useCapture = eventFix.focusout.useCapture = true;
-        eventFix.focusin.proxy = eventFix.focusout.proxy = eventFix.focus.proxy;
-    }
+    // 支持直接绑定原生事件。
+    eventFix['native:click'] = { bindType: 'click' };
+    eventFix['native:mousedown'] = { bindType: 'mousedown' };
+    eventFix['native:mouseup'] = { bindType: 'mouseup' };
+    eventFix['native:mousemove'] = { bindType: 'mousemove' };
 
     // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
     if (window.TouchEvent) {
-        eventFix.mousedown = {
-            bindType: 'touchstart'
-        };
-        eventFix.mousemove = {
-            bindType: 'touchmove'
-        };
-        eventFix.mouseup = {
-            bindType: 'touchend'
-        };
-        eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy = function (elem, eventName, eventListener) {
-            return function (e) {
-                if (e.changedTouches.length) {
+
+        // 让浏览器快速响应 click 事件，而非等待 300ms 。
+        eventFix.click = {
+            bindType: 'touchstart',
+            fixEvent: function(e) {
+                // PC Chrome 下触摸事件的 pageX 和 pageY 始终是 0。
+                if (!e.pageX && !e.pageY && e.changedTouches.length) {
                     e.__defineGetter__("pageX", function () {
                         return this.changedTouches[0].pageX;
                     });
@@ -666,23 +656,57 @@ var Dom = {
                         return 1;
                     });
                 }
-                return eventListener.call(this, e);
-            };
-        };
-
-        // 让浏览器快速响应 click 事件，而非等待 300ms 。
-        eventFix.click = {
-            bindType: 'touchstart',
+            },
             proxy: function (elem, eventName, eventListener) {
-                return function (e) {
-                    var doc = Dom.getDocument(elem);
-                    doc.addEventListener('touchend', function (e) {
-                        doc.removeEventListener('touchend', arguments.callee, true);
-                        return eventListener.call(elem, e);
-                    }, true);
-                };
+                var firedInTouch = false,
+                    touchEventListener = function (e) {
+                        var doc = Dom.getDocument(elem);
+                        doc.addEventListener('touchend', function (e) {
+                            doc.removeEventListener('touchend', arguments.callee, true);
+                            firedInTouch = true;
+                            eventFix.click.fixEvent(e);
+                            return eventListener.call(elem, e);
+                        }, true);
+                    };
+
+                elem.addEventListener(eventName, touchEventListener.backup = function (e) {
+                    if (firedInTouch) {
+                        firedInTouch = false;
+                    } else {
+                        return eventListener.call(this, e);
+                    }
+                }, false);
+                return touchEventListener;
             }
         };
+
+        eventFix.mousedown = { bindType: 'touchstart' };
+        eventFix.mousemove = { bindType: 'touchmove' };
+        eventFix.mouseup = { bindType: 'touchend' };
+        eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy = function (elem, eventName, eventListener) {
+
+            var firedInTouch = false,
+                touchEventListener = function (e) {
+                    firedInTouch = true;
+                    eventFix.click.fixEvent(e);
+                    return eventListener.call(this, e);
+                };
+
+            elem.addEventListener(eventName, touchEventListener.backup = function(e) {
+                if (firedInTouch) {
+                    firedInTouch = false;
+                } else {
+                    return eventListener.call(this, e);
+                }
+            }, false);
+            return touchEventListener;
+        };
+
+        eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.mouseup.click = function (elem, eventName, eventListener) {
+            elem.removeEventListener(eventName, newEventListener.backup, false);
+            elem.removeEventListener(this.bindType, newEventListener, false);
+        };
+
     }
 
 })();
