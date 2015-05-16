@@ -196,7 +196,6 @@ var Dom = {
      * - delegateType: 在绑定委托事件时映射为另一个事件。
      * - add: 自定义事件添加逻辑。
      * - remove: 自定义事件删除逻辑。
-     * - trigger: 自定义事件触发逻辑。
      */
     eventFix: {},
 
@@ -248,7 +247,7 @@ var Dom = {
                 return actucalTarget && prxoyListener.call(actucalTarget, e);
             };
 
-            //actualListener.selector = targetSelector;
+            actualListener.selector = targetSelector;
 
         } else {
 
@@ -329,20 +328,42 @@ var Dom = {
      */
     trigger: function (elem, eventName, eventArgs) {
 
-        var triggerFix = Dom.triggerFix;
-        if (!triggerFix) {
-            Dom.triggerFix = triggerFix = {};
-            triggerFix.click = triggerFix.mousedown = triggerFix.mouseup = triggerFix.mousemove = 'MouseEvents';
+        var events = ((Dom.getData(elem) || 0).events || 0)[eventName],
+            handlers,
+            eventFix;
+
+        if (events) {
+
+            eventArgs = eventArgs || {};
+            eventArgs.type = eventName;
+            eventArgs.target = elem;
+
+            handlers = events.slice(0);
+            eventFix = Dom.eventFix[eventName] || 0;
+            for (var i = 0; i < handlers.length; i++) {
+
+                // 不执行委托事件。
+                if (!(events['proxy' + i] || 0).selector) {
+                    handlers[i].call(elem, eventArgs);
+                }
+            }
+            
         }
 
-        var event = document.createEvent(triggerFix[eventName] || 'Events'),
-            bubbles = true,
-            key;
-        for (key in eventArgs) {
-            key === 'bubbles' ? (bubbles = !!eventArgs[key]) : (event[key] = eventArgs[key]);
-        }
-        event.initEvent(eventName, bubbles, true);
-        elem.dispatchEvent(event);
+        //var triggerFix = Dom.triggerFix;
+        //if (!triggerFix) {
+        //    Dom.triggerFix = triggerFix = {};
+        //    triggerFix.click = triggerFix.mousedown = triggerFix.mouseup = triggerFix.mousemove = 'MouseEvents';
+        //}
+
+        //var event = document.createEvent(triggerFix[eventName] || 'Events'),
+        //    bubbles = true,
+        //    key;
+        //for (key in eventArgs) {
+        //    key === 'bubbles' ? (bubbles = !!eventArgs[key]) : (event[key] = eventArgs[key]);
+        //}
+        //event.initEvent(eventName, bubbles, true);
+        //elem.dispatchEvent(event);
     },
 
     // #endregion
