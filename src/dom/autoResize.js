@@ -4,13 +4,14 @@
 
 //#require dom/base.js
 
-Dom.autoResize = function(elem) {
-    Dom.setStyle(elem, 'overflow', 'hidden');
+Dom.autoResize = function (elem) {
+    elem.style.overflow = 'hidden';
+    Dom.on(elem, 'keydown', autoResize);
     Dom.on(elem, 'keyup', autoResize);
     autoResize.call(elem);
 
     function autoResize() {
-        Dom.setHeight(this, 'auto');
-        Dom.setHeight(this, this.scrollHeight);
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
     }
 };

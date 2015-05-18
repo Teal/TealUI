@@ -499,7 +499,7 @@ var Dom = {
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
      * @return {Number} 数值。
      */
-    getStyleNumber: function (elem, cssPropertyName) {
+    calcStyle: function (elem, cssPropertyName) {
         var value = elem.style[cssPropertyName];
         return value && (value = parseFloat(value)) != null ? value : (parseFloat(elem.ownerDocument.defaultView.getComputedStyle(elem, '')[cssPropertyName]) || 0);
     },
@@ -511,9 +511,25 @@ var Dom = {
 	 * @return {Number} 返回计算的值。
 	 * @static
 	 */
-    calcStyle: function (elem, expression) {
+    calcStyleExpression: function (elem, expression) {
         var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
         return eval(expression.replace(/\w+/g, '(parseFloat(computedStyle.$1)||0)'));
+    },
+
+    /**
+     * 为 CSS 属性添加浏览器后缀。
+     */
+    vendorCssPropertyName: function (elem, cssPropertyName) {
+        if (!(cssPropertyName in elem.style)) {
+            var prefixes = { 'webkit': 1, 'moz': 1, 'ms': 1, 'o': 1 };
+            for (var prefix in prefixes) {
+                if ((prefix + cssPropertyName) in elem.style) {
+                    cssPropertyName = prefix + cssPropertyName;
+                    break;
+                }
+            }
+        }
+        return cssPropertyName;
     },
 
     /**
@@ -523,7 +539,18 @@ var Dom = {
      * @return {String} 字符串。
      */
     getStyle: function (elem, cssPropertyName) {
-        return elem.style[cssPropertyName] || elem.ownerDocument.defaultView.getComputedStyle(elem, '')[cssPropertyName];
+        return elem.ownerDocument.defaultView.getComputedStyle(elem, '')[Dom.vendorCssPropertyName(elem, cssPropertyName)];
+    },
+
+    /**
+     * 获取指定节点的样式。
+     * @param {Element} elem 要获取的元素。
+     * @param {String} cssPropertyName CSS 属性名。
+     * @param {String} value 设置的 CSS 属性值。
+     * @return {String} 字符串。
+     */
+    setStyle: function (elem, cssPropertyName, value) {
+        return elem.style[Dom.vendorCssPropertyName(elem, cssPropertyName)] = value;
     },
 
     /**
@@ -532,7 +559,7 @@ var Dom = {
      * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
      */
     isHidden: function (elem) {
-        return Dom.getStyle(elem, 'display') === 'none';
+        return (elem.style.display || Dom.getStyle(elem, 'display')) === 'none';
     },
 
     /**
@@ -724,8 +751,8 @@ var Dom = {
         };
 
         eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.mouseup.click = function (elem, eventName, eventListener) {
-            elem.removeEventListener(eventName, newEventListener.backup, false);
-            elem.removeEventListener(this.bindType, newEventListener, false);
+            elem.removeEventListener(eventName, eventListener.backup, false);
+            elem.removeEventListener(this.bindType, eventListener, false);
         };
 
     }

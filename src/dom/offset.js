@@ -47,10 +47,10 @@ Dom.getSize = function (elem) {
  */
 Dom.setSize = function (elem, value) {
     if (value.width != null) {
-        elem.style.width = value.width - Dom.calcStyle(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
+        elem.style.width = value.width - Dom.calcStyleExpression(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
     }
     if (value.height != null) {
-        elem.style.height = value.height - Dom.calcStyle(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
+        elem.style.height = value.height - Dom.calcStyleExpression(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
     }
 };
 
@@ -125,8 +125,8 @@ Dom.getOffset = function (elem) {
             left.left -= t.left;
             lefy.top -= t.top;
         }
-        left.left -= Dom.getStyleNumber(elem, 'marginLeft') + Dom.getStyleNumber(top, 'borderLeftWidth');
-        left.top -= Dom.getStyleNumber(elem, 'marginTop') + Dom.getStyleNumber(top, 'borderTopWidth');
+        left.left -= Dom.calcStyle(elem, 'marginLeft') + Dom.calcStyle(top, 'borderLeftWidth');
+        left.top -= Dom.calcStyle(elem, 'marginTop') + Dom.calcStyle(top, 'borderTopWidth');
 
         return left;
     }

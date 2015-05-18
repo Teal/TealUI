@@ -19,35 +19,12 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
     var fxOptions = Dom._fxOptions;
     if (!fxOptions) {
         Dom._fxOptions = fxOptions = {};
-
-        fxOptions.prefix = '';
-        var prefix = {
-            transition: '',
-            webkitTransition: 'webkit',
-            mozTransition: 'moz',
-            oTransition: 'o'
-        };
-        for (var key in prefix) {
-            if (key in elem.style) {
-                fxOptions.prefix = prefix[key];
-                break;
-            }
-        }
-
+        fxOptions.transition = Dom.vendorCssPropertyName(elem, 'transition');
+        fxOptions.prefix = fxOptions.transition.substr(0, fxOptions.transition.length - 'transition'.length);
         fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
-        fxOptions.transition = fxOptions.prefix ? fxOptions.prefix + 'Transition' : 'transition';
-        fxOptions.transform = fxOptions.prefix ? fxOptions.prefix + 'Transform' : 'transform';
     }
 
     // 直接支持 transforms 属性。
-    for (var key in to) {
-        if (/^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i.test(key)) {
-            to[fxOptions.transform] = to[fxOptions.transform] || '';
-            to[fxOptions.transform] = key + '(' + to[key] + ') ' + to[fxOptions.transform];
-            delete to[key];
-        }
-    }
-
     if (duration instanceof Function) {
         callback = duration;
         ease = duration = null;
@@ -103,11 +80,10 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
     for (var key in to) {
         transitions.push(key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ');
     }
-    elem.style[fxOptions.transition]; // 火狐需要先访问此属性激活特效。
     elem.style[fxOptions.transition] = transitions.join(',');
+    //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
     elem.style._transitionCount = elem.style._transitionCount || 0;
     elem.style._transitionCount++;
-    //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
 
     elem.addEventListener(fxOptions.transitionEnd, proxy, false);
     timer = setTimeout(proxy, duration);
@@ -117,7 +93,7 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
 
     // 设置 CSS 属性以激活样式。
     for (var key in to) {
-        elem.style[key] = to[key];
+        Dom.setStyle(elem, key, to[key]);
     }
 };
 
