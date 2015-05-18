@@ -2172,12 +2172,12 @@ function trace() {
         if (window.console) {
 
             // Check console.debug
-            if (console.debug && console.debug.apply) {
+            if (console.debug instanceof Function) {
                 return console.debug.apply(console, arguments);
             }
 
             // Check console.log
-            if (console.log && console.log.apply) {
+            if (console.log instanceof Function) {
                 return console.log.apply(console, arguments);
             }
 

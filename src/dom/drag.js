@@ -54,8 +54,8 @@ Dom.draggable = function (elem, options) {
 
             // 更新目标偏移量。
             this.toOffset = {
-                left: this.fromOffset.left + this.toX - this.fromX,
-                top: this.fromOffset.top + this.toY - this.fromY
+                left: this.fromOffset.left + this.endX - this.startX,
+                top: this.fromOffset.top + this.endY - this.startY
             };
 
             // 调用用户的拖动回调并更新位置。
@@ -90,7 +90,7 @@ Dom.draggable = function (elem, options) {
         handlerMouseDown: function (e) {
 
             // 只处理左键拖动。
-            if (!e.which || e.which === 1) {
+            if (e.which === 1) {
 
                 // 阻止默认事件。
                 e.preventDefault();
@@ -101,8 +101,8 @@ Dom.draggable = function (elem, options) {
                 }
 
                 // 记录当前的开始位置。
-                draggabe.toX = draggabe.fromX = e.pageX;
-                draggabe.toY = draggabe.fromY = e.pageY;
+                draggabe.endX = draggabe.startX = e.pageX;
+                draggabe.endY = draggabe.startY = e.pageY;
 
                 // 设置下一步处理句柄。
                 draggabe.currentHandler = draggabe.startDragging;
@@ -132,8 +132,8 @@ Dom.draggable = function (elem, options) {
             e.preventDefault();
 
             // 更新当前的鼠标位置。
-            draggabe.toX = e.pageX;
-            draggabe.toY = e.pageY;
+            draggabe.endX = e.pageX;
+            draggabe.endY = e.pageY;
 
             // 调用当前的处理句柄来处理此函数。
             draggabe.currentHandler(e);
@@ -147,7 +147,7 @@ Dom.draggable = function (elem, options) {
         handlerMouseUp: function (e) {
 
             // 只有鼠标左键松开， 才认为是停止拖动。
-            if (!e.which || e.which === 1) {
+            if (e.which === 1) {
 
                 e.preventDefault();
 

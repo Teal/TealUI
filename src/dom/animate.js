@@ -41,7 +41,7 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
         }
         return setTimeout(function () {
             Dom.animate(elem, duration, ease, callback, dalay);
-        }, dalay2 || 0);
+        }, dalay2 || ('mozHidden' in document ? 14 : 0)); // 火狐不能立即设置效果开始时间。
     }
 
     ease = ease || 'ease-in';

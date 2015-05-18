@@ -3,57 +3,6 @@
  * @fileOverview 提供 DOM 操作的辅助函数。
  */
 
-// #region 提供最新 API
-
-if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.oMatchesSelector || function (selector) {
-        var parent = this.parentNode, tempParent = !parent && Dom.getDocument(this).body;
-        tempParent && tempParent.appendChild(this);
-        try {
-            return Array.prototype.indexOf.call(parent.querySelectorAll(selector), this) >= 0;
-        } finally {
-            tempParent && tempParent.removeChild(this);
-        }
-    };
-}
-
-if (!Element.prototype.contains) {
-    Element.prototype.contains = function (node) {
-        for (; node; node = node.parentNode) {
-            if (node == this) {
-                return true;
-            }
-        }
-        return false
-    };
-}
-
-if (!('classList' in Element.prototype)) {
-    Object.defineProperty(Element.prototype, 'classList', {
-        get: function () {
-            var elem = this;
-            return {
-                contains: function (className) {
-                    return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
-                },
-                add: function (className) {
-                    if ((" " + elem.className + " ").indexOf(className) < 0) {
-                        elem.className += ' ' + className;
-                    }
-                },
-                remove: function (className) {
-                    elem.className = className ? (" " + elem.className + " ").replace(" " + classList[i] + " ", " ").trim() : '';
-                },
-                toggle: function (className) {
-                    this.contains(className) ? this.remove(className) : this.add(className);
-                }
-            };
-        }
-    });
-}
-
-// #endregion
-
 /**
  * 提供操作 DOM 的静态高效方法。
  * @static
@@ -513,7 +462,7 @@ var Dom = {
 	 */
     calcStyleExpression: function (elem, expression) {
         var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
-        return eval(expression.replace(/\w+/g, '(parseFloat(computedStyle.$1)||0)'));
+        return eval(expression.replace(/\w+/g, '(parseFloat(computedStyle["$1"])||0)'));
     },
 
     /**
@@ -788,3 +737,89 @@ var $ = $ || (function () {
     $.prototype = addAll.prototype = [];
     return $;
 })();
+
+// #region lte IE 8
+
+/*@cc_on if(!+"\v1") {
+
+Dom.ready = function(callback){
+    /in/.exec(document.readyState)? setTimeout(function(){
+        Dom.ready(callback);
+    }, 14) : callback();
+};
+
+var rOpacity = /opacity=([^)]*)/;
+    
+Object.defineProperty(document.documentElement.style.constructor.prototype, 'opacity', {
+    set: function(value) {
+
+        value = value || value === 0 ? 'opacity=' + value * 100 : '';
+
+        // 获取真实的滤镜。
+        var filter  = this.filter;
+
+        // 当元素未布局，IE会设置失败，强制使生效。
+        this.zoom = 1;
+
+        // 设置值。
+        this.filter = rOpacity.test(filter) ? filter.replace(rOpacity, value) : (filter + ' alpha(' + value + ')');
+    }
+});
+        
+Dom.styleHooks = {
+    height: function (elem) {
+		return elem.offsetHeight === 0 ? 'auto' : elem.offsetHeight - Dom.calcStyleExpression(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
+	},
+	width: function (elem) {
+		return elem.offsetWidth === 0 ? 'auto' : elem.offsetWidth - Dom.calcStyleExpression(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
+	},
+	cssFloat: function (elem) {
+		return Dom.getStyle(elem, 'styleFloat');
+	},
+    opacity: function (elem) {
+		return rOpacity.test(elem.currentStyle.filter) ? parseInt(RegExp.$1) / 100 + '' : '1';
+	}
+};
+
+Dom.getStyle = function(elem, cssPropertyName){
+    if(cssPropertyName in Dom.styleHooks){
+        return Dom.styleHooks[cssPropertyName];
+    }
+
+	// currentStyle：IE的样式获取方法,runtimeStyle是获取运行时期的样式。
+	// currentStyle是运行时期样式与style属性覆盖之后的样式
+	var r = elem.currentStyle[cssPropertyName];
+
+	// 来自 jQuery
+	// 如果返回值不是一个带px的 数字。 转换为像素单位
+	if (/^-?\d/.test(r) && !/^-?\d+(?:px)?$/i.test(r)) {
+
+		// 保存初始值
+		var style = elem.style, left = style.left, rsLeft = elem.runtimeStyle.left;
+
+		// 放入值来计算
+		elem.runtimeStyle.left = elem.currentStyle.left;
+		style.left = cssPropertyName === "fontSize" ? "1em" : (r || 0);
+		r = style.pixelLeft + "px";
+
+		// 回到初始值
+		style.left = left;
+		elem.runtimeStyle.left = rsLeft;
+
+	}
+
+    return r;
+};
+
+Dom.calcStyle = function(elem, cssPropertyName){
+    var value = elem.style[cssPropertyName];
+    return value && (value = parseFloat(value)) != null ? value : (parseFloat(Dom.getStyle(elem, cssPropertyName)) || 0);
+};
+
+Dom.calcStyleExpression = function (elem, expression) {
+    return eval(expression.replace(/\w+/g, 'Dom.calcStyle(elem, "$1")'));
+};
+
+} @*/
+
+// #endregion

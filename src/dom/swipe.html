@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>滑动</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="滑动组件">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/dom/swipe.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <div class="doc-box" id="elem"></div>
+
+    <h5>滑动事件</h5>
+    <script class="doc-demo">
+        Dom.swipe(document.getElementById(elem), {
+            left: function() {
+                alert('左滑');
+            }, 
+            right: function () {
+                alert('右滑');
+            }
+        });
+    </script>
+</body>
+</html>

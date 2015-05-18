@@ -9,8 +9,7 @@
     <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../src/shim/ecma5.js"></script>
-    <!--[if lte IE 8]><script type="text/javascript" src="../../src/shim/html5.js"></script><![endif]-->
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
 </head>
 <body>
@@ -20,7 +19,7 @@
         .native { color: #aaa!important;}
     </style>
     
-    <div id="elem" class="doc-box"></div>
+    <div id="elem" class="doc-box"><a>box</a></div>
     <script>
         var elem = document.getElementById('elem');
     </script>
@@ -35,6 +34,9 @@
 
     <h5>$ = Dom.get + Dom.find + Dom.parse + Dom Ready</h5>
     <pre>$(".doc-box")</pre>
+
+    <h5>获取数据</h5>
+    <pre>Dom.getData(elem);</pre>
 
     <h2>获取节点</h2>
 
@@ -54,6 +56,7 @@
 
     <h5>绑定事件</h5>
     <pre>Dom.on(elem, 'click', function(){ alert("点击事件") });</pre>
+    <pre>Dom.on(elem, 'mouseeneter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
 
     <h5>解绑事件</h5>
     <pre>Dom.off(elem, 'click', function(){ alert("点击事件2") });</pre>
@@ -152,32 +155,22 @@
     <pre>elem.style.fontSize = "12px";</pre>
 
     <h5>快速样式计算</h5>
-    <pre>Dom.getStyleNumber(elem, "fontSize");</pre>
-
-    <h5>计算样式</h5>
     <pre>Dom.calcStyle(elem, "fontSize");</pre>
 
+    <h5>计算样式</h5>
+    <pre>Dom.calcStyleExpression(elem, "fontSize + paddingTop");</pre>
+
     <h5>显示</h5>
-    <pre>Dom.show(elem, 'height');</pre>
+    <pre>Dom.show(elem);</pre>
 
     <h5>隐藏</h5>
-    <pre>Dom.hide(elem, 'height');</pre>
+    <pre>Dom.hide(elem);</pre>
 
     <h5>切换</h5>
     <pre>Dom.toggle(elem);</pre>
 
     <h5>判断是否隐藏</h5>
     <pre>Dom.isHidden(elem);</pre>
-
-    <h2>事件</h2>
-    <div id="a" class="doc-box"><a href="###">asdasd</a></div>
-    <script>
-        var a = document.getElementById('a');
-        Dom.on(a, 'mouseenter', 'a', function(e) {
-            a.firstChild.innerHTML = e.pageX;
-            trace(this, e);
-        });
-    </script>
 
     <h2>关于 dom/base 和 jQuery 的区别</h2>
     
