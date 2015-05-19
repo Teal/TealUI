@@ -1,5 +1,7 @@
 /** * @author xuld */
 
+// #require base.js
+
 /**
  * 滑动元素事件。
  * @param {Element} elem 滑动的元素。
@@ -68,18 +70,18 @@ Dom.swipe = function (elem, options) {
                     deltaY = swippable.endY - swippable.startY;
 
                 // 滑动范围太小，忽略滑动。
-                if (deltaX * deltaX + deltaY * deltaY < options.step * options.step) {
+                if (deltaX * deltaX + deltaY * deltaY < swippable.step * swippable.step) {
                     return;
                 }
 
                 // 开始进入滑动状态。
-                swippable.state = Math.abs(deltaY / deltaX) > options.ratio ? 1 : 2;
+                swippable.state = Math.abs(deltaY / deltaX) < swippable.ratio ? 1 : 2;
 
                 // 开始滑动事件。
-                options.onSwipeStart && options.onSwipeStart(e);
+                swippable.onSwipeStart && swippable.onSwipeStart(e);
 
             } else {
-                options.onSwipeMove && options.onSwipeMove(e);
+                swippable.onSwipeMove && swippable.onSwipeMove(e);
             }
 
         },
@@ -93,8 +95,16 @@ Dom.swipe = function (elem, options) {
 
             // 只有鼠标左键松开， 才认为是停止拖动。
             if (e.which === 1) {
-                options.onSwipeEnd && options.onSwipeEnd(e);
+
+                // 绑定拖动和停止拖动事件。
+                var doc = Dom.getDocument(swippable.elem);
+                Dom.off(doc, 'mousemove', swippable.handlerMouseMove);
+                Dom.off(doc, 'mouseup', swippable.handlerMouseUp);
+
+                swippable.onSwipeEnd && swippable.onSwipeEnd(e);
             }
+
+
         }
 
     };

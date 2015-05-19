@@ -231,9 +231,25 @@ Array.prototype.indexOf = function (value, startIndex) {
     return -1;
 };
 
+// 让 IE6-8 支持 HTML5 新标签。
+'article section header footer nav aside details summary menu'.replace(/\w+/g, function (tagName) {
+    document.createElement(tagName);
+});
+
+//// IE 6-7 不支持 __defineGetter__ 和 __defineSetter__
+//if(!document.__defineGetter__) {
+//    Object.defineProperty = function(obj, propName, property){ 
+//        obj[propName] = property;
+//    };
+//}
+
 // 仅为 IE8 提供支持。
 if (this.Element) {
     (function(){
+
+        var ep = Element.prototype,
+            dp = Document.prototype,
+            evtp = Event.prototype;
 
         function extendGetter(obj, propName, getter){
             Object.defineProperty(obj.prototype, propName, {
@@ -241,7 +257,7 @@ if (this.Element) {
             });
         }
     
-        Object.defineProperty(Element.prototype, 'textContent', {
+        Object.defineProperty(ep, 'textContent', {
             get: function () {
                 return this.innerText;
             },
@@ -249,20 +265,24 @@ if (this.Element) {
                 this.innerText = value;
             }
         });
+
+        extendGetter(Element, 'ownerDocument',  function () {
+            return this.document;
+        });
         
-        Document.prototype.addEventListener = Element.prototype.addEventListener = function (eventName, eventHandler) {
+        dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
             this.attachEvent('on' + eventName, eventHandler);
         };
 
-        Document.prototype.removeEventListener = Element.prototype.removeEventListener = function (eventName, eventHandler) {
+        dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
             this.detachEvent('on' + eventName, eventHandler);
         };
 
-        Event.prototype.stopPropagation = function () {
+        evtp.stopPropagation = function () {
             this.cancelBubble = true;
         };
 
-        Event.prototype.preventDefault = function () {
+        evtp.preventDefault = function () {
             this.returnValue = false;
         };
 

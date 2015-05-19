@@ -6,173 +6,112 @@
 // #require offset.js
 
 /**
- * 基于某个控件，设置当前控件的位置。改函数让控件显示都目标的右侧。
- * @param {Dom} dom 目标的控件。
- * @param {String} align 设置的位置。如 ll-bb 。完整的说明见备注。
- * @param {Number} offsetX=0 偏移的X大小。
- * @param {Number} offsetY=0 偏移的y大小。
- * @param {Boolean} enableReset=true 如果元素超出屏幕范围，是否自动更新节点位置。
+ * 设置指定节点的位置，使其依靠现有的其它节点。
+ * @param {Element} elem 要设置的元素。
+ * @param {Element} target 依靠的目标节点。
+ * @param {String} align  依靠的位置。如 ll-bb 。完整的说明见备注。
+ * @param {Number} [offsetX=0] 偏移的 X 大小。
+ * @param {Number} [offsetY=0] 偏移的 Y 大小。
+ * @param {Element} [container=document] 如果设置此元素，则超过此区域后重置位置。
  */
-Dom.pin = function (elem, target, position, offsetX, offsetY, enableReset) {
+Dom.pin = function (elem, target, position, offsetX, offsetY, container) {
 
-    var opt = {
-        s: Dom.getSize(elem),
-        ts: Dom.getSize(target),
-        tp: Dom.getPosition(target),
-        ds: Dom.getSize(document),
-        dp: Dom.getPosition(document),
-        ox: offsetX || 0,
-        oy: offsetY || 0
-    }, r = enableReset === false ? 0 : 2, x, y;
-
-    if (position.length <= 1) {
-        if (position === 'r') {
-            x = 'rr';
-            y = 'tb';
-        } else {
-            x = 'lr';
-            y = 'bb';
-        }
-    } else {
-        x = position.substr(0, 2);
-        y = position.substr(3);
-    }
-
-    //assert(aligners[x] && aligners[y], "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
-
-    aligners[x](opt, r);
-    aligners[y](opt, r);
-
-    Dom.setPosition(elem, opt);
-
-};
-
-Dom.pin = (function(){
-
-	var aligners = {
-			
-		xc: function (opt) {
-			opt.x = opt.tp.x + (opt.ts.x - opt.s.x) / 2 + opt.ox;
-		},
-			
-		ll: function(opt, r){
-			opt.x = opt.tp.x - opt.s.x - opt.ox;
-				
-			if(r > 0 && opt.x <= opt.dp.x) {
-				aligners.rr(opt, --r);
-			}
-		},
-			
-		rr: function(opt, r){
-			opt.x = opt.tp.x + opt.ts.x + opt.ox;
-				
-			if(r > 0 && opt.x + opt.s.x >= opt.dp.x + opt.ds.x) {
-				aligners.ll(opt, --r);
-			}
-		},
-			
-		lr: function (opt, r) {
-			opt.x = opt.tp.x + opt.ox;
-				
-			if(r > 0 && opt.x + opt.s.x >= opt.dp.x + opt.ds.x) {
-				aligners.rl(opt, --r);
-			}
-		},
-			
-		rl: function (opt, r) {
-			opt.x = opt.tp.x + opt.ts.x - opt.s.x - opt.ox;
-				
-			if(r > 0 && opt.x <= opt.dp.x) {
-				aligners.lr(opt, --r);
-			}
-		},
-			
-		yc: function (opt) {
-			opt.y = opt.tp.y + (opt.ts.y - opt.s.y) / 2 + opt.oy;
-		},
-			
-		tt: function(opt, r){
-			opt.y = opt.tp.y - opt.s.y - opt.oy;
-				
-			if(r > 0 && opt.y <= opt.dp.y) {
-				aligners.bb(opt, --r);
-			}
-		},
-			
-		bb: function(opt, r){
-			opt.y = opt.tp.y + opt.ts.y + opt.oy;
-				
-			if(r > 0 && opt.y + opt.s.y >= opt.dp.y + opt.ds.y) {
-				aligners.tt(opt, --r);
-			}
-		},
-			
-		tb: function (opt, r) {
-			opt.y = opt.tp.y + opt.oy;
-				
-			if(r > 0 && opt.y + opt.s.y >= opt.dp.y + opt.ds.y) {
-				aligners.bt(opt, --r);
-			}
-		},
-			
-		bt: function (opt, r) {
-			opt.y = opt.tp.y + opt.ts.y - opt.s.y - opt.oy;
-				
-			if(r > 0 && opt.y <= opt.dp.y) {
-				aligners.tb(opt, --r);
-			}
-		}
-
-	};
-	
-	/*
-	 *      tl        tr
+    /*
+	 *      tl    t   tr
 	 *      ------------
 	 *   lt |          | rt
 	 *      |          |
-	 *      |    cc    | 
+	 *   l  |     c    | r
 	 *      |          |
 	 *   lb |          | rb
 	 *      ------------
-	 *      bl        br
+	 *      bl    b   br
 	 */
-	
-	return function (elem, target, position, offsetX, offsetY, enableReset) {
-					
-		//assert(position, "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
-			
-		target = Dom.find(target);
 
-		var opt = {
-			s: Dom.getSize(elem),
-			ts: Dom.getSize(target),
-			tp: Dom.getPosition(target),
-			ds: Dom.getSize(document),
-			dp: Dom.getPosition(document),
-			ox: offsetX || 0,
-			oy: offsetY || 0
-		}, r = enableReset === false ? 0 : 2, x, y;
+    var rect = Dom.getSize(elem);
+    var targetSize = Dom.getSize(target);
+    var targetPosition = Dom.getPosition(target);
 
-		if (position.length <= 1) {
-			if (position === 'r') {
-				x = 'rr';
-				y = 'tb';
-			} else {
-				x = 'lr';
-				y = 'bb';
-			}
-		} else {
-			x = position.substr(0, 2);
-			y = position.substr(3);
-		}
+    function proc(position, r, offset, left, width) {
 
-		//assert(aligners[x] && aligners[y], "Dom#pin(ctrl, position,  offsetX, offsetY): {position} 格式不正确。正确的格式如 lt", position);
+        // 首先定位在左边。
+        rect[left] = targetPosition[left];
 
-		aligners[x](opt, r);
-		aligners[y](opt, r);
+        // 定位于中间。
+        if (position === 'c') {
+            rect[left] += (targetSize[width] - rect[width]) / 2;
+        } else {
 
-		Dom.setPosition(elem, opt);
+            // 如果定位在右边则添加目标宽度。
+            if (position.charAt(0) === r) {
+                rect[left] += targetSize[width];
+            }
 
-	};
-		
-})();
+            // 如果定位在左边，则减去节点宽度。
+            if (position.charAt(1) === r) {
+                rect[left] += offset;
+            } else {
+                rect[left] -= rect[width] - offset;
+            }
+
+        }
+
+    }
+
+    // 开始定位。
+    if (position = Dom.pin.aligners[position] || position) {
+        position = position.split('-');
+        proc(position[0] || '', 'r', offsetX || 0, 'left', 'width');
+        proc(position[1] || '', 'b', offsetY || 0, 'top', 'height');
+    } else {
+        position = Dom.getPosition(elem);
+        rect.left = position.left;
+        rect.top = position.top;
+    }
+    
+    // 处理容器大小。
+    if (container === undefined) {
+        container = document;
+    }
+    if (container) {
+        var containerPosition, containerSize;
+        if (container.nodeType) {
+            containerPosition = Dom.getPosition(container);
+            containerSize = Dom.getSize(container);
+        } else {
+            containerPosition = containerSize = container;
+        }
+
+        var max = containerPosition.left + containerSize.width - rect.width;
+        if (rect.left > max) {
+            rect.left = max;
+        } else if (rect.left < 0) {
+            rect.left = 0;
+        }
+
+        max = containerPosition.top + containerSize.height - rect.height;
+        if (rect.top > max) {
+            rect.top = max;
+        } else if (rect.top < 0) {
+            rect.top = 0;
+        }
+    }
+
+    Dom.setPosition(elem, rect);
+
+};
+
+Dom.pin.aligners = {
+    lt: 'll-tb',
+    left: 'll-c',
+    lb: 'll-bt',
+    bl: 'lr-bb',
+    bottom: 'c-bb',
+    br: 'rl-bb',
+    rb: 'rr-bt',
+    right: 'rr-c',
+    rt: 'rr-tb',
+    tr: 'rl-tt',
+    top: 'c-tt',
+    tl: 'lr-tt'
+};

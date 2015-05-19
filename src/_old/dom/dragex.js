@@ -68,46 +68,6 @@ Draggable.implement({
 		var delta = parseInt( (this.to[direction] - this.from[direction]) / value);
 		
 		this.to[direction] = this.from[direction] + delta * value;
-	},
-	
-	autoScroll: function(target){
-		
-		target = Dom.find(target);
-
-		var scroll = Dom.getScroll(target),
-			top = Dom.getPosition(this.proxy),
-			pos = Dom.getPosition(target),
-			size = Dom.getSize(target),
-			scollSize = Dom.getScrollSize(target),
-			delta;
-
-		top.x -= pos.x;
-		top.y -= pos.y;
-		scollSize.x -= size.x;
-		scollSize.y -= size.y;
-
-		if(top.y < 0)
-			scroll.y += top.y;
-		
-		if(top.x < 0)
-			scroll.x += top.x;
-		
-		top.x += this.proxy.offsetWidth;
-		top.y += this.proxy.offsetHeight;
-		
-		delta = top.y - size.y;
-		
-		if(delta > 0 && scroll.y + delta < scollSize.y) {
-			scroll.y += delta;
-		}
-		
-		delta = top.x - size.x;
-		
-		if(delta > 0 && scroll.x + delta < scollSize.x) {
-			scroll.x += delta;
-		}
-		
-		Dom.setScroll(document, scroll);
 	}
-	
+
 });

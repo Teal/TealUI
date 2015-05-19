@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>禁止TAB</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="在文本框按 TAB 不切换焦点，改为输入 TAB。">
 
     <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/disableTab.js"></script>
 </head>
 <body>
@@ -18,11 +20,8 @@
     <aside class="doc-demo">
         <textarea id="elem1">abc</textarea>
         <script>
-            Dom.disableTab(document.getElementById('elem1'), function () {
-                alert('ctrl + enter 事件')
-            });
+            Dom.disableTab(document.getElementById('elem1'));
         </script>
     </aside>
-
 </body>
 </html>

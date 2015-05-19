@@ -146,7 +146,143 @@ var Dom = {
      * - add: 自定义事件添加逻辑。
      * - remove: 自定义事件删除逻辑。
      */
-    eventFix: {},
+    eventFix: (function () {
+
+        var eventFix = {};
+        var html = document.documentElement;
+
+        // mouseenter/mouseleave 事件不支持委托。
+        // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
+        eventFix.mouseenter = { delegateType: 'mouseover' };
+        eventFix.mouseleave = { delegateType: 'mouseout' };
+        if (html.onmouseenter === undefined) {
+            eventFix.mouseenter.proxy = eventFix.mouseleave.proxy = function (elem, eventName, eventListener) {
+                return function (e) {
+                    // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
+                    if (!this.contains(e.relatedTarget)) {
+                        return eventListener.call(this, e);
+                    }
+                };
+            };
+        }
+
+        // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
+        eventFix.focus = { delegateType: 'focusin' };
+        eventFix.blur = { delegateType: 'focusout' };
+
+        // Firefox: 不支持 focusin/focusout 事件。
+        if (html.onfocusin === undefined) {
+            eventFix.focusin = { bindType: 'focus' };
+            eventFix.focusout = { bindType: 'blur' };
+            eventFix.focusin.add = eventFix.focusout.add = function (elem, eventName, eventListener) {
+                elem.addEventListener(bindType, this.bindType, true);
+            };
+            eventFix.focusin.remove = eventFix.focusout.remove = function (elem, eventName, eventListener) {
+                elem.removeEventListener(bindType, this.bindType, true);
+            };
+        }
+
+        // Firefox: 不支持 mousewheel 事件。
+        if (html.onmousewheel === undefined) {
+            eventFix.mousewheel = {
+                bindType: 'DOMMouseScroll',
+                proxy: function (elem, eventName, eventListener) {
+                    return function (e) {
+                        // 修正滚轮单位。
+                        e.wheelDelta = -(event.detail || 0) / 3;
+                        return eventListener.call(this, e);
+                    };
+                }
+            };
+        }
+
+        // 支持直接绑定原生事件。
+        eventFix['native:click'] = { bindType: 'click' };
+        eventFix['native:mousedown'] = { bindType: 'mousedown' };
+        eventFix['native:mouseup'] = { bindType: 'mouseup' };
+        eventFix['native:mousemove'] = { bindType: 'mousemove' };
+
+        // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
+        if (window.TouchEvent) {
+
+            // 让浏览器快速响应 click 事件，而非等待 300ms 。
+            eventFix.click = {
+                bindType: 'touchstart',
+                fixEvent: function (e) {
+                    // PC Chrome 下触摸事件的 pageX 和 pageY 始终是 0。
+                    if (!e.pageX && !e.pageY && e.changedTouches.length) {
+                        e.__defineGetter__("pageX", function () {
+                            return this.changedTouches[0].pageX;
+                        });
+                        e.__defineGetter__("pageY", function () {
+                            return this.changedTouches[0].pageY;
+                        });
+                        e.__defineGetter__("clientX", function () {
+                            return this.changedTouches[0].clientX;
+                        });
+                        e.__defineGetter__("clientY", function () {
+                            return this.changedTouches[0].clientY;
+                        });
+                        e.__defineGetter__("which", function () {
+                            return 1;
+                        });
+                    }
+                },
+                proxy: function (elem, eventName, eventListener) {
+                    var firedInTouch = false,
+                        touchEventListener = function (e) {
+                            var doc = Dom.getDocument(elem);
+                            doc.addEventListener('touchend', function (e) {
+                                doc.removeEventListener('touchend', arguments.callee, true);
+                                firedInTouch = true;
+                                eventFix.click.fixEvent(e);
+                                return eventListener.call(elem, e);
+                            }, true);
+                        };
+
+                    elem.addEventListener(eventName, touchEventListener.backup = function (e) {
+                        if (firedInTouch) {
+                            firedInTouch = false;
+                        } else {
+                            return eventListener.call(this, e);
+                        }
+                    }, false);
+                    return touchEventListener;
+                }
+            };
+
+            eventFix.mousedown = { bindType: 'touchstart' };
+            eventFix.mousemove = { bindType: 'touchmove' };
+            eventFix.mouseup = { bindType: 'touchend' };
+            eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy = function (elem, eventName, eventListener) {
+
+                var firedInTouch = false,
+                    touchEventListener = function (e) {
+                        firedInTouch = true;
+                        eventFix.click.fixEvent(e);
+                        return eventListener.call(this, e);
+                    };
+
+                elem.addEventListener(eventName, touchEventListener.backup = function (e) {
+                    if (firedInTouch) {
+                        firedInTouch = false;
+                    } else {
+                        return eventListener.call(this, e);
+                    }
+                }, false);
+                return touchEventListener;
+            };
+
+            eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.mouseup.click = function (elem, eventName, eventListener) {
+                elem.removeEventListener(eventName, eventListener.backup, false);
+                elem.removeEventListener(this.bindType, eventListener, false);
+            };
+
+        }
+
+        return eventFix;
+
+    })(),
 
     /**
      * 为指定元素添加一个事件监听器。
@@ -342,7 +478,7 @@ var Dom = {
 	 * @return {Document} 文档。
 	 */
     getDocument: function (node) {
-        return node.ownerDocument || node.document || node;
+        return node.ownerDocument || node;
     },
 
     /**
@@ -480,7 +616,7 @@ var Dom = {
         }
         return cssPropertyName;
     },
-
+    
     /**
      * 获取指定节点的样式。
      * @param {Element} elem 要获取的元素。
@@ -499,7 +635,7 @@ var Dom = {
      * @return {String} 字符串。
      */
     setStyle: function (elem, cssPropertyName, value) {
-        return elem.style[Dom.vendorCssPropertyName(elem, cssPropertyName)] = value;
+        elem.style[Dom.vendorCssPropertyName(elem, cssPropertyName)] = value;
     },
 
     /**
@@ -570,146 +706,6 @@ var Dom = {
 
 };
 
-// #region 事件补丁
-
-(function () {
-
-    var eventFix = Dom.eventFix;
-    var html = document.documentElement;
-
-    // mouseenter/mouseleave 事件不支持委托。
-    // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
-    eventFix.mouseenter = { delegateType: 'mouseover' };
-    eventFix.mouseleave = { delegateType: 'mouseout' };
-    if (html.onmouseenter === undefined) {
-        eventFix.mouseenter.proxy = eventFix.mouseleave.proxy = function (elem, eventName, eventListener) {
-            return function (e) {
-                // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
-                if (!this.contains(e.relatedTarget)) {
-                    return eventListener.call(this, e);
-                }
-            };
-        };
-    }
-
-    // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
-    eventFix.focus = { delegateType: 'focusin' };
-    eventFix.blur = { delegateType: 'focusout' };
-
-    // Firefox: 不支持 focusin/focusout 事件。
-    if (html.onfocusin === undefined) {
-        eventFix.focusin = { bindType: 'focus' };
-        eventFix.focusout = { bindType: 'blur' };
-        eventFix.focusin.add = eventFix.focusout.add = function (elem, eventName, eventListener) {
-            elem.addEventListener(bindType, this.bindType, true);
-        };
-        eventFix.focusin.remove = eventFix.focusout.remove = function (elem, eventName, eventListener) {
-            elem.removeEventListener(bindType, this.bindType, true);
-        };
-    }
-
-    // Firefox: 不支持 mousewheel 事件。
-    if (html.onmousewheel === undefined) {
-        eventFix.mousewheel = {
-            bindType: 'DOMMouseScroll',
-            proxy: function (elem, eventName, eventListener) {
-                return function (e) {
-                    // 修正滚轮单位。
-                    e.wheelDelta = -(event.detail || 0) / 3;
-                    return eventListener.call(this, e);
-                };
-            }
-        };
-    }
-
-    // 支持直接绑定原生事件。
-    eventFix['native:click'] = { bindType: 'click' };
-    eventFix['native:mousedown'] = { bindType: 'mousedown' };
-    eventFix['native:mouseup'] = { bindType: 'mouseup' };
-    eventFix['native:mousemove'] = { bindType: 'mousemove' };
-
-    // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
-    if (window.TouchEvent) {
-
-        // 让浏览器快速响应 click 事件，而非等待 300ms 。
-        eventFix.click = {
-            bindType: 'touchstart',
-            fixEvent: function(e) {
-                // PC Chrome 下触摸事件的 pageX 和 pageY 始终是 0。
-                if (!e.pageX && !e.pageY && e.changedTouches.length) {
-                    e.__defineGetter__("pageX", function () {
-                        return this.changedTouches[0].pageX;
-                    });
-                    e.__defineGetter__("pageY", function () {
-                        return this.changedTouches[0].pageY;
-                    });
-                    e.__defineGetter__("clientX", function () {
-                        return this.changedTouches[0].clientX;
-                    });
-                    e.__defineGetter__("clientY", function () {
-                        return this.changedTouches[0].clientY;
-                    });
-                    e.__defineGetter__("which", function () {
-                        return 1;
-                    });
-                }
-            },
-            proxy: function (elem, eventName, eventListener) {
-                var firedInTouch = false,
-                    touchEventListener = function (e) {
-                        var doc = Dom.getDocument(elem);
-                        doc.addEventListener('touchend', function (e) {
-                            doc.removeEventListener('touchend', arguments.callee, true);
-                            firedInTouch = true;
-                            eventFix.click.fixEvent(e);
-                            return eventListener.call(elem, e);
-                        }, true);
-                    };
-
-                elem.addEventListener(eventName, touchEventListener.backup = function (e) {
-                    if (firedInTouch) {
-                        firedInTouch = false;
-                    } else {
-                        return eventListener.call(this, e);
-                    }
-                }, false);
-                return touchEventListener;
-            }
-        };
-
-        eventFix.mousedown = { bindType: 'touchstart' };
-        eventFix.mousemove = { bindType: 'touchmove' };
-        eventFix.mouseup = { bindType: 'touchend' };
-        eventFix.mousedown.proxy = eventFix.mousemove.proxy = eventFix.mouseup.proxy = function (elem, eventName, eventListener) {
-
-            var firedInTouch = false,
-                touchEventListener = function (e) {
-                    firedInTouch = true;
-                    eventFix.click.fixEvent(e);
-                    return eventListener.call(this, e);
-                };
-
-            elem.addEventListener(eventName, touchEventListener.backup = function(e) {
-                if (firedInTouch) {
-                    firedInTouch = false;
-                } else {
-                    return eventListener.call(this, e);
-                }
-            }, false);
-            return touchEventListener;
-        };
-
-        eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.mouseup.click = function (elem, eventName, eventListener) {
-            elem.removeEventListener(eventName, eventListener.backup, false);
-            elem.removeEventListener(this.bindType, eventListener, false);
-        };
-
-    }
-
-})();
-
-// #endregion
-
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
  * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
@@ -748,42 +744,49 @@ Dom.ready = function(callback){
     }, 14) : callback();
 };
 
-var rOpacity = /opacity=([^)]*)/;
-    
-Object.defineProperty(document.documentElement.style.constructor.prototype, 'opacity', {
-    set: function(value) {
+Dom.styleFix = {
+    height: {
+        get: function (elem) {
+		    return elem.offsetHeight === 0 ? 'auto' : elem.offsetHeight - Dom.calcStyleExpression(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
+	    }
+    },
+	width: {
+        get: function (elem) {
+		    return elem.offsetWidth === 0 ? 'auto' : elem.offsetWidth - Dom.calcStyleExpression(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
+	    }
+    },
+	cssFloat: {
+        get: function (elem) {
+		    return Dom.getStyle(elem, 'styleFloat');
+	    },
+        set: function (elem, value) {
+		    return Dom.setStyle(elem, 'styleFloat', value);
+	    }
+    },
+    opacity: {
+        rOpacity: /opacity=([^)]*)/,
+        get: function (elem) {
+		    return this.rOpacity.test(elem.currentStyle.filter) ? parseInt(RegExp.$1) / 100 + '' : '1';
+	    },
+        set: function(elem, value) {
 
-        value = value || value === 0 ? 'opacity=' + value * 100 : '';
+            value = value || value === 0 ? 'opacity=' + value * 100 : '';
+            
+            // 当元素未布局，IE会设置失败，强制使生效。
+            elem.style.zoom = 1;
 
-        // 获取真实的滤镜。
-        var filter  = this.filter;
+            // 获取真实的滤镜。
+            var filter  = elem.currentStyle.filter;
 
-        // 当元素未布局，IE会设置失败，强制使生效。
-        this.zoom = 1;
-
-        // 设置值。
-        this.filter = rOpacity.test(filter) ? filter.replace(rOpacity, value) : (filter + ' alpha(' + value + ')');
+            // 设置值。
+            elem.style.filter = this.rOpacity.test(filter) ? filter.replace(this.rOpacity, value) : (filter + ' alpha(' + value + ')');
+        }
     }
-});
-        
-Dom.styleHooks = {
-    height: function (elem) {
-		return elem.offsetHeight === 0 ? 'auto' : elem.offsetHeight - Dom.calcStyleExpression(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight') + 'px';
-	},
-	width: function (elem) {
-		return elem.offsetWidth === 0 ? 'auto' : elem.offsetWidth - Dom.calcStyleExpression(elem, 'borderTopWidth+borderBottomWidth+paddingLeft+paddingRight') + 'px';
-	},
-	cssFloat: function (elem) {
-		return Dom.getStyle(elem, 'styleFloat');
-	},
-    opacity: function (elem) {
-		return rOpacity.test(elem.currentStyle.filter) ? parseInt(RegExp.$1) / 100 + '' : '1';
-	}
 };
 
 Dom.getStyle = function(elem, cssPropertyName){
-    if(cssPropertyName in Dom.styleHooks){
-        return Dom.styleHooks[cssPropertyName];
+    if(cssPropertyName in Dom.styleFix){
+        return Dom.styleFix[cssPropertyName].get(elem);
     }
 
 	// currentStyle：IE的样式获取方法,runtimeStyle是获取运行时期的样式。
@@ -809,6 +812,11 @@ Dom.getStyle = function(elem, cssPropertyName){
 	}
 
     return r;
+};
+
+Dom.setStyle = function(elem, cssPropertyName, value){
+    var styleFix = Dom.styleFix[cssPropertyName];
+    styleFix && styleFix.set ? styleFix.set(elem, value) : (elem.style[cssPropertyName] = value);
 };
 
 Dom.calcStyle = function(elem, cssPropertyName){

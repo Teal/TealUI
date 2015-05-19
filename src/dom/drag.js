@@ -29,6 +29,11 @@ Dom.draggable = function (elem, options) {
         dragDelay: 500,
 
         /**
+         * 设置是否自动滚动屏幕。
+         */
+        autoSrcoll: 50,
+
+        /**
          * 实现拖动开始的逻辑。
          * @param {Event} e 原生的 mousemove 事件。
          */
@@ -50,7 +55,7 @@ Dom.draggable = function (elem, options) {
          * 实现拖动中的逻辑。
          * @param {Event} e 原生的 mousemove 事件。
          */
-        drag: function (e) {
+        dragMove: function (e) {
 
             // 更新目标偏移量。
             this.toOffset = {
@@ -59,7 +64,7 @@ Dom.draggable = function (elem, options) {
             };
 
             // 调用用户的拖动回调并更新位置。
-            if (!this.onDrag || this.onDrag(e) !== false) {
+            if (!this.onDragMove || this.onDragMove(e) !== false) {
                 Dom.setOffset(this.elem, this.toOffset);
             }
         },
@@ -131,6 +136,36 @@ Dom.draggable = function (elem, options) {
             // 阻止默认事件。
             e.preventDefault();
 
+            // 自动滚动屏幕。
+            if (draggabe.autoSrcoll) {
+                var doc = Dom.getDocument(draggabe.elem),
+                    docSize = Dom.getSize(doc),
+                    docScroll = Dom.getScroll(doc),
+                    globalX = e.pageX - docScroll.left,
+                    globalY = e.pageY - docScroll.top,
+                    needScroll = false;
+
+                if (globalX > docSize.width - draggabe.autoSrcoll) {
+                    docScroll.left += draggabe.autoSrcoll;
+                    needScroll = true;
+                } else if (globalX < draggabe.autoSrcoll) {
+                    docScroll.left -= draggabe.autoSrcoll;
+                    needScroll = true;
+                } 
+
+                if (globalY > docSize.height - draggabe.autoSrcoll) {
+                    docScroll.top += draggabe.autoSrcoll;
+                    needScroll = true;
+                } else if (globalY < draggabe.autoSrcoll) {
+                    docScroll.top -= draggabe.autoSrcoll;
+                    needScroll = true;
+                }
+
+                if (needScroll) {
+                    Dom.setScroll(doc, docScroll);
+                }
+            }
+
             // 更新当前的鼠标位置。
             draggabe.endX = e.pageX;
             draggabe.endY = e.pageY;
@@ -181,11 +216,11 @@ Dom.draggable = function (elem, options) {
             }
 
             // 设置下次处理拖动的处理函数。
-            draggabe.currentHandler = draggabe.drag;
+            draggabe.currentHandler = draggabe.dragMove;
 
             // 执行开始拖动回调，如果用户阻止和强制停止拖动。
             if (draggabe.dragStart(e) !== false) {
-                draggabe.drag(e, true);
+                draggabe.dragMove(e, true);
             } else {
                 draggabe.stopDragging(e);
             }

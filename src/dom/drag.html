@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>拖动</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="实现拖动。">
 
     <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/offset.js"></script>
     <script type="text/javascript" src="../../src/dom/drag.js"></script>
@@ -43,7 +44,7 @@
 
     <h2>拖动回调</h2>
     <aside class="doc-demo">
-        <div id="d3" class="doc-box">基本拖动</div>
+        <div id="d3" class="doc-box">拖动回调</div>
         <script>
             Dom.draggable(document.getElementById('d3'), {
                 onDragStart: function (e) {
@@ -61,7 +62,7 @@
 
     <h2>拖动步长</h2>
     <aside class="doc-demo">
-        <div id="d4" class="doc-box">基本拖动</div>
+        <div id="d4" class="doc-box">拖动步长</div>
         <script>
             Dom.draggable(document.getElementById('d4'), {
                 onDrag: function (e) {

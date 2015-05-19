@@ -3,29 +3,32 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>读写外部 HTML</title>
+    <title>哈希值改变</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="获取或设置外部 HTML。">
+    <meta name="description" content="哈希值改变事件">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/outerHtml.js"></script>
+    <script type="text/javascript" src="../../src/dom/hashChange.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
-    <div id="elem" class="doc-box"></div>
-    <script>
-        var elem = document.getElementById('elem');
+    <a href="#test1">test1</a>
+    <a href="#test2">test2</a>
+    <a href="#test3">test3</a>
+    <a href="#test4">test4</a>
+
+    <script class="doc-demo">
+        Dom.hashChange(function (hash) {
+            if (hash) {
+                alert('当前哈希值=' + hash);
+            }
+        });
     </script>
 
-    <h5>获取 outerHTML</h5>
-    <pre>Dom.getOuterHtml(elem);</pre>
-
-    <h5>设置 outerHTML</h5>
-    <pre>Dom.setOuterHtml(elem, "&lt;div>a&lt;/div>");</pre>
 </body>
 </html>
