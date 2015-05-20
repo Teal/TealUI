@@ -11,8 +11,8 @@ var DropDown = Control.extend({
 
     role: 'dropDown',
 
-    init: function(options) {
-        options.target && this.setDropDown(Dom.find(options.target));
+    init: function (options) {
+        this.setDropDown(Dom.find(options.target) || this.elem.previousElementSibling);
     },
 
     /**
@@ -20,52 +20,14 @@ var DropDown = Control.extend({
      */
     setDropDown: function (target) {
         this.target = target;
-        Dom.on(target, 'click', this.toggle.bind(this));
+        target && Dom.on(target, 'click', this.toggle.bind(this));
     },
     
     /**
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
-    onShow: function () {
+    onShow: function (e) {
         Dom.fadeIn(this.elem);
-        //var me = this;
-
-        //// 如果是因为 DOM 事件而切换菜单，则测试是否为 disabled 状态。
-        //if (!e || !Dom.getAttr(me.elem, 'disabled') && !Dom.getAttr(me.elem, 'readonly')) {
-
-        //    // 如果下拉菜单被隐藏，则先重设大小、定位。
-        //    if (me.isDropDownHidden()) {
-        //        Dom.show(me.dropDownNode);
-        //    }
-
-        //    me.onDropDownShow();
-
-        //    // 重新修改宽度。
-
-        //    // 重新设置位置。
-        //    if (!me.isDropDownHidden()) {
-        //        var dropDown = me.dropDownNode,
-        //			dropDownWidth = me.dropDownWidth;
-
-        //        if (dropDownWidth < 0) {
-
-        //            // 在当前目标元素的宽、下拉菜单的 min-width 属性、下拉菜单自身的宽度中找一个最大值。
-        //            dropDownWidth = Math.max(Dom.getSize(me.elem).x, Dom.styleNumber(dropDown, 'min-width'), Dom.getScrollSize(dropDown).x);
-
-        //        }
-
-        //        if (dropDownWidth !== 'auto') {
-        //            Dom.setSize(dropDown, { x: dropDownWidth });
-        //        }
-
-        //        // 设置 mouseup 后自动隐藏菜单。
-        //        Dom.on(document, 'mouseup', me.hideDropDown, me);
-
-        //        Dom.pin(dropDown, me.elem, 'b', 0, -1);
-        //    }
-
-        //}
-
     },
 
     /**
@@ -88,29 +50,28 @@ var DropDown = Control.extend({
      * 显示当前下拉菜单。
      * @return this
      */
-    show: function () {
+    show: function (e) {
         
-        if (this.isHidden() && this.onShow() !== false) {
-            var me = this;
+        if (this.isHidden() && this.onShow(e) !== false) {
 
             // 设置隐藏事件。
             Dom.on(document, 'mousedown', function (e) {
                 
                 // 不处理下拉菜单本身事件。
-                if (!me.elem.contains(e.target)) {
+                if (!this.elem.contains(e.target)) {
 
                     // 如果在目标节点点击，则直接由目标节点调用 hide()。
-                    if (!me.target || !me.target.contains(e.target)) {
-                        me.hide();
+                    if (!this.target || !this.target.contains(e.target)) {
+                        this.hide();
                     }
 
                     // 确保当前事件只执行一次。
                     Dom.off(document, 'mousedown', arguments.callee);
                 }
 
-            });
+            }.bind(this));
 
-            this.trigger('show');
+            this.trigger('show', e);
 
         }
 
@@ -121,9 +82,9 @@ var DropDown = Control.extend({
      * 隐藏下拉菜单。
      * @return this
      */
-    hide: function () {
-        if (!this.isHidden() && this.onHide() !== false) {
-            this.trigger('hide');
+    hide: function (e) {
+        if (!this.isHidden() && this.onHide(e) !== false) {
+            this.trigger('hide', e);
         }
 
         return this;
@@ -133,8 +94,8 @@ var DropDown = Control.extend({
      * 切换显示下拉菜单。
      * @return this
      */
-    toggle: function () {
-        return this.isHidden() ? this.show() : this.hide();
+    toggle: function (e) {
+        return this.isHidden() ? this.show(e) : this.hide(e);
     }
 
 });

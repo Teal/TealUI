@@ -108,6 +108,9 @@ var Control = Base.extend({
 
     },
 
+    /**
+     * 获取当前控件的名称。
+     */
     toString: function() {
         return this.role;
     }
@@ -136,13 +139,13 @@ Control.extend = function (members) {
  * @param {Element} elem 要获取的元素。
  * @param {String?} roleName 指定初始化的控件名。
  */
-Control.get = function (elem, roleName) {
+Control.get = function (elem, roleName, options) {
 
     // 默认根据 data-role 指定角色名。
     roleName = roleName || elem.getAttribute('data-role');
 
-    var propName = '_role_' + roleName,
-        instance = elem[propName];
+    var data = Dom.getData(elem),
+        instance = (data.roles || (data.roles = {}))[roleName];
 
     // 已经初始化则不再初始化。
     if (!instance) {
@@ -151,7 +154,7 @@ Control.get = function (elem, roleName) {
         var controlClass = Control.roles[roleName] || Control;
 
         // 生成组件配置项。
-        var options = {};
+        options = options || {};
 
         // 从 DOM 载入配置。
         for (var i = 0; i < elem.attributes.length; i++) {
@@ -164,7 +167,7 @@ Control.get = function (elem, roleName) {
         }
 
         // 创建组件实例。
-        elem[propName] = instance = new controlClass(elem, options);
+        data.roles[roleName] = instance = new controlClass(elem, options);
 
     }
 

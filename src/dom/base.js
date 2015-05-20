@@ -336,6 +336,9 @@ var Dom = {
 
         } else {
 
+            // IE6-8 执行的 this 绑定不正确。
+            /*@cc_on if(!+"\v1") actualListener = function(e){ return prxoyListener.call(elem, e); }; else @*/
+
             // 相同的事件绑定两次只执行一次，需要生成新的引用。
             // 对于特殊事件或委托事件，每次都会重新生成新的代理函数，不会进入 if。
             actualListener = eventInfo.indexOf(prxoyListener) < 0 ? prxoyListener : function (e) {
@@ -503,11 +506,12 @@ var Dom = {
      * @return {Node} 返回插入的新节点对象。
      */
     append: function (node, html) {
-        var c = Dom.parse(html, Dom.getDocument(node)).parentNode;
-        while (c.firstChild) {
-            node.appendChild(c.firstChild);
+        html = Dom.parse(html, Dom.getDocument(node));
+        for (var c = html, next; c; c = next) {
+            next = c.nextSibling;
+            node.appendChild(c);
         }
-        return node.lastChild;
+        return html;
     },
 
     /**
@@ -517,11 +521,12 @@ var Dom = {
      * @return {Node} 返回插入的新节点对象。
      */
     prepend: function (node, html) {
-        var c = Dom.parse(html, Dom.getDocument(node)).parentNode, p = node.firstChild;
-        while (c.firstChild) {
-            node.insertBefore(c.firstChild, p);
+        html = Dom.parse(html, Dom.getDocument(node));
+        for (var c = html, next, p = node.firstChild; c; c = next) {
+            next = c.nextSibling;
+            node.insertBefore(c, p);
         }
-        return node.firstChild;
+        return html;
     },
 
     /**
@@ -531,11 +536,12 @@ var Dom = {
      * @return {Node} 返回插入的新节点对象。
      */
     before: function (node, html) {
-        var c = Dom.parse(html, Dom.getDocument(node)).parentNode, p = node.parentNode;
-        while (c.firstChild) {
-            p.insertBefore(c.firstChild, node);
+        html = Dom.parse(html, Dom.getDocument(node));
+        for (var c = html, next, p = node.parentNode; c; c = next) {
+            next = c.nextSibling;
+            p.insertBefore(c, node);
         }
-        return node.previousSibling;
+        return html;
     },
 
     /**
@@ -598,7 +604,7 @@ var Dom = {
 	 */
     calcStyleExpression: function (elem, expression) {
         var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
-        return eval(expression.replace(/\w+/g, '(parseFloat(computedStyle["$1"])||0)'));
+        return eval(expression.replace(/(\w+)/g, '(parseFloat(computedStyle["$1"])||0)'));
     },
 
     /**

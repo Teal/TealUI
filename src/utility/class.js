@@ -41,7 +41,7 @@ Base.extend = function (members) {
     if (!members.hasOwnProperty("constructor")) {
         members.constructor = function () {
             // 缺省构造函数：直接调用父类构造函数。
-            return this.constructor.__proto__.apply(this, arguments);
+            return subClass.__proto__.apply(this, arguments);
         };
     }
 
@@ -50,18 +50,16 @@ Base.extend = function (members) {
 
     // 设置派生类的原型。
     subClass.prototype = members;
-    subClass.__proto__ = this;
-    members.__proto__ = this.prototype;
 
-    // #if CompactMode
+    /*@cc_on 
 
     // IE6-9: 不支持 __proto__
     if (!('__proto__' in Object.prototype)) {
-        var key, delegateClass = function() {
+        var delegateClass = function() {
             for (key in members) {
                 this[key] = members[key];
             }
-        };
+        }, key;
         for (key in this) {
             subClass[key] = this[key];
         }
@@ -70,7 +68,10 @@ Base.extend = function (members) {
         subClass.prototype.constructor = subClass;
     }
 
-    // #endif
+    @*/
+
+    subClass.__proto__ = this;
+    members.__proto__ = this.prototype;
 
     return subClass;
 

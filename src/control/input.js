@@ -5,10 +5,9 @@
 //#require ../dom/base.js
 
 /**
- * 所有表单输入控件实现的接口。
- * @interface
+ * 表示一个输入框控件。
  */
-var IInput = {
+var Input = Control.extend({
 	
 	/**
 	 * 获取当前表单的代理输入域。
@@ -33,20 +32,16 @@ var IInput = {
 	    return this.input || (this.input = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.elem.tagName) ? this.elem : Dom.find("input,select,textarea", this.elem) || Dom.append(this.elem, '<input type="hidden" name="' + this.elem.getAttribute('name') + '">'));
 	},
 
-	/**
-	 * 设置当前输入域的状态, 并改变控件的样式。
-     * @param {String} name 状态名。
-     * @param {Boolean} value=false 要设置的状态值。
-	 * @protected virtual
-	 */
-	state: function (name, value) {
-		Dom.toggleClass(this.elem, this.cssClass + '-' + name, value);
-	},
-	
+    /**
+     * 获取当前输入框的值。
+     */
 	getValue: function () {
 	    return this.getInput().value;
 	},
 
+    /**
+     * 设置当前输入框的值。
+     */
 	setValue: function (value) {
 	    this.getInput().value = value;
 		return this;
@@ -54,19 +49,22 @@ var IInput = {
 
     /**
      * 获取当前输入控件的状态。
+     * @param {String} name 状态名。
      */
 	getState: function (name) {
-	    return Dom.hasClass(this.getInput(), ('x-' + this.role + '-' + name).toLowerCase());
+	    return this.getInput().classList.contains(('x-textbox-' + name).toLowerCase());
 	},
 
     /**
      * 设置当前输入控件的状态。
+     * @param {String} name 状态名。
+     * @param {Boolean} value=false 要设置的状态值。
      */
 	setState: function (name, value) {
 	    value = value !== false;
-	    Dom.toggleClass(this.elem, ('x-' + this.role + '-' + name).toLowerCase(), value !== false);
+	    this.getInput().classList[value ? 'add' : 'remove'](('x-textbox-' + name).toLowerCase());
 	    this.getInput()[name] = value;
 	    return this;
 	}
 	
-};
+});

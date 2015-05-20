@@ -2,49 +2,83 @@
  * @author  xuld
  */
 
-//#require ui/button/button.css
-//#require ui/button/menubutton.css
-//#require ui/suggest/picker.css
-//#require ui/input/textBox.css
-//#require ui/core/base.js
-//#require ui/core/iinput.js
-//#require ui/core/idropdownowner.js
+//#require ../button/button.css
+//#require ../button/menubutton.css
+//#require ../suggest/picker.css
+//#require ../input/textBox.css
+//#require ../core/base.js
+//#require ../core/iinput.js
+//#require ../core/idropdownowner.js
 
 /**
  * 表示一个数据选择器。
  * @abstract class
  * @extends Control
  */
-var Picker = Control.extend({
+var Picker = Input.extend({
     
     role: 'picker',
 
     dropDownWidth: '100%',
 
+    /**
+     * 获取当前选择器的按钮部分。
+     */
+    getButton: function() {
+        return Dom.find('.x-button', this.elem);
+    },
+
     init: function () {
-        var dropDown = Dom.getProp(this.elem, 'nextElementSibling');
-        this.dropDown = dropDown = dropDown && Dom.hasClass(dropDown, 'x-dropdown') && Control.get(dropDown, 'dropDown');
-        dropDown.setDropDown(Dom.find('.x-button', this.elem));
+
+        // 初始化下拉菜单。
+        var dropDown = this.elem.nextElementSibling;
+        this.dropDown = dropDown = dropDown && dropDown.classList.contains('x-dropdown') && Control.get(dropDown, 'dropDown', { target: this.getButton() });
+
         var me = this;
-        dropDown.onShow = function () {
-
-            Dom.fadeIn(this.elem);
-
-            // 更新下拉菜单尺寸。
-            if (me.dropDownWidth) {
-                var width = /%$/.test(me.dropDownWidth) ? me.elem.offsetWidth * parseFloat(me.dropDownWidth) / 100 : parseFloat(me.dropDownWidth);
-                Dom.setSize(dropDown.elem, { width: width });
-            }
-
+        dropDown.onShow = function (e) {
+            DropDown.prototype.onShow.call(this, e);
+            me.realignDropDown();
             me.updateDropDown();
             me.onDropDownShow();
         };
-        dropDown.onHide = function () {
-
-            Dom.fadeOut(this.elem);
-
+        dropDown.onHide = function (e) {
+            DropDown.prototype.onHide.call(this, e);
             me.onDropDownHide();
         };
+    },
+
+    /**
+	 * 当被子类重写时，负责更新下拉菜单的位置。
+	 * @protected 
+	 * @virtual
+	 */
+    realignDropDown: function () {
+
+        // 更新下拉菜单尺寸。
+        if (this.dropDownWidth) {
+            var width = /%$/.test(this.dropDownWidth) ? this.elem.offsetWidth * parseFloat(this.dropDownWidth) / 100 : parseFloat(this.dropDownWidth);
+            Dom.setSize(this.dropDown.elem, { width: width });
+        }
+
+        // 更新下拉菜单位置。
+        var rect = Dom.getPosition(this.elem),
+            size = Dom.getSize(this.elem),
+            doc = Dom.getDocument(this.elem),
+            docPosition = Dom.getPosition(doc),
+            docSize = Dom.getSize(doc),
+            dropDownSize = Dom.getSize(this.dropDown.elem);
+        
+        rect.top += size.height;
+
+        // 如果超出文档区域，则显示在另一侧。
+        if (rect.top + dropDownSize.height > docPosition.top + docSize.height && rect.top - size.height - dropDownSize.height > docPosition.top) {
+            rect.top -= size.height + dropDownSize.height - 1;
+        } else {
+            rect.top--;
+        }
+
+        Dom.setPosition(this.dropDown.elem, rect);
+
     },
     
     /**
@@ -59,9 +93,7 @@ var Picker = Control.extend({
      * @protected override
      */
     onDropDownShow: function () {
-        //this.updateDropDown();
-        //this.setState('actived', true);
-        //IDropDownOwner.onDropDownShow.apply(this, arguments);
+        this.setState('actived', true);
     },
 
     /**
@@ -69,10 +101,22 @@ var Picker = Control.extend({
      * @protected override
      */
     onDropDownHide: function () {
-        //this.setState('actived', false);
-        //IDropDownOwner.onDropDownHide.apply(this, arguments);
+        this.setState('actived', false);
     },
-
+    
+    /**
+     * 设置当前输入控件的状态。
+     * @param {String} name 状态名。
+     * @param {Boolean} value=false 要设置的状态值。
+     */
+    setState: function (name, value) {
+        value = value !== false;
+        Input.prototype.setState.call(this, name, value);
+        this.getButton().classList[value ? 'add' : 'remove'](('x-button-' + name).toLowerCase());
+        this.getButton()[name] = value;
+        return this;
+    }
+	
 });
 
 //Object.assign(Picker.prototype, IInput);

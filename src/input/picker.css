@@ -17,16 +17,25 @@
   padding-right: 0;
   width: 32px;
 }
-.x-picker .x-button:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
   background-color: transparent;
   border-color: transparent;
 }
-.x-picker .x-button-success:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-success {
+  border-color: #5eb95e;
+}
+.x-picker .x-button-success:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
   color: #5eb95e;
 }
-.x-picker .x-button-warning:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-warning {
+  border-color: #e9985e;
+}
+.x-picker .x-button-warning:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
   color: #e9985e;
 }
-.x-picker .x-button-error:not(:focus):not(:hover):not(:active):not(.x-actived) {
+.x-picker .x-button-error {
+  border-color: #dd514c;
+}
+.x-picker .x-button-error:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
   color: #dd514c;
 }

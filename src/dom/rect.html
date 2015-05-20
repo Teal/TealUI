@@ -11,7 +11,7 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/offset.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -22,13 +22,13 @@
         var elem = document.getElementById('elem');
     </script>
 
-    <h2>尺寸</h2>
+    <h2>尺寸和定位</h2>
 
-    <h5>获取大小</h5>
-    <pre>Dom.getSize(elem);</pre>
+    <h5>获取大小和位置</h5>
+    <pre>Dom.getRect(elem);</pre>
 
-    <h5>设置大小</h5>
-    <pre>Dom.setSize(elem, {width:200, height:400});</pre>
+    <h5>设置大小和位置</h5>
+    <pre>Dom.setRect(elem, {x: 30, width:200, height:400});</pre>
 
     <h2>定位</h2>
 
@@ -37,15 +37,6 @@
 
     <h5>获取相对位置</h5>
     <pre>Dom.getOffset(elem);</pre>
-
-    <h5>设置相对位置</h5>
-    <pre>Dom.setOffset(elem, {left:100, top: 500});</pre>
-
-    <h5>获取绝对位置</h5>
-    <pre>Dom.getPosition(elem);</pre>
-
-    <h5>设置绝对位置</h5>
-    <pre>Dom.setPosition(elem, {left:100, top: 500});</pre>
 
     <h2>滚动</h2>
 
@@ -56,7 +47,7 @@
     <pre>Dom.getScroll(elem);</pre>
 
     <h5>设置滚动位置</h5>
-    <pre>Dom.setScroll(elem, {left:100, top: 500});</pre>
+    <pre>Dom.setScroll(elem, {x:100, y: 500});</pre>
 
 </body>
 </html>

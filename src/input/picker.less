@@ -23,16 +23,19 @@
         padding-right: 0;
         width: @box-padding-x + @line-height;
 
-        &:not(:focus):not(:hover):not(:active):not(.x-actived) {
+        &:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
             background-color: transparent;
             border-color: transparent;
         }
         
     }
     
-    // ɫϵ
+    // 色系
     .x-button-state(@state){
-        .x-button-@{state}:not(:focus):not(:hover):not(:active):not(.x-actived) {
+        .x-button-@{state} {
+            border-color: ~"@{@{state}-text-color}";
+        }
+        .x-button-@{state}:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
             color: ~"@{@{state}-text-color}";
         }
     }

@@ -181,6 +181,9 @@ Dom.fadeOut = function (elem, duration, ease, callback, dalay) {
         opacity: 0
     }, duration, ease, function () {
         elem.style.opacity = '';
+        if (!Dom.calcStyle(elem, 'opacity')) {
+            Dom.setStyle(elem, 'opacity', '1');
+        }
         Dom.hide(elem);
         callback && callback.call(elem);
     }, dalay);

@@ -11,16 +11,14 @@
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
 
-    <script type="text/javascript" src="../../src/shim/ecma5.js"></script>
-    <!--[if lte IE 8]>
-        <script type="text/javascript" src="../../src/shim/html5.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
 
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/dom/hover.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
     <script type="text/javascript" src="../../src/control/popover.js"></script>
 </head>
 <body>
@@ -31,7 +29,7 @@
     <p>节点添加 <code>[data-role="popover"]</code> 和 <code>[data-target="{目标节点选择器}"]</code>，即可将指定节点初始化为指定节点的弹出层。</p>
     <aside class="doc-demo">
         <button id="button1">按钮</button>
-        <div class="x-dropdown" data-role="popover" data-target="#button1">我是弹出层</div>
+        <div class="x-dropdown" data-role="popover" data-target="#button1" data-align="bottom">我是弹出层</div>
     </aside>
 
 </body>
