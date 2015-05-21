@@ -10,11 +10,9 @@
  */
 Dom.hashChange = function(callback) {
     if (callback.constructor === Function) {
-        
         Dom.on(window, 'hashchange', function () {
             callback(Dom.getHash());
         });
-
         callback(Dom.getHash());
     } else {
         Dom.trigger(win, 'hashchange');

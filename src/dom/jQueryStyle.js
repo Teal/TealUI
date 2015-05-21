@@ -43,29 +43,22 @@ $.extend({
         
     },
 
-    addClass: function() {
-        
+    addClass: function(className) {
+        return this.each(function(elem) {
+            elem.classList.add(className);
+        });
     },
+
     removeClass: function (name) {
-        return this.each(function (idx) {
-            if (!('className' in this)) return
-            if (name === undefined) return className(this, '')
-            classList = className(this)
-            funcArg(this, name, idx, classList).split(/\s+/g).forEach(function (klass) {
-                classList = classList.replace(classRE(klass), " ")
-            })
-            className(this, classList.trim())
-        })
+        return this.each(function (elem) {
+            className ? elem.classList.remove(className) : (elem.className = '');
+        });
     },
-    toggleClass: function (name, when) {
-        if (!name) return this
-        return this.each(function (idx) {
-            var $this = $(this), names = funcArg(this, name, idx, className(this))
-            names.split(/\s+/g).forEach(function (klass) {
-                (when === undefined ? !$this.hasClass(klass) : when) ?
-                  $this.addClass(klass) : $this.removeClass(klass)
-            })
-        })
+
+    toggleClass: function (name, value) {
+        return this.each(function (elem) {
+            elem.classList[value === undefined ? 'toggle' : value ? 'add' : 'remove'](className);
+        });
     },
     scrollTop: function (value) {
         if (!this.length) return
@@ -118,7 +111,7 @@ $.extend({
         })
     },
 
-    append: function () {
+    append: function (value) {
 
     },
 
