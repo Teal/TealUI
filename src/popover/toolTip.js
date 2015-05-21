@@ -2,21 +2,16 @@
  * @author xuld
  */
 
-//#require ui/part/arrow.css
-//#require ui/tip/tooltip.css
-//#require ui/core/contentcontrol.js
-//#require ui/core/itooltip.js
+// #require ui/part/arrow.css
+// #require ui/tip/tooltip.css
+// #require ui/core/contentcontrol.js
+// #require ui/core/itooltip.js
 
 /**
  * 表示一个工具提示。
  * @extends Control
  */
 var ToolTip = Popover.extend({
-
-    /**
-     * 设置当前控件的角色。
-     */
-    role: 'toolTip',
 
     /**
      * 初始化当前控件。

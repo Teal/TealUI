@@ -2,8 +2,8 @@
  * @fileOverview 所有控件的基类。
  */
 
-//#require ../utility/class.js
-//#require ../dom/base.js
+// #require ../utility/class.js
+// #require ../dom/base.js
 
 /**
  * 表示一个控件。
@@ -106,32 +106,18 @@ var Control = Base.extend({
             this[optionName](delayedOptions[optionName]);
         }
 
-    },
-
-    /**
-     * 获取当前控件的名称。
-     */
-    toString: function() {
-        return this.role;
     }
 
 });
 
 /**
- * 存储所有已注册的控件类型。
+ * 根据类名获取组件类型。
  */
-Control.roles = {};
-
-/**
- * 重定义控件的继承方式，以方便捕获所有已定义的组件类型。
- */
-Control.extend = function (members) {
-    var controlClass = Base.extend.apply(this, arguments);
-    var role = controlClass.prototype.role;
-    if (role) {
-        Control.roles[role] = controlClass;
-    }
-    return controlClass;
+Control.getControlTypeByName = function (roleName) {
+    roleName = window[roleName.replace(/^[a-z]/, function(w) {
+        return w.toUpperCase();
+    })];
+    return roleName && roleName.constructor === Function ? roleName : Control;
 };
 
 /**
@@ -151,7 +137,7 @@ Control.get = function (elem, roleName, options) {
     if (!instance) {
 
         // 获取相应的组件类。
-        var controlClass = Control.roles[roleName] || Control;
+        var controlClass = Control.getControlTypeByName(roleName);
 
         // 生成组件配置项。
         options = options || {};

@@ -3,6 +3,6 @@
  * @author xuld
  */
 
-//#require ajax/base.js
+// #require ajax/base.js
 
 Ajax.accepts.html = "text/html";

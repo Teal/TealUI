@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require ui/input/textBox.css
-//#require ui/form/form.css
-//#require ui/button/button.css
-//#require ui/container/dialog.js
+// #require ui/input/textBox.css
+// #require ui/form/form.css
+// #require ui/button/button.css
+// #require ui/container/dialog.js
 
 
 var LoginBox = Dialog.extend({

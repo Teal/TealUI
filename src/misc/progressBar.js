@@ -3,7 +3,7 @@
  * @fileOverview 序業訳。
  */
 
-//#require ../control/base.js
+// #require ../control/base.js
 
 /**
  * 序業訳。

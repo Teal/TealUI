@@ -20,15 +20,13 @@
  * <pre lang="htm" format="none">{left=200,top=100}</pre>
  */
 Dom.getRect = function (elem) {
-
-    var rect,
-        doc = Dom.getDocument(elem),
+    var doc = Dom.getDocument(elem),
         html = doc.documentElement,
         htmlScroll = Dom.getDocumentScroll(doc),
         result = {
             left: htmlScroll.left,
             top: htmlScroll.top
-        };
+        }, rect;
 
     // 对于 document，返回 scroll 。
     if (elem.nodeType === 9) {

@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require ui/composite/progressbar.css
-//#require ui/core/base.js
+// #require ui/composite/progressbar.css
+// #require ui/core/base.js
 
 var ProgressBar = Control.extend({
 

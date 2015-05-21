@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require ui/button/button.css
-//#require ui/form/fileupload.css
-//#require ui/core/base.js
-//#require ui/core/iinput.js
+// #require ui/button/button.css
+// #require ui/form/fileupload.css
+// #require ui/core/base.js
+// #require ui/core/iinput.js
 
 var FileUpload = Control.extend(IInput).implement({
 

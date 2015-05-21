@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require ui/menu/menu.css
-//#require dom/pin.js
-//#require fx/animate.js
-//#require ui/core/treecontrol.js
+// #require ui/menu/menu.css
+// #require dom/pin.js
+// #require fx/animate.js
+// #require ui/core/treecontrol.js
 
 var Menu = TreeControl.extend({
 

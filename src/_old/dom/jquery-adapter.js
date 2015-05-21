@@ -1,6 +1,6 @@
 
 //#exclude dom/core.js
-//#require core/core.js
+// #require core/core.js
 
 /**
  * 提供操作 DOM 的静态高效方法。

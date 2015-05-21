@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require dom/base.js
-//#require dom/pin.js
-//#require ui/core/base.js
-//#require fx/animate.js
+// #require dom/base.js
+// #require dom/pin.js
+// #require ui/core/base.js
+// #require fx/animate.js
 
 /**
  * 所有支持下拉菜单的组件实现的接口。

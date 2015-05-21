@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require ui/core/listcontrol.js
-//#require ui/core/contentcontrol.js
+// #require ui/core/listcontrol.js
+// #require ui/core/contentcontrol.js
 
 /**
  * 表示一个树结构的子组件。

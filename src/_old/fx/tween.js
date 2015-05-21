@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require fx/base.js
-//#require dom/base.js
+// #require fx/base.js
+// #require dom/base.js
 
 /**
  * @namespace Fx

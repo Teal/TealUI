@@ -65,7 +65,8 @@ Dom.draggable = function (elem, options) {
 
             // 调用用户的拖动回调并更新位置。
             if (!this.onDragMove || this.onDragMove(e) !== false) {
-                Dom.setOffset(this.elem, this.toOffset);
+                this.elem.style.top = this.toOffset.top + 'px';
+                this.elem.style.left = this.toOffset.left + 'px';
             }
         },
 
@@ -139,7 +140,7 @@ Dom.draggable = function (elem, options) {
             // 自动滚动屏幕。
             if (draggabe.autoSrcoll) {
                 var doc = Dom.getDocument(draggabe.elem),
-                    docSize = Dom.getSize(doc),
+                    docSize = Dom.getRect(doc),
                     docScroll = Dom.getScroll(doc),
                     globalX = e.pageX - docScroll.left,
                     globalY = e.pageY - docScroll.top,

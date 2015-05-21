@@ -1,5 +1,8 @@
-/** * @author xuld */
-//#require base.js
+/**
+ * @author xuld
+ */
+
+// #require base.js
 
 /**
  * 设置哈希值改变事件的回调。

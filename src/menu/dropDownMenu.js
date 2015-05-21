@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require ui/form/listbox.css
-//#require dom/keynav.js
-//#require ui/core/listcontrol.js
-//#require ui/core/idropdownowner.js
+// #require ui/form/listbox.css
+// #require dom/keynav.js
+// #require ui/core/listcontrol.js
+// #require ui/core/idropdownowner.js
 
 /**
  * 表示一个下拉菜单。用于 Suggest 和 ComboBox 组件。

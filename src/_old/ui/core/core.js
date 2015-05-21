@@ -2,9 +2,9 @@
  * @fileOverview 所有 UI 控件的基类。
  */
 
-//#require ui/core/base.css
-//#require core/class.js
-//#require dom/base.js
+// #require ui/core/base.css
+// #require core/class.js
+// #require dom/base.js
 
 /**
  * 表示一个 UI 控件。

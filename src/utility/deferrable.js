@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require core/class.js
+// #require core/class.js
 
 /**
  * 用于异步执行任务时保证任务是串行的。

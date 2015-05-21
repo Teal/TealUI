@@ -1,7 +1,7 @@
 
 
 
-//#require dom/base.js
+// #require dom/base.js
 
 Dom.implement({
 

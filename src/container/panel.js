@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require ../control/base.js
+// #require ../control/base.js
 
 /**
  * 表示一个面板。

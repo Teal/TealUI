@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#require ui/nav/treeview.css
-//#require ui/core/treecontrol.js
-//#require ui/core/icollapsable.js
+// #require ui/nav/treeview.css
+// #require ui/core/treecontrol.js
+// #require ui/core/icollapsable.js
 
 var TreeView = TreeControl.extend({
 

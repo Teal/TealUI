@@ -28,23 +28,22 @@ Dom.pin = function (elem, target, position, offsetX, offsetY, container) {
 	 *      bl    b   br
 	 */
 
-    var rect = Dom.getSize(elem);
-    var targetSize = Dom.getSize(target);
-    var targetPosition = Dom.getPosition(target);
+    var rect = Dom.getRect(elem);
+    var targetRect = Dom.getRect(target);
 
     function proc(position, r, offset, left, width) {
 
         // 首先定位在左边。
-        rect[left] = targetPosition[left];
+        rect[left] = targetRect[left];
 
         // 定位于中间。
         if (position === 'c') {
-            rect[left] += (targetSize[width] - rect[width]) / 2;
+            rect[left] += (targetRect[width] - rect[width]) / 2;
         } else {
 
             // 如果定位在右边则添加目标宽度。
             if (position.charAt(0) === r) {
-                rect[left] += targetSize[width];
+                rect[left] += targetRect[width];
             }
 
             // 如果定位在左边，则减去节点宽度。

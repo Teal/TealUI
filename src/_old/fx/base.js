@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-//#require utils/deferrable.js
+// #require utils/deferrable.js
 
 /**
  * 特效算法基类。

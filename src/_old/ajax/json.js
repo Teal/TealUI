@@ -3,8 +3,8 @@
  * @author xuld
  */
 
-//#require ajax/base.js
-//#require data/json.js
+// #require ajax/base.js
+// #require data/json.js
 
 Ajax.accepts.json = "application/json, text/javascript";
 Ajax.dataParsers.json = function (xhrObject) {

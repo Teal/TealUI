@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#require ui/composite/monthcalender.css
-//#require utils/date.js
-//#require fx/animate.js
+// #require ui/composite/monthcalender.css
+// #require utils/date.js
+// #require fx/animate.js
 
 var MonthCalender = Control.extend({
 

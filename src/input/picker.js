@@ -2,13 +2,13 @@
  * @author  xuld
  */
 
-//#require ../button/button.css
-//#require ../button/menubutton.css
-//#require ../suggest/picker.css
-//#require ../input/textBox.css
-//#require ../core/base.js
-//#require ../core/iinput.js
-//#require ../core/idropdownowner.js
+// #require ../button/button.css
+// #require ../button/menubutton.css
+// #require ../suggest/picker.css
+// #require ../input/textBox.css
+// #require ../core/base.js
+// #require ../core/iinput.js
+// #require ../core/idropdownowner.js
 
 /**
  * 表示一个数据选择器。
@@ -17,8 +17,6 @@
  */
 var Picker = Input.extend({
     
-    role: 'picker',
-
     dropDownWidth: '100%',
 
     /**
@@ -57,27 +55,26 @@ var Picker = Input.extend({
         // 更新下拉菜单尺寸。
         if (this.dropDownWidth) {
             var width = /%$/.test(this.dropDownWidth) ? this.elem.offsetWidth * parseFloat(this.dropDownWidth) / 100 : parseFloat(this.dropDownWidth);
-            Dom.setSize(this.dropDown.elem, { width: width });
+            Dom.setRect(this.dropDown.elem, { width: width });
         }
 
         // 更新下拉菜单位置。
-        var rect = Dom.getPosition(this.elem),
-            size = Dom.getSize(this.elem),
+        var rect = Dom.getRect(this.elem),
             doc = Dom.getDocument(this.elem),
-            docPosition = Dom.getPosition(doc),
-            docSize = Dom.getSize(doc),
-            dropDownSize = Dom.getSize(this.dropDown.elem);
+            docRect = Dom.getRect(doc),
+            dropDownHeight = this.dropDown.elem.offsetHeight;
         
-        rect.top += size.height;
+        rect.top += rect.height;
 
         // 如果超出文档区域，则显示在另一侧。
-        if (rect.top + dropDownSize.height > docPosition.top + docSize.height && rect.top - size.height - dropDownSize.height > docPosition.top) {
-            rect.top -= size.height + dropDownSize.height - 1;
+        if (rect.top + dropDownHeight > docRect.top + docSize.height && rect.top - rect.height - dropDownHeight > docRect.top) {
+            rect.top -= rect.height + dropDownHeight - 1;
         } else {
             rect.top--;
         }
 
-        Dom.setPosition(this.dropDown.elem, rect);
+        rect.width = rect.height = null;
+        Dom.setRect(this.dropDown.elem, rect);
 
     },
     

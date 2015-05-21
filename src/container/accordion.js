@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require ../control/base.js
+// #require ../control/base.js
 
 var Accordion = Control.extend({
 

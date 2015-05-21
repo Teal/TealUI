@@ -77,6 +77,18 @@ Base.extend = function (members) {
 
 };
 
+/**
+ * 返回当前对象的字符串形式。
+ */
+Base.prototype.toString = function() {
+    for (var clazz in window) {
+        if (window[clazz] === this.constructor) {
+            return clazz;
+        }
+    }
+    return "Class";
+};
+
 //#region 事件支持
 
 /**

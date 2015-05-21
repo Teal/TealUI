@@ -249,8 +249,7 @@ if (this.Element) {
 
         var ep = Element.prototype,
             dp = Document.prototype,
-            evtp = Event.prototype,
-            trp = TextRectangle.prototype;
+            evtp = Event.prototype;
 
         function extendGetter(obj, propName, getter){
             Object.defineProperty(obj.prototype, propName, {
@@ -307,47 +306,14 @@ if (this.Element) {
             return this.y;
         });
         
-        // 令 Element.prototype.getBoundingClientRect() 返回的对象包含 x, y, width, height 属性。
-        Object.defineProperty(trp, "x", { 
-            get: function(){ 
-                return this.left;
-            },
-            set: function(value){ 
-                var width = this.width;
-                this.left = value;
-                this.right = value + width;
-            }
+        // 令 Element.prototype.getBoundingClientRect() 返回的对象包含 width, height 属性。
+        extendGetter(TextRectangle, 'width', function () {
+            return this.right - this.left;
         });
-        
-        Object.defineProperty(trp, "y", { 
-            get: function(){ 
-                return this.top;
-            },
-            set: function(value){ 
-                var height = this.height;
-                this.top = value;
-                this.bottom = value + height;
-            }
+          
+        extendGetter(TextRectangle, 'height', function () {
+             return this.bottom - this.top;
         });
-                
-        Object.defineProperty(trp, "width", { 
-            get: function(){ 
-                return this.right - this.left;
-            },
-            set: function(value){ 
-                this.right = this.left + value;
-            }
-        });
-             
-        Object.defineProperty(trp, "height", { 
-            get: function(){ 
-                return this.bottom - this.top;
-            },
-            set: function(value){ 
-                this.bottom = this.top + value;
-            }
-        });
-
     })();
     
 }

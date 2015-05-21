@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require dom/base.js
+// #require dom/base.js
 
 /**
  * 常用键名的简写。

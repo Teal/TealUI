@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require base.js
+// #require base.js
 
 Dom.getOuterHtml = function(elem) {
     if ("outerHTML" in elem) {

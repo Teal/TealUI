@@ -3,7 +3,7 @@
  */
 
 
-//#require ui/suggest/combobox.js
+// #require ui/suggest/combobox.js
 
 var CityChooser = Base.extend({
 

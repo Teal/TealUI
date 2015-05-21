@@ -3,8 +3,8 @@
  * @fileOverview 提供 DOM 操作的辅助函数。
  */
 
-//#require core/core.js
-//#require core/class.js
+// #require core/core.js
+// #require core/class.js
 
 var Dom = (function () {
 

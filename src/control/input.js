@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require ../dom/base.js
+// #require ../dom/base.js
 
 /**
  * 表示一个输入框控件。

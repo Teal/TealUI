@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require ui/suggest/combobox.js
+// #require ui/suggest/combobox.js
 
 /**
  * 表示一个下拉列表。

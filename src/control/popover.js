@@ -2,14 +2,12 @@
  * @author xuld
  */
 
-//#require dom/base.js
-//#require dom/pin.js
-//#require ui/core/base.js
-//#require fx/animate.js
+// #require dom/base.js
+// #require dom/pin.js
+// #require ui/core/base.js
+// #require fx/animate.js
 
 var Popover = Control.extend({
-
-    role: 'popover',
 
     /**
      * 工具提示显示之前经过的时间。

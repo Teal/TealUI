@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require ui/form/listbox.css
-//#require ui/core/listcontrol.js
+// #require ui/form/listbox.css
+// #require ui/core/listcontrol.js
 
 
 /**

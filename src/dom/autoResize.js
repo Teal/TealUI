@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require base.js
+// #require base.js
 
 Dom.autoResize = function (elem) {
     elem.style.overflow = 'hidden';

@@ -4,7 +4,7 @@
  */
 
 // 依赖了 Array.prototype.filter，需要支持新浏览器
-//#require base.js
+// #require base.js
 
 var Path = {
 

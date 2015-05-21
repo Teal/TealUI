@@ -3,7 +3,7 @@
  */
 
 
-//#require ui/suggest/updown.js
+// #require ui/suggest/updown.js
 
 var NumericUpDown = UpDown.extend({
 

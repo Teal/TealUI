@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require ui/core/idropdownowner.js
-//#require ui/suggest/dropdownmenu.js
+// #require ui/core/idropdownowner.js
+// #require ui/suggest/dropdownmenu.js
 
 /**
  * 智能提示组件。

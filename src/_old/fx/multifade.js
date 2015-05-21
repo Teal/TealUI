@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-//#require fx/animate.js
+// #require fx/animate.js
 
 Dom.prototype.multiFade = function (opacity, onFade, onShow) {
 	opacity = opacity === undefined ? 0.3 : opacity;

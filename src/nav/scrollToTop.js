@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require fx/animate.js
-//#require ui/core/base.js
+// #require fx/animate.js
+// #require ui/core/base.js
 
 var ScrollToTop = Control.extend({
 

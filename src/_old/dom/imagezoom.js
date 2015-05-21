@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-//#require dom/imagezoom.css
-//#require dom/base.js
+// #require dom/imagezoom.css
+// #require dom/base.js
 
 Dom.imageZoom = function (elem, getUrlCallback) {
 

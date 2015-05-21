@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-//#require ui/part/arrow.css
-//#require ui/tip/tooltip.css
-//#require ui/core/contentcontrol.js
-//#require ui/core/itooltip.js
+// #require ui/part/arrow.css
+// #require ui/tip/tooltip.css
+// #require ui/core/contentcontrol.js
+// #require ui/core/itooltip.js
 
 /**
  * 表示一个工具提示。

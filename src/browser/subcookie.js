@@ -1,6 +1,6 @@
 
-//#require cookie.js
-//#require ../text/queryString.js
+// #require cookie.js
+// #require ../text/queryString.js
 	
 /**
  * 获取一个子 Cookie 值。

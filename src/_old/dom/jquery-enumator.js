@@ -3,7 +3,7 @@
  */
 
 
-//#require dom/base.js
+// #require dom/base.js
 
 var jQuery = function (selector, context) {
 	if (!selector) {

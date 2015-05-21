@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#require ui/container/dialog.js
+// #require ui/container/dialog.js
 
 var MessageBox = Dialog.extend({
 

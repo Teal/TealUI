@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-//#require ui/part/icon.css
-//#require ui/suggest/picker.js
-//#require ui/composite/monthcalender.js
+// #require ui/part/icon.css
+// #require ui/suggest/picker.js
+// #require ui/composite/monthcalender.js
 
 var DatePicker = Picker.extend({
 	

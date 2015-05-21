@@ -1,6 +1,6 @@
 
 
-//#require ajax/base.js
+// #require ajax/base.js
 
 /**
  * 返回一个表单的参数表示形式。

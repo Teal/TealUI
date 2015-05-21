@@ -2,18 +2,16 @@
  * @author xuld
  */
 
-//#require dom/base.js
-//#require dom/pin.js
-//#require ui/core/base.js
-//#require fx/animate.js
+// #require base.js
+// #require ../dom/animate.js
 
 var DropDown = Control.extend({
-
-    role: 'dropDown',
 
     init: function (options) {
         this.setDropDown(Dom.find(options.target) || this.elem.previousElementSibling);
     },
+
+    toggleDuration: 150,
 
     /**
      * 设置指定元素的弹出菜单。
@@ -27,14 +25,14 @@ var DropDown = Control.extend({
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
     onShow: function (e) {
-        Dom.fadeIn(this.elem);
+        Dom.fadeIn(this.elem, this.toggleDuration);
     },
 
     /**
      * 当被子类重写时，负责定义当前组件的隐藏方式。
      */
     onHide: function (e) {
-        Dom.fadeOut(this.elem);
+        Dom.fadeOut(this.elem, this.toggleDuration);
     },
 
     /**

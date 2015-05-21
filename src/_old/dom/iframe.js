@@ -1,7 +1,7 @@
 //===========================================
 //  框架               iframe.js       A
 //===========================================
-//#require controls/control.js
+// #require controls/control.js
 
 /**
  * IFrame
