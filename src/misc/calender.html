@@ -2,271 +2,257 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /><meta name="module-info" content="status=todo">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>日历</title>
     <meta name="module-info" content="status=todo">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="日历、时间选择器。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/composite/monthcalender.css" />
-
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/utils/date.js"></script>
-    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/composite/monthCalender.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/misc/calender.css" />
 </head>
-    <body>
-        <!-- 以下代码仅用于文档演示 -->
-        <script type="text/javascript" src="../../assets/doc.js"></script>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
 
-        <aside class="doc-demo">
-            <div class="x-monthcalender"></div>
-            <script>
-                $('.x-monthcalender').monthCalender();
-            </script>
-        </aside>
-        
-        <article>
+    <aside class="doc-demo">
+        <div class="x-calender" data-role="calender"></div>
+    </aside>
 
-            <script type="text/html">
+    <div class="x-calender">
+        <div class="x-calender-main">
+            <div class="x-calender-header">
+                <a class="x-calender-next x-icon" href="javascript://下一个">
+                    ▸
+                </a>
+                <a class="x-calender-prev x-icon" href="javascript://上一个">
+                    ◂
+                </a>
+                <a href="javascript://更改时间" class="x-calender-title">
+                    2011年11月
+                </a>
+            </div>
+            <div class="x-calender-body">
+                <div class="x-calender-days" style="top: 0px; left: 0px;">
+                    <div class="x-calender-week">
+                        <span class="x-calender-sunday">日</span>
+                        <span class="x-calender-monday">一</span>
+                        <span class="x-calender-tuesday">二</span>
+                        <span class="x-calender-wednesday">三</span>
+                        <span class="x-calender-thursday">四</span>
+                        <span class="x-calender-friday">五</span>
+                        <span class="x-calender-saturday">六</span>
+                    </div>
+                    <div>
+                        <a href="###" class="x-calender-disabled">31</a>
+                        <a href="###">1</a>
+                        <a href="###">2</a>
+                        <a href="###" class="x-calender-actived">3</a>
+                        <a href="###" class="x-calender-selected">4</a>
+                        <a href="###">5</a>
+                        <a href="###">6</a>
+                    </div>
+                    <div>
+                        <a href="###">7</a>
+                        <a href="###">8</a>
+                        <a href="###">9</a>
+                        <a href="###">10</a>
+                        <a href="###">11</a>
+                        <a href="###">12</a>
+                        <a href="###">13</a>
+                    </div>
+                    <div>
+                        <a href="###">14</a>
+                        <a href="###">15</a>
+                        <a href="###">16</a>
+                        <a href="###">17</a>
+                        <a href="###">18</a>
+                        <a href="###">19</a>
+                        <a href="###">20</a>
+                    </div>
+                    <div>
+                        <a href="###">14</a>
+                        <a href="###">15</a>
+                        <a href="###">16</a>
+                        <a href="###">17</a>
+                        <a href="###">18</a>
+                        <a href="###">19</a>
+                        <a href="###">20</a>
+                    </div>
+                    <div>
+                        <a href="###">14</a>
+                        <a href="###">15</a>
+                        <a href="###">16</a>
+                        <a href="###">17</a>
+                        <a href="###">18</a>
+                        <a href="###">19</a>
+                        <a href="###">20</a>
+                    </div>
+                    <div>
+                        <a href="###">14</a>
+                        <a href="###">15</a>
+                        <a href="###">16</a>
+                        <a href="###">17</a>
+                        <a href="###">18</a>
+                        <a href="###">19</a>
+                        <a href="###">20</a>
+                    </div>
+                </div>
+                <div class="x-calender-monthyears">
+                    <div>
+                        <a href="###">一月</a>
+                        <a href="###">二月</a>
+                        <a href="###">三月</a>
+                        <a href="###">四月</a>
+                    </div>
+                    <div>
+                        <a href="###">五月</a>
+                        <a href="###">六月</a>
+                        <a href="###">七月</a>
+                        <a href="###">八月</a>
+                    </div>
+                    <div>
+                        <a href="###">九月</a>
+                        <a href="###">十月</a>
+                        <a href="###">十一月</a>
+                        <a href="###">十二月</a>
+                    </div>
+                </div>
+            </div>
+            <div class="x-calender-footer">
+                <a href="javascript://今天">今天: 2010年10月20日</a>
+            </div>
+        </div>
+    </div>
 
-                <div id="ct"></div>
-                < script>
-                var a = new MonthCalender().renderTo("#ct");
-                < /script>
-			
-            </script>
-        
-            <!--   <section class="demo-test">
+    <article>
+        <script type="text/html">
+            <div id="ct"></div>
+            < script>
+            var a = new MonthCalender().renderTo("#ct");
+            < /script>
+
+        </script>
+
+        <!--   <section class="demo-test">
 
 
 
-                       <div class="x-monthcalender">
-                           <div class="x-monthcalender-main">
-                               <div class="x-monthcalender-header">
-                                   <a class="x-monthcalender-next" href="javascript://下一个">▸
-                                   </a>
-                                   <a class="x-monthcalender-prev" href="javascript://上一个">◂
-                                   </a>
-                                   <a href="javascript://更改时间" class="x-monthcalender-title">2011年11月
-                                   </a>
-                               </div>
-                               <div class="x-monthcalender-body">
-                                   <div class="x-monthcalender-container">
-                                       <div class="x-monthcalender-days" style="top: 0px; left: 0px;">
-                                           <div class="x-monthcalender-week">
-                                               <span class="x-monthcalender-sunday">日</span>
-                                               <span class="x-monthcalender-monday">一</span>
-                                               <span class="x-monthcalender-tuesday">二</span>
-                                               <span class="x-monthcalender-wednesday">三</span>
-                                               <span class="x-monthcalender-thursday">四</span>
-                                               <span class="x-monthcalender-friday">五</span>
-                                               <span class="x-monthcalender-saturday">六</span>
-                                           </div>
-                                           <div>
-                                               <a href="#" class="x-monthcalender-disabled">31</a>
-                                               <a href="#">1</a>
-                                               <a href="#">2</a>
-                                               <a href="#" class="x-monthcalender-actived">3</a>
-                                               <a href="#" class="x-monthcalender-selected">4</a>
-                                               <a href="#">5</a>
-                                               <a href="#">6</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">7</a>
-                                               <a href="#">8</a>
-                                               <a href="#">9</a>
-                                               <a href="#">10</a>
-                                               <a href="#">11</a>
-                                               <a href="#">12</a>
-                                               <a href="#">13</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
+
+
+
+
+
+                   <div class="x-calender">
+                       <div class="x-calender-main">
+                           <div class="x-calender-header">
+                               <a class="x-calender-prev" href="javascript://上一个">◂
+                               </a>
+                               <a href="javascript://更改时间" class="x-calender-title">2011年11月
+                               </a>
+                               <a class="x-calender-next" href="javascript://下一个">▸
+                               </a>
+                           </div>
+                           <div class="x-calender-body">
+                               <div class="x-calender-container">
+                                   <div class="x-calender-days" style="top: 0px; left: 0px; display: none;">
+                                       <div class="x-calender-week">
+                                           <span class="x-calender-sunday">日</span>
+                                           <span class="x-calender-monday">一</span>
+                                           <span class="x-calender-tuesday">二</span>
+                                           <span class="x-calender-wednesday">三</span>
+                                           <span class="x-calender-thursday">四</span>
+                                           <span class="x-calender-friday">五</span>
+                                           <span class="x-calender-saturday">六</span>
                                        </div>
-                                       <div class="x-monthcalender-monthyears" style="top: 0px; left: 0px; display: none;">
-                                           <div>
-                                               <a href="#">一月</a>
-                                               <a href="#">二月</a>
-                                               <a href="#">三月</a>
-                                               <a href="#">四月</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">五月</a>
-                                               <a href="#">六月</a>
-                                               <a href="#">七月</a>
-                                               <a href="#">八月</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">九月</a>
-                                               <a href="#">十月</a>
-                                               <a href="#">十一月</a>
-                                               <a href="#">十二月</a>
-                                           </div>
+                                       <div>
+                                           <a href="#" class="x-calender-disabled">31</a>
+                                           <a href="#">1</a>
+                                           <a href="#">2</a>
+                                           <a href="#" class="x-calender-actived">3</a>
+                                           <a href="#" class="x-calender-selected">4</a>
+                                           <a href="#">5</a>
+                                           <a href="#">6</a>
                                        </div>
-
+                                       <div>
+                                           <a href="#">7</a>
+                                           <a href="#">8</a>
+                                           <a href="#">9</a>
+                                           <a href="#">10</a>
+                                           <a href="#">11</a>
+                                           <a href="#">12</a>
+                                           <a href="#">13</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">14</a>
+                                           <a href="#">15</a>
+                                           <a href="#">16</a>
+                                           <a href="#">17</a>
+                                           <a href="#">18</a>
+                                           <a href="#">19</a>
+                                           <a href="#">20</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">14</a>
+                                           <a href="#">15</a>
+                                           <a href="#">16</a>
+                                           <a href="#">17</a>
+                                           <a href="#">18</a>
+                                           <a href="#">19</a>
+                                           <a href="#">20</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">14</a>
+                                           <a href="#">15</a>
+                                           <a href="#">16</a>
+                                           <a href="#">17</a>
+                                           <a href="#">18</a>
+                                           <a href="#">19</a>
+                                           <a href="#">20</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">14</a>
+                                           <a href="#">15</a>
+                                           <a href="#">16</a>
+                                           <a href="#">17</a>
+                                           <a href="#">18</a>
+                                           <a href="#">19</a>
+                                           <a href="#">20</a>
+                                       </div>
                                    </div>
-                               </div>
-                               <div class="x-monthcalender-footer">
-                                   <a href="javascript://今天">今天: 2010年10月20日</a>
+                                   <div class="x-calender-monthyears">
+                                       <div>
+                                           <a href="#">一月</a>
+                                           <a href="#">二月</a>
+                                           <a href="#">三月</a>
+                                           <a href="#">四月</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">五月</a>
+                                           <a href="#">六月</a>
+                                           <a href="#">七月</a>
+                                           <a href="#">八月</a>
+                                       </div>
+                                       <div>
+                                           <a href="#">九月</a>
+                                           <a href="#">十月</a>
+                                           <a href="#">十一月</a>
+                                           <a href="#">十二月</a>
+                                       </div>
+                                   </div>
+
                                </div>
                            </div>
-                       </div>
-
-
-
-
-                       <div class="x-monthcalender">
-                           <div class="x-monthcalender-main">
-                               <div class="x-monthcalender-header">
-                                   <a class="x-monthcalender-prev" href="javascript://上一个">◂
-                                   </a>
-                                   <a href="javascript://更改时间" class="x-monthcalender-title">2011年11月
-                                   </a>
-                                   <a class="x-monthcalender-next" href="javascript://下一个">▸
-                                   </a>
-                               </div>
-                               <div class="x-monthcalender-body">
-                                   <div class="x-monthcalender-container">
-                                       <div class="x-monthcalender-days" style="top: 0px; left: 0px; display: none;">
-                                           <div class="x-monthcalender-week">
-                                               <span class="x-monthcalender-sunday">日</span>
-                                               <span class="x-monthcalender-monday">一</span>
-                                               <span class="x-monthcalender-tuesday">二</span>
-                                               <span class="x-monthcalender-wednesday">三</span>
-                                               <span class="x-monthcalender-thursday">四</span>
-                                               <span class="x-monthcalender-friday">五</span>
-                                               <span class="x-monthcalender-saturday">六</span>
-                                           </div>
-                                           <div>
-                                               <a href="#" class="x-monthcalender-disabled">31</a>
-                                               <a href="#">1</a>
-                                               <a href="#">2</a>
-                                               <a href="#" class="x-monthcalender-actived">3</a>
-                                               <a href="#" class="x-monthcalender-selected">4</a>
-                                               <a href="#">5</a>
-                                               <a href="#">6</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">7</a>
-                                               <a href="#">8</a>
-                                               <a href="#">9</a>
-                                               <a href="#">10</a>
-                                               <a href="#">11</a>
-                                               <a href="#">12</a>
-                                               <a href="#">13</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">14</a>
-                                               <a href="#">15</a>
-                                               <a href="#">16</a>
-                                               <a href="#">17</a>
-                                               <a href="#">18</a>
-                                               <a href="#">19</a>
-                                               <a href="#">20</a>
-                                           </div>
-                                       </div>
-                                       <div class="x-monthcalender-monthyears">
-                                           <div>
-                                               <a href="#">一月</a>
-                                               <a href="#">二月</a>
-                                               <a href="#">三月</a>
-                                               <a href="#">四月</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">五月</a>
-                                               <a href="#">六月</a>
-                                               <a href="#">七月</a>
-                                               <a href="#">八月</a>
-                                           </div>
-                                           <div>
-                                               <a href="#">九月</a>
-                                               <a href="#">十月</a>
-                                               <a href="#">十一月</a>
-                                               <a href="#">十二月</a>
-                                           </div>
-                                       </div>
-
-                                   </div>
-                               </div>
-                               <div class="x-monthcalender-footer">
-                                   <a href="javascript://今天">今天: 2010年10月20日</a>
-                               </div>
+                           <div class="x-calender-footer">
+                               <a href="javascript://今天">今天: 2010年10月20日</a>
                            </div>
                        </div>
+                   </div>
 
 
-                   </section> -->
-        </article>
-
-    </body>
+               </section> -->
+    </article>
+</body>
 </html>

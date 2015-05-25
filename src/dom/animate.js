@@ -140,6 +140,7 @@ Dom.slideDown = function (elem, duration, ease, callback, dalay) {
 
     // 首先清空当前属性设置，获取默认样式。
     for (key in from) {
+        from[key] = elem.style[key];
         elem.style[key] = '';
     }
 
@@ -148,7 +149,12 @@ Dom.slideDown = function (elem, duration, ease, callback, dalay) {
         to[key] = Dom.getStyle(elem, key);
     }
 
-    Dom.animate(elem, from, to, duration, ease, callback, dalay);
+    Dom.animate(elem, from, to, duration, ease, function() {
+        for (key in from) {
+            elem.style[key] = from[key];
+        }
+        callback && callback.call(elem);
+    }, dalay);
 };
 
 /**

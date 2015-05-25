@@ -1812,8 +1812,14 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * 初始化页内的代码区域。
          */
         initSourceCode: function () {
+            if (Doc.Page.sourceCodeInited) {
+                return;
+            }
+
+            Doc.Page.sourceCodeInited = true;
+
             // 处理 <pre>, <script class="doc-demo">, <aside class="doc-demo">
-            Doc.Dom.each('pre, .doc-demo', function (node) {
+            Doc.Dom.each('.doc > pre, .doc-demo', function (node) {
 
                 // 获取源码和语言。
                 var pre, content, language;

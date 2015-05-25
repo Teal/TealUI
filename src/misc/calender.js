@@ -2,13 +2,13 @@
  * @author xuld
  */
 
-// #require ui/composite/monthcalender.css
+// #require ui/composite/calender.css
 // #require utils/date.js
 // #require fx/animate.js
 
 var MonthCalender = Control.extend({
 
-	cssClass: 'x-monthcalender',
+	cssClass: 'x-calender',
 
 	tpl: '<div class="{cssClass}">\
 		       <div class="{cssClass}-main">\

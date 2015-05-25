@@ -28,26 +28,26 @@
     
     <h2>单个滑块</h2>
     <aside class="doc-demo">
-        <div class="x-slider" data-role="slider">
-            <div class="x-slider-fore" style="width: 52%;"></div>
-            <a href="###" class="x-slider-handle" style="left: 52%;"></a>
+        <div class="x-slider" data-role="slider" data-value="50">
+            <div class="x-slider-fore"></div>
+            <a href="javascript://左右滑动" class="x-slider-handle"></a>
         </div>
     </aside>
 
     <h2>区间滑块</h2>
     <aside class="doc-demo">
-        <div id="slider1" class="x-slider" data-role="slider">
-            <div class="x-slider-fore" style="left: 24%; width: 52%;"></div>
-            <a href="###" class="x-slider-handle" style="left: 24%;"></a>
-            <a href="###" class="x-slider-handle" style="left: 76%;"></a>
+        <div id="slider1" class="x-slider" data-role="slider" data-start="24" data-end="60">
+            <div class="x-slider-fore"></div>
+            <a href="javascript://左右滑动" class="x-slider-handle"></a>
+            <a href="javascript://左右滑动" class="x-slider-handle"></a>
         </div>
     </aside>
 
     <h2>区间步长</h2>
     <aside class="doc-demo">
-        <div id="slider1" class="x-slider" data-role="slider" data-step="10">
+        <div id="slider1" class="x-slider" data-role="slider" data-step="20">
             <div class="x-slider-fore"></div>
-            <a href="###" class="x-slider-handle"></a>
+            <a href="javascript://左右滑动" class="x-slider-handle"></a>
         </div>
     </aside>
 
@@ -70,5 +70,6 @@
             <a href="###" class="x-slider-handle" style="left: 76%;"></a>
         </div>
     </aside>
+    <script>Doc.Page.initSourceCode();</script>
 </body>
 </html>
