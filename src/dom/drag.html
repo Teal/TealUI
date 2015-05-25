@@ -67,12 +67,30 @@
             Dom.draggable(document.getElementById('d4'), {
                 onDrag: function (e) {
                     var STHREH = 60;
-                    this.toOffset.left = this.fromOffset.left + parseInt((this.toOffset.left - this.fromOffset.left) / STHREH) * STHREH;
-                    this.toOffset.top = this.fromOffset.top + parseInt((this.toOffset.top - this.fromOffset.top) / STHREH) * STHREH;
+                    this.endOffset.left = this.startOffset.left + parseInt((this.endOffset.left - this.startOffset.left) / STHREH) * STHREH;
+                    this.endOffset.top = this.startOffset.top + parseInt((this.endOffset.top - this.startOffset.top) / STHREH) * STHREH;
                 }
             });
         </script>
     </aside>
+    
+    <h2>拖动事件生命周期</h2>
+    
+    <p>拖动可以让用户根据意愿移动页面元素，拖动交互的具体流程为：鼠标（手指）按下，然后保持按下动作移动鼠标（手指），最后松开鼠标（手指），其中发生的事件分别为：</p>
+    
+    <ol>
+        <li><code>handlerMouseDown</code>：当鼠标（手指）按下，开始监听鼠标（手指）松开和移动事件。此时会记录 <code>startX</code> 和 <code>startY</code> 字段。</li>
+        <li><code>startDragging</code>：当鼠标（手指）按下保持 <code>dragDelay</code> 毫秒数（默认 300）或者第一次移动时，认为拖动开始。</li>
+        <li><code>dragStart</code>：记录 <code>startOffset</code> 字段。如果函数返回 <code>false</code>，则直接进入第 9 步。</li>
+        <li><code>onDragStart</code>：响应拖动开始事件。</li>
+        <li><code>handlerMouseMove</code>：鼠标移动时，记录 <code>endX</code> 和 <code>endY</code> 字段。</li>
+        <li><code>dragMove</code>：计算 <code>toOffset</code> 字段。</li>
+        <li><code>onDragMove</code>：响应拖动事件。</li>
+        <li><code>handlerMouseUp</code>：鼠标松开时，解绑所有事件。</li>
+        <li><code>stopDragging</code>：停止拖动，解绑所有事件。</li>
+        <li><code>dragEnd</code>：判断拖动是否合理并尝试还原位置。</li>
+        <li><code>onDragEnd</code>：响应拖动结束事件。</li>
+    </ol>
 
     <!--<article class="demo">
         <div id="drag">

@@ -7,14 +7,7 @@
 // #require ui/core/base.js
 // #require ui/core/iinput.js
 
-var FileUpload = Control.extend(IInput).implement({
-
-	cssClass: 'x-fileupload',
-
-	tpl: '<span class="{cssClass}">\
-			<input type="file" size="1">\
-			<button class="x-button">浏览...</button>\
-    	</span>',
+var FileUpload = Input.extend({
 
     init: function(){
     	var textBox = Dom.prev(this.elem, '[type=text]') || Dom.next(this.elem, '[type=text]');

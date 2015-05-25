@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>滑动条</title>
-    <meta name="module-info" content="status=todo">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供一个滑块供选择移动。">
 
@@ -12,9 +12,14 @@
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/slider.css" />
 
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/drag.js"></script>
+    <script type="text/javascript" src="../../src/control/input.js"></script>
     <script type="text/javascript" src="../../src/form/slider.js"></script>
 </head>
 <body>
@@ -24,7 +29,7 @@
     <h2>单个滑块</h2>
     <aside class="doc-demo">
         <div class="x-slider" data-role="slider">
-            <div class="x-slider-fore" style="{start}"></div>
+            <div class="x-slider-fore" style="width: 52%;"></div>
             <a href="###" class="x-slider-handle" style="left: 52%;"></a>
         </div>
     </aside>
@@ -38,9 +43,28 @@
         </div>
     </aside>
 
+    <h2>区间步长</h2>
+    <aside class="doc-demo">
+        <div id="slider1" class="x-slider" data-role="slider" data-step="10">
+            <div class="x-slider-fore"></div>
+            <a href="###" class="x-slider-handle"></a>
+        </div>
+    </aside>
+
+    <h2>API</h2>
+    
+    <h5>获取当前滑块的值</h5>
+    <pre>$('[data-role="slider"]').role().getValue();</pre>
+
+    <h5>设置当前滑块的值</h5>
+    <pre>$('[data-role="slider"]').role().setValue(30);</pre>
+
+    <h5>设置滑块值改变的回调</h5>
+    <pre>$('[data-role="slider"]').role().on('change', function(){ console.log('值改变了: ' + this.getValue()) });</pre>
+
     <h2>纯 HTML 样式</h2>
     <aside class="doc-demo">
-        <div id="slider1" class="x-slider" data-role="slider">
+        <div id="slider1" class="x-slider" data-role="slider1">
             <div class="x-slider-fore" style="left: 24%; width: 52%;">52%</div>
             <a href="###" class="x-slider-handle" style="left: 24%;"></a>
             <a href="###" class="x-slider-handle" style="left: 76%;"></a>

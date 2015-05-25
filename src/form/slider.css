@@ -16,13 +16,13 @@
 }
 .x-slider-handle {
   position: absolute;
-  margin-left: -6px;
+  margin-left: -7px;
   top: -3px;
   border: solid 1px #e0e0e0;
   background-color: #dcdcdc;
   width: 14px;
   height: 14px;
-  cursor: default;
+  cursor: w-resize;
 }
 .x-slider-handle:hover {
   border-color: #b5b5b5;

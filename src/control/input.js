@@ -29,7 +29,7 @@ var Input = Control.extend({
 	    // 如果当前控件本身就是 INPUT|SELECT|TEXTAREA|BUTTON，则输入域为自身。
 	    // 否则在控件内部查找合适的输入域。
         // 如果找不到，则创建一个 input:hidden 。
-	    return this.input || (this.input = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.elem.tagName) ? this.elem : Dom.find("input,select,textarea", this.elem) || Dom.append(this.elem, '<input type="hidden" name="' + this.elem.getAttribute('name') + '">'));
+	    return this.input || (this.input = /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(this.elem.tagName) ? this.elem : Dom.find("input,select,textarea", this.elem) || Dom.append(this.elem, '<input type="hidden" name="' + (this.elem.getAttribute('name') || '') + '">'));
 	},
 
     /**
