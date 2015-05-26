@@ -26,11 +26,18 @@ var Picker = Input.extend({
         return Dom.find('.x-button', this.elem);
     },
 
+    /**
+     * 当被子类重写时负责初始化下拉菜单。
+     */
+    initDropDown: function (dropDown) {},
+
     init: function () {
 
         // 初始化下拉菜单。
         var dropDown = this.elem.nextElementSibling;
-        this.dropDown = dropDown = dropDown && dropDown.classList.contains('x-dropdown') && Control.get(dropDown, 'dropDown', { target: this.getButton() });
+        dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : Dom.append(document.body, '<div class="x-dropdown"></div>');
+        this.initDropDown(dropDown);
+        this.dropDown = dropDown = Control.get(dropDown, 'dropDown', { target: this.getButton() });
 
         var me = this;
         dropDown.onShow = function (e) {
@@ -51,7 +58,7 @@ var Picker = Input.extend({
 	 * @virtual
 	 */
     realignDropDown: function () {
-
+        
         // 更新下拉菜单尺寸。
         if (this.dropDownWidth) {
             var width = /%$/.test(this.dropDownWidth) ? this.elem.offsetWidth * parseFloat(this.dropDownWidth) / 100 : parseFloat(this.dropDownWidth);
@@ -67,7 +74,7 @@ var Picker = Input.extend({
         rect.top += rect.height;
 
         // 如果超出文档区域，则显示在另一侧。
-        if (rect.top + dropDownHeight > docRect.top + docSize.height && rect.top - rect.height - dropDownHeight > docRect.top) {
+        if (rect.top + dropDownHeight > docRect.top + docRect.height && rect.top - rect.height - dropDownHeight > docRect.top) {
             rect.top -= rect.height + dropDownHeight - 1;
         } else {
             rect.top--;

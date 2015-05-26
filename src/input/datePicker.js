@@ -8,14 +8,18 @@
 
 var DatePicker = Picker.extend({
 	
-	dataStringFormat: 'yyyy/M/d',
-	
-	dropDownWidth: 'auto',
+    dataStringFormat: 'yyyy/M/d',
+
+    dropDownWidth: 'auto',
 	
 	menuButtonTpl: '<button class="x-button" type="button"><span class="x-icon x-icon-calendar"></span></button>',
 	
-	createDropDown: function(existDom){
-		return new MonthCalender(existDom).on('selecting', this.onItemClick, this);
+	initDropDown: function (dropDown) {
+	    var me = this;
+	    dropDown.classList.add('x-calender');
+	    me.calender = Control.get(dropDown, 'calender').on('selecting', function (value) {
+	        me.onItemClick(value);
+	    });
 	},
 	
 	onItemClick: function(value) {
@@ -38,9 +42,9 @@ var DatePicker = Picker.extend({
 	},
 	
 	updateDropDown: function(){
-		var d = new Date(Dom.getText(this.input()));
+	    var d = new Date(this.getInput().value);
 		if(!isNaN(d.getYear()))
-			this.dropDown.setValue(d);
+		    this.calender.setValue(d);
 	},
 	
 	getValue: function(){
