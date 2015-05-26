@@ -149,11 +149,11 @@ var Calender = Control.extend({
 	    this.today = options.today ? new Date(options.today) : new Date();
 
 		var me = this;
-		Dom.on(me.elem, 'click', '.' + this.cssClass + '-title', me.onTitleClick, me);
-		Dom.on(me.elem, 'click', '.' + this.cssClass + '-prev', me.onPrevClick, me);
-		Dom.on(me.elem, 'click', '.' + this.cssClass + '-next', me.onNextClick, me);
-		Dom.on(me.elem, 'click', '.' + this.cssClass + '-footer a', me.onTodayClick, me);
-		Dom.on(me.elem, 'click', '.' + this.cssClass + '-content a', function () {
+		Dom.on(me.elem, 'click', '.x-calender-title', function(e) { me.onTitleClick(e);  });
+		Dom.on(me.elem, 'click', '.x-calender-prev', function(e) { me.onPrevClick(e); });
+		Dom.on(me.elem, 'click', '.x-calender-next', function (e) { me.onNextClick(e); });
+		Dom.on(me.elem, 'click', '.x-calender-footer a', function (e) { me.onTodayClick(e); });
+		Dom.on(me.elem, 'click', '.x-calender-content a', function () {
 			return me.view.select(me, this);
 		});
 
