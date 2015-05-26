@@ -16,9 +16,7 @@ var Calender = Control.extend({
                 <a href="javascript://上一页" title="上一页" class="x-calender-prev x-icon">◂</a>\
                 <a href="javascript://上一级" title="返回上一级" class="x-calender-title"></a>\
             </div>\
-            <div class="x-calender-body">\
-                <table class="x-calender-days"></table>\
-            </div>\
+            <div class="x-calender-body"><table class="x-calender-days"></table></div>\
             <div class="x-calender-time">\
                 时间: \
                 <input type="number" value="0" min="0" max="24" maxlength="2" />\
@@ -145,6 +143,8 @@ var Calender = Control.extend({
 
 	init: function (options) {
 	    this.elem.innerHTML = this.tpl;
+	    this.displayedValue = new Date();
+	    this.setView('day', 'none');
 	    return;
 	    this.today = options.today ? new Date(options.today) : new Date();
 
@@ -187,7 +187,7 @@ var Calender = Control.extend({
      * 切换当前显示的界面。
      */
 	setView: function (view, animation) {
-
+        
         // 保存当前显示的视图。
 	    this.view = view;
         
@@ -196,12 +196,19 @@ var Calender = Control.extend({
 	    // 渲染视图。
 	    var table = document.createElement('table');
 
+	    Calender.views[view].render(this, table, Dom.find('.x-calender-title', this.elem), animation);
+
 	    if (animation === 'none') {
 	        body.innerHTML = '';
 	        body.appendChild(table);
+	    } else {
+	        var currentTable = body.firstChild;
+	        Dom.animate(currentTable, {
+	            transform: 'scale(2, 2) translate(-100px, 0)',
+                //opacity: '0'
+	        }, 1000);
 	    }
 
-	    Calender.views[view].render(this, table, Dom.find('.x-calender-title', this.elem), animation);
 		return this;
 	},
 

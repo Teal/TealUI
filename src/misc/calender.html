@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <aside class="doc-demo">
-        <div class="x-calender" data-role="calender"></div>
+        <div class="x-calender" id="a" data-role="calender"></div>
     </aside>
 
     <div class="x-calender">
@@ -138,12 +138,11 @@
     </div>
 
     <article>
-        <script type="text/html">
-            <div id="ct"></div>
-            < script>
-            var a = new MonthCalender().renderTo("#ct");
-            < /script>
-
+        <script>
+            a = $('#a').role('calender');
+            setTimeout(function() {
+                a.setView('day', 'zoomOut');
+            }, 400)
         </script>
 
         <!--   <section class="demo-test">
