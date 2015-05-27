@@ -57,7 +57,7 @@
   color: #337ab7;
 }
 .x-calender-body {
-  width: 203px;
+  width: 182px;
   height: 137.5px;
   position: relative;
   overflow: hidden;
@@ -90,6 +90,7 @@
 }
 .x-calender-actived {
   outline: 1px solid #007FE6;
+  outline-offset: -1px;
   color: #095f8b !important;
 }
 .x-calender-selected {

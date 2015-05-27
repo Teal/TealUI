@@ -7,36 +7,48 @@
  * 提供日期格式化参数扩展支持。
  */
 Date.formators = {
-	
-	y: function (date, length){
-		date = date.getFullYear();
-		return length < 3 && date < 2000 ? date % 100 : date;
-	},
-	
-	M: function(date){
-		return date.getMonth() + 1;
-	},
-	
-	d: function(date){
-		return date.getDate();
-	},
-	
-	H: function(date){
-		return date.getHours();
-	},
-	
-	m: function(date){
-		return date.getMinutes();
-	},
-	
-	s: function(date){
-		return date.getSeconds();
-	},
-	
-	e: function(date, length){
-	    return (length === 1 ? '' : length === 2 ? '周' : '星期') + [length === 2 ? '日' : '天', '一', '二', '三', '四', '五', '六'][date.getDay()];
-	}
-	
+
+    y: function (date, length) {
+        date = date.getFullYear();
+        return length < 3 && date < 2000 ? date % 100 : date;
+    },
+
+    M: function (date) {
+        return date.getMonth() + 1;
+    },
+
+    d: function (date) {
+        return date.getDate();
+    },
+
+    H: function (date) {
+        return date.getHours();
+    },
+
+    m: function (date) {
+        return date.getMinutes();
+    },
+
+    s: function (date) {
+        return date.getSeconds();
+    },
+
+    e: function (date, length) {
+        return (length === 1 ? '' : length === 2 ? '周' : '星期') + [length === 2 ? '日' : '天', '一', '二', '三', '四', '五', '六'][date.getDay()];
+    }
+
+};
+
+/**
+ * 尝试从指定对象中分析出日期对象。
+ * @param {String/Date} value 要分析的对象。
+ * @returns {date} 返回分析出的日期对象。
+ */
+Date.from = function (value) {
+    if (value && !(value instanceof Date)) {
+        value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
+    }
+    return value;
 };
 
 /**
@@ -45,15 +57,15 @@ Date.formators = {
  * @return {String} 字符串。
  */
 Date.prototype.format = function (format) {
-	var me = this;
+    var me = this;
     return (format || 'yyyy/MM/dd HH:mm:ss').replace(/(\w)\1*/g, function (all, key) {
-		if(key in Date.formators){
-			key = '' + Date.formators[key](me, all.length);
-			while(key.length < all.length){
-				key = '0' + key;
-			}
-			all = key;
-		}
+        if (key in Date.formators) {
+            key = '' + Date.formators[key](me, all.length);
+            while (key.length < all.length) {
+                key = '0' + key;
+            }
+            all = key;
+        }
         return all;
     });
 };
@@ -71,21 +83,17 @@ Date.prototype.addDay = function (value) {
  * @param {Number} value 要添加的月数。
  */
 Date.prototype.addMonth = function (value) {
-	var date = new Date(+this);
+    var date = new Date(+this);
     date.setMonth(date.getMonth() + value);
-	if(this.getDate() !== date.getDate()) { 
-		date.setDate(0);
-	}
+    if (this.getDate() !== date.getDate()) {
+        date.setDate(0);
+    }
     return date;
 };
 
 /**
- * 清空日期的小时部分。
+ * 获取当前日期的无小时部分。
  */
-Date.prototype.clearHours = function (){
-	this.setMilliseconds(0);
-	this.setSeconds(0);
-	this.setMinutes(0);
-	this.setHours(0);
-	return this;
+Date.prototype.toDay = function () {
+    return new Date(this.getFullYear(), this.getMonth(), this.getDate());
 };
