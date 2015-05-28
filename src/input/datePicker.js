@@ -8,37 +8,26 @@
 
 var DatePicker = Picker.extend({
 	
-    dataStringFormat: 'yyyy/M/d',
+    format: 'yyyy/M/d',
 
     dropDownWidth: 'auto',
-	
-	menuButtonTpl: '<button class="x-button" type="button"><span class="x-icon x-icon-calendar"></span></button>',
 	
 	initDropDown: function (dropDown) {
 	    var me = this;
 	    dropDown.classList.add('x-calender');
-	    me.calender = Control.get(dropDown, 'calender').on('selecting', function (value) {
-	        me.onItemClick(value);
+	    me.calender = Control.get(dropDown, 'calender', {
+	        format: this.format
+	    }).on('selecting', function (value) {
+	        me.onCalenderSelect(value);
 	    });
 	},
 	
-	onItemClick: function(value) {
-		if(this.trigger('selecting', value)) {
-			var old = this.getValue();
-			this.setValue(value).hideDropDown();
-			if(old !== value){
-				this.trigger('change');
-			}
-			
-			return;
-		}
-		
-		return false;
-	},
-	
-	selectItem: function (value) {
-		this.onItemClick(value);
-		return this;
+	onCalenderSelect: function(value) {
+	    if (this.getValue() !== value) {
+	        this.setValue(value);
+	        this.trigger('change');
+	    }
+	    this.dropDown.hide();
 	},
 	
 	updateDropDown: function(){
@@ -47,12 +36,12 @@ var DatePicker = Picker.extend({
 		    this.calender.setValue(d);
 	},
 	
-	getValue: function(){
-		return new Date(Dom.getText(this.input()));
+	getValue: function() {
+	    return Date.from(this.getInput().value);
 	},
 	
 	setValue: function(value){
-		Dom.setText(this.input(), value.toString(this.dataStringFormat));
+	    this.getInput().value = value.format(this.format);
 		return this;
 	}
 

@@ -10,7 +10,7 @@ Date.formators = {
 
     y: function (date, length) {
         date = date.getFullYear();
-        return length < 3 && date < 2000 ? date % 100 : date;
+        return date < 0 ? 'BC' + (-date) : length < 3 && date < 2000 ? date % 100 : date;
     },
 
     M: function (date) {

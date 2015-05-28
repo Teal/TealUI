@@ -603,10 +603,10 @@ var Dom = {
      */
     vendorCssPropertyName: function (elem, cssPropertyName) {
         if (!(cssPropertyName in elem.style)) {
-            var prefixes = { 'webkit': 1, 'moz': 1, 'ms': 1, 'o': 1 };
-            for (var prefix in prefixes) {
-                if ((prefix + cssPropertyName) in elem.style) {
-                    cssPropertyName = prefix + cssPropertyName;
+            var prop = cssPropertyName.replace(/^[a-z]/, function(w) { return w.toUpperCase(); }), prefix;
+            for (prefix in { 'webkit': 1, 'moz': 1, 'ms': 1, 'o': 1 }) {
+                if ((prefix + prop) in elem.style) {
+                    cssPropertyName = prefix + prop;
                     break;
                 }
             }

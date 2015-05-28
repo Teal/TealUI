@@ -23,7 +23,7 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
         fxOptions.prefix = fxOptions.transition.substr(0, fxOptions.transition.length - 'transition'.length);
         fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
     }
-
+   
     // 直接支持 transforms 属性。
     if (duration instanceof Function) {
         callback = duration;
@@ -37,7 +37,7 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
     // 实现从某个范围到另一个范围的渐变。
     if (duration.constructor === Object) {
         for (var key in to) {
-            elem.style[key] = to[key];
+            Dom.setStyle(elem, key, to[key]);
         }
         return setTimeout(function () {
             Dom.animate(elem, duration, ease, callback, dalay);
@@ -78,6 +78,10 @@ Dom.animate = function (elem, to, duration, ease, callback, dalay, dalay2) {
     // 生成渐变样式。
     var transitions = [];
     for (var key in to) {
+        var fixedKey = Dom.vendorCssPropertyName(elem, key);
+        if (fixedKey.length > key.length) {
+            key = '-' + fixedKey;
+        }
         transitions.push(key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase() + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ');
     }
     elem.style[fxOptions.transition] = transitions.join(',');
