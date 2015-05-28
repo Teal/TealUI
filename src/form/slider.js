@@ -14,26 +14,32 @@
      */    step: 0,    init: function (options) {
         Dom.each(Dom.query('.x-slider-handle', this.elem), this.initHandle, this);
         var me = this;
-        Dom.on(this.elem, 'click', function (e) { me.onClick(e); });
+        Dom.on(this.elem, 'mousedown', function (e) { me.onClick(e); });
         this.onChange();
     },    onClick: function (e) {
+
+        if (e.target.matches('.x-slider-handle')) {
+            return;
+        }
+
         var handles = Dom.query('.x-slider-handle', this.elem),
             left = e.pageX - Dom.getRect(this.elem).left,
             leftP = left * 100 / this.elem.offsetWidth,
+            min = 101,
             handle = handles[0];
-
+        
         // 找到最近的点。
-        for (var i = handles.length - 1; i > 0; i--) {
-
+        for (var i = handles.length - 1; i >= 0; i--) {
             // 离右边更近则退出循环。
-            if (parseFloat(handles[i].style.left) - leftP < leftP - parseFloat(handles[i - 1].style.left)) {
+            var value = Math.abs(parseFloat(handles[i].style.left) - leftP);
+            if (value < min) {
                 handle = handles[i];
-                break;
+                min = value;
             }
-
         }
 
         this._setHandleOffset(handle, left);
+        Dom.trigger(handle, 'mousedown', e);
     },    _setHandleOffset: function (handle, left) {
         var draggable = {
             endOffset: { left: left }
