@@ -13,47 +13,106 @@
      * 规定合法数字间隔（如果 step="3"，则合法数字是 -3,0,3,6，以此类推）。
      */    step: 0,    init: function (options) {
         Dom.each(Dom.query('.x-slider-handle', this.elem), this.initHandle, this);
+        var me = this;
+        Dom.on(this.elem, 'click', function (e) { me.onClick(e); });
         this.onChange();
+    },    onClick: function (e) {
+        var handles = Dom.query('.x-slider-handle', this.elem),
+            left = e.pageX - Dom.getRect(this.elem).left,
+            leftP = left * 100 / this.elem.offsetWidth,
+            handle = handles[0];
+
+        // 找到最近的点。
+        for (var i = handles.length - 1; i > 0; i--) {
+
+            // 离右边更近则退出循环。
+            if (parseFloat(handles[i].style.left) - leftP < leftP - parseFloat(handles[i - 1].style.left)) {
+                handle = handles[i];
+                break;
+            }
+
+        }
+
+        this._setHandleOffset(handle, left);
+    },    _setHandleOffset: function (handle, left) {
+        var draggable = {
+            endOffset: { left: left }
+        };
+        this._handleDragStart(handle, draggable);
+        this._handleDragMove(handle, draggable);
+    },    _handleDragStart: function (handle, draggable) {
+        // 拖动开始前确定当前滑块的可用范围。每个滑块的范围的前后滑块之间。
+        var handles = Dom.query('.x-slider-handle', this.elem),
+            min = 101,
+            max = -1,
+            value;
+
+        for (var i = 0; i < handles.length; i++) {
+            if (handles[i] !== i) {
+                value = parseFloat(handles[i].style.left);
+                if (value < min) {
+                    min = value;
+                }
+                if (value > max) {
+                    max = value;
+                }
+            }
+        }
+
+        if (min === 101) {
+            min = 0;
+        }
+
+        if (max === -1) {
+            max = 100;
+        }
+
+        draggable.min = min,
+        draggable.max = max;
+
+        // 当两个滑块重叠时，允许滑块切换顺序。
+        var currentValue = parseFloat(handle.style.left);
+        if (currentValue === draggable.min) {
+            draggable.min = 0;
+        }
+        if (currentValue === draggable.max) {
+            draggable.max = 100;
+        }
+
+        draggable.part = this.step && this.elem.offsetWidth * this.step / (this.max - this.min);
+    },    _handleDragMove: function (handle, draggable, e) {
+        var left = draggable.endOffset.left;
+
+        // 实时步长。
+        if (draggable.part) {
+            left = draggable.part * Math.floor((left + draggable.part / 2) / draggable.part);
+        }
+
+        // 计算百分比。
+        left = left * 100 / this.elem.offsetWidth;
+        
+        // 确保滑块在合理拖动范围内。
+        draggable.value = left = Math.max(draggable.min, Math.min(draggable.max, left));
+        
+        if (this.onChanging(draggable, e) !== false) {
+
+            // 仅设置 X 坐标即可。
+            handle.style.left = left + '%';
+
+            // 更新滑块区域。
+            this.onChange();
+
+        }
+
     },    initHandle: function (handle) {
         var me = this;
         Dom.draggable(handle, {
             autoSrcoll: 0,
-            onDragStart: function () {
-
-                // 拖动开始前确定当前滑块的可用范围。每个滑块的范围的前后滑块之间。
-                function getPrevOrNext(handle, defaultValue) {
-                    return handle && handle.matches('.x-slider-handle') ? parseFloat(handle.style.left) : defaultValue;
-                }
-
-                this.min = getPrevOrNext(handle.previousElementSibling, 0),
-                this.max = getPrevOrNext(handle.nextElementSibling, 100);
-                this.part = me.step && me.elem.offsetWidth * me.step / (me.max - me.min);
+            onDragStart: function (e) {
+                me._handleDragStart(handle, this, e);
             },
             onDragMove: function (e) {
-
-                var left = this.endOffset.left;
-
-                // 实时步长。
-                if (this.part) {
-                    left = this.part * Math.floor((left + this.part / 2) / this.part);
-                }
-
-                // 计算百分比。
-                left = left * 100 / me.elem.offsetWidth;
-
-                // 确保滑块在合理拖动范围内。
-                this.value = left = Math.max(this.min, Math.min(this.max, left));
-
-                if (me.onChanging(this, e) !== false) {
-
-                    // 仅设置 X 坐标即可。
-                    handle.style.left = left + '%';
-
-                    // 更新滑块区域。
-                    me.onChange();
-
-                }
-
+                me._handleDragMove(handle, this, e);
                 // 阻止默认的设置位置功能。
                 return false;
             }
@@ -93,17 +152,14 @@
 
         // 设置滑块前景色。
         var handles = Dom.query('.x-slider-handle', this.elem),
-            start = handles[1] ? parseFloat(handles[0].style.left) : 0,
+            startHandle = this.getStartHandle(),
+            endHandle = this.getEndHandle(),
+            start = startHandle ? parseFloat(startHandle.style.left) : 0,
             fore = Dom.find('.x-slider-fore', this.elem);
         fore.style.left = start + '%';
-        fore.style.width = handles[0] ? Math.max(0, parseFloat(handles[handles.length - 1].style.left) - start) + '%' : 0;
+        fore.style.width = endHandle ? Math.max(0, parseFloat(endHandle.style.left) - start) + '%' : 0;
 
         return this.trigger('change');
-    },    /**
-     * 获取某个索引的滑块。
-     */    getHandle: function (index) {
-        var handlers = Dom.query('.x-slider-handle', this.elem);
-        return handlers[index < 0 ? handlers.length + index : index];
     },    /**
      * 获取每个滑块的值。
      */    getValues: function () {
@@ -112,14 +168,32 @@
             values[index] = this.getValueOfHandle(handle);
         }, this);
         return values;
+    },    getStartHandle: function () {
+        var handles = Dom.query('.x-slider-handle', this.elem),
+            min = 0;
+        for (var i = 1; i < handles.length; i++) {
+            if (parseFloat(handles[min].style.left) > parseFloat(handles[i].style.left)) {
+                min = i;
+            }
+        }
+        return handles.length > 1 ? handles[min] : null;
+    },    getEndHandle: function () {
+        var handles = Dom.query('.x-slider-handle', this.elem),
+            max = 0;
+        for (var i = 1; i < handles.length; i++) {
+            if (parseFloat(handles[max].style.left) < parseFloat(handles[i].style.left)) {
+                max = i;
+            }
+        }
+        return handles[max];
     },    getStart: function (value) {
-        return this.getValueOfHandle(Dom.query('.x-slider-handle', this.elem).length > 1 && this.getHandle(0));
+        return this.getValueOfHandle(this.getStartHandle());
     },    setStart: function (value) {
-        return this.setValueOfHandle(Dom.query('.x-slider-handle', this.elem).length > 1 && this.getHandle(0), value);
+        return this.setValueOfHandle(this.getStartHandle(), value);
     },    getEnd: function (value) {
-        return this.getValueOfHandle(this.getHandle(-1));
+        return this.getValueOfHandle(this.getEndHandle());
     },    setEnd: function (value) {
-        return this.setValueOfHandle(this.getHandle(-1), value);
+        return this.setValueOfHandle(this.getEndHandle(), value);
     },    getValue: function () {
         return this.getEnd() - this.getStart();
     },    setValue: function (value) {

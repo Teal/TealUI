@@ -558,7 +558,7 @@ Calender.locale = {
     /**
      * 控件内部模板。
      */
-    tpl: '<div class="x-calender-main">\
+    tpl: '<div class="x-calender-container">\
             <div class="x-calender-header">\
                 <a href="javascript://下一页" title="下一页" class="x-calender-next x-icon">▸</a>\
                 <a href="javascript://上一页" title="上一页" class="x-calender-prev x-icon">◂</a>\

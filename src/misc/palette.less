@@ -1,152 +1,71 @@
 
 @import "../core/mixins.less";
 
-/*  (c) 2012 Olivier Giulieri  */
-/*  ColorPicker for jQuery UI  */
-
-.evo-pop {
-	z-index:10000;
-	width:204px;
-	padding:3px 3px 0;
-}
-.evo-pop-ie {
-	z-index:10000;
-	width:212px;
-	padding:3px;
+.x-palette {
+    display: inline-block;
+    background-color: @hover-background-color;
+    border: 1px solid @border-color;
+    border-radius: @border-radius;
+    padding: 3px;
+    cursor: default;
+    overflow: hidden;
 }
 
-.evo-palette, .evo-palette-ie  {
-	border-collapse: separate;
-	border-spacing: 4px 0px;
-	*border-collapse: expression('separate', cellSpacing = '2px');
-}
-.evo-palette td  {
-	font-size:1px;
-	border:solid 1px #c0c0c0;
-	padding:7px;
-	cursor:pointer;
-}
-.evo-palette tr.top td {
-	border-bottom:0;
-}
-.evo-palette tr.in td {
-	border-top:0;
-	border-bottom:0;
-}
-.evo-palette tr.bottom td {
-	border-top:0;
-} 
-.evo-palette th, .evo-palette-ie th  {
-	border:0;
-	padding:5px 3px;
-	text-align:left;
-	font-weight:normal;
-	background:transparent !important;
-}
-.evo-palette div.sep {
-	height:3px;
-}
-.evo-palette-ie td  {
-	font-size:1px;
-	border:solid 1px #c0c0c0;
-	padding:7px;
-	cursor:pointer;
-} 
-
-.evo-palette2, .evo-palette2-ie {
-	margin:auto;
-	border-collapse:collapse;
-}
-.evo-palette2 td, .evo-palette2-ie td{
-	font-size:1px;
-	cursor:pointer;
-}
-.evo-palette2 td{
-	padding:6px 7px;
-}
-.evo-palette2-ie td{
-	padding:5px;
-} 
-.evo-palcenter{
-	padding:5px;
-	text-align:center;
+.x-palette-body {
+    .clearfix();
+    width: @font-size * 10 + @font-size * 1.6 + 3px + 2px + 2px;
 }
 
-.evo-colorind,.evo-colorind-ie,.evo-colorind-ff{
-	border:solid 1px #c3c3c3;
-	width:20px;
-	height:20px;
-	float:right;
+.x-palette-main, .x-palette-slider {
+    float: left;
+    border: 1px solid @border-color;
 }
-.evo-colorind{
-	position:relative;
-	top:2px;
+
+.x-palette-value-handle {
+    border: 1px solid @border-color;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    margin-top: -3px;
+    position: absolute;
 }
-.evo-colorind-ie{
-	position:relative;
-	top:-23px;
+
+.x-palette-slider {
+    float: right;
+    width: @font-size * 1.6;
+    height: @font-size * 10;
+    background-image: -webkit-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: -moz-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: -o-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    position: relative;
 }
-.evo-colorboui-ie{
-	font-size:8px;
-	padding:3px 9px !important;
+
+.x-palette-sat {
+    background-image: -webkit-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: -moz-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: -o-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    position: relative;
 }
-.evo-colortxt-ie{
-	position:relative;
-	top:-6px;
+
+.x-palette-value {
+    width: @font-size * 10;
+    height: @font-size * 10;
+    background-image: linear-gradient(to top, #000, rgba(204, 154, 129, 0));
+    position: relative;
 }
-.evo-pop:after,
-.evo-pop-ie:after,
-.evo-colorind:after, 
-.evo-colorind-ie:after, 
-.evo-colorind-ff:after, 
-.evo-color span:after,
-.evo-cHist:after{
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-	font-size: 0;
+
+.x-palette-slider-handle {
+    border-right-color: @text-color;
+    left: auto;
+    right: -8px;
 }
-.evo-color{
-	width:94px;
-	padding: 1px 3px 0 4px;
-}
-.evo-color div{
-	border:solid 1px #808080;
-	border-right:solid 1px #c0c0c0;
-	border-bottom:solid 1px #c0c0c0;
-	padding:3px;
-	margin-bottom:5px;
-	width:10px;
-	height:10px;
-	float:left;
-}
-.evo-color span{
-	font-size:15px;
-	margin: 1px 0 4px 3px;
-	float:left;
-}
-.evo-sep{
-	height:10px;
-	font-size:0;
-}
-.evo-more{
-	padding:4px 5px 4px;
-	font-size:smaller;
-}
-.evo-cHist{
-	padding:3px;
-}
-.evo-cHist div{
-	cursor: pointer;
-	border:solid 1px #c0c0c0;
-	padding:3px;
-	margin:5px;
-	width:10px;
-	height:10px;
-	float:left;
-}
-a.evo-hist{
-	margin-left:6px;
+
+.x-palette-history {
+    display: inline-block;
+    border: 1px solid @border-color;
+    width: 10px;
+    height: 10px;
 }
