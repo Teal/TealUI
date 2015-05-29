@@ -353,6 +353,8 @@ function getModuleInfo(filePath, modulePath) {
     var match = reModuleInfo.exec(content);
     var moduleInfo = match && Doc.ModuleInfo.parse(match[4]) || {};
     moduleInfo.title = (/(<title[^\>]*?>)(.*?)(<\/title>)/i.exec(content) || [])[2] || modulePath;
+    moduleInfo.tags = (/<meta\s+name\s*=\s*"description"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
+    moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
     return moduleInfo;
 };
 

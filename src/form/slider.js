@@ -1,16 +1,22 @@
-/** * @author xuld */// #require dom/drag.jsvar Slider = Input.extend({
+/** * @author xuld */// #require control/input.js// #require dom/drag.js/**
+ * 表示一个滑块。
+ * @class
+ */var Slider = Input.extend({
 
     /**
-     * 规定允许的最小值。
+     * 设置滑动的最小值。
+     * @type {Number}
      */
     min: 0,
 
     /**
-     * 规定允许的最大值。
+     * 设置滑动的最大值。
+     * @type {Number}
      */
     max: 100,
     /**
-     * 规定合法数字间隔（如果 step="3"，则合法数字是 -3,0,3,6，以此类推）。
+     * 设置滑动的步长。
+     * @type {Number}
      */    step: 0,    init: function (options) {
         Dom.each(Dom.query('.x-slider-handle', this.elem), this.initHandle, this);
         var me = this;
@@ -27,7 +33,7 @@
             leftP = left * 100 / this.elem.offsetWidth,
             min = 101,
             handle = handles[0];
-        
+
         // 找到最近的点。
         for (var i = handles.length - 1; i >= 0; i--) {
             // 离右边更近则退出循环。
@@ -96,10 +102,10 @@
 
         // 计算百分比。
         left = left * 100 / this.elem.offsetWidth;
-        
+
         // 确保滑块在合理拖动范围内。
         draggable.value = left = Math.max(draggable.min, Math.min(draggable.max, left));
-        
+
         if (this.onChanging(draggable, e) !== false) {
 
             // 仅设置 X 坐标即可。
