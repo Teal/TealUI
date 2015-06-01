@@ -50,7 +50,9 @@
   }
 }
 .x-break-word {
+  -ms-word-wrap: break-word;
   word-wrap: break-word;
+  -ms-word-break: break-all;
   word-break: break-all;
 }
 .x-ellipsis {

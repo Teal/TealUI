@@ -11,17 +11,22 @@
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  speak: none;
   line-height: 100%;
   display: inline-block;
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  vertical-align: -1px;
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
-  vertical-align: -1px;
 }
 a .x-icon {
-  margin-right: .32em;
+  margin-right: 0.32em;
+}
+.x-icon.x-spin {
+  -moz-transform-origin: 50% 42%;
+  -ms-transform-origin: 50% 42%;
+  -o-transform-origin: 50% 42%;
+  -webkit-transform-origin: 50% 42%;
+  transform-origin: 50% 42%;
 }

@@ -1,14 +1,16 @@
 ﻿.x-tipbox {
   display: block;
   padding: 4px 8px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   border: 1px solid #e0e0e0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  overflow: hidden;
 }
 span.x-tipbox {
   display: inline-block;
+  overflow: visible;
 }
 .x-tipbox-info {
   background-color: rgba(59, 180, 242, 0.15);

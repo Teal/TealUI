@@ -6,12 +6,11 @@
     <title>箭头</title>
     <meta name="module-info" content="group=arrow">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="箭头。">
+    <meta name="description" content="实现四个方向的箭头效果。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/arrow.css" />
-
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -21,36 +20,46 @@
         .doc-box {
             position: relative;
             border: 1px solid #FF9800;
+            background-color: #fff;
             overflow: visible;
         }
     </style>
 
-    <h2>上</h2>
+    <h2>基本用法</h2>
+    <p>为容器添加 <code>.x-arrow</code> 和 <code>.x-arrow-*</code>(其中 * 可以是：top、bottom、left 或 right，分别对应四个方向)，即可为容器添加箭头。</p>
     <aside class="doc-demo">
-        <div class="doc-box">
-            <i class="x-arrow x-arrow-top"></i>
-        </div>
+        <div class="doc-box x-arrow x-arrow-top"></div>
+        <div class="doc-box x-arrow x-arrow-bottom"></div>
+        <div class="doc-box x-arrow x-arrow-left"></div>
+        <div class="doc-box x-arrow x-arrow-right"></div>
     </aside>
 
-    <h2>下</h2>
+    <h2>自定义箭头</h2>
+    <p>箭头的实现原理是为指定节点添加 <code>:before</code> 作为箭头前景色，添加 <code>:after</code> 作为箭头背景色。如果需要自定义箭头位置和位置，需要对这两个元素操作。</p>
+    
+    <h3>自定义位置</h3>
+    <p>箭头的默认位置为居中（<code>left: 50%</code>）。</p>
     <aside class="doc-demo">
-        <div class="doc-box">
-            <i class="x-arrow x-arrow-bottom"></i>
-        </div>
+        <div id="customPosition" class="doc-box x-arrow x-arrow-top"></div>
+        <style>
+            #customPosition:before, #customPosition:after {
+                left: 20px;
+            }
+        </style>
     </aside>
 
-    <h2>左</h2>
+    <h3>自定义颜色</h3>
+    <p>箭头的默认边框色为容器的边框色，默认背景色为全局背景色。</p>
     <aside class="doc-demo">
-        <div class="doc-box">
-            <i class="x-arrow x-arrow-left"></i>
-        </div>
-    </aside>
-
-    <h2>右</h2>
-    <aside class="doc-demo">
-        <div class="doc-box">
-            <i class="x-arrow x-arrow-right"></i>
-        </div>
+        <div id="customColor" class="doc-box x-arrow x-arrow-top"></div>
+        <style>
+            #customColor:before {
+                border-bottom-color: #00BCD4; /*边框色*/
+            }
+            #customColor:after {
+                border-bottom-color: #FFEB3B; /*背景色*/
+            }
+        </style>
     </aside>
 </body>
 </html>

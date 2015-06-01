@@ -53,7 +53,7 @@ var Panel = Control.extend({
 
             if (value) {
                 classList.add('x-panel-collapsing');
-                Dom.slideUp(body, function () {
+                Dom.hide(body, 'height', function () {
                     classList.add('x-panel-collapsed');
                     classList.remove('x-panel-collapsing');
                     classList.remove('x-panel-expanded');
@@ -61,7 +61,7 @@ var Panel = Control.extend({
             } else {
                 classList.add('x-panel-expanded');
                 classList.remove('x-panel-collapsed');
-                Dom.slideDown(body);
+                Dom.show(body, 'height');
             }
 
             this.trigger('collapse', value);

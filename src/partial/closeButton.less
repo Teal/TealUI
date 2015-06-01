@@ -2,18 +2,24 @@
 @import "../core/mixins.less";
 
 .x-closebutton {
+    font-family: Helvetica, Arial;
+    display: block;
     color: @text-color;
-    .opacity(.6);
-    line-height: @line-height;
-    margin-right: 0;
-    margin-left: 1em;
+    margin: @box-padding-y + 1px 0 @box-padding-y + 1px 1em;
+    width: @font-size;
+    height: @font-size;
+    font-size: @font-size + 2px;
+    font-weight: 100;
+    text-align: center;
+    line-height: @font-size;
     cursor: pointer;
     float: right;
-    .transition(opacity .3s);
+    border-radius: 50%;
 
     &:hover {
-        .opacity(.3);
+        background-color: @error-text-color;
+        color: @selected-text-color;
         text-decoration: none;
+        .transition(background-color .3s);
     }
-
 }

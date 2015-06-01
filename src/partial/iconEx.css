@@ -1,4 +1,9 @@
-﻿.x-icon-spinner:before {
+﻿
+.x-icon-empty:before {
+	content: "　";
+}
+
+.x-icon-spinner:before {
 	content: "\489";
 }
 

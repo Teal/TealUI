@@ -1,44 +1,76 @@
 @import "../core/mixins.less";
 
+@arrow-width:               8px;
+@arrow-border-color:        inherit;
+@arrow-background-color:    @background-color;
+
 .x-arrow {
-    display: block;
-    position: absolute;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    height: 0;
-    width: 0;
-    font: 0;
-    border: 8px solid transparent;
+    &:before, &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        font: 0;
+        border: @arrow-width solid transparent;
+        z-index: 1;
+    }
 }
 
 .x-arrow-top, .x-arrow-bottom {
-    left: 50%;
-    margin-left: -8px;
+    &:before, &:after {
+        left: 50%;
+        margin-left: -@arrow-width;
+    }
 }
 
 .x-arrow-top {
-    border-bottom-color: inherit;
-    top: -16px;
+    &:before {
+        border-bottom-color: @arrow-border-color;
+        top: -@arrow-width * 2;
+    }
+    &:after {
+        border-bottom-color: @arrow-background-color;
+        top: -@arrow-width * 2 + 1;
+    }
 }
 
 .x-arrow-bottom {
-    border-top-color: inherit;
-    bottom: -16px;
+    &:before {
+        border-top-color: @arrow-border-color;
+        bottom: -@arrow-width * 2;
+    }
+    &:after {
+        border-top-color: @arrow-background-color;
+        bottom: -@arrow-width * 2 + 1;
+    }
 }
 
 .x-arrow-left, .x-arrow-right {
-    top: 50%;
-    margin-top: -8px;
+    &:before, &:after {
+        top: 50%;
+        margin-top: -@arrow-width;
+    }
 }
 
 .x-arrow-left {
-    border-right-color: inherit;
-    left: -16px;
+    &:before {
+        border-right-color: @arrow-border-color;
+        left: -@arrow-width * 2;
+    }
+    &:after {
+        border-right-color: @arrow-background-color;
+        left: -@arrow-width * 2 + 1;
+    }
 }
 
 .x-arrow-right {
-    border-left-color: inherit;
-    right: -16px;
+    &:before {
+        border-left-color: @arrow-border-color;
+        right: -@arrow-width * 2;
+    }
+    &:after {
+        border-left-color: @arrow-background-color;
+        right: -@arrow-width * 2 + 1;
+    }
 }

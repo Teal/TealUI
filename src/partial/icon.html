@@ -6,11 +6,10 @@
     <title>图标</title>
     <meta name="module-info" content="order=^, parent-title=小部件, parent-order=typography, package=default, group=icon">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="本组件提供图标。">
+    <meta name="description" content="基于字体实现各类小图标。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/partial/spin.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <!-- 添加此 class 可以实现通过 class 定义图标 -->
     <link rel="stylesheet" type="text/css" href="../../src/partial/iconEx.css" />
@@ -18,63 +17,84 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    <style>
-        #list li {
-            width: 240px;
-            float: left;
-            list-style: none;
-            line-height: 24px;
-        }
+    <link rel="stylesheet" type="text/css" href="../../src/partial/spin.css" />
 
-        #list li .x-icon {
-            width: 1.2em;
-            text-align: right;
-            margin-right: .35em;
-        }
-    </style>
-
-    <blockquote class="doc-info">所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供，原理上使用字体实现。</blockquote>
-    
     <h2>基本用法</h2>
+    <p>创建一个独立的 <code>&lt;span class="x-icon"&gt;</code> 标签来表示图标，标签内部文本决定了图标的内容。</p>
     <aside class="doc-demo">
-        <a href="###"><i class="x-icon">&#9733;</i>你好</a>
+        <span class="x-icon">&#9733;</span> 你好　　
+        <a href="###"><span class="x-icon">&#9733;</span>你好</a>
     </aside>
-    
-    <p>链接内图标包含 0.3em 右边距，避免图标右边出现空格。</p>
-    
-    <h2>加载图标</h2>
-    <p>结合 <a href="spin.html">旋转效果(spin)</a> 组件，可以实现旋转的组件效果。</p>
+    <blockquote class="doc-warning">
+        注意：<br />
+        1. 不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。<br />
+        2. 使用图标时应在图标后追加一个空格以保证美观。<br />
+        3. 链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，避免图标右边空格出现下划线影响视觉效果。
+    </blockquote>
+
+    <h2>通过 class 指定图标</h2>
+    <p>部分用户习惯使用 <code>class</code> 来指定图标，所以 TealUI 也提供了额外的 <code>iconEx.css</code>。但我们不建议用户使用它，因为这会大幅增加最终的 CSS 代码量。</p>
     <aside class="doc-demo">
-        <i class="x-icon x-spin">&#1161;</i>正在加载...<br />
-        <i class="x-icon x-spin">&#8634;</i>正在加载...<br />
+        <span class="x-icon x-icon-star"></span> 你好　
+        <a href="###"><span class="x-icon x-icon-star"></span>你好</a>　
+    </aside>
+
+    <h2>旋转图标</h2>
+    <p>结合 <a href="spin.html">旋转效果(spin)</a> 组件，可以完成加载中的效果。</p>
+    <aside class="doc-demo">
+        <span class="x-icon x-spin">&#1161;</span> 正在加载...　　
+        <span class="x-icon x-spin">&#8634;</span> 正在刷新...
     </aside>
 
     <h2>所有图标</h2>
+    <p>图标的内容由内部文字决定，更换 <code>&lt;span&gt;</code> 里面的字符可以切换图标的内容。一些特殊字符可以使用 HTML 转义码（如<code>&amp;#9733;</code>）表示。</p>
     <script>
 
-        var html = '<ul id="list" class="doc-clear">';
+        var html = '<table>', odd = true;
 
-        html += '<li><i class="x-icon">　</i>empty:<code>&amp;#' + '　'.charCodeAt(0) + ';</code></li>';
+        function appendLine(iconChar, iconName) {
+            if (odd) {
+                html += '<tr>';
+            }
+            html += '<td align="center"><span class="x-icon">' + iconChar + '</span></td>';
+            html += '<td align="center"><code>' + iconChar + '</code></td>';
+            html += '<td><code>&amp;#' + iconChar.charCodeAt(0) + ';</code></td>';
+            html += '<td><code>' + iconName + '</code></td>';
+            if (!odd) {
+                html += '</tr>';
+            }
+            odd = !odd;
+        }
 
         try {
 
-            for (var i = 0; i < document.styleSheets.length; i++) {
-                if (/iconex/i.test(document.styleSheets[i].href)) {
-                    var iconex = document.styleSheets[i];
+            html += '<tr><th>图标</th><th>字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th><th>图标</th><th>字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th></tr>';
+
+            for (var span = 0; span < document.styleSheets.length; span++) {
+                if (/iconex/i.test(document.styleSheets[span].href)) {
+                    var iconex = document.styleSheets[span];
                     for (var j = 0; j < iconex.cssRules.length; j++) {
                         iconex.cssRules[j].cssText.replace(/\.x-icon-(.+):before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
-                            html += '<li><i class="x-icon">' + unicode + '</i>' + name + ':<code>&amp;#' + unicode.charCodeAt(0) + ';</code></li>';
+                            appendLine(unicode, name);
                         });
                     }
                 }
             }
 
-            html += '</ul>';
+            if (!odd) {
+                html += '<td></td><td></td><td></td><td></td></tr>';
+            }
+
+            html += '</table>';
+
         } catch (e) {
             html = '<blockquote class="doc-warning">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
         }
 
         document.write(html);
     </script>
+
+    <h2>更多图标及定制</h2>
+    <p>所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供。在其官方应用导入 <a target="_blank" href="icomoon_TealUI.json">icomoon_TealUI.json</a> 配置文件，可继续自定义图标。</p>
 </body>
 </html>

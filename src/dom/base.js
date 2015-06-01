@@ -604,7 +604,7 @@ var Dom = {
     vendorCssPropertyName: function (elem, cssPropertyName) {
         if (!(cssPropertyName in elem.style)) {
             var prop = cssPropertyName.replace(/^[a-z]/, function(w) { return w.toUpperCase(); }), prefix;
-            for (prefix in { 'webkit': 1, 'moz': 1, 'ms': 1, 'o': 1 }) {
+            for (prefix in { 'Webkit': 1, 'Moz': 1, 'ms': 1, 'O': 1 }) {
                 if ((prefix + prop) in elem.style) {
                     cssPropertyName = prefix + prop;
                     break;
@@ -696,7 +696,7 @@ var Dom = {
      * @static
      */
     toggle: function (elem, value) {
-        (value == null ? Dom.isHidden(elem) : value) ? Dom.show(elem) : Dom.hide(elem);
+        Dom[(value !== true && value !== false ? Dom.isHidden(elem) : value) ? 'show' : 'hide'].apply(this, arguments);
     },
 
     // #endregion

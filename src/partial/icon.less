@@ -1,6 +1,8 @@
 
 @import "../core/mixins.less";
 
+@icon-link-space:       .32em;
+
 @font-face {
 	font-family: 'IcoMoon';
 	src:url('fonts/IcoMoon.eot?fczhay');
@@ -18,20 +20,31 @@
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
+    speak: none;
     line-height: 100%;
     display: inline-block;
-    speak: none;
-    // 加速渲染
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    vertical-align: -1px;
+    
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    vertical-align: -1px;
+
+    // 以下两个属性为非标准属性，此处删除之。
+    //-webkit-font-smoothing: antialiased;
+    //-moz-osx-font-smoothing: grayscale;
 
     // 链接内部图标必须添加空白区域，以保证图标+文字效果更完美。
     a & {
-        margin-right: .32em;
+        margin-right: @icon-link-space;
+    }
+    
+    // 修正转动的抖动。
+    &.x-spin {
+        -moz-transform-origin: 50% 42%;
+        -ms-transform-origin: 50% 42%;
+        -o-transform-origin: 50% 42%;
+        -webkit-transform-origin: 50% 42%;
+        transform-origin: 50% 42%;
     }
 }
