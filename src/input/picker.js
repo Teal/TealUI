@@ -22,6 +22,10 @@ var Picker = Input.extend({
         return Dom.find('.x-button', this.elem);
     },
 
+    createDropDown: function (dropDown) {
+        return Control.get(dropDown, 'dropDown', { target: me.getButton() });
+    },
+
     /**
      * 当被子类重写时负责初始化下拉菜单。
      */
@@ -29,21 +33,20 @@ var Picker = Input.extend({
 
     init: function () {
 
-        var me = this;
-
         // 初始化下拉菜单。
-        var dropDown = me.elem.nextElementSibling;
+        var me = this,
+            dropDown = me.elem.nextElementSibling;
         dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : Dom.append(document.body, '<div class="x-dropdown"></div>');
-        me.dropDown = Control.get(dropDown, 'dropDown', { target: me.getButton() });
-        me.initDropDown(dropDown);
+        me.dropDown = dropDown = me.createDropDown(dropDown);
+        me.initDropDown(dropDown.elem);
 
-        me.dropDown.onShow = function (e) {
+        dropDown.onShow = function (e) {
             DropDown.prototype.onShow.call(this, e);
             me.realignDropDown();
             me.updateDropDown();
             me.onDropDownShow();
         };
-        me.dropDown.onHide = function (e) {
+        dropDown.onHide = function (e) {
             DropDown.prototype.onHide.call(this, e);
             me.onDropDownHide();
         };
