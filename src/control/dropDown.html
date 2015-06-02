@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>下拉菜单接口</title>
-    <meta name="module-info" content="status=doing">
+    <title>下拉菜单控件</title>
+    <meta name="module-info" content="status=doing, order=popover">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="抽象下拉菜单效果。">
 
@@ -22,16 +22,28 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    
+
+    <h2>下拉菜单控件</h2>
+    <p>下拉菜单控件是一个抽象的控件基类。控件封装了点击后展开子菜单的逻辑。</p>
+
     <h2>基本用法</h2>
-    <p>节点添加 <code>[data-role="dropDown"]</code> 和 <code>[data-target="{目标节点选择器}"]</code>，即可将指定节点初始化为指定节点的下拉菜单。</p>
+    <p>添加 <code>[data-role="dropDown"]</code>，即可将指定节点初始化为上一个节点的下拉菜单。</p>
+    <aside class="doc-demo">
+        <button>按钮</button>
+        <div class="x-dropdown" data-role="dropDown">我是弹出菜单</div>
+    </aside>
+
+    <p>为下拉菜单添加 <code>[data-target="{目标节点选择器}"]</code> 可设置目标节点。</p>
     <aside class="doc-demo">
         <button id="button1">按钮</button>
         <div class="x-dropdown" data-role="dropDown" data-target="#button1">我是弹出菜单</div>
     </aside>
     
     <h2>API</h2>
-    
+
+    <h5>手动初始化下拉菜单</h5>
+    <pre>$('#dropDown1').role('dropDown', {target: '#button1'});</pre>
+
     <h5>手动显示菜单</h5>
     <pre>$('[data-role=dropDown]').role().show();</pre>
 

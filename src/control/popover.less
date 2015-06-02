@@ -2,8 +2,10 @@
 @import "../core/mixins.less";
 
 .x-popover {
+	display: none;
     position: absolute;
     z-index: @z-index-tooltip;
     max-height: @line-height * 20;
-	display: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: @background-color;
 }

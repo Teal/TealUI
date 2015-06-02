@@ -7,8 +7,13 @@
 
 var DropDown = Control.extend({
 
-    init: function (options) {
-        this.setDropDown(Dom.find(options.target) || this.elem.previousElementSibling);
+    /**
+     * 获取或设置当前下拉菜单的目标。
+     */
+    target: null,
+
+    init: function () {
+        this.setDropDown(Dom.find(this.target) || this.elem.previousElementSibling);
     },
 
     toggleDuration: 150,

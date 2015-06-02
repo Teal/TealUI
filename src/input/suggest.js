@@ -9,24 +9,20 @@
  * 智能提示组件。
  * @extends Control
  */
-var Suggest = Control.extend(IDropDownOwner).implement({
+var Suggest = Control.extend({
 
 	/**
 	 * 创建当前 Suggest 的菜单。
 	 * @return {Dom} 下拉菜单。
 	 * @protected virtual
 	 */
-	createDropDown: function (existDom) {
+	initDropDown: function (existDom) {
 		var dropDown = new DropDownMenu({
 			elem: existDom,
 			owner: this,
 			selectMethod: 'selectItem',
 			updateMethod: 'showDropDown'
 		});
-
-		Dom.addClass(dropDown.elem, 'x-suggest');
-
-
 		return dropDown;
 	},
 

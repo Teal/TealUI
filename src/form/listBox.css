@@ -1,10 +1,10 @@
 ﻿.x-listbox {
   display: inline-block;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
   overflow: auto;
   max-height: 240px;
 }
@@ -20,6 +20,10 @@
 .x-listbox-selected a {
   background-color: #337ab7 !important;
   color: #ffffff;
+  -moz-transition: background-color 0.1s;
+  -o-transition: background-color 0.1s;
+  -webkit-transition: background-color 0.1s;
+  transition: background-color 0.1s;
 }
 .x-listbox-readonly,
 .x-listbox-disabled {

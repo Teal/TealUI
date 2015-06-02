@@ -5,39 +5,46 @@
     display: inline-block;
     background-color: @background-color;
     border: 1px solid @border-color;
-    min-width: @font-size * 10;
+    min-width: @line-height * 10;
     margin: 0;
     padding: 0;
     list-style: none;
 
     > li {
-        
-        > .x-icon:first-child {
-            float: right;
-            line-height: @line-height;
-            padding: @box-padding-y / 2 @box-padding-x;
-        }
 
         > a {
             display: block;
             color: @text-color;
             padding: @box-padding-y / 2 @box-padding-x;
-            
-		    &:hover {
-                background-color: @dropdown-hover-color;
-			    text-decoration: none;
-		    }
-        }
-        
-        &.x-selected > a {
-            color: @background-color;
-            background-color: @dropdown-selected-color;
-        }
 
-        > hr {
-            margin: 0;
+            &:hover {
+                background-color: @hover-background-color;
+                text-decoration: none;
+            }
         }
+    }
 
+    hr {
+        margin: 0;
+    }
+
+    .x-menu {
+        display: none;
+    }
+}
+
+.x-menu-selected a {
+    color: @selected-text-color !important;
+    background-color: @selected-background-color !important;
+}
+
+.x-menu-arrow {
+    float: right;
+    line-height: @line-height;
+    padding: @box-padding-y / 2 @box-padding-x;
+
+    .x-menu-selected & {
+        color: @selected-text-color;
     }
 }
 

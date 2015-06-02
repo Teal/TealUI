@@ -50,7 +50,7 @@
                 onDragStart: function (e) {
                     this._text = this.elem.innerHTML;
                 },
-                onDrag: function(e) {
+                onDragMove: function(e) {
                     this.elem.innerHTML = this.endX + "," + this.endY;
                 },
                 onDragEnd: function (e) {
@@ -65,7 +65,7 @@
         <div id="d4" class="doc-box">拖动步长</div>
         <script>
             Dom.draggable(document.getElementById('d4'), {
-                onDrag: function (e) {
+                onDragMove: function (e) {
                     var STHREH = 60;
                     this.endOffset.left = this.startOffset.left + parseInt((this.endOffset.left - this.startOffset.left) / STHREH) * STHREH;
                     this.endOffset.top = this.startOffset.top + parseInt((this.endOffset.top - this.startOffset.top) / STHREH) * STHREH;

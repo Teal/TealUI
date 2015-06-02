@@ -47,7 +47,7 @@ Dom.draggable = function (elem, options) {
          * @param {Event} e 原生的 mousemove 事件。
          */
         dragMove: function (e) {
-
+            
             // 更新目标偏移量。
             this.endOffset = {
                 left: this.startOffset.left + this.endX - this.startX,
@@ -97,7 +97,7 @@ Dom.draggable = function (elem, options) {
 
                 // 记录当前的开始位置。
                 draggabe.endX = draggabe.startX = e.pageX;
-                draggabe.endY = draggabe.stadragMovertY = e.pageY;
+                draggabe.endY = draggabe.startY = e.pageY;
 
                 // 设置下一步处理句柄。
                 draggabe.currentHandler = draggabe.startDragging;

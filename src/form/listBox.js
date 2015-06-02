@@ -5,14 +5,49 @@
 // #require ui/form/listbox.css
 // #require ui/core/listcontrol.js
 
-
 /**
  * 表示一个列表框。
- * @extends ListControl
  */
-var ListBox = ListControl.implement(IInput).extend({
+var ListBox = Input.extend({
 
-	cssClass: "x-listbox",
+    init: function () {
+        var me = this;
+        Dom.on(me.elem, 'mouseenter', 'li', function () {
+            me.onMouseEnter(this);
+        });
+    },
+
+    onMouseEnter: function (item) {
+        var current = Dom.find('.x-listbox-selected', this.elem);
+        current && current.classList.remove('x-menu-selected');
+        item && item.classList.add('x-menu-selected');
+    },
+
+    _findChild: function (selector, parentNode) {
+        for (var node = parentNode.firstElementChild; node; node = node.nextElementSibling) {
+            if (node.matches(selector)) {
+                return node;
+            }
+        }
+    },
+
+    /**
+     * 重新设置当前高亮项。
+     */
+    hovering: function (item) {
+        var clazz = this.cssClass + '-hover';
+
+        if (this._hovering) {
+            Dom.removeClass(this._hovering, clazz);
+        }
+
+        if (item) {
+            Dom.addClass(item, clazz);
+        }
+
+        this._hovering = item;
+        return this;
+    },
 
 	/**
      * 获取当前高亮项。

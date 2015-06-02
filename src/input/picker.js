@@ -2,13 +2,9 @@
  * @author  xuld
  */
 
-// #require ../button/button.css
-// #require ../button/menubutton.css
-// #require ../suggest/picker.css
-// #require ../input/textBox.css
-// #require ../core/base.js
-// #require ../core/iinput.js
-// #require ../core/idropdownowner.js
+// #require ../control/input
+// #require ../control/dropDown
+// #require ../control/base
 
 /**
  * 表示一个数据选择器。
@@ -33,20 +29,21 @@ var Picker = Input.extend({
 
     init: function () {
 
-        // 初始化下拉菜单。
-        var dropDown = this.elem.nextElementSibling;
-        dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : Dom.append(document.body, '<div class="x-dropdown"></div>');
-        this.initDropDown(dropDown);
-        this.dropDown = dropDown = Control.get(dropDown, 'dropDown', { target: this.getButton() });
-
         var me = this;
-        dropDown.onShow = function (e) {
+
+        // 初始化下拉菜单。
+        var dropDown = me.elem.nextElementSibling;
+        dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : Dom.append(document.body, '<div class="x-dropdown"></div>');
+        me.dropDown = Control.get(dropDown, 'dropDown', { target: me.getButton() });
+        me.initDropDown(dropDown);
+
+        me.dropDown.onShow = function (e) {
             DropDown.prototype.onShow.call(this, e);
             me.realignDropDown();
             me.updateDropDown();
             me.onDropDownShow();
         };
-        dropDown.onHide = function (e) {
+        me.dropDown.onHide = function (e) {
             DropDown.prototype.onHide.call(this, e);
             me.onDropDownHide();
         };

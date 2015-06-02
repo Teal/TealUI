@@ -15,13 +15,20 @@ var Popover = Control.extend({
      */
     initialDelay: 100,
 
+    toggleDuration: 150,
+
     /**
      * 当前工具提示和目标文本的距离。
      */
     distance: 10,
 
-    init: function(options) {
-        this.setPopover(Dom.find(options.target) || this.elem.previousElementSibling);
+    /**
+     * 获取或设置当前浮层的目标。
+     */
+    target: null,
+
+    init: function () {
+        this.setPopover(Dom.find(this.target) || this.elem.previousElementSibling);
     },
 
     /**
@@ -31,7 +38,6 @@ var Popover = Control.extend({
         this.target = target;
         target && Dom.hover(target, this.show.bind(this), this.hide.bind(this), this.initialDelay);
     },
-
 
     /**
      * 获取当前工具提示的位置。
@@ -66,7 +72,7 @@ var Popover = Control.extend({
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
     onShow: function (e) {
-        Dom.fadeIn(this.elem);
+        Dom.show(this.elem, 'opacity', null, this.toggleDuration);
 
         var popoverRect = Dom.getRect(this.elem),
             targetRect = Dom.getRect(this.target),
@@ -104,11 +110,11 @@ var Popover = Control.extend({
             case null:
                 if (e) {
                     popoverRect.left = e.pageX;
-                    popoverRect.top = e.pageY + this.distance;
+                    popoverRect.top = e.pageY + this.distance * 2;
                     // 保证 left 介于屏幕左右之间。
                     popoverRect.left = Math.max(docRect.left, Math.min(popoverRect.left, docRect.right - popoverRect.width));
                     if (popoverRect.top > docRect.bottom - popoverRect.height) {
-                        popoverRect.top = e.pageY - this.distance;
+                        popoverRect.top = e.pageY - this.distance * 2;
                     }
                 }
                 break;
@@ -132,7 +138,7 @@ var Popover = Control.extend({
      * 当被子类重写时，负责定义当前组件的隐藏方式。
      */
     onHide: function (e) {
-        Dom.fadeOut(this.elem);
+        Dom.hide(this.elem, 'opacity', null, this.toggleDuration);
     },
 
     /**

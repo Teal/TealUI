@@ -7,7 +7,53 @@
 // #require fx/animate.js
 // #require ui/core/treecontrol.js
 
-var Menu = TreeControl.extend({
+
+var Menu = Control.extend({
+
+    init: function() {
+        var me = this;
+        Dom.on(me.elem, 'mouseenter', 'li', function() {
+            if (this.parentNode === me.elem) {
+                me.onMouseEnter(this);
+            }
+        });
+    },
+
+    onMouseEnter: function(item) {
+        this.hovering(item);
+
+        // 显示子菜单。
+        var subMenu = this._findChild('.x-menu', item);
+        if (subMenu) {
+            Dom.show(subMenu);
+        }
+    },
+
+    _findChild: function(selector, parentNode) {
+        for (var node = parentNode.firstElementChild; node; node = node.nextElementSibling) {
+            if (node.matches(selector)) {
+                return node;
+            }
+        }
+    },
+
+    /**
+     * 重新设置当前高亮项。
+     */
+    hovering: function (item) {
+        var current = this._findChild('.x-menu-selected', this.elem);
+        current && current.classList.remove('x-menu-selected');
+        item && item.classList.add('x-menu-selected');
+        return this;
+    }
+
+
+
+
+
+});
+
+var Menu2 = TreeControl.extend({
 
 	cssClass: 'x-menu',
     

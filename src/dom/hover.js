@@ -9,28 +9,26 @@
  */
 Dom.hover = function (elem, mouseEnter, mouseLeave, delay) {
 
-    var mouseEnterFired = false, timer;
+    var timer, mouseEvent;
 
-    if (delay === undefined) {
+    if (delay == undefined) {
         delay = 100;
     }
 
-    Dom.on(elem, 'mouseenter', function(e) {
+    Dom.on(elem, 'mouseenter', function (e) {
         timer = setTimeout(function() {
-            timer && clearTimeout(timer);
             timer = 0;
-            mouseEnterFired = true;
-            mouseEnter.call(elem, e);
+            mouseEnter.call(elem, mouseEvent || e);
         }, delay);
     });
 
+    Dom.on(elem, 'mousemove', function (e) {
+        mouseEvent = e;
+    });
+
     Dom.on(elem, 'mouseleave', function (e) {
-        timer && clearTimeout(timer);
-        timer = 0;
-        if (mouseEnterFired) {
-            mouseEnterFired = false;
-            mouseLeave.call(this, e);
-        }
+        timer ? clearTimeout(timer) : mouseLeave.call(this, e);
+        timer = mouseEvent = 0;
     });
 
 };

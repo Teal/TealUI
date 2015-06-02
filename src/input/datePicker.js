@@ -17,16 +17,16 @@ var DatePicker = Picker.extend({
 	    dropDown.classList.add('x-calender');
 	    me.calender = Control.get(dropDown, 'calender', {
 	        format: this.format
-	    }).on('selecting', function (value) {
+	    }).on('select', function (value) {
 	        me.onCalenderSelect(value);
+	        return false;
+	    }).on('change', function () {
+	        me.setValue(this.getValue());
 	    });
 	},
 	
 	onCalenderSelect: function(value) {
-	    if (this.getValue() !== value) {
-	        this.setValue(value);
-	        this.trigger('change');
-	    }
+	    this.setValue(value);
 	    this.dropDown.hide();
 	},
 	
@@ -40,8 +40,11 @@ var DatePicker = Picker.extend({
 	    return Date.from(this.getInput().value);
 	},
 	
-	setValue: function(value){
-	    this.getInput().value = value.format(this.format);
+	setValue: function (value) {
+	    if (this.getValue() !== value) {
+	        this.getInput().value = value.format(this.format);
+	        this.trigger('change');
+	    }
 		return this;
 	}
 

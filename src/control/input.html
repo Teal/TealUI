@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>表单控件接口</title>
-    <meta name="module-info" content="status=doing">
+    <title>输入框控件</title>
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="抽象下拉菜单效果。">
+    <meta name="description" content="输入框控件。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
@@ -19,50 +19,33 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+
+    <h2>输入框控件</h2>
+    <p>输入框控件是一个抽象的控件基类，所有表单控件都继承于输入框控件。控件内部会自动生成一个隐藏域，以确保表单是数据可以被正确提交到服务器，通过 <code>getValue/setValue</code> 可以读写输入框的值。</p>
+
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <input type="text" data-role="input" />
+    </aside>
     
+    <h2>API</h2>
     
+    <h5>获取值</h5>
+    <pre>$('[data-role="input"]').role().getValue()</pre>
 
-    <article>
-        <p>IInput 提供表单元素的状态控制。</p>
-        <aside class="doc-demo">
-            
-        </aside>
+    <h5>设置值</h5>
+    <pre>$('[data-role="input"]').role().setValue('TealUI')</pre>
 
-        <section class="demo demo-control">
+    <h5>设置禁用</h5>
+    <pre>$('[data-role="input"]').role().setState('disabled')</pre>
 
-            <aside class="doc-demo">
-                <input type="text" id="input" />
+    <h5>取消禁用</h5>
+    <pre>$('[data-role="input"]').role().setState('disabled', false)</pre>
 
-                <script>
+    <h5>设置只读</h5>
+    <pre>$('[data-role="input"]').role().setState('readOnly')</pre>
 
-                    // 获取上文的节点对象。
-                    var input = new Control(Dom.get('input'));
-
-                    // 复制 IInput 的接口。
-                    Object.extend(input, IInput);
-
-                </script>
-            </aside>
-
-        </section>
-
-        <section class="demo demo-api">
-
-            <script>
-
-                Demo.writeExamples({
-                    '设置禁用': 'input.setAttr("disabled", true)',
-                    '取消禁用': 'input.setAttr("disabled", false)',
-                    '设置只读': 'input.setAttr("readonly", true)',
-                    '取消只读': 'input.setAttr("readonly", false)',
-                    '设置 name': 'input.setAttr("name", "name")',
-                    '获取表单': 'input.form()'
-                });
-
-            </script>
-
-        </section>
-
-    </article>
+    <h5>获取只读</h5>
+    <pre>$('[data-role="input"]').role().getState('readOnly')</pre>
 </body>
 </html>

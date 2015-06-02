@@ -3,11 +3,11 @@
 
 .x-listbox {
     display: inline-block;
+    background-color: @background-color;
+    border: 1px solid @border-color;
     margin: 0;
     padding: 0;
     list-style: none;
-    background-color: @background-color;
-    border: 1px solid @textbox-border-color;
     overflow: auto;
     max-height: @line-height * 10;
 
@@ -26,6 +26,7 @@
 .x-listbox-selected a {
     background-color: @selected-background-color!important;
     color: @selected-text-color;
+    .transition(background-color .1s);
 }
 
 .x-listbox-readonly, .x-listbox-disabled {

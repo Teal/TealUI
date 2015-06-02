@@ -67,8 +67,23 @@ var Calender = Control.extend({
         Calender.views[this.view].parentView && this.setView(Calender.views[this.view].parentView, 'zoomIn');
     },
 
-    onNowClick: function (item) {
+    onNowClick: function (item, e) {
         this.selectItem(item);
+    },
+
+    onTimeChange: function (item, e) {
+
+        // 更新时间部分。
+        var value = new Date(+this.value);
+        this.saveHours(value);
+
+        // 如果超过最大最小值，则恢复数据。
+        if ((this.min && value < this.min) || (this.max && value > this.max)) {
+            this.loadHours(value);
+        } else {
+            this.value = value;
+            this.trigger('change');
+        }
     },
 
     /**
@@ -93,8 +108,8 @@ var Calender = Control.extend({
 
         // 初始化 3 个时间。
         this.now = Date.from(this.now) || new Date();
-        this.value = Date.from(this.value);
-        this.displayValue = Date.from(this.displayValue) || this.value || this.now;
+        this.value = Date.from(this.value) || this.now;
+        this.displayValue = Date.from(this.displayValue) || this.value;
 
         // 绑定事件。
         var me = this;
@@ -103,6 +118,7 @@ var Calender = Control.extend({
         Dom.on(me.elem, 'click', '.x-calender-next', function (e) { me.onNextClick(e); });
         Dom.on(me.elem, 'click', '.x-calender-now', function (e) { me.onNowClick(this, e); });
         Dom.on(me.elem, 'click', '.x-calender-body td, .x-calender-body a', function (e) { me.onItemClick(this, e); });
+        Dom.on(me.elem, 'change', '.x-calender-time input', function (e) { me.onTimeChange(this, e); });
 
         // 初始化界面。
         this.elem.innerHTML = Calender.locale.tpl;
@@ -118,7 +134,8 @@ var Calender = Control.extend({
         Dom.toggle(Dom.find('.x-calender-time', this.elem), showTime);
         Dom.find('.x-calender-now', this.elem).setAttribute('data-value', +this.now.toDay());
         Dom.find('.x-calender-now', this.elem).innerHTML = this.now.format(Calender.locale.today);
-        this.update(this.value || this.displayValue);
+        this.loadHours(this.displayValue);
+        this.setView(this.view);
 
     },
 
@@ -199,12 +216,12 @@ var Calender = Control.extend({
                     newFrom = reverse;
                 }
 
-                Dom.animate(newTable, newFrom, to, null, 'linear');
+                Dom.animate(newTable, newFrom, to, null, null, 'linear');
 
                 // 渐变缩小移除旧表。
-                Dom.animate(oldTable, to, oldTo, null, 'linear', function () {
+                Dom.animate(oldTable, to, oldTo, function () {
                     Dom.remove(oldTable);
-                });
+                }, null, 'linear');
 
             } else {
                 Dom.remove(oldTable);
@@ -221,32 +238,32 @@ var Calender = Control.extend({
      * @returns this
      */
     selectItem: function (item) {
-        var value = new Date(+item.getAttribute('data-value')),
-            inputs = Dom.query('.x-calender-time input', this.elem);
-
-        // 设置其小时部分。
-        value.setHours(+inputs[0].value);
-        value.setMinutes(+inputs[1].value);
-        value.setSeconds(+inputs[2].value);
-        if (!(this.min && value < this.min) && !(this.max && value > this.max) && this.trigger('selecting', value)) {
+        var value = new Date(+item.getAttribute('data-value'));
+        this.saveHours(value);
+        if (!(this.min && value < this.min) && !(this.max && value > this.max) && this.trigger('select', value)) {
             this.setValue(value);
-            this.trigger('select', value);
         }
         return this;
     },
 
     /**
-     * 刷新当前显示的视图。
+     * 保存时间部分的值。
      */
-    update: function (value) {
-        if (value) {
-            var inputs = Dom.query('.x-calender-time input', this.elem);
-            inputs[0].value = value.getHours();
-            inputs[1].value = value.getMinutes();
-            inputs[2].value = value.getSeconds();
-        }
+    saveHours: function(date) {
+        var inputs = Dom.query('.x-calender-time input', this.elem);
+        date.setHours(+inputs[0].value);
+        date.setMinutes(+inputs[1].value);
+        date.setSeconds(+inputs[2].value);
+    },
 
-        this.setView(this.view);
+    /**
+     * 读取时间部分的值。
+     */
+    loadHours: function (value) {
+        var inputs = Dom.query('.x-calender-time input', this.elem);
+        inputs[0].value = value.getHours();
+        inputs[1].value = value.getMinutes();
+        inputs[2].value = value.getSeconds();
     },
 
     /**
@@ -256,8 +273,9 @@ var Calender = Control.extend({
     setValue: function (value) {
         if (+this.value !== +value) {
             this.value = value;
-            if (value) this.displayValue = new Date(+value);
-            this.update(value);
+            this.displayValue = new Date(+value);
+            this.loadHours(value);
+            this.setView('day');
             this.trigger('change');
         }
         return this;
@@ -567,9 +585,9 @@ Calender.locale = {
             <div class="x-calender-body"><table class="x-calender-days"></table></div>\
             <div class="x-calender-time">\
                 时间: \
-                <input type="number" value="0" min="0" max="24" maxlength="2" />\
-                :<input type="number" value="0" min="0" max="60" maxlength="2" />\
-                :<input type="number" value="0" min="0" max="60" maxlength="2" />\
+                <input type="number" value="0" min="0" max="23" maxlength="2" />\
+                :<input type="number" value="0" min="0" max="59" maxlength="2" />\
+                :<input type="number" value="0" min="0" max="59" maxlength="2" />\
             </div>\
             <div class="x-calender-footer">\
                 <a href="javascript://选择今天" class="x-calender-now"></a>\
