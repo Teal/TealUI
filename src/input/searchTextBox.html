@@ -13,17 +13,6 @@
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/textBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/searchTextBox.css" />
-
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
-    <script type="text/javascript" src="../../src/core/iinput.js"></script>
-    <script type="text/javascript" src="../../src/suggest/picker.js"></script>
-    <script type="text/javascript" src="../../src/form/searchtextbox.js"></script>
-
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -31,76 +20,9 @@
     
     <aside class="doc-demo">
         <form class="x-searchtextbox" action="###">
-            <input type="text" class="x-textbox" />
+            <input type="text" class="x-textbox" onfocus="this.select();" />
             <button type="submit" class="x-searchtextbox-button"><i class="x-icon">&#9740;</i></button>
         </form>
     </aside>
-
-    <article>
-
-        <h2>JavaScript 方式创建</h2>
-
-        <p>SearchTextBox 完整的创建方法参考 <a href="Picker.html">Picker</a>。</p>
-
-        <section>
-
-            <h3>最简单的方式: 使用 input</h3>
-
-            <script type="text/html">
-
-                <input type="text" class="x-textbox x-searchtextbox" id="d1" />
-
-                < script>
-                    var d1 = new SearchTextBox('#d1');
-
-                    d1.on('search', function (text) {
-                        alert("准备搜索 " + text + " ...");
-                    });
-                < /script>
-
-            </script>
-
-        </section>
-
-        <section>
-
-            <h3>完整 HTML </h3>
-
-            <aside class="doc-demo">
-
-                <span class="x-picker" id="d2">
-                    <input type="text" class="x-textbox x-searchtextbox" />
-                    <button class="x-searchtextbox-search"></button>
-                </span>
-
-                <script>
-                    var d2 = new SearchTextBox('#d2');
-
-                    d2.on('search', function (text) {
-                        alert("准备搜索 " + text + " ...");
-                    });
-                </script>
-
-            </aside>
-
-        </section>
-
-    </article>
-
-    <article>
-
-        <h2>HTML 方式创建</h2>
-
-        <aside class="doc-demo">
-
-            <span class="x-picker" id="a">
-                <input type="text" class="x-textbox x-searchtextbox" placeholder="搜索组件..." />
-                <button class="x-searchtextbox-search"></button>
-            </span>
-
-        </aside>
-
-    </article>
-
 </body>
 </html>

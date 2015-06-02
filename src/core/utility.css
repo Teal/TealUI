@@ -67,6 +67,7 @@
 }
 .x-justify {
   width: 100%;
+  text-align: justify;
 }
 .x-radius {
   border-radius: 4px;

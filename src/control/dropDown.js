@@ -25,14 +25,14 @@ var DropDown = Control.extend({
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
     onShow: function (e) {
-        Dom.fadeIn(this.elem, this.toggleDuration);
+        Dom.show(this.elem, 'opacity', null, this.toggleDuration);
     },
 
     /**
      * 当被子类重写时，负责定义当前组件的隐藏方式。
      */
     onHide: function (e) {
-        Dom.fadeOut(this.elem, this.toggleDuration);
+        Dom.hide(this.elem, 'opacity', null, this.toggleDuration);
     },
 
     /**
