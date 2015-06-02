@@ -11,12 +11,57 @@
  * @param {Function} [callback] 特效执行完成的回调。
  * @param {String} [duration=300] 特效的持续时间。
  * @param {String} [ease="ease-in"] 特效的渐变类型。
- * @param {Boolean} [reset] 如果指定了需要重置的样式，则在特效执行结束后重置样式。
+ * @param {Boolean} [reset] 是否在特效执行结束后重置样式。
  */
 Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
 
     // 获取或初始化配置对象。
-    var fxOptions = Dom._fxOptions, key, fixedKey;
+    var fxOptions = Dom._fxOptions,
+        transitionContext = elem.style._transitionContext || (elem.style._transitionContext = {}),
+        proxyTimer,
+        key,
+        proxyCallback = function (e) {
+
+            // 确保事件不是冒泡的，确保当前函数只执行一次。
+            if ((!e || e.target === e.currentTarget) && proxyTimer) {
+                clearTimeout(proxyTimer);
+                proxyTimer = 0;
+
+                // 解绑事件。
+                elem.removeEventListener(fxOptions.transitionEnd, proxyCallback, false);
+
+                // 从上下文中删除回调信息。
+                var transitionContextIsUpdated = false;
+                for (key in transitionContext) {
+                    if (transitionContext[key] === proxyCallback) {
+                        delete transitionContext[key];
+                        transitionContextIsUpdated = true;
+                    }
+                }
+
+                // 如果当前特效执行结束涉及当前的回答，则调用回调函数。
+                if (transitionContextIsUpdated) {
+
+                    // 删除渐变式。
+                    updateTransition();
+
+                    // 恢复样式。
+                    if (reset) {
+                        for (key in to) {
+                            Dom.setStyle(elem, key, '');
+                        }
+                    }
+
+                    // 执行回调。
+                    callback && callback.call(elem, elem);
+                }
+
+            }
+
+        },
+        from;
+
+    // 获取或初始化配置对象。
     if (!fxOptions) {
         Dom._fxOptions = fxOptions = {};
         fxOptions.transition = Dom.vendorCssPropertyName(elem, 'transition');
@@ -24,28 +69,14 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
         fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
     }
 
-    // 实现从某个范围到另一个范围的渐变。
-    if (callback && callback.constructor === Object) {
-
-        // 设置当前状态为起始状态。
-        for (key in to) {
-
-            // 修复部分 CSS 属性名。
-            fixedKey = Dom.vendorCssPropertyName(elem, key);
-
-            // 先保存应用之前的样式。
-            if (reset2 && !(fixedKey in reset2)) {
-                reset2[fixedKey] = elem.style[fixedKey];
-            }
-
-            // 应用开始样式。
-            elem.style[fixedKey] = to[key];
-        }
-
-        // 触发页面重计算以保证效果可以触发。
-        elem.offsetWidth && elem.clientLeft;
-
-        return Dom.animate(elem, callback, duration, ease, reset, reset2);
+    // 提取 from 参数。
+    if (callback && callback.constructor !== Function) {
+        from = to;
+        to = callback;
+        callback = duration;
+        duration = ease;
+        ease = reset;
+        reset = reset2;
     }
 
     // 修补默认参数。
@@ -54,74 +85,66 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
     }
     ease = ease || 'ease-in';
 
-    // 设置回调函数。
-    var timer,
-        proxy = function (e) {
+    // 设置当前状态为起始状态。
+    if (from) {
 
-            // 确保事件不是冒泡的。
-            if (e && e.target !== e.currentTarget) {
-                return;
+        // 处理 'auto' -> {} 。
+        if (from === 'auto') {
+            from = {};
+            for (key in to) {
+                from[key] = Dom.getStyle(elem, key);
             }
-
-            // 确保当前函数只执行一次。
-            if (timer) {
-                clearTimeout(timer);
-                timer = 0;
-
-                // 删除特效。
-                if (--elem.style._transitionCount < 1) {
-                    elem.style[fxOptions.transition] = '';
-                }
-
-                // 解绑事件。
-                elem.removeEventListener(fxOptions.transitionEnd, proxy, false);
-
-                // 恢复样式。
-                if (reset) {
-                    for (key in reset) {
-                        elem.style[key] = reset[key];
-                    }
-                }
-
-                // 执行回调。
-                callback && callback.call(elem);
-            }
-
-        },
-        transitions = [];
-
-    // 计算需要渐变的全部样式。
-    for (key in to) {
-
-        // 修复部分 CSS 属性名。
-        fixedKey = Dom.vendorCssPropertyName(elem, key);
-
-        // 先保存应用之前的样式。
-        if (reset && !(fixedKey in reset)) {
-            reset[fixedKey] = elem.style[fixedKey];
         }
 
-        // 保存渐变样式。
-        transitions.push(fixedKey.replace(/([A-Z]|^ms)/g, '-$1').toLowerCase() + ' ' + duration + 'ms ' + ease);
+        // 处理 {} -> 'auto' 。 
+        if (to === 'auto') {
+            to = {};
+            for (key in from) {
+                reset2 = transitionContext[key];
+                to[key] = reset2 && reset2.from && key in reset2.from ? reset2.from[key] : Dom.getStyle(elem, key);
+            }
+        }
+
+        proxyCallback.from = from;
+        for (key in from) {
+            Dom.setStyle(elem, key, from[key]);
+        }
+    }
+
+    // 触发页面重计算以保证效果可以触发。
+    key = elem.offsetWidth && elem.clientLeft;
+
+    // 更新渐变上下文。
+    for (key in to) {
+        transitionContext[key] = proxyCallback;
     }
 
     // 设置渐变样式。
-    elem.style[fxOptions.transition] = transitions.join(',');
-    //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
-    elem.style._transitionCount = elem.style._transitionCount || 0;
-    elem.style._transitionCount++;
+    updateTransition();
 
     // 绑定渐变完成事件。
-    elem.addEventListener(fxOptions.transitionEnd, proxy, false);
-    timer = setTimeout(proxy, duration);
-
-    // 触发页面重计算以保证效果可以触发。
-    elem.offsetWidth && elem.clientLeft;
+    elem.addEventListener(fxOptions.transitionEnd, proxyCallback, false);
+    proxyTimer = setTimeout(proxyCallback, duration);
 
     // 设置 CSS 属性以激活渐变。
     for (key in to) {
         Dom.setStyle(elem, key, to[key]);
     }
+
+    function updateTransition() {
+        var transitions = '';
+        for (key in transitionContext) {
+            if (transitions) {
+                transitions += ',';
+            }
+            transitions += key.replace(/([A-Z]|^ms)/g, function (word) {
+                return '-' + word.toLowerCase();
+            }) + ' ' + duration + 'ms ' + ease;
+        }
+        elem.style[fxOptions.transition] = transitions;
+        //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
+    }
+
 };
 
 Dom.toggleFx = {
@@ -149,18 +172,12 @@ Dom._show = Dom.show;
  * @param {String} [ease="ease-in"] 特效的渐变类型。
  */
 Dom.show = function (elem, fxName, callback, duration, ease) {
+
     Dom._show(elem);
 
     // 执行特效。
-    if (fxName = Dom.toggleFx[fxName] || fxName) {
-        var to = {};
-        for (key in fxName) {
-            to[key] = Dom.getStyle(elem, key);
-        }
-
-        Dom.animate(elem, fxName, to, callback, duration, ease, {});
-    } else {
-        callback && callback.call(elem);
+    if (fxName = Dom.toggleFx[fxName]) {
+        Dom.animate(elem, fxName, 'auto', callback, duration, ease, true);
     }
 
 };
@@ -177,20 +194,13 @@ Dom._hide = Dom.hide;
 Dom.hide = function (elem, fxName, callback, duration, ease) {
 
     // 执行特效。
-    if (fxName = Dom.toggleFx[fxName] || fxName) {
-        var from = {};
-        for (key in fxName) {
-            from[key] = Dom.getStyle(elem, key);
-        }
-
-        Dom.animate(elem, from, fxName, hideCallback, duration, ease, {});
+    if (fxName = Dom.toggleFx[fxName]) {
+        Dom.animate(elem, 'auto', fxName, function (elem) {
+            Dom._hide(this);
+            callback && callback.call(this, elem);
+        }, duration, ease, true);
     } else {
-        hideCallback();
-    }
-
-    function hideCallback() {
         Dom._hide(elem);
-        callback && callback.call(elem);
     }
 
 };

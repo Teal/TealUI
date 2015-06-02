@@ -14,29 +14,37 @@ var Tab = Control.extend({
     init: function () {
         var me = this;
         Dom.on(this.elem, 'click', '.x-tab > li', function(e) {
-            if (Dom.hasClass(this, 'x-tab-actived')) {
-                return;
-            }
-            me.setActivedIndex(Dom.getIndex(this));
+            me.selectTab(this, e);
         });
 
-        // 设置初始值。
+        // 设置初始选项卡。
         var body = this.getBody();
         if (body) {
-            Dom.each(Dom.getProp(body, 'children'), Dom.hide);
-            var content = Dom.getProp(body, 'children')[this.getActivedIndex()];
+            body.style.position = 'relative';
+            Dom.each(body.children, Dom.hide);
+            var content = body.children[this.getActivedIndex()];
             content && Dom.show(content);
         }
+    },
+
+    /**
+     * 模拟用户选择指定的标签页。
+     */
+    selectTab: function(tab, e) {
+        if (this.trigger('select', tab)) {
+            this.setActivedIndex(Dom.getIndex(tab));
+        }
+        return this;
     },
 
     /**
      * 当被子类重写时，负责获取选项卡的主体。
      */
     getBody: function() {
-        var body = Dom.getProp(this.elem, 'nextElementSibling');
-        if (!Dom.hasClass(body, 'x-tab-body')) {
-            body = Dom.getProp(this.elem, 'previousElementSibling');
-            if (!Dom.hasClass(body, 'x-tab-body')) {
+        var body = this.elem.nextElementSibling;
+        if (!body.classList.contains('x-tab-body')) {
+            body = this.elem.previousElementSibling;
+            if (!body.classList.contains('x-tab-body')) {
                 body = null;
             }
         }
@@ -50,23 +58,36 @@ var Tab = Control.extend({
 
     setActivedIndex: function (index) {
 
-        if (this.trigger('changing', index)) {
+        var oldIndex = this.getActivedIndex(), el;
+        if (oldIndex !== index) {
 
-            // 撤销高亮原标签。
-            var actived = Dom.find('.x-tab-actived', this.elem);
-            actived && Dom.removeClass(actived, 'x-tab-actived');
+            // 切换高亮标签。
+            el = this.elem.children[oldIndex];
+            el && el.classList.remove('x-tab-actived');
 
-            // 高亮新标签。
-            Dom.addClass(Dom.getProp(this.elem, 'children')[index], 'x-tab-actived');
+            el = this.elem.children[index];
+            el && el.classList.add('x-tab-actived');
 
-            // 滑入新内容。
+            // 切换主体。
             var body = this.getBody();
             if (body) {
-                Dom.each(Dom.getProp(body, 'children'), Dom.hide);
-                var content = Dom.getProp(body, 'children')[this.getActivedIndex()];
-                content && Dom.show(content);
+
+                if (el = body.children[oldIndex]) {
+                    el.style.position = 'absolute';
+                    var rect = Dom.getOffset(el);
+                    el.style.left = rect.left + 'px';
+                    el.style.top = rect.top + 'px';
+                    Dom.hide(el, 'opacity', null, 150);
+                }
+
+                if (el = body.children[index]) {
+                    el.style.position = el.style.left = el.style.top = '';
+                    Dom.show(el, 'opacity', null, 150);
+                }
+
             }
 
+            this.trigger('change');
         }
 
         return this;
