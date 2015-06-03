@@ -697,7 +697,7 @@ var Dom = {
      */
     toggle: function (elem, value) {
         Dom[(value !== true && value !== false ? Dom.isHidden(elem) : value) ? 'show' : 'hide'].apply(this, arguments);
-    },
+    }
 
     // #endregion
 

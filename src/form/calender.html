@@ -20,18 +20,30 @@
 
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/keyNav.js"></script>
     <script type="text/javascript" src="../../src/utility/date.js"></script>
     <script type="text/javascript" src="../../src/form/calender.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    
+    <input type="text" id="a" onkeydown="this.value=event.keyCode" />
     <h2>基本用法</h2>
     <aside class="doc-demo">
         <div class="x-calender" data-role="calender"></div>
     </aside>
 
+    <h2>时间选择器</h2>
+    <p>设置 <code>format</code> 字段，如果包含 HH:mm:ss 的任一部分，就会显示时间选择器，否则不显示。</p>
+
+    <h2>隐藏现在时间</h2>
+    <p>日历组件内部不提供接口，直接通过 CSS 即可隐藏。</p>
+    <pre>
+        .x-calender-now { 
+            display:none; 
+        }
+    </pre>
+    
     <h2>HTML 结构</h2>
     <div class="x-calender">
         <div class="x-calender-container">
@@ -141,6 +153,10 @@
     </div>
 
     <script> Doc.Page.initSourceCode();</script>
+
+    <script>
+        $('[data-role="calender"]').role().attachKeyEvents($('#a')[0]);
+    </script>
 
 </body>
 </html>

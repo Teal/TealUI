@@ -4,10 +4,47 @@
 
 // #require dom/base.js
 
+Dom.keyNav = function (elem, options) {
+	var keyMap = {}, key;
+
+	// 按照 Dom.keys 重新匹配键值。
+	for (key in options) {
+	    keyMap[Dom.keyNav.keys[key] || key] = options[key];
+	}
+
+	Dom.on(elem, 'keydown', function (e) {
+		var keyCode = e.keyCode;
+		// 如果绑定了指定的键值。
+		if (keyMap[keyCode] && keyMap[keyCode].call(this, e) !== true) {
+		    e.preventDefault();
+		}
+	});
+
+	// 如果绑定了回车事件。
+	// IE 6 只能在 keypress 监听到回车事件。
+	if (keyMap.enter || keyMap.ctrlEnter) {
+		Dom.on(elem, 'keypress', function (e) {
+			var keyCode = e.keyCode;
+			if ((keyCode === 13 || keyCode === 10) && keyMap[keyMap.ctrlEnter && e.ctrlKey ? 'ctrlEnter' : 'enter'].call(this, e) !== true) {
+			    e.preventDefault();
+			}
+		});
+	}
+
+	if (keyMap.other) {
+		Dom.on(elem, 'keyup', function (e) {
+			var keyCode = e.keyCode;
+			if (!keyMap[keyCode] && !(keyMap.enter && (keyCode === 13 || keyCode === 10)) && keyMap.other.call(this, e) !== true) {
+			    e.preventDefault();
+			}
+		});
+	}
+};
+
 /**
  * 常用键名的简写。
  */
-Dom.keys = {
+Dom.keyNav.keys = {
     '13': 'enter',
     '10': 'enter',
     up: 38,
@@ -19,43 +56,4 @@ Dom.keys = {
     backspace: 8,
     'delete': 46,
     space: 32
-};
-
-Dom.keyNav = function (elem, options) {
-	var opt = {}, key;
-
-	// 按照 Dom.keys 重新匹配键值。
-	for (key in options) {
-		opt[Dom.keys[key] || key] = options[key];
-	}
-
-	Dom.on(elem, 'keydown', function (e) {
-		var keyCode = e.keyCode;
-
-		// 如果绑定了指定的键值。
-		if (opt[keyCode] && opt[keyCode].call(this, e) !== true) {
-		    e.preventDefault();
-		}
-
-	});
-
-	// 如果绑定了回车事件。
-	// IE 6 只能在 keypress 监听到回车事件。
-	if (opt.enter || opt.ctrlEnter) {
-		Dom.on(elem, 'keypress', function (e) {
-			var keyCode = e.keyCode;
-			if ((keyCode === 13 || keyCode === 10) && opt[opt.ctrlEnter && e.ctrlKey ? 'ctrlEnter' : 'enter'].call(this, e) !== true) {
-			    e.preventDefault();
-			}
-		});
-	}
-
-	if (opt.other) {
-		Dom.on(elem, 'keyup', function (e) {
-			var keyCode = e.keyCode;
-			if (!opt[keyCode] && !(opt.enter && (keyCode === 13 || keyCode === 10)) && opt.other.call(this, e) !== true) {
-			    e.preventDefault();
-			}
-		});
-	}
 };

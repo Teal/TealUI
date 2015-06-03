@@ -26,7 +26,6 @@ var Control = Base.extend({
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
-	 * @param {Object} options 当前控件的初始化配置。
 	 * @protected
 	 * @virtual
 	 */
@@ -50,17 +49,17 @@ var Control = Base.extend({
         //  不处理直接传递给 init。
 
         // 延时应用的选项。
-        var delayedOptions;
+        var delayedOptions, key, value;
 
-        for (var optionName in options) {
-            var value = options[optionName];
-            switch (typeof this[optionName]) {
+        for (key in options) {
+            value = options[key];
+            switch (typeof this[key]) {
 
                 // 自定义配置。
                 case 'undefined':
 
                     // 绑定事件。
-                    var match = /^on(\w+)$/.exec(optionName);
+                    var match = /^on(\w+)$/.exec(key);
                     if (match) {
                         try {
                             this.on(match[1], new Function("event", newValue));
@@ -68,7 +67,7 @@ var Control = Base.extend({
                     }
 
                     // 执行 setter
-                    match = 'set' + optionName.replace(/^\w/, function (w) {
+                    match = 'set' + key.replace(/^\w/, function (w) {
                         return w.toUpperCase();
                     });
                     if (this[match] instanceof Function) {
@@ -95,15 +94,15 @@ var Control = Base.extend({
                     break;
             }
 
-            this[optionName] = value;
+            this[key] = value;
         }
 
         // 调用初始化函数。
         this.init(options || {});
 
         // 最后延时申请。
-        for (var optionName in delayedOptions) {
-            this[optionName](delayedOptions[optionName]);
+        for (key in delayedOptions) {
+            this[key](delayedOptions[key]);
         }
 
     }

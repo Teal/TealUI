@@ -67,6 +67,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
         fxOptions.transition = Dom.vendorCssPropertyName(elem, 'transition');
         fxOptions.prefix = fxOptions.transition.substr(0, fxOptions.transition.length - 'transition'.length);
         fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
+        fxOptions.supportAnimation = fxOptions.transition in elem.style;
     }
 
     // 提取 from 参数。
@@ -77,6 +78,12 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
         duration = ease;
         ease = reset;
         reset = reset2;
+    }
+
+    // 不支持特效，直接调用回调。
+    if (!fxOptions.supportAnimation) {
+        callback && callback.call(elem, elem);
+        return;
     }
 
     // 修补默认参数。

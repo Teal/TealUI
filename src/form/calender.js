@@ -2,21 +2,18 @@
  * @author xuld
  */
 
-// #require ui/composite/calender.css
-// #require utils/date.js
-// #require fx/animate.js
+// #require ../utility/date
+// #require ../dom/animate
 
+/**
+ * 表示一个日历组件。
+ */
 var Calender = Control.extend({
 
     /**
-     * 获取或设置现在选中的日期时间。
+     * 获取或设置现在选中的时间。
      */
     value: null,
-
-    /**
-     * 获取或设置现在时间。现在时间在日历中将被高亮显示。
-     */
-    now: null,
 
     /**
      * 获取或设置当前日历显示的时间。
@@ -26,51 +23,138 @@ var Calender = Control.extend({
     /**
      * 指示当前选择的范围。
      */
-    format: 'yyyy/MM/dd HH:mm',
+    defaultFormat: 'yyyy/MM/dd',
 
     /**
-     * 当前显示的视图。
+     * 获取或设置当前显示的视图。可能的值为'day'、'month'、'year'或'decade'。
      */
     view: 'day',
 
     /**
+	 * 当被子类重写时，负责初始化当前控件。
+	 * @protected
+	 * @virtual
+	 */
+    init: function () {
+
+        var me = this;
+
+        // 初始化界面。
+        me.elem.innerHTML = Calender.locale.tpl;
+
+        // 初始化时间输入框。
+        me.setFormat(this.defaultFormat);
+
+        // 初始化今天输入框。
+        me.setNow(new Date());
+
+        // 初始化时间字段。
+        me.value = Date.from(me.value) || new Date();
+        me.displayValue = Date.from(me.displayValue) || new Date();
+
+        // 绑定事件。
+        Dom.on(me.elem, 'click', '.x-calender-title', function (e) { me.onTitleClick(e); });
+        Dom.on(me.elem, 'click', '.x-calender-prev', function (e) { me.onPrevClick(e); });
+        Dom.on(me.elem, 'click', '.x-calender-next', function (e) { me.onNextClick(e); });
+        Dom.on(me.elem, 'click', '.x-calender-now', function (e) { me.onNowClick(this, e); });
+        Dom.on(me.elem, 'click', '.x-calender-body td', function (e) { me.onItemClick(this, e); });
+        Dom.on(me.elem, 'change', '.x-calender-time input', function (e) { me.onTimeChange(this, e); });
+
+        // 载入时间部分。
+        me.loadHours(me.displayValue);
+
+        // 初始化视图。
+        me.setView(me.view);
+
+    },
+
+    /**
+     * 设置显示的日期格式。
+     */
+    setFormat: function (value) {
+        var showTime = /[hms]/.test(value), inputs;
+        if (showTime) {
+            inputs = Dom.query('.x-calender-time input', this.elem);
+            inputs[0].readOnly = value.indexOf('H') < 0;
+            inputs[1].readOnly = value.indexOf('m') < 0;
+            inputs[2].readOnly = value.indexOf('s') < 0;
+        }
+        Dom.toggle(Dom.find('.x-calender-time', this.elem), showTime);
+    },
+
+    /**
+     * 设置显示的当前时间。
+     */
+    setNow: function (value) {
+        value = Date.from(value);
+        var now = Dom.find('.x-calender-now', me.elem);
+        now.setAttribute('data-value', +value);
+        now.innerHTML = value.format(Calender.locale.today);
+    },
+
+    /**
      * 当用户点击某一项时执行。
-     * @param {Dom} item 正在被点击的项。
-     * @protected virtual
+     * @param {Element} item 正在被点击的项。
+     * @protected
+     * @virtual
      */
     onItemClick: function (item, e) {
-
+        e.preventDefault();
         // 如果此项是允许点击的。则生成新的日期对象，并设置为当前值。
-        item = Dom.closest(item, 'td');
         if (!item.classList.contains('x-calender-invalid')) {
             Calender.views[this.view].select(this, item, e);
         }
-
-        return false;
     },
 
-    onPrevClick: function () {
-        Calender.views[this.view].move(this, -1);
+    /**
+     * 当用户点击上一页时执行。
+     * @param {Element} item 正在被点击的项。
+     * @protected
+     * @virtual
+     */
+    onPrevClick: function (e) {
+        e.preventDefault();
+        Calender.views[this.view].movePage(this, -1);
         this.setView(this.view, 'slideRight');
-        return false;
     },
 
-    onNextClick: function () {
-        Calender.views[this.view].move(this, 1);
+    /**
+     * 当用户点击下一页时执行。
+     * @param {Element} item 正在被点击的项。
+     * @protected
+     * @virtual
+     */
+    onNextClick: function (e) {
+        e.preventDefault();
+        Calender.views[this.view].movePage(this, 1);
         this.setView(this.view, 'slideLeft');
-        return false;
     },
 
-    onTitleClick: function () {
-
+    /**
+     * 当用户点击标题时执行。
+     * @param {Element} item 正在被点击的项。
+     * @protected
+     * @virtual
+     */
+    onTitleClick: function (e) {
+        e.preventDefault();
         // 切换显示到父视图。
         Calender.views[this.view].parentView && this.setView(Calender.views[this.view].parentView, 'zoomIn');
     },
 
+    /**
+     * 当用户点击当前时间时执行。
+     * @param {Element} item 正在被点击的项。
+     * @protected
+     * @virtual
+     */
     onNowClick: function (item, e) {
         this.selectItem(item);
     },
 
+    /**
+     * 当用户更新时间时执行。
+     */
     onTimeChange: function (item, e) {
 
         // 更新时间部分。
@@ -84,6 +168,31 @@ var Calender = Control.extend({
             this.value = value;
             this.trigger('change');
         }
+    },
+
+    /**
+     * 为指定元素绑定键盘事件以操作当前日历。
+     */
+    attachKeyEvents: function (target) {
+        var me = this;
+        Dom.keyNav(target, {
+            up: function () {
+                Calender.views[me.view].moveRow(me, -1);
+            },
+            down: function () {
+                Calender.views[me.view].moveRow(me, 1);
+            },
+            left: function () {
+                Calender.views[me.view].moveColumn(me, -1);
+            },
+            right: function () {
+                Calender.views[me.view].moveColumn(me, 1);
+            },
+            enter: function (e) {
+                var item = Dom.find('.x-calender-selected', this.elem);
+                item ? me.onItemClick(item, e) : this.trigger('select', this.value);
+            }
+        });
     },
 
     /**
@@ -104,45 +213,10 @@ var Calender = Control.extend({
         return '';
     },
 
-    init: function () {
-
-        // 初始化 3 个时间。
-        this.now = Date.from(this.now) || new Date();
-        this.value = Date.from(this.value) || this.now;
-        this.displayValue = Date.from(this.displayValue) || this.value;
-
-        // 绑定事件。
-        var me = this;
-        Dom.on(me.elem, 'click', '.x-calender-title', function (e) { me.onTitleClick(e); });
-        Dom.on(me.elem, 'click', '.x-calender-prev', function (e) { me.onPrevClick(e); });
-        Dom.on(me.elem, 'click', '.x-calender-next', function (e) { me.onNextClick(e); });
-        Dom.on(me.elem, 'click', '.x-calender-now', function (e) { me.onNowClick(this, e); });
-        Dom.on(me.elem, 'click', '.x-calender-body td, .x-calender-body a', function (e) { me.onItemClick(this, e); });
-        Dom.on(me.elem, 'change', '.x-calender-time input', function (e) { me.onTimeChange(this, e); });
-
-        // 初始化界面。
-        this.elem.innerHTML = Calender.locale.tpl;
-
-        var showTime = /[hms]/.test(this.format);
-        if (showTime) {
-            var inputs = Dom.query('.x-calender-time input', this.elem);
-            inputs[0].readOnly = this.format.indexOf('H') < 0;
-            inputs[1].readOnly = this.format.indexOf('m') < 0;
-            inputs[2].readOnly = this.format.indexOf('s') < 0;
-        }
-
-        Dom.toggle(Dom.find('.x-calender-time', this.elem), showTime);
-        Dom.find('.x-calender-now', this.elem).setAttribute('data-value', +this.now.toDay());
-        Dom.find('.x-calender-now', this.elem).innerHTML = this.now.format(Calender.locale.today);
-        this.loadHours(this.displayValue);
-        this.setView(this.view);
-
-    },
-
     /**
      * 设置当前显示的视图。
-     * @param {String} view 视图名。可能的值有：'decade', 'year', 'month', 'day'。
-     * @param {String} animation 切换使用的渐变效果。可能值有： null, 'slideLeft', 'slideRight', 'zoomIn', 'zoomOut'。
+     * @param {String} view 视图名。可能的值为'day'、'month'、'year'或'decade'。
+     * @param {String} animation 切换使用的渐变效果。可能值有： null、'slideLeft'、'slideRight'、 'zoomIn'或'zoomOut'。
      * @returns this
      */
     setView: function (view, animation) {
@@ -153,16 +227,16 @@ var Calender = Control.extend({
         // 渲染视图。
         var body = Dom.find('.x-calender-body', this.elem),
             oldTable = body.lastChild,
-            newTable = body.appendChild(document.createElement('table')),
+            newTable = document.createElement('div'),
             reverse,
             newFrom,
             to,
             oldTo;
 
-        Dom.setStyle(newTable, 'transform', 'translateX(0) scale(1, 1)');
-
         // 渲染当前视图的内容。
         Calender.views[view].render(this, newTable, Dom.find('.x-calender-title', this.elem));
+        newTable = body.appendChild(newTable.firstChild);
+        Dom.setStyle(newTable, 'transform', 'translateX(0) scale(1, 1)');
 
         if (oldTable) {
             if (animation) {
@@ -228,6 +302,8 @@ var Calender = Control.extend({
             }
         }
 
+        this.trigger('update');
+
         return this;
 
     },
@@ -290,8 +366,8 @@ var Calender = Control.extend({
 
 });
 
-Calender._generateTable = function (rowCount, colCount, generator) {
-    var html = '', rowIndex, colIndex, index = 0;
+Calender._generateTable = function (className, rowCount, colCount, generator, header) {
+    var html = '<table class="' + className + '">' + (header || ''), rowIndex, colIndex, index = 0;
     for (rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         html += '<tr>';
         for (colIndex = 0; colIndex < colCount; colIndex++) {
@@ -299,7 +375,7 @@ Calender._generateTable = function (rowCount, colCount, generator) {
         }
         html += '</tr>';
     }
-    return html;
+    return html + '</table>';
 };
 
 Calender.views = {
@@ -342,8 +418,7 @@ Calender.views = {
             weekHtml += '</tr>';
 
             // 设置内容。
-            table.className = 'x-calender-days';
-            table.innerHTML = weekHtml + Calender._generateTable(6, 7, function () {
+            table.innerHTML = Calender._generateTable('x-calender-days', 6, 7, function () {
 
                 tmpDateValue = +tmpDate;
 
@@ -376,7 +451,7 @@ Calender.views = {
 
                 return html;
 
-            });
+            }, weekHtml);
 
         },
 
@@ -394,8 +469,20 @@ Calender.views = {
             return calender.selectItem(item);
         },
 
-        move: function (calender, delta) {
+        movePage: function (calender, delta) {
             calender.displayValue = calender.displayValue.addMonth(delta);
+        },
+
+        moveRow: function (calender, delta) {
+            this.moveColumn(calender, delta * 7);
+        },
+
+        moveColumn: function (calender, delta) {
+            var oldMonth = calender.value.getMonth();
+            calender.value = calender.value.addDay(delta);
+            calender.displayValue = new Date(+calender.value);
+            oldMonth -= calender.value.getMonth();
+            calender.setView(calender.view, oldMonth ? oldMonth > 0 ? 'slideRight' : 'slideLeft' : null);
         }
 
     },
@@ -416,8 +503,7 @@ Calender.views = {
             title.innerHTML = year;
 
             // 设置内容。
-            table.className = 'x-calender-months';
-            table.innerHTML = Calender._generateTable(3, 4, function (month) {
+            table.innerHTML = Calender._generateTable('x-calender-months', 3, 4, function (month) {
 
                 function compare(date) {
                     return date ? year === date.getFullYear() ? month - date.getMonth() : year - date.getFullYear() : NaN;
@@ -452,8 +538,20 @@ Calender.views = {
             calender.setView('day', 'zoomOut');
         },
 
-        move: function (calender, delta) {
+        movePage: function (calender, delta) {
             calender.displayValue = calender.displayValue.addMonth(delta * 12);
+        },
+
+        moveRow: function (calender, delta) {
+            this.moveColumn(calender, delta * 4);
+        },
+
+        moveColumn: function (calender, delta) {
+            var oldMonth = calender.value.getYear();
+            calender.value = calender.value.addMonth(delta);
+            calender.displayValue = new Date(+calender.value);
+            oldMonth -= calender.value.getYear();
+            calender.setView(calender.view, oldMonth ? oldMonth > 0 ? 'slideRight' : 'slideLeft' : null);
         }
 
     },
@@ -471,8 +569,7 @@ Calender.views = {
             title.innerHTML = (startYear + 1) + '-' + (startYear + 10);
 
             // 设置内容。
-            table.className = 'x-calender-years';
-            table.innerHTML = Calender._generateTable(3, 4, function (yearIndex) {
+            table.innerHTML = Calender._generateTable('x-calender-years', 3, 4, function (yearIndex) {
 
                 function compare(date) {
                     return date ? year - date.getFullYear() : NaN;
@@ -509,7 +606,7 @@ Calender.views = {
             calender.setView('month', 'zoomOut');
         },
 
-        move: function (calender, delta) {
+        movePage: function (calender, delta) {
             calender.displayValue = calender.displayValue.addMonth(delta * 1200);
         }
 
@@ -528,8 +625,7 @@ Calender.views = {
             title.innerHTML = (startYear + 10) + '-' + (startYear + 109);
 
             // 设置内容。
-            table.className = 'x-calender-decades';
-            table.innerHTML = Calender._generateTable(3, 4, function (yearIndex) {
+            table.innerHTML = Calender._generateTable('x-calender-decades', 3, 4, function (yearIndex) {
 
                 function compare(date) {
                     return date ? year - Math.floor(date.getFullYear() / 10) * 10 : NaN;
@@ -564,7 +660,7 @@ Calender.views = {
             calender.setView('year', 'zoomOut');
         },
 
-        move: function (calender, delta) {
+        movePage: function (calender, delta) {
             calender.displayValue = calender.displayValue.addMonth(delta * 1200);
         }
     }
