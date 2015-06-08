@@ -1,29 +1,31 @@
 /**
+ * @fileOverview 解析中国身份证号的信息。
  * @author xuld
  */
 
 /**
  * 解析中国身份证号。
  * @param {String} idNumber 身份证号。
+ * @returns {Object} 返回一个 JSON，其中，valid: true 表示身份证信息合法。province: '北京' 表示省份。birthday: new Date(2000,1,1) 表示生日。sex: '男' 表示性别。
  */
 function parseChineseId(idNumber) {
 
-    var province = parseChineseId.provinces[parseInt(idNumber.substring(0, 2))], valid = !!province;
-
-    var birthdayYear = parseInt(idNumber.substr(6, 4)),
-        birthdayMonth = parseInt(idNumber.substr(10, 2)),
-        birthdayDay = parseInt(idNumber.substr(12, 2)),
-        date = new Date(birthdayYear, birthdayMonth - 1, birthdayDay);
-
-    valid = valid && date.getFullYear() == birthdayYear &&
+    var province = parseChineseId.provinces[idNumber.substring(0, 2)],
+        birthdayYear = +idNumber.substr(6, 4),
+        birthdayMonth = +idNumber.substr(10, 2),
+        birthdayDay = +idNumber.substr(12, 2),
+        date = new Date(birthdayYear, birthdayMonth - 1, birthdayDay),
+        valid = province && date.getFullYear() == birthdayYear &&
         date.getMonth() + 1 == birthdayMonth &&
-        date.getDate() == birthdayDay;
+        date.getDate() == birthdayDay,
+        i;
 
+    // 检验身份证号。
     if (valid) {
-        var sum = 0;
-        for (var i = 17; i >= 0; i--)
-            sum += ((1 << i) % 11) * parseInt(idNumber.charAt(17 - i), 11);
-        valid = sum % 11 == 1;
+        valid = 0;
+        for (i = 0; i < 18; i++)
+            valid += ((1 << i) % 11) * (/^x$/i.test(idNumber.charAt(17 - i)) ? 10 : parseInt(idNumber.charAt(17 - i), 11));
+        valid = valid % 11 == 1;
     }
 
     return {

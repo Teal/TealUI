@@ -1,4 +1,5 @@
 /**
+ * @fileOverview 让浏览器强制打开指定网页。
  * @author xuld
  */
 
@@ -11,8 +12,8 @@ function forceOpen(url) {
         var oldOnClick = document.onclick;
         document.onclick = function () {
             document.onclick = oldOnClick;
-            forceOpen(url);
-            oldOnClick && oldOnClick.apply(document, arguments);
+            window.open(url);
+            return oldOnClick && oldOnClick.apply(document, arguments);
         };
     }
 }

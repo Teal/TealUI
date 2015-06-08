@@ -1,11 +1,11 @@
 /**
+ * @fileOverview 弹出设置主页对话框。
  * @author xuld
  */
 
 /**
  * 打开设为主页对话框。
  * @param {String} url 设置的地址。
- * @return {Boolean} 指示本次操作是否成功。
  */
 function setHomePage(url) {
     try {
@@ -13,6 +13,7 @@ function setHomePage(url) {
         document.body.setHomePage(url || location.href);
     } catch (e) {
         alert("设置主页失败，请手动设置");
+        // 用户也可选择打开以下页面提示用户设置方法。
         // window.open("http://hao.360.cn/sub/sethomepage.html");
         // window.open("http://www.hao123.com/redian/sheshouyef.htm");
     }

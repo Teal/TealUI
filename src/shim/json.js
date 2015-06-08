@@ -1,3 +1,7 @@
+/**
+ * @fileOverview 为 C 类浏览器（IE6-7, FF2-3, SF3-4）提供 JSON 对象。
+ * @author xuld
+ */
 
 /**
  * 提供解析 JSON 的函数。
