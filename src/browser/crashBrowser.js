@@ -1,9 +1,11 @@
 /**
+ * @fileOverview »√‰Ø¿¿∆˜ø®À¿°£
  * @author xuld
  */
 
-
+/**
+ * »√‰Ø¿¿∆˜ø®À¿°£
+ */
 function crashBrowser() {
-	while (true)
-		window.history.back(-1);
-};
+	while (1) history.back(-1);
+}
