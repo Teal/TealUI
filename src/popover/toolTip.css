@@ -11,3 +11,6 @@
   max-width: 210px;
   border: 2px solid #212121;
 }
+.x-tooltip.x-arrow:after {
+  display: none;
+}

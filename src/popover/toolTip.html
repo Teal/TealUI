@@ -21,6 +21,7 @@
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/dom/hover.js"></script>
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../src/control/popover.js"></script>
     <script type="text/javascript" src="../../src/popover/toolTip.js"></script>
 </head>
@@ -37,11 +38,11 @@
     <p>书写 <code>[data-role="toolTip"]</code> 并设置 <code>[data-target="{目标选择器}"]</code>。</p>
     <aside class="doc-demo">
         <button id="target1">鼠标移到我上面，然后稍等</button>
-        <span class="x-tooltip">我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-top"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-left"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-bottom"></i>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><i class="x-arrow x-arrow-right"></i>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-top" data-role="toolTip" data-target="#target1">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-left" data-role="toolTip" data-target="#target1">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-bottom" data-role="toolTip" data-target="#target1">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-right" data-role="toolTip" data-target="#target1">我是提示文案</span>
     </aside>
 
     <h2>常用 API</h2>
@@ -58,10 +59,10 @@
     <h2>纯 HTML 样式</h2>
     <aside class="doc-demo">
         <span class="x-tooltip" style="display:inline-block;position: relative;">我是提示文案</span>
-        <span class="x-tooltip" style="display:inline-block;position: relative;"><i class="x-arrow x-arrow-top"></i>我是提示文案</span>
-        <span class="x-tooltip" style="display:inline-block;position: relative;"><i class="x-arrow x-arrow-left"></i>我是提示文案</span>
-        <span class="x-tooltip" style="display:inline-block;position: relative;"><i class="x-arrow x-arrow-bottom"></i>我是提示文案</span>
-        <span class="x-tooltip" style="display:inline-block;position: relative;"><i class="x-arrow x-arrow-right"></i>我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-top" style="display:inline-block;position: relative;">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-left" style="display:inline-block;position: relative;">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-bottom" style="display:inline-block;position: relative;">我是提示文案</span>
+        <span class="x-tooltip x-arrow x-arrow-right" style="display:inline-block;position: relative;">我是提示文案</span>
     </aside>
 </body>
 </html>

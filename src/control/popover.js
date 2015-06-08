@@ -2,10 +2,9 @@
  * @author xuld
  */
 
-// #require dom/base.js
-// #require dom/pin.js
-// #require ui/core/base.js
-// #require fx/animate.js
+// #require ../control/base
+// #require ../dom/pin
+// #require ../dom/animate
 
 var Popover = Control.extend({
 
@@ -15,7 +14,15 @@ var Popover = Control.extend({
      */
     initialDelay: 100,
 
+    /**
+     * 渐变显示的特效时间。
+     */
     toggleDuration: 150,
+
+    /**
+     * 自动定位。
+     */
+    autoAlign: true,
 
     /**
      * 当前工具提示和目标文本的距离。
@@ -25,10 +32,10 @@ var Popover = Control.extend({
     /**
      * 获取或设置当前浮层的目标。
      */
-    target: null,
+    target: undefined,
 
     init: function () {
-        this.setPopover(Dom.find(this.target) || this.elem.previousElementSibling);
+        this.target !== null && this.setPopover(Dom.find(this.target) || this.elem.previousElementSibling);
     },
 
     /**
@@ -43,12 +50,10 @@ var Popover = Control.extend({
      * 获取当前工具提示的位置。
      */
     getAlign: function () {
-        var arrowDom = Dom.find('.x-arrow', this.elem);
-        if (arrowDom) {
-            for (var key in Popover._aligners) {
-                if (arrowDom.classList.contains(Popover._aligners[key])) {
-                    return key;
-                }
+        var classList = this.elem.classList, key;
+        for (key in Popover._aligners) {
+            if (classList.contains(Popover._aligners[key])) {
+                return key;
             }
         }
         return null;
@@ -56,14 +61,16 @@ var Popover = Control.extend({
 
     /**
      * 设置当前工具提示的位置。
-     * @param {String} align 要设置的位置。可以是 null, 'top', 'bottom', 'center', 'right'。
+     * @param {String} align 要设置的位置。可以是 null、'left'、'top'、'bottom'、'right'。
      */
     setAlign: function (align) {
-        var arrowDom = Dom.find('.x-arrow', this.elem);
+        var classList = this.elem.classList;
+        classList.remove(Popover._aligners[this.getAlign()]);
         if (align) {
-            (arrowDom || Dom.prepend(this.elem, '<i></i>')).className = 'x-arrow ' + Popover._aligners[align];
+            classList.remove('x-arrow');
         } else {
-            arrowDom && Dom.remove(arrowDom);
+            classList.add('x-arrow');
+            classList.add(Popover._aligners[align]);
         }
         return this;
     },
@@ -74,63 +81,28 @@ var Popover = Control.extend({
     onShow: function (e) {
         Dom.show(this.elem, 'opacity', null, this.toggleDuration);
 
-        var popoverRect = Dom.getRect(this.elem),
-            targetRect = Dom.getRect(this.target),
-            docRect = Dom.getRect(Dom.getDocument(this.elem)),
-            align = this.getAlign();
-        
-        // 更新默认位置。
-        if (this._align && this._align !== align) {
-            this.setAlign(align = this._align);
-            delete this._align;
-        }
+        // 自动定位逻辑。
+        if (this.autoAlign) {
+            var me = this,
+                align = me.getAlign();
 
-        // 重新更新位置。
-        function doAlign(topOrLeft, widthOrHeight, heightOrWidth, leftOrTop, rightOrBottom, me, disallowReset) {
+            // 恢复默认的定位。
+            if (me._align && me._align !== align) {
+                me.setAlign(align = me._align);
+                delete me._align;
+            }
 
-            var atRightOrBottom = align === rightOrBottom;
-
-            // y 坐标直接居中即可。
-            popoverRect[topOrLeft] = targetRect[topOrLeft] + targetRect[heightOrWidth] / 2 - popoverRect[heightOrWidth] / 2;
-
-            // x 坐标在左边或右边。
-            popoverRect[leftOrTop] = atRightOrBottom ? targetRect[leftOrTop] + targetRect[widthOrHeight] + me.distance : targetRect[leftOrTop] - popoverRect[widthOrHeight] - me.distance;
-            
-            // 如果超过屏幕则反转到另一半。
-            if (!disallowReset && (atRightOrBottom ? popoverRect[leftOrTop] + popoverRect[widthOrHeight] > docRect[leftOrTop] + docRect[widthOrHeight] : popoverRect[leftOrTop] < docRect[leftOrTop])) {
-                me._align = align;
-                me.setAlign(align = atRightOrBottom ? leftOrTop : rightOrBottom);
-                popoverRect = Dom.getRect(me.elem);
-                doAlign(topOrLeft, widthOrHeight, heightOrWidth, leftOrTop, rightOrBottom, me, true);
+            if (align) {
+                Dom.pin(me.elem, this.target, align, me.distance, me.distance, function () {
+                    me._align = align;
+                    me.elem.className = me.elem.className.replace(/\bx-arrow-\w+\b/, 'x-arrow-' + align);
+                });
+            } else if (e) {
+                Dom.pin(me.elem, e, 'bl', 0, me.distance * 2);
             }
 
         }
 
-        switch (align) {
-            case null:
-                if (e) {
-                    popoverRect.left = e.pageX;
-                    popoverRect.top = e.pageY + this.distance * 2;
-                    // 保证 left 介于屏幕左右之间。
-                    popoverRect.left = Math.max(docRect.left, Math.min(popoverRect.left, docRect.right - popoverRect.width));
-                    if (popoverRect.top > docRect.bottom - popoverRect.height) {
-                        popoverRect.top = e.pageY - this.distance * 2;
-                    }
-                }
-                break;
-            case 'top':
-            case 'bottom':
-                doAlign('left', 'height', 'width', 'top', 'bottom', this);
-                break;
-            case 'left':
-            case 'right':
-                doAlign('top', 'width', 'height', 'left', 'right', this);
-                break;
-
-        }
-
-        popoverRect.width = popoverRect.height = null;
-        Dom.setRect(this.elem, popoverRect);
 
     },
 

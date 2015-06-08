@@ -29,7 +29,7 @@ var ToolTip = Popover.extend({
         var me = this;
         Dom.each(Dom.query(targets), function (target) {
             Dom.hover(target, function (e) {
-
+                
                 me.target = target;
 
                 // 根据目标节点的 data-title 自动绑定当前节点的属性。
@@ -54,7 +54,7 @@ Dom.ready(function () {
     // 初始化所有 [data-title] 节点。
     var domNeedToolTip = Dom.query('[data-title]');
     if (domNeedToolTip.length) {
-        ToolTip.global = Control.get(Dom.append(document.body, '<span class="x-tooltip" />'), 'toolTip').setAlign('top').setToolTip(domNeedToolTip);
+        ToolTip.global = Control.get(Dom.append(document.body, '<span class="x-tooltip" />'), 'toolTip', { target: null }).setAlign('top').setToolTip(domNeedToolTip);
     }
 
 });

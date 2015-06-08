@@ -119,7 +119,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
     }
 
     // 触发页面重计算以保证效果可以触发。
-    key = elem.offsetWidth && elem.clientLeft;
+    elem.offsetWidth && elem.clientLeft;
 
     // 更新渐变上下文。
     for (key in to) {

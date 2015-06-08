@@ -73,9 +73,10 @@ var Control = Base.extend({
                     if (this[match] instanceof Function) {
                         delayedOptions = delayedOptions || {};
                         delayedOptions[match] = value;
+                        continue;
                     }
 
-                    continue;
+                    break;
                 case 'object':
                     try {
                         value = JSON.parse(value);
