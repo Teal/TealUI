@@ -1,10 +1,12 @@
-
-
+/**
+ * @fileOverview 提供 Cookie 操作功能。
+ * @author xuld
+ */
 
 /**
  * 获取一个 Cookie 值。
- * @param {String} name 名字。
- * @returns {String} 值。
+ * @param {String} name 要获取的 Cookie 名字。
+ * @returns {String} 返回对应的 Cookie 值。如果 Cookie 不存在则返回 null。
  */
 function getCookie(name) {
     var matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
@@ -12,29 +14,25 @@ function getCookie(name) {
 }
 
 /**
- * 设置一个 Cookie 值。
- * @param {String} name 名字。
- * @param {String} value 值。
- * @param {Object} expires 过期的分钟数。
- * @param {Object} path 路径。
- * @param {Object} domain 域名。
- * @param {Object} secure 安全限制。
+ * 设置或删除一个 Cookie 值。
+ * @param {String} name 要设置的 Cookie 名字。
+ * @param {String} value 要设置的 Cookie 值。如果设为 null 则删除 Cookie。
+ * @param {Object} [expires=365*24*60*60*10] Cookie 过期的秒数。如果设为 0 则立即过期。
+ * @param {Object} [path] 设置 Cookie 的路径。
+ * @param {Object} [domain] 设置 Cookie 的所在域。
+ * @param {Object} [secure] 设置 Cookie 的安全限制。
  * @returns {String} 返回 value。
  */
 function setCookie(name, value, expires, path, domain, secure) {
     var e = encodeURIComponent,
         updatedCookie = e(name) + "=" + e(value),
-        options = { path: path, domain: domain, secure: secure },
         t = new Date();
-
-    expires = expires != undefined ? expires : value === null ? -1 : 365 * 60 * 24;
-    t.setMinutes(t.getMinutes() + expires);
+    t.setSeconds(t.getSeconds() + (value === null || expires <= 0 ? -1 : expires == undefined ? 365*24*60*60*10 : expires));
     updatedCookie += '; expires=' + t.toGMTString();
-    for (t in options) {
-        if (options[t] !== undefined) {
-            updatedCookie = updatedCookie + "; " + t + "=" + e(options[t]);
-        }
-    }
+
+    if (path != undefined) updatedCookie += "; path=" + path;
+    if (domain != undefined) updatedCookie += "; domain=" + domain;
+    if (secure != undefined) updatedCookie += "; secure=" + secure;
 
     //if (updatedCookie.length > 4096) {
     //    console.warn('Cookie 过长（超过 4096 字节），可能导致 Cookie 写入失败');

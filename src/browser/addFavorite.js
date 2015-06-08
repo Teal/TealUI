@@ -1,12 +1,12 @@
 /**
+ * @fileOverview 弹出添加到收藏夹对话框。
  * @author xuld
  */
 
 /**
  * 打开添加收藏夹对话框。
- * @param {String} title 显示的网页名。
- * @param {String} url 收藏的地址。
- * @return {Boolean} 指示本次操作是否成功。
+ * @param {String} [title] 收藏的标题。默认为当前网页标题。
+ * @param {String} [url] 收藏的地址。默认为当前网页地址。
  */
 function addFavorite(title, url) {
     title = title || document.title;
