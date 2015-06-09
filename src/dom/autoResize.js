@@ -1,17 +1,20 @@
 /**
+ * @fileOverview 文本域根据内容自动放大缩小。
  * @author xuld
  */
 
-// #require base.js
-
-Dom.autoResize = function (elem) {
+/**
+ * 令当前文本框随输入内容自动调整高度。
+ */
+Element.prototype.autoResize = function () {
+    var elem = this;
     elem.style.overflow = 'hidden';
-    Dom.on(elem, 'keydown', autoResize);
-    Dom.on(elem, 'keyup', autoResize);
-    autoResize.call(elem);
+    elem.addEventListener('keydown', autoResize, false);
+    elem.addEventListener('keyup', autoResize, false);
+    autoResize();
 
     function autoResize() {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
+        elem.style.height = 'auto';
+        elem.style.height = elem.scrollHeight + 'px';
     }
 };

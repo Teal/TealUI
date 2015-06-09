@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require dom/base.js
+// #require base
 
 Dom.resize = function (callback, delay) {
     if (callback.constructor === Function) {

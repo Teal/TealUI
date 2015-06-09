@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>节点尺寸和位置计算</title>
-    <meta name="module-info" content="status=doing, ">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="实现节点尺寸和位置计算。">
     
@@ -25,29 +25,28 @@
     <h2>尺寸和定位</h2>
 
     <h5>获取大小和位置</h5>
-    <pre>Dom.getRect(elem);</pre>
+    <pre>elem.getRect();</pre>
 
-    <h5>设置大小和位置</h5>
-    <pre>Dom.setRect(elem, {x: 30, width:200, height:400});</pre>
+    <h5>设置大小</h5>
+    <pre>elem.setSize({width:200, height:400});</pre>
+
+    <h5>设置位置</h5>
+    <pre>elem.setPosition({left: 30});</pre>
 
     <h2>定位</h2>
 
     <h5>获取相对偏移节点</h5>
-    <pre>Dom.getOffsetParent(elem);</pre>
+    <pre>elem.getOffsetParent();</pre>
 
     <h5>获取相对位置</h5>
-    <pre>Dom.getOffset(elem);</pre>
+    <pre>elem.getOffset();</pre>
 
     <h2>滚动</h2>
 
-    <h5>获取滚动区域大小</h5>
-    <pre>Dom.getScrollSize(elem);</pre>
-
     <h5>获取滚动位置</h5>
-    <pre>Dom.getScroll(elem);</pre>
+    <pre>elem.getScroll();</pre>
 
     <h5>设置滚动位置</h5>
-    <pre>Dom.setScroll(elem, {x:100, y: 500});</pre>
-
+    <pre>elem.setScroll({left:100, top: 500});</pre>
 </body>
 </html>

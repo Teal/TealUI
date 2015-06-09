@@ -1,11 +1,12 @@
 ﻿/**
+ * @fileOverview 基于 CSS3 实现特效。
  * @author xuld
- * @fileOverview 提供 DOM 操作的辅助函数。
  */
+
+// #require base
 
 /**
  * 基于 CSS 3 实现动画效果。
- * @param {Element} elem 要设置的节点。
  * @param {Object} [from] 特效的起始样式。
  * @param {Object} to 特效的结束样式。
  * @param {Function} [callback] 特效执行完成的回调。
@@ -13,10 +14,11 @@
  * @param {String} [ease="ease-in"] 特效的渐变类型。
  * @param {Boolean} [reset] 是否在特效执行结束后重置样式。
  */
-Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
+Element.prototype.animate = function (to, callback, duration, ease, reset, reset2) {
 
     // 获取或初始化配置对象。
-    var fxOptions = Dom._fxOptions,
+    var elem = this,
+        fxOptions = Element._fxOptions,
         transitionContext = elem.style._transitionContext || (elem.style._transitionContext = {}),
         proxyTimer,
         key,
@@ -48,7 +50,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
                     // 恢复样式。
                     if (reset) {
                         for (key in to) {
-                            Dom.setStyle(elem, key, '');
+                            elem.setStyle(key, '');
                         }
                     }
 
@@ -63,8 +65,8 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
 
     // 获取或初始化配置对象。
     if (!fxOptions) {
-        Dom._fxOptions = fxOptions = {};
-        fxOptions.transition = Dom.vendorCssPropertyName(elem, 'transition');
+        Element._fxOptions = fxOptions = {};
+        fxOptions.transition = elem.vendorCssPropertyName('transition');
         fxOptions.prefix = fxOptions.transition.substr(0, fxOptions.transition.length - 'transition'.length);
         fxOptions.transitionEnd = fxOptions.prefix ? fxOptions.prefix + 'TransitionEnd' : 'transitionend';
         fxOptions.supportAnimation = fxOptions.transition in elem.style;
@@ -99,7 +101,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
         if (from === 'auto') {
             from = {};
             for (key in to) {
-                from[key] = Dom.getStyle(elem, key);
+                from[key] = elem.getStyle(key);
             }
         }
 
@@ -108,13 +110,13 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
             to = {};
             for (key in from) {
                 reset2 = transitionContext[key];
-                to[key] = reset2 && reset2.from && key in reset2.from ? reset2.from[key] : Dom.getStyle(elem, key);
+                to[key] = reset2 && reset2.from && key in reset2.from ? reset2.from[key] : elem.getStyle(key);
             }
         }
 
         proxyCallback.from = from;
         for (key in from) {
-            Dom.setStyle(elem, key, from[key]);
+            elem.setStyle(key, from[key]);
         }
     }
 
@@ -135,7 +137,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
 
     // 设置 CSS 属性以激活渐变。
     for (key in to) {
-        Dom.setStyle(elem, key, to[key]);
+        elem.setStyle(key, to[key]);
     }
 
     function updateTransition() {
@@ -154,7 +156,7 @@ Dom.animate = function (elem, to, callback, duration, ease, reset, reset2) {
 
 };
 
-Dom.toggleFx = {
+Element.toggleFx = {
     opacity: {
         opacity: 0
     },
@@ -169,7 +171,7 @@ Dom.toggleFx = {
     }
 };
 
-Dom._show = Dom.show;
+Element.prototype._show = Element.prototype.show;
 
 /**
  * 通过一定的预设特效显示元素。
@@ -178,18 +180,18 @@ Dom._show = Dom.show;
  * @param {String} [duration=300] 特效的持续时间。
  * @param {String} [ease="ease-in"] 特效的渐变类型。
  */
-Dom.show = function (elem, fxName, callback, duration, ease) {
+Element.prototype.show = function (fxName, callback, duration, ease) {
 
-    Dom._show(elem);
+    this._show();
 
     // 执行特效。
-    if (fxName = Dom.toggleFx[fxName]) {
-        Dom.animate(elem, fxName, 'auto', callback, duration, ease, true);
+    if (fxName = Element.toggleFx[fxName]) {
+        this.animate(fxName, 'auto', callback, duration, ease, true);
     }
 
 };
 
-Dom._hide = Dom.hide;
+Element.prototype._hide = Element.prototype.hide;
 
 /**
  * 通过一定的预设特效隐藏元素。
@@ -198,16 +200,16 @@ Dom._hide = Dom.hide;
  * @param {String} [duration=300] 特效的持续时间。
  * @param {String} [ease="ease-in"] 特效的渐变类型。
  */
-Dom.hide = function (elem, fxName, callback, duration, ease) {
+Element.prototype.hide = function (fxName, callback, duration, ease) {
 
     // 执行特效。
-    if (fxName = Dom.toggleFx[fxName]) {
-        Dom.animate(elem, 'auto', fxName, function (elem) {
-            Dom._hide(this);
+    if (fxName = Element.toggleFx[fxName]) {
+        this.animate('auto', fxName, function (elem) {
+            elem._hide();
             callback && callback.call(this, elem);
         }, duration, ease, true);
     } else {
-        Dom._hide(elem);
+        this._hide();
     }
 
 };

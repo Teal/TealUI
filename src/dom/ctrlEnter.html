@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>CTRL 回车事件</title>
-    <meta name="module-info" content="status=doing, ">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="CTRL 回车事件">
+    <meta name="description" content="CTRL 回车事件。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
-    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/ctrlEnter.js"></script>
 </head>
 <body>
@@ -21,7 +20,7 @@
     <aside class="doc-demo">
         <input type="text" id="elem1">
         <script>
-            Dom.ctrlEnter(document.getElementById('elem1'), function() {
+            document.getElementById('elem1').ctrlEnter(function() {
                 alert('ctrl + enter 事件')
             });
         </script>
@@ -31,7 +30,7 @@
     <aside class="doc-demo">
         <form><input type="text" id="elem2"></form>
         <script>
-            Dom.ctrlEnter(document.getElementById('elem2'), function () {
+            document.getElementById('elem2').ctrlEnter(function () {
                 this.form.submit();
             });
         </script>

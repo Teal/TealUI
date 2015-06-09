@@ -10,7 +10,6 @@
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
-    <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/disableTab.js"></script>
 </head>
 <body>
@@ -20,7 +19,7 @@
     <aside class="doc-demo">
         <textarea id="elem1">abc</textarea>
         <script>
-            Dom.disableTab(document.getElementById('elem1'));
+            document.getElementById('elem1').disableTab();
         </script>
     </aside>
 </body>

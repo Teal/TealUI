@@ -2,7 +2,7 @@
  * @author xuld
  * @fileOverview 为低版本浏览器提供 HTML5 的部分常用函数。
  * @remark 
- * 本文件主要针对 IE6-8 以及老版本 FireFox, Safari 和 Chrome。
+ * 本文件主要针对 IE8 以及老版本 FireFox, Safari 和 Chrome。
  */
 
 // #region ECMA 5
@@ -125,22 +125,6 @@ if (!String.prototype.trim) {
 
 // #endregion
 
-// #region lte IE 7
-
-// IE6-7: 不存在 Element 。
-/*@cc_on if(!this.Element) {
-
-this.Element = function(){};
-this.HTMLDocument = function(){};
-this.Event = function(){};
-Object.defineProperty = function(obj, propName, property){ obj[propName] = property;    };
-
-}
-
-} @*/
-
-// #endregion
-
 // #region lte IE 8
 
 /*@cc_on if(!+"\v1") {
@@ -153,98 +137,27 @@ Array.prototype.indexOf = function (value, startIndex) {
     return -1;
 };
 
+// IE8: 只支持 Document，不支持 HTMLDocument。
+var Document = Document || HTMLDocument;
+
 // 让 IE6-8 支持 HTML5 新标签。
 'article section header footer nav aside details summary menu'.replace(/\w+/g, function (tagName) {
     document.createElement(tagName);
 });
-
-// IE8: 只支持 Document，不支持 HTMLDocument。
-var Document = Document || HTMLDocument;
-
-// 仅为 IE8 提供支持。
-(function(){
-
-    var ep = Element.prototype,
-        dp = Document.prototype,
-        evtp = Event.prototype;
-
-    Object.defineProperty(ep, 'textContent', {
-        get: function () {
-            return this.innerText;
-        },
-        set: function(value) {
-            this.innerText = value;
-        }
-    });
-
-    extendGetter(Element, 'ownerDocument',  function () {
-        return this.document;
-    });
-        
-    extendGetter(Document, 'defaultView',  function () {
-        return this.parentWindow;
-    });
-
-    dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
-        this.attachEvent('on' + eventName, eventHandler);
-    };
-
-    dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
-        this.detachEvent('on' + eventName, eventHandler);
-    };
-
-    evtp.stopPropagation = function () {
-        this.cancelBubble = true;
-    };
-
-    evtp.preventDefault = function () {
-        this.returnValue = false;
-    };
-
-    extendGetter(Event, 'target', function () {
-        return this.srcElement;
-    });
-        
-    extendGetter(Event, 'relatedTarget', function () {
-        return this.toElement || this.fromElement;
-    });
-        
-    extendGetter(Event, 'which', function () {
-        return this.button & 1 ? 1 : (this.button & 2 ? 3 : (this.button & 4 ? 2 : 0));
-    });
-                
-    extendGetter(Event, 'pageX', function () {
-        return this.x;
-    });
-             
-    extendGetter(Event, 'pageY', function () {
-        return this.y;
-    });
-        
-    // 令 Element.prototype.getBoundingClientRect() 返回的对象包含 width, height 属性。
-    extendGetter(TextRectangle, 'width', function () {
-        return this.right - this.left;
-    });
-          
-    extendGetter(TextRectangle, 'height', function () {
-            return this.bottom - this.top;
-    });
-})();
-
+    
 XMLHttpRequest = function(){
     return new ActiveXObject("Microsoft.XMLHTTP");
 };
-
+    
 } @*/
 
 // #endregion
 
 // #region DOM 2
 
-(function(ep, dp) {
+(function (ep, dp) {
 
     function defineProperty(obj, propName, getter, setter) {
-        obj = obj.prototype;
         if (Object.defineProperty) {
             Object.defineProperty(obj, propName, {
                 get: getter,
@@ -255,6 +168,81 @@ XMLHttpRequest = function(){
             setter && obj.__defineSetter__(propName, setter);
         }
     }
+
+    // #region lte IE 8
+
+    /*@cc_on if(!+"\v1") {
+    
+    // 文档。
+
+    defineProperty(dp, 'defaultView',  function () {
+        return this.parentWindow;
+    });
+    
+    // 元素。
+
+    defineProperty(ep, 'textContent', function () {
+        return this.innerText;
+    }, function(value) {
+        this.innerText = value;
+    });
+    
+    defineProperty(ep, 'ownerDocument',  function () {
+        return this.document;
+    });
+            
+    dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
+        this.attachEvent('on' + eventName, eventHandler);
+    };
+    
+    dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
+        this.detachEvent('on' + eventName, eventHandler);
+    };
+    
+    // 事件。
+    var evtp = Event.prototype;
+
+    evtp.stopPropagation = function () {
+        this.cancelBubble = true;
+    };
+    
+    evtp.preventDefault = function () {
+        this.returnValue = false;
+    };
+    
+    defineProperty(evtp, 'target', function () {
+        return this.srcElement;
+    });
+            
+    defineProperty(evtp, 'relatedTarget', function () {
+        return this.toElement || this.fromElement;
+    });
+            
+    defineProperty(evtp, 'which', function () {
+        return this.button & 1 ? 1 : (this.button & 2 ? 3 : (this.button & 4 ? 2 : 0));
+    });
+                    
+    defineProperty(evtp, 'pageX', function () {
+        return this.x;
+    });
+                 
+    defineProperty(evtp, 'pageY', function () {
+        return this.y;
+    });
+    
+    // 区域（Element.prototype.getBoundingClientRect() 返回的对象）。
+          
+    defineProperty(TextRectangle.prototype, 'width', function () {
+        return this.right - this.left;
+    });
+
+    defineProperty(TextRectangle.prototype, 'height', function () {
+            return this.bottom - this.top;
+    });
+   
+    } @*/
+
+    // #endregion
 
     if (!ep.matches) {
         ep.matches = ep.matchesSelector || ep.webkitMatchesSelector || ep.msMatchesSelector || ep.mozMatchesSelector || ep.oMatchesSelector || function (selector) {
@@ -283,17 +271,15 @@ XMLHttpRequest = function(){
     if (!('firstElementChild' in ep)) {
         function defineWalker(first, next) {
             next = next ? 'nextSibling' : 'previousSibling';
-            Object.defineProperty(ep, first.replace(/([SC])/, 'Element$1'), {
-                get: function () {
-                    var node = this[first];
+            defineProperty(ep, first.replace(/([SC])/, 'Element$1'), function () {
+                var node = this[first];
 
-                    // 找到第一个nodeType == 1 的节点。
-                    while (node && node.nodeType !== 1) {
-                        node = node[next];
-                    }
-
-                    return node;
+                // 找到第一个nodeType == 1 的节点。
+                while (node && node.nodeType !== 1) {
+                    node = node[next];
                 }
+
+                return node;
             });
         }
 
@@ -304,36 +290,32 @@ XMLHttpRequest = function(){
     }
 
     if (!('children' in ep)) {
-        Object.defineProperty(ep, 'children', {
-            get: function () {
-                return Array.prototype.slice.call(this.childNodes, 0).filter(function (elem) {
-                    return elem.nodeType === 1;
-                });
-            }
+        defineProperty(ep, 'children', function () {
+            return Array.prototype.slice.call(this.childNodes, 0).filter(function (elem) {
+                return elem.nodeType === 1;
+            });
         });
     }
 
     if (!('classList' in ep)) {
-        Object.defineProperty(ep, 'classList', {
-            get: function () {
-                var elem = this;
-                return {
-                    contains: function (className) {
-                        return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
-                    },
-                    add: function (className) {
-                        if ((" " + elem.className + " ").indexOf(className) < 0) {
-                            elem.className += ' ' + className;
-                        }
-                    },
-                    remove: function (className) {
-                        elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
-                    },
-                    toggle: function (className) {
-                        this.contains(className) ? this.remove(className) : this.add(className);
+        defineProperty(ep, 'classList', function () {
+            var elem = this;
+            return {
+                contains: function (className) {
+                    return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
+                },
+                add: function (className) {
+                    if ((" " + elem.className + " ").indexOf(className) < 0) {
+                        elem.className += ' ' + className;
                     }
-                };
-            }
+                },
+                remove: function (className) {
+                    elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
+                },
+                toggle: function (className) {
+                    this.contains(className) ? this.remove(className) : this.add(className);
+                }
+            };
         });
     }
 

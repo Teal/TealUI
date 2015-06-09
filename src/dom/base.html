@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>DOM 操作</title>
-    <meta name="module-info" content="status=doing, parent-title=DOM, parent-order=utility, order=^">
+    <meta name="module-info" content="parent-title=DOM, parent-order=utility, order=^">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
 
@@ -24,30 +24,30 @@
         var elem = document.getElementById('elem');
     </script>
 
-    <h2>通用</h2>
+    <h2>全局</h2>
 
     <h5>遍历</h5>
-    <pre>Dom.each([elem], function(elem){ console.log(elem) });</pre>
+    <pre>NodeList.each([elem], function(elem){ console.log(elem) });</pre>
 
     <h5>Dom Ready</h5>
-    <pre>Dom.ready(function(){ alert("DOM ready") });</pre>
+    <pre>document.ready(function(){ alert("DOM ready") });</pre>
 
-    <h5>$ = Dom.get + Dom.find + Dom.parse + Dom Ready</h5>
+    <h5>$ = document.queryAll + document.parse + document.ready</h5>
     <pre>$(".doc-box")</pre>
 
     <h5>获取数据</h5>
-    <pre>Dom.getData(elem);</pre>
+    <pre>elem.getData();</pre>
 
     <h2>获取节点</h2>
 
     <h5>解析并生成节点</h5>
-    <pre>Dom.parse("<a>你好</a>")</pre>
+    <pre>document.parse("<a>你好</a>")</pre>
 
     <h5 class="native">查找所有节点</h5>
-    <pre>document.querySelectorAll(".doc-box")</pre>
+    <pre>document.queryAll(".doc-box")</pre>
 
     <h5 class="native">查找第一个节点</h5>
-    <pre>document.querySelector(".doc-box")</pre>
+    <pre>document.query(".doc-box")</pre>
 
     <h5 class="native">判断是否匹配</h5>
     <pre>elem.matches("a");</pre>
@@ -55,14 +55,14 @@
     <h2>事件</h2>
 
     <h5>绑定事件</h5>
-    <pre>Dom.on(elem, 'click', function(){ alert("点击事件") });</pre>
-    <pre>Dom.on(elem, 'mouseeneter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
+    <pre>elem.on('click', function(){ alert("点击事件") });</pre>
+    <pre>elem.on('mouseeneter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
 
     <h5>解绑事件</h5>
-    <pre>Dom.off(elem, 'click', function(){ alert("点击事件2") });</pre>
+    <pre>elem.off('click', function(){ alert("点击事件2") });</pre>
 
     <h5>手动触发事件</h5>
-    <pre>Dom.trigger(elem, 'click', function(){ alert("点击事件") });</pre>
+    <pre>elem.trigger('click');</pre>
 
     <h2>文档遍历</h2>
 
@@ -70,10 +70,10 @@
     <pre>elem.contains(elem);</pre>
 
     <h5>最近父节点</h5>
-    <pre>Dom.closest(elem, "body");</pre>
+    <pre>elem.closest("body");</pre>
 
     <h5>获取文档</h5>
-    <pre>Dom.getDocument(elem);</pre>
+    <pre>elem.ownerDocument;</pre>
 
     <h5 class="native">父节点</h5>
     <pre>elem.parentNode;</pre>
@@ -94,24 +94,24 @@
     <pre>elem.children;</pre>
 
     <h5>获取节点索引</h5>
-    <pre>Dom.getIndex(elem);</pre>
+    <pre>elem.getIndex();</pre>
 
     <h2>增删操作</h2>
 
     <h5>插到末尾</h5>
-    <pre>Dom.append(elem, "append");</pre>
+    <pre>elem.append("append");</pre>
 
     <h5>插到前尾</h5>
-    <pre>Dom.prepend(elem, "prepend");</pre>
+    <pre>elem.prepend("prepend");</pre>
 
     <h5>插到后面</h5>
-    <pre>Dom.after(elem, "after");</pre>
+    <pre>elem.after("after");</pre>
 
     <h5>插到前面</h5>
-    <pre>Dom.before(elem, "before");</pre>
+    <pre>elem.before("before");</pre>
 
     <h5>删除节点</h5>
-    <pre>Dom.remove(elem);</pre>
+    <pre>elem.remove(); /* 注意：个别标签不适用此方法。*/</pre>
 
     <h5 class="native">复制节点</h5>
     <pre>elem.cloneNode(true);</pre>
@@ -149,28 +149,28 @@
     <pre>elem.innerHTML = "<em>a</em>";</pre>
 
     <h5>获取样式</h5>
-    <pre>Dom.getStyle(elem, "fontSize");</pre>
+    <pre>elem.getStyle("fontSize");</pre>
 
     <h5 class="native">设置样式</h5>
-    <pre>elem.style.fontSize = "12px";</pre>
+    <pre>elem.setStyle("fontSize", "12px");</pre>
 
     <h5>快速样式计算</h5>
-    <pre>Dom.calcStyle(elem, "fontSize");</pre>
+    <pre>elem.calcStyle("fontSize");</pre>
 
     <h5>计算样式</h5>
-    <pre>Dom.calcStyleExpression(elem, "fontSize + paddingTop");</pre>
+    <pre>elem.calcStyleExpression("fontSize + paddingTop");</pre>
 
     <h5>显示</h5>
-    <pre>Dom.show(elem);</pre>
+    <pre>elem.show();</pre>
 
     <h5>隐藏</h5>
-    <pre>Dom.hide(elem);</pre>
+    <pre>elem.hide();</pre>
 
     <h5>切换</h5>
-    <pre>Dom.toggle(elem);</pre>
+    <pre>elem.toggle();</pre>
 
     <h5>判断是否隐藏</h5>
-    <pre>Dom.isHidden(elem);</pre>
+    <pre>elem.isHidden();</pre>
 
     <h2>关于 dom/base 和 jQuery 的区别</h2>
     

@@ -1,20 +1,26 @@
-/** * @author [作者] */
+/**
+ * @fileOverview 在文本框按 TAB 不切换焦点，改为输入 TAB。
+ * @author xuld
+ */
 
-Dom.disableTab = function (elem, tab) {
-    if (tab === undefined) {
-        tab = '\t';
-    }
-    Dom.on(elem, 'keydown', function(e) {
+/**
+ * 在文本框按 TAB 不切换焦点，改为输入 TAB。
+ * @param {String} [tab="\t"] 自定义 TAB 的输入内容。
+ */
+Element.prototype.disableTab = function (tab) {
+    var elem = this;
+    if (tab == undefined) tab = '\t';
+    elem.addEventListener('keydown', function (e) {
         if (e.keyCode == 9) {
             e.preventDefault();
-            var start = this.selectionStart,
-                end = this.selectionEnd,
-                text = this.value,
+            var start = elem.selectionStart,
+                end = elem.selectionEnd,
+                text = elem.value,
                 length = tab.length;
             text = text.substr(0, start) + tab + text.substr(start);
-            this.value = text;
-            this.selectionStart = start + tab.length;
-            this.selectionEnd = end + tab.length;
+            elem.value = text;
+            elem.selectionStart = start + tab.length;
+            elem.selectionEnd = end + tab.length;
         }
-    });
+    }, false);
 };
