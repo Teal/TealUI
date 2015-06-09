@@ -22,7 +22,7 @@
             oldInitList(list);
             var listCount = document.getElementById('listCount');
             listCount.innerHTML = document.querySelectorAll('#doc_list dd').length;
-            listCount.title = "已完成：" + document.querySelectorAll('#doc_list dd.doc-list-done').length + "\r\n" + "计划中：" + document.querySelectorAll('#doc_list dd.doc-list-todo').length;
+            listCount.title = "已完成：" + document.querySelectorAll('#doc_list dd.doc-list-done').length + "\r\n" + "开发中：" + document.querySelectorAll('#doc_list dd.doc-list-doing').length + "\r\n" + "计划中：" + document.querySelectorAll('#doc_list dd.doc-list-todo').length;
         };
     </script>
 

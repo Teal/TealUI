@@ -9,13 +9,6 @@
 
 // http://kangax.github.io/compat-table/es5/
 
-if (!Object.defineProperty) {
-    Object.defineProperty = function (obj, propName, property) {
-        property.get && obj.__defineGetter__(propName, property.get);
-        property.set && obj.__defineSetter__(propName, property.set);
-    };
-}
-
 if (!Function.prototype.bind) {
 
     /**
@@ -132,90 +125,19 @@ if (!String.prototype.trim) {
 
 // #endregion
 
-// #region DOM 2
+// #region lte IE 7
 
-// IE8: 只支持 Document，不支持 HTMLDocument。
-/*@cc_on var Document = Document || HTMLDocument; @*/
+// IE6-7: 不存在 Element 。
+/*@cc_on if(!this.Element) {
 
-if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.webkitMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.oMatchesSelector || function (selector) {
-        var parent = this.parentNode, tempParent = !parent && Dom.getDocument(this).body;
-        tempParent && tempParent.appendChild(this);
-        try {
-            return Array.prototype.indexOf.call(parent.querySelectorAll(selector), this) >= 0;
-        } finally {
-            tempParent && tempParent.removeChild(this);
-        }
-    };
-    Document.prototype.matches = function () { return false; };
+this.Element = function(){};
+this.HTMLDocument = function(){};
+this.Event = function(){};
+Object.defineProperty = function(obj, propName, property){ obj[propName] = property;    };
+
 }
 
-if (!Element.prototype.contains) {
-    Document.prototype.contains = Element.prototype.contains = function (node) {
-        for (; node; node = node.parentNode) {
-            if (node == this) {
-                return true;
-            }
-        }
-        return false
-    };
-}
-
-if (!('firstElementChild' in Element.prototype)) {
-    (function (prop, first, next) {
-        next = next ? 'nextSibling' : 'previousSibling';
-        Object.defineProperty(Element.prototype, prop, {
-            get: function () {
-                var node = this[first];
-
-                // 找到第一个nodeType == 1 的节点。
-                while (node && node.nodeType !== 1) {
-                    node = node[next];
-                }
-
-                return node;
-            }
-        });
-        return arguments.callee;
-    })('firstElementChild', 'firstChild', true)
-    ('lastElementChild', 'lastChild');
-    ('previousElementSibling', 'previousSibling');
-    ('nextElementSibling', 'nextSibling', true);
-}
-
-if (!('children' in Element.prototype)) {
-    Object.defineProperty(Element.prototype, 'children', {
-        get: function () {
-            return Array.prototype.slice.call(this.childNodes, 0).filter(function(elem) {
-                return elem.nodeType === 1;
-            });
-        }
-    });
-}
-
-if (!('classList' in Element.prototype)) {
-    Object.defineProperty(Element.prototype, 'classList', {
-        get: function () {
-            var elem = this;
-            return {
-                contains: function (className) {
-                    return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
-                },
-                add: function (className) {
-                    if ((" " + elem.className + " ").indexOf(className) < 0) {
-                        elem.className += ' ' + className;
-                    }
-                },
-                remove: function (className) {
-                    elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
-                },
-                toggle: function (className) {
-                    this.contains(className) ? this.remove(className) : this.add(className);
-                }
-            };
-        }
-    });
-}
+} @*/
 
 // #endregion
 
@@ -236,88 +158,185 @@ Array.prototype.indexOf = function (value, startIndex) {
     document.createElement(tagName);
 });
 
-//// IE 6-7 不支持 __defineGetter__ 和 __defineSetter__
-//if(!document.__defineGetter__) {
-//    Object.defineProperty = function(obj, propName, property){ 
-//        obj[propName] = property;
-//    };
-//}
+// IE8: 只支持 Document，不支持 HTMLDocument。
+var Document = Document || HTMLDocument;
 
 // 仅为 IE8 提供支持。
-if (this.Element) {
-    (function(){
+(function(){
 
-        var ep = Element.prototype,
-            dp = Document.prototype,
-            evtp = Event.prototype;
+    var ep = Element.prototype,
+        dp = Document.prototype,
+        evtp = Event.prototype;
 
-        function extendGetter(obj, propName, getter){
-            Object.defineProperty(obj.prototype, propName, {
-                get: getter
-            });
+    Object.defineProperty(ep, 'textContent', {
+        get: function () {
+            return this.innerText;
+        },
+        set: function(value) {
+            this.innerText = value;
         }
-    
-        Object.defineProperty(ep, 'textContent', {
-            get: function () {
-                return this.innerText;
-            },
-            set: function(value) {
-                this.innerText = value;
-            }
-        });
+    });
 
-        extendGetter(Element, 'ownerDocument',  function () {
-            return this.document;
-        });
+    extendGetter(Element, 'ownerDocument',  function () {
+        return this.document;
+    });
         
-        dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
-            this.attachEvent('on' + eventName, eventHandler);
-        };
+    extendGetter(Document, 'defaultView',  function () {
+        return this.parentWindow;
+    });
 
-        dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
-            this.detachEvent('on' + eventName, eventHandler);
-        };
+    dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
+        this.attachEvent('on' + eventName, eventHandler);
+    };
 
-        evtp.stopPropagation = function () {
-            this.cancelBubble = true;
-        };
+    dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
+        this.detachEvent('on' + eventName, eventHandler);
+    };
 
-        evtp.preventDefault = function () {
-            this.returnValue = false;
-        };
+    evtp.stopPropagation = function () {
+        this.cancelBubble = true;
+    };
 
-        extendGetter(Event, 'target', function () {
-            return this.srcElement;
-        });
+    evtp.preventDefault = function () {
+        this.returnValue = false;
+    };
+
+    extendGetter(Event, 'target', function () {
+        return this.srcElement;
+    });
         
-        extendGetter(Event, 'relatedTarget', function () {
-            return this.toElement || this.fromElement;
-        });
+    extendGetter(Event, 'relatedTarget', function () {
+        return this.toElement || this.fromElement;
+    });
         
-        extendGetter(Event, 'which', function () {
-            return this.button & 1 ? 1 : (this.button & 2 ? 3 : (this.button & 4 ? 2 : 0));
-        });
+    extendGetter(Event, 'which', function () {
+        return this.button & 1 ? 1 : (this.button & 2 ? 3 : (this.button & 4 ? 2 : 0));
+    });
                 
-        extendGetter(Event, 'pageX', function () {
-            return this.x;
-        });
+    extendGetter(Event, 'pageX', function () {
+        return this.x;
+    });
              
-        extendGetter(Event, 'pageY', function () {
-            return this.y;
-        });
+    extendGetter(Event, 'pageY', function () {
+        return this.y;
+    });
         
-        // 令 Element.prototype.getBoundingClientRect() 返回的对象包含 width, height 属性。
-        extendGetter(TextRectangle, 'width', function () {
-            return this.right - this.left;
-        });
+    // 令 Element.prototype.getBoundingClientRect() 返回的对象包含 width, height 属性。
+    extendGetter(TextRectangle, 'width', function () {
+        return this.right - this.left;
+    });
           
-        extendGetter(TextRectangle, 'height', function () {
-             return this.bottom - this.top;
-        });
-    })();
-    
-}
+    extendGetter(TextRectangle, 'height', function () {
+            return this.bottom - this.top;
+    });
+})();
+
+XMLHttpRequest = function(){
+    return new ActiveXObject("Microsoft.XMLHTTP");
+};
 
 } @*/
+
+// #endregion
+
+// #region DOM 2
+
+(function(ep, dp) {
+
+    function defineProperty(obj, propName, getter, setter) {
+        obj = obj.prototype;
+        if (Object.defineProperty) {
+            Object.defineProperty(obj, propName, {
+                get: getter,
+                set: setter
+            });
+        } else {
+            getter && obj.__defineGetter__(propName, getter);
+            setter && obj.__defineSetter__(propName, setter);
+        }
+    }
+
+    if (!ep.matches) {
+        ep.matches = ep.matchesSelector || ep.webkitMatchesSelector || ep.msMatchesSelector || ep.mozMatchesSelector || ep.oMatchesSelector || function (selector) {
+            var parent = this.parentNode, tempParent = !parent && this.ownerDocument.body;
+            tempParent && tempParent.appendChild(this);
+            try {
+                return Array.prototype.indexOf.call(parent.querySelectorAll(selector), this) >= 0;
+            } finally {
+                tempParent && tempParent.removeChild(this);
+            }
+        };
+        dp.matches = function () { return false; };
+    }
+
+    if (!ep.contains) {
+        dp.contains = ep.contains = function (node) {
+            for (; node; node = node.parentNode) {
+                if (node == this) {
+                    return true;
+                }
+            }
+            return false
+        };
+    }
+
+    if (!('firstElementChild' in ep)) {
+        function defineWalker(first, next) {
+            next = next ? 'nextSibling' : 'previousSibling';
+            Object.defineProperty(ep, first.replace(/([SC])/, 'Element$1'), {
+                get: function () {
+                    var node = this[first];
+
+                    // 找到第一个nodeType == 1 的节点。
+                    while (node && node.nodeType !== 1) {
+                        node = node[next];
+                    }
+
+                    return node;
+                }
+            });
+        }
+
+        defineWalker('firstChild', true);
+        defineWalker('lastChild');
+        defineWalker('previousSibling');
+        defineWalker('nextSibling', true);
+    }
+
+    if (!('children' in ep)) {
+        Object.defineProperty(ep, 'children', {
+            get: function () {
+                return Array.prototype.slice.call(this.childNodes, 0).filter(function (elem) {
+                    return elem.nodeType === 1;
+                });
+            }
+        });
+    }
+
+    if (!('classList' in ep)) {
+        Object.defineProperty(ep, 'classList', {
+            get: function () {
+                var elem = this;
+                return {
+                    contains: function (className) {
+                        return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
+                    },
+                    add: function (className) {
+                        if ((" " + elem.className + " ").indexOf(className) < 0) {
+                            elem.className += ' ' + className;
+                        }
+                    },
+                    remove: function (className) {
+                        elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
+                    },
+                    toggle: function (className) {
+                        this.contains(className) ? this.remove(className) : this.add(className);
+                    }
+                };
+            }
+        });
+    }
+
+})(Element.prototype, Document.prototype);
 
 // #endregion

@@ -4,14 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>图标</title>
-    <meta name="module-info" content="status=doing, order=^, parent-title=小部件, parent-order=typography, package=default, group=icon">
+    <meta name="module-info" content="order=^, parent-title=小部件, parent-order=typography, package=default, group=icon">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="基于字体实现各类小图标。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
-    <!-- 添加此 class 可以实现通过 class 定义图标 -->
+
+    <!-- 以下是本组件扩展的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/partial/iconEx.css" />
 </head>
 <body>
@@ -29,7 +30,7 @@
         注意：<br />
         1. 不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。<br />
         2. 使用图标时应在图标后追加一个空格以保证美观。<br />
-        3. 链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，避免图标右边空格出现下划线影响视觉效果。
+        3. 链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。
     </blockquote>
 
     <h2>通过 class 指定图标</h2>

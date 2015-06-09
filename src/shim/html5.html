@@ -6,7 +6,7 @@
     <title>HTML5 兼容补丁</title>
     <meta name="module-info" content="status=doing, compat=B-C, parent-title=兼容性, parent-order=browser">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="为 B、C 类浏览器提供标准的 HTML5 执行环境。如果希望本库所有函数能兼容所有浏览器（包括 IE6 )，建议先引入本组件。">
+    <meta name="description" content="为 B、C 类浏览器提供标准的 HTML5 执行环境。如果希望本库所有函数能兼容所有低版本浏览器（包括 IE6 )，建议先引入本组件。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
@@ -15,15 +15,13 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
     <style>
-        .ie678 code { color: #999!important }
+        .ie678, .ie678 code { color: #999!important }
     </style>
     
     <p>本组件扩展的 API 有：</p>
     
     <h2>语言</h2>
     <dl>
-        <dt>Object</dt>
-        <dd><code>Object.defineProperty</code></dd>
         <dt>Array</dt>
         <dd><code>Array.isArray</code></dd>
         <dd><code>Array.prototype.forEach</code></dd>
@@ -49,12 +47,14 @@
         <dd class="ie678"><code>Element.prototype.textContent</code></dd>
         <dd class="ie678"><code>Element.prototype.addventListener</code></dd>
         <dd class="ie678"><code>Element.prototype.removeEventListener</code></dd>
+        <dd class="ie678"><code>Element.prototype.ownerDocument</code></dd>
         <dt>Document</dt>
         <dd><code>Document</code></dd>
         <dd><code>Document.prototype.matches</code></dd>
         <dd><code>Document.prototype.contains</code></dd>
         <dd class="ie678"><code>Document.prototype.addventListener</code></dd>
         <dd class="ie678"><code>Document.prototype.removeEventListener</code></dd>
+        <dd class="ie678"><code>Document.prototype.defaultView</code></dd>
         <dt>Event</dt>
         <dd class="ie678"><code>Event.prototype.target</code></dd>
         <dd class="ie678"><code>Event.prototype.relatedTarget</code></dd>
@@ -64,5 +64,13 @@
         <dd class="ie678"><code>Event.prototype.stopPropagation</code></dd>
         <dd class="ie678"><code>Event.prototype.preventDefault</code></dd>
     </dl>
+
+    <h2>其它</h2>
+    <dl>
+        <dt>XMLHttpReuqet</dt>
+        <dd><code>XMLHttpReuqet</code></dd>
+    </dl>
+
+    <p class="ie678">注：灰色项表示这些 API 都属于 HTML4 标准，这里只为 IE6-8 提供。</p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿.x-tooltip {
   position: absolute;
-  z-index: 1010;
+  z-index: 2000;
   display: none;
   font-size: 0.85714286em;
   line-height: 150%;

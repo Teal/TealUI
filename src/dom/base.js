@@ -280,75 +280,6 @@ var Dom = {
     })(),
 
     /**
-     * 为指定元素添加一个事件监听器。
-     * @param {Element} elem 要处理的元素。
-     * @param {String} eventName 要添加的事件名。
-     * @param {String} [targetSelector] 代理目标节点选择器。
-     * @param {Function} eventListener 要添加的事件监听器。
-     */
-    on: function (elem, eventName, targetSelector, eventListener) {
-
-        // 允许不传递 proxySelector 参数。
-        if (!eventListener) {
-            eventListener = targetSelector;
-            targetSelector = '';
-        }
-
-        var datas = Dom.getData(elem),
-            events = datas.events || (datas.events = {}),
-            eventInfo = events[eventName] || (events[eventName] = []),
-
-            // 获取特殊处理的事件。
-            eventFix = Dom.eventFix[eventName] || 0,
-
-            // 最后绑定的实际函数。
-            actualListener = eventListener;
-
-        // 如果满足以下任一要求，则生成代码事件句柄。
-        // 1. 定义委托事件。
-        // 2. 事件本身需要特殊过滤。
-        // 3. 事件重复绑定。（通过代理令事件支持重复绑定）
-        // 4. IE8: 默认事件绑定的 this 不正确。
-        if (/*@cc_on !+"\v1" || @*/targetSelector || eventFix.filter || eventInfo.indexOf(eventListener) >= 0) {
-            actualListener = function (e) {
-
-                // 实际触发事件的节点。
-                var actucalTarget = elem;
-
-                // 应用委托节点筛选。
-                if (targetSelector) {
-                    actucalTarget = Dom.closest(e.target, targetSelector, this);
-                    if (!actucalTarget) {
-                        return;
-                    }
-                }
-
-                // 处理特殊事件绑定。
-                if (eventFix.filter && eventFix.filter(actucalTarget, e) === false) {
-                    return;
-                }
-
-                return eventListener.call(actucalTarget, e);
-
-            };
-
-            actualListener.orignal = eventListener;
-        }
-
-        // 如果当前事件的委托事件，则先添加选择器过滤器。
-        if (targetSelector && eventFix.delegateType) {
-            eventFix = Dom.eventFix[eventName = eventFix.delegateType] || 0;
-        }
-
-        // 添加函数句柄。
-        eventFix.add ? eventFix.add(elem, eventName, actualListener) : elem.addEventListener(eventFix.bindType || eventName, actualListener, false);
-
-        // 添加当前处理函数到集合。以便之后删除事件或触发事件。
-        eventInfo.push(actualListener);
-
-    },
-
-    /**
      * 删除指定元素的一个或多个事件监听器。
      * @param {Element} elem 要处理的元素。
      * @param {String} eventName 要删除的事件名。
@@ -702,6 +633,79 @@ var Dom = {
     // #endregion
 
 };
+
+// #region 事件
+
+/**
+ * 为指定元素添加一个事件监听器。
+ * @param {Element} elem 要处理的元素。
+ * @param {String} eventName 要添加的事件名。
+ * @param {String} [targetSelector] 代理目标节点选择器。
+ * @param {Function} eventListener 要添加的事件监听器。
+ */
+Element.prototype.on = function (eventName, targetSelector, eventListener) {
+
+    // 允许不传递 proxySelector 参数。
+    if (!eventListener) {
+        eventListener = targetSelector;
+        targetSelector = '';
+    }
+
+    var datas = Dom.getData(elem),
+        events = datas.events || (datas.events = {}),
+        eventInfo = events[eventName] || (events[eventName] = []),
+
+        // 获取特殊处理的事件。
+        eventFix = Dom.eventFix[eventName] || 0,
+
+        // 最后绑定的实际函数。
+        actualListener = eventListener;
+
+    // 如果满足以下任一要求，则生成代码事件句柄。
+    // 1. 定义委托事件。
+    // 2. 事件本身需要特殊过滤。
+    // 3. 事件重复绑定。（通过代理令事件支持重复绑定）
+    // 4. IE8: 默认事件绑定的 this 不正确。
+    if (/*@cc_on !+"\v1" || @*/targetSelector || eventFix.filter || eventInfo.indexOf(eventListener) >= 0) {
+        actualListener = function (e) {
+
+            // 实际触发事件的节点。
+            var actucalTarget = elem;
+
+            // 应用委托节点筛选。
+            if (targetSelector) {
+                actucalTarget = Dom.closest(e.target, targetSelector, this);
+                if (!actucalTarget) {
+                    return;
+                }
+            }
+
+            // 处理特殊事件绑定。
+            if (eventFix.filter && eventFix.filter(actucalTarget, e) === false) {
+                return;
+            }
+
+            return eventListener.call(actucalTarget, e);
+
+        };
+
+        actualListener.orignal = eventListener;
+    }
+
+    // 如果当前事件的委托事件，则先添加选择器过滤器。
+    if (targetSelector && eventFix.delegateType) {
+        eventFix = Dom.eventFix[eventName = eventFix.delegateType] || 0;
+    }
+
+    // 添加函数句柄。
+    eventFix.add ? eventFix.add(elem, eventName, actualListener) : elem.addEventListener(eventFix.bindType || eventName, actualListener, false);
+
+    // 添加当前处理函数到集合。以便之后删除事件或触发事件。
+    eventInfo.push(actualListener);
+
+};
+
+// #endregion
 
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。

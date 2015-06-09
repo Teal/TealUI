@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>箭头</title>
-    <meta name="module-info" content="status=doing, group=arrow">
+    <meta name="module-info" content="group=arrow">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="实现四个方向的箭头效果。">
 
@@ -36,7 +36,18 @@
 
     <h2>自定义箭头</h2>
     <p>箭头的实现原理是为指定节点添加 <code>:before</code> 作为箭头前景色，添加 <code>:after</code> 作为箭头背景色。如果需要自定义箭头位置和位置，需要对这两个元素操作。</p>
-    
+
+    <h3>实心箭头</h3>
+    <p>如果不需要为箭头指定前景色，则隐藏表示前景的元素。</p>
+    <aside class="doc-demo">
+        <div id="customForeColor" class="doc-box x-arrow x-arrow-top"></div>
+        <style>
+            #customForeColor:after {
+                display: none;
+            }
+        </style>
+    </aside>
+
     <h3>自定义位置</h3>
     <p>箭头的默认位置为居中（<code>left: 50%</code>）。</p>
     <aside class="doc-demo">
