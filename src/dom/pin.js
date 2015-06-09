@@ -15,7 +15,7 @@
  * @param {Function} [repinCallback] 当设置的位置发生改变的回调。
  * @param {Element} [container=document] 如果设置此元素，则超过此区域后重置位置。
  */
-Dom.pin = function (elem, target, position, offsetX, offsetY, repinCallback, container) {
+Element.prototype.pin = function (target, position, offsetX, offsetY, repinCallback, container) {
 
     /*
 	 *      tl    t   tr
@@ -43,9 +43,10 @@ Dom.pin = function (elem, target, position, offsetX, offsetY, repinCallback, con
     //     第二次：true。
     //     第三次：false。
 
-    var rect = Dom.getRect(elem),
-        targetRect = target instanceof Event ? { left: target.pageX, top: target.pageY, width: 0, height: 0 } : Dom.getRect(target),
-        containerRect = (container === undefined ? (container = document) : container) && container.nodeType ? Dom.getRect(container) : container;
+    var elem = this,
+        rect = elem.getRect(),
+        targetRect = target instanceof Event ? { left: target.pageX, top: target.pageY, width: 0, height: 0 } : target.getRect(),
+        containerRect = (container === undefined ? (container = document) : container) && container.nodeType ? container.getRect() : container;
 
     function proc(position, offset, leftOrTop, widthOrHeight, allowReset) {
 
@@ -74,20 +75,19 @@ Dom.pin = function (elem, target, position, offsetX, offsetY, repinCallback, con
                 rect[leftOrTop] = Math.max(containerRect[leftOrTop], Math.min(rect[leftOrTop], containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight]));
             }
 
-            delete rect[widthOrHeight];
         }
 
     }
 
-    position = Dom.pin.aligners[position] || position;
+    position = Element.pinAligners[position] || position;
     proc(position >> 4, offsetX || 0, 'left', 'width');
     proc(position, offsetY || 0, 'top', 'height');
 
-    Dom.setRect(elem, rect);
+    elem.setPosition(rect);
 
 };
 
-Dom.pin.aligners = {
+Element.pinAligners = {
     bl: 4 << 4 | 1,
     lt: 8 << 4 | 4,
     left: 8 << 4,

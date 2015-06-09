@@ -290,7 +290,7 @@
         }
 
         var elem = this,
-            datas = elem.getData(),
+            datas = ep.getData.call(elem),
             events = datas.events || (datas.events = {}),
             eventInfo = events[eventName] || (events[eventName] = []),
 
@@ -335,7 +335,7 @@
         if (targetSelector && fixer.delegateType) {
             fixer = eventFix[eventName = fixer.delegateType] || 0;
         }
-
+        
         // 添加函数句柄。
         fixer.add ? fixer.add(elem, eventName, actualListener) : elem.addEventListener(fixer.bindType || eventName, actualListener, false);
 
@@ -352,7 +352,7 @@
     dp.off = ep.off = function (eventName, eventListener) {
 
         var elem = this,
-            events = ((elem.getData() || 0).events || 0)[eventName],
+            events = ((ep.getData.call(elem) || 0).events || 0)[eventName],
             fixer;
 
         // 存在事件则依次执行。
@@ -407,7 +407,7 @@
     dp.trigger = ep.trigger = function (eventName, eventArgs) {
 
         var elem = this,
-            events = ((elem.getData() || 0).events || 0)[eventName],
+            events = ((ep.getData.call(elem) || 0).events || 0)[eventName],
             handlers;
 
         if (events) {

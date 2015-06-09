@@ -2,61 +2,51 @@
  * @author xuld
  */
 
-// #require base.js
+// #require base
 
 /**
  * 设置哈希值改变事件的回调。
  * @param {Function} callback 哈希值改变的事件回调。
  */
-Dom.hashChange = function(callback) {
-    if (callback.constructor === Function) {
-        Dom.on(window, 'hashchange', function () {
-            callback(Dom.getHash());
-        });
-        callback(Dom.getHash());
-    } else {
-        Dom.trigger(win, 'hashchange');
-    }
+Document.prototype.hashChange = function(callback) {
+    Element.prototype.on.call(window, 'hashchange', function () {
+        callback(document.getHash());
+    });
+    callback(document.getHash());
 };
 
-Dom.getHash = function() {
-    var href = location.href,
+/**
+ * 获取当前页面的哈希值。
+ * @returns {String} 返回哈希值。
+ */
+Document.prototype.getHash = function () {
+    var href = this.location.href,
         i = href.indexOf("#");
     return i >= 0 ? href.substr(i + 1) : '';
 };
 
-// #region lte IE 8
-
 // 并不是所有浏览器都支持 hashchange 事件，
 // 当浏览器不支持的时候，使用自定义的监视器，每隔50ms监听当前hash是否被修改。
-/*@cc_on if (!('on' + hashchange in window) || document.documentMode < 8) {
+if (!('onhashchange' in window) || document.documentMode < 8 || 1) {
+    (function () {
+        var currentHash, timer;
+        function poll() {
+            var newToken = document.getHash();
 
-(function(){
-
-    var currentHash, timer;
-
-    function poll() {
-        var newToken = Dom.getHash();
-
-        if (currentHash !== newToken) {
-            currentHash = newToken;
-            Dom.hashChange();
-        }
-        timer = setTimeout(poll, 50);
-    }
-
-    Dom.eventFix.hashchange = {
-        proxy: function(elem, eventName, eventListener){
-            if(!timer) {
-                currentHash = Dom.getHash();
-                timer = setTimeout(poll, 50);
+            if (currentHash !== newToken) {
+                currentHash = newToken;
+                Element.prototype.trigger.call(window, 'hashchange');
             }
-            return eventListener;
+            timer = setTimeout(poll, 50);
         }
-    };
-
-})();
-
-}  @*/
-
-// #endregion
+        Element.eventFix.hashchange = {
+            add: function (elem, eventName, eventListener) {
+                if (!timer) {
+                    currentHash = document.getHash();
+                    timer = setTimeout(poll, 50);
+                }
+                elem.addEventListener(eventName, eventListener, false);
+            }
+        };
+    })();
+}

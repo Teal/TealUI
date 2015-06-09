@@ -191,11 +191,11 @@ XMLHttpRequest = function(){
         return this.document;
     });
             
-    dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
+    window.addEventListener = dp.addEventListener = ep.addEventListener = function (eventName, eventHandler) {
         this.attachEvent('on' + eventName, eventHandler);
     };
     
-    dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
+    window.removeEventListener = dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
         this.detachEvent('on' + eventName, eventHandler);
     };
     
