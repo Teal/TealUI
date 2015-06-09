@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>拖动</title>
-    <meta name="module-info" content="status=doing, ">
+    <meta name="module-info" content="status=todo">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="实现拖动。">
 
@@ -12,12 +12,12 @@
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/dom/drag.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <style>
         .doc-box {
             cursor: move;
@@ -28,7 +28,7 @@
     <aside class="doc-demo">
         <div id="d1" class="doc-box">基本拖动</div>
         <script>
-            Dom.draggable(document.getElementById('d1'));
+            document.getElementById('d1').setDraggable();
         </script>
     </aside>
 
@@ -36,7 +36,7 @@
     <aside class="doc-demo">
         <div id="d2" class="doc-box"><button>拖动句柄</button></div>
         <script>
-            Dom.draggable(document.getElementById('d2'), {
+            document.getElementById('d2').setDraggable({
                 handle: document.getElementById('d2').querySelector('button')
             });
         </script>
@@ -46,7 +46,7 @@
     <aside class="doc-demo">
         <div id="d3" class="doc-box">拖动回调</div>
         <script>
-            Dom.draggable(document.getElementById('d3'), {
+            document.getElementById('d3').setDraggable({
                 onDragStart: function (e) {
                     this._text = this.elem.innerHTML;
                 },
@@ -64,7 +64,7 @@
     <aside class="doc-demo">
         <div id="d4" class="doc-box">拖动步长</div>
         <script>
-            Dom.draggable(document.getElementById('d4'), {
+            document.getElementById('d4').setDraggable({
                 onDragMove: function (e) {
                     var STHREH = 60;
                     this.endOffset.left = this.startOffset.left + parseInt((this.endOffset.left - this.startOffset.left) / STHREH) * STHREH;

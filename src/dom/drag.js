@@ -7,8 +7,14 @@
 
 /**
  * 初始化指定的元素为可拖动对象。
+ * @param {Object} options 拖动的相关属性。
+ * 
+ * - handle: 拖动的句柄元素。
+ * - dragDelay: 从鼠标按下到开始拖动的延时。
+ * - autoSrcoll: 设置是否自动滚动屏幕。
+ * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
  */
-Dom.draggable = function (elem, options) {
+Element.prototype.setDraggable = function (options) {
 
     // 创建新拖动对象。
     var draggabe = {
@@ -16,12 +22,12 @@ Dom.draggable = function (elem, options) {
         /**
          * 设置当前拖动的节点。
          */
-        elem: elem,
+        elem: this,
 
         /**
          * 设置拖动的局部。
          */
-        handle: elem,
+        handle: this,
 
         /**
          * 从鼠标按下到开始拖动的延时。
@@ -38,7 +44,7 @@ Dom.draggable = function (elem, options) {
          * @param {Event} e 原生的 mousemove 事件。
          */
         dragStart: function (e) {
-            this.startOffset = Dom.getOffset(this.elem);
+            this.startOffset = this.elem.getOffset();
             return !this.onDragStart || this.onDragStart(e);
         },
 
@@ -68,7 +74,7 @@ Dom.draggable = function (elem, options) {
         dragEnd: function (e) {
             // 如果拖动结束被禁用，则恢复当前拖动滑块到原位置。
             if (this.onDragEnd && this.onDragEnd(e) === false) {
-                Dom.animate(this.elem, {
+                this.elem.animate({
                     left: this.startOffset.left + 'px',
                     top: this.startOffset.top + 'px',
                 });
@@ -91,8 +97,8 @@ Dom.draggable = function (elem, options) {
                 e.preventDefault();
 
                 // 如果当前正在拖动，通知当前拖动对象停止拖动。
-                if (Dom.draggable.current) {
-                    Dom.draggable.current.stopDragging(e);
+                if (Element.currentDraggable) {
+                    Element.currentDraggable.stopDragging(e);
                 }
 
                 // 记录当前的开始位置。
@@ -109,9 +115,9 @@ Dom.draggable = function (elem, options) {
                 }, draggabe.dragDelay);
 
                 // 绑定拖动和停止拖动事件。
-                var doc = Dom.getDocument(draggabe.elem);
-                Dom.on(doc, 'mouseup', draggabe.handlerMouseUp);
-                Dom.on(doc, 'mousemove', draggabe.handlerMouseMove);
+                var doc = draggabe.elem.ownerDocument;
+                doc.on('mouseup', draggabe.handlerMouseUp);
+                doc.on('mousemove', draggabe.handlerMouseMove);
 
             }
 
@@ -128,9 +134,9 @@ Dom.draggable = function (elem, options) {
 
             // 自动滚动屏幕。
             if (draggabe.autoSrcoll) {
-                var doc = Dom.getDocument(draggabe.elem),
-                    docSize = Dom.getRect(doc),
-                    docScroll = Dom.getScroll(doc),
+                var doc = draggabe.elem.ownerDocument,
+                    docSize = doc.getRect(),
+                    docScroll = doc.getScroll(),
                     globalX = e.pageX - docScroll.left,
                     globalY = e.pageY - docScroll.top,
                     needScroll = false;
@@ -152,7 +158,7 @@ Dom.draggable = function (elem, options) {
                 }
 
                 if (needScroll) {
-                    Dom.setScroll(doc, docScroll);
+                    doc.setScroll(docScroll);
                 }
             }
 
@@ -184,7 +190,7 @@ Dom.draggable = function (elem, options) {
         startDragging: function (e) {
 
             // 设置当前正在拖动的对象。
-            Dom.draggable.current = draggabe;
+            Element.currentDraggable = draggabe;
 
             // 清空计时器。
             if (draggabe.timer) {
@@ -197,7 +203,7 @@ Dom.draggable = function (elem, options) {
 
             // 锁定鼠标样式。
             draggabe.orignalCursor = document.documentElement.style.cursor;
-            document.documentElement.style.cursor = Dom.getStyle(draggabe.elem, 'cursor');
+            document.documentElement.style.cursor = draggabe.elem.getStyle('cursor');
             if ('pointerEvents' in document.body.style)
                 document.body.style.pointerEvents = 'none';
             else if (document.body.setCapture)
@@ -216,9 +222,9 @@ Dom.draggable = function (elem, options) {
          * @param {Event} e 事件。
          */
         stopDragging: function (e) {
-            var doc = Dom.getDocument(this.elem);
-            Dom.off(doc, 'mousemove', this.handlerMouseMove);
-            Dom.off(doc, 'mouseup', this.handlerMouseUp);
+            var doc = this.elem.ownerDocument;
+            doc.off('mousemove', this.handlerMouseMove);
+            doc.off('mouseup', this.handlerMouseUp);
 
             //   清空计时器。
             if (this.timer) {
@@ -235,7 +241,7 @@ Dom.draggable = function (elem, options) {
 
             // 拖动结束。
             this.dragEnd(e);
-            Dom.draggable.current = null;
+            Element.currentDraggable = null;
 
         },
 
@@ -243,17 +249,17 @@ Dom.draggable = function (elem, options) {
          * 销毁拖动对象。
          */
         destroy: function () {
-            Dom.off(draggabe.handle, 'mousedown', draggabe.handlerMouseDown);
+            draggabe.handle.off('mousedown', draggabe.handlerMouseDown);
         }
 
-    };
+    }, key;
 
     // 使用用户自定义配置覆盖默认配置。
-    for (var key in options) {
+    for (key in options) {
         draggabe[key] = options[key];
     }
 
-    Dom.on(draggabe.handle, 'mousedown', draggabe.handlerMouseDown);
+    draggabe.handle.on('mousedown', draggabe.handlerMouseDown);
 
     return draggabe;
 

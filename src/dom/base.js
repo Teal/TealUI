@@ -6,7 +6,7 @@
 (function (ep, dp) {
 
     // #region 全局
-    
+
     /**
      * 遍历指定的节点列表并对每个节点执行回调。
      * @param {NodeList} nodeList 要遍历的节点列表:
@@ -32,6 +32,15 @@
     var datas = {},
         dataId = 1,
         parseContainer;
+
+    /**
+     * 获取指定节点绑定的数据容器。
+     * @returns {Object} 返回存储数据的字段。
+     */
+    Element.getData = function (elem) {
+        var dataId = elem.__dataId__ || (elem.__dataId__ = dataId++);
+        return datas[dataId] || (datas[dataId] = {});
+    };
 
     /**
      * 设置在当前文档解析完成后的回调函数。
@@ -60,20 +69,11 @@
         }
         return html;
     };
-    
-    /**
-     * 获取和节点绑定的数据容器。
-     * @returns {Object} 返回存储数据的字段。
-     */
-    ep.getData = function() {
-        var elem = this, dataId = elem.__dataId__ || (elem.__dataId__ = dataId++);
-        return datas[dataId] || (datas[dataId] = {});
-    };
 
     // #endregion
 
     // #region 选择器
-    
+
     /**
 	 * 执行一个 CSS 选择器，返回匹配的第一个节点。
 	 * @param {String} selector 要执行的 CSS 选择器。
@@ -126,7 +126,7 @@
 	 * 查找所有的单选按钮(即: type 值为 radio 的 input 元素)。
 	 * <pre>document.query("input[type=radio]");</pre>
 	 */
-    ep.queryAll = dp.queryAll = function(selector) {
+    ep.queryAll = dp.queryAll = function (selector) {
         return selector ? selector.constructor === String ?
             this.querySelectorAll(selector) :
             selector.length !== undefined ? selector : [selector] : [];
@@ -290,7 +290,7 @@
         }
 
         var elem = this,
-            datas = ep.getData.call(elem),
+            datas = Element.getData(elem),
             events = datas.events || (datas.events = {}),
             eventInfo = events[eventName] || (events[eventName] = []),
 
@@ -335,7 +335,7 @@
         if (targetSelector && fixer.delegateType) {
             fixer = eventFix[eventName = fixer.delegateType] || 0;
         }
-        
+
         // 添加函数句柄。
         fixer.add ? fixer.add(elem, eventName, actualListener) : elem.addEventListener(fixer.bindType || eventName, actualListener, false);
 
@@ -352,7 +352,7 @@
     dp.off = ep.off = function (eventName, eventListener) {
 
         var elem = this,
-            events = ((ep.getData.call(elem) || 0).events || 0)[eventName],
+            events = (Element.getData(elem).events || 0)[eventName],
             fixer;
 
         // 存在事件则依次执行。
@@ -384,7 +384,7 @@
 
                 // 清空整个事件函数。
                 if (!events.length) {
-                    delete elem.getData().events[eventName];
+                    delete Element.getData(elem).events[eventName];
                 }
 
             }
@@ -407,7 +407,7 @@
     dp.trigger = ep.trigger = function (eventName, eventArgs) {
 
         var elem = this,
-            events = ((ep.getData.call(elem) || 0).events || 0)[eventName],
+            events = (Element.getData(elem).events || 0)[eventName],
             handlers;
 
         if (events) {
@@ -539,7 +539,7 @@
     // #endregion
 
     // #region 属性和样式
-    
+
     /**
      * 为 CSS 属性添加浏览器后缀。
      * @param {String} cssPropertyName 要处理的 CSS 属性名。

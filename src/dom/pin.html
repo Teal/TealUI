@@ -39,13 +39,13 @@
         realign();
 
         function realign() {
-            Dom.pin(elem, target, document.getElementById('position').value);
+            elem.pin(target, document.getElementById('position').value);
         }
 
-        Dom.draggable(target, { onDragEnd: realign });
+        target.setDraggable({ onDragEnd: realign });
     </script>
 
     <h5>定位节点</h5>
-    <pre>Dom.pin(elem, target, "bottom", 0, 0);</pre>
+    <pre>elem.pin(target, "bottom", 0, 0);</pre>
 </body>
 </html>

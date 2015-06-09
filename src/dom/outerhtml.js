@@ -1,24 +1,27 @@
 /**
+ * @fileOverview 获取或设置外部 HTML。
  * @author xuld
  */
 
-// #require base.js
+// #require base
 
-Dom.getOuterHtml = function(elem) {
-    if ("outerHTML" in elem) {
-        return elem.outerHTML;
-    } else {
-        var div = Dom.getDocument(elem).createElement('div')
+if (!('outerHTML' in Element.prototype)) {
+
+    /**
+     * 获取外部 HTML。
+     */
+    Element.prototype.__defineGetter__('outerHTML', function() {
+        var div = this.ownerDocument.createElement('div')
         div.appendChild(elem.cloneNode(true));
         return div.innerHTML;
-    }
-};
+    });
 
-Dom.setOuterHtml = function (elem, value) {
-    if ("outerHTML" in elem && !/<(?:script|style|link)/i.test(value)) {
-        elem.outerHTML = value;
-    } else {
-        Dom.before(elem, value);
-        Dom.remove(elem);
-    }
-};
+    /**
+     * 获取外部 HTML。
+     */
+    Element.prototype.__defineSetter__('outerHTML', function (value) {
+        this.before(value);
+        Element.prototype.remove.call(this);
+    });
+
+}

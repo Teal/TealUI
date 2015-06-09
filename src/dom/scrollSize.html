@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>读写外部 HTML</title>
+    <title>滚动区域大小</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="获取或设置外部 HTML。">
+    <meta name="description" content="获取或设置滚动区域大小。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/outerHtml.js"></script>
+    <script type="text/javascript" src="../../src/dom/scrollSize.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -22,10 +22,7 @@
         var elem = document.getElementById('elem');
     </script>
 
-    <h5>获取 outerHTML</h5>
-    <pre>elem.outerHTML;</pre>
-
-    <h5>设置 outerHTML</h5>
-    <pre>elem.outerHTML = "&lt;u>a&lt;/u>";</pre>
+    <h5>获取滚动区域大小</h5>
+    <pre>elem.getScrollSize();</pre>
 </body>
 </html>

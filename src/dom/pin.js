@@ -1,9 +1,10 @@
 /**
+ * @fileOverview 对齐节点。
  * @author xuld 
  */
 
-// #require base.js
-// #require rect.js
+// #require base
+// #require rect
 
 /**
  * 设置指定节点的位置，使其依靠现有的其它节点。
@@ -69,12 +70,8 @@ Element.prototype.pin = function (target, position, offsetX, offsetY, repinCallb
         }
 
         // 只在第一次处理过程执行。
-        if (allowReset == undefined) {
-
-            if (containerRect) {
-                rect[leftOrTop] = Math.max(containerRect[leftOrTop], Math.min(rect[leftOrTop], containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight]));
-            }
-
+        if (allowReset == undefined && containerRect) {
+            rect[leftOrTop] = Math.max(containerRect[leftOrTop], Math.min(rect[leftOrTop], containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight]));
         }
 
     }
