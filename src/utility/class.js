@@ -10,7 +10,7 @@ function Base() { }
 
 /**
  * 继承当前类创建派生类。
- * @param {Object?} members 子类实例成员列表。其中 contructor 表示类型构造函数。
+ * @param {Object} [members] 子类实例成员列表。其中 contructor 表示类型构造函数。
  * @return {Function} 返回继承出来的子类。
  * @remark
  * 此函数只实现单继承。不同于真正面向对象的语言，

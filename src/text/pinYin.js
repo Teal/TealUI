@@ -1,12 +1,13 @@
 /**
+ * @fileOverview 根据简体中文获取拼音。
  * @author xuld
  */
 
 /**
  * 根据简体中文获取拼音。
  * @param {String} value 要获取的中文。
- * @param {Boolean} firstLetterOnly = false 是否只获取首字母。
- * @param {String} joinChar = '' 用于连接各组成部分的字符。如果设置为 null，则不连接。
+ * @param {Boolean} [firstLetterOnly=false] 是否只获取首字母。
+ * @param {String} [joinChar=' '] 用于连接各组成部分的字符。如果设置为 null，则不连接。
  */
 function getPinYin(value, firstLetterOnly, joinChar) {
     var result = [];

@@ -1,11 +1,12 @@
 /**
+ * @fileOverview 获取查询字符串。
  * @author xuld
- * @fileOverview 处理查询字符串。
  */
 
 /**
  * 获取查询字符串。
  * @param {String} name 要获取的查询字符串名。
+ * @returns {String} 返回查询字符串。如果获取不到则返回 null。
  */
 function getQuery(name) {
     var path = /\?([^#]*)(#|$)/.exec(location.href);

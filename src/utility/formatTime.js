@@ -1,4 +1,5 @@
 /**
+ * @fileOverview 格式化时间为: N 天前|N 分前|刚刚 格式。
  * @author xuld
  */
 
@@ -6,6 +7,7 @@
  * 格式化时间为 N 天前格式。
  * @param {Date/String} 要格式化的时间。
  * @param {now} 当前时间。
+ * @returns {String} 返回时间字符串。
  */
 function formatTime(date, now) {
     var timeOffset = Math.round(((now || new Date()) - date) / 1000),

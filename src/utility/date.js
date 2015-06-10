@@ -54,7 +54,7 @@ Date.from = function (value) {
 /**
  * 将日期对象格式化为字符串。
  * @param {String} format 日期的格式。默认为 yyyy/MM/dd HH:mm:ss。y: 年, M: 月, d: 天, H: 小时（24小时制）,m:分, s:秒, e:星期
- * @return {String} 字符串。
+ * @return {String} 格式化后的字符串。
  */
 Date.prototype.format = function (format) {
     var me = this;
@@ -73,6 +73,7 @@ Date.prototype.format = function (format) {
 /**
  * 在当前日期添加指定的天数。
  * @param {Number} value 要添加的天数。
+ * @returns {Date} 返回处理后的新日期对象。
  */
 Date.prototype.addDay = function (value) {
     return new Date(+this + value * 86400000);
@@ -81,6 +82,7 @@ Date.prototype.addDay = function (value) {
 /**
  * 在当前日期添加指定的月数。
  * @param {Number} value 要添加的月数。
+ * @returns {Date} 返回处理后的新日期对象。
  */
 Date.prototype.addMonth = function (value) {
     var date = new Date(+this);
@@ -93,6 +95,7 @@ Date.prototype.addMonth = function (value) {
 
 /**
  * 获取当前日期的无小时部分。
+ * @returns {Date} 返回处理后的新日期对象。
  */
 Date.prototype.toDay = function () {
     return new Date(this.getFullYear(), this.getMonth(), this.getDate());

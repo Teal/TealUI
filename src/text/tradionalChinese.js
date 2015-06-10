@@ -1,4 +1,5 @@
 /**
+ * @fileOverview 中文简繁体转换。
  * @author xuld
  */
 

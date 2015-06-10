@@ -1,8 +1,9 @@
 /**
+ * @fileOverview 让 C 类浏览器支持本地存储。
  * @author xuld
  */
 
-// #require cookie.js
+// #require ../browser/cookie
 
 var localStorage = localStorage || {
 

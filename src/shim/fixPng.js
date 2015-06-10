@@ -4,23 +4,21 @@
 
 /**
  * 让 IE6 支持透明 PNG。
+ * @param {Element} [image] 修复的图片节点。如不指定则修复整个文档的图片。 
  */
 function fixPng(image) {
-	
-	if(typeof XMLHttpRequest !== "undefined") {
-		return;
-	}
-	
+	/*@cc_on if(!window.XMLHttpRequest) {
 	if(!image) {
 		var images = document.images;
 		for (var i = 0; image = images[i]; i++) {
 			fixPng(image);
 		}
 	} else if (/\.png\b/.test(image.src)) {
-		var imgID = (image.id) ? "id='" + image.id + "' " : "";
-		var imgClass = (image.className) ? "class='" + image.className + "' " : "";
-		var imgTitle = (image.title) ? "title='" + image.title + "' " : "title='" + image.alt + "' ";
-		var imgStyle = "display:inline-block;" + image.style.cssText;
+		var imgID = (image.id) ? "id='" + image.id + "' " : "",
+            imgClass = (image.className) ? "class='" + image.className + "' " : "",
+		    imgTitle = (image.title) ? "title='" + image.title + "' " : "title='" + image.alt + "' ",
+		    imgStyle = "display:inline-block;" + image.style.cssText;
+
 		if (image.pin == "left")
 			imgStyle = "float:left;" + imgStyle;
 		if (image.pin == "right")
@@ -41,5 +39,5 @@ function fixPng(image) {
 			image.src +
 			"\', sizingMethod='scale');\"></span>";
 	}
-
+    } @*/
 }
