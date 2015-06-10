@@ -5,6 +5,274 @@
 // #require rect
 
 /**
+ * 创建一个新的可拖动区域。
+ */
+function Draggable(elem, options) {
+
+    this.elem = this.handle = elem;
+
+    // 使用用户自定义配置覆盖默认配置。
+    for (var key in options) {
+        this[key] = options[key];
+    }
+
+    this.handle.on('mousedown', this.handlerMouseDown);
+
+}
+
+Draggable.prototype = {
+
+    constructor: Draggable,
+
+    /**
+     * 设置当前拖动的节点。
+     */
+    elem: null,
+
+    /**
+     * 设置拖动的局部。
+     */
+    handle: null,
+
+    /**
+     * 从鼠标按下到开始拖动的延时。
+     */
+    dragDelay: 500,
+
+    /**
+     * 设置是否自动滚动屏幕。
+     */
+    autoSrcoll: 50,
+
+    /**
+     * 实现拖动开始的逻辑。
+     * @param {Event} e 原生的 mousemove 事件。
+     */
+    dragStart: function (e) {
+        var me = this;
+        me.startOffset = me.elem.getOffset();
+        return !me.onDragStart || me.onDragStart(e);
+    },
+
+    /**
+     * 实现拖动中的逻辑。
+     * @param {Event} e 原生的 mousemove 事件。
+     */
+    dragMove: function (e) {
+
+        var me = this;
+
+        // 更新目标偏移量。
+        me.endOffset = {
+            left: me.startOffset.left + me.endX - me.startX,
+            top: me.startOffset.top + me.endY - me.startY
+        };
+
+        // 调用用户的拖动回调并更新位置。
+        if (!me.onDragMove || me.onDragMove(e) !== false) {
+            me.elem.style.top = me.endOffset.top + 'px';
+            me.elem.style.left = me.endOffset.left + 'px';
+        }
+    },
+
+    /**
+     * 实现拖动结束的逻辑。
+     * @param {Event} e 原生的 mousemove 事件。
+     */
+    dragEnd: function (e) {
+
+        var me = this;
+
+        // 如果拖动结束被禁用，则恢复当前拖动滑块到原位置。
+        if (me.onDragEnd && me.onDragEnd(e) === false) {
+            me.elem.animate({
+                left: me.startOffset.left + 'px',
+                top: me.startOffset.top + 'px',
+            });
+        }
+        me.startOffset = me.endOffset = null;
+    },
+
+    /**
+     * 处理 mousedown 事件。
+     * 初始化拖动，当单击时，执行这个函数，但不触发 dragStart。
+     * 只有鼠标移动时才会继续触发 dragStart。
+     * @param {Event} e 事件参数。
+     */
+    handlerMouseDown: function (e) {
+
+        // 只处理左键拖动。
+        if (e.which === 1) {
+
+            var me = this;
+
+            // 阻止默认事件。
+            e.preventDefault();
+
+            // 如果当前正在拖动，通知当前拖动对象停止拖动。
+            if (Draggable.current) {
+                Draggable.current.stopDragging(e);
+            }
+
+            // 记录当前的开始位置。
+            me.endX = me.startX = e.pageX;
+            me.endY = me.startY = e.pageY;
+
+            // 设置下一步处理句柄。
+            me.currentHandler = me.startDragging;
+
+            // 当用户仅按住鼠标指定时间，也认为开始拖动。
+            me.timer = setTimeout(function () {
+                me.timer = 0;
+                me.currentHandler(e);
+            }, me.dragDelay);
+
+            // 绑定拖动和停止拖动事件。
+            var doc = me.elem.ownerDocument;
+            doc.on('mouseup', me.handlerMouseUp, me);
+            doc.on('mousemove', me.handlerMouseMove, me);
+
+        }
+
+    },
+
+    /**
+     * 处理 mousemove 事件。
+     * @param {Event} e 事件参数。
+     */
+    handlerMouseMove: function (e) {
+
+        // 阻止默认事件。
+        e.preventDefault();
+
+        var me = this;
+
+        // 自动滚动屏幕。
+        if (me.autoSrcoll) {
+            var doc = me.elem.ownerDocument,
+                docSize = doc.getRect(),
+                docScroll = doc.getScroll(),
+                globalX = e.pageX - docScroll.left,
+                globalY = e.pageY - docScroll.top,
+                needScroll = false;
+
+            if (globalX > docSize.width - me.autoSrcoll) {
+                docScroll.left += me.autoSrcoll;
+                needScroll = true;
+            } else if (globalX < me.autoSrcoll) {
+                docScroll.left -= me.autoSrcoll;
+                needScroll = true;
+            }
+
+            if (globalY > docSize.height - me.autoSrcoll) {
+                docScroll.top += me.autoSrcoll;
+                needScroll = true;
+            } else if (globalY < me.autoSrcoll) {
+                docScroll.top -= me.autoSrcoll;
+                needScroll = true;
+            }
+
+            if (needScroll) {
+                doc.setScroll(docScroll);
+            }
+        }
+
+        // 更新当前的鼠标位置。
+        me.endX = e.pageX;
+        me.endY = e.pageY;
+
+        // 调用当前的处理句柄来处理此函数。
+        me.currentHandler(e);
+    },
+
+    /**
+     * 处理 mouseup 事件。
+     * @param {Event} e 事件参数。
+     * 这个函数调用 onDragEnd 和 afterDrag
+     */
+    handlerMouseUp: function (e) {
+        // 只有鼠标左键松开， 才认为是停止拖动。
+        if (e.which === 1) {
+            e.preventDefault();
+            this.stopDragging(e);
+        }
+    },
+
+    /**
+     * 处理 mousedown 或 mousemove 事件。开始准备拖动。
+     * @param {Event} e 事件。
+     */
+    startDragging: function (e) {
+
+        var me = this;
+
+        // 设置当前正在拖动的对象。
+        Draggable.current = me;
+
+        // 清空计时器。
+        if (me.timer) {
+            clearTimeout(me.timer);
+            me.timer = 0;
+        }
+
+        // 设置下次处理拖动的处理函数。
+        me.currentHandler = me.dragMove;
+
+        // 锁定鼠标样式。
+        me.orignalCursor = document.documentElement.style.cursor;
+        document.documentElement.style.cursor = me.elem.getStyle('cursor');
+        if ('pointerEvents' in document.body.style)
+            document.body.style.pointerEvents = 'none';
+        else if (document.body.setCapture)
+            document.body.setCapture();
+
+        // 执行开始拖动回调，如果用户阻止和强制停止拖动。
+        if (me.dragStart(e) !== false) {
+            me.dragMove(e, true);
+        } else {
+            me.stopDragging(e);
+        }
+    },
+
+    /**
+     * 强制停止当前对象的拖动。
+     * @param {Event} e 事件。
+     */
+    stopDragging: function (e) {
+        var me = this,
+            doc = me.elem.ownerDocument;
+        doc.off('mousemove', me.handlerMouseMove);
+        doc.off('mouseup', me.handlerMouseUp);
+
+        //   清空计时器。
+        if (me.timer) {
+            clearTimeout(me.timer);
+            me.timer = 0;
+        }
+
+        // 恢复鼠标样式。
+        if (document.body.style.pointerEvents === 'none')
+            document.body.style.pointerEvents = '';
+        else if (document.body.releaseCapture)
+            document.body.releaseCapture();
+        document.documentElement.style.cursor = me.orignalCursor;
+
+        // 拖动结束。
+        me.dragEnd(e);
+        Draggable.current = null;
+
+    },
+
+    /**
+     * 销毁拖动对象。
+     */
+    destroy: function () {
+        this.handle.off('mousedown', this.handlerMouseDown);
+    }
+
+};
+
+/**
  * 初始化指定的元素为可拖动对象。
  * @param {Object} options 拖动的相关属性。
  * 
@@ -14,252 +282,5 @@
  * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
  */
 Element.prototype.setDraggable = function (options) {
-
-    // 创建新拖动对象。
-    var draggabe = {
-
-        /**
-         * 设置当前拖动的节点。
-         */
-        elem: this,
-
-        /**
-         * 设置拖动的局部。
-         */
-        handle: this,
-
-        /**
-         * 从鼠标按下到开始拖动的延时。
-         */
-        dragDelay: 500,
-
-        /**
-         * 设置是否自动滚动屏幕。
-         */
-        autoSrcoll: 50,
-
-        /**
-         * 实现拖动开始的逻辑。
-         * @param {Event} e 原生的 mousemove 事件。
-         */
-        dragStart: function (e) {
-            this.startOffset = this.elem.getOffset();
-            return !this.onDragStart || this.onDragStart(e);
-        },
-
-        /**
-         * 实现拖动中的逻辑。
-         * @param {Event} e 原生的 mousemove 事件。
-         */
-        dragMove: function (e) {
-            
-            // 更新目标偏移量。
-            this.endOffset = {
-                left: this.startOffset.left + this.endX - this.startX,
-                top: this.startOffset.top + this.endY - this.startY
-            };
-
-            // 调用用户的拖动回调并更新位置。
-            if (!this.onDragMove || this.onDragMove(e) !== false) {
-                this.elem.style.top = this.endOffset.top + 'px';
-                this.elem.style.left = this.endOffset.left + 'px';
-            }
-        },
-
-        /**
-         * 实现拖动结束的逻辑。
-         * @param {Event} e 原生的 mousemove 事件。
-         */
-        dragEnd: function (e) {
-            // 如果拖动结束被禁用，则恢复当前拖动滑块到原位置。
-            if (this.onDragEnd && this.onDragEnd(e) === false) {
-                this.elem.animate({
-                    left: this.startOffset.left + 'px',
-                    top: this.startOffset.top + 'px',
-                });
-            }
-            this.startOffset = this.endOffset = null;
-        },
-
-        /**
-         * 处理 mousedown 事件。
-         * 初始化拖动，当单击时，执行这个函数，但不触发 dragStart。
-         * 只有鼠标移动时才会继续触发 dragStart。
-         * @param {Event} e 事件参数。
-         */
-        handlerMouseDown: function (e) {
-
-            // 只处理左键拖动。
-            if (e.which === 1) {
-
-                // 阻止默认事件。
-                e.preventDefault();
-
-                // 如果当前正在拖动，通知当前拖动对象停止拖动。
-                if (Element.currentDraggable) {
-                    Element.currentDraggable.stopDragging(e);
-                }
-
-                // 记录当前的开始位置。
-                draggabe.endX = draggabe.startX = e.pageX;
-                draggabe.endY = draggabe.startY = e.pageY;
-
-                // 设置下一步处理句柄。
-                draggabe.currentHandler = draggabe.startDragging;
-
-                // 当用户仅按住鼠标指定时间，也认为开始拖动。
-                draggabe.timer = setTimeout(function () {
-                    draggabe.timer = 0;
-                    draggabe.currentHandler(e);
-                }, draggabe.dragDelay);
-
-                // 绑定拖动和停止拖动事件。
-                var doc = draggabe.elem.ownerDocument;
-                doc.on('mouseup', draggabe.handlerMouseUp);
-                doc.on('mousemove', draggabe.handlerMouseMove);
-
-            }
-
-        },
-
-        /**
-         * 处理 mousemove 事件。
-         * @param {Event} e 事件参数。
-         */
-        handlerMouseMove: function (e) {
-
-            // 阻止默认事件。
-            e.preventDefault();
-
-            // 自动滚动屏幕。
-            if (draggabe.autoSrcoll) {
-                var doc = draggabe.elem.ownerDocument,
-                    docSize = doc.getRect(),
-                    docScroll = doc.getScroll(),
-                    globalX = e.pageX - docScroll.left,
-                    globalY = e.pageY - docScroll.top,
-                    needScroll = false;
-
-                if (globalX > docSize.width - draggabe.autoSrcoll) {
-                    docScroll.left += draggabe.autoSrcoll;
-                    needScroll = true;
-                } else if (globalX < draggabe.autoSrcoll) {
-                    docScroll.left -= draggabe.autoSrcoll;
-                    needScroll = true;
-                }
-
-                if (globalY > docSize.height - draggabe.autoSrcoll) {
-                    docScroll.top += draggabe.autoSrcoll;
-                    needScroll = true;
-                } else if (globalY < draggabe.autoSrcoll) {
-                    docScroll.top -= draggabe.autoSrcoll;
-                    needScroll = true;
-                }
-
-                if (needScroll) {
-                    doc.setScroll(docScroll);
-                }
-            }
-
-            // 更新当前的鼠标位置。
-            draggabe.endX = e.pageX;
-            draggabe.endY = e.pageY;
-
-            // 调用当前的处理句柄来处理此函数。
-            draggabe.currentHandler(e);
-        },
-
-        /**
-         * 处理 mouseup 事件。
-         * @param {Event} e 事件参数。
-         * 这个函数调用 onDragEnd 和 afterDrag
-         */
-        handlerMouseUp: function (e) {
-            // 只有鼠标左键松开， 才认为是停止拖动。
-            if (e.which === 1) {
-                e.preventDefault();
-                draggabe.stopDragging(e);
-            }
-        },
-
-        /**
-         * 处理 mousedown 或 mousemove 事件。开始准备拖动。
-         * @param {Event} e 事件。
-         */
-        startDragging: function (e) {
-
-            // 设置当前正在拖动的对象。
-            Element.currentDraggable = draggabe;
-
-            // 清空计时器。
-            if (draggabe.timer) {
-                clearTimeout(draggabe.timer);
-                draggabe.timer = 0;
-            }
-
-            // 设置下次处理拖动的处理函数。
-            draggabe.currentHandler = draggabe.dragMove;
-
-            // 锁定鼠标样式。
-            draggabe.orignalCursor = document.documentElement.style.cursor;
-            document.documentElement.style.cursor = draggabe.elem.getStyle('cursor');
-            if ('pointerEvents' in document.body.style)
-                document.body.style.pointerEvents = 'none';
-            else if (document.body.setCapture)
-                document.body.setCapture();
-
-            // 执行开始拖动回调，如果用户阻止和强制停止拖动。
-            if (draggabe.dragStart(e) !== false) {
-                draggabe.dragMove(e, true);
-            } else {
-                draggabe.stopDragging(e);
-            }
-        },
-
-        /**
-         * 强制停止当前对象的拖动。
-         * @param {Event} e 事件。
-         */
-        stopDragging: function (e) {
-            var doc = this.elem.ownerDocument;
-            doc.off('mousemove', this.handlerMouseMove);
-            doc.off('mouseup', this.handlerMouseUp);
-
-            //   清空计时器。
-            if (this.timer) {
-                clearTimeout(this.timer);
-                this.timer = 0;
-            }
-
-            // 恢复鼠标样式。
-            if (document.body.style.pointerEvents === 'none')
-                document.body.style.pointerEvents = '';
-            else if (document.body.releaseCapture)
-                document.body.releaseCapture();
-            document.documentElement.style.cursor = this.orignalCursor;
-
-            // 拖动结束。
-            this.dragEnd(e);
-            Element.currentDraggable = null;
-
-        },
-
-        /**
-         * 销毁拖动对象。
-         */
-        destroy: function () {
-            draggabe.handle.off('mousedown', draggabe.handlerMouseDown);
-        }
-
-    }, key;
-
-    // 使用用户自定义配置覆盖默认配置。
-    for (key in options) {
-        draggabe[key] = options[key];
-    }
-
-    draggabe.handle.on('mousedown', draggabe.handlerMouseDown);
-
-    return draggabe;
-
+    return new Draggable(this, options);
 };
