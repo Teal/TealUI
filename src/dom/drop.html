@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>拖动</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="实现拖动。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/drag.js"></script>
+    <script type="text/javascript" src="../../src/dom/drop.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <style>
+        .doc-box {
+            cursor: move;
+        }
+    </style>
+    
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <div id="d1" class="doc-box">基本拖动</div>
+        <script>
+            document.getElementById('d1').setDraggable();
+        </script>
+    </aside>
+
+    <h2>拖动句柄</h2>
+    <aside class="doc-demo">
+        <div id="d2" class="doc-box"><button>拖动句柄</button></div>
+        <script>
+            document.getElementById('d2').setDraggable({
+                handle: document.getElementById('d2').querySelector('button')
+            });
+        </script>
+    </aside>
+
+    <h2>拖动回调</h2>
+    <aside class="doc-demo">
+        <div id="d3" class="doc-box">拖动回调</div>
+        <script>
+            document.getElementById('d3').setDraggable({
+                onDragStart: function (e) {
+                    this._text = this.elem.innerHTML;
+                },
+                onDragMove: function(e) {
+                    this.elem.innerHTML = this.endX + "," + this.endY;
+                },
+                onDragEnd: function (e) {
+                    this.elem.innerHTML = this._text;
+                }
+            });
+        </script>
+    </aside>
+
+    <h2>拖动步长</h2>
+    <aside class="doc-demo">
+        <div id="d4" class="doc-box">拖动步长</div>
+        <script>
+            document.getElementById('d4').setDraggable({
+                onDragMove: function (e) {
+                    var STHREH = 60;
+                    this.endOffset.left = this.startOffset.left + parseInt((this.endOffset.left - this.startOffset.left) / STHREH) * STHREH;
+                    this.endOffset.top = this.startOffset.top + parseInt((this.endOffset.top - this.startOffset.top) / STHREH) * STHREH;
+                }
+            });
+        </script>
+    </aside>
+    
+    <h2>拖动事件生命周期</h2>
+    
+    <p>拖动可以让用户根据意愿移动页面元素，拖动交互的具体流程为：鼠标（手指）按下，然后保持按下动作移动鼠标（手指），最后松开鼠标（手指），其中发生的事件分别为：</p>
+    
+    <ol>
+        <li><code>handlerMouseDown</code>：当鼠标（手指）按下，开始监听鼠标（手指）松开和移动事件。此时会记录 <code>startX</code> 和 <code>startY</code> 字段。</li>
+        <li><code>startDragging</code>：当鼠标（手指）按下保持 <code>dragDelay</code> 毫秒数（默认 300）或者第一次移动时，认为拖动开始。</li>
+        <li><code>dragStart</code>：记录 <code>startOffset</code> 字段。如果函数返回 <code>false</code>，则直接进入第 9 步。</li>
+        <li><code>onDragStart</code>：响应拖动开始事件。</li>
+        <li><code>handlerMouseMove</code>：鼠标移动时，记录 <code>endX</code> 和 <code>endY</code> 字段。</li>
+        <li><code>dragMove</code>：计算 <code>toOffset</code> 字段。</li>
+        <li><code>onDragMove</code>：响应拖动事件。</li>
+        <li><code>handlerMouseUp</code>：鼠标松开时，解绑所有事件。</li>
+        <li><code>stopDragging</code>：停止拖动，解绑所有事件。</li>
+        <li><code>dragEnd</code>：判断拖动是否合理并尝试还原位置。</li>
+        <li><code>onDragEnd</code>：响应拖动结束事件。</li>
+    </ol>
+
+    <!--<article class="demo">
+        <div id="drag">
+            <div id="d1" class="demo-box demo-blue">普通拖动</div>
+            <div id="d2" class="demo-box demo-purple">返回原地</div>
+            <div id="d3" class="demo-box demo-green">
+                <button>拖动句柄</button>
+            </div>
+            <div id="d4" class="demo-box demo-purple">多像素拖动</div>
+            <div id="d5" class="demo-box demo-indigo">限制位置</div>
+            <div id="d6" class="demo-box demo-blue">自动刷屏</div>
+        </div>
+        <script class="demo">
+
+            var d3 = Dom.get('d3');
+
+            Dom.draggable(d3, {
+                handle: Dom.find(d3, 'button')
+            });
+
+        </script>
+        <script class="demo">
+
+            var d4 = Dom.get('d4');
+
+            Dom.draggable(d4, true);
+
+            Dom.on(d4, 'drag', function (e) {
+
+                var STHREH = 60;
+                e.draggable.setStep('x', STHREH);
+                e.draggable.setStep('y', STHREH);
+            });
+
+        </script>
+        <script class="demo">
+
+            var d5 = Dom.get('d5');
+
+            Dom.draggable(d5);
+
+            Dom.on(d5, 'drag', function (e) {
+                e.draggable.limit(Dom.parent(this));
+            });
+
+        </script>
+        <script class="demo">
+
+            var d6 = Dom.get('d6');
+
+            Dom.draggable(d6)
+
+            Dom.on(d6, 'drag', function (e) {
+                e.draggable.autoScroll(document);
+
+            });
+
+
+        </script>
+    </article>-->
+</body>
+</html>

@@ -651,7 +651,7 @@ small.doc-list-hide, .doc-toolbar-module {
     display: none;
 }
 
-.doc-list-todo a {
+.doc-list-doing a, .doc-list-todo a {
     color: #AAA !important;
 }
 

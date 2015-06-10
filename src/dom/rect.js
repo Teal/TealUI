@@ -22,11 +22,8 @@ Document.prototype.getRect = Element.prototype.getRect = function () {
     var elem = this,
         doc = elem.ownerDocument || elem,
         html = doc.documentElement,
-        htmlScroll = doc.getScroll(),
-        result = {
-            left: htmlScroll.left,
-            top: htmlScroll.top
-        }, rect;
+        result = doc.getScroll(),
+        rect;
 
     // 对于 document，返回 scroll 。
     if (elem.nodeType === 9) {

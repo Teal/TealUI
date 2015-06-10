@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>滚动</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供滚动相关的 API。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/scroll.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <div style="height: 600px;">往下滚 ^-^</div>
+    <div id="elem" class="doc-box"></div>
+    <script>
+        var elem = document.getElementById('elem');
+    </script>
+
+    <h5>获取滚动父级</h5>
+    <pre>elem.getScrollParent();</pre>
+
+    <h5>判断是否在视图内</h5>
+    <pre>elem.isScrollIntoView();</pre>
+</body>
+</html>

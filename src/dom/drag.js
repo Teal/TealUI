@@ -2,8 +2,7 @@
  * @author xuld
  */
 
-// #require offset.js
-// #require base.js
+// #require rect
 
 /**
  * 初始化指定的元素为可拖动对象。

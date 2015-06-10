@@ -63,7 +63,7 @@ Element.prototype.pin = function (target, position, offsetX, offsetY, repinCallb
 
             // 如果超出边界和进行重置。
 
-            containerRect && (rect[leftOrTop] < containerRect[leftOrTop] || rect[leftOrTop] > containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight]) && (allowReset == undefined ? position & 9 : allowReset) && (!repinCallback || repinCallback(rect, position, offset, leftOrTop, widthOrHeight) !== false) && proc(position & 1 ? 8 : 1, offset, leftOrTop, widthOrHeight, !allowReset);
+            containerRect && (rect[leftOrTop] < containerRect[leftOrTop] || rect[leftOrTop] > containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight]) && (allowReset == undefined ? position & 9 : allowReset) && (!repinCallback || repinCallback.call(elem, rect, position, offset, leftOrTop, widthOrHeight) !== false) && proc(position & 1 ? 8 : 1, offset, leftOrTop, widthOrHeight, !allowReset);
 
         } else {
             rect[leftOrTop] += (targetRect[widthOrHeight] - rect[widthOrHeight]) / 2;

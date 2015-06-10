@@ -280,11 +280,13 @@
      * @param {String} eventName 要添加的事件名。
      * @param {String} [targetSelector] 代理目标节点选择器。
      * @param {Function} eventListener 要添加的事件监听器。
+     * @param {Object} [scope] 设置回调函数中 this 的指向。
      */
-    dp.on = ep.on = function (eventName, targetSelector, eventListener) {
+    dp.on = ep.on = function (eventName, targetSelector, eventListener, scope) {
 
         // 允许不传递 proxySelector 参数。
         if (!eventListener) {
+            scope = eventListener;
             eventListener = targetSelector;
             targetSelector = '';
         }
@@ -305,7 +307,7 @@
         // 2. 事件本身需要特殊过滤。
         // 3. 事件重复绑定。（通过代理令事件支持重复绑定）
         // 4. IE8: 默认事件绑定的 this 不正确。
-        if (/*@cc_on !+"\v1" || @*/targetSelector || fixer.filter || eventInfo.indexOf(eventListener) >= 0) {
+        if (/*@cc_on !+"\v1" || @*/targetSelector || scope || fixer.filter || eventInfo.indexOf(eventListener) >= 0) {
             actualListener = function (e) {
 
                 // 实际触发事件的节点。
@@ -324,7 +326,7 @@
                     return;
                 }
 
-                return eventListener.call(actucalTarget, e);
+                return eventListener.call(scope || actucalTarget, e);
 
             };
 

@@ -4,53 +4,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>懒加载</title>
-    <meta name="module-info" content="status=doing, status=todo, parent-title=DOM, parent-order=utility">
+    <meta name="module-info" content="parent-title=DOM, parent-order=utility">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="只在滚到到图片时才会真正加载图片。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/browser/base.js"></script>
-    <script type="text/javascript" src="../../../src/browser/lazyload.js"></script>
-
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/scroll.js"></script>
+    <script type="text/javascript" src="../../src/dom/lazyLoad.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
-    <article>
-
-        <div style="height: 2000px">
-            <img class="a" data-src="../../assets/resources/260x180.gif" width="500" height="300">
-        </div>
-        <div style="height: 300px">
-            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
-            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
-            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
-        </div>
-
-        <img data-src="http://img01.taobaocdn.com/imgextra/i1/78758424/T2WWGgXj4XXXXXXXXX_!!78758424.jpg" width="500" height="300">
-        <img data-src="http://img02.taobaocdn.com/tps/i2/T1Q6_wXlNgXXbvJKnq-236-76.gif" width="500" height="300">
-        <img data-src="http://img04.taobaocdn.com/tps/i4/T1_e_AXctXXXcWEyPo-228-68.jpg" width="500" height="300">
-        <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
-        <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
-
-
+    
+    <aside>
+        <img data-src="../../assets/resources/100x100.gif" alt="加载中...">
+        <div style="height: 1000px"></div>
+        <img data-src="../../assets/resources/260x180.gif" alt="加载中...">
         <script>
-            Dom.ready(function () {
-                Dom.query('img').lazyload();
-            })
-            Demo.writeExamples({
-                '懒加载': 'Browser.lazyload({target: document, offset: 0, show: function(){}, load: function(){}})' // 处理指定节点下的 data-src 属性。
-            });
+            document.lazyLoad();
         </script>
-
-
-    </article>
+    </aside>
     
     <h5>懒加载整个网页的图片</h5>
-    <p></p>
-
+    <pre>document.lazyLoad();</pre>
 </body>
 </html>

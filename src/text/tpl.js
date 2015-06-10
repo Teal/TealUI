@@ -1,5 +1,6 @@
 /**
  * @fileOverview 简单但完整的模板引擎。
+ * @author xuld
  */
 
 // 为了支持 foreach 模板使用的 Object.each 函数。
@@ -12,7 +13,7 @@
  * @remark 模板语法介绍:
  * 在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。
  * 如：
- *      hello {if a > 0} world {end}
+ *      hello {if a > 0} world {/if}
  * 其中 {if a > 0} 和 {end} 是模板内部使用的逻辑表达式，用于控制模板的输出内容。
  * 
  * 模板内可以使用的逻辑表达式有：
@@ -23,7 +24,7 @@
  *          这里是 else if 成功输出的文本 
  *      {else}
  *          这里是 else 成功输出的文本 
- *      {end}
+ *      {/if}
  * 
  * 2. for 语句
  *      {for(var key in obj)}
@@ -31,17 +32,17 @@
  *      {end}
  *      {for(var i = 0; i < arr.length; i++)}
  *          {循环输出的内容}
- *      {end}
+ *      {/for}
  * 
  * 3. while 语句
  *      {while 表达式}
  *          {循环输出的内容}
- *      {end}
+ *      {/while}
  * 
  * 4. function 语句
  *      {function fn(a, b)}
  *          {函数主体}
- *      {end}
+ *      {/function}
  * 
  * 5. var 语句
  *      {var a = 1, b = 2}
@@ -51,7 +52,7 @@
  *    其写法和 for 语句类似，和 for 语句最大的区别是 foreach 语句没有小括号。
  *      {foreach item in obj}
  *          {循环输出的内容}
- *      {end}
+ *      {/foreach}
  *    for each 语句同时支持类数组和对象，item 都表示遍历的值， $key 表示数组索引或对象键。
  *    在 for each 语句中，可以使用 $target 获取当前遍历的对象，使用 $key 获取循环变量值。
  *    存在嵌套 for each 时，它们分别表示最近的值，如需跨语句，可使用变量保存。
@@ -59,11 +60,11 @@
  *      {foreach item in obj}
  *          {if $key == 0}
  *              {continue}
- *          {end}
+ *          {/if}
  *          {foreach item2 in item}
  *              {item2}
- *          {end}
- *      {end}
+ *          {/foreach}
+ *      {/foreach}
  * 
  * 在模板内如果需要插入 { 和 } 本身，分别写成 {{ 和 }}。
  * 在模板内使用 $data 表示传递给 Tpl.parse 的第2个参数。

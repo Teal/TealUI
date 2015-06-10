@@ -6,8 +6,9 @@
 /**
  * 绑定键盘上下左右等常用事件。
  * @param {Object} options 绑定各个事件的处理器。
+ * @param {Object} [scope] 设置回调函数中 this 的指向。
  */
-Element.prototype.keyNav = function (options) {
+Element.prototype.keyNav = function (options, scope) {
     var elem = this,
         keyMap = {},
         key;
@@ -20,7 +21,7 @@ Element.prototype.keyNav = function (options) {
     elem.addEventListener('keydown', function (e) {
         var keyCode = e.keyCode;
         // 如果绑定了指定的键值。
-        if (keyMap[keyCode] && keyMap[keyCode].call(this, e) !== true) {
+        if (keyMap[keyCode] && keyMap[keyCode].call(scope || this, e) !== true) {
             e.preventDefault();
         }
     }, false);
@@ -30,7 +31,7 @@ Element.prototype.keyNav = function (options) {
     if (keyMap.enter || keyMap.ctrlEnter) {
         elem.addEventListener('keypress', function (e) {
             var keyCode = e.keyCode;
-            if ((keyCode === 13 || keyCode === 10) && keyMap[keyMap.ctrlEnter && e.ctrlKey ? 'ctrlEnter' : 'enter'].call(this, e) !== true) {
+            if ((keyCode === 13 || keyCode === 10) && keyMap[keyMap.ctrlEnter && e.ctrlKey ? 'ctrlEnter' : 'enter'].call(scope || this, e) !== true) {
                 e.preventDefault();
             }
         }, false);
@@ -39,7 +40,7 @@ Element.prototype.keyNav = function (options) {
     if (keyMap.other) {
         elem.addEventListener('keyup', function (e) {
             var keyCode = e.keyCode;
-            if (!keyMap[keyCode] && !(keyMap.enter && (keyCode === 13 || keyCode === 10)) && keyMap.other.call(this, e) !== true) {
+            if (!keyMap[keyCode] && !(keyMap.enter && (keyCode === 13 || keyCode === 10)) && keyMap.other.call(scope || this, e) !== true) {
                 e.preventDefault();
             }
         }, false);
