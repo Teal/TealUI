@@ -38,8 +38,8 @@
      * @returns {Object} 返回存储数据的字段。
      */
     Element.getData = function (elem) {
-        var dataId = elem.__dataId__ || (elem.__dataId__ = dataId++);
-        return datas[dataId] || (datas[dataId] = {});
+        var id = elem.__dataId__ || (elem.__dataId__ = dataId++);
+        return datas[id] || (datas[id] = {});
     };
 
     /**
@@ -283,9 +283,9 @@
      * @param {Object} [scope] 设置回调函数中 this 的指向。
      */
     dp.on = ep.on = function (eventName, targetSelector, eventListener, scope) {
-
+        
         // 允许不传递 proxySelector 参数。
-        if (!eventListener) {
+        if (targetSelector.constructor !== String) {
             scope = eventListener;
             eventListener = targetSelector;
             targetSelector = '';

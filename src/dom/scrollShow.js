@@ -3,7 +3,21 @@
  * @author xuld
  */
 
-// #require scroll
+// #require rect
+
+/**
+ * 判断当前元素是否在可见内范围内。
+ * @param {Element} [scrollParent=document] 滚动所在的容器。
+ */
+Element.prototype.isScrollIntoView = function (scrollParent) {
+    scrollParent = scrollParent || document;
+    var elem = this,
+        containerRect = scrollParent.getRect(),
+        currentRect = elem.getRect(),
+        deltaY = currentRect.top - containerRect.top,
+        deltaX = currentRect.left - containerRect.left;
+    return deltaY > 0 && deltaY < containerRect.height && deltaX > 0 && deltaX < containerRect.width;
+};
 
 /**
  * 设置滚动到当前指定节点时的回调。
@@ -18,7 +32,7 @@ Element.prototype.scrollShow = function (callback, scope, callbackMode, scrollPa
         container;
 
     callbackMode = callbackMode == 'once' ? 0 : callbackMode == 'every' ? 2 : 1;
-    scrollParent = scrollParent || elem.getScrollParent();
+    scrollParent = scrollParent || document;
     container = scrollParent.defaultView || scrollParent;
 
     container.addEventListener('scroll', scrollCallback, false);

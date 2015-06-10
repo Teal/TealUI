@@ -12,8 +12,13 @@
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
-    <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/dom/drag.js"></script>
+
+    <!-- 以下是本组件扩展的全部源码 -->
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/scrollTo.js"></script>
+    <script type="text/javascript" src="../../src/dom/scrollIntoView.js"></script>
+    <script type="text/javascript" src="../../src/dom/dragEx.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -60,20 +65,54 @@
         </script>
     </aside>
 
-    <h2>拖动步长</h2>
+    <h2>扩展功能：自动滚屏</h2>
     <aside class="doc-demo">
-        <div id="d4" class="doc-box">拖动步长</div>
+        <div id="d4" class="doc-box">自动滚屏</div>
         <script>
             document.getElementById('d4').setDraggable({
                 onDragMove: function (e) {
-                    var STHREH = 60;
-                    this.endOffset.left = this.startOffset.left + parseInt((this.endOffset.left - this.startOffset.left) / STHREH) * STHREH;
-                    this.endOffset.top = this.startOffset.top + parseInt((this.endOffset.top - this.startOffset.top) / STHREH) * STHREH;
+                    this.autoScroll(e);
                 }
             });
         </script>
     </aside>
-    
+
+    <h2>扩展功能：返回原地</h2>
+    <aside class="doc-demo">
+        <div id="d5" class="doc-box">返回原地</div>
+        <script>
+            document.getElementById('d5').setDraggable({
+                onDragEnd: function (e) {
+                    this.revert();
+                }
+            });
+        </script>
+    </aside>
+
+    <h2>扩展功能：拖动步长</h2>
+    <aside class="doc-demo">
+        <div id="d6" class="doc-box">拖动步长</div>
+        <script>
+            document.getElementById('d6').setDraggable({
+                onDragMove: function (e) {
+                    this.setStep(60);
+                }
+            });
+        </script>
+    </aside>
+
+    <h2>扩展功能：限制区域</h2>
+    <aside class="doc-demo">
+        <div id="d7" class="doc-box">限制区域</div>
+        <script>
+            document.getElementById('d7').setDraggable({
+                onDragMove: function (e) {
+                    this.limit(this.elem.parentNode.getRect());
+                }
+            });
+        </script>
+    </aside>
+
     <h2>拖动事件生命周期</h2>
     
     <p>拖动可以让用户根据意愿移动页面元素，拖动交互的具体流程为：鼠标（手指）按下，然后保持按下动作移动鼠标（手指），最后松开鼠标（手指），其中发生的事件分别为：</p>
@@ -91,65 +130,5 @@
         <li><code>dragEnd</code>：判断拖动是否合理并尝试还原位置。</li>
         <li><code>onDragEnd</code>：响应拖动结束事件。</li>
     </ol>
-
-    <!--<article class="demo">
-        <div id="drag">
-            <div id="d1" class="demo-box demo-blue">普通拖动</div>
-            <div id="d2" class="demo-box demo-purple">返回原地</div>
-            <div id="d3" class="demo-box demo-green">
-                <button>拖动句柄</button>
-            </div>
-            <div id="d4" class="demo-box demo-purple">多像素拖动</div>
-            <div id="d5" class="demo-box demo-indigo">限制位置</div>
-            <div id="d6" class="demo-box demo-blue">自动刷屏</div>
-        </div>
-        <script class="demo">
-
-            var d3 = Dom.get('d3');
-
-            Dom.draggable(d3, {
-                handle: Dom.find(d3, 'button')
-            });
-
-        </script>
-        <script class="demo">
-
-            var d4 = Dom.get('d4');
-
-            Dom.draggable(d4, true);
-
-            Dom.on(d4, 'drag', function (e) {
-
-                var STHREH = 60;
-                e.draggable.setStep('x', STHREH);
-                e.draggable.setStep('y', STHREH);
-            });
-
-        </script>
-        <script class="demo">
-
-            var d5 = Dom.get('d5');
-
-            Dom.draggable(d5);
-
-            Dom.on(d5, 'drag', function (e) {
-                e.draggable.limit(Dom.parent(this));
-            });
-
-        </script>
-        <script class="demo">
-
-            var d6 = Dom.get('d6');
-
-            Dom.draggable(d6)
-
-            Dom.on(d6, 'drag', function (e) {
-                e.draggable.autoScroll(document);
-
-            });
-
-
-        </script>
-    </article>-->
 </body>
 </html>

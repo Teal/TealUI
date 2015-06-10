@@ -9,7 +9,7 @@
 /**
  * 表示一个 JavaScript 模板解析器。
  * @class Tpl
- * @example Tpl.parse("{if $data === 1}OK{end}", 1); //=> OK
+ * @example Tpl.parse("{if $data === 1}OK{/if}", 1); //=> OK
  * @remark 模板语法介绍:
  * 在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。
  * 如：

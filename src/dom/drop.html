@@ -19,72 +19,28 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    <style>
-        .doc-box {
-            cursor: move;
-        }
-    </style>
-    <div id="drag">
-        <div id="d1" class="demo-box-small demo-blue">1</div>
-        <div id="d2" class="demo-box-small demo-purple">2</div>
-        <div id="d3" class="demo-box-small demo-indigo">3</div>
-        <div id="d4" class="demo-box-small demo-green">4</div>
-        <div id="d5" class="demo-box-small demo-purple">5</div>
-        <div id="d6" class="demo-box-small demo-indigo">6</div>
-        <div id="d7" class="demo-box-small demo-blue">7</div>
-    </div>
-    <div id="drop">
-        <div id="z1" class="zone"></div>
-        <div id="z2" class="zone"></div>
-        <div id="z3" class="zone"></div>
-    </div>
-    <script class="demo">
-
-        // 让 小方块 可拖动。
-        Dom.query('.demo-box-small').draggable(true).forEach(function (elem) {
-            Dom.on(elem, 'dragstart', function (e) {
-                // 拖动前先创建一个副本。
-                e.draggable.proxy = Dom.append(Dom.find('#drag'), Dom.clone(e.draggable.elem));
-                Dom.addClass(e.draggable.proxy, 'drag-proxy');
-                Dom.setPosition(e.draggable.proxy, Dom.getPosition(this));
+   
+    <aside class="doc-demo">
+        <div id="drag" style="cursor: move;" class="doc-box doc-box-small"></div>
+        <div id="drop" style="height: 60px;padding: 10px;border: 1px #C6D880 solid; margin-bottom: 30px;"></div>
+        <script>
+            
+            document.getElementById('drop').setDroppable({
+                onDragEnter: function (draggable) {
+                    draggable.elem.classList.add('doc-red');
+                    this.elem.style.backgroundColor = '#eee';
+                },
+                onDrop: function() {
+                    trace('拖放成功');
+                },
+                onDragLeave: function (draggable) {
+                    draggable.elem.classList.remove('doc-red');
+                    this.elem.style.backgroundColor = '';
+                }
             });
 
-            Dom.on(elem, 'dragend', function (e) {
-                // 拖动前先创建一个副本。
-                Dom.remove(e.draggable.proxy);
-            });
-        });
-
-        // 拖入之后，创建虚位。
-        Dom.query('.zone').forEach(function (elem) {
-            Dom.on(elem, 'dragenter', function (e) {
-
-                // 在 zone 创建虚线放开。
-                e.draggable.hover = Dom.parseNode('<div class="demo-box-small hover"></div>');
-                Dom.setHtml(e.draggable.hover, e.draggable.elem.id.substr(1));
-                Dom.append(this, e.draggable.hover);
-
-                // 拖到外面时，隐藏虚位。
-            });
-
-            Dom.on(elem, 'dragleave', function (e) {
-
-                // 删除虚线。
-                Dom.remove(e.draggable.hover);
-
-            });
-
-            Dom.on(elem, 'drop', function (e) {
-
-                // 放置时，隐藏虚位，并添加方块。
-                Dom.remove(e.draggable.hover);
-                Dom.append(this, e.draggable.elem);
-                Dom.setOffset(e.draggable.elem, { x: 0, y: 0 });
-            });
-
-        });
-
-    </script>
-
+            document.getElementById('drag').setDraggable();
+        </script>
+    </aside>
 </body>
 </html>

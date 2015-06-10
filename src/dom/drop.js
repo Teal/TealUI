@@ -1,9 +1,15 @@
 /**
+ * @fileOverview 实现拖放功能。
  * @author xuld
  */
 
-// #require dom/drag.js
+// #require drag
 
+/**
+ * 创建一个新的可拖放区域。
+ * @param {Element} elem 要拖放的元素。
+ * @param {Object} options 用户覆盖可拖动对象的配置。
+ */
 function Droppable(elem, options) {
 
     this.elem = elem;
@@ -17,6 +23,9 @@ function Droppable(elem, options) {
 
 }
 
+/**
+ * 存储所有拖放区域实例的数组。
+ */
 Droppable.instances = [];
 
 Droppable.prototype = {
@@ -24,82 +33,88 @@ Droppable.prototype = {
     constructor: Droppable,
 
     /**
-     * 设置当前拖放的节点。
+     * 当前拖放的节点。
+     * @type {Element}
      */
     elem: null,
 
     /**
+     * 判断是否有拖动对象正在当前拖放区域内。
+     * @type {Number}
+     */
+    active: false,
+
+    /**
      * 处理拖动开始事件。
-     * @param {Draggable} draggable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
     dragStart: function (draggable, e) {
         this.rect = this.elem.getRect();
         this.rect.right = this.rect.left + this.rect.width;
         this.rect.bottom = this.rect.top + this.rect.height;
-        return !this.onDragStart || this.onDragStart(draggable);
+        return !this.onDragStart || this.onDragStart(draggable, e);
     },
 
     /**
      * 处理拖动移动事件。
-     * @param {Draggable} draggable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    dragMove: function (draggable) {
-        return !this.onDragMove || this.onDragMove(draggable);
+    dragMove: function (draggable, e) {
+        return this.onDragMove && this.onDragMove(draggable, e);
     },
 
     /**
      * 处理拖动进入事件。
-     * @param {Draggable} droppable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    dragEnter: function (draggable) {
-        return !this.onDragEnter || this.onDragEnter(draggable);
+    dragEnter: function (draggable, e) {
+        return !this.onDragEnter || this.onDragEnter(draggable, e);
     },
 
     /**
      * 处理拖动进入后移动事件。
-     * @param {Draggable} droppable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    dragOver: function (draggable) {
-        return !this.onDragOver || this.onDragOver(draggable);
+    dragOver: function (draggable, e) {
+        return !this.onDragOver || this.onDragOver(draggable, e);
     },
 
     /**
      * 处理拖动离开事件。
-     * @param {Draggable} droppable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    dragLeave: function (draggable) {
-        return !this.onDragLeave || this.onDragLeave(draggable);
+    dragLeave: function (draggable, e) {
+        return !this.onDragLeave || this.onDragLeave(draggable, e);
     },
 
     /**
      * 处理拖放事件。
-     * @param {Draggable} droppable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    drop: function (draggable) {
-        return !this.onDrop || this.onDrop(draggable);
+    drop: function (draggable, e) {
+        return !this.onDrop || this.onDrop(draggable, e);
     },
 
     /**
      * 处理拖动结束事件。
-     * @param {Draggable} droppable 拖放物件。
+     * @param {Draggable} draggable 当前正在拖动的对象。
      * @param {Event} e 事件参数。
      */
-    dragEnd: function (draggable) {
-        return !this.onDragEnd || this.onDragEnd(draggable);
+    dragEnd: function (draggable, e) {
+        return !this.onDragEnd || this.onDragEnd(draggable, e);
     },
 
     /**
-     * 判断当前的 bound 是否在指定点和大小表示的矩形是否在本区范围内。
-     * @param {Draggable} draggable 拖放物件。
-     * @return {Boolean} 在上面返回 true。
+     * 判断当前拖放对象是否包含指定的拖动对象。
+     * @returns {Boolean} 指示拖放结果。
      */
-    check: function (draggable) {
+    contains: function (draggable) {
         return this.rect.left <= draggable.endX && draggable.endX <= this.rect.right && this.rect.top <= draggable.endY && draggable.endY <= this.rect.bottom;
     },
 
@@ -113,6 +128,7 @@ Droppable.prototype = {
 
 };
 
+// 修改拖动对象使其支持拖放。
 Draggable.prototype._dragStart = Draggable.prototype.dragStart;
 Draggable.prototype._dragMove = Draggable.prototype.dragMove;
 Draggable.prototype._dragEnd = Draggable.prototype.dragEnd;
@@ -120,54 +136,61 @@ Draggable.prototype._dragEnd = Draggable.prototype.dragEnd;
 Draggable.prototype.dragStart = function (e) {
     this._dragStart(e);
 
-    Draggable.availableDroppables = Droppable.instances.filter(function (droppable) {
+    Draggable.droppables = Droppable.instances.filter(function (droppable) {
+        this.active = false;
         return droppable.dragStart(this, e) !== false;
     }, this);
-    Draggable.droppableFlags = [];
-    Draggable.droppables = [];
 
 };
 
 Draggable.prototype.dragMove = function (e) {
     var me = this,
         i = 0,
-        droppables = me.droppables,
-        availableDroppables = me.availableDroppables,
-        droppableFlags = me.droppableFlags,
-        droppable,
-        eventProcess = true;
+        droppables = Draggable.droppables,
+        droppable;
 
     me._dragMove(e);
 
-    while (i < availableDroppables.length) {
-        droppable = availableDroppables[i];
-        if (eventProcess && droppable.check(me)) {
-            if (droppableFlags[i])
-                droppable.onDragOver(me, e);
-            else {
-                droppableFlags[i] = true;
-                eventProcess = droppable.onDragEnter(me, e) !== false;
-                droppables.push(droppable);
-            }
+    for (; i < droppables.length ; i++) {
+        droppable = droppables[i];
 
-        } else if (droppableFlags[i]) {
-            droppableFlags[i] = false;
-            droppable.onDragLeave(me, e);
-            droppables.remove(droppable);
+        if (droppable.dragMove(me, e) !== false) {
+
+            // 如果进入了当前区域。
+            if (droppable.contains(me)) {
+                if (droppable.active) {
+                    droppable.dragOver(me, e);
+                } else if (droppable.dragEnter(me, e) !== false) {
+                    droppable.active = true;
+                }
+            } else if (droppable.active) {
+                droppable.dragLeave(me, e);
+                droppable.active = false;
+            }
         }
-        i++;
+
     }
+
 };
 
 Draggable.prototype.dragEnd = function (e) {
     this._dragEnd(e);
 
-    var me = this;
-    afterDrag.call(me, e);
-    me.droppables.forEach(function (droppable) {
-        droppable.onDrop(me, e);
-    });
-    me.droppableFlags = me.availableDroppables = null;
+    var me = this,
+        i = 0,
+        droppables = Draggable.droppables,
+        droppable;
+
+    for (; i < droppables.length ; i++) {
+        droppable = droppables[i];
+
+        if (droppable.dragEnd(me, e) !== false && droppable.active) {
+            droppable.drop(me, e);
+        }
+    }
+
+    Draggable.droppables = null;
+    
 };
 
 /**

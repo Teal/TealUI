@@ -23,7 +23,10 @@
         var elem = document.getElementById('elem');
         elem.scrollShow(function () { trace('滚动到了') });
     </script>
-    
+
+    <h5>判断是否在视图内</h5>
+    <pre>elem.isScrollIntoView();</pre>
+
     <h5>每次滚动到元素时回调</h5>
     <pre>elem.scrollShow(function(){trace('滚动到了')});</pre>
 
