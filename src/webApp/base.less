@@ -59,11 +59,11 @@
     bottom: 0;
     height: @footer-height - 1px;
     border-top: 1px solid @border-color;
-    .flex();
+    display: table;
 
     a {
-        -ms-flex: 1;
-        flex: 1;
+        display: table-cell;
+        width: 10000px;
         text-align: center;
         color: @tip-text-color;
         text-decoration: none;
@@ -165,20 +165,20 @@
     margin-left: 10px;
     padding: 5px 10px 5px 0;
     border-top: 1px solid @border-color;
-    .flex();
+    display: table;
 }
 
 .x-page-list-left, .x-page-list-center, .x-page-list-right {
-    flex: 1;
+    display: table-cell;
     vertical-align: middle;
 }
 
 .x-page-list-left {
     padding-right: 5px;
+
     .x-icon {
         font-size: 20px;
     }
-
 }
 
 .x-page-list-center {
@@ -186,12 +186,15 @@
 }
 
 .x-page-list-right {
-    flex: auto;
     padding-left: 5px;
     color: @disabled-text-color;
 }
 
-.x-page-list-right-top {
+.x-page-list-align-right {
+    text-align: right;
+}
+
+.x-page-list-align-top {
     vertical-align: top;
 }
 
