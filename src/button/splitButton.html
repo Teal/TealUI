@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>分隔按钮</title>
-    <meta name="module-info" content="status=doing, order=menuButton">
+    <meta name="module-info" content="status=done, order=menuButton">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="两个按钮组合成一个分割按钮。">
 
@@ -14,28 +14,19 @@
     <link rel="stylesheet" type="text/css" href="../../src/button/buttonGroup.css" />
     <link rel="stylesheet" type="text/css" href="../../src/button/splitButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/menu/menu.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/popover/menu.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
 
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
-    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/contentcontrol.js"></script>
-    <script type="text/javascript" src="../../src/core/listcontrol.js"></script>
-    <script type="text/javascript" src="../../src/core/iinput.js"></script>
-    <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
-    <script type="text/javascript" src="../../src/button/button.js"></script>
-    <script type="text/javascript" src="../../src/button/menubutton.js"></script>
-    <script type="text/javascript" src="../../src/button/splitbutton.js"></script>
-
-    <!-- 以下文件仅用于演示 -->
-    <script type="text/javascript" src="../../src/core/treecontrol.js"></script>
-    <script type="text/javascript" src="../../src/menu/menu.js"></script>
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+    <script type="text/javascript" src="../../src/control/dropDown.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../src/popover/menu.js"></script>
+    <script type="text/javascript" src="../../src/button/splitButton.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -43,13 +34,19 @@
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <span class="x-splitbutton x-buttongroup">
+        <span class="x-splitbutton x-buttongroup" data-role="splitButton">
             <button type="button" class="x-button" x-menubutton="menu=#button">菜单</button>
             <button type="button" class="x-button" x-menubutton="menu=#button"><i class="x-icon">&#9662;</i></button>
         </span>
+        <menu class="x-menu x-dropdown">
+            <li><a href="###">菜单 1</a></li>
+            <li><a href="###">菜单 2</a></li>
+            <li><hr /></li>
+            <li><a href="###">菜单 3</a></li>
+        </menu>
     </aside>
 
-    <article>
+    <!--<article>
 
         <h2>JavaScript 方式</h2>
 
@@ -101,7 +98,7 @@
 
         </section>
 
-    </article>
+    </article>-->
 
     <!--<article>
 
@@ -118,13 +115,13 @@
 
     </article>-->
 
-    <article>
+    <!--<article>
 
         <h2>API</h2>
 
         <p>分别参考 <a href="../Menu/Menu.html">Menu</a> 和 <a href="Button.html">Button</a> 的 API 。</p>
 
-    </article>
+    </article>-->
 
 
 </body>

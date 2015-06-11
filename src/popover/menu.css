@@ -2,7 +2,8 @@
   display: inline-block;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  min-width: 240px;
+  min-width: 120px;
+  max-width: 288px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -13,7 +14,8 @@
   padding: 2px 8px;
 }
 .x-menu > li > a:hover {
-  background-color: #f5f5f5;
+  background-color: #337ab7;
+  color: #ffffff;
   text-decoration: none;
 }
 .x-menu hr {

@@ -208,12 +208,19 @@
                 var firedInTouch = false;
 
                 elem.addEventListener(this.bindType, eventListener.proxyHandler = function (e) {
-                    var doc = elem.ownerDocument || elem;
-                    doc.addEventListener('touchend', function (e) {
-                        doc.removeEventListener('touchend', arguments.callee, true);
-                        firedInTouch = true;
-                        return eventListener.call(elem, e);
-                    }, true);
+                    if (e.changedTouches.length === 1) {
+                        var touchX = e.changedTouches[0].pageX,
+                            touchY = e.changedTouches[0].pageY;
+                        elem.addEventListener('touchend', function (e) {
+                            elem.removeEventListener('touchend', arguments.callee, true);
+                            touchX -= e.changedTouches[0].pageX;
+                            touchY -= e.changedTouches[0].pageY;
+                            if (touchX * touchX + touchY * touchY <= 25) {
+                                firedInTouch = true;
+                                return eventListener.call(elem, e);
+                            }
+                        }, true);
+                    }
                 }, false);
 
                 elem.addEventListener(eventName, eventListener.orignalHandler = function (e) {

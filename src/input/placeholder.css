@@ -2,5 +2,6 @@
   position: absolute;
   padding: 5px 9px;
   cursor: text;
-  color: #aaaaaa;
+  color: #bdbdbd;
+  pointer-events: none;
 }

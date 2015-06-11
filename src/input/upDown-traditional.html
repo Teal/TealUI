@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>上下按钮文本框(传统风格)</title>
-    <meta name="module-info" content="status=doing, order=upDown, group=upDown">
+    <meta name="module-info" content="order=upDown, group=upDown">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供上下按钮的文本框。按钮显示在文本框右边。">
 
@@ -15,13 +15,21 @@
     <link rel="stylesheet" type="text/css" href="../../src/input/textBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/picker.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/upDown-traditional.css" />
+
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
+    <script type="text/javascript" src="../../src/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../../src/input/upDown.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
     <aside class="doc-demo">
-        <span class="x-picker x-updown">
+        <span class="x-picker x-updown" data-role="upDown">
             <input type="text" class="x-textbox">
             <button class="x-button x-updown-up"><i class="x-icon">&#9652;</i></button>
             <button class="x-button x-updown-down"><i class="x-icon">&#9662;</i></button>

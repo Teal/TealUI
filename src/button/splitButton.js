@@ -6,40 +6,23 @@
 // #require ui/button/splitbutton.css
 // #require ui/button/menubutton.js
 
-var SplitButton = MenuButton.extend({
+var SplitButton = Control.extend({
 
-	cssClass: 'x-splitbutton',
-
-	tpl: '<span class="{cssClass} x-buttongroup">\
-				<button class="x-button"></button>\
-				<button class="x-button"><span class="x-menubutton-arrow x-menubutton-arrow-down"></span></button>\
-			</span>',
-
-	content: function () {
-		return Dom.find('.x-button', this.elem);
-	},
-
-	input: function () {
-		return this.content();
-	},
-
-	state: function (name, value) {
-		if (name == "disabled") {
-			Dom.query('.x-button', this.elem).forEach(function (elem) {
-				Dom.setAttr(elem, name, value);
-				Dom.toggleClass(elem, 'x-button-disabled', value);
-			});
-		} else if (name == "actived") {
-			Dom.toggleClass(Dom.last(this.elem, '.x-button'), 'x-button-actived', value !== false);
-		} else {
-			MenuButton.prototype.state.call(this, name, value);
-		}
-
-	},
-
-	init: function () {
-		this.setDropDown(this.createDropDown(Dom.next(this.elem, '.x-dropdown')));
-		Dom.on(Dom.find('>.x-button:last-child', this.elem), 'click', this.toggleDropDown, this);
-	}
+    init: function () {
+        var me = this;
+        me.dropDown = Control.get(me.elem.nextElementSibling, 'dropDown', {
+            target: me.elem.querySelector('.x-button:last-child')
+        });
+        me.dropDown.on('show', function () {
+            me.dropDown.elem.pin(me.elem, 'bl');
+            me.elem.querySelector('.x-button:last-child').classList.add('x-button-actived');
+        });
+        me.dropDown.on('hide', function () {
+            me.elem.querySelector('.x-button:last-child').classList.remove('x-button-actived');
+        });
+        me.dropDown.elem.on('click', function () {
+            me.dropDown.hide();
+        });
+    }
 
 });

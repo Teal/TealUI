@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>用于填数字的控件</title>
-    <meta name="module-info" content="status=doing, order=upDown">
+    <meta name="module-info" content="status=done, order=upDown">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+    <meta name="description" content="提供上下按钮的数字输入文本框。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -16,51 +16,45 @@
     <link rel="stylesheet" type="text/css" href="../../src/input/inputGroup.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/upDown.css" />
 
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
-    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
-    <script type="text/javascript" src="../../src/core/iinput.js"></script>
-    <script type="text/javascript" src="../../src/suggest/picker.js"></script>
-    <script type="text/javascript" src="../../src/suggest/updown.js"></script>
-    <script type="text/javascript" src="../../src/suggest/numericupdown.js"></script>
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
+    <script type="text/javascript" src="../../src/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../../src/input/upDown.js"></script>
+    <script type="text/javascript" src="../../src/input/numericUpDown.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
 
+    <h2>基本用法</h2>
     <aside class="doc-demo">
-        <span class="x-updown x-inputgroup">
+        <span class="x-updown x-inputgroup" data-role="numericUpDown">
             <button class="x-button x-updown-up"><i class="x-icon">&#9473;</i></button>
-            <input type="text" class="x-textbox">
+            <input type="text" class="x-textbox" value="0">
             <button class="x-button x-updown-down"><i class="x-icon">&#10010;</i></button>
         </span>
     </aside>
 
-    <article>
+    <h2>设置步长</h2>
+    <aside class="doc-demo">
+        <span class="x-updown x-inputgroup" data-role="numericUpDown" data-step="5">
+            <button class="x-button x-updown-up"><i class="x-icon">&#9473;</i></button>
+            <input type="text" class="x-textbox" value="0">
+            <button class="x-button x-updown-down"><i class="x-icon">&#10010;</i></button>
+        </span>
+    </aside>
 
-        <aside class="doc-demo">
-
-            <span class="x-picker x-updown" id="numericUpDown">
-                <input type="text" class="x-textbox">
-                <button type="button" class="x-button x-updown-button-up">
-                    <span class="x-menubutton-arrow"></span>
-                </button>
-                <button type="button" class="x-button x-updown-button-down">
-                    <span class="x-menubutton-arrow"></span>
-                </button>
-            </span>
-
-            <script>
-                var numericUpDown = new NumericUpDown('#numericUpDown');
-            </script>
-
-        </aside>
-
-    </article>
+    <h2>纯 HTML 实现</h2>
+    <aside class="doc-demo">
+        <span class="x-updown x-inputgroup">
+            <button class="x-button x-updown-up" onclick="this.nextSibling.nextSibling.value--"><i class="x-icon">&#9473;</i></button>
+            <input type="text" class="x-textbox" value="0">
+            <button class="x-button x-updown-down" onclick="this.previousSibling.previousSibling.value++"><i class="x-icon">&#10010;</i></button>
+        </span>
+    </aside>
 
 </body>
 </html>

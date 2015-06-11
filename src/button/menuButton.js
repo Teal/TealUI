@@ -2,49 +2,26 @@
  * @author  xuld
  */
 
-// #require ui/button/menubutton.css
-// #require ui/core/idropdownowner.js
-// #require ui/button/button.css
-// #require ui/core/iinput.js
-// #require ui/core/contentcontrol.js
-// #require ui/core/listcontrol.js
+// #require ../control/base
+// #require ../control/dropDown
 
-var MenuButton = Control.extend(IDropDownOwner).implement(IInput).implement({
-	
-	cssClass: 'x-menubutton',
-	
-	tpl: '<button class="x-button {cssClass}" type="button"><span class="{cssClass}-arrow"></span></button>',
-	
-	createDropDown: function (existDom) {
-		if(existDom && !Dom.hasClass(existDom, 'x-menu')){
-			return existDom;
-		}
-		//assert(window.Menu, "必须载入 Controls.Menu.Menu 组件才能初始化 x-menu 的菜单项。");
-		existDom = new Menu(existDom);
-		Dom.on(existDom.elem, 'click', this.onDropDownClick, this);
-		return existDom;
+var MenuButton = Control.extend({
 
-	},
-	
-	init: function () {
-	    this.setDropDown(this.createDropDown(Dom.next(this.elem, '.x-dropdown')));
-	    Dom.on(this.elem, 'click', this.toggleDropDown, this);
-	},
-	
-	onDropDownShow: function(){
-	    this.state('actived', true);
-	    IDropDownOwner.onDropDownShow.apply(this, arguments);
-	},
-	
-	onDropDownHide: function(){
-	    this.state('actived', false);
-	    IDropDownOwner.onDropDownHide.apply(this, arguments);
-	},
-	
-	onDropDownClick: function(){
-		this.hideDropDown();
-	}
-	
+    init: function () {
+        var me = this;
+        me.dropDown = Control.get(me.elem.nextElementSibling, 'dropDown', {
+            target: me.elem
+        });
+        me.dropDown.on('show', function () {
+            me.dropDown.elem.pin(me.elem, 'bl');
+            me.elem.classList.add('x-button-actived');
+        });
+        me.dropDown.on('hide', function () {
+            me.elem.classList.remove('x-button-actived');
+        });
+        me.dropDown.elem.on('click', function() {
+            me.dropDown.hide();
+        });
+    }
+
 });
-
-ListControl.alias(MenuButton, 'getDropDown');
