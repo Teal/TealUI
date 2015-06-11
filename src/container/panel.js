@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../control/base.js
+// #require ../control/base
 
 /**
  * 表示一个面板。
@@ -13,9 +13,9 @@ var Panel = Control.extend({
 
     init: function () {
         if (this.elem.classList.contains('x-panel-collapsed') || this.elem.classList.contains('x-panel-expanded')) {
-            Dom.on(this.elem, 'click', '.x-panel-header', function () {
+            this.elem.on('click', '.x-panel-header', function () {
                 this.toggleCollapse();
-            }.bind(this));
+            }, this);
         }
     },
 
@@ -53,7 +53,7 @@ var Panel = Control.extend({
 
             if (value) {
                 classList.add('x-panel-collapsing');
-                Dom.hide(body, 'height', function () {
+                body.hide('height', function () {
                     classList.add('x-panel-collapsed');
                     classList.remove('x-panel-collapsing');
                     classList.remove('x-panel-expanded');
@@ -61,7 +61,7 @@ var Panel = Control.extend({
             } else {
                 classList.add('x-panel-expanded');
                 classList.remove('x-panel-collapsed');
-                Dom.show(body, 'height');
+                body.show('height');
             }
 
             this.trigger('collapse', value);

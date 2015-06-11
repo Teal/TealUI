@@ -16,22 +16,17 @@
     <link rel="stylesheet" type="text/css" href="../../src/input/picker.css" />
 
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
-    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
-    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/idropdownowner.js"></script>
-    <script type="text/javascript" src="../../src/core/iinput.js"></script>
-    <script type="text/javascript" src="../../src/core/listcontrol.js"></script>
-    <script type="text/javascript" src="../../src/suggest/picker.js"></script>
-    <script type="text/javascript" src="../../src/suggest/dropdownmenu.js"></script>
-    <script type="text/javascript" src="../../src/suggest/combobox.js"></script>
+
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/control/dropDown.js"></script>
+    <script type="text/javascript" src="../../src/control/input.js"></script>
+    <script type="text/javascript" src="../../src/input/picker.js"></script>
+    <script type="text/javascript" src="../../src/input/comboBox.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -43,6 +38,13 @@
             <input type="text" class="x-textbox" />
             <button class="x-button"><i class="x-icon">&#9662;</i></button>
         </span>
+        <ul class="x-listbox x-dropdown" data-role="dropDownMenu">
+            <li><a href="###">菜单 1</a></li>
+            <li class="x-listbox-selected"><a href="###">菜单 2</a></li>
+            <li>
+                <a href="###">菜单 3</a>
+            </li>
+        </ul>
     </aside>
 
     <article>

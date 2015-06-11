@@ -2,47 +2,30 @@
  * @author xuld
  */
 
-// #require ui/suggest/charcounter.css
-// #require ui/core/base.js
+// #require ../control/base
 
 var CharCounter = Control.extend({
 
-	maxLength: 300,
+    maxLength: 300,
 
-	cssClass: 'x-charcounter',
+    target: null,
 
-	tpl: '<span class="{cssClass}"></span>',
-
-	message: '还可以输入<span class="{cssClass}-success"> {value} </span>个字符',
-
-	errorMessage: '已超过<span class="{cssClass}-error"> {value} </span>个字符',
-
-    update: function () {
-    	var len = Dom.getText(this.target).length - this.maxLength;
-        if (len > 0) {
-        	Dom.setHtml(this.elem, String.format(this.errorMessage, {
-        		cssClass: this.cssClass,
-        		value: len,
-        		maxLength: this.maxLength
-        	}));
-        } else {
-        	Dom.setHtml(this.elem, String.format(this.message, {
-        		cssClass: this.cssClass,
-        		value: -len,
-        		maxLength: this.maxLength
-        	}));
-        }
+    init: function() {
+        var me = this;
+        me.target = document.query(me.target);
+        me.tpl = me.elem.innerHTML;
+        me.target.on('keyup', me.update, me);
+        me.update();
     },
 
-    constructor: function (target, maxLength, tip) {
-        this.target = target = Dom.find(target);
-        if (maxLength)
-            maxLength = this.maxLength;
-        this.elem = tip = Dom.find(tip) || Dom.nextAll(target, '.x-charcounter')[0] || Dom.prevAll(target, '.x-charcounter')[0] || Dom.after(target, this.create());
+	update: function () {
+	    var me = this,
+            length = me.target.value.length,
+	        left = me.maxLength - length;
 
-        setInterval(this.update.bind(this), 10);
+	    me.elem.classList[left >= 0 ? 'remove' : 'add']('x-tip-error');
+	    me.elem.innerHTML = me.tpl.replace('{input}', length).replace('{total}', me.maxLength).replace('{left}', left);
 
-        this.update();
     }
 
 });

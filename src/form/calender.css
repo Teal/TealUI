@@ -21,7 +21,6 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
   left: 0;
   top: 0;
 }
@@ -61,6 +60,11 @@
   height: 137.5px;
   position: relative;
   overflow: hidden;
+}
+.x-calender-body > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .x-calender-time,
 .x-calender-footer {

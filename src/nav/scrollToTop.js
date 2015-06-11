@@ -2,36 +2,36 @@
  * @author xuld
  */
 
-// #require fx/animate.js
-// #require ui/core/base.js
+// #require ../control/base
+// #require ../dom/animate
+// #require ../dom/scrollTo
+// #require ../dom/rect
 
 var ScrollToTop = Control.extend({
+    
+    /**
+     * 渐变显示的特效时间。
+     */
+    toggleDuration: 100,
 
-    tpl: '<a href="#" class="x-scrolltotop" title="返回顶部">返回顶部</a>',
-
-    showDuration: -1,
-
-    scrollDuration: -1,
+    scrollDuration: 100,
 
     minScroll: 130,
-
-    onClick: function (e) {
-    	e.preventDefault();
-    	Dom.animate(document, { scrollTop: 0 }, this.scrollDuration);
-    },
-
-    init: function (options) {
-        
-        Dom.on(document, 'scroll', function () {
-        	if (Dom.getScroll(document).y > this.minScroll) {
-        		Dom.show(this.elem, this.showDuration);
+    
+    init: function () {
+        var me = this;
+        window.addEventListener('scroll', function () {
+            var isHidden = me.elem.isHidden();
+            if (document.getScroll().top > me.minScroll) {
+                isHidden && me.elem.show('opacity', null, me.toggleDuration);
             } else {
-        		Dom.hide(this.elem, this.showDuration);
+                !isHidden && me.elem.hide('opacity', null, me.toggleDuration);
             }
-        }, this);
-        Dom.on(this.elem, 'click', this.onClick, this);
-		
-        Dom.render(this.elem);
+        }, false);
+        me.elem.on('click', function (e) {
+            e.preventDefault();
+            document.scrollTo(null, 0, me.scrollDuration);
+        });
     }
 
 });

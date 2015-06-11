@@ -2,42 +2,52 @@
  * @author xuld
  */
 
-// #require base.js
-// #require ../dom/animate.js
+// #require base
+// #require ../dom/pin
+// #require ../dom/animate
 
 var DropDown = Control.extend({
 
     /**
      * 获取或设置当前下拉菜单的目标。
      */
-    target: null,
+    target: undefined,
+
+    /**
+     * 渐变显示的特效时间。
+     */
+    toggleDuration: 150,
+
+    /**
+     * 当前工具提示和目标文本的距离。
+     */
+    distance: -1,
 
     init: function () {
-        this.setDropDown(Dom.find(this.target) || this.elem.previousElementSibling);
+        this.target !== null && this.setDropDown(document.query(this.target) || this.elem.previousElementSibling);
     },
-
-    toggleDuration: 150,
 
     /**
      * 设置指定元素的弹出菜单。
      */
     setDropDown: function (target) {
         this.target = target;
-        target && Dom.on(target, 'click', this.toggle.bind(this));
+        target && target.on('click', this.toggle, this);
     },
     
     /**
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
     onShow: function (e) {
-        Dom.show(this.elem, 'opacity', null, this.toggleDuration);
+        var me = this;
+        me.elem.show('opacity', null, me.toggleDuration);
     },
 
     /**
      * 当被子类重写时，负责定义当前组件的隐藏方式。
      */
     onHide: function (e) {
-        Dom.hide(this.elem, 'opacity', null, this.toggleDuration);
+        this.elem.hide('opacity', null, this.toggleDuration);
     },
 
     /**
@@ -46,7 +56,7 @@ var DropDown = Control.extend({
      * @protected virtual
      */
     isHidden: function () {
-        return Dom.isHidden(this.elem);
+        return this.elem.isHidden();
     },
 
     /**
@@ -58,7 +68,7 @@ var DropDown = Control.extend({
         if (this.isHidden() && this.onShow(e) !== false) {
 
             // 设置隐藏事件。
-            Dom.on(document, 'mousedown', function (e) {
+            document.on('mousedown', function (e) {
                 
                 // 不处理下拉菜单本身事件。
                 if (!this.elem.contains(e.target)) {
@@ -69,10 +79,10 @@ var DropDown = Control.extend({
                     }
 
                     // 确保当前事件只执行一次。
-                    Dom.off(document, 'mousedown', arguments.callee);
+                    document.off('mousedown', arguments.callee);
                 }
 
-            }.bind(this));
+            }, this);
 
             this.trigger('show', e);
 

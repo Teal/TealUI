@@ -4,6 +4,11 @@
 
 // #require ui/core/base.js
 
+
+function generatePager() {
+    
+}
+
 var Pagination = Control.extend({
 
     pageCount: 1,

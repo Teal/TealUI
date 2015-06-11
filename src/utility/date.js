@@ -42,10 +42,21 @@ Date.formators = {
 /**
  * 尝试从指定对象中分析出日期对象。
  * @param {String/Date} value 要分析的对象。
+ * @param {String} format 要分析的日期格式。
  * @returns {date} 返回分析出的日期对象。
  */
-Date.from = function (value) {
+Date.from = function (value, format) {
     if (value && !(value instanceof Date)) {
+        if (format) {
+            // todo:
+            //format = format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
+            //var parts = { y: 0, M: 0, d: 0, H: 0, m: 0, s: 0 };
+            //for (var part in parts) {
+            //    new RegExp(format.replace(new RegExp(part + "+", "g"), "($1)")).exec(value);
+            //}
+            // 2013/33/33 yyyy/MM/dd
+            // format = format.replace(/yyyy/)
+        }
         value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
     }
     return value;

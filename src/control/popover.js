@@ -9,6 +9,12 @@
 var Popover = Control.extend({
 
     /**
+     * 获取或设置当前浮层的目标。
+     * @type {Element}
+     */
+    target: undefined,
+
+    /**
      * 工具提示显示之前经过的时间。
      * @type Integer
      */
@@ -20,22 +26,18 @@ var Popover = Control.extend({
     toggleDuration: 150,
 
     /**
-     * 自动定位。
+     * 自动定位悬浮层。
+     * @type {Boolean}
      */
-    autoAlign: true,
+    autoAlign: false,
 
     /**
      * 当前工具提示和目标文本的距离。
      */
     distance: 10,
 
-    /**
-     * 获取或设置当前浮层的目标。
-     */
-    target: undefined,
-
     init: function () {
-        this.target !== null && this.setPopover(Dom.find(this.target) || this.elem.previousElementSibling);
+        this.target !== null && this.setPopover(document.query(this.target) || this.elem.previousElementSibling);
     },
 
     /**
@@ -43,7 +45,7 @@ var Popover = Control.extend({
      */
     setPopover: function (target) {
         this.target = target;
-        target && Dom.hover(target, this.show.bind(this), this.hide.bind(this), this.initialDelay);
+        target && target.hover(this.show, this.hide, this.initialDelay, this);
     },
 
     /**
@@ -79,7 +81,7 @@ var Popover = Control.extend({
      * 当被子类重写时，负责定义当前组件的显示方式。
      */
     onShow: function (e) {
-        Dom.show(this.elem, 'opacity', null, this.toggleDuration);
+        this.elem.show('opacity', null, this.toggleDuration);
 
         // 自动定位逻辑。
         if (this.autoAlign) {
@@ -93,12 +95,12 @@ var Popover = Control.extend({
             }
 
             if (align) {
-                Dom.pin(me.elem, this.target, align, me.distance, me.distance, function () {
+                me.elem.pin(this.target, align, me.distance, me.distance, function () {
                     me._align = align;
                     me.elem.className = me.elem.className.replace(/\bx-arrow-\w+\b/, 'x-arrow-' + align);
                 });
             } else if (e) {
-                Dom.pin(me.elem, e, 'bl', 0, me.distance * 2);
+                me.elem.pin(e, 'bl', 0, me.distance * 2);
             }
 
         }
@@ -110,7 +112,7 @@ var Popover = Control.extend({
      * 当被子类重写时，负责定义当前组件的隐藏方式。
      */
     onHide: function (e) {
-        Dom.hide(this.elem, 'opacity', null, this.toggleDuration);
+        this.elem.hide('opacity', null, this.toggleDuration);
     },
 
     /**

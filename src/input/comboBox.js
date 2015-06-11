@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require ui/suggest/picker.js
-// #require ui/suggest/dropdownmenu.js
+// #require picker
+// #require dropdownMenu
 
 /**
  * 表示一个组合框。
@@ -18,26 +18,12 @@
 var ComboBox = Picker.extend({
 
     /**
-	 * 当前控件是否为列表形式。如果列表模式则优先考虑使用下拉菜单。
-     * @config {Boolean}
-	 */
-    listMode: false,
-	
-    cssClass: 'combobox',
-	
-    autoResize: true,
-	
-    /**
 	 * 创建当前 Picker 的菜单。
 	 * @return {Control} 下拉菜单。
 	 * @protected override
 	 */
     createDropDown: function (existDom) {
-        return new DropDownMenu({
-            elem: existDom,
-            owner: this,
-            selectMethod: 'selectItem'
-        });
+        return Control.get(dropDown, 'dropDownMenu', { target: this.getButton() });
     },
 	
     /**

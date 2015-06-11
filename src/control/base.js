@@ -1,9 +1,10 @@
 /**
  * @fileOverview 所有控件的基类。
+ * @author xuld
  */
 
-// #require ../utility/class.js
-// #require ../dom/base.js
+// #require ../utility/class
+// #require ../dom/base
 
 /**
  * 表示一个控件。
@@ -130,7 +131,7 @@ Control.get = function (elem, roleName, options) {
     // 默认根据 data-role 指定角色名。
     roleName = roleName || elem.getAttribute('data-role');
 
-    var data = Dom.getData(elem),
+    var data = Element.getData(elem),
         instance = (data.roles || (data.roles = {}))[roleName];
 
     // 已经初始化则不再初始化。
@@ -161,8 +162,8 @@ Control.get = function (elem, roleName, options) {
 };
 
 // 默认初始化一次页面全部组件。
-Dom.ready(function () {
-    Dom.each(document.querySelectorAll('[data-role]'), function(elem) {
+document.ready(function () {
+    NodeList.each(document.querySelectorAll('[data-role]'), function(elem) {
         Control.get(elem);
     });
 });

@@ -19,72 +19,54 @@ var Picker = Input.extend({
      * 获取当前选择器的按钮部分。
      */
     getButton: function() {
-        return Dom.find('.x-button', this.elem);
+        return this.elem.querySelector('.x-button');
     },
 
+    /**
+     * 当被子类重写时负责创建下拉菜单。
+     */
     createDropDown: function (dropDown) {
-        return Control.get(dropDown, 'dropDown', { target: me.getButton() });
+        return Control.get(dropDown, 'dropDown', { target: this.getButton() });
     },
 
     /**
      * 当被子类重写时负责初始化下拉菜单。
      */
-    initDropDown: function (dropDown) {},
+    initDropDown: function () {},
 
     init: function () {
 
         // 初始化下拉菜单。
         var me = this,
             dropDown = me.elem.nextElementSibling;
-        dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : Dom.append(document.body, '<div class="x-dropdown"></div>');
+        dropDown = dropDown && dropDown.classList.contains('x-dropdown') ? dropDown : document.body.append('<div class="x-dropdown"></div>');
         me.dropDown = dropDown = me.createDropDown(dropDown);
-        me.initDropDown(dropDown.elem);
+        me.initDropDown();
 
-        dropDown.onShow = function (e) {
-            DropDown.prototype.onShow.call(this, e);
+        dropDown.on('show', function() {
             me.realignDropDown();
             me.updateDropDown();
             me.onDropDownShow();
-        };
-        dropDown.onHide = function (e) {
-            DropDown.prototype.onHide.call(this, e);
+        });
+
+        dropDown.on('hide', function () {
             me.onDropDownHide();
-        };
+        });
+
     },
 
-    /**
-	 * 当被子类重写时，负责更新下拉菜单的位置。
-	 * @protected 
-	 * @virtual
-	 */
-    realignDropDown: function () {
-        
+    realignDropDown: function() {
+        var me = this;
+
         // 更新下拉菜单尺寸。
-        if (this.dropDownWidth) {
-            var width = /%$/.test(this.dropDownWidth) ? this.elem.offsetWidth * parseFloat(this.dropDownWidth) / 100 : parseFloat(this.dropDownWidth);
-            Dom.setRect(this.dropDown.elem, { width: width });
+        if (me.dropDownWidth) {
+            var width = /%$/.test(me.dropDownWidth) ? me.elem.offsetWidth * parseFloat(me.dropDownWidth) / 100 : parseFloat(me.dropDownWidth);
+            me.dropDown.elem.setSize({ width: width });
         }
 
-        // 更新下拉菜单位置。
-        var rect = Dom.getRect(this.elem),
-            doc = Dom.getDocument(this.elem),
-            docRect = Dom.getRect(doc),
-            dropDownHeight = this.dropDown.elem.offsetHeight;
-        
-        rect.top += rect.height;
-
-        // 如果超出文档区域，则显示在另一侧。
-        if (rect.top + dropDownHeight > docRect.top + docRect.height && rect.top - rect.height - dropDownHeight > docRect.top) {
-            rect.top -= rect.height + dropDownHeight - 1;
-        } else {
-            rect.top--;
-        }
-
-        rect.width = rect.height = null;
-        Dom.setRect(this.dropDown.elem, rect);
-
+        me.dropDown.elem.pin(me.elem, 'bl', 0, me.distance);
     },
-    
+
     /**
 	 * 当被子类重写时，负责将当前文本的值同步到下拉菜单。
 	 * @protected 

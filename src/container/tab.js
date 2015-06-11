@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../control/base.js
+// #require ../control/base
 
 /**
  * 表示一个选项卡。
@@ -13,17 +13,19 @@ var Tab = Control.extend({
 
     init: function () {
         var me = this;
-        Dom.on(this.elem, 'click', '.x-tab > li', function(e) {
+        me.elem.on('click', '.x-tab > li', function (e) {
             me.selectTab(this, e);
         });
 
         // 设置初始选项卡。
-        var body = this.getBody();
+        var body = me.getBody();
         if (body) {
             body.style.position = 'relative';
-            Dom.each(body.children, Dom.hide);
-            var content = body.children[this.getActivedIndex()];
-            content && Dom.show(content);
+            NodeList.each(body.children, function(elem) {
+                elem.hide();
+            });
+            var content = body.children[me.getActivedIndex()];
+            content && content.show();
         }
     },
 
@@ -32,7 +34,7 @@ var Tab = Control.extend({
      */
     selectTab: function(tab, e) {
         if (this.trigger('select', tab)) {
-            this.setActivedIndex(Dom.getIndex(tab));
+            this.setActivedIndex(tab.getIndex());
         }
         return this;
     },
@@ -52,8 +54,8 @@ var Tab = Control.extend({
     },
 
     getActivedIndex: function () {
-        var actived = Dom.find('.x-tab-actived', this.elem);
-        return actived ? Dom.getIndex(actived) : 0;
+        var actived = this.elem.querySelector('.x-tab-actived');
+        return actived ? actived.getIndex() : 0;
     },
 
     setActivedIndex: function (index) {
@@ -74,15 +76,15 @@ var Tab = Control.extend({
 
                 if (el = body.children[oldIndex]) {
                     el.style.position = 'absolute';
-                    var rect = Dom.getOffset(el);
+                    var rect = el.getOffset();
                     el.style.left = rect.left + 'px';
                     el.style.top = rect.top + 'px';
-                    Dom.hide(el, 'opacity', null, 150);
+                    el.hide('opacity', null, 150);
                 }
 
                 if (el = body.children[index]) {
                     el.style.position = el.style.left = el.style.top = '';
-                    Dom.show(el, 'opacity', null, 150);
+                    el.show('opacity', null, 150);
                 }
 
             }

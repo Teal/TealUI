@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../control/base.js
+// #require panel
 
 var Accordion = Control.extend({
 
@@ -16,7 +16,7 @@ var Accordion = Control.extend({
 
         var triggerBySelf = false;
 
-	    Dom.each(this.elem.children, function (panelElem, index) {
+	    NodeList.each(this.elem.children, function (panelElem, index) {
 
             // ³õÊ¼ÎªÃæ°å¡£
 	        var panel = panels[index] = Control.get(panelElem, 'panel');

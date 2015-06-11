@@ -2,38 +2,43 @@
  * @author xuld
  */
 
-// #require ui/part/icon.css
-// #require ui/suggest/picker.js
-// #require ui/composite/monthcalender.js
+// #require ../partial/icon
+// #require picker
+// #require ../form/calender
 
 var DatePicker = Picker.extend({
 	
-    format: 'yyyy/M/d',
-
     dropDownWidth: 'auto',
 	
-	initDropDown: function (dropDown) {
+	initDropDown: function () {
 	    var me = this;
-	    dropDown.classList.add('x-calender');
-	    me.calender = Control.get(dropDown, 'calender', {
-	        format: this.format
-	    }).on('select', function (value) {
+	    me.dropDown.elem.classList.add('x-calender');
+	    me.calender = Control.get(me.dropDown.elem, 'calender').on('select', function (value) {
 	        me.onCalenderSelect(value);
 	        return false;
 	    }).on('change', function () {
 	        me.setValue(this.getValue());
 	    });
 	},
-	
+
+	setFormat: function (value) {
+	    this.calender.setFormat(value);
+    },
+
+    setNow: function (value) {
+        this.calender.setNow(value);
+    },
+
+	updateDropDown: function () {
+	    var me = this,
+            d = Date.from(me.getInput().value, me.calender.format);
+	    if (d && !isNaN(d.getYear()))
+	        me.calender.setValue(d);
+	},
+
 	onCalenderSelect: function(value) {
 	    this.setValue(value);
 	    this.dropDown.hide();
-	},
-	
-	updateDropDown: function(){
-	    var d = new Date(this.getInput().value);
-		if(!isNaN(d.getYear()))
-		    this.calender.setValue(d);
 	},
 	
 	getValue: function() {
@@ -42,7 +47,7 @@ var DatePicker = Picker.extend({
 	
 	setValue: function (value) {
 	    if (this.getValue() !== value) {
-	        this.getInput().value = value.format(this.format);
+	        this.getInput().value = value.format(this.calender.format);
 	        this.trigger('change');
 	    }
 		return this;

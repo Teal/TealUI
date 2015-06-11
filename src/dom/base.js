@@ -533,7 +533,7 @@
      * #####结果:
      * <pre lang="htm" format="none">how are &lt;p&gt;you?&lt;/p&gt;</pre>
      */
-    ep.remove = function () {
+    ep.removeSelf = function () {
         var node = this;
         node.parentNode && node.parentNode.removeChild(node);
     };

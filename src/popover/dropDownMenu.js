@@ -15,42 +15,42 @@ var DropDownMenu = DropDown.extend({
     init: function () {
         var me = this;
         DropDown.prototype.init.call(me);
-        Dom.on(me.elem, 'mouseenter', 'li', function (e) {
+        me.elem.on('mouseenter', 'li', function (e) {
             me.onItemHover(this, e);
         });
-        Dom.on(me.elem, 'click', 'li', function(e) {
+        me.elem.on('click', 'li', function(e) {
             me.onItemClick(this, e);
         });
     },
 
-    setDropDown: function (target) {
-        if (target) {
-            var me = this;
-            Dom.keyNav(target, {
+    keyNav: {
 
-                up: function (e) {
-                    me.onPressUpDown(false, e);
-                },
+        up: function (e) {
+            this.onPressUpDown(false, e);
+        },
 
-                down: function (e) {
-                    me.onPressUpDown(true, e);
-                },
+        down: function (e) {
+            this.onPressUpDown(true, e);
+        },
 
-                enter: function (e) {
-                    me.onPressEnter(e);
-                },
+        enter: function (e) {
+            this.onPressEnter(e);
+        },
 
-                esc: function () {
-                    me.hide();
-                },
+        esc: function () {
+            this.hide();
+        },
 
-                other: function (e) {
-                    me.update(e);
-                }
-
-            });
+        other: function (e) {
+            this.update(e);
         }
-        return DropDown.prototype.setDropDown.call(this, target);
+
+    },
+
+    setDropDown: function (target) {
+        var me = this;
+        target && target.keyNav(me.keyNav, me);
+        return DropDown.prototype.setDropDown.call(me, target);
     },
 
     onShow: function (e) {
@@ -63,7 +63,7 @@ var DropDownMenu = DropDown.extend({
      * 当鼠标移到某一项时执行。
      */
     onItemHover: function (item, e) {
-        var current = Dom.find('.x-listbox-selected', this.elem);
+        var current = this.elem.querySelector('.x-listbox-selected');
         current && current.classList.remove('x-listbox-selected');
         item && item.classList.add('x-listbox-selected');
     },
@@ -84,7 +84,7 @@ var DropDownMenu = DropDown.extend({
         e.preventDefault();
         this.show();
 
-        var current = Dom.find('.x-listbox-selected', this.elem);
+        var current = this.elem.querySelector('.x-listbox-selected');
         if (current) {
             current = isDown ? current.nextElementSibling : current.previousElementSibling;
         }
@@ -100,8 +100,7 @@ var DropDownMenu = DropDown.extend({
 	 */
     onPressEnter: function (e) {
         if (!this.isHidden()) {
-            e.preventDefault();
-            this.onItemClick(Dom.find('.x-listbox-selected', this.elem));
+            this.onItemClick(this.elem.querySelector('.x-listbox-selected'), e);
         }
     },
 
