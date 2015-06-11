@@ -161,6 +161,14 @@
     user-select: @user-select;
 }
 
+.flex(){
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex; 
+    display: flex;
+}
+
 #translucent {
 	.background(@color: #fff, @alpha: 1) {
 		background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
