@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>完整页面示例</title>
-    <meta name="module-info" content="status=doing, parent-title=导航, parent-order=layout, order=^">
+    <meta name="module-info" content="parent-title=导航, parent-order=layout, order=^">
     <meta name="author" content="">
     <meta name="description" content="完整页面示例">
     <!-- 以下是本组件的全部源码 -->
@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../../src/partial/hover.css" />
     <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/input/searchTextBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/nav/pager.css" />
     <link rel="stylesheet" type="text/css" href="../../src/nav/toolbar.css" />
@@ -32,11 +33,12 @@
     <header id="header">
         <nav class="x-container x-clear">
             <a id="logo" href="###" title="返回主页" class="x-left"><img width="80" height="30" alt="logo" src="http://placehold.it/80x30"></a>
-            <form id="searchform" class="x-left" action="###">
-                <input type="text" placeholder="搜索文章和代码..." class="x-textbox x-left">
-                <button title="搜索" class="x-left" type="submit"><span class="x-icon">☌</span></button>
+            <form id="search_form" class="x-searchtextbox x-left" action="###">
+                <input type="text" class="x-textbox x-radius" placeholder="搜索文章和代码..." onfocus="this.select();">
+                <button type="submit" title="搜索" class="x-searchtextbox-button"><i class="x-icon">☌</i></button>
             </form>
             <aside id="navbar_trigger" class="x-right">
+                <a href="javascript:;"><span class="x-icon">☌</span></a>
                 <a href="javascript:;"><span class="x-icon">ⅰ</span></a>
                 <a href="javascript:;"><span class="x-icon">≡</span></a>
             </aside>
@@ -47,23 +49,31 @@
             </ul>
             <aside id="userbar" class="x-right">
                 <a href="###"><span class="x-icon">ⅰ</span>登录</a><a href="###"><span class="x-icon">✎</span>注册</a>
-                <a class="dropdown dropdown-actived" href="###">xuld&nbsp;&nbsp;<span class="x-icon">▾</span></a>
+                <a class="dropdown dropdown-actived" href="###">xuld <span class="x-icon">▾</span></a>
             </aside>
         </nav>
     </header>
-    <nav class="x-container x-breadcrumb">
-        当前位置：
-        <a href="###"><i class="x-icon">۩</i>TealUI</a>
-        <i class="x-icon x-breadcrumb-divider">»</i>
-        <a href="###">导航</a>
-        <i class="x-icon x-breadcrumb-divider">»</i>
-        <span>面包屑</span>
-    </nav>
-    <section class="x-container x-grid">
-        <nav id="outline">asd</nav>
-        <article id="main">dasdasd</article>
-        <aside id="sidebar">asd</aside>
-    </section>
+    <div class="x-container">
+        <nav id="breadcrumb" class="x-breadcrumb">
+            当前位置：
+            <a href="###"><i class="x-icon">۩</i>TealUI</a>
+            <i class="x-icon x-breadcrumb-divider">»</i>
+            <a href="###">导航</a>
+            <i class="x-icon x-breadcrumb-divider">»</i>
+            <span>面包屑</span>
+        </nav>
+        <section class="x-grid x-grid-3">
+            <nav id="outline" class="x-col">
+                A
+            </nav>
+            <article id="main" class="x-col">
+                B
+            </article>
+            <aside id="sidebar" class="x-col">
+                C
+            </aside>
+        </section>
+    </div>
     <footer id="footer">
         <div class="x-container">
             <span class="x-right">

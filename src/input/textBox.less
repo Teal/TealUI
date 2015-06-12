@@ -7,10 +7,9 @@
     background-color: @background-color;
     outline: 0;
     width: @font-size * 13;
-
     .box-sizing(border-box);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    .transition(~"border linear .2s, box-shadow linear .2s");
+    .transition(~"background-color linear .2s, border linear .2s, box-shadow linear .2s");
 
     &:focus {
         border-color: rgba(82,168,236,.8);
@@ -21,11 +20,10 @@
         box-shadow: none !important;
         background-color: #efefef;
     }
-
 }
 
 // ɫϵ
-.x-textbox-state(@state){
+.x-textbox-state(@state) {
     .x-textbox-@{state} {
         border-color: ~"@{@{state}-text-color}";
 
@@ -34,7 +32,6 @@
             box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(color(~"@{@{state}-text-color}"), 20%);
         }
     }
-
 }
 
 .x-textbox-state(info);

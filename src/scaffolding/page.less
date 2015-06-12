@@ -10,15 +10,15 @@
     background: #4F5061;
     color: #807e7e;
     margin-bottom: 1em;
+    line-height: @line-height - 3px;
 
     a {
         color: #e7e3e3;
         display: inline-block;
         text-decoration: none;
         font-weight: 200;
-        font-size: @font-size +1px;
-        line-height: 100%;
-        padding: @font-size @font-size * 0.5 @font-size - 1px;
+        font-size: @font-size + 1px;
+        padding: @box-padding-y + 1px + @font-size * 0.5 @box-padding-x;
 
         &:hover {
             color: #fff;
@@ -28,44 +28,27 @@
 
 a#logo {
     line-height: 0;
-    padding: 6px;
+    padding: @font-size * 0.5;
     padding-left: 0;
 }
 
-#searchform {
-    margin: 6px .3em;
+#search_form {
+    margin: @font-size * 0.5 .3em;
 
     input {
         background: #f1f1f1;
-        border-radius: 3px 0 0 3px;
-        padding: 2px 6px;
-        width: 200px;
-        .transition(background-color .2s);
+        width: 280px;
 
         &:focus {
             background: #fff;
-            border-color: #ccc;
         }
-    }
-
-    button {
-        height: 30px;
-        width: 36px;
-        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-        border: 1px solid #ccc;
-        -moz-border-radius: 0 3px 3px 0;
-        -webkit-border-radius: 0 3px 3px 0;
-        border-radius: 0 3px 3px 0;
-        margin-left: -1px;
     }
 }
 
 #navbar {
-    
+
     a {
-        padding: @font-size @font-size * 1.5 @font-size - 1px;
+        padding: @box-padding-y + 1px + @font-size * 0.5 @font-size * 1.2;
     }
 
     a:hover, .x-actived a {
@@ -78,45 +61,42 @@ a#logo {
     display: none;
 }
 
-#userbar {
+#userbar, #navbar_trigger {
     a:last-child {
         padding-right: 0;
     }
 }
 
 @media @small {
-    
-    #header .x-container {
-        padding: 0;
-    }
 
-    #searchform, #userbar, #navbar {
+    #search_form, #userbar, #navbar {
         display: none;
     }
-    
+
     #navbar_trigger {
         display: inline-block;
     }
 
     #navbar {
         clear: left;
+        margin: 0 -@margin;
 
         li {
-            float: none!important;
+            float: none !important;
         }
-        
+
         a {
             display: block;
         }
     }
-
 }
 
 // 底部
 
 #footer {
     border-top: 1px solid @border-color;
-    margin-top: 2em;
+    margin: 2em 0;
+    padding: 1em 0;
     font-size: small;
 
     &, & a {
@@ -126,3 +106,25 @@ a#logo {
 
 // 主体
 
+#sidebar {
+    width: 18%;
+}
+
+.x-grid-2  {
+    #main {
+        width: 100% - 18%;
+    }
+}
+
+.x-grid-3 {
+    #outline {
+        width: 22%;
+    }
+    #main {
+        width: 100% - 18% - 22%;
+    }
+}
+
+#breadcrumb {
+    margin-bottom: .5em;
+}

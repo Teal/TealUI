@@ -5,55 +5,36 @@
   background: #4F5061;
   color: #807e7e;
   margin-bottom: 1em;
+  line-height: 21px;
 }
 #header a {
   color: #e7e3e3;
   display: inline-block;
   text-decoration: none;
   font-weight: 200;
-  font-size: 14px 1px;
-  line-height: 100%;
-  padding: 14px 7px 13px;
+  font-size: 15px;
+  padding: 12px 8px;
 }
 #header a:hover {
   color: #fff;
 }
 a#logo {
   line-height: 0;
-  padding: 6px;
+  padding: 7px;
   padding-left: 0;
 }
-#searchform {
-  margin: 6px .3em;
+#search_form {
+  margin: 7px 0.3em;
 }
-#searchform input {
+#search_form input {
   background: #f1f1f1;
-  border-radius: 3px 0 0 3px;
-  padding: 2px 6px;
-  width: 200px;
-  -moz-transition: background-color 0.2s;
-  -o-transition: background-color 0.2s;
-  -webkit-transition: background-color 0.2s;
-  transition: background-color 0.2s;
+  width: 280px;
 }
-#searchform input:focus {
+#search_form input:focus {
   background: #fff;
-  border-color: #ccc;
-}
-#searchform button {
-  height: 30px;
-  width: 36px;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-  border: 1px solid #ccc;
-  -moz-border-radius: 0 3px 3px 0;
-  -webkit-border-radius: 0 3px 3px 0;
-  border-radius: 0 3px 3px 0;
-  margin-left: -1px;
 }
 #navbar a {
-  padding: 14px 21px 13px;
+  padding: 12px 16.8px;
 }
 #navbar a:hover,
 #navbar .x-actived a {
@@ -63,14 +44,12 @@ a#logo {
 #navbar_trigger {
   display: none;
 }
-#userbar a:last-child {
+#userbar a:last-child,
+#navbar_trigger a:last-child {
   padding-right: 0;
 }
 @media only screen and (max-width: 1024px) {
-  #header .x-container {
-    padding: 0;
-  }
-  #searchform,
+  #search_form,
   #userbar,
   #navbar {
     display: none;
@@ -80,9 +59,10 @@ a#logo {
   }
   #navbar {
     clear: left;
+    margin: 0 -1em;
   }
   #navbar li {
-    float: none!important;
+    float: none !important;
   }
   #navbar a {
     display: block;
@@ -90,10 +70,26 @@ a#logo {
 }
 #footer {
   border-top: 1px solid #e0e0e0;
-  margin-top: 2em;
+  margin: 2em 0;
+  padding: 1em 0;
   font-size: small;
 }
 #footer,
 #footer a {
   color: #908c8c;
+}
+#sidebar {
+  width: 18%;
+}
+.x-grid-2 #main {
+  width: 82%;
+}
+.x-grid-3 #outline {
+  width: 22%;
+}
+.x-grid-3 #main {
+  width: 60%;
+}
+#breadcrumb {
+  margin-bottom: .5em;
 }
