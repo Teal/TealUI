@@ -22,6 +22,10 @@
                 background-color: @selected-background-color;
                 color: @selected-text-color;
                 text-decoration: none;
+
+                .x-menu-arrow {
+                    color: @selected-text-color;
+                }
             }
         }
     }
@@ -35,19 +39,21 @@
     }
 }
 
-.x-menu-selected a {
-    color: @selected-text-color !important;
-    background-color: @selected-background-color !important;
+.x-menu-selected {
+    a {
+        color: @selected-text-color !important;
+        background-color: @selected-background-color !important;
+    }
+
+    .x-menu-arrow {
+        color: @selected-text-color;
+    }
 }
 
 .x-menu-arrow {
     float: right;
     line-height: @line-height;
     padding: @box-padding-y / 2 @box-padding-x;
-
-    .x-menu-selected & {
-        color: @selected-text-color;
-    }
 }
 
 /*// Links within the dropdown menu

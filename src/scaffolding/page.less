@@ -1,0 +1,128 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+// 顶部
+
+#header {
+    background: #4F5061;
+    color: #807e7e;
+    margin-bottom: 1em;
+
+    a {
+        color: #e7e3e3;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 200;
+        font-size: @font-size +1px;
+        line-height: 100%;
+        padding: @font-size @font-size * 0.5 @font-size - 1px;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+a#logo {
+    line-height: 0;
+    padding: 6px;
+    padding-left: 0;
+}
+
+#searchform {
+    margin: 6px .3em;
+
+    input {
+        background: #f1f1f1;
+        border-radius: 3px 0 0 3px;
+        padding: 2px 6px;
+        width: 200px;
+        .transition(background-color .2s);
+
+        &:focus {
+            background: #fff;
+            border-color: #ccc;
+        }
+    }
+
+    button {
+        height: 30px;
+        width: 36px;
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+        border: 1px solid #ccc;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+        border-radius: 0 3px 3px 0;
+        margin-left: -1px;
+    }
+}
+
+#navbar {
+    
+    a {
+        padding: @font-size @font-size * 1.5 @font-size - 1px;
+    }
+
+    a:hover, .x-actived a {
+        color: #fff;
+        background: #404040;
+    }
+}
+
+#navbar_trigger {
+    display: none;
+}
+
+#userbar {
+    a:last-child {
+        padding-right: 0;
+    }
+}
+
+@media @small {
+    
+    #header .x-container {
+        padding: 0;
+    }
+
+    #searchform, #userbar, #navbar {
+        display: none;
+    }
+    
+    #navbar_trigger {
+        display: inline-block;
+    }
+
+    #navbar {
+        clear: left;
+
+        li {
+            float: none!important;
+        }
+        
+        a {
+            display: block;
+        }
+    }
+
+}
+
+// 底部
+
+#footer {
+    border-top: 1px solid @border-color;
+    margin-top: 2em;
+    font-size: small;
+
+    &, & a {
+        color: #908c8c;
+    }
+}
+
+// 主体
+

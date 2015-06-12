@@ -18,6 +18,9 @@
   color: #ffffff;
   text-decoration: none;
 }
+.x-menu > li > a:hover .x-menu-arrow {
+  color: #ffffff;
+}
 .x-menu hr {
   margin: 0;
 }
@@ -28,11 +31,11 @@
   color: #ffffff !important;
   background-color: #337ab7 !important;
 }
+.x-menu-selected .x-menu-arrow {
+  color: #ffffff;
+}
 .x-menu-arrow {
   float: right;
   line-height: 24px;
   padding: 2px 8px;
-}
-.x-menu-selected .x-menu-arrow {
-  color: #ffffff;
 }
