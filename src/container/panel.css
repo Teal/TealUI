@@ -9,6 +9,7 @@
   background-color: #f7f7f7;
   line-height: 150%;
   padding: 4px 8px;
+  cursor: default;
 }
 .x-panel-header {
   border-bottom: 1px solid #e0e0e0;

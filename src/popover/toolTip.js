@@ -14,11 +14,17 @@
 var ToolTip = Popover.extend({
 
     /**
+     * 自动定位悬浮层。
+     * @type {Boolean}
+     */
+    autoAlign: true,
+
+    /**
      * 初始化当前控件。
      */
     init: function (options) {
         Popover.prototype.init.call(this, options);
-        Dom.on(this.elem, 'click', '.x-closebutton', this.hide.bind(this));
+        this.elem.on('click', '.x-closebutton', this.hide, this);
     },
 
     /**
@@ -27,34 +33,32 @@ var ToolTip = Popover.extend({
      */
     setToolTip: function (targets) {
         var me = this;
-        Dom.each(Dom.query(targets), function (target) {
-            Dom.hover(target, function (e) {
+        NodeList.each(document.queryAll(targets), function (target) {
+            
+            target.hover(function (e) {
                 
                 me.target = target;
 
                 // 根据目标节点的 data-title 自动绑定当前节点的属性。
                 var title = target.getAttribute('data-title');
                 if (title) {
-                    var arrow = Dom.find('.x-arrow', me.elem);
                     me.elem.innerHTML = title;
-                    arrow && Dom.prepend(me.elem, arrow);
                 }
 
                 // 显示工具提示。
                 me.show(e);
-            }, me.hide.bind(me), me.initialDelay);
+            }, me.hide, me.initialDelay, me);
         });
         return me;
     }
 
 });
 
-Dom.ready(function () {
-
+document.ready(function () {
     // 初始化所有 [data-title] 节点。
-    var domNeedToolTip = Dom.query('[data-title]');
+    var domNeedToolTip = document.querySelectorAll('[data-title]');
     if (domNeedToolTip.length) {
-        ToolTip.global = Control.get(Dom.append(document.body, '<span class="x-tooltip" />'), 'toolTip', { target: null }).setAlign('top').setToolTip(domNeedToolTip);
+        ToolTip.global = Control.get(document.body.append('<span class="x-tooltip" />'), 'toolTip', { target: null }).setAlign('top').setToolTip(domNeedToolTip);
     }
 
 });

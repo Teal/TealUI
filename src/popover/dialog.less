@@ -2,66 +2,15 @@
 @import "../core/mixins.less";
 
 .x-dialog {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     z-index: @z-index-dialog;
     min-width: 200px;
+    max-width: 400px;
     *width: 400px;
     margin-left: -100px;
     background-color: @background-color;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-
-.x-dialog-header {
-    padding: @box-padding;
-    border-bottom: 1px solid #D9D9D9;
-    background-color: #F7F7F7;
-
-    h4 {
-        font-size: 16px;
-        line-height: @line-height;
-        margin: 0;
-    }
-}
-
-.x-dialog-body {
-    overflow: hidden;
-}
-
-.x-dialog-content {
-    padding: @box-padding;
-    overflow-y: auto;
-}
-
-.x-dialog-iconbox {
-    padding: 18px 10px 16px 60px;
-    background-repeat: no-repeat;
-    background-position: 18px 16px;
-}
-
-.x-dialog-iconboui-warning {
-    background-image: url(images/icon-warning.gif);
-}
-
-.x-dialog-iconboui-error {
-    background-image: url(images/icon-error.gif);
-}
-
-.x-dialog-iconboui-info {
-    background-image: url(images/icon-info.gif);
-}
-
-.x-dialog-iconboui-confirm {
-    background-image: url(images/icon-question.gif);
-}
-
-.x-dialog-iconboui-success {
-    background-image: url(images/icon-success.png);
-}
-
-.x-dialog-footer {
-    padding: 5px 10px;
-    text-align: right;
+    display: none;
 }

@@ -2,9 +2,13 @@
  * @author xuld
  */
 
-// #require ui/container/dialog.js
+// #require dialog
 
 var MessageBox = Dialog.extend({
+
+    onCloseButtonClick: function () {
+        this.cancel();
+    },
 
 	onOk: function () {
 		return this.trigger('ok');
@@ -13,10 +17,6 @@ var MessageBox = Dialog.extend({
 	onCancel: function () {
 		return this.trigger('cancel');
 	},
-
-    onCloseButtonClick: function () {
-        this.cancel();
-    },
 
     ok: function(){
         if (this.onOk() !== false) {
@@ -30,18 +30,14 @@ var MessageBox = Dialog.extend({
         }
     },
 
-    setIcon: function (type) {
-
-        // 获取 body 。
-        // 获取 content 。
-    	var body = this.body(), content = Dom.last(body) || body;
-
-    	if (type == null) {
-    		content.className = content.className.replace(this.cssClass + '-iconbox ', ' ').replace(/\s.*?-iconboui-\w+/, '');
+    setIcon: function (value) {
+        var body = this.elem.querySelector('.x-panel-body');
+        if (value == null) {
+            body.className = body.className.replace(/x-dialog-icon(-\w+)?/g, '');
         } else {
-        	Dom.addClass(content, this.cssClass + '-iconbox ' + this.cssClass + '-iconboui-' + type);
+            body.classList.add('x-dialog-icon');
+            body.classList.add('x-dialog-icon-' + value);
         }
-
         return this;
     },
 
@@ -54,34 +50,31 @@ var MessageBox = Dialog.extend({
 	 */
     setButtons: function (options) {
 
-    	var footerClass = this.cssClass + '-footer';
+        var buttons = this.elem.querySelector('.x-dialog-buttons'),
+            key,
+            value,
+            button;
 
         if (options == null) {
-        	Dom.query('.' + footerClass, this.elem).forEach(Dom.remove);
+            buttons && buttons.removeSelf();
         } else {
+            buttons = buttons || this.elem.append('<div class="x-dialog-buttons"></div>');
 
-        	var footer = Dom.find('.' + footerClass, this.elem) || Dom.append(this.elem, '<div class="' + footerClass + '"></div>'),
-                key,
-                value,
-                btn;
-
-        	Dom.empty(footer);
+            // 清空节点。
+            while (buttons.firstChild) {
+                buttons.removeChild(buttons.firstChild);
+            }
 
             for (key in options) {
                 value = options[key];
-                btn = Dom.append(footer, '<button class="x-button"></button>');
-                Dom.setText(btn, key);
-                switch (typeof value) {
-                    case 'boolean':
-                        value = value ? this.ok : this.cancel;
-                    case 'function':
-                        Dom.on(btn, 'click', value, this);
-                        break;
-                }
+                button = buttons.append('<button class="x-button"></button>');
+                button.textContent = key;
 
-                Dom.append(footer, '  ');
+                button.on('click', value === true ?this.ok: value === false ? this.cancel : (value || this.close)  , this);
+                buttons.append('  ');
             }
 
+            buttons.querySelector('.x-button:first-child').classList.add('x-button-info');
         }
 
         return this;
@@ -89,50 +82,45 @@ var MessageBox = Dialog.extend({
 
 });
 
-MessageBox.show = function (text, title, icon, buttons) {
-
-    var messageBox = MessageBox.showInstance || (MessageBox.showInstance = new MessageBox());
-
-    return messageBox
-    	.un()
-        .setContent(text)
+MessageBox.show = function (content, title, buttons, icon, onOk, onCancel) {
+    var messageBox = new MessageBox()
+        .setContent(content)
         .setTitle(title || "提示")
-        .setIcon(icon || null)
-        .setButtons(buttons || {
-            '确定': true
-        })
-        .showDialog();
-
-};
-
-MessageBox.alert = function (text, title) {
-    return MessageBox.show(text, title, 'warning');
-};
-
-MessageBox.confirm = function (text, title, onOk, onCancel) {
-
-	var buttonClass = MessageBox.prototype.cssClass,
-		messageBox = MessageBox.show(text, title, 'confirm', {
-        '确定': true,
-        '取消': false
-    });
-    
-    Dom.find('.' + messageBox.cssClass + '-footer .x-button', messageBox.elem).className += " x-button-info";
-
-    if(onOk)
-        messageBox.on('ok', onOk);
-    if (onCancel)
-        messageBox.on('cancel', onCancel);
-
+        .setIcon(icon)
+        .setButtons(buttons)
+        .show();
+    onOk && messageBox.on('ok', onOk);
+    onCancel && messageBox.on('cancel', onCancel);
     return messageBox;
 };
 
-MessageBox.tip = function (text, icon, timeout, callback) {
+MessageBox.alert = function (content, title, onOk) {
+    return MessageBox.show(content, title, { '确定': true }, 'warning', onOk, onOk);
+};
 
-    var messageBox = MessageBox.tipInstance || (MessageBox.tipInstance = new MessageBox());
-	
-    messageBox.setContent(text).setIcon(icon).showDialog();
+MessageBox.confirm = function (content, title, onOk, onCancel) {
+	return MessageBox.show(content, title, {
+		    '确定': true,
+		    '取消': false
+	}, 'confirm', onOk, onCancel);
+};
 
+MessageBox.prompt = function (content, title, onOk, onCancel) {
+    var messageBox = MessageBox.show('<input type="text" class="x-textbox">', title, {
+        '确定': true,
+        '取消': false
+    }, null, function() {
+        onOk && onOk.call(this, this.elem.querySelector('.x-panel-body .x-textbox').value);
+    }, onCancel);
+    messageBox.elem.querySelector('.x-panel-body .x-textbox').value = content || '';
+    return messageBox;
+};
+
+MessageBox.tip = function (content, icon, timeout, callback) {
+
+    var messageBox = new MessageBox();
+    messageBox.elem.querySelector('.x-panel-header').removeSelf();
+    messageBox.setContent(content).setIcon(icon).show();
     messageBox.timer = setTimeout(function(){
     	messageBox.close();
     	if(callback){

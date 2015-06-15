@@ -20,8 +20,7 @@
 }
 a#logo {
   line-height: 0;
-  padding: 7px;
-  padding-left: 0;
+  padding: 7px 0;
 }
 #search_form {
   margin: 7px 0.3em;
@@ -80,6 +79,9 @@ a#logo {
 }
 #sidebar {
   width: 18%;
+}
+.x-grid-2 #outline {
+  display: none;
 }
 .x-grid-2 #main {
   width: 82%;

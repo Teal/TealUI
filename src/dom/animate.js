@@ -168,6 +168,9 @@ Element.toggleFx = {
         paddingBottom: 0,
         borderBottomWidth: 0,
         marginBottom: 0
+    },
+    scale: {
+        transform: 'scale(0, 0)'
     }
 };
 

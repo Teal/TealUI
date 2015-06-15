@@ -65,16 +65,20 @@ Draggable.prototype = {
 
         var me = this;
 
-        // 更新目标偏移量。
-        me.endOffset = {
-            left: me.startOffset.left + me.endX - me.startX,
-            top: me.startOffset.top + me.endY - me.startY
-        };
+        if (me.startOffset) {
 
-        // 调用用户的拖动回调并更新位置。
-        if (!me.onDragMove || me.onDragMove(e) !== false) {
-            me.elem.style.top = me.endOffset.top + 'px';
-            me.elem.style.left = me.endOffset.left + 'px';
+            // 更新目标偏移量。
+            me.endOffset = {
+                left: me.startOffset.left + me.endX - me.startX,
+                top: me.startOffset.top + me.endY - me.startY
+            };
+
+            // 调用用户的拖动回调并更新位置。
+            if (!me.onDragMove || me.onDragMove(e) !== false) {
+                me.elem.style.top = me.endOffset.top + 'px';
+                me.elem.style.left = me.endOffset.left + 'px';
+            }
+
         }
     },
 
@@ -106,7 +110,6 @@ Draggable.prototype = {
 
             // 如果当前正在拖动，通知当前拖动对象停止拖动。
             if (Draggable.current) {
-                trace(Draggable.current)
                 Draggable.current.stopDragging(e);
             }
 
@@ -229,6 +232,7 @@ Draggable.prototype = {
 
             me.dragEnd(e);
             Draggable.current = null;
+
         }
 
     },

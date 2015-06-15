@@ -276,8 +276,8 @@
         };
 
         eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.click.remove = function (elem, eventName, eventListener) {
-            elem.removeEventListener(this.bindType, eventListener.orignalHandler, false);
-            elem.removeEventListener(eventName, eventListener.proxyHandler, false);
+            elem.removeEventListener(this.bindType, eventListener.proxyHandler, false);
+            elem.removeEventListener(eventName, eventListener.orignalHandler, false);
         };
 
     }

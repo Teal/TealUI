@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>工具提示</title>
-    <meta name="module-info" content="parent-title=弹层, parent-order=form, status=doing">
+    <meta name="module-info" content="parent-title=弹层, parent-order=form">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="工具提示也即 HTML 的 title 效果，可以在鼠标移上之后显示一些提示层。">
 
@@ -48,13 +48,13 @@
     <h2>常用 API</h2>
     
     <h5>手动显示工具提示</h5>
-    <pre>$('.x-tooltip').role().show();</pre>
+    <pre>$('[data-role="toolTip"]').role().show();</pre>
 
     <h5>手动关闭工具提示</h5>
-    <pre>$('.x-tooltip').role().hide();</pre>
+    <pre>$('[data-role="toolTip"]').role().hide();</pre>
 
     <h5>工具提示显示后回调</h5>
-    <pre>$('.x-tooltip').role().on('show', function(){ this.dom.setText('浮层被显示了') });</pre>
+    <pre>$('[data-role="toolTip"]').role().on('show', function(){ this.dom.setText('浮层被显示了') });</pre>
     
     <h2>纯 HTML 样式</h2>
     <aside class="doc-demo">
