@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Javascript 实现的 SQL 引擎</title>
-    <meta name="module-info" content="status=doing, ">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="一个 JavaScript 的 SQL 引擎。">
 
@@ -18,7 +18,7 @@
     <pre>
         SQLike.q({
            Select: ['*'],
-           From: dataArray,
+           From: [["George", "White", 46, 65000], ["Anette", "Copperfield", 57, 69000], ["Paul", "White", 46, 46000], ["Debbi", "White", 33, 74000], ["George", "Irons", 24, 39000], ["Vicki", "Black", 27, 46000], ["Susanna", "Jones", 28, 77000], ["Vicki", "Peterson", 47, 81000], ["Vicki", "White", 32, 42000], ["Paul", "Jones", 35, 37000]],
            Where: function(){return this.salary>50000},
            OrderBy: ['salary','|desc|']
         })

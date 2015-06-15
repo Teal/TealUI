@@ -1,23 +1,20 @@
-
+﻿
 @import "../core/mixins.less";
-
-
 
 .x-tagchooser {
     display: inline-block;
     padding: 3px 8px;
     text-decoration: none;
     color: #23589a;
-    vertical-align: middle;
-    line-height: @baseLineHeight;
-    .border-radius(4px);
-    text-decoration: none;
+    border-radius: 4px;
+
+    &:before {
+        content: '✚ ';
+    }
 }
 
-
 .x-tagchooser-selected, .x-tagchooser:hover {
-  background-color: #3079d5;
-    background-position: 8px -23px;
+    background-color: #3079d5;
     color: #FFFFFF;
     text-decoration: none;
 }
