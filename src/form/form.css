@@ -1,31 +1,18 @@
-.x-formfield {
-  line-height: 28px;
-  margin-bottom: 10px;
-  *zoom: 1;
+﻿.x-formfield {
+  margin-bottom: .5em;
 }
 .x-formfield:after {
-  content: ".";
-  display: block;
-  height: 0;
+  content: " ";
+  display: table;
   clear: both;
-  visibility: hidden;
 }
-.x-formfield-label {
-  width: 100px;
-  display: block;
-  text-align: right;
-  margin-right: 10px;
+.x-form-horizontal .x-formfield-label {
+  width: 112px;
   float: left;
+  text-align: right;
+  margin-right: 7px;
+  padding: 5px 0;
 }
-.x-formfield-content {
-  margin-left: 110px;
-}
-.x-form-vertical .x-formfield-label {
-  float: none;
-  width: auto;
-  text-align: left;
-  margin-right: 0;
-}
-.x-form-vertical .x-formfield-content {
-  margin-left: 0;
+.x-form-horizontal .x-formfield-content {
+  margin-left: 119px;
 }

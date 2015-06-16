@@ -1,35 +1,24 @@
 @import "../core/mixins.less";
 
 
-@formFieldWidth:    100px;
+@formFieldWidth: @font-size * 8;
 
-.x-formfield   {
-	line-height: 28px;
-	margin-bottom: 10px;
-	.clear();
+.x-formfield {
+    .clearfix();
+    margin-bottom: .5em;
 }
 
-.x-formfield-label{
-	width: @formFieldWidth;
-	display: block;
-	text-align: right;
-	margin-right: 10px;
-	float: left;
-}
+.x-form-horizontal {
 
-.x-formfield-content {
-  margin-left: @formFieldWidth + 10; 
-}
+    .x-formfield-label {
+        width: @formFieldWidth;
+        float: left;
+        text-align: right;
+        margin-right: @font-size / 2;
+        padding: @box-padding-y + 1px 0;
+    }
 
-.x-form-vertical {
-  .x-formfield-label{ 
-    float: none;
-    width: auto;
-    text-align: left;
-    margin-right: 0;
-  }
-  
-  .x-formfield-content {
-     margin-left: 0; 
-  }
+    .x-formfield-content {
+        margin-left: @formFieldWidth + @font-size / 2;
+    }
 }
