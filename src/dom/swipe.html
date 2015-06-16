@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>滑动</title>
-    <meta name="module-info" content="status=doing, ">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="滑动组件">
 
@@ -24,7 +24,7 @@
     <script class="doc-demo">
         var elem = document.getElementById('elem');
         var log = document.getElementById('log');
-        Dom.swipe(elem, {
+        elem.setSwippable({
             onSwipeStart: function () {
                 log.innerHTML = '开始滑动';
             }, 
@@ -34,6 +34,15 @@
                 } else {
                     log.innerHTML = '正在垂直滑动：' + this.endY;
                 }
+            },
+            onTap: function() {
+                log.innerHTML = '按下';
+            },
+            onLongTap: function () {
+                log.innerHTML = '长按';
+            },
+            onShortTap: function () {
+                log.innerHTML = '短按';
             },
             onSwipeEnd: function () {
                 log.innerHTML = '滑动结束';
