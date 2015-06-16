@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>树导航</title>
-    <meta name="module-info" content="status=doing">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="用于展示有层次的列表。">
 
@@ -12,6 +12,14 @@
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/nav/tree.css" />
+
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/rect.js"></script>
+    <script type="text/javascript" src="../../src/nav/tree.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -19,132 +27,26 @@
     
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <ul class="x-tree">
-            <li><a href="###"><i class="x-icon">&#65310;</i>节点 1</a></li>
+        <ul class="x-tree" data-role="tree">
             <li>
+                <a href="###"><span class="x-icon">﹀</span>节点 1</a>
                 <ul>
-                    <li class="selected"><a href="###"><i class="icon icon-empty"></i>节点 1 - 1</a></li>
-                    <li><a href="###"><i class="icon icon-angle-down"></i>节点 1 - 2</a></li>
                     <li>
+                        <a href="###"><span class="x-icon">　</span>节点 1 - 1</a>
+                    </li>
+                    <li class="x-tree-selected">
+                        <a href="###"><span class="x-icon">﹀</span>节点 1 - 2</a>
                         <ul>
-                            <li><a href="###"><i class="icon icon-empty"></i>节点 1 - 2 - 1</a></li>
-                            <li><a href="###"><i class="icon icon-empty"></i>节点 1 - 2 - 2</a></li>
+                            <li><a href="###"><span class="x-icon">　</span>节点 1 - 2 - 1</a></li>
+                            <li><a href="###"><span class="x-icon">　</span>节点 1 - 2 - 2</a></li>
                         </ul>
                     </li>
-                    <li><a href="###"><i class="icon icon-empty"></i>节点 1 - 3</a></li>
+                    <li><a href="###"><span class="x-icon">　</span>节点 1 - 3</a></li>
                 </ul>
             </li>
-            <li><a href="###"><i class="icon icon-angle-right"></i>节点 2</a></li>
-            <li><a href="###"><i class="icon icon-angle-right"></i>节点 3</a></li>
+            <li><a href="###"><span class="x-icon">﹀</span>节点 2</a></li>
+            <li><a href="###"><span class="x-icon">﹀</span>节点 3</a></li>
         </ul>
     </aside>
-
-    <article>
-
-        <script type="text/html">
-
-            <div id="ct" style="width:300px"></div>
-
-            < script>
-
-                var treeView = new TreeView();
-                
-                treeView.renderTo('#ct');
-                
-                var treeNode1 = treeView.add("1");
-                treeNode1.add("1-1");
-                treeNode1.add("1-2");
-                
-                var treeNode2 = treeView.add("2");
-
-            < /script>
-
-        </script>
-
-        <script>
-
-            Demo.writeExamples({
-                '添加一个子节点': 'treeView.add("<em>这是使用 add 添加的</em>")',
-                '在第一个子节点后下一个子节点': 'treeView.item(0).add("1 后的子节点")',
-                '删除第一个子节点': 'treeView.removeAt(0)',
-                '折叠第一个子节点': 'treeView.collapse()',
-                '展开确保第一个子节点内可见': 'treeView.item(0).ensureVisible()',
-                '获取选中的节点': 'treeView.getSelectedNode()'
-            });
-
-        </script>
-
-        <!-- <section class="demo-test">
-
-            <h3>无 JavaScript 版</h3>
-
-            <ul class="x-treeview" style="width: 100px;">
-                <li class="x-treeview-item">
-                    <a class="x-treenode">
-                        <span class="x-treenode-space x-treenode-plus"></span>
-                        <span href="#">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa</span>
-                    </a>
-                    <ul class="x-treeview-subtree">
-                        <li class="x-treeview-item">
-                            <a class="x-treenode">
-                                <span class="x-treenode-space"></span>
-                                <span class="x-treenode-space x-treenode-normal"></span>
-                                <span href="#">菜单</span>
-                            </a>
-                        </li>
-                        <li class="x-treeview-item">
-                            <a class="x-treenode x-treenode-selected x-treenode-last">
-                                <span class="x-treenode-space x-treenode-line"></span>
-                                <span class="x-treenode-space x-treenode-normal"></span>
-                                <span href="#">菜单</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="x-treeview-item">
-                    <a class="x-treenode">
-                        <span class="x-treenode-space x-treenode-normal"></span>
-                        <span href="#">菜单</span>
-                    </a>
-                </li>
-                <li class="x-treeview-item">
-                    <a class="x-treenode">
-                        <span class="x-treenode-space x-treenode-plus"></span>
-                        <span href="#">菜单</span>
-                    </a>
-                    <ul class="x-treeview-subtree">
-                        <li class="x-treeview-item">
-                            <a class="x-treenode">
-                                <span class="x-treenode-space x-treenode-space"></span>
-                                <span class="x-treenode-space x-treenode-minus"></span>
-                                <span href="#">菜单</span>
-                            </a>
-                        </li>
-                        <li class="x-treeview-item">
-                            <a class="x-treenode x-treenode-last">
-                                <span class="x-treenode-space x-treenode-space"></span>
-                                <span class="x-treenode-space x-treenode-normal"></span>
-                                <span href="#">菜单</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="x-treeview-item">
-                    <div class="x-treenode">
-                        <span class="x-treenode-space x-treenode-normal"></span>
-                        <span href="#">菜单</span>
-                    </div>
-                </li>
-                <li class="x-treeview-item">
-                    <a class="x-treenode x-treenode-last">
-                        <span class="x-treenode-space x-treenode-plus"></span>
-                        <span href="#">菜单</span>
-                    </a>
-                </li>
-            </ul>
-
-        </section> -->
-
-    </article>
 </body>
 </html>

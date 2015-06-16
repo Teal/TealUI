@@ -558,7 +558,7 @@
         if (!(cssPropertyName in this.style)) {
             var prop = cssPropertyName.replace(/^[a-z]/, function (w) { return w.toUpperCase(); }), prefix;
             for (prefix in { 'Webkit': 1, 'Moz': 1, 'ms': 1, 'O': 1 }) {
-                if ((prefix + prop) in elem.style) {
+                if ((prefix + prop) in this.style) {
                     cssPropertyName = prefix + prop;
                     break;
                 }

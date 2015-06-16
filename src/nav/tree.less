@@ -11,21 +11,14 @@
         list-style: none;
         .text-overflow(ellipsis);
     }
+
+    ul {
+        margin: 0;
+        padding-left: 2em;
+    }
 }
 
-.outlinetree {
-    font-size: 12px;
-    line-height: 22px;
-}
-.outlinetree, .outlinetree ul, .outlinetree li {
-    list-style: outside none none;
-    margin: 0;
-    padding: 0;
-}
-.outlinetree ul {
-    margin-left: 14px;
-}
-.outlinetree .selected a {
+.x-tree-selected > a{
     color: #e9985e;
     font-weight: bold;
 }

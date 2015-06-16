@@ -23,8 +23,17 @@ var Panel = Control.extend({
      * 判断当前面板是否是折叠状态。
      * @returns {Boolean}
      */
-    isCollapsed: function() {
+    getCollapsed: function() {
         return this.elem.classList.contains('x-panel-collapsed');
+    },
+
+    /**
+     * 设置当前面板是否是折叠状态。
+     * @param {Boolean} value 如果指定为 true，则强制折叠，如果指定为 false，则强制展开。
+     */
+    setCollapsed: function(value) {
+        this.elem.classList[value !== false ? 'add' : 'remove']('x-panel-collapsed');
+        return this;
     },
 
     /**
@@ -34,7 +43,7 @@ var Panel = Control.extend({
      */
     toggleCollapse: function (value) {
 
-        var isCollapsed = this.isCollapsed();
+        var isCollapsed = this.getCollapsed();
 
         // 如果折叠结果无变化则忽略。
         if (value == undefined) {
