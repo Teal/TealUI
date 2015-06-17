@@ -21,6 +21,7 @@
   -o-transition: background-color .3s ease-out, border-color .3s ease-out;
   -webkit-transition: background-color .3s ease-out, border-color .3s ease-out;
   transition: background-color .3s ease-out, border-color .3s ease-out;
+  font-size: 13px;
 }
 .x-button:hover,
 .x-button:focus {
@@ -82,7 +83,7 @@
   background-color: transparent;
 }
 .x-button-small {
-  padding: 0 5.6px;
+  padding: 0 7px;
 }
 .x-button-bordered {
   border-color: #cccccc;

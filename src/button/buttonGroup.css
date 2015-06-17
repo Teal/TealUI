@@ -1,12 +1,14 @@
 ﻿.x-buttongroup {
   display: inline-table;
 }
-.x-buttongroup * {
+.x-buttongroup > * {
   display: table-cell;
-  border-right: 0;
 }
-.x-buttongroup *:not(:first-child) {
+.x-buttongroup > *:not(:first-child) {
   border-left-color: #d5d5d5;
+}
+.x-buttongroup > *:not(:last-child) {
+  border-right-width: 0;
 }
 .x-buttongroup.x-radius .x-button:first-child {
   border-radius: 4px 0 0 4px;

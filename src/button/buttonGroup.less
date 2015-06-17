@@ -3,12 +3,15 @@
 
 .x-buttongroup {
     display: inline-table;
-    * {
+    > * {
         display: table-cell;
-        border-right: 0;
 
         &:not(:first-child) {
             border-left-color: darken(#eee, 10%);
+        }
+        
+        &:not(:last-child) {
+            border-right-width: 0;
         }
     }
     

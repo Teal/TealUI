@@ -10,12 +10,12 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
     <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/button/buttonGroup.css" />
     <link rel="stylesheet" type="text/css" href="../../src/button/splitButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/popover/menu.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
 
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
@@ -35,8 +35,8 @@
     <h2>基本用法</h2>
     <aside class="doc-demo">
         <span class="x-splitbutton x-buttongroup" data-role="splitButton">
-            <button type="button" class="x-button" x-menubutton="menu=#button">菜单</button>
-            <button type="button" class="x-button" x-menubutton="menu=#button"><i class="x-icon">&#9662;</i></button>
+            <button type="button" class="x-button">菜单</button>
+            <button type="button" class="x-button"><span class="x-icon">&#9662;</span></button>
         </span>
         <menu class="x-menu x-dropdown">
             <li><a href="###">菜单 1</a></li>
@@ -45,7 +45,19 @@
             <li><a href="###">菜单 3</a></li>
         </menu>
     </aside>
-
+    
+    <aside class="doc-demo">
+        <span class="x-splitbutton x-buttongroup x-radius" data-role="splitButton">
+            <button type="button" class="x-button x-button-bordered x-button-small">菜单</button>
+            <button type="button" class="x-button x-button-bordered x-button-small"><span class="x-icon">&#9662;</span></button>
+        </span>
+        <menu class="x-menu x-dropdown">
+            <li><a href="###">菜单 1</a></li>
+            <li><a href="###">菜单 2</a></li>
+            <li><hr /></li>
+            <li><a href="###">菜单 3</a></li>
+        </menu>
+    </aside>
     <!--<article>
 
         <h2>JavaScript 方式</h2>
