@@ -18,7 +18,7 @@ Doc.Configs = {
     /**
      * 当前项目的版本。
      */
-    version: '3.0',
+    version: '3.0beta',
 
     /**
      * 当前项目的基础路径。
@@ -1403,7 +1403,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         <li{folder_actived_demos}><a href="{basePath}{folder_demos}/{index}">文档和演示</a></li>\
                         <li{folder_actived_tools_customize}><a href="{basePath}{folder_tools}/customize/{index}">下载和定制</a></li>\
                         <li{folder_actived_tools_devtools}><a href="{basePath}{folder_tools}/devTools/{index}">开发者工具</a></li>\
-                        <li class="doc-right"><a href="http://jplusui.github.com/" target="_blank">历史版本</a></li>\
+                        <li class="doc-right"><a href="http://jplusui.github.com/" target="_blank">更早版本</a></li>\
                     </ul>\
                 </nav>\
                 <header id="doc_header" class="doc-container doc-section">\
