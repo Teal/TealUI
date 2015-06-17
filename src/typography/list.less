@@ -2,50 +2,47 @@
 @import "../core/mixins.less";
 
 .x-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
+// 内联列表。
+.x-list-inline {
+    .clearfix();
+    
     > li {
-        border-top: 1px solid @border-color;
-        padding: 0.3em 0;
-
-        &:first-child {
-            border-top: 0;
-        }
+        float: left;
     }
 }
 
+// 省略号。
+.x-list-ellipsis > li{
+    .text-overflow();
+}
+
+// 分割线。
+.x-list-line > li{
+    padding: @box-padding-y 0;
+
+    &:not(:first-child) {
+        border-top: 1px solid @border-color;
+    }
+}
+
+// 间接色。
 .x-list-striped {
     > li:nth-child(even) {
         background-color: @striped-background-color;
     }
 }
 
+// 边框。
 .x-list-bordered {
     border: 1px solid @border-color;
 
     > li {
-        padding: 0.3em 0.6em;
+        padding: @box-padding;
         .box-sizing(border-box);
-    }
-}
-
-.x-list-buttongroup {
-    li {
-        padding: 0;
-
-        a {
-            display: block;
-            padding: 0.3em 0.6em;
-            .transition(background-color .3s);
-
-            &:hover {
-                background-color: @hover-background-color;
-                text-decoration: none;
-            }
-        }
-
-        &.x-list-selected a {
-            background-color: @selected-background-color;
-            color: @selected-text-color;
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿.x-article dd {
   margin: 0;
 }
-#article_author img.x-bordered {
+#article_author .x-userface-bordered {
   margin: 0 1em 1em 0;
 }
 #article_author h3 a {
@@ -12,6 +12,7 @@
   margin-bottom: 1em;
   line-height: 160%;
 }
-#article_toolbar {
+#article_toolbar,
+#article_comments {
   margin-top: 2em;
 }

@@ -1,0 +1,9 @@
+﻿.x-articlelist > li {
+  padding: .5em 0;
+}
+.x-articlelist p {
+  font-size: 13px;
+  line-height: 150%;
+  color: #545454;
+  margin-bottom: 0;
+}

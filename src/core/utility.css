@@ -17,25 +17,6 @@
   margin-right: auto;
   text-align: center;
 }
-.x-horizonal,
-.x-vertical {
-  margin: 0;
-  padding: 0;
-}
-.x-horizonal > * {
-  float: left;
-  list-style: none;
-}
-.x-vertical .x-vertical {
-  margin-left: 1em;
-}
-.x-vertical > * {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  list-style: none;
-}
 .x-hide {
   display: none;
 }
