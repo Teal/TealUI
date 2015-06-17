@@ -1763,11 +1763,12 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                     // 插入多说评论框。
                     if (!Doc.local) {
-                        var div = document.createElement('div');
+                        var div = document.createElement('div'),
+                            path = location.pathname.replace(/\/$/, "/index.html");
                         div.className = 'ds-thread';
-                        div.setAttribute('data-thread-key', location.pathname);
+                        div.setAttribute('data-thread-key', path);
                         div.setAttribute('data-title', document.title);
-                        div.setAttribute('data-url', location.pathname);
+                        div.setAttribute('data-url', path);
                         document.body.appendChild(div);
 
                         window.duoshuoQuery = { short_name: "teal" };
