@@ -1,16 +1,16 @@
 ﻿.x-closebutton {
-  font-family: Helvetica, Arial;
   display: block;
-  color: inherit;
-  margin: 5px 0 5px 1em;
-  width: 14px;
-  height: 14px;
-  font-size: 16px;
-  font-weight: 100;
-  text-align: center;
-  line-height: 14px;
-  cursor: pointer;
   float: right;
+  margin: 4px 0 4px 1em;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  font-family: Helvetica, Arial;
+  color: inherit;
+  font-size: 17px;
+  font-weight: normal !important;
+  text-align: center;
+  line-height: 1;
   border-radius: 50%;
 }
 .x-closebutton:hover {

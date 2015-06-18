@@ -11,5 +11,5 @@
   transition: border-color 0.2s ease-in-out;
 }
 a:hover .x-thumbnail {
-  border-color: #095f8b;
+  border-color: #337ab7;
 }

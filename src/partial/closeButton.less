@@ -2,18 +2,18 @@
 @import "../core/mixins.less";
 
 .x-closebutton {
-    font-family: Helvetica, Arial;
     display: block;
-    color: inherit;
-    margin: @box-padding-y + 1px 0 @box-padding-y + 1px 1em;
-    width: @font-size;
-    height: @font-size;
-    font-size: @font-size + 2px;
-    font-weight: 100;
-    text-align: center;
-    line-height: @font-size;
-    cursor: pointer;
     float: right;
+    margin: @padding-y 0 @padding-y @margin;
+    width: @font-size + 2px;
+    height: @font-size + 2px;
+    cursor: pointer;
+    font-family: Helvetica, Arial;
+    color: inherit;
+    font-size: @font-size + 3px;
+    font-weight: normal !important;
+    text-align: center;
+    line-height: 1;
     border-radius: 50%;
 
     &:hover {

@@ -17,16 +17,16 @@
     a {
         display: block;
         text-align: center;
-        padding: @box-padding-y @font-size;
+        padding: @padding-y @font-size;
         margin-bottom: -1px;
         color: @text-color;
         border-color: @border-color;
         border-style: solid;
         border-width: 1px 1px 1px 0;
-        background-color: @header-background-color;
+        background-color: @background-color-header;
         
         &:hover {
-            background-color: darken(@header-background-color, 5%);
+            background-color: darken(@background-color-header, 5%);
             text-decoration: none;
         }
     }
@@ -50,7 +50,7 @@
 .x-tab-body {
     border: 1px solid @border-color;
     border-top: 0;
-    padding: @box-padding-x;
+    padding: @padding-x;
     .box-sizing(border-box);
 }
 

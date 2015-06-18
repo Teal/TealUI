@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>关闭按钮</title>
-    <meta name="module-info" content="package=default, group=closeButton">
+    <meta name="module-info" content="package=default">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="关闭按钮。">
 
@@ -28,5 +28,7 @@
     <aside class="doc-demo">
         <a href="javascript://关闭" class="x-icon" title="关闭" style="text-decoration:none;">&#10006;</a>
     </aside>
+    
+    <blockquote class="doc-warning">Safari Mobile 要求可点击链接必须有 href, 因此这里不能删除 href。具体参考 <a href="https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile">click 事件文档</a>。</blockquote>
 </body>
 </html>

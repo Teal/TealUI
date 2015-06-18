@@ -95,7 +95,7 @@
 .x-calender-actived {
   outline: 1px solid #007FE6;
   outline-offset: -1px;
-  color: #095f8b !important;
+  color: #337ab7 !important;
 }
 .x-calender-selected {
   background-color: #337ab7 !important;

@@ -7,13 +7,19 @@
 @import "../core/mixins.less";
 
 //--------------------------------
-// HTML5 标签重置
+// 块级标签重置
 //--------------------------------
+
+// IOS, Android, IE: 阻止在调整设备方向后自动调整文本大小。
+html {
+    -ms-text-size-adjust: 100%; // 1
+    -webkit-text-size-adjust: 100%; // 1
+}
 
 // IE 6-9：修复部分 HTML5 标签显示。
 // IE 6-11、Firefox：修复 details, summary 标签显示。
 // IE 6-11：修复 main 标签显示。
-// hgroup 已被从 HTML5 标准移除。
+// hgroup 已被从 HTML5 标准移除，这里不再支持。
 article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
     display: block;
 }
@@ -21,6 +27,7 @@ article, aside, section, header, footer, nav, menu, figcaption, figure, main, de
 img, textarea, progress, input, audio, video, canvas {
     display: inline-block; // IE6-8: 修复默认显示方式。
     max-width: 100%; // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
+    vertical-align: baseline; // Chrome, Firefox, Opera: 统一对齐方式。
 }
 
 // IE 6-10：隐藏 [hidden]。
@@ -28,15 +35,32 @@ img, textarea, progress, input, audio, video, canvas {
 // 不显示缺少 controls 的 audio 标记。
 [hidden], template, audio:not([controls]) {
     display: none;
+    height: 0; // IOS 5 会显示额外宽度。
 }
 
 //--------------------------------
 // 表单标签修复
 //--------------------------------
 
+// Firefox Android：修复默认背景图片。
+// 参考 https://github.com/necolas/normalize.css/issues/214
+// Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属性。
+// Firefox：修复 select 继承 text-transform 属性。
+button, select {
+    background-image: none;
+    text-transform: none;
+}
+
 // 禁止表单元素单独指定字体。
 input, button, select, textarea, optgroup {
     font: inherit;
+    margin: 0; // 统一各浏览器默认边距。
+}
+
+// 避免 Android 4.0.* WebKit 按钮点击销毁  `audio` 和 `video` 控件。
+// 确保 IOS input 样式可修改。
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
 }
 
 // Firefox 4+：删除表单元素默认 2px 边距。
@@ -47,6 +71,8 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 
 // 重置输入框对齐高度。
 input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
     margin-top: 1px \9; // IE8-9
     vertical-align: -2px;
 }
@@ -54,6 +80,51 @@ input[type=checkbox], input[type=radio] {
 textarea {
     overflow: auto; // IE 6-9：删除默认滚动条。
     vertical-align: top; // 改进文本框对齐方式。
+}
+
+// 设置全局占位符颜色。
+.placeholder();
+
+fieldset {
+    // Chrome 和 Firefox 默认设置 fieldset `min-width: min-content;`,
+    // 为使其支持响应式，重置此样式。
+    // 参考 https://github.com/twbs/bootstrap/issues/12359 。
+    min-width: 0;
+    // 统一浏览器默认样式。
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: .35em .625em .75em;
+}
+
+legend {
+    border: 0; // IE 8/9/10/11: 修复颜色继承。
+    padding: 0 3px; // 设置默认边距。
+}
+
+//--------------------------------
+// 内联标签重置
+//--------------------------------
+
+// 地址
+// 统一 dfn 为非斜体。
+address, cite, dfn {
+    font-style: normal;
+}
+
+// IE 8-11、Safari、Chrome: 添加下划线。
+abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+// IE 8/9: 添加 mark 标签样式。
+mark {
+    background: #ff0;
+    color: #000;
+}
+
+// IE 9/10/11： 隐藏超出部分。
+svg:not(:root) {
+    overflow: hidden;
 }
 
 //--------------------------------
@@ -65,9 +136,9 @@ body {
     // Windows Vista+：Segoe UI Symbol, Segoe UI
     // iOS7+, OSX 10.10+：Lucida Grande
     // Ubuntu：FreeSans
-    font-family: @font-family, sans-serif;
+    font-family: @font-family-sans-serif, sans-serif;
     font-size: @font-size;
-    line-height: 100% * @line-height / @font-size;
+    line-height: 100% * @line-height / @font-size + 0.6%;
     color: @text-color;
     background-color: @background-color; // IE 会使用系统背景色作为默认的背景色。
 }
@@ -79,10 +150,11 @@ p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
 
 // 链接
 a {
-    color: @link-text-color;
+    color: @text-color-link;
     text-decoration: none;
-
+    background-color: transparent; // IE10: 删除激活时的灰色。
     &:hover {
+        color: darken(@text-color-link, 26%);
         text-decoration: underline;
     }
 }
@@ -123,7 +195,7 @@ hr {
     border-color: @border-color;
     border-width: 1px 0 0 0;
     border-style: solid;
-    -moz-box-sizing: content-box; // Firefox: 统一浏览器行为。
+    box-sizing: content-box; // Firefox: 统一浏览器行为。
     height: 0;
 }
 
@@ -150,14 +222,14 @@ th, td {
     border: 1px solid @border-color;
 }
 
-// 图片
+// 删除链接内图片边框。
 img {
-    border: 0; // 删除链接内图片边框。
+    border: 0;
 }
 
 // 代码
-pre, code {
-    font-family: Monaco, Menlo, Consolas, "Courier New", @font-family, monospace;
+pre, code, kbd, samp {
+    font-family: @font-family-monospace;
 }
 
 code {
@@ -179,19 +251,6 @@ pre {
 // 小字
 small {
     font-weight: 100;
-    font-size: @small-font-size;
-    color: @small-text-color;
+    font-size: @font-size-small;
+    color: @text-color-small;
 }
-
-// 地址
-address, cite {
-    font-style: normal;
-}
-
-// IE 8-11、Safari、Chrome: 添加下划线。
-abbr[title] {
-    border-bottom: 1px dotted;
-}
-
-// 设置全局占位符颜色。
-.placeholder();

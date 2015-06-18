@@ -4,7 +4,7 @@
 }
 .x-checkbox + .x-icon,
 .x-checkbox + .x-icon + .x-icon {
-  color: #095f8b;
+  color: #337ab7;
 }
 .x-checkbox[disabled] + .x-icon,
 .x-checkbox[disabled] + .x-icon + .x-icon,

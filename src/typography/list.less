@@ -23,7 +23,7 @@
 
 // 分割线。
 .x-list-line > li{
-    padding: @box-padding-y 0;
+    padding: @padding-y 0;
 
     &:not(:first-child) {
         border-top: 1px solid @border-color;
@@ -33,7 +33,7 @@
 // 间接色。
 .x-list-striped {
     > li:nth-child(even) {
-        background-color: @striped-background-color;
+        background-color: @background-color-striped;
     }
 }
 
@@ -42,7 +42,7 @@
     border: 1px solid @border-color;
 
     > li {
-        padding: @box-padding;
+        padding: @padding-y @padding-x;
         .box-sizing(border-box);
     }
 }

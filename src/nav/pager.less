@@ -10,16 +10,16 @@
     
     a {
         display: inline-block;
-        min-width: @line-height - @box-padding-x + 2px; // 2px 视觉差
+        min-width: @line-height - @padding-x + 2px; // 2px 视觉差
         border: 1px solid @border-color;
-        padding: @box-padding;
+        padding: @padding-y @padding-x;
 
         & + a {
-            margin-left: @box-padding-x / 2;
+            margin-left: @padding-x / 2;
         }
 
         &:hover {
-            background-color: @hover-background-color;
+            background-color: @background-color-hover;
             text-decoration: none;
         }
         

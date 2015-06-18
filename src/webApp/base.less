@@ -50,16 +50,16 @@
 .x-page-header {
     background-color: @header-backgorund-color;
     color: @selected-text-color;
-    padding: @box-padding-x;
+    padding: @padding-x;
     height: @header-height;
-    line-height: @header-height - @box-padding-x * 2;
+    line-height: @header-height - @padding-x * 2;
 
     a {
         color: @selected-text-color;
         text-decoration: none;
 
         &:active {
-            color: @hover-background-color;
+            color: @background-color-hover;
         }
     }
 
@@ -80,7 +80,7 @@
         text-align: center;
         color: @tip-text-color;
         text-decoration: none;
-        padding: @box-padding-x 0;
+        padding: @padding-x 0;
 
         .x-icon {
             margin-right: 0;
@@ -108,18 +108,18 @@
         border: 1px solid @selected-text-color;
         border-left: 0;
         color: @selected-text-color;
-        padding: 0 @box-padding-x * 1;
+        padding: 0 @padding-x * 1;
         line-height: 150%;
 
         &:first-child {
             border-left: 1px solid @selected-text-color;
             border-radius: @font-size 0 0 @font-size;
-            padding-left: @box-padding-x * 1.5;
+            padding-left: @padding-x * 1.5;
         }
 
         &:last-child {
             border-radius: 0 @font-size @font-size 0;
-            padding-right: @box-padding-x * 1.5;
+            padding-right: @padding-x * 1.5;
         }
     }
 
@@ -137,7 +137,7 @@
 
 .x-page-list-header {
     margin-top: .5em;
-    padding: 0 @box-padding-x;
+    padding: 0 @padding-x;
 }
 
 .x-page-list {
@@ -169,7 +169,7 @@
         }
 
         &:active {
-            background-color: @hover-background-color;
+            background-color: @background-color-hover;
         }
     }
 }

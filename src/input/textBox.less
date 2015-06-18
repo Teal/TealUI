@@ -2,34 +2,39 @@
 @import "../core/mixins.less";
 
 .x-textbox {
-    padding: @box-padding;
-    border: 1px solid @textbox-border-color;
-    background-color: @background-color;
+    border: 1px solid @border-color-input;
+    border-radius: @border-radius;
+    padding: @padding-y @padding-x;
     outline: 0;
+    background-color: @background-color;
     width: @font-size * 13;
     .box-sizing(border-box);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    .transition(~"background-color linear .2s, border linear .2s, box-shadow linear .2s");
+    .transition(~"background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s");
 
     &:focus {
-        border-color: rgba(82,168,236,.8);
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(rgba(82,168,236,.8), 20%);
+        border-color: @border-color-input-hover;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(red(@border-color-input-hover), green(@border-color-input-hover), blue(@border-color-input-hover), .6);
     }
 
-    &[disabled], &[readonly] {
+    &[disabled], &[readonly], [disabled] & {
         box-shadow: none !important;
-        background-color: #efefef;
+        background-color: lighten(@gray-lighter, 5%);
+    }
+
+    textarea& {
+        width: @font-size * 40;
+        height: @line-height * 5;
     }
 }
 
-// ɫϵ
 .x-textbox-state(@state) {
     .x-textbox-@{state} {
         border-color: ~"@{@{state}-text-color}";
 
         &:focus {
             border-color: ~"@{@{state}-text-color}";
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px lighten(color(~"@{@{state}-text-color}"), 20%);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(red(color(~"@{@{state}-text-color}")), green(color(~"@{@{state}-text-color}")), blue(color(~"@{@{state}-text-color}")), .6);
         }
     }
 }
@@ -39,6 +44,11 @@
 .x-textbox-state(warning);
 .x-textbox-state(error);
 
+.x-textbox-small {
+    padding: @padding-small-y @padding-small-x;
+}
+
 .x-textbox-large {
-    width: 500px;
+    width: @font-size * 40;
+    padding: @padding-large-y @padding-large-x;
 }

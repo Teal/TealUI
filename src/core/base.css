@@ -3,6 +3,10 @@
  * @copyright 2011-2015 The TealUI Team
  * @license The BSD License
  */
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 article,
 aside,
 section,
@@ -26,11 +30,18 @@ video,
 canvas {
   display: inline-block;
   max-width: 100%;
+  vertical-align: baseline;
 }
 [hidden],
 template,
 audio:not([controls]) {
   display: none;
+  height: 0;
+}
+button,
+select {
+  background-image: none;
+  text-transform: none;
 }
 input,
 button,
@@ -38,6 +49,13 @@ select,
 textarea,
 optgroup {
   font: inherit;
+  margin: 0;
+}
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+  -webkit-appearance: button;
 }
 button::-moz-focus-inner,
 input::-moz-focus-inner {
@@ -46,6 +64,8 @@ input::-moz-focus-inner {
 }
 input[type=checkbox],
 input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
   margin-top: 1px \9;
   vertical-align: -2px;
 }
@@ -53,11 +73,43 @@ textarea {
   overflow: auto;
   vertical-align: top;
 }
+:-moz-placeholder {
+  color: #bdbdbd;
+}
+:-ms-input-placeholder,
+::-webkit-input-placeholder {
+  color: #bdbdbd;
+}
+fieldset {
+  min-width: 0;
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: .35em .625em .75em;
+}
+legend {
+  border: 0;
+  padding: 0 3px;
+}
+address,
+cite,
+dfn {
+  font-style: normal;
+}
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+mark {
+  background: #ff0;
+  color: #000;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
 body {
   margin: 0;
   font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
   font-size: 14px;
-  line-height: 171.42857143%;
+  line-height: 172.02857143%;
   color: #212121;
   background-color: #ffffff;
 }
@@ -75,10 +127,12 @@ figure {
   margin: 0 0 1em;
 }
 a {
-  color: #095f8b;
+  color: #337ab7;
   text-decoration: none;
+  background-color: transparent;
 }
 a:hover {
+  color: #16354f;
   text-decoration: underline;
 }
 h1,
@@ -113,7 +167,7 @@ hr {
   border-color: #e0e0e0;
   border-width: 1px 0 0 0;
   border-style: solid;
-  -moz-box-sizing: content-box;
+  box-sizing: content-box;
   height: 0;
 }
 dt {
@@ -138,7 +192,9 @@ img {
   border: 0;
 }
 pre,
-code {
+code,
+kbd,
+samp {
   font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
 }
 code {
@@ -157,20 +213,6 @@ pre {
 }
 small {
   font-weight: 100;
-  font-size: 0.85714286em;
-  color: #aaaaaa;
-}
-address,
-cite {
-  font-style: normal;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-:-moz-placeholder {
-  color: #aaaaaa;
-}
-:-ms-input-placeholder,
-::-webkit-input-placeholder {
-  color: #aaaaaa;
+  font-size: 12px;
+  color: #ababab;
 }
