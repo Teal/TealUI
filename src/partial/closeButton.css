@@ -14,7 +14,7 @@
   border-radius: 50%;
 }
 .x-closebutton:hover {
-  background-color: #a94442;
+  background-color: #d9534f;
   color: #ffffff;
   text-decoration: none;
   -moz-transition: background-color 0.3s;

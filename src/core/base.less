@@ -10,16 +10,16 @@
 // 块级标签重置
 //--------------------------------
 
-// IOS, Android, IE: 阻止在调整设备方向后自动调整文本大小。
+// IOS, Android, IE: 阻止调整设备方向后自动调整文本大小。
 html {
-    -ms-text-size-adjust: 100%; // 1
-    -webkit-text-size-adjust: 100%; // 1
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
-// IE 6-9：修复部分 HTML5 标签显示。
-// IE 6-11、Firefox：修复 details, summary 标签显示。
-// IE 6-11：修复 main 标签显示。
-// hgroup 已被从 HTML5 标准移除，这里不再支持。
+// IE6-9：修复部分 HTML5 标签显示。
+// IE6-11：修复 main 标签显示。
+// IE6-11、Firefox：修复 details, summary 标签显示。
+// 注：hgroup 已被从 HTML5 标准移除，这里不再支持。
 article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
     display: block;
 }
@@ -30,12 +30,27 @@ img, textarea, progress, input, audio, video, canvas {
     vertical-align: baseline; // Chrome, Firefox, Opera: 统一对齐方式。
 }
 
-// IE 6-10：隐藏 [hidden]。
-// IE 6-11、Safari、Firefox 2-21：隐藏 template
+// IE6-10：隐藏 [hidden]。
+// IE6-11、Safari、Firefox2-21：隐藏 template。
 // 不显示缺少 controls 的 audio 标记。
 [hidden], template, audio:not([controls]) {
     display: none;
-    height: 0; // IOS 5 会显示额外宽度。
+    height: 0; // IOS 5 会显示额外高度。
+}
+
+// 删除链接内图片边框。
+img {
+    border: 0;
+}
+
+// IE 9/10/11： 隐藏超出部分。
+svg:not(:root) {
+    overflow: hidden;
+}
+
+// IE 8/9, Safari：设置默认边距。
+figure {
+    margin: 1em 40px;
 }
 
 //--------------------------------
@@ -105,15 +120,14 @@ legend {
 // 内联标签重置
 //--------------------------------
 
-// 地址
-// 统一 dfn 为非斜体。
-address, cite, dfn {
-    font-style: normal;
-}
-
 // IE 8-11、Safari、Chrome: 添加下划线。
 abbr[title] {
     border-bottom: 1px dotted;
+}
+
+// 统一为非斜体。
+address, cite, dfn {
+    font-style: normal;
 }
 
 // IE 8/9: 添加 mark 标签样式。
@@ -122,9 +136,11 @@ mark {
     color: #000;
 }
 
-// IE 9/10/11： 隐藏超出部分。
-svg:not(:root) {
-    overflow: hidden;
+// 小字
+small {
+    font-weight: 100;
+    font-size: @font-size-small;
+    color: @text-color-small;
 }
 
 //--------------------------------
@@ -222,11 +238,6 @@ th, td {
     border: 1px solid @border-color;
 }
 
-// 删除链接内图片边框。
-img {
-    border: 0;
-}
-
 // 代码
 pre, code, kbd, samp {
     font-family: @font-family-monospace;
@@ -246,11 +257,4 @@ pre {
     padding: @padding;
     color: inherit;
     background-color: #f7f7f7;
-}
-
-// 小字
-small {
-    font-weight: 100;
-    font-size: @font-size-small;
-    color: @text-color-small;
 }

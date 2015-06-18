@@ -5,19 +5,19 @@
     // 按钮样式重置。
     -moz-appearance: none;
     -webkit-appearance: none;
-    background-image: none;
     display: inline-block;
     text-align: center;
     white-space: nowrap;
     .user-select(none);
     .box-sizing(border-box);
+    touch-action: manipulation;
     color: @text-color;
     outline: 0;
     // 按钮风格定义。
     padding: @padding-y @font-size;
     background-color: #eee;
     border: 1px solid #eee;
-    .transition(~"background-color .3s ease-out, border-color .3s ease-out");
+    .transition(~"background-color .15s ease-out, border-color .15s ease-out");
 
     &:hover, &:focus {
         background-color: darken(#eee, 3%);
@@ -65,9 +65,9 @@
 // 尺寸
 .x-button-small {
     padding: 0 @font-size / 2;
-    font-size: @menu-font-size;
+    font-size: @font-size-menu;
 }
 
 .x-button-bordered {
-    border-color: @textbox-border-color;
+    border-color: @border-color-input;
 }

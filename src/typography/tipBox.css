@@ -19,22 +19,22 @@ span.x-tipbox {
 .x-tipbox-info {
   background-color: #d9edf7;
   border-color: #bce8f1;
-  color: #31708f;
+  color: #5bc0de;
 }
 .x-tipbox-success {
   background-color: #dff0d8;
   border-color: #d6e9c6;
-  color: #3c763d;
+  color: #5cb85c;
 }
 .x-tipbox-warning {
   background-color: #fcf8e3;
   border-color: #faebcc;
-  color: #9c7a3e;
+  color: #f0ad4e;
 }
 .x-tipbox-error {
   background-color: #f2dede;
   border-color: #ebccd1;
-  color: #a94442;
+  color: #d9534f;
 }
 .x-tipbox-transparent {
   background-color: transparent;

@@ -1,7 +1,6 @@
 ﻿.x-button {
   -moz-appearance: none;
   -webkit-appearance: none;
-  background-image: none;
   display: inline-block;
   text-align: center;
   white-space: nowrap;
@@ -12,15 +11,16 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  touch-action: manipulation;
   color: #212121;
   outline: 0;
   padding: 4px 14px;
   background-color: #eee;
   border: 1px solid #eee;
-  -moz-transition: background-color .3s ease-out, border-color .3s ease-out;
-  -o-transition: background-color .3s ease-out, border-color .3s ease-out;
-  -webkit-transition: background-color .3s ease-out, border-color .3s ease-out;
-  transition: background-color .3s ease-out, border-color .3s ease-out;
+  -moz-transition: background-color .15s ease-out, border-color .15s ease-out;
+  -o-transition: background-color .15s ease-out, border-color .15s ease-out;
+  -webkit-transition: background-color .15s ease-out, border-color .15s ease-out;
+  transition: background-color .15s ease-out, border-color .15s ease-out;
 }
 .x-button:hover,
 .x-button:focus {
@@ -44,39 +44,39 @@
 }
 .x-button-info {
   color: #ffffff;
-  background-color: #31708f;
-  border-color: #31708f;
+  background-color: #5bc0de;
+  border-color: #5bc0de;
 }
 .x-button-info:hover,
 .x-button-info:focus {
-  background-color: #214c61;
+  background-color: #2aabd2;
 }
 .x-button-success {
   color: #ffffff;
-  background-color: #3c763d;
-  border-color: #3c763d;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
 }
 .x-button-success:hover,
 .x-button-success:focus {
-  background-color: #274d28;
+  background-color: #419641;
 }
 .x-button-warning {
   color: #ffffff;
-  background-color: #8a6d3b;
-  border-color: #8a6d3b;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
 }
 .x-button-warning:hover,
 .x-button-warning:focus {
-  background-color: #5f4b29;
+  background-color: #eb9316;
 }
 .x-button-error {
   color: #ffffff;
-  background-color: #a94442;
-  border-color: #a94442;
+  background-color: #d9534f;
+  border-color: #d9534f;
 }
 .x-button-error:hover,
 .x-button-error:focus {
-  background-color: #7d3231;
+  background-color: #c12e2a;
 }
 .x-button-transparent {
   background-color: transparent;

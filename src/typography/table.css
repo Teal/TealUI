@@ -9,19 +9,19 @@
 }
 .x-table-info {
   background-color: #d9edf7 !important;
-  color: #31708f;
+  color: #5bc0de;
 }
 .x-table-success {
   background-color: #dff0d8 !important;
-  color: #3c763d;
+  color: #5cb85c;
 }
 .x-table-warning {
   background-color: #fcf8e3 !important;
-  color: #9c7a3e;
+  color: #f0ad4e;
 }
 .x-table-error {
   background-color: #f2dede !important;
-  color: #a94442;
+  color: #d9534f;
 }
 .x-table-actived {
   background-color: #ffd!important;

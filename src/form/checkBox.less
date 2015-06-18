@@ -6,15 +6,14 @@
     visibility: hidden;
 
     & + .x-icon, & + .x-icon + .x-icon {
-        color: @link-text-color;
+        color: @text-color-link;
     }
-    
+
     &[disabled] + .x-icon, &[disabled] + .x-icon + .x-icon, &[readonly] + .x-icon, &[readonly] + .x-icon + .x-icon {
-        color: @disabled-text-color;
+        color: @text-color-disabled;
     }
 
     &:checked + .x-icon, &:not(:checked) + .x-icon + .x-icon {
         display: none;
     }
-
 }
