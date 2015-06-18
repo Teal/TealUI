@@ -1,0 +1,23 @@
+﻿
+@import "../core/mixins.less";
+
+.x-pill {
+    display: inline-block;
+    font-size: .95em;
+    border-radius: 4px;
+    padding: @box-padding-y + 1 @font-size + 1;
+}
+
+.x-pill:hover, .x-pill.x-dropdown-actived {
+    background-color: @hover-background-color;
+    text-decoration: none;
+}
+
+.x-pill-actived {
+    background-color: @selected-background-color!important;
+    color: @selected-text-color!important;
+}
+
+.x-pill-small {
+    padding: 0 @box-padding-x;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>完整页面示例</title>
+    <title>完整页面结构</title>
     <meta name="module-info" content="parent-title=完整页面, parent-order=misc, order=^">
     <meta name="author" content="">
     <meta name="description" content="完整页面示例">
@@ -23,9 +23,16 @@
     <link rel="stylesheet" type="text/css" href="../../src/typography/imageText.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/article.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/userFace.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/typography/list.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tag.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tip.css" />
     <link rel="stylesheet" type="text/css" href="../../src/scaffolding/page.css" />
+    
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/dom/animate.js"></script>
+
+    <script type="text/javascript" src="../../src/scaffolding/page.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -33,18 +40,20 @@
 
     <header id="header">
         <nav class="x-container x-clear">
-            <a id="logo" href="###" title="返回主页"><img width="80" height="30" alt="logo" src="http://placehold.it/80x30"></a>
-            <form id="search_form" class="x-searchtextbox" action="###">
-                <input type="text" class="x-textbox x-radius" placeholder="搜索文章和代码..." onfocus="this.select();">
-                <button type="submit" title="搜索" class="x-searchtextbox-button"><i class="x-icon">☌</i></button>
+            <a id="logo" href="###" title="返回主页">
+                <img width="80" height="30" alt="logo" src="http://placehold.it/80x30">
+            </a>
+            <form id="searchform" class="x-searchtextbox" action="###">
+                <input type="text" class="x-textbox x-radius" placeholder="搜索文章和代码...">
+                <button type="submit" title="搜索" class="x-searchtextbox-button"><span class="x-icon">☌</span></button>
             </form>
-            <aside id="navbar_trigger" class="x-right">
+            <aside id="navbartrigger" class="x-right">
                 <a href="javascript:;"><span class="x-icon">☌</span></a>
                 <a href="javascript:;"><span class="x-icon">ⅰ</span></a>
                 <a href="javascript:;"><span class="x-icon">≡</span></a>
             </aside>
             <ul id="navbar" class="x-list">
-                <li class="x-actived"><a href="###">首页</a></li>
+                <li class="actived"><a href="###">首页</a></li>
                 <li><a href="###">教程</a></li>
                 <li><a href="###">工具</a></li>
             </ul>
@@ -57,7 +66,7 @@
 
     <div class="x-container">
         <nav id="breadcrumb" class="x-breadcrumb">
-            <a href="###"><span class="x-icon">&#1769;</span>TealUI</a>
+            <a href="###"><span class="x-icon">۩</span>TealUI</a>
             <span class="x-icon x-breadcrumb-divider">»</span>
             <a href="###">导航</a>
             <span class="x-icon x-breadcrumb-divider">»</span>
@@ -75,10 +84,13 @@
             </aside>
         </section>
     </div>
+
     <footer id="footer">
         <div class="x-container">
             <span class="x-right">
                 <a href="###">京ICP备0000000000号</a>
+                |
+                <a href="###">关于我们</a>
                 |
                 <a href="###">服务条款</a>
                 |

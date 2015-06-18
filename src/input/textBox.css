@@ -50,3 +50,6 @@
   border-color: #dd514c;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px #eda4a2;
 }
+.x-textbox-large {
+  width: 500px;
+}

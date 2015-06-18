@@ -5,14 +5,13 @@
 @import "../core/mixins.less";
 
 // 顶部
-
 #header {
     background: #4F5061;
     color: #807e7e;
     margin-bottom: 1em;
     line-height: @line-height - 3px;
 
-    a {
+    nav a {
         color: #e7e3e3;
         display: inline-block;
         text-decoration: none;
@@ -26,21 +25,21 @@
     }
 }
 
-#logo, #search_form, #navbar li{
+#logo, #searchform, #navbar li {
     float: left;
 }
 
-a#logo {
+#logo {
     line-height: 0;
-    padding: @font-size * 0.5 0;
+    padding: @font-size * 0.5 0!important;
 }
 
-#search_form {
+#searchform {
     margin: @font-size * 0.5 .3em;
 
     input {
         background: #f1f1f1;
-        width: 280px;
+        width: 200px;
 
         &:focus {
             background: #fff;
@@ -54,17 +53,17 @@ a#logo {
         padding: @box-padding-y + 1px + @font-size * 0.5 @font-size * 1.2;
     }
 
-    a:hover, .x-actived a {
+    a:hover, .actived a {
         color: #fff;
         background: #404040;
     }
 }
 
-#navbar_trigger {
+#navbartrigger {
     display: none;
 }
 
-#userbar, #navbar_trigger {
+#userbar, #navbartrigger {
     a:last-child {
         padding-right: 0;
     }
@@ -72,11 +71,11 @@ a#logo {
 
 @media @small {
 
-    #search_form, #userbar, #navbar {
+    #searchform, #userbar, #navbar {
         display: none;
     }
 
-    #navbar_trigger {
+    #navbartrigger {
         display: inline-block;
     }
 
@@ -85,7 +84,7 @@ a#logo {
         margin: 0 -@margin;
 
         li {
-            float: none !important;
+            float: none;
         }
 
         a {
@@ -94,8 +93,12 @@ a#logo {
     }
 }
 
-// 底部
+.header {
+    background-color: #F3F3F3;
+    padding: @margin 0;
+}
 
+// 底部
 #footer {
     border-top: 1px solid @border-color;
     margin: 2em 0;
@@ -109,14 +112,17 @@ a#logo {
 
 // 主体
 
-#sidebar {
-    width: 18%;
+.x-grid-2, .x-grid-3 {
+    #sidebar {
+        width: 18%;
+    }
 }
 
-.x-grid-2  {
+.x-grid-2 {
     #outline {
         display: none;
     }
+
     #main {
         width: 100% - 18%;
     }
@@ -126,6 +132,7 @@ a#logo {
     #outline {
         width: 22%;
     }
+
     #main {
         width: 100% - 18% - 22%;
     }

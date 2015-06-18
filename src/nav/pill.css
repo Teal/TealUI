@@ -1,0 +1,18 @@
+﻿.x-pill {
+  display: inline-block;
+  font-size: .95em;
+  border-radius: 4px;
+  padding: 5px 15px;
+}
+.x-pill:hover,
+.x-pill.x-dropdown-actived {
+  background-color: #f5f5f5;
+  text-decoration: none;
+}
+.x-pill-actived {
+  background-color: #337ab7 !important;
+  color: #ffffff !important;
+}
+.x-pill-small {
+  padding: 0 8px;
+}

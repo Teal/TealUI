@@ -16,3 +16,6 @@
 .x-form-horizontal .x-formfield-content {
   margin-left: 119px;
 }
+.x-formfield-required {
+  color: #dd514c;
+}
