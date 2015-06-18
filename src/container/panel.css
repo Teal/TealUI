@@ -34,36 +34,36 @@
   box-sizing: border-box;
 }
 .x-panel-info {
-  border-color: #caebfb;
+  border-color: #bce8f1;
 }
 .x-panel-info .x-panel-header {
-  background-color: rgba(59, 180, 242, 0.15);
-  border-color: #caebfb;
-  color: #049cdb;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
 }
 .x-panel-success {
-  border-color: #c9e7c9;
+  border-color: #d6e9c6;
 }
 .x-panel-success .x-panel-header {
-  background-color: rgba(94, 185, 94, 0.15);
-  border-color: #c9e7c9;
-  color: #5eb95e;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
 }
 .x-panel-warning {
-  border-color: #fbd0ae;
+  border-color: #faebcc;
 }
 .x-panel-warning .x-panel-header {
-  background-color: rgba(243, 123, 29, 0.15);
-  border-color: #fbd0ae;
-  color: #e9985e;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
 }
 .x-panel-error {
-  border-color: #f5cecd;
+  border-color: #ebccd1;
 }
 .x-panel-error .x-panel-header {
-  background-color: rgba(221, 81, 76, 0.15);
-  border-color: #f5cecd;
-  color: #dd514c;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
 }
 .x-panel-expanded .x-panel-header,
 .x-panel-collapsed .x-panel-header {

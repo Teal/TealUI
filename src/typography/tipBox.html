@@ -11,12 +11,12 @@
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
 
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
     <script type="text/javascript" src="../../src/utility/class.js"></script>
     <script type="text/javascript" src="../../src/control/base.js"></script>
-
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
     <script type="text/javascript" src="../../src/typography/tipBox.js"></script>
 </head>
@@ -30,34 +30,37 @@
     </style>
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/partial/closeButton.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/textBox.css" />
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <span class="x-tipbox">我是工具提示</span>
+        <div class="x-tipbox">提示，<a href="###">链接</a>。</div>
+        <div class="x-tipbox x-tipbox-success"><span class="x-icon">&#10003;</span> 成功，<a href="###">链接</a>。</div>
+        <div class="x-tipbox x-tipbox-warning"><span class="x-icon">&#9651;</span> 警告，<a href="###">链接</a>。</div>
+        <div class="x-tipbox x-tipbox-error"><span class="x-icon">&#33;</span> 错误，<a href="###">链接</a>。</div>
+        <div class="x-tipbox x-tipbox-info"><span class="x-icon">&#105;</span> 提示，<a href="###">链接</a>。</div>
     </aside>
 
-    <h2>带图标和关闭按钮</h2>
+    <h2>带关闭按钮</h2>
     <aside class="doc-demo">
-        <div class="x-tipbox" data-role="tipBox">
+        <div class="x-tipbox x-tipbox-warning" data-role="tipBox">
             <a href="javascript://隐藏提示" class="x-closebutton">&times;</a>
-            <i class="x-icon">&#9733;</i> 我是提示框
+            <span class="x-icon">&#9733;</span> <strong>注意：</strong>你已被喵星人击倒！
         </div>
     </aside>
 
-    <h2>色系</h2>
+    <h2>透明的提示层</h2>
     <aside class="doc-demo">
-        <span class="x-tipbox x-tipbox-success"><i class="x-icon">&#10003;</i> 成功</span>
-        <span class="x-tipbox x-tipbox-warning"><i class="x-icon">&#9651;</i> 警告</span>
-        <span class="x-tipbox x-tipbox-error"><i class="x-icon">&#33;</i> 错误</span>
-        <span class="x-tipbox x-tipbox-info"><i class="x-icon">&#105;</i> 提示</span>
+        <div class="x-tipbox x-tipbox-warning x-tipbox-transparent" data-role="tipBox">
+            <span class="x-icon">&#9733;</span> <strong>注意：</strong>你已被喵星人击倒！
+        </div>
     </aside>
 
-    <h2>功能和垂直对齐</h2>
+    <h2>内联布局</h2>
+    <p>当使用 <code>span</code> 标签实现提示框时，标签将更新为 <code>inline-block</code>，以保证可以同行布显示提示框。</p>
     <aside class="doc-demo">
-        正确：<input type="text" class="x-textbox x-textbox-success" /> <span class="x-tipbox x-tipbox-success x-tipbox-transparent"><i class="x-icon">&#10003;</i></span>
-        错误：<input type="text" class="x-textbox x-textbox-error" /> <span class="x-tipbox x-tipbox-error"><i class="x-icon">&#33;</i> 请输入正确的内容</span>
+        正确：<input type="text" class="x-textbox x-textbox-success" /> <span class="x-tipbox x-tipbox-success x-tipbox-transparent"><span class="x-icon">&#10003;</span></span><br />
+        错误：<input type="text" class="x-textbox x-textbox-error" /> <span class="x-tipbox x-tipbox-error"><span class="x-icon">&#33;</span> 请输入正确的内容</span>
     </aside>
 </body>
 </html>

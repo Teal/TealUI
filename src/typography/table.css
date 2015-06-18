@@ -8,20 +8,20 @@
   background-color: #f9f9f9;
 }
 .x-table-info {
-  background-color: rgba(59, 180, 242, 0.15) !important;
-  color: #049cdb;
+  background-color: #d9edf7 !important;
+  color: #31708f;
 }
 .x-table-success {
-  background-color: rgba(94, 185, 94, 0.15) !important;
-  color: #5eb95e;
+  background-color: #dff0d8 !important;
+  color: #3c763d;
 }
 .x-table-warning {
-  background-color: rgba(243, 123, 29, 0.15) !important;
-  color: #e9985e;
+  background-color: #fcf8e3 !important;
+  color: #8a6d3b;
 }
 .x-table-error {
-  background-color: rgba(221, 81, 76, 0.15) !important;
-  color: #dd514c;
+  background-color: #f2dede !important;
+  color: #a94442;
 }
 .x-table-actived {
   background-color: #ffd!important;

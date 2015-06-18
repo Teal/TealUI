@@ -106,7 +106,7 @@ td.x-calender-invalid {
   pointer-events: none;
 }
 .x-calender-holiday {
-  color: #dd514c !important;
+  color: #a94442 !important;
 }
 .x-calender-time input {
   width: 30px;

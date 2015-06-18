@@ -25,13 +25,13 @@
   overflow: hidden;
 }
 .x-progressbar-success .x-progressbar-fore {
-  background-color: #5eb95e;
+  background-color: #3c763d;
 }
 .x-progressbar-warning .x-progressbar-fore {
-  background-color: #e9985e;
+  background-color: #8a6d3b;
 }
 .x-progressbar-error .x-progressbar-fore {
-  background-color: #dd514c;
+  background-color: #a94442;
 }
 .x-progressbar-striped .x-progressbar-fore {
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));

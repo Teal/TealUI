@@ -1,7 +1,7 @@
 ﻿.x-closebutton {
   font-family: Helvetica, Arial;
   display: block;
-  color: #212121;
+  color: inherit;
   margin: 5px 0 5px 1em;
   width: 14px;
   height: 14px;
@@ -14,7 +14,7 @@
   border-radius: 50%;
 }
 .x-closebutton:hover {
-  background-color: #dd514c;
+  background-color: #a94442;
   color: #ffffff;
   text-decoration: none;
   -moz-transition: background-color 0.3s;

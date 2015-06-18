@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>基础样式</title>
+    <title>全局样式</title>
     <meta name="module-info" content="parent-title=核心, parent-order=^, package=default">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="本组件是所有组件的基础，包含了全局 CSS 重置、默认样式定义。">
+    <meta name="description" content="定义全局 CSS 样式。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -26,10 +26,10 @@
         }
     </pre>
 
-    <h5>Chrome 小号字体问题</h5>
-    <p>Chrome 最小支持 12px 的字号，使用 <code>-webkit-text-size-adjust: none</code> 可以打破这个限制，但是最新版本的 Chrome 已删除了此属性支持。要想显示小于 12px 的字号，可以使用 em 或 rem 单位的字号。</p>
+    <h4>Chrome 小号字体问题</h4>
+    <p>如果希望在 Chrome 最小显示小于 12px 的字号，可以使用 em 或 rem 单位的字号。</p>
     <aside class="doc-demo">
-        <span style="font-size:.5em">在手机 Chrome，我是很小很小的字</span>
+        <span style="font-size:.5em">我是很小很小的字，手机 Chrome 可以也显示很小。</span>
     </aside>
 
     <h2>默认间距</h2>
@@ -164,6 +164,11 @@
         <input type="button" value="按钮1" />
         <button>按钮2</button>
         <textarea>文本域</textarea>
+        
+        <fieldset>
+            <legend>标签</legend>
+            文字
+        </fieldset>
     </aside>
     <blockquote class="doc-info">更多表单样式请参考 <a href="../form/form.html">表单</a> 组件。</blockquote>
 
@@ -196,6 +201,10 @@ function fn(){
     </pre>
     <aside class="doc-demo">
         <aside>aside</aside>
+        
+        <input type="number" />
+        <input type="range" />
+        <input type="search" />
 
         <details>
             <summary>点我展开</summary>

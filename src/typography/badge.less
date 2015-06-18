@@ -1,0 +1,25 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../core/mixins.less";
+
+.x-badge {
+    display: inline-block;
+    min-width: @border-radius * 2;
+    border-radius: @border-radius * 2;
+    background-color: #777;
+    padding: 3px 6px;
+    font-size: @font-size - 2px;
+    color: @selected-text-color;
+    line-height: 1;
+    vertical-align: 1px;
+    white-space: nowrap;
+    text-align: center;
+    margin-left: .2em;
+
+    // 无内容自动隐藏（不支持 IE8)
+    &:empty {
+        display: none;
+    }
+}

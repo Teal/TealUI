@@ -161,6 +161,7 @@ Element.toggleFx = {
         opacity: 0
     },
     height: {
+        overflow: 'hidden',
         marginTop: 0,
         borderTopWidth: 0,
         paddingTop: 0,

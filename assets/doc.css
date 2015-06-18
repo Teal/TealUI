@@ -69,7 +69,6 @@
 .doc > h3 {
     font-size: 18px;
     counter-increment: doc-h3;
-    counter-reset: doc-h4;
 }
 
     .doc > h3:before {
@@ -78,12 +77,7 @@
 
 .doc > h4 {
     font-size: 16px;
-    counter-increment: doc-h4;
 }
-
-    .doc > h4:before {
-        content: counter(doc-h2) "." counter(doc-h3) "." counter(doc-h4) " ";
-    }
 
 .doc > h5 {
     font-size: 14px;

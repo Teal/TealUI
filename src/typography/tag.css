@@ -26,14 +26,14 @@ a.x-tag:hover {
   border-radius: 8px;
 }
 .x-tag-info {
-  background-color: #049cdb;
+  background-color: #31708f;
 }
 .x-tag-success {
-  background-color: #5eb95e;
+  background-color: #3c763d;
 }
 .x-tag-warning {
-  background-color: #e9985e;
+  background-color: #8a6d3b;
 }
 .x-tag-error {
-  background-color: #dd514c;
+  background-color: #a94442;
 }

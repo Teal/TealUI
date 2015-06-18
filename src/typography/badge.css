@@ -1,0 +1,20 @@
+﻿/**
+ * @author xuld
+ */
+.x-badge {
+  display: inline-block;
+  min-width: 8px;
+  border-radius: 8px;
+  background-color: #777;
+  padding: 3px 6px;
+  font-size: 12px;
+  color: #ffffff;
+  line-height: 1;
+  vertical-align: 1px;
+  white-space: nowrap;
+  text-align: center;
+  margin-left: .2em;
+}
+.x-badge:empty {
+  display: none;
+}
