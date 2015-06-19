@@ -1,6 +1,6 @@
 ﻿.x-button {
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  -moz-appearance: button;
+  -webkit-appearance: button;
   display: inline-block;
   text-align: center;
   white-space: nowrap;

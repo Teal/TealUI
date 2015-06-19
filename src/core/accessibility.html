@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>可访问性</title>
+    <meta name="module-info" content="order=print">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="为了让通过辅助设备（AT - ASSISTIVE TECHNOLOGY）上网的人群正常访问网站，需在 HTML 中增加可访问性属性。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/core/accessibility.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <h2>对屏幕阅读器隐藏</h2>
+    <aside class="doc-demo">
+        <div aria-hidden="true">我能在屏幕看到，但是阅读器将忽略本段文字。</div>
+    </aside>
+    
+    <h2>对屏幕阅读器显示</h2>
+    <aside class="doc-demo">
+        <div class="x-show-reader">
+            我只能被阅读器使用，但屏幕不会显示。
+        </div>
+    </aside>
+
+    <h2>跳至内容</h2>
+    <p>参考：<a href="http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1">如何添加跳至内容链接</a>。</p>
+    <aside class="doc-demo">
+        <a href="#content" class="x-show-reader x-show-reader-focusable">直接跳到内容</a>
+        ...
+        <div class="container" id="content" tabindex="-1">
+            我是主要内容
+        </div>
+    </aside>
+</body>
+</html>

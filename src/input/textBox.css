@@ -1,8 +1,9 @@
 ﻿.x-textbox {
   border: 1px solid #cccccc;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 4px 10px;
   line-height: 24px;
+  height: 34px;
   outline: 0;
   background-color: #ffffff;
   width: 182px;
@@ -58,9 +59,9 @@ textarea.x-textbox {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(169, 68, 66, 0.6);
 }
 .x-textbox-small {
-  padding: 2px 4px;
+  padding: 2px 6px;
 }
 .x-textbox-large {
   width: 560px;
-  padding: 10px 14px;
+  padding: 10px 16px;
 }

@@ -5,25 +5,43 @@
   display: inline-table;
   border-collapse: separate;
 }
-.x-inputgroup > *,
-.x-inputgroup .x-textbox {
+.x-inputgroup .x-tipbox,
+.x-inputgroup .x-textbox,
+.x-inputgroup .x-button {
   display: table-cell;
-}
-.x-inputgroup .x-textbox {
   border-radius: 0;
+  position: relative;
+  z-index: 2;
+  float: left\9;
+}
+.x-inputgroup .x-tipbox:first-child,
+.x-inputgroup .x-textbox:first-child,
+.x-inputgroup .x-button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.x-inputgroup .x-tipbox:last-child,
+.x-inputgroup .x-textbox:last-child,
+.x-inputgroup .x-button:last-child {
+  border-radius: 0 4px 4px 0;
 }
 .x-inputgroup .x-button,
 .x-inputgroup .x-tipbox {
-  display: table-cell;
   border-color: #cccccc;
+  z-index: 1;
 }
 .x-inputgroup .x-button:first-child,
 .x-inputgroup .x-tipbox:first-child {
-  border-radius: 4px 0 0 4px;
   border-right: 0;
 }
 .x-inputgroup .x-button:last-child,
 .x-inputgroup .x-tipbox:last-child {
-  border-radius: 0 4px 4px 0;
   border-left: 0;
+}
+.x-inputgroup.x-justify .x-textbox {
+  width: 100%;
+}
+.x-inputgroup.x-justify .x-button,
+.x-inputgroup.x-justify .x-tipbox {
+  width: 1%;
+  white-space: nowrap;
 }

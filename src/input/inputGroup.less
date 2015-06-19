@@ -9,27 +9,44 @@
     // 避免在 table 中继承表格的边框属性。
     border-collapse: separate;
 
-    > *, .x-textbox {
+    .x-tipbox, .x-textbox, .x-button {
         display: table-cell;
-    }
-
-    .x-textbox {
         border-radius: 0;
-    }
-
-    .x-button, .x-tipbox {
-        display: table-cell;
-        border-color: @border-color-input;
+        position: relative;
+        z-index: 2;
+        // IE9 需要左浮动？
+        float: left\9;
 
         &:first-child {
             border-radius: @border-radius 0 0 @border-radius;
-            border-right: 0;
         }
-        
+
         &:last-child {
             border-radius: 0 @border-radius @border-radius 0;
+        }
+    }
+
+    .x-button, .x-tipbox {
+        border-color: @border-color-input;
+        z-index: 1;
+
+        &:first-child {
+            border-right: 0;
+        }
+
+        &:last-child {
             border-left: 0;
         }
     }
-    
+
+    &.x-justify {
+        .x-textbox {
+            width: 100%;
+        }
+
+        .x-button, .x-tipbox {
+            width: 1%;
+            white-space: nowrap;
+        }
+    }
 }

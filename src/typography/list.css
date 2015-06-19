@@ -30,7 +30,7 @@
   border: 1px solid #e0e0e0;
 }
 .x-list-bordered > li {
-  padding: 4px 8px;
+  padding: 4px 10px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;

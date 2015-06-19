@@ -11,7 +11,7 @@
 .x-listbox a {
   display: block;
   color: #212121;
-  padding: 2px 8px;
+  padding: 2px 10px;
 }
 .x-listbox a:hover {
   background-color: #f5f5f5;
