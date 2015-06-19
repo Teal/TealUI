@@ -6,14 +6,14 @@
   font-style: normal;
 }
 .x-icon {
+  display: inline-block;
   font-family: 'IcoMoon';
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
   speak: none;
-  line-height: 100%;
-  display: inline-block;
+  line-height: 1;
   vertical-align: -1px;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -22,11 +22,4 @@
 }
 a .x-icon {
   margin-right: 0.32em;
-}
-.x-icon.x-spin {
-  -moz-transform-origin: 50% 42%;
-  -ms-transform-origin: 50% 42%;
-  -o-transform-origin: 50% 42%;
-  -webkit-transform-origin: 50% 42%;
-  transform-origin: 50% 42%;
 }

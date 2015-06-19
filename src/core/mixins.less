@@ -18,6 +18,10 @@
 @gray-lighter:              darken(@white, 12%); // #e0e0e0
 
 // 状态
+@alt-color:                 #337ab7;
+@selected-text-color:       @white;
+@selected-background-color: @alt-color;
+
 @info-brand-color:          #5bc0de;
 @info-text-color:           #31708f;
 @info-background-color:     #d9edf7;
@@ -38,9 +42,6 @@
 @error-background-color:    #f2dede;
 @error-border-color:        darken(spin(@error-background-color, -10), 5%);
 
-@selected-text-color:       @white;
-@selected-background-color: #337ab7;
-
 // 全局
 @background-color:          @white;
 @background-color-striped:  darken(@white, 2.5%);
@@ -48,14 +49,14 @@
 @background-color-hover:    darken(@white, 4%);
 
 @text-color:                @gray-darker;
-@text-color-link:           @selected-background-color;
+@text-color-link:           @alt-color;
 @text-color-tip:            @gray-dark;
 @text-color-disabled:       @gray-light;
 @text-color-small:          @gray;
 
 @border-color:              @gray-lighter;
 @border-color-input:        #ccc;
-@border-color-input-hover:  #66afe9;
+@border-color-input-hover:  @alt-color;
 
 //--------------------------------
 // 字体和间距
@@ -186,6 +187,14 @@
     -o-transform: @transform;
     -webkit-transform: @transform;
     transform: @transform;
+}
+
+.transform-origin(@transform-origin: 50% 50%) {
+    -moz-transform-origin: @transform-origin;
+    -ms-transform-origin: @transform-origin;
+    -o-transform-origin: @transform-origin;
+    -webkit-transform-origin: @transform-origin;
+    transform-origin: @transform-origin;
 }
 
 .box-sizing(@box-sizing: border-box) {

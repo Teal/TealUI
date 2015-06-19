@@ -2,33 +2,29 @@
 @import "../core/mixins.less";
 
 @icon-link-space:       .32em;
+@font-path:             ~"fonts/IcoMoon";
+@font-id:               ~"fczhay";
 
 @font-face {
 	font-family: 'IcoMoon';
-	src:url('fonts/IcoMoon.eot?fczhay');
-	src:url('fonts/IcoMoon.eot?#iefixfczhay') format('embedded-opentype'),
-		url('fonts/IcoMoon.woff?fczhay') format('woff'),
-		url('fonts/IcoMoon.ttf?fczhay') format('truetype'),
-		url('fonts/IcoMoon.svg?fczhay#IcoMoon') format('svg');
+	src:url('@{font-path}.eot?@{font-id}');
+	src:url('@{font-path}.eot?#iefix@{font-id}') format('embedded-opentype'), url('@{font-path}.woff?@{font-id}') format('woff'), url('@{font-path}.ttf?@{font-id}') format('truetype'), url('@{font-path}.svg?@{font-id}#IcoMoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 .x-icon {
+    display: inline-block;
     font-family: 'IcoMoon';
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
     speak: none;
-    line-height: 100%;
-    display: inline-block;
+    line-height: 1;
     vertical-align: -1px;
     
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+    .user-select(none);
 
     // 以下两个属性为非标准属性，此处删除之。
     //-webkit-font-smoothing: antialiased;
@@ -39,12 +35,4 @@
         margin-right: @icon-link-space;
     }
     
-    // 修正转动的抖动。
-    &.x-spin {
-        -moz-transform-origin: 50% 42%;
-        -ms-transform-origin: 50% 42%;
-        -o-transform-origin: 50% 42%;
-        -webkit-transform-origin: 50% 42%;
-        transform-origin: 50% 42%;
-    }
 }
