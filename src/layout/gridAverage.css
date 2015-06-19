@@ -1,38 +1,38 @@
-﻿.x-grid-1 > .x-col {
+﻿.x-row-1 > .x-col {
   width: 100%;
 }
-.x-grid-2 > .x-col {
+.x-row-2 > .x-col {
   width: 50%;
 }
-.x-grid-3 > .x-col {
+.x-row-3 > .x-col {
   width: 33.33333333%;
 }
-.x-grid-4 > .x-col {
+.x-row-4 > .x-col {
   width: 25%;
 }
-.x-grid-5 > .x-col {
+.x-row-5 > .x-col {
   width: 20%;
 }
-.x-grid-6 > .x-col {
+.x-row-6 > .x-col {
   width: 16.66666667%;
 }
-@media only screen and (min-width: 1025px) {
-  .x-grid-large-1 > .x-col {
+@media (min-width: 1280px) {
+  .x-row-large-1 > .x-col {
     width: 100%;
   }
-  .x-grid-large-2 > .x-col {
+  .x-row-large-2 > .x-col {
     width: 50%;
   }
-  .x-grid-large-3 > .x-col {
+  .x-row-large-3 > .x-col {
     width: 33.33333333%;
   }
-  .x-grid-large-4 > .x-col {
+  .x-row-large-4 > .x-col {
     width: 25%;
   }
-  .x-grid-large-5 > .x-col {
+  .x-row-large-5 > .x-col {
     width: 20%;
   }
-  .x-grid-large-6 > .x-col {
+  .x-row-large-6 > .x-col {
     width: 16.66666667%;
   }
 }

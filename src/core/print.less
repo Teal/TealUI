@@ -32,12 +32,16 @@
     abbr[title]:after {
         content: " [" attr(title) "] ";
     }
-    
+
     // 避免连贯的元素被分页
     pre, blockquote, tr, img {
         page-break-inside: avoid;
     }
-
+    
+    pre, blockquote {
+        border: 1px solid #999;
+    }
+    
     // 修复表格显示，参考 h5bp.com/t
     thead {
         display: table-header-group; 

@@ -1,4 +1,4 @@
-@media print {
+﻿@media print {
   @page {
     margin: 0.5cm;
   }
@@ -29,6 +29,10 @@
   tr,
   img {
     page-break-inside: avoid;
+  }
+  pre,
+  blockquote {
+    border: 1px solid #999;
   }
   thead {
     display: table-header-group;

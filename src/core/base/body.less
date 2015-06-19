@@ -1,0 +1,66 @@
+﻿
+//--------------------------------
+// 全局字体边距设置
+//--------------------------------
+
+body {
+    margin: 0;
+    // Windows Vista+：Segoe UI Symbol, Segoe UI
+    // iOS7+, OSX 10.10+：Lucida Grande
+    // Ubuntu：FreeSans
+    font-family: @font-family-sans-serif, sans-serif;
+    font-size: @font-size;
+    line-height: 100% * @line-height / @font-size + 0.6%;
+    color: @text-color;
+    // IE:会使用系统背景色作为默认的背景色。
+    background-color: @background-color;
+}
+
+// 块级元素边距
+p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
+    margin: 0 0 @grid-margin;
+}
+
+// 链接
+a {
+    // IE10: 删除激活时的灰色。
+    background-color: transparent;
+    color: @text-color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: darken(@text-color-link, 15%);
+        text-decoration: underline;
+    }
+}
+
+// 标题
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 @grid-margin / 2;
+    font-weight: 500;
+    line-height: 105%; // 标题换行更宽松。
+}
+
+h1 {
+    font-size: @font-size + 16px;
+}
+
+h2 {
+    font-size: @font-size + 6px;
+}
+
+h3 {
+    font-size: @font-size + 4px;
+}
+
+h4 {
+    font-size: @font-size + 2px;
+}
+
+h5 {
+    font-size: @font-size;
+}
+
+h6 {
+    font-size: @font-size - 2px;
+}

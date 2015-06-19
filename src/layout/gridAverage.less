@@ -2,7 +2,7 @@
 @import "../core/mixins.less";
 
 .generateColumns(@classPrefix: ~'', @index: 1, @count: 6) when (@index =< @count) {
-    .x-grid@{classPrefix}-@{index} > .x-col{
+    .x-row@{classPrefix}-@{index} > .x-col{
         width: 100% / @index;
     }
     .generateColumns(@classPrefix, (@index + 1), @count);

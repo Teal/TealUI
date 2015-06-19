@@ -4,10 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>表单布局</title>
-    <meta name="module-info" content="parent-title=表单, parent-order=input">
+    <meta name="module-info" content="order=^, parent-title=表单, parent-order=input">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="本组件包含了常见的三种表单布局。">
-
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/form.css" />
@@ -21,58 +20,63 @@
     <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tip.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../src/layout/grid.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/layout/grid12.css" />
+
     <h2>水平布局</h2>
     <aside class="doc-demo">
         <form class="x-form x-form-horizontal">
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段1<sup class="x-formfield-required">*</sup>:</label>
-                <div class="x-formfield-content">
-                    <input type="text" class="x-textbox">
-                </div>
+            <div class="x-row">
+                <label class="x-col x-col-2">字段1<span class="x-form-required">*</span>:</label>
+                <div class="x-col x-col-4"><input type="text" class="x-textbox"></div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段2<sup class="x-formfield-required">*</sup>:</label>
-                <div class="x-formfield-content">
-                    <input type="text" class="x-textbox">
-                    <span class="x-tipbox x-tipbox-error">错误提示</span>
-                </div>
-            </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">(选填)字段3:</label>
-                <div class="x-formfield-content">
-                    <input type="text" class="x-textbox">
+            <div class="x-row">
+                <label class="x-col x-col-2">(选填)字段2:</label>
+                <div class="x-col x-col-4"><input type="text" class="x-textbox"></div>
+                <div class="x-col x-col-6">
                     <span class="x-tip">如：hello world</span>
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段4:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">(选填)字段3:</label>
+                <div class="x-col x-col-4">
                     <input type="text" class="x-textbox">
-                    <label>
-                        <input type="radio" name="radio" checked="checked" class="x-radiobutton">value
-                    </label>
-                    <label>
-                        <input type="radio" name="radio" class="x-radiobutton">value
-                    </label>
+                </div>
+                <div class="x-col x-col-6">
+                    <span class="x-tipbox x-tipbox-error">错误提示</span>
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段5:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段4:</label>
+                <label class="x-col">
+                    <input type="radio" name="radio" checked="checked" class="x-radiobutton">默认
+                    <input type="radio" name="radio" checked="checked" class="x-radiobutton">
+                </label>
+                <label class="x-col x-col-6"><input type="text" class="x-textbox"></label>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-2">字段5:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                     <br>
                     <input type="text" class="x-textbox">
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段6:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段6:</label>
+                <div class="x-col x-col-10">
                     <textarea class="x-textbox"></textarea>
                 </div>
             </div>
-            <div class="x-formfield">
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2"></label>
+                <div class="x-col x-col-10">
+                    <label><input type="checkbox" checked /> 同意<a href="###">用户协议</a></label>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-2"></label>
+                <div class="x-col x-col-10">
                     <button type="submit" class="x-button">确定</button>
                 </div>
             </div>
@@ -82,29 +86,29 @@
     <h2>垂直布局</h2>
     <aside class="doc-demo">
         <form class="x-form x-form-vertical">
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段1:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段1:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段2:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段2:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                     <span class="x-tipbox x-tipbox-error">错误提示</span>
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">(选填)字段3:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">(选填)字段3:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                     <span class="x-tip">如：hello world</span>
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段4:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段4:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                     <label>
                         <input type="radio" name="radio" checked="checked" class="x-radiobutton">value
@@ -114,22 +118,22 @@
                     </label>
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段5:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段5:</label>
+                <div class="x-col x-col-10">
                     <input type="text" class="x-textbox">
                     <br>
                     <input type="text" class="x-textbox">
                 </div>
             </div>
-            <div class="x-formfield">
-                <label class="x-formfield-label">字段6:</label>
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <label class="x-col x-col-2">字段6:</label>
+                <div class="x-col x-col-10">
                     <textarea class="x-textbox"></textarea>
                 </div>
             </div>
-            <div class="x-formfield">
-                <div class="x-formfield-content">
+            <div class="x-row">
+                <div class="x-col x-col-10">
                     <button type="submit" class="x-button">确定</button>
                 </div>
             </div>

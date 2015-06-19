@@ -1,29 +1,36 @@
 ﻿
 @import "../core/mixins.less";
 
-// 布局行
-.x-grid {
-    margin-left: -@padding;
-    margin-right: -@padding;
-    .clearfix();
+// 注意，本页样式顺序不能随便调整。
+
+.x-container, .x-col {
+    padding-left: @grid-gutter-width / 2;
+    padding-right: @grid-gutter-width / 2;
+    position: relative;
+    .box-sizing(border-box);
 }
 
-// 布局列
-.x-col {
-    float: left;
-    margin-bottom: @margin;
-    .box-sizing(border-box);
-    position: relative;
-    padding-left: @padding;
-    padding-right: @padding;
+.x-row {
+    margin-left: -@grid-gutter-width / 2;
+    margin-right: -@grid-gutter-width / 2;
+    .clearfix();
 }
 
 // 容器
 .x-container {
-    max-width: 980px + @padding * 2;
     margin-left: auto;
     margin-right: auto;
-    padding-left: @padding * 2;
-    padding-right: @padding * 2;
-    position: relative;
+    
+    // 电脑固定尺寸。
+    @media (min-width: @screen-large-min) {
+        width: @grid-container-width;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.x-col {
+    float: left;
+    margin-bottom: @grid-margin;
+    min-height: 1px;
 }

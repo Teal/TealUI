@@ -10,6 +10,10 @@
 
 .generateColumns();
 
-@media @large {
+@media (min-width: @screen-medium-min) {
+    .generateColumns(-medium);
+}
+
+@media (min-width: @screen-large-min) {
     .generateColumns(-large);
 }

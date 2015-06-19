@@ -444,6 +444,7 @@ body.doc, body.doc-section {
     #doc_logo sup {
         color: #FE7FAB;
         vertical-align: top;
+        position: static;
     }
 
 #doc_navbar_trigger {

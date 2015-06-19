@@ -52,7 +52,7 @@
 #navbartrigger a:last-child {
   padding-right: 0;
 }
-@media only screen and (max-width: 1024px) {
+@media (max-width: 639px) {
   #searchform,
   #userbar,
   #navbar {
@@ -86,20 +86,20 @@
 #footer a {
   color: #908c8c;
 }
-.x-grid-2 #sidebar,
-.x-grid-3 #sidebar {
+.x-row-2 #sidebar,
+.x-row-3 #sidebar {
   width: 18%;
 }
-.x-grid-2 #outline {
+.x-row-2 #outline {
   display: none;
 }
-.x-grid-2 #main {
+.x-row-2 #main {
   width: 82%;
 }
-.x-grid-3 #outline {
+.x-row-3 #outline {
   width: 22%;
 }
-.x-grid-3 #main {
+.x-row-3 #main {
   width: 60%;
 }
 #breadcrumb {

@@ -15,6 +15,7 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <style>
         .x-col span {
             background: #EEEEEE;
@@ -28,9 +29,9 @@
     </style>
 
     <h2>基本用法</h2>
-    <p>使用 <code>.x-grid</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
+    <p>使用 <code>.x-row</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可通过相对宽度自行设置。</p>
     <aside class="doc-demo">
-        <div class="x-grid">
+        <div class="x-row">
             <div class="x-col" style="width:25%;"><span>左</span></div>
             <div class="x-col" style="width:75%;"><span>右</span></div>
         </div>
@@ -41,20 +42,35 @@
     <aside class="doc-demo">
         <div class="x-container">我是居中的容器</div>
     </aside>
+    
+    <h4>容器的响应式</h4>
+    <p>手机/平板：容器会占满整个屏幕，并预留 <code>@font-size / 2 = 7px</code> 边距。</p>
+    <p>电脑：容器固定为 <code>@grid-container-width-large=980px</code> 宽。</p>
 
-    <blockquote>不可以将 <code>.x-container</code> 和 <code>.x-grid</code> 一起使用。</blockquote>
+    <p>在手机中，<code>.x-container</code> 会占满整个屏幕并预留 <code>@grid-gutter-width / 2=14px</code> 边距。</p>
+
+    <blockquote class="doc-warning">不可以将 <code>.x-container</code> 和 <code>.x-row</code> 一起使用。</blockquote>
 
     <h2>布局嵌套</h2>
     <p>在任一列中又可以继续应用栅格方法继续细分。</p>
     <aside class="doc-demo">
-        <div class="x-grid">
+        <div class="x-row">
             <div class="x-col" style="width:25%;"><span>左</span></div>
             <div class="x-col" style="width:75%;">
-                <div class="x-grid">
+                <div class="x-row">
                     <div class="x-col" style="width:25%;"><span>右1</span></div>
                     <div class="x-col" style="width:75%;"><span>右2</span></div>
                 </div>
             </div>
+        </div>
+    </aside>
+
+    <h2>列排序</h2>
+    <p>使用 <code>.x-left</code> 和 <code>.x-right</code> 来重新定义列的顺序。</p>
+    <aside class="doc-demo">
+        <div class="x-row">
+            <div class="x-col x-right" style="width:25%;"><span>右</span></div>
+            <div class="x-col x-left" style="width:75%;"><span>左</span></div>
         </div>
     </aside>
 

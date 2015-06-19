@@ -1,0 +1,25 @@
+@import "../core/mixins.less";
+
+.x-fieldset {
+    // Chrome 和 Firefox 默认设置 fieldset `min-width: min-content;`,
+    // 为使其支持响应式，重置此样式。
+    // 参考 https://github.com/twbs/bootstrap/issues/12359 。
+    min-width: 0;
+    // 统一浏览器默认样式。
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    legend {
+        // IE 8/9/10/11: 修复颜色继承。
+        border: 0;
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: @grid-margin / 2;
+        font-size: @font-size-large;
+        line-height: @line-height-small;
+        color: @gray-dark;
+        border-bottom: 1px solid @border-color;
+    }
+}

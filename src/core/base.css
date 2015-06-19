@@ -87,15 +87,26 @@ textarea {
 ::-webkit-input-placeholder {
   color: #bdbdbd;
 }
-fieldset {
-  min-width: 0;
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: .35em .625em .75em;
+small {
+  font-weight: 100;
+  font-size: 12px;
+  color: #ababab;
 }
-legend {
-  border: 0;
-  padding: 0 3px;
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+figure {
+  margin: 1em 40px;
 }
 abbr[title] {
   border-bottom: 1px dotted;
@@ -108,11 +119,6 @@ dfn {
 mark {
   background: #ff0;
   color: #000;
-}
-small {
-  font-weight: 100;
-  font-size: 12px;
-  color: #ababab;
 }
 body {
   margin: 0;
@@ -172,28 +178,42 @@ h5 {
 h6 {
   font-size: 12px;
 }
-figure {
-  margin: 1em 40px;
-}
 pre,
 code,
 kbd,
 samp {
   font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
 }
-code {
-  padding: 2px 4px;
-  color: #990000;
-  background-color: #f8f8f8;
-}
-pre {
+pre,
+code,
+kbd {
+  border-radius: 4px;
+  font-size: 95%;
+  line-height: 1.5;
   white-space: pre-wrap;
   word-break: break-all;
-  line-height: 150%;
-  font-size: .95em;
+  word-wrap: break-word;
+  padding: 2px 4px;
+}
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
+pre {
   padding: 7px;
   color: inherit;
   background-color: #f7f7f7;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  background-color: transparent;
+  border-radius: 0;
+}
+kbd {
+  color: #ffffff;
+  background-color: #212121;
 }
 hr {
   border-color: #e0e0e0;

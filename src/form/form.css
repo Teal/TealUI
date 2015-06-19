@@ -1,21 +1,27 @@
-﻿.x-formfield {
-  margin-bottom: .5em;
+﻿.x-form .x-col:first-child,
+.x-form .x-col ~ .x-col {
+  line-height: 34px;
 }
-.x-formfield:after {
-  content: " ";
-  display: table;
-  clear: both;
+.x-form .x-textbox {
+  line-height: 24px;
+  width: 100%;
 }
-.x-form-horizontal .x-formfield-label {
-  width: 112px;
-  float: left;
+.x-form .x-col ~ .x-col {
+  padding-left: 14px;
+  padding-right: 0;
+}
+.x-form-horizontal .x-col:first-child {
   text-align: right;
-  margin-right: 7px;
-  padding: 5px 0;
 }
-.x-form-horizontal .x-formfield-content {
-  margin-left: 119px;
+@media (max-width: 640px) {
+  .x-form-horizontal .x-col {
+    width: 100% !important;
+  }
+  .x-form-horizontal .x-col:first-child {
+    text-align: left;
+    margin-bottom: 0;
+  }
 }
-.x-formfield-required {
+.x-form-required {
   color: #a94442;
 }

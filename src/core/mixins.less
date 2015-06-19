@@ -59,6 +59,22 @@
 @border-color-input-hover:  @alt-color;
 
 //--------------------------------
+// 响应式
+//--------------------------------
+
+@screen-small-max:          640px;  // 手机 0 - 640px
+@screen-medium-max:         1024px; // 平板 641 - 1024px
+@screen-large-max:          1280px; // 电脑 1025 - 1280px
+@screen-larger-max:         1440px; // 电视 1281 - 1440px
+@screen-largest-max:        1920px; // 高清电视 1441 -1920px
+
+@screen-small-min:          0;  // 手机
+@screen-medium-min:         (@screen-small-max + 1px); // 平板
+@screen-large-min:          (@screen-medium-max + 1px); // 电脑
+@screen-larger-min:         (@screen-large-max + 1px); // 电视
+@screen-largest-min:        (@screen-larger-max + 1px); // 高清电视
+
+//--------------------------------
 // 字体和间距
 //--------------------------------
 
@@ -77,12 +93,17 @@
 @line-height-small:         150%;
 
 //--------------------------------
-// 间距
+// 栅格布局
 //--------------------------------
 
+@grid-column:               12;
+@grid-gutter-width:         @font-size * 2;   
+@grid-container-width:      980px; 
+@grid-margin:               1em;
+               
+//--------------------------------
 // 间距
-@margin:                    1em;
-@padding:                   @font-size / 2;   
+//--------------------------------
 
 @padding-y:                 (@line-height - @font-size) / 2 - 1px; // 4px
 @padding-x:                 @padding-y * 2; // 8px
@@ -106,19 +127,6 @@
 @z-index-dropdown:          1000;
 @z-index-tooltip:           2000;
 @z-index-dialog:            3000;
-
-//--------------------------------
-// 响应式
-//--------------------------------
-
-@screen-smaller:            640px;  // 手机
-@screen-small:              1024px; // 平板
-@screen-large:              1280px; // 电脑
-@screen-larger:             1440px; // 电视
-@screen-largest:            1920px; // 高清电视
-
-@small:                     e(%("only screen and (max-width: %d)", @screen-small));
-@large:                     e(%("only screen and (min-width: %d)", (@screen-small + 1)));
 
 //--------------------------------
 // 工具函数

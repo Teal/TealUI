@@ -34,7 +34,45 @@
 .x-col-12 {
   width: 100%;
 }
-@media only screen and (min-width: 1025px) {
+@media (min-width: 641px) {
+  .x-col-medium-1 {
+    width: 8.33333333%;
+  }
+  .x-col-medium-2 {
+    width: 16.66666667%;
+  }
+  .x-col-medium-3 {
+    width: 25%;
+  }
+  .x-col-medium-4 {
+    width: 33.33333333%;
+  }
+  .x-col-medium-5 {
+    width: 41.66666667%;
+  }
+  .x-col-medium-6 {
+    width: 50%;
+  }
+  .x-col-medium-7 {
+    width: 58.33333333%;
+  }
+  .x-col-medium-8 {
+    width: 66.66666667%;
+  }
+  .x-col-medium-9 {
+    width: 75%;
+  }
+  .x-col-medium-10 {
+    width: 83.33333333%;
+  }
+  .x-col-medium-11 {
+    width: 91.66666667%;
+  }
+  .x-col-medium-12 {
+    width: 100%;
+  }
+}
+@media (min-width: 1025px) {
   .x-col-large-1 {
     width: 8.33333333%;
   }

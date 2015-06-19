@@ -3,26 +3,41 @@
 
 @formFieldWidth: @font-size * 8;
 
-.x-formfield {
-    .clearfix();
-    margin-bottom: .5em;
+.x-form {
+    .x-col:first-child, .x-col ~ .x-col {
+        line-height: @line-height + (@padding-y + 1) * 2;
+    }
+
+    .x-textbox {
+        line-height: @line-height;
+        width: 100%;
+    }
+
+    .x-col ~ .x-col {
+        padding-left: @grid-gutter-width / 2;
+        padding-right: 0;
+    }
+
 }
 
 .x-form-horizontal {
 
-    .x-formfield-label {
-        width: @formFieldWidth;
-        float: left;
+    .x-col:first-child {
         text-align: right;
-        margin-right: @font-size / 2;
-        padding: @padding-y + 1px 0;
     }
 
-    .x-formfield-content {
-        margin-left: @formFieldWidth + @font-size / 2;
+    @media (max-width: @screen-small-max) {
+        .x-col {
+            width: 100% !important;
+        }
+
+        .x-col:first-child {
+            text-align: left;
+            margin-bottom: 0;
+        }
     }
 }
 
-.x-formfield-required {
+.x-form-required {
     color: @error-text-color;
 }

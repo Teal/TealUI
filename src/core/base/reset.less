@@ -1,0 +1,48 @@
+﻿
+//--------------------------------
+// 块级标签重置
+//--------------------------------
+
+// IOS, Android, IE: 阻止调整设备方向后自动调整文本大小。
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    // IOS：隐藏触摸按下的灰色阴影。
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// IE6-9：修复部分 HTML5 标签显示。
+// IE6-11：修复 main 标签显示。
+// IE6-11、Firefox：修复 details, summary 标签显示。
+// 注：hgroup 已被从 HTML5 标准移除，这里不再支持。
+article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
+    display: block;
+}
+
+img, textarea, progress, input, audio, video, canvas {
+    // IE6-8: 修复默认显示方式。
+    display: inline-block;
+    // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
+    max-width: 100%;
+    // Chrome, Firefox, Opera: 统一对齐方式。
+    vertical-align: baseline;
+}
+
+// IE6-10：隐藏 [hidden]。
+// IE6-11、Safari、Firefox2-21：隐藏 template。
+// 不显示缺少 controls 的 audio 标记。
+[hidden], template, audio:not([controls]) {
+    display: none;
+    // IOS 5 会显示额外高度。
+    height: 0;
+}
+
+// 删除链接内图片边框。
+img {
+    border: 0;
+}
+
+// IE 9/10/11： 隐藏超出部分。
+svg:not(:root) {
+    overflow: hidden;
+}

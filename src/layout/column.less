@@ -4,14 +4,14 @@
 
 @import "../core/mixins.less";
 
-.x-row {
+.x-tr {
     display: table;
 }
 
-.x-cell {
+.x-td {
     display: table-cell;
     vertical-align: top;
-    & ~ .x-cell {
-        padding-left: @padding;
+    & ~ .x-td {
+        padding-left: @grid-gutter-width;
     }
 }

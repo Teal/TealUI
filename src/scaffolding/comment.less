@@ -5,7 +5,7 @@
 @import "../core/mixins.less";
 
 .x-comment {
-    margin-bottom: @margin;
+    margin-bottom: @grid-margin;
     
     .x-toolbar {
         font-size: .95em;
@@ -16,7 +16,7 @@
 .x-comment-reply-content {
     border-left: 3px solid @small-text-color;
     font-size: .9em;
-    margin: @margin / 2 0 @margin / 2 @margin;
+    margin: @grid-margin / 2 0 @grid-margin / 2 @grid-margin;
     padding-left: @padding * 2;
     
     p {
@@ -27,7 +27,7 @@
 }
 
 .x-comment-reply {
-    margin: @margin / 2 0;
+    margin: @grid-margin / 2 0;
 }
 
 .x-comment-reply, .x-comment-add {
@@ -38,5 +38,5 @@
 
 .x-comment-add textarea.x-textbox {
     width: 100%;
-    margin-bottom: @margin / 2;
+    margin-bottom: @grid-margin / 2;
 }

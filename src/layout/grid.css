@@ -1,27 +1,34 @@
-﻿.x-grid {
-  margin-left: -7px;
-  margin-right: -7px;
+﻿.x-container,
+.x-col {
+  padding-left: 14px;
+  padding-right: 14px;
+  position: relative;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-.x-grid:after {
+.x-row {
+  margin-left: -14px;
+  margin-right: -14px;
+}
+.x-row:after {
   content: " ";
   display: table;
   clear: both;
 }
+.x-container {
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 1025px) {
+  .x-container {
+    width: 980px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .x-col {
   float: left;
   margin-bottom: 1em;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  position: relative;
-  padding-left: 7px;
-  padding-right: 7px;
-}
-.x-container {
-  max-width: 994px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 14px;
-  padding-right: 14px;
-  position: relative;
+  min-height: 1px;
 }

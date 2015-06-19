@@ -1,0 +1,39 @@
+﻿
+// 代码
+pre, code, kbd, samp {
+    font-family: @font-family-monospace;
+}
+
+pre, code, kbd {
+    border-radius: @border-radius;
+    font-size: 95%;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: 2px 4px;
+}
+
+code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+}
+
+pre {
+    padding: @font-size / 2;
+    color: inherit;
+    background-color: #f7f7f7;
+
+    code {
+        padding: 0;
+        color: inherit;
+        font: inherit;
+        background-color: transparent;
+        border-radius: 0;
+    }
+}
+
+kbd {
+    color: @selected-text-color;
+    background-color: @text-color;
+}

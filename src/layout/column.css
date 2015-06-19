@@ -1,13 +1,13 @@
 ﻿/**
  * @author xuld
  */
-.x-row {
+.x-tr {
   display: table;
 }
-.x-cell {
+.x-td {
   display: table-cell;
   vertical-align: top;
 }
-.x-cell ~ .x-cell {
-  padding-left: 7px;
+.x-td ~ .x-td {
+  padding-left: 28px;
 }
