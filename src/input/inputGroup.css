@@ -3,10 +3,14 @@
  */
 .x-inputgroup {
   display: inline-table;
+  border-collapse: separate;
 }
 .x-inputgroup > *,
 .x-inputgroup .x-textbox {
   display: table-cell;
+}
+.x-inputgroup .x-textbox {
+  border-radius: 0;
 }
 .x-inputgroup .x-button,
 .x-inputgroup .x-tipbox {
@@ -15,15 +19,11 @@
 }
 .x-inputgroup .x-button:first-child,
 .x-inputgroup .x-tipbox:first-child {
+  border-radius: 4px 0 0 4px;
   border-right: 0;
 }
 .x-inputgroup .x-button:last-child,
 .x-inputgroup .x-tipbox:last-child {
-  border-left: 0;
-}
-.x-inputgroup.x-radius *:first-child {
-  border-radius: 4px 0 0 4px;
-}
-.x-inputgroup.x-radius *:last-child {
   border-radius: 0 4px 4px 0;
+  border-left: 0;
 }

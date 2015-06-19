@@ -1,27 +1,39 @@
-﻿.x-form .x-col:first-child,
-.x-form .x-col ~ .x-col {
-  line-height: 34px;
+﻿.x-form .x-col {
+  line-height: 35px;
+  display: block;
+  margin-bottom: 0.5em;
 }
-.x-form .x-textbox {
-  line-height: 24px;
-  width: 100%;
+.x-form .x-col:first-child {
+  margin-bottom: 0;
 }
-.x-form .x-col ~ .x-col {
-  padding-left: 14px;
-  padding-right: 0;
-}
-.x-form-horizontal .x-col:first-child {
-  text-align: right;
+.x-form img {
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
 }
 @media (max-width: 640px) {
   .x-form-horizontal .x-col {
-    width: 100% !important;
+    width: 100%;
   }
+}
+@media (min-width: 641px) {
   .x-form-horizontal .x-col:first-child {
-    text-align: left;
-    margin-bottom: 0;
+    padding-right: 0;
+    text-align: right;
+  }
+}
+@media (min-width: 641px) {
+  .x-form-inline .x-row:after {
+    content: '';
+    clear: none;
+  }
+  .x-form-inline .x-col {
+    padding-right: 0;
   }
 }
 .x-form-required {
   color: #a94442;
+}
+.x-form-small {
+  width: 70px !important;
 }
