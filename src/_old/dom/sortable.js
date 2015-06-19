@@ -1,1 +1,0 @@
-/** * @author xuld */// #require dom/drag.jsDom.implement({    sortable: function () {    }});

@@ -25,9 +25,12 @@ article, aside, section, header, footer, nav, menu, figcaption, figure, main, de
 }
 
 img, textarea, progress, input, audio, video, canvas {
-    display: inline-block; // IE6-8: 修复默认显示方式。
-    max-width: 100%; // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
-    vertical-align: baseline; // Chrome, Firefox, Opera: 统一对齐方式。
+    // IE6-8: 修复默认显示方式。
+    display: inline-block;
+    // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
+    max-width: 100%;
+    // Chrome, Firefox, Opera: 统一对齐方式。
+    vertical-align: baseline;
 }
 
 // IE6-10：隐藏 [hidden]。
@@ -35,7 +38,8 @@ img, textarea, progress, input, audio, video, canvas {
 // 不显示缺少 controls 的 audio 标记。
 [hidden], template, audio:not([controls]) {
     display: none;
-    height: 0; // IOS 5 会显示额外高度。
+    // IOS 5 会显示额外高度。
+    height: 0;
 }
 
 // 删除链接内图片边框。
@@ -48,28 +52,24 @@ svg:not(:root) {
     overflow: hidden;
 }
 
-// IE 8/9, Safari：设置默认边距。
-figure {
-    margin: 1em 40px;
-}
-
 //--------------------------------
 // 表单标签修复
 //--------------------------------
 
-// Firefox Android：修复默认背景图片。
-// 参考 https://github.com/necolas/normalize.css/issues/214
-// Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属性。
-// Firefox：修复 select 继承 text-transform 属性。
 button, select {
+    // Firefox Android：修复默认背景图片。
+    // 参考 https://github.com/necolas/normalize.css/issues/214
     background-image: none;
+    // Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属性。
+    // Firefox：修复 select 继承 text-transform 属性。
     text-transform: none;
 }
 
-// 禁止表单元素单独指定字体。
 input, button, select, textarea, optgroup {
+    // 禁止表单元素单独指定字体。
     font: inherit;
-    margin: 0; // 统一各浏览器默认边距。
+    // 统一各浏览器默认边距。
+    margin: 0;
 }
 
 // 避免 Android 4.0.* WebKit 按钮点击销毁  `audio` 和 `video` 控件。
@@ -112,8 +112,10 @@ fieldset {
 }
 
 legend {
-    border: 0; // IE 8/9/10/11: 修复颜色继承。
-    padding: 0 3px; // 设置默认边距。
+    // IE 8/9/10/11: 修复颜色继承。
+    border: 0;
+    // 设置默认边距。
+    padding: 0 3px;
 }
 
 //--------------------------------
@@ -156,7 +158,8 @@ body {
     font-size: @font-size;
     line-height: 100% * @line-height / @font-size + 0.6%;
     color: @text-color;
-    background-color: @background-color; // IE 会使用系统背景色作为默认的背景色。
+    // IE:会使用系统背景色作为默认的背景色。
+    background-color: @background-color;
 }
 
 // 块级元素边距
@@ -166,9 +169,10 @@ p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
 
 // 链接
 a {
+    // IE10: 删除激活时的灰色。
+    background-color: transparent;
     color: @text-color-link;
     text-decoration: none;
-    background-color: transparent; // IE10: 删除激活时的灰色。
     &:hover {
         color: darken(@text-color-link, 26%);
         text-decoration: underline;
@@ -206,6 +210,32 @@ h6 {
     font-size: @font-size - 2px;
 }
 
+// IE 8/9, Safari：设置默认边距。
+figure {
+    margin: 1em 40px;
+}
+
+// 代码
+pre, code, kbd, samp {
+    font-family: @font-family-monospace;
+}
+
+code {
+    padding: 2px 4px;
+    color: #990000;
+    background-color: #f8f8f8;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 150%;
+    font-size: .95em;
+    padding: @padding;
+    color: inherit;
+    background-color: #f7f7f7;
+}
+
 // 水平线
 hr {
     border-color: @border-color;
@@ -236,25 +266,4 @@ table {
 th, td {
     padding: 4px 8px;
     border: 1px solid @border-color;
-}
-
-// 代码
-pre, code, kbd, samp {
-    font-family: @font-family-monospace;
-}
-
-code {
-    padding: 2px 4px;
-    color: #990000;
-    background-color: #f8f8f8;
-}
-
-pre {
-    white-space: pre-wrap;
-    word-break: break-all;
-    line-height: 150%;
-    font-size: .95em;
-    padding: @padding;
-    color: inherit;
-    background-color: #f7f7f7;
 }

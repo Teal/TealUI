@@ -44,9 +44,6 @@ img {
 svg:not(:root) {
   overflow: hidden;
 }
-figure {
-  margin: 1em 40px;
-}
 button,
 select {
   background-image: none;
@@ -138,9 +135,9 @@ figure {
   margin: 0 0 1em;
 }
 a {
+  background-color: transparent;
   color: #337ab7;
   text-decoration: none;
-  background-color: transparent;
 }
 a:hover {
   color: #16354f;
@@ -174,6 +171,29 @@ h5 {
 h6 {
   font-size: 12px;
 }
+figure {
+  margin: 1em 40px;
+}
+pre,
+code,
+kbd,
+samp {
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
+}
+code {
+  padding: 2px 4px;
+  color: #990000;
+  background-color: #f8f8f8;
+}
+pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 150%;
+  font-size: .95em;
+  padding: 7px;
+  color: inherit;
+  background-color: #f7f7f7;
+}
 hr {
   border-color: #e0e0e0;
   border-width: 1px 0 0 0;
@@ -198,24 +218,4 @@ th,
 td {
   padding: 4px 8px;
   border: 1px solid #e0e0e0;
-}
-pre,
-code,
-kbd,
-samp {
-  font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
-}
-code {
-  padding: 2px 4px;
-  color: #990000;
-  background-color: #f8f8f8;
-}
-pre {
-  white-space: pre-wrap;
-  word-break: break-all;
-  line-height: 150%;
-  font-size: .95em;
-  padding: 7px;
-  color: inherit;
-  background-color: #f7f7f7;
 }

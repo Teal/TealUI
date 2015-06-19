@@ -1,1 +1,0 @@
-/** * @author xuld */// #require ui/tip/balloontip.css// #require dom/pin.js// #require ui/core/containercontrol.js// #require ui/core/itooltip.js/** * @class * @extends Control */var BalloonTip = ContainerControl.extend(IToolTip).implement({	    cssClass: 'x-balloontip'});
