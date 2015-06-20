@@ -21,17 +21,24 @@
   display: none;
 }
 @media (max-width: 640px) {
-  .x-hide-small {
+  .x-hide-small,
+  .x-show-medium {
     display: none;
   }
 }
 @media (min-width: 641px) {
-  .x-hide-medium {
+  .x-hide-medium,
+  .x-show-small {
     display: none;
   }
 }
 @media (min-width: 1025px) {
   .x-hide-large {
+    display: none;
+  }
+}
+@media (max-width: 1024px) {
+  .x-show-large {
     display: none;
   }
 }

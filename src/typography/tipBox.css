@@ -44,8 +44,12 @@ span.x-tipbox {
 .x-tipbox-small {
   padding: 1px 5px;
   border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
 }
 .x-tipbox-large {
   padding: 10px 14px;
   border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.5;
 }

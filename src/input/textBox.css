@@ -65,8 +65,15 @@ textarea.x-textbox {
 }
 .x-textbox-small {
   padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  height: 22px;
 }
 .x-textbox-large {
-  width: 560px;
   padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.5;
+  height: 49px;
 }

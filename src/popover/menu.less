@@ -3,36 +3,23 @@
 
 .x-menu {
     display: inline-block;
-    background-color: @background-color;
     border: 1px solid @border-color;
+    border-radius: @border-radius;
+    background-color: @background-color;
     min-width: @line-height * 5;
     max-width: @line-height * 12;
     margin: 0;
-    padding: 0;
+    padding: @border-radius 0;
     list-style: none;
-    font-size: @menu-font-size;
+    .background-clip(padding-box);
 
     > li {
-
         > a {
             display: block;
             color: @text-color;
             padding: @padding-y / 2 @padding-x;
-
-            &:hover {
-                background-color: @selected-background-color;
-                color: @selected-text-color;
-                text-decoration: none;
-
-                .x-menu-arrow {
-                    color: @selected-text-color;
-                }
-            }
+            position: relative;
         }
-    }
-
-    hr {
-        margin: 0;
     }
 
     &.x-dropdown, .x-menu {
@@ -40,83 +27,30 @@
     }
 }
 
-.x-menu-selected {
-    a {
-        color: @selected-text-color !important;
-        background-color: @selected-background-color !important;
-    }
-
-    .x-menu-arrow {
-        color: @selected-text-color;
-    }
-}
-
-.x-menu-arrow {
-    float: right;
-    line-height: @line-height;
-    padding: @padding-y / 2 @padding-x;
-}
-
-/*// Links within the dropdown menu
-.x-menuitem {
-    display: block;
-    padding: 3px 10px;
-    white-space: nowrap;
-    cursor: default;
-    _width: 100%;
-}
-
-.x-menuitem, .x-menuitem a {
-    color: @menuTextColor;
-}
-
-// Dividers (basically an hr) within the dropdown
-.x-menuseperator {
+.x-menu-divider {
     height: 1px;
-    margin: 1px;
+    background-color: @border-color;
     overflow: hidden;
-    background-color: #e5e5e5;
-    border-bottom: 1px solid @menuBackgroundColor;
-    display: block;
-    // IE7 needs a set width since we gave a height. Restricting just
-    // to IE7 to keep the 1px left/right space in other browsers.
-    // It is unclear where IE is getting the extra space that we need
-    // to negative-margin away, but so it goes.
-    *width: 100%;
-	*font-size: ~"expression(this.parentNode?(this.runtimeStyle.fontSize=this.parentNode.style.lineHeight=this.parentNode.style.height=this.parentNode.style.fontSize='3px'):'1px')";
+    margin: @border-radius 0;
 }
 
-// Hover state
-.x-menuitem:hover {
+.x-menu-selected > a, .x-menu > li > a:hover {
+    background-color: @selected-background-color;
+    color: @selected-text-color;
     text-decoration: none;
 }
 
-.x-menuitem-hover {
-    #gradient > .vertical(@menuBackgroundColorHover, darken(@menuBackgroundColorHover, 5%));
+.x-menu-arrow a:after {
+    content: '\25b8';
+    font-family: IcoMoon;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -12px;
 }
 
-.x-menuitem-hover, .x-menuitem-hover a {
-    color: @menuTextColorHover!important;
+.x-menu-disabled a {
+    pointer-events: none;
+    color: @text-color-disabled!important;
+    background-color: transparent!important;
 }
-
-// Submenu
-
-.x-menuitem-arrow {
-	border-color: transparent transparent transparent @menuArrowColor;
-	_border-color: @menuBackgroundColor @menuBackgroundColor @menuBackgroundColor @menuArrowColor;
-    border-style: solid;
-    border-width: 4px 0 4px 4px;
-    content: " ";
-    display: block;
-    float: right;
-    width: 0;
-    height: 0;
-    margin-top: 6px;
-	margin-left: 9px;
-	_line-height: 0;
-}
-
-.x-menuitem-hover .x-menuitem-arrow {
-	border-color: transparent transparent transparent @menuTextColorHover;
-	_border-color: @menuBackgroundColorHover @menuBackgroundColorHover @menuBackgroundColorHover @menuTextColorHover;
-}*/

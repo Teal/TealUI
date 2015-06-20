@@ -30,13 +30,13 @@
     display: none;
 }
 
-.x-hide-small {
+.x-hide-small, .x-show-medium {
     @media (max-width: @screen-small-max) {
         display: none;
     }
 }
 
-.x-hide-medium {
+.x-hide-medium, .x-show-small {
     @media (min-width: @screen-medium-min) {
         display: none;
     }
@@ -44,6 +44,12 @@
 
 .x-hide-large {
     @media (min-width: @screen-large-min) {
+        display: none;
+    }
+}
+
+.x-show-large {
+    @media (max-width: @screen-medium-max) {
         display: none;
     }
 }

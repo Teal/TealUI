@@ -79,19 +79,17 @@
 //--------------------------------
 
 // 字体
-@font-family-sans-serif:    "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
-// "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo
+@font-family-sans-serif:    "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 @font-family-serif:         Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
 @font-family-monospace:     Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
 
 @font-size:                 14px;
 @font-size-large:           ceil((@font-size * 1.25)); // ~18px
 @font-size-small:           ceil((@font-size * 0.85)); // ~12px
-@font-size-menu:            @font-size - 1px;
 
 // 行高
 @line-height:               @font-size + 10px;
-@line-height-small:         100% * 20px / @font-size-small;
+@line-height-small:         1.5;
 @line-height-large:         1.5;
 
 //--------------------------------
@@ -218,6 +216,12 @@
     -ms-user-select: @user-select;
     -webkit-user-select: @user-select;
     user-select: @user-select;
+}
+
+.background-clip(@background-clip) {
+    -moz-background-clip: @background-clip;
+    -webkit-background-clip: @background-clip;
+    background-clip: @background-clip;
 }
 
 .flex(){

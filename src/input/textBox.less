@@ -51,11 +51,17 @@
 .x-textbox-state(warning);
 .x-textbox-state(error);
 
-.x-textbox-small {
-    padding: @padding-small-y @padding-small-x;
+.x-textbox-size(@size, @height, @max-width:0) {
+    .width(@size) when (@max-width > 0){
+        width:  @max-width;
+    }
+    .x-textbox-@{size} {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+        height: @height;
+    }
 }
-
-.x-textbox-large {
-    width: @font-size * 40;
-    padding: @padding-large-y @padding-large-x;
-}
+.x-textbox-size(small, @font-size-small * @line-height-small + @padding-small-y * 2 + 2);
+.x-textbox-size(large, @font-size-large * @line-height-large + @padding-large-y * 2 + 2, @font-size * 40);

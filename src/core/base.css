@@ -125,7 +125,7 @@ mark {
 }
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif, sans-serif;
   font-size: 14px;
   line-height: 172.02857143%;
   color: #212121;
@@ -185,7 +185,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif, monospace;
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif, monospace;
 }
 pre,
 code,

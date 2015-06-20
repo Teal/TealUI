@@ -31,7 +31,7 @@
 .doc-section, .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6, .doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote {
     font-size: 14px;
     line-height: 171.428571%; /* 24px / 14px */
-    font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif; /* Segoe UI： Windows Vista+；Lucida Grande： iOS7+, OSX 10.10+；FreeSans： Ubuntu */
+    font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
     color: #212121;
 }
 

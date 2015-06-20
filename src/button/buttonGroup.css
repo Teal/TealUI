@@ -1,18 +1,25 @@
 ﻿.x-buttongroup {
   display: inline-table;
+  border-collapse: separate;
 }
-.x-buttongroup > * {
+.x-buttongroup > .x-button {
   display: table-cell;
+  border-radius: 0;
 }
-.x-buttongroup > *:not(:first-child) {
-  border-left-color: #d5d5d5;
-}
-.x-buttongroup > *:not(:last-child) {
-  border-right-width: 0;
-}
-.x-buttongroup.x-radius .x-button:first-child {
+.x-buttongroup > .x-button:first-child {
   border-radius: 4px 0 0 4px;
 }
-.x-buttongroup.x-radius .x-button:last-child {
+.x-buttongroup > .x-button:last-child {
   border-radius: 0 4px 4px 0;
+}
+.x-buttongroup > .x-button:not(:first-child) {
+  border-left-color: #b3b3b3;
+}
+.x-buttongroup > .x-button:not(:last-child) {
+  border-right-width: 0;
+}
+.x-buttongroup-justify {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }

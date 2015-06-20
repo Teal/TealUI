@@ -43,12 +43,13 @@
     border-color: transparent;
 }
 
-.x-tipbox-small {
-    padding: @padding-small-y @padding-small-x;
-    border-radius: @border-radius-small;
+.x-tipbox-size(@size) {
+    .x-tipbox-@{size} {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+    }
 }
-
-.x-tipbox-large {
-    padding: @padding-large-y @padding-large-x;
-    border-radius: @border-radius-large;
-}
+.x-tipbox-size(small);
+.x-tipbox-size(large);
