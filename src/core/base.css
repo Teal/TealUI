@@ -62,7 +62,9 @@ button,
 html input[type=button],
 input[type=reset],
 input[type=submit] {
+  -moz-appearance: button;
   -webkit-appearance: button;
+  appearance: button;
 }
 button::-moz-focus-inner,
 input::-moz-focus-inner {
@@ -110,6 +112,7 @@ figure {
 }
 abbr[title] {
   border-bottom: 1px dotted;
+  cursor: help;
 }
 address,
 cite,
@@ -117,12 +120,12 @@ dfn {
   font-style: normal;
 }
 mark {
-  background: #ff0;
+  background: #ffff88;
   color: #000;
 }
 body {
   margin: 0;
-  font-family: "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif, sans-serif;
   font-size: 14px;
   line-height: 172.02857143%;
   color: #212121;
@@ -182,7 +185,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif, monospace;
 }
 pre,
 code,
@@ -222,9 +225,15 @@ hr {
   box-sizing: content-box;
   height: 0;
 }
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+  margin-bottom: 0;
+}
 dt {
   margin-top: 0.5em;
-  font-weight: 500;
+  font-weight: 700;
 }
 dd {
   margin: 0;
@@ -237,6 +246,7 @@ table {
 }
 th,
 td {
-  padding: 4px 8px;
+  padding: 4px 10px;
   border: 1px solid #e0e0e0;
+  text-align: left;
 }

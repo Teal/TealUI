@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="../../src/typography/tipBox.css" />
     <link rel="stylesheet" type="text/css" href="../../src/typography/tip.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    
+    <p>表单布局主要基于 <a href="../layout/grid12.html">12栅格布局(grid12)</a> 完成。表单的各个元素分别都是独立的组件。表单布局主要实现层和文本框的垂直对齐效果。</p>
 
     <h2>水平布局</h2>
     <aside class="doc-demo">
@@ -69,8 +71,8 @@
             <div class="x-row">
                 <label class="x-col x-col-3">验证码:</label>
                 <div class="x-col x-col-9">
-                    <input type="text" class="x-textbox x-form-small" />
-                    <a href="###"><img src="../../assets/resources/100x100.gif" height="34" /></a>
+                    <input type="text" class="x-textbox x-form-short" />
+                    <a href="###"><img class="x-form-img" src="../../assets/resources/100x100.gif" height="34" /></a>
                     <a href="###">看不清，换一张</a>
                 </div>
             </div>
@@ -88,6 +90,7 @@
             </div>
         </form>
     </aside>
+    <p>当在手机上，水平布局会自动改为垂直布局。</p>
 
     <h2>垂直布局</h2>
     <aside class="doc-demo">
@@ -138,8 +141,8 @@
             <div class="x-row">
                 <label class="x-col x-col-12">验证码:</label>
                 <div class="x-col x-col-12">
-                    <input type="text" class="x-textbox x-form-small" />
-                    <a href="###"><img src="../../assets/resources/100x100.gif" height="34" /></a>
+                    <input type="text" class="x-textbox x-form-short" />
+                    <a href="###"><img class="x-form-img" src="../../assets/resources/100x100.gif" height="34" /></a>
                     <a href="###">看不清，换一张</a>
                 </div>
             </div>
@@ -177,6 +180,23 @@
             </div>
         </form>
     </aside>
-    <blockquote class="doc-info">另参考 <a href="Validator.html">表单验证组件</a> 。</blockquote>
+    <p>当在手机上，内联表单会自动改为垂直布局。</p>
+    
+    <h2>字段长度</h2>
+    <p>使用 <code>.x-form-short</code> 和 <code>.x-form-long</code> 生成超短或超长的表单字段。</p>
+    <aside class="doc-demo">
+        <form class="x-form x-form-horizontal" action="###">
+            <div class="x-row">
+                <label class="x-col x-col-3">字段:</label>
+                <div class="x-col x-col-9">
+                    <input type="text" class="x-textbox x-form-short">
+                    <input type="text" class="x-textbox">
+                    <input type="text" class="x-textbox x-form-long">
+                </div>
+            </div>
+        </form>
+    </aside>
+
+    <blockquote class="doc-info">另参考 <a href="validator.html">表单验证(validator)</a>。</blockquote>
 </body>
 </html>

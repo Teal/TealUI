@@ -16,6 +16,7 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
     <style>
         .x-col span {
             background: #EEEEEE;
@@ -42,10 +43,10 @@
     <ul>
         <li><code>.x-col-*</code>: 手机（默认）按此宽度布局。</li>
         <li><code>.x-col-medium-*</code>: 平板按此宽度布局。</li>
-        <li><code>.x-col-large-*</code>: 电脑按此宽度布局。</li>
+        <li><code>.x-col-large-*</code>: 电脑按此宽度布局。（当未指定时，按 <code>.x-col-medium-*</code> 布局）</li>
     </ul>
 
-    <p>大屏（平板、电脑等）上显示 3 列，小屏（手机）上显示 1 列（可以调整浏览器窗口大小查看效果）：</p>
+    <h5>实例：大屏（平板、电脑等）上显示 3 列，小屏（手机）上显示 1 列（可以调整浏览器窗口大小查看效果）：</h5>
     <aside class="doc-demo">
         <div class="x-row">
             <div class="x-col x-col-12 x-col-medium-4">
@@ -54,6 +55,38 @@
             <div class="x-col x-col-12 x-col-medium-4">
                 <span>B</span>
             </div>
+            <div class="x-col x-col-12 x-col-medium-4">
+                <span>C</span>
+            </div>
+        </div>
+    </aside>
+
+    <h2>重置列</h2>
+    <p>由于列采用浮动布局，如果当前行列存在过高的行，会影响列的换行效果，次数可插入清除浮动的元素强制换行。</p>
+    <aside class="doc-demo">
+        <div class="x-row">
+            <div class="x-col x-col-12 x-col-medium-4">
+                <span style="height:100px;">A</span>
+            </div>
+            <div class="x-col x-col-12 x-col-medium-4">
+                <span>B</span>
+            </div>
+            <!-- 清除浮动，只在 medium 显示 -->
+            <div class="x-clear x-hide-small"></div>
+            <div class="x-col x-col-12 x-col-medium-4">
+                <span>C</span>
+            </div>
+        </div>
+    </aside>
+    
+    <h2>列间距</h2>
+    <p>如果需要在列之间插入空白，可使用空白的列。</p>
+    <aside class="doc-demo">
+        <div class="x-row">
+            <div class="x-col x-col-12 x-col-medium-4">
+                <span>A</span>
+            </div>
+            <div class="x-col x-hide-small x-col-medium-4"></div>
             <div class="x-col x-col-12 x-col-medium-4">
                 <span>C</span>
             </div>

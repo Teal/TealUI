@@ -30,6 +30,11 @@ textarea.x-textbox {
   width: 560px;
   height: 120px;
 }
+.x-textbox[rows],
+.x-textbox[multiple],
+.x-textbox[size] {
+  height: auto;
+}
 .x-textbox-info {
   border-color: #31708f;
 }
@@ -59,9 +64,9 @@ textarea.x-textbox {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(169, 68, 66, 0.6);
 }
 .x-textbox-small {
-  padding: 2px 6px;
+  padding: 1px 5px;
 }
 .x-textbox-large {
   width: 560px;
-  padding: 10px 16px;
+  padding: 10px 14px;
 }

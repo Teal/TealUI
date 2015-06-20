@@ -1,6 +1,4 @@
 ﻿.x-button {
-  -moz-appearance: button;
-  -webkit-appearance: button;
   display: inline-block;
   text-align: center;
   white-space: nowrap;
@@ -12,80 +10,105 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   touch-action: manipulation;
-  color: #212121;
   outline: 0;
-  border: 1px solid #eee;
   padding: 4px 14px;
   line-height: 24px;
-  background-color: #eee;
-  -moz-transition: background-color .15s ease-out, border-color .15s ease-out;
-  -o-transition: background-color .15s ease-out, border-color .15s ease-out;
-  -webkit-transition: background-color .15s ease-out, border-color .15s ease-out;
-  transition: background-color .15s ease-out, border-color .15s ease-out;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  color: #212121;
+  background-color: #f7f7f7;
+  -moz-transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+  -o-transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+  -webkit-transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+  transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
-.x-button:hover,
 .x-button:focus {
-  background-color: #e6e6e6;
+  border-color: #a6a6a6;
+}
+.x-button:hover {
+  color: #212121;
+  background-color: #ebebeb;
   text-decoration: none;
 }
 .x-button:active,
-.x-button-actived {
-  background-color: #cfcfcf;
-  border-color: #cfcfcf;
-  box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.15);
+.x-button-actived,
+.x-dropdown-actived {
+  background-color: #dedede;
+  border-color: #b3b3b3;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .x-button[disabled],
 .x-button-disabled {
   pointer-events: none;
   cursor: not-allowed;
-  border-color: transparent;
   opacity: 0.5;
   filter: alpha(opacity=50);
   box-shadow: none;
 }
 .x-button-info {
   color: #ffffff;
-  background-color: #31708f;
-  border-color: #31708f;
+  background-color: #5bc0de;
+  border-color: #46b8da;
 }
-.x-button-info:hover,
 .x-button-info:focus {
-  background-color: #214c61;
+  border-color: #1f7e9a;
+}
+.x-button-info:hover {
+  color: #ffffff;
+  background-color: #46b8da;
 }
 .x-button-success {
   color: #ffffff;
-  background-color: #3c763d;
-  border-color: #3c763d;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
-.x-button-success:hover,
 .x-button-success:focus {
-  background-color: #274d28;
+  border-color: #2d672d;
+}
+.x-button-success:hover {
+  color: #ffffff;
+  background-color: #4cae4c;
 }
 .x-button-warning {
   color: #ffffff;
-  background-color: #9c7a3e;
-  border-color: #9c7a3e;
+  background-color: #f0ad4e;
+  border-color: #eea236;
 }
-.x-button-warning:hover,
 .x-button-warning:focus {
-  background-color: #70582d;
+  border-color: #b06d0f;
+}
+.x-button-warning:hover {
+  color: #ffffff;
+  background-color: #eea236;
 }
 .x-button-error {
   color: #ffffff;
-  background-color: #a94442;
-  border-color: #a94442;
+  background-color: #d9534f;
+  border-color: #d43f3a;
 }
-.x-button-error:hover,
 .x-button-error:focus {
-  background-color: #7d3231;
+  border-color: #8b211e;
+}
+.x-button-error:hover {
+  color: #ffffff;
+  background-color: #d43f3a;
 }
 .x-button-transparent {
   background-color: transparent;
 }
 .x-button-small {
-  padding: 0 7px;
-  font-size: 13px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 166.66666666666666%;
 }
-.x-button-bordered {
-  border-color: #cccccc;
+.x-button-large {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.x-button-justify {
+  display: block;
+  width: 100%;
 }

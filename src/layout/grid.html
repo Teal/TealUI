@@ -38,21 +38,21 @@
     </aside>
 
     <h2>容器</h2>
-    <p>容器的功能是定义一个居中的区域以显示网页内容。这个区域会自动适应宽度，但不超过 980px。</p>
+    <p>容器的功能是定义一个全局居中的区域以显示网页内容。</p>
     <aside class="doc-demo">
         <div class="x-container">我是居中的容器</div>
     </aside>
     
-    <h4>容器的响应式</h4>
-    <p>手机/平板：容器会占满整个屏幕，并预留 <code>@font-size / 2 = 7px</code> 边距。</p>
-    <p>电脑：容器固定为 <code>@grid-container-width-large=980px</code> 宽。</p>
+    <h4>响应式容器</h4>
+    <ul>
+        <li>手机/平板：容器会占满整个屏幕，并预留默认 <code>1em=14px</code> 边距。</li>
+        <li>电脑：容器固定为默认 <code>980px</code> 宽居中，并无边距。</li>
+    </ul>
 
-    <p>在手机中，<code>.x-container</code> 会占满整个屏幕并预留 <code>@grid-gutter-width / 2=14px</code> 边距。</p>
-
-    <blockquote class="doc-warning">不可以将 <code>.x-container</code> 和 <code>.x-row</code> 一起使用。</blockquote>
+    <blockquote class="doc-warning">不能将 <code>.x-container</code> 和 <code>.x-row</code> 赋予同一个标签，而应该用 <code>.x-container</code> 嵌套 <code>.x-row</code>。</blockquote>
 
     <h2>布局嵌套</h2>
-    <p>在任一列中又可以继续应用栅格方法继续细分。</p>
+    <p>在任一列中又可以继续应用栅格方法细分。</p>
     <aside class="doc-demo">
         <div class="x-row">
             <div class="x-col" style="width:25%;"><span>左</span></div>
@@ -66,15 +66,21 @@
     </aside>
 
     <h2>列排序</h2>
-    <p>使用 <code>.x-left</code> 和 <code>.x-right</code> 来重新定义列的顺序。</p>
+    <p>使用 <a href="../core/utility.html">辅助样式(utility)</a> 提供的 <code>.x-left</code> 和 <code>.x-right</code> 可重定义列的顺序。这在为了 SEO 需要将重要内容提前又不希望内容显示在左边的时候特别有用。</p>
     <aside class="doc-demo">
         <div class="x-row">
-            <div class="x-col x-right" style="width:25%;"><span>右</span></div>
-            <div class="x-col x-left" style="width:75%;"><span>左</span></div>
+            <div class="x-col x-right" style="width:25%;"><span>我显示右边</span></div>
+            <div class="x-col x-left" style="width:75%;"><span>我显示在左边</span></div>
+        </div>
+
+        <div class="x-row">
+            <div class="x-col x-right" style="width:25%;"><span>我显示右边</span></div>
+            <div class="x-col x-right" style="width:50%;"><span>我显示中边</span></div>
+            <div class="x-col x-left" style="width:25%;"><span>我显示在左边</span></div>
         </div>
     </aside>
 
-    <blockquote class="doc-info">如果想快速设置列宽和自适应，可使用 <a href="grid12.html">12栅格布局法(grid12)</a> 组件。</blockquote>
+    <blockquote class="doc-info">如果想快速设置列宽和响应式，可使用 <a href="grid12.html">12栅格布局法(grid12)</a> 组件。</blockquote>
 
     <blockquote class="doc-info">如果只需等分布局，可使用 <a href="gridAverage.html">等分布局(gridAverage)</a> 组件。</blockquote>
 </body>

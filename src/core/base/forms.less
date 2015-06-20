@@ -22,7 +22,9 @@ input, button, select, textarea, optgroup {
 // 避免 Android 4.0.* WebKit 按钮点击销毁  `audio` 和 `video` 控件。
 // 确保 IOS input 样式可修改。
 button, html input[type=button], input[type=reset], input[type=submit] {
+    -moz-appearance: button;
     -webkit-appearance: button;
+    appearance: button;
 }
 
 // Firefox 4+：删除表单元素默认 2px 边距。

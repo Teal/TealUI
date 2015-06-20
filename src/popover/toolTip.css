@@ -2,15 +2,16 @@
   position: absolute;
   z-index: 2000;
   display: none;
-  font-size: 0.85714286em;
-  line-height: 150%;
+  font-size: 12px;
+  line-height: 166.66666667%;
   background-color: #212121;
   color: #ffffff;
   padding: 0 4px;
-  border-radius: 2px;
+  border-radius: 3px;
   max-width: 210px;
   border: 2px solid #212121;
 }
 .x-tooltip.x-arrow:after {
+  content: none;
   display: none;
 }

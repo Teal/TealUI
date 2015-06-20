@@ -6,11 +6,6 @@
 .x-form .x-col:first-child {
   margin-bottom: 0;
 }
-.x-form img {
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
-}
 @media (max-width: 640px) {
   .x-form-horizontal .x-col {
     width: 100%;
@@ -34,6 +29,15 @@
 .x-form-required {
   color: #a94442;
 }
-.x-form-small {
+.x-form-short {
   width: 70px !important;
+}
+.x-form-long {
+  width: 490px !important;
+}
+.x-form-img {
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+  height: 35px;
 }

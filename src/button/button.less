@@ -2,41 +2,44 @@
 @import "../core/mixins.less";
 
 .x-button {
-    // 按钮样式重置。
-    -moz-appearance: button;
-    -webkit-appearance: button;
     display: inline-block;
     text-align: center;
     white-space: nowrap;
     .user-select(none);
     .box-sizing(border-box);
     touch-action: manipulation;
-    color: @text-color;
     outline: 0;
     // 按钮风格定义。
-    border: 1px solid #eee;
     padding: @padding-y @font-size;
     line-height: @line-height;
-    background-color: #eee;
-    .transition(~"background-color .15s ease-out, border-color .15s ease-out");
+    border: 1px solid @border-color-input;
+    border-radius: @border-radius;
+    color: @text-color;
+    background-color: @background-color-header;
+    .transition(~"background-color .15s ease-in-out, border-color .15s ease-in-out");
 
-    &:hover, &:focus {
-        background-color: darken(#eee, 3%);
-        text-decoration: none;
+    &:focus {
+        border-color: darken(@border-color-input, 15%);
     }
 
+    &:hover {
+        color: @text-color;
+        background-color: darken(@background-color-header, 5%);
+        text-decoration: none;
+    }
 }
 
-.x-button:active, .x-button-actived {
-    background-color: darken(#eee, 12%);
-    border-color: darken(#eee, 12%);
-    box-shadow: inset 0 1px 10px rgba(0, 0, 0, .15);
+.x-button:active, .x-button-actived, .x-dropdown-actived {
+    background-color: darken(@background-color-header, 10%);
+    border-color: darken(@border-color-input, 10%);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
 }
 
 .x-button[disabled], .x-button-disabled {
-    pointer-events: none; // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
-    cursor: not-allowed; // 由于 pointer-events: none 可能不生效
-    border-color: transparent;
+    // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+    pointer-events: none;
+    // 由于 pointer-events: none 可能不生效
+    cursor: not-allowed;
     .opacity(.5);
     box-shadow: none;
 }
@@ -45,11 +48,16 @@
 .x-button-state(@state) {
     .x-button-@{state} {
         color: @selected-text-color;
-        background-color: ~"@{@{state}-text-color}";
-        border-color: ~"@{@{state}-text-color}";
+        background-color: ~"@{@{state}-brand-color}";
+        border-color: darken(color(~"@{@{state}-brand-color}"), 5%);
 
-        &:hover, &:focus {
-            background-color: darken(color(~"@{@{state}-text-color}"), 12%);
+        &:focus {
+            border-color: darken(darken(color(~"@{@{state}-brand-color}"), 5%), 20%);
+        }
+
+        &:hover {
+            color: @selected-text-color;
+            background-color: darken(color(~"@{@{state}-brand-color}"), 5%);
         }
     }
 }
@@ -64,11 +72,19 @@
 }
 
 // 尺寸
-.x-button-small {
-    padding: 0 @font-size / 2;
-    font-size: @font-size-menu;
-}
 
-.x-button-bordered {
-    border-color: @border-color-input;
+.x-button-size(@size) {
+    .x-button-@{size} {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+    }
+}
+.x-button-size(small);
+.x-button-size(large);
+
+.x-button-justify {
+    display: block;
+    width: 100%;
 }

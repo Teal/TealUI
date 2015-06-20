@@ -12,6 +12,7 @@
   border-radius: 0;
   position: relative;
   z-index: 2;
+  white-space: nowrap;
   float: left\9;
 }
 .x-inputgroup .x-tipbox:first-child,
@@ -40,8 +41,6 @@
 .x-inputgroup.x-justify .x-textbox {
   width: 100%;
 }
-.x-inputgroup.x-justify .x-button,
 .x-inputgroup.x-justify .x-tipbox {
   width: 1%;
-  white-space: nowrap;
 }

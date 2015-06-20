@@ -20,21 +20,20 @@
 .x-hide {
   display: none;
 }
-@media (max-width: 639px) {
+@media (max-width: 640px) {
   .x-hide-small {
     display: none;
   }
 }
-@media (min-width: 1280px) {
-  .x-hide-large {
+@media (min-width: 641px) {
+  .x-hide-medium {
     display: none;
   }
 }
-.x-break-word {
-  -ms-word-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-all;
+@media (min-width: 1025px) {
+  .x-hide-large {
+    display: none;
+  }
 }
 .x-ellipsis {
   width: 100%;
@@ -43,18 +42,20 @@
   text-overflow: ellipsis;
   display: block;
 }
+.x-break-word {
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
 .x-blank {
   margin-bottom: 1em;
-}
-.x-justify {
-  width: 100%;
-  text-align: justify;
-}
-.x-radius {
-  border-radius: 4px;
 }
 .x-scrollable-horizontal {
   overflow: hidden;
   overflow-x: auto;
   width: 100%;
+}
+.x-pointer {
+  cursor: pointer;
 }

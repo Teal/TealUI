@@ -35,3 +35,6 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.x-list-seperate > li ~ li {
+  margin-left: 14px;
+}

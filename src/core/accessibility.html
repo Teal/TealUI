@@ -6,7 +6,7 @@
     <title>可访问性</title>
     <meta name="module-info" content="order=print">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="为了让通过辅助设备（AT - ASSISTIVE TECHNOLOGY）上网的人群正常访问网站，需在 HTML 中增加可访问性属性。">
+    <meta name="description" content="让通过辅助设备（AT，Assistive Technology）上网的人群更容易阅读网站。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -16,19 +16,45 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
     
-    <h2>对屏幕阅读器隐藏</h2>
-    <aside class="doc-demo">
-        <div aria-hidden="true">我能在屏幕看到，但是阅读器将忽略本段文字。</div>
-    </aside>
+    <h2>屏幕阅读器和键盘导航</h2>
     
-    <h2>对屏幕阅读器显示</h2>
+    <h3>语义化标签</h3>
+    <p>为了让屏幕阅读器和键盘导航更好理解网页内容，应为 HTML 标签添加 <code>aria-</code> 属性，以增强网页的语义化。</p>
+    
+    <h3>标题嵌套</h3>
+    <p>网页中应该按顺序嵌套 <code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> 标签，让阅读器可以更容易理解网页层次，生成网页结构列表。</p>
+    <p>更多可参考： <a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/Section508/">HTML CodeSniffer</a> 和 <a href="http://accessibility.psu.edu/headings">Penn State's AccessAbility</a>。</p>
+
+    <h3>色彩对比度</h3>
+    <p>TealUI 默认使用了淡色调，色彩对比度低于标准，这会影响视力低下或色盲用户的使用。如果需要，可修改默认配色方案。</p>
+
+    <h3>表单验证</h3>
+    <p>表单验证的结果不应该只通过颜色区分，应使用图标表示，图标添加 <code>aria-describedby="描述"</code> 来说明，同时不正确的字段还应设置 <code>aria-invalid="true"</code>。</p>
+
+    <h3>扩展阅读</h3>
+    <ul>
+        <li><a href="https://github.com/squizlabs/HTML_CodeSniffer">"HTML Codesniffer" bookmarklet for identifying accessibility issues</a></li>
+        <li><a href="https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb?hl=en">Chrome's Accessibility Developer Tools extension</a></li>
+        <li>
+            <a href="http://www.paciellogroup.com/resources/contrastanalyser/">Colour Contrast Analyser</a>
+        </li>
+        <li><a href="http://a11yproject.com/">The A11Y Project</a></li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Accessibility">MDN accessibility documentation</a></li>
+    </ul>
+
+    <h2>辅助样式：对屏幕阅读器显示和隐藏</h2>
     <aside class="doc-demo">
+        <div aria-hidden="true">
+            现在网页正在屏幕显示，阅读器忽略这行文字
+        </div>
         <div class="x-show-reader">
-            我只能被阅读器使用，但屏幕不会显示。
+            阅读器不会忽略这行文字，但网页上不会显示。
         </div>
     </aside>
-
-    <h2>跳至内容</h2>
+    
+    <blockquote class="doc-warning">简单使用 <code>display: none</code> 或 <code>.x-hide</code> 不能对阅读器隐藏。</blockquote>
+    
+    <h2>跳至主内容</h2>
     <p>参考：<a href="http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1">如何添加跳至内容链接</a>。</p>
     <aside class="doc-demo">
         <a href="#content" class="x-show-reader x-show-reader-focusable">直接跳到内容</a>

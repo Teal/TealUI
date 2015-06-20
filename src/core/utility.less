@@ -30,19 +30,30 @@
     display: none;
 }
 
-@media @small {
-    .x-hide-small {
+.x-hide-small {
+    @media (max-width: @screen-small-max) {
         display: none;
     }
 }
 
-@media @large {
-    .x-hide-large {
+.x-hide-medium {
+    @media (min-width: @screen-medium-min) {
+        display: none;
+    }
+}
+
+.x-hide-large {
+    @media (min-width: @screen-large-min) {
         display: none;
     }
 }
 
 // 文本。
+.x-ellipsis {
+    .text-overflow(ellipsis);
+    display: block;
+}
+
 .x-break-word {
     -ms-word-wrap: break-word;
     word-wrap: break-word;
@@ -50,25 +61,9 @@
     word-break: break-all;
 }
 
-.x-ellipsis {
-    .text-overflow(ellipsis);
-    display: block;
-}
-
 // 空隙。
 .x-blank {
     margin-bottom: @grid-margin;
-}
-
-// 占满行。
-.x-justify {
-    width: 100%;
-    text-align: justify;
-}
-
-// 圆角。
-.x-radius {
-    border-radius: @border-radius;
 }
 
 // 超出内容后显示滚动条。

@@ -28,6 +28,11 @@
         width: @font-size * 40;
         height: @line-height * 5;
     }
+
+    // 存在　rows 的 textarea 和存在 multiple/size 的 select，则根据 rows 定制宽度。
+    &[rows], &[multiple], &[size] {
+        height: auto;
+    }
 }
 
 .x-textbox-state(@state) {

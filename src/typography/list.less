@@ -46,3 +46,9 @@
         .box-sizing(border-box);
     }
 }
+
+.x-list-seperate{
+    > li ~ li {
+        margin-left: @grid-gutter-width / 2;
+    }
+}

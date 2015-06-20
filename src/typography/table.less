@@ -7,21 +7,20 @@
     tbody {
         // 鼠标以上高亮。
         tr:hover {
-            background-color: #f3f3f3;
+            background-color: @background-color-hover;
         }
     }
-    
 }
 
 // 表格间隔行高亮。
 .x-table-striped tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
+    background-color: @background-color-striped;
 }
 
-// 颜色
-.x-table-state(@state){
+// 状态。
+.x-table-state(@state) {
     .x-table-@{state} {
-        background-color: ~"@{@{state}-background-color}"!important;
+        background-color: ~"@{@{state}-background-color}" !important;
         color: ~"@{@{state}-text-color}";
     }
 }
@@ -32,6 +31,19 @@
 .x-table-state(error);
 
 // 激活状态。
-.x-table-actived {
-    background-color: #ffd!important;
+.x-table-selected, .x-table-selected td {
+    background-color: #ffd !important;
+}
+
+// 尺寸。
+.x-table-large {
+    th, td {
+        padding: @padding-large-y @padding-large-x;
+    }
+}
+
+.x-table-small {
+    th, td {
+        padding: @padding-small-y @padding-small-x;
+    }
 }

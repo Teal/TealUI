@@ -41,3 +41,11 @@ span.x-tipbox {
   background-color: transparent;
   border-color: transparent;
 }
+.x-tipbox-small {
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.x-tipbox-large {
+  padding: 10px 14px;
+  border-radius: 6px;
+}

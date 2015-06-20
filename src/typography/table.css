@@ -2,7 +2,7 @@
   width: 100%;
 }
 .x-table tbody tr:hover {
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
 }
 .x-table-striped tbody tr:nth-child(odd) {
   background-color: #f9f9f9;
@@ -23,6 +23,15 @@
   background-color: #f2dede !important;
   color: #a94442;
 }
-.x-table-actived {
-  background-color: #ffd!important;
+.x-table-selected,
+.x-table-selected td {
+  background-color: #ffd !important;
+}
+.x-table-large th,
+.x-table-large td {
+  padding: 10px 14px;
+}
+.x-table-small th,
+.x-table-small td {
+  padding: 1px 5px;
 }

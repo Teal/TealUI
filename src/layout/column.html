@@ -6,7 +6,7 @@
     <title>列布局</title>
     <meta name="module-info" content="order=gridAverage">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="模拟表格列布局。">
+    <meta name="description" content="模拟表格列布局以实现左右布局效果。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
@@ -15,14 +15,28 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
+    
+    <p>使用 <code>.x-tr</code> 表示一行， <code>.x-td</code> 表示一列，所有列将占满一行。其中 <code>.x-td-justify</code> 指定的列将自动拉伸宽度以填充宽度。</p>
     <aside class="doc-demo">
         <div class="x-tr">
             <div class="x-td">
                 左侧
             </div>
+            <div class="x-td x-td-justify">
+                很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字
+            </div>
+        </div>
+    </aside>
+    <aside class="doc-demo">
+        <div class="x-tr">
             <div class="x-td">
-                右侧是很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字
+                左侧
+            </div>
+            <div class="x-td x-td-justify">
+                很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字
+            </div>
+            <div class="x-td">
+                右侧
             </div>
         </div>
     </aside>

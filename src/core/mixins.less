@@ -44,9 +44,9 @@
 
 // 全局
 @background-color:          @white;
-@background-color-striped:  darken(@white, 2.5%);
-@background-color-header:   darken(@white, 3%);
-@background-color-hover:    darken(@white, 4%);
+@background-color-striped:  darken(@white, 2.5%); // #f9f9f9
+@background-color-header:   darken(@white, 3%);   // #f7f7f7
+@background-color-hover:    darken(@white, 4%);   // #f5f5f5
 
 @text-color:                @gray-darker;
 @text-color-link:           @alt-color;
@@ -79,7 +79,8 @@
 //--------------------------------
 
 // 字体
-@font-family-sans-serif:    "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo;
+@font-family-sans-serif:    "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+// "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo
 @font-family-serif:         Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
 @font-family-monospace:     Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
 
@@ -90,13 +91,14 @@
 
 // 行高
 @line-height:               @font-size + 10px;
-@line-height-small:         150%;
+@line-height-small:         100% * 20px / @font-size-small;
+@line-height-large:         1.5;
 
 //--------------------------------
 // 栅格布局
 //--------------------------------
 
-@grid-column:               12;
+@grid-column-count:         12;
 @grid-gutter-width:         @font-size * 2;   
 @grid-container-width:      980px; 
 @grid-margin:               1em;
@@ -108,11 +110,11 @@
 @padding-y:                 (@line-height - @font-size) / 2 - 1px; // 4px
 @padding-x:                 @padding-y * 2 + 2px; // 10px
 
-@padding-small-y:           @padding-y - 2px; // 2px
-@padding-small-x:           @padding-x - 4px; // 6px
+@padding-small-y:           @padding-y - 3px; // 1px
+@padding-small-x:           @padding-x - 5px; // 5px
 
 @padding-large-y:           @padding-y + 6px; // 10px
-@padding-large-x:           @padding-x + 6px; // 16px
+@padding-large-x:           @padding-x + 4px; // 14px
 
 //--------------------------------
 // 其它

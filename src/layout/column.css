@@ -3,11 +3,19 @@
  */
 .x-tr {
   display: table;
+  border-collapse: separate;
+  width: 100%;
 }
 .x-td {
   display: table-cell;
   vertical-align: top;
+  width: 1%;
+  white-space: nowrap;
 }
 .x-td ~ .x-td {
   padding-left: 28px;
+}
+.x-td-justify {
+  width: 99%;
+  white-space: normal;
 }
