@@ -18,9 +18,9 @@
      * 设置滑动的步长。
      * @type {Number}
      */    step: 0,    init: function (options) {
-        Dom.each(Dom.query('.x-slider-handle', this.elem), this.initHandle, this);
+        NodeList.each(this.elem.queryAll('.x-slider-handle'), this.initHandle, this);
         var me = this;
-        Dom.on(this.elem, 'mousedown', function (e) { me.onClick(e); });
+        this.elem.on('mousedown', function (e) { me.onClick(e); });
         this.onChange();
     },    onClick: function (e) {
 
@@ -28,8 +28,8 @@
             return;
         }
 
-        var handles = Dom.query('.x-slider-handle', this.elem),
-            left = e.pageX - Dom.getRect(this.elem).left,
+        var handles = this.elem.queryAll('.x-slider-handle'),
+            left = e.pageX - this.elem.getRect().left,
             leftP = left * 100 / this.elem.offsetWidth,
             min = 101,
             handle = handles[0];
@@ -45,7 +45,7 @@
         }
 
         this._setHandleOffset(handle, left);
-        Dom.trigger(handle, 'mousedown', e);
+        handle.trigger('mousedown', e);
     },    _setHandleOffset: function (handle, left) {
         var draggable = {
             endOffset: { left: left }
@@ -54,7 +54,7 @@
         this._handleDragMove(handle, draggable);
     },    _handleDragStart: function (handle, draggable) {
         // 拖动开始前确定当前滑块的可用范围。每个滑块的范围的前后滑块之间。
-        var handles = Dom.query('.x-slider-handle', this.elem),
+        var handles = this.elem.queryAll('.x-slider-handle'),
             min = 101,
             max = -1,
             value;
@@ -118,7 +118,7 @@
 
     },    initHandle: function (handle) {
         var me = this;
-        Dom.draggable(handle, {
+        handle.setDraggable({
             autoSrcoll: 0,
             onDragStart: function (e) {
                 me._handleDragStart(handle, this, e);
@@ -132,7 +132,7 @@
 
         // 修复 handle 的 left 值。
         if (!/%$/.test(handle.style.left)) {
-            handle.style.left = Dom.getOffset(handle).left * 100 / this.elem.offsetWidth + '%';
+            handle.style.left = handle.getOffset().left * 100 / this.elem.offsetWidth + '%';
         }
     },    /**
      * 计算某个滑块的值。
@@ -163,11 +163,11 @@
         this.getInput().value = this.getValues();
 
         // 设置滑块前景色。
-        var handles = Dom.query('.x-slider-handle', this.elem),
+        var handles = this.elem.queryAll('.x-slider-handle'),
             startHandle = this.getStartHandle(),
             endHandle = this.getEndHandle(),
             start = startHandle ? parseFloat(startHandle.style.left) : 0,
-            fore = Dom.find('.x-slider-fore', this.elem);
+            fore = this.elem.query('.x-slider-fore');
         fore.style.left = start + '%';
         fore.style.width = endHandle ? Math.max(0, parseFloat(endHandle.style.left) - start) + '%' : 0;
 
@@ -176,12 +176,12 @@
      * 获取每个滑块的值。
      */    getValues: function () {
         var values = [];
-        Dom.each(Dom.query('.x-slider-handle', this.elem), function (handle, index) {
+        NodeList.each(this.elem.queryAll('.x-slider-handle'), function (handle, index) {
             values[index] = this.getValueOfHandle(handle);
         }, this);
         return values;
     },    getStartHandle: function () {
-        var handles = Dom.query('.x-slider-handle', this.elem),
+        var handles =  this.elem.queryAll('.x-slider-handle'),
             min = 0;
         for (var i = 1; i < handles.length; i++) {
             if (parseFloat(handles[min].style.left) > parseFloat(handles[i].style.left)) {
@@ -190,7 +190,7 @@
         }
         return handles.length > 1 ? handles[min] : null;
     },    getEndHandle: function () {
-        var handles = Dom.query('.x-slider-handle', this.elem),
+        var handles =  this.elem.queryAll('.x-slider-handle'),
             max = 0;
         for (var i = 1; i < handles.length; i++) {
             if (parseFloat(handles[max].style.left) < parseFloat(handles[i].style.left)) {
