@@ -67,14 +67,13 @@ var MessageBox = Dialog.extend({
 
             for (key in options) {
                 value = options[key];
-                button = buttons.append('<button class="x-button"></button>');
+                button = buttons.append('<button class="x-button' + (value === true ? ' x-button-primary' : '') + '"></button>');
                 button.textContent = key;
 
                 button.on('click', value === true ?this.ok: value === false ? this.cancel : (value || this.close)  , this);
                 buttons.append('  ');
             }
 
-            buttons.querySelector('.x-button:first-child').classList.add('x-button-info');
         }
 
         return this;
@@ -87,7 +86,7 @@ MessageBox.show = function (content, title, buttons, icon, onOk, onCancel) {
         .setContent(content)
         .setTitle(title || "提示")
         .setIcon(icon)
-        .setButtons(buttons)
+        .setButtons(buttons || { '确定': false })
         .show();
     onOk && messageBox.on('ok', onOk);
     onCancel && messageBox.on('cancel', onCancel);
@@ -95,7 +94,7 @@ MessageBox.show = function (content, title, buttons, icon, onOk, onCancel) {
 };
 
 MessageBox.alert = function (content, title, onOk) {
-    return MessageBox.show(content, title, { '确定': true }, 'warning', onOk, onOk);
+    return MessageBox.show(content, title, { '确定': false }, 'warning', onOk, onOk);
 };
 
 MessageBox.confirm = function (content, title, onOk, onCancel) {

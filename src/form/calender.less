@@ -24,6 +24,7 @@
         height: 100%;
         left: 0;
         top: 0;
+    border-collapse: separate;
     }
 
     th, td {
@@ -102,14 +103,14 @@
 }
 
 .x-calender-alt {
-    color: @tip-text-color;
+    color: @text-color-tip;
     cursor: default!important;
 }
 
 .x-calender-actived {
     outline: 1px solid #007FE6;
     outline-offset: -1px;
-    color: @link-text-color!important;
+    color: @text-color-link!important;
 }
 
 .x-calender-selected {
@@ -118,7 +119,7 @@
 }
 
 td.x-calender-invalid {
-    color: @disabled-text-color;
+    color: @text-color-disabled;
     pointer-events: none;
 }
 
@@ -135,7 +136,7 @@ td.x-calender-invalid {
         line-height: @font-size;
 
         &[readonly] {
-            color: @disabled-text-color;
+            color: @text-color-disabled;
         }
     }
 }

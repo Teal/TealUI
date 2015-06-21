@@ -31,18 +31,18 @@
     <h2>基本用法</h2>
     <aside class="doc-demo">
         <span class="x-updown x-inputgroup" data-role="upDown">
-            <button class="x-button x-updown-up"><i class="x-icon">&#9473;</i></button>
+            <span><button class="x-button x-updown-up"><span class="x-icon">&#9473;</span></button></span>
             <input type="text" class="x-textbox" value="0">
-            <button class="x-button x-updown-down"><i class="x-icon">&#10010;</i></button>
+            <span><button class="x-button x-updown-down"><span class="x-icon">&#10010;</span></button></span>
         </span>
     </aside>
 
     <h2>纯 HTML 实现</h2>
     <aside class="doc-demo">
         <span class="x-updown x-inputgroup">
-            <button class="x-button x-updown-up" onclick="this.nextSibling.nextSibling.value--"><i class="x-icon">&#9473;</i></button>
+            <span><button class="x-button x-updown-up" onclick="this.parentNode.nextElementSibling.value--"><span class="x-icon">&#9473;</span></button></span>
             <input type="text" class="x-textbox" value="0">
-            <button class="x-button x-updown-down" onclick="this.previousSibling.previousSibling.value++"><i class="x-icon">&#10010;</i></button>
+            <span><button class="x-button x-updown-down" onclick="this.parentNode.previousElementSibling.value++"><span class="x-icon">&#10010;</span></button></span>
         </span>
     </aside>
     

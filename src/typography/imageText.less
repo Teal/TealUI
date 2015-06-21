@@ -20,7 +20,7 @@
     }
 
     &:first-child img {
-        margin-right: @padding-x;
+        margin-right: @grid-gutter-width / 2;
     }
 
     &:last-child img {
@@ -30,4 +30,9 @@
 
 .x-imagetext-text {
     width: 100%;
+
+    > h1, > h2, > h3, > h4, > h5, > h6 {
+        line-height: @line-height;
+        margin-bottom: 0;
+    }
 }

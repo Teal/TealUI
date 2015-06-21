@@ -5,8 +5,8 @@
     display: inline-block;
     padding: 3px 8px;
     text-decoration: none;
-    color: #23589a;
-    border-radius: 4px;
+    color: @text-color-link;
+    border-radius: @border-radius;
 
     &:before {
         content: '✚ ';
@@ -14,7 +14,7 @@
 }
 
 .x-tagchooser-selected, .x-tagchooser:hover {
-    background-color: #3079d5;
-    color: #FFFFFF;
+    background-color: @selected-background-color;
+    color: @selected-text-color;
     text-decoration: none;
 }

@@ -3,19 +3,20 @@
   display: inline-block;
 }
 .x-picker .x-textbox {
-  padding-right: 34px;
+  padding-right: 36px;
 }
 .x-picker .x-textbox:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error):hover {
-  border-color: rgba(82, 168, 236, 0.8);
+  border-color: #66afe9;
 }
 .x-picker .x-button {
   position: absolute;
   right: 0;
   top: 0;
   border-color: #cccccc;
+  border-radius: 0 4px 4px 0;
   padding-left: 0;
   padding-right: 0;
-  width: 32px;
+  width: 34px;
 }
 .x-picker .x-button:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
   background-color: transparent;
@@ -28,10 +29,10 @@
   color: #3c763d;
 }
 .x-picker .x-button-warning {
-  border-color: #8a6d3b;
+  border-color: #9c7a3e;
 }
 .x-picker .x-button-warning:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
-  color: #8a6d3b;
+  color: #9c7a3e;
 }
 .x-picker .x-button-error {
   border-color: #a94442;

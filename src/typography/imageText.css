@@ -14,11 +14,20 @@
   margin-top: 5px;
 }
 .x-imagetext-image:first-child img {
-  margin-right: 10px;
+  margin-right: 14px;
 }
 .x-imagetext-image:last-child img {
   margin-left: 10px;
 }
 .x-imagetext-text {
   width: 100%;
+}
+.x-imagetext-text > h1,
+.x-imagetext-text > h2,
+.x-imagetext-text > h3,
+.x-imagetext-text > h4,
+.x-imagetext-text > h5,
+.x-imagetext-text > h6 {
+  line-height: 24px;
+  margin-bottom: 0;
 }

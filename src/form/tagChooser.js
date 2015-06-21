@@ -11,7 +11,7 @@
 	    } else {
 	        values.splice(index, 1);
 	    }
-	    this.elem.value = values.join(' ');
+	    this.elem.value = values.join(' ').trim();
 	    this.onTargetChange();
 	},		init: function(target, tags, prefix){			    var me = this;
 

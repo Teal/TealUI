@@ -5,7 +5,7 @@
   border-radius: 4px;
   padding: 3px;
   cursor: default;
-  font-size: 0.85714286em;
+  font-size: 12px;
   line-height: 100%;
   text-align: center;
   -moz-user-select: none;
@@ -23,6 +23,7 @@
   height: 100%;
   left: 0;
   top: 0;
+  border-collapse: separate;
 }
 .x-calender th,
 .x-calender td {

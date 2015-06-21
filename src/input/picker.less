@@ -9,7 +9,7 @@
         padding-right: @padding-x + @line-height + 2px;
 
         &:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error):hover {
-            border-color: rgba(82,168,236,.8);
+            border-color: @border-color-input-hover;
         }
     }
     
@@ -17,7 +17,8 @@
         position: absolute;
         right: 0;
         top: 0;
-        border-color: @textbox-border-color;
+        border-color: @border-color-input;
+        border-radius: 0 @border-radius @border-radius 0;
 
         padding-left: 0;
         padding-right: 0;
