@@ -12,12 +12,13 @@
     padding: 3px 6px;
     font-size: @font-size-small;
     color: @selected-text-color;
-    line-height: 1;
     vertical-align: 1px;
+    line-height: 1;
     white-space: nowrap;
     text-align: center;
-    margin-left: .2em;
-
+    // 补齐 @line-height
+    margin: (@line-height - 3px * 2 - @font-size-small) / 2 - 1px 0 (@line-height - 3px * 2 - @font-size-small) / 2 - 1px .2em;
+    
     // 无内容自动隐藏（不支持 IE8)
     &:empty {
         display: none;

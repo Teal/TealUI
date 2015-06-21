@@ -16,9 +16,29 @@
             }
         }
 
-        &.x-list-selected a {
-            background-color: @selected-background-color;
-            color: @selected-text-color;
+        &:first-child a{
+            border-top-left-radius: @border-radius;
+            border-top-right-radius: @border-radius;
+        }
+        
+        &:last-child a{
+            border-bottom-left-radius: @border-radius;
+            border-bottom-right-radius: @border-radius;
         }
     }
+    
+    .x-badge {
+        float: right;
+    }
+
+    .x-list-selected a {
+        background-color: @selected-background-color!important;
+        color: @selected-text-color!important;
+
+        .x-badge {
+            background-color: @white;
+            color: @selected-background-color;
+        }
+    }
+
 }

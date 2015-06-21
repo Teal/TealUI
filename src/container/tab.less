@@ -6,124 +6,68 @@
     padding: 0;
     border-color: @border-color;
     border-style: solid;
-    border-width: 0 0 1px 1px;
+    border-width: 0 0 1px 0;
+    border-radius: @border-radius;
     .clearfix();
 
     li {
         list-style: none;
         float: left;
+        margin: 0 0 -1px 0;
+
+        &:first-child a {
+            border-top-left-radius: @border-radius;
+        }
+
+        &:last-child a {
+            border-top-right-radius: @border-radius;
+        }
+        
+        &:not(:first-child) a{
+            border-left-width: 0;
+        }
+
     }
 
     a {
         display: block;
         text-align: center;
         padding: @padding-y @font-size;
-        margin-bottom: -1px;
         color: @text-color;
-        border-color: @border-color;
-        border-style: solid;
-        border-width: 1px 1px 1px 0;
+        border: 1px solid @border-color;
         background-color: @background-color-header;
-        
+
         &:hover {
             background-color: darken(@background-color-header, 5%);
             text-decoration: none;
         }
     }
-
 }
 
-.x-tab-actived a{
-    background-color: @background-color!important;
-    border-bottom-color: @background-color;
+.x-tab-actived a {
+    background-color: @white !important;
+    border-bottom-color: @white;
 }
 
-.x-tab.x-block {
-    display:table;
+.x-tab-block {
+    display: table;
+    border-collapse: separate;
+    width: 100%;
+    margin: 0 0 -1px 0;
 
     li {
         display: table-cell;
         float: none;
+        white-space: nowrap;
     }
 }
 
 .x-tab-body {
+    background-color: @white;
     border: 1px solid @border-color;
     border-top: 0;
     padding: @padding-x;
     .box-sizing(border-box);
+    border-radius: 0 0 @border-radius @border-radius;
+    overflow: hidden;
 }
-
-.x-tab.x-radius {
-
-    li:first-child a {
-        border-top-left-radius: @border-radius;
-    }
-    
-    li:last-child a {
-        border-top-right-radius: @border-radius;
-    }
-
-}
-
-/*// Make the list-items overlay the bottom border
-.x-tabbable li {
-    margin: 0 0 -1px;
-    list-style: none;
-    float: left;
-}
-
-// Make links block level
-.x-tabbable a {
-    display: block;
-    border: 1px solid transparent;
-	.ie6-border-transparent(@backgroundColor);
-    .border-radius(@baseBorderRadius @baseBorderRadius 0 0);
-    padding: 7px 12px;
-
-    &:hover {
-        border-color: @grayLighter @grayLighter #ddd;
-        background-color: @grayLighter;
-        text-decoration: none;
-    }
-}
-
-// Active state, and it's :hover to override normal :hover
-.x-tabbable-selected a, .x-tabbable-selected a:hover {
-    color: @gray;
-    background-color: @backgroundColor;
-    border: 1px solid @grayBorder;
-    border-bottom-color: transparent;
-    _border-bottom-color: @backgroundColor;
-    _filter: chroma(color=@backgroundColor);
-    cursor: default;
-}
-
-// Alt
-// -----
-
-.x-tabbable-alt {
-    border-bottom: none;
-
-    li a, li a:hover {
-        border-color: transparent;
-        _border-color: @backgroundColor;
-    }
-}
-
-.x-tabbable-alt li {
-    margin-right: 2px;
-}
-
-// Links rendered as pills
-.x-tabbable-alt  li a {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    .border-radius(@baseBorderRadius);
-}
-
-// Active state
-.x-tabbable-alt .x-tabbable-selected a, .x-tabbable-alt .x-tabbable-selected a:hover {
-    color: @white;
-    background-color: @linkColor;
-}*/

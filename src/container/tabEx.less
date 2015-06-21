@@ -26,14 +26,26 @@
 .x-tab-left {
     float: left;
     margin-right: @grid-margin;
-    border-width: 1px 1px 0 0;
+    border-width: 0 1px 0 0;
 
     a {
         margin-right: -1px;
         margin-bottom: 0;
-        border-width: 0 1px 1px 1px;
+        border-width: 1px;
+        
     }
-    
+
+    li {
+        &:not(:first-child) {
+            border-top-width: 0;
+        }
+
+        &:last-child a {
+            border-top-right-radius: 0;
+            border-bottom-left-radius: @border-radius;
+        }
+    }
+
     .x-tab-actived a{
         border-color: @border-color @background-color @border-color @border-color;
     }
@@ -42,14 +54,25 @@
 .x-tab-right {
     float: right;
     margin-left: @grid-margin;
-    border-width: 1px 0 0 1px;
+    border-width: 0 0 0 1px;
     
     a {
         margin-left: -1px;
         margin-bottom: 0;
-        border-width: 0 1px 1px 1px;
+        border-width: 1px;
     }
     
+    li {
+        &:not(:first-child) {
+            border-top-width: 0;
+        }
+
+        &:last-child a {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: @border-radius;
+        }
+    }
+
     .x-tab-actived a{
         border-color: @border-color @border-color @border-color @background-color;
     }
