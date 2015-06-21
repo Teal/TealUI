@@ -2,30 +2,26 @@
 @import "../core/mixins.less";
 
 .x-tipbox {
-    margin-bottom: @grid-margin;
+    display: inline-block;
     border: 1px solid @border-color;
     padding: @padding-y @padding-x;
     line-height: @line-height;
     background-color: @background-color-header;
     border-radius: @border-radius;
     .box-sizing(border-box);
-
     // 链接。
     a {
         font-weight: bold;
         color: inherit;
     }
-    
     // 行内布局。
-    span& {
-        display: inline-block;
-        margin-bottom: 0;
+    div& {
+        display: block;
     }
-
 }
 
 // 色系
-.x-tipbox-state(@state){
+.x-tipbox-state(@state) {
     .x-tipbox-@{state} {
         background-color: ~"@{@{state}-background-color}";
         border-color: ~"@{@{state}-border-color}";
@@ -51,5 +47,6 @@
         line-height: ~"@{line-height-@{size}}";
     }
 }
+
 .x-tipbox-size(small);
 .x-tipbox-size(large);

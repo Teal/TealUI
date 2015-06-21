@@ -18,9 +18,9 @@
 @gray-lighter:              darken(@white, 12%); // #e0e0e0
 
 // 状态
-@alt-color:                 #337ab7;
+@primary-brand-color:       #337ab7;
 @selected-text-color:       @white;
-@selected-background-color: @alt-color;
+@selected-background-color: @primary-brand-color;
 
 @info-brand-color:          #5bc0de;
 @info-text-color:           #31708f;
@@ -49,14 +49,14 @@
 @background-color-hover:    darken(@white, 4%);   // #f5f5f5
 
 @text-color:                @gray-darker;
-@text-color-link:           @alt-color;
+@text-color-link:           @primary-brand-color;
 @text-color-tip:            @gray-dark;
 @text-color-disabled:       @gray-light;
 @text-color-small:          @gray;
 
 @border-color:              @gray-lighter;
 @border-color-input:        #ccc;
-@border-color-input-hover:  @alt-color;
+@border-color-input-hover:  #66afe9;
 
 //--------------------------------
 // 响应式
@@ -84,13 +84,13 @@
 @font-family-monospace:     Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
 
 @font-size:                 14px;
-@font-size-large:           ceil((@font-size * 1.25)); // ~18px
 @font-size-small:           ceil((@font-size * 0.85)); // ~12px
+@font-size-large:           ceil((@font-size * 1.25)); // ~18px
 
 // 行高
 @line-height:               @font-size + 10px;
 @line-height-small:         1.5;
-@line-height-large:         1.5;
+@line-height-large:         1.3333333;
 
 //--------------------------------
 // 栅格布局
@@ -100,7 +100,16 @@
 @grid-gutter-width:         @font-size * 2;   
 @grid-container-width:      980px; 
 @grid-margin:               1em;
-               
+            
+//--------------------------------
+// 文本框宽度
+//--------------------------------
+
+@input-width:               @font-size * 13;
+@input-width-small:         @font-size-small * 12;
+@input-width-large:         @font-size-large * 32;
+@input-max-height:          @line-height * 5;
+          
 //--------------------------------
 // 间距
 //--------------------------------
@@ -108,7 +117,7 @@
 @padding-y:                 (@line-height - @font-size) / 2 - 1px; // 4px
 @padding-x:                 @padding-y * 2 + 2px; // 10px
 
-@padding-small-y:           @padding-y - 3px; // 1px
+@padding-small-y:           @padding-y - 2px; // 2px
 @padding-small-x:           @padding-x - 5px; // 5px
 
 @padding-large-y:           @padding-y + 6px; // 10px

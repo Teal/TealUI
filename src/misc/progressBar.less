@@ -5,20 +5,27 @@
     display: inline-block;
     vertical-align: middle;
     overflow: hidden;
-    width: 100%;
+    width: @input-width;
     background-color: @background-color-hover;
     box-shadow: inset 0 0 4px rgba(0,0,0,.1);
-    height: @font-size;
-    font-size: @small-font-size;
-    line-height: @font-size;
+    height: @font-size-small * @line-height-small;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    border-radius: @border-radius-small;
     text-align: center;
+
+    div& {
+        display: block;
+        width: 100%;
+    }
 }
 
 .x-progressbar-fore {
+    display: block;
     width: 100%;
     height: 100%;
     color: @selected-text-color;
-    background-color: @selected-background-color;
+    background-color: @primary-brand-color;
     .box-sizing(border-box);
     .transition(~"width .3s linear, background-color .3s ease");
     overflow: hidden;
@@ -28,7 +35,7 @@
 .x-progressbar-state(@state){
     .x-progressbar-@{state} {
         .x-progressbar-fore {
-            background-color: ~"@{@{state}-text-color}";
+            background-color: ~"@{@{state}-brand-color}";
         }
     }
 }

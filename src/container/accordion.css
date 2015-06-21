@@ -1,16 +1,10 @@
-﻿.x-accordion {
-  margin-bottom: 1em;
-}
-.x-accordion .x-panel {
-  margin-bottom: 0;
-}
-.x-accordion .x-panel + .x-panel {
+﻿.x-accordion .x-panel:not(:first-child) {
   border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-.x-accordion.x-radius .x-panel:first-child {
-  border-radius: 4px 4px 0 0;
-}
-.x-accordion.x-radius .x-panel:last-child,
-.x-accordion.x-radius .x-panel-collapsed:last-child .x-panel-header {
-  border-radius: 0 0 4px 4px;
+.x-accordion .x-panel:not(:last-child),
+.x-accordion .x-panel:not(:last-child) .x-panel-header {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }

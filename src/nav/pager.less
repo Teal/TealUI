@@ -7,12 +7,13 @@
 .x-pager {
     text-align: center;
     margin: @grid-margin * 2 0;
-    
+
     a {
         display: inline-block;
         min-width: @line-height - @padding-x + 2px; // 2px 视觉差
         border: 1px solid @border-color;
         padding: @padding-y @padding-x;
+        border-radius: @border-radius;
 
         & + a {
             margin-left: @padding-x / 2;
@@ -22,7 +23,7 @@
             background-color: @background-color-hover;
             text-decoration: none;
         }
-        
+
         &.x-pager-actived {
             background-color: @selected-background-color;
             border-color: @selected-background-color;
@@ -30,13 +31,30 @@
         }
 
         &.x-pager-disabled {
-            color: @disabled-text-color;
+            color: @text-color-disabled;
             pointer-events: none;
         }
-
     }
 
     .x-icon {
         margin-right: 0;
+    }
+}
+
+.x-pager-size(@size) {
+    .x-pager-@{size} a {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+    }
+}
+
+.x-pager-size(small);
+.x-pager-size(large);
+
+.x-pager-round {
+    a {
+        border-radius: @line-height;
     }
 }

@@ -15,7 +15,7 @@
 .x-td ~ .x-td {
   padding-left: 28px;
 }
-.x-td-justify {
+.x-td-block {
   width: 99%;
   white-space: normal;
 }

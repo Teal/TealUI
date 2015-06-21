@@ -7,31 +7,31 @@
 .x-tag {
     display: inline-block;
     margin-right: .3em;
-    font-size: @font-size - 2px;
-    line-height: 149%;
-    padding: 0 4px;
-    border-radius: @border-radius;
-    background-color: @small-text-color;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    padding: @padding-small-y @padding-small-x;
+    border-radius: @border-radius-small;
+    background-color: @primary-brand-color;
     color: @selected-text-color;
     min-width: 1em;
     text-align: center;
-    .transition(opacity .3s);
-    
+    white-space: nowrap;
+
     a&:hover {
+        color: @selected-text-color;
         text-decoration: none;
         .opacity(.8);
     }
-    
-    &.x-radius {
-        border-radius: @border-radius * 2;
-    }
 
+    &:empty {
+        display: none;
+    }
 }
 
 // 色系
-.x-tag-state(@state){
+.x-tag-state(@state) {
     .x-tag-@{state} {
-        background-color: ~"@{@{state}-text-color}";
+        background-color: ~"@{@{state}-brand-color}";
     }
 }
 

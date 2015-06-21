@@ -19,7 +19,7 @@
     .transition(~"background-color .15s ease-in-out, border-color .15s ease-in-out");
 
     &:focus {
-        border-color: darken(@border-color-input, 15%);
+        border-color: @border-color-input-hover;
     }
 
     &:hover {
@@ -51,8 +51,9 @@
         background-color: ~"@{@{state}-brand-color}";
         border-color: darken(color(~"@{@{state}-brand-color}"), 5%);
 
-        &:focus {
-            border-color: darken(darken(color(~"@{@{state}-brand-color}"), 5%), 20%);
+        .x-badge {
+            background-color: @selected-text-color;
+            color: ~"@{@{state}-text-color}";
         }
 
         &:hover {
@@ -62,29 +63,47 @@
     }
 }
 
+.x-button-state(primary);
 .x-button-state(info);
 .x-button-state(success);
 .x-button-state(warning);
 .x-button-state(error);
+
+// .x-button-primary, .x-button-info, .x-button-// success, .x-button-warning, .x-button-error{
+//     .x-badge {
+//         background-color: @selected-text-color;
+//         color: @text-color;
+//     }
+// }
 
 .x-button-transparent {
     background-color: transparent;
 }
 
 // ³ß´ç
-
-.x-button-size(@size) {
-    .x-button-@{size} {
-        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
-        border-radius: ~"@{border-radius-@{size}}";
-        font-size: ~"@{font-size-@{size}}";
-        line-height: ~"@{line-height-@{size}}";
-    }
+.x-button-small {
+    padding: @padding-small-y @padding-small-x;
+    border-radius: @border-radius-large;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
 }
-.x-button-size(small);
-.x-button-size(large);
 
-.x-button-justify {
+.x-button-large {
+    padding: @padding-large-y @padding-large-y + @font-size-large;
+    border-radius: @border-radius-large;
+    font-size: @font-size-large;
+    line-height: @line-height-large;
+}
+
+// Î¢Ð¡°æ°´Å¥
+.x-button-mini {
+    padding: 0 4px;
+    border-radius: @border-radius-large;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+}
+
+.x-button-block {
     display: block;
     width: 100%;
 }

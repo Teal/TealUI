@@ -24,8 +24,8 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
     <style>
-        .x-textbox {
-            margin-bottom: 1em;
+        .doc-demo {
+            line-height: 40px;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="../../src/core/utility.css" />
@@ -34,14 +34,14 @@
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <div class="x-tipbox">提示，<a href="###">链接</a>。</div>
-        <div class="x-tipbox x-tipbox-warning x-tipbox-transparent">
+        <span class="x-tipbox">提示，<a href="###">链接</a>。</span>
+        <span class="x-tipbox x-tipbox-warning x-tipbox-transparent">
             <span class="x-icon">&#9733;</span> <strong>注意：</strong>你已被喵星人击倒！
-        </div>
-        <div class="x-tipbox x-tipbox-success"><span class="x-icon">&#10003;</span> 成功，<a href="###">链接</a>。</div>
-        <div class="x-tipbox x-tipbox-warning"><span class="x-icon">&#9651;</span> 警告，<a href="###">链接</a>。</div>
-        <div class="x-tipbox x-tipbox-error"><span class="x-icon">&#33;</span> 错误，<a href="###">链接</a>。</div>
-        <div class="x-tipbox x-tipbox-info"><span class="x-icon">&#105;</span> 提示，<a href="###">链接</a>。</div>
+        </span>
+        <span class="x-tipbox x-tipbox-success"><span class="x-icon">&#10003;</span> 成功，<a href="###">链接</a>。</span>
+        <span class="x-tipbox x-tipbox-warning"><span class="x-icon">&#9651;</span> 警告，<a href="###">链接</a>。</span>
+        <span class="x-tipbox x-tipbox-error"><span class="x-icon">&#33;</span> 错误，<a href="###">链接</a>。</span>
+        <span class="x-tipbox x-tipbox-info"><span class="x-icon">&#105;</span> 提示，<a href="###">链接</a>。</span>
     </aside>
 
     <h2>带关闭按钮</h2>
@@ -54,16 +54,23 @@
 
     <h2>尺寸</h2>
     <aside class="doc-demo">
-        <div class="x-tipbox x-tipbox-large">
+        <span class="x-tipbox x-tipbox-large">
             <span class="x-icon">&#9733;</span> <strong>注意：</strong>你已被喵星人击倒！
-        </div>
-        <div class="x-tipbox x-tipbox-small">
+        </span>
+        <span class="x-tipbox x-tipbox-small">
             <span class="x-icon">&#9733;</span> <strong>注意：</strong>你已被喵星人击倒！
+        </span>
+    </aside>
+
+    <h2>占满一行</h2>
+    <p>当使用 <code>div</code> 时，提示框将占满一行。</p>
+    <aside class="doc-demo">
+        <div class="x-tipbox">
+            占满一行
         </div>
     </aside>
 
-    <h2>内联布局</h2>
-    <p>当使用 <code>span</code> 标签实现提示框时，标签将更新为 <code>inline-block</code>，以保证可以同行布显示提示框。</p>
+    <h2>使用场景</h2>
     <aside class="doc-demo">
         正确：<input type="text" class="x-textbox x-textbox-success" /> <span class="x-tipbox x-tipbox-success x-tipbox-transparent"><span class="x-icon">&#10003;</span></span><br />
         错误：<input type="text" class="x-textbox x-textbox-error" /> <span class="x-tipbox x-tipbox-error"><span class="x-icon">&#33;</span> 请输入正确的内容</span>

@@ -17,8 +17,8 @@
   transition: background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .x-textbox:focus {
-  border-color: #337ab7;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(51, 122, 183, 0.6);
+  border-color: #66afe9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .x-textbox[disabled],
 .x-textbox[readonly],
@@ -27,7 +27,7 @@
   background-color: #ededed;
 }
 textarea.x-textbox {
-  width: 560px;
+  width: 576px;
   height: 120px;
 }
 .x-textbox[rows],
@@ -64,16 +64,22 @@ textarea.x-textbox {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(169, 68, 66, 0.6);
 }
 .x-textbox-small {
-  padding: 1px 5px;
+  padding: 2px 5px;
   border-radius: 3px;
   font-size: 12px;
   line-height: 1.5;
-  height: 22px;
+  height: 24px;
+  width: 144px;
 }
 .x-textbox-large {
   padding: 10px 14px;
   border-radius: 6px;
   font-size: 18px;
-  line-height: 1.5;
-  height: 49px;
+  line-height: 1.3333333;
+  height: 46px;
+  width: 576px;
+}
+.x-textbox-block {
+  display: block;
+  width: 100%;
 }

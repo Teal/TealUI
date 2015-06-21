@@ -1325,7 +1325,7 @@
 					"order": 0,
 					"prevSize": 28,
 					"code": 61497,
-					"name": "align-justify",
+					"name": "align-block",
 					"tempChar": ""
 				},
 				{
@@ -5352,7 +5352,7 @@
 					"attrs": [],
 					"isMulticolor": false,
 					"tags": [
-						"align-justify"
+						"align-block"
 					],
 					"defaultCode": 61497,
 					"grid": 14,

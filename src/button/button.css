@@ -23,7 +23,7 @@
   transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 .x-button:focus {
-  border-color: #a6a6a6;
+  border-color: #66afe9;
 }
 .x-button:hover {
   color: #212121;
@@ -45,13 +45,27 @@
   filter: alpha(opacity=50);
   box-shadow: none;
 }
+.x-button-primary {
+  color: #ffffff;
+  background-color: #337ab7;
+  border-color: #2d6da3;
+}
+.x-button-primary .x-badge {
+  background-color: #ffffff;
+  color: #337ab7;
+}
+.x-button-primary:hover {
+  color: #ffffff;
+  background-color: #2d6da3;
+}
 .x-button-info {
   color: #ffffff;
   background-color: #5bc0de;
   border-color: #46b8da;
 }
-.x-button-info:focus {
-  border-color: #1f7e9a;
+.x-button-info .x-badge {
+  background-color: #ffffff;
+  color: #5bc0de;
 }
 .x-button-info:hover {
   color: #ffffff;
@@ -62,8 +76,9 @@
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
-.x-button-success:focus {
-  border-color: #2d672d;
+.x-button-success .x-badge {
+  background-color: #ffffff;
+  color: #5cb85c;
 }
 .x-button-success:hover {
   color: #ffffff;
@@ -74,8 +89,9 @@
   background-color: #f0ad4e;
   border-color: #eea236;
 }
-.x-button-warning:focus {
-  border-color: #b06d0f;
+.x-button-warning .x-badge {
+  background-color: #ffffff;
+  color: #f0ad4e;
 }
 .x-button-warning:hover {
   color: #ffffff;
@@ -86,29 +102,42 @@
   background-color: #d9534f;
   border-color: #d43f3a;
 }
-.x-button-error:focus {
-  border-color: #8b211e;
+.x-button-error .x-badge {
+  background-color: #ffffff;
+  color: #d9534f;
 }
 .x-button-error:hover {
   color: #ffffff;
   background-color: #d43f3a;
 }
+/*.x-button-primary, .x-button-info, .x-button-success, .x-button-warning, .x-button-error{
+    .x-badge {
+        background-color: @selected-text-color;
+        color: @text-color;
+    }
+}*/
 .x-button-transparent {
   background-color: transparent;
 }
 .x-button-small {
-  padding: 1px 5px;
-  border-radius: 3px;
+  padding: 2px 5px;
+  border-radius: 6px;
   font-size: 12px;
   line-height: 1.5;
 }
 .x-button-large {
-  padding: 10px 14px;
+  padding: 10px 28px;
   border-radius: 6px;
   font-size: 18px;
+  line-height: 1.3333333;
+}
+.x-button-mini {
+  padding: 0 4px;
+  border-radius: 6px;
+  font-size: 12px;
   line-height: 1.5;
 }
-.x-button-justify {
+.x-button-block {
   display: block;
   width: 100%;
 }

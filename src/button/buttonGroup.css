@@ -1,24 +1,24 @@
 ﻿.x-buttongroup {
   display: inline-table;
   border-collapse: separate;
+  line-height: 24px;
 }
 .x-buttongroup > .x-button {
   display: table-cell;
-  border-radius: 0;
-}
-.x-buttongroup > .x-button:first-child {
-  border-radius: 4px 0 0 4px;
-}
-.x-buttongroup > .x-button:last-child {
-  border-radius: 0 4px 4px 0;
 }
 .x-buttongroup > .x-button:not(:first-child) {
-  border-left-color: #b3b3b3;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 .x-buttongroup > .x-button:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
   border-right-width: 0;
 }
-.x-buttongroup-justify {
+.x-buttongroup > .x-button:focus + .x-button {
+  border-left-color: #66afe9;
+}
+div.x-buttongroup {
   display: table;
   width: 100%;
   table-layout: fixed;

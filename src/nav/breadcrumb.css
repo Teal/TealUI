@@ -1,5 +1,5 @@
 ﻿.x-breadcrumb {
-  font-size: 0.85714286em;
+  font-size: 13px;
 }
 .x-breadcrumb,
 .x-breadcrumb a,
@@ -9,5 +9,5 @@
 .x-breadcrumb-divider {
   text-align: center;
   margin: 0 .2em;
-  color: #ababab;
+  color: #bdbdbd !important;
 }

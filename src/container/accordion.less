@@ -2,28 +2,14 @@
 @import "../core/mixins.less";
 
 .x-accordion {
-
-    margin-bottom: @grid-margin;
-
-    .x-panel {
-        margin-bottom: 0;
-    }
-
-    .x-panel + .x-panel {
+    .x-panel:not(:first-child) {
         border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
-    &.x-radius {
-
-        .x-panel:first-child {
-            border-radius: @border-radius @border-radius 0 0;
-        }
-        
-        .x-panel:last-child, .x-panel-collapsed:last-child .x-panel-header {
-            border-radius: 0 0 @border-radius @border-radius;
-        }
-
+    .x-panel:not(:last-child), .x-panel:not(:last-child) .x-panel-header {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
-
 }
-

@@ -1,5 +1,5 @@
 ﻿.x-tipbox {
-  margin-bottom: 1em;
+  display: inline-block;
   border: 1px solid #e0e0e0;
   padding: 4px 10px;
   line-height: 24px;
@@ -13,9 +13,8 @@
   font-weight: bold;
   color: inherit;
 }
-span.x-tipbox {
-  display: inline-block;
-  margin-bottom: 0;
+div.x-tipbox {
+  display: block;
 }
 .x-tipbox-info {
   background-color: #d9edf7;
@@ -42,7 +41,7 @@ span.x-tipbox {
   border-color: transparent;
 }
 .x-tipbox-small {
-  padding: 1px 5px;
+  padding: 2px 5px;
   border-radius: 3px;
   font-size: 12px;
   line-height: 1.5;
@@ -51,5 +50,5 @@ span.x-tipbox {
   padding: 10px 14px;
   border-radius: 6px;
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.3333333;
 }

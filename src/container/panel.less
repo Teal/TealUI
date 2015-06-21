@@ -5,13 +5,12 @@
 .x-panel {
     background: @background-color;
     border: 1px solid @border-color;
-    margin-bottom: @grid-margin;
+    border-radius: @border-radius;
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
 .x-panel-header, .x-panel-footer {
     background-color: @background-color-header;
-    line-height: 150%;
     padding: @padding-y @padding-x;
     cursor: default;
 }
@@ -21,7 +20,7 @@
 
     h1, h2, h3, h4, h5, h6 {
         margin: 0;
-        line-height: 150%;
+        line-height: 1.5;
     }
 }
 
@@ -74,6 +73,7 @@
 .x-panel-collapsed {
     .x-panel-header {
         border-bottom-width: 0;
+        border-radius: @border-radius;
     }
 
     .x-panel-body {

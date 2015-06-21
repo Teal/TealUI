@@ -7,12 +7,13 @@
 }
 .x-pager a {
   display: inline-block;
-  min-width: 18px;
+  min-width: 16px;
   border: 1px solid #e0e0e0;
-  padding: 4px 8px;
+  padding: 4px 10px;
+  border-radius: 4px;
 }
 .x-pager a + a {
-  margin-left: 4px;
+  margin-left: 5px;
 }
 .x-pager a:hover {
   background-color: #f5f5f5;
@@ -29,4 +30,19 @@
 }
 .x-pager .x-icon {
   margin-right: 0;
+}
+.x-pager-small a {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.x-pager-large a {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.3333333;
+}
+.x-pager-round a {
+  border-radius: 24px;
 }

@@ -33,10 +33,10 @@
   background-color: #ffffff !important;
   border-bottom-color: #ffffff;
 }
-.x-tab.x-justify {
+.x-tab.x-block {
   display: table;
 }
-.x-tab.x-justify li {
+.x-tab.x-block li {
   display: table-cell;
   float: none;
 }

@@ -21,10 +21,19 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    <style>
+        .doc-demo {
+            line-height: 40px;
+        }
+    </style>
 
     <h2>基本用法</h2>
+    <p>使用 <code>span.x-progressbar</code> 绘制 <code>inline-block</code> 进度条。使用<code>div.x-progressbar</code> 绘制 <code>block</code> 进度条。</p>
     <aside class="doc-demo">
-        进度条 <div class="x-progressbar">
+        进度条： <span class="x-progressbar">
+                <span class="x-progressbar-fore" style="width: 60%;"></span>
+            </span>
+        <div class="x-progressbar">
             <div class="x-progressbar-fore" style="width: 60%;">60%</div>
         </div>
     </aside>
