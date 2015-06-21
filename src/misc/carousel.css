@@ -1,6 +1,7 @@
 ﻿.x-carousel {
   position: relative;
   display: inline-block;
+  width: 100%;
   overflow: hidden;
 }
 .x-carousel-body {
@@ -9,19 +10,29 @@
   list-style: none;
   overflow: hidden;
 }
+.x-carousel-body:after {
+  content: " ";
+  display: table;
+  clear: both;
+}
 .x-carousel-body > li {
   float: left;
-  position: relative;
   display: none;
+  line-height: 0;
+  width: 100%;
 }
 .x-carousel-body > li.x-carousel-actived {
   display: block;
 }
+.x-carousel-body img {
+  width: 100%;
+  height: auto;
+}
 .x-carousel-title {
   position: absolute;
-  left: 40px;
-  right: 40px;
-  bottom: 25px;
+  left: 80px;
+  right: 80px;
+  bottom: 24px;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   color: #ffffff;
@@ -31,7 +42,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  bottom: 15px;
+  bottom: 5px;
   left: 0;
   right: 0;
   z-index: 10;
@@ -47,7 +58,7 @@
   border-radius: 50%;
   cursor: pointer;
   margin: 0 2px;
-  line-height: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .x-carousel-indicators li.x-carousel-actived {
   background-color: #ffffff;
@@ -56,8 +67,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 20px;
-  padding: 0 5px;
+  width: 80px;
   opacity: 0.8;
   filter: alpha(opacity=80);
   color: #ffffff;
@@ -67,6 +77,8 @@
   position: absolute;
   top: 50%;
   margin-top: -15px;
+  margin-right: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .x-carousel-control:hover {
   color: #ffffff;
@@ -77,26 +89,26 @@
 .x-carousel-control-prev {
   left: 0;
 }
+.x-carousel-control-prev span {
+  left: 20px;
+}
 .x-carousel-control-prev:hover {
-  background-color: rgba(0, 0, 0, 0.0001);
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.0001));
-  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0.2)), to(rgba(0, 0, 0, 0.0001)));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.0001));
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.0001));
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.0001));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.0005) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.0005) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.0005) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33000000', endColorstr='#00000000', GradientType=1);
 }
 .x-carousel-control-next {
   right: 0;
 }
+.x-carousel-control-next span {
+  right: 20px;
+}
 .x-carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.0001), rgba(0, 0, 0, 0.2));
-  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.2)));
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001), rgba(0, 0, 0, 0.2));
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001), rgba(0, 0, 0, 0.2));
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001), rgba(0, 0, 0, 0.2));
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0005) 0%, rgba(0, 0, 0, 0.2) 100%);
+  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0005) 0%, rgba(0, 0, 0, 0.2) 100%);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0005) 0%, rgba(0, 0, 0, 0.2) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#33000000', GradientType=1);
 }

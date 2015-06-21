@@ -7,135 +7,135 @@
 //--------------------------------
 
 // 黑白
-@black:                     #000;
-@white:                     #fff;
+@black: #000;
+@white: #fff;
 
 // 灰色
-@gray-darker:               darken(@white, 87%); // #212121
-@gray-dark:                 darken(@white, 54%); // #757575
-@gray:                      darken(@white, 33%); // #ababab
-@gray-light:                darken(@white, 26%); // #bdbdbd
-@gray-lighter:              darken(@white, 12%); // #e0e0e0
+@gray-darker: darken(@white, 87%); // #212121
+@gray-dark: darken(@white, 54%); // #757575
+@gray: darken(@white, 33%); // #ababab
+@gray-light: darken(@white, 26%); // #bdbdbd
+@gray-lighter: darken(@white, 12%); // #e0e0e0
 
 // 状态
-@primary-brand-color:       #337ab7;
-@selected-text-color:       @white;
+@primary-brand-color: #337ab7;
+@selected-text-color: @white;
 @selected-background-color: @primary-brand-color;
 
-@info-brand-color:          #5bc0de;
-@info-text-color:           #31708f;
-@info-background-color:     #d9edf7;
-@info-border-color:         darken(spin(@info-background-color, -10), 7%);
+@info-brand-color: #5bc0de;
+@info-text-color: #31708f;
+@info-background-color: #d9edf7;
+@info-border-color: darken(spin(@info-background-color, -10), 7%);
 
-@success-brand-color:       #5cb85c;
-@success-text-color:        #3c763d;
-@success-background-color:  #dff0d8;
-@success-border-color:      darken(spin(@success-background-color, -10), 5%);
+@success-brand-color: #5cb85c;
+@success-text-color: #3c763d;
+@success-background-color: #dff0d8;
+@success-border-color: darken(spin(@success-background-color, -10), 5%);
 
-@warning-brand-color:       #f0ad4e;
-@warning-text-color:        #9c7a3e;
-@warning-background-color:  #fcf8e3;
-@warning-border-color:      darken(spin(@warning-background-color, -10), 5%);
+@warning-brand-color: #f0ad4e;
+@warning-text-color: #9c7a3e;
+@warning-background-color: #fcf8e3;
+@warning-border-color: darken(spin(@warning-background-color, -10), 5%);
 
-@error-brand-color:         #d9534f;
-@error-text-color:          #a94442;
-@error-background-color:    #f2dede;
-@error-border-color:        darken(spin(@error-background-color, -10), 5%);
+@error-brand-color: #d9534f;
+@error-text-color: #a94442;
+@error-background-color: #f2dede;
+@error-border-color: darken(spin(@error-background-color, -10), 5%);
 
 // 全局
-@background-color:          @white;
-@background-color-striped:  darken(@white, 2.5%); // #f9f9f9
-@background-color-header:   darken(@white, 3%);   // #f7f7f7
-@background-color-hover:    darken(@white, 4%);   // #f5f5f5
+@background-color: @white;
+@background-color-striped: darken(@white, 2.5%); // #f9f9f9
+@background-color-header: darken(@white, 3%); // #f7f7f7
+@background-color-hover: darken(@white, 4%); // #f5f5f5
 
-@text-color:                @gray-darker;
-@text-color-link:           @primary-brand-color;
-@text-color-tip:            @gray-dark;
-@text-color-disabled:       @gray-light;
-@text-color-small:          @gray;
+@text-color: @gray-darker;
+@text-color-link: @primary-brand-color;
+@text-color-tip: @gray-dark;
+@text-color-disabled: @gray-light;
+@text-color-small: @gray;
 
-@border-color:              @gray-lighter;
-@border-color-input:        #ccc;
-@border-color-input-hover:  #66afe9;
+@border-color: @gray-lighter;
+@border-color-input: #ccc;
+@border-color-input-hover: #66afe9;
 
 //--------------------------------
 // 响应式
 //--------------------------------
 
-@screen-small-max:          640px;  // 手机 0 - 640px
-@screen-medium-max:         1024px; // 平板 641 - 1024px
-@screen-large-max:          1280px; // 电脑 1025 - 1280px
-@screen-larger-max:         1440px; // 电视 1281 - 1440px
-@screen-largest-max:        1920px; // 高清电视 1441 -1920px
+@screen-small-max: 640px; // 手机 0 - 640px
+@screen-medium-max: 1024px; // 平板 641 - 1024px
+@screen-large-max: 1280px; // 电脑 1025 - 1280px
+@screen-larger-max: 1440px; // 电视 1281 - 1440px
+@screen-largest-max: 1920px; // 高清电视 1441 -1920px
 
-@screen-small-min:          0;  // 手机
-@screen-medium-min:         (@screen-small-max + 1px); // 平板
-@screen-large-min:          (@screen-medium-max + 1px); // 电脑
-@screen-larger-min:         (@screen-large-max + 1px); // 电视
-@screen-largest-min:        (@screen-larger-max + 1px); // 高清电视
+@screen-small-min: 0; // 手机
+@screen-medium-min: (@screen-small-max + 1px); // 平板
+@screen-large-min: (@screen-medium-max + 1px); // 电脑
+@screen-larger-min: (@screen-large-max + 1px); // 电视
+@screen-largest-min: (@screen-larger-max + 1px); // 高清电视
 
 //--------------------------------
 // 字体和间距
 //--------------------------------
 
 // 字体
-@font-family-sans-serif:    "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
-@font-family-serif:         Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
-@font-family-monospace:     Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
+@font-family-sans-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+@font-family-serif: Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
 
-@font-size:                 14px;
-@font-size-small:           ceil((@font-size * 0.85)); // ~12px
-@font-size-large:           ceil((@font-size * 1.25)); // ~18px
+@font-size: 14px;
+@font-size-small: ceil((@font-size * 0.85)); // ~12px
+@font-size-large: ceil((@font-size * 1.25)); // ~18px
 
 // 行高
-@line-height:               @font-size + 10px;
-@line-height-small:         1.5;
-@line-height-large:         1.3333333;
+@line-height: @font-size + 10px;
+@line-height-small: 1.5;
+@line-height-large: 1.3333333;
 
 //--------------------------------
 // 栅格布局
 //--------------------------------
 
-@grid-column-count:         12;
-@grid-gutter-width:         @font-size * 2;   
-@grid-container-width:      980px; 
-@grid-margin:               1em;
-            
+@grid-column-count: 12;
+@grid-gutter-width: @font-size * 2;
+@grid-container-width: 980px;
+@grid-margin: 1em;
+
 //--------------------------------
 // 文本框宽度
 //--------------------------------
 
-@input-width:               @font-size * 13;
-@input-width-small:         @font-size-small * 12;
-@input-width-large:         @font-size-large * 32;
-@input-max-height:          @line-height * 5;
-          
+@input-width: @font-size * 13;
+@input-width-small: @font-size-small * 12;
+@input-width-large: @font-size-large * 32;
+@input-max-height: @line-height * 5;
+
 //--------------------------------
 // 间距
 //--------------------------------
 
-@padding-y:                 (@line-height - @font-size) / 2 - 1px; // 4px
-@padding-x:                 @padding-y * 2 + 2px; // 10px
+@padding-y: (@line-height - @font-size) / 2 - 1px; // 4px
+@padding-x: @padding-y * 2 + 2px; // 10px
 
-@padding-small-y:           @padding-y - 2px; // 2px
-@padding-small-x:           @padding-x - 5px; // 5px
+@padding-small-y: @padding-y - 2px; // 2px
+@padding-small-x: @padding-x - 5px; // 5px
 
-@padding-large-y:           @padding-y + 6px; // 10px
-@padding-large-x:           @padding-x + 4px; // 14px
+@padding-large-y: @padding-y + 6px; // 10px
+@padding-large-x: @padding-x + 4px; // 14px
 
 //--------------------------------
 // 其它
 //--------------------------------
 
 // 圆角
-@border-radius:             4px;
-@border-radius-small:       @border-radius - 1px;
-@border-radius-large:       @border-radius + 2px;
+@border-radius: 4px;
+@border-radius-small: @border-radius - 1px;
+@border-radius-large: @border-radius + 2px;
 
 // Z-index
-@z-index-dropdown:          1000;
-@z-index-tooltip:           2000;
-@z-index-dialog:            3000;
+@z-index-dropdown: 1000;
+@z-index-tooltip: 2000;
+@z-index-dialog: 3000;
 
 //--------------------------------
 // 工具函数
@@ -153,12 +153,13 @@
 
 // 提示文案
 .placeholder(@color: @gray-light) {
-	&:-moz-placeholder {
-		color: @color;
-	}
-	&:-ms-input-placeholder, &::-webkit-input-placeholder {
-		color: @color;
-	}
+    &:-moz-placeholder {
+        color: @color;
+    }
+
+    &:-ms-input-placeholder, &::-webkit-input-placeholder {
+        color: @color;
+    }
 }
 
 // 文本超流
@@ -171,20 +172,20 @@
 
 // 隐藏文本。参考 https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
 .hide-text() {
-	font: 0/0 a;
-	color: transparent;
+    font: 0/0 a;
+    color: transparent;
     text-shadow: none;
-	background-color: transparent;
-	border: 0;
+    background-color: transparent;
+    border: 0;
 }
 
 // Opacity
 .opacity(@opacity: 1) {
-	opacity: @opacity;
+    opacity: @opacity;
     filter: e(%("alpha(opacity=%d)", @opacity * 100));
 }
 
-.transition(@transition: all .3s){
+.transition(@transition: all .3s) {
     -moz-transition: @transition;
     -o-transition: @transition;
     -webkit-transition: @transition;
@@ -198,7 +199,7 @@
     animation: @animation;
 }
 
-.transform(@transform){
+.transform(@transform) {
     -moz-transform: @transform;
     -ms-transform: @transform;
     -o-transform: @transform;
@@ -233,94 +234,77 @@
     background-clip: @background-clip;
 }
 
-.flex(){
+.flex() {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
-    display: -webkit-flex; 
+    display: -webkit-flex;
     display: flex;
 }
 
 #translucent {
-	.background(@color: #fff, @alpha: 1) {
-		background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
-	}
-	.border(@color: #fff, @alpha: 1) {
-		border-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
-		-webkit-background-clip: padding-box;
-		-moz-background-clip: padding;
-		background-clip: padding-box;
-	}
+    .background(@color: #fff, @alpha: 1) {
+        background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+    }
+
+    .border(@color: #fff, @alpha: 1) {
+        border-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+    }
 }
 
 #gradient {
-    
-    .striped(@angle: -45deg) {
-        background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(255,255,255,.15)), color-stop(.25, transparent), color-stop(.5, transparent), color-stop(.5, rgba(255,255,255,.15)), color-stop(.75, rgba(255,255,255,.15)), color-stop(.75, transparent), to(transparent));
-        background-image: -webkit-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
-        background-image: -moz-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%);
-        background-image: -o-linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
-        background-image: linear-gradient(@angle, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
-    }
 
-    .horizontal(@startColor: #555, @endColor: #333) {
-        background-color: @endColor;
-        background-image: -moz-linear-gradient(left, @startColor, @endColor);
-        background-image: -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor));
-        background-image: -webkit-linear-gradient(left, @startColor, @endColor);
-        background-image: -o-linear-gradient(left, @startColor, @endColor);
-        background-image: linear-gradient(to right, @startColor, @endColor);
+    .horizontal(@start-color: #555, @end-color: #333, @start-percent: 0%, @end-percent: 100%) {
+        background-image: -webkit-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Opera 12
+        background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
         background-repeat: repeat-x;
-        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@startColor),argb(@endColor)));
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
     }
 
-    .vertical(@startColor: #555, @endColor: #333) {
-        background-color: @endColor;
-        background-image: -moz-linear-gradient(top, @startColor, @endColor);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor));
-        background-image: -webkit-linear-gradient(top, @startColor, @endColor);
-        background-image: -o-linear-gradient(top, @startColor, @endColor);
-        background-image: linear-gradient(to bottom, @startColor, @endColor);
+    .vertical(@start-color: #555, @end-color: #333, @start-percent: 0%, @end-percent: 100%) {
+        background-image: -webkit-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // Opera 12
+        background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
         background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
     }
 
-	.vertical-all(@startColor: #555, @endColor: #333){
-		.vertical(@startColor, @endColor);
-        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor)));
-	}
-
-    .directional(@startColor: #555, @endColor: #333, @deg: 45deg) {
-        background-color: @endColor;
+    .directional(@start-color: #555, @end-color: #333, @deg: 45deg) {
         background-repeat: repeat-x;
-        background-image: -moz-linear-gradient(@deg, @startColor, @endColor);
-        background-image: -webkit-linear-gradient(@deg, @startColor, @endColor);
-        background-image: -o-linear-gradient(@deg, @startColor, @endColor);
-        background-image: linear-gradient(@deg, @startColor, @endColor);
+        background-image: -webkit-linear-gradient(@deg, @start-color, @end-color); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(@deg, @start-color, @end-color); // Opera 12
+        background-image: linear-gradient(@deg, @start-color, @end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
     }
 
-    .vertical-three-colors(@startColor: #00b3ee, @midColor: #7a43b6, @colorStop: 50%, @endColor: #c3325f) {
-        background-color: mix(@midColor, @endColor, 80%);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), color-stop(@colorStop, @midColor), to(@endColor));
-        background-image: -webkit-linear-gradient(@startColor, @midColor @colorStop, @endColor);
-        background-image: -moz-linear-gradient(top, @startColor, @midColor @colorStop, @endColor);
-        background-image: -o-linear-gradient(@startColor, @midColor @colorStop, @endColor);
-        background-image: linear-gradient(@startColor, @midColor @colorStop, @endColor);
+    .horizontal-three-colors(@start-color: #00b3ee, @mid-color: #7a43b6, @color-stop: 50%, @end-color: #c3325f) {
+        background-image: -webkit-linear-gradient(left, @start-color, @mid-color @color-stop, @end-color);
+        background-image: -o-linear-gradient(left, @start-color, @mid-color @color-stop, @end-color);
+        background-image: linear-gradient(to right, @start-color, @mid-color @color-stop, @end-color);
         background-repeat: no-repeat;
-        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@startColor),argb(@endColor)));
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down, gets no color-stop at all for proper fallback
     }
 
-    .radial(@innerColor: #555, @outerColor: #333) {
-        background-color: @outerColor;
-        background-image: -webkit-gradient(radial, center center, 0, center center, 460, from(@innerColor), to(@outerColor));
-        background-image: -webkit-radial-gradient(circle, @innerColor, @outerColor);
-        background-image: -moz-radial-gradient(circle, @innerColor, @outerColor);
-        background-image: -o-radial-gradient(circle, @innerColor, @outerColor);
+    .vertical-three-colors(@start-color: #00b3ee, @mid-color: #7a43b6, @color-stop: 50%, @end-color: #c3325f) {
+        background-image: -webkit-linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-image: -o-linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-image: linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-repeat: no-repeat;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down, gets no color-stop at all for proper fallback
+    }
+
+    .radial(@inner-color: #555, @outer-color: #333) {
+        background-image: -webkit-radial-gradient(circle, @inner-color, @outer-color);
+        background-image: radial-gradient(circle, @inner-color, @outer-color);
         background-repeat: no-repeat;
     }
 
-    .bar(@primaryColor, @secondaryColor) {
-        .vertical(@primaryColor, @secondaryColor);
-        border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
-        border-color: rgba(0,0,0,.1) rgba(0,0,0,.15) fadein(rgba(0,0,0,.1), 15%);
+    .striped(@color: rgba(255,255,255,.15), @angle: 45deg) {
+        background-image: -webkit-linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+        background-image: linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
     }
 }
