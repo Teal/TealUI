@@ -27,7 +27,7 @@ Document.prototype.getHash = function () {
 
 // 并不是所有浏览器都支持 hashchange 事件，
 // 当浏览器不支持的时候，使用自定义的监视器，每隔50ms监听当前hash是否被修改。
-if (!('onhashchange' in window) || document.documentMode < 8 || 1) {
+if (!('onhashchange' in window) || document.documentMode < 8) {
     (function () {
         var currentHash, timer;
         function poll() {
