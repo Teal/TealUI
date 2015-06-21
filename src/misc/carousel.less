@@ -4,20 +4,105 @@
 
 .x-carousel {
     position: relative;
-	height: 200px;
-	width: 100%;
-	overflow: hidden;
+    display: inline-block;
+    overflow: hidden;
 }
 
-.x-carousel-header {
+.x-carousel-body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+
+    > li {
+        float: left;
+        position: relative;
+        display: none;
+
+        &.x-carousel-actived {
+            display: block;
+        }
+    }
+}
+
+.x-carousel-title {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 32px;
-    z-index: 10;
+    left: 40px;
+    right: 40px;
+    bottom: 25px;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    color: @white;
 }
 
-.x-carousel-header li {
+.x-carousel-indicators {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    text-align: center;
+    .opacity(.8);
+
+    li {
+        display: inline-block;
+        width: @font-size / 2;
+        height: @font-size / 2;
+        border: 1px solid @white;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0 2px;
+        line-height: 0;
+
+        &.x-carousel-actived {
+            background-color: @white;
+        }
+    }
+}
+
+.x-carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 20px;
+    padding: 0 5px;
+    .opacity(.8);
+    color: @white;
+    
+    span {
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+    }
+
+    &:hover {
+        color: @white;
+        .opacity(1);
+        text-decoration: none;
+    }
+}
+
+.x-carousel-control-prev {
+    left: 0;
+
+    &:hover {
+        #gradient > .horizontal(rgba(0,0,0,.2), rgba(0,0,0,.0001));
+    }
+}
+
+.x-carousel-control-next {
+    right: 0;
+    
+    &:hover {
+        #gradient > .horizontal(rgba(0,0,0,.0001), rgba(0,0,0,.2));
+    }
+}
+
+/*.x-carousel-header li {
     float: left;
     width: 120px;
     text-align: center;
@@ -42,4 +127,4 @@
 
 .x-carousel-body li li {
 	position: static;
-}
+}*/

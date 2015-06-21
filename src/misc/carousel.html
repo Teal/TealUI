@@ -3,53 +3,59 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>图片轮播组件</title>
+    <title>图片轮播</title>
     <meta name="module-info" content="status=doing">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/composite/carousel.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/misc/carousel.css" />
 
-    <script type="text/javascript" src="../../../src/core/core.js"></script>
-    <script type="text/javascript" src="../../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../../src/dom/core.js"></script>
-    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
-    <script type="text/javascript" src="../../../src/fx/base.js"></script>
-    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
-    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
-    <script type="text/javascript" src="../../src/core/base.js"></script>
+    <script type="text/javascript" src="../../src/shim/html5.js"></script>
+    <script type="text/javascript" src="../../src/dom/base.js"></script>
+    <script type="text/javascript" src="../../src/utility/class.js"></script>
+    <script type="text/javascript" src="../../src/control/base.js"></script>
+
     <script type="text/javascript" src="../../src/composite/carousel.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
+    
+    <aside class="doc-demo">
+        <div class="x-carousel">
+            <ul class="x-carousel-body">
+                <li class="x-carousel-actived">
+                    <img src="../../assets/resources/260x180.gif">
+                    <div class="x-carousel-title">
+                        <h3>图片说明</h3>
+                        <p>文字说明</p>
+                    </div>
+                </li>
+                <li><img src="../../assets/resources/260x180.gif"></li>
+                <li><img src="../../assets/resources/260x180.gif"></li>
+            </ul>
+            <ul class="x-carousel-indicators">
+                <li class="x-carousel-actived"></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <a class="x-carousel-control x-carousel-control-prev" href="###">
+                <span class="x-icon">＜</span>
+            </a>
+            <a class="x-carousel-control x-carousel-control-next" href="###">
+                <span class="x-icon">＞</span>
+            </a>
+        </div>
+    </aside>
 
     <article>
 
         <script type="text/html">
 
             <!-- 必须定义宽度和高度 -->
-
-            <div class="x-carousel" id="carousel" style="width: 260px; height: 180px;">
-
-                <ul class="x-carousel-body">
-                    <li>
-                        <img src="../../../devtools/demo/resources/260x180.gif"></li>
-                    <li>
-                        <img src="../../../devtools/demo/resources/260x180.gif"></li>
-                    <li>
-                        <img src="../../../devtools/demo/resources/260x180.gif"></li>
-                </ul>
-
-                <ul class="x-carousel-header">
-                    <li>0</li>
-                    <li>1</li>
-                    <li>2</li>
-                </ul>
-
-            </div>
 
             < script>
                 var carousel = new Carousel('#carousel');
