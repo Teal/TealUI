@@ -12,7 +12,7 @@ var Menu = Control.extend({
 
     init: function() {
         var me = this;
-        Dom.on(me.elem, 'mouseenter', 'li', function() {
+        me.elem.on('mouseenter', 'li', function() {
             if (this.parentNode === me.elem) {
                 me.onMouseEnter(this);
             }
@@ -25,7 +25,7 @@ var Menu = Control.extend({
         // 显示子菜单。
         var subMenu = this._findChild('.x-menu', item);
         if (subMenu) {
-            Dom.show(subMenu);
+            subMenu.show('opacity');
         }
     },
 
