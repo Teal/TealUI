@@ -36,6 +36,16 @@ var Calender = Control.extend({
     view: 'day',
 
     /**
+     * 获取或设置可选择的最小值。
+     */
+    min: null,
+
+    /**
+     * 获取或设置可选择的最大值。
+     */
+    max: null,
+
+    /**
 	 * 当被子类重写时，负责初始化当前控件。
 	 * @protected
 	 * @virtual
@@ -46,6 +56,9 @@ var Calender = Control.extend({
 
         // 初始化界面。
         me.elem.innerHTML = Calender.locale.tpl;
+
+        me.min = Date.from(me.min);
+        me.max = Date.from(me.max);
 
         // 初始化时间字段。
         me.now = Date.from(me.now) || new Date();
@@ -72,6 +85,13 @@ var Calender = Control.extend({
         // 初始化视图。
         me.setView(me.view);
 
+        // 记住高宽。
+        var body = me.elem.querySelector('.x-calender-body');
+        if (body.offsetHeight) {
+            body.style.height = body.offsetHeight + 'px';
+            body.style.width = body.offsetWidth + 'px';
+        }
+        
     },
 
     /**
@@ -79,7 +99,7 @@ var Calender = Control.extend({
      */
     setFormat: function (value) {
         this.format = value;
-        var showTime = /[hms]/.test(value), inputs;
+        var showTime = /[Hhms]/.test(value), inputs;
         if (showTime) {
             inputs = this.elem.querySelectorAll('.x-calender-time input');
             inputs[0].readOnly = value.indexOf('H') < 0;
@@ -217,7 +237,7 @@ var Calender = Control.extend({
 
     /**
      * 设置当前显示的视图。
-     * @param {String} view 视图名。可能的值为'day'、'month'、'year'或'decade'。
+     * @param {String} view 视图名。可能的值为 'day'、'month'、'year'或'decade'。
      * @param {String} animation 切换使用的渐变效果。可能值有： null、'slideLeft'、'slideRight'、 'zoomIn'或'zoomOut'。
      * @returns this
      */
@@ -291,6 +311,9 @@ var Calender = Control.extend({
                     newFrom = reverse;
                 }
 
+                newContainer.style.position = '';
+                oldContainer.style.position = 'absolute';
+
                 me.newContainer = newContainer;
                 newContainer.animate(newFrom, to, null, null, 'linear');
 
@@ -340,9 +363,27 @@ var Calender = Control.extend({
      */
     loadHours: function (value) {
         var inputs = this.elem.querySelectorAll('.x-calender-time input');
+        value = Date.from(value.format(this.format));
         inputs[0].value = value.getHours();
         inputs[1].value = value.getMinutes();
         inputs[2].value = value.getSeconds();
+    },
+
+    /**
+     * 设置可选日期的范围。
+     * @param {Date} min 要设置的最小值。如果不设置，可传递 null。
+     * @param {Date} max 要设置的最大值。如果不设置，可传递 null。
+     */
+    setRange: function(min, max) {
+        this.min = Date.from(min);
+        this.max = Date.from(max);
+        if (this.value < this.min) {
+            this.setValue(this.min);
+        }
+        if (this.value > this.max) {
+            this.setValue(this.max);
+        }
+        return this;
     },
 
     /**

@@ -31,21 +31,67 @@
     <blockquote class="doc-info">本组件是日历本身，如果需要日期时间选择器，请参考 <a href="../input/datePicker.html">日期选择器(datePicker)</a> 组件。</blockquote>
 
     <h2>基本用法</h2>
+    <p>日历组件不需要用户提供 HTML，指定为日历控件后内容将自动生成。</p>
     <aside class="doc-demo">
         <div class="x-calender" data-role="calender"></div>
     </aside>
+    
+    <h2>自定义样式</h2>
 
-    <h2>时间选择器</h2>
-    <p>设置 <code>format</code> 字段，如果包含 HH:mm:ss 的任一部分，就会显示时间选择器，否则不显示。</p>
+    <h3>显示时间选择器</h3>
+    <p>设置 <code>data-format</code> 字段，如果包含 HH:mm:ss 的任一部分，就会显示时间选择器，否则不显示。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" data-role="calender" data-format="yyyy/MM/dd HH:30:00"></div>
+    </aside>
 
-    <h2>隐藏现在时间</h2>
-    <p>日历组件内部不提供接口，直接通过 CSS 即可隐藏。</p>
+    <h3>设置现在时间</h3>
+    <p>设置 <code>data-now</code> 字段可指定当前时间。这在需要显示服务器时间时非常有用。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" data-role="calender" data-now="2015/1/1"></div>
+    </aside>
+
+    <h3>隐藏现在时间</h3>
+    <p>直接通过 CSS 覆盖即可隐藏。</p>
     <pre>
         .x-calender-now { 
             display:none; 
         }
     </pre>
+
+    <h3>设置可选的区间</h3>
+    <aside class="doc-demo">
+        <div class="x-calender" data-role="calender" data-min="2014/2/4" data-max="2016/1/1"></div>
+    </aside>
+
+    <h2>数据处理</h2>c
     
+    <h5>获取当前用户选中的日期</h5>
+    <pre>$('[data-role="calender"]').role().on('select', function(date){ alert(date); });</pre>
+    <p>注意：当用户切换月份或点击禁用按钮都不会触发 <code>select</code> 事件。</p>
+
+    <h5>当值发生改变后触发</h5>
+    <pre>$('[data-role="calender"]').role().on('change', function(date){ alert(date); });</pre>
+
+    <h5>获取当前选中的值</h5>
+    <pre>$('[data-role="calender"]').role().getValue();</pre>
+
+    <h5>设置当前选中的值</h5>
+    <pre>$('[data-role="calender"]').role().setValue(new Date());</pre>
+
+    <h2>更多定制</h2>
+
+    <h5>自定义节日</h5>
+    <pre>$('[data-role="calender"]').role().getHoliday = function(date){ if(date.format("MM/dd") == "4/1") return "愚人节"; };</pre>
+
+    <h5>自定义不可选日期</h5>
+    <pre>$('[data-role="calender"]').role().getClassName = function(date){ if(date.format("MM/dd") == "4/1") return "x-calender-invalid"; };</pre>
+
+    <h5>切换当前显示的视图</h5>
+    <pre>$('[data-role="calender"]').role().setView('month');</pre>
+
+    <h5>缩小渐变切换当前显示的视图</h5>
+    <pre>$('[data-role="calender"]').role().setView('month', 'zoomIn');</pre>
+
     <h2>HTML 结构</h2>
     <div class="x-calender">
         <div class="x-calender-container">
@@ -159,10 +205,5 @@
     </div>
 
     <script> Doc.Page.initSourceCode();</script>
-
-    <script>
-        $('#a')[0].keyNav($('[data-role="calender"]').role().keyNav, $('[data-role="calender"]').role());
-    </script>
-
 </body>
 </html>

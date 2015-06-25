@@ -48,8 +48,10 @@ Date.formators = {
 Date.from = function (value, format) {
     if (value && !(value instanceof Date)) {
         if (format) {
-            // todo:
+            // 规范正则处理内容。
             //format = format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
+            // todo:
+            //
             //var parts = { y: 0, M: 0, d: 0, H: 0, m: 0, s: 0 };
             //for (var part in parts) {
             //    new RegExp(format.replace(new RegExp(part + "+", "g"), "($1)")).exec(value);
