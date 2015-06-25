@@ -25,10 +25,10 @@
     <div id="elem" class="doc-box-large doc-green"></div>
 
     定位：<select id="position" onchange="realign()" onkeyup="realign()">
-        <option value="bottom" selected="selected">bottom</option>
-        <option value="right">right</option>
-        <option value="top">top</option>
-        <option value="left">left</option>
+        <option value="b" selected="selected">b</option>
+        <option value="r">r</option>
+        <option value="t">t</option>
+        <option value="l">l</option>
         <option value="rt">rt</option>
         <option value="bl">bl</option>
     </select>
@@ -46,6 +46,6 @@
     </script>
 
     <h5>定位节点</h5>
-    <pre>elem.pin(target, "bottom", 0, 0);</pre>
+    <pre>elem.pin(target, "b", 0, 0);</pre>
 </body>
 </html>

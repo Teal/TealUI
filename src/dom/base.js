@@ -808,8 +808,12 @@ if (!this.$) {
                 return new $(/^</.test(selector) ? context.parse(selector).parentNode.childNodes : context.querySelectorAll(selector));
             }
             if (selector instanceof Function) {
-                context.ready(selector);
+                return context.ready(selector);
             }
+            if (selector.nodeType || selector.setTimeout) {
+                selector = [selector];
+            }
+            return new $(selector);
         }
 
     };

@@ -218,6 +218,10 @@ Draggable.prototype = {
         if (me.timer) {
             clearTimeout(me.timer);
             me.timer = 0;
+            // 触发原目标的 click 事件。
+            if (me.endX === me.startX && me.endY === me.startY) {
+                me.elem.click();
+            }
         }
 
         // 拖动结束。
