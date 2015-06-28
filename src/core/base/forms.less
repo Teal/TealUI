@@ -3,14 +3,17 @@
 // 表单标签修复
 //--------------------------------
 
-button, select {
-    // Firefox Android：修复默认背景图片。
-    // 参考 https://github.com/necolas/normalize.css/issues/214
-    background-image: none;
-    // Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属性。
-    // Firefox：修复 select 继承 text-transform 属性。
-    text-transform: none;
-}
+// 
+//button, select {
+//    // Firefox Android：修复默认背景图片。
+//    // 参考 https://github.com/necolas/normalize.css/issues/214
+//    // 但这会影响按钮默认样式，因此删除此修复。
+//    background-image: none;
+//    // Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属/性。
+//    // Firefox：修复 select 继承 text-transform 属性。
+//    // 由于应用场景不高，因此删除此修复。
+//    text-transform: none;
+//}
 
 input, button, select, textarea, optgroup {
     // 禁止表单元素单独指定字体。

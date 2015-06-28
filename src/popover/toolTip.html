@@ -39,10 +39,10 @@
     <aside class="doc-demo">
         <button id="target1">鼠标移到我上面，然后稍等</button>
         <span class="x-tooltip" data-role="toolTip" data-target="#target1">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-top" data-role="toolTip" data-target="#target1">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-left" data-role="toolTip" data-target="#target1">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-bottom" data-role="toolTip" data-target="#target1">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-right" data-role="toolTip" data-target="#target1">我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-top"></span>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-left"></span>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-bottom"></span>我是提示文案</span>
+        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-right"></span>我是提示文案</span>
     </aside>
 
     <h2>常用 API</h2>
@@ -57,12 +57,18 @@
     <pre>$('[data-role="toolTip"]').role().on('show', function(){ this.dom.setText('浮层被显示了') });</pre>
     
     <h2>纯 HTML 样式</h2>
-    <aside class="doc-demo">
-        <span class="x-tooltip" style="display:inline-block;position: relative;">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-top" style="display:inline-block;position: relative;">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-left" style="display:inline-block;position: relative;">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-bottom" style="display:inline-block;position: relative;">我是提示文案</span>
-        <span class="x-tooltip x-arrow x-arrow-right" style="display:inline-block;position: relative;">我是提示文案</span>
+    <style>
+        #htmlDemo .x-tooltip {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
+    <aside class="doc-demo" id="htmlDemo">
+        <span class="x-tooltip">我是提示文案</span>
+        <span class="x-tooltip"><span class="x-arrow x-arrow-top"></span>我是提示文案</span>
+        <span class="x-tooltip"><span class="x-arrow x-arrow-left"></span>我是提示文案</span>
+        <span class="x-tooltip"><span class="x-arrow x-arrow-bottom"></span>我是提示文案</span>
+        <span class="x-tooltip"><span class="x-arrow x-arrow-right"></span>我是提示文案</span>
     </aside>
 </body>
 </html>

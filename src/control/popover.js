@@ -28,7 +28,7 @@ var Popover = Control.extend({
      * 'focus': 获取焦点后显示。
      * null: 手动显示。
      */
-    event: 'mouseover',
+    event: 'click',
 
     /**
      * 显示当前浮层的延时。（仅对鼠标事件有效）
@@ -48,15 +48,21 @@ var Popover = Control.extend({
     pinTarget: null,
 
     /**
+     * 如果为 true 则根据鼠标事件定位。
+     * @type {Boolean}
+     */
+    pinEvent: null,
+
+    /**
      * 自动定位的位置。如果为 null 则不自动定位。默认为 null。
      * @type {Boolean}
      */
-    pinPosition: null,
+    pinAlign: null,
 
     /**
-     * 自动定位时的距离。
+     * 如果包含箭头则设置其箭头的宽度。
      */
-    pinDistance: 10,
+    arrowDistance: 10,
 
     init: function () {
         var targets = this.target === undefined ? [this.elem.previousElementSibling] : document.queryAll(this.target);
@@ -188,73 +194,91 @@ var Popover = Control.extend({
     },
 
     /**
+     * 重新设置当前浮层的位置。
+     */
+    realign: function(e) {
+
+        // 实现箭头定位。
+        var me = this,
+            arrowNode = me.elem.queryChild('.x-arrow');
+        if (arrowNode) {
+
+            //             0       1        2       3
+            var arrows = ['bottom', 'right', 'left', 'top'],
+                arrow = 4,
+                rect,
+                pinTarget = me.pinTarget || me.target;
+
+            function toggleArrow(to) {
+                arrowNode.classList.remove('x-arrow-' + arrows[3 - to]);
+                arrowNode.classList.add('x-arrow-' + arrows[to]);
+            }
+
+            function proc(offsetXorY, offsetYorX, leftOrTop, widthOrHeight) {
+
+                // Y 发生改变说明箭头发生改变。
+                if (rect[offsetYorX]) {
+                    toggleArrow(3 - arrow);
+                }
+
+                // X 发生改变箭头横调。
+                if (rect[offsetXorY]) {
+                    var targetRect = pinTarget.getRect(),
+                        value = targetRect[leftOrTop] - me.elem.getRect()[leftOrTop] + targetRect[widthOrHeight] / 2;
+                    if (value > 0) {
+                        arrowNode.style[leftOrTop] = value + 'px';
+                    } else {
+                        arrowNode.style.display = 'none';
+                    }
+                }
+
+            }
+
+            // 清空之前的覆盖样式。
+            if (me._orignalArrow) {
+                arrowNode.style.left = arrowNode.style.top = arrowNode.style.display = '';
+                toggleArrow(me._orignalArrow - 1);
+                delete me._orignalArrow;
+            }
+
+            // 找到当前的实际箭头。
+            while (--arrow > 0 && !arrowNode.classList.contains('x-arrow-' + arrows[arrow]))
+                ;
+
+            // 根据箭头决定定位。
+            rect = me.elem.pin(pinTarget, arrows[3 - arrow].charAt(0), me.arrowDistance, me.arrowDistance);
+
+            // 如果位置发生偏移则重新设置箭头。
+            if (rect.offsetX || rect.offsetY) {
+                // 记录当前箭头。
+                me._orignalArrow = arrow + 1;
+                if (arrow > 0 && arrow < 3) {
+                    // 水平方向。
+                    proc('offsetY', 'offsetX', 'top', 'height');
+                } else {
+                    // 垂直方向。
+                    proc('offsetX', 'offsetY', 'left', 'width');
+                }
+
+            }
+
+            // 实现自动定位逻辑。
+        } else if (me.pinAlign) {
+            me.elem.pin(me.pinEvent && e || me.pinTarget || me.target, me.pinAlign, 0, me.pinEvent ? 10 : 0);
+        }
+    },
+
+    /**
      * 显示当前浮层。
      * @return this
      */
     show: function (e) {
-        this.elem.show('opacity', null, this.duration);
-
-        // 实现箭头定位。
-        if (this.elem.classList.contains('x-arrow')) {
-
-            var reverseMap = {
-                'top': 'bottom',
-                'bottom': 'top',
-                'right': 'left',
-                'left': 'right'
-            }, arrow, t;
-
-            // 测试当前的箭头。
-            for (t in reverseMap) {
-                if (this.elem.classList.contains('x-arrow-' + t)) {
-                    arrow = t;
-                    break;
-                }
-            }
-
-            // 恢复之前的箭头。
-            if (this._orignalArrow) {
-                this.elem.classList.remove('x-arrow-' + arrow);
-                this.elem.classList.add('x-arrow-' + this._orignalArrow);
-                delete this._orignalArrow;
-            }
-
-            // 根据箭头决定定位。
-            me.elem.pin(this.pinTarget || this.target, align, me.distance, me.distance, function (rect, position, offset, leftOrTop, widthOrHeight) {
-                me._align = align;
-                me.elem.className = me.elem.className.replace(/\bx-arrow-\w+\b/, 'x-arrow-' + align);
-            });
-        }
-
-        // 实现自动定位逻辑。
-        if (this.pinPosition) {
-            
-            this.elem.pin(this.pinPosition)
-
-        }
-
-        // 实现自动定位逻辑。
-        //var me = this,
-        //        align = me.getAlign();
-
-        //// 恢复默认的定位。
-        //if (me._align && me._align !== align) {
-        //    me.setAlign(align = me._align);
-        //    delete me._align;
-        //}
-
-        //if (align) {
-        //    me.elem.pin(this.target, align, me.distance, me.distance, function () {
-        //        me._align = align;
-        //        me.elem.className = me.elem.className.replace(/\bx-arrow-\w+\b/, 'x-arrow-' + align);
-        //    });
-        //} else if (e) {
-        //    me.elem.pin(e, 'bl', 0, me.distance * 2);
-        //}
-
-        this.onShow && this.onShow(e);
-        this.trigger('show', e);
-        return this;
+        var me = this;
+        me.elem.show('opacity', null, me.duration);
+        me.realign(e);
+        me.onShow && me.onShow(e);
+        me.trigger('show', e);
+        return me;
     },
 
     /**
@@ -262,10 +286,11 @@ var Popover = Control.extend({
      * @return this
      */
     hide: function (e) {
-        this.elem.hide('opacity', null, this.duration);
-        this.onHide && this.onHide(e);
-        this.trigger('hide', e);
-        return this;
+        var me = this;
+        me.elem.hide('opacity', null, me.duration);
+        me.onHide && me.onHide(e);
+        me.trigger('hide', e);
+        return me;
     },
 
     /**
@@ -276,49 +301,13 @@ var Popover = Control.extend({
     isHidden: function () {
         return this.elem.isHidden();
     },
-    
+
     /**
      * 切换显示下拉菜单。
      * @return this
      */
     toggle: function (e) {
         return this.isHidden() ? this.show(e) : this.hide(e);
-    },
-
-    /**
-     * 获取当前工具提示的位置。
-     */
-    getAlign: function () {
-        var classList = this.elem.classList, key;
-        for (key in Popover._aligners) {
-            if (classList.contains(Popover._aligners[key])) {
-                return key;
-            }
-        }
-        return null;
-    },
-
-    /**
-     * 设置当前工具提示的位置。
-     * @param {String} align 要设置的位置。可以是 null、'left'、'top'、'bottom'、'right'。
-     */
-    setAlign: function (align) {
-        var classList = this.elem.classList;
-        classList.remove(Popover._aligners[this.getAlign()]);
-        if (align) {
-            classList.remove('x-arrow');
-        } else {
-            classList.add('x-arrow');
-            classList.add(Popover._aligners[align]);
-        }
-        return this;
     }
 
 });
-
-Popover._aligners = {
-    'top': 'x-arrow-bottom',
-    'bottom': 'x-arrow-top',
-    'right': 'x-arrow-left',
-    'left': 'x-arrow-right'
-};

@@ -1,76 +1,45 @@
 @import "../core/mixins.less";
 
-@arrow-width:               8px;
-@arrow-border-color:        inherit;
-@arrow-background-color:    @background-color;
+@arrow-width: 7.5px;
+@arrow-border-color: inherit;
+@arrow-background-color: @white;
 
 .x-arrow {
-    &:before, &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 0;
-        height: 0;
-        font: 0;
-        border: @arrow-width solid transparent;
-        z-index: 1;
-    }
+    position: absolute;
+    display: block;
+    border: @arrow-width solid transparent;
+    font: 0;
+    width: 0;
+    height: 0;
+    z-index: 1;
 }
 
 .x-arrow-top, .x-arrow-bottom {
-    &:before, &:after {
-        left: 50%;
-        margin-left: -@arrow-width;
-    }
+    left: 50%;
+    margin-left: -@arrow-width;
 }
 
 .x-arrow-top {
-    &:before {
-        border-bottom-color: @arrow-border-color;
-        top: -@arrow-width * 2;
-    }
-    &:after {
-        border-bottom-color: @arrow-background-color;
-        top: -@arrow-width * 2 + 1px;
-    }
+    border-bottom-color: @arrow-border-color;
+    top: -@arrow-width * 2;
 }
 
 .x-arrow-bottom {
-    &:before {
-        border-top-color: @arrow-border-color;
-        bottom: -@arrow-width * 2;
-    }
-    &:after {
-        border-top-color: @arrow-background-color;
-        bottom: -@arrow-width * 2 + 1px;
-    }
+    border-top-color: @arrow-border-color;
+    bottom: -@arrow-width * 2;
 }
 
 .x-arrow-left, .x-arrow-right {
-    &:before, &:after {
-        top: 50%;
-        margin-top: -@arrow-width;
-    }
+    top: 50%;
+    margin-top: -@arrow-width;
 }
 
 .x-arrow-left {
-    &:before {
-        border-right-color: @arrow-border-color;
-        left: -@arrow-width * 2;
-    }
-    &:after {
-        border-right-color: @arrow-background-color;
-        left: -@arrow-width * 2 + 1px;
-    }
+    border-right-color: @arrow-border-color;
+    left: -@arrow-width * 2;
 }
 
 .x-arrow-right {
-    &:before {
-        border-left-color: @arrow-border-color;
-        right: -@arrow-width * 2;
-    }
-    &:after {
-        border-left-color: @arrow-background-color;
-        right: -@arrow-width * 2 + 1px;
-    }
+    border-left-color: @arrow-border-color;
+    right: -@arrow-width * 2;
 }

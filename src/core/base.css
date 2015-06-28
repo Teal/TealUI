@@ -45,11 +45,6 @@ img {
 svg:not(:root) {
   overflow: hidden;
 }
-button,
-select {
-  background-image: none;
-  text-transform: none;
-}
 input,
 button,
 select,

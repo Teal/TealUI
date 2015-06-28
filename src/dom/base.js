@@ -132,6 +132,15 @@
             selector.length !== undefined ? selector : [selector] : [];
     };
 
+    /**
+     * 在指定节点的子节点查找指定选择器。
+     */
+    ep.queryChild = function (selector) {
+        for (var node = this.firstElementChild; node && !node.matches(selector) ; node = node.nextElementSibling)
+            ;
+        return node;
+    };
+
     // #endregion
 
     // #region 事件
@@ -290,7 +299,7 @@
      * @param {Object} [scope] 设置回调函数中 this 的指向。
      */
     dp.on = ep.on = function (eventName, targetSelector, eventListener, scope) {
-        
+
         // 允许不传递 proxySelector 参数。
         if (targetSelector.constructor !== String) {
             scope = eventListener;

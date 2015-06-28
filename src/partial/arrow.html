@@ -15,7 +15,6 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
     <style>
         .doc-box {
             position: relative;
@@ -26,24 +25,30 @@
     </style>
 
     <h2>基本用法</h2>
-    <p>为容器添加 <code>.x-arrow</code> 和 <code>.x-arrow-*</code>(其中 * 可以是：top、bottom、left 或 right，分别对应四个方向)，即可为容器添加箭头。</p>
+    <p>为容器添加 <code>span.x-arrow</code> 即可添加箭头，箭头可使用 <code>.x-arrow-*</code>(其中 * 可以是：top、bottom、left 或 right)指示方向。</p>
     <aside class="doc-demo">
-        <div class="doc-box x-arrow x-arrow-top"></div>
-        <div class="doc-box x-arrow x-arrow-bottom"></div>
-        <div class="doc-box x-arrow x-arrow-left"></div>
-        <div class="doc-box x-arrow x-arrow-right"></div>
+        <div class="doc-box"><span class="x-arrow x-arrow-top"></span></div>
+        <div class="doc-box"><span class="x-arrow x-arrow-bottom"></span></div>
+        <div class="doc-box"><span class="x-arrow x-arrow-left"></span></div>
+        <div class="doc-box"><span class="x-arrow x-arrow-right"></span></div>
     </aside>
 
     <h2>自定义箭头</h2>
-    <p>箭头的实现原理是为指定节点添加 <code>:before</code> 作为箭头前景色，添加 <code>:after</code> 作为箭头背景色。如果需要自定义箭头位置和位置，需要对这两个元素操作。</p>
+    <p>箭头的实现原理是基于边框实现。</p>
 
-    <h3>实心箭头</h3>
-    <p>如果不需要为箭头指定前景色，则隐藏表示前景的元素。</p>
+    <h3>空心箭头</h3>
+    <p>灵活应用两个箭头可以实现空心箭头效果。</p>
     <aside class="doc-demo">
-        <div id="customForeColor" class="doc-box x-arrow x-arrow-top"></div>
+        <div id="customForeColor" class="doc-box">
+            <span class="x-arrow x-arrow-top">
+                <span class="x-arrow x-arrow-top"></span>
+            </span>
+        </div>
         <style>
-            #customForeColor:after {
-                display: none;
+            .x-arrow-top .x-arrow-top {
+                top: -6px;
+                left: 0.5px;
+                border-bottom-color: white; /* 空心箭头的背景色 */
             }
         </style>
     </aside>
@@ -51,10 +56,12 @@
     <h3>自定义位置</h3>
     <p>箭头的默认位置为居中（<code>left: 50%</code>）。</p>
     <aside class="doc-demo">
-        <div id="customPosition" class="doc-box x-arrow x-arrow-top"></div>
+        <div id="customPosition" class="doc-box">
+            <span class="x-arrow x-arrow-top"></span>
+        </div>
         <style>
-            #customPosition:before, #customPosition:after {
-                left: 20px;
+            #customPosition .x-arrow {
+                left: 20px; /*箭头位置*/
             }
         </style>
     </aside>
@@ -62,13 +69,12 @@
     <h3>自定义颜色</h3>
     <p>箭头的默认边框色为容器的边框色，默认背景色为全局背景色。</p>
     <aside class="doc-demo">
-        <div id="customColor" class="doc-box x-arrow x-arrow-top"></div>
+        <div id="customColor" class="doc-box">
+            <span class="x-arrow x-arrow-top"></span>
+        </div>
         <style>
-            #customColor:before {
+            #customColor .x-arrow  {
                 border-bottom-color: #00BCD4; /*边框色*/
-            }
-            #customColor:after {
-                border-bottom-color: #FFEB3B; /*背景色*/
             }
         </style>
     </aside>

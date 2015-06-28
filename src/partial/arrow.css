@@ -1,57 +1,35 @@
-﻿.x-arrow:before,
-.x-arrow:after {
-  content: "";
-  display: block;
+﻿.x-arrow {
   position: absolute;
+  display: block;
+  border: 7.5px solid transparent;
+  font: 0;
   width: 0;
   height: 0;
-  font: 0;
-  border: 8px solid transparent;
   z-index: 1;
 }
-.x-arrow-top:before,
-.x-arrow-bottom:before,
-.x-arrow-top:after,
-.x-arrow-bottom:after {
+.x-arrow-top,
+.x-arrow-bottom {
   left: 50%;
-  margin-left: -8px;
+  margin-left: -7.5px;
 }
-.x-arrow-top:before {
+.x-arrow-top {
   border-bottom-color: inherit;
-  top: -16px;
-}
-.x-arrow-top:after {
-  border-bottom-color: #ffffff;
   top: -15px;
 }
-.x-arrow-bottom:before {
+.x-arrow-bottom {
   border-top-color: inherit;
-  bottom: -16px;
-}
-.x-arrow-bottom:after {
-  border-top-color: #ffffff;
   bottom: -15px;
 }
-.x-arrow-left:before,
-.x-arrow-right:before,
-.x-arrow-left:after,
-.x-arrow-right:after {
+.x-arrow-left,
+.x-arrow-right {
   top: 50%;
-  margin-top: -8px;
+  margin-top: -7.5px;
 }
-.x-arrow-left:before {
+.x-arrow-left {
   border-right-color: inherit;
-  left: -16px;
-}
-.x-arrow-left:after {
-  border-right-color: #ffffff;
   left: -15px;
 }
-.x-arrow-right:before {
+.x-arrow-right {
   border-left-color: inherit;
-  right: -16px;
-}
-.x-arrow-right:after {
-  border-left-color: #ffffff;
   right: -15px;
 }

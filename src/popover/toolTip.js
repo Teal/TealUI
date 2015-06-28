@@ -14,10 +14,28 @@
 var ToolTip = Popover.extend({
 
     /**
-     * 自动定位悬浮层。
+     * 触发当前浮层显示的事件。
+     * 可能的值为：
+     * 'mouseover': 鼠标移上后显示。
+     * 'hover': 鼠标悬停时显示。
+     * 'click': 点击后显示。
+     * 'active': 拥有焦点时显示。
+     * 'focus': 获取焦点后显示。
+     * null: 手动显示。
+     */
+    event: 'hover',
+
+    /**
+     * 如果为 true 则根据鼠标事件定位。
      * @type {Boolean}
      */
-    autoAlign: true,
+    pinEvent: true,
+
+    /**
+     * 自动定位的位置。如果为 null 则不自动定位。默认为 null。
+     * @type {Boolean}
+     */
+    pinAlign: 'bl',
 
     /**
      * 初始化当前控件。
@@ -42,7 +60,9 @@ var ToolTip = Popover.extend({
                 // 根据目标节点的 data-title 自动绑定当前节点的属性。
                 var title = target.getAttribute('data-title');
                 if (title) {
+                    var arrow = me.elem.queryChild('.x-arrow');
                     me.elem.innerHTML = title;
+                    me.elem.prepend(arrow);
                 }
 
                 // 显示工具提示。
@@ -58,7 +78,7 @@ document.ready(function () {
     // 初始化所有 [data-title] 节点。
     var domNeedToolTip = document.querySelectorAll('[data-title]');
     if (domNeedToolTip.length) {
-        ToolTip.global = Control.get(document.body.append('<span class="x-tooltip" />'), 'toolTip', { target: null }).setAlign('top').setToolTip(domNeedToolTip);
+        ToolTip.global = Control.get(document.body.append('<span class="x-tooltip"><span class="x-arrow x-arrow-bottom"></span></span>'), 'toolTip', { target: null }).setToolTip(domNeedToolTip);
     }
 
 });
