@@ -7,18 +7,27 @@
 // #require ../form/calender
 
 var DatePicker = Picker.extend({
-	
+
+    /**
+     * 设置下拉菜单的宽度。如果为百分数，则根据目标节点自动调整。
+     */
     dropDownWidth: 'auto',
+
+    /**
+     * 设置使用的日历组件。
+     */
+    calenderRole: 'calender',
 	
 	initDropDown: function () {
 	    var me = this;
 	    me.dropDown.elem.classList.add('x-calender');
-	    me.calender = Control.get(me.dropDown.elem, 'calender').on('select', function (value) {
+	    me.calender = Control.get(me.dropDown.elem, this.calenderRole).on('select', function (value) {
 	        me.onCalenderSelect(value);
 	        return false;
 	    }).on('change', function () {
 	        me.setValue(this.getValue());
 	    });
+
 	},
 
 	setFormat: function (value) {
@@ -32,7 +41,7 @@ var DatePicker = Picker.extend({
 	updateDropDown: function () {
 	    var me = this,
             d = Date.from(me.getInput().value, me.calender.format);
-	    if (d && !isNaN(d.getYear()))
+	    if (+d)
 	        me.calender.setValue(d);
 	},
 
@@ -42,7 +51,7 @@ var DatePicker = Picker.extend({
 	},
 	
 	getValue: function() {
-	    return Date.from(this.getInput().value);
+	    return Date.from(this.getInput().value, this.calender.format);
 	},
 	
 	setValue: function (value) {

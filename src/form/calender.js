@@ -33,7 +33,7 @@ var Calender = Control.extend({
     /**
      * 获取或设置当前显示的视图。可能的值为'day'、'month'、'year'或'decade'。
      */
-    view: 'day',
+    view: null,
 
     /**
      * 获取或设置可选择的最小值。
@@ -83,15 +83,11 @@ var Calender = Control.extend({
         me.loadHours(me.displayValue);
 
         // 初始化视图。
+        if (!me.view) {
+            me.view = /d/.test(me.format) ? 'day' : 'year';
+        }
         me.setView(me.view);
 
-        // 记住高宽。
-        var body = me.elem.querySelector('.x-calender-body');
-        if (body.offsetHeight) {
-            body.style.height = body.offsetHeight + 'px';
-            body.style.width = body.offsetWidth + 'px';
-        }
-        
     },
 
     /**
@@ -255,6 +251,13 @@ var Calender = Control.extend({
             to,
             oldTo;
 
+        // 记住高宽。
+        var body = me.elem.querySelector('.x-calender-body');
+        if (!body.style.width && body.offsetHeight) {
+            body.style.height = body.offsetHeight + 'px';
+            body.style.width = body.offsetWidth + 'px';
+        }
+
         // 渲染当前视图的内容。
         newContainer.setStyle('transform', 'translateX(0) scale(1, 1)');
         Calender.views[view].render(this, newContainer, this.elem.querySelector('.x-calender-title'));
@@ -304,7 +307,7 @@ var Calender = Control.extend({
                     };
 
                 }
-                
+
                 if (reverse) {
                     reverse = oldTo;
                     oldTo = newFrom;
@@ -351,8 +354,8 @@ var Calender = Control.extend({
     /**
      * 保存时间部分的值。
      */
-    saveHours: function(date) {
-        var inputs =  this.elem.querySelectorAll('.x-calender-time input');
+    saveHours: function (date) {
+        var inputs = this.elem.querySelectorAll('.x-calender-time input');
         date.setHours(+inputs[0].value);
         date.setMinutes(+inputs[1].value);
         date.setSeconds(+inputs[2].value);
@@ -374,7 +377,7 @@ var Calender = Control.extend({
      * @param {Date} min 要设置的最小值。如果不设置，可传递 null。
      * @param {Date} max 要设置的最大值。如果不设置，可传递 null。
      */
-    setRange: function(min, max) {
+    setRange: function (min, max) {
         this.min = Date.from(min);
         this.max = Date.from(max);
         if (this.value < this.min) {
@@ -391,14 +394,15 @@ var Calender = Control.extend({
      * @param {Date} value 要设置的值。
      */
     setValue: function (value) {
-        if (+this.value !== +value) {
-            this.value = value;
-            this.displayValue = new Date(+value);
-            this.loadHours(value);
-            this.setView('day');
-            this.trigger('change');
+        var me = this;
+        if (+me.value !== +value) {
+            me.value = value;
+            me.displayValue = new Date(+value);
+            me.loadHours(value);
+            me.setView(/d/.test(me.format) ? 'day' : /M/.test(me.format) ? 'month' : 'year');
+            me.trigger('change');
         }
-        return this;
+        return me;
     },
 
     /**
@@ -575,6 +579,12 @@ Calender.views = {
         parentView: 'year',
 
         select: function (calender, item) {
+
+            // 如果不存在日选择器，则直接选择当前月份。
+            if (!/d/.test(calender.format)) {
+                return calender.selectItem(item);
+            }
+
             var actived = calender.elem.querySelector('.x-calender-actived');
             actived && actived.classList.remove('x-calender-actived');
             item.classList.add('x-calender-actived');
@@ -643,11 +653,17 @@ Calender.views = {
         parentView: 'decade',
 
         select: function (calender, item) {
+
+            // 如果不存在日选择器，则直接选择当前月份。
+            if (!/[Md]/.test(calender.format)) {
+                return calender.selectItem(item);
+            }
+
             var actived = calender.elem.querySelector('.x-calender-actived');
             actived && actived.classList.remove('x-calender-actived');
             item.classList.add('x-calender-actived');
             calender.displayValue.setFullYear(item.getAttribute('data-value'));
-            calender.setView('month', 'zoomOut');
+            calender.setView(!/M/.test(calender.format) ? 'day' : 'month', 'zoomOut');
         },
 
         movePage: function (calender, delta) {

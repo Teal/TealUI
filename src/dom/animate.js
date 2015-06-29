@@ -186,6 +186,7 @@ Element.prototype._show = Element.prototype.show;
  */
 Element.prototype.show = function (fxName, callback, duration, ease) {
 
+    delete this.style._animatingHide;
     this._show();
 
     // 执行特效。
@@ -208,7 +209,9 @@ Element.prototype.hide = function (fxName, callback, duration, ease) {
 
     // 执行特效。
     if (fxName = Element.toggleFx[fxName]) {
+        this.style._animatingHide = true;
         this.animate('auto', fxName, function (elem) {
+            delete this.style._animatingHide;
             elem._hide();
             callback && callback.call(this, elem);
         }, duration, ease, true);

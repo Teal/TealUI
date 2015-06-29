@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../../src/button/button.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../src/input/picker.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/control/popover.css" />
     <link rel="stylesheet" type="text/css" href="../../src/form/calender.css" />
 
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
@@ -25,11 +25,11 @@
 
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
-    <script type="text/javascript" src="../../src/control/dropDown.js"></script>
+    <script type="text/javascript" src="../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../src/control/popover.js"></script>
     <script type="text/javascript" src="../../src/control/input.js"></script>
     <script type="text/javascript" src="../../src/input/picker.js"></script>
 
-    <script type="text/javascript" src="../../src/dom/pin.js"></script>
     <script type="text/javascript" src="../../src/utility/date.js"></script>
     <script type="text/javascript" src="../../src/form/calender.js"></script>
     <script type="text/javascript" src="../../src/input/datePicker.js"></script>
@@ -51,6 +51,14 @@
     <h3>日期时间选择器</h3>
     <aside class="doc-demo">
         <span class="x-picker" data-role="datePicker" data-format="yyyy/M/d HH:mm:00">
+            <input type="text" class="x-textbox" />
+            <button class="x-button"><i class="x-icon">&#10057;</i></button>
+        </span>
+    </aside>
+
+    <h3>月份选择器</h3>
+    <aside class="doc-demo">
+        <span class="x-picker" data-role="datePicker" data-format="yyyy/M">
             <input type="text" class="x-textbox" />
             <button class="x-button"><i class="x-icon">&#10057;</i></button>
         </span>

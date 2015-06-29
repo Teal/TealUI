@@ -2,15 +2,18 @@
 @import "../core/mixins.less";
 
 .x-popover {
+    // 避免下拉框继承父级属性。
+    text-align: left;
+    font-size: @font-size;
+    font-weight: normal;
+    line-height: @line-height;
+}
+
+html .x-popover {
 	display: none;
     position: absolute;
     z-index: @z-index-tooltip;
     max-height: @line-height * 20;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     background-color: @background-color;
-    // 避免下拉框继承父级属性。
-    text-align: left;
-    font-size: @font-size;
-    font-weight: normal;
-    line-height: @line-height;
 }

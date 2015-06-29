@@ -77,7 +77,7 @@ var Popover = Control.extend({
      * @param {String} triggerEvent 要设置的触发事件。默认为当前触发事件源。
      */
     setPopover: function (target, triggerEvent) {
-        this.target = target;
+        this.target = this.target || target;
         if (target) {
             var me = this;
             triggerEvent = triggerEvent || this.event;
@@ -133,6 +133,7 @@ var Popover = Control.extend({
             } else if (triggerEvent === 'focus') {
                 // 设置获取焦点后显示浮层，全局除浮层和目标外单击关闭。
                 target.on(triggerEvent, function (e) {
+                    
                     // 不重复显示。
                     if (me.isHidden()) {
 
@@ -161,17 +162,18 @@ var Popover = Control.extend({
             } else if (triggerEvent === 'click') {
                 // 设置点击后切换隐藏。
                 target.on(triggerEvent, function (e) {
+                    
                     if (me.isHidden()) {
 
                         // 设置隐藏事件。
                         document.on('mousedown', function (e) {
-
+                            
                             // 不处理下拉菜单本身事件。
                             if (!me.elem.contains(e.target)) {
 
                                 // 如果在目标节点点击，则直接由目标节点调用 hide()。
                                 if (!target || !target.contains(e.target)) {
-                                    me.hide(e);
+                                    me.hide(e);trace('hided')
                                 }
 
                                 // 确保当前事件只执行一次。
@@ -197,7 +199,7 @@ var Popover = Control.extend({
      * 重新设置当前浮层的位置。
      */
     realign: function(e) {
-
+        
         // 实现箭头定位。
         var me = this,
             arrowNode = me.elem.queryChild('.x-arrow');
@@ -299,7 +301,7 @@ var Popover = Control.extend({
      * @protected virtual
      */
     isHidden: function () {
-        return this.elem.isHidden();
+        return this.elem.isHidden() || this.elem.style._animatingHide;
     },
 
     /**

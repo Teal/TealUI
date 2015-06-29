@@ -3,16 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>下拉菜单</title>
-    <meta name="module-info" content="">
+    <title>菜单</title>
+    <meta name="module-info" content="status=doing, parent-title=菜单, parent-order=form">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="一个供选择的下拉菜单。">
+    <meta name="description" content="经典菜单效果。">
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/form/listBox.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/control/dropDown.css" />
+    <link rel="stylesheet" type="text/css" href="../../src/popup/menu.css" />
 
     <script type="text/javascript" src="../../src/shim/html5.js"></script>
     <script type="text/javascript" src="../../src/dom/base.js"></script>
@@ -20,25 +19,30 @@
     <script type="text/javascript" src="../../src/control/base.js"></script>
 
     <script type="text/javascript" src="../../src/dom/animate.js"></script>
+    <script type="text/javascript" src="../../src/dom/hover.js"></script>
     <script type="text/javascript" src="../../src/dom/rect.js"></script>
-    <script type="text/javascript" src="../../src/dom/keyNav.js"></script>
-    <script type="text/javascript" src="../../src/control/dropDown.js"></script>
-    <script type="text/javascript" src="../../src/popover/dropDownMenu.js"></script>
+    <script type="text/javascript" src="../../src/popup/menu.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../assets/doc.js"></script>
-
+    
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <button>我是按钮</button>
-        <ul class="x-listbox x-dropdown" data-role="dropDownMenu">
+        <menu class="x-menu" data-role="menu">
             <li><a href="###">菜单 1</a></li>
-            <li class="x-listbox-selected"><a href="###">菜单 2</a></li>
-            <li>
+            <li class="x-menu-disabled"><a href="###">菜单 2</a></li>
+            <li class="x-menu-divider"></li>
+            <li class="x-menu-arrow">
                 <a href="###">菜单 3</a>
+                <ul class="x-menu" data-role="menu">
+                    <li><a href="###">菜单 3-1</a></li>
+                    <li><hr /></li>
+                    <li><a href="###">菜单 3-2</a></li>
+                    <li><a href="###">菜单 3-3</a></li>
+                </ul>
             </li>
-        </ul>
+        </menu>
     </aside>
 </body>
 </html>
