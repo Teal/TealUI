@@ -17,7 +17,7 @@
         <span id="doc_navbar_trigger" class="doc-trigger doc-right" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;">≡</span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
-            <li><a href="src/index.html">文档和演示</a></li>
+            <li><a href="src/index.html">所有组件</a></li>
             <li><a href="tools/customize/index.html">下载和定制</a></li>
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
             <li class="doc-right">
@@ -29,7 +29,13 @@
         <h1><img src="assets/web/images/logo.png" alt="TealUI" /></h1>
         <h2>TealUI：最完整的前端代码库</h2>
         <div class="primary">
-            <a href="tools/customize/index.html">立即下载</a>
+            <a href="tools/customize/index.html" id="mainButton">立即下载</a>
+            <script>
+                if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1') {
+                    document.getElementById('mainButton').innerHTML = '开始使用';
+                    document.getElementById('mainButton').href = 'docs/index.html';
+                }
+            </script>
         </div>
         <div class="secondary">
             <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>

@@ -1400,7 +1400,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <span id="doc_navbar_trigger" class="doc-right" onclick="this.classList.toggle(\'doc-trigger-actived\')" ontouchstart="this.onclick(); return false;">≡</span>\
                     <ul id="doc_navbar">\
                         <li{folder_actived_docs}><a href="{basePath}{folder_docs}/{index}">开始使用</a></li>\
-                        <li{folder_actived_demos}><a href="{basePath}{folder_demos}/{index}">文档和演示</a></li>\
+                        <li{folder_actived_demos}><a href="{basePath}{folder_demos}/{index}">所有组件</a></li>\
                         <li{folder_actived_tools_customize}><a href="{basePath}{folder_tools}/customize/{index}">下载和定制</a></li>\
                         <li{folder_actived_tools_devtools}><a href="{basePath}{folder_tools}/devTools/{index}">开发者工具</a></li>\
                         <li class="doc-right"><a href="http://jplusui.github.com/" target="_blank">更早版本</a></li>\
