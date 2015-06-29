@@ -6,15 +6,36 @@
 
     #doc_header h1 {
         margin: 0;
-        padding: 1em 0 .4em;
+        padding: 1em 0 .5em;
+        height: 100px;
     }
 
     #doc_header h2 {
         font-weight: 500;
-        font-size: 2em;
+        font-size: 2.2em;
         margin: 0 0 1em;
         line-height: 120%;
     }
+
+.zoomOut {
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    -webkit-transition: -webkit-transform 1s;
+    transition: transform 1s;
+    -moz-transform: scale(0, 0);
+    -ms-transform: scale(0, 0);
+    -o-transform: scale(0, 0);
+    -webkit-transform: scale(0, 0);
+    transform: scale(0, 0);
+}
+
+.zoomOutTransform {
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+}
 
 .primary a {
     border: 0;

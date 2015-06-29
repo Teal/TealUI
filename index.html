@@ -13,21 +13,21 @@
 </head>
 <body class="doc-page doc-section">
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
-        <a href="index.html" id="doc_logo" class="doc-left">TealUI <sup><!--@MAJORVERSION-->3.0beta<!--@/MAJORVERSION--></sup></a>
+        <a href="index.html" id="doc_logo" class="doc-left">TealUI <small><!--@MAJORVERSION-->3.0beta<!--@/MAJORVERSION--></small></a>
         <span id="doc_navbar_trigger" class="doc-trigger doc-right" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;">≡</span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
             <li><a href="src/index.html">所有组件</a></li>
-            <li><a href="tools/customize/index.html">下载和定制</a></li>
-            <li><a href="tools/devTools/index.html">开发者工具</a></li>
+            <li><a href="tools/customize/index.html">下载定制</a></li>
+            <li><a href="tools/devTools/index.html">在线工具</a></li>
             <li class="doc-right">
-                <a href="http://jplusui.github.com/" target="_blank">更早版本</a>
+                <input type="text" placeholder="🔍 搜索组件..." />
             </li>
         </ul>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
-        <h1><img src="assets/web/images/logo.png" alt="TealUI" /></h1>
-        <h2>TealUI：最完整的前端代码库</h2>
+        <h1><img src="assets/web/images/logo.png" alt="TealUI" id="logoImg" class="zoomOut" onload="this.className += ' zoomOutTransform' " /></h1>
+        <h2>TealUI：最完整的开源前端代码库</h2>
         <div class="primary">
             <a href="tools/customize/index.html" id="mainButton">立即下载</a>
             <script>
@@ -47,7 +47,29 @@
     </header>
     <section class="doc-container">
         <h2 class="subtitle">无需设计：快速搭建漂亮页面；同时支持电脑和手机！</h2>
-        <p class="description">TealUI 提供了 200 多个常用 UI 组件，无论是整库使用还是单独使用个别组件，复制示例代码即可见效，非常方便。</p>
+        <p class="description">TealUI 提供了 200 多个 UI 组件，无论是整库使用还是单独使用某个组件，复制示例代码即可见效，非常方便。</p>
+        <div class="doc-grid doc-clear doc-grid-3">
+            <div class="doc-col">
+                <img src="assets/web/images/experience.svg" width="300" height="160" />
+                <h3>更懂国情：适合中文排版</h3>
+                <p>TealUI 提供了城市选择、拼音汉字转换、身份证验证等业务组件。同时 TealUI 也兼顾国内浏览器占比，支持更多国产浏览器。</p>
+            </div>
+            <div class="doc-col">
+                <img src="assets/web/images/responsive.png" width="300" height="160" />
+                <h3>一个框架、多种设备</h3>
+                <p>只需写一份代码，即可同时适应 PC、平板、手机等不同尺寸的设备。所有组件考虑移动优先，为手机平台更省流量。</p>
+            </div>
+            <div class="doc-col">
+                <img src="assets/web/images/responsive.png" width="300" height="160" />
+                <h3>轻量级、高性能</h3>
+                <p>所有组件功能专一、依赖性小、代码轻量。即使不使用整个 UI 库，每个组件也可以独立使用。</p>
+            </div>
+        </div>
+    </section>
+    <hr class="doc-container" />
+    <section class="doc-container">
+        <h2 class="subtitle">功能完整：提供常用工具类库，全方位助力业务开发！</h2>
+        <p class="description">除了 UI，TealUI 还提供了大量常用的工具类库，如 getCookie、md5，这些函数直接复制源码即可在项目中使用。</p>
         <div class="doc-grid doc-clear doc-grid-3">
             <div class="doc-col">
                 <img src="assets/web/images/experience.svg" width="300" height="160" />
@@ -85,14 +107,32 @@
             </div>
         </div>
     </section>
-    <footer id="doc_footer" class="doc-container doc-section">
+    <div class="doc-container" style="background: #f6f6f6; border-top: 1px solid #e4e4e4; text-align: center; padding: 20px 0;">
+        <dl>
+            <dt>兼容性</dt>
+            <dd>✔ IE 8+</dd>
+            <dd>✔ Firefox 4+</dd>
+            <dd>✔ Chrome 40+</dd>
+            <dd>✔ Safari 6+</d>
+            <dd>✔ Opera 12+</dd>
+        </dl>
+        
+        <dl>
+            <dt>3.0 新特性</dt>
+            <dd>抽象组件设计思路，减少组件对 CSS 依赖。</dd>
+            <dd>重写所有组件，考虑移动端优先。</dd>
+            <dd>增加纯手机 UI 组件库。</dd>
+            <dd>简化项目结构，精简组件代码。</dd>
+        </dl>
+    </div>
+    <footer id="doc_footer" class="doc-container doc-section" style="background: #555;">
         <div>
             <a href="docs/about/index.html">关于我们</a> |
-            <a href="docs/about/joinus.html">加入我们</a> |
             <a href="docs/about/license.html">开源协议</a> |
-            <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a>
+            <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a> |
+            <a href="docs/about/joinus.html">加入我们</a>
         </div>
-        &copy; 2011-2015 TealUI Team. All Rights Reserved.
+        &copy; 2011-2015 The Teal Team. All Rights Reserved.
     </footer>
 </body>
 </html>
