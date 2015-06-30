@@ -30,7 +30,7 @@
 
 .doc-section, .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6, .doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote {
     font-size: 14px;
-    line-height: 171.428571%; /* 24px / 14px */
+    line-height: 172.02857143%; /* 24px / 14px */
     font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
     color: #212121;
 }
@@ -160,7 +160,7 @@
         line-height: 150%;
         color: #1B809E;
     }
-   
+
 /* 其他样式 */
 .doc-note:after {
     background-color: #b94a48 !important;
@@ -213,12 +213,22 @@
     font-weight: normal;
 }
 
+::-moz-selection {
+    background: #00BFA5;
+    color: #fff;
+}
+
+::selection {
+    background: #00BFA5;
+    color: #fff;
+}
+
 /* #endregion */
 
 /* #region 全局工具样式 */
 
 /* 工具样式 */
-.doc-clear:after {
+.doc-clear:after, .doc-row:after {
     content: " ";
     display: table;
     clear: both;
@@ -233,8 +243,29 @@
 }
 
 /* 布局 */
+.doc-row {
+    margin: 0 -14px;
+}
+
 .doc-col {
+    float: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 14px;
     margin-bottom: 1em;
+}
+
+.doc-row-4 > .doc-col {
+    width: 25%;
+}
+
+.doc-row-3 > .doc-col {
+    width: 33.3333333%;
+}
+
+.doc-row-2 > .doc-col {
+    width: 50%;
 }
 
 /* 工具条 */
@@ -382,21 +413,23 @@
 
 /* #region 文档页面样式 */
 
-::-moz-selection {
-    background: #00BFA5;
-    color: #fff;
-}
-
-::selection {
-    background: #00BFA5;
-    color: #fff;
-}
-
 /* 文档 */
-body.doc, body.doc-section {
-    margin: 7px 14px;
-    overflow-y: scroll; /* 防止页面之间跳转由于滚动条变化所导致的抖动 */
+body.doc, body.doc-page {
+    /* 防止页面之间跳转由于滚动条变化所导致的抖动 */
+    overflow-y: scroll;
     background-color: #fff;
+}
+
+body.doc {
+    margin: 7px 14px;
+}
+
+body.doc-page {
+    margin: 0 0 0 210px; /* 14px * 14 + 14px */
+}
+
+body {
+    margin: 0 auto!important;
 }
 
 /* 容器 */
@@ -409,7 +442,8 @@ body.doc, body.doc-section {
 
 #doc_progress {
     position: fixed;
-    -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
+    /* 解决 Chrome fixed 抖动问题 */
+    -webkit-transform: translateZ(0);
     width: 0;
     height: 1px;
     background-color: #00796B;
@@ -428,7 +462,7 @@ body.doc, body.doc-section {
     #doc_topbar a {
         color: #e9e9e9;
         display: block;
-        padding: 8px 14px;
+        padding: 7px 14px;
         text-decoration: none;
     }
 
@@ -450,6 +484,8 @@ body.doc, body.doc-section {
         position: relative;
         top: -.5em;
     }
+
+/* 响应式 */
 
 #doc_navbar_trigger {
     display: block;
@@ -489,42 +525,44 @@ body.doc, body.doc-section {
         width: 100%;
     }
 
-    #doc_search {
-        position: relative;
+#doc_search {
+    position: relative;
+}
+
+    #doc_search input {
+        margin: 5px 0;
+        padding: 1px 7px;
+        border: 1px solid #ccc;
+        font: inherit;
+        outline: 0;
+        background-color: #f1f1f1;
+        -moz-transition: background-color .3s;
+        -o-transition: background-color .3s;
+        -webkit-transition: background-color .3s;
+        transition: background-color .3s;
+        height: 24px;
     }
 
-        #doc_search input {
-            margin-top: 6px;
-            padding: 2px 8px;
-            border: 1px solid #ccc;
-            font: inherit;
-            outline: 0;
-            background-color: #f1f1f1;
-            -moz-transition: background-color .3s;
-            -o-transition: background-color .3s;
-            -webkit-transition: background-color .3s;
-            transition: background-color .3s;
+        #doc_search input[type=text] {
+            padding-right: 36px;
+            border-radius: 4px;
         }
 
-    #doc_search input[type=text]{
-        padding-right: 36px;
-        border-radius: 4px;
-    }
+            #doc_search input[type=text]:focus {
+                background-color: #fff;
+            }
 
-    #doc_search input[type=text]:focus {
-        background-color: #fff;
-    }
+        #doc_search input[type=button] {
+            position: absolute;
+            right: 0;
+            top: 0;
+            border-radius: 0 4px 4px 0;
+            height: 24px;
+        }
 
-    #doc_search input[type=button]{
-        position: absolute;
-        right: 0;
-        top: 0;
-        border-radius: 0 4px 4px 0;
-    }
-
-    #doc_search input[type=button]:active {
-        background-color: #E0E0E0;
-    }
+            #doc_search input[type=button]:active {
+                background-color: #E0E0E0;
+            }
 
 .doc-icon-search {
     width: 30px;
@@ -814,30 +852,6 @@ a#doc_pager_up {
 
     .doc-toolbar-module {
         display: block;
-    }
-
-    .doc-grid {
-        margin: 0 -7px;
-    }
-
-    .doc-col {
-        float: left;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        padding: 0 7px;
-    }
-
-    .doc-grid-4 > .doc-col {
-        width: 25%;
-    }
-
-    .doc-grid-3 > .doc-col {
-        width: 33.3333333%;
-    }
-
-    .doc-grid-2 > .doc-col {
-        width: 50%;
     }
 
     a#doc_pager_search {

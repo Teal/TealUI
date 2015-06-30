@@ -12,18 +12,25 @@
     <link rel="stylesheet" type="text/css" href="assets/web/index.css">
 </head>
 <body class="doc-page doc-section">
+    <!--[if lte IE 8]>
+        <div style="border: 1px solid #F7941D; color: #F44336; padding: 10px 20px; background: #FEEFDA; text-align: center; font-size: 14px; margin: -7px -14px 7px -14px;">
+            <strong style="float: right;cursor:pointer" onclick="this.parentNode.style.display='none'">&times;</strong>
+            您使用的浏览器版本过低，将影响使用本网站的功能。请 <a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser" target="_blank">点此升级</a> 或下载更快更安全的 <a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank">谷歌浏览器</a> 或者 <a href="http://www.firefox.com.cn/download/" target="_blank">火狐浏览器</a>。
+        </div>
+        <script src="src/utility/shim/html5.js"></script>
+    <![endif]-->
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
-        <a href="index.html" id="doc_logo" class="doc-left">TealUI <small><!--@MAJORVERSION-->3.0beta<!--@/MAJORVERSION--></small></a>
+        <a href="index.html" id="doc_logo" class="doc-left">TealUI <small><!--@MAJORVERSION-->3.0alpha<!--@/MAJORVERSION--></small></a>
+        <span id="doc_search" class="doc-right">
+            <input type="text" placeholder="搜索组件..." />
+            <input type="button" value="🔍" class="doc-icon-search" />
+        </span>
         <span id="doc_navbar_trigger" class="doc-trigger doc-right" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;">≡</span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
             <li><a href="src/index.html">所有组件</a></li>
             <li><a href="tools/customize/index.html">下载和定制</a></li>
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
-            <li class="doc-right" id="doc_search">
-                <input type="text" placeholder="搜索组件..." />
-                <input type="button" value="🔍" class="doc-icon-search" />
-            </li>
         </ul>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
@@ -117,7 +124,7 @@
             <dd>✔ Safari 6+</d>
             <dd>✔ Opera 12+</dd>
         </dl>
-        
+
         <dl>
             <dt>3.0 新特性</dt>
             <dd>抽象组件设计思路，减少组件对 CSS 依赖。</dd>

@@ -1,4 +1,8 @@
 ﻿
+body.doc-page {
+    margin-left: 0;
+}
+
 #doc_header {
     margin-bottom: 0;
     text-align: center;
