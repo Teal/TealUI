@@ -105,6 +105,21 @@ body {
             text-decoration: underline;
         }
 
+@media screen and (max-width: 768px) {
+    #doc_header_logo_img {
+        float: none;
+        width: auto;
+        text-align: center;
+    }
+    #doc_header_logo_content {
+        padding: 0;
+        text-align: center;
+    }
+    #doc_header_links a {
+        font-size: 16px;
+    }
+}
+
 section {
     text-align: center;
     padding-bottom: 2em;
