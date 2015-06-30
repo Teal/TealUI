@@ -9,16 +9,16 @@
     <meta name="description" content="基于字体实现各类小图标。">
 
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../src/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../src/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../partial/icon.css" />
 
     <!-- 以下是本组件扩展的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../src/partial/iconEx.css" />
+    <link rel="stylesheet" type="text/css" href="../partial/iconEx.css" />
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../../assets/doc.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../src/partial/spin.css" />
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../partial/spin.css" />
 
     <h2>基本用法</h2>
     <p>创建一个独立的 <code>&lt;span class="x-icon"&gt;</code> 标签来表示图标，标签内部文本决定了图标的内容。</p>
@@ -26,7 +26,7 @@
         <span class="x-icon">&#9733;</span> 你好　　
         <a href="###"><span class="x-icon">&#9733;</span>你好</a>
     </aside>
-    <blockquote class="doc-warning">
+    <blockquote class="doc-note">
         注意：<br />
         1. 不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。<br />
         2. 使用图标时应在图标后追加一个空格以保证美观。<br />
@@ -89,7 +89,7 @@
             html += '</table>';
 
         } catch (e) {
-            html = '<blockquote class="doc-warning">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
+            html = '<blockquote class="doc-note">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
         }
 
         document.write(html);

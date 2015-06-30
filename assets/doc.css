@@ -23,7 +23,7 @@
     分割：#DADADA
     提示：#B8B8B8
     图标：#727272
-    文本：#212121doc-trigger
+    文本：#212121
 */
 
 /* #region 全局基础样式 */
@@ -52,7 +52,7 @@
 
 .doc > h1 {
     font-size: 30px;
-    line-height: 100%;
+    line-height: 105%;
     border-bottom: 1px solid #dadada;
 }
 
@@ -87,7 +87,7 @@
     font-size: 12px;
 }
 
-.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc > hr {
+.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
     margin: 0 0 1em;
 }
 
@@ -137,28 +137,53 @@
 }
 
 .doc > blockquote {
-    background-color: #f7f7f7;
+    background-color: #f9f9f9;
     border: 1px solid #DADADA;
-    padding: 10px 12px;
+    padding: 8px 12px;
     position: relative;
 }
 
-    .doc > blockquote:before {
+    .doc > blockquote:after {
         content: '';
         position: absolute;
         width: 3px;
         left: -1px;
         top: -1px;
         bottom: -1px;
-        background-color: #009688;
+        background-color: #1B809E;
     }
 
-    .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > pre, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
-        font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
-        color: #990000;
-        background-color: #f7f7f7;
-        padding: 2px 4px;
+    .doc > blockquote h4 {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        line-height: 150%;
+        color: #1B809E;
     }
+   
+/* 其他样式 */
+.doc-note:after {
+    background-color: #b94a48 !important;
+}
+
+.doc-note h4 {
+    color: #b94a48;
+}
+
+.doc-summary:after {
+    background-color: #009688 !important;
+}
+
+.doc-summary h4 {
+    color: #009688;
+}
+
+.doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > pre, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
+    font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
+    color: #990000;
+    background-color: #f9f9f9;
+    padding: 2px 4px;
+}
 
 .doc > pre {
     border: 1px solid #DADADA;
@@ -169,7 +194,7 @@
     font-size: 13px;
     padding: 6px;
     color: inherit;
-    background-color: #f7f7f7;
+    background-color: #f9f9f9;
 }
 
 .doc-section a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > table a, .doc > blockquote a {
@@ -223,26 +248,6 @@
     }
 
 /* 示例专用 */
-.doc-info {
-    color: #468847 !important;
-    background-color: #E7F5E7 !important;
-    border: 1px solid #c9e7c9 !important;
-}
-
-    .doc-info:before {
-        background-color: #468847 !important;
-    }
-
-.doc-warning {
-    color: #b94a48 !important;
-    background-color: #F8E6E6 !important;
-    border: 1px solid #e3b7b7 !important;
-}
-
-    .doc-warning:before {
-        background-color: #b94a48 !important;
-    }
-
 .doc-box, .doc-box-small, .doc-box-large {
     position: relative;
     width: 70px;
@@ -378,12 +383,12 @@
 /* #region 文档页面样式 */
 
 ::-moz-selection {
-    background: #4DB6AC;
+    background: #00BFA5;
     color: #fff;
 }
 
 ::selection {
-    background: #4DB6AC;
+    background: #00BFA5;
     color: #fff;
 }
 
@@ -441,10 +446,9 @@ body.doc, body.doc-section {
         background-color: transparent !important;
     }
 
-    #doc_logo sup {
-        color: #FE7FAB;
-        vertical-align: top;
-        position: static;
+    #doc_logo small {
+        position: relative;
+        top: -.5em;
     }
 
 #doc_navbar_trigger {
@@ -484,6 +488,49 @@ body.doc, body.doc-section {
         padding: 0;
         width: 100%;
     }
+
+    #doc_search {
+        position: relative;
+    }
+
+        #doc_search input {
+            margin-top: 6px;
+            padding: 2px 8px;
+            border: 1px solid #ccc;
+            font: inherit;
+            outline: 0;
+            background-color: #f1f1f1;
+            -moz-transition: background-color .3s;
+            -o-transition: background-color .3s;
+            -webkit-transition: background-color .3s;
+            transition: background-color .3s;
+        }
+
+    #doc_search input[type=text]{
+        padding-right: 36px;
+        border-radius: 4px;
+    }
+
+    #doc_search input[type=text]:focus {
+        background-color: #fff;
+    }
+
+    #doc_search input[type=button]{
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+    #doc_search input[type=button]:active {
+        background-color: #E0E0E0;
+    }
+
+.doc-icon-search {
+    width: 30px;
+    text-indent: -10em;
+    background: url('web/images/ic_search_48px-16.png') no-repeat 50% 50%;
+}
 
 #doc_header {
     background-color: #009688;

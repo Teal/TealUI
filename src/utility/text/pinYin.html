@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>获取中文拼音</title>
-    <meta name="module-info" content="order=tradionalChinese">
+    <meta name="module-info" content="compat=C, order=tradionalChinese">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="根据简体中文获取拼音。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../src/text/pinYin.js"></script>
+    <script type="text/javascript" src="../text/pinYin.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
 
     输入中文:
     <input type="text" id="value" value="中文" />
@@ -26,10 +26,10 @@
     <h5>获取拼音首字母</h5>
     <pre>getPinYin("中文", true);</pre>
 
-    <blockquote class="doc-info">实现原理: 在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
+    <blockquote><h4>实现原理</h4>在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
 
-    <blockquote class="doc-warning">注意：不支持多音字。</blockquote>
-
-    <blockquote class="doc-info">如果需要支持繁体，使用 <a href="pinYin-gbk.html">繁体拼音(pinYin-gbk)</a> 组件。</blockquote>
+    <blockquote class="doc-note"><h4>注意</h4>不支持多音字。</blockquote>
+    
+    <blockquote>如果需要支持繁体，使用 <a href="pinYin-gbk.html">繁体拼音(pinYin-gbk)</a> 组件。</blockquote>
 </body>
 </html>

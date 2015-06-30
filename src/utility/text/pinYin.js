@@ -10,11 +10,11 @@
  * @param {String} [joinChar=' '] 用于连接各组成部分的字符。如果设置为 null，则不连接。
  */
 function getPinYin(value, firstLetterOnly, joinChar) {
-    var result = [];
+    var result = [], i, pinyin;
     if (value) {
-        for (var i = 0; i < value.length; i++) {
-            var pinyin = getPinYin.lookup(value[i]);
-            result[i] = firstLetterOnly ? pinyin[0] : pinyin;
+        for (i = 0; i < value.length; i++) {
+            pinyin = getPinYin.lookup(value.charAt(i));
+            result[i] = firstLetterOnly ? pinyin.charAt(0) : pinyin;
         }
     }
     return joinChar === null ? result : result.join(joinChar === undefined ? ' ' : joinChar);

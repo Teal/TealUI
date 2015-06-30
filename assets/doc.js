@@ -1754,7 +1754,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                 var metaDdescription = document.querySelector('meta[name=description]');
                 if (metaDdescription) {
-                    frame += '<blockquote>' + metaDdescription.content + '</blockquote>';
+                    frame += '<blockquote class="doc-summary">' + metaDdescription.content + '</blockquote>';
                 }
 
                 Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
