@@ -20,38 +20,50 @@
         <script src="src/utility/shim/html5.js"></script>
     <![endif]-->
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
-        <a href="index.html" id="doc_logo" class="doc-left">TealUI <small><!--@MAJORVERSION-->3.0alpha<!--@/MAJORVERSION--></small></a>
-        <span id="doc_search" class="doc-right">
-            <input type="text" placeholder="搜索组件..." />
-            <input type="button" value="🔍" class="doc-icon-search" />
+        <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
+        <span id="doc_menu" class="doc-right">
+            <input id="doc_menu_search" class="doc-icon-search" type="button" value="🔍" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
+            <input id="doc_menu_navbar" type="button" value="≡" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
         </span>
-        <span id="doc_navbar_trigger" class="doc-trigger doc-right" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;">≡</span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
             <li><a href="src/index.html">所有组件</a></li>
             <li><a href="tools/customize/index.html">下载和定制</a></li>
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
+        <form id="doc_search" class="doc-right">
+            <input type="text" placeholder="搜索组件..." onfocus="this.style.width = '200px'; this.select();" onblur="this.style.width = '';" />
+            <input type="submit" value="🔍" class="doc-icon-search" />
+        </form>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
-        <h1><img src="assets/web/images/logo.png" alt="TealUI" id="logoImg" class="zoomOut" onload="this.className += ' zoomOutTransform' " /></h1>
-        <h2>TealUI：最完整的开源前端代码库</h2>
-        <div class="primary">
-            <a href="tools/customize/index.html" id="mainButton">立即下载</a>
-            <script>
-                if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1') {
-                    document.getElementById('mainButton').innerHTML = '开始使用';
-                    document.getElementById('mainButton').href = 'docs/index.html';
-                }
-            </script>
+        <div id="doc_header_logo">
+            <div id="doc_header_logo_img">
+                <img src="assets/web/images/logo.png" alt="TealUI" class="zoomOut" onload="this.className += ' zoomOutTransform' " />
+            </div>
+            <div id="doc_header_logo_content">
+                <h1>TealUI</h1>
+                <h2>最完整的开源前端代码库</h2>
+                <div class="primary">
+                    <a href="tools/customize/index.html" id="mainButton">立即下载</a>
+                    &nbsp;&nbsp;&nbsp;<small>当前版本：<!--@VERSION-->3.0.0alpha<!--@/VERSION--></small>
+                    <script>
+                        if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1') {
+                            document.getElementById('mainButton').innerHTML = '开始使用';
+                            document.getElementById('mainButton').href = 'docs/index.html';
+                        }
+                    </script>
+                </div>
+            </div>
         </div>
-        <div class="secondary">
-            <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>
-            <a href="demo/index.html">组件演示</a>
+
+        <div id="doc_header_links">
+            <a href="demo/index.html">DEMO演示</a>
             <a href="docs/index.html">如何开始</a>
+            <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>
             <a href="tools/customize/index.html">定制下载</a>
         </div>
-        <p class="summary">当前版本：<!--@VERSION-->3.0.0beta<!--@/VERSION-->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后更新：<!--@UPDATEDATE-->2015/3/18<!--@/UPDATEDATE--></p>
+        
     </header>
     <section class="doc-container">
         <h2 class="subtitle">无需设计：快速搭建漂亮页面；同时支持电脑和手机！</h2>

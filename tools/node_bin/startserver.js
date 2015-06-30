@@ -1,6 +1,6 @@
 ﻿
 var HttpServer = require("xuld-webserver/lib/httpserver");
-var Doc = require('../../../assets/doc.js');
+var Doc = require('../../assets/doc.js');
 
 var server = new HttpServer({
     "port": require('url').parse(Doc.Configs.servicePath).port,

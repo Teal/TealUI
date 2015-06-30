@@ -16,7 +16,7 @@ const templatePath = '../templates';
 var Path = require('path'),
 	IO = require('utilskit/io'),
 	FS = require('fs'),
-    Doc = require('../../../../assets/doc.js');
+    Doc = require('../../../assets/doc.js');
 
 var reModuleInfo = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Doc.Configs.moduleInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>)', 'i');
 
