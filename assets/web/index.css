@@ -111,10 +111,12 @@ body {
         width: auto;
         text-align: center;
     }
+
     #doc_header_logo_content {
         padding: 0;
         text-align: center;
     }
+
     #doc_header_links a {
         font-size: 16px;
     }

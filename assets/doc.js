@@ -755,7 +755,7 @@ Doc.SyntaxHighligher = (function () {
         }
 
         if (!specificLanuage) {
-            pre.className += ' doc-sh-' + language;
+            pre.className += ' doc-code-' + language;
         }
 
         // Apply the appropriate language handler
@@ -923,7 +923,7 @@ Doc.SyntaxHighligher = (function () {
                 textNode.nodeValue = styledText;
                 var document = textNode.ownerDocument;
                 var span = document.createElement('SPAN');
-                span.className = 'doc-sh-' + decorations[decorationIndex + 1];
+                span.className = 'doc-code-' + decorations[decorationIndex + 1];
                 var parentNode = textNode.parentNode;
                 parentNode.replaceChild(span, textNode);
                 span.appendChild(textNode);
@@ -1843,7 +1843,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 }
 
                 pre.textContent = Doc.Utility.removeLeadingWhiteSpaces(content);
-                Doc.Dom.addClass(pre, 'doc doc-sh');
+                Doc.Dom.addClass(pre, 'doc doc-code');
 
                 // 语法高亮。
                 setTimeout(function () {
@@ -1866,7 +1866,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                     // 插入工具条。
                     var aside = document.createElement('aside');
-                    aside.className = 'doc-toolbar doc-toolbar-code doc-section';
+                    aside.className = 'doc-toolbar-code doc-section';
                     aside.innerHTML = html;
                     pre.parentNode.insertBefore(aside, pre);
 

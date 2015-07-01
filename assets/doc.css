@@ -35,8 +35,12 @@
     color: #212121;
 }
 
-.doc > img, .doc > table, .doc > textarea, .doc > input, .doc > video, .doc > audio, .doc > canvas, .doc > input, .doc > button {
+.doc > img, .doc > table, .doc > textarea, .doc > input, .doc > button, .doc > video, .doc > audio, .doc > canvas {
     max-width: 100%;
+}
+
+.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
+    margin: 0 0 1em;
 }
 
 .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6 {
@@ -87,18 +91,14 @@
     font-size: 12px;
 }
 
-.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
-    margin: 0 0 1em;
+.doc > dl dt {
+    margin-top: .5em;
+    font-weight: 600;
 }
 
-    .doc > dl dt {
-        margin-top: .5em;
-        font-weight: 600;
-    }
-
-    .doc > dl dd {
-        margin: 0;
-    }
+.doc > dl dd {
+    margin: 0;
+}
 
 .doc > table {
     border: 0;
@@ -137,7 +137,7 @@
 }
 
 .doc > blockquote {
-    background-color: #f9f9f9;
+    background-color: #f9f9f7;
     border: 1px solid #DADADA;
     padding: 8px 12px;
     position: relative;
@@ -161,7 +161,6 @@
         color: #1B809E;
     }
 
-/* 其他样式 */
 .doc-note:after {
     background-color: #b94a48 !important;
 }
@@ -178,10 +177,10 @@
     color: #009688;
 }
 
-.doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > pre, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
+.doc > pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
     font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
     color: #990000;
-    background-color: #f9f9f9;
+    background-color: #f9f9f7;
     padding: 2px 4px;
 }
 
@@ -194,7 +193,7 @@
     font-size: 13px;
     padding: 6px;
     color: inherit;
-    background-color: #f9f9f9;
+    background-color: #f9f9f7;
 }
 
 .doc-section a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > table a, .doc > blockquote a {
@@ -227,7 +226,7 @@
 
 /* #region 全局工具样式 */
 
-/* 工具样式 */
+/* 浮动相关 */
 .doc-clear:after, .doc-row:after {
     content: " ";
     display: table;
@@ -254,79 +253,110 @@
     box-sizing: border-box;
     padding: 0 14px;
     margin-bottom: 1em;
+    min-height: 1px;
 }
 
-.doc-row-4 > .doc-col {
+.doc-col-1 {
+    width: 8.33333333%;
+}
+
+.doc-col-2 {
+    width: 16.66666667%;
+}
+
+.doc-col-3 {
     width: 25%;
 }
 
-.doc-row-3 > .doc-col {
-    width: 33.3333333%;
+.doc-col-4 {
+    width: 33.33333333%;
 }
 
-.doc-row-2 > .doc-col {
+.doc-col-5 {
+    width: 41.66666667%;
+}
+
+.doc-col-6 {
     width: 50%;
 }
 
-/* 工具条 */
-.doc-toolbar {
-    font-size: 12px !important;
-    line-height: 150% !important;
+.doc-col-7 {
+    width: 58.33333333%;
 }
 
-    .doc-toolbar a, .doc-toolbar a:hover {
-        color: #333;
+.doc-col-8 {
+    width: 66.66666667%;
+}
+
+.doc-col-9 {
+    width: 75%;
+}
+
+.doc-col-10 {
+    width: 83.33333333%;
+}
+
+.doc-col-11 {
+    width: 91.66666667%;
+}
+
+.doc-col-12 {
+    width: 100%;
+}
+
+/* 代码框语法高亮 */
+.doc-code-comment {
+    color: #93a1a1;
+}
+
+.doc-code-literal {
+    color: #195f91;
+}
+
+.doc-code-punctuation, .doc-code-leftbracket, .doc-code-rightbracket {
+    color: #93a1a1;
+}
+
+.doc-code-function {
+    color: #e44d54;
+}
+
+.doc-code-string, .doc-code-attrvalue {
+    color: #d44950;
+}
+
+.doc-code-keyword, .doc-code-tag {
+    color: #2f6f9f;
+}
+
+.doc-code-type, .doc-code-attrname, .doc-code-declaration, .doc-code-var {
+    color: teal;
+}
+
+.doc-code-plain {
+    color: #333;
+}
+
+/* 代码框工具条 */
+.doc-code-toolbar a {
+    float: right;
+    padding: 0 7px;
+    display: inline-block;
+    color: #999;
+    border: 1px solid #DADADA;
+    border-width: 0 0 1px 1px;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 180%;
+}
+
+    .doc-code-toolbar a:hover, .doc-code-toolbar a.doc-hover {
+        background-color: #009688;
+        color: #FFF;
+        text-decoration: none;
     }
 
-/* 示例专用 */
-.doc-box, .doc-box-small, .doc-box-large {
-    position: relative;
-    width: 70px;
-    height: 70px;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    line-height: 70px;
-    display: inline-block;
-    background-color: #FF9800;
-    color: #FFF;
-    vertical-align: top;
-    overflow: hidden;
-}
-
-.doc-box-small {
-    height: 30px;
-    width: 30px;
-    line-height: 30px;
-}
-
-.doc-box-large {
-    height: 150px;
-    width: 150px;
-    line-height: 150px;
-}
-
-.doc-red {
-    background-color: #F44336;
-    color: #FFF;
-}
-
-.doc-yellow {
-    background-color: #FFEB3B;
-    color: #FFF;
-}
-
-.doc-green {
-    background-color: #4CAF50;
-    color: #FFF;
-}
-
-.doc-blue {
-    background-color: #00BCD4;
-    color: #FFF;
-}
-
-/* 示例框 */
+/* 演示框 */
 .doc-demo {
     padding: 14px;
     border: 1px solid #DADADA;
@@ -352,97 +382,85 @@
         clear: both;
     }
 
-    .doc-demo + .doc-toolbar-code, .doc-demo + .doc-sh, .doc-demo + .doc-toolbar-code + .doc-sh {
+    .doc-demo + .doc-code-toolbar, .doc-demo + .doc-code, .doc-demo + .doc-code-toolbar + .doc-code {
         margin-top: -14px;
         border-top: 0;
     }
 
-/* 代码区域按钮 */
-.doc-toolbar-code a {
-    float: right;
-    padding: 0 7px;
+/* 示例框 */
+.doc-box, .doc-box-small, .doc-box-large {
+    position: relative;
+    min-width: 100px;
+    min-height: 100px;
+    line-height: 100px;
+    margin: 10px;
+    text-align: center;
     display: inline-block;
-    color: #999;
-    border: 1px solid #DADADA;
-    border-width: 0 0 1px 1px;
-    text-decoration: none;
-    font-size: 12px;
-    line-height: 180%;
+    background-color: #FF9800;
+    color: #FFF;
+    vertical-align: middle;
 }
 
-    .doc-toolbar-code a:hover, .doc-toolbar-code a.doc-hover {
-        background-color: #009688;
-        color: #FFF;
-        text-decoration: none;
+.doc-box-small {
+    min-height: 30px;
+    min-width: 30px;
+    line-height: 30px;
+}
+
+.doc-box-large {
+    min-height: 150px;
+    min-width: 150px;
+    line-height: 150px;
+}
+
+.doc-red {
+    background-color: #F44336;
+    color: #FFF;
+}
+
+.doc-yellow {
+    background-color: #FFEB3B;
+    color: #FFF;
+}
+
+.doc-green {
+    background-color: #4CAF50;
+    color: #FFF;
+}
+
+.doc-blue {
+    background-color: #00BCD4;
+    color: #FFF;
+}
+
+/* 工具条 */
+.doc-toolbar {
+    font-size: 12px !important;
+    line-height: 150% !important;
+}
+
+    .doc-toolbar a, .doc-toolbar a:hover {
+        color: #3a3a3a;
     }
-
-/* 语法高亮 */
-.doc-sh-comment {
-    color: #93a1a1;
-}
-
-.doc-sh-literal {
-    color: #195f91;
-}
-
-.doc-sh-punctuation, .doc-sh-leftbracket, .doc-sh-rightbracket {
-    color: #93a1a1;
-}
-
-.doc-sh-function {
-    color: #e44d54;
-}
-
-.doc-sh-string, .doc-sh-attrvalue {
-    color: #d44950;
-}
-
-.doc-sh-keyword, .doc-sh-tag {
-    color: #2f6f9f;
-}
-
-.doc-sh-type, .doc-sh-attrname, .doc-sh-declaration, .doc-sh-var {
-    color: teal;
-}
-
-.doc-sh-plain {
-    color: #333;
-}
 
 /* #endregion */
 
 /* #region 文档页面样式 */
 
 /* 文档和容器 */
-body.doc, .doc-page {
+.doc-page {
+    margin: 0;
     /* 防止页面之间跳转由于滚动条变化所导致的抖动 */
     overflow-y: scroll;
     /* 统一浏览器默认背景色 */
     background-color: #fff;
-    margin: 0;
-    padding: 7px 14px;
-}
-
-.doc-page {
-    padding: 0 14px 0 210px; /* 14px * 14 + 14px */
+    padding: 0 14px 0 182px; /* 14px * 12px + 14px = 182px */
     min-width: 400px;
 }
 
 .doc-container {
-    margin: 0 -14px 0 -210px;
+    margin: 0 -14px 0 -182px;
     padding: 0 14px;
-}
-
-/* 更大屏幕增加边距 */
-@media (min-width: 1200px) {
-    body.doc-page {
-        padding: 0 174px 0 370px; /* 210px + 160px */ /* 14px + 160px */
-    }
-
-    .doc-container {
-        margin: 0 -174px 0 -370px;
-        padding: 0 174px; /* 15px + 160px */
-    }
 }
 
 /* 顶部 */
@@ -518,6 +536,7 @@ a#doc_logo {
         transition: background-color .3s, width .3s;
         border-radius: 4px;
         height: 25px;
+        -webkit-appearance: button;
     }
 
         #doc_search input[type=text] {
@@ -715,19 +734,15 @@ a#doc_logo {
     margin: 0 !important;
 }
 
-small.doc-list-hide, .doc-toolbar-module {
-    display: none;
-}
-
 .doc-list-doing a, .doc-list-todo a {
     color: #AAA !important;
 }
 
-.doc-toolbar-module input {
+#doc_module_toolbar input {
     vertical-align: -2px;
 }
 
-.doc-toolbar-module a {
+#doc_module_toolbar a {
     margin-left: 1em;
 }
 
@@ -846,6 +861,7 @@ a#doc_pager_up {
             padding: 0 0 4px 0;
             height: 38px;
             cursor: pointer;
+            -webkit-appearance: button;
         }
 
             #doc_menu input:active, .doc_menu-actived {
