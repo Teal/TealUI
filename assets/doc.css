@@ -825,8 +825,7 @@ a#doc_pager_up {
 
     .doc-col {
         float: none;
-        width: 100%;
-        padding: 0;
+        width: 100%!important;
     }
 
     /* 菜单 */
