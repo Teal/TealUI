@@ -468,7 +468,17 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         },
 
-        showSearchSuggest: function(){
+        showSearchSuggest: function () {
+            var suggest = document.getElementById('doc_sidebar_suggest');
+            if (!suggest) {
+                suggest = document.createElement('dl');
+                suggest.id = 'doc_sidebar_suggest';
+                suggest.className = 'doc-list';
+            }
+            suggest.style.display = '';
+        },
+
+        updateSuggest: function () {
 
         },
 
@@ -722,6 +732,16 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             //// 修复浏览器。
             //Doc.Dom.fixBrowser();
 
+            // 判断当前运行的框架。
+            Doc.frame = (/[?&]frame=([^&]*)/i.exec(location.search) || [])[1] || document.documentElement.getAttribute("data-frame") || '';
+
+            if (Doc.frame === 'none') {
+                return;
+            }
+
+            // 判断当前开发系统是否在本地运行。
+            Doc.local = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1';
+
             // 获取当前 doc.js 所在路径。
             var docJsPath = document.getElementsByTagName("script");
             docJsPath = docJsPath[docJsPath.length - 1].src;
@@ -729,17 +749,17 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             // 获取当前项目的跟目录。
             var a = document.createElement('a');
             a.href = docJsPath.replace(/\/[^\/]*$/, "/") + Doc.Configs.basePath;
-            Doc.basePath = a.href;
+            Doc.baseUrl = a.href;
 
             // 获取当前项目路径。
             var path = location.href.replace(/[?#].*$/, "");
-            if (path.indexOf(Doc.basePath) === 0) {
-                path = path.substr(Doc.basePath.length);
+            if (path.indexOf(Doc.baseUrl) === 0) {
+                path = path.substr(Doc.baseUrl.length);
             }
-            Doc.path = path.replace(/[^/]*\//, "");
+            Doc.path = path.replace(/[^/]*\//, "").toLowerCase();
 
             // 获取当前项目所在文件夹。
-            var actucalFolder = path.replace(/\/.*$/, "");
+            var actucalFolder = path.replace(/\/.*$/, "").toLowerCase();
             Doc.folder = 'assets';
             for (var folderName in Doc.Configs.folders) {
                 if (actucalFolder === Doc.Configs.folders[folderName].path) {
@@ -747,9 +767,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     break;
                 }
             }
-
-            // 判断当前开发系统是否在本地运行。
-            Doc.local = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1';
 
             // 载入 CSS 样式。
             var frame = '<link type="text/css" rel="stylesheet" href="' + docJsPath.replace(/\.js$/, '.css') + '" />';
@@ -841,6 +858,20 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             Doc.Dom.ready(function () {
                 Doc.Page.initSourceCode();
             });
+
+        },
+
+        initSearchBox: function (suggestInput) {
+
+            suggestInput.onkeypress = function (e) {
+                var keyCode = event.keyCode;
+                if (keyCode === 40 || keyCode === 38) {
+                    event.preventDefault();
+                    Doc.Page.moveListActivedItem(keyCode === 38);
+                } else if (keyCode === 13 || keyCode === 10) {
+                    Doc.Page.gotoActivedItem();
+                }
+            };
 
         },
 
