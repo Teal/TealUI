@@ -540,12 +540,11 @@ a#doc_logo {
         #doc_search input[type=text] {
             padding-right: 30px;
             border: 1px solid #ccc;
-            width: 140px;
+            width: 200px;
         }
 
             #doc_search input[type=text]:focus {
                 background-color: #fff;
-                width: 230px;
             }
 
         #doc_search input[type=submit] {
@@ -562,12 +561,6 @@ a#doc_logo {
             #doc_search input[type=submit]:active {
                 background-position: 65% 65%;
             }
-
-@media (min-width: 1280px) {
-    #doc_search input[type=text]:focus {
-        width: 280px;
-    }
-}
 
 #doc_menu {
     display: none;
