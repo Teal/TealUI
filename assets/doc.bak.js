@@ -4,7 +4,7 @@
  */
 
 /**
- * 提供文档演示的相关 API。
+ * 提供文档操作的相关 API。
  */
 var Doc = Doc || {};
 
@@ -16,17 +16,22 @@ var Doc = Doc || {};
 Doc.Configs = {
 
     /**
-     * 配置当前项目的版本。
+     * 当前项目的版本。
      */
-    version: '3.0',
+    version: '3.0beta',
 
     /**
-     * 配置用于处理所有页面请求的服务器地址。
+     * 当前项目的基础路径。
      */
-    serviceUrl: 'http://127.0.0.1:5373/tools/customize/service/api.njs',
+    basePath: '../',
 
     /**
-     * 配置所有可用文件夹。
+	 * 用于处理所有前端请求的服务地址。
+	 */
+    servicePath: 'http://localhost:5373/tools/customize/service/api.njs',
+
+    /**
+     * 所有可用文件夹。
      */
     folders: {
 
@@ -56,8 +61,8 @@ Doc.Configs = {
         docs: {
             path: 'docs',
             pageName: '文档',
-            pageTitle: '开始使用',
-            pageDescription: '从零开始快速上手组件'
+            pageTitle: '如何开始',
+            pageDescription: '快速上手组件'
         },
 
         /**
@@ -66,7 +71,7 @@ Doc.Configs = {
         demos: {
             path: 'src',
             pageName: '组件',
-            pageTitle: '所有组件',
+            pageTitle: '组件列表',
             pageDescription: 'TealUI 提供了 200 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。'
         },
 
@@ -83,29 +88,79 @@ Doc.Configs = {
     },
 
     /**
-     * 配置索引文件的路径。
-     */
-    indexPath: 'assets/data/index.js',
+	 * 存放列表路径的地址。
+	 */
+    listsPath: 'assets/lists',
 
     /**
-     * 配置当前项目的基础路径。
-     */
-    basePath: '../',
-
-    /**
-     * 配置当前项目使用的编码。
-     */
-    encoding: 'utf-8',
-
-    /**
-     * 配置存储组件源信息的 meta 节点名。
-     */
+	 * 存放数据字段的 meta 节点。
+	 */
     moduleInfo: 'module-info',
 
     /**
-     * 配置组件访问历史记录闸值。
+	 * 整个项目标配使用的编码。
+	 */
+    encoding: 'utf-8'
+
+    ///**
+    // * 组件访问历史最大值。
+    // */
+    //maxModuleHistory: 10,
+
+    ///**
+    // * 合法的状态值。
+    // */
+    //status: {
+    //    'stable': '稳定版',
+    //    'done': '已完成',
+    //    'beta': '测试版',
+    //    'todo': '计划中',
+    //    'doing': '开发中',
+    //    'deprecated': '已废弃'
+    //},
+
+    ///**
+    // * 特性列表。
+    // */
+    //attributes: {
+    //    'mobile': '移动端',
+    //    'pc': 'PC 端',
+    //    'ie8': '兼容IE8+',
+    //    'ie6': '兼容IE6+'
+    //}
+
+};
+
+// #endregion
+
+// #region 模块解析
+
+Doc.ModuleInfo = {
+
+    /**
+     * 获取当前页面指定的控件的信息。
      */
-    maxModuleViewHistory: 10
+    parse: function (value) {
+        var r = {};
+        value = value.split(/,\s*/);
+        for (var i = 0; i < value.length; i++) {
+            var t = value[i],
+			    s = t.indexOf('=');
+            r[t.substr(0, s)] = t.substr(s + 1);
+        }
+        return r;
+    },
+
+    /**
+     * 获取当前页面指定的控件的信息。
+     */
+    stringify: function (value) {
+        var r = [];
+        for (var key in value) {
+            r.push(key + '=' + value[key]);
+        }
+        return r.join(', ');
+    }
 
 };
 
@@ -114,11 +169,9 @@ Doc.Configs = {
 // #region 工具函数
 
 /**
- * 提供工具函数。
+ * 提供底层工具函数。
  */
 Doc.Utility = {
-
-    // #region 底层
 
     /**
      * 格式化指定的字符串。
@@ -159,11 +212,11 @@ Doc.Utility = {
      */
     removeLeadingWhiteSpaces: function (value) {
         value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
-        var space = /^\s+/.exec(value), i;
+        var space = /^\s+/.exec(value);
         if (space) {
             space = space[0];
             value = value.split(/[\r\n]/);
-            for (i = value.length - 1; i >= 0; i--) {
+            for (var i = value.length - 1; i >= 0; i--) {
                 value[i] = value[i].replace(space, "");
             }
             value = value.join('\r\n');
@@ -200,38 +253,10 @@ Doc.Utility = {
      * 获取一个函数内的源码。
      */
     getFunctionSource: function (fn) {
-        return Doc.removeLeadingWhiteSpaces(fn.toString().replace(/^function\s+[^(]*\s*\(.*?\)\s*\{[\r\n]*/, "").replace(/\s*\}\s*$/, "").replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
+        return Doc.Utils.removeLeadingWhiteSpaces(fn.toString().replace(/^function\s+[^(]*\s*\(.*?\)\s*\{[\r\n]*/, "").replace(/\s*\}\s*$/, "").replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
             return String.fromCharCode((parseInt(b, 16) * 16 + parseInt(c, 16)))
         }));
-    },
-
-    // #endregion
-
-    // #region 模块解析
-
-    /**
-     * 解析模块信息字符串为对象。
-     */
-    parseModuleInfo: function (value) {
-        var r = {};
-        value.replace(/([^,;&=\s]+?)\s*=\s*([^,;&]*)/g, function (_, key, value) {
-            r[key] = value;
-        });
-        return r;
-    },
-
-    /**
-     * 将指定模块信息对象转为字符串。
-     */
-    stringifyModuleInfo: function (value) {
-        var r = [], key;
-        for (key in value) {
-            r.push(key + '=' + value[key]);
-        }
-        return r.join(', ');
     }
-
-    // #endregion
 
 };
 
@@ -254,8 +279,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     // #region DOM 辅助函数
 
     /**
-	 * DOM辅助处理模块。
-	 */
+	* DOM辅助处理模块。
+	*/
     Doc.Dom = {
 
         /**
@@ -388,24 +413,19 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.Page = {
 
-        titlePostfix: ' - TealUI | 轻量但完整的前端开源代码库',
+        title: ' - TealUI | 最完整的前端代码库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
-                    <a href="{baseUrl}{indexUrl}" id="doc_logo">TealUI <small>{version}</small></a>\
-                    <span id="doc_menu" class="doc-right">\
-                        <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.showSidebar();" ontouchstart="this.click(); return false;" />\
-                        <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />\
-                    </span>\
+                    <div id="doc_progress"></div>\
+                    <a href="{basePath}{index}" id="doc_logo" class="doc-left">TealUI <sup>{version}</sup></a>\
+                    <span id="doc_navbar_trigger" class="doc-right" onclick="this.classList.toggle(\'doc-trigger-actived\')" ontouchstart="this.onclick(); return false;">≡</span>\
                     <ul id="doc_navbar">\
-                        <li{activeDocs}><a href="{baseUrl}{folderDocs}/{indexUrl}">开始使用</a></li>\
-                        <li{activeDemos}><a href="{baseUrl}{folderDemos}">所有组件</a></li>\
-                        <li{activeToolsCustomize}><a href="{baseUrl}{folderTools}/customize/{indexUrl}">下载和定制</a></li>\
-                        <li{activeToolsDevTools}><a href="{baseUrl}{folderTools}/devTools/{indexUrl}">开发者工具</a></li>\
+                        <li{folder_actived_docs}><a href="{basePath}{folder_docs}/{index}">开始使用</a></li>\
+                        <li{folder_actived_demos}><a href="{basePath}{folder_demos}/{index}">所有组件</a></li>\
+                        <li{folder_actived_tools_customize}><a href="{basePath}{folder_tools}/customize/{index}">下载和定制</a></li>\
+                        <li{folder_actived_tools_devtools}><a href="{basePath}{folder_tools}/devTools/{index}">开发者工具</a></li>\
+                        <li class="doc-right"><a href="http://jplusui.github.com/" target="_blank">更早版本</a></li>\
                     </ul>\
-                    <form id="doc_search" class="doc-right">\
-                        <input type="text" placeholder="搜索组件..." value="{search}" />\
-                        <input type="submit" value="🔍" />\
-                    </form>\
                 </nav>\
                 <header id="doc_header" class="doc-container doc-section">\
                     <h1>{pageTitle}</h1>\
@@ -424,53 +444,19 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         <a accesskey="D" title="下一页(Alt+Shift+D)" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
                     </div>\
                 </nav>\
-                <aside id="doc_module_toolbar" class="doc-toolbar doc-right doc-section">\
-                    <a id="doc_module_toolbar_download" href="{newWindowUrl}" target="_blank">下载此组件</a>\
-                    <a id="doc_module_toolbar_new" href="{newWindowUrl}" target="_blank">新窗口打开</a>\
-                </aside>\
+                <div class="doc-toolbar doc-toolbar-module doc-right doc-section">\
+                    {packager}\
+                    <a href="{newWindowUrl}" target="_blank">❒ 在新窗口打开</a>\
+                </div>\
                 <h1>{title} <small>{path}</small></h1>',
 
         footer: '<div>\
-                    <a href="{baseUrl}{folderDocs}/about/{indexUrl}">关于我们</a> |\
-                    <a href="{baseUrl}{folderDocs}/about/license.html">开源协议</a> |\
+                    <a href="{basePath}{folder_docs}/about/{index}">关于我们</a> |\
+                    <a href="{basePath}{folder_docs}/about/joinus.html">加入我们</a> |\
+                    <a href="{basePath}{folder_docs}/about/license.html">开源协议</a> |\
                     <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a>\
-                    <a href="{baseUrl}{folderDocs}/about/joinus.html">加入我们</a> |\
                 </div>\
-                &copy; 2011-2015 The Teal Team. All Rights Reserved.',
-
-        /**
-         * 在手机模式切换显示导航条。
-         */
-        toggleNavbar: function () {
-            var menu = document.getElementById('doc_menu_navbar'),
-                docNavbar = document.getElementById('doc_navbar'),
-                height;
-
-            if (menu.className) {
-                menu.className = '';
-                docNavbar.style.height = '';
-            } else {
-                menu.className = 'doc-menu-actived';
-                docNavbar.style.height = 'auto';
-                height = docNavbar.offsetHeight;
-                docNavbar.style.height = '';
-                docNavbar.offsetHeight;
-                docNavbar.style.height = height + 'px';
-            }
-
-        },
-
-        showSidebar: function () {
-
-        },
-
-        hideSidebar: function () {
-
-        },
-
-        showSearchSuggest: function(){
-
-        },
+                &copy; 2011-2015 TealUI Team. All Rights Reserved.',
 
         onFilterKeyPress: function (event) {
             var keyCode = event.keyCode;
@@ -603,7 +589,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                                         // 从当前位置查找全拼。
                                         if (titlePinYinString.indexOf(filter, prefixLength) === prefixLength) {
-
+                                            
                                             // 根据输入的拼音长度确定实际匹配到的中文数。
                                             var len = 0, maxK = k;
                                             for (; maxK < titlePinYinArray.length; maxK++) {
@@ -612,7 +598,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                                                     break;
                                                 }
                                             }
-
+                                            
                                             shouldShow = true;
                                             title = title.substr(0, k) + '<span class="doc-red">' + title.substr(k, maxK - k + 1) + '</span>' + title.substr(maxK + 1);
 
@@ -871,7 +857,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     language = 'html';
                 }
 
-                language = language || (pre && (/\bdoc-sh-(\w+)\b/.exec(pre.className) || [])[1]) || Doc.SyntaxHighligher.guessLanguage(content);
+                language = language || (pre && (/\bdoc-sh-(\w+)\b/.exec(pre.className) || [])[1]) ||Doc.SyntaxHighligher.guessLanguage(content);
                 if (!pre) {
                     pre = document.createElement('pre');
                     node.parentNode.insertBefore(pre, node.nextSibling);
@@ -1116,7 +1102,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * 更新侧边尺寸。
          */
         updateSidebar: function (lazy) {
-
+            
             var sidebar = document.getElementById('doc_sidebar');
             var list = document.getElementById('doc_list');
             var filter = document.getElementById('doc_list_filter');

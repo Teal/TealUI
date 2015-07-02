@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html data-frame="none">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="assets/web/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="assets/doc.css">
     <link rel="stylesheet" type="text/css" href="assets/web/index.css">
+    <script type="text/javascript" src="assets/doc.js"></script>
 </head>
 <body class="doc-page doc-section">
     <!--[if lte IE 8]>
@@ -25,8 +26,8 @@
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
         <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <input id="doc_menu_search" type="button" value="🔍" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
-            <input id="doc_menu_navbar" type="button" value="≡" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
+            <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.showSidebar();" ontouchstart="this.click(); return false;" />
+            <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />
         </span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
@@ -35,8 +36,12 @@
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
         <form id="doc_search" class="doc-right">
-            <input type="text" placeholder="搜索组件..." />
+            <input type="text" placeholder="搜索组件..." onfocus="Doc.Page.showSearchSuggest()" />
             <input type="submit" value="🔍" />
+            <dl class="doc-list">
+                <dd><a href="###">listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist <small>core/type/asdsad</small></a></dd>
+                <dd><a href="###">list<small>core/type/asdsad</small></a></dd>
+            </dl>
         </form>
     </nav>
     <header id="doc_header" class="doc-container doc-section">

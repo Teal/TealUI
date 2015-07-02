@@ -512,6 +512,10 @@ a#doc_logo {
     top: -.5em;
 }
 
+#doc_menu {
+    display: none;
+}
+
 #doc_navbar {
     margin: 0;
     padding: 0;
@@ -562,8 +566,58 @@ a#doc_logo {
                 background-position: 65% 65%;
             }
 
-#doc_menu {
-    display: none;
+.doc-list {
+    margin: 0;
+    background: #fff;
+    width: 238px;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+    .doc-list dd {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .doc-list dt, .doc-list a {
+        display: block;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 7px!important;
+        text-decoration: none;
+        color: #616161 !important;
+        line-height: 30px;
+    }
+
+    .doc-list a:hover, .doc-list .doc-list-selected a {
+        background-color: #e8e8e8 !important;
+    }
+
+    .doc-list dt {
+        border-left: 2px solid #009688;
+        line-height: 120%;
+        margin: .5em 0;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .doc-list small {
+        padding-left: .5em;
+    }
+
+#doc_search .doc-list {
+    position: absolute;
+    right: 0;
+}
+
+.doc-list-doing a, .doc-list-todo a {
+    color: #AAA !important;
+    font-style: italic;
 }
 
 /* 头部 */
@@ -651,89 +705,21 @@ a#doc_logo {
     #doc_list_filter:hover, #doc_list_filter:focus {
         border-bottom-color: #009688;
     }
-
-#doc_list {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-    #doc_list h2 {
-        margin: .6em 0;
-        font-size: 20px;
-        height: 30px;
-        line-height: 30px;
-        overflow: hidden;
-    }
-
-    #doc_list dl {
-        margin: 0;
-    }
-
-    #doc_list dt, #doc_list dd a {
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 100%;
-        -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 0 14px;
-        display: block;
-        -moz-transition: height .3s ease-out, background-color .2s ease-out;
-        -o-transition: height .3s ease-out, background-color .2s ease-out;
-        -webkit-transition: height .3s ease-out, background-color .2s ease-out;
-        transition: height .3s ease-out, background-color .2s ease-out;
-    }
-
-    #doc_list dt {
-        border-left: 2px solid #009688;
-        line-height: 120%;
-        margin: 0.4em 0;
-        font-weight: 600;
-    }
-
-    #doc_list dd {
-        margin: 0;
-    }
-
-        #doc_list dd a {
-            text-decoration: none;
-            color: #616161;
-            height: 30px;
-            line-height: 30px;
-        }
-
-            #doc_list dd a:hover {
-                background-color: #f2f2f2;
-                text-decoration: none;
-            }
-
-    #doc_list .doc-actived a {
-        background-color: #f2f2f2;
-    }
-
-    #doc_list small {
-        color: #B8B8B8;
-        font-weight: 100;
-    }
-
-.doc-list-hide {
-    height: 0 !important;
-    margin: 0 !important;
-}
-
-.doc-list-doing a, .doc-list-todo a {
-    color: #AAA !important;
-}
-
-#doc_module_toolbar input {
-    vertical-align: -2px;
-}
-
+    
+/* 主体 */
 #doc_module_toolbar a {
-    margin-left: 1em;
+    margin-left: 2em;
+    opacity: 0.75;
+}
+
+#doc_module_toolbar_download {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR4Xt2S0QmAMAxET3EQ3aSrdARH6AQ6Ujexm8Sj9CtIjIoIPng/hYRLGryNVA16OPh5g45qNjrimEKnswTRCBA9I2S6QtHesncHiRYVPeEigUoz3L22pWrUDbCZPd8ozw7pa3bifRNBXC9LKAAAAABJRU5ErkJggg==') no-repeat 0 50%;
+    padding-left: 20px;
+}
+
+#doc_module_toolbar_new {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAUUlEQVR4XsWSUQoAIQhEK7xXHl1PZoGfu0NMQT3wa+CBjrV8iULQQHBPIHP6qcBApguBpQDjr4/ICzSHQ8DOhAATdx6J6N/+ctno35EgnvzBAHlVCfAYy5svAAAAAElFTkSuQmCC') no-repeat 0 50%;
+    padding-left: 20px;
 }
 
 #doc_pager {
@@ -818,7 +804,7 @@ a#doc_pager_up {
 
     .doc-col {
         float: none;
-        width: 100%!important;
+        width: 100% !important;
     }
 
     /* 菜单 */
@@ -858,9 +844,10 @@ a#doc_pager_up {
             padding: 3px 0 7px;
             height: 38px;
             cursor: pointer;
+            outline: 0;
         }
 
-            #doc_menu input:active, .doc_menu-actived {
+            #doc_menu input:active, .doc-menu-actived {
                 background-color: #004D40 !important;
             }
 
