@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>TealUI | 最完整的前端代码库</title>
+    <title>TealUI | 轻量但完整的前端开源代码库</title>
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="TealUI - 最完整的前端代码库">
     <meta name="keywords" content="HTML, CSS, JS, JavaScript, UI, TealUI, 前端, 框架, 组件, 类库">
@@ -25,7 +25,7 @@
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
         <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <input id="doc_menu_search" class="doc-icon-search" type="button" value="🔍" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
+            <input id="doc_menu_search" type="button" value="🔍" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
             <input id="doc_menu_navbar" type="button" value="≡" onclick="this.classList.toggle('doc-trigger-actived')" ontouchstart="this.onclick(); return false;" />
         </span>
         <ul id="doc_navbar">
@@ -35,19 +35,20 @@
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
         <form id="doc_search" class="doc-right">
-            <input type="text" placeholder="搜索组件..." onfocus="this.style.width = '200px'; this.select();" onblur="this.style.width = '';" />
-            <input type="submit" value="🔍" class="doc-icon-search" />
+            <input type="text" placeholder="搜索组件..." />
+            <input type="submit" value="🔍" />
         </form>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
-        <div id="doc_header_logo">
-            <div id="doc_header_logo_img">
+
+        <div class="doc-row doc-row-2">
+            <div id="doc_header_logo" class="doc-col">
                 <img src="assets/web/images/logo.png" alt="TealUI" onload="this.className = 'animateShow' " />
             </div>
-            <div id="doc_header_logo_content">
+            <div class="doc-col">
                 <h1>TealUI</h1>
-                <h2>最完整的开源前端代码库</h2>
-                <div class="primary">
+                <h2>轻量但完整的前端开源代码库</h2>
+                <div id="doc_header_primary">
                     <a href="tools/customize/index.html" id="mainButton">立即下载</a>
                     &nbsp;&nbsp;&nbsp;<small>当前版本：<!--@VERSION-->3.0.0alpha<!--@/VERSION--></small>
                     <script>
@@ -60,18 +61,23 @@
             </div>
         </div>
 
-        <div id="doc_header_links">
+        <p>
             <a href="demo/index.html">DEMO演示</a>
             <a href="docs/index.html">如何开始</a>
-            <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>
             <a href="tools/customize/index.html">定制下载</a>
-        </div>
-        
+        </p>
+
+        <p id="doc_header_external_links">
+            <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>
+            <a href="https://github.com/Teal/TealUI/star" target="_blank">Star</a>
+            <a href="https://github.com/Teal/TealUI/fork" target="_blank">Fork</a>
+        </p>
+
     </header>
     <section class="doc-container">
         <h2 class="subtitle">无需设计：快速搭建漂亮页面；同时支持电脑和手机！</h2>
         <p class="description">TealUI 提供了 200 多个 UI 组件，无论是整库使用还是单独使用某个组件，复制示例代码即可见效，非常方便。</p>
-        <div class="doc-grid doc-clear doc-grid-3">
+        <div class="doc-row doc-row-3">
             <div class="doc-col">
                 <img src="assets/web/images/experience.svg" width="300" height="160" />
                 <h3>更懂国情：适合中文排版</h3>
@@ -93,7 +99,7 @@
     <section class="doc-container">
         <h2 class="subtitle">功能完整：提供常用工具类库，全方位助力业务开发！</h2>
         <p class="description">除了 UI，TealUI 还提供了大量常用的工具类库，如 getCookie、md5，这些函数直接复制源码即可在项目中使用。</p>
-        <div class="doc-grid doc-clear doc-grid-3">
+        <div class="doc-row doc-row-3">
             <div class="doc-col">
                 <img src="assets/web/images/experience.svg" width="300" height="160" />
                 <h3>1000 个函数：设计各个领域</h3>
@@ -130,25 +136,26 @@
             </div>
         </div>
     </section>
-    <div class="doc-container" style="background: #f6f6f6; border-top: 1px solid #e4e4e4; text-align: center; padding: 20px 0;">
-        <dl>
-            <dt>兼容性</dt>
-            <dd>✔ IE 8+</dd>
-            <dd>✔ Firefox 4+</dd>
-            <dd>✔ Chrome 40+</dd>
-            <dd>✔ Safari 6+</d>
-            <dd>✔ Opera 12+</dd>
-        </dl>
-
-        <dl>
-            <dt>3.0 新特性</dt>
-            <dd>抽象组件设计思路，减少组件对 CSS 依赖。</dd>
-            <dd>重写所有组件，考虑移动端优先。</dd>
-            <dd>增加纯手机 UI 组件库。</dd>
-            <dd>简化项目结构，精简组件代码。</dd>
-        </dl>
+    <div id="doc_features" class="doc-container">
+        <div class="doc-row doc-row-2">
+            <dl class="doc-col">
+                <dt>兼容性</dt>
+                <dd>✔ IE 8+</dd>
+                <dd>✔ Firefox 4+</dd>
+                <dd>✔ Chrome 40+</dd>
+                <dd>✔ Safari 6+</d>
+                <dd>✔ Opera 12+</dd>
+            </dl>
+            <dl class="doc-col">
+                <dt>3.0 新特性</dt>
+                <dd>1. 抽象组件设计思路，减少组件对 CSS 依赖。</dd>
+                <dd>2. 重写所有组件，考虑移动端优先。</dd>
+                <dd>3. 增加纯手机 UI 组件库。</dd>
+                <dd>4. 简化项目结构，精简组件代码。</dd>
+            </dl>
+        </div>
     </div>
-    <footer id="doc_footer" class="doc-container doc-section" style="background: #555;">
+    <footer id="doc_footer" class="doc-container doc-section">
         <div>
             <a href="docs/about/index.html">关于我们</a> |
             <a href="docs/about/license.html">开源协议</a> |
