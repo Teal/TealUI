@@ -19,6 +19,12 @@
             └── docs/
     </pre>
 
+    <pre>
+var a = 2;
+debugger
+a += 54;
+</pre>
+
     <h2>HTML5 文档类型</h2>
     <p>TealUI 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。在你项目中的每个页面都要参照下面的格式进行设置。</p>
     <pre>
@@ -32,7 +38,7 @@
     <p>TealUI 是移动设备优先的。所有样式优先考虑手机使用，并为电脑增加补充代码。</p>
     <p>为了确保适当的绘制和触屏缩放，需要在 <code>&lt;head&gt;</code> 之中<strong>添加 viewport 元数据标签</strong>。</p>
     <pre>
-        &lt;meta name="viewport" content="width=device-width, initial-scale=1">
+        &lt;meta name="viewport" content="<b>width</b>=device-width, initial-scale=1">
     </pre>
     <p>在移动设备浏览器上，通过为视口（viewport）设置 meta 属性为 user-scalable=no 可以禁用其缩放（zooming）功能。这样禁用缩放功能后，用户只能滚动屏幕，就能让你的网站看上去更像原生应用的感觉。注意，这种方式我们并不推荐所有网站使用，还是要看你自己的情况而定！</p>
     <pre>
