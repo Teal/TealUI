@@ -362,6 +362,10 @@
     .doc-demo + .doc-code-toolbar, .doc-demo + .doc-code, .doc-demo + .doc-code-toolbar + .doc-code {
         margin-top: -15px;
     }
+    
+    script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-demo + .doc-code-toolbar + .doc-code {
+        margin-top: 0;
+    }
 
 /* 示例框 */
 .doc-box, .doc-box-small, .doc-box-large {
@@ -710,16 +714,23 @@ a#doc_logo {
 #doc_module_toolbar a {
     margin-left: 2em;
     opacity: .75;
-}
-
-#doc_module_toolbar_download {
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAKlBMVEVjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P7ZNUtAAAADXRSTlMA6Mbxa8L2rSvzBIJPm8f3YgAAAERJREFUeF6FxbENQFAABcArJERnECNILGIDhRGsobOH3gBE+XaRX6hdc9Dh/yrJiHbKs8OZGdRZQLOtuDjoy8pDivv7BerNF+mHBzBCAAAAAElFTkSuQmCC') no-repeat 0 50%;
     padding-left: 18px;
 }
 
 #doc_module_toolbar_fullscreen {
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJ1BMVEVjY2P///9jY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2OKj4peAAAADHRSTlMAABAw0PDPIECgwO8MMbvGAAAAV0lEQVR4Xj3OsQ2AQAiF4Xc0xoRCY+woL9YOcgM4hFs5ghNQXMdQBnL4V1/1AOsIC5un2BieYk8IUzMLoCamxDFA99UCcz9rgB5QIHfyhCAqEPPe8r/xAX2ZIpwsjefxAAAAAElFTkSuQmCC') no-repeat 0 50%;
-    padding-left: 20px;
+}
+
+#doc_module_toolbar_favorite {
+    background: url('web/images/1435991132_common_star_favorite_bookmark.png') no-repeat 0 50%;
+}
+
+    #doc_module_toolbar_favorite.doc-actived {
+        background-image: url('web/images/1435991150_common_star_favorite_bookmark_.png');
+    }
+
+#doc_module_toolbar_download {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOBAMAAADtZjDiAAAAKlBMVEVjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P7ZNUtAAAADXRSTlMA6Mbxa8L2rSvzBIJPm8f3YgAAAERJREFUeF6FxbENQFAABcArJERnECNILGIDhRGsobOH3gBE+XaRX6hdc9Dh/yrJiHbKs8OZGdRZQLOtuDjoy8pDivv7BerNF+mHBzBCAAAAAElFTkSuQmCC') no-repeat 0 50%;
 }
 
 #doc_pager {
