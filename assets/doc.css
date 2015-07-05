@@ -362,10 +362,10 @@
     .doc-demo + .doc-code-toolbar, .doc-demo + .doc-code, .doc-demo + .doc-code-toolbar + .doc-code {
         margin-top: -15px;
     }
-    
-    script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-demo + .doc-code-toolbar + .doc-code {
-        margin-top: 0;
-    }
+
+script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-demo + .doc-code-toolbar + .doc-code {
+    margin-top: 0;
+}
 
 /* 示例框 */
 .doc-box, .doc-box-small, .doc-box-large {
@@ -651,7 +651,7 @@ a#doc_logo {
 #doc_sidebar {
     border-right: 1px solid #dadada;
     width: 182px; /* 14px * 13 */
-    left: -183px;
+    left: 14px;
     position: fixed;
     -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
     z-index: 10002;
@@ -869,7 +869,7 @@ a#doc_pager_up {
 
     #doc_sidebar {
         position: absolute;
-        left: 14px;
+        left: -183px;
         bottom: auto;
     }
 

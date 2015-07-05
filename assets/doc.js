@@ -566,7 +566,7 @@ Doc.SyntaxHighligher = (function () {
          * 表示源码中， 位置n-1 到 位置n 之间应用样式n-1
          */
         createBrush: function (stylePatterns) {
-            
+
             (function () {
                 var shortcuts = {},
                 tokenizer, stylePatternsStart = 0,
@@ -1679,13 +1679,12 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (!pre) {
                 pre = document.createElement('pre');
                 node.parentNode.insertBefore(pre, node.nextSibling);
-                pre.textContent = Doc.SyntaxHighligher.removeLeadingWhiteSpaces(content);
             }
 
             // 插入代码域。
             Doc.Dom.addClass(pre, 'doc');
             Doc.Dom.addClass(pre, 'doc-code');
-           // pre.textContent = Doc.SyntaxHighligher.removeLeadingWhiteSpaces(content);
+            pre.textContent = Doc.SyntaxHighligher.removeLeadingWhiteSpaces(content);
 
             // 插入工具条。
             var aside = document.createElement('aside'), button;
@@ -1866,6 +1865,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     };
 
     /**
+     * 载入列表数据。
+     */
+    Doc.initList = function (list) {
+        Doc.list = list;
+    };
+
+    /**
      * 负责生成页面导航。
      */
     Doc.Page = {
@@ -1934,16 +1940,11 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             // #region 初始化配置
 
-            // 判断当前运行的框架。
-            Doc.frame = (/[?&]frame=([^&]*)/i.exec(location.search) || [])[1] || document.documentElement.getAttribute("data-frame") || '';
-
-            // 如果页面框架设置为无，则不再继续处理。
-            if (Doc.frame == 'none') {
-                return;
-            }
-
             // 判断当前开发系统是否在本地运行。
             Doc.local = location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1';
+
+            // 判断当前运行的框架。
+            Doc.frame = (/[?&]frame=([^&]*)/i.exec(location.search) || [])[1] || document.documentElement.getAttribute("data-frame") || '';
 
             // 获取当前 doc.js 所在路径。
             var docJsPath = document.getElementsByTagName("script");
@@ -1977,6 +1978,11 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             // 如果当前页面不是独立的页面。
             if (Doc.frame != "page") {
+
+                // 如果页面框架设置为无，则不再继续处理。
+                if (Doc.frame == 'none') {
+                    return;
+                }
 
                 // 载入 CSS 样式。
                 var html = '<link type="text/css" rel="stylesheet" href="' + docJsPath.replace(/\.js\b/, '.css') + '" />';
@@ -2027,7 +2033,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     html += Doc.Utility.parseTpl(Doc.Page.header, data);
 
                     // 载入列表。
-                    Doc.Dom.loadScript(Doc.basePath + Doc.Configs.listsPath + '/' + Doc.Configs.folders[Doc.folder].path + '.js');
+                    Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath);
 
                     // 生成底部。
                     Doc.Dom.ready(function () {
@@ -2059,6 +2065,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     });
 
                 } else if (!document.body) {
+                    // 确保 document.body 已生成。
                     html += '<div/>';
                 }
 
@@ -2132,8 +2139,108 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             suggest.style.display = '';
         },
 
-        updateSuggest: function () {
+        /**
+         * 更新指定的模块列表。
+         */
+        updateModuleList: function (elem, filter, includeHeader) {
+            if (!Doc.list) {
+                Doc.list = {};
+                return Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, function () {
+                    Doc.Page.updateModuleList(elem, filter, includeHeader);
+                });
+            }
 
+            // 对指定内容进行过滤并高亮。
+            // applyFilter("你好棒", "ni hao bang".split(' '), "好棒"); // haobang
+            function applyFilter(value, valuePinYinArray, filterLowerCased) {
+
+                // 先根据字符匹配。
+                var matchIndex = value.toLowerCase().indexOf(filterLowerCased),
+                    matchCount = filterLowerCased.length,
+                    i, j, vi, fi;
+
+                // 然后尝试匹配拼音。
+                if (matchIndex < 0 && valuePinYinArray) {
+                    // 逐个验证拼音匹配当前字符。
+                    vp: for (i = 0; i < valuePinYinArray.length; i++) {
+                        fi = matchCount = 0;
+                        // 验证  matchIndex, matchCount 是否刚好匹配过滤器。
+                        for (j = i; j < valuePinYinArray.length; j++) {
+                            matchCount++;
+
+                            // 搜索当前拼音和指定过滤字符串的相同前缀部分。
+                            for (vi = 0; vi < valuePinYinArray[j].length && fi < filterLowerCased.length && valuePinYinArray[j].charAt(vi) === filterLowerCased.charAt(fi) ; vi++, fi++);
+
+                            // 如果已经到达 filter 末尾，则查找完成。
+                            if (fi >= filterLowerCased.length) {
+                                matchIndex = i;
+                                break vp;
+                            }
+
+                            // 当前拼音无匹配结果，说明整个拼音不符合。
+                            if (vi < 1) {
+                                break;
+                            }
+
+                        }
+
+                    }
+                }
+
+                return matchIndex < 0 ? value : value.substr(0, matchIndex) + '<span class="doc-red">' + value.substr(matchIndex, matchCount) + '</span>' + applyFilter(value.substr(matchIndex + matchCount), valuePinYinArray && valuePinYinArray.slice(matchIndex + matchCount), filterLowerCased);
+            }
+
+            filter = filter && filter.toLowerCase();
+
+            var segments = ['<dl>'], item, args = {};
+            for (path in Doc.list) {
+                item = Doc.list[path];
+                if (!item.level || includeHeader) {
+
+                    args.title = item.title;
+                    args.path = path;
+
+                    // 应用过滤高亮。
+                    if (filter) {
+                        // 过滤时忽略标题。
+                        if (item.level) {
+                            continue;
+                        }
+                        args.title = applyFilter(item.title, item.titlePinYin, filter);
+                        args.path = applyFilter(path, null, filter);
+                        if (args.title.length === item.title.length && args.path.length === path.length && (!item.keywords || applyFilter(item.keywords, item.keywordsPinYin, filter).length === item.keywords.length)) {
+                            continue;
+                        }
+                    }
+
+                    args.url = Doc.baseUrl + item.path;
+                    args.level = item.level;
+                    args.status = (item.status || 'done') + (item.path === Doc.path ? ' doc-list-actived' : '');
+
+                    segments.push(Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}">{title} <small>{path}</small></dt>' : '<dd class="doc-list-{status}"><a href="{url}">{title} <small>{path}</small></a></dd>', args));
+
+                }
+            }
+            segments.push('</dl>');
+
+            elem.innerHTML = segments.length < 3 ? '<small>找不到符合要求的组件</small>' : segments.join('');
+        },
+
+        /**
+         * 移动指定模块列表的高亮项。
+         */
+        moveActivedItem: function (elem, up) {
+
+        },
+
+        /**
+         * 跳转到模块列表的高亮项。
+         */
+        gotoActivedItem: function (elem) {
+            var link = document.querySelector('#doc_list .doc-actived');
+            if (link) {
+                location.href = link.firstChild.href;
+            }
         },
 
         onFilterKeyPress: function (event) {
