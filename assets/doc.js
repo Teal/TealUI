@@ -687,14 +687,12 @@ Doc.SyntaxHighligher = (function () {
         },
 
         /**
-         * 根据源码猜测对应的刷子。
+         * 根据源码推测其语音。
          * @param {String} sourceCode 需要高亮的源码。
          * @return {String} 返回一个语言名。
          */
         guessLanguage: function (sourceCode) {
-            // Treat it as markup if the first non whitespace character is a < and
-            // the last non-whitespace character is a >.
-            return /^\s*</.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s*\w|\w\(|\)\./.test(sourceCode) ? 'js' : 'default';
+            return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s+\w|\w\(|\)\./.test(sourceCode) ? 'js' : null;
         },
 
         /**
@@ -1689,7 +1687,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             // 插入工具条。
             var aside = document.createElement('aside'), button;
             aside.className = 'doc-code-toolbar doc-section';
-            aside.innerHTML = (language == 'js' || (language == 'html' && node.tagName !== 'SCRIPT') ? '<a href="javascript://执行本代码" title="执行本代码">执行</a>' : '') + '<a href="javascript://编辑本代码" title="编辑本代码">编辑</a><a href="javascript://全选并复制本源码" title="全选并复制本源码">全选</a>';
+            aside.innerHTML = (language == 'js' || (language == 'html' && node.tagName !== 'SCRIPT' && node !== pre) ? '<a href="javascript://执行本代码" title="执行本代码">执行</a>' : '') + '<a href="javascript://编辑本代码" title="编辑本代码">编辑</a><a href="javascript://全选并复制本源码" title="全选并复制本源码">全选</a>';
             pre.parentNode.insertBefore(aside, pre);
 
             // 全选复制按钮。
@@ -1704,7 +1702,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             };
 
             // 检测flash 复制。
-            if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
+            if (0 && location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
                 button.innerHTML = '复制';
                 var timer;
                 button.onmouseover = function () {
@@ -1772,7 +1770,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     this.innerHTML = '编辑';
                     this.title = '编辑本代码';
                     pre.contentEditable = false;
-                    execHtml(pre.textContent);
+                    this.previousSibling && this.previousSibling.click();
                     Doc.SyntaxHighligher.one(pre, language);
                 } else {
                     this.innerHTML = '完成';
@@ -1869,6 +1867,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.initList = function (list) {
         Doc.list = list;
+        Doc.Page.updateModuleList(document.getElementById('doc_sidebar_list'), 'demos', '', true);
     };
 
     /**
@@ -1883,7 +1882,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <a href="{baseUrl}{indexUrl}" id="doc_logo">TealUI <small>{version}</small></a>\
                     <span id="doc_menu" class="doc-right">\
-                        <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.showSidebar();" ontouchstart="this.click(); return false;" />\
+                        <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.toggleSidebar();" ontouchstart="this.click(); return false;" />\
                         <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />\
                     </span>\
                     <ul id="doc_navbar">\
@@ -1902,15 +1901,15 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <p>{current:pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{current:pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
-                    <div id="doc_list" class="doc-section"></div>\
+                    <input type="search" class="doc-section" id="doc_sidebar_filter" placeholder=" 🔍 搜索{current:pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
+                    <dl id="doc_sidebar_list" class="doc-section doc-list"><dt class=doc-list-header-2>你好</dt><dt class=doc-list-header-1>你好</dt><dd><a href="###">你好 <small>aa</small></a></dd></dl>\
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
+                <div id="doc_progress"></div>\
                 <nav id="doc_pager" class="doc-section">\
                     <div><a accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
                     <div>\
                         <a accesskey="A" title="上一页(Alt{shift}+A)" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
-                        <a accesskey="S" title="{pageName}列表(Alt{shift}+S)" href="javascript:Doc.Page.toggleSidebar();" id="doc_pager_search">≡</a>\
                         <a accesskey="D" title="下一页(Alt+Shift+D)" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
                     </div>\
                 </nav>\
@@ -2100,6 +2099,68 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         // #region 页面交互
 
         /**
+         * 更新侧边布局。
+         */
+        updateSidebar: function (lazy) {
+
+            var sidebar = document.getElementById('doc_sidebar'),
+                list = document.getElementById('doc_sidebar_list'),
+                filter = document.getElementById('doc_sidebar_filter'),
+                header = document.getElementById('doc_header'),
+                footer = document.getElementById('doc_footer');
+
+            var bodyHeight = window.innerHeight;
+
+            var mainTop = header.getBoundingClientRect().bottom + Doc.Dom.computeStyle(header, 'marginBottom');
+            var mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0;
+
+            var listHeight;
+
+            // 如果正在显示局部。
+            if (/\bdoc-sidebar-actived\b/.test(sidebar.className)) {
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = 0;
+                listHeight = bodyHeight;
+            } else if (mainTop <= 0) {
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = 0;
+                listHeight = Math.min(bodyHeight, mainBottom);
+            } else {
+                sidebar.style.position = 'absolute';
+                sidebar.style.top = 'auto';
+                listHeight = bodyHeight - mainTop;
+            }
+
+            list.style.height = listHeight - filter.offsetHeight - Doc.Dom.computeStyle(filter, 'marginTop') - Doc.Dom.computeStyle(filter, 'marginBottom') + 'px';
+
+            // 将内容变的足够高。
+            if (mainBottom - mainTop < listHeight && sidebar.getBoundingClientRect().left >= 0) {
+                var div = document.createElement('div');
+                div.style.height = bodyHeight + 'px';
+                document.body.insertBefore(div, footer);
+            }
+
+            if (lazy !== true) {
+
+                // 更新返回顶部按钮。
+                document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
+
+                var contentHeight = mainBottom - mainTop - bodyHeight;
+
+                // 减去评论框的高度。
+                var thread = document.getElementById('ds-thread');
+                if (thread) {
+                    contentHeight -= thread.offsetHeight;
+                }
+
+                // 更新进度条位置。
+                document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
+
+            }
+
+        },
+
+        /**
          * 在手机模式切换显示导航条。
          */
         toggleNavbar: function () {
@@ -2121,32 +2182,62 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         },
 
-        showSidebar: function () {
-
+        /**
+         * 在手机模式切换侧边栏。
+         */
+        toggleSidebar: function () {
+            var sidebar = document.getElementById('doc_sidebar');
+            if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
+                Doc.Page.updateSidebar(true);
+                document.getElementById('doc_sidebar_filter').focus();
+            }
         },
 
-        hideSidebar: function () {
-
-        },
-
-        showSearchSuggest: function () {
-            var suggest = document.getElementById('doc_sidebar_suggest');
+        showSearchSuggest: function (filter) {
+            var suggest = document.getElementById('doc_search_suggest');
             if (!suggest) {
                 suggest = document.createElement('dl');
-                suggest.id = 'doc_sidebar_suggest';
+                suggest.id = 'doc_search_suggest';
                 suggest.className = 'doc-list';
+                document.getElementById('doc_search').appendChild(suggest);
             }
             suggest.style.display = '';
+            Doc.Page.updateModuleList(suggest, 'demos', filter, false);
+            Doc.Page.moveActivedItem(suggest);
+        },
+
+        hideSearchSuggest: function () {
+            var suggest = document.getElementById('doc_search_suggest');
+            if (suggest) {
+                setTimeout(function () {
+                    suggest.style.display = 'none';
+                }, 100);
+            }
+        },
+
+        onSuggestKeyPress: function (input, e) {
+            if (e.keyCode === 40 || e.keyCode === 38) {
+                e.preventDefault();
+                Doc.Page.moveActivedItem(document.getElementById('doc_search_suggest'), e.keyCode === 38);
+            }
+        },
+
+        onSuggestInput: function (input) {
+
+        },
+
+        onSuggestSubmit: function () {
+            // Doc.Page.gotoActivedItem(document.getElementById('doc_search_suggest'));
         },
 
         /**
          * 更新指定的模块列表。
          */
-        updateModuleList: function (elem, filter, includeHeader) {
+        updateModuleList: function (elem, listName, filter, includeHeader) {
             if (!Doc.list) {
                 Doc.list = {};
                 return Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, function () {
-                    Doc.Page.updateModuleList(elem, filter, includeHeader);
+                    Doc.Page.updateModuleList(elem, listName, filter, includeHeader);
                 });
             }
 
@@ -2192,9 +2283,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             filter = filter && filter.toLowerCase();
 
-            var segments = ['<dl>'], item, args = {};
-            for (path in Doc.list) {
-                item = Doc.list[path];
+            var segments = [], item, args = {};
+            for (path in Doc.list[listName]) {
+                item = Doc.list[listName][path];
                 if (!item.level || includeHeader) {
 
                     args.title = item.title;
@@ -2206,24 +2297,23 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         if (item.level) {
                             continue;
                         }
-                        args.title = applyFilter(item.title, item.titlePinYin, filter);
+                        args.title = applyFilter(item.title, item.titlePinYin && item.titlePinYin.split(' '), filter);
                         args.path = applyFilter(path, null, filter);
-                        if (args.title.length === item.title.length && args.path.length === path.length && (!item.keywords || applyFilter(item.keywords, item.keywordsPinYin, filter).length === item.keywords.length)) {
+                        if (args.title.length === item.title.length && args.path.length === path.length && (!item.keywords || applyFilter(item.keywords, item.keywordsPinYin && item.titlePinYin.split(/[, ]/), filter).length === item.keywords.length)) {
                             continue;
                         }
                     }
 
-                    args.url = Doc.baseUrl + item.path;
+                    args.url = Doc.baseUrl + path;
                     args.level = item.level;
-                    args.status = (item.status || 'done') + (item.path === Doc.path ? ' doc-list-actived' : '');
+                    args.status = (item.status || 'done') + (path === Doc.path ? ' doc-list-actived' : '');
 
                     segments.push(Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}">{title} <small>{path}</small></dt>' : '<dd class="doc-list-{status}"><a href="{url}">{title} <small>{path}</small></a></dd>', args));
 
                 }
             }
-            segments.push('</dl>');
 
-            elem.innerHTML = segments.length < 3 ? '<small>找不到符合要求的组件</small>' : segments.join('');
+            elem.innerHTML = segments.length ? segments.join('') : '<dd><small>无搜索结果</small></dd>';
         },
 
         /**
@@ -2285,12 +2375,12 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
         },
 
-        gotoActivedItem: function () {
-            var link = document.querySelector('#doc_list .doc-actived');
-            if (link) {
-                location.href = link.firstChild.href;
-            }
-        },
+        //gotoActivedItem: function () {
+        //    var link = document.querySelector('#doc_list .doc-actived');
+        //    if (link) {
+        //        location.href = link.firstChild.href;
+        //    }
+        //},
 
         gotoTop: function () {
             var srcollElement = document.documentElement;
@@ -2319,7 +2409,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         filterList: function () {
 
             // 获取过滤的关键字。
-            var filter = document.getElementById('doc_list_filter').value.trim().toLowerCase(),
+            var filter = document.getElementById('doc_sidebar_filter').value.trim().toLowerCase(),
                 filterRegExp = filter && new RegExp('(' + filter.replace(/([\-.*+?^${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
                 docList = document.getElementById('doc_list'),
                 nonHintText = docList.firstChild;
@@ -2504,22 +2594,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         /**
          * 载入列表完成后负责更新列表。
          */
-        initList: function (list) {
-            var html = '<small class="doc-list-hide">无搜索结果</small>';
-            html += '<dl>';
-            for (var i = 0; i < list.length ; i++) {
-                var itemI = list[i];
-                html += Doc.Utility.formatString('<dt data-title="{title}" data-name="{name}" data-title-pin-yin="{titlePinYin}">{title} <small>{name}</small></dt>', itemI);
-                for (var j = 0; j < (itemI.children && itemI.children.length) ; j++) {
-                    var itemJ = itemI.children[j];
-                    itemJ.activedClass = itemJ.path === Doc.path ? ' doc-actived' : '';
-                    itemJ.fullPath = Doc.basePath + Doc.Configs.folders[Doc.folder].path + '/' + itemJ.path;
-                    itemJ.status = itemJ.status || 'done';
-                    html += Doc.Utility.formatString('<dd data-title="{title}" data-name="{name}" data-tags="{tags}" data-title-pin-yin="{titlePinYin}" class="doc-list-{status}{activedClass}"><a href="{fullPath}">{title} <small>{name}</small></a></dd>', itemJ);
-                }
-            }
-            html += '</dl>';
-            document.getElementById('doc_list').innerHTML = html;
+        initSidebar: function () {
+          
 
             // 更新列表大小。
             Doc.Page.updateSidebar(true);
@@ -2535,80 +2611,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             if (localStorage.doc_listScrollTop) {
                 document.getElementById('doc_list').scrollTop = localStorage.doc_listScrollTop;
             }
-            Doc.Page.scrollActivedItemIntoView(true);
+          //  Doc.Page.scrollActivedItemIntoView(true);
         },
-
-        /**
-         * 更新侧边尺寸。
-         */
-        updateSidebar: function (lazy) {
-
-            var sidebar = document.getElementById('doc_sidebar');
-            var list = document.getElementById('doc_list');
-            var filter = document.getElementById('doc_list_filter');
-            var header = document.getElementById('doc_header');
-            var footer = document.getElementById('doc_footer');
-
-            var bodyHeight = window.innerHeight;
-
-            var mainTop = header.getBoundingClientRect().bottom + Doc.Dom.computeStyle(header, 'marginBottom');
-            var mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0;
-
-            var listHeight;
-
-            // 如果正在显示局部。
-            if (/\bdoc-sidebar-actived\b/.test(sidebar.className)) {
-                sidebar.style.position = 'fixed';
-                sidebar.style.top = 0;
-                listHeight = bodyHeight;
-            } else if (mainTop <= 0) {
-                sidebar.style.position = 'fixed';
-                sidebar.style.top = 0;
-                listHeight = Math.min(bodyHeight, mainBottom);
-            } else {
-                sidebar.style.position = 'absolute';
-                sidebar.style.top = 'auto';
-                listHeight = bodyHeight - mainTop;
-            }
-
-            list.style.height = listHeight - filter.offsetHeight - Doc.Dom.computeStyle(filter, 'marginTop') - Doc.Dom.computeStyle(filter, 'marginBottom') + 'px';
-
-            // 将内容变的足够高。
-            if (mainBottom - mainTop < listHeight && sidebar.getBoundingClientRect().left >= 0) {
-                var div = document.createElement('div');
-                div.style.height = bodyHeight + 'px';
-                document.body.insertBefore(div, footer);
-            }
-
-            if (lazy !== true) {
-
-                // 更新返回顶部按钮。
-                document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
-
-                var contentHeight = mainBottom - mainTop - bodyHeight;
-
-                // 减去评论框的高度。
-                var thread = document.getElementById('ds-thread');
-                if (thread) {
-                    contentHeight -= thread.offsetHeight;
-                }
-
-                // 更新进度条位置。
-                document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
-
-            }
-
-        },
-
-        /**
-         * 切换侧边栏。
-         */
-        toggleSidebar: function () {
-            var sidebar = document.getElementById('doc_sidebar');
-            if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
-                Doc.Page.updateSidebar(true);
-            }
-        }
 
     };
 

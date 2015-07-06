@@ -129,6 +129,7 @@ article {
         font-size: 2em;
         margin: 1.5em 0 .5em;
         line-height: 150%;
+        color: #009688;
     }
 
     article > p {
@@ -140,6 +141,7 @@ article {
         font-weight: 500;
         margin: 0.5em 0;
         font-size: 18px;
+        color: #009688;
     }
 
     article img {
@@ -191,6 +193,7 @@ hr {
     }
 
     #features dt {
+        color: #009688;
         font-weight: 700;
     }
 

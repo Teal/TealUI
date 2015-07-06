@@ -432,7 +432,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <p>{pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <input type="search" id="doc_list_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
+                    <input type="search" id="doc_sidebar_filter" class="doc-section" placeholder=" 🔍 搜索{pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
                     <div id="doc_list" class="doc-section"></div>\
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
@@ -534,7 +534,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         filterList: function () {
 
             // 获取过滤的关键字。
-            var filter = document.getElementById('doc_list_filter').value.trim().toLowerCase(),
+            var filter = document.getElementById('doc_sidebar_filter').value.trim().toLowerCase(),
                 filterRegExp = filter && new RegExp('(' + filter.replace(/([\-.*+?^${}()|[\]\/\\])/g, '\\$1') + ')', 'ig'),
                 docList = document.getElementById('doc_list'),
                 nonHintText = docList.firstChild;
@@ -1105,7 +1105,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             
             var sidebar = document.getElementById('doc_sidebar');
             var list = document.getElementById('doc_list');
-            var filter = document.getElementById('doc_list_filter');
+            var filter = document.getElementById('doc_sidebar_filter');
             var header = document.getElementById('doc_header');
             var footer = document.getElementById('doc_footer');
 

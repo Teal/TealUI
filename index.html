@@ -26,7 +26,6 @@
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
         <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.showSidebar();" ontouchstart="this.click(); return false;" />
             <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />
         </span>
         <ul id="doc_navbar">
@@ -35,13 +34,9 @@
             <li><a href="tools/customize/index.html">下载和定制</a></li>
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
-        <form id="doc_search" class="doc-right">
-            <input type="text" placeholder="搜索组件..." onfocus="Doc.Page.showSearchSuggest()" />
+        <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit(); return false;">
+            <input type="text" placeholder="搜索组件..." onfocus="Doc.Page.showSearchSuggest(this.value)" onblur="Doc.Page.hideSearchSuggest()" oninput="Doc.Page.showSearchSuggest(this.value)" onkeydown="Doc.Page.onSuggestKeyPress(event)" />
             <input type="submit" value="🔍" />
-            <dl id="doc_sidebar_suggest" class="doc-list">
-                <dd><a href="###">listlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlistlist <small>core/type/asdsad</small></a></dd>
-                <dd><a href="###">list<small>core/type/asdsad</small></a></dd>
-            </dl>
         </form>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
@@ -88,14 +83,14 @@
                 <p>独创轻量组件化开发思路。所有组件可单独使用；无需写 JS 就能实现交互；精致组件底层构架更让组件用法统一、扩展方便。</p>
             </div>
             <div class="doc-col">
+                <img src="assets/web/images/moduler.png" width="200" />
+                <h3>功能齐全：不只是一个 UI 库</h3>
+                <p>300 个组件、4000 个 API、60000 行代码，覆盖前端多数需求。如 Cookie 处理、MD5 加密、模板引擎都能在库中找到。</p>
+            </div>
+            <div class="doc-col">
                 <img src="assets/web/images/localization.png" width="200" />
                 <h3>更懂国情：适合中文排版</h3>
                 <p>根据国内业务需要，提供城市选择、拼音汉字转换、身份证验证等特定组件；兼顾国内行情，为国产浏览器填坑。</p>
-            </div>
-            <div class="doc-col">
-                <img src="assets/web/images/moduler.png" width="200" />
-                <h3>功能齐全：不只是一个 UI 库</h3>
-                <p>300 个组件、4000 个 API、60000 行代码，覆盖前端多数需求。如 Cookie 处理、MD5 加密、模板引擎等功能函数都能在库中找到。</p>
             </div>
         </div>
     </article>
