@@ -6,8 +6,8 @@
             titlePinYin: "guang yu",
             keywords: "对话框,口罩",
         },
-        "about/index.html": {
-            title: "关于",
+        "utility/text/md5.html": {
+            title: "Md5",
             titlePinYin: "guan yu",
             level: 0
         },

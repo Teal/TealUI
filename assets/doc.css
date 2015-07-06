@@ -538,7 +538,7 @@ a#doc_logo {
             border: 0;
             margin: 2px;
             width: 30px;
-            text-indent: -3em;
+            text-indent: -4em;
             background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAMJJREFUOI3N0CFOA0EUxvFfW0FC6loBF8HALVYhN81eAIPdC5AKsgfgCiSkpqK+AlHRpBIQrMW2SRE7otkM7MJW9FNv5pvvP+89Tk0jFCixwwrZX8IbfOAetwG2xWMbQBHCF7X7BHtcNwHK8HNMr5jGjP5BPcLbD4B3jJsAa9xE3pzhKvi/KlMtLKmFn/CFyyYA1bb3qpmf8RnCS9zFAoPaeYY5zoP3gknwHtDDok0nMeWhu/y/gENI2gWSYtgFcFx9A1efJEK+bJooAAAAAElFTkSuQmCC') no-repeat 50% 50%;
         }
 
@@ -565,13 +565,13 @@ a#doc_logo {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        padding: 0 7px;
+        padding: 0 7px !important;
         text-decoration: none;
         color: #616161 !important;
         line-height: 30px;
     }
 
-        .doc-list a:hover, .doc-list .doc-list-selected a {
+        .doc-list a:hover, .doc-list .doc-list-actived a {
             background-color: #e8e8e8 !important;
             text-decoration: none;
         }
@@ -590,6 +590,10 @@ a#doc_logo {
         padding: 0 7px;
     }
 
+    .doc-list small {
+        padding: 0 6px;
+    }
+
 .doc-list-doing a, .doc-list-todo a {
     color: #AAA !important;
     font-style: italic;
@@ -600,6 +604,7 @@ a#doc_logo {
     max-height: 300px;
     position: absolute;
     right: 0;
+    z-index: 10;
 }
 
 /* 头部 */
@@ -636,21 +641,37 @@ a#doc_logo {
 }
 
 #doc_sidebar_filter {
-    width: 92.3076923%; /* 14px / (14px * 14) */
-    line-height: 150%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 4px 5px;
-    border: 0;
-    border-bottom: 1px solid #dadada;
-    background: none;
-    outline: 0;
-    -webkit-appearance: none;
+    padding-right: 14px;
+    padding-bottom: .3em;
 }
 
-    #doc_sidebar_filter:hover, #doc_sidebar_filter:focus {
-        border-bottom-color: #009688;
+    #doc_sidebar_filter input {
+        width: 100%;
+        line-height: 150%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 4px 4px 4px 20px;
+        border: 0;
+        border-bottom: 1px solid #dadada;
+        background: none;
+        outline: 0;
+        -webkit-appearance: none;
+        background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAAMJJREFUOI3N0CFOA0EUxvFfW0FC6loBF8HALVYhN81eAIPdC5AKsgfgCiSkpqK+AlHRpBIQrMW2SRE7otkM7MJW9FNv5pvvP+89Tk0jFCixwwrZX8IbfOAetwG2xWMbQBHCF7X7BHtcNwHK8HNMr5jGjP5BPcLbD4B3jJsAa9xE3pzhKvi/KlMtLKmFn/CFyyYA1bb3qpmf8RnCS9zFAoPaeYY5zoP3gknwHtDDok0nMeWhu/y/gENI2gWSYtgFcFx9A1efJEK+bJooAAAAAElFTkSuQmCC') no-repeat 2px 50%;
+    }
+
+        #doc_sidebar_filter input:hover, #doc_sidebar_filter input:focus {
+            border-bottom-color: #009688;
+        }
+
+.doc-sidebar-hidescrollbar {
+    overflow-y: hidden;
+}
+
+    .doc-sidebar-hidescrollbar:hover {
+        overflow-y: scroll;
+        /* Chrome 需要此属性导致重绘 */
+        padding-right: 0.1px;
     }
 
 /* 主体 */
@@ -760,14 +781,6 @@ a#doc_pager_up {
     #doc_sidebar {
         left: 160px;
     }
-
-    #doc_sidebar_list {
-        overflow: hidden;
-    }
-
-        #doc_sidebar_list:hover {
-            overflow: auto;
-        }
 }
 
 @media (min-width: 1600px) {
@@ -847,7 +860,7 @@ a#doc_pager_up {
             }
 
     #doc_menu_search {
-        text-indent: -3em;
+        text-indent: -4em;
         background: transparent url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAV1BMVEXs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Oxzuz0oAAAAHHRSTlMABgkMDxIVGB4hJEVIUVRdY291zNLY297h5Or5bbJnMQAAAG5JREFUeF6dzssOgkAMRuFOdVRQEYbfC3De/zmNZTaz9WyafGmamplPM8yTW+0iInUWJfG8HfPwRimg8Dr8Zl4oAeJq0YBibqQdTmwtnCuI+w4jqkc/ORbWetTF8uj6cQVvHwNsz4tAxUOa/hT7AjmFCQJO7ymSAAAAAElFTkSuQmCC') no-repeat 50% 52% !important;
     }
 
@@ -867,7 +880,7 @@ a#doc_pager_up {
         transition: left .3s ease-out;
     }
 
-    #doc_sidebar_filter {
+    #doc_sidebar_filter input {
         width: 100%;
     }
 

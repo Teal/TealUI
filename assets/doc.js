@@ -490,6 +490,8 @@ Doc.SyntaxHighligher = {
 
 };
 
+//#endregion
+
 // #region 代码高亮
 
 /**
@@ -1520,6 +1522,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         isOldIE: !+"\v1",
 
         /**
+         * 判断当前环境是否是触摸屏环境。
+         */
+        isTouch: function () {
+            return window.TouchEvent && screen.width <= 1024;
+        },
+
+        /**
          * 为 IE 浏览器提供特殊处理。
          */
         fixBrowser: function () {
@@ -1593,7 +1602,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         /**
          * 计算指定节点的当前样式。
          */
-        computeStyle: function (node, cssName) {
+        getStyle: function (node, cssName) {
             return parseFloat(getComputedStyle(node, null)[cssName]);
         },
 
@@ -1867,7 +1876,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.initList = function (list) {
         Doc.list = list;
-        Doc.Page.updateModuleList(document.getElementById('doc_sidebar_list'), 'demos', '', true);
     };
 
     /**
@@ -1877,7 +1885,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         // #region 页面初始化
 
-        titlePostfix: ' - TealUI | 轻量但完整的前端开源代码库',
+        titlePostfix: ' - TealUI | 最完整的前端开源代码库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <a href="{baseUrl}{indexUrl}" id="doc_logo">TealUI <small>{version}</small></a>\
@@ -1891,8 +1899,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         <li{actived:tools/customize}><a href="{baseUrl}{folder:tools}/customize/{indexUrl}">下载和定制</a></li>\
                         <li{actived:tools/devTools}><a href="{baseUrl}{folder:tools}/devTools/{indexUrl}">开发者工具</a></li>\
                     </ul>\
-                    <form id="doc_search" class="doc-right">\
-                        <input type="text" placeholder="搜索组件..." value="{search}" />\
+                    <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
+                        <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.Page.showSearchSuggest(this.value)" oninput="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_search_suggest\', event)" />\
                         <input type="submit" value="🔍" />\
                     </form>\
                 </nav>\
@@ -1901,8 +1909,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <p>{current:pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <input type="search" class="doc-section" id="doc_sidebar_filter" placeholder=" 🔍 搜索{current:pageName}..." onkeydown="Doc.Page.onFilterKeyPress(event)" autocomplete="off" onchange="Doc.Page.filterList()" oninput="Doc.Page.filterList()" />\
-                    <dl id="doc_sidebar_list" class="doc-section doc-list"><dt class=doc-list-header-2>你好</dt><dt class=doc-list-header-1>你好</dt><dd><a href="###">你好 <small>aa</small></a></dd></dl>\
+                    <form id="doc_sidebar_filter" onsubmit="Doc.Page.onSuggestSubmit(\'doc_sidebar_list\'); return false;">\
+                        <input type="search" class="doc-section" placeholder="搜索{current:pageName}..."  autocomplete="off" oninput="Doc.Page.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onchange="Doc.Page.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_sidebar_list\', event)" />\
+                    </form>\
+                    <dl id="doc_sidebar_list" class="doc-section doc-list"><dd><small>正在载入列表...</small></dd></dl>\
                 </aside>\
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
                 <div id="doc_progress"></div>\
@@ -2032,7 +2042,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     html += Doc.Utility.parseTpl(Doc.Page.header, data);
 
                     // 载入列表。
-                    Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath);
+                    Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, Doc.Page.initSidebar);
 
                     // 生成底部。
                     Doc.Dom.ready(function () {
@@ -2109,14 +2119,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 header = document.getElementById('doc_header'),
                 footer = document.getElementById('doc_footer');
 
-            var bodyHeight = window.innerHeight;
-
-            var mainTop = header.getBoundingClientRect().bottom + Doc.Dom.computeStyle(header, 'marginBottom');
-            var mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0;
+            var bodyHeight = window.innerHeight,
+                mainTop = header.getBoundingClientRect().bottom + Doc.Dom.getStyle(header, 'marginBottom'),
+                mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0;
 
             var listHeight;
 
-            // 如果正在显示局部。
+            // 如果侧边栏已折叠。
             if (/\bdoc-sidebar-actived\b/.test(sidebar.className)) {
                 sidebar.style.position = 'fixed';
                 sidebar.style.top = 0;
@@ -2131,7 +2140,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 listHeight = bodyHeight - mainTop;
             }
 
-            list.style.height = listHeight - filter.offsetHeight - Doc.Dom.computeStyle(filter, 'marginTop') - Doc.Dom.computeStyle(filter, 'marginBottom') + 'px';
+            list.style.height = listHeight - filter.offsetHeight + 'px';
 
             // 将内容变的足够高。
             if (mainBottom - mainTop < listHeight && sidebar.getBoundingClientRect().left >= 0) {
@@ -2158,6 +2167,37 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             }
 
+        },
+
+        /**
+         * 加载完成列表后初始化侧边栏。
+         */
+        initSidebar: function () {
+
+            var list = document.getElementById('doc_sidebar_list');
+
+            if (!Doc.Dom.isTouch()) {
+                list.className += ' doc-sidebar-hidescrollbar';
+            }
+
+            // 更新列表项。
+            Doc.Page.updateModuleList(list, Doc.folder, '', true);
+
+            // 滚动和重置大小后实时更新。
+            window.addEventListener('resize', Doc.Page.updateSidebar, false);
+            window.addEventListener('scroll', Doc.Page.updateSidebar, false);
+
+            // 更新列表大小。
+            Doc.Page.updateSidebar();
+
+            // 绑定列表滚动大小。
+            list.addEventListener('scroll', function () {
+                localStorage.doc_listScrollTop = document.getElementById('doc_sidebar_list').scrollTop;
+            }, false);
+            if (localStorage.doc_listScrollTop) {
+                list.scrollTop = localStorage.doc_listScrollTop;
+            }
+            Doc.Page.scrollActivedItemIntoView(true);
         },
 
         /**
@@ -2214,19 +2254,18 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
         },
 
-        onSuggestKeyPress: function (input, e) {
-            if (e.keyCode === 40 || e.keyCode === 38) {
-                e.preventDefault();
-                Doc.Page.moveActivedItem(document.getElementById('doc_search_suggest'), e.keyCode === 38);
+        /**
+         * 跳转到模块列表的高亮项。
+         */
+        onSuggestSubmit: function (suggestId) {
+            var link = document.getElementById(suggestId).querySelector('.doc-list-actived a');
+            if (link) {
+                location.href = link.href;
             }
         },
 
-        onSuggestInput: function (input) {
-
-        },
-
-        onSuggestSubmit: function () {
-            // Doc.Page.gotoActivedItem(document.getElementById('doc_search_suggest'));
+        onSuggestInput: function (suggestId, filter, includeHeader) {
+            Doc.Page.updateModuleList(document.getElementById(suggestId), includeHeader ? Doc.folder : 'demos', filter, includeHeader);
         },
 
         /**
@@ -2234,6 +2273,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          */
         updateModuleList: function (elem, listName, filter, includeHeader) {
             if (!Doc.list) {
+                elem.innerHTML = '<dd><small>正在加载组件列表...</small></dd>';
                 Doc.list = {};
                 return Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, function () {
                     Doc.Page.updateModuleList(elem, listName, filter, includeHeader);
@@ -2280,7 +2320,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 return matchIndex < 0 ? value : value.substr(0, matchIndex) + '<span class="doc-red">' + value.substr(matchIndex, matchCount) + '</span>' + applyFilter(value.substr(matchIndex + matchCount), valuePinYinArray && valuePinYinArray.slice(matchIndex + matchCount), filterLowerCased);
             }
 
-            filter = filter && filter.toLowerCase();
+            filter = filter && filter.toLowerCase().replace(/\s+/, "");
 
             var segments = [], item, args = {};
             for (path in Doc.list[listName]) {
@@ -2303,9 +2343,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         }
                     }
 
-                    args.url = Doc.baseUrl + path;
+                    args.url = Doc.baseUrl + Doc.Configs.folders[listName].path + '/' + path;
                     args.level = item.level;
-                    args.status = (item.status || 'done') + (path === Doc.path ? ' doc-list-actived' : '');
+                    args.status = (item.status || 'done') + (path.toLowerCase() === Doc.path.toLowerCase() ? ' doc-list-actived' : '');
 
                     segments.push(Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}">{title} <small>{path}</small></dt>' : '<dd class="doc-list-{status}"><a href="{url}">{title} <small>{path}</small></a></dd>', args));
 
@@ -2315,52 +2355,35 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             elem.innerHTML = segments.length ? segments.join('') : '<dd><small>无搜索结果</small></dd>';
         },
 
+        onSuggestKeyPress: function (suggestId, e) {
+            if (e.keyCode === 40 || e.keyCode === 38) {
+                e.preventDefault();
+                Doc.Page.moveActivedItem(document.getElementById(suggestId), e.keyCode === 38);
+            }
+        },
+
         /**
          * 移动指定模块列表的高亮项。
          */
         moveActivedItem: function (elem, up) {
-
+            var actived = elem.querySelector('.doc-list-actived'),
+                ddList = elem.querySelectorAll('dd');
+            if (!ddList[0] || ddList[0].firstChild.tagName !== 'A') {
+                return;
+            }
+            if (!actived) {
+                ddList[0].className = 'doc-list-actived';
+                return;
+            }
+            actived.className = '';
+            ddList = Array.prototype.slice.call(ddList, 0);
+            var index = ddList.indexOf(actived) + (up ? -1 : 1);
+            ddList[index < 0 ? ddList.length - 1 : index >= ddList.length ? 0 : index].className = 'doc-list-actived';
+            Doc.Page.scrollActivedItemIntoView(up);
         },
 
-        /**
-         * 跳转到模块列表的高亮项。
-         */
-        gotoActivedItem: function (elem) {
-            var link = document.querySelector('#doc_list .doc-actived');
-            if (link) {
-                location.href = link.firstChild.href;
-            }
-        },
-
-        onFilterKeyPress: function (event) {
-            var keyCode = event.keyCode;
-            if (keyCode === 40 || keyCode === 38) {
-                event.preventDefault();
-                Doc.Page.moveListActivedItem(keyCode === 38);
-            } else if (keyCode === 13 || keyCode === 10) {
-                Doc.Page.gotoActivedItem();
-            }
-        },
-
-        moveListActivedItem: function (up) {
-            var dds = [];
-            Doc.Dom.each('#doc_list dd', function (node) {
-                if (!node.firstChild.className) {
-                    dds.push(node);
-                }
-            });
-            var link = document.querySelector('#doc_list .doc-actived');
-            if (link) {
-                link.className = '';
-            }
-            var index = link ? dds.indexOf(link) : -1;
-            if (link = index >= 0 && dds[index + (up ? -1 : 1)] || dds[up ? dds.length - 1 : 0]) {
-                link.className = 'doc-actived';
-                Doc.Page.scrollActivedItemIntoView(up);
-            }
-        },
-
-        scrollActivedItemIntoView: function (up) {
+        scrollActivedItemIntoView: function (elem, up) {
+            return;
             var link = document.querySelector('#doc_list .doc-actived');
             if (link) {
                 var offsetTop = link.offsetTop,
@@ -2373,13 +2396,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 }
             }
         },
-
-        //gotoActivedItem: function () {
-        //    var link = document.querySelector('#doc_list .doc-actived');
-        //    if (link) {
-        //        location.href = link.firstChild.href;
-        //    }
-        //},
 
         gotoTop: function () {
             var srcollElement = document.documentElement;
@@ -2588,29 +2604,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 }
             };
 
-        },
-
-        /**
-         * 载入列表完成后负责更新列表。
-         */
-        initSidebar: function () {
-          
-
-            // 更新列表大小。
-            Doc.Page.updateSidebar(true);
-
-            // 实现边栏菜单固定位置显示。
-            window.addEventListener('resize', Doc.Page.updateSidebar, false);
-            window.addEventListener('scroll', Doc.Page.updateSidebar, false);
-
-            // 绑定列表滚动大小。
-            document.getElementById('doc_list').addEventListener('scroll', function () {
-                localStorage.doc_listScrollTop = document.getElementById('doc_list').scrollTop;
-            }, false);
-            if (localStorage.doc_listScrollTop) {
-                document.getElementById('doc_list').scrollTop = localStorage.doc_listScrollTop;
-            }
-          //  Doc.Page.scrollActivedItemIntoView(true);
         },
 
     };
