@@ -2189,7 +2189,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var sidebar = document.getElementById('doc_sidebar');
             if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
                 Doc.Page.updateSidebar(true);
-                document.getElementById('doc_sidebar_filter').focus();
             }
         },
 

@@ -633,10 +633,6 @@ a#doc_logo {
     position: absolute;
     -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
     background: #fff;
-    -moz-transition: left .3s ease-out;
-    -o-transition: left .3s ease-out;
-    -webkit-transition: left .3s ease-out;
-    transition: left .3s ease-out;
 }
 
 #doc_sidebar_filter {
@@ -769,9 +765,9 @@ a#doc_pager_up {
         overflow: hidden;
     }
 
-    #doc_sidebar_list:hover {
-        overflow: auto;
-    }
+        #doc_sidebar_list:hover {
+            overflow: auto;
+        }
 }
 
 @media (min-width: 1600px) {
@@ -865,6 +861,10 @@ a#doc_pager_up {
     .doc-sidebar-actived {
         padding-left: 1px;
         left: 0 !important;
+        -moz-transition: left .3s ease-out;
+        -o-transition: left .3s ease-out;
+        -webkit-transition: left .3s ease-out;
+        transition: left .3s ease-out;
     }
 
     #doc_sidebar_filter {
