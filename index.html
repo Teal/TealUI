@@ -35,7 +35,7 @@
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
         <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit('doc_sidebar_list'); return false;">
-            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.Page.showSearchSuggest(this.value)" oninput="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onchange="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress('doc_sidebar_list', event)" />
+            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.Page.showSearchSuggest(this.value)" oninput="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onchange="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress('doc_sidebar_list', ev>ent)" />
             <input type="submit" value="🔍" />
         </form>
     </nav>
@@ -79,8 +79,8 @@
         <div class="doc-row doc-row-3">
             <div class="doc-col">
                 <img src="assets/web/images/struct.png" width="200" />
-                <h3>轻量组件化思路</h3>
-                <p>独创轻量组件化开发思路。所有组件可单独使用；无需写 JS 就能实现交互；精致组件底层构架更让组件用法统一、扩展方便。</p>
+                <h3>轻量组件化</h3>
+                <p>独创轻量组件化开发思路可让组件独立使用；不写 JS 实现交互功能；精致组件底层构架更让组件用法统一、扩展方便。</p>
             </div>
             <div class="doc-col">
                 <img src="assets/web/images/moduler.png" width="200" />

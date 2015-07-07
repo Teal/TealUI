@@ -198,12 +198,12 @@
 }
 
 .doc-section a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > table a, .doc > blockquote a {
-    color: #337ab7;
+    color: #009688;
     text-decoration: none;
 }
 
     .doc-section a:hover, .doc > p a:hover, .doc > ul a:hover, .doc > ol a:hover, .doc > dl a:hover, .doc > table a:hover, .doc > blockquote a:hover {
-        color: #23527c;
+        color: #00796B;
         text-decoration: underline;
     }
 
@@ -429,12 +429,10 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
 
 /* 文档和容器 */
 .doc-page {
-    margin: 0;
-    /* 防止页面之间跳转由于滚动条变化所导致的抖动 */
-    overflow-y: scroll;
     /* 统一浏览器默认背景色 */
     background-color: #fff;
-    padding: 0 14px 0 196px; /* 14px(侧边栏左边空白) + 14px * 12px(侧边栏) + 14px(侧边栏右边空白) = 196px */
+    margin: 0 14px 0 196px; /* 14px(侧边栏左边空白) + 14px * 12px(侧边栏) + 14px(侧边栏右边空白) = 196px */
+    padding: 0;
 }
 
 .doc-container {
@@ -600,11 +598,24 @@ a#doc_logo {
 }
 
 #doc_search_suggest {
-    width: 238px;
+    width: 236px;
     max-height: 300px;
     position: absolute;
     right: 0;
     z-index: 10;
+    border: 1px solid #DADADA;
+    -webkit-box-shadow: 1px 1px 2px #cccccc;
+    -moz-box-shadow: 1px 1px 2px #cccccc;
+    box-shadow: 1px 1px 2px #cccccc;
+    border-radius: 4px;
+}
+
+#doc_search_suggest dd:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+#doc_search_suggest dd:last-child {
+    border-radius: 0 4px 4px 0;
 }
 
 /* 头部 */
@@ -669,7 +680,7 @@ a#doc_logo {
 }
 
     .doc-sidebar-hidescrollbar:hover {
-        overflow-y: scroll;
+        overflow-y: auto;
         /* Chrome 需要此属性导致重绘 */
         padding-right: 0.1px;
     }
@@ -770,7 +781,7 @@ a#doc_pager_up {
 /* 更大屏幕增加边距 */
 @media (min-width: 1280px) {
     .doc-page {
-        padding: 0 174px 0 342px; /* 14px + 160px */ /* 196px - 14px + 160px */
+        margin: 0 174px 0 342px; /* 14px + 160px */ /* 196px - 14px + 160px */
     }
 
     .doc-container {
@@ -785,7 +796,7 @@ a#doc_pager_up {
 
 @media (min-width: 1600px) {
     .doc-page {
-        padding: 0 334px 0 502px; /* 14px + 320px */ /* 196px - 14px + 320px */
+        margin: 0 334px 0 502px; /* 14px + 320px */ /* 196px - 14px + 320px */
     }
 
     .doc-container {
