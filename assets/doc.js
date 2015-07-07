@@ -2146,6 +2146,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 });
             }
 
+            // 删除查询条件中的空格。
+            filter = filter && filter.replace(/\s+/g, "").toLowerCase();
+            if (elem.getAttribute('data-filter') === filter) {
+                return;
+            }
+            elem.setAttribute('data-filter', filter);
+
             var segments = [],
                 list = Doc.list[listName],
                 path,
@@ -2193,9 +2200,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                 return matchIndex < 0 ? value : value.substr(0, matchIndex) + '<span class="doc-red">' + value.substr(matchIndex, matchCount) + '</span>' + applyFilter(value.substr(matchIndex + matchCount), valuePinYinArray && valuePinYinArray.slice(matchIndex + matchCount), filterLowerCased);
             }
-
-            // 删除查询条件中的空格。
-            filter = filter && filter.replace(/\s+/g, "").toLowerCase();
 
             for (path in list) {
                 item = list[path];
