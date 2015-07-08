@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
 <html data-frame="page">
 <head>
+    <base href="../../">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>TealUI | 最完整的前端开源代码库</title>
+    <title>TealUI | 最完整的开源前端代码库</title>
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="TealUI - 最完整的前端代码库">
     <meta name="keywords" content="HTML, CSS, JS, JavaScript, UI, TealUI, 前端, 框架, 组件, 类库">
     <link rel="icon" type="image/x-icon" href="assets/web/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="assets/doc.css">
     <link rel="stylesheet" type="text/css" href="assets/web/index.css">
-    <script type="text/javascript" src="assets/doc.js"></script>
 </head>
 <body class="doc-page doc-section">
     <!--[if lte IE 8]>
@@ -26,7 +26,8 @@
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
         <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />
+            <button type="button" id="doc_menu_search"><span class="doc-icon">☌</span></button>
+            <button type="button" id="doc_menu_navbar"><span class="doc-icon">≡</span></button>
         </span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
@@ -34,9 +35,14 @@
             <li><a href="tools/customize/index.html">下载和定制</a></li>
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
-        <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit('doc_sidebar_list'); return false;">
-            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.Page.showSearchSuggest(this.value)" oninput="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onchange="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress('doc_sidebar_list', ev>ent)" />
-            <input type="submit" value="🔍" />
+        <form id="doc_search" class="doc-right">
+            <input type="text" placeholder="搜索组件..." />
+            <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>
+            <dl id="doc_search_suggest" class="doc-list">
+                <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/utility/text/md52.html">啊啊啊 <small>utility/text/md52.html</small></a></dd>
+                <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index2.html">关于2 <small>about/index2.html</small></a></dd>
+                <dd><small>无搜索结果</small></dd>
+            </dl>
         </form>
     </nav>
     <header id="doc_header" class="doc-container doc-section">
@@ -47,7 +53,7 @@
             </div>
             <div class="doc-col">
                 <h1>TealUI</h1>
-                <h2>最完整的前端开源代码库</h2>
+                <h2>最完整的开源前端代码库</h2>
                 <div id="header_primary">
                     <a href="tools/customize/index.html" id="mainButton">立即下载</a>
                     &nbsp;&nbsp;&nbsp;<small>当前版本：<!--@VERSION-->3.0.0alpha<!--@/VERSION--></small>
@@ -62,14 +68,14 @@
         </div>
 
         <p>
-            <a href="demo/index.html">DEMO演示</a>
+            <a href="src/index.html">DEMO演示</a>
             <a href="docs/index.html">如何开始</a>
             <a href="tools/customize/index.html">定制下载</a>
         </p>
 
         <p id="header_external_links">
-            <a href="http://github.com/Teal/TealUI/" target="_blank">GitHub</a>
-            <a href="https://teal.github.io/TealUI/" target="_blank">项目主页</a>
+            <a href="http://github.com/Teal/TealUI/" target="_blank"><span class="doc-icon">g</span>GitHub</a>
+            <a><span class="doc-icon">q</span>QQ 群: 177503954</a>
         </p>
 
     </header>
@@ -79,7 +85,7 @@
         <div class="doc-row doc-row-3">
             <div class="doc-col">
                 <img src="assets/web/images/struct.png" width="200" />
-                <h3>轻量组件化</h3>
+                <h3>轻量组件化思路</h3>
                 <p>独创轻量组件化开发思路可让组件独立使用；不写 JS 实现交互功能；精致组件底层构架更让组件用法统一、扩展方便。</p>
             </div>
             <div class="doc-col">

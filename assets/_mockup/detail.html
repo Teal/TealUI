@@ -15,8 +15,8 @@
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
         <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <input id="doc_menu_search" class="doc-icon-search" type="button" value="🔍" />
-            <input id="doc_menu_navbar" type="button" value="≡" />
+            <button type="button" id="doc_menu_search"><span class="doc-icon">☌</span></button>
+            <button type="button" id="doc_menu_navbar"><span class="doc-icon">≡</span></button>
         </span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
@@ -25,8 +25,8 @@
             <li><a href="tools/devTools/index.html">开发者工具</a></li>
         </ul>
         <form id="doc_search" class="doc-right">
-            <input type="text" placeholder="搜索组件..." onfocus="this.style.width = '200px'; this.select();" onblur="this.style.width = '';" />
-            <input type="submit" value="🔍" class="doc-icon-search" />
+            <input type="text" placeholder="搜索组件..." />
+            <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>
             <dl id="doc_search_suggest" class="doc-list">
                 <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/utility/text/md52.html">啊啊啊 <small>utility/text/md52.html</small></a></dd>
                 <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index2.html">关于2 <small>about/index2.html</small></a></dd>
@@ -40,15 +40,9 @@
         <p>TealUI 提供了 200 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。</p>
     </header>
 
-    <nav id="doc_module_toolbar" class="doc-toolbar doc-section doc-right">
-        <a id="doc_module_toolbar_download" href="###" target="_blank">下载此组件</a>
-        <a id="doc_module_toolbar_favorite" href="###" target="_blank">收藏</a>
-        <a id="doc_module_toolbar_fullscreen" href="###" target="_blank">全屏</a>
-    </nav>
-
     <aside id="doc_sidebar" style="position: absolute; top: auto;">
-        <form onsubmit="Doc.Page.onSuggestSubmit('doc_sidebar_list'); return false;" id="doc_sidebar_filter">
-            <input type="search" onkeydown="Doc.Page.onSuggestKeyPress('doc_sidebar_list', event)" onchange="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, true)" oninput="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, true)" autocomplete="off" placeholder="搜索组件..." class="doc-section">
+        <form id="doc_sidebar_filter">
+            <input type="search" autocomplete="off" placeholder="搜索组件..." class="doc-section">
         </form>
         <dl class="doc-section doc-list doc-sidebar-hidescrollbar" id="doc_sidebar_list" style="height: 264.433px;" data-filter="">
             <dt class="doc-list-header-1">关于 <small>about</small></dt>
@@ -75,6 +69,16 @@
             <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweq123123weqweqweqwe234234324234234.html">关于3 <small>about/indexqweq123123weqweqweqwe234234324234234.html</small></a></dd>
         </dl>
     </aside>
+
+    <a href="javascript:Doc.Page.gotoTop();" class="doc-pager" id="doc_pager_up" accesskey="W" title="返回顶部(Alt{shift}+W)"><span class="doc-icon">↑</span></a>
+    <a href="javascript:Doc.Page.movePage(true);" class="doc-pager" id="doc_pager_left" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">←</span></a>
+    <a href="javascript:Doc.Page.movePage(true);" class="doc-pager" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>
+
+    <nav id="doc_module_toolbar" class="doc-toolbar doc-section doc-right">
+        <a href="###" target="_blank"><span class="doc-icon">↧</span>下载此组件</a>
+        <a href="###" target="_blank"><span class="doc-icon">✰</span>收藏</a>
+        <a href="###" target="_blank"><span class="doc-icon">❒</span>全屏</a>
+    </nav>
 
     <h1>组件名 <small>a/b/c</small></h1>
     <blockquote class="doc-summary">定义全局 CSS 样式。</blockquote>

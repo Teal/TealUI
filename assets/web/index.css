@@ -100,7 +100,11 @@
 
 #header_external_links a {
     color: #eee;
-    font-size: 14px;
+    font-size: 13px;
+}
+
+#header_external_links a:last-child {
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {
