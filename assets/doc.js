@@ -8,8 +8,6 @@
  */
 var Doc = Doc || {};
 
-// #region 配置
-
 /**
  * 全局配置。
  */
@@ -31,43 +29,23 @@ Doc.Configs = {
     folders: {
 
         /**
-         * 存放开发系统文件的文件夹。
+         * 存放文档系统文件的文件夹。
          */
         assets: {
             path: 'assets',
-            pageName: '工具',
-            pageTitle: '系统工具',
-            pageDescription: '提供内部开发使用的工具'
+            pageName: '资源',
+            pageTitle: '系统资源',
+            pageDescription: '提供文档系统内部支持'
         },
 
         /**
-         * 存放开发系统文件的文件夹。
-         */
-        tools: {
-            path: 'tools',
-            pageName: '工具',
-            pageTitle: '开发者工具',
-            pageDescription: 'TealUI 提供了组件定制、代码压缩、合并等常用工具'
-        },
-
-        /**
-         * 存放文档文件的文件夹。
-         */
-        docs: {
-            path: 'docs',
-            pageName: '文档',
-            pageTitle: '开始使用',
-            pageDescription: '从零开始快速上手组件'
-        },
-
-        /**
-         * 存放文档文件的文件夹。
+         * 存放示例文件的文件夹。
          */
         demos: {
             path: 'src',
             pageName: '组件',
             pageTitle: '所有组件',
-            pageDescription: 'TealUI 提供了 200 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。'
+            pageDescription: 'TealUI 提供了 200 多个常用组件，满足多数需求。每个组件依赖性小，可单独下载。'
         },
 
         /**
@@ -78,6 +56,26 @@ Doc.Configs = {
             pageName: '源码',
             pageTitle: '源码',
             pageDescription: '浏览源码文件夹'
+        },
+
+        /**
+         * 存放文档文件的文件夹。
+         */
+        docs: {
+            path: 'docs',
+            pageName: '文档',
+            pageTitle: '开始使用',
+            pageDescription: '这里包含了所有文档和教程，从零开始快速上手组件。'
+        },
+
+        /**
+         * 存放工具的文件夹。
+         */
+        tools: {
+            path: 'tools',
+            pageName: '工具',
+            pageTitle: '开发者工具',
+            pageDescription: 'TealUI 提供了组件定制、代码压缩、合并等常用工具'
         }
 
     },
@@ -108,10 +106,6 @@ Doc.Configs = {
     maxModuleViewHistory: 10
 
 };
-
-// #endregion
-
-// #region 工具函数
 
 /**
  * 提供工具函数。
@@ -213,10 +207,6 @@ Doc.Utility = {
     // #endregion
 
 };
-
-// #endregion
-
-// #region 语法高亮
 
 /**
  * 代码高亮模块。
@@ -489,10 +479,6 @@ Doc.SyntaxHighligher = {
     }
 
 };
-
-//#endregion
-
-// #region 代码高亮
 
 /**
  * 代码高亮模块。
@@ -1493,33 +1479,24 @@ Doc.SyntaxHighligher = (function () {
     return SH;
 })();
 
-// #endregion
-
 // 指示当前系统是否在后台运行。
 if (typeof module === 'object' && typeof __dirname === 'string') {
 
-    //#region 后台部分
+    // #region NodeJS
 
     Doc.basePath = require('path').resolve(__dirname, Doc.Configs.basePath);
 
     // 导出 Doc 模块。
     module.exports = Doc;
 
-    //#endregion
+    // #endregion
 
 } else {
-
-    // #region DOM 辅助函数
 
     /**
 	 * DOM辅助处理模块。
 	 */
     Doc.Dom = {
-
-        /**
-		 * 指示当前是否为 IE6-8 浏览器。
-		 */
-        isOldIE: !+"\v1",
 
         /**
          * 判断当前环境是否是触摸屏环境。
@@ -1529,81 +1506,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         },
 
         /**
-         * 为 IE 浏览器提供特殊处理。
-         */
-        fixBrowser: function () {
-
-            // 令 IE6-8 支持显示 HTML5 新元素。
-            if (Doc.Dom.isOldIE) {
-                'article section header footer nav aside details summary menu'.replace(/\w+/g, function (tagName) {
-                    document.createElement(tagName);
-                });
-            }
-
-            // IE6-8 缺少 indexOf 函数。
-            Array.prototype.indexOf = Array.prototype.indexOf || function (value, startIndex) {
-                for (var i = startIndex || 0; i < this.length; i++) {
-                    if (this[i] === value) {
-                        return i;
-                    }
-                }
-                return -1;
-            };
-
-            String.prototype.trim = String.prototype.trim || function () {
-                return this.replace(/^\s+|\s+$/g, "");
-            };
-
-            // IE6-7 缺少 document.querySelector 函数。
-            document.querySelectorAll = document.querySelectorAll || function (selector) {
-
-                // selector 可能为 tagName, .className, tagName[attrName=attrValue]
-
-                var match = /^(\w*)(\.(\w+)|\[(\w+)=(['"]?)([^'"]*)\5\])?$/.exec(selector);
-                var list = this.getElementsByTagName(match[1] || '*');
-                // 没有其它过滤器，直接返回。
-                if (!match[2]) {
-                    return list;
-                }
-
-                var result = [];
-
-                for (var i = 0, node; node = list[i]; i++) {
-                    // 区分是否是属性选择器。
-                    if (match[4]) {
-                        if (node.getAttribute(match[4]) === match[6]) {
-                            result.push(node);
-                        }
-                    } else {
-                        if ((' ' + node.className + ' ').indexOf(' ' + match[3] + ' ') >= 0) {
-                            result.push(node);
-                        }
-                    }
-                }
-
-                return result;
-            };
-            document.querySelector = document.querySelector || function (selector) {
-                return document.querySelectorAll(selector)[0] || null;
-            };
-
-            // IE6-8 缺少 localStorage
-            window.localStorage = window.localStorage || {};
-
-        },
-
-        /**
          * 为指定节点增加类名。
          */
         addClass: function (node, className) {
             node.className = node.className ? node.className + ' ' + className : className;
-        },
-
-        /**
-         * 计算指定节点的当前样式。
-         */
-        getStyle: function (node, cssName) {
-            return parseFloat(getComputedStyle(node, null)[cssName]);
         },
 
         /**
@@ -1633,18 +1539,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             head.insertBefore(script, head.firstChild);
         },
 
-        contains: function (parent, child) {
-            if (parent.contains) {
-                return parent.contains(child);
-            }
-            while (child) {
-                if (parent === child) {
-                    return true;
-                }
-                child = child.parentNode;
-            }
-        },
-
         /**
          * 执行 CSS 选择器并对每个节点执行回调。
          */
@@ -1656,10 +1550,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         }
 
     };
-
-    // #endregion
-
-    // #region Page
 
     /**
      * 绘制页内已加载的所有代码块。
@@ -1714,6 +1604,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             // 全选复制按钮。
             button = aside.lastChild;
             button.onclick = function () {
+                if (Doc.Dom.isTouch()) {
+                    button.previousSibling.click();
+                }
                 var range = new Range(),
                     sel = getSelection();
                 pre.focus();
@@ -1888,6 +1781,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.initList = function (list) {
         Doc.list = list;
+        if(Doc.onListLoad) {
+            Doc.onListLoad(list);
+        }
     };
 
     /**
@@ -1897,13 +1793,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         // #region 页面初始化
 
-        titlePostfix: ' - TealUI | 最完整的前端开源代码库',
+        titlePostfix: ' - TealUI | 最完整的开源前端代码库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <a href="{baseUrl}{indexUrl}" id="doc_logo">TealUI <small>{version}</small></a>\
                     <span id="doc_menu" class="doc-right">\
-                        <input id="doc_menu_search" type="button" value="🔍" onclick="Doc.Page.toggleSidebar();" ontouchstart="this.click(); return false;" />\
-                        <input id="doc_menu_navbar" type="button" value="≡" onclick="Doc.Page.toggleNavbar();" ontouchstart="this.click(); return false;" />\
+                        <button type="button" id="doc_menu_search" onclick="Doc.Page.toggleSidebar();" {touchToClick}><span class="doc-icon">☌</span></button>\
+                        <button type="button" id="doc_menu_navbar" onclick="Doc.Page.toggleNavbar();" {touchToClick}><span class="doc-icon">≡</span></button>\
                     </span>\
                     <ul id="doc_navbar">\
                         <li{actived:docs}><a href="{baseUrl}{folder:docs}/{indexUrl}">开始使用</a></li>\
@@ -1912,8 +1808,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         <li{actived:tools/devTools}><a href="{baseUrl}{folder:tools}/devTools/{indexUrl}">开发者工具</a></li>\
                     </ul>\
                     <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
-                        <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.Page.showSearchSuggest(this.value)" onclick="Doc.Page.showSearchSuggest(this.value)" oninput="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_search_suggest\', event)" />\
-                        <input type="submit" value="🔍" />\
+                        <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.Page.showSearchSuggest(this.value)" onblur="Doc.Page.hideSearchSuggest()" oninput="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_search_suggest\', event)" />\
+                        <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>\
                     </form>\
                 </nav>\
                 <header id="doc_header" class="doc-container doc-section">\
@@ -1926,18 +1822,17 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     </form>\
                     <dl id="doc_sidebar_list" class="doc-section doc-list"><dd><small>正在载入列表...</small></dd></dl>\
                 </aside>\
-                <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
+                <div id="doc_mask" onclick="Doc.Page.toggleSidebar()" {touchToClick}></div>\
                 <div id="doc_progress"></div>\
-                <nav id="doc_pager" class="doc-section">\
-                    <a href="javascript:Doc.Page.gotoTop();" id="doc_pager_up" accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)">^</a>\
-                    <a href="javascript:Doc.Page.movePage(true);" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)">»</a>\
-                </nav>\
+                <a href="javascript:Doc.Page.gotoTop();" class="doc-pager" id="doc_pager_up" accesskey="W" title="返回顶部(Alt{shift}+W)"><span class="doc-icon">↑</span></a>\
+                <a href="javascript:Doc.Page.movePage(false);" class="doc-pager" id="doc_pager_left" accesskey="S" title="上一页(Alt{shift}+S)"><span class="doc-icon">←</span></a>\
+                <a href="javascript:Doc.Page.movePage(true);" class="doc-pager" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>\
                 <aside id="doc_module_toolbar" class="doc-toolbar doc-right doc-section">\
-                    {download:<a id="doc_module_toolbar_download" href="#" target="_blank">下载此组件</a>}\
-                    {favorite:<a id="doc_module_toolbar_favorite" href="#" target="_blank">收藏</a>}\
-                    <a id="doc_module_toolbar_fullscreen" href="{fullScreenUrl}" target="_blank">全屏</a>\
+                    {download:<a href="#" target="_blank"><span class="doc-icon">↧</span>下载此组件</a>}\
+                    <a href="javascript:;" onclick="Doc.Page.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
+                    <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
-                <h1>{title} <small>{path}</small><span class="doc-tag">已收录</span> <span class="doc-tag">IE6</span></h1>\
+                <h1 id="doc_title">{title} <small>{path}</small></h1>\
                 {summary:<blockquote class="doc-summary">#</blockquote>}',
 
         footer: '<div>\
@@ -1952,9 +1847,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * 初始化页面框架。
          */
         init: function () {
-
-            //// 修复浏览器。
-            //Doc.Dom.fixBrowser();
 
             // #region 初始化配置
 
@@ -1991,7 +1883,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
 
             // 将当前页面加入历史记录。
-            if (Doc.Configs.maxModuleViewHistory && Doc.folder === 'demos') {
+            if (Doc.Configs.maxModuleViewHistory && Doc.folder === 'demos' && window.localStorage) {
                 var history = localStorage.doc_moduleViewHistroy ? localStorage.doc_moduleViewHistroy.split(';') : [];
                 history.indexOf(Doc.path) >= 0 && history.splice(history.indexOf(Doc.path), 1);
                 history.push(Doc.path) > Doc.Configs.maxModuleViewHistory && history.shift();
@@ -2014,7 +1906,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 var html = '<link type="text/css" rel="stylesheet" href="' + docJsPath.replace(/\.js\b/, '.css') + '" />';
 
                 // 如果不是全屏模式，则生成页面主结构。
-                if (Doc.frame != "fullscreen") {
+                if (Doc.frame != "fullscreen" && +"\v1") {
 
                     var data = {
                         baseUrl: Doc.baseUrl,
@@ -2032,13 +1924,14 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                         search: '',
                         shift: navigator.userAgent.indexOf('Firefox') >= 0 ? '+Shift' : '',
+                        touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                         download: function (html) {
-                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools + '/customize/' + this.indexUrl + '?module=' + Doc.path) : '';
+                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools + '/customize/' + this.indexUrl + '?download=' + Doc.path) : '';
                         },
 
                         favorite: function (html) {
-                            return localStorage.doc_favorites && ~JSON.parse(localStorage.doc_favorites).indexOf(Doc.path) ? html.replace('>', ' class="doc-actived">已') : html;
+                            return ~(window.localStorage && localStorage.doc_favorites || '').split(';').indexOf(Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
                         },
 
                         folder: function (name) {
@@ -2058,9 +1951,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                     html += Doc.Utility.parseTpl(Doc.Page.header, data);
 
-                    // 载入列表。
-                    Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, Doc.Page.initSidebar);
-
                     // 生成底部。
                     Doc.Dom.ready(function () {
 
@@ -2075,7 +1965,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                             document.body.appendChild(div);
 
                             window.duoshuoQuery = { short_name: "teal" };
-                            Doc.Dom.loadScript('//static.duoshuo.com/embed.js', Doc.Page.updateSidebar);
+                            Doc.Dom.loadScript('//static.duoshuo.com/embed.js');
                         }
 
                         // 插入底部。
@@ -2107,18 +1997,156 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     Doc.Dom.addClass(document.body, 'doc-page');
                 }
 
+                // 初始化侧边栏。
+                var list = document.getElementById('doc_sidebar_list');
+                if (list) {
+
+                    // 为 PC 用户增加体验，隐藏滚动条。
+                    if (!Doc.Dom.isTouch()) {
+                        list.className += ' doc-sidebar-hidescrollbar';
+                    }
+
+                    // 滚动和重置大小后实时更新。
+                    window.addEventListener('resize', Doc.Page.updateSidebar, false);
+                    window.addEventListener('scroll', Doc.Page.updateSidebar, false);
+                    window.addEventListener('load', Doc.Page.updateSidebar, false);
+
+                    // 更新列表大小。
+                    Doc.Page.updateSidebar();
+
+                    // 载入列表内容。
+                    Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, function () {
+
+                        // 更新列表项。
+                        Doc.Page.updateModuleList(list, Doc.folder, '', true);
+
+                        // 绑定列表滚动大小。
+                        if (window.localStorage) {
+                            list.addEventListener('scroll', function () {
+                                localStorage.doc_listScrollTop = document.getElementById('doc_sidebar_list').scrollTop;
+                            }, false);
+                            if (localStorage.doc_listScrollTop) {
+                                list.scrollTop = localStorage.doc_listScrollTop;
+                            }
+                        }
+
+                        Doc.Page.scrollActivedItemIntoView(list, true);
+
+                        // 某些平台下可能暂时无法滚动。
+                        list.scrollTop || setTimeout(function () {
+                            Doc.Page.scrollActivedItemIntoView(list, true);
+                        }, 50);
+                    });
+
+                }
+
             }
 
             // #endregion
+
+            // 插入语法高亮代码。
+            Doc.Dom.ready(Doc.renderCodes);
 
             // 插入百度统计代码。
             if (!Doc.local) {
                 Doc.Dom.loadScript("http://hm.baidu.com/h.js?a37192ce04370b8eb0c50aa13e48a15b".replace('http:', location.protocol));
             }
 
-            // 插入语法高亮代码。
-            Doc.Dom.ready(Doc.renderCodes);
+        },
 
+        // #endregion
+
+        // #region 侧边栏和导航条
+
+        /**
+         * 更新侧边布局。
+         */
+        updateSidebar: function (sidebarOnly) {
+            var sidebar = document.getElementById('doc_sidebar'),
+                list = document.getElementById('doc_sidebar_list'),
+                filter = document.getElementById('doc_sidebar_filter'),
+                title = document.getElementById('doc_title'),
+                footer = document.getElementById('doc_footer'),
+                bodyHeight = window.innerHeight,
+                mainTop = title.getBoundingClientRect().top,
+                mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0,
+                listHeight;
+
+            // 如果侧边栏已折叠。
+            if (/\bdoc-sidebar-actived\b/.test(sidebar.className)) {
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = 0;
+                listHeight = bodyHeight;
+            } else if (mainTop <= 0) {
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = 0;
+                listHeight = Math.min(bodyHeight, mainBottom);
+            } else {
+                sidebar.style.position = 'absolute';
+                sidebar.style.top = 'auto';
+                listHeight = bodyHeight - mainTop - Math.max(0, bodyHeight - mainBottom);
+            }
+
+            list.style.height = listHeight - filter.offsetHeight + 'px';
+
+            // 将内容变的足够高。
+            if (footer && mainBottom < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
+                footer.style.marginTop = bodyHeight - 100 + 'px';
+            }
+
+            if (sidebarOnly !== true) {
+
+                // 更新返回顶部按钮。
+                document.getElementById('doc_pager_up').className = mainTop < 0 ? 'doc-pager' : 'doc-pager doc-pager-hide';
+
+                var contentHeight = mainBottom - mainTop - bodyHeight;
+
+                // 减去评论框的高度。
+                var thread = document.getElementById('ds-thread');
+                if (thread) {
+                    contentHeight -= thread.offsetHeight;
+                }
+
+                // 更新进度条位置。
+                document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
+
+            }
+
+        },
+
+        /**
+         * 在手机模式切换显示导航条。
+         */
+        toggleNavbar: function () {
+            var menu = document.getElementById('doc_menu_navbar'),
+                navbar = document.getElementById('doc_navbar'),
+                height;
+
+            if (menu.className) {
+                menu.className = '';
+                navbar.style.height = '';
+            } else {
+                menu.className = 'doc-menu-actived';
+                navbar.style.height = 'auto';
+                height = navbar.offsetHeight;
+                navbar.style.height = '';
+                navbar.offsetHeight;
+                navbar.style.height = height + 'px';
+            }
+
+        },
+
+        /**
+         * 在手机模式切换侧边栏。
+         */
+        toggleSidebar: function () {
+            var sidebar = document.getElementById('doc_sidebar');
+            if (sidebar.className !== 'doc-sidebar-actived') {
+                sidebar.className = 'doc-sidebar-actived';
+                Doc.Page.updateSidebar(true);
+            } else {
+                sidebar.className = 'doc-sidebar-inactived';
+            }
         },
 
         // #endregion
@@ -2136,9 +2164,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             // 确保列表已加载。
             if (!Doc.list) {
-                Doc.list = {};
+                if (Doc._loadingList) {
+                    return;
+                }
+                Doc._loadingList = true;
                 elem.innerHTML = '<dd><small>正在加载列表...</small></dd>';
                 return Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath, function () {
+                    delete Doc._loadingList;
                     Doc.Page.updateModuleList(elem, listName, filter, includeHeader);
                 });
             }
@@ -2156,7 +2188,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 item,
                 args = {},
                 docPath = Doc.path.toLowerCase(),
-                history = !includeHeader && localStorage.doc_moduleViewHistroy && localStorage.doc_moduleViewHistroy.split(';');
+                history = !includeHeader && window.localStorage && localStorage.doc_moduleViewHistroy && localStorage.doc_moduleViewHistroy.split(';');
 
             // 对指定内容进行过滤并高亮。
             // applyFilter("你好棒", "ni hao bang".split(' '), "好棒"); // haobang
@@ -2297,9 +2329,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * 跳转到列表高亮项。
          */
         gotoActivedItem: function (elem) {
-            var actived = elem.querySelector('.doc-list-actived a');
-            if (actived) {
-                location.href = actived.href;
+            if (elem = elem && elem.querySelector('.doc-list-actived a')) {
+                location.href = elem.href;
             }
         },
 
@@ -2346,167 +2377,55 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
             suggest.style.display = '';
             Doc.Page.updateModuleList(suggest, 'demos', filter, false);
+        },
 
-            // 绑定关闭事件
-            document.addEventListener('mousedown', function (e) {
-                if (!Doc.Dom.contains(suggest, e.target)) {
-                    document.removeEventListener('mousedown', arguments.callee, false);
+        hideSearchSuggest: function () {
+            var suggest = document.getElementById('doc_search_suggest');
+            if (suggest) {
+                setTimeout(function () {
                     suggest.style.display = 'none';
-                }
-            }, false);
-        },
-
-        // #endregion
-
-        // #region 侧边栏和导航条
-
-        /**
-         * 更新侧边布局。
-         */
-        updateSidebar: function (sidebarOnly) {
-
-            var sidebar = document.getElementById('doc_sidebar'),
-                list = document.getElementById('doc_sidebar_list'),
-                filter = document.getElementById('doc_sidebar_filter'),
-                header = document.getElementById('doc_header'),
-                footer = document.getElementById('doc_footer');
-
-            var bodyHeight = window.innerHeight,
-                mainTop = header.getBoundingClientRect().bottom + Doc.Dom.getStyle(header, 'marginBottom'),
-                mainBottom = footer ? footer.getBoundingClientRect().top : 1 / 0;
-
-            var listHeight;
-
-            // 如果侧边栏已折叠。
-            if (/\bdoc-sidebar-actived\b/.test(sidebar.className)) {
-                sidebar.style.position = 'fixed';
-                sidebar.style.top = 0;
-                listHeight = bodyHeight;
-            } else if (mainTop <= 0) {
-                sidebar.style.position = 'fixed';
-                sidebar.style.top = 0;
-                listHeight = Math.min(bodyHeight, mainBottom);
-            } else {
-                sidebar.style.position = 'absolute';
-                sidebar.style.top = 'auto';
-                listHeight = bodyHeight - mainTop - Math.max(0, bodyHeight - mainBottom);
-            }
-
-            list.style.height = listHeight - filter.offsetHeight + 'px';
-
-            // 将内容变的足够高。
-            if (footer && document.body.offsetHeight < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
-                footer.style.marginTop = bodyHeight - document.body.offsetHeight + 'px';
-            }
-
-            if (sidebarOnly !== true) {
-
-                // 更新返回顶部按钮。
-                document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
-
-                var contentHeight = mainBottom - mainTop - bodyHeight;
-
-                // 减去评论框的高度。
-                var thread = document.getElementById('ds-thread');
-                if (thread) {
-                    contentHeight -= thread.offsetHeight;
-                }
-
-                // 更新进度条位置。
-                document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
-
-            }
-
-        },
-
-        /**
-         * 加载完成列表后初始化侧边栏。
-         */
-        initSidebar: function () {
-
-            var list = document.getElementById('doc_sidebar_list');
-
-            if (!Doc.Dom.isTouch()) {
-                list.className += ' doc-sidebar-hidescrollbar';
-            }
-
-            // 滚动和重置大小后实时更新。
-            window.addEventListener('resize', Doc.Page.updateSidebar, false);
-            window.addEventListener('scroll', Doc.Page.updateSidebar, false);
-
-            // 更新列表大小。
-            Doc.Page.updateSidebar();
-
-            // 更新列表项。
-            Doc.Page.updateModuleList(list, Doc.folder, '', true);
-
-            // 绑定列表滚动大小。
-            list.addEventListener('scroll', function () {
-                localStorage.doc_listScrollTop = document.getElementById('doc_sidebar_list').scrollTop;
-            }, false);
-            if (localStorage.doc_listScrollTop) {
-                list.scrollTop = localStorage.doc_listScrollTop;
-            }
-            Doc.Page.scrollActivedItemIntoView(list, true);
-
-        },
-
-        /**
-         * 在手机模式切换显示导航条。
-         */
-        toggleNavbar: function () {
-            var menu = document.getElementById('doc_menu_navbar'),
-                docNavbar = document.getElementById('doc_navbar'),
-                height;
-
-            if (menu.className) {
-                menu.className = '';
-                docNavbar.style.height = '';
-            } else {
-                menu.className = 'doc-menu-actived';
-                docNavbar.style.height = 'auto';
-                height = docNavbar.offsetHeight;
-                docNavbar.style.height = '';
-                docNavbar.offsetHeight;
-                docNavbar.style.height = height + 'px';
-            }
-
-        },
-
-        /**
-         * 在手机模式切换侧边栏。
-         */
-        toggleSidebar: function () {
-            var sidebar = document.getElementById('doc_sidebar');
-            if (sidebar.className = sidebar.className ? '' : 'doc-sidebar-actived') {
-                Doc.Page.updateSidebar(true);
+                }, 300);
             }
         },
-
 
         // #endregion
 
         // #region 页面交互
 
         gotoTop: function () {
-            var srcollElement = document.documentElement;
+            var srcollElement = document.documentElement,
+                step;
             if (!srcollElement.scrollTop) {
                 srcollElement = document.body;
             }
             var step = srcollElement.scrollTop / 5;
-            moveNext();
             function moveNext() {
                 srcollElement.scrollTop -= step;
                 if (srcollElement.scrollTop > 0) {
                     setTimeout(moveNext, 20);
                 }
             }
+            moveNext();
         },
 
-        toggleFavorate: function () {
-            var docPackages = localStorage.doc_packages ? JSON.parse(localStorage.doc_packages) : {};
-            docPackages[Doc.path] = document.getElementById('doc_package_current').checked;
-            localStorage.doc_packages = JSON.stringify(docPackages);
+        movePage: function (down) {
+            var list = document.getElementById('doc_sidebar_list');
+            Doc.Page.moveActivedItem(list, down);
+            Doc.Page.gotoActivedItem(list);
+        },
+
+        toggleFavorites: function (button) {
+            if (window.localStorage) {
+                var favorates = localStorage.doc_favorites ? localStorage.doc_favorites.split(';') : [];
+                if (favorates.indexOf(Doc.path) < 0) {
+                    favorates.push(Doc.path);
+                    button.innerHTML = '<span class="doc-icon">★</span>已收藏';
+                } else {
+                    favorates.splice(favorates.indexOf(Doc.path), 1);
+                    button.innerHTML = '<span class="doc-icon">✰</span>收藏';
+                }
+                localStorage.doc_favorites = favorates.join(';');
+            }
         },
 
         // #endregion
@@ -2541,8 +2460,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     };
 
     Doc.Page.init();
-
-    // #endregion
 
 }
 
