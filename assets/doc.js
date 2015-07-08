@@ -1929,25 +1929,22 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 <div id="doc_mask" onclick="document.getElementById(\'doc_sidebar\').classList.remove(\'doc-sidebar-actived\')" ontouchstart="this.onclick(); return false;"></div>\
                 <div id="doc_progress"></div>\
                 <nav id="doc_pager" class="doc-section">\
-                    <div><a accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)" href="javascript:Doc.Page.gotoTop();" id="doc_pager_up">^</a></div>\
-                    <div>\
-                        <a accesskey="A" title="上一页(Alt{shift}+A)" href="javascript:Doc.Page.moveListActivedItem(true);Doc.Page.gotoActivedItem();" id="doc_pager_left">«</a>\
-                        <a accesskey="D" title="下一页(Alt+Shift+D)" href="javascript:Doc.Page.moveListActivedItem(false);Doc.Page.gotoActivedItem();" id="doc_pager_right">»</a>\
-                    </div>\
+                    <a href="javascript:Doc.Page.gotoTop();" id="doc_pager_up" accesskey="W" class="doc-pager-hide" title="返回顶部(Alt{shift}+W)">^</a>\
+                    <a href="javascript:Doc.Page.movePage(true);" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)">»</a>\
                 </nav>\
                 <aside id="doc_module_toolbar" class="doc-toolbar doc-right doc-section">\
                     {download:<a id="doc_module_toolbar_download" href="#" target="_blank">下载此组件</a>}\
                     {favorite:<a id="doc_module_toolbar_favorite" href="#" target="_blank">收藏</a>}\
                     <a id="doc_module_toolbar_fullscreen" href="{fullScreenUrl}" target="_blank">全屏</a>\
                 </aside>\
-                <h1>{title} <small>{path}</small></h1>\
+                <h1>{title} <small>{path}</small><span class="doc-tag">已收录</span> <span class="doc-tag">IE6</span></h1>\
                 {summary:<blockquote class="doc-summary">#</blockquote>}',
 
         footer: '<div>\
                     <a href="{baseUrl}{folderDocs}/about/{indexUrl}">关于我们</a> |\
                     <a href="{baseUrl}{folderDocs}/about/license.html">开源协议</a> |\
-                    <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a>\
-                    <a href="{baseUrl}{folderDocs}/about/joinus.html">加入我们</a> |\
+                    <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a> |\
+                    <a href="{baseUrl}{folderDocs}/about/joinus.html">加入我们</a>\
                 </div>\
                 &copy; 2011-2015 The Teal Team. All Rights Reserved.',
 
@@ -2078,7 +2075,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                             document.body.appendChild(div);
 
                             window.duoshuoQuery = { short_name: "teal" };
-                            Doc.Dom.loadScript('//static.duoshuo.com/embed.js');
+                            Doc.Dom.loadScript('//static.duoshuo.com/embed.js', Doc.Page.updateSidebar);
                         }
 
                         // 插入底部。
@@ -2306,14 +2303,67 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
         },
 
+        /**
+         * 跳转到模块列表的高亮项。
+         */
+        onSuggestSubmit: function (suggestId) {
+            Doc.Page.gotoActivedItem(document.getElementById(suggestId));
+        },
+
+        onSuggestInput: function (suggestId, filter, includeHeader) {
+            Doc.Page.updateModuleList(document.getElementById(suggestId), includeHeader ? Doc.folder : 'demos', filter, includeHeader);
+        },
+
+        onSuggestKeyPress: function (suggestId, e) {
+            if (e.keyCode === 40 || e.keyCode === 38) {
+                e.preventDefault();
+                Doc.Page.moveActivedItem(document.getElementById(suggestId), e.keyCode === 40);
+            }
+        },
+
+        /**
+         * 显示搜索下拉菜单。
+         */
+        showSearchSuggest: function (filter) {
+            var suggest = document.getElementById('doc_search_suggest');
+            if (!suggest) {
+                suggest = document.getElementById('doc_search').appendChild(document.createElement('dl'));
+                suggest.id = 'doc_search_suggest';
+                suggest.className = 'doc-list';
+                suggest.onmouseover = function (e) {
+                    var target = e.target;
+                    while (target != suggest && target.tagName !== 'DD') {
+                        target = target.parentNode;
+                    }
+                    if (target != suggest) {
+                        var actived = suggest.querySelector('.doc-list-actived');
+                        if (actived) {
+                            actived.className = '';
+                        }
+                        target.className = 'doc-list-actived';
+                    }
+                };
+            }
+            suggest.style.display = '';
+            Doc.Page.updateModuleList(suggest, 'demos', filter, false);
+
+            // 绑定关闭事件
+            document.addEventListener('mousedown', function (e) {
+                if (!Doc.Dom.contains(suggest, e.target)) {
+                    document.removeEventListener('mousedown', arguments.callee, false);
+                    suggest.style.display = 'none';
+                }
+            }, false);
+        },
+
         // #endregion
 
-        // #region 页面交互
+        // #region 侧边栏和导航条
 
         /**
          * 更新侧边布局。
          */
-        updateSidebar: function (lazy) {
+        updateSidebar: function (sidebarOnly) {
 
             var sidebar = document.getElementById('doc_sidebar'),
                 list = document.getElementById('doc_sidebar_list'),
@@ -2345,13 +2395,11 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             list.style.height = listHeight - filter.offsetHeight + 'px';
 
             // 将内容变的足够高。
-            if (document.body.offsetHeight < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
-                var div = document.createElement('div');
-                div.style.height = bodyHeight - document.body.offsetHeight + 'px';
-                document.body.insertBefore(div, footer);
+            if (footer && document.body.offsetHeight < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
+                footer.style.marginTop = bodyHeight - document.body.offsetHeight + 'px';
             }
 
-            if (lazy !== true) {
+            if (sidebarOnly !== true) {
 
                 // 更新返回顶部按钮。
                 document.getElementById('doc_pager_up').className = mainTop < 0 ? '' : 'doc-pager-hide';
@@ -2400,7 +2448,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 list.scrollTop = localStorage.doc_listScrollTop;
             }
             Doc.Page.scrollActivedItemIntoView(list, true);
-        
+
         },
 
         /**
@@ -2435,58 +2483,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             }
         },
 
-        /**
-         * 显示搜索下拉菜单。
-         */
-        showSearchSuggest: function (filter) {
-            var suggest = document.getElementById('doc_search_suggest');
-            if (!suggest) {
-                suggest = document.getElementById('doc_search').appendChild(document.createElement('dl'));
-                suggest.id = 'doc_search_suggest';
-                suggest.className = 'doc-list';
-                suggest.onmouseover = function (e) {
-                    var target = e.target;
-                    while (target != suggest && target.tagName !== 'DD') {
-                        target = target.parentNode;
-                    }
-                    if (target != suggest) {
-                        var actived = suggest.querySelector('.doc-list-actived');
-                        if (actived) {
-                            actived.className = '';
-                        }
-                        target.className = 'doc-list-actived';
-                    }
-                };
-            }
-            suggest.style.display = '';
-            Doc.Page.updateModuleList(suggest, 'demos', filter, false);
 
-            // 绑定关闭事件
-            document.addEventListener('mousedown', function (e) {
-                if (!Doc.Dom.contains(suggest, e.target)) {
-                    document.removeEventListener('mousedown', arguments.callee, false);
-                    suggest.style.display = 'none';
-                }
-            }, false);
-        },
+        // #endregion
 
-        /**
-         * 跳转到模块列表的高亮项。
-         */
-        onSuggestSubmit: function (suggestId) {
-            Doc.Page.gotoActivedItem(document.getElementById(suggestId));
-        },
-
-        onSuggestInput: function (suggestId, filter, includeHeader) {
-            Doc.Page.updateModuleList(document.getElementById(suggestId), includeHeader ? Doc.folder : 'demos', filter, includeHeader);
-        },
-
-        onSuggestKeyPress: function (suggestId, e) {
-            if (e.keyCode === 40 || e.keyCode === 38) {
-                e.preventDefault();
-                Doc.Page.moveActivedItem(document.getElementById(suggestId), e.keyCode === 40);
-            }
-        },
+        // #region 页面交互
 
         gotoTop: function () {
             var srcollElement = document.documentElement;

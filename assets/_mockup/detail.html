@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>组件详情页</title>
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="TealUI - 最完整的前端代码库">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, UI, TealUI, 前端, 框架, 组件, 类库">
+    <link rel="icon" type="image/x-icon" href="assets/web/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../doc.css">
+</head>
+<body class="doc doc-page">
+
+    <nav id="doc_topbar" class="doc-container doc-section doc-clear">
+        <a href="index.html" id="doc_logo">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
+        <span id="doc_menu" class="doc-right">
+            <input id="doc_menu_search" class="doc-icon-search" type="button" value="🔍" />
+            <input id="doc_menu_navbar" type="button" value="≡" />
+        </span>
+        <ul id="doc_navbar">
+            <li><a href="docs/index.html">开始使用</a></li>
+            <li><a href="src/index.html">所有组件</a></li>
+            <li><a href="tools/customize/index.html">下载和定制</a></li>
+            <li><a href="tools/devTools/index.html">开发者工具</a></li>
+        </ul>
+        <form id="doc_search" class="doc-right">
+            <input type="text" placeholder="搜索组件..." onfocus="this.style.width = '200px'; this.select();" onblur="this.style.width = '';" />
+            <input type="submit" value="🔍" class="doc-icon-search" />
+            <dl id="doc_search_suggest" class="doc-list">
+                <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/utility/text/md52.html">啊啊啊 <small>utility/text/md52.html</small></a></dd>
+                <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index2.html">关于2 <small>about/index2.html</small></a></dd>
+                <dd><small>无搜索结果</small></dd>
+            </dl>
+        </form>
+    </nav>
+
+    <header id="doc_header" class="doc-container doc-section">
+        <h1>组件列表</h1>
+        <p>TealUI 提供了 200 多个常用组件，满足常用需求。每个组件依赖性小，多数可以独立使用。</p>
+    </header>
+
+    <nav id="doc_module_toolbar" class="doc-toolbar doc-section doc-right">
+        <a id="doc_module_toolbar_download" href="###" target="_blank">下载此组件</a>
+        <a id="doc_module_toolbar_favorite" href="###" target="_blank">收藏</a>
+        <a id="doc_module_toolbar_fullscreen" href="###" target="_blank">全屏</a>
+    </nav>
+
+    <aside id="doc_sidebar" style="position: absolute; top: auto;">
+        <form onsubmit="Doc.Page.onSuggestSubmit('doc_sidebar_list'); return false;" id="doc_sidebar_filter">
+            <input type="search" onkeydown="Doc.Page.onSuggestKeyPress('doc_sidebar_list', event)" onchange="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, true)" oninput="Doc.Page.onSuggestInput('doc_sidebar_list', this.value, true)" autocomplete="off" placeholder="搜索组件..." class="doc-section">
+        </form>
+        <dl class="doc-section doc-list doc-sidebar-hidescrollbar" id="doc_sidebar_list" style="height: 264.433px;" data-filter="">
+            <dt class="doc-list-header-1">关于 <small>about</small></dt>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/utility/text/md52.html">啊啊啊 <small>utility/text/md52.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index2.html">关于2 <small>about/index2.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index3.html">关于3 <small>about/index3.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index33.html">关于 <small>about/index33.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/index33333.html">关于3 <small>about/index33333.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexasdasd.html">关于 <small>about/indexasdasd.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexwerwerwer.html">关于2 <small>about/indexwerwerwer.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqwewqe.html">关于3 <small>about/indexqweqwewqe.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indeqweqweqweqe.html">关于 <small>about/indeqweqweqweqe.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqwe.html">关于2 <small>about/indexqweqweqweqwe.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqweqwe.html">关于3 <small>about/indexqweqweqweqweqwe.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indeqweqweqweqe333.html">关于 <small>about/indeqweqweqweqe333.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqwe234324.html">关于2 <small>about/indexqweqweqweqwe234324.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqweqwe234234234.html">关于3 <small>about/indexqweqweqweqweqwe234234234.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqwe2343421432424.html">关于2 <small>about/indexqweqweqweqwe2343421432424.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqweqweqweqwe234234324234234.html">关于3 <small>about/indexqweqweqweqweqwe234234324234234.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweq213123weqweqwe234324.html">关于2 <small>about/indexqweq213123weqweqwe234324.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexq123123weqweqweqweqwe234234234.html">关于3 <small>about/indexq123123weqweqweqweqwe234234234.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweqwe213123qweqwe2343421432424.html">关于2 <small>about/indexqweqwe213123qweqwe2343421432424.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/utility/text/md5.html">Md5 <small>utility/text/md5.html</small></a></dd>
+            <dd class="doc-list-done"><a href="file:///D:/mywork/TealUI/src/about/indexqweq123123weqweqweqwe234234324234234.html">关于3 <small>about/indexqweq123123weqweqweqwe234234324234234.html</small></a></dd>
+        </dl>
+    </aside>
+
+    <h1>组件名 <small>a/b/c</small></h1>
+    <blockquote class="doc-summary">定义全局 CSS 样式。</blockquote>
+
+    <h2>基本用法</h2>
+
+    <aside class="doc-demo">
+        不同的标签：
+        <a class="x-button" href="###">a 按钮</a>
+        <input type="button" value="input 按钮" class="x-button">
+        <button class="x-button" type="button">button 按钮</button>
+        <span class="x-button">span 按钮</span>
+    </aside>
+
+    <aside class="doc-code-toolbar doc-section"><a href="javascript://编辑并执行源码">编辑</a><a href="javascript://全选并复制源码">复制</a></aside>
+
+    <pre class="doc doc-code doc-code-html"><span class="doc-code-plain">不同的标签：
+</span><span class="doc-code-tag">&lt;a</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"###"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">a 按钮</span><span class="doc-code-tag">&lt;/a&gt;</span><span class="doc-code-plain">
+</span><span class="doc-code-tag">&lt;input</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">value</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"input 按钮"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">type</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">
+</span><span class="doc-code-tag">&lt;button</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">type</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"button"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">button 按钮</span><span class="doc-code-tag">&lt;/button&gt;</span><span class="doc-code-plain">
+</span><span class="doc-code-tag">&lt;span</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">span 按钮</span><span class="doc-code-tag">&lt;/span&gt;</span></pre>
+
+    <h2>更多用法</h2>
+
+    <p>说明文案</p>
+
+    <div class="doc-box">
+        doc-box
+    </div>
+
+    <div class="doc-box">
+        doc-box
+    </div>
+
+    <footer id="doc_footer" class="doc-container doc-section">
+        <div>
+            <a href="docs/about/index.html">关于我们</a> |
+            <a href="docs/about/license.html">开源协议</a> |
+            <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a> |
+            <a href="docs/about/joinus.html">加入我们</a>
+        </div>
+        &copy; 2011-2015 The Teal Team. All Rights Reserved.
+    </footer>
+</body>
+</html>
