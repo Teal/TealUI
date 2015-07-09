@@ -1813,10 +1813,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             list.style.height = listHeight - filter.offsetHeight + 'px';
 
-            //// 将内容变的足够高。
-            //if (footer && mainBottom < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
-            //    footer.style.marginTop = bodyHeight - 100 + 'px';
-            //}
+            // 将内容变的足够高。
+            if (footer && Doc.local && mainBottom < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
+                footer.style.marginTop = bodyHeight / 2 + 'px';
+            }
 
             if (sidebarOnly !== true) {
 
