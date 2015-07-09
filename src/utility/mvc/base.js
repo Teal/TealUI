@@ -2,7 +2,7 @@
  * @fileOverview 所有控件的基类。
  */
 
-// #require ../utility/class.js
+// #require ../../utility/lang/class.js
 // #require ../dom/base.js
 
 /**

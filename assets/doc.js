@@ -1280,11 +1280,11 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     /**
      * 绘制页内已加载的所有代码块。
      */
-    Doc.renderCodes = function (node) {
-
+    Doc.renderCodes = function () {
+        
         // 处理所有 <pre>, <script class="doc-demo">, <aside class="doc-demo">
         Doc.Dom.each('.doc > pre, .doc-demo', function (node) {
-
+            
             // 不重复解析。
             if (node._docInited) {
                 return;
@@ -1309,13 +1309,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 javascript: 'js',
                 htm: 'html',
                 plain: 'text'
-            })[language] : Doc.SyntaxHighligher.guessLanguage(content);
+            })[language] || language : Doc.SyntaxHighligher.guessLanguage(content);
 
             if (!pre) {
-                pre = document.createElement('pre');
-                node.parentNode.insertBefore(pre, node.nextSibling);
+                pre = node.parentNode.insertBefore(document.createElement('pre'), node.nextSibling);
+                pre._docInited = true;
             }
-
+            
             // 插入代码域。
             Doc.Dom.addClass(pre, 'doc');
             Doc.Dom.addClass(pre, 'doc-code');

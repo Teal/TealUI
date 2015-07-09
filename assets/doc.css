@@ -207,6 +207,14 @@
         text-decoration: underline;
     }
 
+    .doc > p a[href^=http]:after, .doc > ul a[href^=http]:after, .doc > ol a[href^=http]:after, .doc > dl a[href^=http]:after, .doc > table a[href^=http]:after, .doc > blockquote a[href^=http]:after {
+        content: "\2650";
+        font-family: IcoMoon;
+        vertical-align: -2px;
+        display: inline-block;
+        margin-left: .32em;
+    }
+
 .doc-section small, .doc > h1 small, .doc > h2 small, .doc > h3 small, .doc > h4 small, .doc > h5 small, .doc > h6 small, .doc > p small, .doc > ul small, .doc > ol small, .doc > dl small, .doc > table small, .doc > blockquote small {
     color: #B8B8B8;
     font-size: 12px;
