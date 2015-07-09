@@ -40,7 +40,7 @@
                     if (item.status == 'done' || !item.status) {
                         totalDoneCount++;
                     }
-                    segments.push('<li><a href="' + Doc.baseUrl + Doc.Configs.folders.demos.path + '/' + path + '">' + item.title + '</a></li>');
+                    segments.push('<li><a href="' + path + '">' + item.title + '</a></li>');
                 }
             }
 
@@ -51,6 +51,9 @@
             small.title = '已完成:' + totalDoneCount + '\n未完成:' + (totalCount - totalDoneCount);
 
         };
+
+        if (Doc.frame == 'none' || Doc.frame == 'fullscreen')
+            Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath);
     </script>
 </body>
 </html>

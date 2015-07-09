@@ -1650,7 +1650,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                         download: function (html) {
-                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools.path + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
+                            return Doc.folder == 'demos' && Doc.path ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools.path + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
                         },
 
                         favorite: function (html) {
@@ -1959,7 +1959,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 item = list[path];
                 if (!item.level || (!filter && includeHeader)) {
 
-                    name = item.name.replace(/^.*\// , "");
+                    name = includeHeader && !filter ? item.name.replace(/^.*\// , "") : item.name;
                     args.name = name;
                     args.title = item.title;
                     args.level = item.level;

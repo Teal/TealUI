@@ -781,6 +781,7 @@ a#doc_logo {
 
     .doc-pager:hover {
         opacity: .75;
+        color: #fff;
     }
 
     .doc-pager span {
