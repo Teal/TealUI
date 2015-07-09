@@ -163,7 +163,7 @@ function createModule(path, tpl, title) {
 
     return targetPath;
 
-};
+}
 
 /**
  * 删除一个组件文件。
@@ -188,122 +188,107 @@ function deleteModule(path) {
 /**
  * 更新指定的列表缓存文件。
  */
-function updateModuleList(folderName) {
+function updateModuleList() {
 
-    // 不提供参数则更新全部文件夹。
-    if (!folderName) {
-        //for (var folderName in Doc.Configs.folders) {
-		//	if(folderName !== "src"){
-		//		updateModuleList(folderName);
-		//	}
-        //}
-		updateModuleList("demos");
-        return;
-    }
-
+    // 获取用于获取拼音的函数。
     var getPinYin = getPinYinFn();
 
-    // 区分是否是源码。
-    var isSrc = folderName === 'sources';
-    var folder = Path.resolve(Doc.basePath, Doc.Configs.folders[folderName].path);
+    /**
+     * 获取指定文件夹内的所有 HTML 文件。
+     */
+    function getAllHtmlFiles(folder, level, parentPath, parent, specail) {
+        var files = FS.readdirSync(folder),
+            result = [];
 
-    var moduleList = [];
+        for (var i = 0, file; file = files[i]; i++) {
 
-    // 只扫描前两层文件夹。
-    var folders = FS.readdirSync(folder);
-    for (var i = 0; i < folders.length; i++) {
-        var folderPath = folder + Path.sep + folders[i];
-        if (FS.statSync(folderPath).isDirectory()) {
-            var categoryInfo = {
-                title: folders[i],
-                path: folders[i],
-                name: folders[i].replace(/\..*$/, ''),
-                children: [], toString: function () { return this.name }
-            };
+            var fullPath = folder + Path.sep + file,
+                moduleInfo;
 
-            var files = FS.readdirSync(folderPath);
-            for (var j = 0; j < files.length; j++) {
-                var filePath = folderPath + Path.sep + files[j];
-                if (FS.statSync(filePath).isFile()) {
+            // 如果是文件夹递归搜索。
+            if (FS.statSync(fullPath).isDirectory()) {
 
-                    var moduleInfo;
-
-                    if (isSrc) {
-
-                        moduleInfo = {};
-
-                    } else {
-
-                        if (Path.extname(filePath) !== docExtName) {
-                            continue;
-                        }
-
-                        // 读取模块信息。忽略强制忽略的模块。
-                        moduleInfo = getModuleInfo(filePath, files[j]);
-
-                    }
-
-                    // 由子节点设置父节点属性。
-                    for (var key in moduleInfo) {
-                        if (/^parent-/.test(key)) {
-                            categoryInfo[key.substr("parent-".length)] = moduleInfo[key];
-                            delete moduleInfo[key];
-                        }
-                    }
-
-                    moduleInfo.path = folders[i] + '/' + files[j];
-                    moduleInfo.name = files[j].replace(/\..*$/, '');
-
-                    if (moduleInfo.ignore === "true" || moduleInfo.ignore === "1") {
-                        continue;
-                    }
-
-                    if (getPinYin) {
-                        moduleInfo.titlePinYin = getPinYin(moduleInfo.title, false, ' ').toLowerCase();
-                        if (moduleInfo.tags) {
-                            moduleInfo.tags += ';' + getPinYin(moduleInfo.tags).toLowerCase() + getPinYin(moduleInfo.tags, true).toLowerCase();
-                        }
-                    }
-
-                    // 添加到当前模块。
-                    categoryInfo.children.push(moduleInfo);
-
+                // 不处理特殊文件夹。
+                if (/^(node_|templates$|test$|_|\.)/.test(file)) {
+                    continue;
                 }
-            }
 
-            // 隐藏分类信息。
-            if (categoryInfo.ignore === "true" || categoryInfo.ignore === "1") {
+                moduleInfo = {
+                    parent: parent,
+                    title: file,
+                    level: 0
+                };
+
+                moduleInfo.children = getAllHtmlFiles(fullPath, level + 1, parentPath + file + '/', moduleInfo, specail);
+
+                if (!moduleInfo.children.length) {
+                    continue;
+                }
+
+                // 只处理 HTML 文件。
+            } else if (Path.extname(file) === docExtName) {
+
+                moduleInfo = getModuleInfo(fullPath);
+                moduleInfo.title = moduleInfo.title || file;
+
+                // 由子节点设置父节点属性。
+                for (var key in moduleInfo) {
+                    if (/^parent-/.test(key)) {
+                        var pt = parent,
+                            pk = key.substr("parent-".length);
+
+                        while (/^parent-/.test(pk) && pt.parent) {
+                            pk = pk.substr("parent-".length);
+                            pt = pt.parent;
+                        }
+
+                        pt[pk] = moduleInfo[key];
+                        delete moduleInfo[key];
+                    }
+                }
+
+                if (moduleInfo.ignore === "true" || moduleInfo.ignore === "1") {
+                    continue;
+                }
+            } else {
                 continue;
             }
 
-            if (getPinYin) {
-                categoryInfo.titlePinYin = getPinYin(categoryInfo.title, ' ').toLowerCase();
-                if (categoryInfo.tags) {
-                    categoryInfo.tags += ';' + getPinYin(categoryInfo.tags).toLowerCase() + getPinYin(categoryInfo.tags, true).toLowerCase();
-                }
+            if (moduleInfo.order && moduleInfo.order !== "^") {
+                moduleInfo.order = parentPath + moduleInfo.order;
             }
 
-            if (categoryInfo.children.length) {
-                categoryInfo.children = sortArray(categoryInfo.children);
-                moduleList.push(categoryInfo);
+            moduleInfo.path = parentPath + file;
+            moduleInfo.name = parentPath + file.replace(/\..*$/, '');
+
+            moduleInfo.titlePinYin = getPinYin(moduleInfo.title, false, ' ').toLowerCase();
+            if (moduleInfo.keywords) {
+                moduleInfo.keywordsPinYin = getPinYin(moduleInfo.keywords, false, ' ').toLowerCase();
             }
+
+            result.push(moduleInfo);
 
         }
+
+        return sort(result);
+
     }
-    moduleList = sortArray(moduleList);
 
-    context.response.contentType = 'text/html;charset=utf-8'
-    folderName === 'demos' && context.response.write(JSON.stringify(moduleList))
-    IO.writeFile(Path.resolve(Doc.basePath, Doc.Configs.listsPath, Doc.Configs.folders[folderName].path + '.js'), 'Doc.Page.initList(' + JSON.stringify(moduleList) + ');', Doc.Configs.encoding);
+    /**
+     * 解析一个 HTML 文件内指定的组件信息。
+     * @param {String} filePath 文件路径。
+     */
+    function getModuleInfo(filePath) {
+        var content = IO.readFile(filePath, Doc.Configs.encoding);
+        var match = reModuleInfo.exec(content);
+        var moduleInfo = match && Doc.Utility.parseModuleInfo(match[4]) || {};
+        moduleInfo.title = (/(<title[^\>]*?>)(.*?)(<\/title>)/i.exec(content) || [])[2];
+        moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
+        moduleInfo.keywords = (/<meta\s+name\s*=\s*"keywords"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
+        return moduleInfo;
+    }
 
-    function sortArray(list) {
-        var newList = [];
-
-        while (list.length) {
-            processOne(list[0]);
-        }
-
-        return newList;
+    function sort(list) {
 
         function processOne(item) {
 
@@ -335,27 +320,54 @@ function updateModuleList(folderName) {
                     }
                 }
             }
-           
+
             // 如果没有合理位置则插入到末尾。
             newList.push(item);
         }
 
+        var newList = [];
+
+        while (list.length) {
+            processOne(list[0]);
+        }
+
+        return newList;
+
     }
 
-};
+    function walkList(parent, result) {
+        var level = 0;
+        for (var i = 0; i < parent.length; i++) {
+            result[parent[i].path] = parent[i];
+            if (parent[i].children) {
+                parent[i].childCount = parent[i].children.length;
+                parent[i].level = walkList(parent[i].children, result) + 1;
+                level = Math.max(level, parent[i].level);
+            }
+            delete parent[i].parent;
+            delete parent[i].children;
+        }
+        delete result["index.html"];
+        return level;
+    }
 
-/**
- * 解析一个 HTML 文件内指定的组件信息。
- * @param {String} filePath 文件路径。
- */
-function getModuleInfo(filePath, modulePath) {
-    var content = IO.readFile(filePath, Doc.Configs.encoding);
-    var match = reModuleInfo.exec(content);
-    var moduleInfo = match && Doc.ModuleInfo.parse(match[4]) || {};
-    moduleInfo.title = (/(<title[^\>]*?>)(.*?)(<\/title>)/i.exec(content) || [])[2] || modulePath;
-    moduleInfo.tags = (/<meta\s+name\s*=\s*"description"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
-    moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
-    return moduleInfo;
+    var demos = getAllHtmlFiles(Doc.basePath + Doc.Configs.folders.demos.path, 0, ''),
+        docs = getAllHtmlFiles(Doc.basePath + Doc.Configs.folders.docs.path, 0, ''),
+        tools = getAllHtmlFiles(Doc.basePath + Doc.Configs.folders.tools.path, 0, '', true),
+        finalList = {
+            demos: {},
+            docs: {},
+            tools: {},
+        };
+
+    walkList(demos, finalList.demos);
+    walkList(docs, finalList.docs);
+    walkList(tools, finalList.tools);
+
+    context.response.contentType = 'text/html;charset=utf-8'
+    context.response.write(JSON.stringify(finalList));
+
+    IO.writeFile(Path.resolve(Doc.basePath, Doc.Configs.indexPath), 'Doc.initList(' + JSON.stringify(finalList) + ');', Doc.Configs.encoding);
 };
 
 /**
@@ -441,9 +453,11 @@ function updateModuleInfo(htmlPath, title, moduleInfo) {
 
 function getPinYinFn() {
     if (!this.getPinYin) {
-        var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/text/pinYin.js'));
-        eval(src);
-        this.getPinYin = getPinYin;
+        try {
+            var src = IO.readFile(Path.resolve(Doc.basePath + "/" + Doc.Configs.folders.sources.path + '/utility/text/pinYin.js'));
+            eval(src);
+            this.getPinYin = getPinYin;
+        } catch (e) { }
     }
     return this.getPinYin;
 }

@@ -211,278 +211,6 @@ Doc.Utility = {
 /**
  * 代码高亮模块。
  */
-Doc.SyntaxHighligher = {
-
-    /**
-     * 所有可用的语法定义。
-     */
-    languages: {
-        'markup-tag': [
-            {
-                pattern: /^<\/?[^\s>\/]+/i,
-                content: [
-                    { pattern: /^<\/?/, type: 'punctuation' },
-                    { pattern: /^[^\s>\/:]+:/, type: 'namespace' },
-                    { type: 'tag-name' }
-                ]
-            },
-            {
-                pattern: /=(?:('|")[\s\S]*?(\1)|[^\s>]+)/i,
-                type: 'attr-value',
-                content: [{ pattern: /=|>|"|'/, type: 'punctuation' }]
-            },
-            { pattern: /\/?>/, type: 'punctuation' },
-            {
-                pattern: /[^\s>\/]+/,
-                type: 'attr-name',
-                content: [{ pattern: /^[^\s>\/:]+:/, type: 'namespace' }]
-            }
-        ],
-        'html': [
-            // 注释。
-            { pattern: /<!--[\s\S]*?-->/, type: 'comment' },
-            { pattern: /<\?.+?\?>/, type: 'prolog' },
-            { pattern: /<!DOCTYPE.+?>/, type: 'doctype' },
-            { pattern: /<!\[CDATA\[[\s\S]*?]]>/i, type: 'cdata' },
-
-            // 节点。
-            {
-                pattern: /<\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\w\W])*\1|[^\s'">=]+))?)*\s*\/?>/i,
-                content: [{
-                    pattern: /<style[\s\S]*?>[\s\S]*?<\/style>/i,
-                    content: [{
-                        pattern: /<style[\s\S]*?>|<\/style>/i,
-                        content: ['markup-tag']
-                    }, 'css']
-                }, {
-                    pattern: /<script[\s\S]*text\/(html?|template|markdown)?>[\s\S]*?<\/script>/i,
-                    content: [{
-                        pattern: /<script[\s\S]*?>|<\/script>/i,
-                        content: ['markup-tag']
-                    }, 'html']
-                }, {
-                    pattern: /<script[\s\S]*?>[\s\S]*?<\/script>/i,
-                    content: [{
-                        pattern: /<script[\s\S]*?>|<\/script>/i,
-                        content: ['markup-tag']
-                    }, 'js']
-                }, {
-                    pattern: /^<\/?[^\s>\/]+/i,
-                    type: 'tag',
-                    content: ['markup-tag']
-                }]
-            },
-            { pattern: /&#?[\da-z]{1,8};/i, type: 'entity' }
-        ],
-        'css': [
-            { pattern: /\/\*[\w\W]*?\*\//, type: 'comment' },
-            {
-                pattern: /@[\w-]+?.*?(;|(?=\s*\{))/i, type: 'atrule', content: [
-            { pattern: /[;:]/, type: 'punctuation' }]
-            },
-            { pattern: /url\((?:(["'])(\\\n|\\?.)*?\1|.*?)\)/i, type: 'url' },
-            { pattern: /[^\{\}\s][^\{\};]*(?=\s*\{)/, type: 'selector' },
-            { pattern: /("|')(\\\n|\\?.)*?\1/, type: 'string' },
-            { pattern: /(\b|\B)[\w-]+(?=\s*:)/i, type: 'property' },
-            { pattern: /\B!important\b/i, type: 'important' },
-            { pattern: /[\{\};:]/, type: 'punctuation' },
-            { pattern: /[-a-z0-9]+(?=\()/i, type: 'function' }
-        ],
-        'js': [
-           { pattern: /(^|[^\\])\/\*[\s\S]*?\*\//, matchRest: true, type: 'comment' },
-            { pattern: /(^|[^\\:])\/\/.*/, matchRest: true, type: 'comment' },
-            { pattern: /("|')(\\[\s\S]|(?!\1)[^\\\r\n])*\1/, type: 'string' },
-            { pattern: /(?:(class|interface|extends|implements|trait|instanceof|new)\s+)[\w\$\.\\]+/, type: 'class-name' },
-            { pattern: /\b[A-Z](\b|[a-z])/, type: 'class-name' },
-            { pattern: /(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\\\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/, matchRest: true, type: 'regex' },
-            { pattern: /\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|false|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|true|try|typeof|var|void|while|with|yield)\b/, type: 'keyword' },
-            { pattern: /\b(true|false|null)\b/, type: 'const' },
-            { pattern: /(?!\d)[a-z0-9_$]+(?=\()/i, type: 'function', content: { pattern: /\(/, type: 'punctuation' } },
-            { pattern: /\b-?(0x[\dA-Fa-f]+|0b[01]+|0o[0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/, type: 'number' },
-            { pattern: /[-+]{1,2}|!|<=?|>=?|={1,3}|&{1,2}|\|?\||\?|\*|\/|~|\^|%/, type: 'operator' },
-            { pattern: /&(lt|gt|amp);/i },
-            { pattern: /[{}[\];(),.:]/, type: 'punctuation' }
-        ]
-    },
-
-    /**
-     * 根据源码推测其语音。
-     * @param {String} sourceCode 需要高亮的源码。
-     * @return {String} 返回一个语言名。
-     */
-    guessLanguage: function (sourceCode) {
-        return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s+\w|\w\(|\)\./.test(sourceCode) ? 'js' : null;
-    },
-
-    /**
-     * 异步高亮单一的节点。
-     * @param {Element} elem 要高亮的节点。
-     * @param {String} [language] 高亮的语法。系统会自动根据源码猜测语言。
-     */
-    oneAsync: function (element, language) {
-        if (window.Worker) {
-            var worker = new Worker();
-            worker.onmessage = function (e) {
-                Doc.SyntaxHighligher.one(e.element, e.language);
-            };
-            worker.postMessage(JSON.stringify({
-                element: element,
-                language: language
-            }));
-        } else {
-            setTimeout(function () {
-                Doc.SyntaxHighligher.one(element, language);
-            }, 0);
-        }
-    },
-
-    /**
-     * 高亮单一的节点。
-     * @param {Element} elem 要高亮的节点。
-     * @param {String} [language] 高亮的语法。系统会自动根据源码猜测语言。
-     */
-    one: function (element, language) {
-
-        var specificLanuage = (/\bdoc-code-(\w+)(?!\S)/i.exec(pre.className) || 0)[1],
-            sourceAndSpans = extractSourceSpans(element);
-        language = language || specificLanuage || Doc.SyntaxHighligher.guessLanguage(sourceAndSpans.sourceCode);
-        if (!specificLanuage) pre.className += ' doc-code-' + language;
-        element.innerHTML = Doc.SyntaxHighligher.highlight(element.textContent.replace(/^(?:\r?\n|\r)/, ''), language);
-    },
-
-    /**
-     * 删除公共缩进部分。
-     */
-    removeLeadingWhiteSpaces: function (value) {
-        value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
-        var space = /^\s+/.exec(value), i;
-        if (space) {
-            space = space[0];
-            value = value.split(/[\r\n]/);
-            for (i = value.length - 1; i >= 0; i--) {
-                value[i] = value[i].replace(space, "");
-            }
-            value = value.join('\r\n');
-        }
-        return value;
-    },
-
-    /**
-     * 对指定文本内容进行高亮，返回高亮后的 HTML 字符串。
-     * @param {Element} text 要高亮的内容。
-     * @param {String} [language] 高亮的语法。如果未指定系统会自动根据源码猜测语言。
-     */
-    highlight: function (text, language) {
-        return Doc.SyntaxHighligher._stringify(Doc.SyntaxHighligher._tokenize(text, Doc.SyntaxHighligher.languages[language] || []));
-    },
-
-    /**
-     * 将指定文本根据语法解析为标记序列。
-     */
-    _tokenize: function (text, grammars) {
-
-        // 一次处理一段文本。
-        function proc(text, grammars, tokens) {
-            for (var i = 0, grammar, pattern, match, from, content, t; grammar = grammars[i]; i++) {
-
-                // 如果语法本身是一个字符串则递归解析。
-                if (grammar.constructor === String) {
-                    return proc(text, Doc.SyntaxHighligher.languages[grammar], tokens);
-                }
-
-                // 尝试使用正则匹配。
-                pattern = grammar.pattern;
-                if (!pattern) {
-                    tokens.push({
-                        type: grammar.type,
-                        content: text,
-                    });
-                    return true;
-                }
-                pattern.lastIndex = 0;
-                if (match = pattern.exec(text)) {
-
-                    // 记录匹配结果。
-                    from = match.index;
-                    content = match[0];
-
-                    // 有些正则由于匹配了无关前缀，在这里重写为匹配末尾。
-                    if (grammar.matchRest) {
-                        t = match[1].length;
-                        from += t;
-                        content = content.substr(t);
-                    }
-
-                    // 如果匹配的文本之前存在内容，则继续解析。
-                    if (from) {
-                        proc(text.substr(0, from), grammars, tokens);
-                    }
-
-                    // 处理当前标记。
-                    t = content;
-                    if (grammar.content) {
-                        proc(content, grammar.content, t = []);
-                    }
-                    tokens.push({
-                        type: grammar.type,
-                        content: t,
-                    });
-
-                    // 如果匹配的文本之后存在内容，则继续解析。
-                    t = from + content.length;
-                    if (t < text.length) {
-                        proc(text.substr(t), grammars, tokens);
-                    }
-
-                    // 符合任何一个正则则停止解析。
-                    return true;
-                }
-            }
-
-            // 当前文本不属于任何已知标记，直接存入标记队列。
-            tokens.push(text);
-            return false;
-        }
-
-        var tokens = [];
-        proc(text, grammars, tokens);
-        return tokens;
-    },
-
-    /**
-     * 将指定标记序列合并为字符串。
-     */
-    _stringify: function (tokens) {
-
-        function proc(tokens, segments) {
-            for (var i = 0, token; token = tokens[i]; i++) {
-                if (token.constructor === String) {
-                    segments.push(token);
-                } else {
-                    segments.push('<span');
-                    token.type && segments.push(' class="doc-code-', token.type, '"');
-                    segments.push('>');
-                    if (token.content.constructor === String) {
-                        segments.push(token.content);
-                    } else {
-                        proc(token.content, segments);
-                    }
-                    segments.push('</span>');
-                }
-            }
-        }
-
-        var segments = [];
-        proc(tokens, segments);
-        return segments.join('');
-
-    }
-
-};
-
-/**
- * 代码高亮模块。
- */
 Doc.SyntaxHighligher = (function () {
 
     /**
@@ -707,8 +435,6 @@ Doc.SyntaxHighligher = (function () {
         }
 
     };
-
-    window.SH = SH;
 
     /**
      * 解析元素的内容并返回其源码和虚拟 DOM 树。
@@ -1484,7 +1210,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
     // #region NodeJS
 
-    Doc.basePath = require('path').resolve(__dirname, Doc.Configs.basePath);
+    Doc.basePath = require('path').resolve(__dirname, Doc.Configs.basePath) + require('path').sep;
 
     // 导出 Doc 模块。
     module.exports = Doc;
@@ -1781,11 +1507,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      */
     Doc.initList = function (list) {
         Doc.list = list;
-        if(Doc.onListLoad) {
-            Doc.onListLoad(list);
-        }
     };
-
+    
     /**
      * 负责生成页面导航。
      */
@@ -1803,7 +1526,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     </span>\
                     <ul id="doc_navbar">\
                         <li{actived:docs}><a href="{baseUrl}{folder:docs}/{indexUrl}">开始使用</a></li>\
-                        <li{actived:demos}><a href="{baseUrl}{folder:demos}">所有组件</a></li>\
+                        <li{actived:demos}><a href="{baseUrl}{folder:demos}/{indexUrl}">所有组件</a></li>\
                         <li{actived:tools/customize}><a href="{baseUrl}{folder:tools}/customize/{indexUrl}">下载和定制</a></li>\
                         <li{actived:tools/devTools}><a href="{baseUrl}{folder:tools}/devTools/{indexUrl}">开发者工具</a></li>\
                     </ul>\
@@ -1832,7 +1555,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <a href="javascript:;" onclick="Doc.Page.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
                     <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
-                <h1 id="doc_title">{title} <small>{path}</small></h1>\
+                <h1 id="doc_title">{title} <small>{name}</small></h1>\
                 {summary:<blockquote class="doc-summary">#</blockquote>}',
 
         footer: '<div>\
@@ -1917,7 +1640,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         },
 
                         title: document.title,
-                        path: Doc.path.replace(/\..*$/, ""),
+                        name: Doc.path.replace(/\..*$/, ""),
 
                         fullScreenUrl: Doc.Utility.appendUrl(location.href, 'frame', 'fullscreen'),
                         indexUrl: location.protocol === 'file:' ? 'index.html' : '',
@@ -1927,7 +1650,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                         download: function (html) {
-                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools + '/customize/' + this.indexUrl + '?download=' + Doc.path) : '';
+                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
                         },
 
                         favorite: function (html) {
@@ -1966,6 +1689,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                             window.duoshuoQuery = { short_name: "teal" };
                             Doc.Dom.loadScript('//static.duoshuo.com/embed.js');
+                            setTimeout(Doc.Page.updateSidebar, 600);
                         }
 
                         // 插入底部。
@@ -2089,10 +1813,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             list.style.height = listHeight - filter.offsetHeight + 'px';
 
-            // 将内容变的足够高。
-            if (footer && mainBottom < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
-                footer.style.marginTop = bodyHeight - 100 + 'px';
-            }
+            //// 将内容变的足够高。
+            //if (footer && mainBottom < bodyHeight && sidebar.getBoundingClientRect().left >= 0) {
+            //    footer.style.marginTop = bodyHeight - 100 + 'px';
+            //}
 
             if (sidebarOnly !== true) {
 
@@ -2185,6 +1909,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var segments = [],
                 list = Doc.list[listName],
                 path,
+                name,
                 item,
                 args = {},
                 docPath = Doc.path.toLowerCase(),
@@ -2234,7 +1959,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 item = list[path];
                 if (!item.level || (!filter && includeHeader)) {
 
-                    args.path = path;
+                    name = item.name.replace(/^.*\// , "");
+                    args.name = name;
                     args.title = item.title;
                     args.level = item.level;
                     args.status = item.status || 'done';
@@ -2245,9 +1971,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
                     // 应用过滤高亮。
                     if (filter) {
-                        args.path = applyFilter(path, null, filter);
+                        args.name = applyFilter(name, null, filter);
                         args.title = applyFilter(item.title, item.titlePinYin && item.titlePinYin.split(' '), filter);
-                        args.order = args.title.length > item.title.length ? 1 : args.path.length > path.length ? 2 : item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.titlePinYin.split(/[, ]/), filter).length > item.keywords.length ? 3 : 0;
+                        args.order = args.title.length > item.title.length ? 1 : args.name.length > name.length ? 2 : item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.titlePinYin.split(/[, ]/), filter).length > item.keywords.length ? 3 : 0;
                         if (!args.order) {
                             continue;
                         }
@@ -2256,7 +1982,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         args.actived = path.toLowerCase() === docPath ? 'doc-list-actived ' : '';
                     }
 
-                    segments[history && history.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}">{title} <small>{path}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}">{title} <small>{path}</small></a></dd>', args));
+                    segments[history && history.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}">{title} <small>{name}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}">{title} <small>{name}</small></a></dd>', args));
 
                 }
             }
@@ -2390,7 +2116,21 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         // #endregion
 
-        // #region 页面交互
+        // #region 其它页面交互
+
+        toggleFavorites: function (button) {
+            if (window.localStorage) {
+                var favorates = localStorage.doc_favorites ? localStorage.doc_favorites.split(';') : [];
+                if (favorates.indexOf(Doc.path) < 0) {
+                    favorates.push(Doc.path);
+                    button.innerHTML = '<span class="doc-icon">★</span>已收藏';
+                } else {
+                    favorates.splice(favorates.indexOf(Doc.path), 1);
+                    button.innerHTML = '<span class="doc-icon">✰</span>收藏';
+                }
+                localStorage.doc_favorites = favorates.join(';');
+            }
+        },
 
         gotoTop: function () {
             var srcollElement = document.documentElement,
@@ -2412,20 +2152,6 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var list = document.getElementById('doc_sidebar_list');
             Doc.Page.moveActivedItem(list, down);
             Doc.Page.gotoActivedItem(list);
-        },
-
-        toggleFavorites: function (button) {
-            if (window.localStorage) {
-                var favorates = localStorage.doc_favorites ? localStorage.doc_favorites.split(';') : [];
-                if (favorates.indexOf(Doc.path) < 0) {
-                    favorates.push(Doc.path);
-                    button.innerHTML = '<span class="doc-icon">★</span>已收藏';
-                } else {
-                    favorates.splice(favorates.indexOf(Doc.path), 1);
-                    button.innerHTML = '<span class="doc-icon">✰</span>收藏';
-                }
-                localStorage.doc_favorites = favorates.join(';');
-            }
         },
 
         // #endregion

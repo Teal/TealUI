@@ -3,30 +3,54 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>组件精选</title>
+    <title>组件列表</title>
 </head>
 <body>
-
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../assets/doc.js"></script>
-    <span class="icon-download3"></span>
-    <span class="icon-star"></span>
-    <h2>接下来该做什么</h2>
-
-    <p>TealUI 包含了 <span id="listCount">200+</span> 个组件。打开任意一个组件，查看网页源代码。在顶部会列出当前组件所需要的全部源码。可以直接复制源码使用某个组件。</p>
-
-    <p>通过网页右下角的翻页按钮可以阅读下一个组件，或 <a href="core/base.html">点此进入第一个组件</a>。</p>
-    
+    <div id="list" class="doc">
+        正在载入列表...
+    </div>
     <script>
-        
-        var oldInitList = Doc.Page.initList;
-        Doc.Page.initList = function(list) {
-            oldInitList(list);
-            var listCount = document.getElementById('listCount');
-            listCount.innerHTML = document.querySelectorAll('#doc_list dd').length;
-            listCount.title = "已完成：" + document.querySelectorAll('#doc_list dd.doc-list-done').length + "\r\n" + "开发中：" + document.querySelectorAll('#doc_list dd.doc-list-doing').length + "\r\n" + "计划中：" + document.querySelectorAll('#doc_list dd.doc-list-todo').length;
+        Doc.initList = function (list) {
+            Doc.list = list;
+
+            list = list.demos;
+
+            var segments = [],
+                totalCount = 0,
+                totalDoneCount = 0,
+                currentCount = 0,
+                path, item;
+
+            for (path in list) {
+                item = list[path];
+                if (item.level) {
+                    if (/^<li/.test(segments[segments.length - 1])) {
+                        segments.push('</ul>');
+                    }
+                    if (item.level > 1) {
+                        segments.push('<h2>' + item.title + '</h2>');
+                    } else {
+                        segments.push('<h3>' + item.title + '</h3>');
+                        segments.push('<ul class="doc-clear doc-floatlist">');
+                    }
+                } else {
+                    totalCount++;
+                    if (item.status == 'done' || !item.status) {
+                        totalDoneCount++;
+                    }
+                    segments.push('<li><a href="' + Doc.baseUrl + Doc.Configs.folders.demos.path + '/' + path + '">' + item.title + '</a></li>');
+                }
+            }
+
+            document.getElementById('list').innerHTML = segments.join('');
+
+            var small = document.getElementById('doc_title').lastChild;
+            small.innerHTML = '(共 ' + totalCount + ' 个)';
+            small.title = '已完成:' + totalDoneCount + '\n未完成:' + (totalCount - totalDoneCount);
+
         };
     </script>
-
 </body>
 </html>
