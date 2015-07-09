@@ -1342,7 +1342,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             };
 
             // 检测flash 复制。
-            if (0 && location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
+            if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
                 button.innerHTML = '复制';
                 var timer;
                 button.onmouseover = function () {
@@ -1650,7 +1650,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                         download: function (html) {
-                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
+                            return Doc.folder == 'demos' ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools.path + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
                         },
 
                         favorite: function (html) {
