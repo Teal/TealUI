@@ -27,7 +27,7 @@
         <a href="###"><span class="x-icon">&#9733;</span>你好</a>
     </aside>
     <blockquote class="doc-note">
-        注意：<br />
+        <h4>注意</h4>
         1. 不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。<br />
         2. 使用图标时应在图标后追加一个空格以保证美观。<br />
         3. 链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。
@@ -49,6 +49,11 @@
 
     <h2>所有图标</h2>
     <p>图标的内容由内部文字决定，更换 <code>&lt;span&gt;</code> 里面的字符可以切换图标的内容。一些特殊字符可以使用 HTML 转义码（如<code>&amp;#9733;</code>）表示。</p>
+    <style>
+        td[align="center"] {
+            text-align: center!important;
+        }
+    </style>
     <script>
 
         var html = '<table>', odd = true;
@@ -69,7 +74,7 @@
 
         try {
 
-            html += '<tr><th>图标</th><th>字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th><th>图标</th><th>字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th></tr>';
+            html += '<tr><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th></tr>';
 
             for (var span = 0; span < document.styleSheets.length; span++) {
                 if (/iconex/i.test(document.styleSheets[span].href)) {
