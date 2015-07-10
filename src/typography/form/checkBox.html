@@ -33,31 +33,37 @@
     <h2>自定义样式</h2>
     <aside class="doc-demo">
         <label>
-            <input type="checkbox" class="x-checkbox" name="checkbox1">
-            <i class="x-icon">&#9746;</i>
-            <i class="x-icon">&#9745;</i>
+            <input type="checkbox" class="x-checkbox-proxy" name="checkbox1">
+            <span>
+                <span class="x-icon">&#9746;</span>
+                <span class="x-icon">&#9745;</span>
+            </span>
+            默认
+        </label>
+        
+        <label>
+            <input type="checkbox" class="x-checkbox-proxy" name="checkbox1">
+            <span>
+                <span class="x-icon">&#9681;</span>
+                <span class="x-icon">&#9680;</span>
+            </span>
             默认
         </label>
 
         <label>
-            <input type="checkbox" class="x-checkbox" disabled="disabled" name="checkbox1">
-            <i class="x-icon">&#9746;</i>
-            <i class="x-icon">&#9745;</i>
+            <input type="checkbox" class="x-checkbox-proxy" disabled="disabled" name="checkbox1">
+            <span>
+                <span class="x-icon">&#9746;</span>
+                <span class="x-icon">&#9745;</span>
+            </span>
             禁用
-        </label>
-
-        <label>
-            <input type="checkbox" class="x-checkbox" name="checkbox1">
-            <i class="x-icon">&#9681;</i>
-            <i class="x-icon">&#9680;</i>
-            默认
         </label>
     </aside>
     
     <h2>自动初始化</h2>
     <aside class="doc-demo">
-        <label><input type="checkbox" class="x-checkbox" data-role="checkBox"> 默认</label>
-        <label><input type="checkbox" class="x-checkbox" data-role="checkBox" disabled="disabled" checked="checked"> 禁用</label>
+        <label><input type="checkbox" data-role="checkBox"> 默认</label>
+        <label><input type="checkbox" data-role="checkBox" disabled="disabled" checked="checked"> 禁用</label>
     </aside>
     <script>Doc.renderCodes();</script>
 </body>

@@ -1,19 +1,20 @@
 
 @import "../core/mixins.less";
 
-.x-checkbox {
+.x-checkbox-proxy {
     position: absolute;
     visibility: hidden;
 
-    & + .x-icon, & + .x-icon + .x-icon {
+    & + span {
         color: @text-color-link;
     }
-
-    &[disabled] + .x-icon, &[disabled] + .x-icon + .x-icon, &[readonly] + .x-icon, &[readonly] + .x-icon + .x-icon {
+    
+    &[disabled] + span {
         color: @text-color-disabled;
     }
 
-    &:checked + .x-icon, &:not(:checked) + .x-icon + .x-icon {
+    &:not(:checked) + span .x-icon:last-child, &:checked  + span .x-icon:first-child {
         display: none;
     }
+
 }

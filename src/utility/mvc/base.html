@@ -20,7 +20,9 @@
     <script type="text/javascript" src="../../../assets/doc.js"></script>
     
     <div id="container">
-        <button onclick="{onClick}">{text.button}</button>
+        {for(var i in $data.list)}
+            <button onclick="{onClick(i)}">{i.button}</button>
+        {/for}
     </div>
     <script>
         var data = {

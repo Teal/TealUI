@@ -1960,8 +1960,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 if (!item.level || (!filter && includeHeader)) {
 
                     name = includeHeader && !filter ? item.name.replace(/^.*\// , "") : item.name;
-                    args.name = name;
-                    args.title = item.title;
+                    args.name = args.orignalName = name;
+                    args.title = args.orignalTitle = item.title;
                     args.level = item.level;
                     args.status = item.status || 'done';
                     args.url = Doc.baseUrl + Doc.Configs.folders[listName].path + '/' + path;
@@ -1982,7 +1982,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         args.actived = path.toLowerCase() === docPath ? 'doc-list-actived ' : '';
                     }
 
-                    segments[history && history.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}" title="{title}({name})">{title} <small>{name}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}" title="{title}({name})">{title} <small>{name}</small></a></dd>', args));
+                    segments[history && history.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.Utility.parseTpl(item.level ? '<dt class="doc-list-header-{level}" title="{title}({name})">{title} <small>{name}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}" title="{orignalTitle}({orignalName})">{title} <small>{name}</small></a></dd>', args));
 
                 }
             }

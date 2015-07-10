@@ -115,9 +115,12 @@ var Control = Base.extend({
  * 根据类名获取组件类型。
  */
 Control.getControlTypeByName = function (roleName) {
-    roleName = roleName && window[roleName.replace(/^[a-z]/, function (w) {
-        return w.toUpperCase();
-    })];
+    if (roleName) {
+        roleName = roleName.replace(/^[a-z]/, function(w) {
+            return w.toUpperCase();
+        });
+        roleName = Control[roleName] || window[roleName];
+    }
     return roleName && roleName.constructor === Function ? roleName : Control;
 };
 

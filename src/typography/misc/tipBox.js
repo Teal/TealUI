@@ -1,5 +1,5 @@
 ﻿
-var TipBox = Control.extend({
+Control.TipBox = Control.extend({
 
     init: function () {
         var me = this;

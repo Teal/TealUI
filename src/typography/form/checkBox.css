@@ -1,18 +1,14 @@
-﻿.x-checkbox {
+﻿.x-checkbox-proxy {
   position: absolute;
   visibility: hidden;
 }
-.x-checkbox + .x-icon,
-.x-checkbox + .x-icon + .x-icon {
+.x-checkbox-proxy + span {
   color: #337ab7;
 }
-.x-checkbox[disabled] + .x-icon,
-.x-checkbox[disabled] + .x-icon + .x-icon,
-.x-checkbox[readonly] + .x-icon,
-.x-checkbox[readonly] + .x-icon + .x-icon {
+.x-checkbox-proxy[disabled] + span {
   color: #bdbdbd;
 }
-.x-checkbox:checked + .x-icon,
-.x-checkbox:not(:checked) + .x-icon + .x-icon {
+.x-checkbox-proxy:not(:checked) + span .x-icon:last-child,
+.x-checkbox-proxy:checked + span .x-icon:first-child {
   display: none;
 }
