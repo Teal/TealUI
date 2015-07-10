@@ -719,7 +719,7 @@ a#doc_logo {
         content: '☌';
         position: absolute;
         line-height: 30px;
-        font-family: IcoMoon;
+        font-family: DocIcoMoon;
         font-size: 12px;
         color: #727272;
         padding-left: 3px;
