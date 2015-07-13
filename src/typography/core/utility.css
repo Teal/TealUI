@@ -1,4 +1,5 @@
-﻿.x-left {
+﻿/* #region @浮动 */
+.x-left {
   float: left !important;
 }
 .x-right {
@@ -9,6 +10,8 @@
   display: table;
   clear: both;
 }
+/* #endregion */
+/* #region @居中 */
 .x-middle {
   vertical-align: middle !important;
 }
@@ -17,9 +20,13 @@
   margin-right: auto;
   text-align: center;
 }
+/* #endregion */
+/* #region @隐藏 */
 .x-hide {
   display: none;
 }
+/* #endregion */
+/* #region @响应式隐藏 */
 @media (max-width: 640px) {
   .x-hide-small,
   .x-show-medium {
@@ -42,6 +49,8 @@
     display: none;
   }
 }
+/* #endregion */
+/* #region @文本 */
 .x-ellipsis {
   width: 100%;
   white-space: nowrap;
@@ -55,9 +64,13 @@
   -ms-word-break: break-all;
   word-break: break-all;
 }
+/* #endregion */
+/* #region @空隙 */
 .x-blank {
   margin-bottom: 1em;
 }
+/* #endregion */
+/* #region @超出滚动 */
 .x-scrollable-horizontal {
   overflow: hidden;
   overflow-x: auto;

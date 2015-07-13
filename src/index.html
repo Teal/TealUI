@@ -52,6 +52,10 @@
 
         };
 
+        if (Doc.list) {
+            Doc.initList(Doc.list);
+        }
+
         if (Doc.frame == 'none' || Doc.frame == 'fullscreen')
             Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath);
     </script>

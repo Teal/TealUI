@@ -3,11 +3,14 @@
  * @copyright 2011-2015 The TealUI Team
  * @license The BSD License
  */
+/* #region @<html> */
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+/* #endregion */
+/* #region @html5 标签 */
 article,
 aside,
 section,
@@ -22,6 +25,14 @@ details,
 summary {
   display: block;
 }
+[hidden],
+template,
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+/* #endregion */
+/* #region @内联块级标签 */
 img,
 textarea,
 progress,
@@ -33,18 +44,33 @@ canvas {
   max-width: 100%;
   vertical-align: baseline;
 }
-[hidden],
-template,
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
+/* #endregion */
+/* #region @<img> */
 img {
   border: 0;
 }
+/* #endregion */
+/* #region @<svg> */
 svg:not(:root) {
   overflow: hidden;
 }
+/* #endregion */
+/* #region @<sub>, <sup> */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* #endregion */
+/* #region @表单标签 */
 input,
 button,
 select,
@@ -84,40 +110,39 @@ textarea {
 ::-webkit-input-placeholder {
   color: #bdbdbd;
 }
+/* #endregion */
+/* #region @<small> */
 small {
   font-weight: 100;
   font-size: 12px;
   color: #ababab;
 }
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
+/* #endregion */
+/* #region @<figure> */
 figure {
   margin: 1em 40px;
 }
+/* #endregion */
+/* #region @<abbr> */
 abbr[title] {
   border-bottom: 1px dotted;
   cursor: help;
 }
+/* #endregion */
+/* #region @<address>, <cite>, <dfn> */
 address,
 cite,
 dfn {
   font-style: normal;
 }
+/* #endregion */
+/* #region @<mark> */
 mark {
   background: #ffff88;
   color: #000;
 }
+/* #endregion */
+/* #region @<body> */
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif, sans-serif;
@@ -126,6 +151,8 @@ body {
   color: #212121;
   background-color: #ffffff;
 }
+/* #endregion */
+/* #region @块级标签 */
 p,
 hr,
 table,
@@ -139,6 +166,8 @@ fieldset,
 figure {
   margin: 0 0 1em;
 }
+/* #endregion */
+/* #region @<a> */
 a {
   background-color: transparent;
   color: #337ab7;
@@ -148,6 +177,8 @@ a:hover {
   color: #22527b;
   text-decoration: underline;
 }
+/* #endregion */
+/* #region @<h1>-<h6> */
 h1,
 h2,
 h3,
@@ -176,6 +207,8 @@ h5 {
 h6 {
   font-size: 12px;
 }
+/* #endregion */
+/* #region @<code>, <pre>, <kbd>, <samp> */
 pre,
 code,
 kbd,
@@ -213,6 +246,8 @@ kbd {
   color: #ffffff;
   background-color: #212121;
 }
+/* #endregion */
+/* #region @<hr> */
 hr {
   border-color: #e0e0e0;
   border-width: 1px 0 0 0;
@@ -220,6 +255,8 @@ hr {
   box-sizing: content-box;
   height: 0;
 }
+/* #endregion */
+/* #region @<ul>, <ol>, <dl> */
 ul ul,
 ol ul,
 ul ol,
@@ -233,6 +270,8 @@ dt {
 dd {
   margin: 0;
 }
+/* #endregion */
+/* #region @<table> */
 table {
   border-collapse: collapse;
   border-spacing: 0;
