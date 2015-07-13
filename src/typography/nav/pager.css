@@ -31,18 +31,10 @@
 .x-pager .x-icon {
   margin-right: 0;
 }
+/* #region @多尺寸 */
 .x-pager-small a {
   padding: 2px 5px;
   border-radius: 3px;
   font-size: 12px;
   line-height: 1.5;
-}
-.x-pager-large a {
-  padding: 10px 14px;
-  border-radius: 6px;
-  font-size: 18px;
-  line-height: 1.3333333;
-}
-.x-pager-round a {
-  border-radius: 24px;
 }

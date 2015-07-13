@@ -41,6 +41,8 @@
     }
 }
 
+/* #region @多尺寸 */
+
 .x-pager-size(@size) {
     .x-pager-@{size} a {
         padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
@@ -51,10 +53,5 @@
 }
 
 .x-pager-size(small);
-.x-pager-size(large);
 
-.x-pager-round {
-    a {
-        border-radius: @line-height;
-    }
-}
+/* #endregion */
