@@ -408,7 +408,7 @@ Doc.SyntaxHighligher = (function () {
          * @return {String} 返回一个语言名。
          */
         guessLanguage: function (sourceCode) {
-            return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s+\w|\w\(|\)\./.test(sourceCode) ? 'js' : null;
+            return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|[\w$]\s+[\w$]|[\w$]\(|\)\./.test(sourceCode) ? 'js' : null;
         },
 
         /**
@@ -1650,7 +1650,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                         download: function (html) {
-                            return Doc.folder == 'demos' && Doc.path ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools.path + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
+                            return Doc.folder == 'demos' && Doc.path.replace(/(\/|^)index\.html$/, "") ? html.replace('#', this.baseUrl + Doc.Configs.folders.tools.path + '/customize/' + this.indexUrl + '?download=' + this.name) : '';
                         },
 
                         favorite: function (html) {

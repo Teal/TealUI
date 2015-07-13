@@ -4,184 +4,136 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>DOM 操作</title>
-    <meta name="module-info" content="parent-title=DOM, parent-order=utility, order=^">
+    <meta name="module-info" content="parent-title=DOM, parent-order=lang, order=^">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
-
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
-    <script type="text/javascript" src="../../utility/dom/base.js"></script>
+    <script type="text/javascript" src="../shim/html5.js"></script>
+    <script type="text/javascript" src="../dom/base.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <style>
-        .native { color: #aaa!important;}
-    </style>
-    
     <div id="elem" class="doc-box"><a>box</a></div>
     <script>
         var elem = document.getElementById('elem');
     </script>
-
     <h2>全局</h2>
-
-    <h5>遍历</h5>
-    <pre>NodeList.each([elem], function(elem){ console.log(elem) });</pre>
-
-    <h5>Dom Ready</h5>
-    <pre>document.ready(function(){ alert("DOM ready") });</pre>
-
-    <h5>$ = document.queryAll + document.parse + document.ready</h5>
+    <h5>CSS 选择器/生成节点/Dom Ready</h5>
     <pre>$(".doc-box")</pre>
-
+    <pre>$("&lt;a>你好&lt;/a>")</pre>
+    <pre>$(function(){ alert("DOM ready") })</pre>
+    <h5>遍历</h5>
+    <pre>$(elem).each(function(node){alert(node.innerHTML)});</pre>
+    <h5>匹配</h5>
+    <pre>$(elem).map(function(node){return node.firstChild});</pre>
+    <h5>过滤</h5>
+    <pre>$(elem).filter('div');</pre>
     <h5>获取数据</h5>
-    <pre>elem.getData();</pre>
-
-    <h2>获取节点</h2>
-
-    <h5>解析并生成节点</h5>
-    <pre>document.parse("<a>你好</a>")</pre>
-
-    <h5 class="native">查找所有节点</h5>
-    <pre>document.queryAll(".doc-box")</pre>
-
-    <h5 class="native">查找第一个节点</h5>
-    <pre>document.query(".doc-box")</pre>
-
-    <h5 class="native">判断是否匹配</h5>
-    <pre>elem.matches("a");</pre>
-
+    <pre>Dom.data(elem);</pre>
     <h2>事件</h2>
-
     <h5>绑定事件</h5>
-    <pre>elem.on('click', function(){ alert("点击事件") });</pre>
-    <pre>elem.on('mouseeneter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
-
+    <pre>$(elem).on('click', function(){ alert("点击事件") });</pre>
+    <pre>$(elem).on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
     <h5>解绑事件</h5>
-    <pre>elem.off('click', function(){ alert("点击事件2") });</pre>
-
+    <pre>$(elem).off('click', function(){ alert("点击事件2") });</pre>
     <h5>手动触发事件</h5>
-    <pre>elem.trigger('click');</pre>
-
-    <h2>文档遍历</h2>
-
-    <h5 class="native">判断是否包含</h5>
-    <pre>elem.contains(elem);</pre>
-
+    <pre>$(elem).trigger('click');</pre>
+    <h2>遍历</h2>
+    <h5>判断是否包含</h5>
+    <pre>$(elem).contains(elem);</pre>
+    <h5>判断是否匹配</h5>
+    <pre>$(elem).is("a");</pre>
     <h5>最近父节点</h5>
-    <pre>elem.closest("body");</pre>
-
-    <h5>获取文档</h5>
-    <pre>elem.ownerDocument;</pre>
-
-    <h5 class="native">父节点</h5>
-    <pre>elem.parentNode;</pre>
-
-    <h5 class="native">第一个子节点</h5>
-    <pre>elem.firstElementChild;</pre>
-
-    <h5 class="native">最后一个子节点</h5>
-    <pre>elem.lastElementChild;</pre>
-
-    <h5 class="native">下一兄弟节点</h5>
-    <pre>elem.nextElementSibling;</pre>
-
-    <h5 class="native">上一兄弟节点</h5>
-    <pre>elem.previousElementSibling;</pre>
-
-    <h5 class="native">所有子节点</h5>
-    <pre>elem.children;</pre>
-
+    <pre>$(elem).closest("body");</pre>
+    <h5>父节点</h5>
+    <pre>$(elem).parent();</pre>
+    <h5>第一个子节点</h5>
+    <pre>$(elem).first();</pre>
+    <h5>最后一个子节点</h5>
+    <pre>$(elem).last();</pre>
+    <h5>下一兄弟节点</h5>
+    <pre>$(elem).next();</pre>
+    <h5>上一兄弟节点</h5>
+    <pre>$(elem).prev();</pre>
+    <h5>所有子节点</h5>
+    <pre>$(elem).children();</pre>
     <h5>获取节点索引</h5>
-    <pre>elem.getIndex();</pre>
-
-    <h2>增删操作</h2>
-
+    <pre>$(elem).index();</pre>
+    <h2>增删</h2>
     <h5>插到末尾</h5>
-    <pre>elem.append("append");</pre>
-
+    <pre>$(elem).append("append");</pre>
     <h5>插到前尾</h5>
-    <pre>elem.prepend("prepend");</pre>
-
+    <pre>$(elem).prepend("prepend");</pre>
     <h5>插到后面</h5>
-    <pre>elem.after("after");</pre>
-
+    <pre>$(elem).after("after");</pre>
     <h5>插到前面</h5>
-    <pre>elem.before("before");</pre>
-
+    <pre>$(elem).before("before");</pre>
     <h5>删除节点</h5>
-    <pre>elem.removeSelf();</pre>
-
-    <h5 class="native">复制节点</h5>
-    <pre>elem.cloneNode(true);</pre>
-
-    <h2>属性和样式</h2>
-
-    <h5 class="native">判断类</h5>
-    <pre>elem.classList.contains("light");</pre>
-
-    <h5 class="native">添加类</h5>
-    <pre>elem.classList.add("light");</pre>
-
-    <h5 class="native">删除类</h5>
-    <pre>elem.classList.remove("light");</pre>
-
-    <h5 class="native">切换类</h5>
-    <pre>elem.classList.toggle("light");</pre>
-
-    <h5 class="native">获取属性</h5>
-    <pre>elem.getAttribute("className");</pre>
-
-    <h5 class="native">设置属性</h5>
-    <pre>elem.setAttribute("className", "doc-doc"); // 设置为 null 表示删除。</pre>
-
-    <h5 class="native">获取文本</h5>
-    <pre>elem.textContent;</pre>
-
-    <h5 class="native">设置文本</h5>
-    <pre>elem.textContent = "a";</pre>
-
-    <h5 class="native">获取内容</h5>
-    <pre>elem.innerHTML;</pre>
-
-    <h5 class="native">设置内容</h5>
-    <pre>elem.innerHTML = "<em>a</em>";</pre>
-
-    <h5>获取样式</h5>
-    <pre>elem.getStyle("fontSize");</pre>
-
-    <h5 class="native">设置样式</h5>
-    <pre>elem.setStyle("fontSize", "12px");</pre>
-
-    <h5>快速样式计算</h5>
-    <pre>elem.calcStyle("fontSize");</pre>
-
+    <pre>$(elem).remove();</pre>
+    <h5>复制节点</h5>
+    <pre>$(elem).clone();</pre>
+    <h2>类</h2>
+    <h5>判断类</h5>
+    <pre>$(elem).hasClass("light");</pre>
+    <h5>添加类</h5>
+    <pre>$(elem).addClass("light");</pre>
+    <h5>删除类</h5>
+    <pre>$(elem).removeClass("light");</pre>
+    <h5>切换类</h5>
+    <pre>$(elem).toggleClass("light");</pre>
+    <h2>属性</h2>
+    <h5>读写属性</h5>
+    <pre>$(elem).attr("className");</pre>
+    <pre>$(elem).attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
+    <h5>读写文本</h5>
+    <pre>$(elem).text();</pre>
+    <pre>$(elem).text("a");</pre>
+    <h5>读写 HTML</h5>
+    <pre>$(elem).html();</pre>
+    <pre>$(elem).html("&lt;em>a&lt;/em>");</pre>
+    <h5>读写样式</h5>
+    <pre>$(elem).css("fontSize");</pre>
+    <pre>$(elem).css("fontSize", "12px");</pre>
     <h5>计算样式</h5>
-    <pre>elem.calcStyleExpression("fontSize + paddingTop");</pre>
-
+    <pre>Dom.calc(elem, "fontSize + paddingTop");</pre>
+    <h5>获取 CSS 前缀</h5>
+    <pre>Dom.vendor(elem, "transform");</pre>
     <h5>显示</h5>
-    <pre>elem.show();</pre>
-
+    <pre>$(elem).show();</pre>
     <h5>隐藏</h5>
-    <pre>elem.hide();</pre>
-
+    <pre>$(elem).hide();</pre>
     <h5>切换</h5>
-    <pre>elem.toggle();</pre>
-
+    <pre>$(elem).toggle();</pre>
     <h5>判断是否隐藏</h5>
-    <pre>elem.isHidden();</pre>
-
+    <pre>$(elem).isHidden();</pre>
+    <h2>尺寸和定位</h2>
+    <h5>获取大小和位置</h5>
+    <pre>elem.getRect();</pre>
+    <h5>设置大小</h5>
+    <pre>elem.setSize({width:200, height:400});</pre>
+    <h5>设置位置</h5>
+    <pre>elem.setPosition({left: 30});</pre>
+    <h2>定位</h2>
+    <h5>获取相对偏移节点</h5>
+    <pre>elem.getOffsetParent();</pre>
+    <h5>获取相对位置</h5>
+    <pre>elem.getOffset();</pre>
+    <h2>滚动</h2>
+    <h5>获取滚动位置</h5>
+    <pre>elem.getScroll();</pre>
+    <h5>设置滚动位置</h5>
+    <pre>elem.setScroll({left:100, top: 500});</pre>
     <h2>关于 dom/base 和 jQuery 的区别</h2>
-    
+
     <p>dom/base 组件更适于组件开发，而 jQuery 更适于业务逻辑。这决定了它们的区别：</p>
-    
+
     <ul>
-        <li>dom/base 不提供各种 hack，代码更短更快。但对 js 基础不好的用户使用 dom/base 可能会发现一些问题，而这些问题在 jQuery 不会出现。</li>
+        <li>dom/base 不提供各种浏览器补丁，代码更短更快。对于普通用户使用 dom/base 会发现一些问题，而这些问题在 jQuery 不会出现。</li>
+        <li>dom/base 提供的 API 更利于计算和组件实现。</li>
         <li>dom/base 体积是 jQuery 的 1/10，我们提供这个组件，让用户可以直接使用 UI 组件而不依赖 jQuery, 特别是在 React 框架下，jQuery 已经不那么必要。</li>
-        <li>dom/base 提供的 API 更利于计算。</li>
     </ul>
-    
-    <blockquote class="doc-note">dom/base 只提供组件开发所需要的必须函数，并且只考虑最新浏览器的兼容性，它的许多 API 和 jQuery 同名但不同功能，用户可以自己选择使用 dom/base 提供的功能（仅 6k 体积）或者直接使用 jQuery。</blockquote>
+
+    <blockquote class="doc-note">dom/base 只提供组件开发所需要的必须函数，并且只考虑最新浏览器的兼容性，它的许多 API 和 jQuery 同名但不同功能，用户可以自己选择使用 dom/base 提供的功能（仅 10k 体积）或者直接使用 jQuery。</blockquote>
 </body>
 </html>

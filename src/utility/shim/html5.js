@@ -311,9 +311,6 @@ XMLHttpRequest = function(){
                 },
                 remove: function (className) {
                     elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
-                },
-                toggle: function (className) {
-                    this.contains(className) ? this.remove(className) : this.add(className);
                 }
             };
         });
