@@ -18,112 +18,197 @@
     <script>
         var elem = document.getElementById('elem');
     </script>
-    <h2>全局</h2>
+
+    <h2>集合</h2>
+
     <h5>CSS 选择器/生成节点/Dom Ready</h5>
     <pre>$(".doc-box")</pre>
     <pre>$("&lt;a>你好&lt;/a>")</pre>
     <pre>$(function(){ alert("DOM ready") })</pre>
+
+    <h5>添加</h5>
+    <pre>$(elem).add(document.body);</pre>
+
     <h5>遍历</h5>
     <pre>$(elem).each(function(node){alert(node.innerHTML)});</pre>
+
     <h5>匹配</h5>
     <pre>$(elem).map(function(node){return node.firstChild});</pre>
+
     <h5>过滤</h5>
     <pre>$(elem).filter('div');</pre>
-    <h5>获取数据</h5>
-    <pre>Dom.data(elem);</pre>
+
+    <h5>排除</h5>
+    <pre>$(elem).not('div');</pre>
+
+    <h2>选择器</h2>
+
+    <h5>查找子节点</h5>
+    <pre>$(elem).find("div");</pre>
+
+    <h5>判断是否匹配</h5>
+    <pre>$(elem).is("a");</pre>
+
     <h2>事件</h2>
+
     <h5>绑定事件</h5>
     <pre>$(elem).on('click', function(){ alert("点击事件") });</pre>
     <pre>$(elem).on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
+
     <h5>解绑事件</h5>
     <pre>$(elem).off('click', function(){ alert("点击事件2") });</pre>
+
     <h5>手动触发事件</h5>
     <pre>$(elem).trigger('click');</pre>
+
     <h2>遍历</h2>
+
     <h5>判断是否包含</h5>
     <pre>$(elem).contains(elem);</pre>
-    <h5>判断是否匹配</h5>
-    <pre>$(elem).is("a");</pre>
+
     <h5>最近父节点</h5>
     <pre>$(elem).closest("body");</pre>
+
     <h5>父节点</h5>
     <pre>$(elem).parent();</pre>
+
     <h5>第一个子节点</h5>
     <pre>$(elem).first();</pre>
+
     <h5>最后一个子节点</h5>
     <pre>$(elem).last();</pre>
+
     <h5>下一兄弟节点</h5>
     <pre>$(elem).next();</pre>
+
     <h5>上一兄弟节点</h5>
     <pre>$(elem).prev();</pre>
+
     <h5>所有子节点</h5>
     <pre>$(elem).children();</pre>
+
     <h5>获取节点索引</h5>
     <pre>$(elem).index();</pre>
+
     <h2>增删</h2>
+
     <h5>插到末尾</h5>
     <pre>$(elem).append("append");</pre>
+
     <h5>插到前尾</h5>
     <pre>$(elem).prepend("prepend");</pre>
+
     <h5>插到后面</h5>
     <pre>$(elem).after("after");</pre>
+
     <h5>插到前面</h5>
     <pre>$(elem).before("before");</pre>
+
     <h5>删除节点</h5>
     <pre>$(elem).remove();</pre>
+
     <h5>复制节点</h5>
     <pre>$(elem).clone();</pre>
+
     <h2>类</h2>
+
     <h5>判断类</h5>
     <pre>$(elem).hasClass("light");</pre>
+
     <h5>添加类</h5>
     <pre>$(elem).addClass("light");</pre>
+
     <h5>删除类</h5>
     <pre>$(elem).removeClass("light");</pre>
+
     <h5>切换类</h5>
     <pre>$(elem).toggleClass("light");</pre>
-    <h2>属性</h2>
-    <h5>读写属性</h5>
-    <pre>$(elem).attr("className");</pre>
-    <pre>$(elem).attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
-    <h5>读写文本</h5>
-    <pre>$(elem).text();</pre>
-    <pre>$(elem).text("a");</pre>
-    <h5>读写 HTML</h5>
-    <pre>$(elem).html();</pre>
-    <pre>$(elem).html("&lt;em>a&lt;/em>");</pre>
+
+    <h2>样式</h2>
+
     <h5>读写样式</h5>
     <pre>$(elem).css("fontSize");</pre>
     <pre>$(elem).css("fontSize", "12px");</pre>
-    <h5>计算样式</h5>
-    <pre>Dom.calc(elem, "fontSize + paddingTop");</pre>
-    <h5>获取 CSS 前缀</h5>
-    <pre>Dom.vendor(elem, "transform");</pre>
+
+    <h2>属性</h2>
+
+    <h5>读写属性</h5>
+    <pre>$(elem).attr("className");</pre>
+    <pre>$(elem).attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
+
+    <h5>读写文本</h5>
+    <pre>$(elem).text();</pre>
+    <pre>$(elem).text("a");</pre>
+
+    <h5>读写 HTML</h5>
+    <pre>$(elem).html();</pre>
+    <pre>$(elem).html("&lt;em>a&lt;/em>");</pre>
+
     <h5>显示</h5>
     <pre>$(elem).show();</pre>
+
     <h5>隐藏</h5>
     <pre>$(elem).hide();</pre>
+
     <h5>切换</h5>
     <pre>$(elem).toggle();</pre>
+
     <h5>判断是否隐藏</h5>
     <pre>$(elem).isHidden();</pre>
+
     <h2>尺寸和定位</h2>
-    <h5>获取大小和位置</h5>
-    <pre>elem.getRect();</pre>
-    <h5>设置大小</h5>
-    <pre>elem.setSize({width:200, height:400});</pre>
-    <h5>设置位置</h5>
-    <pre>elem.setPosition({left: 30});</pre>
-    <h2>定位</h2>
-    <h5>获取相对偏移节点</h5>
-    <pre>elem.getOffsetParent();</pre>
+
+    <h5>读写大小和位置</h5>
+    <pre>$(elem).rect();</pre>
+    <pre>$(elem).rect({width:200, height:400});</pre>
+    <pre>$(elem).rect({left: 30});</pre>
+
     <h5>获取相对位置</h5>
-    <pre>elem.getOffset();</pre>
-    <h2>滚动</h2>
-    <h5>获取滚动位置</h5>
-    <pre>elem.getScroll();</pre>
-    <h5>设置滚动位置</h5>
-    <pre>elem.setScroll({left:100, top: 500});</pre>
+    <pre>$(elem).offset();</pre>
+
+    <h5>获取相对偏移节点</h5>
+    <pre>$(elem).offsetParent();</pre>
+
+    <h5>读写滚动位置</h5>
+    <pre>$(elem).scroll();</pre>
+    <pre>$(elem).scroll({left:100, top: 500});</pre>
+
+    <h2>特效</h2>
+
+    <h5>自定义特效</h5>
+    <pre>$(elem).animate('auto', {height: '400px'});</pre>
+    <pre>$(elem).animate({transform: 'rotate(45deg)'});</pre>
+
+    <h5>显示/隐藏</h5>
+    <pre>$(elem).show();</pre>
+    <pre>$(elem).hide();</pre>
+
+    <h5>折叠/展开</h5>
+    <pre>$(elem).toggle('height');</pre>
+
+    <h5>深入/淡出</h5>
+    <pre>$(elem).toggle('opacity');</pre>
+
+    <h5>缩小/放大</h5>
+    <pre>$(elem).toggle('scale');</pre>
+
+    <h2>其它底层函数</h2>
+
+    <h5>获取数据</h5>
+    <pre>Dom.data(elem);</pre>
+
+    <h5>获取最近节点</h5>
+    <pre>Dom.closest(elem, 'body');</pre>
+
+    <h5>获取CSS属性前缀</h5>
+    <pre>Dom.vendor(elem, 'transform');</pre>
+
+    <h5>获取当前CSS</h5>
+    <pre>Dom.css(elem, 'fontSize');</pre>
+
+    <h5>计算CSS表达式</h5>
+    <pre>Dom.calc(elem, 'fontSize+lineHeight');</pre>
+
     <h2>关于 dom/base 和 jQuery 的区别</h2>
 
     <p>dom/base 组件更适于组件开发，而 jQuery 更适于业务逻辑。这决定了它们的区别：</p>
