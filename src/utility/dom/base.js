@@ -1193,7 +1193,7 @@ Dom.init.prototype = Dom.prototype = {
                             }
 
                             // 执行回调。
-                            callback && callback.call(this, elem);
+                            callback && callback.call(elem, elem);
                         }
 
                     }
@@ -1202,7 +1202,7 @@ Dom.init.prototype = Dom.prototype = {
 
             // 不支持特效，直接调用回调。
             if (!fxOptions.supportAnimation) {
-                callback && callback.call(this, elem);
+                callback && callback.call(elem, elem);
                 return;
             }
 
@@ -1264,7 +1264,7 @@ Dom.init.prototype = Dom.prototype = {
                 //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
             }
 
-        }, this);
+        });
 
     },
 
@@ -1316,6 +1316,8 @@ Dom.init.prototype = Dom.prototype = {
             if (fxName) {
                 delete elem.style._animatingHide;
                 Dom(elem).animate(fxName, 'auto', callback, duration, ease, true);
+            } else {
+                callback && callback.call(elem, elem);
             }
         });
     },
@@ -1329,7 +1331,6 @@ Dom.init.prototype = Dom.prototype = {
      */
     hide: function (fxName, callback, duration, ease) {
         fxName = Dom.toggleFx[fxName];
-        var me = this;
 
         function hideCore(elem) {
             var currentDisplay = Dom.css(elem, 'display');
@@ -1337,6 +1338,7 @@ Dom.init.prototype = Dom.prototype = {
                 elem.style.defaultDisplay = currentDisplay;
                 elem.style.display = 'none';
             }
+            callback && callback.call(elem, elem);
         }
 
         return this.each(function (elem) {
@@ -1345,7 +1347,6 @@ Dom.init.prototype = Dom.prototype = {
                 Dom(elem).animate('auto', fxName, function (elem) {
                     delete elem.style._animatingHide;
                     hideCore(elem);
-                    callback && callback.call(me, elem);
                 }, duration, ease, true);
             } else {
                 hideCore(elem);
@@ -1378,6 +1379,7 @@ Dom.init.prototype = Dom.prototype = {
 
     push: [].push,
     indexOf: [].indexOf,
+    slice: [].slice,
     splice: [].splice
 
     // #endregion

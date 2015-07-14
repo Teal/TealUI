@@ -20,7 +20,7 @@
     <aside class="doc-demo">
         <button id="elem">鼠标移到我这里</button>
         <script>
-            document.getElementById('elem').hover(function() {
+            $("#elem").hover(function () {
                 this.innerHTML = '鼠标进来了';
             }, function() {
                 this.innerHTML = '鼠标出去了';

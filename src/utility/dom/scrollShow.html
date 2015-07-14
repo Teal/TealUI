@@ -11,7 +11,6 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
     <script type="text/javascript" src="../../utility/dom/scrollShow.js"></script>
 </head>
 <body>
@@ -19,18 +18,19 @@
     <script type="text/javascript" src="../../../assets/doc.js"></script>
     <div style="height: 600px;">往下滚 ^-^</div>
     <div id="elem" class="doc-box"></div>
+
     <script>
         var elem = document.getElementById('elem');
-        elem.scrollShow(function () { trace('滚动到了') });
+        $(elem).scrollShow(function () { trace('滚动到了') });
     </script>
 
     <h5>判断是否在视图内</h5>
-    <pre>elem.isScrollIntoView();</pre>
+    <pre>$(elem).isScrollIntoView();</pre>
 
     <h5>每次滚动到元素时回调</h5>
-    <pre>elem.scrollShow(function(){trace('滚动到了')});</pre>
+    <pre>$(elem).scrollShow(function(){trace('滚动到了')});</pre>
 
     <h5>第一次滚动到元素时回调</h5>
-    <pre>elem.scrollShow(function(){trace('滚动到了')}, null, 'once');</pre>
+    <pre>$(elem).scrollShow(function(){trace('滚动到了')}, 'once');</pre>
 </body>
 </html>

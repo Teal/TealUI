@@ -6,24 +6,17 @@
     <title>滚动到</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="设置渐变滚动到指定位置。">
-
+    <meta name="description" content="渐变滚动到指定位置。">
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
     <script type="text/javascript" src="../../utility/dom/scrollTo.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <div style="height: 600px;">往下滚 ^-^</div>
-    <div id="elem" class="doc-box"></div>
-    <script>
-        var elem = document.getElementById('elem');
-    </script>
-    
+
     <h5>每次滚动到元素时回调</h5>
-    <pre>document.scrollTo(10, 10, 100);</pre>
+    <pre>$(document).scrollTo(10, 10, 100);</pre>
 </body>
 </html>

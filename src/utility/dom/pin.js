@@ -51,12 +51,16 @@
  * 其中，offsetX 和 offsetY 表示为适应屏幕而导致位置发生的偏移量。如果未偏移则为 undefined。
  * 其中，overflowX 和 overflowY 表示为超过屏幕大小而产生越界，对应的值表示容器的最大值。如果未越界则为 undefined。
  */
-Element.prototype.pin = function (target, align, offsetX, offsetY, container, padding) {
+Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding) {
 
     // allowReset 意义：
     //     第一次：undefined, 根据 align 判断是否允许。
     //     第二次：true。
     //     第三次：false。
+
+    return this.each(function (elem) {
+
+    });
 
     var elem = this,
         rect = elem.getRect(),

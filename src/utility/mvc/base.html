@@ -18,22 +18,22 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    
+
     <div id="container">
         {for(var i in $data.list)}
-            <button onclick="{onClick(i)}">{i.button}</button>
+        <button onclick="{onClick(i)}">{i.button}</button>
         {/for}
     </div>
     <script>
         var data = {
-            onClick: function(e) {
+            onClick: function (e) {
                 data.text.button = '我被点击了';
             },
             text: {
                 button: '我是按钮'
             }
         };
-        View.connect(document.getElementById('container'), data);
+        View.render(document.getElementById('container'), data);
     </script>
 </body>
 </html>

@@ -29,9 +29,9 @@ var Control = Base.extend({
 	 * @protected
 	 * @virtual
 	 */
-    init: function() {},
+    init: function () { },
 
-	/**
+    /**
 	 * 初始化一个新的控件。
 	 * @param {Element} elem 绑定当前控件的节点。
 	 * @param {Object} [options] 初始化控件的相关选项。
@@ -114,7 +114,7 @@ var Control = Base.extend({
  * 根据类名获取组件类型。
  */
 Control.getControlTypeByName = function (roleName) {
-    roleName = window[roleName.replace(/^[a-z]/, function(w) {
+    roleName = window[roleName.replace(/^[a-z]/, function (w) {
         return w.toUpperCase();
     })];
     return roleName && roleName.constructor === Function ? roleName : Control;
@@ -162,7 +162,7 @@ Control.get = function (elem, roleName, options) {
 
 // 默认初始化一次页面全部组件。
 Dom.ready(function () {
-    Dom.each(document.querySelectorAll('[data-role]'), function(elem) {
+    Dom.each(document.querySelectorAll('[data-role]'), function (elem) {
         Control.get(elem);
     });
 });
@@ -185,7 +185,5 @@ $.prototype.role = function (roleName) {
     return result;
 };
 
-// 支持 Zepto
-if ($.fn) {
-    $.fn.role = $.prototype.role;
-}
+// 支持 jQuery & Zepto
+if ($.fn) $.fn.role = $.prototype.role;

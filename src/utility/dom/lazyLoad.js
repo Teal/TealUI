@@ -1,31 +1,30 @@
-/** * @author xuld */
-
-// #require scroll
+/**
+ * @author xuld
+ */
 
 /**
- * 懒加载指定节点内的图片。
+ * 懒加载图片。
  * @param {Function} [callback] 滚动到当前指定节点时的回调。
  * @param {Element} [scrollParent=document] 滚动所在的容器。
  */
-Document.prototype.lazyLoad = Element.prototype.lazyLoad = function (callback, scrollParent) {
-    var images = $('img[data-src]', this),
-        container;
+Dom.prototype.lazyLoad = function (callback, scrollParent) {
+    scrollParent = scrollParent || document;
+    var images = this.slice(0),
+        container = scrollParent.defaultView;
 
-    scrollParent = scrollParent || (this.getScrollParent ? this.getScrollParent() : this);
-    container = scrollParent.defaultView || scrollParent;
     container.addEventListener('scroll', scrollCallback, false)
     scrollCallback();
 
     function scrollCallback() {
         for (var i = images.length - 1, image; i >= 0; i--) {
             image = images[i];
-            if (image.isScrollIntoView(document)) {
+            if (Dom(image).isScrollIntoView(scrollParent)) {
                 var proxy = new Image();
                 proxy.src = callback && callback(image, proxy) || image.getAttribute('data-src');
                 proxy.onload = (function (image) {
                     return function () {
                         image.src = proxy.src;
-                        image.show('opacity');
+                        Dom(image).show('opacity');
                     }
                 }(image));
                 image.removeAttribute('data-src');
@@ -39,4 +38,4 @@ Document.prototype.lazyLoad = Element.prototype.lazyLoad = function (callback, s
 
     }
 
-};
+};

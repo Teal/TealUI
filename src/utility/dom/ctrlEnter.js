@@ -15,4 +15,4 @@ Element.prototype.ctrlEnter = function (callback, scope) {
             return callback.call(scope || elem, e);
         }
     }, false);
-};
+};

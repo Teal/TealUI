@@ -3,8 +3,6 @@
  * @author xuld
  */
 
-// #require rect
-
 /**
  * 创建一个新的可拖动区域。
  * @param {Element} elem 要拖动的元素。

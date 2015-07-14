@@ -8,18 +8,20 @@
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../shim/html5.js"></script>
-    <script type="text/javascript" src="../dom/base.js"></script>
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/base.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <div id="elem" class="doc-box"><a>box</a></div>
+    <div id="elem" class="doc-box" style="position: fixed; left: 70%; bottom: 20%"><a>box</a></div>
     <script>
         var elem = document.getElementById('elem');
     </script>
 
-    <h2>集合</h2>
+    <h2>API</h2>
+
+    <h3>集合</h3>
 
     <h5>CSS 选择器/生成节点/Dom Ready</h5>
     <pre>$(".doc-box")</pre>
@@ -41,7 +43,7 @@
     <h5>排除</h5>
     <pre>$(elem).not('div');</pre>
 
-    <h2>选择器</h2>
+    <h3>选择器</h3>
 
     <h5>查找子节点</h5>
     <pre>$(elem).find("div");</pre>
@@ -49,7 +51,7 @@
     <h5>判断是否匹配</h5>
     <pre>$(elem).is("a");</pre>
 
-    <h2>事件</h2>
+    <h3>事件</h3>
 
     <h5>绑定事件</h5>
     <pre>$(elem).on('click', function(){ alert("点击事件") });</pre>
@@ -61,7 +63,7 @@
     <h5>手动触发事件</h5>
     <pre>$(elem).trigger('click');</pre>
 
-    <h2>遍历</h2>
+    <h3>遍历</h3>
 
     <h5>判断是否包含</h5>
     <pre>$(elem).contains(elem);</pre>
@@ -90,7 +92,7 @@
     <h5>获取节点索引</h5>
     <pre>$(elem).index();</pre>
 
-    <h2>增删</h2>
+    <h3>增删</h3>
 
     <h5>插到末尾</h5>
     <pre>$(elem).append("append");</pre>
@@ -110,7 +112,7 @@
     <h5>复制节点</h5>
     <pre>$(elem).clone();</pre>
 
-    <h2>类</h2>
+    <h3>类</h3>
 
     <h5>判断类</h5>
     <pre>$(elem).hasClass("light");</pre>
@@ -124,13 +126,13 @@
     <h5>切换类</h5>
     <pre>$(elem).toggleClass("light");</pre>
 
-    <h2>样式</h2>
+    <h3>样式</h3>
 
     <h5>读写样式</h5>
     <pre>$(elem).css("fontSize");</pre>
     <pre>$(elem).css("fontSize", "12px");</pre>
 
-    <h2>属性</h2>
+    <h3>属性</h3>
 
     <h5>读写属性</h5>
     <pre>$(elem).attr("className");</pre>
@@ -156,7 +158,7 @@
     <h5>判断是否隐藏</h5>
     <pre>$(elem).isHidden();</pre>
 
-    <h2>尺寸和定位</h2>
+    <h3>尺寸</h3>
 
     <h5>读写大小和位置</h5>
     <pre>$(elem).rect();</pre>
@@ -173,7 +175,7 @@
     <pre>$(elem).scroll();</pre>
     <pre>$(elem).scroll({left:100, top: 500});</pre>
 
-    <h2>特效</h2>
+    <h3>特效</h3>
 
     <h5>自定义特效</h5>
     <pre>$(elem).animate('auto', {height: '400px'});</pre>
@@ -192,7 +194,7 @@
     <h5>缩小/放大</h5>
     <pre>$(elem).toggle('scale');</pre>
 
-    <h2>其它底层函数</h2>
+    <h3>其它底层函数</h3>
 
     <h5>获取数据</h5>
     <pre>Dom.data(elem);</pre>
@@ -209,16 +211,156 @@
     <h5>计算CSS表达式</h5>
     <pre>Dom.calc(elem, 'fontSize+lineHeight');</pre>
 
-    <h2>关于 dom/base 和 jQuery 的区别</h2>
+    <h2>jQuery 那些事儿</h2>
+    <p>jQuery 已成为前端主流，不基于 jQuery 的 UI 库也逐渐被淘汰。这主要因为：</p>
+    <ol>
+        <li>jQuery 确实简化了前端开发，社区插件完备。</li>
+        <li>众多前端开发只接受和熟悉 jQuery，一切基于 jQuery 更有安全感。</li>
+    </ol>
 
-    <p>dom/base 组件更适于组件开发，而 jQuery 更适于业务逻辑。这决定了它们的区别：</p>
+    <p>然而，jQuery 对于组件开发却不是很好用</p>
+    <ol>
+        <li>开发组件需要大量计算，jQuery 的 API 返回字符串不利于计算。</li>
+        <li>需要大量计算（比如拖动效果） 时，使用 jQuery 性能很差。</li>
+        <li>jQuery 未提供组件开发常用 API，如 CSS3 动画、获取子节点、获取滚动位置。</li>
+        <li>jQuery 体积太大，我们不希望用户为了用一个小小的组件而强迫引入整个 jQuery。</li>
+        <li>基于 jQuery 开发组件反而增加了组件复杂度和代码量。</li>
+    </ol>
 
-    <ul>
-        <li>dom/base 不提供各种浏览器补丁，代码更短更快。对于普通用户使用 dom/base 会发现一些问题，而这些问题在 jQuery 不会出现。</li>
-        <li>dom/base 提供的 API 更利于计算和组件实现。</li>
-        <li>dom/base 体积是 jQuery 的 1/10，我们提供这个组件，让用户可以直接使用 UI 组件而不依赖 jQuery, 特别是在 React 框架下，jQuery 已经不那么必要。</li>
-    </ul>
+    <p>因此 TealUI 不基于 jQuery，改用自己的 DOM 框架，我们称为 TealUI.Dom。</p>
+    <ol>
+        <li>TealUI.Dom 专为组件开发提供，减少组件代码量。（因此 TealUI 比其它 jQuery 插件形式的 UI 库更小）</li>
+        <li>TealUI.Dom 功能和 jQuery 类似，但体积仅 jQuery 的 1/10。</li>
+        <li>我们不希望 UI 组件强制用户使用 jQuery。特别随着 React 的流行，jQuery 已不是必须的。</li>
+        <li>我们不阻止您继续使用 jQuery, 将 TealUI 和 jQuery/Zepto 同时使用完全没有问题。</li>
+    </ol>
 
-    <blockquote class="doc-note">dom/base 只提供组件开发所需要的必须函数，并且只考虑最新浏览器的兼容性，它的许多 API 和 jQuery 同名但不同功能，用户可以自己选择使用 dom/base 提供的功能（仅 10k 体积）或者直接使用 jQuery。</blockquote>
+    <p>如果您支持体积更小的 TealUI.Dom，请注意以下问题：</p>
+    <ol>
+        <li>jQuery 为降低开发错误率，提供各种补丁，TealUI.Dom 则不会提供它们。比如获取 CSS float 属性值，熟悉 JS 的用户都知道直接获取 float 是不对的，应该改成 cssFloat，而 jQuery 为了照顾那些不清楚这些细节的用户，使用 <code>.css("float")</code> 和 <code>.css("cssFloat") </code> 都能正常获取。改成 TealUI.Dom 则只能使用后者。因此我们只建议基础较好的用户使用 TealUI.Dom。</li>
+        <li>TealUI.Dom 大部分函数只能有固定传参方式。比如 <code>.css({fontSize: 14, color: 'red'})</code> 是不支持的，应该改成 <code>.css('fontSize', 14).css('color', 'red')</code></li>
+        <li>部分 API 同名但功能不同。比如 <code>first</code> 在 jQuery 获取集合第一个元素，然并卵，所以在 TealUI.Dom 则是获取第一个元素的第一个子节点。其它的区别我们将在下表给出。</li>
+    </ol>
+
+    <table>
+        <tr>
+            <th>API</th>
+            <th>TealUI.Dom</th>
+            <th>jQuery</th>
+        </tr>
+        <tr>
+            <td>CSS 选择器</td>
+            <td>完全基于浏览器，无额外功能。</td>
+            <td>支持众多非标准选择器。</td>
+        </tr>
+        <tr>
+            <td><code>.each()</code></td>
+            <td>用法同标准数组的 forEach，当前元素是首参。</td>
+            <td>当前元素是 this。</td>
+        </tr>
+        <tr>
+            <td><code>.trigger()</code></td>
+            <td>只触发手动绑定的 API，不支持冒泡。</td>
+            <td>可触发原生事件，支持冒泡。</td>
+        </tr>
+        <tr>
+            <td><code>.first()/.last()</code></td>
+            <td>获取第/最后一个子节点。</td>
+            <td>获取当前集合的第/最后一项。</td>
+        </tr>
+        <tr>
+            <td><code>.index()</code></td>
+            <td>获取节点在 DOM 树的索引。</td>
+            <td>获取节点在数组本身的索引。</td>
+        </tr>
+        <tr>
+            <td><code>.css()</code></td>
+            <td>只支持骆驼规则写法。</td>
+            <td>支持任意格式。</td>
+        </tr>
+        <tr>
+            <td><code>.val()</code></td>
+            <td>使用 <code>.text()</code> 代替。</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><code>.show()/.hide()</code></td>
+            <td>通过参数可添加特效。</td>
+            <td>无特效。</td>
+        </tr>
+        <tr>
+            <td><code>.offset()</code></td>
+            <td>返回相对路径，同 jQuery 的 <code>.position()</code>。</td>
+            <td>返回绝对路径，同 TealUI.Dom 的 <code>.rect()</code>。</td>
+        </tr>
+    </table>
+
+    <h2>TealUI.Dom 和 Zepto、jQuery 的特性比较</h2>
+
+    <table>
+        <tr>
+            <th>特性</th>
+            <th>TealUI.Dom</th>
+            <th>Zepto</th>
+            <th>jQuery 2.x</th>
+            <th>jQuery 1.x</th>
+        </tr>
+        <tr>
+            <td>体积（压缩后）</td>
+            <td>16k</td>
+            <td>29k</td>
+            <td>78k</td>
+            <td>160k</td>
+        </tr>
+        <tr>
+            <td>兼容性</td>
+            <td>IE8+</td>
+            <td>IE9+（仅手机）</td>
+            <td>IE9+</td>
+            <td>IE6+</td>
+        </tr>
+        <tr>
+            <td>特效</td>
+            <td>CSS3</td>
+            <td>CSS3</td>
+            <td>JS</td>
+            <td>JS</td>
+        </tr>
+        <tr>
+            <td>选择器</td>
+            <td>原生</td>
+            <td>原生</td>
+            <td>扩展</td>
+            <td>扩展</td>
+        </tr>
+        <tr>
+            <td>触屏事件</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✖</td>
+            <td>✖</td>
+        </tr>
+        <tr>
+            <td>事件委托</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+        </tr>
+        <tr>
+            <td>事件名空间</td>
+            <td>✖</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+        </tr>
+        <tr>
+            <td>CSS3前缀</td>
+            <td>✔</td>
+            <td>✖</td>
+            <td>✔</td>
+            <td>✔</td>
+        </tr>
+    </table>
 </body>
 </html>

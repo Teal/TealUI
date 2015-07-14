@@ -3,25 +3,26 @@
  * @author xuld
  */
 
-// #require base
-
 if (!('outerHTML' in Element.prototype)) {
 
     /**
      * 获取外部 HTML。
      */
-    Element.prototype.__defineGetter__('outerHTML', function() {
-        var div = this.ownerDocument.createElement('div')
-        div.appendChild(elem.cloneNode(true));
-        return div.innerHTML;
+    Element.prototype.__defineGetter__('outerHTML', function () {
+        var p = this.ownerDocument.createElement(this.parentNode.tagName)
+        p.appendChild(this.cloneNode(true));
+        return p.innerHTML;
     });
 
     /**
      * 获取外部 HTML。
      */
     Element.prototype.__defineSetter__('outerHTML', function (value) {
-        this.before(value);
-        Element.prototype.remove.call(this);
+        var p = this.ownerDocument.createElement(this.parentNode.tagName);
+        p.innerHTML = value;
+        while (p.firstChild)
+            this.parentNode.insertBefore(p.firstChild, this);
+        this.parentNode.removeChild(this);
     });
 
 }
