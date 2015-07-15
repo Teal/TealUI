@@ -6,6 +6,8 @@
 // #require cookie
 // #require ../text/queryString
 
+// #region @getCookie
+
 /**
  * 获取所有 Cookie 。
  * @returns {Object} 返回包含所有 Cookie 的键值对。
@@ -17,6 +19,10 @@ function getAllCookies() {
     });
     return cookies;
 }
+
+// #endregion
+
+// #region @subCookie
 
 /**
  * 获取一个子 Cookie 值。
@@ -33,6 +39,8 @@ function getSubcookie(name, subname) {
     cookie = QueryString.parse(cookie);
     return subname === undefined ? cookie : subname in cookie ? cookie[subname] : null;
 }
+
+// #region @setSubCookie
 
 /**
  * 设置或删除一个 Cookie 值。
@@ -63,3 +71,7 @@ function setSubcookie(name, subname, value, expires, path, domain, secure) {
     setCookie(name, cookie === null ? cookie : QueryString.stringify(cookie), expires, path, domain, secure);
     return value;
 }
+
+// #endregion
+
+// #endregion

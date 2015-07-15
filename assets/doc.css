@@ -638,17 +638,21 @@ a#doc_logo {
         margin: .5em 0;
         font-size: 18px;
         font-weight: 600;
-        padding: 0;
+        padding: 0!important;
     }
 
     .doc-list .doc-list-header-1 {
         border-left: 2px solid #009688;
         font-size: 16px;
-        padding: 0 7px;
+        padding: 0 7px!important;
+    }
+
+    .doc-list .doc-list-header-2 {
+        font-weight: 500;
     }
 
     .doc-list small {
-        padding: 0 6px;
+        padding-left: 4px;
     }
 
 .doc-list-doing a, .doc-list-todo a {

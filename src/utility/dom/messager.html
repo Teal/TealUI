@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="module-info" content="status=complete" />
+		<title>IFrame通信</title>
+		<script type="text/javascript" src="../../src/dom/messager.js"></script>
+		
+		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
+	</head>
+	<body>
+
+        <article class="demo">
+
+            <blockquote class="demo demo-info">Messager 解决 IFrame 跨域通信问题。</blockquote>
+
+            <p>
+                Domain of the parent page
+      <script>document.write('(' + location.protocol + '//' + location.host + ')');</script>
+            </p>
+            <p>
+                <iframe id="iframe" src="Messager.html" width="500"></iframe>
+            </p>
+            
+            <p>
+                <input id="message" onkeypress="if(event.keyCode === 13){sendMessage();}">
+                <input type="button" value="send" onclick="sendMessage();">
+            </p>
+            <pre id="output"></pre>
+
+            <script class="demo">
+                var messenger = Messenger.initInParent(document.getElementById('iframe'));
+                messenger.onmessage = function (data) {
+                    var newline = '\n';
+                    var text = document.createTextNode(data + newline);
+                    document.getElementById('output').appendChild(text);
+                };
+
+                function sendMessage() {
+                    var message = document.getElementById('message');
+                    messenger.send(message.value);
+                    message.value = '';
+                }
+            </script>
+
+        </article>
+		
+	</body>
+</html>

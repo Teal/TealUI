@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>函数处理</title>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="">
+    <meta name="description" content="提供正则处理的相关 API">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/regexp.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h5>从字符串创建正则</h5>
+    <pre>RegExp.create("\\s")</pre>
+    
+    <script>
+
+    Demo.writeExamples({
+        'Object.type': {
+            "~(1)": "number"
+        },
+        'Object.isFunction': {
+            'Object.isFunction(function(){})': true,
+            'Object.isFunction(new Function())': true,
+            'Object.isFunction()': false
+        },
+        'Object.isObject': {
+            'Object.isObject({})': true,
+            'Object.isObject(null)': false,
+            'Object.isObject(2)': false
+        },
+        'Object.set': {
+            'var target = {setA: function (value) {assert.log("1");trace("设置 a =  ", value);}, b: function (value) {trace(value);}};Object.set(target, {a: 8, b: 6, c: 4});': function (value, assert) {
+                assert.logged("1");
+            }
+        },
+        '获取任何对象的类型字符串': {
+            "Object.type(1)": "number",
+            "Object.type(false)": "boolean",
+            "Object.type(undefined)": "undefined",
+            "Object.type('')": "string",
+            "Object.type(/a/)": "regexp",
+            "Object.type([])": "array",
+            "Object.type(null)": "null",
+            "Object.type({})": "object"
+        },
+        'Object.clone': {
+            params: '',
+            tests: '[5] => [5]'
+        }
+    });
+    </script>
+
+</body>
+</html>

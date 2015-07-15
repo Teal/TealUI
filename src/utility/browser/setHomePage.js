@@ -12,7 +12,7 @@ function setHomePage(url) {
         document.body.style.behavior = "url(#default#homepage)";
         document.body.setHomePage(url || location.href);
     } catch (e) {
-        alert("设置主页失败，请手动设置");
+        alert("请打开设置页进行设置");
         // 用户也可选择打开以下页面提示用户设置方法。
         // window.open("http://hao.360.cn/sub/sethomepage.html");
         // window.open("http://www.hao123.com/redian/sheshouyef.htm");

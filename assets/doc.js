@@ -1333,7 +1333,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 if (Doc.Dom.isTouch()) {
                     button.previousSibling.click();
                 }
-                var range = new Range(),
+                var range = document.createRange(),
                     sel = getSelection();
                 pre.focus();
                 range.selectNode(pre);
@@ -1342,7 +1342,16 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             };
 
             // 检测flash 复制。
-            if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
+            if (window.clipboardData && clipboardData.setData) {
+                button.innerHTML = '复制';
+                button.onmouseover = function() {
+                    this.innerHTML = '复制';
+                };
+                button.onclick = function() {
+                    clipboardData.setData("Text", pre.textContent);
+                    this.innerHTML = "成功";
+                };
+            } else if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
                 button.innerHTML = '复制';
                 var timer;
                 button.onmouseover = function () {
@@ -1444,7 +1453,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     };
 
                     // 选中最后一个字符。
-                    var range = new Range(),
+                    var range = document.createRange(),
                         sel = getSelection();
                     range.setEndAfter(pre.lastChild);
                     range.setStartAfter(pre.lastChild);
@@ -1500,6 +1509,15 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
         });
 
+    };
+
+    /**
+     * 执行页内所有代码。
+     */
+    Doc.execAll = function() {
+        Doc.Dom.each('a[title="执行本代码"]', function(a) {
+            a.click();
+        });
     };
 
     /**
@@ -1885,6 +1903,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * @param {Boolean} includeHeader 是否显示标题。
          */
         updateModuleList: function (elem, listName, filter, includeHeader) {
+
+            if (!elem) {
+                return;
+            }
 
             // 确保列表已加载。
             if (!Doc.list) {

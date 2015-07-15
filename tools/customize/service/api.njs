@@ -247,10 +247,11 @@ function updateModuleList() {
                     }
                 }
 
-                if (moduleInfo.ignore === "true" || moduleInfo.ignore === "1") {
-                    continue;
-                }
             } else {
+                continue;
+            }
+
+            if (moduleInfo.ignore === "true" || moduleInfo.ignore === "1") {
                 continue;
             }
 

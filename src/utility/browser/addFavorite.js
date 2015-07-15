@@ -17,7 +17,7 @@ function addFavorite(title, url) {
         try {
             sidebar.addPanel(title, url, '');
         } catch (e) {
-            alert("添加收藏失败，请按 Ctrl+D 进行添加");
+            alert("请按 Ctrl+D 进行添加");
         }
     }
 }

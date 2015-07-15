@@ -3,6 +3,8 @@
  * @author xuld
  */
 
+// #region @getCookie
+
 /**
  * 获取一个 Cookie 值。
  * @param {String} name 要获取的 Cookie 名字。
@@ -12,6 +14,10 @@ function getCookie(name) {
     var matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : null;
 }
+
+// #endregion
+
+// #region @setCookie
 
 /**
  * 设置或删除一个 Cookie 值。
@@ -41,3 +47,5 @@ function setCookie(name, value, expires, path, domain, secure) {
     document.cookie = updatedCookie;
     return value;
 }
+
+// #endregion

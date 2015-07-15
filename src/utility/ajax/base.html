@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>AJAX 底层</title>
+    <meta name="module-info" content="parent-title=Ajax, parent-order=dom, order=^">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/ajax/base.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">提供支持 Ajax 操作的基本方法。内置基于传统的 XMLHttpRequest 实现的文本传输。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+                'Ajax.send': 'Ajax.send({url: "../../apps/demo/ajax/test.txt", success:function(data){alert(data)}})',
+                'Ajax.get': 'Ajax.get("../../apps/demo/ajax/test.txt", function(data){alert(data)})',
+                'Ajax.post': 'Ajax.post("../../apps/demo/ajax/test.txt", {data: "值"}, function(data){alert(data)})',
+                '完整的请求操作': function () {
+                    var ajax = new Ajax();
+
+                    ajax.send({
+                        url: "../../apps/demo/ajax/test.txt",
+                        data: {
+                            "参数1": "值1"
+                        },
+
+                        start: function (data, options) {
+                            alert("准备请求 " + options.url);
+                        },
+                        success: function (data) {
+                            alert("请求已成功 =>" + data);
+                        },
+                        timeout: function (errorNo) {
+                            alert("请求已超时 =>" + errorNo);
+                        },
+                        error: function (error) {
+                            alert("请求已失败 => 错误: " + error);
+                        },
+                        complete: function (error, options) {
+                            alert("请求结束 " + options.url);
+                        }
+                    });
+
+                }
+            }, {
+                times: 4
+            });
+
+            </script>
+
+    </article>
+
+</body>
+</html>

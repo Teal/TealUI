@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>数据集</title>
+    <meta name="module-info" content="status=doing, parent-title=数据结构, parent-order=text">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="检验数据合法性。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../text/check.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+    
+    <h2>通用判断</h2>
+
+    <h5>判断是否为邮箱地址</h5>
+    <pre>Check.isEmail("work@xuld.net");</pre>
+
+    <h5>判断是否为数字</h5>
+    <pre>Check.isNumber("12.3");</pre>
+
+    <h5>判断是否为整数</h5>
+    <pre>Check.isInteger("12");</pre>
+
+    <h5>判断是否为整数</h5>
+    <pre>Check.isInteger("12");</pre>
+
+    <h5>判断是否为网址</h5>
+    <pre>Check.isUrl("http://teal.github.io/TealUI");</pre>
+
+    <h5>判断是否为日期</h5>
+    <pre>Check.isDate("2012/1/1");</pre>
+
+    <h5>判断是否为 IP 地址</h5>
+    <pre>Check.isIP("2012/1/1");</pre>
+
+    <h5>判断是否为字母、数字或下划线</h5>
+    <pre>Check.isLetter("2012/1/1");</pre>
+
+    <h5>判断是否为 JavaScript 标识符</h5>
+    <pre>Check.isIndentifier("2012/1/1");</pre>
+
+    <h5>检查密码复杂度</h5>
+    <pre>Check.checkPassword("123456"); // 返回 1-5 表示复杂度。数值越高越复杂。</pre>
+
+    <h2>中国区域判断</h2>
+
+    <h5>判断是否为手机号</h5>
+    <pre>Check.isMobile("121100000000");</pre>
+
+    <h5>判断是否为身份证号</h5>
+    <pre>Check.isId("121100000000");</pre>
+
+    <h5>判断是否为邮编</h5>
+    <pre>Check.isPostCode("310000");</pre>
+
+    <h5>判断是否为中文</h5>
+    <pre>Check.isChinese("中文");</pre>
+
+    <h5>判断是否为 QQ 号</h5>
+    <pre>Check.isQQ("10000");</pre>
+
+</body>
+</html>

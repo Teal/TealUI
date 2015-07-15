@@ -3,6 +3,8 @@
  * @fileOverview 提供日期操作的辅助函数。
  */
 
+// #region @format
+
 /**
  * 提供日期格式化参数扩展支持。
  */
@@ -40,31 +42,6 @@ Date.formators = {
 };
 
 /**
- * 尝试从指定对象中分析出日期对象。
- * @param {String/Date} value 要分析的对象。
- * @param {String} format 要分析的日期格式。
- * @returns {date} 返回分析出的日期对象。
- */
-Date.from = function (value, format) {
-    if (value && !(value instanceof Date)) {
-        if (format) {
-            // 规范正则处理内容。
-            //format = format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
-            // todo:
-            //
-            //var parts = { y: 0, M: 0, d: 0, H: 0, m: 0, s: 0 };
-            //for (var part in parts) {
-            //    new RegExp(format.replace(new RegExp(part + "+", "g"), "($1)")).exec(value);
-            //}
-            // 2013/33/33 yyyy/MM/dd
-            // format = format.replace(/yyyy/)
-        }
-        value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
-    }
-    return value;
-};
-
-/**
  * 将日期对象格式化为字符串。
  * @param {String} format 日期的格式。默认为 yyyy/MM/dd HH:mm:ss。y: 年, M: 月, d: 天, H: 小时（24小时制）,m:分, s:秒, e:星期
  * @return {String} 格式化后的字符串。
@@ -83,6 +60,39 @@ Date.prototype.format = function (format) {
     });
 };
 
+// #endregion
+
+// #region @create
+
+/**
+ * 尝试从指定对象中分析出日期对象。
+ * @param {String/Date} value 要分析的对象。
+ * @param {String} format 要分析的日期格式。
+ * @returns {date} 返回分析出的日期对象。
+ */
+Date.create = function (value, format) {
+    if (value && !(value instanceof Date)) {
+        if (format) {
+            // 规范正则处理内容。
+            //format = format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
+            // todo:
+            //
+            //var parts = { y: 0, M: 0, d: 0, H: 0, m: 0, s: 0 };
+            //for (var part in parts) {
+            //    new RegExp(format.replace(new RegExp(part + "+", "g"), "($1)")).exec(value);
+            //}
+            // 2013/33/33 yyyy/MM/dd
+            // format = format.replace(/yyyy/)
+        }
+        value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
+    }
+    return value;
+};
+
+// #endregion
+
+// #region @addDay
+
 /**
  * 在当前日期添加指定的天数。
  * @param {Number} value 要添加的天数。
@@ -91,6 +101,10 @@ Date.prototype.format = function (format) {
 Date.prototype.addDay = function (value) {
     return new Date(+this + value * 86400000);
 };
+
+// #endregion
+
+// #region @addMonth
 
 /**
  * 在当前日期添加指定的月数。
@@ -106,6 +120,10 @@ Date.prototype.addMonth = function (value) {
     return date;
 };
 
+// #endregion
+
+// #region @toDay
+
 /**
  * 获取当前日期的无小时部分。
  * @returns {Date} 返回处理后的新日期对象。
@@ -113,3 +131,5 @@ Date.prototype.addMonth = function (value) {
 Date.prototype.toDay = function () {
     return new Date(this.getFullYear(), this.getMonth(), this.getDate());
 };
+
+// #endregion

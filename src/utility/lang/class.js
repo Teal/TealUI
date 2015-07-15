@@ -77,6 +77,8 @@ Base.extend = function (members) {
 
 };
 
+//#region @toString
+
 /**
  * 返回当前对象的字符串形式。
  */
@@ -89,7 +91,9 @@ Base.prototype.toString = function() {
     return "Class";
 };
 
-//#region 事件支持
+// #endregion
+
+//#region @事件
 
 /**
  * 手动触发一个监听器。
