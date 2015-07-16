@@ -5,7 +5,7 @@
 /**
  * 提供大正整数计算相关函数。
  */
-var BigInteger = {
+var BigNumber = {
 
     /**
 	 * 计算大数的和。

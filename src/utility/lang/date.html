@@ -10,6 +10,7 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/date.js"></script>
     <script type="text/javascript" src="../../utility/lang/dateEx.js"></script>
+    <script type="text/javascript" src="../../utility/lang/formatTime.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -167,6 +168,20 @@
             <td><code><em>date</em>.getLastDay</code></td>
             <td>获取当月最后一天</td>
             <td><pre>new Date().getLastDay();</pre></td>
+        </tr>
+    </table>
+
+    <h2>格式化时间</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>formatTime</code></td>
+            <td>格式化时间为 N 秒(分、小时、天）前/刚刚 格式</td>
+            <td><pre>formatTime(new Date())</pre></td>
         </tr>
     </table>
 </body>
