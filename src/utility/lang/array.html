@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>数组处理</title>
-    <meta name="module-info" content="status=doing">
-    <meta name="author" content="">
-    <meta name="description" content="提供数据处理的相关 API">
+    <title>数组扩展</title>
+    <meta name="module-info" content="order=object">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展 Array 相关的 API。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
@@ -16,33 +16,132 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
+    <h2>常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.remove</code></td>
+            <td>删除当前数组中指定的元素</td>
+            <td><pre>[1, 2].remove(2);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.unique</code></td>
+            <td>删除当前数组的重复元素</td>
+            <td><pre>[1, 2].unique();</pre></td>
+        </tr>
+    </table>
 
-    <script>
-    Demo.writeExamples({
-        // 'Array#insert': {
-        // 'var ar = [5,4];ar.insert(1, "1"); ar': function (value, assert) {
-        // assert.areEqual(value, [5, "1", 4]);
-        // }
-        // },
-        //'Array.create': {
-        //    'Array.create(["a","a",null,"a"], 1)': ["a", null, "a"]
-        //},
-        "Array.create": 'Array.create([1,2,3])',
-        "Array.concat": 'Array.concat([1,2,3])',
-        "Array#clone": '[1,2,3].clone()',
-        "Array#clean": '[1,2,3].clean()',
-        "Array#link": '[1,2,3].link()',
-        "Array#random": '[1,2,3].random()',
-        "Array#randomSort": '[1,2,3].randomSort()',
-        "Array#first": '[1,2,3].first()',
-        "Array#last": '[1,2,3].last()',
-        "Array#associate": '[1,2,3].associate()',
-        "Array#clear": '[1,2,3].clear()',
-        "Array#flatten": '[1,2,3].flatten()',
-        "Array#pick": '[1,2,3].pick()',
-        "Array#difference": '[1,2,3].difference()'
-    });
-    </script>
-
+    <h2>不常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Array.from</code></td>
+            <td>将一个类数组对象转为原生数组</td>
+            <td><pre>Array.from({length: 1, "0": "value"});</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.every</code></td>
+            <td>遍历一个数组并调用指定的函数，判断是否都满足条件</td>
+            <td><pre>[1, 2].every(function(){return true});</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.some</code></td>
+            <td>遍历一个数组并调用指定的函数，判断是否部分满足条件</td>
+            <td><pre>[1, 2].some(function(){return true});</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.map</code></td>
+            <td>遍历一个类数组对象并调用指定的函数，返回每次调用的返回值数组</td>
+            <td><pre>[1, 2].map(function(){return true});</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.concat</code></td>
+            <td>合并两个数组</td>
+            <td><pre>[1, 2].concat([4, 4]);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.insert</code></td>
+            <td>将指定的值插入到当前数组的指定位置</td>
+            <td><pre>[1, 2].insert(0, 4);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.clean</code></td>
+            <td>删除数组中的空值</td>
+            <td><pre>[1, 2].clean()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.min</code></td>
+            <td>获取数组中的最小值</td>
+            <td><pre>[1, 2].min()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.max</code></td>
+            <td>获取数组中的最大值</td>
+            <td><pre>[1, 2].max()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.sum</code></td>
+            <td>获取数组中的和</td>
+            <td><pre>[1, 2].sum()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.avg</code></td>
+            <td>获取数组中的算术平均值</td>
+            <td><pre>[1, 2].avg()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.associate</code></td>
+            <td>将数组中的值和指定的键表组合为对象</td>
+            <td><pre>[1, 2].associate(["q", "w"])</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.clear</code></td>
+            <td>清空数组</td>
+            <td><pre>[1, 2].clear()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.pick</code></td>
+            <td>获取数组中第一个不为空的元素</td>
+            <td><pre>[1, 2].pick()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.random</code></td>
+            <td>返回数组的随机位置的值</td>
+            <td><pre>[1, 2].random()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.shuffle</code></td>
+            <td>随机打乱数组的内容</td>
+            <td><pre>[1, 2].shuffle()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.flatten</code></td>
+            <td>将多维数组合并为一维数组</td>
+            <td><pre>[1, 2].flatten()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.checkRepeat</code></td>
+            <td>检查数组中是否存在重复值</td>
+            <td><pre>[1, 2].checkRepeat()</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.sub</code></td>
+            <td>将当前数组中减去另一个数组的元素，返回剩下的元素数组</td>
+            <td><pre>[1, 2].sub([1])</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>arr</em>.pushIf</code></td>
+            <td>如果不存在则添加</td>
+            <td><pre>[1, 2].pushIf(1)</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

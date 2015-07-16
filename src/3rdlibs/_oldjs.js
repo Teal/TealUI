@@ -3732,3 +3732,142 @@ if (!document.contains) {
 //    timer = setTimeout(callback, duration || 0.3);
 
 //}
+
+Object.extend(String, {
+
+    quote: function (str) {
+        var metaObject = {
+            '\b': '\\b',
+            '\t': '\\t',
+            '\n': '\\n',
+            '\f': '\\f',
+            '\r': '\\r',
+            '\\': '\\\\'
+        },
+		str = this.replace(/[\x00-\x1f\\]/g, function (chr) {
+		    var special = metaObject[chr];
+		    return special ? special : '\\u' + ('0000' + chr.charCodeAt(0).toString(16)).slice(-4)
+		});
+        return '"' + str.replace(/"/g, '\\"') + '"';
+    },
+
+    encodeJs: function (str) {
+
+        // TODO  效率不高
+
+        return this.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"").replace(/\'/, "\\'");
+    },
+
+    /**
+     * Convert certain characters (&, <, >, and ') to their HTML character equivalents for literal display in web pages.
+     * @param {String} value The string to encode
+     * @return {String} The encoded text
+     * @method
+     */
+    encodeHtml: (function () {
+        var entities = {
+            '&': '&amp;',
+            '>': '&gt;',
+            '<': '&lt;',
+            '"': '&quot;'
+        }, keys = [], p, regex;
+
+        for (p in entities) {
+            keys.push(p);
+        }
+
+        regex = new RegExp('(' + keys.join('|') + ')', 'g');
+
+        return function (value) {
+            return (!value) ? value : String(value).replace(regex, function (match, capture) {
+                return entities[capture];
+            });
+        };
+    })(),
+
+    /**
+     * Convert certain characters (&, <, >, and ') from their HTML character equivalents.
+     * @param {String} value The string to decode
+     * @return {String} The decoded text
+     * @method
+     */
+    decodeHtml: (function () {
+        var entities = {
+            '&amp;': '&',
+            '&gt;': '>',
+            '&lt;': '<',
+            '&quot;': '"'
+        }, keys = [], p, regex;
+
+        for (p in entities) {
+            keys.push(p);
+        }
+
+        regex = new RegExp('(' + keys.join('|') + '|&#[0-9]{1,5};' + ')', 'g');
+
+        return function (value) {
+            return (!value) ? value : String(value).replace(regex, function (match, capture) {
+                if (capture in entities) {
+                    return entities[capture];
+                } else {
+                    return String.fromCharCode(parseInt(capture.substr(2), 10));
+                }
+            });
+        };
+    })(),
+
+    /**
+     * Appends content to the query string of a URL, handling logic for whether to place
+     * a question mark or ampersand.
+     * @param {String} url The URL to append to.
+     * @param {String} string The content to append to the URL.
+     * @return (String) The resulting URL
+     */
+    urlAppend: function (url, string) {
+        if (!Ext.isEmpty(string)) {
+            return url + (url.indexOf('?') === -1 ? '?' : '&') + string;
+        }
+
+        return url;
+    },
+
+    removeHtml: function (str) {
+        ///<summary>去除字符串中的 HTML 标签并返回。语法：removeHtml()</summary>
+        ///<returns type="string">返回去除了 HTML 标签的字符串。</returns>
+        return str.replace(/<(.|\n)+?>/g, "");
+    },
+
+    removeRepeats: function (value) {
+        return value.replace(/(\w)(?=.*\1)/g, "");
+    },
+
+    /**
+	 * 使  HTML 代码更标准，比如添加注释。
+	 */
+    toXHTML: function (value) {
+        return value.replace(/( [^\=]*\=)(\s?[^\"\s\>]*)/ig, function (a, b, c, d, e) { return (c) ? (new RegExp("<[^>]*" + c.replace(/(\^|\(|\)|\[|\]|\{|\}|\?|\-|\\|\/|\||\$)/g, '\\$1') + "[^>]*>", "i").test(e)) ? b + '"' + c + '"' : b + c : b });
+    },
+
+    compare: function (a, b) {
+        if (a.length == b.length) return a.split("").sort().join("") == b.split("").sort().join("");
+        a = a.split("").sort().join("").replace(/(.)\1+/g, "$1");
+        b = b.split("").sort().join("").replace(/(.)\1+/g, "$1");
+        var arr = a.split("");
+        var re = new RegExp(arr.join("|"), "g");
+        return (b.length - b.replace(re, "").length == a.length || b.replace(re, "").length == 0)
+    },
+
+    stripScripts: function (exec) {
+        var scripts = '';
+        var text = this.replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, function (all, code) {
+            scripts += code + '\n';
+            return '';
+        });
+        if (exec === true) Browser.exec(scripts);
+        else if (typeOf(exec) == 'function') exec(scripts, text);
+        return text;
+    }
+
+
+});
+

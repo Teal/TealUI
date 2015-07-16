@@ -3,36 +3,79 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>函数处理</title>
-    <meta name="module-info" content="status=doing">
-    <meta name="author" content="">
-    <meta name="description" content="提供正则处理的相关 API">
-
+    <title>数字扩展</title>
+    <meta name="module-info" content="order=string">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展 Number 相关的 API。">
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../../utility/lang/regexp.js"></script>
+    <script type="text/javascript" src="../../utility/lang/numberEx.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h5>从字符串创建正则</h5>
-    <pre>RegExp.create("\\s")</pre>
-    
-    <script>
-    var fns = [
-        'Function.from': {
-                    'Function.from(1)': function (value, assert) {
-                        assert.areEqual(value(), 1);
-                    }
-    },
-    ["Function.prototype.concat", function () { return function () { }.concat(log)([]) }],
-    ["Function.prototype.delay", function () { return log.delay(1000, null, "sss"); }],
-    ["Function.prototype.bind", function () { return log.bind(); }],
-    ["Function.prototype.periodical", function () { return log.periodical(1000, -1, null, "sss"); }],
-    ["Function.tryThese", function () { return Function.tryThese(log); }],
-    ["Function.create", function () { return Function.create("alert(2)")(); }]
-    ];
+    <h2>常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>num</em>.format</code></td>
+            <td>替换字符串内全部子字符串</td>
+            <td>
+                <pre>1..format("000.00");</pre>
+                <div class="doc">
+                    <table>
+                        <tr>
+                            <th>元字符</th>
+                            <th>意义</th>
+                            <th>实例</th>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>空位补0</td>
+                            <td>000:012, 0.00: 2.00</td>
+                        </tr>
+                        <tr>
+                            <td>+</td>
+                            <td>正负号</td>
+                            <td>+: +</td>
+                        </tr>
+                        <tr>
+                            <td>.</td>
+                            <td>小数点</td>
+                            <td>.: .</td>
+                        </tr>
+                        <tr>
+                            <td>,</td>
+                            <td>每三位追加逗号</td>
+                            <td>,: 0</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
 
-    </script>
+    <h2>不常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Number.limit</code></td>
+            <td>确保指定数字在指定区间内</td>
+            <td><pre>Number.limit(1, 2, 6);</pre></td>
+        </tr>
+        <tr>
+            <td><code>Number.random</code></td>
+            <td>返回在指定范围的随机值</td>
+            <td><pre>Number.random(2, 6);</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

@@ -1,5 +1,6 @@
 /**
- * @fileOverview 为整个库提供最基础的工具函数。
+ * @fileOverview 字符串扩展。
+ * @author xuld
  */
 
 // #region @String.format

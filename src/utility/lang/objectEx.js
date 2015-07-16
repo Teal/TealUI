@@ -51,6 +51,51 @@ Object.isObject = function (obj) {
 
 // #endregion
 
+// #region @Object.isArray
+
+/**
+ * 判断一个变量是否是数组。
+ * @param {Object} obj 变量。
+ * @return {Boolean} 如果 *obj* 是引用变量，则返回 **true**, 否则返回 **false** 。
+ * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
+ * @example
+ * <pre>
+ * Object.isObject({}); // true
+ * Object.isObject(null); // false
+ * </pre>
+ */
+Object.isArray = Array.isArray || function (obj) {
+    return Object.prototype.toString.call(obj) === "[object Array]";
+}
+
+// #endregion
+
+// #region @Object.isString
+
+/**
+ * 判断一个变量是否是字符串。
+ * @param {Object} obj 要判断的变量。
+ * @return {Boolean} 如果是字符串，返回 true， 否则返回 false。
+ */
+Object.isString = function (obj) {
+    return typeof obj === 'string';
+}
+
+// #endregion
+
+// #region @Object.isNumber
+
+/**
+ * 判断一个变量是否是数字。
+ * @param {Object} obj 要判断的变量。
+ * @return {Boolean} 如果是字符串，返回 true， 否则返回 false。
+ */
+Object.isNumber = function (obj) {
+    return typeof obj === 'number' && !isNaN(obj);
+}
+
+// #endregion
+
 // #region @Object.isFunction
 
 /**
@@ -330,12 +375,12 @@ Object.filter = function (iterable, fn, scope) {
         target = [];
         length = iterable.length;
         for (i = 0; i < length; i++)
-            if (fn.call(scope, iterable[i], i, iterable) !== false)
+            if ((i in this) && fn.call(scope, iterable[i], i, iterable))
                 target.push(iterable[i]);
     } else {
         target = {};
         for (i in iterable)
-            if (fn.call(scope, iterable[i], i, iterable) !== false)
+            if (fn.call(scope, iterable[i], i, iterable))
                 target[i] = iterable[i];
     }
 
@@ -357,7 +402,7 @@ Object.filter = function (iterable, fn, scope) {
  * - {Array} array 当前正在遍历的数组。
  *
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Object} 返回的结果对象。
+ * @return {Boolean} 全部满足返回 true 否则返回 false。
  */
 Object.every = function (iterable, fn, scope) {
 
@@ -368,12 +413,12 @@ Object.every = function (iterable, fn, scope) {
         target = [];
         length = iterable.length;
         for (i = 0; i < length; i++)
-            if (fn.call(scope, iterable[i], i, iterable) === false)
+            if ((i in this) && fn.call(scope, iterable[i], i, iterable))
                 return false;
     } else {
         target = {};
         for (i in iterable)
-            if (fn.call(scope, iterable[i], i, iterable) === false)
+            if (fn.call(scope, iterable[i], i, iterable))
                 return false;
     }
 
@@ -386,7 +431,7 @@ Object.every = function (iterable, fn, scope) {
 // #region @Object.some
 
 /**
- * 遍历一个类数组对象并调用指定的函数，判断是否都满足条件。
+ * 遍历一个类数组对象并调用指定的函数，判断是否部分满足条件。
  * @param {Array/Object} iterable 任何对象，不允许是函数。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  *
@@ -395,7 +440,7 @@ Object.every = function (iterable, fn, scope) {
  * - {Array} array 当前正在遍历的数组。
  *
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Object} 返回的结果对象。
+ * @return {Boolean} 部分满足返回 true 否则返回 false。
  */
 Object.some = function (iterable, fn, scope) {
 
@@ -406,12 +451,12 @@ Object.some = function (iterable, fn, scope) {
         target = [];
         length = iterable.length;
         for (i = 0; i < length; i++)
-            if (fn.call(scope, iterable[i], i, iterable) !== false)
+            if ((i in this) && fn.call(scope, iterable[i], i, iterable))
                 return true;
     } else {
         target = {};
         for (i in iterable)
-            if (fn.call(scope, iterable[i], i, iterable) !== false)
+            if (fn.call(scope, iterable[i], i, iterable))
                 return true;
     }
 
@@ -427,7 +472,7 @@ Object.some = function (iterable, fn, scope) {
  * 获取对象指定键的子集。
  * @param {Object} obj 任何对象，不允许是函数。
  * @param {Array} keys 对每个元素运行的函数。函数的参数依次为:
- * @return {Object} 返回的结果对象。
+ * @return {Object} 返回结果。
  */
 Object.subset = function (obj, keys) {
     var result = {}, i;
@@ -442,10 +487,9 @@ Object.subset = function (obj, keys) {
 // #region @Object.pick
 
 /**
- * 获取参数中第一个不为 undefined 的值。
- * @param {Object} obj 任何对象，不允许是函数。
- * @param {Array} keys 对每个元素运行的函数。函数的参数依次为:
- * @return {Object} 返回的结果对象。
+ * 获取参数中第一个不为空的值。
+ * @param {Object} obj... 任何对象，不允许是函数。
+ * @return {Object} 返回结果。
  */
 Object.pick = function () {
     for (var i = 0; i < arguments.length; i++)

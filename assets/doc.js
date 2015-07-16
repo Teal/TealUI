@@ -1283,7 +1283,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     Doc.renderCodes = function () {
         
         // 处理所有 <pre>, <script class="doc-demo">, <aside class="doc-demo">
-        Doc.Dom.each('.doc > pre, .doc-demo', function (node) {
+        Doc.Dom.each('.doc > pre, .doc-api pre, .doc-demo', function (node) {
             
             // 不重复解析。
             if (node._docInited) {

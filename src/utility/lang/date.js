@@ -1,45 +1,9 @@
 ﻿/**
- * @author xuld
  * @fileOverview 提供日期操作的辅助函数。
+ * @author xuld
  */
 
-// #region @format
-
-/**
- * 提供日期格式化参数扩展支持。
- */
-Date.formators = {
-
-    y: function (date, length) {
-        date = date.getFullYear();
-        return date < 0 ? 'BC' + (-date) : length < 3 && date < 2000 ? date % 100 : date;
-    },
-
-    M: function (date) {
-        return date.getMonth() + 1;
-    },
-
-    d: function (date) {
-        return date.getDate();
-    },
-
-    H: function (date) {
-        return date.getHours();
-    },
-
-    m: function (date) {
-        return date.getMinutes();
-    },
-
-    s: function (date) {
-        return date.getSeconds();
-    },
-
-    e: function (date, length) {
-        return (length === 1 ? '' : length === 2 ? '周' : '星期') + [length === 2 ? '日' : '天', '一', '二', '三', '四', '五', '六'][date.getDay()];
-    }
-
-};
+// #region @Date#format
 
 /**
  * 将日期对象格式化为字符串。
@@ -47,10 +11,45 @@ Date.formators = {
  * @return {String} 格式化后的字符串。
  */
 Date.prototype.format = function (format) {
+    var formators = Date._formators;
+    if (!formators) {
+        Date._formators = formators = {
+
+            y: function (date, length) {
+                date = date.getFullYear();
+                return date < 0 ? 'BC' + (-date) : length < 3 && date < 2000 ? date % 100 : date;
+            },
+
+            M: function (date) {
+                return date.getMonth() + 1;
+            },
+
+            d: function (date) {
+                return date.getDate();
+            },
+
+            H: function (date) {
+                return date.getHours();
+            },
+
+            m: function (date) {
+                return date.getMinutes();
+            },
+
+            s: function (date) {
+                return date.getSeconds();
+            },
+
+            e: function (date, length) {
+                return (length === 1 ? '' : length === 2 ? '周' : '星期') + [length === 2 ? '日' : '天', '一', '二', '三', '四', '五', '六'][date.getDay()];
+            }
+
+        };
+    }
     var me = this;
     return (format || 'yyyy/MM/dd HH:mm:ss').replace(/(\w)\1*/g, function (all, key) {
-        if (key in Date.formators) {
-            key = '' + Date.formators[key](me, all.length);
+        if (key in formators) {
+            key = '' + formators[key](me, all.length);
             while (key.length < all.length) {
                 key = '0' + key;
             }
@@ -62,28 +61,15 @@ Date.prototype.format = function (format) {
 
 // #endregion
 
-// #region @create
+// #region @Date.from
 
 /**
  * 尝试从指定对象中分析出日期对象。
  * @param {String/Date} value 要分析的对象。
- * @param {String} format 要分析的日期格式。
- * @returns {date} 返回分析出的日期对象。
+ * @returns {Date} 返回分析出的日期对象。
  */
-Date.create = function (value, format) {
+Date.from = function (value) {
     if (value && !(value instanceof Date)) {
-        if (format) {
-            // 规范正则处理内容。
-            //format = format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1');
-            // todo:
-            //
-            //var parts = { y: 0, M: 0, d: 0, H: 0, m: 0, s: 0 };
-            //for (var part in parts) {
-            //    new RegExp(format.replace(new RegExp(part + "+", "g"), "($1)")).exec(value);
-            //}
-            // 2013/33/33 yyyy/MM/dd
-            // format = format.replace(/yyyy/)
-        }
         value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
     }
     return value;
@@ -91,7 +77,7 @@ Date.create = function (value, format) {
 
 // #endregion
 
-// #region @addDay
+// #region @Date#addDay
 
 /**
  * 在当前日期添加指定的天数。
@@ -104,7 +90,7 @@ Date.prototype.addDay = function (value) {
 
 // #endregion
 
-// #region @addMonth
+// #region @Date#addMonth
 
 /**
  * 在当前日期添加指定的月数。
@@ -122,7 +108,7 @@ Date.prototype.addMonth = function (value) {
 
 // #endregion
 
-// #region @toDay
+// #region @Date#toDay
 
 /**
  * 获取当前日期的无小时部分。

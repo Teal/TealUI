@@ -1,4 +1,10 @@
-﻿
+﻿/**
+ * @fileOverview 数组扩展。
+ * @author xuld
+ */
+
+// #region @Array#remove
+
 /**
  * 删除当前数组中指定的元素。
  * @param {Object} value 要删除的值。
@@ -13,20 +19,23 @@
  *
  * 以下示例演示了如何删除数组全部相同项。
  * <pre>
- * var arr = ["wow", "wow", "J+ UI", "is", "powerful", "wow", "wow"];
+ * var arr = ["wow", "wow", "TealUI", "is", "powerful", "wow", "wow"];
  *
  * // 反复调用 remove， 直到 remove 返回 -1， 即找不到值 wow
  * while(arr.remove("wow") >= 0);
  *
- * trace(arr); // 输出 ["J+ UI", "is", "powerful"]
+ * trace(arr); // 输出 ["TealUI", "is", "powerful"]
  * </pre>
  */
-Array.prototype.remove = function (value, /*Number?*/startIndex) {
-    var index = this.indexOf(value, startIndex);
-    if (index > 0)
-        this.splice(index, 1);
-    return index;
+Array.prototype.remove = function (value, startIndex) {
+    startIndex = this.indexOf(value, startIndex);
+    startIndex > 0 && this.splice(startIndex, 1);
+    return startIndex;
 };
+
+// #endregion
+
+// #region @Array#unique
 
 /**
  * 删除当前数组的重复元素。
@@ -36,3 +45,5 @@ Array.prototype.unique = function () {
         return arr.indexOf(item, index + 1) < 0;
     });
 };
+
+// #endregion

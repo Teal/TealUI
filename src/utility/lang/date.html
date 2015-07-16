@@ -3,95 +3,173 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>日期处理</title>
-    <meta name="module-info" content="">
+    <title>日期扩展</title>
+    <meta name="module-info" content="order=boolean">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="本组件提供了时间处理的基础函数。">
-
+    <meta name="description" content="扩展 Date 相关的 API。">
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/date.js"></script>
+    <script type="text/javascript" src="../../utility/lang/dateEx.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-
-    <h5><code>Date.prototype.format</code>: 日期转字符串</h5>
-    <pre>new Date(2001, 2, 3, 4, 5, 6, 7).format("yyyy/MM/dd HH:mm:ss")</pre>
-    
-    <h6>支持的日期元字符</h6>
-
-    <table>
+    <h2>常用 API</h2>
+    <table class="doc-api">
         <tr>
-            <th>元字符</th>
-            <th>意义</th>
-            <th>实例</th>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
         </tr>
         <tr>
-            <td>y</td>
-            <td>年</td>
-            <td>yyyy:2014, yy:14</td>
+            <td><code><em>date</em>.format</code></td>
+            <td>日期转字符串</td>
+            <td>
+                <pre>new Date().format("yyyy/MM/dd HH:mm:ss");</pre>
+                <div class="doc">
+                    <table>
+                        <tr>
+                            <th>元字符</th>
+                            <th>意义</th>
+                            <th>实例</th>
+                        </tr>
+                        <tr>
+                            <td>y</td>
+                            <td>年</td>
+                            <td>yyyy:2014, yy:14</td>
+                        </tr>
+                        <tr>
+                            <td>M</td>
+                            <td>月</td>
+                            <td>MM:09, M:9</td>
+                        </tr>
+                        <tr>
+                            <td>d</td>
+                            <td>日</td>
+                            <td>dd:09, d:9</td>
+                        </tr>
+                        <tr>
+                            <td>H</td>
+                            <td>小时</td>
+                            <td>HH:13, h:13</td>
+                        </tr>
+                        <tr>
+                            <td>m</td>
+                            <td>分钟</td>
+                            <td>mm:06, m:6</td>
+                        </tr>
+                        <tr>
+                            <td>s</td>
+                            <td>秒</td>
+                            <td>ss:06, s:6</td>
+                        </tr>
+                        <tr>
+                            <td>e</td>
+                            <td>星期</td>
+                            <td>e:天, ee:周日, eee: 星期天</td>
+                        </tr>
+                    </table>
+                    <blockquote class="doc-note"><h4>注意</h4>元字符区分大小写。</blockquote>
+                </div>
+            </td>
         </tr>
         <tr>
-            <td>M</td>
-            <td>月</td>
-            <td>MM:09, M:9</td>
+            <td><code>Date.from</code></td>
+            <td>字符串转日期</td>
+            <td><pre>[Date.from("2014-1-1");</pre></td>
         </tr>
         <tr>
-            <td>d</td>
-            <td>日</td>
-            <td>dd:09, d:9</td>
+            <td><code><em>date</em>.addDay</code></td>
+            <td>计算N天之后的时间</td>
+            <td><pre>new Date().addDay(1);</pre></td>
         </tr>
         <tr>
-            <td>H</td>
-            <td>小时</td>
-            <td>HH:13, h:13</td>
+            <td><code><em>date</em>.addMonth</code></td>
+            <td>计算N月之后的时间</td>
+            <td><pre>new Date().addMonth(1);</pre>
+                <div class="doc">
+                    <blockquote class="doc-note"><h4>注意</h4>3月31日的一个月之后是4月30日。</blockquote>
+                </div></td>
         </tr>
         <tr>
-            <td>m</td>
-            <td>分钟</td>
-            <td>mm:06, m:6</td>
-        </tr>
-        <tr>
-            <td>s</td>
-            <td>秒</td>
-            <td>ss:06, s:6</td>
-        </tr>
-        <tr>
-            <td>e</td>
-            <td>星期</td>
-            <td>e:天, ee:周日, eee: 星期天</td>
+            <td><code><em>date</em>.toDay</code></td>
+            <td>清空日期的小时部分</td>
+            <td><pre>new Date().toDay();</pre></td>
         </tr>
     </table>
 
-    <blockquote class="doc-note">注意：元字符区分大小写。</blockquote>
-
-    <h5><code>Date.create</code>: 字符串转日期</h5>
-    <pre>Date.create("2014-1-1")</pre>
-
-    <h5><code>Date.prototype.addDay</code>: 计算N天之后的时间</h5>
-    <pre>new Date().addDay(1)</pre>
-
-    <h5><code>Date.prototype.addMonth</code>: 计算N月之后的时间</h5>
-    <pre>new Date().addMonth(1)</pre>
-    
-    <blockquote class="doc-note">注意：3月31日的一个月之后是4月30日</blockquote>
-
-    <h5><code>Date.prototype.toDay</code>: 清空日期的小时部分。</h5>
-    <pre>new Date().toDay()</pre>
-    
-    <script>
-    Demo.writeExamples({
-        'Basic': '-',
-        'Date.prototype.toString': '@new Date(2011,10,11,11,11,11,11); "yyyy �� MM �� dd ��  yy �� M �� d ��   hh mm ss" => "2011 �� 11 �� 11 ��  11 �� 11 �� 11 ��   11 11 11"',
-        'Date.isLeapYear': '2002 => false',
-        'Date.getDayInMonth': '2001, 2 => 28',
-        'Date.compare': 'new Date(), new Date() => 0',
-        'Advance': '-',
-        'Date.prototype.addDay': '@new Date("2011/2/27"); 2',
-        'Date.prototype.addMonth': '@new Date("2011/2/27"); 2',
-        'Date.prototype.addYear': '@new Date("2011/2/27"); 2',
-        'Date.prototype.addWeek': '@new Date("2011/2/27"); 2'
-    });
-    </script>
+    <h2>不常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Date.isLeapYear</code></td>
+            <td>判断指定的年份是否是闰年</td>
+            <td><pre>Date.isLeapYear(2002)</pre></td>
+        </tr>
+        <tr>
+            <td><code>Date.isValid</code></td>
+            <td>判断指定的数值是否可以解释为正确的日期</td>
+            <td><pre>Date.isValid(2002, 1, 3)</pre></td>
+        </tr>
+        <tr>
+            <td><code>Date.getDayInMonth</code></td>
+            <td>获取指定年的指定月有多少天</td>
+            <td><pre>Date.getDayInMonth(2001, 2);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.clone</code></td>
+            <td>克隆当前日期对象</td>
+            <td><pre>new Date().clone();</pre></td>
+        </tr>
+        <tr>
+            <td><code>Date.compareDay</code></td>
+            <td>计算N天之后的时间</td>
+            <td><pre>Date.compareDay(new Date(), new Date());</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.dayOff</code></td>
+            <td>计算和当前日期到指定最近的指定日期的天数</td>
+            <td><pre>new Date().dayOff(12, 5);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.addYear</code></td>
+            <td>在当前日期添加指定的年数</td>
+            <td><pre>new Date().addYear(1);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.addWeek</code></td>
+            <td>在当前日期添加指定的周数</td>
+            <td><pre>new Date().addWeek(1);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.getWeekFrom</code></td>
+            <td>获取当前日期从指定日期开始后的星期数</td>
+            <td><pre>new Date().getWeekFrom(1);</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.getTimezone</code></td>
+            <td>获取日期的时区</td>
+            <td><pre>new Date().getTimezone();</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.getFirstDay</code></td>
+            <td>获取当月第一天</td>
+            <td><pre>new Date().getFirstDay();</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.getLastDay</code></td>
+            <td>获取当月最后一天</td>
+            <td><pre>new Date().getLastDay();</pre></td>
+        </tr>
+        <tr>
+            <td><code>Date.from</code></td>
+            <td>计算和当前日期到指定最近的指定日期的天数</td>
+            <td><pre>Date.from("2013年12月1日", "yyyy年MM月dd日");</pre></td>
+        </tr>
+    </table>
 </body>
 </html>
