@@ -76,7 +76,10 @@
         <tr>
             <td><code>Date.from</code></td>
             <td>字符串转日期</td>
-            <td><pre>[Date.from("2014-1-1");</pre></td>
+            <td>
+                <pre>Date.from("2014-1-1");</pre>
+                <pre>Date.from("2013年12月1日", "yyyy年MM月dd日");</pre>
+            </td>
         </tr>
         <tr>
             <td><code><em>date</em>.addDay</code></td>
@@ -127,13 +130,13 @@
         </tr>
         <tr>
             <td><code>Date.compareDay</code></td>
-            <td>计算N天之后的时间</td>
+            <td>比较2个日期返回相差的天数</td>
             <td><pre>Date.compareDay(new Date(), new Date());</pre></td>
         </tr>
         <tr>
-            <td><code><em>date</em>.dayOff</code></td>
+            <td><code><em>date</em>.dayOffset</code></td>
             <td>计算和当前日期到指定最近的指定日期的天数</td>
-            <td><pre>new Date().dayOff(12, 5);</pre></td>
+            <td><pre>new Date().dayOffset(12, 5);</pre></td>
         </tr>
         <tr>
             <td><code><em>date</em>.addYear</code></td>
@@ -148,7 +151,7 @@
         <tr>
             <td><code><em>date</em>.getWeekFrom</code></td>
             <td>获取当前日期从指定日期开始后的星期数</td>
-            <td><pre>new Date().getWeekFrom(1);</pre></td>
+            <td><pre>new Date().getWeekFrom(new Date());</pre></td>
         </tr>
         <tr>
             <td><code><em>date</em>.getTimezone</code></td>
@@ -164,11 +167,6 @@
             <td><code><em>date</em>.getLastDay</code></td>
             <td>获取当月最后一天</td>
             <td><pre>new Date().getLastDay();</pre></td>
-        </tr>
-        <tr>
-            <td><code>Date.from</code></td>
-            <td>计算和当前日期到指定最近的指定日期的天数</td>
-            <td><pre>Date.from("2013年12月1日", "yyyy年MM月dd日");</pre></td>
         </tr>
     </table>
 </body>

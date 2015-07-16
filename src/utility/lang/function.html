@@ -7,7 +7,6 @@
     <meta name="module-info" content="order=date">
     <meta name="author" content="">
     <meta name="description" content="扩展 Function 相关的 API。">
-
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/function.js"></script>
@@ -17,24 +16,51 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h5>从字符串创建正则</h5>
-    <pre>RegExp.create("\\s")</pre>
-    
-    <script>
-    var fns = [
-        'Function.from': {
-                    'Function.from(1)': function (value, assert) {
-                        assert.areEqual(value(), 1);
-                    }
-    },
-    ["Function.prototype.concat", function () { return function () { }.concat(log)([]) }],
-    ["Function.prototype.delay", function () { return log.delay(1000, null, "sss"); }],
-    ["Function.prototype.bind", function () { return log.bind(); }],
-    ["Function.prototype.periodical", function () { return log.periodical(1000, -1, null, "sss"); }],
-    ["Function.tryThese", function () { return Function.tryThese(log); }],
-    ["Function.create", function () { return Function.create("alert(2)")(); }]
-    ];
-
-    </script>
+    <h2>常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Function.empty</code></td>
+            <td>空函数</td>
+            <td><pre>Function.empty();</pre></td>
+        </tr>
+        <tr>
+            <td><code>Function.from</code></td>
+            <td>返回一个值，这个值是当前的参数</td>
+            <td><pre>Function.from(false)();</pre></td>
+        </tr>
+    </table>
+    <h2>不常用 API</h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Function.concat</code></td>
+            <td>返回一个值，这个值是当前的参数</td>
+            <td><pre>Function.concat(function(){}, function(){})();</pre></td>
+        </tr>
+        <tr>
+            <td><code>Function.tryThese</code></td>
+            <td>尝试运行返回正确的才内容</td>
+            <td><pre>Function.tryThese(function(){});</pre></td>
+        </tr>
+        <tr>
+            <td><code>Function.interval</code></td>
+            <td>每隔时间执行一次函数</td>
+            <td><pre>Function.interval(function(){}, 10);</pre></td>
+        </tr>
+        <tr>
+            <td><code>Function.createDalayed</code></td>
+            <td>创建一个延时执行函数</td>
+            <td><pre>Function.createDalayed(function(){});</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

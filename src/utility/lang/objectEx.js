@@ -32,6 +32,19 @@ Object.type = function (obj) {
 
 // #endregion
 
+// #region @Object.isEmpty
+
+/**
+ * 判断一个变量是否空。
+ * @param {Object} obj 变量。
+ * @return {Boolean} 如果 *obj* 是空值，空字段或数组，则返回 **true**, 否则返回 **false** 。
+ */
+Object.isEmpty = function (obj) {
+    return !obj || obj.length === 0;
+};
+
+// #endregion
+
 // #region @Object.isObject
 
 /**

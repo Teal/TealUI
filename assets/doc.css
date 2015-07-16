@@ -209,7 +209,7 @@
 
     .doc > p a[href^=http]:after, .doc > ul a[href^=http]:after, .doc > ol a[href^=http]:after, .doc > dl a[href^=http]:after, .doc > blockquote a[href^=http]:after {
         content: "\2650";
-        font-family: IcoMoon;
+        font-family: DocIcoMoon;
         vertical-align: -2px;
         display: inline-block;
         margin-left: .32em;

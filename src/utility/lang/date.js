@@ -64,13 +64,29 @@ Date.prototype.format = function (format) {
 // #region @Date.from
 
 /**
- * 尝试从指定对象中分析出日期对象。
+ * 尝试从指定对象中分析出日期对象。（支持格式解析）
  * @param {String/Date} value 要分析的对象。
+ * @param {String} [format] 对应的格式。
  * @returns {Date} 返回分析出的日期对象。
  */
-Date.from = function (value) {
+Date.from = function (value, format) {
     if (value && !(value instanceof Date)) {
-        value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
+        if (format) {
+            var groups = [0],
+                obj = {},
+                match = new RegExp(format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1').replace(/([yMdHms])\1*/g, function (all, w) {
+                    groups.push(w);
+                    return "\\s*(\\d+)?\\s*";
+                })).exec(value),
+                i;
+            if (match)
+                for (i = 1; i < match.length; i++)
+                    obj[groups[i]] = +match[i];
+            value = new Date(obj.y || new Date().getFullYear(), obj.M ? obj.M - 1 : new Date().getMonth(), obj.d || 1, obj.H || 0, obj.m || 0, obj.s || 0);
+        } else {
+            value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
+        }
+
     }
     return value;
 };
