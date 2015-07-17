@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #region @Array.from
+// #region @Array.parseArray
 
 /**
  * 将一个类数组对象转为原生数组。
@@ -14,17 +14,17 @@
  * @example
  * <pre>
  * // 将 arguments 对象转为数组。
- * Array.from(arguments); // 返回一个数组
+ * Array.parseArray(arguments); // 返回一个数组
  *
  * // 获取数组的子集。
- * Array.from([4,6], 1); // [6]
+ * Array.parseArray([4,6], 1); // [6]
  *
  * // 处理伪数组。
- * Array.from({length: 1, "0": "value"}); // ["value"]
+ * Array.parseArray({length: 1, "0": "value"}); // ["value"]
  *
  * </pre>
  */
-Array.from = function (iterable, startIndex) {
+Array.parseArray = function (iterable, startIndex) {
     if(!iterable)
         return [];
 

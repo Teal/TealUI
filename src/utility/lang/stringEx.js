@@ -3,6 +3,19 @@
  * @author xuld
  */
 
+// #region @String.isString
+
+/**
+ * 判断一个变量是否是字符串。
+ * @param {Object} obj 要判断的变量。
+ * @return {Boolean} 如果是字符串，返回 true， 否则返回 false。
+ */
+String.isString = function (obj) {
+    return typeof obj === 'string';
+}
+
+// #endregion
+
 // #region @String.ellipsis
 
 /**
