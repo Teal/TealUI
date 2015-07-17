@@ -3,6 +3,19 @@
  * @author xuld
  */
 
+// #region @Number.isNumber
+
+/**
+ * 判断一个变量是否是数字。
+ * @param {Object} obj 要判断的变量。
+ * @return {Boolean} 如果是字符串，返回 true， 否则返回 false。
+ */
+Number.isNumber = function (obj) {
+    return typeof obj === 'number' && !isNaN(obj);
+}
+
+// #endregion
+
 // #region @Number.limit
 
 /**

@@ -69,7 +69,7 @@ Date.prototype.format = function (format) {
  * @param {String} [format] 对应的格式。
  * @returns {Date} 返回分析出的日期对象。
  */
-Date.from = function (value, format) {
+Date.parseDate = function (value, format) {
     if (value && !(value instanceof Date)) {
         if (format) {
             var groups = [0],

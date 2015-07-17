@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td><code>Object.assign</code></td>
-            <td>复制成员</td>
+            <td>复制所有成员</td>
             <td><pre>Object.assign({}, {a: 1});</pre></td>
         </tr>
         <tr>
@@ -65,28 +65,8 @@
             <td><pre>Object.isObject({});</pre></td>
         </tr>
         <tr>
-            <td><code>Object.isArray</code></td>
-            <td>判断是否是对象</td>
-            <td><pre>Object.isArray([]);</pre></td>
-        </tr>
-        <tr>
-            <td><code>Object.isString</code></td>
-            <td>判断是否是字符串</td>
-            <td><pre>Object.isString("");</pre></td>
-        </tr>
-        <tr>
-            <td><code>Object.isNumber</code></td>
-            <td>判断是否是数字</td>
-            <td><pre>Object.isNumber(7);</pre></td>
-        </tr>
-        <tr>
-            <td><code>Object.isFunction</code></td>
-            <td>判断是否是函数</td>
-            <td><pre>Object.isFunction(function(){});</pre></td>
-        </tr>
-        <tr>
             <td><code>Object.assignIf</code></td>
-            <td>不覆盖复制成员</td>
+            <td>复制所有成员，但不覆盖已存在的成员</td>
             <td><pre>Object.assignIf({}, {a: 1});</pre></td>
         </tr>
         <tr>

@@ -401,9 +401,9 @@ var Uri = (function () {
 		}
 
 		var result = new Uri();
-		Object.keys(this).forEach(function (k) {
-			result[k] = this[k];
-		}, this);
+		for (var k in this) {
+		    result[k] = this[k];
+		}
 
 		// hash is always overridden, no matter what.
 		// even href="" will remove it.
@@ -418,10 +418,10 @@ var Uri = (function () {
 		// hrefs like //foo/bar always cut to the protocol.
 		if (relative.slashes && !relative.protocol) {
 			// take everything except the protocol from relative
-			Object.keys(relative).forEach(function (k) {
-				if (k !== 'protocol')
-					result[k] = relative[k];
-			});
+			for (var k in relative) {
+			    if (k !== 'protocol')
+			        result[k] = relative[k];
+			}
 
 			//urlParse appends trailing / to urls like http://www.example.com
 			if (slashedProtocol[result.protocol] &&
@@ -443,9 +443,9 @@ var Uri = (function () {
 			// because that's known to be hostless.
 			// anything else is assumed to be absolute.
 			if (!slashedProtocol[relative.protocol]) {
-				Object.keys(relative).forEach(function (k) {
-					result[k] = relative[k];
-				});
+				for (var k in relative) {
+				    result[k] = relative[k];
+				}
 				result.href = result.toString();
 				return result;
 			}

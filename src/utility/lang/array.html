@@ -7,7 +7,6 @@
     <meta name="module-info" content="order=object">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="扩展 Array 相关的 API。">
-
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/array.js"></script>
@@ -24,6 +23,11 @@
             <th>示例</th>
         </tr>
         <tr>
+            <td><code>Array.isArray</code></td>
+            <td>判断是否是数组</td>
+            <td><pre>Array.isArray([]);</pre></td>
+        </tr>
+        <tr>
             <td><code><em>arr</em>.remove</code></td>
             <td>删除当前数组中指定的元素</td>
             <td><pre>[1, 2].remove(2);</pre></td>
@@ -34,9 +38,8 @@
             <td><pre>[1, 2].unique();</pre></td>
         </tr>
     </table>
-    
-    <blockquote>HTML5 新增常用 API 请参考 <a href="../shim/html5.html#array">HTML5 兼容补丁</a> 组件。</blockquote>
 
+    <blockquote>HTML5 新增常用 API 请参考 <a href="../shim/html5.html#array">HTML5 兼容补丁</a> 组件。</blockquote>
     <h2>不常用 API</h2>
     <table class="doc-api">
         <tr>
@@ -45,9 +48,9 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>Array.from</code></td>
+            <td><code>Array.parseArray</code></td>
             <td>将一个类数组对象转为原生数组</td>
-            <td><pre>Array.from({length: 1, "0": "value"});</pre></td>
+            <td><pre>Array.parseArray({length: 1, "0": "value"});</pre></td>
         </tr>
         <tr>
             <td><code><em>arr</em>.every</code></td>

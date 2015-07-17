@@ -1,4 +1,23 @@
 ﻿
+// #region @Function.isFunction
+
+/**
+ * 判断一个变量是否是函数。
+ * @param {Object} obj 要判断的变量。
+ * @return {Boolean} 如果是函数，返回 true， 否则返回 false。
+ * @example
+ * <pre>
+ * Object.isFunction(function () {}); // true
+ * Object.isFunction(null); // false
+ * Object.isFunction(new Function); // true
+ * </pre>
+ */
+Function.isFunction = function (obj) {
+    return Object.prototype.toString.call(obj) === "[object Function]";
+}
+
+// #endregion
+
 // #region @Function.concat
 
 /**
