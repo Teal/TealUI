@@ -7,11 +7,13 @@
     <meta name="module-info" content="order=string">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="扩展 Number 相关的 API。">
+    <meta name="keywords" content="大数, 货币">
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/number.js"></script>
     <script type="text/javascript" src="../../utility/lang/numberEx.js"></script>
     <script type="text/javascript" src="../../utility/lang/bigInteger.js"></script>
     <script type="text/javascript" src="../../utility/lang/bigNumber.js"></script>
+    <script type="text/javascript" src="../../utility/lang/currency.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -84,18 +86,16 @@
     <h2>大整数加减</h2>
 
     <p>
+        <input type="text" id="biginteger_x" value="1" />
+        <input type="text" id="biginteger_y" value="2" />
 
-        <input type="text" id="x" value="1" />
-        <input type="text" id="y" value="2"  />
+        <span id="biginteger_result"></span>
 
-        <span id="result"></span>
-
-        <input type="button" value="求和" onclick="document.getElementById('result').innerHTML = BigInteger.add(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求差" onclick="document.getElementById('result').innerHTML = BigInteger.sub(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求积" onclick="document.getElementById('result').innerHTML = BigInteger.mul(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求商" onclick="document.getElementById('result').innerHTML = BigInteger.div(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求幂" onclick="document.getElementById('result').innerHTML = BigInteger.pow(document.getElementById('x').value, document.getElementById('y').value)" />
-
+        <input type="button" value="求和" onclick="document.getElementById('biginteger_result').innerHTML = BigInteger.add(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
+        <input type="button" value="求差" onclick="document.getElementById('biginteger_result').innerHTML = BigInteger.sub(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
+        <input type="button" value="求积" onclick="document.getElementById('biginteger_result').innerHTML = BigInteger.mul(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
+        <input type="button" value="求商" onclick="document.getElementById('biginteger_result').innerHTML = BigInteger.div(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
+        <input type="button" value="求幂" onclick="document.getElementById('biginteger_result').innerHTML = BigInteger.pow(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
     </p>
 
     <table class="doc-api">
@@ -124,18 +124,16 @@
     <h2>大数加减</h2>
 
     <p>
+        <input type="text" id="bignumber_x" value="1" />
+        <input type="text" id="bignumber_y" value="2" />
 
-        <input type="text" id="x" value="1" />
-        <input type="text" id="y" value="2" />
+        <span id="bignumber_result"></span>
 
-        <span id="result"></span>
-
-        <input type="button" value="求和" onclick="document.getElementById('result').innerHTML = BigNumber.add(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求差" onclick="document.getElementById('result').innerHTML = BigNumber.sub(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求积" onclick="document.getElementById('result').innerHTML = BigNumber.mul(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求商" onclick="document.getElementById('result').innerHTML = BigNumber.div(document.getElementById('x').value, document.getElementById('y').value)" />
-        <input type="button" value="求幂" onclick="document.getElementById('result').innerHTML = BigNumber.pow(document.getElementById('x').value, document.getElementById('y').value)" />
-
+        <input type="button" value="求和" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.add(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求差" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.sub(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求积" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.mul(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求商" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.div(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求幂" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.pow(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
     </p>
 
     <table class="doc-api">
@@ -145,21 +143,53 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>BigInteger.add</code></td>
+            <td><code>BigNumber.add</code></td>
             <td>大数加</td>
-            <td><pre>BigInteger.add("2", "4");</pre></td>
+            <td><pre>BigNumber.add("2", "4");</pre></td>
         </tr>
         <tr>
-            <td><code>BigInteger.sub</code></td>
+            <td><code>BigNumber.sub</code></td>
             <td>大数减</td>
-            <td><pre>BigInteger.sub("2", "4");</pre></td>
+            <td><pre>BigNumber.sub("2", "4");</pre></td>
         </tr>
         <tr>
-            <td><code>BigInteger.mul</code></td>
+            <td><code>BigNumber.mul</code></td>
             <td>大数乘</td>
-            <td><pre>BigInteger.mul("2", "4");</pre></td>
+            <td><pre>BigNumber.mul("2", "4");</pre></td>
         </tr>
     </table>
 
+    <h2>货币处理</h2>
+
+    <p>
+        <input type="text" id="currency_input" value="0" />
+        <input type="button" value="保留两位小数" onclick="document.getElementById('currency_result').innerHTML = Currency.round(+document.getElementById('currency_input').value)" />
+        <input type="button" value="转数字金额" onclick="document.getElementById('currency_result').innerHTML = Currency.toString(+document.getElementById('currency_input').value)" />
+        <input type="button" value="转中文大写金额" onclick="document.getElementById('currency_result').innerHTML = Currency.toChinese(+document.getElementById('currency_input').value)" />
+        <span id="currency_result"></span>
+    </p>
+
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Currency.round</code></td>
+            <td>货币精确到小数点两位</td>
+            <td><pre>Currency.round('2.432');</pre></td>
+        </tr>
+        <tr>
+            <td><code>Currency.format</code></td>
+            <td>转为数字字符串</td>
+            <td><pre>Currency.format('23452.432');</pre></td>
+        </tr>
+        <tr>
+            <td><code>Currency.toChinese</code></td>
+            <td>转为中文大写金额</td>
+            <td><pre>Currency.toChinese('23452.432');</pre></td>
+        </tr>
+    </table>
 </body>
 </html>
