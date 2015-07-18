@@ -221,6 +221,10 @@
     font-weight: normal;
 }
 
+.doc-section small a, .doc > h1 small a, .doc > h2 small a, .doc > h3 small a, .doc > h4 small a, .doc > h5 small a, .doc > h6 small a, .doc > p small a, .doc > ul small a, .doc > ol small a, .doc > dl small a, .doc > blockquote small a, .doc > table small a {
+    color: inherit;
+}
+
 ::-moz-selection {
     background: #00BFA5;
     color: #fff;
