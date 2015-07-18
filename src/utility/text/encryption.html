@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>加密</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="纯 JavaScript 实现的加密算法。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../text/md5.js"></script>
+    <script type="text/javascript" src="../text/md5Ex.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>MD5 加密 <a href="../../utility/text/md5.js" target="_blank"><small>(源码: utility/text/md5.js)</small></a></h2>
+
+    <p>
+        <input type="text" id="md5_value" style="width: 300px;" />
+        <input type="button" value="MD5 加密" onclick="document.getElementById('md5_value').value = md5(document.getElementById('md5_value').value)" />
+        <input type="button" value="HMAC MD5 加密" onclick="document.getElementById('md5_value').value = md5.hmacMd5(document.getElementById('md5_value').value, 'key')" />
+        <input type="button" value="base64 Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64Md5(document.getElementById('md5_value').value)" />
+        <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64HmacMd5(document.getElementById('md5_value').value, 'key')" />
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>md5</code></td>
+            <td>MD5 加密</td>
+            <td><pre>md5("abc")</pre></td>
+        </tr>
+    </table>
+
+    <h2>MD5 加密扩展 <a href="../../utility/text/md5Ex.js" target="_blank"><small>(源码: utility/text/md5Ex.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>md5.base64Md5</code></td>
+            <td>MD5 & base64 加密</td>
+            <td><pre>md5.base64Md5("abc")</pre></td>
+        </tr>
+        <tr>
+            <td><code>md5.hmacMd5</code></td>
+            <td>HMD5 加密</td>
+            <td><pre>md5.hmacMd5("abc", "key")</pre></td>
+        </tr>
+        <tr>
+            <td><code>md5.base64HmacMd5</code></td>
+            <td>HMD5 & base64 加密</td>
+            <td><pre>md5.base64HmacMd5("abc", "key")</pre></td>
+        </tr>
+    </table>
+</body>
+</html>
