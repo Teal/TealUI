@@ -6,26 +6,37 @@
     <title>Base64 编码</title>
     <meta name="module-info" content="compat=B-C">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="纯 JavaScript 实现 Base64 编码/解码算法。">
+    <meta name="description" content="为 C 类浏览器（IE6-7, FF2-3, SF3-4）提供 Base64 编码/解码算法。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../shim/base64.js"></script>
+    <script type="text/javascript" src="../../utility/shim/base64.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    
-    <section>
-        输入英文:
-        <input type="text" id="input" value="abcefg" />
-        <input type="button" value="Base64 编码" onclick="document.getElementById('input').value = btoa(document.getElementById('input').value)" />
-        <input type="button" value="Base64 解码" onclick="document.getElementById('input').value = atob(document.getElementById('input').value)" />
-    </section>
-    
-    <h5>Base64 编码</h5>
-    <pre>btoa("abcefg");</pre>
 
-    <h5>Base64 解码</h5>
-    <pre>atob("YWJjZWZn");</pre>
+    <h2>API <small>(源码: <a href="../../utility/shim/base64.js" target="_blank">utility/shim/base64.js</a>)</small></h2>
+    <p>
+        输入英文: <input type="text" id="base64_value" value="abcefg" />
+        <input type="button" value="Base64 编码" onclick="document.getElementById('base64_value').value = btoa(document.getElementById('base64_value').value)" />
+        <input type="button" value="Base64 解码" onclick="document.getElementById('base64_value').value = atob(document.getElementById('base64_value').value)" />
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>btoa</code></td>
+            <td>Base64 编码</td>
+            <td><pre>btoa("abcefg")</pre></td>
+        </tr>
+        <tr>
+            <td><code>atob</code></td>
+            <td>Base64 解码</td>
+            <td><pre>atob("YWJjZWZn")</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

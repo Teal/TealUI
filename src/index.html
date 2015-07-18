@@ -47,7 +47,7 @@
             document.getElementById('list').innerHTML = segments.join('');
 
             var small = document.getElementById('doc_title').lastChild;
-            small.innerHTML = '(共 ' + totalCount + ' 个)';
+            small.innerHTML = '<small>(共 ' + totalCount + ' 个)</small>';
             small.title = '已完成:' + totalDoneCount + '\n未完成:' + (totalCount - totalDoneCount);
 
         };
