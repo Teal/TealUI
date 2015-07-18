@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>编码转换</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="GB2312 和 UTF8 编码转换">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/text/utf8.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>UTF8 编码 <a href="../../utility/text/utf8.js" target="_blank"><small>(源码: utility/text/utf8.js)</small></a></h2>
+
+    <p>
+        <input type="text" id="value" value="T4" />
+        <input type="button" value="GB2312 -> UTF8" onclick=" document.getElementById('value').value = gb2312ToUtf8(document.getElementById('value').value)" />
+        <input type="button" value="UTF8 -> GB2312" onclick=" document.getElementById('value').value = utf8ToGb2312(document.getElementById('value').value)" />
+        <input type="button" value="UTF8 -> UTF16" onclick=" document.getElementById('value').value = utf8ToUtf16(document.getElementById('value').value)" />
+        <input type="button" value="UTF16 -> UTF8" onclick=" document.getElementById('value').value = utf16ToUtf8(document.getElementById('value').value)" />
+    </p>
+
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>gb2312ToUtf8</code></td>
+            <td>GB2312 -> UTF8</td>
+            <td><pre>gb2312ToUtf8("");</pre></td>
+        </tr>
+        <tr>
+            <td><code>utf8ToGb2312</code></td>
+            <td>UTF8 -> GB2312</td>
+            <td><pre>utf8ToGb2312("");</pre></td>
+        </tr>
+        <tr>
+            <td><code>utf8ToUtf16</code></td>
+            <td>UTF8 -> UTF16</td>
+            <td><pre>utf8ToUtf16("");</pre></td>
+        </tr>
+        <tr>
+            <td><code>utf16ToUtf8</code></td>
+            <td>UTF16 -> UTF8</td>
+            <td><pre>utf16ToUtf8("");</pre></td>
+        </tr>
+    </table>
+</body>
+</html>

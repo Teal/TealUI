@@ -64,19 +64,6 @@ var QueryString = {
             obj = encodeURIComponent(name) + "=" + encodeURIComponent(obj);
         }
         return obj;
-    },
-
-    /**
-     * 在指定地址追加一段查询字符串参数。
-     * @param {String} url 要追加参数的地址。
-     * @param {String} query 要查询的字符串参数。
-     * @returns {String} 已添加的字符串。
-     */
-    append: function (url, query) {
-        if (query) {
-            url = (url + '&' + query).replace(/[&?]{1,2}/, '?');
-        }
-        return url;
     }
 
 };

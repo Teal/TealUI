@@ -2,39 +2,67 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="module-info" content="status=doing" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>路径处理</title>
-    <meta name="module-info" content="status=doing">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="处理路径问题。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../text/base.js"></script>
-    <script type="text/javascript" src="../text/path.js"></script>
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/text/path.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    
-    <h5>切换目录</h5>
-    <pre>Path.resolve("a/b", "../", "c")</pre>
 
-    <h5>规范化路径</h5>
-    <pre>Path.normalize("a/b/../c/d/e")</pre>
-
-    <h5>组合路径</h5>
-    <pre>Path.join("a", "d")</pre>
-
-    <h5>获取相对路径</h5>
-    <pre>Path.relative("a/b", "a/c")</pre>
-
-    <h5>获取文件夹名</h5>
-    <pre>Path.dirname("a/b/c")</pre>
-
-    <h5>获取文件名</h5>
-    <pre>Path.basename("a/b/c")</pre>
-
-    <h5>获取扩展名</h5>
-    <pre>Path.extname("a.js")</pre>
+    <h2>API <a href="../../utility/text/path.js" target="_blank"><small>(源码: utility/text/path.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Path.resolve</code></td>
+            <td>切换目录</td>
+            <td><pre>Path.resolve("a/b", "../", "c")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.normalize</code></td>
+            <td>规划化路径</td>
+            <td><pre>Path.normalize("a/b/../c/d/e")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.join</code></td>
+            <td>组合路径</td>
+            <td><pre>Path.join("a", "d")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.relative</code></td>
+            <td>获取相对路径</td>
+            <td><pre>Path.relative("a/b", "a/c")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.relative</code></td>
+            <td>获取相对路径</td>
+            <td><pre>Path.relative("a/b", "a/c")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.dirname</code></td>
+            <td>获取文件夹名</td>
+            <td><pre>Path.dirname("a/b/c")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.basename</code></td>
+            <td>获取文件名</td>
+            <td><pre>Path.basename("a/b/c")</pre></td>
+        </tr>
+        <tr>
+            <td><code>Path.extname</code></td>
+            <td>获取扩展名</td>
+            <td><pre>Path.extname("a.js")</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

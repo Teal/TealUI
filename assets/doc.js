@@ -1995,7 +1995,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     if (filter) {
                         args.name = applyFilter(name, null, filter);
                         args.title = applyFilter(item.title, item.titlePinYin && item.titlePinYin.split(' '), filter);
-                        args.order = args.title.length > item.title.length ? 1 : args.name.length > name.length ? 2 : item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.titlePinYin.split(/[, ]/), filter).length > item.keywords.length ? 3 : 0;
+                        args.order = args.title.length > item.title.length ? 1 : args.name.length > name.length ? 2 : item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.keywordsPinYin.split(/[, ]/), filter).length > item.keywords.length ? 3: item.contents && applyFilter(item.contents, item.contentsPinYin && item.contentsPinYin.split(/[, ]/), filter).length > item.contents.length ? 4 : 0;
                         if (!args.order) {
                             continue;
                         }

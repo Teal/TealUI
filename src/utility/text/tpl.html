@@ -9,8 +9,8 @@
     <meta name="description" content="最轻量、高性能的模板引擎，语法和 JavaScript 完全一样，一看就会!">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../utility/common.js"></script>
-    <script type="text/javascript" src="../text/tpl.js"></script>
+    <script type="text/javascript" src="../../utility/lang/object.js"></script>
+    <script type="text/javascript" src="../../utility/text/tpl.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -24,24 +24,42 @@
         }
     </style>
 
-    <h2>基本演示</h2>
+    <h2>TealUI 模板引擎</h2>
     <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
-        &lt;ul>
-            {foreach a in $data.dataArr}
-                {if a % 2 == 1}&lt;li>{a}&lt;/li>{/if}
-            {/foreach}
-        &lt;/ul></textarea>
+&lt;ul>
+    {foreach a in $data.dataArr}
+        {if a % 2 == 1}&lt;li>{a}&lt;/li>{/if}
+    {/foreach}
+&lt;/ul></textarea>
 
     输入数据:
     <input type="text" value="{dataArr: [3,2,1,0]}" id="data">&nbsp;
     <input onclick="document.getElementById('to').value = Tpl.parse(document.getElementById('from').value, eval('(' + document.getElementById('data').value + ')'))" type="button" value="解析模板"><br>
     <textarea id="to"></textarea>
 
-    <h2>语法介绍</h2>
-    <pre>
-        Tpl.parse("{for p in $data.path}{p}{end}", {path: [1,2,3]});
-    </pre>
+    <h2>API <a href="../../utility/text/tpl.js" target="_blank"><small>(源码: utility/text/tpl.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Tpl.parse</code></td>
+            <td>解析模板代码</td>
+            <td>
+                <pre>Tpl.parse("{for p in $data.path}{p}{end}", {path: [1,2,3]})</pre>
+                <pre>Tpl.parse("{for p in $data.path}{p}{end}", {path: [1,2,3]}, null, "a"); // 指定缓存键，避免模板被重复编译。</pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>Tpl.compile</code></td>
+            <td>编译模板代码</td>
+            <td><pre>Tpl.compile("{for p in $data.path}{p}{end}")({path: [1,2,3]})</pre></td>
+        </tr>
+    </table>
 
+    <h2>语法介绍</h2>
     <h3>常量</h3>
     <p>模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 {，使用 }} 代替 }</p>
 
