@@ -3,19 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>浏览器操作</title>
+    <title>收藏夹</title>
     <meta name="module-info" content="compat=B-C" />
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/browser/addFavorite.js"></script>
+    <script type="text/javascript" src="../../utility/browser/setHomePage.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../utility/browser/addToScreen.css" />
+    <script type="text/javascript" src="../../utility/browser/addToScreen.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h2>添加到收藏夹 <small>(源码: <a href="../../utility/misc/browser.js" target="_blank">utility/misc/browser.js</a>)</small></h2>
+    <h2>添加到收藏夹 <small>(源码: <a href="../../utility/browser/addFavorite.js" target="_blank">utility/browser/addFavorite.js</a>)</small></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -35,7 +39,7 @@
         </tr>
     </table>
 
-    <h2>设为主页 <small>(源码: <a href="../../utility/misc/browser.js" target="_blank">utility/misc/browser.js</a>)</small></h2>
+    <h2>设为主页 <small>(源码: <a href="../../utility/browser/setHomePage.js" target="_blank">utility/browser/setHomePage.js</a>)</small></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -55,7 +59,8 @@
         </tr>
     </table>
 
-    <h2>设为主页 <small>(源码: <a href="../../utility/misc/browser.js" target="_blank">utility/misc/browser.js</a>)</small></h2>
+    <h2>添加到主屏幕 <small>(源码: <a href="../../utility/browser/addToScreen.less" target="_blank">utility/browser/addToScreen.less</a>、<a href="../../utility/browser/addToScreen.js" target="_blank">utility/browser/addToScreen.js</a>)</small></h2>
+    <p>在 IOS 或安卓 UC 上提示用户添加到主屏幕</p>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -63,15 +68,9 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>setHomePage</code></td>
-            <td>弹出设为主页对话框</td>
-            <td class="doc">
-                <h5>设置当前网页为主页</h5>
-                <pre>setHomePage()</pre>
-                <h5>设置指定网页为主页</h5>
-                <pre>setHomePage("http://www.TealUI.com/")</pre>
-                <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
-            </td>
+            <td><code>addToScreen</code></td>
+            <td>弹出添加到主屏幕提示</td>
+            <td><pre>addToScreen()</pre></td>
         </tr>
     </table>
 
