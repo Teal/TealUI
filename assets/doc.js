@@ -1573,7 +1573,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     <a href="javascript:;" onclick="Doc.Page.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
                     <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
-                <h1 id="doc_title">{title} <small>{name}</small></h1>\
+                <h1 id="doc_title">{title} <a href=""><small>{name}</small></a></h1>\
                 {summary:<blockquote class="doc-summary">#</blockquote>}',
 
         footer: '<div>\

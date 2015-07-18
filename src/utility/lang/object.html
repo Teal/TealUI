@@ -14,7 +14,7 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <h2>常用 API</h2>
+    <h2>常用 API <a href="../../utility/lang/object.js" target="_blank"><small>(源码: utility/lang/object.js)</small></a></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -22,7 +22,7 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>Object.assign</code></td>
+            <td><small>(ES6)</small><code>Object.assign</code></td>
             <td>复制所有成员</td>
             <td><pre>Object.assign({}, {a: 1});</pre></td>
         </tr>
@@ -34,6 +34,8 @@
                     Object.each([1, 2, 3], function(item, index){
                         console.log(index, "=>", item);
                     });
+                </pre>
+                <pre>
                     Object.each({a:1, b: 2}, function(item, key){
                         console.log(key, "=>", item);
                     });
@@ -42,7 +44,7 @@
         </tr>
     </table>
 
-    <h2>不常用 API</h2>
+    <h2>不常用 API <a href="../../utility/lang/objectEx.js" target="_blank"><small>(源码: utility/lang/objectEx.js)</small></a></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -80,7 +82,7 @@
             <td><pre>Object.count({a:1});</pre></td>
         </tr>
         <tr>
-            <td><code>Object.keys</code></td>
+            <td><small>(ES5)</small><code>Object.keys</code></td>
             <td>获取对象的键</td>
             <td><pre>Object.keys({a:1});</pre></td>
         </tr>
@@ -122,7 +124,7 @@
         <tr>
             <td><code>Object.subset</code></td>
             <td>获取对象指定键的子集</td>
-            <td><pre>Object.subset({a:1}, 'a'); // 1</pre></td>
+            <td><pre>Object.subset({a:1}, 'a');</pre></td>
         </tr>
         <tr>
             <td><code>Object.pick</code></td>

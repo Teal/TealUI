@@ -197,17 +197,17 @@
     background-color: #f9f9f7;
 }
 
-.doc-section a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > blockquote a {
+.doc-section a, .doc > h1 a, .doc > h2 a, .doc > h3 a, .doc > h4 a, .doc > h5 a, .doc > h6 a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > blockquote a {
     color: #00796B;
     text-decoration: none;
 }
 
-    .doc-section a:hover, .doc > p a:hover, .doc > ul a:hover, .doc > ol a:hover, .doc > dl a:hover, .doc > blockquote a:hover {
+    .doc-section a:hover, .doc > h1 a:hover, .doc > h2 a:hover, .doc > h3 a:hover, .doc > h4 a:hover, .doc > h5 a:hover, .doc > h6 a:hover, .doc > p a:hover, .doc > ul a:hover, .doc > ol a:hover, .doc > dl a:hover, .doc > blockquote a:hover {
         color: #004D40;
         text-decoration: underline;
     }
 
-    .doc > p a[href^=http]:after, .doc > ul a[href^=http]:after, .doc > ol a[href^=http]:after, .doc > dl a[href^=http]:after, .doc > blockquote a[href^=http]:after {
+    .doc > p a[href^=http]:after, .doc > h1 a[href^=http]:after, .doc > h2 a[href^=http]:after, .doc > h3 a[href^=http]:after, .doc > h4 a[href^=http]:after, .doc > h5 a[href^=http]:after, .doc > h6 a[href^=http]:after, .doc > ul a[href^=http]:after, .doc > ol a[href^=http]:after, .doc > dl a[href^=http]:after, .doc > blockquote a[href^=http]:after {
         content: "\2650";
         font-family: DocIcoMoon;
         vertical-align: -2px;
@@ -215,7 +215,7 @@
         margin-left: .32em;
     }
 
-.doc-section small, .doc > h1 small, .doc > h2 small, .doc > h3 small, .doc > h4 small, .doc > h5 small, .doc > h6 small, .doc > p small, .doc > ul small, .doc > ol small, .doc > dl small, .doc > blockquote small {
+.doc-section small, .doc > h1 small, .doc > h2 small, .doc > h3 small, .doc > h4 small, .doc > h5 small, .doc > h6 small, .doc > p small, .doc > ul small, .doc > ol small, .doc > dl small, .doc > blockquote small, .doc > table small {
     color: #B8B8B8;
     font-size: 12px;
     font-weight: normal;

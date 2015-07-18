@@ -3,13 +3,13 @@
  * @author xuld
  */
 
-// #region @Boolean.parse
+// #region @Boolean.parseBoolean
 
 /**
  * 解析字符串为布尔类型。
  * @returns {Boolean} 返回结果值。
  */
-Boolean.from = function (str) {
+Boolean.parseBoolean = function (str) {
     return str ? !/^(false|0|off|no)$/.test(str) : false;
 };
 

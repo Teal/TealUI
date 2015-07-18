@@ -3,7 +3,7 @@
  */
 
 /**
- * 提供大正整数计算相关函数。
+ * 提供大整数计算相关函数。
  */
 var BigInteger = {
 
@@ -26,6 +26,13 @@ var BigInteger = {
             ret.push(s);
         }
         return ret.reverse().join('');
+    },
+
+    /**
+	 * 计算大数的差。
+	 */
+    sub: function(x, y){
+        throw "此函数未完成";
     },
 
 	/**
