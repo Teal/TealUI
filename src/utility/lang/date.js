@@ -61,7 +61,7 @@ Date.prototype.format = function (format) {
 
 // #endregion
 
-// #region @Date.from
+// #region @Date.parseDate
 
 /**
  * 尝试从指定对象中分析出日期对象。（支持格式解析）

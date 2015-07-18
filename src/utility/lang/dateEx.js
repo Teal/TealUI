@@ -19,7 +19,7 @@ Date.isLeapYear = function (year) {
 // #region @Date.isValid
 
 /**
- * 判断指定的数值是否可以解释为正确的日期。
+ * 判断指定的数值所在的日期是否合法（如2月30日是不合法的）。
  * @return {Boolean} 指定的数值合法则返回 true，否则返回 false。
  */
 Date.isValid = function (y, m, d, h, i, s, ms) {
@@ -75,7 +75,7 @@ Date.prototype.clone = function () {
 
 // #endregion
 
-// #region @Date#dayOffset
+// #region @Date#dayTo
 
 /**
  * 计算和当前日期到指定最近的指定日期的天数。
@@ -83,7 +83,7 @@ Date.prototype.clone = function () {
  * @param {Number} day 天。
  * @return {Number} 天数。
  */
-Date.prototype.dayOffset = function (month, day) {
+Date.prototype.dayTo = function (month, day) {
     var date = new Date(this.getFullYear(), this.getMonth(), this.getDate()),
         offset = new Date(this.getFullYear(), month - 1, day) - date;
     if (offset < 0) offset = new Date(this.getFullYear() + 1, month - 1, day) - date;

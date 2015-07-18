@@ -8,6 +8,7 @@
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="扩展 Date 相关的 API。">
     <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/date.js"></script>
     <script type="text/javascript" src="../../utility/lang/dateEx.js"></script>
     <script type="text/javascript" src="../../utility/lang/formatTime.js"></script>
@@ -15,7 +16,8 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <h2>常用 API</h2>
+    <h2>标准 API <a href="../../utility/shim/html5.js" target="_blank"><small>(源码: utility/shim/html5.js)</small></a></h2>
+    <p>以下 API 由于使用频率高已被移入 <a href="../shim/html5.html#date">HTML5 兼容补丁</a> 组件。</p>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -23,9 +25,18 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>Date.now</code></td>
+            <td><small>(ES5)</small><code>Date.now</code></td>
             <td>获取当前时间</td>
             <td><pre>Date.now();</pre></td>
+        </tr>
+    </table>
+
+    <h2>常用 API <a href="../../utility/lang/date.js" target="_blank"><small>(源码: utility/lang/date.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
         </tr>
         <tr>
             <td><code><em>date</em>.format</code></td>
@@ -107,7 +118,7 @@
         </tr>
     </table>
 
-    <h2>不常用 API</h2>
+    <h2>不常用 API <a href="../../utility/lang/dateEx.js" target="_blank"><small>(源码: utility/lang/dateEx.js)</small></a></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -121,7 +132,7 @@
         </tr>
         <tr>
             <td><code>Date.isValid</code></td>
-            <td>判断指定的数值是否可以解释为正确的日期</td>
+            <td>判断指定的数值所在的日期是否合法（如2月30日是不合法的）</td>
             <td><pre>Date.isValid(2002, 1, 3)</pre></td>
         </tr>
         <tr>
@@ -130,19 +141,19 @@
             <td><pre>Date.getDayInMonth(2001, 2);</pre></td>
         </tr>
         <tr>
-            <td><code><em>date</em>.clone</code></td>
-            <td>克隆当前日期对象</td>
-            <td><pre>new Date().clone();</pre></td>
-        </tr>
-        <tr>
             <td><code>Date.compareDay</code></td>
             <td>比较2个日期返回相差的天数</td>
             <td><pre>Date.compareDay(new Date(), new Date());</pre></td>
         </tr>
         <tr>
-            <td><code><em>date</em>.dayOffset</code></td>
+            <td><code><em>date</em>.clone</code></td>
+            <td>克隆当前日期对象</td>
+            <td><pre>new Date().clone();</pre></td>
+        </tr>
+        <tr>
+            <td><code><em>date</em>.dayTo</code></td>
             <td>计算和当前日期到指定最近的指定日期的天数</td>
-            <td><pre>new Date().dayOffset(12, 5);</pre></td>
+            <td><pre>new Date().dayTo(12, 5);</pre></td>
         </tr>
         <tr>
             <td><code><em>date</em>.addYear</code></td>
@@ -176,7 +187,7 @@
         </tr>
     </table>
 
-    <h2>格式化时间</h2>
+    <h2>格式化时间 <a href="../../utility/lang/formatTime.js" target="_blank"><small>(源码: utility/lang/formatTime.js)</small></a></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -185,7 +196,7 @@
         </tr>
         <tr>
             <td><code>formatTime</code></td>
-            <td>格式化时间为 N 秒(分、小时、天）前/刚刚 格式</td>
+            <td>格式化时间为 <strong>N 天(小时/分钟/秒)前/刚刚</strong> 格式</td>
             <td><pre>formatTime(new Date())</pre></td>
         </tr>
     </table>

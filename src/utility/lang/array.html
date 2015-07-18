@@ -15,7 +15,8 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <h2>常用 API</h2>
+    <h2>标准 API <a href="../../utility/shim/html5.js" target="_blank"><small>(源码: utility/shim/html5.js)</small></a></h2>
+    <p>以下 API 由于使用频率高已被移入 <a href="../shim/html5.html#array">HTML5 兼容补丁</a> 组件。</p>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -23,9 +24,33 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code>Array.isArray</code></td>
+            <td><small>(ES5)</small><code>Array.isArray</code></td>
             <td>判断是否是数组</td>
             <td><pre>Array.isArray([]);</pre></td>
+        </tr>
+        <tr>
+            <td><small>(ES4)</small><code><em>arr</em>.indexOf</code></td>
+            <td>搜索数组</td>
+            <td><pre>[].indexOf(2);</pre></td>
+        </tr>
+        <tr>
+            <td><small>(ES5)</small><code><em>arr</em>.filter</code></td>
+            <td>过滤数组</td>
+            <td><pre>[].filter(function(){return true});</pre></td>
+        </tr>
+        <tr>
+            <td><small>(ES5)</small><code><em>arr</em>.forEach</code></td>
+            <td>过滤数组</td>
+            <td><pre>[].forEach(function(){});</pre></td>
+        </tr>
+    </table>
+    
+    <h2>常用 API <a href="../../utility/lang/array.js" target="_blank"><small>(源码: utility/lang/array.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
         </tr>
         <tr>
             <td><code><em>arr</em>.remove</code></td>
@@ -39,8 +64,7 @@
         </tr>
     </table>
 
-    <blockquote>HTML5 新增常用 API 请参考 <a href="../shim/html5.html#array">HTML5 兼容补丁</a> 组件。</blockquote>
-    <h2>不常用 API</h2>
+    <h2>不常用 API<a href="../../utility/lang/arrayEx.js" target="_blank"><small>(源码: utility/lang/arrayEx.js)</small></a></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -53,22 +77,22 @@
             <td><pre>Array.parseArray({length: 1, "0": "value"});</pre></td>
         </tr>
         <tr>
-            <td><code><em>arr</em>.every</code></td>
+            <td><small>(ES5)</small><code><em>arr</em>.every</code></td>
             <td>遍历一个数组并调用指定的函数，判断是否都满足条件</td>
             <td><pre>[1, 2].every(function(){return true});</pre></td>
         </tr>
         <tr>
-            <td><code><em>arr</em>.some</code></td>
+            <td><small>(ES5)</small><code><em>arr</em>.some</code></td>
             <td>遍历一个数组并调用指定的函数，判断是否部分满足条件</td>
             <td><pre>[1, 2].some(function(){return true});</pre></td>
         </tr>
         <tr>
-            <td><code><em>arr</em>.map</code></td>
+            <td><small>(ES5)</small><code><em>arr</em>.map</code></td>
             <td>遍历一个类数组对象并调用指定的函数，返回每次调用的返回值数组</td>
             <td><pre>[1, 2].map(function(){return true});</pre></td>
         </tr>
         <tr>
-            <td><code><em>arr</em>.concat</code></td>
+            <td><small>(ES4)</small><code><em>arr</em>.concat</code></td>
             <td>合并两个数组</td>
             <td><pre>[1, 2].concat([4, 4]);</pre></td>
         </tr>
