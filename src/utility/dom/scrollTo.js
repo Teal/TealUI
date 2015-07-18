@@ -3,6 +3,8 @@
  * @author xuld
  */
 
+// #require base
+
 /**
  * 渐变滚动当前元素到指定位置。
  * @param {Number} x 滚动的目标水平位置。

@@ -8,11 +8,10 @@
  * @param {Function} callback 设置回车的回调。
  * @param {Object} [scope] 设置回调函数中 this 的指向。
  */
-Element.prototype.ctrlEnter = function (callback, scope) {
-    var elem = this;
-    elem.addEventListener('keypress', function (e) {
+Dom.prototype.ctrlEnter = function (callback) {
+    return this.on('keypress', function (e) {
         if (e.ctrlKey && (e.which == 13 || e.which == 10)) {
-            return callback.call(scope || elem, e);
+            return callback.call(this, e);
         }
-    }, false);
+    });
 };

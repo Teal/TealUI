@@ -3,6 +3,8 @@
  * @author xuld
  */
 
+// #require base
+
 /**
  * 获取指定节点的滚动区域大小。
  * @return {Point} 返回的对象包含两个整型属性：x 和 y。

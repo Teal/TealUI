@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>编辑扩展</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="文本域根据内容自动放大缩小。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/at.js"></script>
+    <script type="text/javascript" src="../../utility/dom/autoResize.js"></script>
+    <script type="text/javascript" src="../../utility/dom/disableTab.js"></script>
+    <script type="text/javascript" src="../../utility/dom/ctrlEnter.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>文本域自动放大缩小 <small>(源码: <a href="../../utility/dom/autoResize.js" target="_blank">utility/dom/autoResize.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.autoResize</code></td>
+            <td>查找子节点</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="autoResize_elem"></textarea>
+                    <script>
+                        $('#autoResize_elem').autoResize();
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <p>您也可以选择使用可编辑的 HTML 片段代替文本框，同样有自动放大缩小效果。</p>
+    <aside class="doc-demo">
+        <div style="border:1px solid #ccc;padding: 10px;" contenteditable="true">我是内容</div>
+    </aside>
+
+    <h2>@列表 <small>(源码: <a href="../../utility/dom/at.js" target="_blank">utility/dom/at.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.autoResize</code></td>
+            <td>查找子节点</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="at_elem"></textarea>
+                    <script>
+                        $('#at_elem').at({});
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <h2>禁止 TAB <small>(源码: <a href="../../utility/dom/disableTab.js" target="_blank">utility/dom/disableTab.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.disableTab</code></td>
+            <td>在文本框按 TAB 不切换焦点，改为输入 TAB</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="disableTab_elem1">abc</textarea>
+                    <script>
+                        $('disableTab_elem1').disableTab();
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <h2>CTRL 回车事件 <small>(源码: <a href="../../utility/dom/ctrlEnter.js" target="_blank">utility/dom/ctrlEnter.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.ctrlEnter</code></td>
+            <td>鼠标悬浮事件</td>
+            <td class="doc">
+                <h5>基本用法</h5>
+                <aside class="doc-demo">
+                    <input type="text" id="ctrlEnter_elem1">
+                    <script>
+                        $('#ctrlEnter_elem1').ctrlEnter(function () {
+                            console.log('ctrl + enter 事件')
+                        });
+                    </script>
+                </aside>
+                <h5>CTRL + 回车提交表单</h5>
+                <aside class="doc-demo">
+                    <form><input type="text" id="ctrlEnter_elem2"></form>
+                    <script>
+                        $('#ctrlEnter_elem2').ctrlEnter(function () {
+                            this.form.submit();
+                        });
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

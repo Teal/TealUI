@@ -3,6 +3,8 @@
  * @author xuld
  */
 
+// #require base
+
 /**
  * 判断是否在可见内范围内。
  * @param {Element} [scrollParent=document] 滚动所在的容器。
