@@ -266,7 +266,9 @@ function updateModuleList() {
             if (moduleInfo.keywords) {
                 moduleInfo.keywordsPinYin = getPinYin(moduleInfo.keywords, false, ' ').toLowerCase();
             }
-
+            if (moduleInfo.contents) {
+                moduleInfo.contentsPinYin = getPinYin(moduleInfo.contents, false, ' ').toLowerCase();
+            }
             result.push(moduleInfo);
 
         }
@@ -286,6 +288,11 @@ function updateModuleList() {
         moduleInfo.title = (/(<title[^\>]*?>)(.*?)(<\/title>)/i.exec(content) || [])[2];
         moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
         moduleInfo.keywords = (/<meta\s+name\s*=\s*"keywords"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
+        moduleInfo.contents = [];
+        content.replace(/<h\d>(.*?)<\/h\d>/g, function (h2, c) {
+            moduleInfo.contents.push(c);
+        });
+        moduleInfo.contents = moduleInfo.contents.join(',');
         return moduleInfo;
     }
 

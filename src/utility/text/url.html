@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>URL 解析</title>
+    <meta name="module-info" content="order=path">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供地址（统一资源定位符）解析功能。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/text/getQuery.js"></script>
+    <script type="text/javascript" src="../../utility/text/appendQuery.js"></script>
+    <script type="text/javascript" src="../../utility/text/queryString.js"></script>
+    <script type="text/javascript" src="../../utility/text/uri.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>获取 URL 查询参数（如 ?a=b&amp;c=d） <a href="../../utility/text/getQuery.js" target="_blank"><small>(源码: utility/text/getQuery.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>getQuery</code></td>
+            <td>解析查询字符串</td>
+            <td><pre>getQuery("a"); // 获取不到则返回 null。</pre></td>
+        </tr>
+    </table>
+
+    <h2>追加查询字符串参数 <a href="../../utility/text/appendQuery.js" target="_blank"><small>(源码: utility/text/setQuery.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>appendQuery</code></td>
+            <td>在指定的地址追加查询字符串参数</td>
+            <td><pre>appendQuery("a.index", "a", "b");</pre></td>
+        </tr>
+    </table>
+
+    <h2>完整解析查询字符串 API <a href="../../utility/text/path.js" target="_blank"><small>(源码: utility/text/queryString.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>QueryString.parse</code></td>
+            <td>解析查询字符串</td>
+            <td><pre>QueryString.parse(location.search);</pre></td>
+        </tr>
+        <tr>
+            <td><code>QueryString.stringify</code></td>
+            <td>格式化查询字符串</td>
+            <td><pre>QueryString.stringify({ a: "2", c: "4" });</pre></td>
+        </tr>
+    </table>
+
+    <h2>完整解析 URL 地址 API <a href="../../utility/text/uri.js" target="_blank"><small>(源码: utility/text/uri.js)</small></a></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Uri.parse</code></td>
+            <td>解析一个 URL 地址相关信息</td>
+            <td><pre>Uri.parse("http://www.domain.com:55/file.ext?a=3#k")</pre></td>
+        </tr>
+    </table>
+</body>
+</html>

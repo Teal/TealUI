@@ -15,7 +15,7 @@ function utf8ToGb2312(str) {
         if (c == " ") result += "+";
         else if (code >= 19968 && code <= 40869) {
             index = code - 19968;
-            result += "%" + z.substr(index * 4, 2) + "%" + z.substr(index * 4 + 2, 2);
+            result += "%" + str.substr(index * 4, 2) + "%" + str.substr(index * 4 + 2, 2);
         }
         else {
             result += "%" + str.charCodeAt(i).toString(16);

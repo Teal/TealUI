@@ -9,14 +9,39 @@
     <meta name="description" content="纯 JavaScript 实现的加密算法。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../text/md5.js"></script>
-    <script type="text/javascript" src="../text/md5Ex.js"></script>
+    <script type="text/javascript" src="../../utility/text/stringEncryption.js"></script>
+    <script type="text/javascript" src="../../utility/text/md5.js"></script>
+    <script type="text/javascript" src="../../utility/text/md5Ex.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h2>MD5 加密 <a href="../../utility/text/md5.js" target="_blank"><small>(源码: utility/text/md5.js)</small></a></h2>
+    <h2>字符串简单可逆加密 <a href="../../utility/text/stringEncryption.js" target="_blank"><small>(源码: utility/text/stringEncryption.js)</small></a></h2>
+    <p>
+        <input type="text" id="stringEncryption_value" />
+        <input type="button" value="加密" onclick="document.getElementById('stringEncryption_value').value = encryptString(document.getElementById('stringEncryption_value').value, 'key')" />
+        <input type="button" value="解密" onclick="document.getElementById('stringEncryption_value').value = dencryptString(document.getElementById('md5_value').value, 'key')" />
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>encryptString</code></td>
+            <td>加密</td>
+            <td><pre>encryptString("abc", "key")</pre></td>
+        </tr>
+        <tr>
+            <td><code>decryptString</code></td>
+            <td>解密</td>
+            <td><pre>decryptString("abc", "key")</pre></td>
+        </tr>
+    </table>
+
+    <h2>MD5 加密 <a href="../../utility/text/md5.js" target="_blank"><small>(源码: utility/text/stringEncryption.js)</small></a></h2>
 
     <p>
         <input type="text" id="md5_value" style="width: 300px;" />
@@ -61,5 +86,8 @@
             <td><pre>md5.base64HmacMd5("abc", "key")</pre></td>
         </tr>
     </table>
+
+    <h2>JS 代码加密</h2>
+    <p>另参考：<a href="../../../tools/devTools/index.html">JS 代码工具</a>。</p>
 </body>
 </html>
