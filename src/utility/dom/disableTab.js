@@ -16,6 +16,13 @@ Dom.prototype.disableTab = function (tab) {
                 end = this.selectionEnd,
                 text = this.value,
                 length = tab.length;
+
+            // IE 使用 document.selection.createRange(); 插入选区。
+            if (start == null) {
+                var sel = document.selection.createRange();
+                sel.text = tab;
+                return;
+            }
             text = text.substr(0, start) + tab + text.substr(start);
             this.value = text;
             this.selectionStart = start + tab.length;

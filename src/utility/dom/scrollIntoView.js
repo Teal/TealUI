@@ -10,20 +10,14 @@
  * @param {Boolean} [alignCenter=true] 指示是否顶部对齐。
  * @param {Number} [duration=0] 滚动的特效时间。如果为 0 则不使用渐变。
  * @param {Element} [scrollParent=document] 滚动所在的容器。
+ * @param {Function} [callback] 滚动特效完成后的回调。
  */
-Dom.prototype.scrollIntoViewIfNeeded = function (alignCenter, duration, scrollParent) {
+Dom.prototype.scrollIntoViewIfNeeded = function (alignCenter, duration, scrollParent, callback) {
     alignCenter = alignCenter !== false;
-    duration = duration || 0;
     scrollParent = Dom(scrollParent || document);
     return this.each(function (elem) {
-
-        // 直接调用原生 API。
-        if (elem.scrollIntoViewIfNeeded && !duration && scrollParent[0] === document) {
-            return elem.scrollIntoViewIfNeeded(alignCenter);
-        }
-
         var containerRect = scrollParent.rect(),
-            currentRect = elem.rect(),
+            currentRect = Dom(elem).rect(),
             deltaY = currentRect.top - containerRect.top,
             deltaX = currentRect.left - containerRect.left,
             currentScroll = scrollParent.scroll(),
@@ -49,7 +43,7 @@ Dom.prototype.scrollIntoViewIfNeeded = function (alignCenter, duration, scrollPa
         }
 
         // 更新并移动位置。
-        (currentScroll.top != null || currentScroll.left != null) && scrollParent.scrollTo(currentScroll.left, currentScroll.top, duration || 0);
+        (currentScroll.top != null || currentScroll.left != null) && scrollParent.scrollTo(currentScroll.left, currentScroll.top, duration, callback);
 
     });
 

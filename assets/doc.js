@@ -1225,6 +1225,18 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     Doc.Dom = {
 
         /**
+         * 修复 IE8 环境 HTML5 标签展示。
+         */
+        fixBrowser: function(){
+            if(+"\v1")
+                return;
+            'article,section,header,footer,nav,aside,details,summary,menu'.replace(/\w+/g, function (tagName) {
+                document.createElement(tagName);
+            });
+            document.write("<style>article,section,header,footer,nav,aside,details,summary,menu {display:block};</style><div/>")
+        },
+
+        /**
          * 判断当前环境是否是触摸屏环境。
          */
         isTouch: function () {
@@ -1588,6 +1600,8 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
          * 初始化页面框架。
          */
         init: function () {
+
+            Doc.Dom.fixBrowser();
 
             // #region 初始化配置
 

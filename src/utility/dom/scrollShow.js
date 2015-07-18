@@ -15,7 +15,7 @@ Dom.prototype.isScrollIntoView = function (scrollParent) {
             currentRect = this.rect(),
             deltaY = currentRect.top - containerRect.top,
             deltaX = currentRect.left - containerRect.left;
-        return deltaY > 0 && deltaY < containerRect.height && deltaX > 0 && deltaX < containerRect.width;
+        return (deltaY < 0 ? deltaY + currentRect.height > 0 : deltaY < containerRect.height) && (deltaX < 0 ? deltaX + currentRect.width > 0 : deltaX < containerRect.width);
     }
 };
 
@@ -45,7 +45,7 @@ Dom.prototype.scrollShow = function (callback, callbackMode, scrollParent) {
                     inView = true;
                 }
                 if (callbackMode == 0) {
-                    container.removeEventListener('scoll', scrollCallback, false);
+                    container.removeEventListener('scroll', scrollCallback, false);
                 }
             } else {
                 inView = false;

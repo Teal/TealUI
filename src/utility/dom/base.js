@@ -35,11 +35,12 @@ Dom.init = function (selector, context) {
     } else if (selector.constructor === Function) {
         if (/complete|loaded|interactive/.test(context.readyState) && context.body)
             selector.call(context);
-        else
-            /*@cc_on !+"\v1" ? setTimeout(function(){
-                Dom.init (selector, context);
-            }, 14) : */
+        else {
+            /*@cc_on if(!+"\v1") {
+            return setTimeout(function() {Dom.init (selector, context);}, 14);
+            } @*/
             context.addEventListener('DOMContentLoaded', selector, false);
+        }
         return;
     }
 

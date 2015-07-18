@@ -10,8 +10,9 @@
  * @param {Number} x 滚动的目标水平位置。
  * @param {Number} y 滚动的目标垂直位置。
  * @param {Number} [duration=100] 滚动的特效时间。如果为 0 则不使用渐变。
+ * @param {Function} [callback] 滚动特效完成后的回调。
  */
-Dom.prototype.scrollTo = function (x, y, duration) {
+Dom.prototype.scrollTo = function (x, y, duration, callback) {
     return duration !== 0 ? this.each(function (elem) {
         duration = duration || 100;
         elem = Dom(elem);
@@ -27,6 +28,8 @@ Dom.prototype.scrollTo = function (x, y, duration) {
             elem.scroll(currentSceoll);
             if (--count > 0) {
                 setTimeout(moveNext, step);
+            } else {
+                callback && callback.call(elem, x, y, duration);
             }
         }
     }) : this.scroll({ left: x, top: y });

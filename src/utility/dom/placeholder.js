@@ -4,42 +4,23 @@
 
 //#include dom/base.js
 
-Dom.implement({
-	
-	/**
-	 * 设置当文本框空的时候，显示的文本。
-	 */
-	placeholder: function (value) {
+/**
+ * 设置当文本框空的时候，显示的文本。
+ */
+Dom.prototype.placeholder = function (value) {
 
-		return this.each(function (elem) {
+    function hidePlaceHolder() {
+        Dom(this).text() === value && Dom(this).removeClass('placeholder').text('');
+    }
 
-			if (elem.form) {
-				Dom.on(elem.form, 'submit', function () {
-					hidePlaceHolder.call(elem);
-				}, this);
-			}
+    function showPlaceHolder() {
+        Dom(this).text() || Dom(this).text(value).addClass('placeholder');
+    }
 
-			Dom.on(elem, 'focus', hidePlaceHolder);
-			Dom.on(elem, 'blur', showPlaceHolder);
+    return this.on('focus', hidePlaceHolder).on('blur', showPlaceHolder).each(function (elem) {
+        elem.form && Dom(elem.form).on('submit', hidePlaceHolder, elem);
+        hidePlaceHolder.call(elem);
+        showPlaceHolder.call(elem);
+    });
 
-			hidePlaceHolder.call(elem);
-			showPlaceHolder.call(elem);
-
-		});
-
-		function hidePlaceHolder() {
-			if (Dom.getText(this) === value) {
-				Dom.removeClass(this, 'placeholder');
-				Dom.setText(this, '');
-			}
-		}
-
-		function showPlaceHolder() {
-			if (!Dom.getText(this)) {
-				Dom.setText(this, value);
-				Dom.addClass(this, 'placeholder');
-			}
-		}
-	}
-
-});
+};

@@ -289,7 +289,9 @@ function updateModuleList() {
         moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
         moduleInfo.keywords = (/<meta\s+name\s*=\s*"keywords"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
         moduleInfo.contents = [];
-        content.replace(/<h\d>(.*?)<\/h\d>/g, function (h2, c) {
+        content.replace(/<h(2)>(.*?)<\/h\1>/g, function (h2, _, c) {
+            c = c.replace(/<[^>]*>/g, '');
+            c = c.replace('源码: ', ' ');
             moduleInfo.contents.push(c);
         });
         moduleInfo.contents = moduleInfo.contents.join(',');
