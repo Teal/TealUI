@@ -15,16 +15,47 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h5>动态载入脚本</h5>
-    <pre>Loader.loadScript("../../assets/resources/ajax/test.js", trace);</pre>
+    <h2>API <small>(源码: <a href="../../utility/misc/countDown.js" target="_blank">utility/misc/countDown.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Loader.loadScript</code></td>
+            <td>动态载入脚本</td>
+            <td><pre>Loader.loadScript("../../assets/resources/ajax/test.js", function(){})</pre></td>
+        </tr>
+        <tr>
+            <td><code>Loader.loadStyle</code></td>
+            <td>动态载入样式</td>
+            <td><pre>Loader.loadStyle("../../assets/resources/ajax/test.css", function(){})</pre></td>
+        </tr>
+        <tr>
+            <td><code>Loader.loadImage</code></td>
+            <td>动态载入图片</td>
+            <td><pre>Loader.loadImage("../../assets/resources/200x150.png", trace)</pre></td>
+        </tr>
+        <tr>
+            <td><code>Loader.loadImages</code></td>
+            <td>动态载入所有图片</td>
+            <td><pre>Loader.loadImages(["../../assets/resources/200x150.png", "../../assets/resources/100x100.png"], trace)</pre></td>
+        </tr>
+    </table>
 
-    <h5>动态载入样式</h5>
-    <pre>Loader.loadStyle("../../assets/resources/ajax/test.css", trace);</pre>
-
-    <h5>动态载入图片</h5>
-    <pre>Loader.loadImage("../../assets/resources/200x150.png", trace);</pre>
-
-    <h5>动态载入所有图片</h5>
-    <pre>Loader.loadImages(["../../assets/resources/200x150.png", "../../assets/resources/100x100.png"], trace);</pre>
+    <h2>预加载 <small>(源码: <a href="../../utility/misc/preload.js" target="_blank">utility/misc/preload.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>preload</code></td>
+            <td>预加载一个图片，比如防止 css 刷新时因为图片加载导致的空白闪动</td>
+            <td><pre>preload("../../assets/resources/200x150.png")</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

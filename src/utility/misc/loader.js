@@ -4,6 +4,56 @@
  */
 var Loader = {
 
+    // #region @loadScript
+
+    /**
+     * 动态载入一个脚本。
+     * @param {String} url 加载 js 的路径。
+     * @param {Function} callback 载入成功回调。
+     */
+    loadScript: function (url, callback) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = url;
+        if (callback) {
+            script.onload = script.onreadystatechange = function () {
+                if (!script.readyState || script.readyState == "loaded" || script.readyState == "complete") {
+                    script.onload = script.onreadystatechange = null;
+                    callback(url);
+                }
+            };
+        }
+        return (document.getElementsByTagName("head")[0] || document.body).appendChild(script);
+    },
+
+    // #endregion
+
+    // #region @loadStyle
+
+    /**
+     * 动态载入一个样式。
+     * @param {String} url 加载 css 的路径。
+     * @param {Function} callback 载入成功回调。
+     */
+    loadStyle: function (url, callback) {
+        var link = document.createElement("link");
+        link.rel = 'stylesheet';
+        link.media = 'screen';
+        link.type = 'text/css';
+        link.href = url;
+        if (callback) {
+            link.onload = link.onreadystatechange = function () {
+                if (!link.readyState || link.readyState == "loaded" || link.readyState == "complete") {
+                    link.onload = link.onreadystatechange = null;
+                    callback(url);
+                }
+            };
+        }
+        return (document.getElementsByTagName("head")[0] || document.body).appendChild(link);
+    },
+
+    // #endregion
+
     // #region @loadImage
 
     /**
@@ -37,59 +87,9 @@ var Loader = {
                 }
             });
         }
-    },
-
-    // #endregion
-
-    // #endregion
-
-    // #region @loadStyle
-
-    /**
-     * 动态载入一个样式。
-     * @param {String} url 加载 css 的路径。
-     * @param {Function} callback 载入成功回调。
-     */
-    loadStyle: function (url, callback) {
-        var link = document.createElement("link");
-        link.rel = 'stylesheet';
-        link.media = 'screen';
-        link.type = 'text/css';
-        link.href = url;
-        if (callback) {
-            link.onload = link.onreadystatechange = function () {
-                if (!link.readyState || link.readyState == "loaded" || link.readyState == "complete") {
-                    link.onload = link.onreadystatechange = null;
-                    callback(url);
-                }
-            };
-        }
-        return (document.getElementsByTagName("head")[0] || document.body).appendChild(link);
-    },
-
-    // #endregion
-
-    // #region @loadScript
-
-    /**
-     * 动态载入一个脚本。
-     * @param {String} url 加载 js 的路径。
-     * @param {Function} callback 载入成功回调。
-     */
-    loadScript: function (url, callback) {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = url;
-        if (callback) {
-            script.onload = script.onreadystatechange = function () {
-                if (!script.readyState || script.readyState == "loaded" || script.readyState == "complete") {
-                    script.onload = script.onreadystatechange = null;
-                    callback(url);
-                }
-            };
-        }
-        return (document.getElementsByTagName("head")[0] || document.body).appendChild(script);
     }
+
+    // #endregion
 
     // #endregion
 

@@ -14,8 +14,10 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>效果预览</h2>
     
-    <h2>倒计时：N 天 N 小时 N 分 N 秒</h2>
+    <h3>倒计时：N 天 N 小时 N 分 N 秒</h3>
     <aside class="doc-demo">
         <span id="timeCounter1"></span>
         <script>
@@ -25,7 +27,7 @@
         </script>
     </aside>
 
-    <h2>倒计时：N 小时 N 分 N 秒</h2>
+    <h3>倒计时：N 小时 N 分 N 秒</h3>
     <aside class="doc-demo">
         <span id="timeCounter2"></span>
         <script>
@@ -35,7 +37,7 @@
         </script>
     </aside>
 
-    <h2>倒计时：自定义样式</h2>
+    <h3>倒计时：自定义样式</h3>
     <aside class="doc-demo">
         <style>
             #timeCounter3 span {
@@ -77,5 +79,19 @@
             });
         </script>
     </aside>
+
+    <h2>API <small>(源码: <a href="../../utility/misc/countDown.js" target="_blank">utility/misc/countDown.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>countDown</code></td>
+            <td>鼠标悬浮事件</td>
+            <td><pre>countDown(function(day, hour, minute, second){ console.log(day, hour, minute, second); });</pre></td>
+        </tr>
+    </table>
 </body>
 </html>
