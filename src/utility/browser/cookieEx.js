@@ -6,7 +6,7 @@
 // #require cookie
 // #require ../text/queryString
 
-// #region @getCookie
+// #region @getAllCookies
 
 /**
  * 获取所有 Cookie 。
@@ -22,7 +22,7 @@ function getAllCookies() {
 
 // #endregion
 
-// #region @subCookie
+// #region @getSubcookie/setSubCookie
 
 /**
  * 获取一个子 Cookie 值。

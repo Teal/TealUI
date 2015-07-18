@@ -18,30 +18,58 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>常用 API <small>(源码: <a href="../../utility/browser/cookie.js" target="_blank">utility/browser/cookie.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>getCookie</code></td>
+            <td>获取 Cookie</td>
+            <td><pre>getCookie("sample") // 如果 Cookie 不存在，返回 null 。</pre></td>
+        </tr>
+        <tr>
+            <td><code>setCookie</code></td>
+            <td>设置 Cookie</td>
+            <td class="doc">
+                <h5>设置 Cookie</h5>
+                <pre>setCookie("sample", "the value")</pre>
+                <h5>删除 Cookie</h5>
+                <pre>setCookie("sample", null)</pre>
+            </td>
+        </tr>
+    </table>
     
-    <h2>读写 Cookie</h2>
-
-    <h5>获取 Cookie</h5>
-    <pre>getCookie("sample") // 如果 Cookie 不存在，返回 null 。</pre>
-
-    <h5>设置 Cookie</h5>
-    <pre>setCookie("sample", "the value")</pre>
-
-    <h5>删除 Cookie</h5>
-    <pre>setCookie("sample", null)</pre>
-
-    <h2>读写子 Cookie</h2>
-
-    <h5>获取子 Cookie</h5>
-    <pre>getSubcookie("sample", "subName") // 如果 Cookie 不存在，返回 null 。</pre>
-
-    <h5>设置子 Cookie</h5>
-    <pre>setSubcookie("sample", "subName", "the value")</pre>
-
-    <h5>删除子 Cookie</h5>
-    <pre>setSubcookie("sample", "subName", null)</pre>
-
-    <h2>获取所有 Cookie</h2>
-    <pre>getAllCookies();</pre>
+    <h2>不常用 API <small>(源码: <a href="../../utility/browser/cookieEx.js" target="_blank">utility/browser/cookieEx.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>getSubcookie</code></td>
+            <td>获取子 Cookie</td>
+            <td><pre>getSubcookie("sample", "subName") // 如果 Cookie 不存在，返回 null 。</pre></td>
+        </tr>
+        <tr>
+            <td><code>setCookie</code></td>
+            <td>设置子 Cookie</td>
+            <td class="doc">
+                <h5>设置子 Cookie</h5>
+                <pre>setSubcookie("sample", "subName", "the value")</pre>
+                <h5>删除子 Cookie</h5>
+                <pre>setSubcookie("sample", "subName", null)</pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>getAllCookies</code></td>
+            <td>获取所有 Cookie</td>
+            <td><pre>getAllCookies()</pre></td>
+        </tr>
+    </table>
 </body>
 </html>
