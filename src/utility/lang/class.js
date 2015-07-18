@@ -39,7 +39,7 @@ Base.extend = function (members) {
 
     // 生成缺省构造函数：直接调用父类构造函数 。
     if (!members.hasOwnProperty("constructor")) {
-        members.constructor = function () {
+        members.constructor = function CustomClass() {
             // 缺省构造函数：直接调用父类构造函数。
             return subClass.__proto__.apply(this, arguments);
         };
@@ -81,6 +81,7 @@ Base.extend = function (members) {
 
 /**
  * 返回当前对象的字符串形式。
+ * @returns {String} 返回字符串。
  */
 Base.prototype.toString = function() {
     for (var clazz in window) {

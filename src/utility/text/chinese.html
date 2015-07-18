@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>中文处理</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="通过中文处理相关功能。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/text/pinYin.js"></script>
+    <script type="text/javascript" src="../../utility/text/pinYin-gbk.js"></script>
+    <script type="text/javascript" src="../../utility/text/tradionalChinese.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>中文（简体）转拼音 <a href="../../utility/text/pinYin.js" target="_blank"><small>(源码: utility/text/pinYin.js)</small></a></h2>
+    <p>
+        输入中文:
+        <input type="text" id="pinyin_value" value="中文" />
+        <input type="button" value="转为拼音" onclick="document.getElementById('pinyin_result').innerHTML = getPinYin(document.getElementById('pinyin_value').value)" />
+        <span id="pinyin_result"></span>
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>getPinYin</code></td>
+            <td>获取拼音</td>
+            <td class="doc">
+                <h5>获取全拼</h5>
+                <pre>getPinYin("中文");</pre>
+                <h5>获取拼音首字母</h5>
+                <pre>getPinYin("中文", true);</pre>
+            </td>
+        </tr>
+    </table>
+    <blockquote><h4>实现原理</h4>在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
+    <blockquote class="doc-note"><h4>注意</h4>不支持多音字。</blockquote>
+
+    <h2>中文（繁体）转拼音 <a href="../../utility/text/pinYin-gbk.js" target="_blank"><small>(源码: utility/text/pinYin-gbk.js)</small></a></h2>
+    <p>
+        输入中文:
+        <input type="text" id="pinyin_gbk_value" value="中文" />
+        <input type="button" value="转为拼音" onclick="document.getElementById('pinyin_gbk_result').innerHTML = getPinYin(document.getElementById('pinyin_gbk_value').value)" />
+        <span id="pinyin_gbk_result"></span>
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>getPinYin</code></td>
+            <td>获取拼音</td>
+            <td class="doc">
+                <h5>获取全拼</h5>
+                <pre>getPinYin("中文");</pre>
+                <h5>获取拼音首字母</h5>
+                <pre>getPinYin("中文", true);</pre>
+            </td>
+        </tr>
+    </table>
+    <blockquote><h4>实现原理</h4>在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。</blockquote>
+    <blockquote class="doc-note"><h4>注意</h4>不支持多音字。</blockquote>
+
+    <h2>中文简繁体转换 <a href="../../utility/text/tradionalChinese.js" target="_blank"><small>(源码: utility/text/tradionalChinese.js)</small></a></h2>
+    <p>
+        输入中文:
+        <input type="text" id="tradionalChinese_value" value="中文简繁体转换" />
+        <input type="button" value="转繁体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toTradionalChinese(document.getElementById('tradionalChinese_value').value)" />
+        <input type="button" value="转简体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toSimpleChinese(document.getElementById('tradionalChinese_value').value)" />
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>TradionalChinese.toTradionalChinese</code></td>
+            <td>简体转繁体</td>
+            <td><pre>TradionalChinese.toTradionalChinese("简");</pre></td>
+        </tr>
+        <tr>
+            <td><code>TradionalChinese.toTradionalChinese</code></td>
+            <td>繁体转简体</td>
+            <td><pre>TradionalChinese.toSimpleChinese("簡");</pre></td>
+        </tr>
+    </table>
+
+    <blockquote><h4>实现原理</h4>在库文件中有一个繁简字数据表，函数会查询此表并返回对应繁体/简体。</blockquote>
+
+</body>
+</html>
