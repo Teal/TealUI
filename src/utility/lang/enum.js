@@ -8,6 +8,8 @@
  */
 var Enum = {
     
+    // #region @Enum.getName
+
     /**
      * 根据某个值返回枚举的大小。
      * @param {Object} enumType 枚举类型对象。
@@ -16,10 +18,14 @@ var Enum = {
      */
     getName: function (enumType, enumValue) {
         for (var key in enumType)
-            if (enumType[i] === enumValue)
+            if (enumType[key] === enumValue)
                 return key;
         return null;
     },
+
+    // #endregion
+
+    // #region @Enum.hasFlags
 
     /**
      * 判断指定枚举是否拥有指定的标记位。
@@ -27,6 +33,10 @@ var Enum = {
     hasFlags: function (enumValue, flags) {
         return (enumValue & flags) === flags;
     },
+
+    // #endregion
+
+    // #region @Enum.setFlag
 
     /**
      * 设置指定枚举的标记位。
@@ -37,5 +47,7 @@ var Enum = {
     setFlag: function (enumValue, flags, value) {
         return value ? enumValue | flags : enumValue & ~flags;
     }
+
+    // #endregion
 
 };
