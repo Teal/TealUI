@@ -4,7 +4,6 @@
  */
 
 // #require base
-// #require rect
 
 /**
  * 设置当前节点的位置，使其依靠现有的其它节点。
@@ -51,32 +50,40 @@
  * 其中，offsetX 和 offsetY 表示为适应屏幕而导致位置发生的偏移量。如果未偏移则为 undefined。
  * 其中，overflowX 和 overflowY 表示为超过屏幕大小而产生越界，对应的值表示容器的最大值。如果未越界则为 undefined。
  */
-Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding) {
+Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, overflowCallback) {
 
     // allowReset 意义：
     //     第一次：undefined, 根据 align 判断是否允许。
     //     第二次：true。
     //     第三次：false。
 
-    return this.each(function (elem) {
-
-    });
-
-    var elem = this,
-        rect = elem.getRect(),
+    var aligns = Dom._aligns || (Dom._aligns = {
+            bl: 'lrbb',
+            lt: 'lltb',
+            l: 'llcc',
+            lb: 'llbt',
+            b: 'ccbb',
+            br: 'rlbt',
+            rb: 'lrbb',
+            r: 'rrcc',
+            rt: 'rrtb',
+            tr: 'rltt',
+            t: 'cctt',
+            tl: 'lltt'
+        }),
         targetRect = target instanceof Event ? {
             left: target.pageX,
             top: target.pageY,
             width: 0,
             height: 0
-        } : target.getRect(),
-        containerRect = (container === undefined ? (container = document) : container) && container.nodeType ? container.getRect() : container,
+        } : Dom(target).rect(),
+        containerRect = container && container.left != null && container.width != null ? container : Dom(container || document).rect(),
         fixType = align.length < 3 ? 1 : 0;
 
     // 处理允许翻转的水平位置。
     // pos：1 | 2     0     3 | 4
     // fixType: 0: 不允许修复， 1：允许修复   2：已进行修复，使用侧边值修复
-    function proc(xOrY, leftOrTop, widthOrHeight, offset, pos, fixType) {
+    function proc(xOrY, leftOrTop, widthOrHeight, offset, pos, fixType, rect) {
 
         // 默认依靠左边开始计算。
         var result = targetRect[leftOrTop];
@@ -130,32 +137,24 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
         return rect[leftOrTop] = result;
     }
 
-    align = Element.pinAligners[align] || align;
+    align = aligns[align] || align;
     padding = padding === undefined ? 10 : padding;
     containerRect.left += padding;
     containerRect.width -= padding * 2;
     containerRect.top += padding;
     containerRect.height -= padding * 2;
-    proc('X', 'left', 'width', offsetX || 0, align.charAt(0) === 'c' ? 0 : (align.charAt(0) === 'r' ? 3 : 1) + (align.charAt(1) === 'r'), fixType);
-    proc('Y', 'top', 'height', offsetY || 0, align.charAt(2) === 'c' ? 0 : (align.charAt(2) === 'b' ? 3 : 1) + (align.charAt(3) === 'b'), fixType);
 
-    elem.setPosition(rect);
+    return this.each(function (elem) {
+        elem = Dom(elem);
+        var rect = elem.rect();
+        proc('X', 'left', 'width', offsetX || 0, align.charAt(0) === 'c' ? 0 : (align.charAt(0) === 'r' ? 3 : 1) + (align.charAt(1) === 'r'), fixType, rect);
+        proc('Y', 'top', 'height', offsetY || 0, align.charAt(2) === 'c' ? 0 : (align.charAt(2) === 'b' ? 3 : 1) + (align.charAt(3) === 'b'), fixType, rect);
 
-    return rect;
+        delete rect.width;
+        delete rect.height;
+        elem.rect(rect);
 
-};
+        overflowCallback && (rect.overflowX || rect.overflowY) && overflowCallback.call(elem, rect);
+    });
 
-Element.pinAligners = {
-    bl: 'lrbb',
-    lt: 'lltb',
-    l: 'llcc',
-    lb: 'llbt',
-    b: 'ccbb',
-    br: 'rlbt',
-    rb: 'lrbb',
-    r: 'rrcc',
-    rt: 'rrtb',
-    tr: 'rltt',
-    t: 'cctt',
-    tl: 'lltt'
 };
