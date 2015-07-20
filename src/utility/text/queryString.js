@@ -10,6 +10,8 @@
  */
 var QueryString = {
 
+    // #region @QueryString.parse
+
     /**
      * 解析查询字符串为对象。
      * @param {String} value 要解析的字符串。
@@ -48,6 +50,10 @@ var QueryString = {
         return result;
     },
 
+    // #endregion
+
+    // #region @QueryString.stringify
+
     /**
      * 将指定对象格式化为字符串。
      * @param {Object} obj 要格式化的对象。
@@ -55,8 +61,8 @@ var QueryString = {
      */
     stringify: function (obj, name) {
         if (obj && typeof obj === 'object') {
-            var s = [];
-            for (var key in obj) {
+            var s = [], key;
+            for (key in obj) {
                 s.push(QueryString.stringify(obj[key], name || key));
             }
             obj = s.join('&');
@@ -65,5 +71,7 @@ var QueryString = {
         }
         return obj;
     }
+
+    // #endregion
 
 };

@@ -2,18 +2,142 @@
  * @author xuld
  */
 
+// #require ../shim/html5
+// #require ../text/queryString#QueryString.stringify
 
-//#include utils/deferrable.js
+/**
+ * 用于发送和接收 AJAX 请求的工具。
+ */
+var Ajax = {
+
+    /**
+     * 供外部应用重写请求的地址。
+     */
+    urlRewrite: function (url, options) {
+        return url;
+    },
+
+    // #region @XMLHttpRequest
+
+    /**
+     * 所有支持的传输协议集合。
+     */
+    Transports: {
+
+        // #region text
+
+        /**
+         * 文本格式传输协议。
+         */
+        text: function (options) {
+
+        }
+
+        // #endregion
+
+    },
+
+    /**
+     * 发送一个 AJAX 请求。
+     * @param {Object} options 发送的配置。具体的值有：
+     *
+     * - async: 是否为异步的请求。默认为 true 。
+     * - cache: 是否允许缓存。默认为 true 。
+     * - charset: 请求的字符编码。
+     * - complete(data): 请求完成时的回调。
+     * - crossDomain: 指示 AJAX 强制使用跨域方式的请求。默认为 null,表示系统自动判断。
+     * - data: 请求的数据。
+     * - dataType: 请求数据的类型。默认为根据返回内容自动识别。
+     * - error(message): 请求失败时的回调。
+     * - headers: 附加的额外请求头信息。
+     * - jsonp: 如果使用 jsonp 请求，则指示 jsonp 参数。如果设为 false，则不添加后缀。默认为 callback。
+     * - jsonpCallback: jsonp请求回调函数名。默认为根据当前时间戳自动生成。
+     * - password: 请求的密码 。
+     * - start(): 请求开始时的回调。return false 可以终止整个请求。
+     * - success(data): 请求成功时的回调。
+     * - timeout: 请求超时时间。单位毫秒。默认为 -1 无超时 。
+     * - type: 请求类型。默认是 "GET" 。
+     * - url: 请求的地址。
+     * - apis: 请求的多个地址，所有请求完成后才触发回调。
+     * - username: 请求的用户名 。
+     *
+     * @returns options
+     */
+    send: function (options) {
+
+        // 处理多个请求。
+        if (options.apis) {
+            options.leftApiCount = options.apis.length;
+
+            // options.url = 
+
+            return;
+        }
+
+        options.url = Ajax.urlRewrite((options.url || Ajax.getCurrentUrl()).replace(/#.*$/, ""));
+        options.data = QueryString.stringify(options.data);
+        if (options.crossDomain == null) options.crossDomain = Ajax.isCrossDomain(options.url);
+
+        // 根据 dataType 获取当前用于传输的工具。
+        // 实际的发送操作。
+        (Ajax.Transports[options.dataType] || Ajax.Transports.text)(options);
+
+        return options;
+    },
+
+    /**
+     * 获取当前页的地址。
+     * @returns {String} 返回当前地址。
+     */
+    getCurrentUrl: function(){
+        // 如果设置了 document.domain, IE 会抛出异常。
+        try {
+            return location.href;
+        } catch (e) {
+            // 使用 a 的默认属性获取当前地址。
+            var ajaxLoc = document.createElement("a");
+            ajaxLoc.href = "";
+            return ajaxLoc.href;
+        }
+    },
+
+    /**
+     * 判断指定的地址是否跨域。
+     * @param {String} url 要判断的地址。
+     * @returns {String} 返回处理后的地址。
+     */
+    isCrossDomain: function (url) {
+        var rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
+            locParts = rUrl.exec(Ajax.getCurrentUrl().toLowerCase()) || 0;
+        url = rUrl.exec(url.toLowerCase());
+        return url && (url[1] != locParts[1] || url[2] != locParts[2] || (url[3] || (url[1] === "http:" ? 80 : 443)) != (locParts[3] || (locParts[1] === "http:" ? 80 : 443)));
+    },
+
+    appendCacheQuery: function(url){
+        url = url.replace(/([?&]_=)([^&]*)/, "$1" + +new Date)
+    },
+
+    concatUrl: function (url, param) {
+        return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
+    },
+
+    addCachePostfix: function (url) {
+        return /[?&]_=/.test(url) ? url : Ajax.concatUrl(url, '_=' + Date.now() + JPlus.id++);
+    },
+
+    // #endregion
+
+};
 
 /**
  * 用于发送和接收 AJAX 请求的工具。
  * @class
  * @extends Deferrable
  */
-var Ajax = (function () {
+var Ajax2 = (function () {
 
     var ajaxLoc,
-		ajaxLocParts,
+		locParts,
 		rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
 		defaultAccepts = ["*/"] + ["*"],
 		Ajax;
@@ -28,32 +152,32 @@ var Ajax = (function () {
         ajaxLoc = ajaxLoc.href;
     }
 
-    ajaxLocParts = rUrl.exec(ajaxLoc.toLowerCase()) || [];
+    locParts = rUrl.exec(ajaxLoc.toLowerCase()) || [];
 
-	/**
+    /**
 	 * @class Ajax
 	 */
     Ajax = Deferrable.extend({
 
-		/**
+        /**
 		 * 当前 Ajax 对象的默认配置。
 		 * @type {Object}
 		 */
-		options: {
-			
-			/**
+        options: {
+
+            /**
 			 * 默认的地址。
 			 * @type {String}
 			 */
-			url: ajaxLoc,
+            url: ajaxLoc,
 
-			/**
+            /**
 			 * 默认超时数。
 			 * @type {Number}
 			 */
-			timeout: -1
+            timeout: -1
 
-		},
+        },
 
         constructor: function () {
 
@@ -105,12 +229,6 @@ var Ajax = (function () {
 
                 //assert(!xhrObject.url || xhrObject.url.replace, "Ajax#run(xhrObject): {xhrObject.url} 必须是字符串。", xhrObject.url);
 
-                // url
-                xhrObject.url = xhrObject.url ? xhrObject.url.replace(/#.*$/, "") : me.options.url;
-
-                // data
-                xhrObject.data = xhrObject.data ? typeof xhrObject.data !== 'string' ? Ajax.param(xhrObject.data) : xhrObject.data : null;
-
                 // crossDomain
                 if (xhrObject.crossDomain == null) {
 
@@ -118,9 +236,9 @@ var Ajax = (function () {
 
                     // from jQuery: 跨域判断。
                     xhrObject.crossDomain = !!(parts &&
-						(parts[1] != ajaxLocParts[1] || parts[2] != ajaxLocParts[2] ||
+						(parts[1] != locParts[1] || parts[2] != locParts[2] ||
 							(parts[3] || (parts[1] === "http:" ? 80 : 443)) !=
-								(ajaxLocParts[3] || (ajaxLocParts[1] === "http:" ? 80 : 443)))
+								(locParts[3] || (locParts[1] === "http:" ? 80 : 443)))
 					);
 
                 }
@@ -144,7 +262,7 @@ var Ajax = (function () {
                 this.callback('Aborted', -3);
             return this;
         }
-	
+
         /**
          * 由 XHR 负责调用的状态检测函数。
          * @param {Object} extraArgs 忽略的参数。
@@ -161,69 +279,17 @@ var Ajax = (function () {
          */
 
     });
-	
-	/**
+
+    /**
 	 * @namespace Ajax
 	 */
     Object.extend(Ajax, {
-		
-		/**
-		 * 发送一个新的 AJAX 请求。
-		 * @param {Object} xhrObject 发送的配置。
-		 *
-		 * - async: 是否为异步的请求。默认为 true 。
-		 * - cache: 是否允许缓存。默认为 true 。
-		 * - charset: 请求的字符编码。
-		 * - complete(statusCode, xhrObject): 请求完成时的回调。
-		 * - crossDomain: 指示 AJAX 强制使用跨域方式的请求。默认为 null,表示系统自动判断。
-		 * - data: 请求的数据。
-		 * - dataType: 请求数据的类型。默认为 text。
-		 * - error(message, xhrObject): 请求失败时的回调。
-		 * - headers: 附加的额外请求头信息。
-		 * - jsonp: 如果使用 jsonp 请求，则指示 jsonp 参数。如果设为 false，则不添加后缀。默认为 callback。
-		 * - jsonpCallback: jsonp请求回调函数名。默认为根据当前时间戳自动生成。
-		 * - password: 请求的密码 。
-		 * - start(data, xhrObject): 请求开始时的回调。return false 可以终止整个请求。
-		 * - success(data, xhrObject): 请求成功时的回调。
-		 * - timeout: 请求超时时间。单位毫秒。默认为 -1 无超时 。
-		 * - type: 请求类型。默认是 "GET" 。
-		 * - url: 请求的地址。
-		 * - username: 请求的用户名 。
-		 *
-		 */
-        send: function (xhrObject) {
-            return new Ajax().send(xhrObject);
-        },
 
         transports: {},
 
         accepts: {},
 
         dataParsers: {},
-
-        /**
-		 * 返回变量的地址形式。
-		 * @param {Object} obj 变量。
-		 * @returns {String} 字符串。
-		 * @example <pre>
-		 * Ajax.param({a: 4, g: 7}); //  a=4&g=7
-		 * </pre>
-		 */
-        param: function (obj, name) {
-
-            var s;
-            if (obj && typeof obj === 'object') {
-                s = [];
-                Object.each(obj, function (value, key) {
-                    s.push(Ajax.param(value, name ? name + "[" + key + "]" : key));
-                });
-                s = s.join('&');
-            } else {
-                s = encodeURIComponent(name) + "=" + encodeURIComponent(obj);
-            }
-
-            return s.replace(/%20/g, '+');
-        },
 
         concatUrl: function (url, param) {
             return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
@@ -323,7 +389,7 @@ var Ajax = (function () {
         }
 
     });
-    
+
     /**
      * 根据 xhr 获取响应。
      * @ignore
@@ -515,8 +581,8 @@ var Ajax = (function () {
         // 发送完成。
 
     };
-	
-	/**
+
+    /**
 	 * 发送一个 get 请求。
 	 * @method get
 	 * @param {String} [url] 请求的地址。
@@ -526,7 +592,7 @@ var Ajax = (function () {
 	 * @param {String} dataType='text' 请求数据的类型。默认为 text。
 	 */
 
-	/**
+    /**
 	 * 发送一个 post 请求。
 	 * @method post
 	 * @param {String} [url] 请求的地址。

@@ -1498,6 +1498,9 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                     try {
                         if (result !== undefined) {
                             console.log(result);
+                            if(screen.width < 780) {
+                                trace.write(result);
+                            }
                         }
                         console.groupEnd();
                     } catch (e) { }

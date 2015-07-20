@@ -3,6 +3,8 @@
  * @author xuld
  */
 
+// #require ../shim/html5
+
 // #region 核心
 
 /**

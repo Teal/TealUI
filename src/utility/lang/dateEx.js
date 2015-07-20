@@ -3,6 +3,23 @@
  * @author xuld
  */
 
+// #region @Date.now
+
+/**
+ * 获取当前时间的数字表示。
+ * @returns {Number} 当前的时间点。
+ * @static
+ * @example
+ * <pre>
+ * Date.now(); //   相当于 new Date().getTime()
+ * </pre>
+ */
+Date.now = Date.now || function () {
+    return +new Date;
+};
+
+// #endregion
+
 // #region @Date.isLeapYear
 
 /**
