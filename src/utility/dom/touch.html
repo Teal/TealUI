@@ -4,24 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>触摸扩展</title>
-    <meta name="module-info" content="order=edit">
+    <meta name="module-info" content="status=doing, order=scroll">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="提供滚动交互功能。">
-
+    <meta name="description" content="提供触摸交互功能。">
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/shim/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
+    <script type="text/javascript" src="../../utility/dom/swipe.js"></script>
     <script type="text/javascript" src="../../utility/dom/touchRotate.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <div id="elem" class="doc-box"><a>box</a></div>
-    <script>
-        var elem = document.getElementById('elem');
-    </script>
+    <div id="elem" class="doc-box"><a>#elem</a></div>
 
-    <h2>渐变滚动 <small>(源码: <a href="../../utility/dom/touchRotate.js" target="_blank">utility/dom/touchRotate.js</a>)</small></h2>
+    <h2>滑动 <small>(源码: <a href="../../utility/dom/swipe.js" target="_blank">utility/dom/swipe.js</a>)</small></h2>
+
+    <h2>转动 <small>(源码: <a href="../../utility/dom/touchRotate.js" target="_blank">utility/dom/touchRotate.js</a>)</small></h2>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -31,13 +30,15 @@
         <tr>
             <td><code><em>dom</em>.scrollTo</code></td>
             <td>旋转指定对象</td>
-            <td><pre>$("#elem").touchRotate({
+            <td>
+                <pre>$("#elem").touchRotate({
                     
                 touchMove: function(radius){
                     
                 }
                 
-            });</pre></td>
+            });</pre>
+            </td>
         </tr>
     </table>
 </body>

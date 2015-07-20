@@ -1,33 +1,46 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="module-info" content="status=complete">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>选区操作</title>
-
-    <script type="text/javascript" src="../../src/core/base.js"></script>
-    <script type="text/javascript" src="../../src/core/class.js"></script>
-    <script type="text/javascript" src="../../src/dom/base.js"></script>
-    <script type="text/javascript" src="../../src/dom/selection.js"></script>
-
-    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="对齐节点。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/base.js"></script>
+    <script type="text/javascript" src="../../utility/dom/selection.js"></script>
 </head>
 <body>
-    <article class="demo">
-        <input type="text" value="abcdefg" id="a">
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-        <textarea id="b">abcdefg</textarea>
+    <textarea id="elem">abc</textarea>
 
-        <script>
-            var a = Dom.query("#a");
-
-            Demo.writeExamples({
-                "获取选区区域范围": 'a.selectionRange()',
-                "设置选区区域范围": 'a.selectionRange({start: 1, end: 4})',
-                "获取选区区域内容": 'a.selectedText()',
-                "设置选区区域内容": 'a.selectedText("文本", true)'
-            });
-        </script>
-    </article>
+    <h2>API <small>(源码: <a href="../../utility/dom/selection.js" target="_blank">utility/dom/selection.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.selectionRange</code></td>
+            <td>读写选区信息</td>
+            <td>
+                <pre>$('#elem').selectionRange()</pre>
+                <pre>$('#elem').selectionRange({start:1, end: 4})</pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.selectionText</code></td>
+            <td>读写选区文本</td>
+            <td>
+                <pre>$('#elem').selectionText()</pre>
+                <pre>$('#elem').selectionText("content")</pre>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

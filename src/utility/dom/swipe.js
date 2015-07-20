@@ -1,4 +1,6 @@
-/** * @author xuld */
+/**
+ * @author xuld
+ */
 
 // #require base.js
 

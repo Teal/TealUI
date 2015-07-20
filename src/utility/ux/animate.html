@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
@@ -14,6 +14,15 @@
     <script type="text/javascript" src="../../src/fx/animate.js"></script>
 
     <script type="text/javascript" src="../../src/fx/color.js"></script>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
+    <script type="text/javascript" src="../../src/fx/colorex.js"></script>
 
     <script type="text/javascript" src="../../apps/demo/demo.js"></script>
 
@@ -96,6 +105,64 @@
 
         </script>
 
+    </article>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件是 Tween 的扩展。它让 Tween 支持处理颜色的渐变值。</blockquote>
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            var tween = new Fx.Tween();
+            Demo.writeExamples({
+                'Fx.Tween#run(#000000)': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: '#000000'
+                        }
+                    });
+                },
+                'Fx.Tween#run(rgb(0, 0, 0))': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: 'rgb(0, 0, 0)'
+                        }
+                    });
+                },
+                'Fx.Tween#run("#000000-#ffffff")': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: '#000000-#ffffff'
+                        }
+                    });
+                }
+            }, { times: 8 });
+
+        </script>
+    </article>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件是 Color 的扩展。它让 Color 支持识别系统内置颜色。</blockquote>
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            var tween = new Fx.Tween();
+            Demo.writeExamples({
+                'Fx.Tween#run(green-blue)': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: 'green-blue'
+                        }
+                    });
+                }
+            }, { times: 8 });
+
+        </script>
     </article>
 </body>
 </html>
