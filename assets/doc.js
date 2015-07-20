@@ -1343,7 +1343,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             button = aside.lastChild;
             button.onclick = function () {
                 if (Doc.Dom.isTouch()) {
-                    button.previousSibling.click();
+                    this.previousSibling.click();
                 }
                 var range = document.createRange(),
                     sel = getSelection();

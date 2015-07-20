@@ -15,14 +15,11 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <div id="elem" class="doc-box" style="position: fixed; right: 20%; bottom: 20%"><a>box</a></div>
-    <script>
-        var elem = document.getElementById('elem');
-    </script>
+    <div id="elem" class="doc-box" style="position: fixed; right: 20%; bottom: 20%"><a>#elem</a></div>
 
     <h2>API <small>(源码: <a href="../../utility/dom/base.js" target="_blank">utility/dom/base.js</a>)</small></h2>
 
-    <h3>集合</h3>
+    <h3>集合操作</h3>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -41,27 +38,27 @@
         <tr>
             <td><code><em>dom</em>.add</code></td>
             <td>添加</td>
-            <td><pre>$(elem).add(document.body)</pre></td>
+            <td><pre>$("#elem").add(document.body)</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.each</code></td>
             <td>遍历</td>
-            <td><pre>$(elem).each(function(node){alert(node.innerHTML)});</pre></td>
+            <td><pre>$("#elem").each(function(node){alert(node.innerHTML)});</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.map</code></td>
             <td>匹配</td>
-            <td><pre>$(elem).map(function(node){return node.firstChild});</pre></td>
+            <td><pre>$("#elem").map(function(node){return node.firstChild});</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.filter</code></td>
             <td>过滤</td>
-            <td><pre>$(elem).filter('div');</pre></td>
+            <td><pre>$("#elem").filter('div');</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.not</code></td>
             <td>排除</td>
-            <td><pre>$(elem).not('div');</pre></td>
+            <td><pre>$("#elem").not('div');</pre></td>
         </tr>
     </table>
 
@@ -75,12 +72,12 @@
         <tr>
             <td><code><em>dom</em>.find</code></td>
             <td>查找子节点</td>
-            <td><pre>$(elem).find("div")</pre></td>
+            <td><pre>$("#elem").find("div")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.is</code></td>
             <td>判断是否匹配</td>
-            <td><pre>$(elem).is("a")</pre></td>
+            <td><pre>$("#elem").is("a")</pre></td>
         </tr>
     </table>
 
@@ -94,20 +91,24 @@
         <tr>
             <td><code><em>dom</em>.on</code></td>
             <td>绑定事件</td>
-            <td>
-                <pre>$(elem).on('click', function(){ alert("点击事件") });</pre>
-                <pre>$(elem).on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
+            <td class="doc">
+                <h5>普通绑定</h5>
+                <pre>$("#elem").on('click', function(){ alert("点击事件") });</pre>
+                <h5>委托事件</h5>
+                <pre>$("#elem").on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
+                <blockquote><h4>触屏事件</h4>TealUI.Dom 会自动将 <code>click</code>/<code>mouse</code> 事件绑定为相应的 <code>touch</code> 事件，以增加触屏设备上相应事件的响应速度。</blockquote>
+                <blockquote><h4>IE 特有事件</h4>TealUI.Dom 支持自定义事件，并内置了 <code>mousewheel</code>/<code>mouseenter</code>/<code>mouseleave</code>/<code>focusin</code>/<code>foucsout</code> 等 IE 特定事件支持。</blockquote>
             </td>
         </tr>
         <tr>
             <td><code><em>dom</em>.off</code></td>
             <td>解绑事件</td>
-            <td><pre>$(elem).off('click', function(){ alert("点击事件2") })</pre></td>
+            <td><pre>$("#elem").off('click', function(){ alert("点击事件2") })</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.trigger</code></td>
             <td>手动触发事件</td>
-            <td><pre>$(elem).trigger('click')</pre></td>
+            <td><pre>$("#elem").trigger('click')</pre></td>
         </tr>
     </table>
 
@@ -119,49 +120,44 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td><code><em>dom</em>.contains</code></td>
-            <td>判断是否包含</td>
-            <td><pre>$(elem).contains(elem)</pre></td>
-        </tr>
-        <tr>
             <td><code><em>dom</em>.closest</code></td>
             <td>最近父节点</td>
-            <td><pre>$(elem).closest("body")</pre></td>
+            <td><pre>$("#elem").closest("body")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.parent</code></td>
             <td>获取父节点</td>
-            <td><pre>$(elem).parent()</pre></td>
+            <td><pre>$("#elem").parent()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.first</code></td>
             <td>第一个子节点</td>
-            <td><pre>$(elem).first()</pre></td>
+            <td><pre>$("#elem").first()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.last</code></td>
             <td>最后一个子节点</td>
-            <td><pre>$(elem).last()</pre></td>
+            <td><pre>$("#elem").last()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.next</code></td>
             <td>下一兄弟节点</td>
-            <td><pre>$(elem).next()</pre></td>
+            <td><pre>$("#elem").next()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.prev</code></td>
             <td>上一兄弟节点</td>
-            <td><pre>$(elem).prev()</pre></td>
+            <td><pre>$("#elem").prev()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.children</code></td>
             <td>所有子节点</td>
-            <td><pre>$(elem).children()</pre></td>
+            <td><pre>$("#elem").children()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.index</code></td>
             <td>获取节点索引</td>
-            <td><pre>$(elem).index()</pre></td>
+            <td><pre>$("#elem").index()</pre></td>
         </tr>
     </table>
 
@@ -175,36 +171,36 @@
         <tr>
             <td><code><em>dom</em>.append</code></td>
             <td>插到末尾</td>
-            <td><pre>$(elem).append("append")</pre></td>
+            <td><pre>$("#elem").append("append")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.prepend</code></td>
             <td>插到前尾</td>
-            <td><pre>$(elem).prepend("prepend")</pre></td>
+            <td><pre>$("#elem").prepend("prepend")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.after</code></td>
             <td>插到后面</td>
-            <td><pre>$(elem).after("after")</pre></td>
+            <td><pre>$("#elem").after("after")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.before</code></td>
             <td>插到前面</td>
-            <td><pre>$(elem).before("before")</pre></td>
+            <td><pre>$("#elem").before("before")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.remove</code></td>
             <td>删除节点</td>
-            <td><pre>$(elem).remove()</pre></td>
+            <td><pre>$("#elem").remove()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.clone</code></td>
             <td>复制节点</td>
-            <td><pre>$(elem).clone()</pre></td>
+            <td><pre>$("#elem").clone()</pre></td>
         </tr>
     </table>
 
-    <h3>类</h3>
+    <h3>CSS类</h3>
     <table class="doc-api">
         <tr>
             <th>API</th>
@@ -214,22 +210,22 @@
         <tr>
             <td><code><em>dom</em>.hasClass</code></td>
             <td>判断类</td>
-            <td><pre>$(elem).hasClass("light")</pre></td>
+            <td><pre>$("#elem").hasClass("light")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.addClass</code></td>
             <td>添加类</td>
-            <td><pre>$(elem).addClass("light")</pre></td>
+            <td><pre>$("#elem").addClass("light")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.removeClass</code></td>
             <td>删除类</td>
-            <td><pre>$(elem).removeClass("light")</pre></td>
+            <td><pre>$("#elem").removeClass("light")</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.toggleClass</code></td>
             <td>切换类</td>
-            <td><pre>$(elem).toggleClass("light")</pre></td>
+            <td><pre>$("#elem").toggleClass("light")</pre></td>
         </tr>
     </table>
 
@@ -244,8 +240,8 @@
             <td><code><em>dom</em>.css</code></td>
             <td>读写样式</td>
             <td>
-                <pre>$(elem).css("fontSize");</pre>
-                <pre>$(elem).css("fontSize", "12px");</pre>
+                <pre>$("#elem").css("fontSize");</pre>
+                <pre>$("#elem").css("fontSize", "12px");</pre>
             </td>
         </tr>
     </table>
@@ -261,24 +257,24 @@
             <td><code><em>dom</em>.attr</code></td>
             <td>读写属性</td>
             <td>
-                <pre>$(elem).attr("className");</pre>
-                <pre>$(elem).attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
+                <pre>$("#elem").attr("className");</pre>
+                <pre>$("#elem").attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
             </td>
         </tr>
         <tr>
             <td><code><em>dom</em>.text</code></td>
             <td>读写文本</td>
             <td>
-                <pre>$(elem).text();</pre>
-                <pre>$(elem).text("a");</pre>
+                <pre>$("#elem").text();</pre>
+                <pre>$("#elem").text("a");</pre>
             </td>
         </tr>
         <tr>
             <td><code><em>dom</em>.html</code></td>
             <td>读写 HTML</td>
             <td>
-                <pre>$(elem).html();</pre>
-                <pre>$(elem).html("&lt;em>a&lt;/em>");</pre>
+                <pre>$("#elem").html();</pre>
+                <pre>$("#elem").html("&lt;em>a&lt;/em>");</pre>
             </td>
         </tr>
     </table>
@@ -294,27 +290,27 @@
             <td><code><em>dom</em>.rect</code></td>
             <td>读写大小和位置</td>
             <td>
-                <pre>$(elem).rect();</pre>
-                <pre>$(elem).rect({width:200, height:400});</pre>
-                <pre>$(elem).rect({left: 30});</pre>
+                <pre>$("#elem").rect();</pre>
+                <pre>$("#elem").rect({width:200, height:400});</pre>
+                <pre>$("#elem").rect({left: 30});</pre>
             </td>
         </tr>
         <tr>
             <td><code><em>dom</em>.offset</code></td>
             <td>获取相对位置</td>
-            <td><pre>$(elem).offset()</pre></td>
+            <td><pre>$("#elem").offset()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.offsetParent</code></td>
             <td>获取相对偏移节点</td>
-            <td><pre>$(elem).offsetParent()</pre></td>
+            <td><pre>$("#elem").offsetParent()</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.scroll</code></td>
             <td>读写滚动位置</td>
             <td>
-                <pre>$(elem).scroll();</pre>
-                <pre>$(elem).scroll({left:100, top: 500});</pre>
+                <pre>$("#elem").scroll();</pre>
+                <pre>$("#elem").scroll({left:100, top: 500});</pre>
             </td>
         </tr>
     </table>
@@ -330,42 +326,37 @@
             <td><code><em>dom</em>.animate</code></td>
             <td>自定义特效</td>
             <td>
-                <pre>$(elem).animate('auto', {height: '400px'});</pre>
-                <pre>$(elem).animate({transform: 'rotate(45deg)'});</pre>
+                <pre>$("#elem").animate('auto', {height: '400px'});</pre>
+                <pre>$("#elem").animate({transform: 'rotate(45deg)'});</pre>
             </td>
         </tr>
         <tr>
             <td><code><em>dom</em>.isHidden</code></td>
             <td>判断是否隐藏</td>
-            <td><pre>$(elem).isHidden();</pre></td>
+            <td><pre>$("#elem").isHidden();</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.show</code></td>
             <td>显示</td>
-            <td><pre>$(elem).show();</pre></td>
+            <td><pre>$("#elem").show();</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.hide</code></td>
             <td>隐藏</td>
-            <td><pre>$(elem).hide();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.hide</code></td>
-            <td>隐藏</td>
-            <td><pre>$(elem).hide();</pre></td>
+            <td><pre>$("#elem").hide();</pre></td>
         </tr>
         <tr>
             <td><code><em>dom</em>.toggle</code></td>
             <td>切换显示</td>
             <td class="doc">
                 <h5>折叠/展开</h5>
-                <pre>$(elem).toggle('height');</pre>
+                <pre>$("#elem").toggle('height');</pre>
 
                 <h5>深入/淡出</h5>
-                <pre>$(elem).toggle('opacity');</pre>
+                <pre>$("#elem").toggle('opacity');</pre>
 
                 <h5>缩小/放大</h5>
-                <pre>$(elem).toggle('scale');</pre>
+                <pre>$("#elem").toggle('scale');</pre>
             </td>
         </tr>
     </table>
@@ -380,27 +371,27 @@
         <tr>
             <td><code>Dom.data</code></td>
             <td>获取数据</td>
-            <td><pre>Dom.data(elem)</pre></td>
+            <td><pre>Dom.data(document.getElementById('elem'))</pre></td>
         </tr>
         <tr>
             <td><code>Dom.closest</code></td>
             <td>获取最近节点</td>
-            <td><pre>Dom.closest(elem, 'body')</pre></td>
+            <td><pre>Dom.closest(document.getElementById('elem'), 'body')</pre></td>
         </tr>
         <tr>
             <td><code>Dom.vendor</code></td>
             <td>获取 CSS 属性前缀</td>
-            <td><pre>Dom.vendor(elem, 'transform')</pre></td>
+            <td><pre>Dom.vendor(document.getElementById('elem'), 'transform')</pre></td>
         </tr>
         <tr>
             <td><code>Dom.css</code></td>
             <td>获取当前 CSS</td>
-            <td><pre>Dom.css(elem, 'fontSize')</pre></td>
+            <td><pre>Dom.css(document.getElementById('elem'), 'fontSize')</pre></td>
         </tr>
         <tr>
             <td><code>Dom.calc</code></td>
             <td>计算 CSS 表达式</td>
-            <td><pre>Dom.calc(elem, 'fontSize+lineHeight')</pre></td>
+            <td><pre>Dom.calc(document.getElementById('elem'), 'fontSize+lineHeight')</pre></td>
         </tr>
     </table>
 
@@ -435,7 +426,7 @@
         <li>部分 API 同名但功能不同。比如 <code>first</code> 在 jQuery 获取集合第一个元素，然并卵，所以在 TealUI.Dom 则是获取第一个元素的第一个子节点。其它的区别我们将在下表给出。</li>
     </ol>
 
-    <table>
+    <table class="doc-fill">
         <tr>
             <th>API</th>
             <th>TealUI.Dom</th>
@@ -490,7 +481,7 @@
 
     <h2>TealUI.Dom 和 Zepto、jQuery 的特性比较</h2>
 
-    <table>
+    <table class="doc-fill">
         <tr>
             <th>特性</th>
             <th>TealUI.Dom</th>
@@ -555,5 +546,6 @@
             <td>✔</td>
         </tr>
     </table>
+
 </body>
 </html>

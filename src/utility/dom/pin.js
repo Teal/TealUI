@@ -50,13 +50,12 @@
  * 其中，offsetX 和 offsetY 表示为适应屏幕而导致位置发生的偏移量。如果未偏移则为 undefined。
  * 其中，overflowX 和 overflowY 表示为超过屏幕大小而产生越界，对应的值表示容器的最大值。如果未越界则为 undefined。
  */
-Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, overflowCallback) {
+Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, callback) {
 
     // allowReset 意义：
     //     第一次：undefined, 根据 align 判断是否允许。
     //     第二次：true。
     //     第三次：false。
-
     var aligns = Dom._aligns || (Dom._aligns = {
             bl: 'lrbb',
             lt: 'lltb',
@@ -71,13 +70,13 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
             t: 'cctt',
             tl: 'lltt'
         }),
+        containerRect = container && container.left != null && container.width != null ? container : Dom(container || document).rect(),
         targetRect = target instanceof Event ? {
             left: target.pageX,
             top: target.pageY,
             width: 0,
             height: 0
         } : Dom(target).rect(),
-        containerRect = container && container.left != null && container.width != null ? container : Dom(container || document).rect(),
         fixType = align.length < 3 ? 1 : 0;
 
     // 处理允许翻转的水平位置。
@@ -126,7 +125,7 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
                 }
 
                 // 翻转位置重新定位。
-                fixType = proc(xOrY, leftOrTop, widthOrHeight, offset, 5 - pos, 2);
+                fixType = proc(xOrY, leftOrTop, widthOrHeight, offset, 5 - pos, 2, rect);
                 rect['offset' + xOrY] = fixType - result;
                 result = fixType;
 
@@ -143,7 +142,6 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
     containerRect.width -= padding * 2;
     containerRect.top += padding;
     containerRect.height -= padding * 2;
-
     return this.each(function (elem) {
         elem = Dom(elem);
         var rect = elem.rect();
@@ -154,7 +152,7 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
         delete rect.height;
         elem.rect(rect);
 
-        overflowCallback && (rect.overflowX || rect.overflowY) && overflowCallback.call(elem, rect);
+        callback && callback.call(elem, rect);
     });
 
 };

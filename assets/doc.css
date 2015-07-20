@@ -141,6 +141,7 @@
     border: 1px solid #DADADA;
     padding: 8px 12px;
     position: relative;
+    word-break: break-word;
 }
 
     .doc > blockquote:after {
@@ -469,6 +470,20 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
     .doc-api pre:last-child {
         margin: 0;
     }
+
+.doc-scrollable-horizional {
+    overflow-x: auto;
+}
+
+.doc-fill {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.doc-fill * {
+    word-break: break-word;
+}
+
 /* #endregion */
 
 /* #region 图标 */
@@ -525,8 +540,8 @@ a .doc-icon {
     /* 解决 Chrome fixed 抖动问题 */
     -webkit-transform: translateZ(0);
     width: 0;
-    height: 1px;
-    background-color: #00796B;
+    height: 2px;
+    background-color: #B2DFDB;
     top: 0;
     left: 0;
 }

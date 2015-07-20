@@ -415,7 +415,7 @@ Dom.toggleFx = {
 
 Dom.init.prototype = Dom.prototype = {
 
-    // #region 集合
+    // #region 集合操作
 
     /**
      * 获取当前集合的长度。
@@ -679,52 +679,6 @@ Dom.init.prototype = Dom.prototype = {
 
     // #endregion
 
-    // #region @类
-
-    /**
-     * 判断是否含指定类名。
-     * @param {String} className 一个 CSS 类名。
-     * @return {Boolean}
-     */
-    hasClass: function (className) {
-        return this[0] && this[0].classList.contains(className);
-    },
-
-    /**
-     * 添加指定的 CSS 类名。
-     * @param {String} className 一个 CSS 类名。
-     * @return this
-     */
-    addClass: function (className) {
-        return this.each(function (elem) {
-            elem.classList.add(className);
-        })
-    },
-
-    /**
-     * 从指定节点中删除指定的类。
-     * @param {String} className 一个 CSS 类名。
-     * @return this
-     */
-    removeClass: function (className) {
-        return this.each(function (elem) {
-            elem.classList.remove(className);
-        })
-    },
-
-    /**
-     * 如果存在（不存在）就删除（添加）一个类。
-     * @param {String} className 一个 CSS 类名。
-     * @return this
-     */
-    toggleClass: function (className, value) {
-        return this.each(function (elem) {
-            elem.classList[(value === undefined ? !Dom(elem).hasClass() : value) ? 'add' : 'remove'](className);
-        });
-    },
-
-    // #endregion
-
     // #region @遍历
 
     /**
@@ -790,15 +744,6 @@ Dom.init.prototype = Dom.prototype = {
      */
     closest: function (selector, context) {
         return Dom(this[0] && Dom.closest(this[0], selector, Dom(context)[0]));
-    },
-
-    /**
-     * 检查当前 Dom 对象是否包含指定的子节点。
-     * @param {String} selector 判断的选择器。
-     * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
-     */
-    contains: function (child) {
-        return this[0] && this[0].contains(child);
     },
 
     /**
@@ -882,6 +827,52 @@ Dom.init.prototype = Dom.prototype = {
 
     // #endregion
 
+    // #region @CSS类
+
+    /**
+     * 判断是否含指定类名。
+     * @param {String} className 一个 CSS 类名。
+     * @return {Boolean}
+     */
+    hasClass: function (className) {
+        return this[0] && this[0].classList.contains(className);
+    },
+
+    /**
+     * 添加指定的 CSS 类名。
+     * @param {String} className 一个 CSS 类名。
+     * @return this
+     */
+    addClass: function (className) {
+        return this.each(function (elem) {
+            elem.classList.add(className);
+        })
+    },
+
+    /**
+     * 从指定节点中删除指定的类。
+     * @param {String} className 一个 CSS 类名。
+     * @return this
+     */
+    removeClass: function (className) {
+        return this.each(function (elem) {
+            elem.classList.remove(className);
+        })
+    },
+
+    /**
+     * 如果存在（不存在）就删除（添加）一个类。
+     * @param {String} className 一个 CSS 类名。
+     * @return this
+     */
+    toggleClass: function (className, value) {
+        return this.each(function (elem) {
+            elem.classList[(value === undefined ? !Dom(elem).hasClass() : value) ? 'add' : 'remove'](className);
+        });
+    },
+
+    // #endregion
+
     // #region @样式
 
     /**
@@ -934,7 +925,7 @@ Dom.init.prototype = Dom.prototype = {
 
     // #endregion
 
-    // #region @尺寸和定位
+    // #region @位置
 
     /**
      * 获取指定节点的区域。
@@ -1039,7 +1030,7 @@ Dom.init.prototype = Dom.prototype = {
                 // 绝对定位需要返回绝对位置。
                 top = this.offsetParent();
                 left = this.rect();
-                if (p.nodeName !== 'HTML') {
+                if (top[0].nodeName !== 'HTML') {
                     var t = top.rect();
                     left.left -= t.left;
                     left.top -= t.top;
