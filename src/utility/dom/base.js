@@ -86,7 +86,7 @@ Dom.vendor = function (elem, cssPropertyName) {
         var capName = cssPropertyName.charAt(0).toUpperCase() + cssPropertyName.slice(1),
             prefix;
 
-        for (prefix in { Webkit: 1, Moz: 1, ms: 1, O: 1 }) {
+        for (prefix in { webkit: 1, Moz: 1, ms: 1, O: 1 }) {
             if ((prefix + capName) in elem.style) {
                 return prefix + capName;
             }
@@ -1248,13 +1248,15 @@ Dom.init.prototype = Dom.prototype = {
                 var transitions = '';
                 for (key in transitionContext) {
                     if (transitions) transitions += ',';
-                    transitions += key.replace(/([A-Z]|^ms)/g, function (word) {
+                    transitions += Dom.vendor(elem, key).replace(/([A-Z]|^ms|^webkit)/g, function (word) {
                         return '-' + word.toLowerCase();
                     }) + ' ' + duration + 'ms ' + ease;
                 }
                 elem.style[fxOptions.transition] = transitions;
                 //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
             }
+
+
 
         });
 

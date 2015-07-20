@@ -19,6 +19,45 @@
     <div id="elem" class="doc-box"><a>#elem</a></div>
 
     <h2>滑动 <small>(源码: <a href="../../utility/dom/swipe.js" target="_blank">utility/dom/swipe.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.swippable</code></td>
+            <td>旋转指定对象</td>
+            <td>
+                <pre>var elem = document.getElementById('elem');
+                var log = document.getElementById('log');
+                elem.swippable({
+                    onSwipeStart: function () {
+                        log.innerHTML = '开始滑动';
+                    }, 
+                    onSwipeMove: function () {
+                        if (this.state === 1) {
+                            log.innerHTML = '正在水平滑动：' + this.endX;
+                        } else {
+                            log.innerHTML = '正在垂直滑动：' + this.endY;
+                        }
+                    },
+                    onTap: function() {
+                        log.innerHTML = '按下';
+                    },
+                    onLongTap: function () {
+                        log.innerHTML = '长按';
+                    },
+                    onShortTap: function () {
+                        log.innerHTML = '短按';
+                    },
+                    onSwipeEnd: function () {
+                        log.innerHTML = '滑动结束';
+                    }
+        });</pre>
+            </td>
+        </tr>
+    </table>
 
     <h2>转动 <small>(源码: <a href="../../utility/dom/touchRotate.js" target="_blank">utility/dom/touchRotate.js</a>)</small></h2>
     <table class="doc-api">

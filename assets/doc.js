@@ -2283,7 +2283,7 @@ trace.write = function () {
         r[i] = trace.dump(arguments[i]);
     }
 
-    window.alert(r.join(' '));
+    window.alert(r.join('    '));
 };
 
 /**
@@ -2294,8 +2294,7 @@ trace.write = function () {
  */
 trace.dump = function (obj, deep, showArrayPlain) {
 
-    if (deep == null)
-        deep = 3;
+    if (deep == null)  deep = 3;
 
     switch (typeof obj) {
         case "function":
@@ -2310,7 +2309,7 @@ trace.dump = function (obj, deep, showArrayPlain) {
             if (typeof obj.length === "number") {
                 var r = [];
                 for (var i = 0; i < obj.length; i++) {
-                    r.push(trace.inspect(obj[i], ++deep));
+                    r.push(trace.dump(obj[i], ++deep));
                 }
                 return showArrayPlain ? r.join("   ") : ("[" + r.join(", ") + "]");
             } else {
@@ -2340,14 +2339,14 @@ trace.dump = function (obj, deep, showArrayPlain) {
                 var r = "{\r\n", i, flag = 0;
                 for (i in obj) {
                     if (typeof obj[i] !== 'function')
-                        r += "\t" + i + " = " + trace.inspect(obj[i], deep - 1) + "\r\n";
+                        r += "    " + i + " = " + trace.dump(obj[i], deep - 1) + "\r\n";
                     else {
                         flag++;
                     }
                 }
 
                 if (flag) {
-                    r += '\t... (' + flag + ' more)\r\n';
+                    r += '    ... (' + flag + ' more)\r\n';
                 }
 
                 r += "}";
@@ -2463,6 +2462,5 @@ trace.time = function (fn) {
     }
     return trace.info("[TIME] " + past / time);
 };
-
 
 // #endregion
