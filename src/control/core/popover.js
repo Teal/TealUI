@@ -272,7 +272,7 @@ var Popover = Control.extend({
 
     /**
      * 显示当前浮层。
-     * @return this
+     * @returns this
      */
     show: function (e) {
         var me = this;
@@ -285,7 +285,7 @@ var Popover = Control.extend({
 
     /**
      * 隐藏当前浮层。
-     * @return this
+     * @returns this
      */
     hide: function (e) {
         var me = this;
@@ -297,7 +297,7 @@ var Popover = Control.extend({
 
     /**
      * 判断当前浮层是否被隐藏。
-     * @return {Boolean} 如果浮层已经被隐藏，则返回 true。
+     * @returns {Boolean} 如果浮层已经被隐藏，则返回 true。
      * @protected virtual
      */
     isHidden: function () {
@@ -306,7 +306,7 @@ var Popover = Control.extend({
 
     /**
      * 切换显示下拉菜单。
-     * @return this
+     * @returns this
      */
     toggle: function (e) {
         return this.isHidden() ? this.show(e) : this.hide(e);

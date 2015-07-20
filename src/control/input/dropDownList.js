@@ -22,7 +22,7 @@ var DropDownList = ComboBox.extend({
 
 	/**
 	 * 获取当前输入域实际用于提交数据的表单域。
-	 * @return {Dom} 一个用于提交表单的数据域。
+	 * @returns {Dom} 一个用于提交表单的数据域。
      * @remark 此函数会在当前控件内搜索可用于提交的表单域，如果找不到，则创建返回一个 input[type=hidden] 表单域。
 	 * @protected override
 	 */
@@ -100,7 +100,7 @@ var DropDownList = ComboBox.extend({
 
 	/**
 	 * 获取当前选中的项。如果不存在选中的项，则返回 null 。
-	 * @return {Control} 选中的项。
+	 * @returns {Control} 选中的项。
 	 */
 	getSelectedItem: function () {
 

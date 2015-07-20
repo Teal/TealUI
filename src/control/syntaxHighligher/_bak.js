@@ -131,7 +131,7 @@ Doc.SyntaxHighligher = {
     /**
      * 根据源码猜测对应的刷子。
      * @param {String} sourceCode 需要高亮的源码。
-     * @return {String} 返回一个语言名。
+     * @returns {String} 返回一个语言名。
      */
     guessLanguage: function (sourceCode) {
         // Treat it as markup if the first non whitespace character is a < and

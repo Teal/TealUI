@@ -87,7 +87,7 @@ var Tpl = {
      * @param {Object} data 数据。
      * @param {Object} scope 模板中 this 的指向。
      * @param {String?} cacheKey = tplSource 表示当前模板的键，主要用于缓存。
-     * @return {String} 返回解析后的模板内容。 
+     * @returns {String} 返回解析后的模板内容。 
      */
     parse: function (/*String*/tplSource, data, scope/*=window*/, /*String?*/cacheKey) {
         return Tpl.compile(tplSource, cacheKey).call(scope, data);

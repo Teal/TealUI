@@ -89,7 +89,7 @@ var Ajax = (function () {
 		 * - stop: 正常中断上个任务，上个操作的回调被立即执行，然后执行当前任务。
 		 * - abort: 强制停止上个任务，上个操作的回调被忽略，然后执行当前任务。
 		 * - replace: 替换上个任务为新的任务，上个任务的回调将被复制。
-		 * @return this
+		 * @returns this
 		 */
         send: function (xhrObject, link) {
             var me = this, parts;
@@ -137,7 +137,7 @@ var Ajax = (function () {
         /**
 		 * 停止当前的请求。
 		 * @protected override
-		 * @return this
+		 * @returns this
 		 */
         pause: function () {
             if (this.callback)
@@ -204,7 +204,7 @@ var Ajax = (function () {
         /**
 		 * 返回变量的地址形式。
 		 * @param {Object} obj 变量。
-		 * @return {String} 字符串。
+		 * @returns {String} 字符串。
 		 * @example <pre>
 		 * Ajax.param({a: 4, g: 7}); //  a=4&g=7
 		 * </pre>
@@ -236,7 +236,7 @@ var Ajax = (function () {
         /**
 		 * 判断一个 HTTP 状态码是否表示正常响应。
 		 * @param {Number} status 要判断的状态码。
-		 * @return {Boolean} 如果正常则返回true, 否则返回 false 。
+		 * @returns {Boolean} 如果正常则返回true, 否则返回 false 。
 		 * @remark 一般地， 200、304、1223 被认为是正常的状态吗。
 		 */
         checkStatus: function (status) {
@@ -257,7 +257,7 @@ var Ajax = (function () {
 
         /**
 		 * 初始化一个 XMLHttpRequest 对象。
-		 * @return {XMLHttpRequest} 请求的对象。
+		 * @returns {XMLHttpRequest} 请求的对象。
 		 */
         createNativeRequest: window.ActiveXObject ? function () {
             return new ActiveXObject("Microsoft.XMLHTTP");

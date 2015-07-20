@@ -7,7 +7,7 @@
 /**
  * 计算一个字符串的 MD5值。
  * @param {String} s 字符串。
- * @return {String} md5 字符串。
+ * @returns {String} md5 字符串。
  */
 md5.hmacMd5 = function (s, key) {
     return md5.binaryToString(md5.hmacMd5c(s, key));
@@ -37,7 +37,7 @@ md5.hmacMd5c = function (s, key) {
 /**
  * 计算一个字符串的 MD5值。
  * @param {String} s 字符串。
- * @return {String} md5 字符串。
+ * @returns {String} md5 字符串。
  */
 md5.base64Md5 = function (s) {
     return md5.binaryToBase64(md5.calc(md5.stringToBinary(s), s.length * md5.charSize));
@@ -66,7 +66,7 @@ md5.binaryToBase64 = function (binArray, base64Pad) {
 /**
  * 计算一个字符串的 MD5值。
  * @param {String} s 字符串。
- * @return {String} md5 字符串。
+ * @returns {String} md5 字符串。
  */
 md5.base64HmacMd5 = function (s, key) {
     return md5.binaryToBase64(md5.hmacMd5c(s, key));

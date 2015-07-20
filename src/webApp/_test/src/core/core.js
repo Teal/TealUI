@@ -6,7 +6,7 @@
  * 复制对象的所有属性到其它对象。
  * @param {Object} dest 复制的目标对象。
  * @param {Object} src 复制的源对象。
- * @return {Object} 返回  *dest *。
+ * @returns {Object} 返回  *dest *。
  * @example <pre>
  * var a = {v: 3}, b = {g: 2};
  * Object.extend(a, b);
@@ -29,7 +29,7 @@ Object.extend = function (dest, src) {
  *
  * 可以让函数返回 **false** 来强制中止循环。
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
+ * @returns {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
  * @see Array#forEach
  * @example
  * <pre>
@@ -62,7 +62,7 @@ Object.each = function (iterable, /*Function*/fn, scope/*=window*/) {
  * 格式化指定的字符串。
  * @param {String} formatString 要格式化的字符串。格式化的方式见备注。
  * @param {Object} ... 格式化参数。
- * @return {String} 格式化后的字符串。
+ * @returns {String} 格式化后的字符串。
  * @remark 
  * 
  * 格式化字符串中，使用 {0} {1} ... 等元字符来表示传递给 String.format 用于格式化的参数。
@@ -96,7 +96,7 @@ String.format = function (/*String?*/formatString/*, ...*/) {
  * 删除当前数组中指定的元素。
  * @param {Object} value 要删除的值。
  * @param {Number} startIndex=0 开始搜索 *value* 的起始位置。
- * @return {Number} 被删除的值在原数组中的位置。如果要擅长的值不存在，则返回 -1 。
+ * @returns {Number} 被删除的值在原数组中的位置。如果要擅长的值不存在，则返回 -1 。
  * @remark
  * 如果数组中有多个相同的值， remove 只删除第一个。
  * @example
@@ -133,7 +133,7 @@ Array.prototype.unique = function () {
 /**
  * 改写 Date.toString 以实现支持 yyyy/MM/dd hh:mm:ss 格式化时间。
  * @param {String} format 格式。
- * @return {String} 字符串。
+ * @returns {String} 字符串。
  */
 Date.prototype.toString = (function () {
     var nativeToString = Date.prototype.toString,

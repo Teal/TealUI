@@ -9,7 +9,7 @@
  * 将一个类数组对象转为原生数组。
  * @param {Object} iterable 一个伪数组对象。
  * @param {Number} startIndex=0 转换开始的位置。
- * @return {Array} 返回新数组，其值和 *value* 一一对应。
+ * @returns {Array} 返回新数组，其值和 *value* 一一对应。
  * @remark iterable 不支持原生的 DomList 对象。
  * @example
  * <pre>
@@ -54,7 +54,7 @@ Array.parseArray = function (iterable, startIndex) {
  * - {Array} array 当前正在遍历的数组。
  *
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Boolean} 全部满足返回 true 否则返回 false。
+ * @returns {Boolean} 全部满足返回 true 否则返回 false。
  */
 Array.prototype.every = Array.prototype.every || function(fn, scope) {
     for (var i = 0, l = this.length; i < l; i++)
@@ -76,7 +76,7 @@ Array.prototype.every = Array.prototype.every || function(fn, scope) {
  * - {Array} array 当前正在遍历的数组。
  *
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Boolean} 部分满足返回 true 否则返回 false。
+ * @returns {Boolean} 部分满足返回 true 否则返回 false。
  */
 Array.prototype.some = Array.prototype.some || function(fn, scope) {
     for (var i = 0, l = this.length; i < l; i++)
@@ -98,7 +98,7 @@ Array.prototype.some = Array.prototype.some || function(fn, scope) {
  * - {Array} array 当前正在遍历的数组。
  *
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Boolean} 部分满足返回 true 否则返回 false。
+ * @returns {Boolean} 部分满足返回 true 否则返回 false。
  */
 Array.prototype.map = Array.prototype.map || function(fn, scope) {
     var result = [];
@@ -114,7 +114,7 @@ Array.prototype.map = Array.prototype.map || function(fn, scope) {
 /**
  * 合并两个数组。
  * @param {Array} array 数组。
- * @return {Array} 返回新数组。
+ * @returns {Array} 返回新数组。
  */
 Array.prototype.concat = Array.prototype.concat || function(array) {
     var arr = this.slice(0);
@@ -130,7 +130,7 @@ Array.prototype.concat = Array.prototype.concat || function(array) {
  * 将指定的值插入到当前数组的指定位置。
  * @param {Number} index 要插入的位置。索引从 0 开始。如果 *index* 大于数组的长度，则插入到末尾。
  * @param {Object} value 要插入的内容。
- * @return {Object} 返回 value。
+ * @returns {Object} 返回 value。
  * @example
  * <pre>
  * ["I", "you"].insert(1, "love"); //   ["I", "love", "you"]
@@ -147,7 +147,7 @@ Array.prototype.insert = function (index, value) {
 
 /**
  * 删除数组中的空值。
- * @return {Array} 返回新数组。
+ * @returns {Array} 返回新数组。
  */
 Array.prototype.clean = function() {
     return this.filter(function(obj){return !obj});
@@ -159,7 +159,7 @@ Array.prototype.clean = function() {
 
 /**
  * 获取数组中的最小值。
- * @return {Number} 返回数组中的最小值。
+ * @returns {Number} 返回数组中的最小值。
  */
 Array.prototype.min = function(){
     return Math.min.apply(null, this);
@@ -167,7 +167,7 @@ Array.prototype.min = function(){
 
 /**
  * 获取数组中的最大值。
- * @return {Number} 返回数组中的最大值。
+ * @returns {Number} 返回数组中的最大值。
  */
 Array.prototype.max = function(){
     return Math.max.apply(null, this);
@@ -179,7 +179,7 @@ Array.prototype.max = function(){
 
 /**
  * 获取数组中的和。
- * @return {Number} 返回数组中的最大值。
+ * @returns {Number} 返回数组中的最大值。
  */
 Array.prototype.sum = function(){
     var result = 0, i = this.length;
@@ -193,7 +193,7 @@ Array.prototype.sum = function(){
 
 /**
  * 获取数组中的算术平均值。
- * @return {Number} 返回数组中的最大值。
+ * @returns {Number} 返回数组中的最大值。
  */
 Array.prototype.avg = function () {
     var result = 0, i = this.length, c = 0;
@@ -212,7 +212,7 @@ Array.prototype.avg = function () {
 
 /**
  * 将数组中的值和指定的键表组合为对象。
- * @return {Number} 返回数组中的最大值。
+ * @returns {Number} 返回数组中的最大值。
  */
 Array.prototype.associate = function(keys){
     var obj = {}, length = Math.min(this.length, keys.length);
@@ -226,7 +226,7 @@ Array.prototype.associate = function(keys){
 
 /**
  * 清空数组。
- * @return this
+ * @returns this
  */
 Array.prototype.clear = function(keys){
     this.length = 0;
@@ -239,7 +239,7 @@ Array.prototype.clear = function(keys){
 
 /**
  * 获取数组中第一个不为空的元素。
- * @return {Object} 返回结果。
+ * @returns {Object} 返回结果。
  */
 Array.prototype.pick = function(keys){
     for (var i = 0, l = this.length; i < l; i++)
@@ -254,7 +254,7 @@ Array.prototype.pick = function(keys){
 
 /**
  * 返回数组的随机位置的值。
- * @return {Object} 返回结果。
+ * @returns {Object} 返回结果。
  */
 Array.prototype.random = function(){
     return this.length ? this[Math.floor(this.length * Math.random())] : null;
@@ -266,7 +266,7 @@ Array.prototype.random = function(){
 
 /**
  * 随机打乱数组的内容。
- * @return {Array} 返回结果。
+ * @returns {Array} 返回结果。
  */
 Array.prototype.shuffle = function(){
     for (var i = this.length; --i >= 0;){
@@ -283,7 +283,7 @@ Array.prototype.shuffle = function(){
 
 /**
  * 将多维数组合并为一维数组。
- * @return {Array} 返回结果。
+ * @returns {Array} 返回结果。
  */
 Array.prototype.flatten = function(){
     var result = [];
@@ -301,7 +301,7 @@ Array.prototype.flatten = function(){
 
 /**
  * 检查数组中是否存在重复值。
- * @return {Boolean} 若数组中存在重复值，则返回 true，否则返回 false。
+ * @returns {Boolean} 若数组中存在重复值，则返回 true，否则返回 false。
  */
 Array.prototype.checkRepeat = function(){
    for (var i = 0; i < this.length - 1; i++)
@@ -318,7 +318,7 @@ Array.prototype.checkRepeat = function(){
 /**
  * 将当前数组中减去另一个数组的元素，返回剩下的元素数组。
  * @param {Array} array 数组。
- * @return {Array} 返回结果。
+ * @returns {Array} 返回结果。
  */
 Array.prototype.sub = function(array){
     var clone = this.slice(0),
@@ -345,7 +345,7 @@ Array.prototype.sub = function(array){
 /**
  * 如果不存在则添加。
  * @param {Array} item 元素。
- * @return {Array} 返回新长度。
+ * @returns {Array} 返回新长度。
  */
 Array.prototype.pushIf = function(item) {
     return this.indexOf(item) < 0 ? this.push(item) : this.length;

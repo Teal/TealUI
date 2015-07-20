@@ -8,7 +8,7 @@
 /**
  * 将日期对象格式化为字符串。
  * @param {String} format 日期的格式。默认为 yyyy/MM/dd HH:mm:ss。y: 年, M: 月, d: 天, H: 小时（24小时制）,m:分, s:秒, e:星期
- * @return {String} 格式化后的字符串。
+ * @returns {String} 格式化后的字符串。
  */
 Date.prototype.format = function (format) {
     var formators = Date._formators;

@@ -5,7 +5,7 @@
 /**
  * 返回一个表单的参数表示形式。
  * @param {HTMLFormElement} formElem 表单元素。
- * @return {String} 参数形式。
+ * @returns {String} 参数形式。
  */
 Ajax.paramForm = function(formElem) {
 	//assert(formElem && formElem.tagName == "FORM", "HTMLFormElement.param(formElem): 参数 {formElem} 不是合法的 表单 元素", formElem);

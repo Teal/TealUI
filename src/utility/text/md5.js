@@ -5,7 +5,7 @@
 /**
  * 计算一个字符串的 MD5 值。
  * @param {String} s 要计算的字符串。
- * @return {String} md5 字符串。
+ * @returns {String} md5 字符串。
  */
 function md5(s) {
     return md5.binaryToString(md5.calc(md5.stringToBinary(s), s.length * md5.charSize));
@@ -131,7 +131,7 @@ md5.calc = function (binArray, length) {
 /**
  * 转换数组到十六进的字符串。
  * @param {Array} 二进制数组。
- * @return {String} 字符串。
+ * @returns {String} 字符串。
  */
 md5.binaryToString = function (binArray) {
     var result = "",

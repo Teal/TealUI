@@ -9,7 +9,7 @@
  * 查询 CSS 选择器匹配的所有节点；解析一个 HTML 字符串生成对应的节点；绑定一个 DOM Ready 回调。
  * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
  * @param {Document} context 执行的上下文文档。
- * @return {Dom} 返回匹配的节点列表。
+ * @returns {Dom} 返回匹配的节点列表。
  */
 function Dom(selector, context) {
     return new Dom.init(selector || 0, context || document);
@@ -19,7 +19,7 @@ function Dom(selector, context) {
  * 查询 CSS 选择器匹配的所有节点；解析一个 HTML 字符串生成对应的节点；绑定一个 DOM Ready 回调。
  * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
  * @param {Document} context 执行的上下文文档。
- * @return {Dom} 返回匹配的节点列表。
+ * @returns {Dom} 返回匹配的节点列表。
  */
 Dom.init = function (selector, context) {
 
@@ -67,7 +67,7 @@ Dom.data = function (elem) {
  * @param {Node} node 节点。
  * @param {String} selector 用于判断的元素的 CSS 选择器。
  * @param {Node} [context=document] 只在指定的节点内搜索此元素。
- * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+ * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
  */
 Dom.closest = function (node, selector, context) {
     while (node && node != context && !node.matches(selector))
@@ -118,7 +118,7 @@ Dom.styleNumbers = {
  * @param {Element} elem 要获取或设置的元素。
  * @param {String} name cssPropertyName 属性名或 CSS 字符串。
  * @param {String/Number} [value] CSS属性值， 数字如果不加单位，则会自动添加像素单位。
- * @return {String} 返回值。
+ * @returns {String} 返回值。
  */
 Dom.css = function (elem, cssPropertyName, value) {
 
@@ -224,7 +224,7 @@ Dom.css = function (elem, cssPropertyName, value) {
  * 计算一个元素的样式表达式。
  * @param {Element} elem 要获取的元素。
  * @param {String} expression 要计算的表达式。其中使用变量代表 CSS 属性值，如 "width+paddingLeft"。
- * @return {Number} 返回计算的值。
+ * @returns {Number} 返回计算的值。
  */
 Dom.calc = function (elem, expression) {
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/
@@ -446,7 +446,7 @@ Dom.init.prototype = Dom.prototype = {
      *
      * 可以让函数返回 **false** 来强制中止循环。
      * @param {Object} [scope] 定义 *callback* 执行时 **this** 的值。
-     * @return this。
+     * @returns this。
      */
     each: function (callback, scope) {
         for (var i = 0, node; (node = this[i]) && callback.call(scope, node, i, this) !== false; i++);
@@ -463,7 +463,7 @@ Dom.init.prototype = Dom.prototype = {
      *
      * 函数应返回匹配的节点。
      * @param {Object} [scope] 定义 *callback* 执行时 **this** 的值。
-     * @return {Dom} 返回新集合。
+     * @returns {Dom} 返回新集合。
      */
     map: function (callback, scope) {
         var newDom = Dom(), i = 0, node;
@@ -476,7 +476,7 @@ Dom.init.prototype = Dom.prototype = {
      * 过滤当前节点列表，返回符合要求的元素的新集合。
      * @param {String/Function} selector 过滤的选择器或函数。
      * @param {Object} [scope] 定义 *callback* 执行时 **this** 的值。
-     * @return {Dom} 返回新集合。
+     * @returns {Dom} 返回新集合。
      */
     filter: function (selector, scope, not) {
         not = not || false;
@@ -489,7 +489,7 @@ Dom.init.prototype = Dom.prototype = {
      * 过滤当前节点列表，返回不符合要求的元素的新集合。
      * @param {String/Function} selector 过滤的选择器或函数。
      * @param {Object} [scope] 定义 *callback* 执行时 **this** 的值。
-     * @return {Dom} 返回新集合。
+     * @returns {Dom} 返回新集合。
      */
     not: function (selector, scope) {
         return this.filter(selector, scope, true);
@@ -510,7 +510,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 检查当前 Dom 对象是否符合指定的表达式。
      * @param {String} selector 判断的选择器。
-     * @return {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
+     * @returns {Boolean} 如果匹配表达式就返回 true，否则返回  false 。
      */
     is: function (selector) {
         return this[0] && this[0].matches(selector);
@@ -684,7 +684,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取第一个子节点对象。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     first: function (selector) {
         return Dom(this[0] && this[0].firstElementChild).filter(selector);
@@ -693,7 +693,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取最后一个子节点对象。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     last: function (selector) {
         return Dom(this[0] && this[0].lastElementChild).filter(selector);
@@ -702,7 +702,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取下一个相邻节点对象。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     next: function (selector) {
         return Dom(this[0] && this[0].nextElementSibling).filter(selector);
@@ -711,7 +711,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取上一个相邻的节点对象。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     prev: function (selector) {
         return Dom(this[0] && this[0].previousElementSibling).filter(selector);
@@ -720,7 +720,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取直接父节点对象。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     parent: function (selector) {
         return Dom(this[0] && this[0].parentNode).filter(selector);
@@ -729,7 +729,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取全部直接子节点。
      * @param {String/Function} [filter] 用于查找子元素的 CSS 选择器 或者 用于筛选元素的过滤函数。
-     * @return {Dom} 返回节点列表。
+     * @returns {Dom} 返回节点列表。
      */
     children: function (selector) {
         return Dom(this[0] && this[0].children).filter(selector);
@@ -740,7 +740,7 @@ Dom.init.prototype = Dom.prototype = {
      * @param {Node} node 节点。
      * @param {String} selector 用于判断的元素的 CSS 选择器。
      * @param {Node} [context=document] 只在指定的节点内搜索此元素。
-     * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+     * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
      */
     closest: function (selector, context) {
         return Dom(this[0] && Dom.closest(this[0], selector, Dom(context)[0]));
@@ -748,7 +748,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 获取当前节点在父节点的索引。
-     * @return {Number} 返回索引。
+     * @returns {Number} 返回索引。
      */
     index: function () {
         var node = this[0], i = 0;
@@ -765,7 +765,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 插入一段 HTML 到末尾。
      * @param {String} html 要插入的内容。
-     * @return {Dom} 返回插入的新节点对象。
+     * @returns {Dom} 返回插入的新节点对象。
      */
     append: function (html) {
         var parent = this[0];
@@ -777,7 +777,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 插入一段 HTML 到顶部。
      * @param {String} html 要插入的内容。
-     * @return {Dom} 返回插入的新节点对象。
+     * @returns {Dom} 返回插入的新节点对象。
      */
     prepend: function (html) {
         var parent = this[0], c = parent.firstChild;
@@ -789,7 +789,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 插入一段 HTML 到前面。
      * @param {String} html 要插入的内容。
-     * @return {Dom} 返回插入的新节点对象。
+     * @returns {Dom} 返回插入的新节点对象。
      */
     before: function (html) {
         var parent = this[0];
@@ -801,7 +801,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 插入一段 HTML 到后面。
      * @param {String} html 要插入的内容。
-     * @return {Dom} 返回插入的新节点对象。
+     * @returns {Dom} 返回插入的新节点对象。
      */
     after: function (html) {
         return this[0] && this[0].nextSibling ? this.before(html) : this.parent().append(html);
@@ -832,7 +832,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 判断是否含指定类名。
      * @param {String} className 一个 CSS 类名。
-     * @return {Boolean}
+     * @returns {Boolean}
      */
     hasClass: function (className) {
         return this[0] && this[0].classList.contains(className);
@@ -841,7 +841,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 添加指定的 CSS 类名。
      * @param {String} className 一个 CSS 类名。
-     * @return this
+     * @returns this
      */
     addClass: function (className) {
         return this.each(function (elem) {
@@ -852,7 +852,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 从指定节点中删除指定的类。
      * @param {String} className 一个 CSS 类名。
-     * @return this
+     * @returns this
      */
     removeClass: function (className) {
         return this.each(function (elem) {
@@ -863,7 +863,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 如果存在（不存在）就删除（添加）一个类。
      * @param {String} className 一个 CSS 类名。
-     * @return this
+     * @returns this
      */
     toggleClass: function (className, value) {
         return this.each(function (elem) {
@@ -879,7 +879,7 @@ Dom.init.prototype = Dom.prototype = {
      * 获取或设置 CSS 样式。
      * @param {String} cssPropertyName CSS 属性名。
      * @param {String} value 设置的 CSS 属性值。
-     * @return {String} 字符串。
+     * @returns {String} 字符串。
      */
     css: function (cssPropertyName, value) {
         return value === undefined ? this[0] && Dom.css(this[0], cssPropertyName) : this.each(function (elem) {
@@ -895,7 +895,7 @@ Dom.init.prototype = Dom.prototype = {
 	 * 获取或设置属性值。
 	 * @param {String} attrName 要获取的属性名称。
 	 * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-	 * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
+	 * @returns {String} 返回属性值。如果元素没有相应属性，则返回 null 。
 	 * @static
 	 */
     attr: function (attrName, value) {
@@ -908,7 +908,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
 	 * 获取或设置文本。
 	 * @param {String} value 要设置的文本。
-	 * @return {String} 值。对普通节点返回 textContent 属性，对文本框返回 value 属性。
+	 * @returns {String} 值。对普通节点返回 textContent 属性，对文本框返回 value 属性。
 	 */
     text: function (value) {
         return this.attr(this[0] && /^(INPUT|SELECT|TEXTAREA)$/.test(this[0].tagName) ? 'value' : 'textContent', value);
@@ -917,7 +917,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
 	 * 获取或设置 HTML。
 	 * @param {String} value 要设置的 HTML。
-	 * @return {String} 返回内部 HTML 代码。
+	 * @returns {String} 返回内部 HTML 代码。
 	 */
     html: function (value) {
         return this.attr('innerHTML', value);
@@ -929,7 +929,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 获取指定节点的区域。
-     * @return {DOMRect} 返回所在区域。其包含 left, top, width, height 属性。
+     * @returns {DOMRect} 返回所在区域。其包含 left, top, width, height 属性。
      * @remark
      * 此方法对可见和隐藏元素均有效。
      * 获取元素实际占用大小（包括内边距和边框）。
@@ -997,7 +997,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取指定节点的相对位置。
      * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：left 和 top。
+     * @returns {Point} 返回的对象包含两个整型属性：left 和 top。
      * @remark
      * 此方法只对可见元素有效。
      * 
@@ -1053,7 +1053,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 获取用于让指定节点定位的父对象。
-     * @return {Dom} 返回一个节点对象。
+     * @returns {Dom} 返回一个节点对象。
      */
     offsetParent: function () {
         var p = this[0];
@@ -1067,7 +1067,7 @@ Dom.init.prototype = Dom.prototype = {
     /**
      * 获取或设置节点的滚动位置。
      * @param {Point} value 要设置的位置 包含两个整型属性：left 和 top。
-     * @return {Point} 返回的对象包含两个整型属性：left 和 top。
+     * @returns {Point} 返回的对象包含两个整型属性：left 和 top。
      */
     scroll: function (value) {
         if (value === undefined) {
@@ -1262,7 +1262,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 判断是否是隐藏。
-     * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
+     * @returns {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
      */
     isHidden: function () {
         var elem = this[0];
@@ -1385,7 +1385,7 @@ if (!this.$) {
     /**
      * 提供简短调用形式。
      * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
-     * @return {$} 返回 DOM 对象。
+     * @returns {$} 返回 DOM 对象。
      */
     this.$ = Dom;
 }

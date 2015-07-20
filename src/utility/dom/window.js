@@ -96,7 +96,7 @@
 		/**
 		 * 获取元素可视区域大小。
 		 * @method getWindowSize
-		 * @return {Point} 位置。
+		 * @returns {Point} 位置。
 		 */
 		getWindowSize: function() {
 			var win = this.defaultView;
@@ -108,7 +108,7 @@
 		 * @method setWindowSize
 		 * @param {Number} x 大小。
 		 * @param {Number} y 大小。
-		 * @return {Document} this 。
+		 * @returns {Document} this 。
 		 */
 		setWindowSize: function(x, y) {
 			var p = Element.getXY(x, y);

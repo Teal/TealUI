@@ -9,7 +9,7 @@
  * 删除当前数组中指定的元素。
  * @param {Object} value 要删除的值。
  * @param {Number} startIndex=0 开始搜索 *value* 的起始位置。
- * @return {Number} 被删除的值在原数组中的位置。如果要擅长的值不存在，则返回 -1 。
+ * @returns {Number} 被删除的值在原数组中的位置。如果要擅长的值不存在，则返回 -1 。
  * @remark
  * 如果数组中有多个相同的值， remove 只删除第一个。
  * @example

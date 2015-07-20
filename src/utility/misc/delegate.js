@@ -20,7 +20,7 @@ function Delegate() {
 /**
  * 增加一个函数。
  * @param {Function} fn 函数。
- * @return {Delegate} this。
+ * @returns {Delegate} this。
  */
 Delegate.prototype.add = function (fn) {
     this.handlers.push(fn);
@@ -30,7 +30,7 @@ Delegate.prototype.add = function (fn) {
 /**
  * 删除一个函数。
  * @param {Function} fn 函数。
- * @return {Delegate} this。
+ * @returns {Delegate} this。
  */
 Delegate.prototype.remove = function (fn) {
     this.handlers.indexOf(fn) >= 0 && this.handlers.splice(this.handlers.indexOf(fn), 1);
@@ -39,7 +39,7 @@ Delegate.prototype.remove = function (fn) {
 
 /**
  * 删除所有函数。
- * @return {Delegate} this。
+ * @returns {Delegate} this。
  */
 Delegate.prototype.clear = function () {
     this.handlers.length = 0;

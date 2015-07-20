@@ -33,7 +33,7 @@ var Deferrable = Base.extend({
     /**
 	 * 通知当前对象任务已经完成，并继续执行下一个任务。
 	 * @protected
-	 * @return this
+	 * @returns this
 	 */
     progress: function () {
 
@@ -60,7 +60,7 @@ var Deferrable = Base.extend({
 	 * - stop: 正常中断上个任务，上个操作的回调被立即执行，然后执行当前任务。
 	 * - abort: 强制停止上个任务，上个操作的回调被忽略，然后执行当前任务。
 	 * - replace: 替换上个任务为新的任务，上个任务的回调将被复制。
-	 * @return {Boolean} 返回一个值，指示是否可以执行新的操作。
+	 * @returns {Boolean} 返回一个值，指示是否可以执行新的操作。
 	 * @protected
 	 */
     defer: function (args, link) {
@@ -95,7 +95,7 @@ var Deferrable = Base.extend({
     /**
 	 * 让当前任务等待指定的 *deferred* 全部执行完毕后执行。
 	 * @param {Deferrable} deferrable 需要预先执行的 Deferrable 对象。
-	 * @return this
+	 * @returns this
 	 */
     wait: function (deferred) {
         if (this.isRunning) {
@@ -130,7 +130,7 @@ var Deferrable = Base.extend({
     /**
 	 * 让当前任务推迟指定时间后执行。
 	 * @param {Integer} duration 等待的毫秒数。
-	 * @return this
+	 * @returns this
 	 */
     delay: function (duration) {
         return this.run({ duration: duration });
@@ -147,7 +147,7 @@ var Deferrable = Base.extend({
 
     /**
 	 * 中止然后跳过正在执行的任务。
-	 * @return this
+	 * @returns this
 	 */
     skip: function () {
         this.pause();
@@ -157,7 +157,7 @@ var Deferrable = Base.extend({
 
     /**
 	 * 强制中止正在执行的任务。
-	 * @return this
+	 * @returns this
 	 */
     abort: function () {
         this.pause();
@@ -168,7 +168,7 @@ var Deferrable = Base.extend({
 
     /**
 	 * 正常中止正在执行的任务。
-	 * @return this
+	 * @returns this
 	 * @virtual
 	 */
     stop: function () {

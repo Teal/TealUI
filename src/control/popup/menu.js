@@ -208,7 +208,7 @@ var Menu = Control.extend({
 //	/**
 //	 * 当被子类重写时，用于创建子树。
 //	 * @param {TreeControl} treeControl 要初始化的子树。
-//	 * @return {TreeControl} 新的 {@link TreeControl} 对象。
+//	 * @returns {TreeControl} 新的 {@link TreeControl} 对象。
 //	 * @protected override
 //	 */
 //	createSub: function(treeControl){

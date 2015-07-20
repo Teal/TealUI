@@ -122,7 +122,7 @@ var Collection = Class({
 
 	/**
 	 * 将当前集合转为数组。
-	 * @return Array 数组。
+	 * @returns Array 数组。
 	 */
 	toArray: function (index) {
 		return [].slice.call(this, index);

@@ -152,7 +152,7 @@
      * @param {Number} duration=-1 变化的时间。
      * @param {Function} [oncomplete] 停止回调。
      * @param {String} link='wait' 变化串联的方法。 可以为 wait, 等待当前队列完成。 rerun 柔和转换为目前渐变。 cancel 强制关掉已有渐变。 ignore 忽视当前的效果。
-     * @return this
+     * @returns this
      */
     Dom.animate = function (elem, params, duration, callback, link) {
 
@@ -232,7 +232,7 @@
      * - "**stop**": 正常中止上一个效果，然后执行新的效果。
      * - "**abort**": 强制中止上一个效果，然后执行新的效果。
      * - "**replace**": 将老的特效直接过渡为新的特效。
-     * @return this
+     * @returns this
      */
     Dom.show = function (elem) {
         var args = arguments;
@@ -335,7 +335,7 @@
      * - "**stop**": 正常中止上一个效果，然后执行新的效果。
      * - "**abort**": 强制中止上一个效果，然后执行新的效果。
      * - "**replace**": 将老的特效直接过渡为新的特效。
-     * @return this
+     * @returns this
      */
     Dom.hide = function (elem) {
 

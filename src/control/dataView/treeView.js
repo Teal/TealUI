@@ -133,7 +133,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	
 	/**
 	 * 获取当前用于折叠的容器对象。
-	 * @return {Control} 折叠的容器对象。
+	 * @returns {Control} 折叠的容器对象。
 	 * @protected override
 	 */
 	body: function () {
@@ -143,7 +143,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	
 	/**
 	 * 获取当前的文字对象。
-	 * @return {Control} 文字对象。
+	 * @returns {Control} 文字对象。
 	 * @protected override
 	 */
 	content: function(){
@@ -153,7 +153,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	/**
 	 * 当被子类重写时，用于创建子树。
 	 * @param {TreeControl} treeControl 要初始化的子树。
-	 * @return {TreeControl} 新的 {@link TreeControl} 对象。
+	 * @returns {TreeControl} 新的 {@link TreeControl} 对象。
 	 * @protected override
 	 */
 	createSub: function (existNode) {
@@ -264,7 +264,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	
 	/**
 	 * 获取一个值，该值指示当前节点是否为最后一个节点。
-	 * @return {Boolean}
+	 * @returns {Boolean}
 	 * @protected
 	 */
 	isLastNode: function () {
@@ -305,7 +305,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	/**
 	 * 设置当前节点的图标。
 	 * @param {String} type 类型。肯能的值如： 'normal' 'plus' 'minus' 'none' 'loading' 'line'。
-	 * @return this
+	 * @returns this
 	 */
 	setType: function(type){
 		var span = this.span(0);
@@ -319,7 +319,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	 * 展开当前节点及子节点。
 	 * @param {Integer} duration 折叠动画使用的毫米数。
 	 * @param {Integer} maxDepth=0 最大折叠的深度。默认为 -1 表示全部折叠。
-	 * @return this
+	 * @returns this
 	 */
 	expandAll: function(duration, maxDepth){
 		if (this.getSub() && !(maxDepth === 0)) {
@@ -333,7 +333,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	 * 折叠当前节点及子节点。
 	 * @param {Integer} duration 折叠动画使用的毫米数。
 	 * @param {Integer} maxDepth=0 最大折叠的深度。默认为 -1 表示全部折叠。
-	 * @return this
+	 * @returns this
 	 */
 	collapseAll: function(duration, maxDepth){
 		if (this.getSub() && !(maxDepth === 0)) {
@@ -369,7 +369,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 
 	/**
 	 * 获取当前节点的深度。
-	 * @return {Integer} 返回节点深度。
+	 * @returns {Integer} 返回节点深度。
 	 */
 	getDepth: function(){
 		return this.depth;
@@ -378,7 +378,7 @@ var TreeNode = TreeControl.Node.extend(ICollapsable).implement({
 	/**
 	 * 设置当前节点的深度。
 	 * @param {Integer} value 要设置的深度。
-	 * @return this
+	 * @returns this
 	 */
 	setDepth: function(value){
 		

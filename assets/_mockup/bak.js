@@ -99,7 +99,7 @@ Doc.SyntaxHighligher = {
     /**
      * 根据源码推测其语音。
      * @param {String} sourceCode 需要高亮的源码。
-     * @return {String} 返回一个语言名。
+     * @returns {String} 返回一个语言名。
      */
     guessLanguage: function (sourceCode) {
         return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|\w\s+\w|\w\(|\)\./.test(sourceCode) ? 'js' : null;

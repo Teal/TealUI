@@ -67,7 +67,7 @@ trace.write = function () {
  * Convert any objects to readable string. Same as var_dump() in PHP.
  * @param {Object} obj The variable to dump.
  * @param {Number} deep=3 The maximum count of recursion.
- * @return String The dumped string.
+ * @returns String The dumped string.
  */
 trace.dump = function (obj, deep, showArrayPlain) {
 

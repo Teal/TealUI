@@ -14,7 +14,7 @@ var Dom = (function () {
     /**
      * 获取元素的文档。
      * @param {Element} elem 元素。
-     * @return {Document} 文档。
+     * @returns {Document} 文档。
      * @static
      */
     Dom.getDocument = function getDocument(node) {
@@ -26,7 +26,7 @@ var Dom = (function () {
     /**
      * 获取当前 Dom 对象以后的全部相邻节点对象。
      * @param {Integer/String/Function/Boolean} [filter] 用于查找子元素的 CSS 选择器 或者 元素在Control对象中的索引 或者 用于筛选元素的过滤函数 或者 true 则同时接收包含文本节点的所有节点。
-     * @return {Dom} 返回一个 Dom 对象。
+     * @returns {Dom} 返回一个 Dom 对象。
      */
     Dom.nextAll = function (elem) {
         var r = [], c = elem;
@@ -39,7 +39,7 @@ var Dom = (function () {
     /**
      * 获取当前 Dom 对象以前的全部相邻节点对象。
      * @param {Integer/String/Function/Boolean} [filter] 用于查找子元素的 CSS 选择器 或者 元素在Control对象中的索引 或者 用于筛选元素的过滤函数 或者 true 则同时接收包含文本节点的所有节点。
-     * @return {Dom} 返回一个 Dom 对象。
+     * @returns {Dom} 返回一个 Dom 对象。
      */
     Dom.prevAll = function (elem) {
         var r = [], c = elem;
@@ -52,7 +52,7 @@ var Dom = (function () {
     /**
      * 获取当前 Dom 对象的指定位置的直接子节点。
      * @param {Integer} index 用于查找子元素的 CSS 选择器 或者 元素在 Dom 对象中的索引 或者 用于筛选元素的过滤函数 或者 true 则同时接收包含文本节点的所有节点。如果 args 是小于 0 的数字，则从末尾开始计算。
-     * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+     * @returns {Dom} 返回一个节点对象。如果不存在，则返回 null 。
      * @example
      * 获取第1个子节点。
      * #####HTML:

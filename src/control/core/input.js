@@ -18,7 +18,7 @@ var Input = Control.extend({
 	
 	/**
 	 * 获取当前输入域实际用于提交数据的表单域。
-	 * @return {Element} 一个用于提交表单的数据域。
+	 * @returns {Element} 一个用于提交表单的数据域。
      * @remark 此函数会在当前控件内搜索可用于提交的表单域，如果找不到，则创建返回一个 input[type=hidden] 表单域。
 	 * @protected 
 	 * @virtual

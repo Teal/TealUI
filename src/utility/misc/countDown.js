@@ -8,7 +8,7 @@
  * @param {Date/String} endDate 结束倒计时的时间。
  * @param {Function} callback 每秒倒计时的回调。function(day, hour, minute, second, leftTime)
  * @param {Object} scope 设置 callback 中 this 的指向。
- * @return {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
+ * @returns {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
  */
 function countDown(startDate, endDate, callback, scope) {
 

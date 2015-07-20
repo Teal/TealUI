@@ -67,7 +67,7 @@ var Fx = (function() {
 		 * 当被子类重写时，实现生成当前变化所进行的初始状态。
 		 * @param {Object} from 开始位置。
 		 * @param {Object} to 结束位置。
-		 * @return {Base} this
+		 * @returns {Base} this
 		 * @protected virtual
 		 */
 		init: Function.empty,
@@ -101,7 +101,7 @@ var Fx = (function() {
 		 * @param {Number} duration=-1 变化的时间。
 		 * @param {Function} [onComplete] 停止回调。
 		 * @param {String} link='wait' 变化串联的方法。 可以为 wait, 等待当前队列完成。 restart 柔和转换为目前渐变。 cancel 强制关掉已有渐变。 ignore 忽视当前的效果。
-		 * @return {Base} this
+		 * @returns {Base} this
 		 */
 		run: function (options, link) {
 			var me = this, defaultOptions, duration;
@@ -162,7 +162,7 @@ var Fx = (function() {
 		/**
 		 * 中断当前效果。
 		 * @protected override
-		 * @return this
+		 * @returns this
 		 */
 		stop: function() {
 			this.abort();

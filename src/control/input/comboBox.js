@@ -19,7 +19,7 @@ var ComboBox = Picker.extend({
 
     /**
 	 * 创建当前 Picker 的菜单。
-	 * @return {Control} 下拉菜单。
+	 * @returns {Control} 下拉菜单。
 	 * @protected override
 	 */
     createDropDown: function (existDom) {
@@ -93,7 +93,7 @@ var ComboBox = Picker.extend({
     /**
 	 * 设置当前选中的项。
 	 * @param {Dom} item 选中的项。
-	 * @return this
+	 * @returns this
 	 */
     setSelectedItem: function (item) {
     	this.setValue(item ? Dom.getText(item) : "");
@@ -102,7 +102,7 @@ var ComboBox = Picker.extend({
 
     /**
 	 * 获取当前选中的项。如果不存在选中的项，则返回 null 。
-	 * @return {Dom} 选中的项。
+	 * @returns {Dom} 选中的项。
 	 */
     getSelectedItem: function () {
     	var value = this.getValue();

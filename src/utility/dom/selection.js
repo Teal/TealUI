@@ -74,7 +74,7 @@ Dom.implement({
 
 	/**
 	 * 获取或设置选区区域范围
-	 * @return {Object} 返回 {start: 0, end: 3}  对象。
+	 * @returns {Object} 返回 {start: 0, end: 3}  对象。
 	 */
 	selectionRange: function () {
 		return arguments.length === 0 ? this.length ? Dom.getSelectionRange(this[0]) : null : this.iterate(Dom.setSelectionRange, arguments);
@@ -84,7 +84,7 @@ Dom.implement({
 	 * 获取或设置选区文本
 	 * @param {String} 文本
 	 * @param {Boolean} true代表选中插入文本 false表示不选中
-	 * @return {String} 选中的文本
+	 * @returns {String} 选中的文本
 	 */
 	selectedText: function (value, selectInsertedText) {
 		return arguments.length === 0 ? this.length ? Dom.getSelectionRange(this[0]).text : null : this.iterate(function (elem) {

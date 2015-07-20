@@ -118,7 +118,7 @@ Doc.Utility = {
      * 快速解析指定的简易模板字符串。
      * @param {String} tpl 要格式化的字符串。
      * @param {Object} data 格式化参数。
-     * @return {String} 格式化后的字符串。
+     * @returns {String} 格式化后的字符串。
      */
     parseTpl: function (tpl, data) {
         return tpl.replace(/\{\{|\{([^}]+)\}|\}\}/g, function (matched, argName) {
@@ -129,7 +129,7 @@ Doc.Utility = {
     /**
      * 编码 HTML 特殊字符。
      * @param {String} value 要编码的字符串。
-     * @return {String} 返回已编码的字符串。
+     * @returns {String} 返回已编码的字符串。
      * @remark 此函数主要将 & < > ' " 分别编码成 &amp; &lt; &gt; &#39; &quot; 。
      */
     encodeHTML: (function () {
@@ -271,7 +271,7 @@ Doc.SyntaxHighligher = (function () {
          * @param {Array} stylePatterns 匹配的正则列表，格式为：。
          * [[css样式名1, 正则1, 可选的头字符], [css样式名2, 正则2], ...]
          * 其中，可选的头字符是这个匹配格式的简化字符，如果源码以这个字符里的任何字符打头，表示自动匹配这个正则。
-         * @return {Function} 返回一个刷子函数。刷子函数的输入为：
+         * @returns {Function} 返回一个刷子函数。刷子函数的输入为：
          *
          * - sourceCode {String} 要处理的源码。
          * - position {Number} 要开始处理的位置。
@@ -405,7 +405,7 @@ Doc.SyntaxHighligher = (function () {
         /**
          * 根据源码推测其语音。
          * @param {String} sourceCode 需要高亮的源码。
-         * @return {String} 返回一个语言名。
+         * @returns {String} 返回一个语言名。
          */
         guessLanguage: function (sourceCode) {
             return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|[\w$]\s+[\w$]|[\w$]\(|\)\./.test(sourceCode) ? 'js' : null;
@@ -414,7 +414,7 @@ Doc.SyntaxHighligher = (function () {
         /**
          * 搜索用于处理指定语言的刷子。
          * @param {String} language 要查找的语言名。
-         * @return {Function} 返回一个刷子，用于高亮指定的源码。
+         * @returns {Function} 返回一个刷子，用于高亮指定的源码。
          */
         findBrush: function (language) {
             return SH.brushes[language] || SH.brushes.none;
@@ -424,7 +424,7 @@ Doc.SyntaxHighligher = (function () {
          * 注册一个语言的刷子。
          * @param {String} language 要注册的语言名。
          * @param {Array} stylePatterns 匹配的正则列表。见 {@link SyntaxHighligher.createBrush}
-         * @return {Function} 返回一个刷子，用于高亮指定的源码。
+         * @returns {Function} 返回一个刷子，用于高亮指定的源码。
          */
         register: function (language, stylePatterns) {
             language = language.split(' ');
@@ -473,7 +473,7 @@ Doc.SyntaxHighligher = (function () {
      * </p>
      *
      * @param {Node} 要解析的 HTML 节点、
-     * @return {Object} 返回虚拟 DOM 树。
+     * @returns {Object} 返回虚拟 DOM 树。
      */
     function extractSourceSpans(node) {
 
@@ -564,7 +564,7 @@ Doc.SyntaxHighligher = (function () {
      * Since it matches globally, if the input strings have a start-of-input
      * anchor (/^.../), it is ignored for the purposes of unioning.
      * @param {Array.<RegExp>} regexs non multiline, non-global regexs.
-     * @return {RegExp} a global regex.
+     * @returns {RegExp} a global regex.
      */
     function combinePrefixPatterns(regexs) {
         var capturedGroupIndex = 0;
@@ -1027,7 +1027,7 @@ Doc.SyntaxHighligher = (function () {
      * It recognizes C, C++, and shell style comments.
      *
      * @param {Object} options a set of optional parameters.
-     * @return {function (Object)} a function that examines the source code
+     * @returns {function (Object)} a function that examines the source code
      *     in the input job and builds the decoration list.
      */
     var simpleLexer = SH.simpleLexer = function (options) {
@@ -2290,7 +2290,7 @@ trace.write = function () {
  * Convert any objects to readable string. Same as var_dump() in PHP.
  * @param {Object} obj The variable to dump.
  * @param {Number} deep=3 The maximum count of recursion.
- * @return String The dumped string.
+ * @returns String The dumped string.
  */
 trace.dump = function (obj, deep, showArrayPlain) {
 

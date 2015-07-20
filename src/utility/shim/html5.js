@@ -34,7 +34,7 @@ if (!Date.now) {
 
     /**
      * 获取当前时间的数字表示。
-     * @return {Number} 当前的时间点。
+     * @returns {Number} 当前的时间点。
      * @static
      * @example
      * <pre>
@@ -52,7 +52,7 @@ if (!Array.isArray) {
     /**
      * 判断一个变量是否是数组。
      * @param {Object} obj 要判断的变量。
-     * @return {Boolean} 如果是数组，返回 true， 否则返回 false。
+     * @returns {Boolean} 如果是数组，返回 true， 否则返回 false。
      * @example
      * <pre>
      * Array.isArray([]); // true
@@ -110,7 +110,7 @@ if (!String.prototype.trim) {
 
     /**
      * 去除字符串的首尾空格。
-     * @return {String} 处理后的字符串。
+     * @returns {String} 处理后的字符串。
      * @remark 目前除了 IE8-，主流浏览器都已内置此函数。
      * @example
      * <pre>

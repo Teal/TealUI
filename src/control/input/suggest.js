@@ -13,7 +13,7 @@ var Suggest = Control.extend({
 
 	/**
 	 * 创建当前 Suggest 的菜单。
-	 * @return {Dom} 下拉菜单。
+	 * @returns {Dom} 下拉菜单。
 	 * @protected virtual
 	 */
 	initDropDown: function (existDom) {

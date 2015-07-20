@@ -8,7 +8,7 @@
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
  * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
- * @return {Dom} 返回匹配的节点列表。
+ * @returns {Dom} 返回匹配的节点列表。
  */
 var $ = $ || function (selector) {
     return selector instanceof Function ? Dom.ready(selector) :
@@ -42,7 +42,7 @@ var Dom = {
      *
      * 可以让函数返回 **false** 来强制中止循环。
      * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
-     * @return {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
+     * @returns {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
      */
     each: function (nodeList, callback) {
         for (var i = 0, node; node = nodeList[i]; i++) {
@@ -61,7 +61,7 @@ var Dom = {
 	 * 执行一个 CSS 选择器，返回所有匹配的节点列表。
 	 * @param {String} selector 要执行的 CSS 选择器。
 	 * @param {Document} context 执行的上下文文档。
-	 * @return {NodeList} 返回匹配的节点列表。
+	 * @returns {NodeList} 返回匹配的节点列表。
 	 * @example
 	 * 找到所有 p 元素。
 	 * #####HTML:
@@ -107,7 +107,7 @@ var Dom = {
 	 * 执行一个 CSS 选择器，返回匹配的第一个节点。
 	 * @param {String} selector 要执行的 CSS 选择器。
 	 * @param {Document} context 执行的上下文文档。
-	 * @return {Element} 返回匹配的节点。
+	 * @returns {Element} 返回匹配的节点。
 	 */
     find: function (selector, context) {
         return (context || document).querySelector(selector);
@@ -117,7 +117,7 @@ var Dom = {
      * 判断指定节点是否符合指定的选择器。
      * @param {Element} elem 要测试的元素。
 	 * @param {String} selector 要测试的 CSS 选择器。
-     * @return {Boolean} 如果表达式匹配则返回 true，否则返回  false 。
+     * @returns {Boolean} 如果表达式匹配则返回 true，否则返回  false 。
      * @example
      * 由于input元素的父元素是一个表单元素，所以返回true。
      * #####HTML:
@@ -149,7 +149,7 @@ var Dom = {
     /**
 	 * 根据 *id* 获取节点。
 	 * @param {String} id 要获取元素的 ID。
-	 * @return {Element} 返回匹配的节点。
+	 * @returns {Element} 返回匹配的节点。
 	 * @static
 	 * @example
 	 * 找到 id 为 a 的元素。
@@ -169,7 +169,7 @@ var Dom = {
     /**
      * 解析一个 html 字符串，返回相应的 DOM 对象。
      * @param {String} html 要解析的 HTML 字符串。如果解析的字符串是一个 HTML 字符串，则此函数会忽略字符串前后的空格。
-     * @return {Element} 返回包含所有已解析的节点的 DOM 对象。
+     * @returns {Element} 返回包含所有已解析的节点的 DOM 对象。
      * @static
      */
     parse: function (html, context) {
@@ -286,7 +286,7 @@ var Dom = {
     /**
 	 * 获取指定节点的文档。
 	 * @param {Node} node 要获取的节点。
-	 * @return {Document} 文档。
+	 * @returns {Document} 文档。
 	 */
     getDocument: function (/*Node*/node) {
         return node.ownerDocument || node.document || node;
@@ -296,7 +296,7 @@ var Dom = {
      * 判断指定节点是否包含目标节点。
      * @param {Element} node 要判断的容器节点。
      * @param {Element} child 要判断的子节点。
-     * @return {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
+     * @returns {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
      * @static
      */
     contains: function (/*Node*/node, /*Node*/child) {
@@ -322,7 +322,7 @@ var Dom = {
      * @param {Node} node 节点。
      * @param {String} selector 用于判断的元素的 CSS 选择器。
      * @param {Node} [context=document] 只在指定的节点内搜索此元素。
-     * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+     * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
      * @remark
      * closest 和 parent 最大区别就是 closest 会测试当前的元素。
      */
@@ -346,7 +346,7 @@ var Dom = {
     /**
      * 获取指定节点的父元素。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回父节点。如果不存在，则返回 null 。
+     * @returns {Element} 返回父节点。如果不存在，则返回 null 。
      * @example
      * 找到每个span元素的所有祖先元素。
      * #####HTML:
@@ -361,7 +361,7 @@ var Dom = {
     /**
      * 获取指定节点的第一个子元素。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 获取匹配的第二个元素
      * #####HTML:
@@ -378,7 +378,7 @@ var Dom = {
     /**
      * 获取指定节点的最后一个子节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 获取匹配的第二个元素。
      * #####HTML:
@@ -395,7 +395,7 @@ var Dom = {
     /**
      * 获取指定节点的下一个相邻节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 找到每个段落的后面紧邻的同辈元素。
      * #####HTML:
@@ -412,7 +412,7 @@ var Dom = {
     /**
      * 获取指定节点的上一个相邻的节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 找到每个段落紧邻的前一个同辈元素。
      * #####HTML:
@@ -437,7 +437,7 @@ var Dom = {
     /**
      * 获取指定节点的全部直接子元素。
      * @param {Node} node 要获取的节点。
-     * @return {NodeList} 返回所有元素列表。
+     * @returns {NodeList} 返回所有元素列表。
      * @example
      *
      * 查找DIV中的每个子元素。
@@ -468,7 +468,7 @@ var Dom = {
      * 插入一个HTML 到末尾。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     append: function (node, html) {
         var c = Dom.parse(html, Dom.getDocument(node)).parentNode;
@@ -482,7 +482,7 @@ var Dom = {
      * 插入一个 HTML 到顶部。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     prepend: function (node, html) {
         var c = Dom.parse(html, Dom.getDocument(node)).parentNode, p = node.firstChild;
@@ -496,7 +496,7 @@ var Dom = {
      * 插入一个HTML 到前面。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     before: function (node, html) {
         // #assert node.parentNode, "只有存在父节点的才能插入节点到其前面"
@@ -511,7 +511,7 @@ var Dom = {
      * 插入一个HTML 到后面。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     after: function (node, html) {
         // #assert node.parentNode, "只有存在父节点的才能插入节点到其后面"
@@ -564,7 +564,7 @@ var Dom = {
      * @param {Boolean} deep=true 是否复制子元素。
      * @param {Boolean} cloneDataAndEvent=false 是否复制数据和事件。
      * @param {Boolean} keepId=false 是否复制 id 。
-     * @return {Node} 新节点对象。
+     * @returns {Node} 新节点对象。
      *
      * @example
      * 克隆所有b元素（并选中这些克隆的副本），然后将它们前置到所有段落中。
@@ -709,7 +709,7 @@ var Dom = {
      * 获取元素的属性值。
      * @param {Element} elem 要获取的元素。
      * @param {String} name 要获取的属性名称。
-     * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
+     * @returns {String} 返回属性值。如果元素没有相应属性，则返回 null 。
      * @static
      */
     getAttr: function (/*Element*/elem, name) {
@@ -720,7 +720,7 @@ var Dom = {
      * 设置或删除一个 HTML 属性值。
      * @param {String} name 要设置的属性名称。
      * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-     * @return this
+     * @returns this
      * @example
      * 为图像设置 src 属性。
      * #####HTML:
@@ -757,7 +757,7 @@ var Dom = {
     /**
      * 获取一个元素对应的文本。
      * @param {Element} node 元素。
-     * @return {String} 值。对普通节点返回 text 属性。
+     * @returns {String} 值。对普通节点返回 text 属性。
      * @static
      */
     getText: function (/*Element*/node) {
@@ -767,7 +767,7 @@ var Dom = {
     /**
      * 设置指定节点的文本内容。对于输入框则设置其输入的值。
      * @param {String} 用于设置元素内容的文本。
-     * @return this
+     * @returns this
      * @see #setHtml
      * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
      * @example
@@ -783,7 +783,7 @@ var Dom = {
 
     /**
      * 获取指定节点的 Html。
-     * @return {String} HTML 字符串。
+     * @returns {String} HTML 字符串。
      * @example
      * 获取 id="a" 的节点的内部 html。
      * #####HTML:
@@ -827,7 +827,7 @@ var Dom = {
 
     /**
      * 删除指定节点的所有子节点。
-     * @return this
+     * @returns this
      * @example
      * 把所有段落的子元素（包括文本节点）删除。
      * #####HTML:
@@ -845,7 +845,7 @@ var Dom = {
      * 检查是否含指定类名。
      * @param {Element} elem 要测试的元素。
      * @param {String} className 类名。
-     * @return {Boolean} 如果存在返回 true。
+     * @returns {Boolean} 如果存在返回 true。
      * @static
      */
     hasClass: function (/*Element*/elem, className) {
@@ -865,7 +865,7 @@ var Dom = {
     /**
      * 为指定节点添加指定的 Css 类名。
      * @param {String} className 一个或多个要添加到元素中的CSS类名，用空格分开。
-     * @return this
+     * @returns this
      * @example
      * 为匹配的元素加上 'selected' 类。
      * #####HTML:
@@ -902,7 +902,7 @@ var Dom = {
     /**
      * 从指定节点中删除全部或者指定的类。
      * @param {String} [className] 一个或多个要删除的CSS类名，用空格分开。如果不提供此参数，将清空 className 。
-     * @return this
+     * @returns this
      * @example
      * 从匹配的元素中删除 'selected' 类
      * #####HTML:
@@ -934,7 +934,7 @@ var Dom = {
      * 如果存在（不存在）就删除（添加）一个类。
      * @param {String} className CSS类名。
      * @param {Boolean} [toggle] 自定义切换的方式。如果为 true， 则加上类名，否则删除。
-     * @return this
+     * @returns this
      * @see #addClass
      * @see #removeClass
      * @example
@@ -964,7 +964,7 @@ var Dom = {
      * 读取指定节点的当前样式，返回字符串。
      * @param {Element} elem 要获取的元素。
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
-     * @return {String} 字符串。
+     * @returns {String} 字符串。
      */
     styleString: function (/*Element*/elem, camelizedCssPropertyName) {
 
@@ -1015,7 +1015,7 @@ var Dom = {
      * 读取指定节点的当前样式，返回数值。
      * @param {Element} elem 要获取的元素。
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
-     * @return {Number} 数值。
+     * @returns {Number} 数值。
      */
     styleNumber: function (/*Element*/elem, camelizedCssPropertyName) {
 
@@ -1034,7 +1034,7 @@ var Dom = {
     /**
      * 到骆驼模式。
      * @param {String} name 匹配的内容。
-     * @return {String} 返回的内容。
+     * @returns {String} 返回的内容。
      */
     camelCase: function (name) {
         return name === 'float' ? +"\v" ? 'cssFloat' : 'styleFloat' : name.replace(/-+(\w?)/g, function (match, chr) { return chr.toUpperCase() });
@@ -1044,7 +1044,7 @@ var Dom = {
      * 获取指定节点的样式。
      * @param {Element} elem 要获取的元素。
      * @param {String} cssPropertyName CSS 属性名。
-     * @return {String} 字符串。
+     * @returns {String} 字符串。
      */
     getStyle: function (/*Element*/elem, /*String*/cssPropertyName) {
         return Dom.styleString(elem, Dom.camelCase(cssPropertyName));
@@ -1099,7 +1099,7 @@ var Dom = {
     /**
      * 判断当前元素是否是隐藏的。
      * @param {Element} elem 要判断的元素。
-     * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
+     * @returns {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
      */
     isHidden: function (/*Element*/elem) {
         return Dom.styleString(elem, 'display') === 'none';
@@ -1168,7 +1168,7 @@ var Dom = {
 	 * 根据不同的内容进行计算。
 	 * @param {Element} elem 要计算的元素。
 	 * @param {String} expression 要计算的表达式。其中使用变量代表 CSS 属性值，如 "width+paddingLeft"。
-	 * @return {Number} 返回计算的值。
+	 * @returns {Number} 返回计算的值。
 	 * @static
 	 */
     calc: function (/*Element*/elem, expression) {
@@ -1188,7 +1188,7 @@ var Dom = {
     /**
      * 获取指定节点的可视区域大小。包括 border 大小。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 大小。
+     * @returns {Point} 大小。
      * @remark
      * 此方法对可见和隐藏元素均有效。
      * 获取元素实际占用大小（包括内边距和边框）。
@@ -1216,7 +1216,7 @@ var Dom = {
      * @param {Element} elem 要设置的元素。
      * @param {Number/Point} x 要设置的宽或一个包含 x、y 属性的对象。如果不设置，使用 null 。
      * @param {Number} y 要设置的高。如果不设置，使用 null 。
-     * @return this
+     * @returns this
      * @remark
      * 设置元素实际占用大小（包括内边距和边框，但不包括滚动区域之外的大小）。
      * 此方法对可见和隐藏元素均有效。
@@ -1239,7 +1239,7 @@ var Dom = {
     /**
      * 获取指定节点的滚动区域大小。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * getScrollSize 获取的值总是大于或的关于 getSize 的值。
      * 此方法对可见和隐藏元素均有效。
@@ -1257,7 +1257,7 @@ var Dom = {
     /**
      * 获取文档的滚动位置。
 	 * @param {Document} doc 要计算的文档。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      */
     getDocumentScroll: function (/*Document*/doc) {
         var win;
@@ -1273,7 +1273,7 @@ var Dom = {
     /**
      * 获取指定节点的相对位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法只对可见元素有效。
      * 
@@ -1325,7 +1325,7 @@ var Dom = {
      * 设置指定节点相对父元素的偏移。
      * @param {Element} elem 要设置的元素。
      * @param {Point} value 要设置的 x, y 对象。
-     * @return this
+     * @returns this
      * @remark
      * 此函数仅改变 CSS 中 left 和 top 的值。
      * 如果当前对象的 position 是static，则此函数无效。
@@ -1361,7 +1361,7 @@ var Dom = {
     /**
      * 获取用于让指定节点定位的父对象。
      * @param {Element} elem 要设置的元素。
-     * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+     * @returns {Dom} 返回一个节点对象。如果不存在，则返回 null 。
      */
     offsetParent: function (/*Element*/elem) {
         var p = elem;
@@ -1372,7 +1372,7 @@ var Dom = {
     /**
      * 获取指定节点的绝对位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法只对可见元素有效。
      * @example
@@ -1410,7 +1410,7 @@ var Dom = {
      * @param {Element} elem 要设置的元素。
      * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
      * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-     * @return this
+     * @returns this
      * @remark
      * 如果对象原先的position样式属性是static的话，会被改成relative来实现重定位。
      * @example
@@ -1442,7 +1442,7 @@ var Dom = {
     /**
      * 获取指定节点的滚动条的位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法对可见和隐藏元素均有效。
      *
@@ -1472,7 +1472,7 @@ var Dom = {
      * @param {Element} elem 要设置的元素。
      * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
      * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-     * @return this
+     * @returns this
      */
     setScroll: function (/*Element*/elem, value) {
         if (elem.nodeType === 9) {
@@ -1541,7 +1541,7 @@ if (!window.Element || !Element.prototype.querySelector || !+"\v") {
      * 使用指定的选择器代码对指定的结果集进行一次查找。
      * @param {String} selector 选择器表达式。
      * @param {DomList/Dom} result 上级结果集，将对此结果集进行查找。
-     * @return {DomList} 返回新的结果集。
+     * @returns {DomList} 返回新的结果集。
      */
     Dom.query = function (selector, context) {
 
@@ -1890,7 +1890,7 @@ if (document.execCommand) {
 /**
  * 快速调用 Dom.get 或 Dom.find 或 Dom.parse 或 Dom.ready。
  * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
- * @return {Dom} 返回匹配的节点列表。
+ * @returns {Dom} 返回匹配的节点列表。
  */
 var $ = $ || function (selector) {
     return selector instanceof Function ? Dom.ready(selector) :
@@ -1912,7 +1912,7 @@ function Dom(nodeList) {
 /**
  * 根据 *id* 获取节点。
  * @param {String/Node} id 要获取元素的 ID。
- * @return {Dom} 返回匹配的节点。
+ * @returns {Dom} 返回匹配的节点。
  * @static
  * @example
  * 找到 id 为 a 的元素。
@@ -1933,7 +1933,7 @@ Dom.get = function (id) {
  * 执行一个 CSS 选择器，返回所有匹配的节点列表。
  * @param {String} selector 要执行的 CSS 选择器。
  * @param {Document} context 执行的上下文文档。
- * @return {Dom} 返回匹配的节点列表。
+ * @returns {Dom} 返回匹配的节点列表。
  * @example
  * 找到所有 p 元素。
  * #####HTML:
@@ -1978,7 +1978,7 @@ Dom.find = function (selector) {
 /**
  * 解析一个 html 字符串，返回相应的 DOM 对象。
  * @param {String} html 要解析的 HTML 字符串。如果解析的字符串是一个 HTML 字符串，则此函数会忽略字符串前后的空格。
- * @return {Dom} 返回包含所有已解析的节点的 DOM 对象。
+ * @returns {Dom} 返回包含所有已解析的节点的 DOM 对象。
  * @static
  */
 Dom.parse = function (html, context) {
@@ -2039,7 +2039,7 @@ Dom.prototype = {
      *
      * 可以让函数返回 **false** 来强制中止循环。
      * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
-     * @return {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
+     * @returns {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
      */
     each: function (callback, bind) {
         for (var i = 0; i < this.length; i++) {
@@ -2057,7 +2057,7 @@ Dom.prototype = {
     /**
 	 * 执行一个 CSS 选择器，返回匹配的节点。
 	 * @param {String} selector 要执行的 CSS 选择器。
-	 * @return {Element} 返回匹配的节点。
+	 * @returns {Element} 返回匹配的节点。
 	 */
     find: function (selector) {
         var result = new Dom();
@@ -2070,7 +2070,7 @@ Dom.prototype = {
     /**
      * 判断指定节点是否符合指定的选择器。
 	 * @param {String} selector 要测试的 CSS 选择器。
-     * @return {Boolean} 如果表达式匹配则返回 true，否则返回  false 。
+     * @returns {Boolean} 如果表达式匹配则返回 true，否则返回  false 。
      * @example
      * 由于input元素的父元素是一个表单元素，所以返回true。
      * #####HTML:
@@ -2104,7 +2104,7 @@ Dom.prototype = {
      * 判断指定节点是否包含目标节点。
      * @param {Element} node 要判断的容器节点。
      * @param {Element} child 要判断的子节点。
-     * @return {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
+     * @returns {Boolean} 如果确实存在子节点，则返回 true ， 否则返回 false 。
      * @static
      */
     contains: function (child) {
@@ -2150,7 +2150,7 @@ Dom.prototype = {
 
     /**
 	 * 获取指定节点的文档。
-	 * @return {Dom} 文档。
+	 * @returns {Dom} 文档。
 	 */
     document: function () {
         return Dom.get(this[0].ownerDocument || this[0].document || this[0]);
@@ -2158,7 +2158,7 @@ Dom.prototype = {
 
     /**
      * 获取指定节点的父元素。
-     * @return {Dom} 返回父节点。
+     * @returns {Dom} 返回父节点。
      * @example
      * 找到每个span元素的所有祖先元素。
      * #####HTML:
@@ -2174,7 +2174,7 @@ Dom.prototype = {
      * 获取指定节点及父节点对象中第一个满足指定 CSS 选择器或函数的节点。
      * @param {String} selector 用于判断的元素的 CSS 选择器。
      * @param {Node} [context=document] 只在指定的节点内搜索此元素。
-     * @return {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+     * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
      */
     closest: function (selector, context) {
         while (node) {
@@ -2196,7 +2196,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的下一个相邻节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 找到每个段落的后面紧邻的同辈元素。
      * #####HTML:
@@ -2213,7 +2213,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的上一个相邻的节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 找到每个段落紧邻的前一个同辈元素。
      * #####HTML:
@@ -2238,7 +2238,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的第一个子元素。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 获取匹配的第二个元素
      * #####HTML:
@@ -2255,7 +2255,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的最后一个子节点对象。
      * @param {Node} node 要获取的节点。
-     * @return {Element} 返回一个元素。如果不存在，则返回 null 。
+     * @returns {Element} 返回一个元素。如果不存在，则返回 null 。
      * @example
      * 获取匹配的第二个元素。
      * #####HTML:
@@ -2272,7 +2272,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的全部直接子元素。
      * @param {Node} node 要获取的节点。
-     * @return {NodeList} 返回所有元素列表。
+     * @returns {NodeList} 返回所有元素列表。
      * @example
      *
      * 查找DIV中的每个子元素。
@@ -2303,7 +2303,7 @@ Dom.prototype = {
      * 插入一段 HTML 到末尾。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     append: function (node, html) {
         var c = Dom.parse(html, Dom.getDocument(node)).parentNode;
@@ -2317,7 +2317,7 @@ Dom.prototype = {
      * 插入一段 HTML 到顶部。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     prepend: function (node, html) {
         var c = Dom.parse(html, Dom.getDocument(node)).parentNode, p = node.firstChild;
@@ -2331,7 +2331,7 @@ Dom.prototype = {
      * 插入一个HTML 到后面。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     after: function (node, html) {
         return node.nextSibling ? Dom.before(node.nextSibling, html) : Dom.append(node.parentNode, html);
@@ -2341,7 +2341,7 @@ Dom.prototype = {
      * 插入一个HTML 到前面。
 	 * @param {Node} node 要获取的节点。
      * @param {String} html 要插入的内容。
-     * @return {Node} 返回插入的新节点对象。
+     * @returns {Node} 返回插入的新节点对象。
      */
     before: function (node, html) {
         var c = Dom.parse(html, Dom.getDocument(node)).parentNode, p = node.parentNode;
@@ -2397,7 +2397,7 @@ Dom.prototype = {
      * @param {Boolean} deep=true 是否复制子元素。
      * @param {Boolean} cloneDataAndEvent=false 是否复制数据和事件。
      * @param {Boolean} keepId=false 是否复制 id 。
-     * @return {Node} 新节点对象。
+     * @returns {Node} 新节点对象。
      *
      * @example
      * 克隆所有b元素（并选中这些克隆的副本），然后将它们前置到所有段落中。
@@ -2420,7 +2420,7 @@ Dom.prototype = {
      * 检查是否含指定类名。
      * @param {Element} elem 要测试的元素。
      * @param {String} className 类名。
-     * @return {Boolean} 如果存在返回 true。
+     * @returns {Boolean} 如果存在返回 true。
      * @static
      */
     hasClass: function (/*Element*/elem, className) {
@@ -2440,7 +2440,7 @@ Dom.prototype = {
     /**
      * 从指定节点中删除全部或者指定的类。
      * @param {String} [className] 一个或多个要删除的CSS类名，用空格分开。如果不提供此参数，将清空 className 。
-     * @return this
+     * @returns this
      * @example
      * 从匹配的元素中删除 'selected' 类
      * #####HTML:
@@ -2472,7 +2472,7 @@ Dom.prototype = {
      * 如果存在（不存在）就删除（添加）一个类。
      * @param {String} className CSS类名。
      * @param {Boolean} [toggle] 自定义切换的方式。如果为 true， 则加上类名，否则删除。
-     * @return this
+     * @returns this
      * @see #addClass
      * @see #removeClass
      * @example
@@ -2624,7 +2624,7 @@ Dom.prototype = {
      * 获取或设置元素的属性值。
      * @param {Element} elem 要获取的元素。
      * @param {String} name 要获取的属性名称。
-     * @return {String} 返回属性值。如果元素没有相应属性，则返回 null 。
+     * @returns {String} 返回属性值。如果元素没有相应属性，则返回 null 。
      * @static
      */
     attr: function (/*Element*/elem, name) {
@@ -2635,7 +2635,7 @@ Dom.prototype = {
     // * 设置或删除一个 HTML 属性值。
     // * @param {String} name 要设置的属性名称。
     // * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-    // * @return this
+    // * @returns this
     // * @example
     // * 为图像设置 src 属性。
     // * #####HTML:
@@ -2672,7 +2672,7 @@ Dom.prototype = {
     /**
      * 获取或设置元素对应的文本。
      * @param {Element} node 元素。
-     * @return {String} 值。对普通节点返回 text 属性。
+     * @returns {String} 值。对普通节点返回 text 属性。
      * @static
      */
     text: function (/*Element*/node) {
@@ -2682,7 +2682,7 @@ Dom.prototype = {
     ///**
     // * 设置指定节点的文本内容。对于输入框则设置其输入的值。
     // * @param {String} 用于设置元素内容的文本。
-    // * @return this
+    // * @returns this
     // * @see #setHtml
     // * @remark 与 {@link #setHtml} 类似, 但将编码 HTML (将 "&lt;" 和 "&gt;" 替换成相应的HTML实体)。
     // * @example
@@ -2698,7 +2698,7 @@ Dom.prototype = {
 
     /**
      * 获取或设置指定节点的 HTML。
-     * @return {String} HTML 字符串。
+     * @returns {String} HTML 字符串。
      * @example
      * 获取 id="a" 的节点的内部 html。
      * #####HTML:
@@ -2742,7 +2742,7 @@ Dom.prototype = {
 
     ///**
     // * 删除指定节点的所有子节点。
-    // * @return this
+    // * @returns this
     // * @example
     // * 把所有段落的子元素（包括文本节点）删除。
     // * #####HTML:
@@ -2760,7 +2760,7 @@ Dom.prototype = {
      * 读取指定节点的当前样式，返回字符串。
      * @param {Element} elem 要获取的元素。
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
-     * @return {String} 字符串。
+     * @returns {String} 字符串。
      */
     styleString: function (/*Element*/elem, camelizedCssPropertyName) {
 
@@ -2811,7 +2811,7 @@ Dom.prototype = {
      * 读取指定节点的当前样式，返回数值。
      * @param {Element} elem 要获取的元素。
      * @param {String} camelizedCssPropertyName 已转为骆驼格式的 CSS 属性名。
-     * @return {Number} 数值。
+     * @returns {Number} 数值。
      */
     styleNumber: function (/*Element*/elem, camelizedCssPropertyName) {
 
@@ -2830,7 +2830,7 @@ Dom.prototype = {
     /**
      * 到骆驼模式。
      * @param {String} name 匹配的内容。
-     * @return {String} 返回的内容。
+     * @returns {String} 返回的内容。
      */
     camelCase: function (name) {
         return name === 'float' ? +"\v" ? 'cssFloat' : 'styleFloat' : name.replace(/-+(\w?)/g, function (match, chr) { return chr.toUpperCase() });
@@ -2840,7 +2840,7 @@ Dom.prototype = {
      * 获取或设置指定节点的样式。
      * @param {Element} elem 要获取的元素。
      * @param {String} cssPropertyName CSS 属性名。
-     * @return {String} 字符串。
+     * @returns {String} 字符串。
      */
     css: function (/*Element*/elem, /*String*/cssPropertyName) {
         return Dom.styleString(elem, Dom.camelCase(cssPropertyName));
@@ -2886,7 +2886,7 @@ Dom.prototype = {
 	 * 根据不同的内容进行计算。
 	 * @param {Element} elem 要计算的元素。
 	 * @param {String} expression 要计算的表达式。其中使用变量代表 CSS 属性值，如 "width+paddingLeft"。
-	 * @return {Number} 返回计算的值。
+	 * @returns {Number} 返回计算的值。
 	 * @static
 	 */
     calc: function (/*Element*/elem, expression) {
@@ -2965,7 +2965,7 @@ Dom.prototype = {
     /**
      * 判断当前元素是否是隐藏的。
      * @param {Element} elem 要判断的元素。
-     * @return {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
+     * @returns {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
      */
     isHidden: function (/*Element*/elem) {
         return Dom.styleString(elem, 'display') === 'none';
@@ -2982,7 +2982,7 @@ Dom.prototype = {
     /**
      * 获取或设置指定节点的可视区域大小。包括 border 大小。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 大小。
+     * @returns {Point} 大小。
      * @remark
      * 此方法对可见和隐藏元素均有效。
      * 获取元素实际占用大小（包括内边距和边框）。
@@ -3010,7 +3010,7 @@ Dom.prototype = {
     // * @param {Element} elem 要设置的元素。
     // * @param {Number/Point} x 要设置的宽或一个包含 x、y 属性的对象。如果不设置，使用 null 。
     // * @param {Number} y 要设置的高。如果不设置，使用 null 。
-    // * @return this
+    // * @returns this
     // * @remark
     // * 设置元素实际占用大小（包括内边距和边框，但不包括滚动区域之外的大小）。
     // * 此方法对可见和隐藏元素均有效。
@@ -3033,7 +3033,7 @@ Dom.prototype = {
     /**
      * 获取指定节点的滚动区域大小。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * getScrollSize 获取的值总是大于或的关于 getSize 的值。
      * 此方法对可见和隐藏元素均有效。
@@ -3051,7 +3051,7 @@ Dom.prototype = {
     /**
      * 获取文档的滚动位置。
 	 * @param {Document} doc 要计算的文档。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      */
     getDocumentScroll: function (/*Document*/doc) {
         var win;
@@ -3067,7 +3067,7 @@ Dom.prototype = {
     /**
      * 获取或设置指定节点的相对位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法只对可见元素有效。
      * 
@@ -3119,7 +3119,7 @@ Dom.prototype = {
     // * 设置指定节点相对父元素的偏移。
     // * @param {Element} elem 要设置的元素。
     // * @param {Point} value 要设置的 x, y 对象。
-    // * @return this
+    // * @returns this
     // * @remark
     // * 此函数仅改变 CSS 中 left 和 top 的值。
     // * 如果当前对象的 position 是static，则此函数无效。
@@ -3155,7 +3155,7 @@ Dom.prototype = {
     ///**
     // * 获取用于让指定节点定位的父对象。
     // * @param {Element} elem 要设置的元素。
-    // * @return {Dom} 返回一个节点对象。如果不存在，则返回 null 。
+    // * @returns {Dom} 返回一个节点对象。如果不存在，则返回 null 。
     // */
     //offsetParent: function (/*Element*/elem) {
     //    var p = elem;
@@ -3166,7 +3166,7 @@ Dom.prototype = {
     /**
      * 获取或设置指定节点的绝对位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法只对可见元素有效。
      * @example
@@ -3204,7 +3204,7 @@ Dom.prototype = {
     // * @param {Element} elem 要设置的元素。
     // * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
     // * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-    // * @return this
+    // * @returns this
     // * @remark
     // * 如果对象原先的position样式属性是static的话，会被改成relative来实现重定位。
     // * @example
@@ -3236,7 +3236,7 @@ Dom.prototype = {
     /**
      * 获取或设置指定节点的滚动条的位置。
 	 * @param {Element} elem 要计算的元素。
-     * @return {Point} 返回的对象包含两个整型属性：x 和 y。
+     * @returns {Point} 返回的对象包含两个整型属性：x 和 y。
      * @remark
      * 此方法对可见和隐藏元素均有效。
      *
@@ -3266,7 +3266,7 @@ Dom.prototype = {
     // * @param {Element} elem 要设置的元素。
     // * @param {Number/Point} x 要设置的水平坐标或一个包含 x、y 属性的对象。如果不设置，使用 null 。
     // * @param {Number} y 要设置的垂直坐标。如果不设置，使用 null 。
-    // * @return this
+    // * @returns this
     // */
     //setScroll: function (/*Element*/elem, value) {
     //    if (elem.nodeType === 9) {
@@ -3335,7 +3335,7 @@ Dom.prototype = {
 //     * 使用指定的选择器代码对指定的结果集进行一次查找。
 //     * @param {String} selector 选择器表达式。
 //     * @param {DomList/Dom} result 上级结果集，将对此结果集进行查找。
-//     * @return {DomList} 返回新的结果集。
+//     * @returns {DomList} 返回新的结果集。
 //     */
 //    Dom.query = function (selector, context) {
 
@@ -3761,7 +3761,7 @@ Object.extend(String, {
     /**
      * Convert certain characters (&, <, >, and ') to their HTML character equivalents for literal display in web pages.
      * @param {String} value The string to encode
-     * @return {String} The encoded text
+     * @returns {String} The encoded text
      * @method
      */
     encodeHtml: (function () {
@@ -3788,7 +3788,7 @@ Object.extend(String, {
     /**
      * Convert certain characters (&, <, >, and ') from their HTML character equivalents.
      * @param {String} value The string to decode
-     * @return {String} The decoded text
+     * @returns {String} The decoded text
      * @method
      */
     decodeHtml: (function () {
@@ -3821,7 +3821,7 @@ Object.extend(String, {
      * a question mark or ampersand.
      * @param {String} url The URL to append to.
      * @param {String} string The content to append to the URL.
-     * @return (String) The resulting URL
+     * @returns (String) The resulting URL
      */
     urlAppend: function (url, string) {
         if (!Ext.isEmpty(string)) {

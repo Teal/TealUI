@@ -7,7 +7,7 @@
 
 /**
  * 获取指定节点的滚动区域大小。
- * @return {Size} 返回的对象包含两个整型属性：width 和 height。
+ * @returns {Size} 返回的对象包含两个整型属性：width 和 height。
  */
 Dom.prototype.scrollSize = function () {
     var elem = this[0];

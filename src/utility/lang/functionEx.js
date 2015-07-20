@@ -4,7 +4,7 @@
 /**
  * 判断一个变量是否是函数。
  * @param {Object} obj 要判断的变量。
- * @return {Boolean} 如果是函数，返回 true， 否则返回 false。
+ * @returns {Boolean} 如果是函数，返回 true， 否则返回 false。
  * @example
  * <pre>
  * Object.isFunction(function () {}); // true
@@ -59,7 +59,7 @@ Function.tryThese = function () {
  * @param {Function} fn 执行的函数。
  * @param {Number} times (默认 -1)运行次数。
  * @param {Number} [duration=0] 延时（毫秒）。
- * @return {Timer} 可用于 clearInterval 的计时器。
+ * @returns {Timer} 可用于 clearInterval 的计时器。
  */
 Function.interval = function (fn, times, duration) {
     var args = Array.prototype.slice.call(arguments, 3),
@@ -79,7 +79,7 @@ Function.interval = function (fn, times, duration) {
  * 创建一个延时执行函数。
  * @param {Function} fn 执行的函数。
  * @param {Number} [duration=0] 延时（毫秒）。
- * @return {Timer} 可用于 clearInterval 的计时器。
+ * @returns {Timer} 可用于 clearInterval 的计时器。
  */
 Function.createDalayed = function (fn, duration) {
     var timer;

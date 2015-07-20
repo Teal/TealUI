@@ -8,7 +8,7 @@
  * 复制对象的所有属性到其它对象。
  * @param {Object} target 复制的目标对象。
  * @param {Object} source 复制的源对象。
- * @return {Object} 返回 *target*。
+ * @returns {Object} 返回 *target*。
  * @example <pre>
  * var a = {v: 3}, b = {g: 2};
  * Object.assign(a, b);
@@ -36,7 +36,7 @@ Object.assign = Object.assign || function (target, source) {
  *
  * 可以让函数返回 **false** 来强制中止循环。
  * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @return {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
+ * @returns {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
  * @see Array#forEach
  * @example
  * <pre>

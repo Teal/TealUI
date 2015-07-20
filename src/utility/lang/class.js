@@ -11,7 +11,7 @@ function Base() { }
 /**
  * 继承当前类创建派生类。
  * @param {Object} [members] 子类实例成员列表。其中 contructor 表示类型构造函数。
- * @return {Function} 返回继承出来的子类。
+ * @returns {Function} 返回继承出来的子类。
  * @remark
  * 此函数只实现单继承。不同于真正面向对象的语言，
  * 子类的构造函数默认不会调用父类构造函数，除非子类不存在新的构造函数。
@@ -100,7 +100,7 @@ Base.prototype.toString = function() {
  * 手动触发一个监听器。
  * @param {String} eventName 要触发的事件名。
  * @param {Object} eventArgs 传递给监听器的事件对象。
- * @return 如果事件被阻止则返回 false，否则返回 true。
+ * @returns 如果事件被阻止则返回 false，否则返回 true。
  * @example <pre>
  *
  * // 创建一个实例。
@@ -132,7 +132,7 @@ Base.prototype.trigger = function (eventName, eventArgs) {
  * 添加一个事件监听器。
  * @param {String} eventName 要添加的事件名。
  * @param {Function} eventListener 要添加的事件监听器。
- * @return this
+ * @returns this
  * @example
  * <pre>
  *
@@ -169,7 +169,7 @@ Base.prototype.on = function (eventName, eventListener) {
  * 删除一个或多个事件监听器。
  * @param {String?} eventName 要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。
  * @param {Function?} eventListener 要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。
- * @return this
+ * @returns this
  * @remark
  * 注意: `function () {} !== function () {}`, 这意味着下列代码的 off 将失败:
  * <pre>

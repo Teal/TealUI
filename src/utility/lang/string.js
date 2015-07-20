@@ -9,7 +9,7 @@
  * 格式化指定的字符串。
  * @param {String} formatString 要格式化的字符串。格式化的方式见备注。
  * @param {Object} ... 格式化参数。
- * @return {String} 格式化后的字符串。
+ * @returns {String} 格式化后的字符串。
  * @remark 
  * 
  * 格式化字符串中，使用 {0} {1} ... 等元字符来表示传递给 String.format 用于格式化的参数。
