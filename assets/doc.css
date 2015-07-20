@@ -540,7 +540,7 @@ a .doc-icon {
     /* 解决 Chrome fixed 抖动问题 */
     -webkit-transform: translateZ(0);
     width: 0;
-    height: 2px;
+    height: 1.5px;
     background-color: #B2DFDB;
     top: 0;
     left: 0;
