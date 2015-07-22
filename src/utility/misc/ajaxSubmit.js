@@ -1,6 +1,6 @@
 
 
-// #require ajax/base.js
+// #require ajax
 
 /**
  * 返回一个表单的参数表示形式。
@@ -8,7 +8,6 @@
  * @returns {String} 参数形式。
  */
 Ajax.paramForm = function(formElem) {
-	//assert(formElem && formElem.tagName == "FORM", "HTMLFormElement.param(formElem): 参数 {formElem} 不是合法的 表单 元素", formElem);
 	var s = [], input, e = encodeURIComponent, value, name;
 	for (var i = 0, len = formElem.length; i < len; i++) {
 		input = formElem[i];
@@ -43,7 +42,7 @@ Ajax.paramForm = function(formElem) {
 };
 
 /**
- * 通过 ajax 提交一个表单。
+ * 通过 Ajax 提交一个表单。
  * @param {HTMLFormElement} formElem 表单元素。
  * @param {Function} [onsuccess] 成功回调函数。
  * @param {Function} [onerror] 错误回调函数。

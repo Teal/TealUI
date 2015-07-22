@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>AJAX</title>
+    <meta name="module-info" content="parent-title=网络, parent-order=ux, order=^">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供 Ajax 操作。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/shim/html5.js"></script>
+    <script type="text/javascript" src="../../utility/text/queryString.js"></script>
+    <script type="text/javascript" src="../../utility/misc/ajaxSubmit.js"></script>
+    <script type="text/javascript" src="../../utility/misc/submit.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>Ajax <small>(源码: <a href="../../utility/misc/ajax.js" target="_blank">utility/misc/ajax.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Ajax.send</code></td>
+            <td>发送一个 AJAX 请求</td>
+            <td class="doc">
+                <pre>
+                    Ajax.send({
+                        url: "../../../assets/resources/ajax/test.txt", 
+                        success:function(data){
+                            alert(data)
+                        }
+                    });
+                </pre>
+                <h5>连续发送多个请求</h5>
+                <pre>
+                    Ajax.send({
+                        url: [{
+                            url: "../../../assets/resources/ajax/test.txt"
+                        }, {
+                            url: "../../../assets/resources/ajax/test.txt"
+                        }], 
+                        success:function(data1, data2){
+                            alert(data1 + data2)
+                        }
+                    });
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>Ajax.get</code></td>
+            <td>发送一个 GET 异步请求</td>
+            <td><pre>Ajax.get("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
+        </tr>
+        <tr>
+            <td><code>Ajax.post</code></td>
+            <td>发送一个 POST 异步请求</td>
+            <td><pre>Ajax.post("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
+        </tr>
+        <tr>
+            <td><code>Ajax.jsonp</code></td>
+            <td>发送一个 JSONP 请求</td>
+            <td><pre>Ajax.jsonp("../../../assets/resources/ajax/jsonp.js", function(data){alert(data)})</pre></td>
+        </tr>
+    </table>
+
+    <h2>Ajax 表单提交 <small>(源码: <a href="../../utility/misc/ajaxSubmit.js" target="_blank">utility/misc/ajaxSubmit.js</a>)</small></h2>
+    
+    <form action="" method="get" id="form">
+        <input type="text" name="text" value="t1">
+        <input type="text" name="text" value="t2" readonly="readonly">
+        <input type="text" name="text" value="t3" disabled="disabled">
+        <input type="checkbox" name="checkbox" value="c1" checked="checked">
+        <input type="checkbox" name="checkbox" value="c2" checked="checked">
+        <select name="multipleselect" multiple="multiple" size=2 id="s">
+            <option value="s1">s1</option>
+            <option value="s2" selected="selected">s2</option>
+            <option value="s3">s3</option>
+            <option value="s4" selected="selected">s4</option>
+            <option value="s5">s5</option>
+        </select>
+        <input type="submit" value="提交">
+    </form>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>Ajax.paramForm</code></td>
+            <td>返回一个表单的参数表示形式</td>
+            <td><pre>Ajax.paramForm(document.getElementById("form"))</pre></td>
+        </tr>
+        <tr>
+            <td><code>Ajax.submit</code></td>
+            <td>通过 Ajax 提交一个表单</td>
+            <td><pre>Ajax.submit(document.getElementById("form"), function(data){alert("提交成功了, 返回数据" + data)}, function(errorCode){alert("提交失败了， 错误码" + errorCode)})</pre></td>
+        </tr>
+    </table>
+    
+</body>
+</html>

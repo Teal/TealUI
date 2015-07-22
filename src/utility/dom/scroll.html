@@ -97,33 +97,6 @@
         </tr>
     </table>
 
-    <h2>懒加载 <small>(源码: <a href="../../utility/dom/lazyLoad.js" target="_blank">utility/dom/lazyLoad.js</a>)</small></h2>
-
-    <aside class="doc-demo">
-        <img data-src="../../../assets/resources/100x100.png" alt="加载中...">
-        <script>
-            $('img[data-src]').lazyLoad();
-        </script>
-    </aside>
-
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.lazyLoad</code></td>
-            <td>滚动之后再加载图片</td>
-            <td class="doc">
-                <h5>基本用法</h5>
-                <pre>$('img[data-src]').lazyLoad();</pre>
-                <h5>自定义加载图片地址</h5>
-                <pre>$('img[data-src]').lazyLoad(function(){ return $(this).attr('data-src'); });</pre>
-            </td>
-        </tr>
-    </table>
-
     <h2>获取滚动区域大小 <small>(源码: <a href="../../utility/dom/scrollSize.js" target="_blank">utility/dom/scrollSize.js</a>)</small></h2>
     <table class="doc-api">
         <tr>
