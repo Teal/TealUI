@@ -27,16 +27,39 @@
         <tr>
             <td><code>Ajax.send</code></td>
             <td>发送一个 AJAX 请求</td>
-            <td>
+            <td class="doc">
                 <pre>
                     Ajax.send({
-                        url: "../../apps/demo/ajax/test.txt", 
+                        url: "../../../assets/resources/ajax/test.txt", 
                         success:function(data){
                             alert(data)
                         }
-                    })
+                    });
+                </pre>
+                <h5>连续发送多个请求</h5>
+                <pre>
+                    Ajax.send({
+                        url: [{
+                            url: "../../../assets/resources/ajax/test.txt"
+                        }, {
+                            url: "../../../assets/resources/ajax/test.txt"
+                        }], 
+                        success:function(data1, data2){
+                            alert(data1 + data2)
+                        }
+                    });
                 </pre>
             </td>
+        </tr>
+        <tr>
+            <td><code>Ajax.get</code></td>
+            <td>发送一个 GET 异步请求</td>
+            <td><pre>Ajax.get("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
+        </tr>
+        <tr>
+            <td><code>Ajax.post</code></td>
+            <td>发送一个 POST 异步请求</td>
+            <td><pre>Ajax.post("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
         </tr>
     </table>
 
