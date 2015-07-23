@@ -84,7 +84,7 @@ Function.interval = function (fn, times, duration) {
 
 // #endregion
 
-// #region @Function.delay
+// #region @Function.createDelayed
 
 /**
  * 创建一个延时执行函数。
@@ -97,7 +97,7 @@ Function.interval = function (fn, times, duration) {
  *      console.log('延时执行');
  * }, 100);
  */
-Function.delay = function (fn, duration) {
+Function.createDelayed = function (fn, duration) {
     var timer;
     return function () {
         var me = this, args = arguments;

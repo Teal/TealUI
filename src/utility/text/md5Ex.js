@@ -2,21 +2,23 @@
  * @author xuld
  */
 
-// #require md5.js
+// #require md5
 
 /**
- * 计算一个字符串的 MD5值。
- * @param {String} s 字符串。
- * @returns {String} md5 字符串。
+ * 计算一个字符串的 HMAC-MD5 值。
+ * @param {String} str 要计算的字符串。
+ * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
+ * @example md5.hmacMd5("abc", "key") // "D2FE98063F876B03193AFB49B4979591"
  */
-md5.hmacMd5 = function (s, key) {
-    return md5.binaryToString(md5.hmacMd5c(s, key));
+md5.hmacMd5 = function (str, key) {
+    return md5.binaryToString(md5.hmacMd5c(str, key));
 };
 
 /**
  * 计算 HMAC-MD5 。
+ * @inner
  */
-md5.hmacMd5c = function (s, key) {
+md5.hmacMd5c = function (str, key) {
     var me = md5,
         bkey = me.stringToBinary(key),
         ipad = Array(16),
@@ -31,20 +33,22 @@ md5.hmacMd5c = function (s, key) {
         opad[i] = bkey[i] ^ 0x5C5C5C5C;
     }
 
-    return me.calc(opad.concat(me.calc(ipad.concat(me.stringToBinary(s)), 512 + s.length * md5.charSize)), 512 + 128);
+    return me.calc(opad.concat(me.calc(ipad.concat(me.stringToBinary(str)), 512 + str.length * md5.charSize)), 512 + 128);
 };
 
 /**
- * 计算一个字符串的 MD5值。
- * @param {String} s 字符串。
- * @returns {String} md5 字符串。
+ * 计算一个字符串的 Base64-MD5 值。
+ * @param {String} str 要计算的字符串。
+ * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
+ * @example md5.base64Md5("abc")
  */
-md5.base64Md5 = function (s) {
-    return md5.binaryToBase64(md5.calc(md5.stringToBinary(s), s.length * md5.charSize));
+md5.base64Md5 = function (str) {
+    return md5.binaryToBase64(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 };
 
 /**
  * 转换数组到 base-64 的字符串。
+ * @inner
  */
 md5.binaryToBase64 = function (binArray, base64Pad) {
     base64Pad = base64Pad || "";
@@ -64,10 +68,11 @@ md5.binaryToBase64 = function (binArray, base64Pad) {
 };
 
 /**
- * 计算一个字符串的 MD5值。
- * @param {String} s 字符串。
- * @returns {String} md5 字符串。
+ * 计算一个字符串的 Base64-MD5 值。
+ * @param {String} str 要计算的字符串。
+ * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
+ * @example md5.base64HmacMd5("abc", "key") // "0v6YBj+HawMZOvtJtJeVkQ"
  */
-md5.base64HmacMd5 = function (s, key) {
-    return md5.binaryToBase64(md5.hmacMd5c(s, key));
+md5.base64HmacMd5 = function (str, key) {
+    return md5.binaryToBase64(md5.hmacMd5c(str, key));
 };

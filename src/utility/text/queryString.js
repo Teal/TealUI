@@ -5,8 +5,6 @@
 
 /**
  * 提供处理查询字符串的方法。
- * @class
- * @static
  */
 var QueryString = {
 
@@ -15,7 +13,8 @@ var QueryString = {
     /**
      * 解析查询字符串为对象。
      * @param {String} value 要解析的字符串。
-     * @returns {Object} 已解析的对象。
+     * @returns {Object} 返回解析后的对象。
+     * @example QueryString.parse("a=1&b=3") // {a: 1, b:3}
      */
     parse: function (value) {
         var result = {};
@@ -57,7 +56,8 @@ var QueryString = {
     /**
      * 将指定对象格式化为字符串。
      * @param {Object} obj 要格式化的对象。
-     * @returns {String} 已处理的字符串。
+     * @returns {String} 返回格式化后的字符串。
+     * @example QueryString.stringify({ a: "2", c: "4" }) // "a=2&c=4"
      */
     stringify: function (obj, name) {
         if (obj && typeof obj === 'object') {

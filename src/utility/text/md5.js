@@ -4,26 +4,30 @@
 
 /**
  * 计算一个字符串的 MD5 值。
- * @param {String} s 要计算的字符串。
- * @returns {String} md5 字符串。
+ * @param {String} str 要计算的字符串。
+ * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
+ * @example md5("a") // "0CC175B9C0F1B6A831C399E269772661"
  */
-function md5(s) {
-    return md5.binaryToString(md5.calc(md5.stringToBinary(s), s.length * md5.charSize));
+function md5(str) {
+    return md5.binaryToString(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 }
 
 /**
  * MD5 算法使用的字符集。
+ * @inner
  */
 md5.hexChars = "0123456789ABCDEF";
 
 /**
  * MD5 算法使用的字符大小。
+ * @inner
  */
 md5.charSize = 8;
 
 /**
  * 转换字符串到二进制。
  * 如果字符大于 255 ， 高位被截掉。
+ * @inner
  */
 md5.stringToBinary = function (s) {
     var result = [],
@@ -37,6 +41,7 @@ md5.stringToBinary = function (s) {
 
 /**
  * 计算一个数组的 MD5 值。
+ * @inner
  */
 md5.calc = function (binArray, length) {
 
@@ -132,6 +137,7 @@ md5.calc = function (binArray, length) {
  * 转换数组到十六进的字符串。
  * @param {Array} 二进制数组。
  * @returns {String} 字符串。
+ * @inner
  */
 md5.binaryToString = function (binArray) {
     var result = "",

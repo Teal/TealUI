@@ -6,18 +6,18 @@
  * 将 utf8 转 gb2312。
  * @param {String} str 要转换的字符串。
  * @returns {String} 转换后的字符串。
+ * @example utf8ToGb2312("a")
  */
 function utf8ToGb2312(str) {
-    var result = "", index;
-    for (var i = 0; i < str.length; i++) {
-        var c = str.charAt(i);
-        var code = str.charCodeAt(i);
+    var result = "", index, i, c, code;
+    for (i = 0; i < str.length; i++) {
+        c = str.charAt(i);
+        code = str.charCodeAt(i);
         if (c == " ") result += "+";
         else if (code >= 19968 && code <= 40869) {
             index = code - 19968;
             result += "%" + str.substr(index * 4, 2) + "%" + str.substr(index * 4 + 2, 2);
-        }
-        else {
+        } else {
             result += "%" + str.charCodeAt(i).toString(16);
         }
     }
@@ -28,11 +28,12 @@ function utf8ToGb2312(str) {
  * 将 gb2312 转 utf8。
  * @param {String} str 要转换的字符串。
  * @returns {String} 转换后的字符串。
+ * @example gb2312ToUtf8("a")
  */
 function gb2312ToUtf8(str) {
-    var result = '';
-    for (var i = 0; i < str.length; i++) {
-        var c = str.charAt(i);
+    var result = '', i, c;
+    for (i = 0; i < str.length; i++) {
+        c = str.charAt(i);
         // +是空格
         if (c == '+') {
             result += ' ';
@@ -74,15 +75,14 @@ function gb2312ToUtf8(str) {
  * 将 utf16 转 utf8。
  * @param {String} str 要转换的字符串。
  * @returns {String} 转换后的字符串。
+ * @example utf16ToUtf8("a")
  */
 function utf16ToUtf8(str) {
 
     //http://wiki.orz.asia/owen/index.php?title=Js%E6%B1%89%E5%AD%97%E8%BD%AC%E6%8B%BC%E9%9F%B3&oldid=452&printable=yes
     //http://tech.byreach.com/node/222
 
-    var out, i, len, c;
-    out = "";
-    len = str.length;
+    var out = "", i, len = str.length, c;
     for (i = 0; i < len; i++) {
         c = str.charCodeAt(i);
         if ((c >= 0x0001) && (c <= 0x007F)) {
@@ -103,10 +103,10 @@ function utf16ToUtf8(str) {
  * 将 utf8 转 utf16。
  * @param {String} str 要转换的字符串。
  * @returns {String} 转换后的字符串。
+ * @example utf8ToUtf16("a")
  */
 function utf8ToUtf16(str) {
-    var out, i, len, c;
-    var char2, char3;
+    var out, i, len, c, char2, char3;
 
     out = "";
     len = str.length;

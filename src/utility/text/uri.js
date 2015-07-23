@@ -325,6 +325,11 @@ var Uri = (function () {
 		return obj.toString();
 	}
 
+    /**
+     * 将当前 URL 对象转为字符串形式。
+     * @returns {Uri} 返回转换后的地址。
+     * @example Uri.parse("http://www.domain.com:55/file.ext?a=3#k").toString()
+     */
 	Uri.prototype.toString = function () {
 		var auth = this.auth || '';
 		if (auth) {
@@ -670,12 +675,23 @@ var Uri = (function () {
 		if (host) this.hostname = host;
 	};
 
+    /**
+     * 解析一个 URL 地址相关信息。
+     * @param {String} str 要解析的字符串。
+     * @returns {Uri} 返回解析后的 `Uri` 对象。
+     * @example Uri.parse("http://www.domain.com:55/file.ext?a=3#k")
+     */
 	Uri.parse = urlParse;
 	Uri.resolve = urlResolve;
 	Uri.resolveObject = urlResolveObject;
+
+    /**
+     * 将一个 URL 对象转为字符串形式。
+     * @param {String} uri 已解析的 `Uri` 对象。
+     * @returns {Uri} 返回转换后的地址。
+     * @example Uri.toString({protocol: "http:", host:"domain.com"})
+     */
 	Uri.toString = urlFormat;
 
 	return Uri;
-
-
 })();

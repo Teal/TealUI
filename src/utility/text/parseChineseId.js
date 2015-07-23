@@ -5,8 +5,17 @@
 
 /**
  * 解析中国身份证号。
- * @param {String} idNumber 身份证号。
- * @returns {Object} 返回一个 JSON，其中，valid: true 表示身份证信息合法。province: '北京' 表示省份。birthday: new Date(2000,1,1) 表示生日。sex: '男' 表示性别。
+ * @param {String} idNumber 要解析的身份证号。
+ * @returns {Object} 返回一个 JSON，其格式为：
+ * 
+ *      {
+ *           "valid": true,      // 表示身份证信息合法。
+ *           "province": "北京", // 表示省份。
+ *           "birthday": Date(), // 表示生日。
+ *           "sex": "男"         // 表示性别。
+ *      }
+ * 
+ * @example parseChineseId("152500198909267865")
  */
 function parseChineseId(idNumber) {
 

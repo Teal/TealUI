@@ -12,7 +12,6 @@
  * @returns {Number} 被删除的项在原数组中的位置。如果数组中找不到指定的项，则返回 -1。
  * @remark 如果数组中有多个相同的项，remove 只删除第一个。
  * @example
- * 
  * [1, 9, 9, 0].remove(9); // 返回 1,  数组变成 [1, 9, 0]
  *
  * #### 删除数组全部相同项。
@@ -26,7 +25,7 @@
  */
 Array.prototype.remove = function (value, startIndex) {
     startIndex = this.indexOf(value, startIndex);
-    startIndex > 0 && this.splice(startIndex, 1);
+    ~startIndex && this.splice(startIndex, 1);
     return startIndex;
 };
 
@@ -40,6 +39,10 @@ Array.prototype.remove = function (value, startIndex) {
  * @example [1, 9, 9, 0].unique()  // 返回 [1, 9, 0]
  */
 Array.prototype.unique = function () {
+    //var result = [], i;
+    //for (i = 0; i < this.length; i++)
+    //    arr.indexOf(this[i], i + 1) < 0 && result.push(this[i]);
+    //return result;
     return this.filter(function (item, index, arr) {
         return arr.indexOf(item, index + 1) < 0;
     });

@@ -11,7 +11,7 @@ function Base() { }
 /**
  * 继承当前类创建派生类。
  * @param {Object} [members] 子类实例成员列表。其中 contructor 成员表示类型构造函数。
- * @returns {Function} 返回继承出来的子类。
+ * @returns {Function} 返回继承创建的子类。
  * @remark
  * 此函数只实现单继承。不同于真正面向对象的语言，
  * 子类的构造函数默认不会调用父类构造函数，除非子类不存在新的构造函数。

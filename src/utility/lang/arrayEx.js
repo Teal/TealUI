@@ -23,20 +23,18 @@
  *
  */
 Array.parseArray = function (iterable, startIndex) {
-    if (!iterable)
-        return [];
+    if (!iterable) return [];
 
-    // [DOM Object] 。
+    // IE6-8: [DOM Object] 。
     if (iterable.item) {
-        var r = [], len = iterable.length;
-        for (startIndex = startIndex || 0; startIndex < len;
+        var result = [], length = iterable.length;
+        for (startIndex = startIndex || 0; startIndex < length;
         startIndex++)
-            r[startIndex] = iterable[startIndex];
-        return r;
+            result.push(iterable.item(startIndex));
+        return result;
     }
 
-    // 调用 slice 实现。
-    return iterable ? Array.prototype.slice.call(iterable, startIndex) : [];
+    return Array.prototype.slice.call(iterable, startIndex);
 };
 
 // #endregion
@@ -47,7 +45,7 @@ Array.parseArray = function (iterable, startIndex) {
  * 判断一个数组是否每一项都满足指定条件。
  * @param {Function} fn 用于判断是否满足条件的回调。函数的参数依次为:
  * 
- * 参数名 | 类型       | 说明
+ * 参数名 | 类型      | 说明
  * value | `Object`  | 当前元素的值。
  * index | `Number`  | 当前元素的索引。
  * array | `Array`   | 当前正在遍历的数组。
@@ -59,7 +57,7 @@ Array.parseArray = function (iterable, startIndex) {
  * @since ES5
  */
 Array.prototype.every = Array.prototype.every || function (fn, scope) {
-    for (var i = 0, l = this.length; i < l; i++)
+    for (var i = 0, length = this.length; i < length; i++)
         if ((i in this) && fn.call(scope, this[i], i, this))
             return false;
     return true;
@@ -73,7 +71,7 @@ Array.prototype.every = Array.prototype.every || function (fn, scope) {
  * 判断一个数组是否至少存在一项满足指定条件。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  * 
- * 参数名 | 类型       | 说明
+ * 参数名 | 类型      | 说明
  * value | `Object`  | 当前元素的值。
  * index | `Number`  | 当前元素的索引。
  * array | `Array`   | 当前正在遍历的数组。
@@ -85,7 +83,7 @@ Array.prototype.every = Array.prototype.every || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.some = Array.prototype.some || function (fn, scope) {
-    for (var i = 0, l = this.length; i < l; i++)
+    for (var i = 0, length = this.length; i < length; i++)
         if ((i in this) && fn.call(scope, this[i], i, this))
             return true;
     return false;
@@ -99,7 +97,7 @@ Array.prototype.some = Array.prototype.some || function (fn, scope) {
  * 对数组每一项进行处理，并将结果组成一个新数组。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  *
- * 参数名 | 类型       | 说明
+ * 参数名 | 类型      | 说明
  * value | `Object`  | 当前元素的值。
  * index | `Number`  | 当前元素的索引。
  * array | `Array`   | 当前正在遍历的数组。
@@ -111,9 +109,10 @@ Array.prototype.some = Array.prototype.some || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.map = Array.prototype.map || function (fn, scope) {
-    var result = [];
-    for (var i = 0, l = this.length; i < l; i++)
-        if (i in this) result[i] = fn.call(scope, this[i], i, this);
+    var result = [], i, length = this.length;
+    for (i = 0; i < length; i++)
+        if (i in this)
+            result[i] = fn.call(scope, this[i], i, this);
     return result;
 };
 
@@ -129,9 +128,9 @@ Array.prototype.map = Array.prototype.map || function (fn, scope) {
  * @since ES4
  */
 Array.prototype.concat = Array.prototype.concat || function (array) {
-    var arr = this.slice(0);
-    arr.push.apply(arr, array);
-    return arr;
+    var result = this.slice(0);
+    result.push.apply(result, array);
+    return result;
 };
 
 // #endregion
@@ -196,7 +195,7 @@ Array.prototype.max = function () {
  */
 Array.prototype.sum = function () {
     var result = 0, i = this.length;
-    while (--i >= 0) result += this[i] || 0;
+    while (--i >= 0) result += +this[i] || 0;
     return result;
 };
 
@@ -211,12 +210,11 @@ Array.prototype.sum = function () {
  */
 Array.prototype.avg = function () {
     var result = 0, i = this.length, c = 0;
-    while (--i >= 0) {
-        if (typeof this[i] === 'number') {
-            result += this[i];
+    while (--i >= 0)
+        if (this[i] === 0 || +this[i]) {
+            result += +this[i];
             c++;
         }
-    }
     return c ? result / c : 0;
 };
 
@@ -231,9 +229,12 @@ Array.prototype.avg = function () {
  * @example [1, 2].associate(["a", "b"]) // {a: 1, b: 2}
  */
 Array.prototype.associate = function (keys) {
-    var obj = {}, length = Math.min(this.length, keys.length);
-    for (var i = 0; i < length; i++) obj[keys[i]] = this[i];
-    return obj;
+    var result = {},
+        length = Math.min(this.length, keys.length),
+        i;
+    for (i = 0; i < length; i++)
+        result[keys[i]] = this[i];
+    return result;
 };
 
 // #endregion
@@ -256,7 +257,7 @@ Array.prototype.clear = function () {
 
 /**
  * 获取数组中第一个不为空的元素。
- * @returns {Object} 返回不为空的元素，如果所有元素都为空则返回 **undefined**。
+ * @returns {Object} 返回不为空的元素，如果所有元素都为空则返回 @undefined。
  * @example [undefined, null, 1, 2].pick() // 1
  */
 Array.prototype.pick = function () {
@@ -271,7 +272,7 @@ Array.prototype.pick = function () {
 
 /**
  * 随机获取数组中的任意一项。
- * @returns {Object} 返回找到的项。如果数组为空，为返回 **undefined**。
+ * @returns {Object} 返回找到的项。如果数组为空，则返回 @undefined。
  * @example [1, 2, 3].random()
  */
 Array.prototype.random = function () {
@@ -288,8 +289,9 @@ Array.prototype.random = function () {
  * @example [1, 2, 3].shuffle()
  */
 Array.prototype.shuffle = function () {
-    for (var i = this.length; --i >= 0;) {
-        var temp = this[i], r = Math.floor(Math.random() * (i + 1));
+    for (var i = this.length, temp, r; --i >= 0;) {
+        r = Math.floor((i + 1) * Math.random());
+        temp = this[i];
         this[i] = this[r];
         this[r] = temp;
     }
@@ -306,12 +308,9 @@ Array.prototype.shuffle = function () {
  * @example [[1, 2], [[[3]]]].flatten() // [1, 2, 3]
  */
 Array.prototype.flatten = function () {
-    var result = [];
-    for (var i = 0, l = this.length; i < l; i++)
-        if (this[i] && this[i].flatten)
-            result.push.apply(result, this[i].flatten());
-        else
-            result.push(this[i]);
+    var result = [], i;
+    for (i = 0; i < this.length; i++)
+        this[i] && this[i].flatten ? result.push.apply(result, this[i].flatten()) : result.push(this[i]);
     return result;
 };
 
@@ -323,15 +322,16 @@ Array.prototype.flatten = function () {
  * 判断数组中是否存在重复项。
  * @returns {Boolean} 若数组中存在重复值，则返回 @true，否则返回 @false。
  * @example 
- * [1, 9, 0].isUnique() // false
- * [1, 9, 9, 0].isUnique() // true
+ * [1, 9, 0].isUnique() // true
+ * 
+ * 
+ * [1, 9, 9, 0].isUnique() // false
  */
 Array.prototype.isUnique = function () {
     for (var i = 0; i < this.length - 1; i++)
-        for (var j = i + 1; j < this.length; j++)
-            if (this[i] == this[j])
-                return true;
-    return false;
+        if (this.indexOf(this[i], i + 1) >= 0)
+            return false;
+    return true;
 };
 
 // #endregion
@@ -345,21 +345,11 @@ Array.prototype.isUnique = function () {
  * @example [1, 2].sub([1]) // [2]
  */
 Array.prototype.sub = function (array) {
-    var clone = this.slice(0),
-            ln = clone.length,
-            i, j, lnB;
-
-    for (i = 0, lnB = array.length; i < lnB; i++) {
-        for (j = 0; j < ln; j++) {
-            if (clone[j] === array[i]) {
-                clone.splice(j, 1);
-                j--;
-                ln--;
-            }
-        }
-    }
-
-    return clone;
+    var result = this.slice(0), i;
+    for (i = result.length - 1; i >= 0; i--)
+        if (array.indexOf(result[i]) < 0)
+            result.splice(i, 1);
+    return result;
 };
 
 // #endregion

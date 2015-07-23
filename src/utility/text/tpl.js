@@ -8,67 +8,6 @@
 
 /**
  * 表示一个 JavaScript 模板解析器。
- * @class Tpl
- * @example Tpl.parse("{if $data === 1}OK{/if}", 1); //=> OK
- * @remark 模板语法介绍:
- * 在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。
- * 如：
- *      hello {if a > 0} world {/if}
- * 其中 {if a > 0} 和 {end} 是模板内部使用的逻辑表达式，用于控制模板的输出内容。
- * 
- * 模板内可以使用的逻辑表达式有：
- * 1. if 语句
- *      {if 表达式} 
- *          这里是 if 成功输出的文本 
- *      {else if 表达式}
- *          这里是 else if 成功输出的文本 
- *      {else}
- *          这里是 else 成功输出的文本 
- *      {/if}
- * 
- * 2. for 语句
- *      {for(var key in obj)}
- *          {循环输出的内容}
- *      {end}
- *      {for(var i = 0; i < arr.length; i++)}
- *          {循环输出的内容}
- *      {/for}
- * 
- * 3. while 语句
- *      {while 表达式}
- *          {循环输出的内容}
- *      {/while}
- * 
- * 4. function 语句
- *      {function fn(a, b)}
- *          {函数主体}
- *      {/function}
- * 
- * 5. var 语句
- *      {var a = 1, b = 2}
- * 
- * 6. foreach 语句
- *    为了简化循环操作，模板引擎提供了以相同方式遍历类数组和对象的流程语句。
- *    其写法和 for 语句类似，和 for 语句最大的区别是 foreach 语句没有小括号。
- *      {foreach item in obj}
- *          {循环输出的内容}
- *      {/foreach}
- *    for each 语句同时支持类数组和对象，item 都表示遍历的值， $key 表示数组索引或对象键。
- *    在 for each 语句中，可以使用 $target 获取当前遍历的对象，使用 $key 获取循环变量值。
- *    存在嵌套 for each 时，它们分别表示最近的值，如需跨语句，可使用变量保存。
- *    在 for each 语句中，可以使用 {break} 和 {continue} 控制流程。
- *      {foreach item in obj}
- *          {if $key == 0}
- *              {continue}
- *          {/if}
- *          {foreach item2 in item}
- *              {item2}
- *          {/foreach}
- *      {/foreach}
- * 
- * 在模板内如果需要插入 { 和 } 本身，分别写成 {{ 和 }}。
- * 在模板内使用 $data 表示传递给 Tpl.parse 的第2个参数。
- * 
  */
 var Tpl = {
 
@@ -89,8 +28,97 @@ var Tpl = {
      * @param {String} tplSource 要解析的模板文本。
      * @param {Object} data 传递给模板的数据对象。在模板中使用 $data 变量接收此参数。
      * @param {Object} scope 模板中 this 的指向。
-     * @param {String?} cacheKey = tplSource 表示当前模板的键，主要用于缓存。
+     * @param {String} [cacheKey = tplSource] 表示当前模板的键，主要用于缓存。
      * @returns {String} 返回解析后的模板内容。 
+     * @example Tpl.parse("{if $data === 1}OK{/if}", 1); // "OK"
+     * @remark 
+     * ## 模板语法介绍
+     * 
+     * 在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。
+     * 如：
+     *      hello {if a > 0} world {/if}
+     * 其中 {if a > 0} 和 {end} 是模板内部使用的逻辑表达式，用于控制模板的输出内容。
+     * 
+     * ### 常量
+     * 模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 { 本身，使用 }} 代替 } 本身。
+     * 
+     * ### if 语句
+     * 
+     *      {if 表达式} 
+     *          这里是 if 成功输出的文本 
+     *      {else if 表达式}
+     *          这里是 else if 成功输出的文本 
+     *      {else}
+     *          这里是 else 成功输出的文本 
+     *      {/if}
+     * 
+     * ### for 语句
+     *      {for(var key in obj)}
+     *          {循环输出的内容}
+     *      {end}
+     * 
+     * 
+     *      {for(var i = 0; i < arr.length; i++)}
+     *          {循环输出的内容}
+     *      {/for}
+     * 
+     * ### while 语句
+     *      {while 表达式}
+     *          {循环输出的内容}
+     *      {/while}
+     * 
+     * ### continue/break 语句
+     * 在循环时可使用此类语句终止循环。
+     *      {continue}
+     * 
+     * 
+     *      {break}
+     * 
+     * ### function 语句
+     *      {function fn(a, b)}
+     *          {函数主体}
+     *      {/function}
+     * 
+     * ### var 语句
+     *      {var a = 1, b = 2}
+     * 
+     * ### void 语句
+     * `void` 语句用于执行代码，但不会在模板字符串内添加任何内容。
+     * 
+     *      {void alert("alert")}
+     * 
+     * ### foreach 语句
+     *    为了简化循环操作，模板引擎提供了快速遍历类数组和对象的方式。
+     * 
+     *      {foreach item in obj}
+     *          {循环输出的内容}
+     *      {/foreach}
+     * 
+     * 
+     *      {foreach item, index in obj}
+     *          {循环输出的内容}
+     *      {/foreach}
+     * 
+     *    foreach 语句同时支持类数组和对象，item 都表示遍历的值，index 表示数组索引或对象键。
+     *    在 foreach 语句中，可以使用 $target 获取当前遍历的对象，使用 $key 获取循环变量值。
+     *    存在嵌套 foreach 时，它们分别表示最近的循环对应的值，如需跨语句，可使用变量保存。
+     *    在 foreach 语句中，可以使用 {break} 和 {continue} 控制流程。
+     *      {foreach item in obj}
+     *          {if $key == 0}
+     *              {continue}
+     *          {/if}
+     *          {foreach item2 in item}
+     *              {item2}
+     *          {/foreach}
+     *      {/foreach}
+     * 
+     * ### 内置宏变量
+     * 在模板内部可以直接使用一些内置宏变量。
+     * 
+     * - `$data`: 被解析的数据。
+     * - `$key`: foreach 语句中获取最近的循环索引或键。
+     * - `$target`: foreach 语句中获取最近的循环对象。
+     * 
      */
     parse: function (tplSource, data, scope, cacheKey) {
         return Tpl.compile(tplSource, cacheKey).call(scope, data);
@@ -209,6 +237,7 @@ var Tpl = {
                     case 'var':
                     case 'void':
                     case 'case':
+                    case 'return':
                         compiledCode += commandText + '\n';
                         break;
                     case 'break':

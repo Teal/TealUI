@@ -24,7 +24,7 @@
  * @example new Date().format("yyyy/MM/dd HH:mm:ss")
  */
 Date.prototype.format = function (format) {
-    var formators = Date._formators;
+    var me = this, formators = Date._formators;
     if (!formators) {
         Date._formators = formators = {
 
@@ -59,13 +59,10 @@ Date.prototype.format = function (format) {
 
         };
     }
-    var me = this;
     return (format || 'yyyy/MM/dd HH:mm:ss').replace(/(\w)\1*/g, function (all, key) {
         if (key in formators) {
-            key = '' + formators[key](me, all.length);
-            while (key.length < all.length) {
-                key = '0' + key;
-            }
+            key = formators[key](me, all.length);
+            while (key.length < all.length) key = '0' + key;
             all = key;
         }
         return all;

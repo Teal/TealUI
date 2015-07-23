@@ -4,10 +4,12 @@
  */
 
 /**
- * 根据简体中文获取拼音。
+ * 根据繁体中文获取拼音。
  * @param {String} value 要获取的中文。
- * @param {Boolean} [firstLetterOnly=false] 是否只获取首字母。
+ * @param {Boolean} [firstLetterOnly=false] 如果为 @true 则只获取首字母，否则获取全拼。
  * @param {String} [joinChar=' '] 用于连接各组成部分的字符。如果设置为 null，则不连接。
+ * @returns {String} 返回结果拼音字符串。如果 @joinChar 为 null 则返回数组。
+ * @example getPinYin("你好") // "Ni Hao"
  */
 function getPinYin(value, firstLetterOnly, joinChar) {
     var result = [], i, pinyin;
@@ -22,6 +24,7 @@ function getPinYin(value, firstLetterOnly, joinChar) {
 
 /**
  * 中文拼音字典库。
+ * @inner
  */
 getPinYin.dictionary = {
     "A": "啊阿呵吖嗄腌锕錒",
