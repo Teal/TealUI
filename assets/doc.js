@@ -1552,7 +1552,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         titlePostfix: ' - TealUI | 最完整的开源前端代码库',
 
         header: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
-                    <a href="{baseUrl}{indexUrl}" id="doc_logo">TealUI <small>{version}</small></a>\
+                    <a href="{baseUrl}{indexUrl}" id="doc_logo" title="TealUI(网页版)">TealUI<small>{version}</small></a>\
                     <span id="doc_menu" class="doc-right">\
                         <button type="button" id="doc_menu_search" onclick="Doc.Page.toggleSidebar();" {touchToClick}><span class="doc-icon">☌</span></button>\
                         <button type="button" id="doc_menu_navbar" onclick="Doc.Page.toggleNavbar();" {touchToClick}><span class="doc-icon">≡</span></button>\

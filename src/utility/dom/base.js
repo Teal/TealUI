@@ -12,6 +12,14 @@
  * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
  * @param {Document} context 执行的上下文文档。
  * @returns {Dom} 返回匹配的节点列表。
+ * @example
+ * $(".doc-box")
+ * 
+ * 
+ * $("&lt;a>你好&lt;/a>")
+ * 
+ * 
+ * $(function(){ alert("DOM ready") })
  */
 function Dom(selector, context) {
     return new Dom.init(selector || 0, context || document);
@@ -22,6 +30,7 @@ function Dom(selector, context) {
  * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
  * @param {Document} context 执行的上下文文档。
  * @returns {Dom} 返回匹配的节点列表。
+ * @inner
  */
 Dom.init = function (selector, context) {
 
@@ -57,6 +66,7 @@ Dom.init = function (selector, context) {
  * 获取指定节点的数据容器。
  * @param {Element} elem 节点。
  * @returns {Object} 返回存储数据的字段。
+ * @example Dom.data(document.getElementById('elem'))
  */
 Dom.data = function (elem) {
     var datas = Dom._datas || (Dom._datas = {}),
@@ -70,6 +80,7 @@ Dom.data = function (elem) {
  * @param {String} selector 用于判断的元素的 CSS 选择器。
  * @param {Node} [context=document] 只在指定的节点内搜索此元素。
  * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+ * @example Dom.closest(document.getElementById('elem'), 'body')
  */
 Dom.closest = function (node, selector, context) {
     while (node && node != context && !node.matches(selector))
@@ -82,6 +93,7 @@ Dom.closest = function (node, selector, context) {
  * @param {Element} elem 要获取的元素。
  * @param {String} cssPropertyName 要处理的 CSS 属性名。
  * @returns {String} 返回已加后缀的 CSS 属性名。
+ * @example Dom.vendor(document.getElementById('elem'), 'transform')
  */
 Dom.vendor = function (elem, cssPropertyName) {
     if (!(cssPropertyName in elem.style)) {
@@ -121,6 +133,7 @@ Dom.styleNumbers = {
  * @param {String} name cssPropertyName 属性名或 CSS 字符串。
  * @param {String/Number} [value] CSS属性值， 数字如果不加单位，则会自动添加像素单位。
  * @returns {String} 返回值。
+ * @example Dom.css(document.getElementById('elem'), 'fontSize')
  */
 Dom.css = function (elem, cssPropertyName, value) {
 
@@ -227,6 +240,7 @@ Dom.css = function (elem, cssPropertyName, value) {
  * @param {Element} elem 要获取的元素。
  * @param {String} expression 要计算的表达式。其中使用变量代表 CSS 属性值，如 "width+paddingLeft"。
  * @returns {Number} 返回计算的值。
+ * @example Dom.calc(document.getElementById('elem'), 'fontSize+lineHeight')
  */
 Dom.calc = function (elem, expression) {
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/

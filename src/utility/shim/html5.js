@@ -12,14 +12,12 @@
 if (!Function.prototype.bind) {
 
     /**
-     * 绑定函数作用域(**this**)。并返回一个新函数，这个函数内的 **this** 为指定的 *scope* 。
+     * 并返回一个新函数，这个函数执行时的 @this 始终为指定的 @scope。
      * @param {Object} scope 要绑定的作用域的值。
      * @example
-     * <pre>
-     * var fn = function(){ trace(this);  };
-     * var fnProxy = fn.bind(0);
+     * var fnProxy = function(){ trace(this);  }.bind(0);
      * fnProxy()  ; //  输出 0
-     * </pre>
+     * @since ES5
      */
     Function.prototype.bind = function (scope) {
         var me = this;
@@ -33,15 +31,18 @@ if (!Function.prototype.bind) {
 if (!Array.isArray) {
 
     /**
-     * 判断一个变量是否是数组。
-     * @param {Object} obj 要判断的变量。
-     * @returns {Boolean} 如果是数组，返回 true， 否则返回 false。
+     * 判断一个对象是否是数组。
+     * @param {Object} obj 要判断的对象。
+     * @returns {Boolean} 如果是数组，返回 @true，否则返回 @false。
      * @example
-     * <pre>
      * Array.isArray([]); // true
+     * 
+     * 
      * Array.isArray(document.getElementsByTagName("div")); // false
+     * 
+     * 
      * Array.isArray(new Array); // true
-     * </pre>
+     * @since ES5
      */
     Array.isArray = function (obj) {
         return Object.prototype.toString.call(obj) === "[object Array]";
@@ -52,38 +53,49 @@ if (!Array.isArray) {
 if (!Array.prototype.forEach) {
 
     /**
-     * 遍历当前数组，并对数组的每个元素执行函数 *fn*。
+     * 遍历当前数组，并对每个元素执行函数 @fn。
      * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
      *
-     * - {Object} value 当前元素的值。
-     * - {Number} index 当前元素的索引。
-     * - {Array} array 当前正在遍历的数组。
-     *
-     * 可以让函数返回 **false** 来强制中止循环。
-     * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
-     * @see #filter
-     * @example 以下示例演示了如何遍历数组，并输出每个元素的值。
-     * <pre>
+     * 参数名 | 类型       | 说明
+     * value | `Object`  | 当前元素的值。
+     * index | `Number`  | 当前元素的索引。
+     * array | `Array`   | 当前正在遍历的数组。
+     * 
+     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+     * @example
      * [2, 5].forEach(function (value, key) {
-     * 		trace(value);
-     * });
-     * // 输出 '2' '5'
-     * </pre>
+     * 		console.log(value);
+     * }); // 输出 '2' '5'
+     * @since ES5
      */
     Array.prototype.forEach = function (fn, scope) {
-        return Object.each(this, fn, scope);
+        for (var i = 0, length = this.length; i < length; i++)
+            fn.call(scope, iterable[i], i, iterable);
     };
 
+    /**
+     * 过滤指定对象或数组中不满足要求的项，并将结果组成一个新数组。
+     * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
+     * 
+     * 参数名 | 类型       | 说明
+     * value | `Object`  | 当前元素的值。
+     * index | `Number`  | 当前元素的索引。
+     * array | `Array`   | 当前正在遍历的数组。
+     * 返回值 | `Boolean` | 用于确定是否满足条件。
+     * 
+     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+     * @returns {Array} 返回一个新数组。
+     * @example [1, 2].filter(function(v){return v > 1;}) // [2]
+     * @since ES5
+     */
     Array.prototype.filter = function (fn, scope) {
         var results = [];
-        for (var value, i = 0, l = this.length; i < l; i++) {
+        for (var value, i = 0, l = this.length; i < l; i++)
             if (i in this) {
                 value = this[i];
-                if (fn.call(scope, value, i, this)) {
+                if (fn.call(scope, value, i, this))
                     results.push(value);
-                }
             }
-        }
         return results;
     };
 
@@ -93,12 +105,9 @@ if (!String.prototype.trim) {
 
     /**
      * 去除字符串的首尾空格。
-     * @returns {String} 处理后的字符串。
-     * @remark 目前除了 IE8-，主流浏览器都已内置此函数。
-     * @example
-     * <pre>
-     * "   g h   ".trim(); //  返回     "g h"
-     * </pre>
+     * @returns {String} 返回新字符串。
+     * @example "   g h   ".trim(); //  返回     "g h"
+     * @since ES5
      */
     String.prototype.trim = function () {
         return this.replace(/^[\s\u00A0]+|[\s\u00A0]+$/g, "");
@@ -109,6 +118,16 @@ if (!String.prototype.trim) {
 // #endregion
 
 // #region lte IE 8
+
+/**
+ * 获取指定项在数组内的索引。
+ * @param {Object} value 一个类数组对象。
+ * @param {Number} [startIndex=0] 转换开始的位置。
+ * @returns {Number} 返回索引。如果找不到则返回 -1。
+ * @example ["b", "c", "a", "a"].indexOf("a"); // 2
+ * @since ES4
+ * @member Array.prototype.indexOf
+ */
 
 /*@cc_on if(!+"\v1") {
 

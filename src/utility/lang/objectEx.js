@@ -276,6 +276,7 @@ Object.map = function (iterable, fn, scope) {
 
 /**
  * 过滤指定对象或数组中不满足要求的项，并将结果组成一个新数组。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  * 
  * 参数名 | 类型       | 说明
@@ -320,6 +321,7 @@ Object.filter = function (iterable, fn, scope) {
 
 /**
  * 判断一个对象或数组是否每一项都满足指定条件。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 用于判断是否满足条件的回调。函数的参数依次为:
  * 
  * 参数名 | 类型       | 说明
@@ -360,6 +362,7 @@ Object.every = function (iterable, fn, scope) {
 
 /**
  * 判断一个数组是否至少存在一项满足指定条件。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  * 
  * 参数名 | 类型       | 说明
