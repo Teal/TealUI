@@ -7,8 +7,21 @@
 
 /**
  * 将日期对象格式化为字符串。
- * @param {String} format 日期的格式。默认为 yyyy/MM/dd HH:mm:ss。y: 年, M: 月, d: 天, H: 小时（24小时制）,m:分, s:秒, e:星期
+ * @param {String} [format="yyyy/MM/dd HH:mm:ss"] 日期的格式，其中的元字符会被替换。支持的元字符见下表：
+ * 
+ * 元字符 | 意义 | 实例
+ * y     | 年  | yyyy:2014, yy:14
+ * M     | 月  | MM:09, M:9
+ * d     | 日  | dd:09, d:9
+ * H     | 小时 | HH:13, h:13
+ * y     | 分钟 | mm:06, m:6
+ * y     | 秒  | ss:06, s:6
+ * e     | 星期 | e:天, ee:周日, eee: 星期天
+ * 
+ * <blockquote class="doc-note"><h4>注意</h4>元字符区分大小写。</blockquote>
+ * 
  * @returns {String} 格式化后的字符串。
+ * @example new Date().format("yyyy/MM/dd HH:mm:ss")
  */
 Date.prototype.format = function (format) {
     var formators = Date._formators;
@@ -64,10 +77,26 @@ Date.prototype.format = function (format) {
 // #region @Date.parseDate
 
 /**
- * 尝试从指定对象中分析出日期对象。（支持格式解析）
- * @param {String/Date} value 要分析的对象。
- * @param {String} [format] 对应的格式。
+ * 将指定对象解析为日期对象。
+ * @param {String/Date} value 要解析的对象。
+ * @param {String} [format] 解析的格式。
+ * 如果未指定格式，则支持标准的几种时间格式。
+ * 如果指定了格式，则其中的元字符会被提取。支持的元字符见下表：
+ * 
+ * 元字符 | 意义 | 实例
+ * y     | 年  | 2014
+ * M     | 月  | 9
+ * d     | 日  | 9
+ * H     | 小时 | 9
+ * y     | 分钟 | 6
+ * y     | 秒  | 6
+ * 
+ * <blockquote class="doc-note"><h4>注意</h4>元字符区分大小写。</blockquote>
+ * 
  * @returns {Date} 返回分析出的日期对象。
+ * @example
+ * Date.parseDate("2014-1-1")
+ * Date.parseDate("2013年12月1日", "yyyy年MM月dd日")
  */
 Date.parseDate = function (value, format) {
     if (value && !(value instanceof Date)) {
@@ -96,9 +125,10 @@ Date.parseDate = function (value, format) {
 // #region @Date#addDay
 
 /**
- * 在当前日期添加指定的天数。
- * @param {Number} value 要添加的天数。
- * @returns {Date} 返回处理后的新日期对象。
+ * 在当前日期添加指定的天数并返回新日期。
+ * @param {Number} value 要添加的天数。如果小于 0 则倒数指定天数。
+ * @returns {Date} 返回新日期对象。
+ * @example new Date().addDay(1)
  */
 Date.prototype.addDay = function (value) {
     return new Date(+this + value * 86400000);
@@ -110,8 +140,9 @@ Date.prototype.addDay = function (value) {
 
 /**
  * 在当前日期添加指定的月数。
- * @param {Number} value 要添加的月数。
- * @returns {Date} 返回处理后的新日期对象。
+ * @param {Number} value 要添加的月数。如果小于 0 则倒数指定月数。
+ * @returns {Date} 返回新日期对象。
+ * @example new Date().addMonth(1)
  */
 Date.prototype.addMonth = function (value) {
     var date = new Date(+this);
@@ -127,8 +158,9 @@ Date.prototype.addMonth = function (value) {
 // #region @Date#toDay
 
 /**
- * 获取当前日期的无小时部分。
- * @returns {Date} 返回处理后的新日期对象。
+ * 获取当前日期的日期部分。
+ * @returns {Date} 返回新日期对象，其小时部分已被清零。
+ * @example new Date().toDay()
  */
 Date.prototype.toDay = function () {
     return new Date(this.getFullYear(), this.getMonth(), this.getDate());

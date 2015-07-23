@@ -5,13 +5,14 @@
 // #region @RegExp.parseRegExp
 
 /**
- * 从字符串创建正则式。
- * @param {Object} regexp 字符串。
- * @param {String} [flag] 标记。
- * @returns {RegExp} 返回一个正则表达式对象。
+ * 解析字符串并创建新的正则表达式。
+ * @param {String} str 要解析的字符串。字符串的正则元字符将匹配字符本身。
+ * @param {String} [flag] 正则表达式标记。可选的值为 "gmi"
+ * @returns {RegExp} 返回一个新正则表达式对象。
+ * @example RegExp.parseRegExp("\\s") // /\s/
  */
-RegExp.parseRegExp = function (value, flag) {
-    return new RegExp(value.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1'), flag);
+RegExp.parseRegExp = function (str, flag) {
+    return new RegExp(str.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1'), flag);
 };
 
 // #endregion

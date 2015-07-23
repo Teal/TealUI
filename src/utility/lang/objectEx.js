@@ -5,18 +5,17 @@
 // #region @Object.type
 
 /**
- * 返回一个变量的类型的字符串形式。
- * @param {Object} obj 变量。
- * @returns {String} 所有可以返回的字符串： string number boolean undefined null
- *         array function element class date regexp object。
- * @example <code> 
+ * 获取指定对象的类型。
+ * @param {Object} obj 要判断的对象。
+ * @returns {String} 返回类型字符串。
+ * 可能返回的值有： `string`,`number`,`boolean`,`undefined`,`null`,`array`,`function`,`element`,`date`,`regexp`,`object`。
+ * @example
  * Object.type(null); // "null"
  * Object.type(); // "undefined"
  * Object.type(new Function); // "function"
  * Object.type(+'a'); // "number"
  * Object.type(/a/); // "regexp"
  * Object.type([]); // "array"
- * </code>
  */
 Object.type = function (obj) {
     var types = Object._types;
@@ -35,9 +34,9 @@ Object.type = function (obj) {
 // #region @Object.isEmpty
 
 /**
- * 判断一个变量是否空。
- * @param {Object} obj 变量。
- * @returns {Boolean} 如果 *obj* 是空值，空字段或数组，则返回 **true**, 否则返回 **false** 。
+ * 判断一个对象是否空。
+ * @param {Object} obj 要判断的对象。
+ * @returns {Boolean} 如果 @obj 是 @null、@false、空字符串或空数组，则返回 @true，否则返回 @false。
  */
 Object.isEmpty = function (obj) {
     return !obj || obj.length === 0;
@@ -48,15 +47,13 @@ Object.isEmpty = function (obj) {
 // #region @Object.isObject
 
 /**
- * 判断一个变量是否是引用变量。
- * @param {Object} obj 变量。
- * @returns {Boolean} 如果 *obj* 是引用变量，则返回 **true**, 否则返回 **false** 。
+ * 判断一个对象是否是引用对象。
+ * @param {Object} obj 要判断的对象。
+ * @returns {Boolean} 如果 @obj 是引用变量，则返回 @true，否则返回 @false。
  * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
  * @example
- * <pre>
  * Object.isObject({}); // true
  * Object.isObject(null); // false
- * </pre>
  */
 Object.isObject = function (obj) {
     return obj !== null && typeof obj === "object";
@@ -69,15 +66,11 @@ Object.isObject = function (obj) {
 /**
  * 复制对象的所有属性到其它对象，但不覆盖原对象的相应值。
  * @param {Object} target 复制的目标对象。
- * @param {Object} src 复制的源对象。
- * @returns {Object} 返回 *target*。
- * @see Object.assign
+ * @param {Object} source 复制的源对象。
+ * @returns {Object} 返回 @target。
  * @example
- * <pre>
- * var a = {v: 3, g: 5}, b = {g: 2};
- * Object.extendIf(a, b);
- * trace(a); // {v: 3, g: 5}  b 未覆盖 a 任何成员。
- * </pre>
+ * var a = {v: 3}, b = {g: 2};
+ * Object.assignIf(a, b); // a 现在是 {v: 3, g: 2}
  */
 Object.assignIf = function (target, source) {
     // 和 Object.assign 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
@@ -92,15 +85,11 @@ Object.assignIf = function (target, source) {
 // #region @Object.clone
 
 /**
- * 深拷贝一个对象，拷贝的对象和原对象无关联。
- * @param {Object} obj 复制的对象。
+ * 深拷贝一个对象，拷贝的对象和原对象无引用关系。
+ * @param {Object} obj 要复制的对象。
  * @returns {Object} 返回新对象。
  * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * Object.clone(a, b);
- * trace(a); // {v: 3, g: 5}
- * </pre>
+ * Object.clone({a: 3, b: [5]}); // {a: 3, b: [5]}
  */
 Object.clone = function (obj) {
     if (obj && typeof obj === 'object') {
@@ -131,21 +120,17 @@ Object.clone = function (obj) {
 // #region @Object.count
 
 /**
- * 获取对象的属性数。
- * @param {Object} obj 判断的对象。
- * @returns {Number} 返回属性数。
- * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * console.log(Object.length(a));
- * </pre>
+ * 计算对象的属性数。
+ * @param {Object} obj 要处理的对象。
+ * @returns {Number} 返回属性数。只返回对象自身的属性数，不含原型属性。
+ * @example Object.count({v: 3, g: 5})
  */
-Object.count = function (obj) {
-    var length = 0, key;
+Object.count = function(obj) {
+    var result = 0, key;
     for (key in obj)
         if (obj.hasOwnProperty(key))
-            length++;
-    return length;
+            result++;
+    return result;
 };
 
 // #endregion
@@ -154,13 +139,10 @@ Object.count = function (obj) {
 
 /**
  * 获取对象的所有键。
- * @param {Object} obj 判断的对象。
- * @returns {Array} 返回所有键。
- * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * console.log(Object.keys(a));
- * </pre>
+ * @param {Object} obj 要处理的对象。
+ * @returns {Array} 返回所有键组成的数组。
+ * @example Object.keys({a: 3, b: 5}) // ["a", "b"]
+ * @since ES5
  */
 Object.keys = Object.keys || function (obj) {
     var result = [], key;
@@ -176,13 +158,9 @@ Object.keys = Object.keys || function (obj) {
 
 /**
  * 获取对象的所有值。
- * @param {Object} obj 判断的对象。
- * @returns {Array} 返回所有值。
- * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * console.log(Object.values(a));
- * </pre>
+ * @param {Object} obj 要处理的对象。
+ * @returns {Array} 返回所有值组成的数组。
+ * @example Object.values({a: 3, b: 5}) // [3, 5]
  */
 Object.values = function (obj) {
     var result = [], key;
@@ -197,15 +175,11 @@ Object.values = function (obj) {
 // #region @Object.keyOf
 
 /**
- * 返回一个值对应的键。
- * @param {Object} obj 判断的对象。
- * @param {Object} value 判断的值。
- * @returns {String} 返回键，如果不存在返回 null。
- * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * console.log(Object.values(a));
- * </pre>
+ * 返回对象中指定值对应的第一个键。
+ * @param {Object} obj 要搜索的对象。
+ * @param {Object} value 要查找的值。
+ * @returns {String} 返回匹配的第一个键，如果不存在返回 null。
+ * @example Object.keyOf({a:1, b:1}, 1) // "a"
  */
 Object.keyOf = function (obj, value) {
     for (var key in obj)
@@ -219,17 +193,13 @@ Object.keyOf = function (obj, value) {
 // #region @Object.insertBefore
 
 /**
- * 在对象指定键之前插入一个属性对。
- * @param {Object} obj 插入的对象。
- * @param {Object} refKey 插入的位置。
- * @param {Object} key 插入的键。
- * @param {Object} value 插入的值。
- * @returns {Object} 返回 *obj*。
- * @example
- * <pre>
- * var a = {v: 3, g: 5};
- * console.log(Object.values(a));
- * </pre>
+ * 在对象指定键之前插入一个键值对。
+ * @param {Object} obj 要插入的对象。
+ * @param {String} refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
+ * @param {String} key 新插入的键。
+ * @param {Object} value 新插入的值。
+ * @returns {Object} 返回 @obj。
+ * @example Object.insertBefore({a:1}, 'a', 'b', 2); // {b:2, a: 1}
  */
 Object.insertBefore = function (obj, refKey, key, value) {
     var tmpObj = {}, foundKey = false, k;
@@ -252,32 +222,33 @@ Object.insertBefore = function (obj, refKey, key, value) {
 // #region @Object.map
 
 /**
- * 遍历一个类数组对象并调用指定的函数，返回每次调用的返回值数组。
- * @param {Array/Object} iterable 任何对象，不允许是函数。
+ * 对对象或数组每一项进行处理，并将结果组成一个新数组。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  *
- * - {Object} value 当前元素的值。
- * - {Number} index 当前元素的索引。
- * - {Array} array 当前正在遍历的数组。
- *
- * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @returns {Object} 返回的结果对象。
- * @example
- * <pre>
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 返回处理后的新值。
  * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Object} 返回一个新对象或数组。
+ * @example
  * Object.map(["a","b"], function(a){
  * 	  return a + a;
- * }); // => ["aa", "bb"];
+ * }); // ["aa", "bb"];
  *
+ * 
  * Object.map({a: "a", b: "b"}, function(a){
  * 	  return a + a
- * }); // => {a: "aa", b: "bb"};
+ * }); // {a: "aa", b: "bb"};
  *
+ * 
  * Object.map({length: 1, "0": "a"}, function(a){
  * 	   return a + a
- * }); // => ["a"];
+ * }); // ["a"];
  * 
- * </pre>
  */
 Object.map = function (iterable, fn, scope) {
 
@@ -304,16 +275,22 @@ Object.map = function (iterable, fn, scope) {
 // #region @Object.filter
 
 /**
- * 遍历一个类数组对象并调用指定的函数，过滤不满足要求的元素。
- * @param {Array/Object} iterable 任何对象，不允许是函数。
+ * 过滤指定对象或数组中不满足要求的项，并将结果组成一个新数组。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
- *
- * - {Object} value 当前元素的值。
- * - {Number} index 当前元素的索引。
- * - {Array} array 当前正在遍历的数组。
- *
- * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @returns {Object} 返回的结果对象。
+ * 
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 用于确定是否满足条件。
+ * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Object} 返回一个新对象或数组。
+ * @example 
+ * Object.filter([1, 2], function(v){return v > 1;}) // [2]
+ * 
+ * 
+ * Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}
  */
 Object.filter = function (iterable, fn, scope) {
 
@@ -342,16 +319,18 @@ Object.filter = function (iterable, fn, scope) {
 // #region @Object.every
 
 /**
- * 遍历一个类数组对象并调用指定的函数，判断是否都满足条件。
- * @param {Array/Object} iterable 任何对象，不允许是函数。
- * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
- *
- * - {Object} value 当前元素的值。
- * - {Number} index 当前元素的索引。
- * - {Array} array 当前正在遍历的数组。
- *
- * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @returns {Boolean} 全部满足返回 true 否则返回 false。
+ * 判断一个对象或数组是否每一项都满足指定条件。
+ * @param {Function} fn 用于判断是否满足条件的回调。函数的参数依次为:
+ * 
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 用于确定是否满足条件。
+ * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Boolean} 如果全部满足条件返回 @true，否则返回 @false。
+ * @example Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}); // false
  */
 Object.every = function (iterable, fn, scope) {
 
@@ -380,16 +359,18 @@ Object.every = function (iterable, fn, scope) {
 // #region @Object.some
 
 /**
- * 遍历一个类数组对象并调用指定的函数，判断是否部分满足条件。
- * @param {Array/Object} iterable 任何对象，不允许是函数。
+ * 判断一个数组是否至少存在一项满足指定条件。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
- *
- * - {Object} value 当前元素的值。
- * - {Number} index 当前元素的索引。
- * - {Array} array 当前正在遍历的数组。
- *
- * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @returns {Boolean} 部分满足返回 true 否则返回 false。
+ * 
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 用于确定是否满足条件。
+ * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Boolean} 如果至少存在一项满足条件返回 @true，否则返回 @false。
+ * @example Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}); // true。
  */
 Object.some = function (iterable, fn, scope) {
 
@@ -419,9 +400,10 @@ Object.some = function (iterable, fn, scope) {
 
 /**
  * 获取对象指定键的子集。
- * @param {Object} obj 任何对象，不允许是函数。
- * @param {Array} keys 对每个元素运行的函数。函数的参数依次为:
- * @returns {Object} 返回结果。
+ * @param {Object} obj 要处理的对象。
+ * @param {Array} keys 要获取的键列表。
+ * @returns {Object} 返回新对象。
+ * @example Object.subset({a:1, b:1}, ['a']) // {a:1}
  */
 Object.subset = function (obj, keys) {
     var result = {}, i;
@@ -437,8 +419,9 @@ Object.subset = function (obj, keys) {
 
 /**
  * 获取参数中第一个不为空的值。
- * @param {Object} obj... 任何对象，不允许是函数。
- * @returns {Object} 返回结果。
+ * @param {Object} ... 要检测的对象。
+ * @returns {Object} 返回第一个不为空的值。
+ * @example Object.pick(undefined, null, 1); // 1
  */
 Object.pick = function () {
     for (var i = 0; i < arguments.length; i++)

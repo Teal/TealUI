@@ -4,8 +4,10 @@
  */
 
 /**
- * 定义名字空间。
- * @param {String} ns 名字空间。
+ * 定义命名空间。
+ * @param {String} ns 要创建的命名空间。
+ * @returns {Object} 如果命名空间已存在则返回之前的命名空间，否则返回新创建的命名空间。
+ * @example namespace("MyNameSpace.SubNamespace")
  */
 function namespace(ns) {
 

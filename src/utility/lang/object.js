@@ -8,12 +8,11 @@
  * 复制对象的所有属性到其它对象。
  * @param {Object} target 复制的目标对象。
  * @param {Object} source 复制的源对象。
- * @returns {Object} 返回 *target*。
- * @example <pre>
+ * @returns {Object} 返回 @target。
+ * @example
  * var a = {v: 3}, b = {g: 2};
- * Object.assign(a, b);
- * console.log(a); // {v: 3, g: 2}
- * </pre>
+ * Object.assign(a, b); // a 现在是 {v: 3, g: 2}
+ * @since ES6
  */
 Object.assign = Object.assign || function (target, source) {
     // ECMA 6 内置此函数，但是功能更丰富。
@@ -27,24 +26,28 @@ Object.assign = Object.assign || function (target, source) {
 // #region @Object.each
 
 /**
- * 遍历一个数组或对象，并对每个元素执行函数 *fn*。
+ * 遍历一个对象或数组，并对每个元素执行函数 @fn。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
  *
- * - {Object} value 当前元素的值。
- * - {Number} index 当前元素的索引。
- * - {Array} array 当前正在遍历的数组。
- *
- * 可以让函数返回 **false** 来强制中止循环。
- * @param {Object} [scope] 定义 *fn* 执行时 **this** 的值。
- * @returns {Boolean} 如果循环是因为 *fn* 返回 **false** 而中止，则返回 **false**， 否则返回 **true**。
- * @see Array#forEach
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 如果返回 @false 则终止循环。
+ * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Boolean} 如果循环是因为 @fn 返回 @false 而中止，则返回 @false，否则返回 @true。
  * @example
- * <pre>
  * Object.each({a: '1', c: '3'}, function (value, key) {
  * 		console.log(key + ' : ' + value);
+ * }); // 输出 'a : 1' 'c : 3'
+ * 
+ * 
+ * Object.each([1, 2, 3], function(item, index){
+ *     console.log(index, "=>", item);
  * });
- * // 输出 'a : 1' 'c : 3'
- * </pre>
+ * @since ES6
  */
 Object.each = function (iterable, fn, scope) {
 

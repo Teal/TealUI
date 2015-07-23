@@ -6,9 +6,16 @@
 // #region @Number#format
 
 /** 
- * 格式化数字。
- * @param {String} format 格式化字符串。
+ * 格式化当前数字。
+ * @param {String} [format] 数字的格式，其中的元字符会被替换。支持的元字符见下表：
+ * 
+ * 元字符 | 意义      | 实例
+ * 0     | 空位补0   | 000:012, 0.00: 2.00
+ * +     | 补为正负号 | +0: +0
+ * .     | 补为小数点 | 0.00: 0.00
+ * 
  * @returns {String} 返回格式化后的字符串。
+ * @example 1..format("000.00") // 001.00
  */
 Number.prototype.format = function (format) {
     if (!format) {

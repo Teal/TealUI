@@ -4,10 +4,11 @@
  */
 
 /**
- * 格式化时间为 <strong>N 天(小时/分钟/秒)前/刚刚</strong> 格式。
- * @param {Date/String} 要格式化的时间。
- * @param {now} 当前时间。
- * @returns {String} 返回时间字符串。
+ * 格式化时间为 **刚刚/N 秒(分钟/小时/天)前** 格式。
+ * @param {Date} 要格式化的日期。
+ * @param {Date} [now] 指定当前时间。
+ * @returns {String} 返回时间字符串。如果时间在 5 秒内，返回刚刚，否则返回 N 秒(分钟/小时/天)前 格式。
+ * @example formatTime(new Date())
  */
 function formatTime(date, now) {
     var timeOffset = Math.round(((now || new Date()) - date) / 1000),

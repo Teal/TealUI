@@ -10,7 +10,7 @@ function Base() { }
 
 /**
  * 继承当前类创建派生类。
- * @param {Object} [members] 子类实例成员列表。其中 contructor 表示类型构造函数。
+ * @param {Object} [members] 子类实例成员列表。其中 contructor 成员表示类型构造函数。
  * @returns {Function} 返回继承出来的子类。
  * @remark
  * 此函数只实现单继承。不同于真正面向对象的语言，
@@ -20,17 +20,13 @@ function Base() { }
  * 由于共享原型链，如果类的成员存在引用成员，则类所有实例将共享它们。
  * 因此创建类型时应避免直接声明引用成员，而是改在构造函数里创建。
  * 
- * 要想在子类的构造函数调用父类的构造函数，可以使用 {@link Base#base} 属性。
- *
- * @example 下面示例演示了如何创建一个子类。
- * <pre>
- *
+ * @example
  * var MyClass = Base.extend({  // 创建一个子类。
  * 	  type: 'a'
  * });
  *
+ * 
  * var obj = new MyClass(); // 创建子类的实例。
- * </pre>
  */
 Base.extend = function (members) {
 
@@ -82,6 +78,7 @@ Base.extend = function (members) {
 /**
  * 返回当前对象的字符串形式。
  * @returns {String} 返回字符串。
+ * @example new (Base.extend())().toString()
  */
 Base.prototype.toString = function() {
     for (var clazz in window) {
@@ -97,53 +94,14 @@ Base.prototype.toString = function() {
 //#region @事件
 
 /**
- * 手动触发一个监听器。
- * @param {String} eventName 要触发的事件名。
- * @param {Object} eventArgs 传递给监听器的事件对象。
- * @returns 如果事件被阻止则返回 false，否则返回 true。
- * @example <pre>
- *
- * // 创建一个实例。
- * var a = new Base();
- *
- * // 绑定一个 click 事件。
- * a.on('click', function (e) {
- * 		return true;
- * });
- *
- * // 手动触发 click， 即执行  on('click') 过的函数。
- * a.trigger('click');
- * </pre>
- */
-Base.prototype.trigger = function (eventName, eventArgs) {
-    var eventListeners = this.__events__;
-    if (eventListeners && (eventListeners = eventListeners[eventName])) {
-        eventListeners = eventListeners.slice(0);
-        for (var eventListener, i = 0; eventListener = eventListeners[i]; i++) {
-            if (eventListener.call(this, eventArgs) === false) {
-                return false;
-            }
-        }
-    }
-    return true;
-};
-
-/**
  * 添加一个事件监听器。
  * @param {String} eventName 要添加的事件名。
- * @param {Function} eventListener 要添加的事件监听器。
+ * @param {Function} eventListener 要添加的事件监听器。监听器返回 @false 则终止事件。
  * @returns this
  * @example
- * <pre>
- *
- * // 创建一个变量。
- * var a = new Base();
- *
- * // 绑定一个 click 事件。
- * a.on('click', function (e) {
+ * new Base().on('click', function (e) {
  * 		return true;
  * });
- * </pre>
  */
 Base.prototype.on = function (eventName, eventListener) {
 
@@ -167,25 +125,23 @@ Base.prototype.on = function (eventName, eventListener) {
 
 /**
  * 删除一个或多个事件监听器。
- * @param {String?} eventName 要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。
- * @param {Function?} eventListener 要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。
+ * @param {String} [eventName] 要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。
+ * @param {Function} [eventListener] 要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。
  * @returns this
  * @remark
  * 注意: `function () {} !== function () {}`, 这意味着下列代码的 off 将失败:
- * <pre>
- * elem.on('click', function () {});
- * elem.off('click', function () {});   // 无法删除 on 绑定的函数。
- * </pre>
- * 正确的做法是把函数保存起来。 <pre>
- * var fn =  function () {};
- * elem.on('click', fn);
- * elem.off('click', fn); // fn  被成功删除。
+ * 
+ *      base.on('click', function () {});
+ *      base.off('click', function () {});   // 无法删除 on 绑定的函数。
+ * 
+ * 正确的做法是把函数保存起来。 
+ * 
+ *      var fn =  function () {};
+ *      elem.on('click', fn);
+ *      elem.off('click', fn); // fn  被成功删除。
  *
- * 如果同一个 *eventListener* 被增加多次， off 只删除第一个。
- * </pre>
+ * 如果同一个 *eventListener* 被增加多次，off 只删除第一个。
  * @example
- * <pre>
- *
  * // 创建一个实例。
  * var a = new Base();
  *
@@ -198,8 +154,6 @@ Base.prototype.on = function (eventName, eventListener) {
  *
  * // 删除一个 click 事件。
  * a.off('click', fn);
- * 
- * </pre>
  */
 Base.prototype.off = function (eventName, eventListener) {
 
@@ -233,6 +187,37 @@ Base.prototype.off = function (eventName, eventListener) {
     }
 
     return me;
+};
+
+/**
+ * 手动触发一个监听器。
+ * @param {String} eventName 要触发的事件名。
+ * @param {Object} eventArgs 传递给监听器的参数。
+ * @returns 如果事件被阻止则返回 @false，否则返回 @true。
+ * @example
+ *
+ * // 创建一个实例。
+ * var a = new Base();
+ *
+ * // 绑定一个 click 事件。
+ * a.on('click', function (e) {
+ * 		return true;
+ * });
+ *
+ * // 手动触发 click， 即执行  on('click') 过的函数。
+ * a.trigger('click');
+ */
+Base.prototype.trigger = function (eventName, eventArgs) {
+    var eventListeners = this.__events__;
+    if (eventListeners && (eventListeners = eventListeners[eventName])) {
+        eventListeners = eventListeners.slice(0);
+        for (var eventListener, i = 0; eventListener = eventListeners[i]; i++) {
+            if (eventListener.call(this, eventArgs) === false) {
+                return false;
+            }
+        }
+    }
+    return true;
 };
 
 //#endregion

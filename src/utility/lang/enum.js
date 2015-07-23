@@ -7,14 +7,15 @@
  * 枚举相关功能。
  */
 var Enum = {
-    
+
     // #region @Enum.getName
 
     /**
-     * 根据某个值返回枚举的大小。
+     * 根据枚举值返回其枚举名。
      * @param {Object} enumType 枚举类型对象。
      * @param {Number} enumValue 枚举的内容。
-     * @returns {String} 返回枚举键。如果不存在则返回空。
+     * @returns {String} 返回枚举键。如果不存在则返回 @null。
+     * @example Enum.getName(WeekDay, 0) // 'sunday'
      */
     getName: function (enumType, enumValue) {
         for (var key in enumType)
@@ -28,7 +29,17 @@ var Enum = {
     // #region @Enum.hasFlags
 
     /**
-     * 判断指定枚举是否拥有指定的标记位。
+     * 判断指定枚举值是否包含指定的标记位。
+     * @param {Number} enumValue 要判断的枚举值。
+     * @param {Number} flags 要判断的枚举标记项。
+     * @returns {Boolean} 如果包含标记位则返回 @true，否则返回 @false。
+     * @example
+     * var Flags = {
+     *     red: 1 << 1,
+     *     yellow: 1 << 2,
+     *     blue: 1 << 3,
+     * };
+     * Enum.hasFlags(Flags.red | Flags.yellow, Flags.red); // true
      */
     hasFlags: function (enumValue, flags) {
         return (enumValue & flags) === flags;
@@ -40,9 +51,18 @@ var Enum = {
 
     /**
      * 设置指定枚举的标记位。
-     * @param {Number} enumValue 枚举的内容。
-     * @param {Number} flags 设置的标记位。
-     * @param {Boolean} value 设置为 true 表示添加标记位，否则是清空标记位。
+     * @param {Number} enumValue 要判断的枚举值。
+     * @param {Number} flags 要设置的枚举标记项。
+     * @param {Boolean} value 如果设置为 @true 表示添加标记位，否则清空标记位。
+     * @returns {Number} 返回更新后的枚举值。
+     * @example
+     * var Flags = {
+     *     red: 1 << 1,
+     *     yellow: 1 << 2,
+     *     blue: 1 << 3,
+     * };
+     * var flag = 0;
+     * flag = Enum.setFlag(flag, Flags.red, true);
      */
     setFlag: function (enumValue, flags, value) {
         return value ? enumValue | flags : enumValue & ~flags;

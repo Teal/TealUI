@@ -6,26 +6,23 @@
 // #region @Array#remove
 
 /**
- * 删除当前数组中指定的元素。
- * @param {Object} value 要删除的值。
+ * 删除当前数组中匹配的第一个项。
+ * @param {Object} value 要删除的项。
  * @param {Number} startIndex=0 开始搜索 *value* 的起始位置。
- * @returns {Number} 被删除的值在原数组中的位置。如果要擅长的值不存在，则返回 -1 。
- * @remark
- * 如果数组中有多个相同的值， remove 只删除第一个。
+ * @returns {Number} 被删除的项在原数组中的位置。如果数组中找不到指定的项，则返回 -1。
+ * @remark 如果数组中有多个相同的项，remove 只删除第一个。
  * @example
- * <pre>
- * [1, 7, 8, 8].remove(8); // 返回 2,  数组变成 [1, 7, 8]
- * </pre>
+ * 
+ * [1, 9, 9, 0].remove(9); // 返回 1,  数组变成 [1, 9, 0]
  *
- * 以下示例演示了如何删除数组全部相同项。
- * <pre>
+ * #### 删除数组全部相同项。
+ * 
  * var arr = ["wow", "wow", "TealUI", "is", "powerful", "wow", "wow"];
- *
+ * 
  * // 反复调用 remove， 直到 remove 返回 -1， 即找不到值 wow
  * while(arr.remove("wow") >= 0);
- *
- * trace(arr); // 输出 ["TealUI", "is", "powerful"]
- * </pre>
+ * 
+ * console.log(arr); // 输出 ["TealUI", "is", "powerful"]
  */
 Array.prototype.remove = function (value, startIndex) {
     startIndex = this.indexOf(value, startIndex);
@@ -38,7 +35,9 @@ Array.prototype.remove = function (value, startIndex) {
 // #region @Array#unique
 
 /**
- * 删除当前数组的重复元素。
+ * 删除当前数组中的重复项。
+ * @returns {Array} 返回过滤后的新数组。
+ * @example [1, 9, 9, 0].unique()  // 返回 [1, 9, 0]
  */
 Array.prototype.unique = function () {
     return this.filter(function (item, index, arr) {

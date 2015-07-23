@@ -6,13 +6,14 @@
 // #region @String.isString
 
 /**
- * 判断一个变量是否是字符串。
- * @param {Object} obj 要判断的变量。
- * @returns {Boolean} 如果是字符串，返回 true， 否则返回 false。
+ * 判断一个对象是否是字符串。
+ * @param {Object} obj 要判断的对象。
+ * @returns {Boolean} 如果 @obj 是字符串则返回 @true，否则返回 @false。
+ * @example String.isString("") // true
  */
 String.isString = function (obj) {
     return typeof obj === 'string';
-}
+};
 
 // #endregion
 
@@ -21,12 +22,12 @@ String.isString = function (obj) {
 /**
  * 将字符串限定在指定长度内，超出部分用 ... 代替。
  * @param {String} str 要处理的字符串。
- * @param {Number} length 需要的最大长度。
+ * @param {Number} length 最终期望的最大长度。
  * @example 
- * <pre>
- * String.ellipsis("1234567", 6); //   "123..."
- * String.ellipsis("1234567", 9); //   "1234567"
- * </pre>
+ * String.ellipsis("1234567", 6) //   "123..."
+ * 
+ * 
+ * String.ellipsis("1234567", 9) //   "1234567"
  */
 String.ellipsis = function (str, length) {
     return str ? str.length > length ? str.substr(0, length - 3) + "..." : str : "";
@@ -37,14 +38,11 @@ String.ellipsis = function (str, length) {
 // #region @String.ellipsis
 
 /**
- * 将字符串限定在指定长度内，超出部分用 ... 代替。不强制分割单词。
- * @param {String} value 要处理的字符串。
- * @param {Number} length 需要的最大长度。
+ * 将字符串限定在指定长度内，超出部分用 ... 代替。同时确保不强制分割单词。
+ * @param {String} str 要处理的字符串。
+ * @param {Number} length 最终期望的最大长度。
  * @example 
- * <pre>
- * String.ellipsisByWord("1234567", 6); //   "123..."
- * String.ellipsisByWord("1234567", 9); //   "1234567"
- * </pre>
+ * String.ellipsisByWord("abc def", 8) //   "abc..."
  */
 String.ellipsisByWord = function (str, length) {
     if (str && str.length > length) {
@@ -66,7 +64,8 @@ String.ellipsisByWord = function (str, length) {
  * 判断字符串是否包含指定单词。
  * @param {String} str 要测试的字符串。
  * @param {String} [separator=' '] 指定单词的分割符，默认为空格。
- * @returns {Boolean} 返回判断结果。
+ * @returns {Boolean} 如果包含指定的单词则返回 @true，否则返回 @false。
+ * @example String.containsWord("abc ab", "ab")
  */
 String.containsWord = function (str, separator) {
     separator = separator || ' ';
@@ -75,13 +74,14 @@ String.containsWord = function (str, separator) {
 
 // #endregion
 
-// #region @String#byteLength
+// #region @String#replaceAll
 
 /**
- * 替换字符串内全部子字符串。
+ * 替换当前字符串内全部子字符串。
  * @param {String} from 替换的源字符串。
  * @param {String} to 替换的目标字符串。
  * @returns {String} 返回替换后的字符串。
+ * @example "1121".replaceAll("1", "3") // "3323"
  */
 String.prototype.replaceAll = function (from, to) {
     var str = this, p = 0;
@@ -97,16 +97,18 @@ String.prototype.replaceAll = function (from, to) {
 // #region @String#trimStart/String#trimEnd
 
 /**
- * 去除字符串开始空格。
- * @returns {String} 格式化后的字符串。
+ * 去除当前字符串开始空格。
+ * @returns {String} 返回新字符串。
+ * @example "  a".trimStart() // "a"
  */
 String.prototype.trimStart = function () {
     return this.replace(/^\s+/, '');
 };
 
 /**
- * 去除字符串结尾空格。
- * @returns {String} 格式化后的字符串。
+ * 去除当前字符串结尾空格。
+ * @returns {String} 返回新字符串。
+ * @example "a  ".trimStart() // "a"
  */
 String.prototype.trimEnd = function () {
     return this.replace(/\s+$/, '');
@@ -117,18 +119,20 @@ String.prototype.trimEnd = function () {
 // #region @String#startsWith/String#endsWith
 
 /**
- * 判断字符串是否以某个特定字符串开头。
+ * 判断当前字符串是否以某个特定字符串开头。
  * @param {String} str 开头的字符串。
- * @returns {Boolean} 返回是否匹配结果。
+ * @returns {Boolean} 返回符合要求则返回 @true，否则返回 @false。
+ * @example "1234567".startsWith("123") // true
  */
 String.prototype.startsWith = function (str) {
     return this.substr(0, str.length) === str;
 };
 
 /**
- * 判断字符串是否以某个特定字符串结尾。
+ * 判断当前字符串是否以某个特定字符串结尾。
  * @param {String} str 开头的字符串。
- * @returns {Boolean} 返回是否匹配结果。
+ * @returns {Boolean} 返回符合要求则返回 @true，否则返回 @false。
+ * @example "1234567".endsWith("67") // true
  */
 String.prototype.endsWith = function (str) {
     return this.substr(this.length - str.length) === str;
@@ -139,8 +143,9 @@ String.prototype.endsWith = function (str) {
 // #region @String#clean
 
 /**
- * 删除字符串内所有空格。
- * @returns {String} 处理后的字符串。
+ * 删除当前字符串内所有空格。
+ * @returns {String} 返回新字符串。
+ * @example " a b   ".clean() // "ab"
  */
 String.prototype.clean = function () {
     return this.replace(/\s+/g, ' ');
@@ -151,8 +156,9 @@ String.prototype.clean = function () {
 // #region @String#byteLength
 
 /**
- * 获得字符字节长度，中文算 2 个字符。
- * @returns {Number} 长度值。
+ * 获得当前字符串按字节计算的长度。（英文算一个字符，中文算 2 个字符）
+ * @returns {Number} 返回长度值。
+ * @example "a中文".byteLength() // 5
  */
 String.prototype.byteLength = function () {
     var arr = this.match(/[^\x00-\xff]/g);
@@ -164,8 +170,9 @@ String.prototype.byteLength = function () {
 // #region @String#unique
 
 /**
- * 删除字符串的重复字符。
- * @returns {String} 返回处理后的字符串。
+ * 删除字符串内的重复字符。
+ * @returns {String} 返回新字符串。
+ * @example "aabbcc".unique() // "abc"
  */
 String.prototype.unique = function () {
     return this.replace(/(^|\s)(\S+)(?=\s(?:\S+\s)*\2(?:\s|$))/g, '');
@@ -177,7 +184,8 @@ String.prototype.unique = function () {
 
 /**
  * 重复当前字符串内容指定次数。
- * @returns {String} 返回处理后的字符串。
+ * @returns {String} 返回新字符串。
+ * @example "a".repeat(4) // "aaaa"
  */
 String.prototype.repeat = function (count) {
     return new Array(count + 1).join(this);
@@ -189,11 +197,8 @@ String.prototype.repeat = function (count) {
 
 /**
  * 将字符串首字母大写。
- * @returns {String} 处理后的字符串。
- * @example
- * <pre>
- * "a".capitalize(); //     "A"
- * </pre>
+ * @returns {String} 返回新字符串。
+ * @example "qwert".capitalize(); // "Qwert"
  */
 String.prototype.capitalize = function () {
     return this.replace(/(\b[a-z])/g, function (w) {
@@ -207,11 +212,8 @@ String.prototype.capitalize = function () {
 
 /**
  * 将字符串首字母小写。
- * @returns {String} 处理后的字符串。
- * @example
- * <pre>
- * "A".uncapitalize(); //     "a"
- * </pre>
+ * @returns {String} 返回新字符串。
+ * @example "Qwert".uncapitalize(); // "qwert"
  */
 String.prototype.uncapitalize = function () {
     return this.replace(/(\b[A-Z])/g, function (w) {
@@ -224,11 +226,11 @@ String.prototype.uncapitalize = function () {
 // #region @String#toCamelCase
 
 /**
- * 将字符串转为骆驼规则。
+ * 将字符串转为骆驼规则（如 fontSize）。
  * @returns {String} 处理后的字符串。
  * @example
  * <pre>
- * "A".uncapitalize(); //     "a"
+ * "font-size".toCamelCase(); // "fontSize"
  * </pre>
  */
 String.prototype.toCamelCase = function () {
@@ -244,7 +246,8 @@ String.prototype.toCamelCase = function () {
 /**
  * 获取字符串左边指定长度的子字符串。
  * @param {Number} length 要获取的子字符串长度。
- * @returns {String} 返回字符串左边 length 长度的子字符串。
+ * @returns {String} 返回字符串左边 @length 长度的子字符串。
+ * @example "abcde".left(3); // "abc"
  */
 String.prototype.left = function (length) {
     return this.substr(0, length);
@@ -253,7 +256,8 @@ String.prototype.left = function (length) {
 /**
  * 获取字符串右边指定长度的子字符串。
  * @param {Number} length 要获取的子字符串长度。
- * @returns {String} 返回字符串右边 length 长度的子字符串。
+ * @returns {String} 返回字符串右边 @length 长度的子字符串。
+ * @example "abcde".right(3); // "cde"
  */
 String.prototype.right = function (length) {
     return this.substr(this.length - length, length);
@@ -264,20 +268,22 @@ String.prototype.right = function (length) {
 // #region @String#padLeft/String#padRight
 
 /**
- * 补齐字符串左边空白。
+ * 将字符串扩展到指定长度，不够的部分在左边使用 @paddingChar 补齐。
  * @param {Number} totalLength 对齐之后的总长度。
  * @param {String} [paddingChar=" "] 填补空白的字符。
  * @returns {String} 返回处理后的字符串。
+ * @example "6".padLeft(3, '0'); // "006"
  */
 String.prototype.padLeft = function (totalLength, paddingChar) {
     return new Array(totalLength - this.length + 1).join(paddingChar || " ") + this;
 };
 
 /**
- * 补齐字符串右边空白。
+ * 将字符串扩展到指定长度，不够的部分在右边使用@paddingChar 补齐。
  * @param {Number} totalLength 对齐之后的总长度。
  * @param {String} [paddingChar=" "] 填补空白的字符。
  * @returns {String} 返回处理后的字符串。
+ * @example "6".padRight(3, '0'); // "600"
  */
 String.prototype.padRight = function (totalLength, paddingChar) {
     return this + new Array(totalLength - this.length + 1).join(paddingChar || " ");
