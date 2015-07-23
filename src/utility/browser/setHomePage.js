@@ -5,7 +5,16 @@
 
 /**
  * 打开设为主页对话框。
- * @param {String} url 设置的地址。
+ * @param {String} [url] 设置的地址。
+ * @example 
+ * #### 设置当前网页为主页
+ * setHomePage()
+ * 
+ * #### 设置指定网页为主页
+ * setHomePage("TealUI", "http://teal.github.io/TealUI")
+ * 
+ * @remark
+ * <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
  */
 function setHomePage(url) {
     try {

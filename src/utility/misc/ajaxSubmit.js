@@ -5,7 +5,8 @@
 /**
  * 返回一个表单的参数表示形式。
  * @param {HTMLFormElement} formElem 表单元素。
- * @returns {String} 参数形式。
+ * @returns {String} 返回表单是参数形式。
+ * @example Ajax.paramForm(document.getElementById("form"))
  */
 Ajax.paramForm = function(formElem) {
 	var s = [], input, e = encodeURIComponent, value, name;
@@ -46,8 +47,8 @@ Ajax.paramForm = function(formElem) {
  * @param {HTMLFormElement} formElem 表单元素。
  * @param {Function} [onsuccess] 成功回调函数。
  * @param {Function} [onerror] 错误回调函数。
- * @param {Object} timeouts=-1 超时时间， -1 表示不限。
- * @param {Function} [ontimeout] 超时回调函数。
+ * @returns {Object} 返回请求对象。
+ * @example Ajax.submit(document.getElementById("form"), function(data){alert("提交成功了, 返回数据" + data)}, function(errorCode){alert("提交失败了， 错误码" + errorCode)})
  */
 Ajax.submit = function(formElem, onsuccess, onerror) {
 	return Ajax.send({

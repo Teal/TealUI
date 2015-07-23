@@ -1,7 +1,7 @@
 
 /**
  * 表示一个委托。
- * @class Delegate
+ * @class
  */
 function Delegate() {
     var delegate = function() {
@@ -18,9 +18,10 @@ function Delegate() {
 }
 
 /**
- * 增加一个函数。
+ * 增加一个委托函数。
  * @param {Function} fn 函数。
- * @returns {Delegate} this。
+ * @returns this
+ * @example new Delegate().add(function(){})
  */
 Delegate.prototype.add = function (fn) {
     this.handlers.push(fn);
@@ -31,6 +32,7 @@ Delegate.prototype.add = function (fn) {
  * 删除一个函数。
  * @param {Function} fn 函数。
  * @returns {Delegate} this。
+ * @example new Delegate().remove(function(){})
  */
 Delegate.prototype.remove = function (fn) {
     this.handlers.indexOf(fn) >= 0 && this.handlers.splice(this.handlers.indexOf(fn), 1);
@@ -40,6 +42,7 @@ Delegate.prototype.remove = function (fn) {
 /**
  * 删除所有函数。
  * @returns {Delegate} this。
+ * @example new Delegate().clear()
  */
 Delegate.prototype.clear = function () {
     this.handlers.length = 0;

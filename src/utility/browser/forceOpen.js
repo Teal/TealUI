@@ -4,8 +4,9 @@
  */
 
 /**
- * 强制打开指定页面。
+ * 强制打开指定网页。
  * @param {String} url 要打开的地址。
+ * @example forceOpen("http://teal.github.io/TealUI")
  */
 function forceOpen(url) {
     if (!window.open(url)) {

@@ -4,18 +4,27 @@
 
 /**
  * 从指定时刻到指定时刻进行倒计时。
- * @param {Date/String} startDate? 开始倒计时的时间。如果省略则从当前时间开始倒计时。
- * @param {Date/String} endDate 结束倒计时的时间。
- * @param {Function} callback 每秒倒计时的回调。function(day, hour, minute, second, leftTime)
- * @param {Object} scope 设置 callback 中 this 的指向。
+ * @param {Date} startDate? 开始倒计时的时间。如果省略则从当前时间开始倒计时。
+ * @param {Date} endDate 结束倒计时的时间。
+ * @param {Function} callback 每秒倒计时的回调。函数的参数依次为:function(day, hour, minute, second, leftTime)
+ * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
+ *
+ * 参数名    | 类型      | 说明
+ * day      | `Number`  | 应该显示的天数。
+ * hour     | `Number`  | 应该显示的小时数。
+ * minute   | `Number`  | 应该显示的分数。
+ * second   | `Number`  | 应该显示的秒数。
+ * leftTime | `Number`  | 剩下的总秒数。
+ * 
  * @returns {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
+ * @example countDown(function(day, hour, minute, second){ console.log(day, hour, minute, second); })
  */
-function countDown(startDate, endDate, callback, scope) {
+function countDown(startDate, endDate, callback) {
 
     function step() {
         var leftTime = endDate - new Date() + startDateOffset;
         if (leftTime <= 0) {
-            callback.call(scope, 0, 0, 0, 0, 0);
+            callback(0, 0, 0, 0, 0);
             return;
         }
 
@@ -24,7 +33,7 @@ function countDown(startDate, endDate, callback, scope) {
 			day = Math.floor(second / 86400),
 			hour = Math.floor((t -= day * 86400) / 3600),
 			minute = Math.floor((t -= hour * 3600) / 60);
-        callback.call(scope, day, hour, minute, Math.floor(t - minute * 60), second);
+        callback(day, hour, minute, Math.floor(t - minute * 60), second);
     }
 
     // 填充第一个参数。

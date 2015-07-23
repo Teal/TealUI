@@ -11,12 +11,15 @@
 var Ajax = {
 
     /**
-     * 全局 Ajax 请求之前回调，可用于初始化指定配置项，如重写请求 URL。
+     * 全局 Ajax 请求之前的回调，可用于初始化指定配置项，如重写请求 URL。
      * @field init
+     * ＠type Function
+     * @example Ajax.init = function(options){ options.url = options.url.replace("~/", "http://api.domain.com");  }
      */
 
     /**
      * 所有支持的 MimeType。
+     * @inner
      */
     accepts: {
         script: 'text/javascript, application/javascript, application/x-javascript',
@@ -39,6 +42,7 @@ var Ajax = {
 
     /**
      * 支持的数据解析器。
+     * @inner
      */
     parsers: {
 
@@ -99,6 +103,7 @@ var Ajax = {
 
     /**
      * 所有支持的传输协议集合。
+     * @inner
      */
     transports: {
 
@@ -198,7 +203,7 @@ var Ajax = {
 
                 // 设置错误码。
                 options.errorCode = errorCode;
-                options.data = errorText;
+                options.response = errorText;
 
                 // 统一处理回调。
                 callback(options);
@@ -276,7 +281,7 @@ var Ajax = {
 
                     // 设置错误码。
                     options.errorCode = errorCode;
-                    options.data = eventText;
+                    options.response = eventText;
 
                     callback(options);
 
@@ -329,7 +334,7 @@ var Ajax = {
                 // 未执行数据函数。
                 if (!responseData) {
                     options.errorCode = 2;
-                    options.data = new Error(jsonpCallback + ' was not called');
+                    options.response = new Error(jsonpCallback + ' was not called');
                 }
 
                 // 执行全部回调。
@@ -349,35 +354,55 @@ var Ajax = {
 
     /**
      * 发送一个 AJAX 请求。
-     * @param {Object} options 发送的配置。具体的值有：
-     *
-     * - async: 是否为异步的请求。默认为 true 。
-     * - cache: 是否允许缓存。默认为 true 。
-     * - charset: 请求的字符编码。
-     * - complete(data): 请求完成时的回调。
-     * - crossDomain: 指示 AJAX 强制使用跨域方式的请求。默认为 null,表示系统自动判断。
-     * - data: 请求的数据。
-     * - dataType: 请求数据的类型。默认为根据返回内容自动识别。
-     * - error(message): 请求失败时的回调。
-     * - headers: 附加的额外请求头信息。
-     * - jsonp: 如果使用 jsonp 请求，则指示 jsonp 参数。如果设为 false，则不添加后缀。默认为 done。
-     * - jsonpCallback: jsonp请求回调函数名。默认为根据当前时间戳自动生成。
-     * - password: 请求的密码 。
-     * - start(): 请求开始时的回调。return false 可以终止整个请求。
-     * - success(data): 请求成功时的回调。
-     * - timeout: 请求超时时间。单位毫秒。默认为 -1 无超时 。
-     * - type: 请求类型。默认是 "GET" 。
-     * - url: 请求的地址。请求的多个地址时可使用数组，所有请求完成后才触发回调。
-     * - username: 请求的用户名 。
+     * @param {Object} options 发送的配置。支持的值有：
+     * 
+     * 字段名        |类型      | 默认值      |说明
+     * async        |`Boolean` |`true`      |是否为异步的请求。
+     * cache        |`Boolean` |`true`      |是否允许缓存。
+     * charset      |`String`  |`"UTF-8"`   |请求的字符编码。
+     * complete     |`Function`|`null`      |请求完成时的回调。回调参数为请求的数据或发生的错误。
+     * crossDomain  |`Boolean` |(自动判断)   |指示 AJAX 强制使用跨域方式的请求。
+     * data         |`Object`  |`null`      |请求的数据。
+     * dataType     |`String`  |(根据响应头自动识别)    | 请求数据的类型。可选的值有：`"text"/"script"/"html"/"xml"/"json"/"jsonp"`
+     * error        |`Function`|`null`      |请求失败时的回调。回调参数为发生的错误。
+     * headers      |`Object`  |`null`      |附加的额外请求头信息。
+     * jsonp        |`Boolean` |`"callback"`|如果使用 jsonp 请求，则指示 jsonp 参数名。如果设为 false，则不添加 jsonp 参数。
+     * jsonpCallback|`Boolean` |(根据当前时间戳自动生成)|jsonp请求回调函数名。
+     * password     |`String`  |`null`      |请求的密码。
+     * success      |`Function`|`null`      |请求成功时的回调。参数为请求的数据。
+     * timeout      |`Number`  |`-1`        |请求超时毫秒数。-1 表示不设超时。
+     * type         |`String`  |`"GET"`     |请求类型。
+     * url          |`String`  |(当前页面)   |请求的地址。请求的多个地址时可使用数组，这时所有请求完成后才触发回调。
+     * username     |`String`  |`null`      |请求的用户名。
      * 
      * 响应时， options 将被追加以下参数：
      * 
-     * - errorCode: 返回的错误码。-3：操作被取消；-2：请求超时；-1：其它内部错误；0：无错误；1：状态码错误；2：数据解析错误。
-     * - status: 服务器返回的状态码。
-     * - statusText: 服务器返回的状态文本。
-     * - data: 如果有错误则返回错误信息，否则返回成功的数据。
+     * 字段名     |类型     | 说明
+     * errorCode  |`Number`|返回的错误码。-3：操作被取消；-2：请求超时；-1：其它内部错误；0：无错误；1：状态码错误；2：数据解析错误。
+     * status     |`Number`|服务器返回的状态码。
+     * statusText |`String`|服务器返回的状态文本。
+     * response   |`Object`|如果有错误则返回错误信息，否则返回请求的数据。
      *
-     * @returns options
+     * @returns 返回 @options
+     * @example 
+     * Ajax.send({
+     *       url: "../../../assets/resources/ajax/test.txt", 
+     *       success:function(data){
+     *           alert(data)
+     *       }
+     * });
+     * 
+     * #### 同时发送多个请求统一回调
+     * Ajax.send({
+     *      url: [{
+     *          url: "../../../assets/resources/ajax/test.txt"
+     *      }, {
+     *          url: "../../../assets/resources/ajax/test.txt"
+     *      }], 
+     *      success:function(data1, data2){
+     *          alert(data1 + data2)
+     *      }
+     * });
      */
     send: function (options) {
 
@@ -396,13 +421,13 @@ var Ajax = {
 
                 url._callback = function () {
                     if (--options.counter < 1) {
-                        var datas = [], funcName = 'success';
+                        var responses = [], funcName = 'success';
                         for (i = 0; url = options.url[i]; i++) {
-                            datas[i] = url.data;
+                            responses[i] = url.response;
                             if (url.errorCode) funcName = 'error';
                         }
-                        options[funcName] && options[funcName].apply(options, datas);
-                        options.complete && options.complete.apply(options, datas);
+                        options[funcName] && options[funcName].apply(options, responses);
+                        options.complete && options.complete.apply(options, responses);
                     }
                 };
 
@@ -443,11 +468,12 @@ var Ajax = {
     /**
      * 当 AJAX 完成后统一回调此接口。
      * @param {Object} options 发送的配置。
+     * @inner
      */
     done: function (options) {
         var funcName = options.errorCode ? 'error' : 'success';
-        options[funcName] && options[funcName](options.data);
-        options.complete && options.complete(options.data);
+        options[funcName] && options[funcName](options.response);
+        options.complete && options.complete(options.response);
         options._callback && options._callback();
         options.xhr = null;
     },
@@ -455,6 +481,7 @@ var Ajax = {
     /**
      * 获取当前页的地址。
      * @returns {String} 返回当前地址。
+     * @inner
      */
     getCurrentUrl: function () {
         // 如果设置了 document.domain, IE 会抛出异常。
@@ -472,6 +499,7 @@ var Ajax = {
      * 判断指定的地址是否跨域。
      * @param {String} url 要判断的地址。
      * @returns {String} 返回处理后的地址。
+     * @inner
      */
     isCrossDomain: function (url) {
         var rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
@@ -485,6 +513,7 @@ var Ajax = {
      * @param {String} url 要处理的地址。
      * @param {String} param 要添加的参数。
      * @returns {String} 返回处理后的地址。
+     * @inner
      */
     appendQuerys: function (url, param) {
         return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
@@ -494,6 +523,7 @@ var Ajax = {
      * 在指定地址添加参数以避免服务器端缓存。
      * @param {String} url 要处理的地址。
      * @returns {String} 返回处理后的地址。
+     * @inner
      */
     appendCacheQuery: function (url) {
         // 不需要完美添加或删除功能。
@@ -523,6 +553,7 @@ var Ajax = {
      * @param {Number} status 要判断的状态码。
      * @returns {Boolean} 如果正常则返回true, 否则返回 false 。
      * @remark 一般地， 200、304、1223 被认为是正常的状态吗。
+     * @inner
      */
     checkStatus: function (statusCode) {
 
@@ -546,7 +577,9 @@ var Ajax = {
 	 * @param {Object} [data] 请求的数据。
 	 * @param {String} [onsuccess] 请求成功时的回调。
 	 * @param {String} [onerror] 请求失败时的回调。
-	 * @param {String} dataType='text' 请求数据的类型。默认为 text。
+	 * @param {String} [dataType='text'] 请求数据的类型。
+	 * @returns {Object} 返回请求对象。
+	 * @example Ajax.get("../../../assets/resources/ajax/test.txt", function(data){alert(data)})
      */
     get: function (url, data, onsuccess, onerror, dataType) {
         return Ajax._request({ type: 'GET' }, url, data, onsuccess, onerror, dataType);
@@ -558,7 +591,9 @@ var Ajax = {
 	 * @param {Object} [data] 请求的数据。
 	 * @param {String} [onsuccess] 请求成功时的回调。
 	 * @param {String} [onerror] 请求失败时的回调。
-	 * @param {String} dataType='text' 请求数据的类型。默认为 text。
+	 * @param {String} [dataType='text'] 请求数据的类型。
+	 * @returns {Object} 返回请求对象。
+	 * @example Ajax.post("../../../assets/resources/ajax/test.txt", function(data){alert(data)})
      */
     post: function (url, data, onsuccess, onerror, dataType) {
         return Ajax._request({ type: 'POST' }, url, data, onsuccess, onerror, dataType);
@@ -574,7 +609,8 @@ var Ajax = {
 	 * @param {Object} [data] 请求的数据。
 	 * @param {String} [onsuccess] 请求成功时的回调。
 	 * @param {String} [onerror] 请求失败时的回调。
-	 * @param {String} dataType='text' 请求数据的类型。默认为 text。
+	 * @returns {Object} 返回请求对象。
+	 * @example Ajax.jsonp("../../../assets/resources/ajax/jsonp.js", function(data){alert(data)})
      */
     jsonp: function (url, data, onsuccess, onerror) {
         return Ajax._request({}, url, data, onsuccess, onerror, 'jsonp');
