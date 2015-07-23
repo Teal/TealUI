@@ -5,10 +5,14 @@
 /**
  * 提供大整数计算相关函数。
  */
-var BigInteger = {
+var BigInt = {
 
     /**
-	 * 计算大数的和。
+	 * 计算大正整数的和。
+	 * @param {String} x 计算的左值。
+	 * @param {String} y 计算的左值。
+	 * @returns {String} 返回计算的结果。
+	 * @example BigInt.add("1", "2") // "3"
 	 */
     add: function (x, y) {
         var m = x.split('').reverse();
@@ -28,15 +32,14 @@ var BigInteger = {
         return ret.reverse().join('');
     },
 
-    /**
-	 * 计算大数的差。
-	 */
-    sub: function(x, y){
-        throw "此函数未完成";
-    },
+    // #region @BigInt.mul
 
 	/**
-	 * 计算大数的积。
+	 * 计算大正整数的积。
+	 * @param {String} x 计算的左值。
+	 * @param {String} y 计算的左值。
+	 * @returns {String} 返回计算的结果。
+	 * @example BigInt.mul("1", "2") // "2"
 	 */
     mul: function (x, y) {
 		var p = x.match(/\d{1,4}/g).reverse(),
@@ -49,7 +52,7 @@ var BigInteger = {
 			for (var j = 0; j < q.length; j++) {
 				var t = (p[i] | 0) * (q[j] | 0);
 				t += new Array(f1 + f2 + 1).join("0");
-				result = BigInteger.add(result, t);
+				result = BigInt.add(result, t);
 				f2 += q[j].length;
 			}
 			f1 += p[i].length;
@@ -58,15 +61,25 @@ var BigInteger = {
 
 	},
 
+    // #region @BigInt.pow
+
     /**
-	 * 计算大数的幂。
+	 * 计算大正整数的幂。
+	 * @param {String} x 计算的左值。
+	 * @param {String} y 计算的左值。
+	 * @returns {String} 返回计算的结果。
+	 * @example BigInt.pow("1", "2") // "1"
 	 */
 	pow: function (x, y) {
 		var ret = "1";
 		for (var i = 0; i < y; i++) {
-		    ret = BigInteger.mul(ret, x);
+		    ret = BigInt.mul(ret, x);
 		}
 		return ret;
 	}
+
+    // #endregion
+
+    // #endregion
 
 };

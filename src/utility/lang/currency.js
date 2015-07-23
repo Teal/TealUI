@@ -16,7 +16,7 @@ var Currency = {
 	 * @example Currency.add(86.24, .1)
 	 */
     add: function (x, y) {
-        var m = Math.pow(10, Math.max(x.toString().replace(/^\d+(\.|$)/, "").length, y.toString().replace(/^\d+(\.|$)/, "").length));
+        var m = Math.pow(10, Math.max(x.toString().replace(/^\d+(\.|$)/, "").length, y.toString().replace(/^\d+(\.|$)/, "").length) + 1);
         return (x * m + y * m) / m;
     },
 
@@ -28,7 +28,7 @@ var Currency = {
 	 * @example Currency.sub(86.24, .1)
 	 */
     sub: function (x, y) {
-        var m = Math.pow(10, Math.max(x.toString().replace(/^\d+(\.|$)/, "").length, y.toString().replace(/^\d+(\.|$)/, "").length));
+        var m = Math.pow(10, Math.max(x.toString().replace(/^\d+(\.|$)/, "").length, y.toString().replace(/^\d+(\.|$)/, "").length) + 1);
         return (x * m - y * m) / m;
     },
 
@@ -37,7 +37,7 @@ var Currency = {
 	 * @param {Number} x 计算的左值。
 	 * @param {Number} y 计算的左值。
 	 * @returns {Number} 返回计算的结果。
-	 * @example Currency.mul(86.24, .1)
+	 * @example Currency.mul(7, 0.8)
 	 */
     mul: function (x, y) {
         x = x.toString();
