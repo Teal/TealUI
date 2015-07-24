@@ -15,4 +15,4 @@ function copyText(content) {
 	
 	return false;
 
-};
+}
