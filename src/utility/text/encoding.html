@@ -52,5 +52,29 @@
             <td><pre>utf16ToUtf8("");</pre></td>
         </tr>
     </table>
+
+    <h2>Base64 编码 <small>(源码: <a href="../../utility/shim/base64.js" target="_blank">utility/shim/base64.js</a>)</small></h2>
+    <p>
+        输入英文: <input type="text" id="base64_value" value="abcefg" />
+        <input type="button" value="Base64 编码" onclick="document.getElementById('base64_value').value = btoa(document.getElementById('base64_value').value)" />
+        <input type="button" value="Base64 解码" onclick="document.getElementById('base64_value').value = atob(document.getElementById('base64_value').value)" />
+    </p>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>btoa</code></td>
+            <td>Base64 编码</td>
+            <td><pre>btoa("abcefg")</pre></td>
+        </tr>
+        <tr>
+            <td><code>atob</code></td>
+            <td>Base64 解码</td>
+            <td><pre>atob("YWJjZWZn")</pre></td>
+        </tr>
+    </table>
 </body>
 </html>

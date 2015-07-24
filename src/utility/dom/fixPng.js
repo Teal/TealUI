@@ -5,9 +5,15 @@
 /**
  * 让 IE6 支持透明 PNG。
  * @param {Element} [image] 修复的图片节点。如不指定则修复整个文档的图片。 
+ * @example 
+ * #### 修复当前页面的所有图片
+ * fixPng()
+ * 
+ * #### 修复指定图片
+ * fixPng(doument.getElementById("id"))
  */
 function fixPng(image) {
-	/*@cc_on if(!window.XMLHttpRequest) {
+    /*@cc_on if(typeof XMLHttpRequest === "undefined" || typeof XMLHttpRequest === "function") {
 	if(!image) {
 		var images = document.images;
 		for (var i = 0; image = images[i]; i++) {
