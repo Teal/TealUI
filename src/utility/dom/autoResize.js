@@ -1,10 +1,10 @@
 /**
- * @fileOverview ÎÄ±¾Óò¸ù¾ÝÄÚÈÝ×Ô¶¯·Å´óËõÐ¡¡£
+ * @fileOverview æ–‡æœ¬åŸŸæ ¹æ®å†…å®¹è‡ªåŠ¨æ”¾å¤§ç¼©å°ã€‚
  * @author xuld
  */
 
 /**
- * Áîµ±Ç°ÎÄ±¾¿òËæÊäÈëÄÚÈÝ×Ô¶¯µ÷Õû¸ß¶È¡£
+ * ä»¤å½“å‰æ–‡æœ¬æ¡†éšè¾“å…¥å†…å®¹è‡ªåŠ¨è°ƒæ•´é«˜åº¦ã€‚
  */
 Dom.prototype.autoResize = function () {
     function autoResize() {
