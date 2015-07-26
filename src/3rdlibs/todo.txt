@@ -6,8 +6,6 @@ dom
     *
 drawing
     *
-misc
-    deferrable
 mvc
     *
 ux

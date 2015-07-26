@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../shim/html5
+// #require ../lang/html5
 
 // #region 核心
 
@@ -1400,9 +1400,7 @@ Dom.init.prototype = Dom.prototype = {
                         var tmp = document.createElement(elem.nodeName);
                         document.body.appendChild(tmp);
                         defaultDisplay = Dom.css(tmp, 'display');
-                        if (defaultDisplay === 'none') {
-                            defaultDisplay = 'block';
-                        }
+                        if (defaultDisplay === 'none') defaultDisplay = 'block';
                         defaultDisplay[elem.nodeName] = defaultDisplay;
                         document.body.removeChild(tmp);
                     }

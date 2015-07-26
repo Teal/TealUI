@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>串联异步任务</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="TaskQueue 用于管理异步任务（如Ajax），确保两个操作不会同时执行以导致临界资源冲突。">
+    <meta name="keywords" content="promise, deferrable, defferred" />
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/misc/taskQueue.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+    <script class="doc-demo">
+        var deferred = new TaskQueue();
+
+        // 添加一个异步任务。
+        deferred.then(function () {
+
+            // 挂起等待。
+            deferred.suspend();
+
+            // 使用 setTimeout 模拟异步执行的操作。
+            setTimeout(function () {
+
+                // 恢复执行、
+                deferred.resume(1);
+            }, 1000);
+        });
+
+        // 添加一个异步任务。
+        deferred.then(function (data) {
+
+            // 挂起等待。
+            deferred.suspend();
+
+            // 使用 setTimeout 模拟异步执行的操作。
+            setTimeout(function () {
+
+                // 恢复执行、
+                deferred.resume(data + 1);
+            }, 1000);
+        });
+
+        // 添加一个同步任务。
+        deferred.then(function (data) {
+            alert('所有异步操作完成。返回的数据：' + data);
+        });
+
+    </script>
+</body>
+</html>
