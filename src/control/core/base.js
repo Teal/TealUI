@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../utility/class
+// #require ../lang/class
 // #require ../dom/base
 
 /**
@@ -15,38 +15,31 @@ var Control = Base.extend({
 
     /**
 	 * 当前控件对应的原生节点。
-	 * @type {Element}
+	 * @type {Dom}
 	 */
-    elem: null,
-
-    /**
-     * 当前控件的角色。
-	 * @type {String}
-     */
-    role: null,
+    dom: null,
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
 	 * @protected
 	 * @virtual
 	 */
-    init: function() {},
+    init: function () { },
 
-	/**
+    /**
 	 * 初始化一个新的控件。
-	 * @param {Element} elem 绑定当前控件的节点。
+	 * @param {Dom} dom 绑定当前控件的节点。
 	 * @param {Object} [options] 初始化控件的相关选项。
 	 */
-    constructor: function (elem, options) {
+    constructor: function (dom, options) {
 
         // 绑定 DOM 节点。
-        this.elem = elem;
+        this.dom = Dom(dom);
 
         // 预处理所有选项。
         // 选项的可能情况：
         //  直接设置为当前属性。
         //  直接设置为事件绑定。
-        //  直接调用 setXXX。
         //  不处理直接传递给 init。
 
         // 延时应用的选项。
@@ -56,43 +49,33 @@ var Control = Base.extend({
             value = options[key];
             switch (typeof this[key]) {
 
-                // 自定义配置。
                 case 'undefined':
 
-                    // 绑定事件。
-                    var match = /^on(\w+)$/.exec(key);
+                    // 自定义事件。
+                    var match = /^on[a-z]/.exec(key);
                     if (match) {
                         try {
-                            this.on(match[1], new Function("event", newValue));
+                            value = new Function("event", value);
                         } catch (e) { }
-                    }
-
-                    // 执行 setter
-                    match = 'set' + key.replace(/^\w/, function (w) {
-                        return w.toUpperCase();
-                    });
-                    if (this[match] instanceof Function) {
-                        delayedOptions = delayedOptions || {};
-                        delayedOptions[match] = value;
+                        this.on(match[1], value);
                         continue;
                     }
 
                     break;
+                case 'function':
+                    delayedOptions = delayedOptions || {};
+                    delayedOptions[match] = value;
+                    continue;
                 case 'object':
                     try {
                         value = JSON.parse(value);
-                    } catch (e) {
-                    }
+                    } catch (e) { }
                     break;
                 case 'number':
                     value = +value || 0;
                     break;
                 case 'boolean':
-                    value = !/^false|off|no|0$/i.test(value);
-                    break;
-                case 'function':
-                    delayedOptions = delayedOptions || {};
-                    delayedOptions[match] = value;
+                    value = !!value && !/^false|off|no|0$/i.test(value);
                     break;
             }
 
@@ -100,12 +83,10 @@ var Control = Base.extend({
         }
 
         // 调用初始化函数。
-        this.init(options || {});
+        this.init();
 
-        // 最后延时申请。
-        for (key in delayedOptions) {
-            this[key](delayedOptions[key]);
-        }
+        // 设置相关值。
+        for (key in delayedOptions) this[key](delayedOptions[key]);
 
     }
 
@@ -116,7 +97,7 @@ var Control = Base.extend({
  */
 Control.getControlTypeByName = function (roleName) {
     if (roleName) {
-        roleName = roleName.replace(/^[a-z]/, function(w) {
+        roleName = roleName.replace(/^[a-z]/, function (w) {
             return w.toUpperCase();
         });
         roleName = Control[roleName] || window[roleName];
@@ -134,7 +115,7 @@ Control.get = function (elem, roleName, options) {
     // 默认根据 data-role 指定角色名。
     roleName = roleName || elem.getAttribute('data-role');
 
-    var data = Element.getData(elem),
+    var data = Dom.data(elem),
         instance = (data.roles || (data.roles = {}))[roleName];
 
     // 已经初始化则不再初始化。
@@ -143,13 +124,11 @@ Control.get = function (elem, roleName, options) {
         // 获取相应的组件类。
         var controlClass = Control.getControlTypeByName(roleName);
 
-        // 生成组件配置项。
-        options = options || {};
-
         // 从 DOM 载入配置。
         for (var i = 0; i < elem.attributes.length; i++) {
             var attr = elem.attributes[i];
             if (/^data-/i.test(attr.name) && attr.name !== 'data-role') {
+                options = options || {};
                 options[attr.name.substr('data-'.length).replace(/-(\w)/, function (_, w) {
                     return w.toUpperCase();
                 })] = attr.value;
@@ -165,8 +144,8 @@ Control.get = function (elem, roleName, options) {
 };
 
 // 默认初始化一次页面全部组件。
-document.ready(function () {
-    NodeList.each(document.querySelectorAll('[data-role]'), function(elem) {
+$(function () {
+    NodeList.each(document.querySelectorAll('[data-role]'), function (elem) {
         Control.get(elem);
     });
 });
@@ -178,13 +157,13 @@ document.ready(function () {
  * $().role('toolTip'); // 将所有 DOM 节点初始化为 ToolTip 控件，并返回第一个控件实例。
  * $().role(); // 将所有 DOM 节点初始化为控件，控件类型根据 DOM 的 data-role 属性指定，并返回第一个控件实例。
  */
-$.prototype.role = function (roleName) {
+$.prototype.role = function (roleName, options) {
     if (!this.length) {
         return null;
     }
-    var result = Control.get(this[0], roleName);
+    var result = Control.get(this[0], roleName, options);
     for (var i = 1; i < this.length; i++) {
-        Control.get(this[i], roleName);
+        Control.get(this[i], roleName, options);
     }
     return result;
 };

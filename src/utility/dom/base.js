@@ -1475,6 +1475,36 @@ Dom.init.prototype = Dom.prototype = {
 
     // #endregion
 
+    // #region @角色
+
+    /**
+     * 初始化当前集合为指定的角色。
+     * @param {String} roleName 要初始化的角色。
+     * @param {Function} constructor 相关的类。
+     * @param {Object} options 传递给类的参数。
+     */
+    initAs: function (roleName, constructor, options) {
+
+        // 节点为空，不初始化。
+        if (!this.length) {
+            return null;
+        }
+        
+        function init(elem) {
+            var data = Dom.data(elem);
+            return data[roleName] || (data[roleName] = new constructor(elem, options));
+        }
+
+        // 为每个节点初始化，但不重复初始化。
+        var result = init(this[0]), i;
+        for (i = 1; i < this.length; i++) {
+            init(this[i]);
+        }
+        return result;
+    },
+
+    // #endregion
+
     // #region 数组
 
     /**
