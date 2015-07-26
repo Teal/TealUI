@@ -34,10 +34,9 @@ function countDown(startDate, endDate, callback) {
     function step() {
         var leftTime = endDate - new Date() + startDateOffset;
         if (leftTime <= 0) return callback(0, 0, 0, 0, 0);
-        leftTime = Math.floor(leftTime / 1000);
 
-        var t = leftTime,
-            day = Math.floor(second / 86400),
+        var t = Math.floor(leftTime / 1000),
+            day = Math.floor(t / 86400),
             hour = Math.floor((t -= day * 86400) / 3600),
             minute = Math.floor((t -= hour * 3600) / 60),
             second = Math.floor(t - minute * 60);
