@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>文档解析测试</title>
+    <script type="text/javascript" src="../../src/3rdlibs/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../src/3rdlibs/text/markdownEx.js"></script>
+    <script type="text/javascript" src="assets/doc.js"></script>
+</head>
+<body>
+    <script type="text/javascript" src="../../assets/doc.js"></script>
+    <textarea id="content" style="width:100%; height:300px">/**
+ * 判断一个对象或数组是否每一项都满足指定条件。
+ * @param {Object} iterable 要遍历的数组或对象（函数除外）。
+ * @param {Function} fn 用于判断是否满足条件的回调。函数的参数依次为:
+ * 
+ * 参数名 | 类型       | 说明
+ * value | `Object`  | 当前元素的值。
+ * index | `Number`  | 当前元素的索引。
+ * array | `Array`   | 当前正在遍历的数组。
+ * 返回值 | `Boolean` | 用于确定是否满足条件。
+ * 
+ * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+ * @returns {Boolean} 如果全部满足条件返回 @true，否则返回 @false。
+ * @example Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}); // false
+ */
+Object.every = function (iterable, fn, scope) {
+
+    var target, length, i;
+
+    // 普通对象使用 for( in ) , 数组用 0 -> length 。
+    if (iterable instanceof Array) {
+        target = [];
+        length = iterable.length;
+        for (i = 0; i < length; i++)
+            if ((i in this) && fn.call(scope, iterable[i], i, iterable))
+                return false;
+    } else {
+        target = {};
+        for (i in iterable)
+            if (fn.call(scope, iterable[i], i, iterable))
+                return false;
+    }
+
+    // 返回目标。
+    return true;
+}</textarea>
+
+<input type="button" value="GO" onclick="go();">
+
+<textarea id="result" style="width:100%; height:300px"></textarea>
+
+<script>
+
+function go(){
+
+    var content = document.getElementById('content').value;
+
+    content = parseDoc(content);
+
+    console.log(content);
+    
+    document.getElementById('result').value = trace.dump(content.map(function(content){ return content.tags }));
+
+}
+
+</script>
+</body>
+</html>

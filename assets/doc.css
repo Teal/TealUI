@@ -471,6 +471,15 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
         margin: 0;
     }
 
+.doc-api2 dt{
+    font-weight: 400!important;
+    margin-top: 1em!important;
+}
+
+.doc-api2 dd{
+    padding-left: 2em;
+}
+
 .doc-scrollable-horizional {
     overflow-x: auto;
 }

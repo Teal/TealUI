@@ -2292,29 +2292,30 @@ trace.write = function () {
 /**
  * Convert any objects to readable string. Same as var_dump() in PHP.
  * @param {Object} obj The variable to dump.
- * @param {Number} deep=3 The maximum count of recursion.
+ * @param {Number} maxLevel=3 The maximum count of recursion.
  * @returns String The dumped string.
  */
-trace.dump = function (obj, deep, showArrayPlain) {
+trace.dump = function (obj, maxLevel, level) {
 
-    if (deep == null)  deep = 3;
+    if (level == null) level = 1;
+    if (maxLevel == null)  maxLevel = 4;
 
     switch (typeof obj) {
         case "function":
-            return deep >= 3 ? obj.toString().replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
+            return level < maxLevel ? obj.toString().replace(/\\u([0-9a-f]{3})([0-9a-f])/gi, function (a, b, c) {
                 return String.fromCharCode((parseInt(b, 16) * 16 + parseInt(c, 16)))
             }) : "function() { ... }";
 
         case "object":
             if (obj == null) return "null";
-            if (deep < 0) return obj.toString();
+            if (level >= maxLevel) return obj.toString();
 
             if (typeof obj.length === "number") {
                 var r = [];
                 for (var i = 0; i < obj.length; i++) {
-                    r.push(trace.dump(obj[i], ++deep));
+                    r.push(trace.dump(obj[i], maxLevel, level));
                 }
-                return showArrayPlain ? r.join("   ") : ("[" + r.join(", ") + "]");
+                return "[" + r.join(", ") + "]";
             } else {
                 if (obj.setInterval && obj.resizeTo) return "window#" + obj.document.URL;
 
@@ -2337,12 +2338,12 @@ trace.dump = function (obj, deep, showArrayPlain) {
                         return r;
                     }
 
-                    return '[Node type=' + obj.nodeType + ' name=' + obj.nodeName + ' value=' + obj.nodeValue + ']';
+                    return '<Node type=' + obj.nodeType + ' name=' + obj.nodeName + ' value=' + obj.nodeValue + '>';
                 }
                 var r = "{\r\n", i, flag = 0;
                 for (i in obj) {
                     if (typeof obj[i] !== 'function')
-                        r += "    " + i + " = " + trace.dump(obj[i], deep - 1) + "\r\n";
+                        r += new Array(level + 1).join('\t') + i + ": " + trace.dump(obj[i], maxLevel, level + 1) + ",\n";
                     else {
                         flag++;
                     }
@@ -2352,11 +2353,13 @@ trace.dump = function (obj, deep, showArrayPlain) {
                     r += '    ... (' + flag + ' more)\r\n';
                 }
 
-                r += "}";
+                r = r.replace(/,\n$/, '');
+
+                r += "\n" + new Array(level).join('\t') + "}";
                 return r;
             }
         case "string":
-            return deep >= 3 ? obj : '"' + obj + '"';
+            return '"' + obj.replace(/"/g, "\\\"").replace(/\n/g, "\\\n") + '"';
         default:
             return String(obj);
     }
