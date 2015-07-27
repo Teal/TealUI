@@ -122,7 +122,8 @@ Doc.Utility = {
      */
     parseTpl: function (tpl, data) {
         return tpl.replace(/\{\{|\{([^}]+)\}|\}\}/g, function (matched, argName) {
-            return argName ? (matched = argName.indexOf(':')) < 0 ? data[argName] : data[argName.substr(0, matched)](argName.substr(matched + 1)) : matched.charAt(0);
+            argName = argName ? (matched = argName.indexOf(':')) < 0 ? data[argName] : data[argName.substr(0, matched)](argName.substr(matched + 1)) : matched.charAt(0);
+            return argName == undefined ? '' : argName;
         });
     },
 
@@ -330,7 +331,7 @@ Doc.SyntaxHighligher = (function () {
                 while (ti < nTokens) {
                     token = tokens[ti++];
 
-                    if (styleCache.hasOwnProperty(token)) {
+                    if (Object.prototype.hasOwnProperty.call(styleCache, token)) {
                         style = styleCache[token];
                         isEmbedded = false;
                     } else {
@@ -408,7 +409,7 @@ Doc.SyntaxHighligher = (function () {
          * @returns {String} 返回一个语言名。
          */
         guessLanguage: function (sourceCode) {
-            return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{/.test(sourceCode) ? 'css' : /=|[\w$]\s+[\w$]|[\w$]\(|\)\./.test(sourceCode) ? 'js' : null;
+            return /^\s*</.test(sourceCode) && />\s*$/.test(sourceCode) ? 'html' : /\w\s*\{\s*[\w\-]+\s*:/.test(sourceCode) ? 'css' : /=|[\w$]\s+[\w$]|[\w$]\(|\)\.|\/\//.test(sourceCode) ? 'js' : null;
         },
 
         /**
@@ -1530,23 +1531,62 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      * 生成 API 列表。
      */
     Doc.writeApi = function (data, returnHtml) {
-        var result = '';
+
+        if(!Doc._apis) {
+            Doc._apis = [];
+        }
+        var dataIndex = Doc._apis.length;
+        Doc._apis.push(data);
+
+        var result = Doc.Utility.parseTpl('<h2>{title} <small>(源码：<a href="../../{url}" target="_blank">{url}</a>)</small></h2>{summary}', data);
 
         var inTable = false;
 
-        for (var i = 0; i < data.api.length; i++) {
-            var api = data.api[i];
+        for (var i = 0; i < data.apis.length; i++) {
+            var api = data.apis[i];
+
+            if(api.category) {
+                if(inTable) {
+                    result += '</table>';
+                    inTable = false;
+                }
+                result += Doc.Utility.parseTpl('<h3>{category}</h3>{summary}', api);
+                continue;
+            }
 
             if(!inTable) {
-                result += '<table class="doc-section doc-table">'
-
-                result += '<tr>';
+                result += '<table class="doc-section doc-table">';
+                result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
                 inTable = true;
             }
 
-            result += '<'
+            var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
 
-        };
+            result += Doc.Utility.parseTpl('<tr><td class="doc">{prefix}<code>{name}</code><div class="doc-toolbar">\
+                    <a href="{baseUrl}/tools/sourceReader/?file={url}#{line}" title="查看源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
+                </div></td><td class="doc">{summary}<div class="doc-toolbar">\
+                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.Page.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
+                </div></td><td class="doc">{example}</td></tr>', {
+                    prefix: /^ES/.test(api.since) ? '<small>(' + api.since + ')</small>' : '',
+                    name: match ? '<em>' + match.toLowerCase() + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
+                    summary: api.summary,
+                    dataIndex: dataIndex,
+                    apiIndex: i,
+                    example: api.example,
+                    baseUrl: Doc.baseUrl,
+                    url: data.url,
+                    line: api.line
+            });
+
+        }
+
+        if(inTable) {
+            result += '</table>';
+        }
+
+        if(!returnHtml) {
+            document.write(result);
+        }
 
         return result;
     };
@@ -2219,7 +2259,71 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         },
 
         // #endregion
+        
+        // #region API文档
+         
+        expandApi: function(td, dataIndex, apiIndex){
+            var api = Doc._apis[dataIndex].apis[apiIndex];
+            var result = api.summary || '';
 
+            if(api.params || api.returns) {
+                result += '<h4>参数</h4><table><tr><th>参数名</th><th>类型</th><th>说明</th></tr>';
+
+                if(api.params) {
+                    for (var i = 0; i < api.params.length; i++) {
+                        result += Doc.Utility.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td>{summary}</td></tr>', api.params[i]);
+                    }
+                }
+
+                if(api.returns) {
+                    if(api.returns === "this") {
+                        result += Doc.Utility.parseTpl('<tr><td>返回值</td><td><code>{type}</code></td><td>返回 this 用于链式调用。</td></tr>', {type: api.memberOf ? api.memberOf.replace(/\.prototype$/, '') : 'window'});
+                    } else {
+                        result += Doc.Utility.parseTpl('<tr><td>返回值</td><td><code>{type}</code></td><td>{summary}</td></tr>', api.returns);
+                    }
+                }
+
+                result += '</table>';
+            }
+
+            if(api.example) {
+                result += '<h4>示例</h4>' + api.example;
+            }
+
+            if(api.remark) {
+                result += '<h4>备注</h4>' + api.remark;
+            }
+
+            result += Doc.Utility.parseTpl('<div class="doc-toolbar">\
+                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.Page.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
+                </div>', {
+                    dataIndex: dataIndex,
+                    apiIndex: apiIndex
+                });
+
+            td.colSpan = 2;
+            //td.parentNode.removeChild(td.nextSibling);
+            td.nextSibling.style.display = 'none';
+            td.innerHTML = result;
+
+            Doc.renderCodes();
+        },
+
+        collapseApi: function(td, dataIndex, apiIndex){
+            var api = Doc._apis[dataIndex].apis[apiIndex];
+            td.colSpan = 1;
+            td.nextSibling.style.display = '';
+            td.innerHTML = Doc.Utility.parseTpl('{summary}<div class="doc-toolbar">\
+                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.Page.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
+                </div>', {
+                    summary: api.summary,
+                    dataIndex: dataIndex,
+                    apiIndex: apiIndex
+            });
+        },
+
+        // #endregion
+        
         /**
          * 调用远程 node 服务器完成操作。
          */
@@ -2384,7 +2488,7 @@ trace.dump = function (obj, maxLevel, level) {
                 return r;
             }
         case "string":
-            return '"' + obj.replace(/"/g, "\\\"").replace(/\n/g, "\\\n") + '"';
+            return '"' + obj.replace(/"/g, "\\\"").replace(/\n/g, "\\n\\\n") + '"';
         default:
             return String(obj);
     }

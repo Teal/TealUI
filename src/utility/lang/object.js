@@ -39,11 +39,11 @@ Object.assign = Object.assign || function (target, source) {
  * @returns {Boolean} 如果循环是因为 @fn 返回 @false 而中止，则返回 @false，否则返回 @true。
  * @example
  * Object.each({a: '1', c: '3'}, function (value, key) {
- * 		console.log(key + ' : ' + value);
+ *      console.log(key + ' : ' + value);
  * }); // 输出 'a : 1' 'c : 3'
  * 
  * Object.each([1, 2, 3], function(item, index){
- *     console.log(index, "=>", item);
+ *      console.log(index, "=>", item);
  * });
  * @since ES6
  */

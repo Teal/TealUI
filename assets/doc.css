@@ -488,23 +488,6 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
         margin-bottom: .5em;
     }
 
-.doc-api-more {
-    height: 0;
-    overflow: hidden;
-}
-
-.doc-api .doc-toolbar {
-    opacity: 0;
-    -moz-transition: opacity .3s;
-    -o-transition: opacity .3s;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-}
-
-.doc-api:hover .doc-toolbar {
-    opacity: 1;
-}
-
 .doc-table .doc-toolbar {
     opacity: 0;
     -moz-transition: opacity .3s;
@@ -940,7 +923,7 @@ a#doc_logo {
 
 @media (max-width: 768px) {
 
-    .doc-table th {
+    .doc-table th, .doc-table .doc-toolbar  {
         display: none;
     }
 
