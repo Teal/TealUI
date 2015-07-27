@@ -3,6 +3,12 @@
 //  By  Valerio Proietti  ( Mootools-more) MIT License
 //===========================================
 
+/**
+ * 提供颜色处理的相关 API。
+ */
+var Color = {
+
+};
 
 
 

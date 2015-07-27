@@ -3,6 +3,9 @@
  * @author xuld
  */
 
+/**
+ * 提供多个渐变函数曲线。
+ */
 Fx.Transitions = {
 	
 	linear: function(p){

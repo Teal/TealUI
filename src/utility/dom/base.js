@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../shim/html5
+// #require ../lang/html5
 
 // #region 核心
 
@@ -1400,9 +1400,7 @@ Dom.init.prototype = Dom.prototype = {
                         var tmp = document.createElement(elem.nodeName);
                         document.body.appendChild(tmp);
                         defaultDisplay = Dom.css(tmp, 'display');
-                        if (defaultDisplay === 'none') {
-                            defaultDisplay = 'block';
-                        }
+                        if (defaultDisplay === 'none') defaultDisplay = 'block';
                         defaultDisplay[elem.nodeName] = defaultDisplay;
                         document.body.removeChild(tmp);
                     }
@@ -1473,6 +1471,36 @@ Dom.init.prototype = Dom.prototype = {
      */
     toggle: function (value) {
         this[(value !== true && value !== false ? this.isHidden() : value) ? 'show' : 'hide'].apply(this, arguments);
+    },
+
+    // #endregion
+
+    // #region @角色
+
+    /**
+     * 初始化当前集合为指定的角色。
+     * @param {String} roleName 要初始化的角色。
+     * @param {Function} constructor 相关的类。
+     * @param {Object} options 传递给类的参数。
+     */
+    initAs: function (roleName, constructor, options) {
+
+        // 节点为空，不初始化。
+        if (!this.length) {
+            return null;
+        }
+        
+        function init(elem) {
+            var data = Dom.data(elem);
+            return data[roleName] || (data[roleName] = new constructor(elem, options));
+        }
+
+        // 为每个节点初始化，但不重复初始化。
+        var result = init(this[0]), i;
+        for (i = 1; i < this.length; i++) {
+            init(this[i]);
+        }
+        return result;
     },
 
     // #endregion

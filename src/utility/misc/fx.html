@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>特效驱动</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="一个实现用于实现特效渐变的基类。Fx 会根据一定的变化曲线不断调用指定函数，这个函数可根据参数的变化因子实现自定义的特效渐变。">
+    <!-- 以下是本组件的全部源码 -->
+
+    <script type="text/javascript" src="../../utility/misc/taskQueue.js"></script>
+    <script type="text/javascript" src="../../utility/misc/fx.js"></script>
+    <script type="text/javascript" src="../../utility/misc/fxTransitions.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <script class="doc-demo">
+        Fx.run({
+            set: function (value) {
+                console.log(value);
+            }
+        });
+    </script>
+
+    <h2>渐变曲线</h2>
+
+
+    <style>
+        .p {
+            height: 3px;
+            position: absolute;
+            width: 3px;
+            background: red;
+        }
+    </style>
+
+    <div style="border: 1px solid #ccc; position: relative;">
+        <div class="doc-box-small" id="handler" style="position: relative;"></div>
+    </div>
+
+    <div style="border: 1px solid #ccc; height: 200px; position: relative;" id="chart">
+
+    </div>
+
+    <script>
+
+        function runFx(transition) {
+            Fx.run({
+
+                link: 'abort',
+
+                duration: 2000,
+
+                fps: 120,
+
+                start: function (time) {
+                    document.getElementById('chart').innerHTML = '';
+                },
+
+                set: function (delta, tick) {
+                    function compute(from, to, delta) {
+                        return (to - from) * delta + from;
+                    }
+
+                    var handler = document.getElementById('handler');
+                    handler.style.left = compute(0, handler.parentNode.offsetWidth - handler.offsetWidth - 20, delta) + 'px';
+
+                    var chart = document.getElementById('chart');
+                    var p = chart.appendChild(document.createElement('i'));
+                    p.className = 'p';
+                    p.style.left = compute(0, chart.offsetWidth - 10, tick) + 'px';
+                    p.style.top = compute(chart.offsetHeight - 5, 0, delta) + 'px';
+                },
+
+                transition: transition
+
+            });
+        }
+
+        for (var i in Fx.Transitions) {
+            document.write('<input type="button" onclick="runFx(Fx.Transitions.' + i + ')" value="' + i + '"> ');
+            document.write('<input type="button" onclick="runFx(Fx.easeOut(Fx.Transitions.' + i + '))" value="easeOut(' + i + ')"> ');
+            document.write('<input type="button" onclick="runFx(Fx.easeInOut(Fx.Transitions.' + i + '))" value="easeInOut(' + i + ')"> ');
+            document.write('<br>');
+        }
+    </script>
+    <div style="float: right; width: 500px; text-align: right">
+
+    </div>
+</body>
+</html>

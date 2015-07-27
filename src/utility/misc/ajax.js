@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../shim/html5
+// #require ../lang/html5
 // #require ../text/queryString#QueryString.stringify
 
 /**
@@ -369,6 +369,7 @@ var Ajax = {
      * jsonp        |`Boolean` |`"callback"`|如果使用 jsonp 请求，则指示 jsonp 参数名。如果设为 false，则不添加 jsonp 参数。
      * jsonpCallback|`Boolean` |(根据当前时间戳自动生成)|jsonp请求回调函数名。
      * password     |`String`  |`null`      |请求的密码。
+     * start        |`Function`|`null`      |请求开始时的回调。
      * success      |`Function`|`null`      |请求成功时的回调。参数为请求的数据。
      * timeout      |`Number`  |`-1`        |请求超时毫秒数。-1 表示不设超时。
      * type         |`String`  |`"GET"`     |请求类型。
@@ -406,63 +407,73 @@ var Ajax = {
      */
     send: function (options) {
 
+        // 复制用户传递的配置。
+        var opt = {}, key;
+        for (key in options) opt[key] = options[key];
+
         // url
-        options.url = options.url || Ajax.getCurrentUrl();
-        if (options.url.constructor === Array) {
-            options.counter = options.url.length;
+        opt.url = opt.url || Ajax.getCurrentUrl();
+        if (opt.url.constructor === Array) {
+            opt.counter = opt.url.length;
+            opt.url = [];
 
             // 将外部配置拷贝到子对象。
-            for (var i = 0, url, key; url = options.url[i++];) {
-                for (key in options) {
-                    if (!(key in url) && !(key in { url: 1, success: 1, error: 1, complete: 1 })) {
-                        url[i] = options[key];
-                    }
-                }
+            for (var i = 0, url1, url2; url1 = options.url[i++];) {
+                opt.url[i] = url2 = {};
 
-                url._callback = function () {
-                    if (--options.counter < 1) {
+                // 拷贝主对象配置。
+                for (key in options)
+                    if(!(key in { url: 1, start: 1, success: 1, error: 1, complete: 1 }))
+                        url2[key] = options[key];
+
+                // 拷贝子对象配置。
+                for (key in url1)
+                    url2[key] = url1[key];
+
+                url2._callback = function () {
+                    if (--opt.counter < 1) {
                         var responses = [], funcName = 'success';
-                        for (i = 0; url = options.url[i]; i++) {
-                            responses[i] = url.response;
-                            if (url.errorCode) funcName = 'error';
+                        for (i = 0; url2 = opt.url[i]; i++) {
+                            responses[i] = url2.response;
+                            if (url2.errorCode) funcName = 'error';
                         }
-                        options[funcName] && options[funcName].apply(options, responses);
-                        options.complete && options.complete.apply(options, responses);
+                        opt[funcName] && opt[funcName].apply(opt, responses);
+                        opt.complete && opt.complete.apply(opt, responses);
                     }
                 };
 
-                Ajax.send(url);
+                Ajax.send(url2);
             }
             return;
         }
 
         // url
-        options.url = options.url.replace(/#.*$/, "");
+        opt.url = opt.url.replace(/#.*$/, "");
 
         // type
-        options.type = options.type ? options.type.toUpperCase() : 'GET';
+        opt.type = opt.type ? opt.type.toUpperCase() : 'GET';
 
         // data
-        options.data = QueryString.stringify(options.data);
-        if (options.data && options.type === 'GET') {
-            options.url = Ajax.appendQuerys(options.url, options.data);
-            options.data = null;
+        opt.data = QueryString.stringify(opt.data);
+        if (opt.data && opt.type === 'GET') {
+            opt.url = Ajax.appendQuerys(opt.url, opt.data);
+            opt.data = null;
         }
 
         // cache
-        if (options.cache !== true) options.url = Ajax.appendCacheQuery(options.url);
+        if (opt.cache !== true) opt.url = Ajax.appendCacheQuery(opt.url);
 
         // async
-        options.async = options.async !== false;
+        opt.async = opt.async !== false;
 
         // crossDomain
-        if (options.crossDomain == null) options.crossDomain = Ajax.isCrossDomain(options.url);
+        if (opt.crossDomain == null) opt.crossDomain = Ajax.isCrossDomain(opt.url);
 
         // 调用用户自定义 Ajax 初始化回调。
         // 根据 dataType 获取当前用于传输的工具。实际的发送操作。
-        if (!Ajax.init || Ajax.init(options) !== false) (Ajax.transports[options.dataType] || Ajax.transports.text)(options, Ajax.done);
+        if ((!Ajax.init || Ajax.init(opt) !== false) && (!opt.start || opt.start() !== false)) (Ajax.transports[opt.dataType] || Ajax.transports.text)(opt, Ajax.done);
 
-        return options;
+        return opt;
     },
 
     /**
