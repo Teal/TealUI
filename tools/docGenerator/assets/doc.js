@@ -3,34 +3,27 @@
  * 所有支持的标签信息。
  */
 var tags = {
-    access: {
-        type: 'text'
-    },
+    access: { type: 'text' },
 
-    summary: {
-        type: 'html'
-    },
+    summary: { type: 'html' },
 
-    param: {
-        type: 'param'
-    },
-    params: {alias: 'param'},
+    params: { type: 'param' },
+    param: { alias: 'params' },
 
-    'return': {
-        type: 'return'
-    },
-    returns: {alias:  'return'},
+    'type': { type: 'type' },
 
-    'throw': {
-        type: 'return'
-    },
-    'throws': {alias: 'throw'},
-    exception: {alias: 'throw'},
+    'returns': { type: 'return' },
+    'return': { alias: 'returns' },
 
-    example: {
-        type: 'code'
-    },
-    sample: {alias: 'example'}
+    'exception': { type: 'type' },
+    'throws': { alias: 'throw' },
+    'throw': { alias: 'exception' },
+
+    'since': { type: 'text' },
+    'version': { alias: 'since' },
+
+    example: { type: 'code' },
+    sample: { alias: 'example' }
 };
 
 /**
@@ -90,9 +83,12 @@ function getAllDocComments(reader) {
 
         // 解析剩余部分。
         docComment.rest = reader.source.substring(lastPos + 1, (token || reader).pos).trim();
-        docComment.content = (docComment.type === "///" ? docComment.content.replace(/^\s*\/\/\/\s*/gm, "") : docComment.content.substring("/**".length, docComment.content.length - "*/".length).replace(/^\s*\*[ \t]*/mg, "")).trim();
+        docComment.content = (docComment.type === "///" ? docComment.content.replace(/^\s*\/\/\/ ?/gm, "") : docComment.content.substring("/**".length, docComment.content.length - "*/".length).replace(/^\s*\* ?/mg, "")).trim();
         docComment.tags = parseDocComment(docComment.content, docComment.rest);
-        docComments.push(docComment);
+
+        if (docComment.tags) {
+            docComments.push(docComment);
+        }
 
         // 跳过当前换行。
         if (token && token.content === "\n") {
@@ -109,8 +105,7 @@ function getAllDocComments(reader) {
  */
 function parseDocComment(comment, rest) {
     var result = {};
-
-    comment = comment.split('\n@');
+    comment = comment.split(/\n\s*@/);
     var content = comment[0].trim();
     result.summary = content ? [content] : [];
     for (var i = 1; i < comment.length; i++) {
@@ -121,33 +116,25 @@ function parseDocComment(comment, rest) {
     }
 
     // 修复内置标签。
-    for(var tag in result){
+    for (var tag in result) {
         var tagInfo = tags[tag];
-        if(tagInfo) {
+        if (tagInfo) {
 
-            for(var i = 0; i < result[tag].length; i++) {
+            for (var i = 0; i < result[tag].length; i++) {
                 var content = result[tag][i];
 
-                switch(tagInfo.type) {
+                switch (tagInfo.type) {
 
                     // 解析参数。
                     case 'param':
-                        var match = /^(\{([^\}]*)\})?\s*((\w+)|\[(\w+)(=([^\]]+))?\])?\s+/.exec(content) || [''];
-                        content = {
-                            type: match[2] || '',
-                            name: match[4] || match[5] || '',
-                            optional: !!match[5],
-                            defaultValue: match[7] || '',
-                            summary: parseMarkDown(content.substr(match[0].length))
-                        };
+                        content = parseParam(content);
+                        content.summary = parseMarkDown(content.summary);
                         break;
 
                     case 'return':
-                        var match = /^(\{([^\}]*)\})?\s+/.exec(content) || [''];
-                        content = {
-                            type: match[2] || '',
-                            summary: parseMarkDown(content.substr(match[0].length))
-                        };
+                    case 'type':
+                        content = parseType(content);
+                        content.summary = parseMarkDown(content.summary);
                         break;
 
                     case 'html':
@@ -164,63 +151,90 @@ function parseDocComment(comment, rest) {
 
             }
 
-            switch(tagInfo.type) {
+            switch (tagInfo.type) {
                 case 'html':
-                    result[tag] =  result[tag].join('<br>');
+                    result[tag] = result[tag].join('<br>');
                     break;
                 case 'text':
-                    result[tag] =  result[tag].join('\n');
+                case "code":
+                    result[tag] = result[tag].join('\n');
+                    break;
+                case 'return':
+                    result[tag] = result[tag][result[tag].length - 1];
                     break;
             }
         }
     }
 
-    if(!result.access) {
+    if (!result.access) {
         var access = [];
-        if(result["public"]) {
+        if (result["public"]) {
             access.push("public");
         }
-        if(result["protected"]) {
+        if (result["protected"]) {
             access.push("protected");
         }
-        if(result["private"]) {
+        if (result["private"]) {
             access.push("private");
         }
-        if(access.length) {
+        if (access.length) {
             result.access = access.join(' ');
         }
     }
 
     // 从代码提取信息。
-    if(rest) {
+    if (rest) {
         var match = /(([$\w\.\s]+)\.)?\s*([$\w]+)\s*([:=])\s*(.*)/.exec(rest);
-        if(match) {
+        if (match) {
             result.memberOf = result.memberOf || match[2];
             result.name = result.name || match[3];
 
-            if(/^\d/.test(match[5])) {
+            if (/^\d/.test(match[5])) {
                 result.type = result.type || "Number";
-            } else if(/^['"]/.test(match[5])) {
+            } else if (/^['"]/.test(match[5])) {
                 result.type = result.type || "String";
-            } else if(/^(true|false)\b/.test(match[5])) {
+            } else if (/^(true|false)\b/.test(match[5])) {
                 result.type = result.type || "Boolean";
-            } else if(/^(null\b|\{)/.test(match[5])) {
+            } else if (/^(null\b|\{)/.test(match[5])) {
                 result.type = result.type || "Object";
-            } else if(/^\[/.test(match[5])) {
+            } else if (/^\[/.test(match[5])) {
                 result.type = result.type || "Array";
-            } else if(/^new\s+Date\b/.test(match[5])) {
+            } else if (/^new\s+Date\b/.test(match[5])) {
                 result.type = result.type || "Date";
-            } else if(/^\//.test(match[5])) {
+            } else if (/^\//.test(match[5])) {
                 result.type = result.type || "RegExp";
             }
         }
 
         match = /function\s+([$\w]+)\(/.exec(rest);
-        if(match) {
+        if (match) {
             result.name = result.name || match[1];
         }
     }
 
+    if (result['inner'] || !result['name']) {
+        return null;
+    }
+
+    return result;
+}
+
+function parseParam(content) {
+    var match = /^(\{([^\}]*)\})?\s*((\w+)|\[(\w+)(=([^\]]+))?\])?\s+/.exec(content) || [''],
+        result = {};
+    if (match[2]) result.type = match[2];
+    if (match[4] || match[5]) result.name = match[4] || match[5];
+    if (match[7]) result.defaultValue = match[7];
+    if (match[5] || match[7]) result.optional = true;
+    result.summary = content.substr(match[0].length);
+    return result;
+}
+
+function parseType(content) {
+    var match = /^(\{([^\}]*)\})?\s+/.exec(content) || [''],
+        result = {};
+    if (match[2]) result.type = match[2];
+    result.summary = content.substr(match[0].length);
     return result;
 }
 
@@ -229,22 +243,41 @@ function parseDocComment(comment, rest) {
  */
 function parseMarkDown(content) {
 
-    // 解析内部 @标签
-    content = content.replace(/{@(link)\s+([^}]*)\}/g, function(_, key, value){
-        return '<a href="' + value + '" target="_blank">' + value + '</a>';
+    // 解析内联 @param 和 @returns 标签
+    content = content.replace(/^\*\s*@(\w+)\s+([^\n*]*)$/gm, function (all, type, args) {
+        var parsed;
+        if (type === 'param') {
+            parsed = parseParam(args);
+        } else if (type === 'returns') {
+            parsed = parseType(args);
+            parsed.name = '返回值';
+        } else if (type === 'field') {
+            parsed = parseType(args);
+        } else {
+            return all;
+        }
+
+        var result = ' - '
+        if (parsed.name) result += parsed.name + ': ';
+        if (parsed.type) result += '`' + parsed.type + '` ';
+        result += parsed.summary;
+        if (parsed.defaultValue) result += '(默认：' + parsed.defaultValue + '）';
+        return result;
     });
 
-    content = content.replace(/@(null|true|false|undefined|this)/, "<strong>$1</strong>");
+    // 解析内部 @标签
+    content = content.replace(/{@(link)\s+([^}]*)\}/g, function (_, key, value) {
+        return '<a href="' + value + '" target="_blank">' + value + '</a>';
+    });
+    content = content.replace(/@(null|true|false|undefined|this)/g, "<strong>$1</strong>");
+    content = content.replace(/@([\w$\.\#]+)/g, "<em>$1</em>")
 
-    content = content.replace(/@([\w$\.\#]+)/, "<em>$1</em>")
-
-   // content = Markdown.toHTML(content);
-   content = Markdown.toHTML(content);
+    content = Markdown.toHTML(content);
     return content;
 }
 
 function parseCode(content) {
-    content = content.replace(/^([^\n\t#][^\n]*)$/gm, "<pre>$1</pre>").replace(/<\/pre>\n<pre>/g, "\n");
+    content = content.replace(/^([^\n#=\-][^\n]*)$/gm, "<pre>$1</pre>").replace(/<\/pre>\n<pre>/g, "\n");
     content = parseMarkDown(content);
     content = content.replace(/<pre><code>/ig, "<pre>").replace(/<\/code><\/pre>/ig, "<\/pre>")
     return content;

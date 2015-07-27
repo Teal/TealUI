@@ -29,12 +29,11 @@ Object.assign = Object.assign || function (target, source) {
  * 遍历一个对象或数组，并对每个元素执行函数 @fn。
  * @param {Object} iterable 要遍历的数组或对象（函数除外）。
  * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
- *
- * 参数名 | 类型       | 说明
- * value | `Object`  | 当前元素的值。
- * index | `Number`  | 当前元素的索引。
- * array | `Array`   | 当前正在遍历的数组。
- * 返回值 | `Boolean` | 如果返回 @false 则终止循环。
+ * 
+ * * @param {Object} value 当前元素的值。
+ * * @param {Number} index 当前元素的索引。
+ * * @param {Array} array 当前正在遍历的数组。
+ * * @returns {Boolean} 如果返回 @false 则终止循环。
  * 
  * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
  * @returns {Boolean} 如果循环是因为 @fn 返回 @false 而中止，则返回 @false，否则返回 @true。
@@ -42,7 +41,6 @@ Object.assign = Object.assign || function (target, source) {
  * Object.each({a: '1', c: '3'}, function (value, key) {
  * 		console.log(key + ' : ' + value);
  * }); // 输出 'a : 1' 'c : 3'
- * 
  * 
  * Object.each([1, 2, 3], function(item, index){
  *     console.log(index, "=>", item);

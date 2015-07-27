@@ -157,6 +157,38 @@
         <dd class="doc">复制所有成员</dd>
     </dl>
 
+    <h2>API <small>(源码: <a href="../../utility/shim/html5.js" target="_blank">utility/shim/html5.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><small>(ES6)</small><code>Object.assign</code></td>
+            <td>复制所有成员</td>
+            <td><pre>Object.assign({}, {a: 1});</pre></td>
+        </tr>
+        <tr>
+            <td><code>Object.each</code></td>
+            <td>遍历对象或数组</td>
+            <td>
+                <pre>
+                    Object.each([1, 2, 3], function(item, index){
+                        console.log(index, "=>", item);
+                    });
+                </pre>
+                <pre>
+                    Object.each({a:1, b: 2}, function(item, key){
+                        console.log(key, "=>", item);
+                    });
+                </pre>
+            </td>
+        </tr>
+    </table>
+
+    <h2>API <small>(源码: <a href="../../utility/shim/html5.js" target="_blank">utility/shim/html5.js</a>)</small></h2>
+
     <table class="doc-api">
         <tbody><tr>
             <th>API</th>
@@ -164,8 +196,12 @@
         </tr>
         <tr>
             <td><code>$/Dom</code></td>
-            <td>
-                CSS 选择器/生成节点/Dom Ready
+            <td class="doc">
+                <div class="doc-right doc-section doc-toolbar">
+                    <a href="">更多</a>
+                    <a href="">源码</a>
+                </div>
+                <p>CSS 选择器/生成节点/Dom Ready</p>
                 <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码">执行</a><a title="编辑本代码" href="javascript://编辑本代码">编辑</a><a title="全选并复制本源码" href="javascript://全选并复制本源码">复制</a></aside><pre class="doc doc-code doc-code-js"><span class="doc-code-plain">$</span><span class="doc-code-punctuation">(</span><span class="doc-code-string">".doc-box"</span><span class="doc-code-punctuation">)</span></pre>
                 <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码">执行</a><a title="编辑本代码" href="javascript://编辑本代码">编辑</a><a title="全选并复制本源码" href="javascript://全选并复制本源码">复制</a></aside><pre class="doc doc-code doc-code-js"><span class="doc-code-plain">$</span><span class="doc-code-punctuation">(</span><span class="doc-code-string">"&lt;a&gt;你好&lt;/a&gt;"</span><span class="doc-code-punctuation">)</span></pre>
                 <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码">执行</a><a title="编辑本代码" href="javascript://编辑本代码">编辑</a><a title="全选并复制本源码" href="javascript://全选并复制本源码">复制</a></aside><pre class="doc doc-code doc-code-js"><span class="doc-code-plain">$</span><span class="doc-code-punctuation">(</span><span class="doc-code-keyword">function</span><span class="doc-code-punctuation">(){</span><span class="doc-code-plain"> alert</span><span class="doc-code-punctuation">(</span><span class="doc-code-string">"DOM ready"</span><span class="doc-code-punctuation">)</span><span class="doc-code-plain"> </span><span class="doc-code-punctuation">})</span></pre>
@@ -173,8 +209,14 @@
         </tr>
         <tr>
             <td><code><em>dom</em>.add</code></td>
-            <td>添加
-            <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码">执行</a><a title="编辑本代码" href="javascript://编辑本代码">编辑</a><a title="全选并复制本源码" href="javascript://全选并复制本源码">复制</a></aside><pre class="doc doc-code doc-code-js"><span class="doc-code-plain">$</span><span class="doc-code-punctuation">(</span><span class="doc-code-string">"#elem"</span><span class="doc-code-punctuation">).</span><span class="doc-code-plain">add</span><span class="doc-code-punctuation">(</span><span class="doc-code-plain">document</span><span class="doc-code-punctuation">.</span><span class="doc-code-plain">body</span><span class="doc-code-punctuation">)</span></pre></td>
+            <td class="doc">
+                <div class="doc-right doc-section doc-toolbar">
+                    <a href="">更多</a>
+                    <a href="">源码</a>
+                </div>
+                <p>添加</p>
+                <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码">执行</a><a title="编辑本代码" href="javascript://编辑本代码">编辑</a><a title="全选并复制本源码" href="javascript://全选并复制本源码">复制</a></aside><pre class="doc doc-code doc-code-js"><span class="doc-code-plain">$</span><span class="doc-code-punctuation">(</span><span class="doc-code-string">"#elem"</span><span class="doc-code-punctuation">).</span><span class="doc-code-plain">add</span><span class="doc-code-punctuation">(</span><span class="doc-code-plain">document</span><span class="doc-code-punctuation">.</span><span class="doc-code-plain">body</span><span class="doc-code-punctuation">)</span></pre>
+            </td>
         </tr>
     </tbody></table>
 

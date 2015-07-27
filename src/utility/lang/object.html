@@ -44,6 +44,75 @@
         </tr>
     </table>
 
+    <script>
+        Doc.writeApi({
+            url: "src/utility/lang/object.js",
+            title: "API",
+            apis: [{
+                summary: "<p>复制对象的所有属性到其它对象。</p>",
+                params: [{
+                    type: "Object",
+                    name: "target",
+                    summary: "<p>复制的目标对象。</p>"
+                }, {
+                    type: "Object",
+                    name: "source",
+                    summary: "<p>复制的源对象。</p>"
+                }],
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回 <em>target</em>。</p>"
+                },
+                example: "<pre>var a = {v: 3}, b = {g: 2};\
+Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
+                since: "ES6",
+                memberOf: "Object",
+                name: "assign",
+                line: 7,
+                col: 1
+            }, {
+                summary: "<p>遍历一个对象或数组，并对每个元素执行函数 <em>fn</em>。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iterable",
+                    summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+                }, {
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>对每个元素运行的函数。函数的参数依次为:</p>\
+\
+<ul>\
+<li>value: <code>Object</code> 当前元素的值。</li>\
+<li>index: <code>Number</code> 当前元素的索引。</li>\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\
+<li>返回值: <code>Boolean</code> 如果返回 <strong>false</strong> 则终止循环。</li>\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果循环是因为 <em>fn</em> 返回 <strong>false</strong> 而中止，则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
+                },
+                example: "<pre>Object.each({a: '1', c: '3'}, function (value, key) {\
+        console.log(key + ' : ' + value);\
+}); // 输出 'a : 1' 'c : 3'</pre>\
+\
+<pre>Object.each([1, 2, 3], function(item, index){\
+    console.log(index, \"=>\", item);\
+});</pre>",
+                since: "ES6",
+                memberOf: "Object",
+                name: "each",
+                line: 28,
+                col: 1
+            }]
+        })
+    </script>
+
     <h2>不常用 API <small>(源码: <a href="../../utility/lang/objectEx.js" target="_blank">utility/lang/objectEx.js</a>)</small></h2>
     <table class="doc-api">
         <tr>

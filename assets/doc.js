@@ -1527,6 +1527,14 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     };
 
     /**
+     * 生成 API 列表。
+     */
+    Doc.writeApi = function (data, returnHtml) {
+        var html = '';
+        return html;
+    };
+
+    /**
      * 执行页内所有代码。
      */
     Doc.execAll = function() {
