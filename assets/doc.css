@@ -39,7 +39,7 @@
     max-width: 100%;
 }
 
-.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc-api pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
+.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc-table pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
     margin: 0 0 1em;
 }
 
@@ -178,7 +178,7 @@
     color: #009688;
 }
 
-.doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
+.doc > pre, .doc-table pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
     font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
     color: #990000;
     background-color: #f9f9f7;
@@ -186,7 +186,7 @@
     border-radius: 0;
 }
 
-.doc > pre, .doc-api pre {
+.doc > pre, .doc-table pre {
     border: 1px solid #DADADA;
     white-space: pre-wrap;
     -ms-word-break: break-all;
@@ -222,9 +222,9 @@
     font-weight: normal;
 }
 
-.doc-section small a, .doc > h1 small a, .doc > h2 small a, .doc > h3 small a, .doc > h4 small a, .doc > h5 small a, .doc > h6 small a, .doc > p small a, .doc > ul small a, .doc > ol small a, .doc > dl small a, .doc > blockquote small a, .doc > table small a {
-    color: inherit;
-}
+    .doc-section small a, .doc > h1 small a, .doc > h2 small a, .doc > h3 small a, .doc > h4 small a, .doc > h5 small a, .doc > h6 small a, .doc > p small a, .doc > ul small a, .doc > ol small a, .doc > dl small a, .doc > blockquote small a, .doc > table small a {
+        color: inherit;
+    }
 
 ::-moz-selection {
     background: #00BFA5;
@@ -463,25 +463,50 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
     }
 
 /* API 列表 */
-.doc-api {
+.doc-table {
     width: 100%;
 }
 
-    .doc-api > tbody > tr > td:first-child {
+    .doc-table > tbody > tr > td:first-child {
         width: 1%;
     }
 
-    .doc-api pre:last-child {
+    .doc-table pre:last-child {
         margin: 0;
     }
 
-.doc-api2 dt{
-    font-weight: 400!important;
-    margin-top: 1em!important;
+.doc-api {
+    padding-left: 28px;
+    margin-bottom: 1em;
 }
 
-.doc-api2 dd{
-    padding-left: 2em;
+    .doc-api h5 {
+        margin-left: -28px;
+    }
+
+    .doc-api p {
+        margin-bottom: .5em;
+    }
+
+.doc-api-more {
+    height: 0;
+    overflow: hidden;
+}
+
+.doc-api .doc-toolbar {
+    opacity: 0;
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
+}
+
+.doc-api:hover .doc-toolbar {
+    opacity: 1;
+}
+
+table.doc-api th:nth-child(3){
+    width: 50%;
 }
 
 .doc-scrollable-horizional {
@@ -493,9 +518,9 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
     width: 100%;
 }
 
-.doc-fill * {
-    word-break: break-word;
-}
+    .doc-fill * {
+        word-break: break-word;
+    }
 
 /* #endregion */
 
@@ -907,29 +932,29 @@ a#doc_logo {
 
 @media (max-width: 768px) {
 
-    .doc-api th {
+    .doc-table th {
         display: none;
     }
 
-    .doc-api, .doc-api > tbody, .doc-api > thead, .doc-api > tfoot, .doc-api  > tbody > tr, .doc-api > tbody > tr > td {
+    .doc-table, .doc-table > tbody, .doc-table > thead, .doc-table > tfoot, .doc-table > tbody > tr, .doc-table > tbody > tr > td {
         display: block;
         border: 0 !important;
     }
 
-        .doc-api > tbody > tr > td {
+        .doc-table > tbody > tr > td {
             padding: 5px 0 !important;
         }
 
-            .doc-api > tbody > tr > td:first-child {
+            .doc-table > tbody > tr > td:first-child {
                 width: auto;
                 display: inline-block;
             }
 
-                .doc-api > tbody > tr > td:first-child:after {
+                .doc-table > tbody > tr > td:first-child:after {
                     content: ':';
                 }
 
-                .doc-api > tbody > tr > td:first-child + td {
+                .doc-table > tbody > tr > td:first-child + td {
                     display: inline-block;
                 }
 
