@@ -1336,7 +1336,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             // 插入工具条。
             var aside = document.createElement('aside'), button;
             aside.className = 'doc-code-toolbar doc-section';
-            aside.innerHTML = (language == 'js' || (language == 'html' && node.tagName !== 'SCRIPT' && node !== pre) ? '<a href="javascript://执行本代码" title="执行本代码">执行</a>' : '') + '<a href="javascript://编辑本代码" title="编辑本代码">编辑</a><a href="javascript://全选并复制本源码" title="全选并复制本源码">全选</a>';
+            aside.innerHTML = (language == 'js' || (language == 'html' && node.tagName !== 'SCRIPT' && node !== pre) ? '<a href="javascript://执行本代码" title="执行本代码"><span class="doc-icon">▶</span></a>' : '') + '<a href="javascript://编辑本代码" title="编辑本代码"><span class="doc-icon">✍</span></a><a href="javascript://全选并复制本源码" title="全选并复制本源码"><span class="doc-icon">❐</span></a>';
             pre.parentNode.insertBefore(aside, pre);
 
             // 全选复制按钮。
@@ -1355,16 +1355,16 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             // 检测flash 复制。
             if (window.clipboardData && clipboardData.setData) {
-                button.innerHTML = '复制';
+                button.innerHTML = '<span class="doc-icon">❐</span>';
                 button.onmouseover = function() {
-                    this.innerHTML = '复制';
+                    this.innerHTML = '<span class="doc-icon">❐</span>';
                 };
                 button.onclick = function() {
                     clipboardData.setData("Text", pre.textContent);
-                    this.innerHTML = "成功";
+                    this.innerHTML = '<span class="doc-icon">✓</span>';
                 };
             } else if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
-                button.innerHTML = '复制';
+                button.innerHTML = '<span class="doc-icon">❐</span>';
                 var timer;
                 button.onmouseover = function () {
                     var button = this;
@@ -1384,13 +1384,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         // 设置回调。
                         window.ZeroClipboard.dispatch = function (id, eventName, args) {
                             if (eventName === 'mouseOver') {
-                                button.innerHTML = '复制';
+                                button.innerHTML = '<span class="doc-icon">❐</span>';
                                 button.className = 'doc-hover';
                             } else if (eventName === 'mouseOut') {
-                                button.innerHTML = '复制';
+                                button.innerHTML = '<span class="doc-icon">❐</span>';
                                 button.className = '';
                             } else if (eventName === 'complete') {
-                                button.innerHTML = '成功';
+                                button.innerHTML = '<span class="doc-icon">✓</span>';
                             }
                         };
 
@@ -1428,13 +1428,13 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             button = button.previousSibling;
             button.onclick = function () {
                 if (pre.contentEditable === 'true') {
-                    this.innerHTML = '编辑';
+                    this.className = '';
                     this.title = '编辑本代码';
                     pre.contentEditable = false;
                     this.previousSibling && this.previousSibling.click();
                     Doc.SyntaxHighligher.one(pre, language);
                 } else {
-                    this.innerHTML = '完成';
+                    this.className = 'doc-hover';
                     this.title = '完成编辑并恢复高亮';
                     pre.contentEditable = true;
                     pre.focus();

@@ -406,11 +406,12 @@
 				},
 				{
 					"id": 208,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 31,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "copy, duplicate",
-					"name": ""
+					"name": "copy",
+					"code": 10064
 				},
 				{
 					"id": 212,
@@ -1128,7 +1129,7 @@
 					"id": 532,
 					"order": 8,
 					"prevSize": 14,
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": "search, magnifier",
 					"name": "search",
 					"code": 9740
@@ -2232,10 +2233,11 @@
 				{
 					"id": 980,
 					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "checkmark, tick",
-					"name": ""
+					"name": "checkmark",
+					"code": 58880
 				},
 				{
 					"id": 981,
@@ -2328,10 +2330,11 @@
 				{
 					"id": 1001,
 					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "play3, player8",
-					"name": "play3"
+					"name": "play3",
+					"code": 9654
 				},
 				{
 					"id": 1002,
@@ -3113,7 +3116,7 @@
 					"id": 1269,
 					"order": 7,
 					"prevSize": 14,
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": "new-tab, out2",
 					"name": "new-tab",
 					"code": 10066
@@ -3522,7 +3525,7 @@
 					"order": 17,
 					"id": 1412,
 					"prevSize": 14,
-					"tempChar": "",
+					"tempChar": "",
 					"ligatures": "github, brand40",
 					"name": "github",
 					"code": 103
@@ -3890,11 +3893,12 @@
 				},
 				{
 					"id": 1384,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 30,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "html5, w3c",
-					"name": ""
+					"name": "html5",
+					"code": 53
 				},
 				{
 					"id": 1385,
@@ -3938,51 +3942,57 @@
 				},
 				{
 					"id": 1387,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 22,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "chrome, browser",
-					"name": ""
+					"name": "chrome",
+					"code": 99
 				},
 				{
 					"id": 1388,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 23,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "firefox, browser2",
-					"name": ""
+					"name": "firefox",
+					"code": 102
 				},
 				{
 					"id": 1389,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 24,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "IE, browser3",
-					"name": ""
+					"name": "IE",
+					"code": 105
 				},
 				{
 					"id": 1390,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 25,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "opera, browser4",
-					"name": ""
+					"name": "opera",
+					"code": 111
 				},
 				{
 					"id": 1391,
-					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"order": 26,
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "safari, browser5",
-					"name": ""
+					"name": "safari",
+					"code": 115
 				},
 				{
 					"id": 1392,
 					"order": 0,
-					"prevSize": 32,
-					"tempChar": "",
+					"prevSize": 14,
+					"tempChar": "",
 					"ligatures": "IcoMoon, icomoon",
-					"name": ""
+					"name": "IcoMoon",
+					"code": 58886
 				}
 			],
 			"id": 10,
@@ -11452,7 +11462,7 @@
 					"prevSize": 14,
 					"code": 9733,
 					"name": "star",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 259,
@@ -11468,7 +11478,7 @@
 					"prevSize": 14,
 					"code": 10032,
 					"name": "star-o",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 4,
@@ -11636,7 +11646,7 @@
 					"prevSize": 14,
 					"code": 8593,
 					"name": "arrow-up",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 93,
@@ -11652,7 +11662,7 @@
 					"prevSize": 14,
 					"code": 8592,
 					"name": "arrow-left",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 91,
@@ -11660,7 +11670,7 @@
 					"prevSize": 14,
 					"code": 8594,
 					"name": "arrow-right",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 230,
@@ -11728,19 +11738,19 @@
 				},
 				{
 					"id": 112,
-					"order": 0,
+					"order": 18,
 					"prevSize": 14,
 					"code": 65087,
 					"name": "chevron-up",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 113,
-					"order": 0,
+					"order": 19,
 					"prevSize": 14,
 					"code": 65088,
 					"name": "chevron-down",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 78,
@@ -11880,11 +11890,11 @@
 				},
 				{
 					"id": 12,
-					"order": 0,
+					"order": 36,
 					"prevSize": 14,
 					"code": 10003,
 					"name": "check",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 13,
@@ -12132,7 +12142,7 @@
 					"prevSize": 14,
 					"code": 8801,
 					"name": "bars",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 288,
@@ -12192,11 +12202,11 @@
 				},
 				{
 					"id": 64,
-					"order": 0,
+					"order": 32,
 					"prevSize": 14,
 					"code": 9997,
 					"name": "edit",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 60,
@@ -12212,7 +12222,7 @@
 					"prevSize": 14,
 					"code": 182,
 					"name": "paragraph",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 28,
@@ -12344,11 +12354,11 @@
 				},
 				{
 					"id": 257,
-					"order": 0,
+					"order": 20,
 					"prevSize": 14,
 					"code": 47,
 					"name": "code",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 148,
@@ -12460,7 +12470,7 @@
 					"prevSize": 14,
 					"code": 113,
 					"name": "qq",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 428,
@@ -12476,7 +12486,7 @@
 					"prevSize": 14,
 					"code": 9830,
 					"name": "bug",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 464,
@@ -12784,11 +12794,11 @@
 				},
 				{
 					"id": 71,
-					"order": 0,
-					"prevSize": 28,
-					"code": 61515,
+					"order": 35,
+					"prevSize": 14,
+					"code": 9654,
 					"name": "play",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 72,
@@ -12993,7 +13003,7 @@
 					"prevSize": 14,
 					"code": 9808,
 					"name": "external-link",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 135,
@@ -21332,7 +21342,7 @@
 		"fontPref": {
 			"prefix": "doc-icon-",
 			"metadata": {
-				"fontFamily": "IcoMoon",
+				"fontFamily": "DocIcoMoon",
 				"majorVersion": 1,
 				"minorVersion": 0
 			},
@@ -21350,7 +21360,7 @@
 			"showVersion": false,
 			"resetPoint": 58880,
 			"includeMetadata": false,
-			"embed": true
+			"embed": false
 		},
 		"imagePref": {
 			"prefix": "icon-",
