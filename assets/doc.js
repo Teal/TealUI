@@ -1530,8 +1530,25 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      * 生成 API 列表。
      */
     Doc.writeApi = function (data, returnHtml) {
-        var html = '';
-        return html;
+        var result = '';
+
+        var inTable = false;
+
+        for (var i = 0; i < data.api.length; i++) {
+            var api = data.api[i];
+
+            if(!inTable) {
+                result += '<table class="doc-section doc-table">'
+
+                result += '<tr>';
+                inTable = true;
+            }
+
+            result += '<'
+
+        };
+
+        return result;
     };
 
     /**
