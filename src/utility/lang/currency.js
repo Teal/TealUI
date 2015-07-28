@@ -20,7 +20,7 @@ var Currency = {
         return (x * m + y * m) / m;
     },
 
-	/**
+    /**
 	 * 精确计算两个货币的差。
 	 * @param {Number} x 计算的左值。
 	 * @param {Number} y 计算的左值。
@@ -95,15 +95,14 @@ var Currency = {
             units1 = ['', '拾', '佰', '仟'],
             neg = val < 0,
             s = '',
-            i,
-            p, 
-            j,
             t;
 
         val = Math.abs(val);
 
         // 零。
-        if (val < 0.005) return '零元整';
+        if (val < 0.005) {
+            return '零元整';
+        }
 
         // 得到小数点后两位。
         t = Math.round(val * 100) % 100;
@@ -111,9 +110,9 @@ var Currency = {
 
         // 得到整数位。
         t = Math.floor(val);
-        for (i = 0; i < units0.length && t > 0; i++) {
-            p = '';
-            for (j = 0; j < units1.length && t > 0; j++) {
+        for (var i = 0; i < units0.length && t > 0; i++) {
+            var p = '';
+            for (var j = 0; j < units1.length && t > 0; j++) {
                 p = digits.charAt(t % 10) + units1[j] + p;
                 t = Math.floor(t / 10);
             }

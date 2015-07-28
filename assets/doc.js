@@ -1338,7 +1338,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var aside = document.createElement('aside'), button;
             aside.className = 'doc-code-toolbar doc-section';
             aside.innerHTML = (language == 'js' || (language == 'html' && node.tagName !== 'SCRIPT' && node !== pre) ? '<a href="javascript://执行本代码" title="执行本代码"><span class="doc-icon">▶</span></a>' : '') + '<a href="javascript://编辑本代码" title="编辑本代码"><span class="doc-icon">✍</span></a><a href="javascript://全选并复制本源码" title="全选并复制本源码"><span class="doc-icon">❐</span></a>';
-            pre.parentNode.insertBefore(aside, pre);
+            pre.parentNode && pre.parentNode.insertBefore(aside, pre);
 
             // 全选复制按钮。
             button = aside.lastChild;
@@ -1538,8 +1538,15 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         var dataIndex = Doc._apis.length;
         Doc._apis.push(data);
 
-        var result = Doc.Utility.parseTpl('<h2>{title} <small>(源码：<a href="' + Doc.baseUrl + Doc.Configs.folders.sources.path +'/{url}" target="_blank">{url}</a>)</small></h2>{summary}', data);
+        if(data.url && !returnHtml) {
+            var h2 = document.getElementsByTagName('h2');
+            h2 = h2[h2.length - 1];
+            if(h2) {
+                h2.innerHTML += Doc.Utility.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + Doc.Configs.folders.sources.path +'/{url}" target="_blank">{url}</a>)</small>', data);
+            }
+        }
 
+        var result = '';
         var inTable = false;
 
         for (var i = 0; i < data.apis.length; i++) {

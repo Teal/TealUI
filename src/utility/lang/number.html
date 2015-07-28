@@ -19,151 +19,241 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h2>常用 API <small>(源码: <a href="../../utility/lang/number.js" target="_blank">utility/lang/number.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>num</em>.format</code></td>
-            <td>替换字符串内全部子字符串</td>
-            <td>
-                <pre>1..format("000.00");</pre>
-                <div class="doc">
-                    <table>
-                        <tr>
-                            <th>元字符</th>
-                            <th>意义</th>
-                            <th>实例</th>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>空位补0</td>
-                            <td>000:012, 0.00: 2.00</td>
-                        </tr>
-                        <tr>
-                            <td>+</td>
-                            <td>正负号</td>
-                            <td>+: +</td>
-                        </tr>
-                        <tr>
-                            <td>.</td>
-                            <td>小数点</td>
-                            <td>.: .</td>
-                        </tr>
-                        <tr>
-                            <td>,</td>
-                            <td>每三位追加逗号</td>
-                            <td>,: 0</td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <h2>常用 API</h2>
+    <script>
+        Doc.writeApi({
+            title: "API",
+            url: "utility/lang/number.js",
+            apis: [{
+                memberOf: "Number.prototype",
+                name: "format",
+                summary: "<p>格式化当前数字为字符串。</p>",
+                params: [{
+                    type: "String",
+                    name: "format",
+                    optional: true,
+                    summary: "<p>格式字符串。具体见下文。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回格式化后的字符串。</p>"
+                },
+                remark: "<h4>格式化语法</h4>\n\
+\n\
+<p>格式字符串中的元字符会被替换，支持的元字符有：</p>\n\
+\n\
+<table>\n\
+<thead>\n\
+<tr>\n\
+  <th>元字符</th>\n\
+  <th>意义</th>\n\
+  <th>实例</th>\n\
+</tr>\n\
+</thead>\n\
+<tr>\n\
+  <td>0</td>\n\
+  <td>补0</td>\n\
+  <td>000:012, 0.00: 2.00</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>#</td>\n\
+  <td>补空</td>\n\
+  <td>###:12, 0.##: 2</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>+</td>\n\
+  <td>补正负号</td>\n\
+  <td>+0: +0</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>.</td>\n\
+  <td>小数点</td>\n\
+  <td>0.00: 0.00</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>,</td>\n\
+  <td>追加逗号</td>\n\
+  <td>0.00: 0.00</td>\n\
+</tr>\n\
+</table>\n\
+",
+                example: "<pre>1..format(\"000.00\") // 001.00\n\
+1.2.format(\"0.00\") // 1.20\n\
+1.2.format(\"#.##\") // 1.2\n\
+1.235.format(\"#.##\") // 1.24\n\
+1235..format(\"###,###\") // 1,235</pre>",
+                line: 8,
+                col: 1
+            }]
+        });
+    </script>
 
-    <h2>不常用 API <small>(源码: <a href="../../utility/lang/numberEx.js" target="_blank">utility/lang/numberEx.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Number.isNumber</code></td>
-            <td>判断是否是数字</td>
-            <td><pre>Number.isNumber(7);</pre></td>
-        </tr>
-        <tr>
-            <td><code>Number.limit</code></td>
-            <td>确保指定数字在指定区间内</td>
-            <td><pre>Number.limit(1, 2, 6);</pre></td>
-        </tr>
-        <tr>
-            <td><code>Number.random</code></td>
-            <td>返回在指定范围的随机值</td>
-            <td><pre>Number.random(2, 6);</pre></td>
-        </tr>
-    </table>
+    <h2>其它 API</h2>
+    <script>
+        Doc.writeApi({
+            title: "API",
+            url: "utility/lang/numberEx.js",
+            apis: [{
+                memberOf: "Number",
+                name: "isNumber",
+                summary: "<p>判断一个对象是否是数字。</p>",
+                params: [{
+                    type: "Object",
+                    name: "obj",
+                    summary: "<p>要判断的对象。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果是数字则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>Number.isNumber(7) // true</pre>",
+                line: 8,
+                col: 1
+            }, {
+                memberOf: "Number",
+                name: "limit",
+                summary: "<p>确保指定数值在指定区间内。</p>",
+                params: [{
+                    type: "Number",
+                    name: "num",
+                    summary: "<p>要判断的值。</p>"
+                }, {
+                    type: "Number",
+                    name: "min",
+                    summary: "<p>允许的最小值。</p>"
+                }, {
+                    type: "Number",
+                    name: "max",
+                    summary: "<p>允许的最大值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>如果 <em>num</em> 超过 <em>min</em> 和 <em>max</em>，则返回临界值，否则返回 <em>num</em>。</p>"
+                },
+                example: "<pre>Number.limit(1, 2, 6) // 2</pre>",
+                line: 22,
+                col: 1
+            }, {
+                memberOf: "Number",
+                name: "random",
+                summary: "<p>返回指定范围的随机整数值。</p>",
+                params: [{
+                    type: "Number",
+                    name: "min",
+                    summary: "<p>最小的整数值。</p>"
+                }, {
+                    type: "Number",
+                    name: "max",
+                    summary: "<p>最大的整数值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回结果值。其值满足 <em>min</em> &lt;= 返回值 &lt; <em>max</em>。</p>"
+                },
+                example: "<pre>Number.random(2, 6)</pre>",
+                line: 38,
+                col: 1
+            }]
+        });
+    </script>
 
     <h2>大整数加减 <small>(源码: <a href="../../utility/lang/bigInt.js" target="_blank">utility/lang/bigInt.js</a>)</small></h2>
-
     <p>
         <input type="text" id="biginteger_x" value="1" />
         <input type="text" id="biginteger_y" value="2" />
         <input type="button" value="求和" onclick="document.getElementById('biginteger_result').innerHTML = BigInt.add(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
-        <input type="button" value="求差" onclick="document.getElementById('biginteger_result').innerHTML = BigInt.sub(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
         <input type="button" value="求积" onclick="document.getElementById('biginteger_result').innerHTML = BigInt.mul(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
-        <input type="button" value="求商" onclick="document.getElementById('biginteger_result').innerHTML = BigInt.div(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
         <input type="button" value="求幂" onclick="document.getElementById('biginteger_result').innerHTML = BigInt.pow(document.getElementById('biginteger_x').value, document.getElementById('biginteger_y').value)" />
         <span id="biginteger_result"></span>
     </p>
+    <script>
+        Doc.writeApi({
+            title: "API",
+            url: "utility/lang/bigInt.js",
+            apis: [{
+                memberOf: "BigInt",
+                name: "add",
+                summary: "<p>计算大正整数的和。</p>",
+                params: [{
+                    type: "String",
+                    name: "x",
+                    summary: "<p>要计算的左值。</p>"
+                }, {
+                    type: "String",
+                    name: "y",
+                    summary: "<p>要计算的左值。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>BigInt.add(\"1\", \"2\") // \"3\"</pre>",
+                line: 10,
+                col: 1
+            }, {
+                memberOf: "BigInt",
+                name: "mul",
+                summary: "<p>计算大正整数的积。</p>",
+                params: [{
+                    type: "String",
+                    name: "x",
+                    summary: "<p>要计算的左值。</p>"
+                }, {
+                    type: "String",
+                    name: "y",
+                    summary: "<p>要计算的左值。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>BigInt.mul(\"1\", \"2\") // \"2\"</pre>",
+                line: 34,
+                col: 1
+            }, {
+                memberOf: "BigInt",
+                name: "pow",
+                summary: "<p>计算大正整数的幂。</p>",
+                params: [{
+                    type: "String",
+                    name: "x",
+                    summary: "<p>要计算的左值。</p>"
+                }, {
+                    type: "String",
+                    name: "y",
+                    summary: "<p>要计算的左值。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>BigInt.pow(\"1\", \"2\") // \"1\"</pre>",
+                line: 63,
+                col: 1
+            }]
+        });
+    </script>
 
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>BigInt.add</code></td>
-            <td>大整数加</td>
-            <td><pre>BigInt.add("2", "4");</pre></td>
-        </tr>
-        <tr>
-            <td><code>BigInt.sub</code></td>
-            <td>大整数减</td>
-            <td><pre>BigInt.sub("2", "4");</pre></td>
-        </tr>
-        <tr>
-            <td><code>BigInt.mul</code></td>
-            <td>大整数乘</td>
-            <td><pre>BigInt.mul("2", "4");</pre></td>
-        </tr>
-    </table>
-
-    <h2>大数加减 <small>(源码: <a href="../../utility/lang/bigNumber.js" target="_blank">utility/lang/bigNumber.js</a>)</small></h2>
-    
-    <p>另参考：<a href="https://github.com/MikeMcl/bignumber.js/">BigNumber.Js 官方网站</a></p>
-
+    <h2>大数计算 <small>(源码: <a href="../../utility/lang/bigNumber.js" target="_blank">utility/lang/bigNumber.js</a>)</small></h2>
     <p>
         <input type="text" id="bignumber_x" value="1" />
         <input type="text" id="bignumber_y" value="2" />
-        <input type="button" value="求和" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.add(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
-        <input type="button" value="求差" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.sub(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
-        <input type="button" value="求积" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.mul(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
-        <input type="button" value="求商" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.div(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
-        <input type="button" value="求幂" onclick="document.getElementById('bignumber_result').innerHTML = BigNumber.pow(document.getElementById('bignumber_x').value, document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求和" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).add(document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求差" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).sub(document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求积" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).mul(document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求商" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).div(document.getElementById('bignumber_y').value)" />
+        <input type="button" value="求幂" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).pow(document.getElementById('bignumber_y').value)" />
         <span id="bignumber_result"></span>
     </p>
+    <p>使用大数计算库可对任意大的数字进行无误差计算。更多请参考：<a href="https://github.com/MikeMcl/bignumber.js/">BigNumber.Js 官方网站</a></p>
+    <script class="doc-demo">
+        var x = new BigNumber("1"),
+            y = new BigNumber("2");
+        x.add(y).toString();
+    </script>
 
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>BigNumber.add</code></td>
-            <td>大数加</td>
-            <td><pre>BigNumber.add("2", "4");</pre></td>
-        </tr>
-        <tr>
-            <td><code>BigNumber.sub</code></td>
-            <td>大数减</td>
-            <td><pre>BigNumber.sub("2", "4");</pre></td>
-        </tr>
-        <tr>
-            <td><code>BigNumber.mul</code></td>
-            <td>大数乘</td>
-            <td><pre>BigNumber.mul("2", "4");</pre></td>
-        </tr>
-    </table>
-
-    <h2>货币处理 <small>(源码: <a href="../../utility/lang/currency.js" target="_blank">utility/lang/currency.js</a>)</small></h2>
-
+    <h2>货币处理</h2>
+    <p>直接使用 JS 进行计算会产生误差，本组件提供了精确计算货币的功能。</p>
     <p>
         <input type="text" id="currency_input" value="0" />
         <input type="button" value="保留两位小数" onclick="document.getElementById('currency_result').innerHTML = Currency.round(+document.getElementById('currency_input').value)" />
@@ -172,27 +262,145 @@
         <span id="currency_result"></span>
     </p>
 
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Currency.round</code></td>
-            <td>货币精确到小数点两位</td>
-            <td><pre>Currency.round('2.432');</pre></td>
-        </tr>
-        <tr>
-            <td><code>Currency.format</code></td>
-            <td>转为数字字符串</td>
-            <td><pre>Currency.format('23452.432');</pre></td>
-        </tr>
-        <tr>
-            <td><code>Currency.toChinese</code></td>
-            <td>转为中文大写金额</td>
-            <td><pre>Currency.toChinese('23452.432');</pre></td>
-        </tr>
-    </table>
+    <script>
+        Doc.writeApi({
+            title: "API",
+            url: "utility/lang/currency.js",
+            apis: [{
+                memberOf: "Currency",
+                name: "add",
+                summary: "<p>精确计算两个货币的和。</p>",
+                params: [{
+                    type: "Number",
+                    name: "x",
+                    summary: "<p>计算的左值。</p>"
+                }, {
+                    type: "Number",
+                    name: "y",
+                    summary: "<p>计算的左值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>Currency.add(86.24, .1)</pre>",
+                line: 11,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "sub",
+                summary: "<p>精确计算两个货币的差。</p>",
+                params: [{
+                    type: "Number",
+                    name: "x",
+                    summary: "<p>计算的左值。</p>"
+                }, {
+                    type: "Number",
+                    name: "y",
+                    summary: "<p>计算的左值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>Currency.sub(86.24, .1)</pre>",
+                line: 23,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "mul",
+                summary: "<p>精确计算两个货币的积。</p>",
+                params: [{
+                    type: "Number",
+                    name: "x",
+                    summary: "<p>计算的左值。</p>"
+                }, {
+                    type: "Number",
+                    name: "y",
+                    summary: "<p>计算的左值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>Currency.mul(7, 0.8)</pre>",
+                line: 35,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "div",
+                summary: "<p>精确计算两个货币的商。</p>",
+                params: [{
+                    type: "Number",
+                    name: "x",
+                    summary: "<p>计算的左值。</p>"
+                }, {
+                    type: "Number",
+                    name: "y",
+                    summary: "<p>计算的左值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>Currency.div(86.24, .1)</pre>",
+                line: 48,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "round",
+                summary: "<p>保留小数点后两位四舍五入。</p>",
+                params: [{
+                    type: "Number",
+                    name: "val",
+                    summary: "<p>要处理的值。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回计算的结果。</p>"
+                },
+                example: "<pre>Currency.round(86.245) // 86.25</pre>",
+                line: 61,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "format",
+                summary: "<p>将指定的货币格式化为字符串。</p>",
+                params: [{
+                    type: "Number",
+                    name: "val",
+                    summary: "<p>要处理的值。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回格式化后的字符串。字符串保留两位小数，整数部分每 3 位包含一个逗号分隔符。</p>"
+                },
+                example: "<pre>Currency.format(86234.245) // \"86,234.25\"</pre>",
+                line: 71,
+                col: 1
+            }, {
+                memberOf: "Currency",
+                name: "toChinese",
+                summary: "<p>将货币转为中文大写金额。</p>",
+                params: [{
+                    type: "Number",
+                    name: "val",
+                    summary: "<p>要处理的值。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回格式化后的字符串。</p>"
+                },
+                example: "<pre>Currency.format(10000000) // \"壹千万元整\"</pre>",
+                line: 85,
+                col: 1
+            }]
+        });
+    </script>
+    
+    <blockquote class="doc-note">
+        <h4>注意</h4>
+        货币组件支持计算的最大货币为：10,000,000,000,000.00，如需支持更大范围，请使用大数计算组件。
+    </blockquote>
 </body>
 </html>

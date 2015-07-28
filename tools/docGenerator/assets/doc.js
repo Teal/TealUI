@@ -114,6 +114,8 @@ function getAllDocComments(reader) {
     return docComments;
 }
 
+var lastDocComment;
+
 /**
  * 解析一个文档注释。
  */
@@ -229,6 +231,10 @@ function parseDocComment(comment, rest) {
             } else if (/^\//.test(match[5])) {
                 result.type = result.type || "RegExp";
             }
+
+            if (match[4] === ':' && !result.memberOf && lastDocComment) {
+                result.memberOf = lastDocComment.name;
+            }
         }
 
         match = /function\s+([$\w]+)\(/.exec(rest);
@@ -243,6 +249,18 @@ function parseDocComment(comment, rest) {
 
     if (result['inner'] || (!result['name'])) {
         return null;
+    }
+
+    // 为对象持有者忽略注释。
+    if (/^[A-Z]/.test(result['name']) && !result['memberOf']) {
+        lastDocComment = result;
+        return null;
+    }
+
+    for (var key in result) {
+        if (!result[key]) {
+            delete result[key];
+        }
     }
 
     return result;

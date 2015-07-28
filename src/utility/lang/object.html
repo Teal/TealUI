@@ -14,11 +14,14 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
+
+    <h2>常用 API</h2>
     <script>
         Doc.writeApi({
-            title: "API",
             url: "utility/lang/object.js",
             apis: [{
+                memberOf: "Object",
+                name: "assign",
                 summary: "<p>复制对象的所有属性到其它对象。</p>",
                 params: [{
                     type: "Object",
@@ -36,11 +39,11 @@
                 example: "<pre>var a = {v: 3}, b = {g: 2};\n\
 Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
                 since: "ES6",
-                memberOf: "Object",
-                name: "assign",
-                line: 7,
+                line: 10,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "each",
                 summary: "<p>遍历一个对象或数组，并对每一项执行函数 <em>fn</em>。</p>",
                 params: [{
                     type: "Object",
@@ -73,18 +76,19 @@ Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.each([1, 2, 3], function(item, index){\n\
      console.log(index, \"=>\", item);\n\
 });</pre>",
-                memberOf: "Object",
-                name: "each",
-                line: 28,
+                line: 34,
                 col: 1
             }]
         });
     </script>
+
+    <h2>其它 API</h2>
     <script>
         Doc.writeApi({
-            title: "不常用 API",
             url: "utility/lang/objectEx.js",
             apis: [{
+                memberOf: "Object",
+                name: "type",
                 summary: "<p>获取指定对象的类型。</p>",
                 params: [{
                     type: "Object",
@@ -103,11 +107,11 @@ Object.type(new Function) // \"function\"\n\
 Object.type(+'a') // \"number\"\n\
 Object.type(/a/) // \"regexp\"\n\
 Object.type([]) // \"array\"</pre>",
-                memberOf: "Object",
-                name: "type",
                 line: 8,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "isEmpty",
                 summary: "<p>判断一个对象是否空。</p>",
                 params: [{
                     type: "Object",
@@ -124,11 +128,11 @@ Object.isEmpty(\"\") // true\n\
 Object.isEmpty(\" \") // false\n\
 Object.isEmpty([]) // true\n\
 Object.isEmpty({}) // false</pre>",
-                memberOf: "Object",
-                name: "isEmpty",
                 line: 38,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "isObject",
                 summary: "<p>判断一个对象是否是引用对象。</p>",
                 params: [{
                     type: "Object",
@@ -142,11 +146,11 @@ Object.isEmpty({}) // false</pre>",
                 remark: "<p>此函数等效于 <code>obj !== null &amp;&amp; typeof obj === \"object\"</code></p>",
                 example: "<pre>Object.isObject({}) // true\n\
 Object.isObject(null) // false</pre>",
-                memberOf: "Object",
-                name: "isObject",
                 line: 58,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "assignIf",
                 summary: "<p>复制对象的所有属性到其它对象，但不覆盖原对象的相应值。</p>",
                 params: [{
                     type: "Object",
@@ -163,11 +167,11 @@ Object.isObject(null) // false</pre>",
                 },
                 example: "<pre>var a = {v: 3}, b = {g: 2};\n\
 Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
-                memberOf: "Object",
-                name: "assignIf",
                 line: 75,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "clone",
                 summary: "<p>深拷贝一个对象，拷贝的对象和原对象无引用关系。</p>",
                 params: [{
                     type: "Object",
@@ -184,11 +188,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
   <p>考虑项目实际需求和性能，<code>Object.clone</code> 不拷贝函数，因此拷贝的对象成员函数将保持引用关系。</p>\n\
 </blockquote>",
                 example: "<pre>Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}</pre>",
-                memberOf: "Object",
-                name: "clone",
                 line: 98,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "count",
                 summary: "<p>计算对象的属性数。</p>",
                 params: [{
                     type: "Object",
@@ -200,11 +204,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回属性数。只返回对象自身的属性数，不含原型属性。</p>"
                 },
                 example: "<pre>Object.count({v: 3, g: 5}) // 2</pre>",
-                memberOf: "Object",
-                name: "count",
                 line: 135,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "keys",
                 summary: "<p>获取对象的所有键。</p>",
                 params: [{
                     type: "Object",
@@ -217,11 +221,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                 },
                 example: "<pre>Object.keys({a: 3, b: 5}) // [\"a\", \"b\"]</pre>",
                 since: "ES5",
-                memberOf: "Object",
-                name: "keys",
                 line: 155,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "values",
                 summary: "<p>获取对象的所有值。</p>",
                 params: [{
                     type: "Object",
@@ -233,11 +237,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回所有值组成的数组。</p>"
                 },
                 example: "<pre>Object.values({a: 3, b: 5}) // [3, 5]</pre>",
-                memberOf: "Object",
-                name: "values",
                 line: 176,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "keyOf",
                 summary: "<p>返回对象中指定值对应的第一个键。</p>",
                 params: [{
                     type: "Object",
@@ -253,11 +257,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回匹配的第一个键，如果不存在返回 null。</p>"
                 },
                 example: "<pre>Object.keyOf({a:1, b:1}, 1) // \"a\"</pre>",
-                memberOf: "Object",
-                name: "keyOf",
                 line: 196,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "insertBefore",
                 summary: "<p>在对象指定键之前插入一个键值对。</p>",
                 params: [{
                     type: "Object",
@@ -281,11 +285,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回 <em>obj</em>。</p>"
                 },
                 example: "<pre>Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}</pre>",
-                memberOf: "Object",
-                name: "insertBefore",
                 line: 216,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "filter",
                 summary: "<p>将指定数组或对象中符合要求的项组成一个新数组。</p>",
                 params: [{
                     type: "Object",
@@ -315,11 +319,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                 example: "<pre>Object.filter([1, 2], function(v){return v > 1;}) // [2]</pre>\n\
 \n\
 <pre>Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}</pre>",
-                memberOf: "Object",
-                name: "filter",
                 line: 245,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "map",
                 summary: "<p>对指定数组或对象每一项进行处理，并将结果组成一个新数组。</p>",
                 params: [{
                     type: "Object",
@@ -357,11 +361,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.map({length: 1, \"0\": \"a\"}, function(a){\n\
        return a + a\n\
 }) // [\"a\"];</pre>",
-                memberOf: "Object",
-                name: "map",
                 line: 291,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "every",
                 summary: "<p>判断指定数组或对象是否每一项都满足指定条件。</p>",
                 params: [{
                     type: "Object",
@@ -389,11 +393,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false</pre>",
-                memberOf: "Object",
-                name: "every",
                 line: 341,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "some",
                 summary: "<p>判断指定数组或对象是否至少存在一项满足指定条件。</p>",
                 params: [{
                     type: "Object",
@@ -421,11 +425,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>如果至少存在一项满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。</pre>",
-                memberOf: "Object",
-                name: "some",
                 line: 384,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "subset",
                 summary: "<p>获取对象指定键的子集。</p>",
                 params: [{
                     type: "Object",
@@ -441,11 +445,11 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回新对象。</p>"
                 },
                 example: "<pre>Object.subset({a:1, b:1}, ['a']) // {a:1}</pre>",
-                memberOf: "Object",
-                name: "subset",
                 line: 427,
                 col: 1
             }, {
+                memberOf: "Object",
+                name: "pick",
                 summary: "<p>获取参数中第一个不为空的值。</p>",
                 params: [{
                     type: "Object",
@@ -457,8 +461,6 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回第一个不为空的值。如果都为空则返回 <strong>undefined</strong>。</p>"
                 },
                 example: "<pre>Object.pick(undefined, null, 1) // 1</pre>",
-                memberOf: "Object",
-                name: "pick",
                 line: 448,
                 col: 1
             }]

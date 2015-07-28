@@ -15,26 +15,12 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <h2>标准 API <small>(源码: <a href="../../utility/lang/html5.js" target="_blank">utility/lang/html5.js</a>)</small></h2>
-    <p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#string">HTML5 兼容补丁</a> 组件。</p>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>str</em>.trim</code></td>
-            <td>删除字符串头尾空白</td>
-            <td><pre>"".trim();</pre></td>
-        </tr>
-    </table>
 
+    <h2>标准 API</h2>
+    <p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#string">HTML5 兼容补丁</a>。</p>
     <script>
         Doc.writeApi({
-            title: "标准 API",
             url: "utility/lang/html5.js",
-            summary: '<p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#array">HTML5 兼容补丁</a>。</p>',
             apis: [{
                 memberOf: "String.prototype",
                 name: "trim",
@@ -51,9 +37,9 @@
         });
     </script>
 
+    <h2>常用 API</h2>
     <script>
         Doc.writeApi({
-            title: "常用 API",
             url: "utility/lang/string.js",
             apis: [{
                 memberOf: "String",
@@ -117,118 +103,313 @@
         });
     </script>
 
-    <h2>不常用 API <small>(源码: <a href="../../utility/lang/stringEx.js" target="_blank">utility/lang/stringEx.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>String.isString</code></td>
-            <td>判断是否是字符串</td>
-            <td><pre>String.isString("");</pre></td>
-        </tr>
-        <tr>
-            <td><code>String.ellipsis</code></td>
-            <td>将字符串限定在指定长度内，超出部分用 ... 代替</td>
-            <td>
-                <pre>
-                    String.ellipsis("1234567", 6); //   "123..."
-                    String.ellipsis("1234567", 9); //   "1234567"
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>String.ellipsisByWord</code></td>
-            <td>将字符串限定在指定长度内，超出部分用 ... 代替。不强制分割单词</td>
-            <td><pre>String.ellipsisByWord("1234567", 6);</pre></td>
-        </tr>
-        <tr>
-            <td><code>String.containsWord</code></td>
-            <td>判断字符串是否包含指定单词</td>
-            <td><pre>String.containsWord("abc ab", "ab");</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.replaceAll</code></td>
-            <td>替换字符串内全部子字符串</td>
-            <td><pre>"1111".replaceAll("1", "3");</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.trimStart</code></td>
-            <td>去除字符串开始空格</td>
-            <td><pre>"1234567".trimStart();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.trimEnd</code></td>
-            <td>去除字符串结尾空格</td>
-            <td><pre>"1234567".trimEnd();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.startsWith</code></td>
-            <td>判断字符串是否以某个特定字符串开头</td>
-            <td><pre>"1234567".startsWith("123");</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.endsWith</code></td>
-            <td>判断字符串是否以某个特定字符串结尾</td>
-            <td><pre>"1234567".endsWith("67");</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.clean</code></td>
-            <td>删除字符串内所有空格</td>
-            <td><pre>"1234567".clean();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.byteLength</code></td>
-            <td>获得字符字节长度，中文算 2 个字符</td>
-            <td><pre>"a中文".byteLength();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.unique</code></td>
-            <td>删除字符串的重复字符</td>
-            <td><pre>"1234567".unique();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.repeat</code></td>
-            <td>重复当前字符串内容指定次数</td>
-            <td><pre>"1234567".repeat(6);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.capitalize</code></td>
-            <td>将字符串首字母大写</td>
-            <td><pre>"a".capitalize();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.uncapitalize</code></td>
-            <td>将字符串首字母小写</td>
-            <td><pre>"A".uncapitalize();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.toCamelCase</code></td>
-            <td>将字符串转为骆驼规则</td>
-            <td><pre>"a".toCamelCase();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.left</code></td>
-            <td>获取字符串左边指定长度的子字符串</td>
-            <td><pre>"a".left(4);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.right</code></td>
-            <td>获取字符串右边指定长度的子字符串</td>
-            <td><pre>"a".right(4);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.padLeft</code></td>
-            <td>补齐字符串左边空白</td>
-            <td><pre>"A".padLeft(4, '0');</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>str</em>.padRight</code></td>
-            <td>补齐字符串右边空白</td>
-            <td><pre>"A".padRight(4, '0');</pre></td>
-        </tr>
-    </table>
+    <h2>其它 API</h2>
+    <script>
+        Doc.writeApi({
+            url: "utility/lang/stringEx.js",
+            apis: [{
+                memberOf: "String",
+                name: "isString",
+                summary: "<p>判断一个对象是否是字符串。</p>",
+                params: [{
+                    type: "Object",
+                    name: "obj",
+                    summary: "<p>要判断的对象。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果 <em>obj</em> 是字符串则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>String.isString(\"\") // true</pre>",
+                line: 8,
+                col: 1
+            }, {
+                memberOf: "String",
+                name: "ellipsis",
+                summary: "<p>将字符串限定在指定长度内，超出部分用 &#8230; 代替。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>要处理的字符串。</p>"
+                }, {
+                    type: "Number",
+                    name: "length",
+                    summary: "<p>最终期望的最大长度。</p>"
+                }],
+                example: "<pre>String.ellipsis(\"1234567\", 6) //   \"123...\"</pre>\n\
+\n\
+<pre>String.ellipsis(\"1234567\", 9) //   \"1234567\"</pre>",
+                line: 22,
+                col: 1
+            }, {
+                memberOf: "String",
+                name: "ellipsisByWord",
+                summary: "<p>将字符串限定在指定长度内，超出部分用 &#8230; 代替。同时确保不强制分割单词。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>要处理的字符串。</p>"
+                }, {
+                    type: "Number",
+                    name: "length",
+                    summary: "<p>最终期望的最大长度。</p>"
+                }],
+                example: "<pre>String.ellipsisByWord(\"abc def\", 8) //   \"abc...\"</pre>",
+                line: 40,
+                col: 1
+            }, {
+                memberOf: "String",
+                name: "containsWord",
+                summary: "<p>判断字符串是否包含指定单词。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>要测试的字符串。</p>"
+                }, {
+                    type: "String",
+                    name: "separator",
+                    defaultValue: "' '",
+                    optional: true,
+                    summary: "<p>指定单词的分割符，默认为空格。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果包含指定的单词则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>String.containsWord(\"abc ab\", \"ab\")</pre>",
+                line: 63,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "replaceAll",
+                summary: "<p>替换当前字符串内全部子字符串。</p>",
+                params: [{
+                    type: "String",
+                    name: "from",
+                    summary: "<p>替换的源字符串。</p>"
+                }, {
+                    type: "String",
+                    name: "to",
+                    summary: "<p>替换的目标字符串。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回替换后的字符串。</p>"
+                },
+                example: "<pre>\"1121\".replaceAll(\"1\", \"3\") // \"3323\"</pre>",
+                line: 79,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "trimStart",
+                summary: "<p>去除当前字符串开始空格。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"  a\".trimStart() // \"a\"</pre>",
+                line: 99,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "trimEnd",
+                summary: "<p>去除当前字符串结尾空格。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"a  \".trimStart() // \"a\"</pre>",
+                line: 108,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "startsWith",
+                summary: "<p>判断当前字符串是否以某个特定字符串开头。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>开头的字符串。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>\"1234567\".startsWith(\"123\") // true</pre>",
+                line: 121,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "endsWith",
+                summary: "<p>判断当前字符串是否以某个特定字符串结尾。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>开头的字符串。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>\"1234567\".endsWith(\"67\") // true</pre>",
+                line: 131,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "clean",
+                summary: "<p>删除当前字符串内所有空格。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\" a b   \".clean() // \"ab\"</pre>",
+                line: 145,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "byteLength",
+                summary: "<p>获得当前字符串按字节计算的长度。（英文算一个字符，中文算 2 个字符）</p>",
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回长度值。</p>"
+                },
+                example: "<pre>\"a中文\".byteLength() // 5</pre>",
+                line: 158,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "unique",
+                summary: "<p>删除字符串内的重复字符。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"aabbcc\".unique() // \"abc\"</pre>",
+                line: 172,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "repeat",
+                summary: "<p>重复当前字符串内容指定次数。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"a\".repeat(4) // \"aaaa\"</pre>",
+                line: 185,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "capitalize",
+                summary: "<p>将字符串首字母大写。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"qwert\".capitalize() // \"Qwert\"</pre>",
+                line: 198,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "uncapitalize",
+                summary: "<p>将字符串首字母小写。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"Qwert\".uncapitalize() // \"qwert\"</pre>",
+                line: 213,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "toCamelCase",
+                summary: "<p>将字符串转为骆驼规则（如 fontSize）。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>处理后的字符串。</p>"
+                },
+                example: "<pre><pre>\n\
+\"font-size\".toCamelCase() // \"fontSize\"\n\
+</pre></pre>",
+                line: 228,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "left",
+                summary: "<p>获取字符串左边指定长度的子字符串。</p>",
+                params: [{
+                    type: "Number",
+                    name: "length",
+                    summary: "<p>要获取的子字符串长度。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回字符串左边 <em>length</em> 长度的子字符串。</p>"
+                },
+                example: "<pre>\"abcde\".left(3) // \"abc\"</pre>",
+                line: 246,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "right",
+                summary: "<p>获取字符串右边指定长度的子字符串。</p>",
+                params: [{
+                    type: "Number",
+                    name: "length",
+                    summary: "<p>要获取的子字符串长度。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回字符串右边 <em>length</em> 长度的子字符串。</p>"
+                },
+                example: "<pre>\"abcde\".right(3); // \"cde\"</pre>",
+                line: 256,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "padLeft",
+                summary: "<p>将字符串扩展到指定长度，不够的部分在左边使用 <em>paddingChar</em> 补齐。</p>",
+                params: [{
+                    type: "Number",
+                    name: "totalLength",
+                    summary: "<p>对齐之后的总长度。</p>"
+                }, {
+                    type: "String",
+                    name: "paddingChar",
+                    defaultValue: "\" \"",
+                    optional: true,
+                    summary: "<p>填补空白的字符。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回处理后的字符串。</p>"
+                },
+                example: "<pre>\"6\".padLeft(3, '0'); // \"006\"</pre>",
+                line: 270,
+                col: 1
+            }, {
+                memberOf: "String.prototype",
+                name: "padRight",
+                summary: "<p>将字符串扩展到指定长度，不够的部分在右边使用<em>paddingChar</em> 补齐。</p>",
+                params: [{
+                    type: "Number",
+                    name: "totalLength",
+                    summary: "<p>对齐之后的总长度。</p>"
+                }, {
+                    type: "String",
+                    name: "paddingChar",
+                    defaultValue: "\" \"",
+                    optional: true,
+                    summary: "<p>填补空白的字符。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回处理后的字符串。</p>"
+                },
+                example: "<pre>\"6\".padRight(3, '0'); // \"600\"</pre>",
+                line: 281,
+                col: 1
+            }]
+        });
+    </script>
 </body>
 </html>
