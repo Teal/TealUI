@@ -22,7 +22,6 @@ webApp
 
 
 7/28
-	utility/lang/*
 	utility/data/*
 	utility/text/*
 7/29
