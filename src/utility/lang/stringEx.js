@@ -62,7 +62,7 @@ String.ellipsisByWord = function (str, length) {
 
 /**
  * 判断字符串是否包含指定单词。
- * @param {String} str 要测试的字符串。
+ * @param {String} str 要判断的字符串。
  * @param {String} [separator=' '] 指定单词的分割符，默认为空格。
  * @returns {Boolean} 如果包含指定的单词则返回 @true，否则返回 @false。
  * @example String.containsWord("abc ab", "ab")
@@ -71,6 +71,30 @@ String.containsWord = function (str, separator) {
     separator = separator || ' ';
     return (separator ? (separator + this + separator) : this).indexOf(str) >= 0;
 };
+
+// #endregion
+
+// #region @String.removeLeadingWhiteSpaces
+
+/**
+ * 删除字符串的公共缩进部分。
+ * @param {String} str 要处理的字符串。
+ * @returns {String} 返回处理后的字符串。
+ * @example String.removeLeadingWhiteSpaces("  a") // "a"
+ */
+String.removeLeadingWhiteSpaces = function (str) {
+    str = str.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
+    var space = /^\s+/.exec(str), i;
+    if (space) {
+        space = space[0];
+        str = str.split(/[\r\n]/);
+        for (i = str.length - 1; i >= 0; i--) {
+            str[i] = str[i].replace(space, "");
+        }
+        str = str.join('\r\n');
+    }
+    return str;
+}
 
 // #endregion
 

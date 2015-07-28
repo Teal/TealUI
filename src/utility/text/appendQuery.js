@@ -16,6 +16,8 @@ function appendQuery(url, paramName, paramValue) {
         paramName = 0;
         return q1 + paramValue + q2;
     });
-    if (paramName) url[2] = (url[2] ? url[2] + '&' : '?') + paramValue;
+    if (paramName) {
+        url[2] = (url[2] ? url[2] + '&' : '?') + paramValue;
+    }
     return url.join('');
 }
