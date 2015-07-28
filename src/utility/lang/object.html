@@ -101,12 +101,17 @@ Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
 <code>string</code>, <code>number</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>array</code>,  <br>\n\
 <code>function</code>, <code>element</code>, <code>date</code>, <code>regexp</code>, <code>object</code>。</p>"
                 },
-                example: "<pre>Object.type(null) // \"null\"\n\
-Object.type(undefined) // \"undefined\"\n\
-Object.type(new Function) // \"function\"\n\
-Object.type(+'a') // \"number\"\n\
-Object.type(/a/) // \"regexp\"\n\
-Object.type([]) // \"array\"</pre>",
+                example: "<pre>Object.type(null) // \"null\"</pre>\n\
+\n\
+<pre>Object.type(undefined) // \"undefined\"</pre>\n\
+\n\
+<pre>Object.type(new Function) // \"function\"</pre>\n\
+\n\
+<pre>Object.type(+'a') // \"number\"</pre>\n\
+\n\
+<pre>Object.type(/a/) // \"regexp\"</pre>\n\
+\n\
+<pre>Object.type([]) // \"array\"</pre>",
                 line: 8,
                 col: 1
             }, {
@@ -122,13 +127,18 @@ Object.type([]) // \"array\"</pre>",
                     type: "Boolean",
                     summary: "<p>如果 <em>obj</em> 是 <strong>null</strong>、<strong>false</strong>、空字符串或空数组，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
-                example: "<pre>Object.isEmpty(null) // true\n\
-Object.isEmpty(undefined) // true\n\
-Object.isEmpty(\"\") // true\n\
-Object.isEmpty(\" \") // false\n\
-Object.isEmpty([]) // true\n\
-Object.isEmpty({}) // false</pre>",
-                line: 38,
+                example: "<pre>Object.isEmpty(null) // true</pre>\n\
+\n\
+<pre>Object.isEmpty(undefined) // true</pre>\n\
+\n\
+<pre>Object.isEmpty(\"\") // true</pre>\n\
+\n\
+<pre>Object.isEmpty(\" \") // false</pre>\n\
+\n\
+<pre>Object.isEmpty([]) // true</pre>\n\
+\n\
+<pre>Object.isEmpty({}) // false</pre>",
+                line: 43,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -144,9 +154,10 @@ Object.isEmpty({}) // false</pre>",
                     summary: "<p>如果 <em>obj</em> 是引用变量，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 remark: "<p>此函数等效于 <code>obj !== null &amp;&amp; typeof obj === \"object\"</code></p>",
-                example: "<pre>Object.isObject({}) // true\n\
-Object.isObject(null) // false</pre>",
-                line: 58,
+                example: "<pre>Object.isObject({}) // true</pre>\n\
+\n\
+<pre>Object.isObject(null) // false</pre>",
+                line: 68,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -167,7 +178,7 @@ Object.isObject(null) // false</pre>",
                 },
                 example: "<pre>var a = {v: 3}, b = {g: 2};\n\
 Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
-                line: 75,
+                line: 86,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -188,7 +199,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
   <p>考虑项目实际需求和性能，<code>Object.clone</code> 不拷贝函数，因此拷贝的对象成员函数将保持引用关系。</p>\n\
 </blockquote>",
                 example: "<pre>Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}</pre>",
-                line: 98,
+                line: 109,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -204,7 +215,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回属性数。只返回对象自身的属性数，不含原型属性。</p>"
                 },
                 example: "<pre>Object.count({v: 3, g: 5}) // 2</pre>",
-                line: 135,
+                line: 146,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -221,7 +232,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                 },
                 example: "<pre>Object.keys({a: 3, b: 5}) // [\"a\", \"b\"]</pre>",
                 since: "ES5",
-                line: 155,
+                line: 166,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -237,7 +248,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回所有值组成的数组。</p>"
                 },
                 example: "<pre>Object.values({a: 3, b: 5}) // [3, 5]</pre>",
-                line: 176,
+                line: 187,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -257,7 +268,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回匹配的第一个键，如果不存在返回 null。</p>"
                 },
                 example: "<pre>Object.keyOf({a:1, b:1}, 1) // \"a\"</pre>",
-                line: 196,
+                line: 207,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -285,7 +296,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回 <em>obj</em>。</p>"
                 },
                 example: "<pre>Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}</pre>",
-                line: 216,
+                line: 227,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -319,7 +330,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                 example: "<pre>Object.filter([1, 2], function(v){return v > 1;}) // [2]</pre>\n\
 \n\
 <pre>Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}</pre>",
-                line: 245,
+                line: 256,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -361,7 +372,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.map({length: 1, \"0\": \"a\"}, function(a){\n\
        return a + a\n\
 }) // [\"a\"];</pre>",
-                line: 291,
+                line: 302,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -393,7 +404,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false</pre>",
-                line: 341,
+                line: 352,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -425,7 +436,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>如果至少存在一项满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。</pre>",
-                line: 384,
+                line: 395,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -445,7 +456,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回新对象。</p>"
                 },
                 example: "<pre>Object.subset({a:1, b:1}, ['a']) // {a:1}</pre>",
-                line: 427,
+                line: 438,
                 col: 1
             }, {
                 memberOf: "Object",
@@ -461,7 +472,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
                     summary: "<p>返回第一个不为空的值。如果都为空则返回 <strong>undefined</strong>。</p>"
                 },
                 example: "<pre>Object.pick(undefined, null, 1) // 1</pre>",
-                line: 448,
+                line: 459,
                 col: 1
             }]
         });

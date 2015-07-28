@@ -35,13 +35,13 @@ Date.isLeapYear = function (year) {
 
 /**
  * 判断指定的数值所表示的日期是否合法。（如2月30日是不合法的）
- * @param {Number} [year=0] 年。
- * @param {Number} [month=0] 月。
- * @param {Number} [day=0] 日。
- * @param {Number} [hour=0] 时。
- * @param {Number} [minute=0] 分。
- * @param {Number} [second=0] 秒。
- * @param {Number} [milliSecond=0] 毫秒。
+ * @param {Number} [year=0] 要判断的年。
+ * @param {Number} [month=0] 要判断的月。
+ * @param {Number} [day=0] 要判断的日。
+ * @param {Number} [hour=0] 要判断的时。
+ * @param {Number} [minute=0] 要判断的分。
+ * @param {Number} [second=0] 要判断的秒。
+ * @param {Number} [milliSecond=0] 要判断的毫秒。
  * @returns {Boolean} 如果指定的数值合法则返回 @true，否则返回 @false。
  * @example Date.isValid(2004, 2, 29) // true
  */
@@ -155,6 +155,7 @@ Date.prototype.addWeek = function (value) {
  * @returns {Number} 返回周数。
  * @example 
  * new Date(2014, 2, 1).getWeek(new Date(2014, 1, 1)) // 3
+ * 
  * new Date(2014, 2, 1).getWeek() // 9
  */
 Date.prototype.getWeek = function (date) {

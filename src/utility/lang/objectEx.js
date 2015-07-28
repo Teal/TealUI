@@ -13,10 +13,15 @@
  * `function`, `element`, `date`, `regexp`, `object`。
  * @example
  * Object.type(null) // "null"
+ * 
  * Object.type(undefined) // "undefined"
+ * 
  * Object.type(new Function) // "function"
+ * 
  * Object.type(+'a') // "number"
+ * 
  * Object.type(/a/) // "regexp"
+ * 
  * Object.type([]) // "array"
  */
 Object.type = function (obj) {
@@ -41,10 +46,15 @@ Object.type = function (obj) {
  * @returns {Boolean} 如果 @obj 是 @null、@false、空字符串或空数组，则返回 @true，否则返回 @false。
  * @example
  * Object.isEmpty(null) // true
+ * 
  * Object.isEmpty(undefined) // true
+ * 
  * Object.isEmpty("") // true
+ * 
  * Object.isEmpty(" ") // false
+ * 
  * Object.isEmpty([]) // true
+ * 
  * Object.isEmpty({}) // false
  */
 Object.isEmpty = function (obj) {
@@ -62,6 +72,7 @@ Object.isEmpty = function (obj) {
  * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
  * @example
  * Object.isObject({}) // true
+ * 
  * Object.isObject(null) // false
  */
 Object.isObject = function (obj) {

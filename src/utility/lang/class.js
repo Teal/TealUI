@@ -10,13 +10,14 @@ function Base() { }
 
 /**
  * 继承当前类创建派生类。
- * @param {Object} [members] 子类实例成员列表。其中 contructor 成员表示类型构造函数。
+ * @param {Object} [members] 子类实例成员列表。其中 `contructor` 成员表示类型构造函数。
  * @returns {Function} 返回继承创建的子类。
  * @remark
+ * #### 单继承
  * 此函数只实现单继承。不同于真正面向对象的语言，
  * 子类的构造函数默认不会调用父类构造函数，除非子类不存在新的构造函数。
  * 
- * Base.extend 实际上创建一个新的函数，其原型指向 Base 的原型。
+ * `Base.extend` 实际上创建一个新的函数，其原型指向 `Base` 的原型。
  * 由于共享原型链，如果类的成员存在引用成员，则类所有实例将共享它们。
  * 因此创建类型时应避免直接声明引用成员，而是改在构造函数里创建。
  * 
@@ -24,7 +25,6 @@ function Base() { }
  * var MyClass = Base.extend({  // 创建一个子类。
  * 	  type: 'a'
  * });
- *
  * 
  * var obj = new MyClass(); // 创建子类的实例。
  */
@@ -129,6 +129,7 @@ Base.prototype.on = function (eventName, eventListener) {
  * @param {Function} [eventListener] 要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。
  * @returns this
  * @remark
+ * #### 绑定引用
  * 注意: `function () {} !== function () {}`, 这意味着下列代码的 off 将失败:
  * 
  *      base.on('click', function () {});

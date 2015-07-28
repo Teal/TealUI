@@ -6,13 +6,11 @@
  * @param {Object} obj 要判断的对象。
  * @returns {Boolean} 如果 @obj 是函数则返回 @true，否则返回 @false。
  * @example
- * Object.isFunction(function () {}); // true
+ * Function.isFunction(function () {}); // true
  * 
+ * Function.isFunction(null); // false
  * 
- * Object.isFunction(null); // false
- * 
- * 
- * Object.isFunction(new Function); // true
+ * Function.isFunction(new Function); // true
  */
 Function.isFunction = function (obj) {
     return Object.prototype.toString.call(obj) === "[object Function]";
@@ -45,6 +43,12 @@ Function.concat = function () {
  * 运行多个函数，如果函数发生异常则继续执行下一个函数，否则返回其返回值。
  * @param {Funcion} ... 要运行的函数。
  * @returns {Object} 返回第一个未发生异常函数的返回值。如果所有函数都发生异常则返回 @undefined。
+ * @example 
+ * var xhr = Function.tryThese(function(){ 
+ *      return new ActiveXObject("Microsoft.XMLHttp"); 
+ * }, function(){
+ *      return new XMLHttpRequest();
+ * })
  */
 Function.tryThese = function () {
     var result;
@@ -64,9 +68,8 @@ Function.tryThese = function () {
  * 每隔指定时间执行一次函数。
  * @param {Function} fn 要执行的函数。其参数为：
  * 
- * 参数名 | 类型       | 说明
- * count | `Number`  | 当前执行的次数。
- * 返回值 | `Boolean` | 如果返回 @false 则强制停止执行。
+ * * @param {Number} count 当前执行的次数。
+ * * @returns {Boolean}  如果返回 @false 则强制停止执行。
  * 
  * @param {Number} [times=-1] 执行的次数。如果指定为 -1 则无限次执行。
  * @param {Number} [duration=0] 每次执行之间的间隔毫秒数。
@@ -76,8 +79,9 @@ Function.interval = function (fn, times, duration) {
     var count = 0;
     duration = duration || 0;
     function callback() {
-        if ((times < 0 || count <= times) && fn(count++) !== false)
+        if ((times < 0 || count <= times) && fn(count++) !== false) {
             setTimeout(callback, duration);
+        }
     }
     callback();
 };

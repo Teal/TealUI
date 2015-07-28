@@ -22,7 +22,6 @@
     <h2>常用 API</h2>
     <script>
         Doc.writeApi({
-            title: "API",
             url: "utility/lang/number.js",
             apis: [{
                 memberOf: "Number.prototype",
@@ -77,11 +76,15 @@
 </tr>\n\
 </table>\n\
 ",
-                example: "<pre>1..format(\"000.00\") // 001.00\n\
-1.2.format(\"0.00\") // 1.20\n\
-1.2.format(\"#.##\") // 1.2\n\
-1.235.format(\"#.##\") // 1.24\n\
-1235..format(\"###,###\") // 1,235</pre>",
+                example: "<pre>1..format(\"000.00\") // 001.00</pre>\n\
+\n\
+<pre>1.2.format(\"0.00\") // 1.20</pre>\n\
+\n\
+<pre>1.2.format(\"#.##\") // 1.2</pre>\n\
+\n\
+<pre>1.235.format(\"#.##\") // 1.24</pre>\n\
+\n\
+<pre>1235..format(\"###,###\") // 1,235</pre>",
                 line: 8,
                 col: 1
             }]
@@ -91,7 +94,6 @@
     <h2>其它 API</h2>
     <script>
         Doc.writeApi({
-            title: "API",
             url: "utility/lang/numberEx.js",
             apis: [{
                 memberOf: "Number",
@@ -168,7 +170,6 @@
     </p>
     <script>
         Doc.writeApi({
-            title: "API",
             url: "utility/lang/bigInt.js",
             apis: [{
                 memberOf: "BigInt",
@@ -245,12 +246,13 @@
         <input type="button" value="求幂" onclick="document.getElementById('bignumber_result').innerHTML = new BigNumber(document.getElementById('bignumber_x').value).pow(document.getElementById('bignumber_y').value)" />
         <span id="bignumber_result"></span>
     </p>
-    <p>使用大数计算库可对任意大的数字进行无误差计算。更多请参考：<a href="https://github.com/MikeMcl/bignumber.js/">BigNumber.Js 官方网站</a></p>
+    <p>使用大数计算库可对任意大的数字进行无误差计算。</p>
     <script class="doc-demo">
         var x = new BigNumber("1"),
             y = new BigNumber("2");
         x.add(y).toString();
     </script>
+    <blockquote>更多请参考：<a href="https://github.com/MikeMcl/bignumber.js/">BigNumber.Js 官网</a></blockquote>
 
     <h2>货币处理</h2>
     <p>直接使用 JS 进行计算会产生误差，本组件提供了精确计算货币的功能。</p>
@@ -264,7 +266,6 @@
 
     <script>
         Doc.writeApi({
-            title: "API",
             url: "utility/lang/currency.js",
             apis: [{
                 memberOf: "Currency",
@@ -397,7 +398,7 @@
             }]
         });
     </script>
-    
+
     <blockquote class="doc-note">
         <h4>注意</h4>
         货币组件支持计算的最大货币为：10,000,000,000,000.00，如需支持更大范围，请使用大数计算组件。

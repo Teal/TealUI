@@ -26,7 +26,6 @@ String.isString = function (obj) {
  * @example 
  * String.ellipsis("1234567", 6) //   "123..."
  * 
- * 
  * String.ellipsis("1234567", 9) //   "1234567"
  */
 String.ellipsis = function (str, length) {
@@ -41,15 +40,16 @@ String.ellipsis = function (str, length) {
  * 将字符串限定在指定长度内，超出部分用 ... 代替。同时确保不强制分割单词。
  * @param {String} str 要处理的字符串。
  * @param {Number} length 最终期望的最大长度。
- * @example 
- * String.ellipsisByWord("abc def", 8) //   "abc..."
+ * @example String.ellipsisByWord("abc def", 8) //   "abc..."
  */
 String.ellipsisByWord = function (str, length) {
     if (str && str.length > length) {
         length -= 3;
         if (/[\x00-\xff]/.test(str.charAt(length))) {
             var p = str.lastIndexOf(' ', length);
-            if (p !== -1) length = p;
+            if (p !== -1) {
+                length = p;
+            }
         }
         str = str.substr(0, length) + '...';
     }
@@ -156,7 +156,7 @@ String.prototype.clean = function () {
 // #region @String#byteLength
 
 /**
- * 获得当前字符串按字节计算的长度。（英文算一个字符，中文算 2 个字符）
+ * 获得当前字符串按字节计算的长度（英文算一个字符，中文算两个个字符）。
  * @returns {Number} 返回长度值。
  * @example "a中文".byteLength() // 5
  */

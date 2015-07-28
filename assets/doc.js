@@ -2303,7 +2303,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                         // }
                         result += Doc.Utility.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td class="doc">{summary}</td></tr>', {
                             name: (param.optional ? '<em>' + param.name + '</em>' :  param.name) +
-                             (param.defaultValue ? '=' +param.defaultValue : param.optional ? '(可选)' : '' ),
+                             (param.defaultValue ? ' = ' +param.defaultValue : param.optional ? '(可选)' : '' ),
                             type: param.type,
                             summary: summary
                         });
@@ -2315,10 +2315,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
 
             if (api.returns) {
                 result += '<h4>返回值</h4>';
-                if (api.returns === "this") {
+                if (api.returns.summary === "<p>this</p>") {
                     result += '<p>返回 <strong>this</strong> 以支持链式调用。</p>';
                 } else {
-                    result += api.returns.summary.replace('<p>', '<p><code>' + api.returns.type +'</code> ');
+                    result += api.returns.summary.replace('<p>', '<p><code>' + (api.returns.type || "") +'</code> ');
                 }
             }
 

@@ -7,9 +7,15 @@
 
 /**
  * 将日期对象格式化为字符串。
- * @param {String} [format="yyyy/MM/dd HH:mm:ss"] 日期的格式，其中的元字符会被替换。支持的元字符见下表：
+ * @param {String} [format="yyyy/MM/dd HH:mm:ss"] 格式字符串。具体见下文。
+ * @returns {String} 格式化后的字符串。
+ * @example new Date().format("yyyy/MM/dd HH:mm:ss")
+ * @remark
+ * #### 格式化语法
+ * 格式字符串中，以下元字符会被替换：
  * 
  * 元字符 | 意义 | 实例
+ * ------|-----|--------------------
  * y     | 年  | yyyy:2014, yy:14
  * M     | 月  | MM:09, M:9
  * d     | 日  | dd:09, d:9
@@ -18,10 +24,8 @@
  * y     | 秒  | ss:06, s:6
  * e     | 星期 | e:天, ee:周日, eee: 星期天
  * 
- * <blockquote class="doc-note"><h4>注意</h4>元字符区分大小写。</blockquote>
- * 
- * @returns {String} 格式化后的字符串。
- * @example new Date().format("yyyy/MM/dd HH:mm:ss")
+ * > #### !注意
+ * > 元字符区分大小写。
  */
 Date.prototype.format = function (format) {
     var me = this, formators = Date._formators;
@@ -62,7 +66,9 @@ Date.prototype.format = function (format) {
     return (format || 'yyyy/MM/dd HH:mm:ss').replace(/(\w)\1*/g, function (all, key) {
         if (key in formators) {
             key = formators[key](me, all.length);
-            while (key.length < all.length) key = '0' + key;
+            while (key.length < all.length) {
+                key = '0' + key;
+            }
             all = key;
         }
         return all;
@@ -77,10 +83,21 @@ Date.prototype.format = function (format) {
  * 将指定对象解析为日期对象。
  * @param {String/Date} value 要解析的对象。
  * @param {String} [format] 解析的格式。
- * 如果未指定格式，则支持标准的几种时间格式。
- * 如果指定了格式，则其中的元字符会被提取。支持的元字符见下表：
+ * 如果未指定，则支持标准的几种时间格式。
+ * 如果指定了格式，则按照格式指定的方式解析。具体见下文。
+ * @returns {Date} 返回分析出的日期对象。
+ * @example
+ * Date.parseDate("2014-1-1")
+ * 
+ * Date.parseDate("20140101")
+ * 
+ * Date.parseDate("2013年12月1日", "yyyy年MM月dd日")
+ * @remark
+ * #### 格式化语法
+ * 格式化字符串中，以下元字符会被反向替换为对应的值。
  * 
  * 元字符 | 意义 | 实例
+ * ------|-----|------
  * y     | 年  | 2014
  * M     | 月  | 9
  * d     | 日  | 9
@@ -88,12 +105,8 @@ Date.prototype.format = function (format) {
  * y     | 分钟 | 6
  * y     | 秒  | 6
  * 
- * <blockquote class="doc-note"><h4>注意</h4>元字符区分大小写。</blockquote>
- * 
- * @returns {Date} 返回分析出的日期对象。
- * @example
- * Date.parseDate("2014-1-1")
- * Date.parseDate("2013年12月1日", "yyyy年MM月dd日")
+ * > #### !注意
+ * > 元字符区分大小写。
  */
 Date.parseDate = function (value, format) {
     if (value && !(value instanceof Date)) {
@@ -103,11 +116,12 @@ Date.parseDate = function (value, format) {
                 match = new RegExp(format.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1').replace(/([yMdHms])\1*/g, function (all, w) {
                     groups.push(w);
                     return "\\s*(\\d+)?\\s*";
-                })).exec(value),
-                i;
-            if (match)
-                for (i = 1; i < match.length; i++)
+                })).exec(value);
+            if (match) {
+                for (var i = 1; i < match.length; i++) {
                     obj[groups[i]] = +match[i];
+                }
+            }
             value = new Date(obj.y || new Date().getFullYear(), obj.M ? obj.M - 1 : new Date().getMonth(), obj.d || 1, obj.H || 0, obj.m || 0, obj.s || 0);
         } else {
             value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);

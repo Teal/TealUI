@@ -16,33 +16,70 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h2>常用 API <small>(源码: <a href="../../utility/lang/functionEx.js" target="_blank">utility/lang/regexp.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>RegExp.parseRegExp</code></td>
-            <td>从字符串创建正则</td>
-            <td><pre>RegExp.parseRegExp("\\s")</pre></td>
-        </tr>
-    </table>
+    <h2>常用 API</h2>
+    <script>
+        Doc.writeApi({
+            url: "utility/lang/regexp.js",
+            apis: [{
+                memberOf: "RegExp",
+                name: "parseRegExp",
+                summary: "<p>解析字符串并创建新的正则表达式。</p>",
+                params: [{
+                    type: "String",
+                    name: "str",
+                    summary: "<p>要解析的字符串。字符串的正则元字符将匹配字符本身。</p>"
+                }, {
+                    type: "String",
+                    name: "flag",
+                    optional: true,
+                    summary: "<p>正则表达式标记。可选的值为 &#8220;gmi&#8221;</p>"
+                }],
+                returns: {
+                    type: "RegExp",
+                    summary: "<p>返回一个新正则表达式对象。</p>"
+                },
+                example: "<pre>RegExp.parseRegExp(\"\\s\") // /\s/</pre>",
+                line: 7,
+                col: 1
+            }]
+        });
+    </script>
 
-    <h2>XRegExp <small>(源码: <a href="../../utility/lang/functionEx.js" target="_blank">utility/lang/xRegexp.js</a>)</small></h2>
-    <p>为 JavaScript 正则添加完整功能</p>
+    <h2>其它 API</h2>
+    <script>
+        Doc.writeApi({
+            url: "utility/lang/regexpEx.js",
+            apis: [{
+                memberOf: "RegExp",
+                name: "isRegExp",
+                summary: "<p>判断一个对象是否是正则。</p>",
+                params: [{
+                    type: "Object",
+                    name: "obj",
+                    summary: "<p>要判断的对象。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果 <em>obj</em> 是正则则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>RegExp.isRegExp(\"\") // true</pre>",
+                line: 7,
+                col: 1
+            }]
+        });
+    </script>
+
+    <h2>XRegExp <small>(源码: <a href="../../utility/lang/xRegexp.js" target="_blank">utility/lang/xRegexp.js</a>)</small></h2>
+    <p>为 JavaScript 正则添加完整功能。</p>
     <pre>
         var date = XRegExp('(?&lt;year>  [0-9]{4} ) -?  # year  \n' +
                '(?&lt;month> [0-9]{2} ) -?  # month \n' +
                '(?&lt;day>   [0-9]{2} )     # day     ', 'x');
-
         // Using named backreferences...
         XRegExp.exec('2012-06-10', date).year;
         // -> '2012'
         XRegExp.replace('2012-06-10', date, '${month}/${day}/${year}');
         // -> '06/10/2012'
-
         // Matchception: Finding matches within matches, while passing forward and
         // returning specific backreferences
         html = '&lt;a href="http://xregexp.com/api/">XRegExp&lt;/a>' +

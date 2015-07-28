@@ -23,9 +23,13 @@
  * 
  * @example 
  * 1..format("000.00") // 001.00
+ * 
  * 1.2.format("0.00") // 1.20
+ * 
  * 1.2.format("#.##") // 1.2
+ * 
  * 1.235.format("#.##") // 1.24
+ * 
  * 1235..format("###,###") // 1,235
  */
 Number.prototype.format = function (format) {
