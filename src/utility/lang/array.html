@@ -126,33 +126,33 @@
 
     <h2>常用 API</h2>
     <script>
-    Doc.writeApi({
-        url: "utility/lang/array.js",
-        apis: [{
-            memberOf: "Array.prototype",
-            name: "remove",
-            summary: "<p>删除当前数组中匹配的第一个项。</p>",
-            params: [{
-                type: "Object",
-                name: "value",
-                summary: "<p>要删除的项。</p>"
-            }, {
-                type: "Number",
-                name: "startIndex",
-                defaultValue: "0",
-                optional: true,
-                summary: "<p>开始搜索 <em>value</em> 的起始位置。</p>"
-            }],
-            returns: {
-                type: "Number",
-                summary: "<p>返回被删除的项在原数组中的位置。如果数组中找不到指定的项，则返回 -1。</p>"
-            },
-            remark: "<blockquote class=\"doc-note\">\n\
+        Doc.writeApi({
+            url: "utility/lang/array.js",
+            apis: [{
+                memberOf: "Array.prototype",
+                name: "remove",
+                summary: "<p>删除当前数组中匹配的第一个项。</p>",
+                params: [{
+                    type: "Object",
+                    name: "value",
+                    summary: "<p>要删除的项。</p>"
+                }, {
+                    type: "Number",
+                    name: "startIndex",
+                    defaultValue: "0",
+                    optional: true,
+                    summary: "<p>开始搜索 <em>value</em> 的起始位置。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回被删除的项在原数组中的位置。如果数组中找不到指定的项，则返回 -1。</p>"
+                },
+                remark: "<blockquote class=\"doc-note\">\n\
   <h4>一次只删除一个</h4>\n\
   \n\
   <p>如果数组中有多个相同的项，remove 只删除第一个。</p>\n\
 </blockquote>",
-            example: "<pre>[1, 9, 9, 0].remove(9); // 返回 1,  数组变成 [1, 9, 0]</pre>\n\
+                example: "<pre>[1, 9, 9, 0].remove(9); // 返回 1,  数组变成 [1, 9, 0]</pre>\n\
 \n\
 <h5>删除数组全部相同项</h5>\n\
 \n\
@@ -201,7 +201,7 @@ console.log(arr); // 输出 [\"TealUI\", \"is\", \"powerful\"]</pre>",
                 summary: "<p>返回新数组，其值和 <em>iterable</em> 一一对应。</p>"
             },
             example: "<pre>// 将 arguments 对象转为数组。\n\
-Array.parseArray(arguments); // 返回一个数组</pre>\n\
+(function(){return Array.parseArray(arguments)})(); // 返回一个数组</pre>\n\
 \n\
 <pre>// 获取数组的子集。\n\
 Array.parseArray([4,6], 1); // [6]</pre>\n\
@@ -512,8 +512,9 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
                 type: "Boolean",
                 summary: "<p>如果已新增则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
             },
-            example: "<pre>[1, 9, 0].pushIf(1) // [1, 9, 0]\n\
-[1, 9, 0].pushIf(2) // [1, 9, 0, 2]</pre>",
+            example: "<pre>[1, 9, 0].pushIf(1) // [1, 9, 0]</pre>\n\
+\n\
+<pre>[1, 9, 0].pushIf(2) // [1, 9, 0, 2]</pre>",
             line: 373,
             col: 1
         }]

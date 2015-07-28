@@ -37,7 +37,7 @@
                     type: "Function",
                     summary: "<p>返回一个新函数。</p>"
                 },
-                example: "<pre>function(){ return this;  }.bind(0)() // 0</pre>",
+                example: "<pre>(function(){ return this;  }).bind(0)() // 0</pre>",
                 since: "ES5",
                 line: 14,
                 col: 1
@@ -194,7 +194,7 @@
                     type: "Boolean",
                     summary: "<p>如果指定节点是当前节点或其子节点则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
-                example: "<pre>document.body.contains(\"body\")</pre>",
+                example: "<pre>document.body.contains(document.body)</pre>",
                 since: "ES5",
                 line: 197,
                 col: 1

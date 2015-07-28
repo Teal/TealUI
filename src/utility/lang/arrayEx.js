@@ -12,7 +12,7 @@
  * @returns {Array} 返回新数组，其值和 @iterable 一一对应。
  * @example
  * // 将 arguments 对象转为数组。
- * Array.parseArray(arguments); // 返回一个数组
+ * (function(){return Array.parseArray(arguments)})(); // 返回一个数组
  *
  * // 获取数组的子集。
  * Array.parseArray([4,6], 1); // [6]
@@ -24,14 +24,14 @@ Array.parseArray = function (iterable, startIndex) {
     if (!iterable) return [];
 
     // IE6-8: [DOM Object] 。
-    if (iterable.item) {
-        var result = [], length = iterable.length;
-        for (startIndex = startIndex || 0; startIndex < length;
-        startIndex++) {
-            result.push(iterable.item(startIndex));
-        }
-        return result;
+    /*@cc_on if(!+"\v1") {
+    var result = [], length = iterable.length;
+    for (startIndex = startIndex || 0; startIndex < length;
+    startIndex++) {
+        result.push(iterable[startIndex]);
     }
+    return result;
+    } @*/
 
     return Array.prototype.slice.call(iterable, startIndex);
 };
@@ -376,6 +376,7 @@ Array.prototype.sub = function (array) {
  * @returns {Boolean} 如果已新增则返回 @true，否则返回 @false。
  * @example 
  * [1, 9, 0].pushIf(1) // [1, 9, 0]
+ * 
  * [1, 9, 0].pushIf(2) // [1, 9, 0, 2]
  */
 Array.prototype.pushIf = function (item) {

@@ -154,7 +154,7 @@
                     name: "length",
                     summary: "<p>最终期望的最大长度。</p>"
                 }],
-                example: "<pre>String.ellipsisByWord(\"abc def\", 8) //   \"abc...\"</pre>",
+                example: "<pre>String.ellipsisByWord(\"abc def\", 5) //   \"abc...\"</pre>",
                 line: 39,
                 col: 1
             }, {
@@ -167,6 +167,10 @@
                     summary: "<p>要测试的字符串。</p>"
                 }, {
                     type: "String",
+                    name: "word",
+                    summary: "<p>要查找的字符串。</p>"
+                }, {
+                    type: "String",
                     name: "separator",
                     defaultValue: "' '",
                     optional: true,
@@ -176,7 +180,7 @@
                     type: "Boolean",
                     summary: "<p>如果包含指定的单词则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
-                example: "<pre>String.containsWord(\"abc ab\", \"ab\")</pre>",
+                example: "<pre>String.containsWord(\"abc ab\", \"abd\") // false</pre>",
                 line: 63,
                 col: 1
             }, {
@@ -197,7 +201,7 @@
                     summary: "<p>返回替换后的字符串。</p>"
                 },
                 example: "<pre>\"1121\".replaceAll(\"1\", \"3\") // \"3323\"</pre>",
-                line: 79,
+                line: 80,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -208,7 +212,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"  a\".trimStart() // \"a\"</pre>",
-                line: 99,
+                line: 100,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -219,7 +223,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"a  \".trimStart() // \"a\"</pre>",
-                line: 108,
+                line: 109,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -235,7 +239,7 @@
                     summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>\"1234567\".startsWith(\"123\") // true</pre>",
-                line: 121,
+                line: 122,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -251,7 +255,7 @@
                     summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
                 },
                 example: "<pre>\"1234567\".endsWith(\"67\") // true</pre>",
-                line: 131,
+                line: 132,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -262,7 +266,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\" a b   \".clean() // \"ab\"</pre>",
-                line: 145,
+                line: 146,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -273,7 +277,7 @@
                     summary: "<p>返回长度值。</p>"
                 },
                 example: "<pre>\"a中文\".byteLength() // 5</pre>",
-                line: 158,
+                line: 159,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -284,7 +288,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"aabbcc\".unique() // \"abc\"</pre>",
-                line: 172,
+                line: 173,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -295,7 +299,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"a\".repeat(4) // \"aaaa\"</pre>",
-                line: 185,
+                line: 192,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -306,7 +310,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"qwert\".capitalize() // \"Qwert\"</pre>",
-                line: 198,
+                line: 205,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -317,7 +321,7 @@
                     summary: "<p>返回新字符串。</p>"
                 },
                 example: "<pre>\"Qwert\".uncapitalize() // \"qwert\"</pre>",
-                line: 213,
+                line: 218,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -330,7 +334,7 @@
                 example: "<pre><pre>\n\
 \"font-size\".toCamelCase() // \"fontSize\"\n\
 </pre></pre>",
-                line: 228,
+                line: 231,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -346,7 +350,7 @@
                     summary: "<p>返回字符串左边 <em>length</em> 长度的子字符串。</p>"
                 },
                 example: "<pre>\"abcde\".left(3) // \"abc\"</pre>",
-                line: 246,
+                line: 249,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -362,7 +366,7 @@
                     summary: "<p>返回字符串右边 <em>length</em> 长度的子字符串。</p>"
                 },
                 example: "<pre>\"abcde\".right(3); // \"cde\"</pre>",
-                line: 256,
+                line: 259,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -384,7 +388,7 @@
                     summary: "<p>返回处理后的字符串。</p>"
                 },
                 example: "<pre>\"6\".padLeft(3, '0'); // \"006\"</pre>",
-                line: 270,
+                line: 273,
                 col: 1
             }, {
                 memberOf: "String.prototype",
@@ -406,7 +410,7 @@
                     summary: "<p>返回处理后的字符串。</p>"
                 },
                 example: "<pre>\"6\".padRight(3, '0'); // \"600\"</pre>",
-                line: 281,
+                line: 284,
                 col: 1
             }]
         });

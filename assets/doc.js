@@ -1613,6 +1613,10 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
      * 执行页内所有代码。
      */
     Doc.execAll = function() {
+        /*@cc_on if(!-"\v1")
+            return Doc.Dom.each('pre', function(a){ try{ var result = window.eval(a.innerText); console.log(a.innerText, "=>", result) }catch(e) {  console.error(a.innerText + ':' + e) }})
+        @*/
+
         Doc.Dom.each('a[title="执行本代码"]', function(a) {
             a.click();
         });
@@ -1727,7 +1731,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             // 将当前页面加入历史记录。
             if (Doc.Configs.maxModuleViewHistory && Doc.folder === 'demos' && window.localStorage) {
                 var history = localStorage.doc_moduleViewHistroy ? localStorage.doc_moduleViewHistroy.split(';') : [];
-                history.indexOf(Doc.path) >= 0 && history.splice(history.indexOf(Doc.path), 1);
+                history.indexOf && history.indexOf(Doc.path) >= 0 && history.splice(history.indexOf(Doc.path), 1);
                 history.push(Doc.path) > Doc.Configs.maxModuleViewHistory && history.shift();
                 localStorage.doc_moduleViewHistroy = history.join(';');
             }

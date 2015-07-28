@@ -42,7 +42,7 @@ var Currency = {
     mul: function (x, y) {
         x = x.toString();
         y = y.toString();
-        return parseInt(x.replace(".", "")) * parseInt(y.replace(".", "")) / Math.pow(10, x.replace(/^\d+(\.|$)/, "").length + y.replace(/^\d+(\.|$)/, "").length)
+        return parseInt(x.replace(".", "")) * parseInt(y.replace(".", "")) / Math.pow(10, x.replace(/^\d+(\.|$)/, "").length + y.replace(/^\d+(\.|$)/, "").length + 1) / 10;
     },
 
     /**
@@ -55,7 +55,7 @@ var Currency = {
     div: function (x, y) {
         x = x.toString();
         y = y.toString();
-        return (parseInt(x.replace(".", "")) / parseInt(y.replace(".", ""))) * Math.pow(10, y.replace(/^\d+(\.|$)/, "").length - x.replace(/^\d+(\.|$)/, "").length);
+        return (parseInt(x.replace(".", "")) / parseInt(y.replace(".", ""))) * Math.pow(10, y.replace(/^\d+(\.|$)/, "").length - x.replace(/^\d+(\.|$)/, "").length + 1) / 10;
     },
 
     /**

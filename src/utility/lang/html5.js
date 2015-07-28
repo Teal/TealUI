@@ -15,7 +15,7 @@ if (!Function.prototype.bind) {
      * 返回一个新函数，这个函数执行时 @this 始终为指定的 @scope。
      * @param {Object} scope 要绑定的 @this 的值。
      * @returns {Function} 返回一个新函数。
-     * @example function(){ return this;  }.bind(0)() // 0
+     * @example (function(){ return this;  }).bind(0)() // 0
      * @since ES5
      */
     Function.prototype.bind = function (scope) {
@@ -66,7 +66,7 @@ if (!Array.prototype.forEach) {
      */
     Array.prototype.forEach = function (fn, scope) {
         for (var i = 0, length = this.length; i < length; i++) {
-            fn.call(scope, iterable[i], i, iterable);
+            fn.call(scope, this[i], i, this);
         }
     };
 
@@ -198,7 +198,7 @@ var Document = Document || HTMLDocument;
          * 判断当前节点是否包含指定的子节点。
          * @param {Node} node 要判断的子节点。
          * @returns {Boolean} 如果指定节点是当前节点或其子节点则返回 @true，否则返回 @false。
-         * @example document.body.contains("body")
+         * @example document.body.contains(document.body)
          * @memberOf Node.prototype
          * @since ES5
          */

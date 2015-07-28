@@ -97,7 +97,7 @@ Function.interval = function (fn, times, duration) {
  * @returns {Function} 返回一个可触发延时执行的函数。
  * 如果在延时等待期间有新的调用，则之前的延时失效，重新开始延时执行。
  * @example
- * document.onscroll = Function.delay(function(){
+ * document.onscroll = Function.createDelayed(function(){
  *      console.log('延时执行');
  * }, 100);
  */

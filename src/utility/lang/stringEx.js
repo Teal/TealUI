@@ -40,7 +40,7 @@ String.ellipsis = function (str, length) {
  * 将字符串限定在指定长度内，超出部分用 ... 代替。同时确保不强制分割单词。
  * @param {String} str 要处理的字符串。
  * @param {Number} length 最终期望的最大长度。
- * @example String.ellipsisByWord("abc def", 8) //   "abc..."
+ * @example String.ellipsisByWord("abc def", 5) //   "abc..."
  */
 String.ellipsisByWord = function (str, length) {
     if (str && str.length > length) {
@@ -63,13 +63,14 @@ String.ellipsisByWord = function (str, length) {
 /**
  * 判断字符串是否包含指定单词。
  * @param {String} str 要测试的字符串。
+ * @param {String} word 要查找的字符串。
  * @param {String} [separator=' '] 指定单词的分割符，默认为空格。
  * @returns {Boolean} 如果包含指定的单词则返回 @true，否则返回 @false。
- * @example String.containsWord("abc ab", "ab")
+ * @example String.containsWord("abc ab", "abd") // false
  */
-String.containsWord = function (str, separator) {
+String.containsWord = function (str, word, separator) {
     separator = separator || ' ';
-    return (separator ? (separator + this + separator) : this).indexOf(str) >= 0;
+    return (separator + str + separator).indexOf(separator + word + separator) > 0;
 };
 
 // #endregion
@@ -148,7 +149,7 @@ String.prototype.endsWith = function (str) {
  * @example " a b   ".clean() // "ab"
  */
 String.prototype.clean = function () {
-    return this.replace(/\s+/g, ' ');
+    return this.replace(/\s+/g, '');
 };
 
 // #endregion
@@ -175,7 +176,13 @@ String.prototype.byteLength = function () {
  * @example "aabbcc".unique() // "abc"
  */
 String.prototype.unique = function () {
-    return this.replace(/(^|\s)(\S+)(?=\s(?:\S+\s)*\2(?:\s|$))/g, '');
+    var str = this.split('');
+    for (var i = 0; i < str.lengcleanth; i++) {
+        if (~this.indexOf(str[i], i + 1)) {
+            str[i] = '';
+        }
+    }
+    return str.join('');
 };
 
 // #endregion
@@ -201,9 +208,7 @@ String.prototype.repeat = function (count) {
  * @example "qwert".capitalize() // "Qwert"
  */
 String.prototype.capitalize = function () {
-    return this.replace(/(\b[a-z])/g, function (w) {
-        return w.toUpperCase();
-    });
+    return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
 // #endregion
@@ -216,9 +221,7 @@ String.prototype.capitalize = function () {
  * @example "Qwert".uncapitalize() // "qwert"
  */
 String.prototype.uncapitalize = function () {
-    return this.replace(/(\b[A-Z])/g, function (w) {
-        return w.toLowerCase();
-    });
+    return this.charAt(0).toLowerCase() + this.slice(1);
 };
 
 // #endregion
@@ -234,7 +237,7 @@ String.prototype.uncapitalize = function () {
  * </pre>
  */
 String.prototype.toCamelCase = function () {
-    return this.replace(/-(\w)/g, function (w) {
+    return this.replace(/\-(\w)/g, function (_, w) {
         return w.toUpperCase();
     });
 };
