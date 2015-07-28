@@ -59,8 +59,8 @@
 
             var content = document.getElementById('content').value;
 
-            if (/^(http|\.|\w+\/)/.test(content)) {
-                $.get(Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + +content, function (code) {
+            if (/^\w+\//.test(content)) {
+                $.get(Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + content, function (code) {
                     parse(code, content);
                 });
             } else {
@@ -90,6 +90,9 @@
                 '\n<\/script>';
 
             document.getElementById('demo').innerHTML = Doc.writeApi(result, true);
+            Doc.Dom.each('[href="javascript://展开当前 API 的更多说明"]', function(link) {
+                link.click();
+            });
 
         }
 

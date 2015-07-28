@@ -1296,7 +1296,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
     Doc.renderCodes = function () {
         
         // 处理所有 <pre>, <script class="doc-demo">, <aside class="doc-demo">
-        Doc.Dom.each('.doc > pre, .doc-table pre, .doc-demo', function (node) {
+        Doc.Dom.each('.doc > pre, .doc-api pre, .doc-demo', function (node) {
             
             // 不重复解析。
             if (node._docInited) {
@@ -1538,42 +1538,53 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
         var dataIndex = Doc._apis.length;
         Doc._apis.push(data);
 
-        var result = Doc.Utility.parseTpl('<h2>{title} <small>(源码：<a href="../../{url}" target="_blank">{url}</a>)</small></h2>{summary}', data);
+        var result = Doc.Utility.parseTpl('<h2>{title} <small>(源码：<a href="' + Doc.baseUrl + Doc.Configs.folders.sources.path +'/{url}" target="_blank">{url}</a>)</small></h2>{summary}', data);
 
         var inTable = false;
 
         for (var i = 0; i < data.apis.length; i++) {
             var api = data.apis[i];
 
-            if(api.category) {
+            if(api.memberType === 'category') {
                 if(inTable) {
                     result += '</table>';
                     inTable = false;
                 }
-                result += Doc.Utility.parseTpl('<h3>{category}</h3>{summary}', api);
+                result += Doc.Utility.parseTpl('<h3>{name}</h3>{summary}', api);
                 continue;
             }
 
             if(!inTable) {
-                result += '<table class="doc-section doc-table">';
+                result += '<table class="doc-section doc-api">';
                 result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
                 inTable = true;
             }
 
             var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
 
+            var vars = {
+                'Function': 'fn',
+                'Array': 'arr',
+                'String': 'str',
+                'Object': 'obj',
+                'RegExp': 're',
+                'Number': 'num',
+                'Element': 'elem'
+            };
+
             result += Doc.Utility.parseTpl('<tr><td class="doc">{prefix}<code>{name}</code><div class="doc-toolbar">\
-                    <a href="{baseUrl}/tools/sourceReader/?file={url}#{line}" title="查看源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
+                    <a href="{baseUrl}{tools}/sourceReader/?file={url}#{line}" title="查看源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
                 </div></td><td class="doc">{summary}<div class="doc-toolbar">\
                     <a href="javascript://展开当前 API 的更多说明" onclick="Doc.Page.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
                 </div></td><td class="doc">{example}</td></tr>', {
                     prefix: /^ES/.test(api.since) ? '<small>(' + api.since + ')</small>' : '',
-                    name: match ? '<em>' + match.toLowerCase() + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
+                    name: match ? '<em>' + (vars[match[1]] || (match[1].charAt(0).toLowerCase() + match[1].substr(1))) + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
                     summary: api.summary,
                     dataIndex: dataIndex,
                     apiIndex: i,
                     example: api.example,
                     baseUrl: Doc.baseUrl,
+                    tools: Doc.Configs.folders.tools.path,
                     url: data.url,
                     line: api.line
             });
@@ -1694,6 +1705,7 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
                 path = path.substr(Doc.baseUrl.length);
             }
             Doc.path = path.replace(/[^/]*\//, "");
+            Doc.baseUrl = Doc.baseUrl.replace(/^https?:/, '');
 
             // 获取当前项目所在文件夹。
             var actucalFolder = path.replace(/\/.*$/, "").toLowerCase();
@@ -2266,32 +2278,49 @@ if (typeof module === 'object' && typeof __dirname === 'string') {
             var api = Doc._apis[dataIndex].apis[apiIndex];
             var result = api.summary || '';
 
-            if(api.params || api.returns) {
+            if(api.params || api['this']) {
                 result += '<h4>参数</h4><table><tr><th>参数名</th><th>类型</th><th>说明</th></tr>';
+
+                if (api['this']) {
+                     result += Doc.Utility.parseTpl('<tr><td><strong>this</strong></td><td><code>{type}</code></td><td>{summary}</td></tr>', api['this']);
+                }
 
                 if(api.params) {
                     for (var i = 0; i < api.params.length; i++) {
-                        result += Doc.Utility.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td>{summary}</td></tr>', api.params[i]);
-                    }
-                }
-
-                if(api.returns) {
-                    if(api.returns === "this") {
-                        result += Doc.Utility.parseTpl('<tr><td>返回值</td><td><code>{type}</code></td><td>返回 this 用于链式调用。</td></tr>', {type: api.memberOf ? api.memberOf.replace(/\.prototype$/, '') : 'window'});
-                    } else {
-                        result += Doc.Utility.parseTpl('<tr><td>返回值</td><td><code>{type}</code></td><td>{summary}</td></tr>', api.returns);
+                        var param = api.params[i];
+                        var summary = param.summary;
+                        // if(param.defaultValue) {
+                        //     summary = summary.replace('<p>', '<p>(默认 ' + param.defaultValue +') ');
+                        // } else if(param.optional) {
+                        //      summary = summary.replace('<p>', '<p>(可选) ');
+                        // }
+                        result += Doc.Utility.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td class="doc">{summary}</td></tr>', {
+                            name: (param.optional ? '<em>' + param.name + '</em>' :  param.name) +
+                             (param.defaultValue ? '=' +param.defaultValue : param.optional ? '(可选)' : '' ),
+                            type: param.type,
+                            summary: summary
+                        });
                     }
                 }
 
                 result += '</table>';
             }
 
-            if(api.example) {
-                result += '<h4>示例</h4>' + api.example;
+            if (api.returns) {
+                result += '<h4>返回值</h4>';
+                if (api.returns === "this") {
+                    result += '<p>返回 <strong>this</strong> 以支持链式调用。</p>';
+                } else {
+                    result += api.returns.summary.replace('<p>', '<p><code>' + api.returns.type +'</code> ');
+                }
             }
 
             if(api.remark) {
-                result += '<h4>备注</h4>' + api.remark;
+                result += api.remark;
+            }
+
+            if(api.example) {
+                result += '<h4>示例</h4>' + api.example;
             }
 
             result += Doc.Utility.parseTpl('<div class="doc-toolbar">\

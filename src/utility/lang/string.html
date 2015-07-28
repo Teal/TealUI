@@ -17,7 +17,7 @@
     <script type="text/javascript" src="../../../assets/doc.js"></script>
     <h2>标准 API <small>(源码: <a href="../../utility/lang/html5.js" target="_blank">utility/lang/html5.js</a>)</small></h2>
     <p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#string">HTML5 兼容补丁</a> 组件。</p>
-    <table class="doc-table">
+    <table class="doc-api">
         <tr>
             <th>API</th>
             <th>描述</th>
@@ -30,26 +30,95 @@
         </tr>
     </table>
 
-    <h2>常用 API <small>(源码: <a href="../../utility/lang/string.js" target="_blank">utility/lang/string.js</a>)</small></h2>
-    <table class="doc-table">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>String.format</code></td>
-            <td>格式化指定的字符串</td>
-            <td>
-                <pre>String.format("我是{0}，不是{1}", "小黑", "大白"); // "我是小黑，不是大白"</pre>
-                <pre>String.format("我是{xiaohei}，不是{dabai}", {xiaohei: "小黑", dabai: "大白"}); // "我是小黑，不是大白"</pre>
-                <pre>String.format("在字符串内使用两个{{和}}避免被转换"); //  "在字符串内使用两个{和}避免被转换"</pre>
-            </td>
-        </tr>
-    </table>
+    <script>
+        Doc.writeApi({
+            title: "标准 API",
+            url: "utility/lang/html5.js",
+            summary: '<p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#array">HTML5 兼容补丁</a>。</p>',
+            apis: [{
+                memberOf: "String.prototype",
+                name: "trim",
+                summary: "<p>去除字符串的首尾空格。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"   g h   \".trim(); // \"g h\"</pre>",
+                since: "ES5",
+                line: 104,
+                col: 1
+            }]
+        });
+    </script>
+
+    <script>
+        Doc.writeApi({
+            title: "常用 API",
+            url: "utility/lang/string.js",
+            apis: [{
+                memberOf: "String",
+                name: "format",
+                summary: "<p>格式化指定的字符串。</p>",
+                params: [{
+                    type: "String",
+                    name: "format",
+                    summary: "<p>格式字符串。具体见下文。</p>"
+                }, {
+                    type: "Object",
+                    name: "...",
+                    summary: "<p>格式化参数。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回格式化后的字符串。</p>"
+                },
+                remark: "<h4>格式化语法</h4>\n\
+\n\
+<p>格式字符串中，以下内容会被替换：</p>\n\
+\n\
+<table>\n\
+<thead>\n\
+<tr>\n\
+  <th>元字符</th>\n\
+  <th>意义</th>\n\
+  <th>示例</th>\n\
+</tr>\n\
+</thead>\n\
+<tr>\n\
+  <td>{数字}</td>\n\
+  <td>替换为参数列表</td>\n\
+  <td>如 <code>String.format(\"{0}年{1}月{2}日\", 2012, 12, 3)</code> 中，{0} 被替换成 2012，{1} 被替换成 12 ，依次类推。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>{字符串}</td>\n\
+  <td>替换为参数对象</td>\n\
+  <td>如 <code>String.format(\"{year}年{month} 月 \", {year: 2012, month:12})</code>。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>{{</td>\n\
+  <td>被替换为 {</td>\n\
+  <td></td>\n\
+</tr>\n\
+<tr>\n\
+  <td>}}</td>\n\
+  <td>被替换为 }</td>\n\
+  <td></td>\n\
+</tr>\n\
+</table>\n\
+",
+                example: "<pre>String.format(\"我是{0}，不是{1}\", \"小黑\", \"大白\"); // \"我是小黑，不是大白\"</pre>\n\
+\n\
+<pre>String.format(\"我是{xiaohei}，不是{dabai}\", {xiaohei: \"小黑\", dabai: \"大白\"}); // \"我是小黑，不是大白\"</pre>\n\
+\n\
+<pre>String.format(\"在字符串内使用两个{{和}}避免被转换\"); //  \"在字符串内使用两个{和}避免被转换\"</pre>",
+                line: 8,
+                col: 1
+            }]
+        });
+    </script>
 
     <h2>不常用 API <small>(源码: <a href="../../utility/lang/stringEx.js" target="_blank">utility/lang/stringEx.js</a>)</small></h2>
-    <table class="doc-table">
+    <table class="doc-api">
         <tr>
             <th>API</th>
             <th>描述</th>

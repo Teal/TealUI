@@ -22,6 +22,20 @@ var tags = {
     'since': { type: 'text' },
     'version': { alias: 'since' },
 
+    'property': { type: 'memberType' },
+    'field': { type: 'memberType' },
+    'function': { type: 'memberType' },
+    'method': { type: 'memberType' },
+    'event': { type: 'memberType' },
+    'constructor': { type: 'memberType' },
+    'category': { type: 'memberType' },
+
+    name: { type: 'text' },
+    memberOf: { type: 'text' },
+    author: { type: 'text' },
+    fileOverview: { type: 'html' },
+    remark: { type: 'html' },
+
     example: { type: 'code' },
     sample: { alias: 'example' }
 };
@@ -104,12 +118,16 @@ function getAllDocComments(reader) {
  * 解析一个文档注释。
  */
 function parseDocComment(comment, rest) {
-    var result = {};
+    var result = {
+        memberOf: [],
+        name: []
+    };
+    if (/^@/.test(comment)) comment = '\n' + comment;
     comment = comment.split(/\n\s*@/);
     var content = comment[0].trim();
-    result.summary = content ? [content] : [];
+    result.summary = [comment[0].trim()];
     for (var i = 1; i < comment.length; i++) {
-        var match = /^(\w+)\s+/.exec(comment[i]) || ['', ''],
+        var match = /^(\w+)(\s+|$)/.exec(comment[i]) || ['', ''],
             tag = tags[match[1]] && tags[match[1]].alias || match[1];
         result[tag] = result[tag] || [];
         result[tag].push(comment[i].substr(match[0].length).trim());
@@ -119,7 +137,6 @@ function parseDocComment(comment, rest) {
     for (var tag in result) {
         var tagInfo = tags[tag];
         if (tagInfo) {
-
             for (var i = 0; i < result[tag].length; i++) {
                 var content = result[tag][i];
 
@@ -145,6 +162,11 @@ function parseDocComment(comment, rest) {
                         content = parseCode(content);
                         break;
 
+                    case "memberType":
+                        result.name = result.name || content;
+                        result.memberType = tag;
+                        break;
+
                 }
 
                 result[tag][i] = content;
@@ -161,6 +183,9 @@ function parseDocComment(comment, rest) {
                     break;
                 case 'return':
                     result[tag] = result[tag][result[tag].length - 1];
+                    break;
+                case "memberType":
+                    delete result[tag];
                     break;
             }
         }
@@ -212,7 +237,11 @@ function parseDocComment(comment, rest) {
         }
     }
 
-    if (result['inner'] || !result['name']) {
+    if (result.memberOf == "window") {
+        result.memberOf = "";
+    }
+
+    if (result['inner'] || (!result['name'])) {
         return null;
     }
 
@@ -220,10 +249,10 @@ function parseDocComment(comment, rest) {
 }
 
 function parseParam(content) {
-    var match = /^(\{([^\}]*)\})?\s*((\w+)|\[(\w+)(=([^\]]+))?\])?\s+/.exec(content) || [''],
+    var match = /^(\{([^\}]*)\})?\s*((\w+)|\[(\w+)(=([^\]]+))?\]|(\.+))?\s+/.exec(content) || [''],
         result = {};
     if (match[2]) result.type = match[2];
-    if (match[4] || match[5]) result.name = match[4] || match[5];
+    if (match[4] || match[5] || match[8]) result.name = match[4] || match[5] || match[8];
     if (match[7]) result.defaultValue = match[7];
     if (match[5] || match[7]) result.optional = true;
     result.summary = content.substr(match[0].length);
@@ -273,6 +302,8 @@ function parseMarkDown(content) {
     content = content.replace(/@([\w$\.\#]+)/g, "<em>$1</em>")
 
     content = Markdown.toHTML(content);
+    content = content.replace(/<blockquote>(\s*<h\d>)?\!/g, '<blockquote class="doc-note">$1');
+
     return content;
 }
 

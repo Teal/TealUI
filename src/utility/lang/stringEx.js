@@ -198,7 +198,7 @@ String.prototype.repeat = function (count) {
 /**
  * 将字符串首字母大写。
  * @returns {String} 返回新字符串。
- * @example "qwert".capitalize(); // "Qwert"
+ * @example "qwert".capitalize() // "Qwert"
  */
 String.prototype.capitalize = function () {
     return this.replace(/(\b[a-z])/g, function (w) {
@@ -213,7 +213,7 @@ String.prototype.capitalize = function () {
 /**
  * 将字符串首字母小写。
  * @returns {String} 返回新字符串。
- * @example "Qwert".uncapitalize(); // "qwert"
+ * @example "Qwert".uncapitalize() // "qwert"
  */
 String.prototype.uncapitalize = function () {
     return this.replace(/(\b[A-Z])/g, function (w) {
@@ -230,7 +230,7 @@ String.prototype.uncapitalize = function () {
  * @returns {String} 处理后的字符串。
  * @example
  * <pre>
- * "font-size".toCamelCase(); // "fontSize"
+ * "font-size".toCamelCase() // "fontSize"
  * </pre>
  */
 String.prototype.toCamelCase = function () {
@@ -247,7 +247,7 @@ String.prototype.toCamelCase = function () {
  * 获取字符串左边指定长度的子字符串。
  * @param {Number} length 要获取的子字符串长度。
  * @returns {String} 返回字符串左边 @length 长度的子字符串。
- * @example "abcde".left(3); // "abc"
+ * @example "abcde".left(3) // "abc"
  */
 String.prototype.left = function (length) {
     return this.substr(0, length);

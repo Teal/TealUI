@@ -21,8 +21,6 @@ webApp
 	*
 
 
-7/27
-	文档格式定义和生成工具
 7/28
 	utility/lang/*
 	utility/data/*

@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>HTML5 兼容补丁</title>
-    <meta name="module-info" content="compat=B-C, parent-title=兼容性, parent-order=browser">
+    <meta name="module-info" content="parent-parent-title=JS 函数库, parent-parent-order=control, parent-title=语言扩展, parent-order=^, order=^, compat=BC">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="为低版本浏览器（B、C 类，包括 IE8 以及老版本 FireFox, Safari 和 Chrome）提供标准的 HTML5 执行环境。如果希望本库所有函数能兼容所有低版本浏览器，建议先引入本组件。">
+    <meta name="description" content="为低版本浏览器（B、C 类，包括 IE8 以及老版本 FireFox, Safari 和 Chrome）添加标准的 HTML5 常用 API。建议先引入本组件，以确保本库能兼容所有低版本浏览器。">
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
@@ -15,68 +15,366 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
 
-    <h2>常用 API <small>(源码: <a href="../../utility/lang/html5.js" target="_blank">utility/lang/html5.js)</a></small></h2>
+    <script>
+        Doc.writeApi({
+            title: "常用 API",
+            url: "utility/lang/html5.js",
+            apis: [{
+                summary: "",
+                name: "语言扩展",
+                memberType: "category",
+                line: 10,
+                col: 1
+            }, {
+                summary: "<p>返回一个新函数，这个函数执行时 <strong>this</strong> 始终为指定的 <em>scope</em>。</p>",
+                params: [{
+                    type: "Object",
+                    name: "scope",
+                    summary: "<p>要绑定的 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Function",
+                    summary: "<p>返回一个新函数。</p>"
+                },
+                example: "<pre>function(){ return this;  }.bind(0)() // 0</pre>",
+                since: "ES5",
+                memberOf: "Function.prototype",
+                name: "bind",
+                line: 14,
+                col: 1
+            }, {
+                summary: "<p>判断一个对象是否是数组。</p>",
+                params: [{
+                    type: "Object",
+                    name: "obj",
+                    summary: "<p>要判断的对象。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果 <em>obj</em> 是数组则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>Array.isArray([]); // true</pre>\n\
+\n\
+<pre>Array.isArray(document.getElementsByTagName(\"div\")); // false</pre>\n\
+\n\
+<pre>Array.isArray(new Array); // true</pre>",
+                since: "ES5",
+                memberOf: "Array",
+                name: "isArray",
+                line: 32,
+                col: 1
+            }, {
+                summary: "<p>遍历当前数组，并对每一项执行函数 <em>fn</em>。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>对每个一项执行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                example: "<pre>[2, 5].forEach(function (value, index) {\n\
+     console.log(value);\n\
+}); // 输出 2  5</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "forEach",
+                line: 52,
+                col: 1
+            }, {
+                summary: "<p>将当前数组中符合要求的项组成一个新数组。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>用于判断每一项是否符合要求的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不满足。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>指定 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回一个新数组。</p>"
+                },
+                example: "<pre>[1, 2].filter(function(v){return v > 1;}) // [2]</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "filter",
+                line: 73,
+                col: 1
+            }, {
+                summary: "<p>去除字符串的首尾空格。</p>",
+                returns: {
+                    type: "String",
+                    summary: "<p>返回新字符串。</p>"
+                },
+                example: "<pre>\"   g h   \".trim(); // \"g h\"</pre>",
+                since: "ES5",
+                memberOf: "String.prototype",
+                name: "trim",
+                line: 104,
+                col: 1
+            }, {
+                summary: "<p>获取指定项在数组内的索引。</p>",
+                params: [{
+                    type: "Object",
+                    name: "value",
+                    summary: "<p>一个类数组对象。</p>"
+                }, {
+                    type: "Number",
+                    name: "startIndex",
+                    defaultValue: "0",
+                    optional: true,
+                    summary: "<p>转换开始的位置。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回索引。如果找不到则返回 -1。</p>"
+                },
+                example: "<pre>[\"b\", \"c\", \"a\", \"a\"].indexOf(\"a\"); // 2</pre>",
+                since: "ES4",
+                memberOf: "Array.prototype",
+                name: "indexOf",
+                line: 122,
+                col: 1
+            }, {
+                summary: "<p>用于创建一个异步请求。</p>",
+                example: "<pre>new XMLHttpRequest()</pre>",
+                since: "ES4",
+                memberOf: undefined,
+                name: "XMLHttpRequest",
+                line: 138,
+                col: 1
+            }, {
+                summary: "",
+                name: "DOM 扩展",
+                memberType: "category",
+                line: 159,
+                col: 1
+            }, {
+                summary: "<p>判断当前节点是否匹配指定的选择器。</p>",
+                params: [{
+                    type: "String",
+                    name: "selector",
+                    summary: "<p>要判断的选择器。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果匹配则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>document.body.matches(\"body\")</pre>",
+                memberOf: "Element.prototype",
+                since: "ES5",
+                name: "matches",
+                line: 173,
+                col: 1
+            }, {
+                summary: "<p>判断当前节点是否包含指定的子节点。</p>",
+                params: [{
+                    type: "Node",
+                    name: "node",
+                    summary: "<p>要判断的子节点。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果指定节点是当前节点或其子节点则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>document.body.contains(\"body\")</pre>",
+                memberOf: "Node.prototype",
+                since: "ES5",
+                name: "contains",
+                line: 197,
+                col: 1
+            }, {
+                summary: "<p>获取当前元素的第一个子元素。</p>",
+                returns: {
+                    type: "Element",
+                    summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
+                },
+                example: "<pre>document.body.firstElementChild</pre>",
+                memberOf: "Element.prototype",
+                name: "firstElementChild",
+                since: "ES5",
+                memberType: "property",
+                line: 216,
+                col: 1
+            }, {
+                summary: "<p>获取当前元素的最后一个子元素。</p>",
+                returns: {
+                    type: "Element",
+                    summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
+                },
+                example: "<pre>document.body.lastElementChild</pre>",
+                memberOf: "Element.prototype",
+                name: "lastElementChild",
+                since: "ES5",
+                memberType: "property",
+                line: 226,
+                col: 1
+            }, {
+                summary: "<p>获取当前元素的下一个兄弟元素。</p>",
+                returns: {
+                    type: "Element",
+                    summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
+                },
+                example: "<pre>document.body.nextElementSibling</pre>",
+                memberOf: "Element.prototype",
+                name: "nextElementSibling",
+                since: "ES5",
+                memberType: "property",
+                line: 236,
+                col: 1
+            }, {
+                summary: "<p>获取当前元素的上一个兄弟元素。</p>",
+                returns: {
+                    type: "Element",
+                    summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
+                },
+                example: "<pre>document.body.previousElementSibling</pre>",
+                memberOf: "Element.prototype",
+                name: "previousElementSibling",
+                since: "ES5",
+                memberType: "property",
+                line: 246,
+                col: 1
+            }, {
+                summary: "<p>获取当前元素的所有直接子节点。</p>",
+                returns: {
+                    type: "NodeList",
+                    summary: "<p>返回当前元素的所有直接子节点。</p>"
+                },
+                example: "<pre>document.body.children</pre>",
+                memberOf: "Element.prototype",
+                name: "children",
+                since: "ES5",
+                memberType: "property",
+                line: 276,
+                col: 1
+            }, {
+                summary: "<p>为当前元素添加指定监听器。</p>",
+                since: "ES4",
+                memberOf: "Element.prototype",
+                example: "<pre>document.body.addEventListener('click', function(){}, false)</pre>",
+                name: "addEventListener",
+                line: 350,
+                col: 1
+            }, {
+                summary: "<p>为当前元素移除指定监听器。</p>",
+                since: "ES4",
+                memberOf: "Element.prototype",
+                example: "<pre>document.body.removeEventListener('click', function(){}, false)</pre>",
+                name: "removeEventListener",
+                line: 358,
+                col: 1
+            }, {
+                summary: "<p>阻止当前事件冒泡。</p>",
+                memberOf: "Event.prototype",
+                example: "<pre>document.onclick = function(e){ \n\
+    e.stopPropagation();\n\
+}</pre>",
+                since: "ES4",
+                name: "stopPropagation",
+                line: 369,
+                col: 1
+            }, {
+                summary: "<p>阻止事件默认行为。</p>",
+                memberOf: "Event.prototype",
+                example: "<pre>document.onclick = function(e){ \n\
+    e.preventDefault();\n\
+}</pre>",
+                since: "ES4",
+                name: "preventDefault",
+                line: 378,
+                col: 1
+            }, {
+                summary: "<p>获取事件发生的目标元素。</p>",
+                memberOf: "Event.prototype",
+                name: "target",
+                example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.target);\n\
+}</pre>",
+                since: "ES4",
+                line: 387,
+                col: 1
+            }, {
+                summary: "<p>获取事件发生的相关元素。</p>",
+                memberOf: "Event.prototype",
+                name: "relatedTarget",
+                example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.relatedTarget);\n\
+}</pre>",
+                since: "ES4",
+                line: 397,
+                col: 1
+            }, {
+                summary: "<p>获取事件发生的鼠标按键。</p>",
+                memberOf: "Event.prototype",
+                name: "which",
+                example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.which);\n\
+}</pre>",
+                since: "ES4",
+                line: 407,
+                col: 1
+            }, {
+                summary: "<p>获取事件发生的鼠标屏幕水平坐标。</p>",
+                memberOf: "Event.prototype",
+                name: "pageX",
+                example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.pageX);\n\
+}</pre>",
+                since: "ES4",
+                line: 419,
+                col: 1
+            }, {
+                summary: "<p>获取事件发生的鼠标屏幕垂直坐标。</p>",
+                memberOf: "Event.prototype",
+                name: "pageY",
+                example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.pageY);\n\
+}</pre>",
+                since: "ES4",
+                line: 429,
+                col: 1
+            }, {
+                summary: "<p>获取当前区域的宽。</p>",
+                memberOf: "TextRectangle.prototype",
+                name: "width",
+                example: "<pre>document.body.getBoundingClientRect().width</pre>",
+                since: "ES4",
+                line: 441,
+                col: 1
+            }, {
+                summary: "<p>获取当前区域的高。</p>",
+                memberOf: "TextRectangle.prototype",
+                name: "height",
+                example: "<pre>document.body.getBoundingClientRect().height</pre>",
+                since: "ES4",
+                line: 450,
+                col: 1
+            }]
+        });
+    </script>
 
-    <style>
-        .ie678, .ie678 code {
-            color: #999 !important;
-        }
-    </style>
-
-    <h3>语言</h3>
-    <dl>
-        <dt>Array</dt>
-        <dd><code>Array.isArray</code></dd>
-        <dd><code><em>arr</em>.forEach</code></dd>
-        <dd><code><em>arr</em>.filter</code></dd>
-        <dd class="ie678"><code><em>arr</em>.indexOf</code></dd>
-        <dt>String</dt>
-        <dd><code><em>str</em>.trim</code></dd>
-        <dt>Function</dt>
-        <dd><code><em>fn</em>.bind</code></dd>
-    </dl>
-
-    <h3>DOM</h3>
-    <dl>
-        <dt>Element</dt>
-        <dd><code><em>elem</em>.matches</code></dd>
-        <dd><code><em>elem</em>.contains</code></dd>
-        <dd><code><em>elem</em>.classList</code></dd>
-        <dd><code><em>elem</em>.firstElementChild</code></dd>
-        <dd><code><em>elem</em>.lastElementChild</code></dd>
-        <dd><code><em>elem</em>.previousElementSibling</code></dd>
-        <dd><code><em>elem</em>.nextElementSibling</code></dd>
-        <dd><code><em>elem</em>.children</code></dd>
-        <dd class="ie678"><code><em>elem</em>.textContent</code></dd>
-        <dd class="ie678"><code><em>elem</em>.addventListener</code></dd>
-        <dd class="ie678"><code><em>elem</em>.removeEventListener</code></dd>
-        <dd class="ie678"><code><em>elem</em>.ownerDocument</code></dd>
-        <dt>Document</dt>
-        <dd><code>Document</code></dd>
-        <dd><code><em>document</em>.matches</code></dd>
-        <dd><code><em>document</em>.contains</code></dd>
-        <dd class="ie678"><code><em>document</em>.addventListener</code></dd>
-        <dd class="ie678"><code><em>document</em>.removeEventListener</code></dd>
-        <dd class="ie678"><code><em>document</em>.defaultView</code></dd>
-        <dt>Event</dt>
-        <dd class="ie678"><code><em>e</em>.target</code></dd>
-        <dd class="ie678"><code><em>e</em>.relatedTarget</code></dd>
-        <dd class="ie678"><code><em>e</em>.which</code></dd>
-        <dd class="ie678"><code><em>e</em>.pageX</code></dd>
-        <dd class="ie678"><code><em>e</em>.pageY</code></dd>
-        <dd class="ie678"><code><em>e</em>.stopPropagation</code></dd>
-        <dd class="ie678"><code><em>e</em>.preventDefault</code></dd>
-        <dt>TextRectangle</dt>
-        <dd class="ie678"><code><em>rect</em>.width</code></dd>
-        <dd class="ie678"><code><em>rect</em>.height</code></dd>
-    </dl>
-
-    <h3>其它</h3>
-    <dl>
-        <dt>XMLHttpReuqet</dt>
-        <dd class="ie678"><code>XMLHttpReuqet</code></dd>
-    </dl>
-
-    <p class="ie678">注：灰色项表示这些 API 都属于 HTML4 标准，这里只为 IE6-8 提供。</p>
+    <h2>ECMA 5 新增 API <small>(源码: <a href="../../utility/lang/es5.js" target="_blank">utility/lang/es5.js</a>)</small></h2>
+    
+    <p>ES5 新增了若干对象操作的 API，具体请参考 <a href="http://es5.github.com" target="_blank">ES5 官网</a>。</p>
+    <p>另参考：<a href="http://kangax.github.io/compat-table/es5/" target="_blank">ECMA 5 浏览器支持现状</a></p>
 </body>
 </html>

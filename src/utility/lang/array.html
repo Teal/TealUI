@@ -16,162 +16,510 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc.js"></script>
-    <h2>标准 API <small>(源码: <a href="../../utility/lang/html5.js" target="_blank">utility/lang/html5.js</a>)</small></h2>
-    <p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#array">HTML5 兼容补丁</a> 组件。</p>
-    <table class="doc-table">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code>Array.isArray</code></td>
-            <td>判断是否是数组</td>
-            <td><pre>Array.isArray([]);</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES4)</small><code><em>arr</em>.indexOf</code></td>
-            <td>搜索数组</td>
-            <td><pre>[].indexOf(2);</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>arr</em>.filter</code></td>
-            <td>过滤数组</td>
-            <td><pre>[].filter(function(){return true});</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>arr</em>.forEach</code></td>
-            <td>过滤数组</td>
-            <td><pre>[].forEach(function(){});</pre></td>
-        </tr>
-    </table>
     
-    <h2>常用 API <small>(源码: <a href="../../utility/lang/array.js" target="_blank">utility/lang/array.js</a>)</small></h2>
-    <table class="doc-table">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.remove</code></td>
-            <td>删除当前数组中指定的元素</td>
-            <td><pre>[1, 2].remove(2);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.unique</code></td>
-            <td>删除当前数组的重复元素</td>
-            <td><pre>[1, 2].unique();</pre></td>
-        </tr>
-    </table>
+    <script>
+        Doc.writeApi({
+            title: "标准 API",
+            url: "utility/lang/html5.js",
+            summary: '<p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#array">HTML5 兼容补丁</a>。</p>',
+            apis: [{
+                summary: "<p>判断一个对象是否是数组。</p>",
+                params: [{
+                    type: "Object",
+                    name: "obj",
+                    summary: "<p>要判断的对象。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果 <em>obj</em> 是数组则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>Array.isArray([]); // true</pre>\n\
+\n\
+<pre>Array.isArray(document.getElementsByTagName(\"div\")); // false</pre>\n\
+\n\
+<pre>Array.isArray(new Array); // true</pre>",
+                since: "ES5",
+                memberOf: "Array",
+                name: "isArray",
+                line: 32,
+                col: 1
+            }, {
+                summary: "<p>遍历当前数组，并对每一项执行函数 <em>fn</em>。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>对每个一项执行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                example: "<pre>[2, 5].forEach(function (value, index) {\n\
+     console.log(value);\n\
+}); // 输出 2  5</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "forEach",
+                line: 52,
+                col: 1
+            }, {
+                summary: "<p>将当前数组中符合要求的项组成一个新数组。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>用于判断每一项是否符合要求的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不满足。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>指定 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回一个新数组。</p>"
+                },
+                example: "<pre>[1, 2].filter(function(v){return v > 1;}) // [2]</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "filter",
+                line: 73,
+                col: 1
+            }, {
+                summary: "<p>获取指定项在数组内的索引。</p>",
+                params: [{
+                    type: "Object",
+                    name: "value",
+                    summary: "<p>一个类数组对象。</p>"
+                }, {
+                    type: "Number",
+                    name: "startIndex",
+                    defaultValue: "0",
+                    optional: true,
+                    summary: "<p>转换开始的位置。</p>"
+                }],
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回索引。如果找不到则返回 -1。</p>"
+                },
+                example: "<pre>[\"b\", \"c\", \"a\", \"a\"].indexOf(\"a\"); // 2</pre>",
+                since: "ES4",
+                memberOf: "Array.prototype",
+                name: "indexOf",
+                line: 122,
+                col: 1
+            }]
+        });
+    </script>
 
-    <h2>不常用 API <small>(源码: <a href="../../utility/lang/arrayEx.js" target="_blank">utility/lang/arrayEx.js</a>)</small></h2>
-    <table class="doc-table">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Array.parseArray</code></td>
-            <td>将一个类数组对象转为原生数组</td>
-            <td><pre>Array.parseArray({length: 1, "0": "value"});</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>arr</em>.every</code></td>
-            <td>遍历一个数组并调用指定的函数，判断是否都满足条件</td>
-            <td><pre>[1, 2].every(function(){return true});</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>arr</em>.some</code></td>
-            <td>遍历一个数组并调用指定的函数，判断是否部分满足条件</td>
-            <td><pre>[1, 2].some(function(){return true});</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES5)</small><code><em>arr</em>.map</code></td>
-            <td>遍历一个类数组对象并调用指定的函数，返回每次调用的返回值数组</td>
-            <td><pre>[1, 2].map(function(){return true});</pre></td>
-        </tr>
-        <tr>
-            <td><small>(ES4)</small><code><em>arr</em>.concat</code></td>
-            <td>合并两个数组</td>
-            <td><pre>[1, 2].concat([4, 4]);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.insert</code></td>
-            <td>将指定的值插入到当前数组的指定位置</td>
-            <td><pre>[1, 2].insert(0, 4);</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.clean</code></td>
-            <td>删除数组中的空值</td>
-            <td><pre>[1, 2].clean()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.min</code></td>
-            <td>获取数组中的最小值</td>
-            <td><pre>[1, 2].min()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.max</code></td>
-            <td>获取数组中的最大值</td>
-            <td><pre>[1, 2].max()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.sum</code></td>
-            <td>获取数组中的和</td>
-            <td><pre>[1, 2].sum()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.avg</code></td>
-            <td>获取数组中的算术平均值</td>
-            <td><pre>[1, 2].avg()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.associate</code></td>
-            <td>将数组中的值和指定的键表组合为对象</td>
-            <td><pre>[1, 2].associate(["q", "w"])</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.clear</code></td>
-            <td>清空数组</td>
-            <td><pre>[1, 2].clear()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.pick</code></td>
-            <td>获取数组中第一个不为空的元素</td>
-            <td><pre>[1, 2].pick()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.random</code></td>
-            <td>返回数组的随机位置的值</td>
-            <td><pre>[1, 2].random()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.shuffle</code></td>
-            <td>随机打乱数组的内容</td>
-            <td><pre>[1, 2].shuffle()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.flatten</code></td>
-            <td>将多维数组合并为一维数组</td>
-            <td><pre>[1, 2].flatten()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.checkRepeat</code></td>
-            <td>检查数组中是否存在重复值</td>
-            <td><pre>[1, 2].checkRepeat()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.sub</code></td>
-            <td>将当前数组中减去另一个数组的元素，返回剩下的元素数组</td>
-            <td><pre>[1, 2].sub([1])</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>arr</em>.pushIf</code></td>
-            <td>如果不存在则添加</td>
-            <td><pre>[1, 2].pushIf(1)</pre></td>
-        </tr>
-    </table>
+    <script>
+    Doc.writeApi({
+        title: "常用 API",
+        url: "utility/lang/array.js",
+        apis: [{
+            summary: "<p>删除当前数组中匹配的第一个项。</p>",
+            params: [{
+                type: "Object",
+                name: "value",
+                summary: "<p>要删除的项。</p>"
+            }, {
+                type: "Number",
+                name: "startIndex",
+                defaultValue: "0",
+                optional: true,
+                summary: "<p>开始搜索 <em>value</em> 的起始位置。</p>"
+            }],
+            returns: {
+                type: "Number",
+                summary: "<p>返回被删除的项在原数组中的位置。如果数组中找不到指定的项，则返回 -1。</p>"
+            },
+            remark: "<blockquote class=\"doc-note\">\n\
+  <h4>一次只删除一个</h4>\n\
+  \n\
+  <p>如果数组中有多个相同的项，remove 只删除第一个。</p>\n\
+</blockquote>",
+            example: "<pre>[1, 9, 9, 0].remove(9); // 返回 1,  数组变成 [1, 9, 0]</pre>\n\
+\n\
+<h5>删除数组全部相同项</h5>\n\
+\n\
+<pre>var arr = [\"wow\", \"wow\", \"TealUI\", \"is\", \"powerful\", \"wow\", \"wow\"];\n\
+// 反复调用 remove， 直到 remove 返回 -1， 即找不到值 wow\n\
+while(arr.remove(\"wow\") >= 0);\n\
+console.log(arr); // 输出 [\"TealUI\", \"is\", \"powerful\"]</pre>",
+            memberOf: "Array.prototype",
+            name: "remove",
+            line: 8,
+            col: 1
+        }, {
+            summary: "<p>删除当前数组中的重复项。</p>",
+            returns: {
+                type: "Array",
+                summary: "<p>返回过滤后的新数组。</p>"
+            },
+            example: "<pre>[1, 9, 9, 0].unique() // 返回 [1, 9, 0]</pre>",
+            memberOf: "Array.prototype",
+            name: "unique",
+            line: 35,
+            col: 1
+        }]
+    });
+    </script>
+
+    <script>
+        Doc.writeApi({
+            title: "其它 API",
+            url: "utility/lang/arrayEx.js",
+            apis: [{
+                summary: "<p>将一个类数组对象转为原生数组。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iterable",
+                    summary: "<p>一个类数组对象。</p>"
+                }, {
+                    type: "Number",
+                    name: "startIndex",
+                    defaultValue: "0",
+                    optional: true,
+                    summary: "<p>转换开始的位置。</p>"
+                }],
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回新数组，其值和 <em>iterable</em> 一一对应。</p>"
+                },
+                example: "<pre>// 将 arguments 对象转为数组。\n\
+Array.parseArray(arguments); // 返回一个数组</pre>\n\
+\n\
+<pre>// 获取数组的子集。\n\
+Array.parseArray([4,6], 1); // [6]</pre>\n\
+\n\
+<pre>// 处理伪数组。\n\
+Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
+                memberOf: "Array",
+                name: "parseArray",
+                line: 8,
+                col: 1
+            }, {
+                summary: "<p>对当前数组每一项进行处理，并将结果组成一个新数组。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iterable",
+                    summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+                }, {
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>用于处理每一项的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Object</code> 返回处理后的新值，这些新值将组成结构数组。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回一个新数组或对象。</p>"
+                },
+                example: "<pre>[1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "map",
+                line: 43,
+                col: 1
+            }, {
+                summary: "<p>判断当前数组是否每一项都满足指定条件。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iterable",
+                    summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+                }, {
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>用于判断每一项是否满足条件的回调。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不满足。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>[1, 9, 9, 0].every(function(item){return item > 5}); // false</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "every",
+                line: 72,
+                col: 1
+            }, {
+                summary: "<p>判断当前数组是否至少存在一项满足指定条件。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iterable",
+                    summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+                }, {
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>用于判断每一项是否满足条件的回调。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不满足。</li>\n\
+</ul>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果至少存在一项满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>[1, 9, 9, 0].some(function(item){return item > 5}); // true</pre>",
+                since: "ES5",
+                memberOf: "Array.prototype",
+                name: "some",
+                line: 100,
+                col: 1
+            }, {
+                summary: "<p>合并当前数组和另一个数组并返回一个新数组。</p>",
+                params: [{
+                    type: "Array",
+                    name: "array",
+                    summary: "<p>要合并的数组。</p>"
+                }],
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回新数组。</p>"
+                },
+                example: "<pre>[\"I\", \"love\"].concat(\"you\"); // [\"I\", \"love\", \"you\"]</pre>",
+                since: "ES4",
+                memberOf: "Array.prototype",
+                name: "concat",
+                line: 128,
+                col: 1
+            }, {
+                summary: "<p>将指定的值插入到当前数组的指定位置。</p>",
+                params: [{
+                    type: "Number",
+                    name: "index",
+                    summary: "<p>要插入的位置。索引从 0 开始。如果 <em>index</em> 大于数组的长度，则插入到末尾。</p>"
+                }, {
+                    type: "Object",
+                    name: "value",
+                    summary: "<p>要插入的内容。</p>"
+                }],
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回 <em>value</em>。</p>"
+                },
+                example: "<pre>[\"I\", \"you\"].insert(1, \"love\"); // [\"I\", \"love\", \"you\"]</pre>",
+                memberOf: "Array.prototype",
+                name: "insert",
+                line: 145,
+                col: 1
+            }, {
+                summary: "<p>删除数组中值为 <strong>false</strong> 的值。</p>",
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回过滤后的新数组。</p>"
+                },
+                example: "<pre>[\"\", false, 0, undefined, null, {}].clean(); // [{}]</pre>",
+                memberOf: "Array.prototype",
+                name: "clean",
+                line: 161,
+                col: 1
+            }, {
+                summary: "<p>计算数组中所有项的最小值。</p>",
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回数组中所有项的最小值。</p>"
+                },
+                example: "<pre>[1, 2].min() // 1</pre>",
+                memberOf: "Array.prototype",
+                name: "min",
+                line: 174,
+                col: 1
+            }, {
+                summary: "<p>计算数组中所有项的最大值。</p>",
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回数组中所有项的最大值。</p>"
+                },
+                example: "<pre>[1, 2].max() // 2</pre>",
+                memberOf: "Array.prototype",
+                name: "max",
+                line: 183,
+                col: 1
+            }, {
+                summary: "<p>计算数组中所有数值的和。</p>",
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回数组中所有数值的和。</p>"
+                },
+                example: "<pre>[1, 2].sum() // 3</pre>",
+                memberOf: "Array.prototype",
+                name: "sum",
+                line: 196,
+                col: 1
+            }, {
+                summary: "<p>计算数组中所有数值的算术平均值。</p>",
+                returns: {
+                    type: "Number",
+                    summary: "<p>返回数组中所有数值的算术平均值。</p>"
+                },
+                example: "<pre>[1, 2].avg() // 1.5</pre>",
+                memberOf: "Array.prototype",
+                name: "avg",
+                line: 213,
+                col: 1
+            }, {
+                summary: "<p>将数组中的值和指定的键表组合为对象。</p>",
+                params: [{
+                    type: "Array",
+                    name: "keys",
+                    summary: "<p>要匹配的键名。</p>"
+                }],
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回数组和指定键组成的键值对。</p>"
+                },
+                example: "<pre>[1, 2].associate([\"a\", \"b\"]) // {a: 1, b: 2}</pre>",
+                memberOf: "Array.prototype",
+                name: "associate",
+                line: 233,
+                col: 1
+            }, {
+                summary: "<p>清空数组所有项。</p>",
+                returns: {
+                    summary: "<p>this</p>"
+                },
+                example: "<pre>[1, 2].clear() // []</pre>",
+                memberOf: "Array.prototype",
+                name: "clear",
+                line: 251,
+                col: 1
+            }, {
+                summary: "<p>获取数组中第一个不为空的元素。</p>",
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回不为空的元素，如果所有元素都为空则返回 <strong>undefined</strong>。</p>"
+                },
+                example: "<pre>[undefined, null, 1, 2].pick() // 1</pre>",
+                memberOf: "Array.prototype",
+                name: "pick",
+                line: 265,
+                col: 1
+            }, {
+                summary: "<p>随机获取数组中的任意一项。</p>",
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回找到的项。如果数组为空，则返回 <strong>undefined</strong>。</p>"
+                },
+                example: "<pre>[1, 2, 3].random()</pre>",
+                memberOf: "Array.prototype",
+                name: "random",
+                line: 282,
+                col: 1
+            }, {
+                summary: "<p>随机打乱数组的内容。</p>",
+                returns: {
+                    summary: "<p>this</p>"
+                },
+                example: "<pre>[1, 2, 3].shuffle()</pre>",
+                memberOf: "Array.prototype",
+                name: "shuffle",
+                line: 295,
+                col: 1
+            }, {
+                summary: "<p>将多维数组合并为一维数组。</p>",
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回新数组。</p>"
+                },
+                example: "<pre>[[1, 2], [[[3]]]].flatten() // [1, 2, 3]</pre>",
+                memberOf: "Array.prototype",
+                name: "flatten",
+                line: 314,
+                col: 1
+            }, {
+                summary: "<p>判断数组中是否存在重复项。</p>",
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>若数组中存在重复值，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>[1, 9, 0].isUnique() // true</pre>\n\
+\n\
+<pre>[1, 9, 9, 0].isUnique() // false</pre>",
+                memberOf: "Array.prototype",
+                name: "isUnique",
+                line: 331,
+                col: 1
+            }, {
+                summary: "<p>从当前数组中删除另一个数组的所有元素，返回剩下的元素组成的新数组。</p>",
+                params: [{
+                    type: "Array",
+                    name: "array",
+                    summary: "<p>被除去的元素数组。</p>"
+                }],
+                returns: {
+                    type: "Array",
+                    summary: "<p>返回新数组。</p>"
+                },
+                example: "<pre>[1, 2].sub([1]) // [2]</pre>",
+                memberOf: "Array.prototype",
+                name: "sub",
+                line: 353,
+                col: 1
+            }, {
+                summary: "<p>如果当前数组中不存在项则添加到数组末尾。</p>",
+                params: [{
+                    type: "Array",
+                    name: "item",
+                    summary: "<p>元素。</p>"
+                }],
+                returns: {
+                    type: "Boolean",
+                    summary: "<p>如果已新增则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+                },
+                example: "<pre>[1, 9, 0].pushIf(1) // [1, 9, 0]\n\
+[1, 9, 0].pushIf(2) // [1, 9, 0, 2]</pre>",
+                memberOf: "Array.prototype",
+                name: "pushIf",
+                line: 373,
+                col: 1
+            }]
+        });
+    </script>
+
 </body>
 </html>

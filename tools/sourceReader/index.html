@@ -5,19 +5,27 @@
 </head>
 <body>
     <script type="text/javascript" src="../../assets/doc.js"></script>
-    <pre id="source"></pre>
+    <pre id="source">正在加载源码...</pre>
     <script>
         function loadSource(path, success, error) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status !== 404 && xhr.status !== 500 && xhr.responseText) {
-                    success && success(xhr.responseText);
-                } else {
-                    error && error(xhr);
+                if (xhr.readyState === 4) {
+                    if (xhr.status !== 404 && xhr.status !== 500 && xhr.responseText) {
+                        success && success(xhr.responseText);
+                    } else {
+                        error && error(xhr);
+                    }
                 }
+            };
+
+            try {
+                xhr.open('GET', path, false);
+                xhr.send(null);
+            } catch (e) {
+                error && error(xhr);
             }
-            xhr.open('GET', Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + path, false);
-            xhr.send(null);
+
         }
 
         /**
@@ -35,16 +43,17 @@
             return null;
         }
 
-        var path = getQuery('file');
+        var path = getQuery('file'),
+            url = Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + path;
         if (path) {
 
             document.title = document.title.replace('源码', '源码：' + path);
 
             document.getElementById('doc_title').innerHTML = '源码：' + path + ' <a href="../../src/' + path + '" target="_blank"><small>打开源文件</small></a>';
 
-            loadSource(path, function (source) {
+            loadSource(url, function(source) {
 
-                document.getElementById('source').textContent = source;
+                document.getElementById('source').textContent = source = source.replace(/\r?\n/g, "\n");
 
                 var line = location.hash.replace('#', '');
                 if (line) {
@@ -55,11 +64,15 @@
                 }
 
                 document.getElementById('source')._docInited = false;
-                
+
 
                 Doc.renderCodes();
+            }, function() {
+                location.href = url;
             });
 
+        } else {
+            document.getElementById('source').innerHTML = '用法：/sourceReader/?file=源文件#行号';
         }
 
     </script>
