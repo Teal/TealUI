@@ -1,22 +1,251 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>数据集</title>
+    <title>数据表</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="检验数据合法性。">
+    <meta name="description" content="表示表格数据结构。支持按行或列处理数据。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../lang/class.js"></script>
-    <script type="text/javascript" src="../data/dataTable.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/data/dataTable.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
-    <script>
-        var dt = new DataTable();
-    </script>
+    <h2>数据表</h2>
+    <pre>
+
+        // 创建包含两列的表格。
+        var dt = new DataTable({
+            id: { type: 'number'  },
+            name: { type: 'string'  }
+        });
+
+        // 为表格添加两行数据。
+        dt.add({ id: 1, name: "a" });
+        dt.add({ id: 3, name: "b" });
+        
+        // 为表格基于某列排序。
+        dt.sort("name");
+        
+        // 获取指定行的内容。
+        alert(dt[0].id);
+    </pre>
+    <script data-gendoc="utility/data/dataTable.js">
+        Doc.writeApi({
+			path: "utility/data/dataTable.js",
+			apis: [{
+				memberOf: "DataTable.prototype",
+				name: "onAddRow",
+				summary: "<p>当添加行时回调。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					summary: "<p>要添加的行号位置。</p>"
+				}, {
+					type: "Object",
+					name: "row",
+					summary: "<p>要添加的行。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果返回 <strong>true</strong>，则允许添加指定的行，否则不允许。</p>"
+				},
+				protected: [""],
+				example: "<pre>dataTable.onAddRow = function(index, row){ alert('添加了新行：' + row); }</pre>",
+				access: "protected",
+				line: 20,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "onRemoveRow",
+				summary: "<p>当删除行时回调。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					summary: "<p>要删除的行号。</p>"
+				}, {
+					type: "Number",
+					name: "length",
+					summary: "<p>要删除的行数。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果返回 <strong>true</strong>，则允许删除指定的行，否则不允许。</p>"
+				},
+				protected: [""],
+				example: "<pre>dataTable.onRemoveRow = function(index, length){ alert('删除了行：' + this[index]); }</pre>",
+				access: "protected",
+				line: 32,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "onChange",
+				summary: "<p>当数据发生改变时回调。</p>",
+				protected: [""],
+				example: "<pre>dataTable.onChange = function(){ alert('表格数据发生改变'); }</pre>",
+				access: "protected",
+				line: 44,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "constructor",
+				summary: "<p>初始化 DataSet 类。</p>",
+				params: [{
+					type: "Object",
+					name: "columns",
+					optional: true,
+					summary: "<p>当前表格的列信息。具体格式如：</p>\n\
+\n\
+<pre><code> {\n\
+     a: { // 列名。表格内列应该唯一。\n\
+         type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。\n\
+         sorter: function(){} // 当前列的排序方案\n\
+     }, ...\n\
+ }\n\
+</code></pre>"
+				}, {
+					type: "Array",
+					name: "data",
+					optional: true,
+					summary: "<p>要处理的原始数据。具体数值应该是和列一一对应的 JSON 对象数组。</p>"
+				}],
+				example: "<pre>new DataTable({\n\
+    a: { // 列名。表格内列应该唯一。\n\
+        type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。\n\
+        sorter: function(){} // 当前列的排序方案\n\
+    }, ...\n\
+}, [{\n\
+     a: 1\n\
+}, {\n\
+     a: 2\n\
+}]);</pre>",
+				memberType: "constructor",
+				line: 53,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "set",
+				summary: "<p>设置当前数据集的所有数据或指定行数据。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要更新的行号。</p>"
+				}, {
+					type: "Object",
+					name: "row",
+					summary: "<p>要更新的新行。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new DataTable().set(2, {});</pre>\n\
+\n\
+<pre>new DataTable().set([{}]);</pre>",
+				line: 83,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "add",
+				summary: "<p>在当前数据表添加一行。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要添加的行号。</p>"
+				}, {
+					type: "Object",
+					name: "row",
+					summary: "<p>要添加的行。</p>"
+				}, {
+					type: "Object",
+					name: "...",
+					summary: "<p>要添加的行。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回最新的长度。</p>"
+				},
+				example: "<pre>new DataTable().add([1, 2, 3])</pre>",
+				line: 102,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "remove",
+				summary: "<p>删除一行数据。</p>",
+				params: [{
+					type: "mixed",
+					name: "row",
+					summary: "<p>要删除的行号或行本身。</p>"
+				}, {
+					type: "Number",
+					name: "length",
+					defaultValue: "1",
+					optional: true,
+					summary: "<p>要删除的行数。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回本次被删除的行组成的数组。如果未删除则返回空数组。</p>"
+				},
+				example: "<pre>new DataTable().remove(1)</pre>",
+				line: 123,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "clear",
+				summary: "<p>清空当前表格的所有行。</p>",
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new DataTable().clear()</pre>",
+				line: 139,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "values",
+				summary: "<p>获取指定列或全部列的所有值。</p>",
+				params: [{
+					type: "mixed",
+					name: "column",
+					optional: true,
+					summary: "<p>要获取的列名或列号。如果不设置列，则获取全部列的值。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回指定列或全部列的值。</p>"
+				},
+				example: "<pre>new DataTable().values(\"columnName\")</pre>",
+				line: 149,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "sort",
+				summary: "<p>对当前表进行排序。</p>",
+				params: [{
+					type: "mixed",
+					name: "column",
+					summary: "<p>排序的列或排序方法。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<h5>按列名排序</h5>\n\
+\n\
+<pre>new DataTable().sort('columnName')</pre>\n\
+\n\
+<h5>按自定义排序</h5>\n\
+\n\
+<pre>new DataTable().sort(function(x, y){ return x.id > y.id })</pre>",
+				line: 169,
+				col: 1
+			}]
+});</script>
 </body>
 </html>

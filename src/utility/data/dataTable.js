@@ -1,7 +1,12 @@
 ﻿
+
+// #require ../lang/class
+
+
 /**
  * 表示一个表格数据集。
  * @class
+ * @extends Base
  */
 var DataTable = Base.extend.call(Array, {
 
@@ -18,6 +23,7 @@ var DataTable = Base.extend.call(Array, {
      * @param {Object} row 要添加的行。
      * @return {Boolean} 如果返回 @true，则允许添加指定的行，否则不允许。
      * @protected
+     * @example dataTable.onAddRow = function(index, row){ alert('添加了新行：' + row); }
      */
     onAddRow: function(index, row){
         return this.trigger('add', {index: index, row: row}) && this.onChange();
@@ -29,6 +35,7 @@ var DataTable = Base.extend.call(Array, {
      * @param {Number} length 要删除的行数。
      * @return {Boolean} 如果返回 @true，则允许删除指定的行，否则不允许。
      * @protected
+     * @example dataTable.onRemoveRow = function(index, length){ alert('删除了行：' + this[index]); }
      */
     onRemoveRow: function(index, length){
         return this.trigger('remove', {index: index, length: length}) && this.onChange();
@@ -36,6 +43,8 @@ var DataTable = Base.extend.call(Array, {
 
     /**
      * 当数据发生改变时回调。
+     * @protected
+     * @example dataTable.onChange = function(){ alert('表格数据发生改变'); }
      */
     onChange: function(){
         return this.trigger('change');
@@ -43,17 +52,31 @@ var DataTable = Base.extend.call(Array, {
 
     /**
      * 初始化 DataSet 类。
-     * @param {Array} columns 当前表格的列信息。具体格式如：
+     * @param {Object} [columns] 当前表格的列信息。具体格式如：
      * 
-     *      [{
-     *          name: 'a', // 列名
-     *          type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。
-     *          sorter: function(){} // 当前列的排序方案
-     *      }, ...]
-     * @param {Array} [data] 要处理的原始数据。具体数值应该是一个二维数组。
+     *      {
+     *          a: { // 列名。表格内列应该唯一。
+     *              type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。
+     *              sorter: function(){} // 当前列的排序方案
+     *          }, ...
+     *      }
+     * 
+     * @param {Array} [data] 要处理的原始数据。具体数值应该是和列一一对应的 JSON 对象数组。
+     * @constructor
+     * @example 
+     * new DataTable({
+     *     a: { // 列名。表格内列应该唯一。
+     *         type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。
+     *         sorter: function(){} // 当前列的排序方案
+     *     }, ...
+     * }, [{
+     *      a: 1
+     * }, {
+     *      a: 2
+     * }]);
      */
     constructor: function (columns, data) {
-        this.columns = columns || [];
+        this.columns = columns || {};
         data && this.set(data);
     },
 
@@ -62,6 +85,10 @@ var DataTable = Base.extend.call(Array, {
      * @param {Number} [index=0] 要更新的行号。
      * @param {Object} row 要更新的新行。
      * @returns this
+     * @example 
+     * new DataTable().set(2, {});
+     * 
+     * new DataTable().set([{}]);
      */
     set: function (index, row) {
         if(index != null && index.constructor === Number && this.onRemoveRow(index, 1) && this.onAddRow(index, row)) {
@@ -112,6 +139,7 @@ var DataTable = Base.extend.call(Array, {
     /**
      * 清空当前表格的所有行。
      * @returns this
+     * @example new DataTable().clear()
      */
     clear: function(){
         if(this.onRemoveRow(0, this.length)) this.length = 0;
@@ -130,7 +158,7 @@ var DataTable = Base.extend.call(Array, {
         if(column == undefined) return this.slice(0);
 
         // 选出指定列的值。
-        column = this.column(column);
+        column = this.columns[column];
         var result = [], i;
         for(i = 0; i < this.length; i++) {
             result.push(this[i][column.name]);
@@ -139,44 +167,20 @@ var DataTable = Base.extend.call(Array, {
     },
 
     /**
-     * 获取或设置的指定的列。
-     * @param {mixed} [column] 要获取的列名或列号。
-     * @return {Object} 返回指定列信息。
-     * @example new DataTable().column("columnName")
-     */
-    column: function(column){
-
-        // 解析为列名。
-        if(column.constructor === String)
-            for (var i = 0; i <  this.columns.length; i++) 
-                if(this.columns[i].name === column)
-                    return this.columns[i];
-        else
-
-            // 解析为列索引。
-            // 解析为列本身。
-            return column.constructor === Number ? this.columns[i] : column;
-
-       
-    },
-
-    /**
      * 对当前表进行排序。
      * @param  {mixed} column 排序的列或排序方法。
      * @return this
      * @example
-     * #### 按列名排序
+     * ##### 按列名排序
      * new DataTable().sort('columnName')
-     * #### 按列索引排序
-     * new DataTable().sort(0)
-     * #### 按自定义排序
+     * ##### 按自定义排序
      * new DataTable().sort(function(x, y){ return x.id > y.id })
      */
     sort: function(column){
 
         // 根据列排序。
         if(column != null && column.constructor !== Function) {
-            var col = this.column(column);
+            var col = this.columns[column];
             column = col && (col.sorter ? function(x, y){
                 return col.sorter(x[col.name], y[col.name]);
             } : function(x, y){

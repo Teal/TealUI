@@ -16,6 +16,11 @@ if (!JSON.stringify) {
         return JSON.specialChars[chr] || '\\u00' + Math.floor(chr.charCodeAt() / 16).toString(16) + (chr.charCodeAt() % 16).toString(16);
     };
 
+    /**
+     * 将对象格式化为字符串。
+     * @returns {String} 返回字符串。
+     * @example JSON.stringify([{}])
+     */
     JSON.stringify = function (obj) {
         switch (typeof obj) {
             case 'string':
@@ -41,6 +46,11 @@ if (!JSON.stringify) {
         }
     };
 
+    /**
+     * 解析字符串为 JSON。
+     * @returns {Object} 返回新对象。
+     * @example JSON.parse("[{}]")
+     */
     JSON.parse = function (str) {
         return new Function('return ' + str)();
     };

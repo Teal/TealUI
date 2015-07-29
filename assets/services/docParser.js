@@ -1,5 +1,5 @@
 
-var Markdown = require('./markdown.js');
+var Markdown = Markdown || require('./markdown.js');
 
 
 /**
@@ -32,6 +32,8 @@ var tags = {
     'event': { type: 'memberType' },
     'constructor': { type: 'memberType' },
     'category': { type: 'memberType' },
+    'class': { type: 'memberType' },
+    'namespace': { type: 'memberType' },
 
     name: { type: 'text' },
     memberOf: { type: 'text' },
@@ -134,7 +136,7 @@ function parseDocComment(comment, rest) {
     for (var i = 1; i < comment.length; i++) {
         var match = /^(\w+)(\s+|$)/.exec(comment[i]) || ['', ''],
             tag = tags[match[1]] && tags[match[1]].alias || match[1];
-        result[tag] = result[tag] || [];
+        result[tag] = Object.prototype.hasOwnProperty.call(result, tag) ? result[tag] : [];
         result[tag].push(comment[i].substr(match[0].length).trim());
     }
 
@@ -236,7 +238,11 @@ function parseDocComment(comment, rest) {
             }
 
             if (match[4] === ':' && !result.memberOf && lastDocComment) {
-                result.memberOf = lastDocComment.name;
+                var lastName = lastDocComment.name;
+                if (lastDocComment.memberType === 'class') {
+                    lastName += '.prototype';
+                }
+                result.memberOf = lastName;
             }
         }
 

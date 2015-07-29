@@ -15,13 +15,95 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h5>冒泡排序</h5>
-    <pre>Sorter.bubble([1,3,5,4,3]);</pre>
-
-    <h5>快速排序</h5>
-    <pre>Sorter.quick([1,3,5,4,3]);</pre>
-
-    <h5>希尔排序</h5>
-    <pre>Sorter.shell([1,3,5,4,3]);</pre>
+    <h2>排序算法</h2>
+    <script data-gendoc="utility/data/sorter.js">
+        Doc.writeApi({
+            path: "utility/data/sorter.js",
+            apis: [{
+                memberOf: "Sorter",
+                name: "bubble",
+                summary: "<p>冒泡排序。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iteratable",
+                    summary: "<p>要排序的类数组。</p>"
+                }, {
+                    type: "Function",
+                    name: "compareFn",
+                    optional: true,
+                    summary: "<p>用于排序时确定优先级的函数。</p>"
+                }, {
+                    type: "Number",
+                    name: "start",
+                    optional: true,
+                    summary: "<p>开始排序的位置。</p>"
+                }, {
+                    type: "Number",
+                    name: "end",
+                    optional: true,
+                    summary: "<p>结束排序的位置。</p>"
+                }],
+                remark: "<p>冒泡排序是稳定排序算法。</p>",
+                example: "<pre>Sorter.bubble([1,3,5,4,3]) // [1, 3, 3, 4, 5]</pre>",
+                line: 12,
+                col: 1
+            }, {
+                memberOf: "Sorter",
+                name: "shell",
+                summary: "<p>对类数组进行希尔排序。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iteratable",
+                    summary: "<p>要排序的类数组。</p>"
+                }, {
+                    type: "Function",
+                    name: "compareFn",
+                    optional: true,
+                    summary: "<p>用于排序时确定优先级的函数。</p>"
+                }, {
+                    type: "Number",
+                    name: "start",
+                    optional: true,
+                    summary: "<p>开始排序的位置。</p>"
+                }, {
+                    type: "Number",
+                    name: "end",
+                    optional: true,
+                    summary: "<p>结束排序的位置。</p>"
+                }],
+                remark: "<p>希尔排序不是稳定排序算法。</p>",
+                example: "<pre>Sorter.shell([1,3,5,4,3]) // [1, 3, 3, 4, 5]</pre>",
+                line: 41,
+                col: 1
+            }, {
+                memberOf: "Sorter",
+                name: "quick",
+                summary: "<p>对类数组进行快速排序。</p>",
+                params: [{
+                    type: "Object",
+                    name: "iteratable",
+                    summary: "<p>要排序的类数组。</p>"
+                }, {
+                    type: "Function",
+                    name: "compareFn",
+                    optional: true,
+                    summary: "<p>用于排序时确定优先级的函数。</p>"
+                }, {
+                    type: "Number",
+                    name: "start",
+                    optional: true,
+                    summary: "<p>开始排序的位置。</p>"
+                }, {
+                    type: "Number",
+                    name: "end",
+                    optional: true,
+                    summary: "<p>结束排序的位置。</p>"
+                }],
+                remark: "<p>快速排序不是稳定排序算法。</p>",
+                example: "<pre>Sorter.quick([1,3,5,4,3]) // [1, 3, 3, 4, 5]</pre>",
+                line: 68,
+                col: 1
+            }]
+        });</script>
 </body>
 </html>

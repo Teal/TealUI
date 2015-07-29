@@ -2,9 +2,8 @@
 <html>
 <head>
     <title>文档解析测试</title>
-    <script type="text/javascript" src="../../src/3rdlibs/jQuery/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="../../src/3rdlibs/text/markdownEx.js"></script>
-    <script type="text/javascript" src="assets/doc/doc.js"></script>
+    <script type="text/javascript" src="../services/markdown.js"></script>
+    <script type="text/javascript" src="../services/docParser.js"></script>
 </head>
 <body>
     <script type="text/javascript" src="../../assets/doc/doc.js"></script>
@@ -56,17 +55,8 @@
     <script>
 
         function go() {
-
             var content = document.getElementById('content').value;
-
-            if (/^\w+\//.test(content)) {
-                $.get(Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + content, function (code) {
-                    parse(code, content);
-                });
-            } else {
-                parse(content, '');
-            }
-
+            parse(content, '');
         }
 
         function parse(content, url) {
@@ -89,7 +79,7 @@
                 '\n<\/script>';
 
             document.getElementById('demo').innerHTML = Doc.writeApi(result, true);
-            Doc.Dom.each('[href="javascript://展开当前 API 的更多说明"]', function(link) {
+            Doc.iterate('[href="javascript://展开当前 API 的更多说明"]', function(link) {
                 link.click();
             });
 
