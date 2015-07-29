@@ -1,1 +1,0 @@
-@node "%~dp0\node_bin\bootserver.js" %*
