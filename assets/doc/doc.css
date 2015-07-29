@@ -49,7 +49,7 @@
     line-height: 150%;
 }
 
-    .doc > h2:before, .doc > h3:before, .doc > h4:before {
+    .doc > h2:before, .doc > h3:before, .doc > h4:before, .doc-index dt:before, .doc-index dd:before {
         color: #888;
         font-weight: 400;
     }
@@ -180,20 +180,47 @@
 
 .doc-index {
     background: #f8f8f8;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
 }
 
-.doc-index h2{
-    background: #f8f8f8;
-    float: left;
-    font-weight: 500;
-    font-size: 16px;
-}
+    .doc-index h2 {
+        background: #009688;
+        color: #fff;
+        float: left;
+        font-weight: 500;
+        font-size: 16px;
+        margin: .5em 0 .5em 15px;
+        padding: .3em 7px;
+    }
 
 
-.doc-index dl {
-    background:#fff;
-    margin-left: 40px;
-}
+    .doc-index dl {
+        background: #fff;
+        margin: 0 0 0 60px;
+        padding: .5em 1em;
+        border-left: 1px solid #eee;
+    }
+
+    .doc-index dt {
+        counter-increment: doc-dt;
+        counter-reset: doc-dd;
+    }
+
+        .doc-index dt:before {
+            content: counter(doc-dt) ". ";
+        }
+
+    .doc-index dd {
+        padding-left: 2em;
+        margin: 0;
+        counter-increment: doc-dd;
+    }
+
+        .doc-index dd:before {
+            content: counter(doc-dt) "." counter(doc-dd) " ";
+        }
 
 .doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
     font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
