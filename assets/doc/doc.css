@@ -171,13 +171,13 @@
     color: #b94a48 !important;
 }
 
-.doc-summary:after {
+/*.doc-summary:after {
     background-color: #009688 !important;
 }
 
 .doc-summary h4 {
     color: #009688;
-}
+}*/
 
 .doc-index {
     background: #f8f8f8;
@@ -194,6 +194,7 @@
         font-size: 16px;
         margin: .5em 0 .5em 15px;
         padding: .3em 7px;
+        line-height: 150%;
     }
 
 
@@ -207,6 +208,8 @@
     .doc-index dt {
         counter-increment: doc-dt;
         counter-reset: doc-dd;
+        font-weight: 500;
+        margin: 0;
     }
 
         .doc-index dt:before {
@@ -804,6 +807,12 @@ a#doc_logo {
         font-size: 16px;
         margin: 0;
     }
+
+#doc_summary {
+    border: 1px solid #eee;
+    background-color: #f8f8f8;
+    padding: 8px 14px;
+}
 
 /* 列表 */
 #doc_sidebar {

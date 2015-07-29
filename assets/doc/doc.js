@@ -88,7 +88,7 @@ var Doc = {
      * 配置当前网页的模板。
      */
     headerTpl: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
-                    <a href="{baseUrl}{indexUrl}" id="doc_logo" title="TealUI(网页版)">TealUI<small>{version}</small></a>\
+                    <a href="{baseUrl}{indexUrl}" id="doc_logo" title="TealUI(网页版)">TealUI <small>{version}</small></a>\
                     <span id="doc_menu" class="doc-right">\
                         <button type="button" id="doc_menu_search" onclick="Doc.toggleSidebar();" {touchToClick}><span class="doc-icon">☌</span></button>\
                         <button type="button" id="doc_menu_navbar" onclick="Doc.toggleNavbar();" {touchToClick}><span class="doc-icon">≡</span></button>\
@@ -115,16 +115,16 @@ var Doc = {
                 </aside>\
                 <div id="doc_mask" onclick="Doc.toggleSidebar()" {touchToClick}></div>\
                 <div id="doc_progress"></div>\
-                <a href="javascript:Doc.gotoTop();" class="doc-pager" id="doc_pager_up" accesskey="W" title="返回顶部(Alt{shift}+W)"><span class="doc-icon">↑</span></a>\
-                <a href="javascript:Doc.movePage(false);" class="doc-pager" id="doc_pager_left" accesskey="S" title="上一页(Alt{shift}+S)"><span class="doc-icon">←</span></a>\
-                <a href="javascript:Doc.movePage(true);" class="doc-pager" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>\
+                <a id="doc_pager_up" href="javascript:Doc.gotoTop();" class="doc-pager" accesskey="W" title="返回顶部(Alt{shiftKey}+W)"><span class="doc-icon">↑</span></a>\
+                <a id="doc_pager_left" href="javascript:Doc.movePage(false);" class="doc-pager" accesskey="S" title="上一页(Alt{shiftKey}+S)"><span class="doc-icon">←</span></a>\
+                <a id="doc_pager_right" href="javascript:Doc.movePage(true);" class="doc-pager" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>\
                 <aside id="doc_module_toolbar" class="doc-toolbar doc-right doc-section">\
                     {download:<a href="#" target="_blank"><span class="doc-icon">↧</span>下载此组件</a>}\
-                    <a href="javascript:;" onclick="Doc.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
+                    <a id="doc_module_toolbar_favorite" href="javascript:Doc.toggleFavorites();">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
                     <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
-                <h1 id="doc_title">{title} <small><a href="">{name}</a>{local:&nbsp;&nbsp;<a href="javascript://重新扫描源码以提取文档" onclick="Doc.updateDocs();"><span class="doc-icon">↻</span>更新文档</a>&nbsp;&nbsp;<a href="javascript://执行页面内所有代码以验证正确性" onclick="Doc.execAllCodes();"><span class="doc-icon">▶</span>执行用例</a>}</small></h1>\
-                {summary:<p>#</p>}',
+                <h1 id="doc_title">{title} <small><a href="" title="刷新">{name}</a>{local:&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:Doc.updateDocs()" title="重新扫描源码并更新当前页面相关的文档"><span class="doc-icon">↻</span>更新文档</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:Doc.execAllCodes()" title="执行当前页面的所有示例代码（作为单元测试用例）"><span class="doc-icon">▶</span>执行用例</a>}</small></h1>\
+                <p id="doc_summary">{summary}</p>',
 
     /**
      * 配置当前网页底部的模板。
@@ -149,7 +149,8 @@ var Doc = {
      */
     parseTpl: function (tpl, data) {
         return tpl.replace(/\{\{|\{([^}]+)\}|\}\}/g, function (matched, argName) {
-            return argName ? ((matched = argName.indexOf(':')) < 0 ? data[argName] : data[argName.substr(0, matched)](argName.substr(matched + 1))) || '' : matched.charAt(0);
+            argName = argName ? (matched = argName.indexOf(':')) < 0 ? data[argName] : data[argName.substr(0, matched)](argName.substr(matched + 1)) : matched.charAt(0);
+            return argName == null ? '' : argName;
         });
     },
 
@@ -248,20 +249,23 @@ var Doc = {
              * @param {String} [language] 高亮的语法。系统会自动根据源码猜测语言。
              */
             oneAsync: function (element, language) {
-                if (window.Worker) {
-                    var worker = new Worker();
-                    worker.onmessage = function (e) {
-                        Doc.SyntaxHighligher.one(e.element, e.language);
-                    };
-                    worker.postMessage(JSON.stringify({
-                        element: element,
-                        language: language
-                    }));
-                } else {
-                    setTimeout(function () {
-                        Doc.SyntaxHighligher.one(element, language);
-                    }, 0);
-                }
+                setTimeout(function () {
+                    Doc.SyntaxHighligher.one(element, language);
+                }, 0);
+                //if (window.Worker) {
+                //    var worker = new Worker();
+                //    worker.onmessage = function (e) {
+                //        Doc.SyntaxHighligher.one(e.element, e.language);
+                //    };
+                //    worker.postMessage(JSON.stringify({
+                //        element: element,
+                //        language: language
+                //    }));
+                //} else {
+                //    setTimeout(function () {
+                //        Doc.SyntaxHighligher.one(element, language);
+                //    }, 0);
+                //}
             },
 
             /**
@@ -1277,7 +1281,7 @@ var Doc = {
     /**
      * 执行 CSS 选择器并对每个节点执行回调。
      */
-    each: function (selector, callback) {
+    iterate: function (selector, callback) {
         var nodes = document.querySelectorAll(selector);
         for (var i = 0, node; node = nodes[i]; i++) {
             callback(node, i, nodes);
@@ -1386,10 +1390,10 @@ var Doc = {
         // #region 生成页面
 
         // 如果当前页面不是独立的页面。
-        if (Doc.frame != "page") {
+        if (Doc.frame !== "page") {
 
             // 如果页面框架设置为无，则不再继续处理。
-            if (Doc.frame == 'none') {
+            if (Doc.frame === 'none') {
                 return;
             }
 
@@ -1397,7 +1401,7 @@ var Doc = {
             var html = '<link type="text/css" rel="stylesheet" href="' + docJsPath.replace(/\.js\b/, '.css') + '" />';
 
             // 如果不是全屏模式，则生成页面主结构。
-            if (Doc.frame != "fullscreen" && +"\v1") {
+            if (Doc.frame !== "fullscreen" && +"\v1") {
 
                 var data = {
                     baseUrl: Doc.baseUrl,
@@ -1414,29 +1418,22 @@ var Doc = {
                     indexUrl: location.protocol === 'file:' ? 'index.html' : '',
 
                     search: '',
-                    shift: navigator.userAgent.indexOf('Firefox') >= 0 ? '+Shift' : '',
+                    shiftKey: navigator.userAgent.indexOf('Firefox') >= 0 ? '+Shift' : '',
                     touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                     download: function (html) {
-                        return Doc.path && Doc.folder === 'src' ? html.replace('#', Doc.baseUrl + 'tools/download.html?download=' + this.name) : '';
+                        return this.name && Doc.folder === 'src' ? html.replace('#', Doc.baseUrl + 'tools/download.html?download=' + this.name) : '';
                     },
 
                     favorite: function (html) {
                         return ~(Doc.getStore('favorites') || '').indexOf(Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
                     },
 
-                    folder: function (name) {
-                        return Doc.Configs.folders[name].path;
-                    },
-
                     actived: function (name) {
                         return name === Doc.folder ? ' class="doc-actived"' : '';
                     },
 
-                    summary: function (html) {
-                        var metaDdescription = document.querySelector('meta[name=description]');
-                        return metaDdescription ? html.replace('#', metaDdescription.content) : '';
-                    },
+                    summary: (document.querySelector('meta[name=description]') || { content: '' }).content,
 
                     local: function (html) {
                         return Doc.local ? html : '';
@@ -1465,11 +1462,35 @@ var Doc = {
                     }
 
                     // 插入底部。
-                    var footer = document.createElement('footer');
+                    var footer = document.body.appendChild(document.createElement('footer'));
                     footer.id = 'doc_footer';
                     footer.className = 'doc-container doc-section';
                     footer.innerHTML = Doc.parseTpl(Doc.footerTpl, data);
-                    document.body.appendChild(footer);
+
+                    // 插入页面结构。
+                    var indexHtml = '<h2>目录</h2><dl>', counter1 = 0, counter2 = 0;
+                    Doc.iterate("h2, h3", function (header) {
+                        var h2 = header.tagName === 'H2';
+                        var title = header.firstChild.textContent.trim();
+                        if (h2) {
+                            counter1++;
+                            counter2 = 0;
+                        } else {
+                            counter2++;
+                        }
+                        indexHtml += Doc.parseTpl('<{tagName}><a href="#{id}" title="{title}">{title}</{tagName}>', {
+                            tagName: h2 ? 'dt' : 'dd',
+                            id: header.id || (header.id = (h2 ? counter1 + '.' + title : counter1 + '.' + counter2 + ' ' + title)),
+                            title: title
+                        });
+                    });
+                    if (counter1 > 1) {
+                        indexHtml += '</dl>';
+                        var p = document.getElementById('doc_summary') || document.getElementById('doc_title');
+                        var index = p.parentNode.insertBefore(document.createElement('nav'), p.nextSibling);
+                        index.className = 'doc-index doc-section';
+                        index.innerHTML = indexHtml;
+                    }
 
                     // 底部影响边栏大小。
                     Doc.updateLayout(true);
@@ -1945,8 +1966,9 @@ var Doc = {
     /**
      * 切换收藏
      */
-    toggleFavorites: function (button) {
+    toggleFavorites: function () {
         if (window.localStorage) {
+            var button = document.getElementById('doc_module_toolbar_favorite');
             var favorates = Doc.getStore('favorites') || [];
             if (favorates.indexOf(Doc.path) < 0) {
                 favorates.push(Doc.path);
@@ -1976,7 +1998,7 @@ var Doc = {
     },
 
     // #endregion
-    
+
     // #region 代码区域
 
     /**
@@ -1985,7 +2007,7 @@ var Doc = {
     renderCodes: function () {
 
         // 处理所有 <pre>, <script class="doc-demo">, <aside class="doc-demo">
-        Doc.each('.doc > pre, .doc-api pre, .doc-demo', function (node) {
+        Doc.iterate('.doc > pre, .doc-api pre, .doc-demo', function (node) {
 
             // 不重复解析。
             if (node._docInited) {
@@ -2045,7 +2067,6 @@ var Doc = {
 
             // 检测flash 复制。
             if (window.clipboardData && clipboardData.setData) {
-                button.innerHTML = '<span class="doc-icon">❐</span>';
                 button.onmouseover = function () {
                     this.innerHTML = '<span class="doc-icon">❐</span>';
                 };
@@ -2054,7 +2075,6 @@ var Doc = {
                     this.innerHTML = '<span class="doc-icon">✓</span>';
                 };
             } else if (location.protocol !== 'file:' && navigator.plugins && navigator.plugins["Shockwave Flash"]) {
-                button.innerHTML = '<span class="doc-icon">❐</span>';
                 var timer;
                 button.onmouseover = function () {
                     var button = this;
@@ -2066,7 +2086,7 @@ var Doc = {
                             window.ZeroClipboard = {};
                             var div = document.createElement('div');
                             div.style.position = 'absolute';
-                            div.innerHTML = '<embed id="zeroClipboard" src="' + Doc.baseUrl + Doc.Configs.folders.assets.path + '/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="' + button.offsetWidth + '" height="' + button.offsetHeight + '" name="zeroClipboard" align="middle" allowScriptAccess="always" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="' + 'id=zeroClipboard&width=' + button.offsetWidth + '&height=' + button.offsetHeight + '" wmode="transparent" />';
+                            div.innerHTML = '<embed id="zeroClipboard" src="' + Doc.baseUrl + 'assets/doc/ZeroClipboard.swf" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="' + button.offsetWidth + '" height="' + button.offsetHeight + '" name="zeroClipboard" align="middle" allowScriptAccess="always" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="' + 'id=zeroClipboard&width=' + button.offsetWidth + '&height=' + button.offsetHeight + '" wmode="transparent" />';
                             document.body.appendChild(div);
                             window.ZeroClipboard.movie = document.getElementById('zeroClipboard');
                         }
@@ -2077,7 +2097,6 @@ var Doc = {
                                 button.innerHTML = '<span class="doc-icon">❐</span>';
                                 button.className = 'doc-hover';
                             } else if (eventName === 'mouseOut') {
-                                button.innerHTML = '<span class="doc-icon">❐</span>';
                                 button.className = '';
                             } else if (eventName === 'complete') {
                                 button.innerHTML = '<span class="doc-icon">✓</span>';
@@ -2208,22 +2227,117 @@ var Doc = {
             }
 
             // 语法高亮。
-            setTimeout(function () {
-                Doc.SyntaxHighligher.one(pre, language);
-            }, 0);
+            Doc.SyntaxHighligher.oneAsync(pre, language);
 
         });
 
+    },
+
+    /**
+     * 执行页内所有代码。
+     */
+    execAllCodes: function () {
+        Doc.iterate('pre', function (pre) {
+            var src = pre.textContent, result;
+            try {
+                result = window.eval(src);
+                console.log(src, ' => ' + result);
+            } catch (e) {
+                console.error(src + ' => ' + e);
+            }
+        });
     },
 
     // #endregion
 
     // #region API文档
 
+    vars: {
+        'Function': 'fn',
+        'Array': 'arr',
+        'String': 'str',
+        'Object': 'obj',
+        'RegExp': 're',
+        'Number': 'num',
+        'Element': 'elem'
+    },
+
+    /**
+     * 生成 API 列表。
+     */
+    writeApi: function (data, returnHtml) {
+
+        if (!Doc._apis) {
+            Doc._apis = [];
+        }
+        var dataIndex = Doc._apis.length;
+        Doc._apis.push(data);
+
+        if (data.url && !returnHtml) {
+            var h2 = document.getElementsByTagName('h2');
+            h2 = h2[h2.length - 1];
+            if (h2) {
+                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{url}" target="_blank" title="转到源码">{url}</a>)</small>', data);
+            }
+        }
+
+        var result = '';
+        var inTable = false;
+
+        for (var i = 0; i < data.apis.length; i++) {
+            var api = data.apis[i];
+
+            if (api.memberType === 'category') {
+                if (inTable) {
+                    result += '</table>';
+                    inTable = false;
+                }
+                result += Doc.parseTpl('<h3>{name}</h3>{summary}', api);
+                continue;
+            }
+
+            if (!inTable) {
+                result += '<table class="doc-section doc-api">';
+                result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
+                inTable = true;
+            }
+
+            var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
+
+            result += Doc.parseTpl('<tr><td class="doc"><code>{name}</code>{since}<div class="doc-toolbar">\
+                    <a href="{baseUrl}assets/tools/sourceReader.html?name={url}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
+                </div></td><td class="doc" id="doc_api_{dataIndex}_{apiIndex}">{summary}<div class="doc-toolbar">\
+                    <a href="javascript:Doc.expandApi({dataIndex}, {apiIndex})" title="展开当前 API 的更多说明"><span class="doc-icon">﹀</span>更多</a>\
+                </div></td><td class="doc">{example}</td></tr>', {
+                    since: api.since ? ' <small>' + (api.since == 'ES5' ? '<span class="doc-icon" title="HTML5 内置此 API">5</span>' : api.since == 'ES4' ? '<span class="doc-icon" title="仅为 IE6-8 提供">i</span>' : '(' + api.since + ' 新增)') + '</small>' : '',
+                    name: match ? '<em>' + (Doc.vars[match[1]] || (match[1].charAt(0).toLowerCase() + match[1].substr(1))) + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
+                    summary: api.summary,
+                    dataIndex: dataIndex,
+                    apiIndex: i,
+                    example: api.example,
+                    baseUrl: Doc.baseUrl,
+                    url: data.url,
+                    line: api.line
+                });
+
+        }
+
+        if (inTable) {
+            result += '</table>';
+        }
+
+        if (!returnHtml) {
+            document.write(result);
+        }
+
+        return result;
+    },
+
     /**
      * 展开 API 详情。
      */
-    expandApi: function (td, dataIndex, apiIndex) {
+    expandApi: function (dataIndex, apiIndex) {
+        var td = document.getElementById('doc_api_' + dataIndex + '_' + apiIndex);
         var api = Doc._apis[dataIndex].apis[apiIndex];
         var result = api.summary || '';
 
@@ -2273,15 +2387,15 @@ var Doc = {
         }
 
         result += Doc.parseTpl('<div class="doc-toolbar">\
-                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
+                    <a href="javascript:Doc.collapseApi({dataIndex}, {apiIndex})" title="折叠当前 API 的更多说明"><span class="doc-icon">︿</span>折叠</a>\
                 </div>', {
                     dataIndex: dataIndex,
                     apiIndex: apiIndex
                 });
 
         td.colSpan = 2;
-        //td.parentNode.removeChild(td.nextSibling);
         td.nextSibling.style.display = 'none';
+        td._innerHTML = td.innerHTML;
         td.innerHTML = result;
 
         Doc.renderCodes();
@@ -2290,108 +2404,19 @@ var Doc = {
     /**
      * 折叠 API 详情。
      */
-    collapseApi: function (td, dataIndex, apiIndex) {
-        var api = Doc._apis[dataIndex].apis[apiIndex];
+    collapseApi: function (dataIndex, apiIndex) {
+        var td = document.getElementById('doc_api_' + dataIndex + '_' + apiIndex);
         td.colSpan = 1;
         td.nextSibling.style.display = '';
-        td.innerHTML = Doc.parseTpl('{summary}<div class="doc-toolbar">\
-                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
-                </div>', {
-                    summary: api.summary,
-                    dataIndex: dataIndex,
-                    apiIndex: apiIndex
-                });
+        td.innerHTML = td._innerHTML;
     },
 
     /**
-     * 生成 API 列表。
+     * 更新当前页面的文档。
      */
-    writeApi: function (data, returnHtml) {
+    updateDocs: function () {
 
-        if (!Doc._apis) {
-            Doc._apis = [];
-        }
-        var dataIndex = Doc._apis.length;
-        Doc._apis.push(data);
-
-        if (data.url && !returnHtml) {
-            var h2 = document.getElementsByTagName('h2');
-            h2 = h2[h2.length - 1];
-            if (h2) {
-                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{url}" target="_blank">{url}</a>)</small>', data);
-            }
-        }
-
-        var result = '';
-        var inTable = false;
-
-        for (var i = 0; i < data.apis.length; i++) {
-            var api = data.apis[i];
-
-            if (api.memberType === 'category') {
-                if (inTable) {
-                    result += '</table>';
-                    inTable = false;
-                }
-                result += Doc.parseTpl('<h3>{name}</h3>{summary}', api);
-                continue;
-            }
-
-            if (!inTable) {
-                result += '<table class="doc-section doc-api">';
-                result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
-                inTable = true;
-            }
-
-            var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
-
-            var vars = {
-                'Function': 'fn',
-                'Array': 'arr',
-                'String': 'str',
-                'Object': 'obj',
-                'RegExp': 're',
-                'Number': 'num',
-                'Element': 'elem'
-            };
-
-            result += Doc.parseTpl('<tr><td class="doc">{prefix}<code>{name}</code><div class="doc-toolbar">\
-                    <a href="{baseUrl}assets/tools/sourceReader.html?file={url}#{line}" title="查看源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
-                </div></td><td class="doc">{summary}<div class="doc-toolbar">\
-                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
-                </div></td><td class="doc">{example}</td></tr>', {
-                    prefix: /^ES/.test(api.since) ? '<small>(' + api.since + ')</small>' : '',
-                    name: match ? '<em>' + (vars[match[1]] || (match[1].charAt(0).toLowerCase() + match[1].substr(1))) + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
-                    summary: api.summary,
-                    dataIndex: dataIndex,
-                    apiIndex: i,
-                    example: api.example,
-                    baseUrl: Doc.baseUrl,
-                    url: data.url,
-                    line: api.line
-                });
-
-        }
-
-        if (inTable) {
-            result += '</table>';
-        }
-
-        if (!returnHtml) {
-            document.write(result);
-        }
-
-        return result;
-    },
-    
-    /**
-     * 执行页内所有代码。
-     */
-    execAll: function () {
-        Doc.Dom.each('a[title="执行本代码"]', function (a) {
-            a.click();
-        });
-    },
+    }
 
     // #endregion
 
