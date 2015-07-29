@@ -2322,6 +2322,8 @@ var Doc = {
 
     // #endregion
 
+    // #endregion
+
 };
 
 // 判断当前系统是否在后台运行。
