@@ -90,16 +90,16 @@ var Doc = {
     headerTpl: '<nav id="doc_topbar" class="doc-container doc-section doc-clear">\
                     <a href="{baseUrl}{indexUrl}" id="doc_logo" title="TealUI(网页版)">TealUI<small>{version}</small></a>\
                     <span id="doc_menu" class="doc-right">\
-                        <button type="button" id="doc_menu_search" onclick="Doc.Page.toggleSidebar();" {touchToClick}><span class="doc-icon">☌</span></button>\
-                        <button type="button" id="doc_menu_navbar" onclick="Doc.Page.toggleNavbar();" {touchToClick}><span class="doc-icon">≡</span></button>\
+                        <button type="button" id="doc_menu_search" onclick="Doc.toggleSidebar();" {touchToClick}><span class="doc-icon">☌</span></button>\
+                        <button type="button" id="doc_menu_navbar" onclick="Doc.toggleNavbar();" {touchToClick}><span class="doc-icon">≡</span></button>\
                     </span>\
                     <ul id="doc_navbar">\
                         <li{actived:docs}><a href="{baseUrl}docs/{indexUrl}">开始使用</a></li>\
-                        <li{actived:demos}><a href="{baseUrl}src/{indexUrl}">所有组件</a></li>\
+                        <li{actived:src}><a href="{baseUrl}src/{indexUrl}">所有组件</a></li>\
                         <li{actived:assets}><a href="{baseUrl}assets/tools/download.html">下载和定制</a></li>\
                     </ul>\
-                    <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
-                        <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.Page.showSearchSuggest(this.value)" onblur="Doc.Page.hideSearchSuggest()" oninput="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.Page.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_search_suggest\', event)" />\
+                    <form id="doc_search" class="doc-right" onsubmit="Doc.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
+                        <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.showSearchSuggest(this.value)" onblur="Doc.hideSearchSuggest()" oninput="Doc.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.onSuggestKeyPress(\'doc_search_suggest\', event)" />\
                         <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>\
                     </form>\
                 </nav>\
@@ -108,23 +108,23 @@ var Doc = {
                     <p>{current:pageDescription}</p>\
                 </header>\
                 <aside id="doc_sidebar">\
-                    <form id="doc_sidebar_filter" onsubmit="Doc.Page.onSuggestSubmit(\'doc_sidebar_list\'); return false;">\
-                        <input type="search" class="doc-section" placeholder="搜索{current:pageName}..."  autocomplete="off" oninput="Doc.Page.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onchange="Doc.Page.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onkeydown="Doc.Page.onSuggestKeyPress(\'doc_sidebar_list\', event)" />\
+                    <form id="doc_sidebar_filter" onsubmit="Doc.onSuggestSubmit(\'doc_sidebar_list\'); return false;">\
+                        <input type="search" class="doc-section" placeholder="搜索{current:pageName}..."  autocomplete="off" oninput="Doc.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onchange="Doc.onSuggestInput(\'doc_sidebar_list\', this.value, true)" onkeydown="Doc.onSuggestKeyPress(\'doc_sidebar_list\', event)" />\
                     </form>\
                     <dl id="doc_sidebar_list" class="doc-section doc-list"><dd><small>正在载入列表...</small></dd></dl>\
                 </aside>\
-                <div id="doc_mask" onclick="Doc.Page.toggleSidebar()" {touchToClick}></div>\
+                <div id="doc_mask" onclick="Doc.toggleSidebar()" {touchToClick}></div>\
                 <div id="doc_progress"></div>\
-                <a href="javascript:Doc.Page.gotoTop();" class="doc-pager" id="doc_pager_up" accesskey="W" title="返回顶部(Alt{shift}+W)"><span class="doc-icon">↑</span></a>\
-                <a href="javascript:Doc.Page.movePage(false);" class="doc-pager" id="doc_pager_left" accesskey="S" title="上一页(Alt{shift}+S)"><span class="doc-icon">←</span></a>\
-                <a href="javascript:Doc.Page.movePage(true);" class="doc-pager" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>\
+                <a href="javascript:Doc.gotoTop();" class="doc-pager" id="doc_pager_up" accesskey="W" title="返回顶部(Alt{shift}+W)"><span class="doc-icon">↑</span></a>\
+                <a href="javascript:Doc.movePage(false);" class="doc-pager" id="doc_pager_left" accesskey="S" title="上一页(Alt{shift}+S)"><span class="doc-icon">←</span></a>\
+                <a href="javascript:Doc.movePage(true);" class="doc-pager" id="doc_pager_right" accesskey="D" title="下一页(Alt+Shift+D)"><span class="doc-icon">→</span></a>\
                 <aside id="doc_module_toolbar" class="doc-toolbar doc-right doc-section">\
                     {download:<a href="#" target="_blank"><span class="doc-icon">↧</span>下载此组件</a>}\
-                    <a href="javascript:;" onclick="Doc.Page.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
+                    <a href="javascript:;" onclick="Doc.toggleFavorites(this);">{favorite:<span class="doc-icon">✰</span>收藏}</a>\
                     <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
-                <h1 id="doc_title">{title} <a href=""><small>{name}</small></a></h1>\
-                {summary:<blockquote class="doc-summary">#</blockquote>}',
+                <h1 id="doc_title">{title} <small><a href="">{name}</a>{local:&nbsp;&nbsp;<a href="javascript://重新扫描源码以提取文档" onclick="Doc.updateDocs();"><span class="doc-icon">↻</span>更新文档</a>&nbsp;&nbsp;<a href="javascript://执行页面内所有代码以验证正确性" onclick="Doc.execAllCodes();"><span class="doc-icon">▶</span>执行用例</a>}</small></h1>\
+                {summary:<p>#</p>}',
 
     /**
      * 配置当前网页底部的模板。
@@ -1284,6 +1284,38 @@ var Doc = {
         }
     },
 
+    /**
+     * 渐变滚动元素的垂直位置。
+     */
+    scrollTo: function (elem, y) {
+
+        // 如果是文档，则测试当前滚动的是 documentElement 还是 body
+        if (elem === document) {
+            var html = elem.documentElement,
+                body = elem.body;
+            if (html.scrollTop) {
+                elem = html;
+            } else if (body.scrollTop) {
+                elem = body;
+            } else {
+                html.scrollTop = 1;
+                elem = html.scrollTop ? html : body;
+                html.scrollTop = 0;
+            }
+        }
+
+        var count = 5,
+            currentSceoll = elem.scrollTop,
+            stepY = (y - currentSceoll) / count;
+        function moveNext() {
+            elem.scrollTop = currentSceoll += stepY;
+            if (--count > 0) {
+                setTimeout(moveNext, 20);
+            }
+        }
+        moveNext();
+    },
+
     // #endregion
 
     // #region 页面交互
@@ -1390,7 +1422,7 @@ var Doc = {
                     },
 
                     favorite: function (html) {
-                        return (Doc.getStore('favorites') || '').indexOf(Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
+                        return ~(Doc.getStore('favorites') || '').indexOf(Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
                     },
 
                     folder: function (name) {
@@ -1404,6 +1436,10 @@ var Doc = {
                     summary: function (html) {
                         var metaDdescription = document.querySelector('meta[name=description]');
                         return metaDdescription ? html.replace('#', metaDdescription.content) : '';
+                    },
+
+                    local: function (html) {
+                        return Doc.local ? html : '';
                     }
 
                 };
@@ -1425,7 +1461,7 @@ var Doc = {
 
                         window.duoshuoQuery = { short_name: "teal" };
                         Doc.loadScript('//static.duoshuo.com/embed.js');
-                        setTimeout(Doc.updateSidebar, 600);
+                        setTimeout(Doc.updateLayout, 600);
                     }
 
                     // 插入底部。
@@ -1436,7 +1472,7 @@ var Doc = {
                     document.body.appendChild(footer);
 
                     // 底部影响边栏大小。
-                    Doc.updateSidebar(true);
+                    Doc.updateLayout(true);
 
                 });
 
@@ -1467,15 +1503,15 @@ var Doc = {
                 }
 
                 // 滚动和重置大小后实时更新。
-                window.addEventListener('resize', Doc.updateSidebar, false);
-                window.addEventListener('scroll', Doc.updateSidebar, false);
-                window.addEventListener('load', Doc.updateSidebar, false);
+                window.addEventListener('resize', Doc.updateLayout, false);
+                window.addEventListener('scroll', Doc.updateLayout, false);
+                window.addEventListener('load', Doc.updateLayout, false);
 
                 // 更新列表大小。
-                Doc.updateSidebar();
+                Doc.updateLayout();
 
                 // 载入列表内容。
-                Doc.loadScript(Doc.baseUrl + Doc.indexPath, function () {
+                Doc.loadModuleList(function () {
 
                     // 更新列表项。
                     Doc.updateModuleList(list, Doc.folder, '', true);
@@ -1529,9 +1565,9 @@ var Doc = {
     // #region 侧边栏和导航条
 
     /**
-     * 更新侧边布局。
+     * 更新页面布局。
      */
-    updateSidebar: function (sidebarOnly) {
+    updateLayout: function (updateSidebarOnly) {
         var sidebar = document.getElementById('doc_sidebar'),
             list = document.getElementById('doc_sidebar_list'),
             filter = document.getElementById('doc_sidebar_filter'),
@@ -1564,11 +1600,12 @@ var Doc = {
             footer.style.marginTop = bodyHeight / 2 + 'px';
         }
 
-        if (sidebarOnly !== true) {
+        if (updateSidebarOnly !== true) {
 
             // 更新返回顶部按钮。
             document.getElementById('doc_pager_up').className = mainTop < 0 ? 'doc-pager' : 'doc-pager doc-pager-hide';
 
+            // 更新进度条位置。
             var contentHeight = mainBottom - mainTop - bodyHeight;
 
             // 减去评论框的高度。
@@ -1577,7 +1614,6 @@ var Doc = {
                 contentHeight -= thread.offsetHeight;
             }
 
-            // 更新进度条位置。
             document.getElementById('doc_progress').style.width = mainTop < 0 ? Math.min(-mainTop * 100 / contentHeight, 100) + '%' : 0;
 
         }
@@ -1613,9 +1649,48 @@ var Doc = {
         var sidebar = document.getElementById('doc_sidebar');
         if (sidebar.className !== 'doc-sidebar-actived') {
             sidebar.className = 'doc-sidebar-actived';
-            Doc.Page.updateSidebar(true);
+            Doc.updateLayout(true);
         } else {
             sidebar.className = 'doc-sidebar-inactived';
+        }
+    },
+
+    /**
+     * 显示搜索下拉菜单。
+     */
+    showSearchSuggest: function (filter) {
+        var suggest = document.getElementById('doc_search_suggest');
+        if (!suggest) {
+            suggest = document.getElementById('doc_search').appendChild(document.createElement('dl'));
+            suggest.id = 'doc_search_suggest';
+            suggest.className = 'doc-list';
+            suggest.onmouseover = function (e) {
+                var target = e.target;
+                while (target != suggest && target.tagName !== 'DD') {
+                    target = target.parentNode;
+                }
+                if (target != suggest) {
+                    var actived = suggest.querySelector('.doc-list-actived');
+                    if (actived) {
+                        actived.className = '';
+                    }
+                    target.className = 'doc-list-actived';
+                }
+            };
+        }
+        suggest.style.display = '';
+        Doc.updateModuleList(suggest, 'src', filter, false);
+    },
+
+    /**
+     * 隐藏搜索下拉菜单。
+     */
+    hideSearchSuggest: function () {
+        var suggest = document.getElementById('doc_search_suggest');
+        if (suggest) {
+            setTimeout(function () {
+                suggest.style.display = 'none';
+            }, 300);
         }
     },
 
@@ -1640,9 +1715,9 @@ var Doc = {
      * @param {Element} elem 列表容器 DL 元素。
      * @param {String} listName 显示的列表名。
      * @param {String} filter 搜索的关键字。
-     * @param {Boolean} includeHeader 是否显示标题。
+     * @param {Boolean} showHeader 是否显示标题。
      */
-    updateModuleList: function (elem, listName, filter, includeHeader) {
+    updateModuleList: function (elem, listName, filter, showHeader) {
 
         if (!elem) {
             return;
@@ -1705,36 +1780,61 @@ var Doc = {
                 item,
                 args = {},
                 docPath = Doc.path.toLowerCase(),
-                history = !includeHeader && Doc.getStore('moduleViewHistroy');
+                histories = !showHeader && Doc.getStore('moduleViewHistroy');
 
             for (path in list) {
                 item = list[path];
-                if (!item.level || (!filter && includeHeader)) {
+                if (!item.level || (!filter && showHeader)) {
 
-                    name = includeHeader && !filter ? item.name.replace(/^.*\//, "") : item.name;
+                    name = showHeader && !filter ? item.name.replace(/^.*\//, "") : item.name;
                     args.name = args.orignalName = name;
                     args.title = args.orignalTitle = item.title;
                     args.level = item.level;
                     args.status = item.status || 'done';
                     args.url = Doc.baseUrl + listName + '/' + path;
                     if (!Doc.local) {
-                        args.url = Doc.appendQuery(args.url, "from", includeHeader ? "sidebar" : "suggest");
+                        args.url = Doc.appendQuery(args.url, "from", showHeader ? "sidebar" : "suggest");
                     }
 
                     // 应用过滤高亮。
                     if (filter) {
                         args.name = applyFilter(name, null, filter);
                         args.title = applyFilter(item.title, item.titlePinYin && item.titlePinYin.split(' '), filter);
-                        args.order = args.title.length > item.title.length ? 1 : args.name.length > name.length ? 2 : item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.keywordsPinYin.split(/[, ]/), filter).length > item.keywords.length ? 3 : item.contents && applyFilter(item.contents, item.contentsPinYin && item.contentsPinYin.split(/[, ]/), filter).length > item.contents.length ? 4 : 0;
+
+                        // 优先级：
+                        // name === filter
+                        // title === filter
+                        // name.startsWith(filter)
+                        // title.startsWith(filter)
+                        // namePinYin.startsWith(filter)
+                        // titlePinYin.startsWith(filter)
+                        // name.contains(filter) || namePinYin.contains(filter)
+                        // title.contains(filter) || titlePinYin.contains(filter)
+                        // keywords.contains(filter) || keywordsPinYin.contains(filter)
+                        // contents.contains(filter) || contentsPinYin.contains(filter)
+
+                        args.order = args.name.length > name.length || args.title.length > item.title.length ? (
+                            name === filter ? 3 :
+                            item.title === filter ? 6 :
+                            args.name.indexOf('<span class="doc-red">') === 0 ? 23 :
+                            args.title.indexOf('<span class="doc-red">') === 0 ? 26 :
+                            args.name.length > name.length ? 43 : 46
+                        ) : (
+                            item.keywords && item.keywords.indexOf(filter) > 0 ? 53 :
+                            item.contents && item.contents.indexOf(filter) > 0 ? 56 :
+                            item.keywords && applyFilter(item.keywords, item.keywordsPinYin && item.keywordsPinYin.split(/[, ]/), filter).length > item.keywords.length ? 63 :
+                            item.contents && applyFilter(item.contents, item.contentsPinYin && item.contentsPinYin.split(/[, ]/), filter).length > item.contents.length ? 66 : 0
+                        );
+
                         if (!args.order) {
                             continue;
                         }
                         args.actived = 'doc-list-order-' + args.order + ' ';
-                    } else if (includeHeader) {
+                    } else if (showHeader) {
                         args.actived = path.toLowerCase() === docPath ? 'doc-list-actived ' : '';
                     }
 
-                    segments[history && history.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.parseTpl(item.level ? '<dt class="doc-list-header-{level}" title="{title}({name})">{title} <small>{name}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}" title="{orignalTitle}({orignalName})">{title} <small>{name}</small></a></dd>', args));
+                    segments[histories && histories.indexOf(path) >= 0 ? 'unshift' : 'push'](Doc.parseTpl(item.level ? '<dt class="doc-list-header-{level}" title="{title}({name})">{title} <small>{name}</small></dt>' : '<dd class="{actived}doc-list-{status}"><a href="{url}" title="{orignalTitle}({orignalName})">{title} <small>{name}</small></a></dd>', args));
 
                 }
             }
@@ -1746,8 +1846,8 @@ var Doc = {
             elem.innerHTML = segments.join('') || '<dd><small>无搜索结果</small></dd>';
 
             // 滚动到可见范围。
-            if (!includeHeader || filter) {
-                Doc.Page.moveActivedItem(elem);
+            if (!showHeader || filter) {
+                Doc.moveActivedItem(elem);
             }
 
         });
@@ -1760,7 +1860,7 @@ var Doc = {
      * @param {Boolean} [down=true] 如果为 false 则向上翻否则向下。
      */
     moveActivedItem: function (elem, down) {
-        // 只在存在列表项执行。
+        // 只在存在项执行。
         if (elem.querySelector('dd a')) {
             var actived = elem.querySelector('dd.doc-list-actived'),
                 node;
@@ -1785,7 +1885,7 @@ var Doc = {
             }
 
             node.className = 'doc-list-actived';
-            Doc.Page.scrollActivedItemIntoView(elem);
+            Doc.scrollActivedItemIntoView(elem);
 
         }
     },
@@ -1818,53 +1918,23 @@ var Doc = {
      * 跳转到模块列表的高亮项。
      */
     onSuggestSubmit: function (suggestId) {
-        Doc.Page.gotoActivedItem(document.getElementById(suggestId));
-    },
-
-    onSuggestInput: function (suggestId, filter, includeHeader) {
-        Doc.Page.updateModuleList(document.getElementById(suggestId), includeHeader ? Doc.folder : 'demos', filter, includeHeader);
-    },
-
-    onSuggestKeyPress: function (suggestId, e) {
-        if (e.keyCode === 40 || e.keyCode === 38) {
-            e.preventDefault();
-            Doc.Page.moveActivedItem(document.getElementById(suggestId), e.keyCode === 40);
-        }
+        Doc.gotoActivedItem(document.getElementById(suggestId));
     },
 
     /**
-     * 显示搜索下拉菜单。
+     * 搜索框输入。
      */
-    showSearchSuggest: function (filter) {
-        var suggest = document.getElementById('doc_search_suggest');
-        if (!suggest) {
-            suggest = document.getElementById('doc_search').appendChild(document.createElement('dl'));
-            suggest.id = 'doc_search_suggest';
-            suggest.className = 'doc-list';
-            suggest.onmouseover = function (e) {
-                var target = e.target;
-                while (target != suggest && target.tagName !== 'DD') {
-                    target = target.parentNode;
-                }
-                if (target != suggest) {
-                    var actived = suggest.querySelector('.doc-list-actived');
-                    if (actived) {
-                        actived.className = '';
-                    }
-                    target.className = 'doc-list-actived';
-                }
-            };
-        }
-        suggest.style.display = '';
-        Doc.Page.updateModuleList(suggest, 'demos', filter, false);
+    onSuggestInput: function (suggestId, filter, showHeader) {
+        Doc.updateModuleList(document.getElementById(suggestId), showHeader ? Doc.folder : 'src', filter, showHeader);
     },
 
-    hideSearchSuggest: function () {
-        var suggest = document.getElementById('doc_search_suggest');
-        if (suggest) {
-            setTimeout(function () {
-                suggest.style.display = 'none';
-            }, 300);
+    /**
+     * 搜索框按下。
+     */
+    onSuggestKeyPress: function (suggestId, e) {
+        if (e.keyCode === 40 || e.keyCode === 38) {
+            e.preventDefault();
+            Doc.moveActivedItem(document.getElementById(suggestId), e.keyCode === 40);
         }
     },
 
@@ -1872,9 +1942,12 @@ var Doc = {
 
     // #region 其它页面交互
 
+    /**
+     * 切换收藏
+     */
     toggleFavorites: function (button) {
         if (window.localStorage) {
-            var favorates = localStorage.doc_favorites ? localStorage.doc_favorites.split(';') : [];
+            var favorates = Doc.getStore('favorites') || [];
             if (favorates.indexOf(Doc.path) < 0) {
                 favorates.push(Doc.path);
                 button.innerHTML = '<span class="doc-icon">★</span>已收藏';
@@ -1882,36 +1955,33 @@ var Doc = {
                 favorates.splice(favorates.indexOf(Doc.path), 1);
                 button.innerHTML = '<span class="doc-icon">✰</span>收藏';
             }
-            localStorage.doc_favorites = favorates.join(';');
+            Doc.setStore('favorites', favorates);
         }
     },
 
+    /**
+     * 返回顶部。
+     */
     gotoTop: function () {
-        var srcollElement = document.documentElement,
-            step;
-        if (!srcollElement.scrollTop) {
-            srcollElement = document.body;
-        }
-        var step = srcollElement.scrollTop / 5;
-        function moveNext() {
-            srcollElement.scrollTop -= step;
-            if (srcollElement.scrollTop > 0) {
-                setTimeout(moveNext, 20);
-            }
-        }
-        moveNext();
+        Doc.scrollTo(document, 0);
     },
 
+    /**
+     * 切换页面。
+     */
     movePage: function (down) {
         var list = document.getElementById('doc_sidebar_list');
-        Doc.Page.moveActivedItem(list, down);
-        Doc.Page.gotoActivedItem(list);
+        Doc.moveActivedItem(list, down);
+        Doc.gotoActivedItem(list);
     },
 
     // #endregion
 
     // #region API文档
 
+    /**
+     * 展开 API 详情。
+     */
     expandApi: function (td, dataIndex, apiIndex) {
         var api = Doc._apis[dataIndex].apis[apiIndex];
         var result = api.summary || '';
@@ -1962,7 +2032,7 @@ var Doc = {
         }
 
         result += Doc.parseTpl('<div class="doc-toolbar">\
-                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.Page.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
+                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
                 </div>', {
                     dataIndex: dataIndex,
                     apiIndex: apiIndex
@@ -1976,12 +2046,15 @@ var Doc = {
         Doc.renderCodes();
     },
 
+    /**
+     * 折叠 API 详情。
+     */
     collapseApi: function (td, dataIndex, apiIndex) {
         var api = Doc._apis[dataIndex].apis[apiIndex];
         td.colSpan = 1;
         td.nextSibling.style.display = '';
         td.innerHTML = Doc.parseTpl('{summary}<div class="doc-toolbar">\
-                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.Page.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
+                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
                 </div>', {
                     summary: api.summary,
                     dataIndex: dataIndex,
@@ -2285,7 +2358,7 @@ var Doc = {
             result += Doc.parseTpl('<tr><td class="doc">{prefix}<code>{name}</code><div class="doc-toolbar">\
                     <a href="{baseUrl}assets/tools/sourceReader.html?file={url}#{line}" title="查看源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
                 </div></td><td class="doc">{summary}<div class="doc-toolbar">\
-                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.Page.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
+                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
                 </div></td><td class="doc">{example}</td></tr>', {
                     prefix: /^ES/.test(api.since) ? '<small>(' + api.since + ')</small>' : '',
                     name: match ? '<em>' + (vars[match[1]] || (match[1].charAt(0).toLowerCase() + match[1].substr(1))) + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,

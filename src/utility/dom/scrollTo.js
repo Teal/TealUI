@@ -17,21 +17,21 @@ Dom.prototype.scrollTo = function (x, y, duration, callback) {
         duration = duration || 100;
         elem = Dom(elem);
         var count = duration / 20,
-            step = duration / count,
+            fps = duration / count,
             currentSceoll = elem.scroll(),
             stepX = (x - currentSceoll.left) / count,
             stepY = (y - currentSceoll.top) / count;
-        moveNext();
         function moveNext() {
             if (x != null) currentSceoll.left += stepX;
             if (y != null) currentSceoll.top += stepY;
             elem.scroll(currentSceoll);
             if (--count > 0) {
-                setTimeout(moveNext, step);
+                setTimeout(moveNext, fps);
             } else {
                 callback && callback.call(elem, x, y, duration);
             }
         }
+        moveNext();
     }) : this.scroll({ left: x, top: y });
 
 };

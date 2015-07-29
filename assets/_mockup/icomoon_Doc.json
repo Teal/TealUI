@@ -11618,11 +11618,11 @@
 				},
 				{
 					"id": 29,
-					"order": 0,
+					"order": 47,
 					"prevSize": 14,
 					"code": 8635,
 					"name": "repeat",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 30,
@@ -11646,7 +11646,7 @@
 					"prevSize": 14,
 					"code": 8593,
 					"name": "arrow-up",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 93,
@@ -11662,7 +11662,7 @@
 					"prevSize": 14,
 					"code": 8592,
 					"name": "arrow-left",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 91,
@@ -11670,7 +11670,7 @@
 					"prevSize": 14,
 					"code": 8594,
 					"name": "arrow-right",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 230,
@@ -11742,7 +11742,7 @@
 					"prevSize": 14,
 					"code": 65087,
 					"name": "chevron-up",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 113,
@@ -11750,7 +11750,7 @@
 					"prevSize": 14,
 					"code": 65088,
 					"name": "chevron-down",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 78,
@@ -11894,7 +11894,7 @@
 					"prevSize": 14,
 					"code": 10003,
 					"name": "check",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 13,
@@ -12122,19 +12122,19 @@
 				},
 				{
 					"id": 9,
-					"order": 0,
+					"order": 41,
 					"prevSize": 14,
 					"code": 9637,
 					"name": "th-large",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 11,
-					"order": 0,
+					"order": 42,
 					"prevSize": 14,
 					"code": 9636,
 					"name": "th-list",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 177,
@@ -12142,7 +12142,7 @@
 					"prevSize": 14,
 					"code": 8801,
 					"name": "bars",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 288,
@@ -12154,11 +12154,11 @@
 				},
 				{
 					"id": 287,
-					"order": 0,
+					"order": 40,
 					"prevSize": 14,
 					"code": 8230,
 					"name": "ellipsis-h",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 430,
@@ -12186,19 +12186,19 @@
 				},
 				{
 					"id": 163,
-					"order": 0,
+					"order": 45,
 					"prevSize": 14,
 					"code": 9768,
 					"name": "wrench",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 459,
-					"order": 0,
+					"order": 44,
 					"prevSize": 14,
 					"code": 8362,
 					"name": "trash",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 64,
@@ -12206,7 +12206,7 @@
 					"prevSize": 14,
 					"code": 9997,
 					"name": "edit",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 60,
@@ -12222,7 +12222,7 @@
 					"prevSize": 14,
 					"code": 182,
 					"name": "paragraph",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 28,
@@ -12358,7 +12358,7 @@
 					"prevSize": 14,
 					"code": 47,
 					"name": "code",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 148,
@@ -12394,27 +12394,27 @@
 				},
 				{
 					"id": 236,
-					"order": 0,
+					"order": 39,
 					"prevSize": 14,
 					"code": 9634,
 					"name": "desktop",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 238,
-					"order": 0,
+					"order": 38,
 					"prevSize": 14,
 					"code": 21475,
 					"name": "tablet",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 239,
-					"order": 0,
+					"order": 37,
 					"prevSize": 14,
 					"code": 12566,
 					"name": "mobile",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 340,
@@ -12470,7 +12470,7 @@
 					"prevSize": 14,
 					"code": 113,
 					"name": "qq",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 428,
@@ -12486,7 +12486,7 @@
 					"prevSize": 14,
 					"code": 9830,
 					"name": "bug",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 464,
@@ -12798,7 +12798,7 @@
 					"prevSize": 14,
 					"code": 9654,
 					"name": "play",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 72,
@@ -13003,7 +13003,7 @@
 					"prevSize": 14,
 					"code": 9808,
 					"name": "external-link",
-					"tempChar": ""
+					"tempChar": ""
 				},
 				{
 					"id": 135,
