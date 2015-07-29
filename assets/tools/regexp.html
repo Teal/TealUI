@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>常用正则</title>
+    <script type="text/javascript" src="../../../assets/doc.js"></script>
+</head>
+<body>
+    <dl>
+        <dt>网络</dt>
+        <dd>Email: <code>/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/</code></dd>
+        <dd>网址: <code>/^[a-zA-z]+:///</code></dd>
+        <dd>HTML: <code>/<(\s*?)[^>]*>.*?</\1>|<.*? />/</code></dd>
+        <dd>首尾空白字符: <code>/^\s*|\s*$/g</code></dd>
+        <dt>中文</dt>
+        <dd>中文: <code>/\u4e00-\u9fa5/</code></dd>
+        <dd>身份证: <code>/\d{15}|\d{18}/</code></dd>
+    </dl>
+</body>
+</html>
