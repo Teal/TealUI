@@ -8,7 +8,7 @@
     <meta name="description" content="TealUI - 最完整的开源前端代码库">
     <meta name="keywords" content="TealUI, HTML5 UI Framework, 前端组件">
     <link rel="icon" type="image/x-icon" href="assets/web/images/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="assets/doc.css">
+    <link rel="stylesheet" type="text/css" href="assets/doc/doc.css">
     <link rel="stylesheet" type="text/css" href="assets/web/index.css">
     <script type="text/javascript" src="assets/doc/doc.js"></script>
 </head>
@@ -24,18 +24,17 @@
         </style>
     <![endif]-->
     <nav id="doc_topbar" class="doc-container doc-section doc-clear">
-        <a href="index.html" id="doc_logo" title="TealUI(网页版)">TealUI<small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
+        <a href="index.html" id="doc_logo" title="TealUI(网页版)">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
         <span id="doc_menu" class="doc-right">
-            <button type="button" id="doc_menu_navbar" onclick="Doc.Page.toggleNavbar();"><span class="doc-icon">≡</span></button>
+            <button type="button" id="doc_menu_navbar" onclick="Doc.toggleNavbar();"><span class="doc-icon">≡</span></button>
         </span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
             <li><a href="src/index.html">所有组件</a></li>
-            <li><a href="tools/customize/index.html">下载和定制</a></li>
-            <li><a href="tools/devTools/index.html">开发者工具</a></li>
+            <li><a href="assets/tools/download.html">下载和定制</a></li>
         </ul>
-        <form id="doc_search" class="doc-right" onsubmit="Doc.Page.onSuggestSubmit('doc_search_suggest'); return false;">
-            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.Page.showSearchSuggest(this.value)" onblur="Doc.Page.hideSearchSuggest()" oninput="Doc.Page.onSuggestInput('doc_search_suggest', this.value, false)" onchange="Doc.Page.onSuggestInput('doc_search_suggest', this.value, false)" onkeydown="Doc.Page.onSuggestKeyPress('doc_search_suggest', event)" />
+        <form id="doc_search" class="doc-right" onsubmit="Doc.onSuggestSubmit('doc_search_suggest'); return false;">
+            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.showSearchSuggest(this.value)" onblur="Doc.hideSearchSuggest()" oninput="Doc.onSuggestInput('doc_search_suggest', this.value, false)" onchange="Doc.onSuggestInput('doc_search_suggest', this.value, false)" onkeydown="Doc.onSuggestKeyPress('doc_search_suggest', event)" />
             <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>
         </form>
     </nav>
@@ -94,11 +93,11 @@
         <div class="doc-row doc-row-2">
             <dl class="doc-col">
                 <dt>兼容性</dt>
-                <dd>✔ IE 8+</dd>
-                <dd>✔ Firefox 4+</dd>
-                <dd>✔ Chrome 40+</dd>
-                <dd>✔ Safari 6+</d>
-                <dd>✔ Opera 12+</dd>
+                <dd><span class="doc-icon">i</span> IE 8+</dd>
+                <dd><span class="doc-icon">f</span> Firefox 4+</dd>
+                <dd><span class="doc-icon">c</span> Chrome 40+</dd>
+                <dd><span class="doc-icon">s</span> Safari 6+</d>
+                <dd><span class="doc-icon">o</span> Opera 12+</dd>
             </dl>
             <dl class="doc-col">
                 <dt>3.0 新特性</dt>
