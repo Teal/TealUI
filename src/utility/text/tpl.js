@@ -17,6 +17,7 @@ var Tpl = {
      * 编译指定的模板。
      * @param {String} tplSource 要编译的模板文本。
      * @param {String?} cacheKey = tplSource 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。
+     * @example Tpl.compile("{if $data === 1}OK{/if}", 1) // function($data){ ... }
      */
     compile: function (tplSource, cacheKey) {
         cacheKey = cacheKey || tplSource;
@@ -30,19 +31,19 @@ var Tpl = {
      * @param {Object} scope 模板中 this 的指向。
      * @param {String} [cacheKey = tplSource] 表示当前模板的键，主要用于缓存。
      * @returns {String} 返回解析后的模板内容。 
-     * @example Tpl.parse("{if $data === 1}OK{/if}", 1); // "OK"
+     * @example Tpl.parse("{if $data === 1}OK{/if}", 1) // "OK"
      * @remark 
-     * ## 模板语法介绍
+     * #### 模板语法介绍
      * 
      * 在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。
      * 如：
      *      hello {if a > 0} world {/if}
      * 其中 {if a > 0} 和 {end} 是模板内部使用的逻辑表达式，用于控制模板的输出内容。
      * 
-     * ### 常量
+     * ##### 常量
      * 模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 { 本身，使用 }} 代替 } 本身。
      * 
-     * ### if 语句
+     * ##### if 语句
      * 
      *      {if 表达式} 
      *          这里是 if 成功输出的文本 
@@ -52,7 +53,7 @@ var Tpl = {
      *          这里是 else 成功输出的文本 
      *      {/if}
      * 
-     * ### for 语句
+     * ##### for 语句
      *      {for(var key in obj)}
      *          {循环输出的内容}
      *      {end}
@@ -62,32 +63,32 @@ var Tpl = {
      *          {循环输出的内容}
      *      {/for}
      * 
-     * ### while 语句
+     * ##### while 语句
      *      {while 表达式}
      *          {循环输出的内容}
      *      {/while}
      * 
-     * ### continue/break 语句
+     * ##### continue/break 语句
      * 在循环时可使用此类语句终止循环。
      *      {continue}
      * 
      * 
      *      {break}
      * 
-     * ### function 语句
+     * ##### function 语句
      *      {function fn(a, b)}
      *          {函数主体}
      *      {/function}
      * 
-     * ### var 语句
+     * ##### var 语句
      *      {var a = 1, b = 2}
      * 
-     * ### void 语句
+     * ##### void 语句
      * `void` 语句用于执行代码，但不会在模板字符串内添加任何内容。
      * 
      *      {void alert("alert")}
      * 
-     * ### foreach 语句
+     * ##### foreach 语句
      *    为了简化循环操作，模板引擎提供了快速遍历类数组和对象的方式。
      * 
      *      {foreach item in obj}
@@ -112,7 +113,7 @@ var Tpl = {
      *          {/foreach}
      *      {/foreach}
      * 
-     * ### 内置宏变量
+     * ##### 内置宏变量
      * 在模板内部可以直接使用一些内置宏变量。
      * 
      * - `$data`: 被解析的数据。

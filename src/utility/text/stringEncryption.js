@@ -12,10 +12,11 @@ function encryptString(str, key) {
     var length = str.length,
         chartemp = new Array(length--),
         f = str.charCodeAt(0),
-        key1 = ~key,
-        i;
-    for (i = 0; i <= length; i++)
+        key1 = ~key;
+    for (var i = 0; i <= length; i++) {
         chartemp[i] = String.fromCharCode(~(((str.charCodeAt(i) & key1) | ((i === length ? f : str.charCodeAt(i + 1)) & key)) ^ (~(i + length))));
+    }
+        
     return chartemp.join('');
 }
 
@@ -31,18 +32,21 @@ function dencryptString(str, key) {
 
     var length = str.length,
         chartemp = new Array(length--),
-        key1 = ~key,
-        i, f;
+        key1 = ~key;
 
-    for (i = length; i >= 0; i--)
+    for (var i = length; i >= 0; i--) {
         chartemp[i] = ~(str.charCodeAt(i) ^ (~(i + length)));
-    f = chartemp[length];
+    }
+       
+    var f = chartemp[length];
 
-    for (i = length; i >= 0; i--)
+    for (var i = length; i >= 0; i--) {
         chartemp[i] = ((chartemp[i] & key1) | ((i === 0 ? f : (chartemp[i - 1])) & key));
+    }
 
-    for (i = length; i >= 0; i--)
+    for (var i = length; i >= 0; i--) {
         chartemp[i] = String.fromCharCode(chartemp[i]);
+    }
 
     return chartemp.join('');
 }

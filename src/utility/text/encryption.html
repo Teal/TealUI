@@ -12,6 +12,8 @@
     <script type="text/javascript" src="../../utility/text/stringEncryption.js"></script>
     <script type="text/javascript" src="../../utility/text/md5.js"></script>
     <script type="text/javascript" src="../../utility/text/md5Ex.js"></script>
+    <script type="text/javascript" src="../../utility/text/sha1.js"></script>
+    <script type="text/javascript" src="../../utility/text/des.js"></script>
     <script type="text/javascript" src="../../utility/text/obfuscator.js"></script>
     <script type="text/javascript" src="../../utility/text/jjencode.js"></script>
 </head>
@@ -22,8 +24,8 @@
     <h2>字符串简单可逆加密</h2>
     <p>
         <input type="text" id="stringEncryption_value" />
-        <input type="button" value="加密" onclick="document.getElementById('stringEncryption_value').value = encryptString(document.getElementById('stringEncryption_value').value, 'key')" />
-        <input type="button" value="解密" onclick="document.getElementById('stringEncryption_value').value = dencryptString(document.getElementById('md5_value').value, 'key')" />
+        <input type="button" value="加密" onclick="document.getElementById('stringEncryption_value').value = encryptString(document.getElementById('stringEncryption_value').value)" />
+        <input type="button" value="解密" onclick="document.getElementById('stringEncryption_value').value = dencryptString(document.getElementById('stringEncryption_value').value)" />
     </p>
     <script data-gendoc="utility/text/stringEncryption.js">
 
@@ -65,7 +67,7 @@
 					summary: "<p>返回解密后的字符串。</p>"
 				},
 				example: "<pre>dencryptString(\"abc\", 123)</pre>",
-				line: 22,
+				line: 23,
 				col: 1
 			}]
 });</script>
@@ -157,6 +159,36 @@
 			}]
 });</script>
 
+    <h2>SHA-1 加密</h2>
+    <p>
+        <input type="text" id="sha1_value" style="width: 300px;" />
+        <input type="button" value="SHA-1 加密" onclick="document.getElementById('sha1_value').value = sha1(document.getElementById('sha1_value').value)" />
+    </p>
+    <script data-gendoc="utility/text/sha1.js">
+
+        Doc.writeApi({
+			path: "utility/text/sha1.js",
+			apis: []
+});</script>
+
+    <h2>DES 加密</h2>
+    <p>
+        <input type="text" id="des_value" style="width: 300px;" />
+        <input type="button" value="DES 加密" onclick="document.getElementById('des_value').value = sha1(document.getElementById('des_value').value)" />
+    </p>
+    <script data-gendoc="utility/text/des.js">
+
+        Doc.writeApi({
+			path: "utility/text/des.js",
+			apis: [{
+				name: "r",
+				summary: "<p>/////////////////////////// TEST //////////////////////////////</p>",
+				type: "String",
+				line: 193,
+				col: 1
+			}]
+});</script>
+
     <h2>JS 代码混淆</h2>
     <textarea id="obfuscator_input"></textarea><br />
     <input type="button" value="加密" onclick="document.getElementById('obfuscator_input').value = Obfuscator.obfuscate(document.getElementById('obfuscator_input').value)" />
@@ -210,7 +242,7 @@
 					summary: "<p>返回取消混淆的代码。</p>"
 				},
 				example: "<pre>Obfuscator.deobfuscate(\"var a =1\")</pre>",
-				line: 414,
+				line: 415,
 				col: 1
 			}]
 });</script>
