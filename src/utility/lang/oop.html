@@ -91,24 +91,24 @@
     </pre>
 
     <h3>API</h3>
-    <script>
+    <script data-gendoc="utility/lang/class.js">
         Doc.writeApi({
-            url: "utility/lang/class.js",
-            apis: [{
-                memberOf: "Base",
-                name: "extend",
-                summary: "<p>继承当前类创建派生类。</p>",
-                params: [{
-                    type: "Object",
-                    name: "members",
-                    optional: true,
-                    summary: "<p>子类实例成员列表。其中 <code>contructor</code> 成员表示类型构造函数。</p>"
-                }],
-                returns: {
-                    type: "Function",
-                    summary: "<p>返回继承创建的子类。</p>"
-                },
-                remark: "<h4>单继承</h4>\n\
+			path: "utility/lang/class.js",
+			apis: [{
+				memberOf: "Base",
+				name: "extend",
+				summary: "<p>继承当前类创建派生类。</p>",
+				params: [{
+					type: "Object",
+					name: "members",
+					optional: true,
+					summary: "<p>子类实例成员列表。其中 <code>contructor</code> 成员表示类型构造函数。</p>"
+				}],
+				returns: {
+					type: "Function",
+					summary: "<p>返回继承创建的子类。</p>"
+				},
+				remark: "<h4>单继承</h4>\n\
 \n\
 <p>此函数只实现单继承。不同于真正面向对象的语言， <br>\n\
 子类的构造函数默认不会调用父类构造函数，除非子类不存在新的构造函数。</p>\n\
@@ -116,64 +116,64 @@
 <p><code>Base.extend</code> 实际上创建一个新的函数，其原型指向 <code>Base</code> 的原型。 <br>\n\
 由于共享原型链，如果类的成员存在引用成员，则类所有实例将共享它们。 <br>\n\
 因此创建类型时应避免直接声明引用成员，而是改在构造函数里创建。</p>",
-                example: "<pre>var MyClass = Base.extend({  // 创建一个子类。\n\
+				example: "<pre>var MyClass = Base.extend({  // 创建一个子类。\n\
       type: 'a'\n\
 });</pre>\n\
 \n\
 <pre>var obj = new MyClass(); // 创建子类的实例。</pre>",
-                line: 11,
-                col: 1
-            }, {
-                memberOf: "Base.prototype",
-                name: "toString",
-                summary: "<p>返回当前对象的字符串形式。</p>",
-                returns: {
-                    type: "String",
-                    summary: "<p>返回字符串。</p>"
-                },
-                example: "<pre>new (Base.extend())().toString()</pre>",
-                line: 78,
-                col: 1
-            }, {
-                memberOf: "Base.prototype",
-                name: "on",
-                summary: "<p>添加一个事件监听器。</p>",
-                params: [{
-                    type: "String",
-                    name: "eventName",
-                    summary: "<p>要添加的事件名。</p>"
-                }, {
-                    type: "Function",
-                    name: "eventListener",
-                    summary: "<p>要添加的事件监听器。监听器返回 <strong>false</strong> 则终止事件。</p>"
-                }],
-                returns: {
-                    summary: "<p>this</p>"
-                },
-                example: "<pre>new Base().on('click', function (e) {\n\
+				line: 11,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "toString",
+				summary: "<p>返回当前对象的字符串形式。</p>",
+				returns: {
+					type: "String",
+					summary: "<p>返回字符串。</p>"
+				},
+				example: "<pre>new (Base.extend())().toString()</pre>",
+				line: 78,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "on",
+				summary: "<p>添加一个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要添加的事件名。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					summary: "<p>要添加的事件监听器。监听器返回 <strong>false</strong> 则终止事件。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new Base().on('click', function (e) {\n\
         return true;\n\
 });</pre>",
-                line: 96,
-                col: 1
-            }, {
-                memberOf: "Base.prototype",
-                name: "off",
-                summary: "<p>删除一个或多个事件监听器。</p>",
-                params: [{
-                    type: "String",
-                    name: "eventName",
-                    optional: true,
-                    summary: "<p>要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。</p>"
-                }, {
-                    type: "Function",
-                    name: "eventListener",
-                    optional: true,
-                    summary: "<p>要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。</p>"
-                }],
-                returns: {
-                    summary: "<p>this</p>"
-                },
-                remark: "<h4>绑定引用</h4>\n\
+				line: 96,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "off",
+				summary: "<p>删除一个或多个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					optional: true,
+					summary: "<p>要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					optional: true,
+					summary: "<p>要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				remark: "<h4>绑定引用</h4>\n\
 \n\
 <p>注意: <code>function () {} !== function () {}</code>, 这意味着下列代码的 off 将失败:</p>\n\
 \n\
@@ -189,7 +189,7 @@
 </code></pre>\n\
 \n\
 <p>如果同一个 <em>eventListener</em> 被增加多次，off 只删除第一个。</p>",
-                example: "<pre>// 创建一个实例。\n\
+				example: "<pre>// 创建一个实例。\n\
 var a = new Base();</pre>\n\
 \n\
 <pre>var fn = function (e) {\n\
@@ -201,25 +201,25 @@ a.on('click', fn);</pre>\n\
 \n\
 <pre>// 删除一个 click 事件。\n\
 a.off('click', fn);</pre>",
-                line: 126,
-                col: 1
-            }, {
-                memberOf: "Base.prototype",
-                name: "trigger",
-                summary: "<p>手动触发一个监听器。</p>",
-                params: [{
-                    type: "String",
-                    name: "eventName",
-                    summary: "<p>要触发的事件名。</p>"
-                }, {
-                    type: "Object",
-                    name: "eventArgs",
-                    summary: "<p>传递给监听器的参数。</p>"
-                }],
-                returns: {
-                    summary: "<p>如果事件被阻止则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
-                },
-                example: "<pre>// 创建一个实例。\n\
+				line: 126,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "trigger",
+				summary: "<p>手动触发一个监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要触发的事件名。</p>"
+				}, {
+					type: "Object",
+					name: "eventArgs",
+					summary: "<p>传递给监听器的参数。</p>"
+				}],
+				returns: {
+					summary: "<p>如果事件被阻止则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
+				},
+				example: "<pre>// 创建一个实例。\n\
 var a = new Base();</pre>\n\
 \n\
 <pre>// 绑定一个 click 事件。\n\
@@ -229,10 +229,10 @@ a.on('click', function (e) {\n\
 \n\
 <pre>// 手动触发 click， 即执行  on('click') 过的函数。\n\
 a.trigger('click');</pre>",
-                line: 193,
-                col: 1
-            }]
-        });
+				line: 193,
+				col: 1
+			}]
+});
     </script>
 
     <h2>枚举</h2>
@@ -252,110 +252,110 @@ a.trigger('click');</pre>",
     </script>
 
     <h3>API</h3>
-    <script>
+    <script data-gendoc="utility/lang/enum.js">
         Doc.writeApi({
-            url: "utility/lang/enum.js",
-            apis: [{
-                memberOf: "Enum",
-                name: "getName",
-                summary: "<p>根据枚举值返回其枚举名。</p>",
-                params: [{
-                    type: "Object",
-                    name: "enumType",
-                    summary: "<p>枚举类型对象。</p>"
-                }, {
-                    type: "Number",
-                    name: "enumValue",
-                    summary: "<p>枚举的内容。</p>"
-                }],
-                returns: {
-                    type: "String",
-                    summary: "<p>返回枚举键。如果不存在则返回 <strong>null</strong>。</p>"
-                },
-                example: "<pre>Enum.getName(WeekDay, 0) // 'sunday'</pre>",
-                line: 13,
-                col: 1
-            }, {
-                memberOf: "Enum",
-                name: "hasFlags",
-                summary: "<p>判断指定枚举值是否包含指定的标记位。</p>",
-                params: [{
-                    type: "Number",
-                    name: "enumValue",
-                    summary: "<p>要判断的枚举值。</p>"
-                }, {
-                    type: "Number",
-                    name: "flags",
-                    summary: "<p>要判断的枚举标记项。</p>"
-                }],
-                returns: {
-                    type: "Boolean",
-                    summary: "<p>如果包含标记位则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
-                },
-                example: "<pre>var Flags = {\n\
+			path: "utility/lang/enum.js",
+			apis: [{
+				memberOf: "Enum",
+				name: "getName",
+				summary: "<p>根据枚举值返回其枚举名。</p>",
+				params: [{
+					type: "Object",
+					name: "enumType",
+					summary: "<p>枚举类型对象。</p>"
+				}, {
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>枚举的内容。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回枚举键。如果不存在则返回 <strong>null</strong>。</p>"
+				},
+				example: "<pre>Enum.getName(WeekDay, 0) // 'sunday'</pre>",
+				line: 13,
+				col: 1
+			}, {
+				memberOf: "Enum",
+				name: "hasFlags",
+				summary: "<p>判断指定枚举值是否包含指定的标记位。</p>",
+				params: [{
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>要判断的枚举值。</p>"
+				}, {
+					type: "Number",
+					name: "flags",
+					summary: "<p>要判断的枚举标记项。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果包含标记位则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>var Flags = {\n\
     red: 1 << 1,\n\
     yellow: 1 << 2,\n\
     blue: 1 << 3,\n\
 };\n\
 Enum.hasFlags(Flags.red | Flags.yellow, Flags.red); // true</pre>",
-                line: 31,
-                col: 1
-            }, {
-                memberOf: "Enum",
-                name: "setFlag",
-                summary: "<p>设置指定枚举的标记位。</p>",
-                params: [{
-                    type: "Number",
-                    name: "enumValue",
-                    summary: "<p>要判断的枚举值。</p>"
-                }, {
-                    type: "Number",
-                    name: "flags",
-                    summary: "<p>要设置的枚举标记项。</p>"
-                }, {
-                    type: "Boolean",
-                    name: "value",
-                    summary: "<p>如果设置为 <strong>true</strong> 表示添加标记位，否则清空标记位。</p>"
-                }],
-                returns: {
-                    type: "Number",
-                    summary: "<p>返回更新后的枚举值。</p>"
-                },
-                example: "<pre>var Flags = {\n\
+				line: 31,
+				col: 1
+			}, {
+				memberOf: "Enum",
+				name: "setFlag",
+				summary: "<p>设置指定枚举的标记位。</p>",
+				params: [{
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>要判断的枚举值。</p>"
+				}, {
+					type: "Number",
+					name: "flags",
+					summary: "<p>要设置的枚举标记项。</p>"
+				}, {
+					type: "Boolean",
+					name: "value",
+					summary: "<p>如果设置为 <strong>true</strong> 表示添加标记位，否则清空标记位。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回更新后的枚举值。</p>"
+				},
+				example: "<pre>var Flags = {\n\
     red: 1 << 1,\n\
     yellow: 1 << 2,\n\
     blue: 1 << 3,\n\
 };\n\
 var flag = 0;\n\
 flag = Enum.setFlag(flag, Flags.red, true);</pre>",
-                line: 52,
-                col: 1
-            }]
-        });
+				line: 52,
+				col: 1
+			}]
+});
     </script>
 
     <h2>命名空间</h2>
     <p>定义命名空间以避免组件冲突。</p>
-    <script>
+    <script data-gendoc="utility/lang/namespace.js">
         Doc.writeApi({
-            url: "utility/lang/namespace.js",
-            apis: [{
-                name: "namespace",
-                summary: "<p>定义命名空间。</p>",
-                params: [{
-                    type: "String",
-                    name: "ns",
-                    summary: "<p>要创建的命名空间。</p>"
-                }],
-                returns: {
-                    type: "Object",
-                    summary: "<p>如果命名空间已存在则返回之前的命名空间，否则返回新创建的命名空间。</p>"
-                },
-                example: "<pre>namespace(\"MyNameSpace.SubNamespace\")</pre>",
-                line: 6,
-                col: 1
-            }]
-        });
+			path: "utility/lang/namespace.js",
+			apis: [{
+				name: "namespace",
+				summary: "<p>定义命名空间。</p>",
+				params: [{
+					type: "String",
+					name: "ns",
+					summary: "<p>要创建的命名空间。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>如果命名空间已存在则返回之前的命名空间，否则返回新创建的命名空间。</p>"
+				},
+				example: "<pre>namespace(\"MyNameSpace.SubNamespace\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});
     </script>
 </body>
 </html>

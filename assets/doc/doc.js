@@ -13,7 +13,7 @@ var Doc = {
     /**
      * 配置用于处理所有页面请求的服务器地址。
      */
-    servicesUrl: 'http://127.0.0.1:5373/assets/services/',
+    servicesUrl: 'http://localhost:5373/assets/services/',
 
     /**
      * 配置所有文件夹信息。
@@ -124,7 +124,7 @@ var Doc = {
                     <a href="{fullScreenUrl}" target="_blank"><span class="doc-icon">❒</span>全屏</a>\
                 </aside>\
                 <h1 id="doc_title">{title} <small><a href="" title="刷新">{name}</a>{local:&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:Doc.updateDocs()" title="重新扫描源码并更新当前页面相关的文档"><span class="doc-icon">↻</span>更新文档</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:Doc.execAllCodes()" title="执行当前页面的所有示例代码（作为单元测试用例）"><span class="doc-icon">▶</span>执行用例</a>}</small></h1>\
-                <p id="doc_summary">{summary}</p>',
+                {summary:<p id="doc_summary"></p>}',
 
     /**
      * 配置当前网页底部的模板。
@@ -1261,7 +1261,7 @@ var Doc = {
     /**
      * 异步载入一个脚本。
      */
-    loadScript: function (src, callback) {
+    loadScript: function (src, callback, error) {
         var script = document.createElement('SCRIPT');
         script.type = 'text/javascript';
         script.defer = true;
@@ -1274,6 +1274,7 @@ var Doc = {
                 }
             };
         }
+        script.onerror = error;
         var head = document.getElementsByTagName('HEAD')[0] || document.body;
         head.insertBefore(script, head.firstChild);
     },
@@ -1422,7 +1423,7 @@ var Doc = {
                     touchToClick: navigator.userAgent.indexOf('UCBrowser') >= 0 ? '' : 'ontouchstart="this.click(); return false;"',
 
                     download: function (html) {
-                        return this.name && Doc.folder === 'src' ? html.replace('#', Doc.baseUrl + 'tools/download.html?download=' + this.name) : '';
+                        return this.name && Doc.folder === 'src' ? html.replace('#', Doc.baseUrl + 'tools/download.html?path=' + Doc.path) : '';
                     },
 
                     favorite: function (html) {
@@ -1433,7 +1434,10 @@ var Doc = {
                         return name === Doc.folder ? ' class="doc-actived"' : '';
                     },
 
-                    summary: (document.querySelector('meta[name=description]') || { content: '' }).content,
+                    summary: function (html) {
+                        var meta = document.querySelector('meta[name=description]');
+                        return meta && meta.content ? html.replace('>', '>' + meta.content) : '';
+                    },
 
                     local: function (html) {
                         return Doc.local ? html : '';
@@ -1470,6 +1474,9 @@ var Doc = {
                     // 插入页面结构。
                     var indexHtml = '<h2>目录</h2><dl>', counter1 = 0, counter2 = 0;
                     Doc.iterate("h2, h3", function (header) {
+                        if (header.parentNode.className.indexOf('doc-demo') >= 0) {
+                            return;
+                        }
                         var h2 = header.tagName === 'H2';
                         var title = header.firstChild.textContent.trim();
                         if (h2) {
@@ -2273,11 +2280,11 @@ var Doc = {
         var dataIndex = Doc._apis.length;
         Doc._apis.push(data);
 
-        if (data.url && !returnHtml) {
+        if (data.path && !returnHtml) {
             var h2 = document.getElementsByTagName('h2');
             h2 = h2[h2.length - 1];
             if (h2) {
-                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{url}" target="_blank" title="转到源码">{url}</a>)</small>', data);
+                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{url}" target="_blank" title="转到源码">{path}</a>)</small>', data);
             }
         }
 
@@ -2305,7 +2312,7 @@ var Doc = {
             var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
 
             result += Doc.parseTpl('<tr><td class="doc"><code>{name}</code>{since}<div class="doc-toolbar">\
-                    <a href="{baseUrl}assets/tools/sourceReader.html?name={url}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
+                    <a href="{baseUrl}assets/tools/sourceReader.html?path={url}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
                 </div></td><td class="doc" id="doc_api_{dataIndex}_{apiIndex}">{summary}<div class="doc-toolbar">\
                     <a href="javascript:Doc.expandApi({dataIndex}, {apiIndex})" title="展开当前 API 的更多说明"><span class="doc-icon">﹀</span>更多</a>\
                 </div></td><td class="doc">{example}</td></tr>', {
@@ -2415,10 +2422,24 @@ var Doc = {
      * 更新当前页面的文档。
      */
     updateDocs: function () {
-
-    }
+        Doc.callService("updateDocs.njs?path=" + encodeURIComponent(Doc.path), function () {
+            location.reload();
+        });
+    },
 
     // #endregion
+
+    /**
+     * 调用远程 node 服务器完成操作。
+     */
+    callService: function (cmdName, success) {
+        var url = Doc.servicesUrl + cmdName;
+        Doc.loadScript(url, success, function () {
+            alert('请求服务 ' + url + ' 错误。请先执行 [项目跟目录]/assets/server-boot.cmd 启动服务器');
+        });
+    },
+
+    trace: trace
 
     // #endregion
 

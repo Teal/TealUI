@@ -12,12 +12,10 @@
         正在载入列表...
     </div>
     <script>
-        Doc.initList = function (list) {
-            Doc.list = list;
+        Doc.loadModuleList(function (moduleList) {
 
-            list = list.demos;
-
-            var segments = [],
+            var list = moduleList.src,
+                segments = [],
                 totalCount = 0,
                 totalDoneCount = 0,
                 currentCount = 0,
@@ -50,14 +48,7 @@
             small.innerHTML = '<small>(共 ' + totalCount + ' 个)</small>';
             small.title = '已完成:' + totalDoneCount + '\n未完成:' + (totalCount - totalDoneCount);
 
-        };
-
-        if (Doc.list) {
-            Doc.initList(Doc.list);
-        }
-
-        if (Doc.frame == 'none' || Doc.frame == 'fullscreen')
-            Doc.Dom.loadScript(Doc.baseUrl + Doc.Configs.indexPath);
+        });
     </script>
 </body>
 </html>

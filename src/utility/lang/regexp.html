@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,56 +18,56 @@
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
     <h2>常用 API</h2>
-    <script>
+    <script data-gendoc="utility/lang/regexp.js">
         Doc.writeApi({
-            url: "utility/lang/regexp.js",
-            apis: [{
-                memberOf: "RegExp",
-                name: "parseRegExp",
-                summary: "<p>解析字符串并创建新的正则表达式。</p>",
-                params: [{
-                    type: "String",
-                    name: "str",
-                    summary: "<p>要解析的字符串。字符串的正则元字符将匹配字符本身。</p>"
-                }, {
-                    type: "String",
-                    name: "flag",
-                    optional: true,
-                    summary: "<p>正则表达式标记。可选的值为 &#8220;gmi&#8221;</p>"
-                }],
-                returns: {
-                    type: "RegExp",
-                    summary: "<p>返回一个新正则表达式对象。</p>"
-                },
-                example: "<pre>RegExp.parseRegExp(\"\\s\") // /\s/</pre>",
-                line: 7,
-                col: 1
-            }]
-        });
+			path: "utility/lang/regexp.js",
+			apis: [{
+				memberOf: "RegExp",
+				name: "parseRegExp",
+				summary: "<p>解析字符串并创建新的正则表达式。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要解析的字符串。字符串的正则元字符将匹配字符本身。</p>"
+				}, {
+					type: "String",
+					name: "flag",
+					optional: true,
+					summary: "<p>正则表达式标记。可选的值为 &#8220;gmi&#8221;</p>"
+				}],
+				returns: {
+					type: "RegExp",
+					summary: "<p>返回一个新正则表达式对象。</p>"
+				},
+				example: "<pre>RegExp.parseRegExp(\"\\s\") // /\s/</pre>",
+				line: 7,
+				col: 1
+			}]
+});
     </script>
 
     <h2>其它 API</h2>
-    <script>
+    <script data-gendoc="utility/lang/regexpEx.js">
         Doc.writeApi({
-            url: "utility/lang/regexpEx.js",
-            apis: [{
-                memberOf: "RegExp",
-                name: "isRegExp",
-                summary: "<p>判断一个对象是否是正则。</p>",
-                params: [{
-                    type: "Object",
-                    name: "obj",
-                    summary: "<p>要判断的对象。</p>"
-                }],
-                returns: {
-                    type: "Boolean",
-                    summary: "<p>如果 <em>obj</em> 是正则则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
-                },
-                example: "<pre>RegExp.isRegExp(\"\") // true</pre>",
-                line: 7,
-                col: 1
-            }]
-        });
+			path: "utility/lang/regexpEx.js",
+			apis: [{
+				memberOf: "RegExp",
+				name: "isRegExp",
+				summary: "<p>判断一个对象是否是正则。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>obj</em> 是正则则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>RegExp.isRegExp(\"\") // true</pre>",
+				line: 7,
+				col: 1
+			}]
+});
     </script>
 
     <h2>XRegExp <small>(源码: <a href="../../utility/lang/xRegexp.js" target="_blank">utility/lang/xRegexp.js</a>)</small></h2>

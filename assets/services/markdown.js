@@ -569,7 +569,7 @@ listStr=addAnchors(listStr);listStr=listStr.replace(/\n{2,}(?=\\x03)/,"\n");list
 	};
 
 	var m;
-	window.markdownToHtml = function(mdText, toElem, callback) {
+	Markdown.markdownToHtml = function (mdText, toElem, callback) {
 		var _umlEnd = false;
 		var _mathJaxEnd = false;
 

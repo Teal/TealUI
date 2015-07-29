@@ -42,40 +42,40 @@
     </script>
 
     <h2>常用 API</h2>
-    <script>
-    Doc.writeApi({
-        url: "utility/lang/function.js",
-        apis: [{
-            memberOf: "Function",
-            name: "empty",
-            summary: "<p>空函数。</p>",
-            example: "<pre>var fn = Function.empty</pre>",
-            line: 4,
-            col: 1
-        }, {
-            memberOf: "Function",
-            name: "from",
-            summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>",
-            params: [{
-                type: "Object",
-                name: "value",
-                summary: "<p>新函数的返回值。</p>"
-            }],
-            returns: {
-                type: "Function",
-                summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>"
-            },
-            example: "<pre>Function.from(false)() // false</pre>",
-            line: 14,
-            col: 1
-        }]
-    });
+    <script data-gendoc="utility/lang/function.js">
+        Doc.writeApi({
+            path: "utility/lang/function.js",
+            apis: [{
+                memberOf: "Function",
+                name: "empty",
+                summary: "<p>空函数。</p>",
+                example: "<pre>var fn = Function.empty</pre>",
+                line: 4,
+                col: 1
+            }, {
+                memberOf: "Function",
+                name: "from",
+                summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>",
+                params: [{
+                    type: "Object",
+                    name: "value",
+                    summary: "<p>新函数的返回值。</p>"
+                }],
+                returns: {
+                    type: "Function",
+                    summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>"
+                },
+                example: "<pre>Function.from(false)() // false</pre>",
+                line: 14,
+                col: 1
+            }]
+        });
     </script>
 
     <h2>其它 API</h2>
-    <script>
+    <script data-gendoc="utility/lang/functionEx.js">
         Doc.writeApi({
-            url: "utility/lang/functionEx.js",
+            path: "utility/lang/functionEx.js",
             apis: [{
                 memberOf: "Function",
                 name: "isFunction",
@@ -185,6 +185,22 @@
      console.log('延时执行');\n\
 }, 100);</pre>",
                 line: 93,
+                col: 1
+            }, {
+                memberOf: "Function",
+                name: "getSource",
+                summary: "<p>获取指定函数的源码。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>要获取的函数。</p>"
+                }],
+                returns: {
+                    type: "String",
+                    summary: "<p>返回函数源码。</p>"
+                },
+                example: "<pre>Function.getSoure(function(x){ return x; })</pre>",
+                line: 120,
                 col: 1
             }]
         });
