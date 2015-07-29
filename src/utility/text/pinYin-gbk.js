@@ -506,6 +506,7 @@ getPinYin.dictionary = {
 /**
  * 检索字典中指定字符的拼音。如果检索不到则返回字符本身。
  * @param {String} ch 单个字符。
+ * @inner
  */
 getPinYin.lookup = function(ch) {
     for (var pinyin in getPinYin.dictionary) {

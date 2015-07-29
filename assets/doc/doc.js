@@ -2284,7 +2284,7 @@ var Doc = {
             var h2 = document.getElementsByTagName('h2');
             h2 = h2[h2.length - 1];
             if (h2) {
-                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{url}" target="_blank" title="转到源码">{path}</a>)</small>', data);
+                h2.innerHTML += Doc.parseTpl(' <small>(源码：<a href="' + Doc.baseUrl + 'src/{path}" target="_blank" title="转到源码">{path}</a>)</small>', data);
             }
         }
 
@@ -2312,7 +2312,7 @@ var Doc = {
             var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
 
             result += Doc.parseTpl('<tr><td class="doc"><code>{name}</code>{since}<div class="doc-toolbar">\
-                    <a href="{baseUrl}assets/tools/sourceReader.html?path={url}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
+                    <a href="{baseUrl}assets/tools/sourceReader.html?path={path}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
                 </div></td><td class="doc" id="doc_api_{dataIndex}_{apiIndex}">{summary}<div class="doc-toolbar">\
                     <a href="javascript:Doc.expandApi({dataIndex}, {apiIndex})" title="展开当前 API 的更多说明"><span class="doc-icon">﹀</span>更多</a>\
                 </div></td><td class="doc">{example}</td></tr>', {
@@ -2323,7 +2323,7 @@ var Doc = {
                     apiIndex: i,
                     example: api.example,
                     baseUrl: Doc.baseUrl,
-                    url: data.url,
+                    path: data.path,
                     line: api.line
                 });
 

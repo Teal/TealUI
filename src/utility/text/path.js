@@ -1,10 +1,10 @@
-/**
+ï»¿/**
  * @author xuld
  * Modified from https://github.com/joyent/node/blob/master/lib/path.js
  */
 
 /**
- * Ìá¹©Â·¾¶½âÎöÏà¹ØµÄº¯Êı¡£
+ * æä¾›è·¯å¾„è§£æç›¸å…³çš„å‡½æ•°ã€‚
  */
 var Path = {
 
@@ -47,9 +47,9 @@ var Path = {
 	basePath: "",
 
     /**
-     * ºÏ²¢¶à¸öÂ·¾¶ÎªÒ»¸ö¡£
-     * @param {String} ... ÒªºÏ²¢µÄÂ·¾¶¡£
-     * @returns {String} ·µ»ØºÏ²¢ºóµÄĞÂÂ·¾¶¡£
+     * åˆå¹¶å¤šä¸ªè·¯å¾„ä¸ºä¸€ä¸ªã€‚
+     * @param {String} ... è¦åˆå¹¶çš„è·¯å¾„ã€‚
+     * @returns {String} è¿”å›åˆå¹¶åçš„æ–°è·¯å¾„ã€‚
      * @example Path.resolve("a/b", "../", "c") // "a/c"
      */
 	resolve: function () {
@@ -82,9 +82,9 @@ var Path = {
 	},
 
     /**
-     * ¹æ»®»¯Ö¸¶¨µÄÂ·¾¶¡£
-     * @param {String} path Òª´¦ÀíµÄÂ·¾¶¡£
-     * @returns {String} ·µ»Ø´¦ÀíºóµÄĞÂÂ·¾¶¡£
+     * è§„åˆ’åŒ–æŒ‡å®šçš„è·¯å¾„ã€‚
+     * @param {String} path è¦å¤„ç†çš„è·¯å¾„ã€‚
+     * @returns {String} è¿”å›å¤„ç†åçš„æ–°è·¯å¾„ã€‚
      * @example Path.normalize("a/b/../c/d/e") // "a/c/d/e"
      */
 	normalize: function (path) {
@@ -107,9 +107,9 @@ var Path = {
 	},
 
     /**
-     * ºÏ²¢¶à¸öÎÄ¼ş¼ĞÂ·¾¶ÎªÒ»¸ö¡£
-     * @param {String} path Òª´¦ÀíµÄÎÄ¼ş¼ĞÂ·¾¶¡£
-     * @returns {String} ·µ»ØºÏ²¢ºóµÄĞÂÂ·¾¶¡£
+     * åˆå¹¶å¤šä¸ªæ–‡ä»¶å¤¹è·¯å¾„ä¸ºä¸€ä¸ªã€‚
+     * @param {String} path è¦å¤„ç†çš„æ–‡ä»¶å¤¹è·¯å¾„ã€‚
+     * @returns {String} è¿”å›åˆå¹¶åçš„æ–°è·¯å¾„ã€‚
      * @example Path.join("a/b/../c/d/e") // "a/c/d/e"
      */
 	join: function() {
@@ -123,10 +123,10 @@ var Path = {
 	},
 
     /**
-     * ¼ÆËãÖ¸¶¨Â·¾¶Ïà¶ÔÓÚ»ùÂ·¾¶µÄÏà¶ÔÂ·¾¶¡£
-     * @param {String} basePath ½âÎöµÄ»ùÂ·¾¶¡£
-     * @param {String} path Òª´¦ÀíµÄÂ·¾¶¡£
-     * @returns {String} @path Ïà¶ÔÓÚ @basePath µÄ»ùÂ·¾¶¡£
+     * è®¡ç®—æŒ‡å®šè·¯å¾„ç›¸å¯¹äºåŸºè·¯å¾„çš„ç›¸å¯¹è·¯å¾„ã€‚
+     * @param {String} basePath è§£æçš„åŸºè·¯å¾„ã€‚
+     * @param {String} path è¦å¤„ç†çš„è·¯å¾„ã€‚
+     * @returns {String} @path ç›¸å¯¹äº @basePath çš„åŸºè·¯å¾„ã€‚
      * @example Path.relative("a/b", "a/c") // "../c"
      */
 	relative: function (basePath, path) {
@@ -172,9 +172,9 @@ var Path = {
 	},
 
     /**
-     * »ñÈ¡Ö¸¶¨Â·¾¶µÄÎÄ¼ş¼ĞÃû²¿·Ö¡£
-     * @param {String} path Òª´¦ÀíµÄÂ·¾¶¡£
-     * @returns {String} ·µ»ØÎÄ¼ş¼Ğ²¿·Ö¡£
+     * è·å–æŒ‡å®šè·¯å¾„çš„æ–‡ä»¶å¤¹åéƒ¨åˆ†ã€‚
+     * @param {String} path è¦å¤„ç†çš„è·¯å¾„ã€‚
+     * @returns {String} è¿”å›æ–‡ä»¶å¤¹éƒ¨åˆ†ã€‚
      * @example Path.dirname("e/a/b") // "e/a"
      */
 	dirname: function(path) {
@@ -196,9 +196,9 @@ var Path = {
 	},
 
     /**
-     * »ñÈ¡Ö¸¶¨Â·¾¶µÄÎÄ¼şÃû²¿·Ö¡£
-     * @param {String} path Òª´¦ÀíµÄÂ·¾¶¡£
-     * @returns {String} ·µ»ØÎÄ¼ş²¿·Ö¡£
+     * è·å–æŒ‡å®šè·¯å¾„çš„æ–‡ä»¶åéƒ¨åˆ†ã€‚
+     * @param {String} path è¦å¤„ç†çš„è·¯å¾„ã€‚
+     * @returns {String} è¿”å›æ–‡ä»¶éƒ¨åˆ†ã€‚
      * @example Path.dirname("e/a/b.txt") // "b.txt"
      */
 	basename: function(path, ext) {
@@ -211,9 +211,9 @@ var Path = {
 	},
 
     /**
-     * »ñÈ¡Ö¸¶¨Â·¾¶µÄÀ©Õ¹Ãû²¿·Ö£¨°üÀ¨µã£©¡£
-     * @param {String} path Òª´¦ÀíµÄÂ·¾¶¡£
-     * @returns {String} ·µ»ØÀ©Õ¹Ãû²¿·Ö¡£
+     * è·å–æŒ‡å®šè·¯å¾„çš„æ‰©å±•åéƒ¨åˆ†ï¼ˆåŒ…æ‹¬ç‚¹ï¼‰ã€‚
+     * @param {String} path è¦å¤„ç†çš„è·¯å¾„ã€‚
+     * @returns {String} è¿”å›æ‰©å±•åéƒ¨åˆ†ã€‚
      * @example Path.dirname("e/a/b.txt") // ".txt"
      */
 	extname: function(path) {

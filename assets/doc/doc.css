@@ -179,58 +179,6 @@
     color: #009688;
 }*/
 
-.doc-index {
-    background: #f8f8f8;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 1em;
-}
-
-    .doc-index h2 {
-        background: #009688;
-        color: #fff;
-        float: left;
-        font-weight: 500;
-        font-size: 16px;
-        margin: .5em 0 .5em 15px;
-        padding: .3em 7px;
-        line-height: 150%;
-    }
-
-
-    .doc-index dl {
-        background: #fff;
-        margin: 0 0 0 60px;
-        padding: .5em 1em;
-        border-left: 1px solid #eee;
-    }
-
-    .doc-index dt {
-        counter-increment: doc-dt;
-        counter-reset: doc-dd;
-        font-weight: 500;
-        margin: 0;
-    }
-
-        .doc-index dt:before {
-            content: counter(doc-dt) ". ";
-        }
-
-    .doc-index dd {
-        padding-left: 2em;
-        margin: 0;
-        counter-increment: doc-dd;
-    }
-
-        .doc-index dd:before {
-            content: counter(doc-dt) "." counter(doc-dd) " ";
-        }
-
-     .doc-index dd a {
-         color: #555;
-         font-size: 13px;
-     }
-
 .doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
     font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
     color: #990000;
@@ -278,6 +226,11 @@
     .doc-section small a, .doc > h1 small a, .doc > h2 small a, .doc > h3 small a, .doc > h4 small a, .doc > h5 small a, .doc > h6 small a, .doc > p small a, .doc > ul small a, .doc > ol small a, .doc > dl small a, .doc > blockquote small a, .doc > table small a {
         color: inherit;
     }
+
+.doc > textarea {
+    width: 100%;
+    height: 100px;
+}
 
 ::-moz-selection {
     background: #00BFA5;
@@ -914,6 +867,58 @@ a#doc_logo {
     opacity: 0 !important;
     right: -50px !important;
 }
+
+/* 目录 */
+.doc-index {
+    background: #f8f8f8;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+    .doc-index h2 {
+        background: #009688;
+        color: #fff;
+        float: left;
+        font-weight: 500;
+        font-size: 16px;
+        margin: .5em 0 .5em 15px;
+        padding: .3em 7px;
+        line-height: 150%;
+    }
+
+    .doc-index dl {
+        background: #fff;
+        margin: 0 0 0 60px;
+        padding: .5em 1em;
+        border-left: 1px solid #eee;
+    }
+
+    .doc-index dt {
+        counter-increment: doc-dt;
+        counter-reset: doc-dd;
+        font-weight: 500;
+        margin: 0;
+    }
+
+        .doc-index dt:before {
+            content: counter(doc-dt) ". ";
+        }
+
+    .doc-index dd {
+        padding-left: 2em;
+        margin: 0;
+        counter-increment: doc-dd;
+    }
+
+        .doc-index dd:before {
+            content: counter(doc-dt) "." counter(doc-dd) " ";
+        }
+
+        .doc-index dd a {
+            color: #555;
+            font-size: 13px;
+        }
 
 /* 底部 */
 #doc_footer {

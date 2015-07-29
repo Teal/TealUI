@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -12,36 +12,65 @@
     <script type="text/javascript" src="../../utility/text/stringEncryption.js"></script>
     <script type="text/javascript" src="../../utility/text/md5.js"></script>
     <script type="text/javascript" src="../../utility/text/md5Ex.js"></script>
+    <script type="text/javascript" src="../../utility/text/obfuscator.js"></script>
+    <script type="text/javascript" src="../../utility/text/jjencode.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>字符串简单可逆加密 <small>(源码: <a href="../../utility/text/stringEncryption.js" target="_blank">utility/text/stringEncryption.js</a>)</small></h2>
+    <h2>字符串简单可逆加密</h2>
     <p>
         <input type="text" id="stringEncryption_value" />
         <input type="button" value="加密" onclick="document.getElementById('stringEncryption_value').value = encryptString(document.getElementById('stringEncryption_value').value, 'key')" />
         <input type="button" value="解密" onclick="document.getElementById('stringEncryption_value').value = dencryptString(document.getElementById('md5_value').value, 'key')" />
     </p>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>encryptString</code></td>
-            <td>加密</td>
-            <td><pre>encryptString("abc", "key")</pre></td>
-        </tr>
-        <tr>
-            <td><code>decryptString</code></td>
-            <td>解密</td>
-            <td><pre>decryptString("abc", "key")</pre></td>
-        </tr>
-    </table>
+    <script data-gendoc="utility/text/stringEncryption.js">
 
-    <h2>MD5 加密 <small>(源码: <a href="../../utility/text/md5.js" target="_blank">utility/text/stringEncryption.js</a>)</small></h2>
+        Doc.writeApi({
+			path: "utility/text/stringEncryption.js",
+			apis: [{
+				name: "encryptString",
+				summary: "<p>加密指定的字符串。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要加密的字符串。</p>"
+				}, {
+					type: "Number",
+					name: "key",
+					summary: "<p>加密的密钥。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回加密后的字符串。</p>"
+				},
+				example: "<pre>encryptString(\"abc\", 123)</pre>",
+				line: 2,
+				col: 1
+			}, {
+				name: "dencryptString",
+				summary: "<p>解密指定的字符串。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要解密的字符串。</p>"
+				}, {
+					type: "key",
+					name: "str",
+					summary: "<p>解密的密钥。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回解密后的字符串。</p>"
+				},
+				example: "<pre>dencryptString(\"abc\", 123)</pre>",
+				line: 22,
+				col: 1
+			}]
+});</script>
+
+    <h2>MD5 加密</h2>
 
     <p>
         <input type="text" id="md5_value" style="width: 300px;" />
@@ -50,44 +79,173 @@
         <input type="button" value="base64 Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64Md5(document.getElementById('md5_value').value)" />
         <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64HmacMd5(document.getElementById('md5_value').value, 'key')" />
     </p>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>md5</code></td>
-            <td>MD5 加密</td>
-            <td><pre>md5("abc")</pre></td>
-        </tr>
-    </table>
+    <script data-gendoc="utility/text/md5.js">
 
-    <h2>MD5 加密扩展 <small>(源码: <a href="../../utility/text/md5Ex.js" target="_blank">utility/text/md5Ex.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>md5.base64Md5</code></td>
-            <td>MD5 & base64 加密</td>
-            <td><pre>md5.base64Md5("abc")</pre></td>
-        </tr>
-        <tr>
-            <td><code>md5.hmacMd5</code></td>
-            <td>HMD5 加密</td>
-            <td><pre>md5.hmacMd5("abc", "key")</pre></td>
-        </tr>
-        <tr>
-            <td><code>md5.base64HmacMd5</code></td>
-            <td>HMD5 & base64 加密</td>
-            <td><pre>md5.base64HmacMd5("abc", "key")</pre></td>
-        </tr>
-    </table>
+        Doc.writeApi({
+			path: "utility/text/md5.js",
+			apis: [{
+				name: "md5",
+				summary: "<p>计算一个字符串的 MD5 值。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要计算的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
+				},
+				example: "<pre>md5(\"a\") // \"0CC175B9C0F1B6A831C399E269772661\"</pre>",
+				line: 5,
+				col: 1
+			}]
+});</script>
+
+    <h2>MD5 加密扩展</h2>
+    <script data-gendoc="utility/text/md5Ex.js">
+
+        Doc.writeApi({
+			path: "utility/text/md5Ex.js",
+			apis: [{
+				memberOf: "md5",
+				name: "hmacMd5",
+				summary: "<p>计算一个字符串的 HMAC-MD5 值。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要计算的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
+				},
+				example: "<pre>md5.hmacMd5(\"abc\", \"key\") // \"D2FE98063F876B03193AFB49B4979591\"</pre>",
+				line: 7,
+				col: 1
+			}, {
+				memberOf: "md5",
+				name: "base64Md5",
+				summary: "<p>计算一个字符串的 Base64-MD5 值。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要计算的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
+				},
+				example: "<pre>md5.base64Md5(\"abc\")</pre>",
+				line: 39,
+				col: 1
+			}, {
+				memberOf: "md5",
+				name: "base64HmacMd5",
+				summary: "<p>计算一个字符串的 Base64-MD5 值。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要计算的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
+				},
+				example: "<pre>md5.base64HmacMd5(\"abc\", \"key\") // \"0v6YBj+HawMZOvtJtJeVkQ\"</pre>",
+				line: 70,
+				col: 1
+			}]
+});</script>
+
+    <h2>JS 代码混淆</h2>
+    <textarea id="obfuscator_input"></textarea><br />
+    <input type="button" value="加密" onclick="document.getElementById('obfuscator_input').value = Obfuscator.obfuscate(document.getElementById('obfuscator_input').value)" />
+    <input type="button" value="解密"  onclick="document.getElementById('obfuscator_input').value = Obfuscator.deobfuscate(document.getElementById('obfuscator_input').value)"/>
+    <script data-gendoc="utility/text/obfuscator.js">
+
+        Doc.writeApi({
+			path: "utility/text/obfuscator.js",
+			apis: [{
+				memberOf: "Obfuscator",
+				name: "obfuscate",
+				summary: "<p>混淆指定的 JavaScript 代码。</p>",
+				params: [{
+					type: "String",
+					name: "sourceCode",
+					summary: "<p>要混淆的代码。</p>"
+				}, {
+					type: "Boolean",
+					name: "asciiEncoding",
+					optional: true,
+					summary: "<p>是否使用 ASCII 编码。</p>"
+				}, {
+					type: "Boolean",
+					name: "fastDecode",
+					optional: true,
+					summary: "<p>是否允许快速解码。</p>"
+				}, {
+					type: "Boolean",
+					name: "allowSepicalChars",
+					optional: true,
+					summary: "<p>是否使用特殊字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回已混淆的代码。</p>"
+				},
+				example: "<pre>Obfuscator.obfuscate(\"var a =1\")</pre>",
+				line: 13,
+				col: 1
+			}, {
+				memberOf: "Obfuscator",
+				name: "deobfuscate",
+				summary: "<p>取消混淆指定的 JavaScript 代码。</p>",
+				params: [{
+					type: "String",
+					name: "obfuscatedCode",
+					summary: "<p>已混淆的代码。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回取消混淆的代码。</p>"
+				},
+				example: "<pre>Obfuscator.deobfuscate(\"var a =1\")</pre>",
+				line: 414,
+				col: 1
+			}]
+});</script>
 
     <h2>JS 代码加密</h2>
-    <p>另参考：<a href="../../../tools/devTools/index.html">JS 代码工具</a>。</p>
+    <textarea id="jjencode_input"></textarea><br />
+    加密字符：<input type="text" id="jjencode_str" value="$" />
+    <input type="button" value="加密" onclick="document.getElementById('jjencode_input').value = jjencode(document.getElementById('jjencode_input').value, document.getElementById('jjencode_str').value)" />
+    <script data-gendoc="utility/text/jjencode.js">
+
+        Doc.writeApi({
+			path: "utility/text/jjencode.js",
+			apis: [{
+				name: "jjencode",
+				summary: "<p>加密指定的 JavaScript 源码。</p>",
+				params: [{
+					type: "String",
+					name: "sourceCode",
+					summary: "<p>要加密的代码。</p>"
+				}, {
+					type: "String",
+					name: "text",
+					defaultValue: "\"$\"",
+					optional: true,
+					summary: "<p>加密的文本。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回已加密的代码。</p>"
+				},
+				example: "<pre>Obfuscator.obfuscate(\"var a =1\")</pre>",
+				line: 7,
+				col: 1
+			}]
+});</script>
+    <blockquote>另参考：<a href="http://utf-8.jp/public/jjencode.html" target="_blank">作者官网</a>。</blockquote>
 </body>
 </html>

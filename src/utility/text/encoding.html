@@ -9,14 +9,39 @@
     <meta name="description" content="GB2312 和 UTF8 编码转换">
 
     <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/text/encodeHTML.js"></script>
     <script type="text/javascript" src="../../utility/text/utf8.js"></script>
+    <script type="text/javascript" src="../../utility/text/base64.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>UTF8 编码 <small>(源码: <a href="../../utility/text/utf8.js" target="_blank">utility/text/utf8.js</a>)</small></h2>
+    <h2>HTML 编码</h2>
+    <script data-gendoc="utility/text/encodeHTML.js">
 
+        Doc.writeApi({
+			path: "utility/text/encodeHTML.js",
+			apis: [{
+				name: "encodeHTML",
+				summary: "<p>编码 HTML 特殊字符。</p>",
+				params: [{
+					type: "String",
+					name: "value",
+					summary: "<p>要编码的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回已编码的字符串。</p>"
+				},
+				remark: "<p>此函数主要将 &amp; &lt; > &#8217; &#8221; 分别编码成 &amp; &lt; &gt; &#39; &quot; 。</p>",
+				example: "<pre>encodeHTML(\"&lt;a&gt;&lt;/a&gt;\") // &amp;lt;a&amp;gt;&amp;lt;/a&amp;gt;</pre>",
+				line: 2,
+				col: 1
+			}]
+});</script>
+
+    <h2>UTF8 编码</h2>
     <p>
         <input type="text" id="value" value="T4" />
         <input type="button" value="GB2312 -> UTF8" onclick=" document.getElementById('value').value = gb2312ToUtf8(document.getElementById('value').value)" />
@@ -24,57 +49,121 @@
         <input type="button" value="UTF8 -> UTF16" onclick=" document.getElementById('value').value = utf8ToUtf16(document.getElementById('value').value)" />
         <input type="button" value="UTF16 -> UTF8" onclick=" document.getElementById('value').value = utf16ToUtf8(document.getElementById('value').value)" />
     </p>
+    <script data-gendoc="utility/text/utf8.js">
 
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>gb2312ToUtf8</code></td>
-            <td>GB2312 -> UTF8</td>
-            <td><pre>gb2312ToUtf8("");</pre></td>
-        </tr>
-        <tr>
-            <td><code>utf8ToGb2312</code></td>
-            <td>UTF8 -> GB2312</td>
-            <td><pre>utf8ToGb2312("");</pre></td>
-        </tr>
-        <tr>
-            <td><code>utf8ToUtf16</code></td>
-            <td>UTF8 -> UTF16</td>
-            <td><pre>utf8ToUtf16("");</pre></td>
-        </tr>
-        <tr>
-            <td><code>utf16ToUtf8</code></td>
-            <td>UTF16 -> UTF8</td>
-            <td><pre>utf16ToUtf8("");</pre></td>
-        </tr>
-    </table>
+        Doc.writeApi({
+			path: "utility/text/utf8.js",
+			apis: [{
+				name: "utf8ToGb2312",
+				summary: "<p>将 utf8 转 gb2312。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的字符串。</p>"
+				},
+				example: "<pre>utf8ToGb2312(\"a\")</pre>",
+				line: 5,
+				col: 1
+			}, {
+				name: "gb2312ToUtf8",
+				summary: "<p>将 gb2312 转 utf8。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的字符串。</p>"
+				},
+				example: "<pre>gb2312ToUtf8(\"a\")</pre>",
+				line: 27,
+				col: 1
+			}, {
+				name: "utf16ToUtf8",
+				summary: "<p>将 utf16 转 utf8。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的字符串。</p>"
+				},
+				example: "<pre>utf16ToUtf8(\"a\")</pre>",
+				line: 74,
+				col: 1
+			}, {
+				name: "utf8ToUtf16",
+				summary: "<p>将 utf8 转 utf16。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的字符串。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的字符串。</p>"
+				},
+				example: "<pre>utf8ToUtf16(\"a\")</pre>",
+				line: 102,
+				col: 1
+			}]
+});</script>
 
-    <h2>Base64 编码 <small>(源码: <a href="../../utility/shim/base64.js" target="_blank">utility/shim/base64.js</a>)</small></h2>
+    <h2>Base64 编码</h2>
     <p>
         输入英文: <input type="text" id="base64_value" value="abcefg" />
         <input type="button" value="Base64 编码" onclick="document.getElementById('base64_value').value = btoa(document.getElementById('base64_value').value)" />
         <input type="button" value="Base64 解码" onclick="document.getElementById('base64_value').value = atob(document.getElementById('base64_value').value)" />
     </p>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>btoa</code></td>
-            <td>Base64 编码</td>
-            <td><pre>btoa("abcefg")</pre></td>
-        </tr>
-        <tr>
-            <td><code>atob</code></td>
-            <td>Base64 解码</td>
-            <td><pre>atob("YWJjZWZn")</pre></td>
-        </tr>
-    </table>
+    <script data-gendoc="utility/text/base64.js">
+
+        Doc.writeApi({
+			path: "utility/text/base64.js",
+			apis: [{
+				name: "btoa",
+				summary: "<p>Base64 解码。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的文本。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的文本。</p>"
+				},
+				see: ["https://gist.github.com/999166"],
+				author: "https://github.com/nignag",
+				example: "<pre>btoa(\"abcefg\")</pre>",
+				since: "ES4",
+				line: 15,
+				col: 1
+			}, {
+				name: "atob",
+				summary: "<p>Base64 编码。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要转换的文本。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>转换后的文本。</p>"
+				},
+				see: ["https://gist.github.com/1020396"],
+				author: "https://github.com/atk",
+				example: "<pre>atob(\"abcefg\")</pre>",
+				since: "ES4",
+				line: 42,
+				col: 1
+			}]
+});</script>
+    <blockquote>目前主流浏览器已内置此 API。</blockquote>
 </body>
 </html>

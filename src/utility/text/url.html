@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>URL 解析</title>
+    <title>URL 处理</title>
     <meta name="module-info" content="order=path">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="提供地址（统一资源定位符）解析功能。">
@@ -18,65 +18,229 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>获取 URL 查询参数（如 ?a=b&amp;c=d） <small>(源码: <a href="../../utility/text/getQuery.js" target="_blank">utility/text/getQuery.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>getQuery</code></td>
-            <td>解析查询字符串</td>
-            <td><pre>getQuery("a"); // 获取不到则返回 null。</pre></td>
-        </tr>
-    </table>
+    <h2>获取 URL 查询参数（如 ?a=b&amp;c=d）</h2>
+    <script data-gendoc="utility/text/getQuery.js">
 
-    <h2>追加查询字符串参数 <small>(源码: <a href="../../utility/text/appendQuery.js" target="_blank">utility/text/setQuery.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>appendQuery</code></td>
-            <td>在指定的地址追加查询字符串参数</td>
-            <td><pre>appendQuery("a.index", "a", "b");</pre></td>
-        </tr>
-    </table>
+        Doc.writeApi({
+			path: "utility/text/getQuery.js",
+			apis: [{
+				name: "getQuery",
+				summary: "<p>获取当前页面的查询参数。</p>",
+				params: [{
+					type: "String",
+					name: "paramName",
+					summary: "<p>要获取的查询字符串名。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回查询参数值。如果获取不到则返回 null。</p>"
+				},
+				example: "<pre>getQuery(\"a\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});</script>
 
-    <h2>完整解析查询字符串 API <small>(源码: <a href="../../utility/text/path.js" target="_blank">utility/text/queryString.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>QueryString.parse</code></td>
-            <td>解析查询字符串</td>
-            <td><pre>QueryString.parse(location.search);</pre></td>
-        </tr>
-        <tr>
-            <td><code>QueryString.stringify</code></td>
-            <td>格式化查询字符串</td>
-            <td><pre>QueryString.stringify({ a: "2", c: "4" });</pre></td>
-        </tr>
-    </table>
+    <h2>追加查询字符串参数</h2>
+    <script data-gendoc="utility/text/appendQuery.js">
 
-    <h2>完整解析 URL 地址 API <small>(源码: <a href="../../utility/text/uri.js" target="_blank">utility/text/uri.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Uri.parse</code></td>
-            <td>解析一个 URL 地址相关信息</td>
-            <td><pre>Uri.parse("http://www.domain.com:55/file.ext?a=3#k")</pre></td>
-        </tr>
-    </table>
+        Doc.writeApi({
+			path: "utility/text/appendQuery.js",
+			apis: [{
+				name: "appendQuery",
+				summary: "<p>在指定的地址追加查询字符串参数。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>要追加的地址。</p>"
+				}, {
+					type: "String",
+					name: "paramName",
+					summary: "<p>要追加的查询参数名。</p>"
+				}, {
+					type: "String",
+					name: "paramValue",
+					summary: "<p>要追加的查询参数值。</p>"
+				}],
+				example: "<pre>appendQuery(\"a.html\", \"b\", \"c\") // \"a.html?a=b\"</pre>",
+				line: 2,
+				col: 1
+			}]
+});</script>
+
+    <h2>完整解析查询字符串 API</h2>
+    <script data-gendoc="utility/text/path.js">
+
+        Doc.writeApi({
+			path: "utility/text/path.js",
+			apis: [{
+				memberOf: "Path",
+				name: "resolve",
+				summary: "<p>合并多个路径为一个。</p>",
+				params: [{
+					type: "String",
+					name: "...",
+					summary: "<p>要合并的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回合并后的新路径。</p>"
+				},
+				example: "<pre>Path.resolve(\"a/b\", \"../\", \"c\") // \"a/c\"</pre>",
+				line: 49,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "normalize",
+				summary: "<p>规划化指定的路径。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回处理后的新路径。</p>"
+				},
+				example: "<pre>Path.normalize(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
+				line: 84,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "join",
+				summary: "<p>合并多个文件夹路径为一个。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的文件夹路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回合并后的新路径。</p>"
+				},
+				example: "<pre>Path.join(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
+				line: 109,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "relative",
+				summary: "<p>计算指定路径相对于基路径的相对路径。</p>",
+				params: [{
+					type: "String",
+					name: "basePath",
+					summary: "<p>解析的基路径。</p>"
+				}, {
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p><em>path</em> 相对于 <em>basePath</em> 的基路径。</p>"
+				},
+				example: "<pre>Path.relative(\"a/b\", \"a/c\") // \"../c\"</pre>",
+				line: 125,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "dirname",
+				summary: "<p>获取指定路径的文件夹名部分。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回文件夹部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b\") // \"e/a\"</pre>",
+				line: 174,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "basename",
+				summary: "<p>获取指定路径的文件名部分。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回文件部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b.txt\") // \"b.txt\"</pre>",
+				line: 198,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "extname",
+				summary: "<p>获取指定路径的扩展名部分（包括点）。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回扩展名部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b.txt\") // \".txt\"</pre>",
+				line: 213,
+				col: 1
+			}]
+});</script>
+
+    <h2>完整解析 URL 地址 API</h2>
+    <script data-gendoc="utility/text/uri.js">
+
+        Doc.writeApi({
+			path: "utility/text/uri.js",
+			apis: [{
+				memberOf: "Uri.prototype",
+				name: "toString",
+				summary: "<p>将当前 URL 对象转为字符串形式。</p>",
+				returns: {
+					type: "Uri",
+					summary: "<p>返回转换后的地址。</p>"
+				},
+				example: "<pre>Uri.parse(\"http://www.domain.com:55/file.ext?a=3#k\").toString()</pre>",
+				line: 328,
+				col: 1
+			}, {
+				memberOf: "Uri",
+				name: "parse",
+				summary: "<p>解析一个 URL 地址相关信息。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要解析的字符串。</p>"
+				}],
+				returns: {
+					type: "Uri",
+					summary: "<p>返回解析后的 <code>Uri</code> 对象。</p>"
+				},
+				example: "<pre>Uri.parse(\"http://www.domain.com:55/file.ext?a=3#k\")</pre>",
+				line: 678,
+				col: 1
+			}, {
+				memberOf: "Uri",
+				name: "toString",
+				summary: "<p>将一个 URL 对象转为字符串形式。</p>",
+				params: [{
+					type: "String",
+					name: "uri",
+					summary: "<p>已解析的 <code>Uri</code> 对象。</p>"
+				}],
+				returns: {
+					type: "Uri",
+					summary: "<p>返回转换后的地址。</p>"
+				},
+				example: "<pre>Uri.toString({protocol: \"http:\", host:\"domain.com\"})</pre>",
+				line: 688,
+				col: 1
+			}]
+});</script>
 </body>
 </html>

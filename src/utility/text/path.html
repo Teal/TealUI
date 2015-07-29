@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,53 +16,128 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>API <small>(源码: <a href="../../utility/text/path.js" target="_blank">utility/text/path.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Path.resolve</code></td>
-            <td>切换目录</td>
-            <td><pre>Path.resolve("a/b", "../", "c")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.normalize</code></td>
-            <td>规划化路径</td>
-            <td><pre>Path.normalize("a/b/../c/d/e")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.join</code></td>
-            <td>组合路径</td>
-            <td><pre>Path.join("a", "d")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.relative</code></td>
-            <td>获取相对路径</td>
-            <td><pre>Path.relative("a/b", "a/c")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.relative</code></td>
-            <td>获取相对路径</td>
-            <td><pre>Path.relative("a/b", "a/c")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.dirname</code></td>
-            <td>获取文件夹名</td>
-            <td><pre>Path.dirname("a/b/c")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.basename</code></td>
-            <td>获取文件名</td>
-            <td><pre>Path.basename("a/b/c")</pre></td>
-        </tr>
-        <tr>
-            <td><code>Path.extname</code></td>
-            <td>获取扩展名</td>
-            <td><pre>Path.extname("a.js")</pre></td>
-        </tr>
-    </table>
+    <h2>路径处理</h2>
+    <script data-gendoc="utility/text/path.js">
+
+        Doc.writeApi({
+			path: "utility/text/path.js",
+			apis: [{
+				memberOf: "Path",
+				name: "resolve",
+				summary: "<p>合并多个路径为一个。</p>",
+				params: [{
+					type: "String",
+					name: "...",
+					summary: "<p>要合并的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回合并后的新路径。</p>"
+				},
+				example: "<pre>Path.resolve(\"a/b\", \"../\", \"c\") // \"a/c\"</pre>",
+				line: 49,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "normalize",
+				summary: "<p>规划化指定的路径。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回处理后的新路径。</p>"
+				},
+				example: "<pre>Path.normalize(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
+				line: 84,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "join",
+				summary: "<p>合并多个文件夹路径为一个。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的文件夹路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回合并后的新路径。</p>"
+				},
+				example: "<pre>Path.join(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
+				line: 109,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "relative",
+				summary: "<p>计算指定路径相对于基路径的相对路径。</p>",
+				params: [{
+					type: "String",
+					name: "basePath",
+					summary: "<p>解析的基路径。</p>"
+				}, {
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p><em>path</em> 相对于 <em>basePath</em> 的基路径。</p>"
+				},
+				example: "<pre>Path.relative(\"a/b\", \"a/c\") // \"../c\"</pre>",
+				line: 125,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "dirname",
+				summary: "<p>获取指定路径的文件夹名部分。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回文件夹部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b\") // \"e/a\"</pre>",
+				line: 174,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "basename",
+				summary: "<p>获取指定路径的文件名部分。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回文件部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b.txt\") // \"b.txt\"</pre>",
+				line: 198,
+				col: 1
+			}, {
+				memberOf: "Path",
+				name: "extname",
+				summary: "<p>获取指定路径的扩展名部分（包括点）。</p>",
+				params: [{
+					type: "String",
+					name: "path",
+					summary: "<p>要处理的路径。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回扩展名部分。</p>"
+				},
+				example: "<pre>Path.dirname(\"e/a/b.txt\") // \".txt\"</pre>",
+				line: 213,
+				col: 1
+			}]
+});</script>
 </body>
 </html>

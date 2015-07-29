@@ -5,10 +5,10 @@
 var XMLDocument = XMLDocument || {};
 
 /**
- * ½âÎöÒ»¸ö XML ÎÄ¼ş¡£
- * @param {String} value Òª½âÎöµÄ×Ö·û´®¡£
- * @param {XML} ·µ»Ø½âÎöºóµÄ XML ÎÄµµ¡£
- * @example XML.parse("<a></a>")
+ * è§£æä¸€ä¸ª XML æ–‡ä»¶ã€‚
+ * @param {String} value è¦è§£æçš„å­—ç¬¦ä¸²ã€‚
+ * @param {XML} è¿”å›è§£æåçš„ XML æ–‡æ¡£ã€‚
+ * @example XML.parse("&lt;a>&lt;/a>")
  */
 XMLDocument.parse = function (value) {
     if (typeof value !== "string" || !value) return null;

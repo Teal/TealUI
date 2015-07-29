@@ -1,11 +1,11 @@
-/**
+ï»¿/**
  * @author xuld
  * Modified from https://github.com/joyent/node/blob/master/lib/url.js, Joyent, Inc
  */
 
 
 
-// #require data/querystring.js
+// #require querystring
 
 
 var Uri = (function () {
@@ -326,8 +326,8 @@ var Uri = (function () {
 	}
 
     /**
-     * ½«µ±Ç° URL ¶ÔÏó×ªÎª×Ö·û´®ĞÎÊ½¡£
-     * @returns {Uri} ·µ»Ø×ª»»ºóµÄµØÖ·¡£
+     * å°†å½“å‰ URL å¯¹è±¡è½¬ä¸ºå­—ç¬¦ä¸²å½¢å¼ã€‚
+     * @returns {Uri} è¿”å›è½¬æ¢åçš„åœ°å€ã€‚
      * @example Uri.parse("http://www.domain.com:55/file.ext?a=3#k").toString()
      */
 	Uri.prototype.toString = function () {
@@ -676,9 +676,9 @@ var Uri = (function () {
 	};
 
     /**
-     * ½âÎöÒ»¸ö URL µØÖ·Ïà¹ØĞÅÏ¢¡£
-     * @param {String} str Òª½âÎöµÄ×Ö·û´®¡£
-     * @returns {Uri} ·µ»Ø½âÎöºóµÄ `Uri` ¶ÔÏó¡£
+     * è§£æä¸€ä¸ª URL åœ°å€ç›¸å…³ä¿¡æ¯ã€‚
+     * @param {String} str è¦è§£æçš„å­—ç¬¦ä¸²ã€‚
+     * @returns {Uri} è¿”å›è§£æåçš„ `Uri` å¯¹è±¡ã€‚
      * @example Uri.parse("http://www.domain.com:55/file.ext?a=3#k")
      */
 	Uri.parse = urlParse;
@@ -686,9 +686,9 @@ var Uri = (function () {
 	Uri.resolveObject = urlResolveObject;
 
     /**
-     * ½«Ò»¸ö URL ¶ÔÏó×ªÎª×Ö·û´®ĞÎÊ½¡£
-     * @param {String} uri ÒÑ½âÎöµÄ `Uri` ¶ÔÏó¡£
-     * @returns {Uri} ·µ»Ø×ª»»ºóµÄµØÖ·¡£
+     * å°†ä¸€ä¸ª URL å¯¹è±¡è½¬ä¸ºå­—ç¬¦ä¸²å½¢å¼ã€‚
+     * @param {String} uri å·²è§£æçš„ `Uri` å¯¹è±¡ã€‚
+     * @returns {Uri} è¿”å›è½¬æ¢åçš„åœ°å€ã€‚
      * @example Uri.toString({protocol: "http:", host:"domain.com"})
      */
 	Uri.toString = urlFormat;

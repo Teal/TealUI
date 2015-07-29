@@ -43,8 +43,8 @@
             return null;
         }
 
-        var path = getQuery('file'),
-            url = Doc.baseUrl + Doc.Configs.folders.sources.path + '/' + path;
+        var path = getQuery('path'),
+            url = Doc.baseUrl + 'src/' + path;
         if (path) {
 
             document.title = document.title.replace('源码', '源码：' + path);
@@ -72,7 +72,7 @@
             });
 
         } else {
-            document.getElementById('source').innerHTML = '用法：/sourceReader/?file=源文件#行号';
+            document.getElementById('source').innerHTML = '用法：/sourceReader/?path=源文件#行号';
         }
 
     </script>
