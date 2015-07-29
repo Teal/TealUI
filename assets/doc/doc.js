@@ -1976,95 +1976,8 @@ var Doc = {
     },
 
     // #endregion
-
-    // #region API文档
-
-    /**
-     * 展开 API 详情。
-     */
-    expandApi: function (td, dataIndex, apiIndex) {
-        var api = Doc._apis[dataIndex].apis[apiIndex];
-        var result = api.summary || '';
-
-        if (api.params || api['this']) {
-            result += '<h4>参数</h4><table><tr><th>参数名</th><th>类型</th><th>说明</th></tr>';
-
-            if (api['this']) {
-                result += Doc.parseTpl('<tr><td><strong>this</strong></td><td><code>{type}</code></td><td>{summary}</td></tr>', api['this']);
-            }
-
-            if (api.params) {
-                for (var i = 0; i < api.params.length; i++) {
-                    var param = api.params[i];
-                    var summary = param.summary;
-                    // if(param.defaultValue) {
-                    //     summary = summary.replace('<p>', '<p>(默认 ' + param.defaultValue +') ');
-                    // } else if(param.optional) {
-                    //      summary = summary.replace('<p>', '<p>(可选) ');
-                    // }
-                    result += Doc.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td class="doc">{summary}</td></tr>', {
-                        name: (param.optional ? '<em>' + param.name + '</em>' : param.name) +
-                         (param.defaultValue ? ' = ' + param.defaultValue : param.optional ? '(可选)' : ''),
-                        type: param.type,
-                        summary: summary
-                    });
-                }
-            }
-
-            result += '</table>';
-        }
-
-        if (api.returns) {
-            result += '<h4>返回值</h4>';
-            if (api.returns.summary === "<p>this</p>") {
-                result += '<p>返回 <strong>this</strong> 以支持链式调用。</p>';
-            } else {
-                result += api.returns.summary.replace('<p>', '<p><code>' + (api.returns.type || "") + '</code> ');
-            }
-        }
-
-        if (api.remark) {
-            result += api.remark;
-        }
-
-        if (api.example) {
-            result += '<h4>示例</h4>' + api.example;
-        }
-
-        result += Doc.parseTpl('<div class="doc-toolbar">\
-                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
-                </div>', {
-                    dataIndex: dataIndex,
-                    apiIndex: apiIndex
-                });
-
-        td.colSpan = 2;
-        //td.parentNode.removeChild(td.nextSibling);
-        td.nextSibling.style.display = 'none';
-        td.innerHTML = result;
-
-        Doc.renderCodes();
-    },
-
-    /**
-     * 折叠 API 详情。
-     */
-    collapseApi: function (td, dataIndex, apiIndex) {
-        var api = Doc._apis[dataIndex].apis[apiIndex];
-        td.colSpan = 1;
-        td.nextSibling.style.display = '';
-        td.innerHTML = Doc.parseTpl('{summary}<div class="doc-toolbar">\
-                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
-                </div>', {
-                    summary: api.summary,
-                    dataIndex: dataIndex,
-                    apiIndex: apiIndex
-                });
-    },
-
-    // #endregion
-
-    // #region 页面功能
+    
+    // #region 代码区域
 
     /**
      * 绘制页内已加载的所有代码块。
@@ -2303,6 +2216,93 @@ var Doc = {
 
     },
 
+    // #endregion
+
+    // #region API文档
+
+    /**
+     * 展开 API 详情。
+     */
+    expandApi: function (td, dataIndex, apiIndex) {
+        var api = Doc._apis[dataIndex].apis[apiIndex];
+        var result = api.summary || '';
+
+        if (api.params || api['this']) {
+            result += '<h4>参数</h4><table><tr><th>参数名</th><th>类型</th><th>说明</th></tr>';
+
+            if (api['this']) {
+                result += Doc.parseTpl('<tr><td><strong>this</strong></td><td><code>{type}</code></td><td>{summary}</td></tr>', api['this']);
+            }
+
+            if (api.params) {
+                for (var i = 0; i < api.params.length; i++) {
+                    var param = api.params[i];
+                    var summary = param.summary;
+                    // if(param.defaultValue) {
+                    //     summary = summary.replace('<p>', '<p>(默认 ' + param.defaultValue +') ');
+                    // } else if(param.optional) {
+                    //      summary = summary.replace('<p>', '<p>(可选) ');
+                    // }
+                    result += Doc.parseTpl('<tr><td>{name}</td><td><code>{type}</code></td><td class="doc">{summary}</td></tr>', {
+                        name: (param.optional ? '<em>' + param.name + '</em>' : param.name) +
+                         (param.defaultValue ? ' = ' + param.defaultValue : param.optional ? '(可选)' : ''),
+                        type: param.type,
+                        summary: summary
+                    });
+                }
+            }
+
+            result += '</table>';
+        }
+
+        if (api.returns) {
+            result += '<h4>返回值</h4>';
+            if (api.returns.summary === "<p>this</p>") {
+                result += '<p>返回 <strong>this</strong> 以支持链式调用。</p>';
+            } else {
+                result += api.returns.summary.replace('<p>', '<p><code>' + (api.returns.type || "") + '</code> ');
+            }
+        }
+
+        if (api.remark) {
+            result += api.remark;
+        }
+
+        if (api.example) {
+            result += '<h4>示例</h4>' + api.example;
+        }
+
+        result += Doc.parseTpl('<div class="doc-toolbar">\
+                    <a href="javascript://折叠当前 API 的更多说明" onclick="Doc.collapseApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">︿</span>折叠</a>\
+                </div>', {
+                    dataIndex: dataIndex,
+                    apiIndex: apiIndex
+                });
+
+        td.colSpan = 2;
+        //td.parentNode.removeChild(td.nextSibling);
+        td.nextSibling.style.display = 'none';
+        td.innerHTML = result;
+
+        Doc.renderCodes();
+    },
+
+    /**
+     * 折叠 API 详情。
+     */
+    collapseApi: function (td, dataIndex, apiIndex) {
+        var api = Doc._apis[dataIndex].apis[apiIndex];
+        td.colSpan = 1;
+        td.nextSibling.style.display = '';
+        td.innerHTML = Doc.parseTpl('{summary}<div class="doc-toolbar">\
+                    <a href="javascript://展开当前 API 的更多说明" onclick="Doc.expandApi(this.parentNode.parentNode, {dataIndex}, {apiIndex})"><span class="doc-icon">﹀</span>更多</a>\
+                </div>', {
+                    summary: api.summary,
+                    dataIndex: dataIndex,
+                    apiIndex: apiIndex
+                });
+    },
+
     /**
      * 生成 API 列表。
      */
@@ -2383,7 +2383,7 @@ var Doc = {
 
         return result;
     },
-
+    
     /**
      * 执行页内所有代码。
      */
@@ -2391,7 +2391,7 @@ var Doc = {
         Doc.Dom.each('a[title="执行本代码"]', function (a) {
             a.click();
         });
-    }
+    },
 
     // #endregion
 
