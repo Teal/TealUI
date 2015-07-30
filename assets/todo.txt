@@ -18,10 +18,7 @@ utility
 	misc
 		ajax
 webApp
-	*
-
-7/30
-	utility/misc/*
+	
 7/31
 	utility/dom/base
 	control/core/base
