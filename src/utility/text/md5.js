@@ -5,18 +5,18 @@
 /**
  * 计算一个字符串的 MD5 值。
  * @param {String} str 要计算的字符串。
- * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
- * @example md5("a") // "0CC175B9C0F1B6A831C399E269772661"
+ * @returns {String} 返回 @str 加密后的字符串。其所有字符均为小写。
+ * @example md5("a") // "0cc175b9c0f1b6a831c399e269772661"
  */
 function md5(str) {
     return md5.binaryToString(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 }
 
 /**
- * MD5 算法使用的字符集。
+ * MD5 算法使用的字符集。如需更改 MD5 返回的大小写可更改此字段。
  * @inner
  */
-md5.hexChars = "0123456789ABCDEF";
+md5.hexChars = "0123456789abcdef";
 
 /**
  * MD5 算法使用的字符大小。
@@ -29,13 +29,25 @@ md5.charSize = 8;
  * 如果字符大于 255 ， 高位被截掉。
  * @inner
  */
-md5.stringToBinary = function (s) {
-    var result = [],
-        mask = (1 << md5.charSize) - 1,
-        i = 0,
-        len = s.length * md5.charSize;
-    for (; i < len; i += md5.charSize)
-        result[i >> 5] |= (s.charCodeAt(i / md5.charSize) & mask) << (i % 32);
+md5.stringToBinary = function (str) {
+    var result = [];
+    for (var i = 0, len = str.length * md5.charSize, mask = (1 << md5.charSize) - 1; i < len; i += md5.charSize) {
+        result[i >> 5] |= (str.charCodeAt(i / md5.charSize) & mask) << (i % 32);
+    }
+    return result;
+};
+
+/**
+ * 转换数组到十六进的字符串。
+ * @param {Array} 二进制数组。
+ * @returns {String} 字符串。
+ * @inner
+ */
+md5.binaryToString = function (binArray) {
+    var result = "";
+    for (var i = 0; i < binArray.length * 4; i++) {
+        result += md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8)) & 0xF);
+    }
     return result;
 };
 
@@ -45,14 +57,18 @@ md5.stringToBinary = function (s) {
  */
 md5.calc = function (binArray, length) {
 
+    /**
+     * 将32位数拆成高16位和低16位分别进行相加，从而实现 MOD 2^32 的加法。
+     * @inner
+     */
     function safeAdd(x, y) {
         var lsw = (x & 0xFFFF) + (y & 0xFFFF);
         return (((x >> 16) + (y >> 16) + (lsw >> 16)) << 16) | (lsw & 0xFFFF);
     }
 
-    function combine(q, a, b, x, s, t) {
+    function combine(q, a, b, x, str, t) {
         var num = safeAdd(safeAdd(a, q), safeAdd(x, t));
-        return safeAdd((num << s) | (num >>> (32 - s)), b);
+        return safeAdd((num << str) | (num >>> (32 - str)), b);
     }
 
     function proc(j0, j1, j2, j3, ts0, ts1, ts2, ts3) {
@@ -131,20 +147,4 @@ md5.calc = function (binArray, length) {
         d = safeAdd(d, oldD);
     }
     return [a, b, c, d];
-};
-
-/**
- * 转换数组到十六进的字符串。
- * @param {Array} 二进制数组。
- * @returns {String} 字符串。
- * @inner
- */
-md5.binaryToString = function (binArray) {
-    var result = "",
-        i = 0;
-    for (; i < binArray.length * 4; i++) {
-        result += md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
-        md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8)) & 0xF);
-    }
-    return result;
 };
