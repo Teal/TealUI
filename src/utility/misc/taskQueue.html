@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>串联异步任务</title>
+    <title>异步队列</title>
     <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="TaskQueue 用于管理异步任务（如Ajax），确保两个操作不会同时执行以导致临界资源冲突。">
@@ -15,6 +15,7 @@
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <h2>异步队列</h2>
     <script class="doc-demo">
         var deferred = new TaskQueue();
 
@@ -52,5 +53,83 @@
         });
 
     </script>
+
+    <script data-gendoc="utility/misc/taskQueue.js">
+        Doc.writeApi({
+            path: "utility/misc/taskQueue.js",
+            apis: [{
+                memberOf: "TaskQueue.prototype",
+                name: "resume",
+                summary: "<p>通知当前异步任务已经完成，并继续执行下一个任务。</p>",
+                params: [{
+                    type: "Object",
+                    name: "...",
+                    summary: "<p>传递给下个异步任务的数据。</p>"
+                }],
+                returns: {
+                    summary: "<p>this</p>"
+                },
+                example: "<pre>new TaskQueue().resume()</pre>",
+                line: 37,
+                col: 1
+            }, {
+                memberOf: "TaskQueue.prototype",
+                name: "suspend",
+                summary: "<p>挂起异步等待操作。</p>",
+                params: [{
+                    type: "Object",
+                    name: "current",
+                    summary: "<p>引发挂起的对象。将调用其 <code>abort</code> 方法恢复挂起。</p>"
+                }],
+                example: "<pre>new TaskQueue().suspend()</pre>",
+                line: 55,
+                col: 1
+            }, {
+                memberOf: "TaskQueue.prototype",
+                name: "then",
+                summary: "<p>添加一个同步或异步任务。</p>",
+                params: [{
+                    type: "Function",
+                    name: "fn",
+                    summary: "<p>要添加的任务函数。函数的参数为上个异步调用传递的数据。 <br>\n\
+如果是异步函数，则函数内部必须调用 <em>suspend</em> 挂起队列，并在异步完成后调用 <em>resume</em> 恢复队列。 <br>\n\
+函数应该返回一个包含 <code>abort</code> 方法的对象，以便于终止此异步操作。</p>"
+                }, {
+                    type: "Object",
+                    name: "scope",
+                    optional: true,
+                    summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+                }, {
+                    type: "String",
+                    name: "link",
+                    defaultValue: "\"wait\"",
+                    optional: true,
+                    summary: "<p>定义正在执行其它异步任务时，<em>fn</em> 的操作。</p>\n\
+\n\
+<p>值        | 意义 <br>\n\
+wait(默认)| 等待之前的所有异步任务都完成后再执行当前任务。 <br>\n\
+abort     | 立即终止正在执行的异步任务并撤销等待的剩余任务，然后立即执行当前任务。 <br>\n\
+replace   | 立即终止正在执行的异步任务并立即执行当前任务，然后继续执行其它正在等待的异步任务。 <br>\n\
+insert    | 等待正在执行的异步任务完成后执行当前任务，然后继续执行其它正在等待的异步任务。 <br>\n\
+cancel    | 取消当前任务。</p>"
+                }],
+                returns: {
+                    summary: "<p>this</p>"
+                },
+                example: "<pre>new TaskQueue().then(function(){ });</pre>",
+                line: 64,
+                col: 1
+            }, {
+                memberOf: "TaskQueue.prototype",
+                name: "abort",
+                summary: "<p>终止当前正在执行的异步任务。</p>",
+                returns: {
+                    summary: "<p>this</p>"
+                },
+                example: "<pre>new TaskQueue().abort();</pre>",
+                line: 121,
+                col: 1
+            }]
+        });</script>
 </body>
 </html>

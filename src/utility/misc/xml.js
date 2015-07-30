@@ -7,8 +7,8 @@ var XMLDocument = XMLDocument || {};
 /**
  * 解析一个 XML 文件。
  * @param {String} value 要解析的字符串。
- * @param {XML} 返回解析后的 XML 文档。
- * @example XML.parse("&lt;a>&lt;/a>")
+ * @param {XMLDocument} 返回解析后的 XML 文档。
+ * @example XMLDocument.parse("&lt;a>&lt;/a>")
  */
 XMLDocument.parse = function (value) {
     if (typeof value !== "string" || !value) return null;

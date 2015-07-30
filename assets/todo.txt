@@ -21,7 +21,6 @@ webApp
 	*
 
 7/30
-	utility/misc/ajax
 	utility/misc/*
 7/31
 	utility/dom/base

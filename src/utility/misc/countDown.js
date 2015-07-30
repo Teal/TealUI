@@ -3,25 +3,24 @@
  */
 
 /**
- * ´ÓÖ¸¶¨Ê±¿Ìµ½Ö¸¶¨Ê±¿Ì½øĞĞµ¹¼ÆÊ±¡£
- * @param {Date} [startDate] ¿ªÊ¼µ¹¼ÆÊ±µÄÊ±¼ä¡£Èç¹ûÊ¡ÂÔÔò´Óµ±Ç°Ê±¼ä¿ªÊ¼µ¹¼ÆÊ±¡£
- * @param {Date} endDate ½áÊøµ¹¼ÆÊ±µÄÊ±¼ä¡£
- * @param {Function} callback Ã¿Ãëµ¹¼ÆÊ±µÄ»Øµ÷¡£º¯ÊıµÄ²ÎÊıÒÀ´ÎÎª:function(day, hour, minute, second, leftTime)
- * @param {Function} fn ¶ÔÃ¿¸öÔªËØÔËĞĞµÄº¯Êı¡£º¯ÊıµÄ²ÎÊıÒÀ´ÎÎª:
+ * ä»æŒ‡å®šæ—¶åˆ»åˆ°æŒ‡å®šæ—¶åˆ»è¿›è¡Œå€’è®¡æ—¶ã€‚
+ * @param {Date} [startDate] å¼€å§‹å€’è®¡æ—¶çš„æ—¶é—´ã€‚å¦‚æœçœç•¥åˆ™ä»å½“å‰æ—¶é—´å¼€å§‹å€’è®¡æ—¶ã€‚
+ * @param {Date} endDate ç»“æŸå€’è®¡æ—¶çš„æ—¶é—´ã€‚
+ * @param {Function} callback æ¯ç§’å€’è®¡æ—¶çš„å›è°ƒã€‚å‡½æ•°çš„å‚æ•°ä¾æ¬¡ä¸º:function(day, hour, minute, second, leftTime)
+ * @param {Function} fn å¯¹æ¯ä¸ªå…ƒç´ è¿è¡Œçš„å‡½æ•°ã€‚å‡½æ•°çš„å‚æ•°ä¾æ¬¡ä¸º:
  *
- * ²ÎÊıÃû    | ÀàĞÍ      | ËµÃ÷
- * day      | `Number`  | Ó¦¸ÃÏÔÊ¾µÄÌìÊı¡£
- * hour     | `Number`  | Ó¦¸ÃÏÔÊ¾µÄĞ¡Ê±Êı¡£
- * minute   | `Number`  | Ó¦¸ÃÏÔÊ¾µÄ·ÖÊı¡£
- * second   | `Number`  | Ó¦¸ÃÏÔÊ¾µÄÃëÊı¡£
- * leftTime | `Number`  | Ê£ÏÂµÄ×ÜÃëÊı¡£
+ * * @param {Number} day åº”è¯¥æ˜¾ç¤ºçš„å¤©æ•°ã€‚
+ * * @param {Number} hour åº”è¯¥æ˜¾ç¤ºçš„å°æ—¶æ•°ã€‚
+ * * @param {Number} minute åº”è¯¥æ˜¾ç¤ºçš„åˆ†æ•°ã€‚
+ * * @param {Number} second åº”è¯¥æ˜¾ç¤ºçš„ç§’æ•°ã€‚
+ * * @param {Number} leftTime å‰©ä¸‹çš„æ€»ç§’æ•°ã€‚
  * 
- * @returns {Number} ·µ»ØÒ»¸ö¼ÆÊ±Æ÷£¬¿ÉÒÔÍ¨¹ı clearInterval(·µ»ØÖµ) Í£Ö¹µ¹¼ÆÊ±¡£
- * @example countDown(function(day, hour, minute, second){ console.log(day, hour, minute, second); })
+ * @returns {Number} è¿”å›ä¸€ä¸ªè®¡æ—¶å™¨ï¼Œå¯ä»¥é€šè¿‡ clearInterval(è¿”å›å€¼) åœæ­¢å€’è®¡æ—¶ã€‚
+ * @example countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime){ console.log(day, hour, minute, second); })
  */
 function countDown(startDate, endDate, callback) {
 
-    // Ìî³äµÚÒ»¸ö²ÎÊı¡£
+    // å¡«å……ç¬¬ä¸€ä¸ªå‚æ•°ã€‚
     if (!callback) {
         callback = endDate;
         endDate = startDate;

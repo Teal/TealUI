@@ -9,7 +9,7 @@
     <meta name="description" content="委托是一个动态函数列表，而委托本身又可以作为一个函数直接执行。">
 
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../utility/delegate.js"></script>
+    <script type="text/javascript" src="../../utility/misc/delegate.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -22,25 +22,56 @@
         delegate.add(function(){ alert(2) }); // 添加委托函数。
         delegate(); // 执行委托的所有函数。将 alert(1) 和 alert(2)
     </pre>
+
+    <script data-gendoc="utility/misc/delegate.js">
+    Doc.writeApi({
+			path: "utility/misc/delegate.js",
+			apis: [{
+				memberOf: "Delegate.prototype",
+				name: "add",
+				summary: "<p>增加一个委托函数。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>函数。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new Delegate().add(function(){})</pre>",
+				line: 20,
+				col: 1
+			}, {
+				memberOf: "Delegate.prototype",
+				name: "remove",
+				summary: "<p>删除一个函数。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>函数。</p>"
+				}],
+				returns: {
+					type: "Delegate",
+					summary: "<p>this。</p>"
+				},
+				example: "<pre>new Delegate().remove(function(){})</pre>",
+				line: 31,
+				col: 1
+			}, {
+				memberOf: "Delegate.prototype",
+				name: "clear",
+				summary: "<p>删除所有函数。</p>",
+				returns: {
+					type: "Delegate",
+					summary: "<p>this。</p>"
+				},
+				example: "<pre>new Delegate().clear()</pre>",
+				line: 42,
+				col: 1
+			}]
+});</script>
     
-    <h2>常用 API</h2>
-    
-    <h5>创建委托</h5>
-    <pre>var delegate = new Delegate(trace /*, ... */);</pre>
-
-    <h5>添加委托函数</h5>
-    <pre>delegate.add(trace);</pre>
-
-    <h5>删除委托函数</h5>
-    <pre>delegate.remove(trace);</pre>
-
-    <h5>清空委托函数</h5>
-    <pre>delegate.clear();</pre>
-
-    <h5>设置委托函数的 this</h5>
-    <pre>delegate.call(this /*, ... */);</pre>
-
-    <h2>使用场景</h2>
+    <h4>使用场景</h4>
     <pre>
         document.onclick = new Delegate(); // 支持使用同一个函数触发多个函数。
     </pre>

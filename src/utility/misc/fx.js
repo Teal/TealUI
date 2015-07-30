@@ -10,17 +10,9 @@ Date.now = Date.now || function () { return +new Date; };
 
 /**
  * 表示一个特效驱动。
- * @param {Object} options 特效的配置。支持的值有：
- * 
- * 字段名        |类型      | 默认值      |说明
- * duration     |`Number`  |300         |特效执行的总毫秒数。
- * fps          |`Number`  |50          |每秒的运行帧次。
- * transition   |`Function`|（sin变化）  |特效执行的渐变曲线。
- * link         |`String`  |（sin变化）  |多个特效的串联方式。
- * complete     |`Function`|`null`      |特效执行完成的回调。回调参数为一个布尔值，表示是否是强制终止执行。
- * set          |`Function`|（空函数）   |根据指定的变化量设置实际的效果值。
- * start        |`Function`|`null`      |特效开始执行的回调。
+ * @param {Object} options 特效的配置。具体见 `Fx.run`。
  * @class
+ * @inner
  */
 function Fx(options) {
     // 拷贝用户配置。
@@ -51,8 +43,8 @@ Fx.prototype = {
 
     /**
      * 特效执行的渐变曲线。
-     * - @param {Number} p 转换前的数值，大小在 0-1 之间。
-     * - @returns {Number} 返回根据渐变曲线变换后的值，大小在 0-1 之间。
+     * * @param {Number} p 转换前的数值，大小在 0-1 之间。
+     * * @returns {Number} 返回根据渐变曲线变换后的值，大小在 0-1 之间。
      * @type Function
      * @field
      */
@@ -66,6 +58,7 @@ Fx.prototype = {
      * @remark 取值的意义
      * 
      * 值        | 意义
+     * ---------|-----------------
      * wait(默认)| 等待之前的所有特效都完成后再执行当前任务。
      * abort     | 立即终止正在执行的特效并撤销等待的剩余任务，然后立即执行当前任务。
      * replace   | 立即终止正在执行的特效并立即执行当前任务，然后继续执行其它正在等待的特效。
@@ -189,15 +182,27 @@ Fx.prototype = {
  * 立即执行一个特效。
  * @param {Object} options 特效的配置。支持的值有：
  * 
- * 字段名        |类型      | 默认值      |说明
- * duration     |`Number`  |300         |特效执行的总毫秒数。
- * fps          |`Number`  |50          |每秒的运行帧次。
- * transition   |`Function`|（sin变化）  |特效执行的渐变曲线。
- * link         |`String`  |（sin变化）  |多个特效的串联方式。
- * complete     |`Function`|`null`      |特效执行完成的回调。回调参数为一个布尔值，表示是否是强制终止执行。
- * set          |`Function`|（空函数）   |根据指定的变化量设置实际的效果值。
- * start        |`Function`|`null`      |特效开始执行的回调。
- * @class
+ * * @param {Function} [complete] 特效执行完成的回调。回调参数为一个布尔值，表示是否是强制终止执行。
+ * * @param {Number} [duration=300] 特效执行的总毫秒数。
+ * * @param {Number } [fps=50] 每秒的运行帧次。
+ * * @param {Function} [transition] 特效执行的渐变曲线。默认为 sin 曲线变化。
+ * * @param {String} [link] 多个特效的串联方式。可取值：
+ * 值        | 意义
+ * ---------|-----------------
+ * wait(默认)| 等待之前的所有特效都完成后再执行当前任务。
+ * abort     | 立即终止正在执行的特效并撤销等待的剩余任务，然后立即执行当前任务。
+ * replace   | 立即终止正在执行的特效并立即执行当前任务，然后继续执行其它正在等待的特效。
+ * insert    | 等待正在执行的特效完成后执行当前任务，然后继续执行其它正在等待的特效。
+ * cancel    | 取消当前任务。
+ * 
+ * * @param {Function} [set] 根据指定的变化量设置实际的效果值。
+ * * @param {Function} [start] 特效开始执行的回调。
+ * @example 
+ * Fx.run({
+ *     set: function (value) {
+ *         console.log(value);
+ *     }
+ * });
  */
 Fx.run = function (options) {
     return new Fx(options).run();

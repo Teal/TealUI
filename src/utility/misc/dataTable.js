@@ -23,7 +23,7 @@ var DataTable = Base.extend.call(Array, {
      * @param {Object} row 要添加的行。
      * @return {Boolean} 如果返回 @true，则允许添加指定的行，否则不允许。
      * @protected
-     * @example dataTable.onAddRow = function(index, row){ alert('添加了新行：' + row); }
+     * @inner
      */
     onAddRow: function(index, row){
         return this.trigger('add', {index: index, row: row}) && this.onChange();
@@ -35,7 +35,7 @@ var DataTable = Base.extend.call(Array, {
      * @param {Number} length 要删除的行数。
      * @return {Boolean} 如果返回 @true，则允许删除指定的行，否则不允许。
      * @protected
-     * @example dataTable.onRemoveRow = function(index, length){ alert('删除了行：' + this[index]); }
+     * @inner
      */
     onRemoveRow: function(index, length){
         return this.trigger('remove', {index: index, length: length}) && this.onChange();
@@ -44,7 +44,7 @@ var DataTable = Base.extend.call(Array, {
     /**
      * 当数据发生改变时回调。
      * @protected
-     * @example dataTable.onChange = function(){ alert('表格数据发生改变'); }
+     * @inner
      */
     onChange: function(){
         return this.trigger('change');
@@ -58,7 +58,7 @@ var DataTable = Base.extend.call(Array, {
      *          a: { // 列名。表格内列应该唯一。
      *              type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。
      *              sorter: function(){} // 当前列的排序方案
-     *          }, ...
+     *          } // , ...
      *      }
      * 
      * @param {Array} [data] 要处理的原始数据。具体数值应该是和列一一对应的 JSON 对象数组。
@@ -68,7 +68,7 @@ var DataTable = Base.extend.call(Array, {
      *     a: { // 列名。表格内列应该唯一。
      *         type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。
      *         sorter: function(){} // 当前列的排序方案
-     *     }, ...
+     *     } // , ...
      * }, [{
      *      a: 1
      * }, {
@@ -78,6 +78,13 @@ var DataTable = Base.extend.call(Array, {
     constructor: function (columns, data) {
         this.columns = columns || {};
         data && this.set(data);
+        /*@cc_on if(!-"\v1"){
+         var result = [];
+         for(var p in this){
+            result[p] = this[p];
+         }
+         return result; 
+        } @*/
     },
 
     /**

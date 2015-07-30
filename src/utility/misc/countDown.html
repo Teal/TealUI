@@ -15,7 +15,7 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>效果预览</h2>
+    <h2>倒计时</h2>
     
     <h3>倒计时：N 天 N 小时 N 分 N 秒</h3>
     <aside class="doc-demo">
@@ -80,18 +80,45 @@
         </script>
     </aside>
 
-    <h2>API <small>(源码: <a href="../../utility/misc/countDown.js" target="_blank">utility/misc/countDown.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>countDown</code></td>
-            <td>鼠标悬浮事件</td>
-            <td><pre>countDown(function(day, hour, minute, second){ console.log(day, hour, minute, second); });</pre></td>
-        </tr>
-    </table>
+    <script data-gendoc="utility/misc/countDown.js">Doc.writeApi({
+			path: "utility/misc/countDown.js",
+			apis: [{
+				name: "countDown",
+				summary: "<p>从指定时刻到指定时刻进行倒计时。</p>",
+				params: [{
+					type: "Date",
+					name: "startDate",
+					optional: true,
+					summary: "<p>开始倒计时的时间。如果省略则从当前时间开始倒计时。</p>"
+				}, {
+					type: "Date",
+					name: "endDate",
+					summary: "<p>结束倒计时的时间。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					summary: "<p>每秒倒计时的回调。函数的参数依次为:function(day, hour, minute, second, leftTime)</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每个元素运行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>day: <code>Number</code> 应该显示的天数。</li>\n\
+<li>hour: <code>Number</code> 应该显示的小时数。</li>\n\
+<li>minute: <code>Number</code> 应该显示的分数。</li>\n\
+<li>second: <code>Number</code> 应该显示的秒数。</li>\n\
+<li>leftTime: <code>Number</code> 剩下的总秒数。</li>\n\
+</ul>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。</p>"
+				},
+				example: "<pre>countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime){ console.log(day, hour, minute, second); })</pre>",
+				line: 5,
+				col: 1
+			}]
+});</script>
 </body>
 </html>

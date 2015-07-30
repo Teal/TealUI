@@ -45,12 +45,15 @@ var tags = {
     sample: { alias: 'example' }
 };
 
+var lastDocComment;
+
 /**
  * 解析源码并返回所有标记列表。
  */
 function parseDoc(content) {
     var reader = new SourceReader(content);
     var docComments = getAllDocComments(reader);
+    lastDocComment = null;
     return docComments;
 }
 
@@ -118,8 +121,6 @@ function getAllDocComments(reader) {
 
     return docComments;
 }
-
-var lastDocComment;
 
 /**
  * 解析一个文档注释。
@@ -241,12 +242,15 @@ function parseDocComment(comment, rest) {
                 result.type = result.type || "RegExp";
             }
 
-            if (!result.memberOf && lastDocComment) {
+            if (match[4] === ':' && !result.memberOf && lastDocComment) {
                 var lastName = lastDocComment.name;
                 if (lastDocComment.memberType === 'class') {
                     lastName += '.prototype';
                 }
                 result.memberOf = lastName;
+                if (lastDocComment.inner) {
+                    result.inner = true;
+                }
             }
         }
 
@@ -260,14 +264,19 @@ function parseDocComment(comment, rest) {
         result.memberOf = "";
     }
 
-    if (result['inner'] || (!result['name'])) {
-        return null;
-    }
-
     // 为对象持有者忽略注释。
     if (/^[A-Z]/.test(result['name']) && !result['memberOf']) {
         lastDocComment = result;
         return null;
+    }
+
+    if (result['inner'] || (!result['name'])) {
+        return null;
+    }
+
+    if (result.memberType == "constructor") {
+        result.name = result.memberOf.replace(/\.prototype$/, "");
+        result.memberOf = "";
     }
 
     for (var key in result) {
