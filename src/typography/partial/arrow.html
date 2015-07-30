@@ -11,6 +11,7 @@
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/arrow.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/arrow-text.css" />
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -77,6 +78,43 @@
                 border-bottom-color: #00BCD4; /*边框色*/
             }
         </style>
+    </aside>
+    
+    <h2>经典箭头 <small>(兼容IE6)</small></h2>
+    <p>除了基于边框实现箭头，还可以基于文字实现箭头</p>
+
+    <style>
+        .x-arrow-text {
+            position: relative;
+        }
+    </style>
+
+    <aside class="doc-demo">
+        <span class="x-arrow-text x-arrow-text-top">
+            <span class="x-arrow-text-fore">◆</span>
+            <span class="x-arrow-text-back">◆</span>
+        </span>
+    </aside>
+
+    <aside class="doc-demo">
+        <span class="x-arrow-text x-arrow-text-bottom">
+            <span class="x-arrow-text-fore">◆</span>
+            <span class="x-arrow-text-back">◆</span>
+        </span>
+    </aside>
+
+    <aside class="doc-demo">
+        <span class="x-arrow-text x-arrow-text-left">
+            <span class="x-arrow-text-fore">◆</span>
+            <span class="x-arrow-text-back">◆</span>
+        </span>
+    </aside>
+
+    <aside class="doc-demo">
+        <span class="x-arrow-text x-arrow-text-right">
+            <span class="x-arrow-text-fore">◆</span>
+            <span class="x-arrow-text-back">◆</span>
+        </span>
     </aside>
 </body>
 </html>

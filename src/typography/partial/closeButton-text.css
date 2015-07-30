@@ -1,4 +1,4 @@
-﻿.x-closebutton {
+﻿.x-closebutton-text {
   font-family: Verdana;
   font-size: 1.5em;
   line-height: 100%;
@@ -22,7 +22,7 @@
   transform: rotate(0);
   display: block;
 }
-.x-closebutton:hover {
+.x-closebutton-text:hover {
   text-decoration: none;
   opacity: .3;
   -moz-transform: rotate(360deg);

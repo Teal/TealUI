@@ -1,4 +1,4 @@
-﻿.x-arrow {
+﻿.x-arrow-text {
   font-family: SimSun, Verdana;
   overflow: hidden;
   display: block;
@@ -11,71 +11,71 @@
   -webkit-user-select: none;
   user-select: none;
 }
-.x-arrow-fore {
+.x-arrow-text-fore {
   position: absolute;
 }
-.x-arrow-back {
+.x-arrow-text-back {
   position: absolute;
 }
-.x-arrow-top,
-.x-arrow-bottom {
+.x-arrow-text-top,
+.x-arrow-text-bottom {
   height: 10px;
   width: 20px;
 }
-.x-arrow-top .x-arrow-fore {
+.x-arrow-text-top .x-arrow-text-fore {
   top: 1px;
   left: 0;
 }
-.x-arrow-top .x-arrow-back {
+.x-arrow-text-top .x-arrow-text-back {
   top: 2px;
   left: 0;
 }
-.x-arrow-bottom .x-arrow-fore {
+.x-arrow-text-bottom .x-arrow-text-fore {
   bottom: 0;
   left: 0;
 }
-.x-arrow-bottom .x-arrow-back {
+.x-arrow-text-bottom .x-arrow-text-back {
   bottom: 1px;
   left: 0;
 }
-.x-arrow-left,
-.x-arrow-right {
+.x-arrow-text-left,
+.x-arrow-text-right {
   height: 20px;
   width: 10px;
 }
-.x-arrow-left .x-arrow-fore {
+.x-arrow-text-left .x-arrow-text-fore {
   top: 0;
   left: 0;
 }
-.x-arrow-left .x-arrow-back {
+.x-arrow-text-left .x-arrow-text-back {
   top: 0;
   left: 1px;
 }
-.x-arrow-right .x-arrow-fore {
+.x-arrow-text-right .x-arrow-text-fore {
   top: 0;
   right: 0;
 }
-.x-arrow-right .x-arrow-back {
+.x-arrow-text-right .x-arrow-text-back {
   top: 0;
   right: 1px;
 }
-.x-arrow-bottom {
+.x-arrow-text-bottom {
   bottom: -10px;
   left: 50%;
   margin-left: -10px;
 }
-.x-arrow-top {
+.x-arrow-text-top {
   _font-size: 20px;
   top: -10px;
   left: 50%;
   margin-left: -10px;
 }
-.x-arrow-left {
+.x-arrow-text-left {
   left: -10px;
   top: 50%;
   margin-top: -10px;
 }
-.x-arrow-right {
+.x-arrow-text-right {
   top: 50%;
   margin-top: -10px;
   right: -10px;
