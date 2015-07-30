@@ -56,7 +56,7 @@ function parseChineseId(idNumber) {
         '82': '澳门',
         '91': '国外'
     }),
-        province = parseChineseId.provinces[idNumber.substring(0, 2)],
+        province = provinces[idNumber.substring(0, 2)],
         birthdayYear = +idNumber.substr(6, 4),
         birthdayMonth = +idNumber.substr(10, 2),
         birthdayDay = +idNumber.substr(12, 2),

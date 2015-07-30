@@ -272,7 +272,7 @@ var Doc = {
              * 删除公共缩进部分。
              */
             removeLeadingWhiteSpaces: function (value) {
-                value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
+                value = value && value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
                 var space = /^\s+/.exec(value), i;
                 if (space) {
                     space = space[0];
@@ -2245,7 +2245,7 @@ var Doc = {
      */
     execAllCodes: function () {
         Doc.iterate('pre', function (pre) {
-            var src = pre.textContent, result;
+            var src = pre.textContent || pre.innerText, result;
             try {
                 result = window.eval(src);
                 console.log(src, ' => ' + result);
@@ -2316,7 +2316,7 @@ var Doc = {
                 </div></td><td class="doc" id="doc_api_{dataIndex}_{apiIndex}">{summary}<div class="doc-toolbar">\
                     <a href="javascript:Doc.expandApi({dataIndex}, {apiIndex})" title="展开当前 API 的更多说明"><span class="doc-icon">﹀</span>更多</a>\
                 </div></td><td class="doc">{example}</td></tr>', {
-                    since: api.since ? ' <small>' + (api.since == 'ES5' ? '<span class="doc-icon" title="HTML5 内置此 API">5</span>' : api.since == 'ES4' ? '<span class="doc-icon" title="仅为 IE6-8 提供">i</span>' : '(' + api.since + ' 新增)') + '</small>' : '',
+                    since: api.since ? ' <small>' + (api.since == 'ES5' ? '<span class="doc-icon" title="HTML5 内置此 API">5</span>' : api.since == 'ES4' ? '(仅IE6-8不支持)' : '(' + api.since + ' 新增)') + '</small>' : '',
                     name: match ? '<em>' + (Doc.vars[match[1]] || (match[1].charAt(0).toLowerCase() + match[1].substr(1))) + '</em>.' + api.name : (api.memberOf ? api.memberOf + '.' : '') + api.name,
                     summary: api.summary,
                     dataIndex: dataIndex,

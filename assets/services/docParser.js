@@ -326,7 +326,7 @@ function parseMarkDown(content) {
         return '<a href="' + value + '" target="_blank">' + value + '</a>';
     });
     content = content.replace(/@(null|true|false|undefined|this)/g, "<strong>$1</strong>");
-    content = content.replace(/@([\w$\.\#]+)/g, "<em>$1</em>")
+    content = content.replace(/@([\w$\.\#]+)/g, "<em>$1</em>");
 
     content = Markdown.toHTML(content);
     content = content.replace(/<blockquote>(\s*<h\d>)?\!/g, '<blockquote class="doc-note">$1');

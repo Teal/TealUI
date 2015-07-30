@@ -8,7 +8,7 @@
  * 计算一个字符串的 HMAC-MD5 值。
  * @param {String} str 要计算的字符串。
  * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
- * @example md5.hmacMd5("abc", "key") // "D2FE98063F876B03193AFB49B4979591"
+ * @example md5.hmacMd5("abc", "key") // "d2fe98063f876b03193afb49b4979591"
  */
 md5.hmacMd5 = function (str, key) {
     return md5.binaryToString(md5.hmacMd5c(str, key));
@@ -40,7 +40,7 @@ md5.hmacMd5c = function (str, key) {
  * 计算一个字符串的 Base64-MD5 值。
  * @param {String} str 要计算的字符串。
  * @returns {String} 返回 @str 加密后的字符串。其所有字符均为大写。
- * @example md5.base64Md5("abc")
+ * @example md5.base64Md5("abc") // "kAFQmDzST7DWlj99KOF/cg"
  */
 md5.base64Md5 = function (str) {
     return md5.binaryToBase64(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));

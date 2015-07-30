@@ -199,7 +199,7 @@ var Path = {
      * 获取指定路径的文件名部分。
      * @param {String} path 要处理的路径。
      * @returns {String} 返回文件部分。
-     * @example Path.dirname("e/a/b.txt") // "b.txt"
+     * @example Path.basename("e/a/b.txt") // "b.txt"
      */
 	basename: function(path, ext) {
 		var f = Path._splitPath(path)[2];
@@ -214,7 +214,7 @@ var Path = {
      * 获取指定路径的扩展名部分（包括点）。
      * @param {String} path 要处理的路径。
      * @returns {String} 返回扩展名部分。
-     * @example Path.dirname("e/a/b.txt") // ".txt"
+     * @example Path.extname("e/a/b.txt") // ".txt"
      */
 	extname: function(path) {
 		return Path._splitPath(path)[3];

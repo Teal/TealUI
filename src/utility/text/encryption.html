@@ -47,7 +47,7 @@
 					type: "String",
 					summary: "<p>返回加密后的字符串。</p>"
 				},
-				example: "<pre>encryptString(\"abc\", 123)</pre>",
+				example: "<pre>encryptString(\"abc\", 123) // \"``e\"</pre>",
 				line: 2,
 				col: 1
 			}, {
@@ -66,7 +66,7 @@
 					type: "String",
 					summary: "<p>返回解密后的字符串。</p>"
 				},
-				example: "<pre>dencryptString(\"abc\", 123)</pre>",
+				example: "<pre>dencryptString(\"abc\", 123) // \"cce\"</pre>",
 				line: 23,
 				col: 1
 			}]
@@ -121,7 +121,7 @@
 					type: "String",
 					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
 				},
-				example: "<pre>md5.hmacMd5(\"abc\", \"key\") // \"D2FE98063F876B03193AFB49B4979591\"</pre>",
+				example: "<pre>md5.hmacMd5(\"abc\", \"key\") // \"d2fe98063f876b03193afb49b4979591\"</pre>",
 				line: 7,
 				col: 1
 			}, {
@@ -137,7 +137,7 @@
 					type: "String",
 					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
 				},
-				example: "<pre>md5.base64Md5(\"abc\")</pre>",
+				example: "<pre>md5.base64Md5(\"abc\") // \"kAFQmDzST7DWlj99KOF/cg\"</pre>",
 				line: 39,
 				col: 1
 			}, {
@@ -185,6 +185,8 @@
 				col: 1
 			}]
 });</script>
+    
+    <blockquote>更完整的 SHA 加密算法请参考：<a href="http://caligatio.github.io/jsSHA/" target="_blank">jsSHA</a>。</blockquote>
 
     <h2>DES 加密</h2>
     <p>
@@ -232,96 +234,5 @@
 				col: 1
 			}]
 });</script>
-
-    <h2>JS 代码混淆</h2>
-    <textarea id="obfuscator_input"></textarea><br />
-    <input type="button" value="加密" onclick="document.getElementById('obfuscator_input').value = Obfuscator.obfuscate(document.getElementById('obfuscator_input').value)" />
-    <input type="button" value="解密"  onclick="document.getElementById('obfuscator_input').value = Obfuscator.deobfuscate(document.getElementById('obfuscator_input').value)"/>
-    <script data-gendoc="utility/text/obfuscator.js">
-
-        Doc.writeApi({
-			path: "utility/text/obfuscator.js",
-			apis: [{
-				memberOf: "Obfuscator",
-				name: "obfuscate",
-				summary: "<p>混淆指定的 JavaScript 代码。</p>",
-				params: [{
-					type: "String",
-					name: "sourceCode",
-					summary: "<p>要混淆的代码。</p>"
-				}, {
-					type: "Boolean",
-					name: "asciiEncoding",
-					optional: true,
-					summary: "<p>是否使用 ASCII 编码。</p>"
-				}, {
-					type: "Boolean",
-					name: "fastDecode",
-					optional: true,
-					summary: "<p>是否允许快速解码。</p>"
-				}, {
-					type: "Boolean",
-					name: "allowSepicalChars",
-					optional: true,
-					summary: "<p>是否使用特殊字符串。</p>"
-				}],
-				returns: {
-					type: "String",
-					summary: "<p>返回已混淆的代码。</p>"
-				},
-				example: "<pre>Obfuscator.obfuscate(\"var a =1\")</pre>",
-				line: 13,
-				col: 1
-			}, {
-				memberOf: "Obfuscator",
-				name: "deobfuscate",
-				summary: "<p>取消混淆指定的 JavaScript 代码。</p>",
-				params: [{
-					type: "String",
-					name: "obfuscatedCode",
-					summary: "<p>已混淆的代码。</p>"
-				}],
-				returns: {
-					type: "String",
-					summary: "<p>返回取消混淆的代码。</p>"
-				},
-				example: "<pre>Obfuscator.deobfuscate(\"var a =1\")</pre>",
-				line: 415,
-				col: 1
-			}]
-});</script>
-
-    <h2>JS 代码加密</h2>
-    <textarea id="jjencode_input"></textarea><br />
-    加密字符：<input type="text" id="jjencode_str" value="$" />
-    <input type="button" value="加密" onclick="document.getElementById('jjencode_input').value = jjencode(document.getElementById('jjencode_input').value, document.getElementById('jjencode_str').value)" />
-    <script data-gendoc="utility/text/jjencode.js">
-
-        Doc.writeApi({
-			path: "utility/text/jjencode.js",
-			apis: [{
-				name: "jjencode",
-				summary: "<p>加密指定的 JavaScript 源码。</p>",
-				params: [{
-					type: "String",
-					name: "sourceCode",
-					summary: "<p>要加密的代码。</p>"
-				}, {
-					type: "String",
-					name: "text",
-					defaultValue: "\"$\"",
-					optional: true,
-					summary: "<p>加密的文本。</p>"
-				}],
-				returns: {
-					type: "String",
-					summary: "<p>返回已加密的代码。</p>"
-				},
-				example: "<pre>Obfuscator.obfuscate(\"var a =1\")</pre>",
-				line: 7,
-				col: 1
-			}]
-});</script>
-    <blockquote>另参考：<a href="http://utf-8.jp/public/jjencode.html" target="_blank">作者官网</a>。</blockquote>
 </body>
 </html>

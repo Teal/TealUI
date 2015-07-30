@@ -473,9 +473,9 @@ script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-dem
     width: 100%;
 }
 
-    .doc-api > tbody > tr > td:first-child {
+    /*.doc-api > tbody > tr > td:first-child {
         width: 1%;
-    }
+    }*/
 
     .doc-api pre:last-child {
         margin: 0;

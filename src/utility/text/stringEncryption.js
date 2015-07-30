@@ -4,7 +4,7 @@
  * @param {String} str 要加密的字符串。
  * @param {Number} key 加密的密钥。
  * @returns {String} 返回加密后的字符串。
- * @example encryptString("abc", 123)
+ * @example encryptString("abc", 123) // "``e"
  */
 function encryptString(str, key) {
     if (key == undefined) key = 19901206;
@@ -25,7 +25,7 @@ function encryptString(str, key) {
  * @param {String} str 要解密的字符串。
  * @param {key} str 解密的密钥。
  * @returns {String} 返回解密后的字符串。
- * @example dencryptString("abc", 123)
+ * @example dencryptString("abc", 123) // "cce"
  */
 function dencryptString(str, key) {
     if (key == undefined) key = 19901206;

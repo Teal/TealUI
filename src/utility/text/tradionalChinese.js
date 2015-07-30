@@ -29,7 +29,7 @@ var TradionalChinese = {
      * 将简体中文转为繁体中文。
      * @param {String} value 要处理的中文。
      * @returns {String} 返回转换后的中文。
-     * @example TradionalChinese.toTradionalChinese("简");
+     * @example TradionalChinese.toTradionalChinese("简") // "簡"
      */
     toTradionalChinese: function (value) {
         return TradionalChinese._convert(value, TradionalChinese.dictionarySimple, TradionalChinese.dictionaryTradional);
@@ -39,7 +39,7 @@ var TradionalChinese = {
      * 将繁体中文转为简体中文。
      * @param {String} value 要处理的中文。
      * @returns {String} 返回转换后的中文。
-     * @example TradionalChinese.toTradionalChinese("簡");
+     * @example TradionalChinese.toSimpleChinese("簡") // "简"
      */
     toSimpleChinese: function (value) {
         return TradionalChinese._convert(value, TradionalChinese.dictionaryTradional, TradionalChinese.dictionarySimple);

@@ -13,7 +13,7 @@ var Check = {
 	 * 判断指定字符串是否为合法邮箱地址。
 	 * @param {String} value 要判断的字符串。
 	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isEmail("work@xuld.net") // true
+	 * @example Check.isEmail("work&#64;xuld.net") // true
 	 */
     isEmail: function (value) {
         return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w][\u4E00-\u9FA5\uFE30-\uFFA0\w-+\.]*@[\u4E00-\u9FA5\uFE30-\uFFA0\w]+(\.[\u4E00-\u9FA5\uFE30-\uFFA0\w]+)+$/.test(value);
@@ -170,7 +170,7 @@ var Check = {
 	 * 判断指定字符串是否为中文。
 	 * @param {String} value 要判断的字符串。
 	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isPhone("你好") // true
+	 * @example Check.isChinese("你好") // true
 	 */
     isChinese: function (value) {
         return /^[\u4E00-\u9FA5\uFE30-\uFFA0]+$/gi.test(value);
