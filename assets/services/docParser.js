@@ -265,7 +265,7 @@ function parseDocComment(comment, rest) {
     }
 
     // 为对象持有者忽略注释。
-    if (/^[A-Z]/.test(result['name']) && !result['memberOf']) {
+    if ((result.memberType === 'class' || result.memberType === 'namespace' || result.memberType === 'interface') && /^[A-Z]/.test(result['name']) && !result['memberOf']) {
         lastDocComment = result;
         return null;
     }
