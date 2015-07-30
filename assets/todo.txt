@@ -15,8 +15,6 @@ utility
 		*
 	ux
 		*
-	misc
-		ajax
 webApp
 	
 7/31

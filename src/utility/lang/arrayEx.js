@@ -77,7 +77,7 @@ Array.prototype.map = Array.prototype.map || function (fn, scope) {
  * * @param {Object} value 当前项的值。
  * * @param {Number} index 当前项的索引。
  * * @param {Array} array 当前正在遍历的数组。
- * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不满足。
+ * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
  * 
  * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
  * @returns {Boolean} 如果全部满足条件返回 @true，否则返回 @false。
@@ -105,7 +105,7 @@ Array.prototype.every = Array.prototype.every || function (fn, scope) {
  * * @param {Object} value 当前项的值。
  * * @param {Number} index 当前项的索引。
  * * @param {Array} array 当前正在遍历的数组。
- * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不满足。
+ * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
  * 
  * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
  * @returns {Boolean} 如果至少存在一项满足条件返回 @true，否则返回 @false。

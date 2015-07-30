@@ -39,6 +39,7 @@ if (!Object.assign) {
  * * @param {Object} value 当前项的值。
  * * @param {Number} index 当前项的索引。
  * * @param {Array} array 当前正在遍历的数组。
+ * * @returns {Boolean} 如果返回 @false，则终止循环。
  * 
  * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
  * @returns {Boolean} 如果循环是因为 @fn 返回 @false 而中止，则返回 @false，否则返回 @true。

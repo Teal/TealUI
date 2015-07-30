@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -18,385 +18,905 @@
 
     <div id="elem" class="doc-box" style="min-height: 0; height: 100px;"><a>#elem</a></div>
 
-    <h2>API <small>(源码: <a href="../../utility/dom/base.js" target="_blank">utility/dom/base.js</a>)</small></h2>
+    <h2>DOM 基本操作</h2>
+
+    <script data-gendoc="utility/dom/base.js">
+
+    Doc.writeApi({
+			path: "utility/dom/base.js",
+			apis: [{
+				name: "集合操作",
+				memberType: "category",
+				line: 10,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "length",
+				summary: "<p>获取当前集合的长度。</p>",
+				type: ["Number"],
+				example: "<pre>$(\"#elem\").length</pre>",
+				line: 450,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "add",
+				summary: "<p>向当前集合添加一个或多个节点。</p>",
+				params: [{
+					type: "Node",
+					name: "item",
+					summary: "<p>要添加的节点或节点列表。</p>"
+				}],
+				example: "<pre>$(\"#elem\").add(document.body)</pre>",
+				line: 457,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "each",
+				summary: "<p>遍历当前集合，并对每一项执行函数 <em>fn</em>。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每个一项执行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 如果返回 <strong>false</strong>，则终止循环。</li>\n\
+</ul>\n\
+\n\
+<p>参数名 | 类型       | 说明 <br>\n\
+value | <code>Object</code>  | 当前元素的值。 <br>\n\
+index | <code>Number</code>  | 当前元素的索引。 <br>\n\
+dom   | <code>Dom</code>     | 当前正在遍历的集合。</p>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>$(\"#elem\").each(function(elem){ console.log(elem); })</pre>",
+				line: 475,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "map",
+				summary: "<p>对当前集合每一项进行处理，并将结果组成一个新数组。</p>",
+				params: [{
+					type: "Function",
+					name: "callback",
+					summary: "<p>对每个元素运行的函数。函数的参数依次为:</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每个元素运行的函数。函数的参数依次为:</p>\n\
+\n\
+<p>参数名 | 类型      | 说明 <br>\n\
+value | <code>Object</code>  | 当前元素的值。 <br>\n\
+index | <code>Number</code>  | 当前元素的索引。 <br>\n\
+dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
+返回值 | <code>Boolean</code> | 返回处理后的新值。</p>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回新集合。</p>"
+				},
+				example: "<pre>$(\"#elem\").map(function(node){return node.firstChild})</pre>",
+				line: 498,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "filter",
+				summary: "<p>将当前集合中符合要求的项组成一个新集合。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					summary: "<p>过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回一个新集合。</p>"
+				},
+				example: "<pre>$(\"#elem\").filter('div')</pre>",
+				line: 521,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "not",
+				summary: "<p>将当前集合中不符合要求的项组成一个新集合。</p>",
+				params: [{
+					type: "String",
+					name: "selector",
+					summary: "<p>过滤的选择器或对每个元素运行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回一个新集合。</p>"
+				},
+				example: "<pre>$(\"#elem\").not('div')</pre>",
+				line: 541,
+				col: 1
+			}, {
+				name: "选择器",
+				memberType: "category",
+				line: 562,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "find",
+				summary: "<p>在第一项子节点中查找指定的元素。</p>",
+				params: [{
+					type: "String",
+					name: "selector",
+					summary: "<p>要查找的选择器。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回一个新集合。</p>"
+				},
+				example: "<pre>$(\"#elem\").find(\"div\")</pre>",
+				line: 564,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "is",
+				summary: "<p>检查当前集合第一项是否符合指定的表达式。</p>",
+				params: [{
+					type: "String",
+					name: "selector",
+					summary: "<p>要判断的选择器。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果匹配表达式就返回 <strong>true</strong>，否则返回 <strong>false</strong> 。</p>"
+				},
+				example: "<pre>$(\"#elem\").is(\"div\")</pre>",
+				line: 574,
+				col: 1
+			}, {
+				name: "事件",
+				memberType: "category",
+				line: 588,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "on",
+				summary: "<p>添加一个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要添加的事件名。</p>"
+				}, {
+					type: "String",
+					name: "delegateSelector",
+					optional: true,
+					summary: "<p>代理目标节点选择器。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					summary: "<p>要添加的事件监听器。</p>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>设置回调函数中 this 的指向。</p>"
+				}],
+				example: "<h5>普通绑定</h5>\n\
+\n\
+<pre>$(\"#elem\").on('click', function(){ alert(\"点击事件\") });</pre>\n\
+\n\
+<h5>委托事件</h5>\n\
+\n\
+<pre>$(\"#elem\").on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>",
+				remark: "<blockquote>\n\
+  <h4>触屏事件</h4>\n\
+  \n\
+  <p>click<code>/</code>mouse<code>事件会自动绑定为相应的</code>touch` 事件，以增加触屏设备上相应事件的响应速度。</p>\n\
+  \n\
+  <h4>IE 特有事件</h4>\n\
+  \n\
+  <p>本方法支持 <code>mousewheel</code>/<code>mouseenter</code>/<code>mouseleave</code>/<code>focusin</code>/<code>foucsout</code> 等 IE 特定事件支持。</p>\n\
+</blockquote>",
+				line: 590,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "off",
+				summary: "<p>删除一个或多个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要删除的事件名。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					optional: true,
+					summary: "<p>要删除的事件处理函数。如果未指定则删除全部事件。</p>"
+				}],
+				example: "<h4>删除指定点击事件</h4>\n\
+\n\
+<pre>$(\"#elem\").off('click', function(){ alert(\"点击事件\") });</pre>\n\
+\n\
+<h4>删除全部点击事件</h4>\n\
+\n\
+<pre>$(\"#elem\").off('click');</pre>",
+				line: 678,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "trigger",
+				summary: "<p>触发当前元素的指定事件，执行已添加的监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要触发的事件名。</p>"
+				}, {
+					type: "Object",
+					name: "eventArgs",
+					summary: "<p>传递给监听器的事件对象。</p>"
+				}],
+				example: "<pre>$(\"#elem\").trigger('click')</pre>",
+				line: 741,
+				col: 1
+			}, {
+				name: "遍历",
+				memberType: "category",
+				line: 771,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "first",
+				summary: "<p>获取当前集合第一项的第一个子节点对象。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").first()</pre>",
+				line: 773,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "last",
+				summary: "<p>获取当前集合第一项的最后一个子节点对象。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").last()</pre>",
+				line: 783,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "next",
+				summary: "<p>获取当前集合第一项的下一个相邻节点对象。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").next()</pre>",
+				line: 793,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "prev",
+				summary: "<p>获取当前集合第一项的上一个相邻的节点对象。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").prev()</pre>",
+				line: 803,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "parent",
+				summary: "<p>获取当前集合第一项的直接父节点对象。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").parent()</pre>",
+				line: 813,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "children",
+				summary: "<p>获取当前集合第一项的全部直接子节点。</p>",
+				params: [{
+					type: "mixed",
+					name: "selector",
+					optional: true,
+					summary: "<p>用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回节点列表。</p>"
+				},
+				example: "<pre>$(\"#elem\").children()</pre>",
+				line: 823,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "closest",
+				summary: "<p>获取当前集合第一项指及其父节点对象中第一个满足指定 CSS 选择器的节点。</p>",
+				params: [{
+					type: "String",
+					name: "selector",
+					summary: "<p>用于判断的元素的 CSS 选择器。</p>"
+				}, {
+					type: "Node",
+					name: "context",
+					defaultValue: "document",
+					optional: true,
+					summary: "<p>只在指定的节点内搜索此元素。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").closest(\"body\")</pre>",
+				line: 833,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "index",
+				summary: "<p>获取当前集合第一项在父节点的索引。</p>",
+				returns: {
+					type: "Number",
+					summary: "<p>返回索引。</p>"
+				},
+				example: "<pre>$(\"#elem\").index()</pre>",
+				line: 844,
+				col: 1
+			}, {
+				name: "增删",
+				memberType: "category",
+				line: 863,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "append",
+				summary: "<p>插入一段 HTML 到末尾。</p>",
+				params: [{
+					type: "String",
+					name: "html",
+					summary: "<p>要插入的内容。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回插入的新节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").append(\"append\")</pre>",
+				line: 865,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "prepend",
+				summary: "<p>插入一段 HTML 到顶部。</p>",
+				params: [{
+					type: "String",
+					name: "html",
+					summary: "<p>要插入的内容。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回插入的新节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").prepend(\"prepend\")</pre>",
+				line: 878,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "before",
+				summary: "<p>插入一段 HTML 到前面。</p>",
+				params: [{
+					type: "String",
+					name: "html",
+					summary: "<p>要插入的内容。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回插入的新节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").before(\"before\")</pre>",
+				line: 891,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "after",
+				summary: "<p>插入一段 HTML 到后面。</p>",
+				params: [{
+					type: "String",
+					name: "html",
+					summary: "<p>要插入的内容。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回插入的新节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").after(\"after\")</pre>",
+				line: 904,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "remove",
+				summary: "<p>移除当前节点。</p>",
+				returns: {
+					summary: "<p>this</p>"
+				},
+				remark: "<p>这个方法不会彻底移除 Dom 对象，而只是暂时将其从 Dom 树分离。</p>",
+				example: "<pre>$(\"#elem\").remove()</pre>",
+				line: 914,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "clone",
+				summary: "<p>克隆当前集合的第一个节点。</p>",
+				params: [{
+					type: "Boolean",
+					name: "cloneChild",
+					defaultValue: "true",
+					optional: true,
+					summary: "<p>是否克隆子节点。</p>"
+				}],
+				returns: {
+					type: "Dom",
+					summary: "<p>返回克隆的新节点。</p>"
+				},
+				example: "<pre>$(\"#elem\").clone()</pre>",
+				line: 927,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "hasClass",
+				summary: "<p>判断是否含指定类名。</p>",
+				params: [{
+					type: "String",
+					name: "className",
+					summary: "<p>一个 CSS 类名。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果存在则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>$(\"#elem\").hasClass(\"light\")</pre>",
+				line: 943,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "addClass",
+				summary: "<p>添加指定的 CSS 类名。</p>",
+				params: [{
+					type: "String",
+					name: "className",
+					summary: "<p>一个 CSS 类名。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>$(\"#elem\").addClass(\"light\")</pre>",
+				line: 953,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "removeClass",
+				summary: "<p>从指定节点中删除指定的类。</p>",
+				params: [{
+					type: "String",
+					name: "className",
+					summary: "<p>一个 CSS 类名。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>$(\"#elem\").removeClass(\"light\")</pre>",
+				line: 965,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "toggleClass",
+				summary: "<p>如果存在（不存在）就删除（添加）一个类。</p>",
+				params: [{
+					type: "String",
+					name: "className",
+					summary: "<p>一个 CSS 类名。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>$(\"#elem\").toggleClass(\"light\")</pre>",
+				line: 977,
+				col: 1
+			}, {
+				name: "样式",
+				memberType: "category",
+				line: 993,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "css",
+				summary: "<p>获取或设置 CSS 样式。</p>",
+				params: [{
+					type: "String",
+					name: "cssPropertyName",
+					summary: "<p>CSS 属性名。</p>"
+				}, {
+					type: "String",
+					name: "value",
+					summary: "<p>设置的 CSS 属性值。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>字符串。</p>"
+				},
+				example: "<pre>$(\"#elem\").css(\"fontSize\")</pre>\n\
+\n\
+<pre>$(\"#elem\").css(\"fontSize\", \"12px\")</pre>",
+				remark: "<blockquote>\n\
+  <h4>IE Transform</h4>\n\
+  \n\
+  <p>可使用 <a href=\"http://www.useragentman.com/IETransformsTranslator/\">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。</p>\n\
+</blockquote>",
+				line: 995,
+				col: 1
+			}, {
+				name: "属性",
+				memberType: "category",
+				line: 1018,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "attr",
+				summary: "<p>获取或设置属性值。</p>",
+				params: [{
+					type: "String",
+					name: "attrName",
+					summary: "<p>要获取的属性名称。</p>"
+				}, {
+					type: "String",
+					name: "value",
+					summary: "<p>要设置的属性值。当设置为 null 时，删除此属性。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回属性值。如果元素没有相应属性，则返回 null 。</p>"
+				},
+				example: "<pre>$(\"#elem\").attr(\"className\")</pre>\n\
+\n\
+<pre>$(\"#elem\").attr(\"className\", \"doc-doc\") // 设置为 null 表示删除。</pre>",
+				line: 1020,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "text",
+				summary: "<p>获取或设置文本。</p>",
+				params: [{
+					type: "String",
+					name: "value",
+					summary: "<p>要设置的文本。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>值。对普通节点返回 textContent 属性，对文本框返回 value 属性。</p>"
+				},
+				example: "<pre>$(\"#elem\").text()</pre>\n\
+\n\
+<pre>$(\"#elem\").text(\"text\")</pre>",
+				line: 1037,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "html",
+				summary: "<p>获取或设置 HTML。</p>",
+				params: [{
+					type: "String",
+					name: "value",
+					summary: "<p>要设置的 HTML。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回内部 HTML 代码。</p>"
+				},
+				example: "<pre>$(\"#elem\").html()</pre>\n\
+\n\
+<pre>$(\"#elem\").html(\"<em>html</em>\")</pre>",
+				line: 1050,
+				col: 1
+			}, {
+				name: "位置",
+				memberType: "category",
+				line: 1067,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "rect",
+				summary: "<p>获取指定节点的区域。</p>",
+				returns: {
+					type: "DOMRect",
+					summary: "<p>返回所在区域。其包含 left, top, width, height 属性。</p>"
+				},
+				remark: "<p>此方法只对可见元素有效。 <br>\n\
+获取元素实际占用大小（包括内边距和边框）。</p>",
+				example: "<pre>$(\"#elem\").rect();</pre>\n\
+\n\
+<pre>$(\"#elem\").rect({width:200, height:400});</pre>\n\
+\n\
+<pre>$(\"#elem\").rect({left: 30});</pre>",
+				line: 1069,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "offset",
+				summary: "<p>获取指定节点的相对位置。</p>",
+				params: [{
+					type: "Element",
+					name: "elem",
+					summary: "<p>要计算的元素。</p>"
+				}],
+				returns: {
+					type: "Point",
+					summary: "<p>返回的对象包含两个整型属性：left 和 top。</p>"
+				},
+				remark: "<p>此方法对可见和隐藏元素均有效。获取匹配元素相对父元素的偏移。</p>",
+				example: "<pre>$(\"#elem\").offset()</pre>",
+				line: 1142,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "offsetParent",
+				summary: "<p>获取用于让指定节点定位的父对象。</p>",
+				returns: {
+					type: "Dom",
+					summary: "<p>返回一个节点对象。</p>"
+				},
+				example: "<pre>$(\"#elem\").offsetParent()</pre>",
+				line: 1187,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "scroll",
+				summary: "<p>获取或设置节点的滚动位置。</p>",
+				params: [{
+					type: "Point",
+					name: "value",
+					summary: "<p>要设置的位置 包含两个整型属性：left 和 top。</p>"
+				}],
+				returns: {
+					type: "Point",
+					summary: "<p>返回的对象包含两个整型属性：left 和 top。</p>"
+				},
+				example: "<pre>$(\"#elem\").scroll();</pre>\n\
+\n\
+<pre>$(\"#elem\").scroll({left:100, top: 500});</pre>",
+				line: 1201,
+				col: 1
+			}, {
+				name: "特效",
+				memberType: "category",
+				line: 1250,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "animate",
+				summary: "<p>实现 CSS3 动画渐变。</p>",
+				params: [{
+					type: "Object",
+					name: "from",
+					optional: true,
+					summary: "<p>特效的起始样式。</p>"
+				}, {
+					type: "Object",
+					name: "to",
+					summary: "<p>特效的结束样式。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>特效执行完成的回调。</p>"
+				}, {
+					type: "String",
+					name: "duration",
+					defaultValue: "300",
+					optional: true,
+					summary: "<p>特效的持续时间。</p>"
+				}, {
+					type: "String",
+					name: "ease",
+					defaultValue: "\"ease-in\"",
+					optional: true,
+					summary: "<p>特效的渐变类型。</p>"
+				}, {
+					type: "Boolean",
+					name: "reset",
+					optional: true,
+					summary: "<p>是否在特效执行结束后重置样式。</p>"
+				}],
+				example: "<pre>$(\"#elem\").animate('auto', {height: '400px'});</pre>\n\
+\n\
+<pre>$(\"#elem\").animate({transform: 'rotate(45deg)'});</pre>",
+				line: 1252,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "isHidden",
+				summary: "<p>判断第一项是否是隐藏。</p>",
+				returns: {
+					type: "Boolean",
+					summary: "<p>当前元素已经隐藏返回 true，否则返回  false 。</p>"
+				},
+				example: "<pre>$(\"#elem\").isHidden();</pre>",
+				line: 1408,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "show",
+				summary: "<p>通过设置 display 属性来显示元素。</p>",
+				params: [{
+					type: "String",
+					name: "fxName",
+					optional: true,
+					summary: "<p>使用的特效。内置支持的为 &#8220;height&#8221;/&#8221;opacity&#8221;/&#8221;scale&#8221;。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>特效执行完成的回调。</p>"
+				}, {
+					type: "Number",
+					name: "duration",
+					defaultValue: "300",
+					optional: true,
+					summary: "<p>特效的持续时间。</p>"
+				}, {
+					type: "String",
+					name: "ease",
+					defaultValue: "\"ease-in\"",
+					optional: true,
+					summary: "<p>特效的渐变类型。</p>"
+				}],
+				example: "<pre>$(\"#elem\").show();</pre>",
+				line: 1418,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "hide",
+				summary: "<p>通过设置 display 属性来隐藏元素。</p>",
+				params: [{
+					type: "String",
+					name: "fxName",
+					optional: true,
+					summary: "<p>使用的特效。内置支持的为 &#8220;height&#8221;/&#8221;opacity&#8221;/&#8221;scale&#8221;。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>特效执行完成的回调。</p>"
+				}, {
+					type: "Number",
+					name: "duration",
+					defaultValue: "300",
+					optional: true,
+					summary: "<p>特效的持续时间。</p>"
+				}, {
+					type: "String",
+					name: "ease",
+					defaultValue: "\"ease-in\"",
+					optional: true,
+					summary: "<p>特效的渐变类型。</p>"
+				}],
+				example: "<pre>$(\"#elem\").hide();</pre>",
+				line: 1461,
+				col: 1
+			}, {
+				memberOf: "CSS类",
+				name: "toggle",
+				summary: "<p>通过设置 display 属性切换显示或隐藏元素。</p>",
+				params: [{
+					type: "mixed",
+					name: "fxName",
+					optional: true,
+					summary: "<p>强制设置是否启用或使用的特效。内置支持的为 &#8220;height&#8221;/&#8221;opacity&#8221;/&#8221;scale&#8221;。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>特效执行完成的回调。</p>"
+				}, {
+					type: "Number",
+					name: "duration",
+					defaultValue: "300",
+					optional: true,
+					summary: "<p>特效的持续时间。</p>"
+				}, {
+					type: "String",
+					name: "ease",
+					defaultValue: "\"ease-in\"",
+					optional: true,
+					summary: "<p>特效的渐变类型。</p>"
+				}],
+				example: "<h5>折叠/展开</h5>\n\
+\n\
+<pre>$(\"#elem\").toggle('height');</pre>\n\
+\n\
+<h5>深入/淡出</h5>\n\
+\n\
+<pre>$(\"#elem\").toggle('opacity');</pre>\n\
+\n\
+<h5>缩小/放大</h5>\n\
+\n\
+<pre>$(\"#elem\").toggle('scale');</pre>",
+				line: 1495,
+				col: 1
+			}, {
+				name: "角色",
+				memberType: "category",
+				line: 1519,
+				col: 1
+			}]
+});</script>
     
-    <h3>集合操作</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>$/Dom</code></td>
-            <td>CSS 选择器/生成节点/Dom Ready</td>
-            <td>
-                <pre>$(".doc-box")</pre>
-                <pre>$("&lt;a>你好&lt;/a>")</pre>
-                <pre>$(function(){ alert("DOM ready") })</pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.add</code></td>
-            <td>添加</td>
-            <td><pre>$("#elem").add(document.body)</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.each</code></td>
-            <td>遍历</td>
-            <td><pre>$("#elem").each(function(node){alert(node.innerHTML)});</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.map</code></td>
-            <td>匹配</td>
-            <td><pre>$("#elem").map(function(node){return node.firstChild});</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.filter</code></td>
-            <td>过滤</td>
-            <td><pre>$("#elem").filter('div');</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.not</code></td>
-            <td>排除</td>
-            <td><pre>$("#elem").not('div');</pre></td>
-        </tr>
-    </table>
-
-    <h3>选择器</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.find</code></td>
-            <td>查找子节点</td>
-            <td><pre>$("#elem").find("div")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.is</code></td>
-            <td>判断是否匹配</td>
-            <td><pre>$("#elem").is("a")</pre></td>
-        </tr>
-    </table>
-
-    <h3>事件</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.on</code></td>
-            <td>绑定事件</td>
-            <td class="doc">
-                <h5>普通绑定</h5>
-                <pre>$("#elem").on('click', function(){ alert("点击事件") });</pre>
-                <h5>委托事件</h5>
-                <pre>$("#elem").on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });</pre>
-                <blockquote><h4>触屏事件</h4>TealUI.Dom 会自动将 <code>click</code>/<code>mouse</code> 事件绑定为相应的 <code>touch</code> 事件，以增加触屏设备上相应事件的响应速度。</blockquote>
-                <blockquote><h4>IE 特有事件</h4>TealUI.Dom 支持自定义事件，并内置了 <code>mousewheel</code>/<code>mouseenter</code>/<code>mouseleave</code>/<code>focusin</code>/<code>foucsout</code> 等 IE 特定事件支持。</blockquote>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.off</code></td>
-            <td>解绑事件</td>
-            <td><pre>$("#elem").off('click', function(){ alert("点击事件2") })</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.trigger</code></td>
-            <td>手动触发事件</td>
-            <td><pre>$("#elem").trigger('click')</pre></td>
-        </tr>
-    </table>
-
-    <h3>遍历</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.closest</code></td>
-            <td>最近父节点</td>
-            <td><pre>$("#elem").closest("body")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.parent</code></td>
-            <td>获取父节点</td>
-            <td><pre>$("#elem").parent()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.first</code></td>
-            <td>第一个子节点</td>
-            <td><pre>$("#elem").first()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.last</code></td>
-            <td>最后一个子节点</td>
-            <td><pre>$("#elem").last()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.next</code></td>
-            <td>下一兄弟节点</td>
-            <td><pre>$("#elem").next()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.prev</code></td>
-            <td>上一兄弟节点</td>
-            <td><pre>$("#elem").prev()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.children</code></td>
-            <td>所有子节点</td>
-            <td><pre>$("#elem").children()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.index</code></td>
-            <td>获取节点索引</td>
-            <td><pre>$("#elem").index()</pre></td>
-        </tr>
-    </table>
-
-    <h3>增删</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.append</code></td>
-            <td>插到末尾</td>
-            <td><pre>$("#elem").append("append")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.prepend</code></td>
-            <td>插到前尾</td>
-            <td><pre>$("#elem").prepend("prepend")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.after</code></td>
-            <td>插到后面</td>
-            <td><pre>$("#elem").after("after")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.before</code></td>
-            <td>插到前面</td>
-            <td><pre>$("#elem").before("before")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.remove</code></td>
-            <td>删除节点</td>
-            <td><pre>$("#elem").remove()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.clone</code></td>
-            <td>复制节点</td>
-            <td><pre>$("#elem").clone()</pre></td>
-        </tr>
-    </table>
-
-    <h3>CSS类</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.hasClass</code></td>
-            <td>判断类</td>
-            <td><pre>$("#elem").hasClass("light")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.addClass</code></td>
-            <td>添加类</td>
-            <td><pre>$("#elem").addClass("light")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.removeClass</code></td>
-            <td>删除类</td>
-            <td><pre>$("#elem").removeClass("light")</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.toggleClass</code></td>
-            <td>切换类</td>
-            <td><pre>$("#elem").toggleClass("light")</pre></td>
-        </tr>
-    </table>
-
-    <h3>样式</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.css</code></td>
-            <td>读写样式</td>
-            <td>
-                <pre>$("#elem").css("fontSize");</pre>
-                <pre>$("#elem").css("fontSize", "12px");</pre>
-                <blockquote><h4>IE Transform</h4>可使用 <a href="http://www.useragentman.com/IETransformsTranslator/">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。</blockquote>
-            </td>
-        </tr>
-    </table>
-
-    <h3>属性</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.attr</code></td>
-            <td>读写属性</td>
-            <td>
-                <pre>$("#elem").attr("className");</pre>
-                <pre>$("#elem").attr("className", "doc-doc"); // 设置为 null 表示删除。</pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.text</code></td>
-            <td>读写文本</td>
-            <td>
-                <pre>$("#elem").text();</pre>
-                <pre>$("#elem").text("a");</pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.html</code></td>
-            <td>读写 HTML</td>
-            <td>
-                <pre>$("#elem").html();</pre>
-                <pre>$("#elem").html("&lt;em>a&lt;/em>");</pre>
-            </td>
-        </tr>
-    </table>
-
-    <h3>尺寸</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.rect</code></td>
-            <td>读写大小和位置</td>
-            <td>
-                <pre>$("#elem").rect();</pre>
-                <pre>$("#elem").rect({width:200, height:400});</pre>
-                <pre>$("#elem").rect({left: 30});</pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.offset</code></td>
-            <td>获取相对位置</td>
-            <td><pre>$("#elem").offset()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.offsetParent</code></td>
-            <td>获取相对偏移节点</td>
-            <td><pre>$("#elem").offsetParent()</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.scroll</code></td>
-            <td>读写滚动位置</td>
-            <td>
-                <pre>$("#elem").scroll();</pre>
-                <pre>$("#elem").scroll({left:100, top: 500});</pre>
-            </td>
-        </tr>
-    </table>
-
-    <h3>特效</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.animate</code></td>
-            <td>自定义特效</td>
-            <td>
-                <pre>$("#elem").animate('auto', {height: '400px'});</pre>
-                <pre>$("#elem").animate({transform: 'rotate(45deg)'});</pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.isHidden</code></td>
-            <td>判断是否隐藏</td>
-            <td><pre>$("#elem").isHidden();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.show</code></td>
-            <td>显示</td>
-            <td><pre>$("#elem").show();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.hide</code></td>
-            <td>隐藏</td>
-            <td><pre>$("#elem").hide();</pre></td>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.toggle</code></td>
-            <td>切换显示</td>
-            <td class="doc">
-                <h5>折叠/展开</h5>
-                <pre>$("#elem").toggle('height');</pre>
-
-                <h5>深入/淡出</h5>
-                <pre>$("#elem").toggle('opacity');</pre>
-
-                <h5>缩小/放大</h5>
-                <pre>$("#elem").toggle('scale');</pre>
-            </td>
-        </tr>
-    </table>
-
-    <h3>其它底层函数</h3>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Dom.data</code></td>
-            <td>获取数据</td>
-            <td><pre>Dom.data(document.getElementById('elem'))</pre></td>
-        </tr>
-        <tr>
-            <td><code>Dom.closest</code></td>
-            <td>获取最近节点</td>
-            <td><pre>Dom.closest(document.getElementById('elem'), 'body')</pre></td>
-        </tr>
-        <tr>
-            <td><code>Dom.vendor</code></td>
-            <td>获取 CSS 属性前缀</td>
-            <td><pre>Dom.vendor(document.getElementById('elem'), 'transform')</pre></td>
-        </tr>
-        <tr>
-            <td><code>Dom.css</code></td>
-            <td>获取当前 CSS</td>
-            <td><pre>Dom.css(document.getElementById('elem'), 'fontSize')</pre></td>
-        </tr>
-        <tr>
-            <td><code>Dom.calc</code></td>
-            <td>计算 CSS 表达式</td>
-            <td><pre>Dom.calc(document.getElementById('elem'), 'fontSize+lineHeight')</pre></td>
-        </tr>
-    </table>
-
     <h2>jQuery 那些事儿</h2>
     <p>jQuery 已成为前端主流，不基于 jQuery 的 UI 库也逐渐被淘汰。这主要因为：</p>
     <ol>

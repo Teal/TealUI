@@ -7,6 +7,8 @@
 
 // #region 核心
 
+/** @category 集合操作 */
+
 /**
  * 查询 CSS 选择器匹配的所有节点；解析一个 HTML 字符串生成对应的节点；绑定一个 DOM Ready 回调。
  * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
@@ -15,11 +17,10 @@
  * @example
  * $(".doc-box")
  * 
- * 
  * $("&lt;a>你好&lt;/a>")
  * 
- * 
  * $(function(){ alert("DOM ready") })
+ * @class
  */
 function Dom(selector, context) {
     return new Dom.init(selector || 0, context || document);
@@ -37,16 +38,17 @@ Dom.init = function (selector, context) {
     // 解析 HTML 或执行 CSS 选择器
     if (selector.constructor === String) {
         if (/^</.test(selector)) {
-            context = context === document ? Dom.init.container || (Dom.init.container = context.createElement('div')) : context.createElement('div');
+            context = context === document ? Dom._parseContainer || (Dom._parseContainer = context.createElement('div')) : context.createElement('div');
             context.innerHTML = selector;
             selector = context.childNodes;
-        } else
+        } else {
             selector = context.querySelectorAll(selector);
+        }
         // 支持 DOM Ready
     } else if (selector.constructor === Function) {
-        if (/complete|loaded|interactive/.test(context.readyState) && context.body)
+        if (/complete|loaded|interactive/.test(context.readyState) && context.body) {
             selector.call(context);
-        else {
+        } else {
             /*@cc_on if(!+"\v1") {
             return setTimeout(function() {Dom.init (selector, context);}, 14);
             } @*/
@@ -67,6 +69,7 @@ Dom.init = function (selector, context) {
  * @param {Element} elem 节点。
  * @returns {Object} 返回存储数据的字段。
  * @example Dom.data(document.getElementById('elem'))
+ * @inner
  */
 Dom.data = function (elem) {
     var datas = Dom._datas || (Dom._datas = {}),
@@ -81,10 +84,12 @@ Dom.data = function (elem) {
  * @param {Node} [context=document] 只在指定的节点内搜索此元素。
  * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
  * @example Dom.closest(document.getElementById('elem'), 'body')
+ * @inner
  */
 Dom.closest = function (node, selector, context) {
-    while (node && node != context && !node.matches(selector))
+    while (node && node != context && !node.matches(selector)) {
         node = node.parentNode;
+    }
     return node;
 };
 
@@ -94,6 +99,7 @@ Dom.closest = function (node, selector, context) {
  * @param {String} cssPropertyName 要处理的 CSS 属性名。
  * @returns {String} 返回已加后缀的 CSS 属性名。
  * @example Dom.vendor(document.getElementById('elem'), 'transform')
+ * @inner
  */
 Dom.vendor = function (elem, cssPropertyName) {
     if (!(cssPropertyName in elem.style)) {
@@ -135,6 +141,7 @@ Dom.styleNumbers = {
  * @param {String/Number} [value] CSS属性值， 数字如果不加单位，则会自动添加像素单位。
  * @returns {String} 返回值。
  * @example Dom.css(document.getElementById('elem'), 'fontSize')
+ * @inner
  */
 Dom.css = function (elem, cssPropertyName, value) {
 
@@ -242,6 +249,7 @@ Dom.css = function (elem, cssPropertyName, value) {
  * @param {String} expression 要计算的表达式。其中使用变量代表 CSS 属性值，如 "width+paddingLeft"。
  * @returns {Number} 返回计算的值。
  * @example Dom.calc(document.getElementById('elem'), 'fontSize+lineHeight')
+ * @inner
  */
 Dom.calc = function (elem, expression) {
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/
@@ -452,18 +460,26 @@ Dom.init.prototype = Dom.prototype = {
      * @example $("#elem").add(document.body)
      */
     add: function (item) {
-        if (item)
-            if (item.nodeType || item.document)
+        if (item) {
+            if (item.nodeType || item.document) {
                 this[this.length++] = item;
-            else
-                for (var i = 0, node; node = item[i]; i++)
+            } else {
+                for (var i = 0, node; node = item[i]; i++) {
                     this[this.length++] = node;
+                }
+            }
+        }
         return this;
     },
 
     /**
-     * 遍历当前集合，并对每个元素执行函数 @fn。
-     * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
+     * 遍历当前集合，并对每一项执行函数 @fn。
+     * @param {Function} fn 对每个一项执行的函数。函数的参数依次为:
+     * 
+     * * @param {Object} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Array} array 当前正在遍历的数组。
+     * * @returns {Boolean} 如果返回 @false，则终止循环。
      *
      * 参数名 | 类型       | 说明
      * value | `Object`  | 当前元素的值。
@@ -472,6 +488,7 @@ Dom.init.prototype = Dom.prototype = {
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
      * @returns this
+     * @example $("#elem").each(function(elem){ console.log(elem); })
      */
     each: function (callback, scope) {
         for (var i = 0, node; (node = this[i]) && callback.call(scope, node, i, this) !== false; i++);
@@ -494,24 +511,24 @@ Dom.init.prototype = Dom.prototype = {
      * @example $("#elem").map(function(node){return node.firstChild})
      */
     map: function (callback, scope) {
-        var newDom = Dom(), i = 0, node;
-        for (; node = this[i]; i++)
+        var newDom = Dom();
+        for (var i = 0, node; node = this[i]; i++) {
             newDom.add(callback.call(scope, node, i, this));
+        }
         return newDom;
     },
 
     /**
-     * 过滤当前集合中不满足要求的项，并将结果组成一个新数组。
-     * @param {mixed} selector 过滤使用的 CSS 选择器或对每个元素运行的函数。函数的参数依次为:
+     * 将当前集合中符合要求的项组成一个新集合。
+     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
      * 
-     * 参数名 | 类型       | 说明
-     * value | `Object`  | 当前元素的值。
-     * index | `Number`  | 当前元素的索引。
-     * array | `Array`   | 当前正在遍历的数组。
-     * 返回值 | `Boolean` | 用于确定是否满足条件。
+     * * @param {Object} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Array} array 当前正在遍历的数组。
+     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回新集合。
+     * @returns {Dom} 返回一个新集合。
      * @example $("#elem").filter('div')
      */
     filter: function (selector, scope, not) {
@@ -522,17 +539,16 @@ Dom.init.prototype = Dom.prototype = {
     },
 
     /**
-     * 过滤当前节点列表，返回不符合要求的元素的新集合。
+     * 将当前集合中不符合要求的项组成一个新集合。
      * @param {String} selector 过滤的选择器或对每个元素运行的函数。函数的参数依次为:
      * 
-     * 参数名 | 类型       | 说明
-     * value | `Object`  | 当前元素的值。
-     * index | `Number`  | 当前元素的索引。
-     * array | `Array`   | 当前正在遍历的数组。
-     * 返回值 | `Boolean` | 用于确定是否满足条件。
+     * * @param {Object} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Array} array 当前正在遍历的数组。
+     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回新集合。
+     * @returns {Dom} 返回一个新集合。
      * @example $("#elem").not('div')
      */
     not: function (selector, scope) {
@@ -543,9 +559,12 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region 选择器
 
+    /** @category 选择器 */
+
     /**
-     * 在当前集合中查找指定的元素。
-     * @param {String} selector 查找的选择器。
+     * 在第一项子节点中查找指定的元素。
+     * @param {String} selector 要查找的选择器。
+     * @returns {Dom} 返回一个新集合。
      * @example $("#elem").find("div")
      */
     find: function (selector) {
@@ -554,7 +573,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 检查当前集合第一项是否符合指定的表达式。
-     * @param {String} selector 判断的选择器。
+     * @param {String} selector 要判断的选择器。
      * @returns {Boolean} 如果匹配表达式就返回 @true，否则返回 @false 。
      * @example $("#elem").is("div")
      */
@@ -566,6 +585,8 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @事件
 
+    /** @category 事件 */
+
     /**
      * 添加一个事件监听器。
      * @param {String} eventName 要添加的事件名。
@@ -573,15 +594,18 @@ Dom.init.prototype = Dom.prototype = {
      * @param {Function} eventListener 要添加的事件监听器。
      * @param {Object} [scope] 设置回调函数中 this 的指向。
      * @example
-     * #### 普通绑定
+     * ##### 普通绑定
      * $("#elem").on('click', function(){ alert("点击事件") });
      * 
-     * #### 委托事件
+     * ##### 委托事件
      * $("#elem").on('mouseenter', 'a', function(e){ this.firstChild.innerHTML = e.pageX; });
      * 
      * @remark
-     * <blockquote><h4>触屏事件</h4><code>click</code>/<code>mouse</code> 事件会自动绑定为相应的 <code>touch</code> 事件，以增加触屏设备上相应事件的响应速度。</blockquote>
-     * blockquote><h4>IE 特有事件</h4>本方法支持 <code>mousewheel</code>/<code>mouseenter</code>/<code>mouseleave</code>/<code>focusin</code>/<code>foucsout</code> 等 IE 特定事件支持。</blockquote>
+     * > #### 触屏事件
+     * > click`/`mouse` 事件会自动绑定为相应的`touch` 事件，以增加触屏设备上相应事件的响应速度。
+     * 
+     * > #### IE 特有事件
+     * > 本方法支持 `mousewheel`/`mouseenter`/`mouseleave`/`focusin`/`foucsout` 等 IE 特定事件支持。
      */
     on: function (eventName, delegateSelector, eventListener, scope) {
 
@@ -744,6 +768,8 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @遍历
 
+    /** @category 遍历 */
+
     /**
      * 获取当前集合第一项的第一个子节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
@@ -823,7 +849,9 @@ Dom.init.prototype = Dom.prototype = {
     index: function () {
         var node = this[0], i = 0;
         if (node) {
-            while (node = node.previousElementSibling) i++;
+            while (node = node.previousElementSibling) {
+                i++;
+            }
             return i;
         }
     },
@@ -831,6 +859,8 @@ Dom.init.prototype = Dom.prototype = {
     // #endregion
 
     // #region @增删
+
+    /** @category 增删 */
 
     /**
      * 插入一段 HTML 到末尾。
@@ -908,6 +938,8 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @CSS类
 
+    /** @category CSS类 */
+
     /**
      * 判断是否含指定类名。
      * @param {String} className 一个 CSS 类名。
@@ -927,7 +959,7 @@ Dom.init.prototype = Dom.prototype = {
     addClass: function (className) {
         return this.each(function (elem) {
             elem.classList.add(className);
-        })
+        });
     },
 
     /**
@@ -939,7 +971,7 @@ Dom.init.prototype = Dom.prototype = {
     removeClass: function (className) {
         return this.each(function (elem) {
             elem.classList.remove(className);
-        })
+        });
     },
 
     /**
@@ -958,6 +990,8 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @样式
 
+    /** @category 样式 */
+
     /**
      * 获取或设置 CSS 样式。
      * @param {String} cssPropertyName CSS 属性名。
@@ -966,10 +1000,10 @@ Dom.init.prototype = Dom.prototype = {
      * @example 
      * $("#elem").css("fontSize")
      * 
-     * 
      * $("#elem").css("fontSize", "12px")
      * @remark
-     * <blockquote><h4>IE Transform</h4>可使用 <a href="http://www.useragentman.com/IETransformsTranslator/">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。</blockquote>
+     * > #### IE Transform
+     * > 可使用 <a href="http://www.useragentman.com/IETransformsTranslator/">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。
      */
     css: function (cssPropertyName, value) {
         return value === undefined ? this[0] && Dom.css(this[0], cssPropertyName) : this.each(function (elem) {
@@ -981,17 +1015,18 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @属性
 
+    /** @category 属性 */
+
     /**
-	 * 获取或设置属性值。
-	 * @param {String} attrName 要获取的属性名称。
-	 * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
-	 * @returns {String} 返回属性值。如果元素没有相应属性，则返回 null 。
-	 * @example
-	 * $("#elem").attr("className")
-	 *
-	 * 
-	 * $("#elem").attr("className", "doc-doc") // 设置为 null 表示删除。
-	 */
+     * 获取或设置属性值。
+     * @param {String} attrName 要获取的属性名称。
+     * @param {String} value 要设置的属性值。当设置为 null 时，删除此属性。
+     * @returns {String} 返回属性值。如果元素没有相应属性，则返回 null 。
+     * @example
+     * $("#elem").attr("className")
+     * 
+     * $("#elem").attr("className", "doc-doc") // 设置为 null 表示删除。
+     */
     attr: function (attrName, value) {
         var elem = this[0];
         return value === undefined ? elem && (attrName in elem ? elem[attrName] : elem.getAttribute(attrName)) : this.each(function (elem) {
@@ -1000,29 +1035,27 @@ Dom.init.prototype = Dom.prototype = {
     },
 
     /**
-	 * 获取或设置文本。
-	 * @param {String} value 要设置的文本。
-	 * @returns {String} 值。对普通节点返回 textContent 属性，对文本框返回 value 属性。
+     * 获取或设置文本。
+     * @param {String} value 要设置的文本。
+     * @returns {String} 值。对普通节点返回 textContent 属性，对文本框返回 value 属性。
      * @example 
      * $("#elem").text()
      * 
-     * 
      * $("#elem").text("text")
-	 */
+     */
     text: function (value) {
         return this.attr(this[0] && /^(INPUT|SELECT|TEXTAREA)$/.test(this[0].tagName) ? 'value' : 'textContent', value);
     },
 
     /**
-	 * 获取或设置 HTML。
-	 * @param {String} value 要设置的 HTML。
-	 * @returns {String} 返回内部 HTML 代码。
+     * 获取或设置 HTML。
+     * @param {String} value 要设置的 HTML。
+     * @returns {String} 返回内部 HTML 代码。
      * @example 
      * $("#elem").html()
      * 
-     * 
      * $("#elem").html("<em>html</em>")
-	 */
+     */
     html: function (value) {
         return this.attr('innerHTML', value);
     },
@@ -1030,6 +1063,8 @@ Dom.init.prototype = Dom.prototype = {
     // #endregion
 
     // #region @位置
+
+    /** @category 位置 */
 
     /**
      * 获取指定节点的区域。
@@ -1040,9 +1075,7 @@ Dom.init.prototype = Dom.prototype = {
      * @example
      * $("#elem").rect();
      * 
-     * 
      * $("#elem").rect({width:200, height:400});
-     * 
      * 
      * $("#elem").rect({left: 30});
      */
@@ -1085,14 +1118,22 @@ Dom.init.prototype = Dom.prototype = {
                 dom = Dom(elem);
                 currentPosition = dom.rect();
                 offset = dom.offset();
-                if (value.top != null) style.top = offset.top + value.top - currentPosition.top + 'px';
-                if (value.left != null) style.left = offset.left + value.left - currentPosition.left + 'px';
+                if (value.top != null) {
+                    style.top = offset.top + value.top - currentPosition.top + 'px';
+                }
+                if (value.left != null) {
+                    style.left = offset.left + value.left - currentPosition.left + 'px';
+                }
             }
 
             if (value.width != null || value.height != null) {
                 offset = Dom.css(elem, 'boxSizing') === 'border-box';
-                if (value.width != null) style.width = value.width - (offset ? 0 : Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight')) + 'px';
-                if (value.height != null) style.height = value.height - (offset ? 0 : Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingTop+paddingBottom')) + 'px';
+                if (value.width != null) {
+                    style.width = value.width - (offset ? 0 : Dom.calc(elem, 'borderLeftWidth+borderRightWidth+paddingLeft+paddingRight')) + 'px';
+                }
+                if (value.height != null) {
+                    style.height = value.height - (offset ? 0 : Dom.calc(elem, 'borderTopWidth+borderBottomWidth+paddingTop+paddingBottom')) + 'px';
+                }
             }
 
         });
@@ -1206,8 +1247,10 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @特效
 
+    /** @category 特效 */
+
     /**
-     * 基于 CSS 3 实现动画效果。
+     * 实现 CSS3 动画渐变。
      * @param {Object} [from] 特效的起始样式。
      * @param {Object} to 特效的结束样式。
      * @param {Function} [callback] 特效执行完成的回调。
@@ -1216,7 +1259,6 @@ Dom.init.prototype = Dom.prototype = {
      * @param {Boolean} [reset] 是否在特效执行结束后重置样式。
      * @example
      * $("#elem").animate('auto', {height: '400px'});
-     * 
      * 
      * $("#elem").animate({transform: 'rotate(45deg)'});
      */
@@ -1359,14 +1401,12 @@ Dom.init.prototype = Dom.prototype = {
                 //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
             }
 
-
-
         });
 
     },
 
     /**
-     * 判断是否是隐藏。
+     * 判断第一项是否是隐藏。
      * @returns {Boolean} 当前元素已经隐藏返回 true，否则返回  false 。
      * @example $("#elem").isHidden();
      */
@@ -1377,9 +1417,9 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 通过设置 display 属性来显示元素。
-     * @param {Element} [fxName] 使用的特效。
+     * @param {String} [fxName] 使用的特效。内置支持的为 "height"/"opacity"/"scale"。
      * @param {Function} [callback] 特效执行完成的回调。
-     * @param {String} [duration=300] 特效的持续时间。
+     * @param {Number} [duration=300] 特效的持续时间。
      * @param {String} [ease="ease-in"] 特效的渐变类型。
      * @example $("#elem").show();
      */
@@ -1420,9 +1460,9 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 通过设置 display 属性来隐藏元素。
-     * @param {Element} [fxName] 使用的特效。
+     * @param {String} [fxName] 使用的特效。内置支持的为 "height"/"opacity"/"scale"。
      * @param {Function} [callback] 特效执行完成的回调。
-     * @param {String} [duration=300] 特效的持续时间。
+     * @param {Number} [duration=300] 特效的持续时间。
      * @param {String} [ease="ease-in"] 特效的渐变类型。
      * @example $("#elem").hide();
      */
@@ -1454,19 +1494,18 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 通过设置 display 属性切换显示或隐藏元素。
-     * @param {Boolean?} value 要设置的元素。
-     * @param {Element} [fxName] 使用的特效。
+     * @param {mixed} [fxName] 强制设置是否启用或使用的特效。内置支持的为 "height"/"opacity"/"scale"。
      * @param {Function} [callback] 特效执行完成的回调。
-     * @param {String} [duration=300] 特效的持续时间。
+     * @param {Number} [duration=300] 特效的持续时间。
      * @param {String} [ease="ease-in"] 特效的渐变类型。
      * @example 
-     * ### 折叠/展开
+     * ##### 折叠/展开
      * $("#elem").toggle('height');
      * 
-     * ### 深入/淡出
+     * ##### 深入/淡出
      * $("#elem").toggle('opacity');
      * 
-     * ### 缩小/放大
+     * ##### 缩小/放大
      * $("#elem").toggle('scale');
      */
     toggle: function (value) {
@@ -1477,11 +1516,15 @@ Dom.init.prototype = Dom.prototype = {
 
     // #region @角色
 
+    /** @category 角色 */
+
     /**
      * 初始化当前集合为指定的角色。
      * @param {String} roleName 要初始化的角色。
      * @param {Function} constructor 相关的类。
      * @param {Object} options 传递给类的参数。
+     * @returns {Object} 返回第一项对应的对象。
+     * @inner
      */
     initAs: function (roleName, constructor, options) {
 
@@ -1489,7 +1532,7 @@ Dom.init.prototype = Dom.prototype = {
         if (!this.length) {
             return null;
         }
-        
+
         function init(elem) {
             var data = Dom.data(elem);
             return data[roleName] || (data[roleName] = new constructor(elem, options));
@@ -1509,6 +1552,7 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 设置构造函数。
+     * @inner
      */
     constructor: Dom,
 
@@ -1529,6 +1573,7 @@ if (!this.$) {
      * 提供简短调用形式。
      * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
      * @returns {$} 返回 DOM 对象。
+     * @inner
      */
     this.$ = Dom;
 }

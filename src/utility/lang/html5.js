@@ -77,7 +77,7 @@ if (!Array.prototype.forEach) {
      * * @param {Object} value 当前项的值。
      * * @param {Number} index 当前项的索引。
      * * @param {Array} array 当前正在遍历的数组。
-     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不满足。
+     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
      * 
      * @param {Object} [scope] 指定 @fn 执行时 @this 的值。
      * @returns {Array} 返回一个新数组。
