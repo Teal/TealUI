@@ -49,6 +49,7 @@ var Ajax = {
         /**
          * 获取文本格式数据。
          * @type {Object} options 要处理的原始 options。
+         * @inner
          */
         text: function (options) {
             var responseText;
@@ -66,6 +67,7 @@ var Ajax = {
         /**
          * 执行 JavaScript 代码。
          * @type {Object} options 要处理的原始 options。
+         * @inner
          */
         script: function (options) {
             var sourceCode = Ajax.parsers.text(options);
@@ -79,6 +81,7 @@ var Ajax = {
         /**
          * 获取 JSON 格式数据。
          * @type {Object} options 要处理的原始 options。
+         * @inner
          */
         json: function (options) {
             return JSON.parse(Ajax.parsers.text(options));
@@ -91,6 +94,7 @@ var Ajax = {
         /**
          * 获取 XML 格式数据。
          * @type {Object} options 要处理的原始 options。
+         * @inner
          */
         xml: function (options) {
             var xml = options.xhr.responseXML;
@@ -111,6 +115,7 @@ var Ajax = {
 
         /**
          * 文本格式传输协议。
+         * @inner
          */
         text: function (options, callback) {
 
@@ -259,6 +264,7 @@ var Ajax = {
 
         /**
          * 脚本格式传输协议。
+         * @inner
          */
         script: function (options, callback) {
 
@@ -310,6 +316,7 @@ var Ajax = {
 
         /**
          * 脚本远程执行格式传输协议。
+         * @inner
          */
         jsonp: function (options, callback) {
 
