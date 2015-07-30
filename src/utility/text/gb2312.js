@@ -15,7 +15,7 @@ function encodeGB2312(str) {
     	var c = str.charCodeAt(i) - 0x4e00;
         if (c >= 0) {
             c = encodeGB2312.dictionary[c];
-            result += "%" + c.slice(0, 2) + "%" + c.slice(-2);
+            result += "%" + c.substr(0, 2) + "%" + c.substr(2);
         } else {
             c = str.charAt(i);
             if (c == " ") {

@@ -241,7 +241,7 @@ function parseDocComment(comment, rest) {
                 result.type = result.type || "RegExp";
             }
 
-            if (match[4] === ':' && !result.memberOf && lastDocComment) {
+            if (!result.memberOf && lastDocComment) {
                 var lastName = lastDocComment.name;
                 if (lastDocComment.memberType === 'class') {
                     lastName += '.prototype';

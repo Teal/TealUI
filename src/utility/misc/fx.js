@@ -24,7 +24,9 @@ Date.now = Date.now || function () { return +new Date; };
  */
 function Fx(options) {
     // 拷贝用户配置。
-    for (var key in options) this[key] = options[key];
+    for (var key in options) {
+        this[key] = options[key];
+    }
 }
 
 /**
