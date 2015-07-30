@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -18,59 +18,238 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>Ajax <small>(源码: <a href="../../utility/misc/ajax.js" target="_blank">utility/misc/ajax.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>Ajax.send</code></td>
-            <td>发送一个 AJAX 请求</td>
-            <td class="doc">
-                <pre>
-                    Ajax.send({
-                        url: "../../../assets/resources/ajax/test.txt", 
-                        success:function(data){
-                            alert(data)
-                        }
-                    });
-                </pre>
-                <h5>连续发送多个请求</h5>
-                <pre>
-                    Ajax.send({
-                        url: [{
-                            url: "../../../assets/resources/ajax/test.txt"
-                        }, {
-                            url: "../../../assets/resources/ajax/test.txt"
-                        }], 
-                        success:function(data1, data2){
-                            alert(data1 + data2)
-                        }
-                    });
-                </pre>
-            </td>
-        </tr>
-        <tr>
-            <td><code>Ajax.get</code></td>
-            <td>发送一个 GET 异步请求</td>
-            <td><pre>Ajax.get("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
-        </tr>
-        <tr>
-            <td><code>Ajax.post</code></td>
-            <td>发送一个 POST 异步请求</td>
-            <td><pre>Ajax.post("../../../assets/resources/ajax/test.txt", function(data){alert(data)})</pre></td>
-        </tr>
-        <tr>
-            <td><code>Ajax.jsonp</code></td>
-            <td>发送一个 JSONP 请求</td>
-            <td><pre>Ajax.jsonp("../../../assets/resources/ajax/jsonp.js", function(data){alert(data)})</pre></td>
-        </tr>
-    </table>
+    <h2>Ajax</h2>
+    <script data-gendoc="utility/misc/ajax.js">
 
-    <h2>Ajax 表单提交 <small>(源码: <a href="../../utility/misc/ajaxSubmit.js" target="_blank">utility/misc/ajaxSubmit.js</a>)</small></h2>
-    
+    Doc.writeApi({
+			path: "utility/misc/ajax.js",
+			apis: [{
+				name: "init",
+				summary: "<p>全局 Ajax 请求之前的回调，可用于初始化指定配置项，如重写请求 URL。</p>",
+				type: ["Function"],
+				example: "<pre>Ajax.init = function(options){ options.url = options.url.replace(\"~/\", \"http://api.domain.com\");  }</pre>",
+				memberType: "field",
+				line: 13,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "text",
+				summary: "<p>获取文本格式数据。</p>",
+				type: ["Object} options 要处理的原始 options。"],
+				line: 49,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "script",
+				summary: "<p>执行 JavaScript 代码。</p>",
+				type: ["Object} options 要处理的原始 options。"],
+				line: 66,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "json",
+				summary: "<p>获取 JSON 格式数据。</p>",
+				type: ["Object} options 要处理的原始 options。"],
+				line: 79,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "xml",
+				summary: "<p>获取 XML 格式数据。</p>",
+				type: ["Object} options 要处理的原始 options。"],
+				line: 91,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "text",
+				summary: "<p>文本格式传输协议。</p>",
+				line: 112,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "script",
+				summary: "<p>脚本格式传输协议。</p>",
+				line: 260,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "jsonp",
+				summary: "<p>脚本远程执行格式传输协议。</p>",
+				line: 311,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "send",
+				summary: "<p>发送一个 AJAX 请求。</p>",
+				params: [{
+					type: "Object",
+					name: "options",
+					summary: "<p>发送的配置。支持的值有：</p>\n\
+\n\
+<p>字段名        |类型      | 默认值      |说明 <br>\n\
+async        |<code>Boolean</code> |<code>true</code>      |是否为异步的请求。 <br>\n\
+cache        |<code>Boolean</code> |<code>true</code>      |是否允许缓存。 <br>\n\
+charset      |<code>String</code>  |<code>\"UTF-8\"</code>   |请求的字符编码。 <br>\n\
+complete     |<code>Function</code>|<code>null</code>      |请求完成时的回调。回调参数为请求的数据或发生的错误。 <br>\n\
+crossDomain  |<code>Boolean</code> |(自动判断)   |指示 AJAX 强制使用跨域方式的请求。 <br>\n\
+data         |<code>Object</code>  |<code>null</code>      |请求的数据。 <br>\n\
+dataType     |<code>String</code>  |(根据响应头自动识别)    | 请求数据的类型。可选的值有：<code>\"text\"/\"script\"/\"html\"/\"xml\"/\"json\"/\"jsonp\"</code> <br>\n\
+error        |<code>Function</code>|<code>null</code>      |请求失败时的回调。回调参数为发生的错误。 <br>\n\
+headers      |<code>Object</code>  |<code>null</code>      |附加的额外请求头信息。 <br>\n\
+jsonp        |<code>Boolean</code> |<code>\"callback\"</code>|如果使用 jsonp 请求，则指示 jsonp 参数名。如果设为 false，则不添加 jsonp 参数。 <br>\n\
+jsonpCallback|<code>Boolean</code> |(根据当前时间戳自动生成)|jsonp请求回调函数名。 <br>\n\
+password     |<code>String</code>  |<code>null</code>      |请求的密码。 <br>\n\
+start        |<code>Function</code>|<code>null</code>      |请求开始时的回调。 <br>\n\
+success      |<code>Function</code>|<code>null</code>      |请求成功时的回调。参数为请求的数据。 <br>\n\
+timeout      |<code>Number</code>  |<code>-1</code>        |请求超时毫秒数。-1 表示不设超时。 <br>\n\
+type         |<code>String</code>  |<code>\"GET\"</code>     |请求类型。 <br>\n\
+url          |<code>String</code>  |(当前页面)   |请求的地址。请求的多个地址时可使用数组，这时所有请求完成后才触发回调。 <br>\n\
+username     |<code>String</code>  |<code>null</code>      |请求的用户名。</p>\n\
+\n\
+<p>响应时， options 将被追加以下参数：</p>\n\
+\n\
+<p>字段名     |类型     | 说明 <br>\n\
+errorCode  |<code>Number</code>|返回的错误码。-3：操作被取消；-2：请求超时；-1：其它内部错误；0：无错误；1：状态码错误；2：数据解析错误。 <br>\n\
+status     |<code>Number</code>|服务器返回的状态码。 <br>\n\
+statusText |<code>String</code>|服务器返回的状态文本。 <br>\n\
+response   |<code>Object</code>|如果有错误则返回错误信息，否则返回请求的数据。</p>"
+				}],
+				returns: {
+					summary: "<p>返回 <em>options</em></p>"
+				},
+				example: "<pre>Ajax.send({\n\
+      url: \"../../../assets/resources/ajax/test.txt\", \n\
+      success:function(data){\n\
+          alert(data)\n\
+      }\n\
+});</pre>\n\
+\n\
+<h4>同时发送多个请求统一回调</h4>\n\
+\n\
+<pre>Ajax.send({\n\
+     url: [{\n\
+         url: \"../../../assets/resources/ajax/test.txt\"\n\
+     }, {\n\
+         url: \"../../../assets/resources/ajax/test.txt\"\n\
+     }], \n\
+     success:function(data1, data2){\n\
+         alert(data1 + data2)\n\
+     }\n\
+});</pre>",
+				line: 355,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "get",
+				summary: "<p>发送一个 GET 异步请求。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					optional: true,
+					summary: "<p>请求的地址。</p>"
+				}, {
+					type: "Object",
+					name: "data",
+					optional: true,
+					summary: "<p>请求的数据。</p>"
+				}, {
+					type: "String",
+					name: "onsuccess",
+					optional: true,
+					summary: "<p>请求成功时的回调。</p>"
+				}, {
+					type: "String",
+					name: "onerror",
+					optional: true,
+					summary: "<p>请求失败时的回调。</p>"
+				}, {
+					type: "String",
+					name: "dataType",
+					defaultValue: "'text'",
+					optional: true,
+					summary: "<p>请求数据的类型。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回请求对象。</p>"
+				},
+				example: "<pre>Ajax.get(\"../../../assets/resources/ajax/test.txt\", function(data){alert(data)})</pre>",
+				line: 585,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "post",
+				summary: "<p>发送一个 POST 异步请求。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					optional: true,
+					summary: "<p>请求的地址。</p>"
+				}, {
+					type: "Object",
+					name: "data",
+					optional: true,
+					summary: "<p>请求的数据。</p>"
+				}, {
+					type: "String",
+					name: "onsuccess",
+					optional: true,
+					summary: "<p>请求成功时的回调。</p>"
+				}, {
+					type: "String",
+					name: "onerror",
+					optional: true,
+					summary: "<p>请求失败时的回调。</p>"
+				}, {
+					type: "String",
+					name: "dataType",
+					defaultValue: "'text'",
+					optional: true,
+					summary: "<p>请求数据的类型。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回请求对象。</p>"
+				},
+				example: "<pre>Ajax.post(\"../../../assets/resources/ajax/test.txt\", function(data){alert(data)})</pre>",
+				line: 599,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "jsonp",
+				summary: "<p>快速发送一个 POST 异步请求。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					optional: true,
+					summary: "<p>请求的地址。</p>"
+				}, {
+					type: "Object",
+					name: "data",
+					optional: true,
+					summary: "<p>请求的数据。</p>"
+				}, {
+					type: "String",
+					name: "onsuccess",
+					optional: true,
+					summary: "<p>请求成功时的回调。</p>"
+				}, {
+					type: "String",
+					name: "onerror",
+					optional: true,
+					summary: "<p>请求失败时的回调。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回请求对象。</p>"
+				},
+				example: "<pre>Ajax.jsonp(\"../../../assets/resources/ajax/jsonp.js\", function(data){alert(data)})</pre>",
+				line: 617,
+				col: 1
+			}]
+});</script>
+
+    <h2>Ajax 表单提交</h2>
     <form action="" method="get" id="form">
         <input type="text" name="text" value="t1">
         <input type="text" name="text" value="t2" readonly="readonly">
@@ -86,6 +265,54 @@
         </select>
         <input type="submit" value="提交">
     </form>
+    <script data-gendoc="utility/misc/ajaxSubmit.js">
+
+    Doc.writeApi({
+			path: "utility/misc/ajaxSubmit.js",
+			apis: [{
+				memberOf: "Ajax",
+				name: "paramForm",
+				summary: "<p>返回一个表单的参数表示形式。</p>",
+				params: [{
+					type: "HTMLFormElement",
+					name: "formElem",
+					summary: "<p>表单元素。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回表单是参数形式。</p>"
+				},
+				example: "<pre>Ajax.paramForm(document.getElementById(\"form\"))</pre>",
+				line: 5,
+				col: 1
+			}, {
+				memberOf: "Ajax",
+				name: "submit",
+				summary: "<p>通过 Ajax 提交一个表单。</p>",
+				params: [{
+					type: "HTMLFormElement",
+					name: "formElem",
+					summary: "<p>表单元素。</p>"
+				}, {
+					type: "Function",
+					name: "onsuccess",
+					optional: true,
+					summary: "<p>成功回调函数。</p>"
+				}, {
+					type: "Function",
+					name: "onerror",
+					optional: true,
+					summary: "<p>错误回调函数。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回请求对象。</p>"
+				},
+				example: "<pre>Ajax.submit(document.getElementById(\"form\"), function(data){alert(\"提交成功了, 返回数据\" + data)}, function(errorCode){alert(\"提交失败了， 错误码\" + errorCode)})</pre>",
+				line: 45,
+				col: 1
+			}]
+});</script>
     <table class="doc-api">
         <tr>
             <th>API</th>

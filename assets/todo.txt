@@ -20,9 +20,6 @@ utility
 webApp
 	*
 
-7/29
-	typography/partial/*
-	typography/legacy/*
 7/30
 	utility/misc/ajax
 	utility/misc/*

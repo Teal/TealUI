@@ -13,7 +13,7 @@ var Ajax = {
     /**
      * 全局 Ajax 请求之前的回调，可用于初始化指定配置项，如重写请求 URL。
      * @field init
-     * ＠type Function
+     * @type Function
      * @example Ajax.init = function(options){ options.url = options.url.replace("~/", "http://api.domain.com");  }
      */
 
@@ -423,7 +423,7 @@ var Ajax = {
 
                 // 拷贝主对象配置。
                 for (key in options)
-                    if(!(key in { url: 1, start: 1, success: 1, error: 1, complete: 1 }))
+                    if (!(key in { url: 1, start: 1, success: 1, error: 1, complete: 1 }))
                         url2[key] = options[key];
 
                 // 拷贝子对象配置。

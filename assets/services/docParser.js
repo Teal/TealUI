@@ -18,7 +18,7 @@ var tags = {
     'returns': { type: 'return' },
     'return': { alias: 'returns' },
 
-    'exception': { type: 'type' },
+    'exception': { type: 'exception' },
     'throws': { alias: 'throw' },
     'throw': { alias: 'exception' },
 
@@ -156,7 +156,7 @@ function parseDocComment(comment, rest) {
                         break;
 
                     case 'return':
-                    case 'type':
+                    case 'exception':
                         content = parseType(content);
                         content.summary = parseMarkDown(content.summary);
                         break;
@@ -167,6 +167,10 @@ function parseDocComment(comment, rest) {
 
                     case "code":
                         content = parseCode(content);
+                        break;
+
+                    case "type":
+                        content = content.replace(/^\{|\}$/g, "");
                         break;
 
                     case "memberType":

@@ -2384,6 +2384,10 @@ var Doc = {
                 result += api.returns.summary.replace('<p>', '<p><code>' + (api.returns.type || "") + '</code> ');
             }
         }
+       
+        if (api.type) {
+            result += '<h4>类型</h4><p><code>' + api.type + '</code></p>';
+        }
 
         if (api.remark) {
             result += api.remark;
