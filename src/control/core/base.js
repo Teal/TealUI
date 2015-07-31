@@ -11,61 +11,99 @@
  * @class
  * @abstract
  */
-var Control = Base.extend({
+var Control = Dom.roles.$default = Base.extend({
 
     /**
-	 * 当前控件对应的原生节点。
+	 * 获取当前控件对应的 DOM 对象。
 	 * @type {Dom}
+	 * @example $("#elem1").role().dom.html()
 	 */
     dom: null,
+
+    /**
+     * 获取当前组件的角色。
+     * @type {String}
+     * @example alert($("#elem1").role().role)
+     * @inner
+     */
+    role: null,
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
 	 * @protected
 	 * @virtual
+     * @inner
 	 */
     init: function () { },
+
+    /**
+     * 当被子类重写时，负责创建 DOM 对象。
+	 * @protected
+	 * @virtual
+     * @inner
+     */
+    create: function () {
+        var div = document.createElement('div');
+        if (this.role) {
+            div.className = 'x-' + this.role.toLowerCase();
+        }
+        return div;
+    },
 
     /**
 	 * 初始化一个新的控件。
 	 * @param {Dom} dom 绑定当前控件的节点。
 	 * @param {Object} [options] 初始化控件的相关选项。
+	 * @constructor
+     * @example new Control("#id")
 	 */
     constructor: function (dom, options) {
 
-        // 绑定 DOM 节点。
-        this.dom = Dom(dom);
+        // 创建 DOM 节点。
+        dom = Dom(dom);
+        if (!dom.length) {
+            dom = Dom(this.create());
+        }
+        this.dom = dom;
 
-        // 预处理所有选项。
-        // 选项的可能情况：
-        //  直接设置为当前属性。
-        //  直接设置为事件绑定。
-        //  不处理直接传递给 init。
+        window.console && console.assert(dom && dom[0], "Control 缺少关联的原生节点");
 
-        // 延时应用的选项。
-        var delayedOptions, key, value;
+        var opt = {};
 
-        for (key in options) {
-            value = options[key];
+        // 从 HTML 载入配置。
+        for (var i = 0; i < dom[0].attributes.length; i++) {
+            var attr = dom[0].attributes[i],
+                attrName = attr.name.toLowerCase();
+            if (/^data-/.test(attrName) && attrName !== 'data-role') {
+                opt[attrName.substr(5).replace(/-(\w)/, function (_, w) {
+                    return w.toUpperCase();
+                })] = attr.value;
+            }
+        }
+
+        // 从 options 载入配置。
+        for (var key in options) {
+            opt[key] = options[key];
+        }
+
+        // 应用配置。
+        for (var key in opt) {
+            var value = opt[key];
             switch (typeof this[key]) {
-
                 case 'undefined':
-
                     // 自定义事件。
                     var match = /^on[a-z]/.exec(key);
                     if (match) {
-                        try {
-                            value = new Function("event", value);
-                        } catch (e) { }
+                        if (value != null && value.constructor == String) {
+                            try {
+                                value = new Function("event", value);
+                            } catch (e) { }
+                        }
                         this.on(match[1], value);
+                        delete opt[key];
                         continue;
                     }
-
                     break;
-                case 'function':
-                    delayedOptions = delayedOptions || {};
-                    delayedOptions[match] = value;
-                    continue;
                 case 'object':
                     try {
                         value = JSON.parse(value);
@@ -77,98 +115,45 @@ var Control = Base.extend({
                 case 'boolean':
                     value = !!value && !/^false|off|no|0$/i.test(value);
                     break;
+                case 'function':
+                    continue;
             }
-
             this[key] = value;
+            delete opt[key];
         }
 
         // 调用初始化函数。
         this.init();
 
-        // 设置相关值。
-        for (key in delayedOptions) this[key](delayedOptions[key]);
-
+        // 剩下的函数直接调用。
+        for (var key in opt) {
+            this[key](opt[key]);
+        }
     }
 
 });
 
 /**
- * 根据类名获取组件类型。
+ * 定义一个组件类型。
+ * @param {Object} prototype 子类实例成员列表。
+ * @example 
+ * Control.extend({
+ *      role: "myButton",
+ *      init: function(){
+ *          this.dom.html('text');
+ *      }
+ * })
  */
-Control.getControlTypeByName = function (roleName) {
-    if (roleName) {
-        roleName = roleName.replace(/^[a-z]/, function (w) {
-            return w.toUpperCase();
-        });
-        roleName = Control[roleName] || window[roleName];
+Control.extend = function (prototype) {
+    var clazz = Base.extend.call(this, prototype);
+    var role = clazz.prototype.role;
+    if (role) {
+        Dom.roles[role] = clazz;
     }
-    return roleName && roleName.constructor === Function ? roleName : Control;
-};
-
-/**
- * 获取指定元素绑定的控件实例。
- * @param {Element} elem 要获取的元素。
- * @param {String?} roleName 指定初始化的控件名。
- */
-Control.get = function (elem, roleName, options) {
-
-    // 默认根据 data-role 指定角色名。
-    roleName = roleName || elem.getAttribute('data-role');
-
-    var data = Dom.data(elem),
-        instance = (data.roles || (data.roles = {}))[roleName];
-
-    // 已经初始化则不再初始化。
-    if (!instance) {
-
-        // 获取相应的组件类。
-        var controlClass = Control.getControlTypeByName(roleName);
-
-        // 从 DOM 载入配置。
-        for (var i = 0; i < elem.attributes.length; i++) {
-            var attr = elem.attributes[i];
-            if (/^data-/i.test(attr.name) && attr.name !== 'data-role') {
-                options = options || {};
-                options[attr.name.substr('data-'.length).replace(/-(\w)/, function (_, w) {
-                    return w.toUpperCase();
-                })] = attr.value;
-            }
-        }
-
-        // 创建组件实例。
-        data.roles[roleName] = instance = new controlClass(elem, options);
-
-    }
-
-    return instance;
+    return clazz;
 };
 
 // 默认初始化一次页面全部组件。
-$(function () {
-    NodeList.each(document.querySelectorAll('[data-role]'), function (elem) {
-        Control.get(elem);
-    });
+Dom(function () {
+    Dom("[data-role]").role();
 });
-
-/**
- * 初始化一个或多个控件。
- * @param {String} roleName 要初始化的角色类型。
- * @example
- * $().role('toolTip'); // 将所有 DOM 节点初始化为 ToolTip 控件，并返回第一个控件实例。
- * $().role(); // 将所有 DOM 节点初始化为控件，控件类型根据 DOM 的 data-role 属性指定，并返回第一个控件实例。
- */
-$.prototype.role = function (roleName, options) {
-    if (!this.length) {
-        return null;
-    }
-    var result = Control.get(this[0], roleName, options);
-    for (var i = 1; i < this.length; i++) {
-        Control.get(this[i], roleName, options);
-    }
-    return result;
-};
-
-// 支持 Zepto
-if ($.fn) {
-    $.fn.role = $.prototype.role;
-}

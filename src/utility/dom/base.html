@@ -35,7 +35,7 @@
 				summary: "<p>获取当前集合的长度。</p>",
 				type: ["Number"],
 				example: "<pre>$(\"#elem\").length</pre>",
-				line: 450,
+				line: 460,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -47,7 +47,7 @@
 					summary: "<p>要添加的节点或节点列表。</p>"
 				}],
 				example: "<pre>$(\"#elem\").add(document.body)</pre>",
-				line: 457,
+				line: 467,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -79,7 +79,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。</p>"
 					summary: "<p>this</p>"
 				},
 				example: "<pre>$(\"#elem\").each(function(elem){ console.log(elem); })</pre>",
-				line: 475,
+				line: 485,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -110,7 +110,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回新集合。</p>"
 				},
 				example: "<pre>$(\"#elem\").map(function(node){return node.firstChild})</pre>",
-				line: 498,
+				line: 508,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -138,7 +138,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回一个新集合。</p>"
 				},
 				example: "<pre>$(\"#elem\").filter('div')</pre>",
-				line: 521,
+				line: 531,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -166,12 +166,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回一个新集合。</p>"
 				},
 				example: "<pre>$(\"#elem\").not('div')</pre>",
-				line: 541,
+				line: 551,
 				col: 1
 			}, {
 				name: "选择器",
 				memberType: "category",
-				line: 562,
+				line: 572,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -187,7 +187,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回一个新集合。</p>"
 				},
 				example: "<pre>$(\"#elem\").find(\"div\")</pre>",
-				line: 564,
+				line: 574,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -203,12 +203,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>如果匹配表达式就返回 <strong>true</strong>，否则返回 <strong>false</strong> 。</p>"
 				},
 				example: "<pre>$(\"#elem\").is(\"div\")</pre>",
-				line: 574,
+				line: 584,
 				col: 1
 			}, {
 				name: "事件",
 				memberType: "category",
-				line: 588,
+				line: 598,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -249,7 +249,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
   \n\
   <p>本方法支持 <code>mousewheel</code>/<code>mouseenter</code>/<code>mouseleave</code>/<code>focusin</code>/<code>foucsout</code> 等 IE 特定事件支持。</p>\n\
 </blockquote>",
-				line: 590,
+				line: 600,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -272,7 +272,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 <h4>删除全部点击事件</h4>\n\
 \n\
 <pre>$(\"#elem\").off('click');</pre>",
-				line: 678,
+				line: 688,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -288,12 +288,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>传递给监听器的事件对象。</p>"
 				}],
 				example: "<pre>$(\"#elem\").trigger('click')</pre>",
-				line: 741,
+				line: 751,
 				col: 1
 			}, {
 				name: "遍历",
 				memberType: "category",
-				line: 771,
+				line: 781,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -310,7 +310,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").first()</pre>",
-				line: 773,
+				line: 783,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -327,7 +327,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").last()</pre>",
-				line: 783,
+				line: 793,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -344,7 +344,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").next()</pre>",
-				line: 793,
+				line: 803,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -361,7 +361,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").prev()</pre>",
-				line: 803,
+				line: 813,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -378,7 +378,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").parent()</pre>",
-				line: 813,
+				line: 823,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -395,7 +395,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回节点列表。</p>"
 				},
 				example: "<pre>$(\"#elem\").children()</pre>",
-				line: 823,
+				line: 833,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -417,7 +417,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").closest(\"body\")</pre>",
-				line: 833,
+				line: 843,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -428,12 +428,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回索引。</p>"
 				},
 				example: "<pre>$(\"#elem\").index()</pre>",
-				line: 844,
+				line: 854,
 				col: 1
 			}, {
 				name: "增删",
 				memberType: "category",
-				line: 863,
+				line: 873,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -449,7 +449,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回插入的新节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").append(\"append\")</pre>",
-				line: 865,
+				line: 875,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -465,7 +465,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回插入的新节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").prepend(\"prepend\")</pre>",
-				line: 878,
+				line: 888,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -481,7 +481,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回插入的新节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").before(\"before\")</pre>",
-				line: 891,
+				line: 901,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -497,7 +497,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回插入的新节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").after(\"after\")</pre>",
-				line: 904,
+				line: 914,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -508,7 +508,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				},
 				remark: "<p>这个方法不会彻底移除 Dom 对象，而只是暂时将其从 Dom 树分离。</p>",
 				example: "<pre>$(\"#elem\").remove()</pre>",
-				line: 914,
+				line: 924,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -526,12 +526,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回克隆的新节点。</p>"
 				},
 				example: "<pre>$(\"#elem\").clone()</pre>",
-				line: 927,
+				line: 937,
 				col: 1
 			}, {
 				name: "CSS类",
 				memberType: "category",
-				line: 941,
+				line: 951,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -547,7 +547,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>如果存在则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>$(\"#elem\").hasClass(\"light\")</pre>",
-				line: 943,
+				line: 953,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -562,7 +562,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>this</p>"
 				},
 				example: "<pre>$(\"#elem\").addClass(\"light\")</pre>",
-				line: 953,
+				line: 963,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -577,7 +577,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>this</p>"
 				},
 				example: "<pre>$(\"#elem\").removeClass(\"light\")</pre>",
-				line: 965,
+				line: 975,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -592,12 +592,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>this</p>"
 				},
 				example: "<pre>$(\"#elem\").toggleClass(\"light\")</pre>",
-				line: 977,
+				line: 987,
 				col: 1
 			}, {
 				name: "样式",
 				memberType: "category",
-				line: 993,
+				line: 1003,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -624,12 +624,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
   \n\
   <p>可使用 <a href=\"http://www.useragentman.com/IETransformsTranslator/\">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。</p>\n\
 </blockquote>",
-				line: 995,
+				line: 1005,
 				col: 1
 			}, {
 				name: "属性",
 				memberType: "category",
-				line: 1018,
+				line: 1028,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -651,7 +651,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				example: "<pre>$(\"#elem\").attr(\"className\")</pre>\n\
 \n\
 <pre>$(\"#elem\").attr(\"className\", \"doc-doc\") // 设置为 null 表示删除。</pre>",
-				line: 1020,
+				line: 1030,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -669,7 +669,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				example: "<pre>$(\"#elem\").text()</pre>\n\
 \n\
 <pre>$(\"#elem\").text(\"text\")</pre>",
-				line: 1037,
+				line: 1047,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -687,12 +687,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				example: "<pre>$(\"#elem\").html()</pre>\n\
 \n\
 <pre>$(\"#elem\").html(\"<em>html</em>\")</pre>",
-				line: 1050,
+				line: 1060,
 				col: 1
 			}, {
 				name: "位置",
 				memberType: "category",
-				line: 1067,
+				line: 1077,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -709,7 +709,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 <pre>$(\"#elem\").rect({width:200, height:400});</pre>\n\
 \n\
 <pre>$(\"#elem\").rect({left: 30});</pre>",
-				line: 1069,
+				line: 1079,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -726,7 +726,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				},
 				remark: "<p>此方法对可见和隐藏元素均有效。获取匹配元素相对父元素的偏移。</p>",
 				example: "<pre>$(\"#elem\").offset()</pre>",
-				line: 1142,
+				line: 1152,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -737,7 +737,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>返回一个节点对象。</p>"
 				},
 				example: "<pre>$(\"#elem\").offsetParent()</pre>",
-				line: 1187,
+				line: 1197,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -755,12 +755,12 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				example: "<pre>$(\"#elem\").scroll();</pre>\n\
 \n\
 <pre>$(\"#elem\").scroll({left:100, top: 500});</pre>",
-				line: 1201,
+				line: 1211,
 				col: 1
 			}, {
 				name: "特效",
 				memberType: "category",
-				line: 1250,
+				line: 1260,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -801,7 +801,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 				example: "<pre>$(\"#elem\").animate('auto', {height: '400px'});</pre>\n\
 \n\
 <pre>$(\"#elem\").animate({transform: 'rotate(45deg)'});</pre>",
-				line: 1252,
+				line: 1262,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -812,7 +812,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>当前元素已经隐藏返回 true，否则返回  false 。</p>"
 				},
 				example: "<pre>$(\"#elem\").isHidden();</pre>",
-				line: 1408,
+				line: 1418,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -842,7 +842,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>特效的渐变类型。</p>"
 				}],
 				example: "<pre>$(\"#elem\").show();</pre>",
-				line: 1418,
+				line: 1428,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -872,7 +872,7 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 					summary: "<p>特效的渐变类型。</p>"
 				}],
 				example: "<pre>$(\"#elem\").hide();</pre>",
-				line: 1461,
+				line: 1471,
 				col: 1
 			}, {
 				memberOf: "Dom.prototype",
@@ -912,12 +912,33 @@ dom   | <code>Dom</code>     | 当前正在遍历的集合。 <br>\n\
 <h5>缩小/放大</h5>\n\
 \n\
 <pre>$(\"#elem\").toggle('scale');</pre>",
-				line: 1495,
+				line: 1505,
 				col: 1
 			}, {
 				name: "角色",
 				memberType: "category",
-				line: 1519,
+				line: 1529,
+				col: 1
+			}, {
+				memberOf: "Dom.prototype",
+				name: "role",
+				summary: "<p>初始化当前集合为指定的角色。</p>",
+				params: [{
+					type: "String",
+					name: "roleName",
+					summary: "<p>要初始化的角色名。</p>"
+				}, {
+					type: "Object",
+					name: "options",
+					optional: true,
+					summary: "<p>传递给角色类的参数。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回第一项对应的角色对象。</p>"
+				},
+				example: "<pre>$(\"#elem1\").role(\"draggable\")</pre>",
+				line: 1531,
 				col: 1
 			}]
 });</script>

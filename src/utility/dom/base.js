@@ -443,6 +443,16 @@ Dom.toggleFx = {
 
 // #endregion
 
+// #region @角色
+
+/**
+ * 所有支持的角色列表。
+ * @inner
+ */
+Dom.roles = { $default: Dom };
+
+// #endregion
+
 Dom.init.prototype = Dom.prototype = {
 
     // #region 集合操作
@@ -1520,29 +1530,20 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 初始化当前集合为指定的角色。
-     * @param {String} roleName 要初始化的角色。
-     * @param {Function} constructor 相关的类。
-     * @param {Object} options 传递给类的参数。
-     * @returns {Object} 返回第一项对应的对象。
-     * @inner
+     * @param {String} roleName 要初始化的角色名。
+     * @param {Object} [options] 传递给角色类的参数。
+     * @returns {Object} 返回第一项对应的角色对象。
+     * @example $("#elem1").role("draggable")
      */
-    initAs: function (roleName, constructor, options) {
-
-        // 节点为空，不初始化。
-        if (!this.length) {
-            return null;
-        }
-
-        function init(elem) {
+    role: function (roleName, options) {
+        var result;
+        this.each(function (elem) {
             var data = Dom.data(elem);
-            return data[roleName] || (data[roleName] = new constructor(elem, options));
-        }
-
-        // 为每个节点初始化，但不重复初始化。
-        var result = init(this[0]), i;
-        for (i = 1; i < this.length; i++) {
-            init(this[i]);
-        }
+            var name = roleName || elem.getAttribute('data-role');
+            var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
+            // 只保存第一项的结果。
+            result = result || role;
+        });
         return result;
     },
 
@@ -1576,6 +1577,11 @@ if (!this.$) {
      * @inner
      */
     this.$ = Dom;
+}
+
+// 支持 Zepto
+if ($.fn) {
+    $.prototype = $.fn;
 }
 
 // #endregion
