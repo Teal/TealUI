@@ -23,7 +23,7 @@
  * @class
  */
 function Dom(selector, context) {
-    return new Dom.init(selector || 0, context || document);
+    return new Dom.List(selector || 0, context || document);
 }
 
 /**
@@ -33,7 +33,7 @@ function Dom(selector, context) {
  * @returns {Dom} 返回匹配的节点列表。
  * @inner
  */
-Dom.init = function (selector, context) {
+Dom.List = function (selector, context) {
 
     // 解析 HTML 或执行 CSS 选择器
     if (selector.constructor === String) {
@@ -87,7 +87,7 @@ Dom.data = function (elem) {
  * @inner
  */
 Dom.closest = function (node, selector, context) {
-    while (node && node != context && !node.matches(selector)) {
+    while (node && node !== context && !node.matches(selector)) {
         node = node.parentNode;
     }
     return node;
@@ -103,10 +103,8 @@ Dom.closest = function (node, selector, context) {
  */
 Dom.vendor = function (elem, cssPropertyName) {
     if (!(cssPropertyName in elem.style)) {
-        var capName = cssPropertyName.charAt(0).toUpperCase() + cssPropertyName.slice(1),
-            prefix;
-
-        for (prefix in { webkit: 1, Moz: 1, ms: 1, O: 1 }) {
+        var capName = cssPropertyName.charAt(0).toUpperCase() + cssPropertyName.slice(1);
+        for (var prefix in { webkit: 1, Moz: 1, ms: 1, O: 1 }) {
             if ((prefix + capName) in elem.style) {
                 return prefix + capName;
             }
@@ -253,8 +251,9 @@ Dom.css = function (elem, cssPropertyName, value) {
  */
 Dom.calc = function (elem, expression) {
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/
+    // ReSharper disable once UnusedLocals
     var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
-    return eval(expression.replace(/(\w+)/g, '(parseFloat(computedStyle["$1"])||0)'));
+    return eval(expression.replace(/(\w+)/g, "(parseFloat(computedStyle['$1'])||0)"));
 };
 
 // #endregion
@@ -278,15 +277,15 @@ Dom.eventFix = (function () {
     var html = document.documentElement,
         eventFix = {
             // mouseenter/mouseleave 事件不支持冒泡，委托时使用 mouseover/mouseout 实现。
-            mouseenter: { delegateType: 'mouseover' },
-            mouseleave: { delegateType: 'mouseout' },
+            mouseenter: { delegateType: "mouseover" },
+            mouseleave: { delegateType: "mouseout" },
 
             // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
-            focus: { delegateType: 'focusin' },
-            blur: { delegateType: 'focusout' },
+            focus: { delegateType: "focusin" },
+            blur: { delegateType: "focusout" },
 
             // 支持直接绑定原生事件。
-            'native:click': { bindType: 'click' },
+            'native:click': { bindType: "click" },
             'native:mousedown': { bindType: 'mousedown' },
             'native:mouseup': { bindType: 'mouseup' },
             'native:mousemove': { bindType: 'mousemove' }
@@ -294,20 +293,20 @@ Dom.eventFix = (function () {
 
     // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
     // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
-    if (!('onmouseenter' in html)) {
+    if (!("onmouseenter" in html)) {
         eventFix.mouseenter.filter = eventFix.mouseleave.filter = function (elem, e) {
             return !elem.contains(e.relatedTarget);
         };
     }
 
     // Firefox: 不支持 focusin/focusout 事件。
-    if (!('onfocusin' in html)) {
-        eventFix.focusin = { bindType: 'focus' };
-        eventFix.focusout = { bindType: 'blur' };
-        eventFix.focusin.add = eventFix.focusout.add = function (elem, eventName, eventListener) {
+    if (!("onfocusin" in html)) {
+        eventFix.focusin = { bindType: "focus" };
+        eventFix.focusout = { bindType: "blur" };
+        eventFix.focusin.add = eventFix.focusout.add = function (elem) {
             elem.addEventListener(bindType, this.bindType, true);
         };
-        eventFix.focusin.remove = eventFix.focusout.remove = function (elem, eventName, eventListener) {
+        eventFix.focusin.remove = eventFix.focusout.remove = function (elem) {
             elem.removeEventListener(bindType, this.bindType, true);
         };
     }
@@ -327,11 +326,11 @@ Dom.eventFix = (function () {
     if (window.TouchEvent) {
 
         // 让浏览器快速响应鼠标点击事件，而非等待 300ms 。
-        eventFix.mousedown = { bindType: 'touchstart' };
-        eventFix.mousemove = { bindType: 'touchmove' };
-        eventFix.mouseup = { bindType: 'touchend' };
+        eventFix.mousedown = { bindType: "touchstart" };
+        eventFix.mousemove = { bindType: "touchmove" };
+        eventFix.mouseup = { bindType: "touchend" };
         eventFix.click = {
-            bindType: 'touchstart',
+            bindType: "touchstart",
             add: function (elem, eventName, eventListener) {
                 var firedInTouch = false;
 
@@ -339,8 +338,8 @@ Dom.eventFix = (function () {
                     if (e.changedTouches.length === 1) {
                         var touchX = e.changedTouches[0].pageX,
                             touchY = e.changedTouches[0].pageY;
-                        elem.addEventListener('touchend', function (e) {
-                            elem.removeEventListener('touchend', arguments.callee, true);
+                        elem.addEventListener("touchend", function (e) {
+                            elem.removeEventListener("touchend", arguments.callee, true);
                             touchX -= e.changedTouches[0].pageX;
                             touchY -= e.changedTouches[0].pageY;
                             if (touchX * touchX + touchY * touchY <= 25) {
@@ -474,7 +473,7 @@ Dom.init.prototype = Dom.prototype = {
             if (item.nodeType || item.document) {
                 this[this.length++] = item;
             } else {
-                for (var i = 0, node; node = item[i]; i++) {
+                for (var i = 0, node; (node = item[i]); i++) {
                     this[this.length++] = node;
                 }
             }
@@ -522,7 +521,7 @@ Dom.init.prototype = Dom.prototype = {
      */
     map: function (callback, scope) {
         var newDom = Dom();
-        for (var i = 0, node; node = this[i]; i++) {
+        for (var i = 0, node; (node = this[i]); i++) {
             newDom.add(callback.call(scope, node, i, this));
         }
         return newDom;
@@ -859,7 +858,7 @@ Dom.init.prototype = Dom.prototype = {
     index: function () {
         var node = this[0], i = 0;
         if (node) {
-            while (node = node.previousElementSibling) {
+            while ((node = node.previousElementSibling)) {
                 i++;
             }
             return i;
@@ -1222,9 +1221,9 @@ Dom.init.prototype = Dom.prototype = {
         if (value === undefined) {
             var elem = this[0], win;
             if (!elem) return;
-            if (elem.nodeType == 9) {
+            if (elem.nodeType === 9) {
                 win = elem.defaultView;
-                if ('pageXOffset' in win) {
+                if ("pageXOffset" in win) {
                     return {
                         left: win.pageXOffset,
                         top: win.pageYOffset
@@ -1240,7 +1239,7 @@ Dom.init.prototype = Dom.prototype = {
         }
 
         return this.each(function (elem) {
-            if (elem.nodeType == 9) {
+            if (elem.nodeType === 9) {
                 elem.defaultView.scrollTo(
                     (value.left == null ? Dom(elem).scroll() : value).left,
                     (value.top == null ? Dom(elem).scroll() : value).top
@@ -1299,13 +1298,26 @@ Dom.init.prototype = Dom.prototype = {
 
         // 修补默认参数。
         if (duration == null) duration = 300;
-        ease = ease || 'ease-in';
+        ease = ease || "ease-in";
 
         return this.each(function (elem) {
 
+            var transitionContext = elem.style._transitionContext || (elem.style._transitionContext = {});
+
+            function updateTransition() {
+                var transitions = '';
+                for (var key in transitionContext) {
+                    if (transitions) transitions += ',';
+                    transitions += Dom.vendor(elem, key).replace(/([A-Z]|^ms|^webkit)/g, function (word) {
+                        return '-' + word.toLowerCase();
+                    }) + ' ' + duration + 'ms ' + ease;
+                }
+                elem.style[fxOptions.transition] = transitions;
+                //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
+            }
+
             // 获取或初始化配置对象。
-            var transitionContext = elem.style._transitionContext || (elem.style._transitionContext = {}),
-                proxyTimer,
+            var proxyTimer,
                 key,
                 proxyCallback = function (e) {
 
@@ -1319,7 +1331,7 @@ Dom.init.prototype = Dom.prototype = {
 
                         // 从上下文中删除回调信息。
                         var transitionContextIsUpdated = false;
-                        for (key in transitionContext) {
+                        for (var key in transitionContext) {
                             if (transitionContext[key] === proxyCallback) {
                                 delete transitionContext[key];
                                 transitionContextIsUpdated = true;
@@ -1357,7 +1369,7 @@ Dom.init.prototype = Dom.prototype = {
             if (from) {
 
                 // 处理 'auto' -> {} 。
-                if (from === 'auto') {
+                if (from === "auto") {
                     from = {};
                     for (key in to) {
                         from[key] = Dom.css(elem, key);
@@ -1365,7 +1377,7 @@ Dom.init.prototype = Dom.prototype = {
                 }
 
                 // 处理 {} -> 'auto' 。 
-                if (to === 'auto') {
+                if (to === "auto") {
                     to = {};
                     for (key in from) {
                         reset2 = transitionContext[key];
@@ -1380,6 +1392,7 @@ Dom.init.prototype = Dom.prototype = {
             }
 
             // 触发页面重计算以保证效果可以触发。
+            // ReSharper disable once WrongExpressionStatement
             elem.offsetWidth && elem.clientLeft;
 
             // 更新渐变上下文。
@@ -1399,18 +1412,6 @@ Dom.init.prototype = Dom.prototype = {
                 Dom.css(elem, key, to[key]);
             }
 
-            function updateTransition() {
-                var transitions = '';
-                for (key in transitionContext) {
-                    if (transitions) transitions += ',';
-                    transitions += Dom.vendor(elem, key).replace(/([A-Z]|^ms|^webkit)/g, function (word) {
-                        return '-' + word.toLowerCase();
-                    }) + ' ' + duration + 'ms ' + ease;
-                }
-                elem.style[fxOptions.transition] = transitions;
-                //elem.style[fxOptions.transition] = 'all ' + ' ' + duration + 'ms ' + ease + ' ' + dalay + 's ';
-            }
-
         });
 
     },
@@ -1422,7 +1423,7 @@ Dom.init.prototype = Dom.prototype = {
      */
     isHidden: function () {
         var elem = this[0];
-        return elem && (elem.style._animatingHide || (elem.style.display || Dom.css(elem, 'display')) === 'none');
+        return elem && (elem.style._animatingHide || (elem.style.display || Dom.css(elem, "display")) === "none");
     },
 
     /**
@@ -1438,19 +1439,20 @@ Dom.init.prototype = Dom.prototype = {
         return this.each(function (elem) {
 
             // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
-            elem.style.display = '';
+            elem.style.display = "";
 
             // 如果元素的 display 仍然为 none , 说明通过 CSS 实现的隐藏。这里默认将元素恢复为 block。
-            if (Dom.css(elem, 'display') === 'none') {
+            if (Dom.css(elem, "display") === 'none') {
                 var defaultDisplay = elem.style.defaultDisplay;
                 if (!defaultDisplay) {
-                    var defaultDisplay = Dom._defaultDisplay || (Dom._defaultDisplay = {});
-                    defaultDisplay = defaultDisplay[elem.nodeName];
+                    defaultDisplay = (Dom._defaultDisplay || (Dom._defaultDisplay = {}))[elem.nodeName];
                     if (!defaultDisplay) {
                         var tmp = document.createElement(elem.nodeName);
                         document.body.appendChild(tmp);
-                        defaultDisplay = Dom.css(tmp, 'display');
-                        if (defaultDisplay === 'none') defaultDisplay = 'block';
+                        defaultDisplay = Dom.css(tmp, "display");
+                        if (defaultDisplay === "none") {
+                            defaultDisplay = "block";
+                        }
                         defaultDisplay[elem.nodeName] = defaultDisplay;
                         document.body.removeChild(tmp);
                     }
@@ -1461,7 +1463,7 @@ Dom.init.prototype = Dom.prototype = {
             // 执行特效。
             if (fxName) {
                 delete elem.style._animatingHide;
-                Dom(elem).animate(fxName, 'auto', callback, duration, ease, true);
+                Dom(elem).animate(fxName, "auto", callback, duration, ease, true);
             } else {
                 callback && callback.call(elem, elem);
             }
@@ -1480,10 +1482,10 @@ Dom.init.prototype = Dom.prototype = {
         fxName = Dom.toggleFx[fxName];
 
         function hideCore(elem) {
-            var currentDisplay = Dom.css(elem, 'display');
-            if (currentDisplay !== 'none') {
+            var currentDisplay = Dom.css(elem, "display");
+            if (currentDisplay !== "none") {
                 elem.style.defaultDisplay = currentDisplay;
-                elem.style.display = 'none';
+                elem.style.display = "none";
             }
             callback && callback.call(elem, elem);
         }
@@ -1491,7 +1493,7 @@ Dom.init.prototype = Dom.prototype = {
         return this.each(function (elem) {
             if (fxName) {
                 elem.style._animatingHide = true;
-                Dom(elem).animate('auto', fxName, function (elem) {
+                Dom(elem).animate("auto", fxName, function (elem) {
                     delete elem.style._animatingHide;
                     hideCore(elem);
                 }, duration, ease, true);
@@ -1519,7 +1521,7 @@ Dom.init.prototype = Dom.prototype = {
      * $("#elem").toggle('scale');
      */
     toggle: function (value) {
-        this[(value !== true && value !== false ? this.isHidden() : value) ? 'show' : 'hide'].apply(this, arguments);
+        this[(value !== true && value !== false ? this.isHidden() : value) ? "show" : "hide"].apply(this, arguments);
     },
 
     // #endregion
@@ -1530,16 +1532,20 @@ Dom.init.prototype = Dom.prototype = {
 
     /**
      * 初始化当前集合为指定的角色。
-     * @param {String} roleName 要初始化的角色名。
+     * @param {String} [roleName] 要初始化的角色名。
      * @param {Object} [options] 传递给角色类的参数。
      * @returns {Object} 返回第一项对应的角色对象。
      * @example $("#elem1").role("draggable")
      */
     role: function (roleName, options) {
         var result;
+        if (roleName && roleName.constructor !== String) {
+            options = roleName;
+            roleName = null;
+        }
         this.each(function (elem) {
             var data = Dom.data(elem);
-            var name = roleName || elem.getAttribute('data-role');
+            var name = roleName || elem.getAttribute("data-role");
             var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
             // 只保存第一项的结果。
             result = result || role;
@@ -1568,16 +1574,13 @@ Dom.init.prototype = Dom.prototype = {
 
 // #region @$
 
-if (!this.$) {
-
-    /**
-     * 提供简短调用形式。
-     * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
-     * @returns {$} 返回 DOM 对象。
-     * @inner
-     */
-    this.$ = Dom;
-}
+/**
+ * 提供简短调用形式。
+ * @param {Function/String/Node} selector 要执行的 CSS 选择器或 HTML 片段或 DOM Ready 函数。
+ * @returns {$} 返回 DOM 对象。
+ * @inner
+ */
+var $ = $ || Dom;
 
 // 支持 Zepto
 if ($.fn) {

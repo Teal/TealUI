@@ -57,7 +57,7 @@ var Control = Dom.roles.$default = Base.extend({
 	 * @constructor
      * @example new Control("#id")
 	 */
-    constructor: function (dom, options) {
+    constructor: function Control(dom, options) {
 
         // 创建 DOM 节点。
         dom = Dom(dom);
@@ -109,7 +109,7 @@ var Control = Dom.roles.$default = Base.extend({
                         value = JSON.parse(value);
                     } catch (e) { }
                     break;
-                case 'number':
+                case "number":
                     value = +value || 0;
                     break;
                 case 'boolean':
