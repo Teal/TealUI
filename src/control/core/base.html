@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -33,17 +33,13 @@
     <p>如果 HTML 是动态生成的，需要在生成之后手动执行初始化：</p>
     <script type="text/html" class="doc-demo">
         <div data-role="myButton" id="myButton1">组件内容</div>
-        &lt;script>
-        $('[data-role]').role();
-        &lt;/script>
+        &lt;script>$('[data-role]').role();&lt;/script>
     </script>
 
     <p>也可完全通过 JavaScript 初始化组件，不依赖 HTML：</p>
     <script type="text/html" class="doc-demo">
         <div id="myButton1">组件内容</div>
-        &lt;script>
-        $('#myButton1').role("myButton");
-        &lt;/script>
+        &lt;script>$('#myButton1').role("myButton");&lt;/script>
     </script>
 
     <h3>配置组件</h3>
@@ -53,45 +49,43 @@
     </script>
 
     <p>或在 JavaScript 中，传递第二个参数：</p>
-    <script type="text/html" class="doc-demo">
-        <div id="myButton1">组件内容</div>
-        &lt;script>
+    <pre>
         $('#myButton1').role("myButton", {
-        buttonSize: 3,
-        oncustomevent: function () {
-        alert(0)
-        }
+            buttonSize: 3,
+            oncustomevent: function () {
+                alert(0)
+            }
         });
-        &lt;/script>
-    </script>
+    </pre>
 
     <h3>API</h3>
     <script>
         Doc.writeApi({
             path: "utility/dom/base.js",
-			apis: [{
-			    memberOf: "Dom.prototype",
-			    name: "role",
-			    summary: "<p>初始化当前集合为指定的角色。</p>",
-			    params: [{
-			        type: "String",
-			        name: "roleName",
-			        summary: "<p>要初始化的角色名。</p>"
-			    }, {
-			        type: "Object",
-			        name: "options",
-			        optional: true,
-			        summary: "<p>传递给角色类的参数。</p>"
-			    }],
-			    returns: {
-			        type: "Object",
-			        summary: "<p>返回第一项对应的角色对象。</p>"
-			    },
-			    example: "<pre>$(\"#elem1\").role(\"draggable\")</pre>",
-			    line: 1531,
-			    col: 1
-			}]
-});</script>
+            apis: [{
+                memberOf: "Dom.prototype",
+                name: "role",
+                summary: "<p>初始化当前集合为指定的角色。</p>",
+                params: [{
+                    type: "String",
+                    name: "roleName",
+                    summary: "<p>要初始化的角色名。</p>"
+                }, {
+                    type: "Object",
+                    name: "options",
+                    optional: true,
+                    summary: "<p>传递给角色类的参数。</p>"
+                }],
+                returns: {
+                    type: "Object",
+                    summary: "<p>返回第一项对应的角色对象。</p>"
+                },
+                example: "<pre>$(\"#elem1\").role(\"draggable\")</pre>",
+                line: 1531,
+                col: 1
+            }]
+        });
+    </script>
 
     <h2>开发新组件</h2>
 
@@ -117,51 +111,51 @@
 
     <h3>API</h3>
     <script data-gendoc="control/core/base.js">
-    Doc.writeApi({
-			path: "control/core/base.js",
-			apis: [{
-				memberOf: "Control.prototype",
-				name: "dom",
-				summary: "<p>获取当前控件对应的 DOM 对象。</p>",
-				type: ["Dom"],
-				example: "<pre>$(\"#elem1\").role().dom.html()</pre>",
-				line: 16,
-				col: 1
-			}, {
-				name: "Control",
-				summary: "<p>初始化一个新的控件。</p>",
-				params: [{
-					type: "Dom",
-					name: "dom",
-					summary: "<p>绑定当前控件的节点。</p>"
-				}, {
-					type: "Object",
-					name: "options",
-					optional: true,
-					summary: "<p>初始化控件的相关选项。</p>"
-				}],
-				example: "<pre>new Control(\"#id\")</pre>",
-				memberType: "constructor",
-				line: 53,
-				col: 1
-			}, {
-				memberOf: "Control",
-				name: "extend",
-				summary: "<p>定义一个组件类型。</p>",
-				params: [{
-					type: "Object",
-					name: "prototype",
-					summary: "<p>子类实例成员列表。</p>"
-				}],
-				example: "<pre>Control.extend({\n\
+        Doc.writeApi({
+            path: "control/core/base.js",
+            apis: [{
+                memberOf: "Control.prototype",
+                name: "dom",
+                summary: "<p>获取当前控件对应的 DOM 对象。</p>",
+                type: ["Dom"],
+                example: "<pre>$(\"#elem1\").role().dom.html()</pre>",
+                line: 16,
+                col: 1
+            }, {
+                name: "Control",
+                summary: "<p>初始化一个新的控件。</p>",
+                params: [{
+                    type: "Dom",
+                    name: "dom",
+                    summary: "<p>绑定当前控件的节点。</p>"
+                }, {
+                    type: "Object",
+                    name: "options",
+                    optional: true,
+                    summary: "<p>初始化控件的相关选项。</p>"
+                }],
+                example: "<pre>new Control(\"#id\")</pre>",
+                memberType: "constructor",
+                line: 53,
+                col: 1
+            }, {
+                memberOf: "Control",
+                name: "extend",
+                summary: "<p>定义一个组件类型。</p>",
+                params: [{
+                    type: "Object",
+                    name: "prototype",
+                    summary: "<p>子类实例成员列表。</p>"
+                }],
+                example: "<pre>Control.extend({\n\
      role: \"myButton\",\n\
      init: function(){\n\
          this.dom.html('text');\n\
      }\n\
 })</pre>",
-				line: 136,
-				col: 1
-			}]
-});</script>
+                line: 136,
+                col: 1
+            }]
+        });</script>
 </body>
 </html>

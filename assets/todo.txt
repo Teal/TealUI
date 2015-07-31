@@ -17,9 +17,6 @@ utility
 		*
 webApp
 	
-7/31
-	utility/dom/base
-	control/core/base
 8/1
 	typography/misc/*
 	typography/form/*
