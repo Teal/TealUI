@@ -38,6 +38,38 @@ Array.parseArray = function (iterable, startIndex) {
 
 // #endregion
 
+// #region Array.range
+
+/**
+ * 创建一个从 0 到指定指定值组成的数组。
+ * @param {Number} [start=0] 开始的数值。
+ * @param {Number} stop 结束的数值。
+ * @param {Number} [step=1] 步长，即相邻数字的值。
+ * @returns {Array} 返回一个新数组。
+ * @example 
+ * Array.range(6) // [0, 1, 2, 3, 4, 5]
+ * 
+ * Array.range(2, 11, 3) // [2, 5, 8]
+ */
+Array.range = function (start, stop, step) {
+    if (arguments.length <= 1) {
+        stop = start || 0;
+        start = 0;
+    }
+    step = step || 1;
+
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
+    var result = Array(length);
+
+    for (var i = 0; i < length; i++, start += step) {
+        result[i] = start;
+    }
+
+    return result;
+};
+
+// #endregion
+
 // #region @Array#map
 
 /**
@@ -152,6 +184,44 @@ Array.prototype.concat = Array.prototype.concat || function (array) {
 Array.prototype.insert = function (index, value) {
     this.splice(index, 0, value);
     return value;
+};
+
+// #endregion
+
+// #region @Array#invoke
+
+/**
+ * 调用数组每一项的成员函数。
+ * @param {Number} funcName 要调用的函数名。
+ * @param {Object} ... 调用的参数。
+ * @returns {Array} 返回所有调用结果的返回值。
+ * @example ["I", "you"].invoke("length"); // [1, 3]
+ */
+Array.prototype.invoke = function (funcName) {
+    var result = [],
+        args = Array.parseArray ? Array.parseArray(arguments, 1) : Array.prototype.slice.call(arguments, 1);
+    for (var i = 0; i < this.length; i++) {
+        var item = this[i][funcName];
+        if (item && item.constructor === Function) {
+            item = item.apply(this[i], args);
+        }
+        result.push(item);
+    }
+    return result;
+};
+
+// #endregion
+
+// #region @Array#item
+
+/**
+ * 获取数组指定索引的项。
+ * @param {Number} index 要获取的索引。如果值为负数，则获取倒数的项。
+ * @returns {Object} 返回指定索引的项。
+ * @example ['a', 'b'].item(-1) // 'b'
+ */
+Array.prototype.item = function (index) {
+    return this[index < 0 ? this.length + index : index];
 };
 
 // #endregion

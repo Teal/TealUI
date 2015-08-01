@@ -1331,7 +1331,7 @@ Dom.init.prototype = Dom.prototype = {
 
                         // 从上下文中删除回调信息。
                         var transitionContextIsUpdated = false;
-                        for (var key in transitionContext) {
+                        for (key in transitionContext) {
                             if (transitionContext[key] === proxyCallback) {
                                 delete transitionContext[key];
                                 transitionContextIsUpdated = true;
@@ -1347,7 +1347,7 @@ Dom.init.prototype = Dom.prototype = {
                             // 恢复样式。
                             if (reset) {
                                 for (key in to) {
-                                    Dom.css(elem, key, '');
+                                    Dom.css(elem, key, "");
                                 }
                             }
 

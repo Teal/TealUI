@@ -130,6 +130,29 @@
 			path: "utility/lang/array.js",
 			apis: [{
 				memberOf: "Array.prototype",
+				name: "lastIndexOf",
+				summary: "<p>获取指定项在数组内的最后一个索引。</p>",
+				params: [{
+					type: "Object",
+					name: "value",
+					summary: "<p>一个类数组对象。</p>"
+				}, {
+					type: "Number",
+					name: "startIndex",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>转换开始的位置。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回索引。如果找不到则返回 -1。</p>"
+				},
+				example: "<pre>[\"b\", \"c\", \"a\", \"a\"].lastIndexOf(\"a\"); // 3</pre>",
+				since: "ES4",
+				line: 10,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
 				name: "remove",
 				summary: "<p>删除当前数组中匹配的第一个项。</p>",
 				params: [{
@@ -160,7 +183,7 @@
 // 反复调用 remove， 直到 remove 返回 -1， 即找不到值 wow\n\
 while(arr.remove(\"wow\") >= 0);\n\
 console.log(arr); // 输出 [\"TealUI\", \"is\", \"powerful\"]</pre>",
-				line: 8,
+				line: 34,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -171,7 +194,7 @@ console.log(arr); // 输出 [\"TealUI\", \"is\", \"powerful\"]</pre>",
 					summary: "<p>返回过滤后的新数组。</p>"
 				},
 				example: "<pre>[1, 9, 9, 0].unique() // 返回 [1, 9, 0]</pre>",
-				line: 35,
+				line: 61,
 				col: 1
 			}]
 });
@@ -211,6 +234,36 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				line: 8,
 				col: 1
 			}, {
+				memberOf: "Array",
+				name: "range",
+				summary: "<p>创建一个从 0 到指定指定值组成的数组。</p>",
+				params: [{
+					type: "Number",
+					name: "start",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>开始的数值。</p>"
+				}, {
+					type: "Number",
+					name: "stop",
+					summary: "<p>结束的数值。</p>"
+				}, {
+					type: "Number",
+					name: "step",
+					defaultValue: "1",
+					optional: true,
+					summary: "<p>步长，即相邻数字的值。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回一个新数组。</p>"
+				},
+				example: "<pre>Array.range(6) // [0, 1, 2, 3, 4, 5]</pre>\n\
+\n\
+<pre>Array.range(2, 11, 3) // [2, 5, 8]</pre>",
+				line: 43,
+				col: 1
+			}, {
 				memberOf: "Array.prototype",
 				name: "map",
 				summary: "<p>对当前数组每一项进行处理，并将结果组成一个新数组。</p>",
@@ -241,7 +294,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]</pre>",
 				since: "ES5",
-				line: 43,
+				line: 75,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -274,7 +327,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[1, 9, 9, 0].every(function(item){return item > 5}); // false</pre>",
 				since: "ES5",
-				line: 72,
+				line: 104,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -307,7 +360,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[1, 9, 9, 0].some(function(item){return item > 5}); // true</pre>",
 				since: "ES5",
-				line: 100,
+				line: 132,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -324,7 +377,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[\"I\", \"love\"].concat(\"you\"); // [\"I\", \"love\", \"you\"]</pre>",
 				since: "ES4",
-				line: 128,
+				line: 160,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -344,7 +397,43 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回 <em>value</em>。</p>"
 				},
 				example: "<pre>[\"I\", \"you\"].insert(1, \"love\"); // [\"I\", \"love\", \"you\"]</pre>",
-				line: 145,
+				line: 177,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
+				name: "invoke",
+				summary: "<p>调用数组每一项的成员函数。</p>",
+				params: [{
+					type: "Number",
+					name: "funcName",
+					summary: "<p>要调用的函数名。</p>"
+				}, {
+					type: "Object",
+					name: "...",
+					summary: "<p>调用的参数。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回所有调用结果的返回值。</p>"
+				},
+				example: "<pre>[\"I\", \"you\"].invoke(\"length\"); // [1, 3]</pre>",
+				line: 193,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
+				name: "item",
+				summary: "<p>获取数组指定索引的项。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					summary: "<p>要获取的索引。如果值为负数，则获取倒数的项。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回指定索引的项。</p>"
+				},
+				example: "<pre>['a', 'b'].item(-1) // 'b'</pre>",
+				line: 217,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -355,7 +444,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回过滤后的新数组。</p>"
 				},
 				example: "<pre>[\"\", false, 0, undefined, null, {}].clean(); // [{}]</pre>",
-				line: 161,
+				line: 231,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -366,7 +455,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有项的最小值。</p>"
 				},
 				example: "<pre>[1, 2].min() // 1</pre>",
-				line: 174,
+				line: 244,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -377,7 +466,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有项的最大值。</p>"
 				},
 				example: "<pre>[1, 2].max() // 2</pre>",
-				line: 183,
+				line: 253,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -388,7 +477,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有数值的和。</p>"
 				},
 				example: "<pre>[1, 2].sum() // 3</pre>",
-				line: 196,
+				line: 266,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -399,7 +488,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有数值的算术平均值。</p>"
 				},
 				example: "<pre>[1, 2].avg() // 1.5</pre>",
-				line: 213,
+				line: 283,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -415,7 +504,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组和指定键组成的键值对。</p>"
 				},
 				example: "<pre>[1, 2].associate([\"a\", \"b\"]) // {a: 1, b: 2}</pre>",
-				line: 233,
+				line: 303,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -425,7 +514,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>this</p>"
 				},
 				example: "<pre>[1, 2].clear() // []</pre>",
-				line: 251,
+				line: 321,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -436,7 +525,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回不为空的元素，如果所有元素都为空则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>[undefined, null, 1, 2].pick() // 1</pre>",
-				line: 265,
+				line: 335,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -447,7 +536,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回找到的项。如果数组为空，则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>[1, 2, 3].random()</pre>",
-				line: 282,
+				line: 352,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -457,7 +546,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>this</p>"
 				},
 				example: "<pre>[1, 2, 3].shuffle()</pre>",
-				line: 295,
+				line: 365,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -468,7 +557,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回新数组。</p>"
 				},
 				example: "<pre>[[1, 2], [[[3]]]].flatten() // [1, 2, 3]</pre>",
-				line: 314,
+				line: 384,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -481,7 +570,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				example: "<pre>[1, 9, 0].isUnique() // true</pre>\n\
 \n\
 <pre>[1, 9, 9, 0].isUnique() // false</pre>",
-				line: 331,
+				line: 401,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -497,7 +586,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回新数组。</p>"
 				},
 				example: "<pre>[1, 2].sub([1]) // [2]</pre>",
-				line: 353,
+				line: 423,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -515,7 +604,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				example: "<pre>[1, 9, 0].pushIf(1) // [1, 9, 0]</pre>\n\
 \n\
 <pre>[1, 9, 0].pushIf(2) // [1, 9, 0, 2]</pre>",
-				line: 373,
+				line: 443,
 				col: 1
 			}]
 });

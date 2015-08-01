@@ -58,6 +58,7 @@ Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
 <li>value: <code>Object</code> 当前项的值。</li>\n\
 <li>index: <code>Number</code> 当前项的索引。</li>\n\
 <li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 如果返回 <strong>false</strong>，则终止循环。</li>\n\
 </ul>"
 				}, {
 					type: "Object",
@@ -203,7 +204,27 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 				col: 1
 			}, {
 				memberOf: "Object",
-				name: "count",
+				name: "areSame",
+				summary: "<p>比较两个引用对象的内容是否相同。</p>",
+				params: [{
+					type: "Object",
+					name: "objA",
+					summary: "<p>要比较的第一个对象。</p>"
+				}, {
+					type: "Object",
+					name: "objB",
+					summary: "<p>要比较的第二个对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果比较的对象相同则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Object.areSame([], []) // true</pre>",
+				line: 146,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "size",
 				summary: "<p>计算对象的属性数。</p>",
 				params: [{
 					type: "Object",
@@ -214,8 +235,8 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					type: "Number",
 					summary: "<p>返回属性数。只返回对象自身的属性数，不含原型属性。</p>"
 				},
-				example: "<pre>Object.count({v: 3, g: 5}) // 2</pre>",
-				line: 146,
+				example: "<pre>Object.size({v: 3, g: 5}) // 2</pre>",
+				line: 170,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -232,7 +253,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 				},
 				example: "<pre>Object.keys({a: 3, b: 5}) // [\"a\", \"b\"]</pre>",
 				since: "ES5",
-				line: 166,
+				line: 190,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -248,7 +269,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回所有值组成的数组。</p>"
 				},
 				example: "<pre>Object.values({a: 3, b: 5}) // [3, 5]</pre>",
-				line: 187,
+				line: 211,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -268,7 +289,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回匹配的第一个键，如果不存在返回 null。</p>"
 				},
 				example: "<pre>Object.keyOf({a:1, b:1}, 1) // \"a\"</pre>",
-				line: 207,
+				line: 231,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -296,7 +317,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回 <em>obj</em>。</p>"
 				},
 				example: "<pre>Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}</pre>",
-				line: 227,
+				line: 251,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -330,7 +351,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 				example: "<pre>Object.filter([1, 2], function(v){return v > 1;}) // [2]</pre>\n\
 \n\
 <pre>Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}</pre>",
-				line: 256,
+				line: 280,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -372,7 +393,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.map({length: 1, \"0\": \"a\"}, function(a){\n\
        return a + a\n\
 }) // [\"a\"];</pre>",
-				line: 302,
+				line: 326,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -404,7 +425,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false</pre>",
-				line: 352,
+				line: 376,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -436,7 +457,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>如果至少存在一项满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。</pre>",
-				line: 395,
+				line: 419,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -456,7 +477,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回新对象。</p>"
 				},
 				example: "<pre>Object.subset({a:1, b:1}, ['a']) // {a:1}</pre>",
-				line: 438,
+				line: 462,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -472,7 +493,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回第一个不为空的值。如果都为空则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>Object.pick(undefined, null, 1) // 1</pre>",
-				line: 459,
+				line: 483,
 				col: 1
 			}]
 });

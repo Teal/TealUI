@@ -141,15 +141,39 @@ Object.clone = function (obj) {
 
 // #endregion
 
-// #region @Object.count
+// #region @Object.areSame
+
+/**
+ * 比较两个引用对象的内容是否相同。
+ * @param {Object} objA 要比较的第一个对象。
+ * @param {Object} objB 要比较的第二个对象。
+ * @returns {Boolean} 如果比较的对象相同则返回 @true，否则返回 @false。
+ * @example Object.areSame([], []) // true
+ */
+Object.areSame = function (objA, objB) {
+    if (typeof objA === "object" && typeof objB === "object") {
+        for (var key in objA) {
+            if (!Object.areSame(objA[key], objB[key])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    return objA === objB;
+};
+
+// #endregion
+
+// #region @Object.size
 
 /**
  * 计算对象的属性数。
  * @param {Object} obj 要处理的对象。
  * @returns {Number} 返回属性数。只返回对象自身的属性数，不含原型属性。
- * @example Object.count({v: 3, g: 5}) // 2
+ * @example Object.size({v: 3, g: 5}) // 2
  */
-Object.count = function (obj) {
+Object.size = function (obj) {
     var result = 0;
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
