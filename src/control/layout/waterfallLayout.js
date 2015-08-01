@@ -1,6 +1,4 @@
 ﻿
-// #require ../utility/class
-
 /**
  * 对指定节点进行瀑布流布局。
  * @param {Element} container 要布局的容器。
@@ -41,8 +39,8 @@ function waterfallLayout(container, columnCount, rowSpace, columnSpace) {
 
     // 对每个节点布局。
     for (; node; node = node.nextElementSibling) {
-        node.style.position = 'absolute';
-        node.style.width = columnWidth + 'px';
+        node.style.position = "absolute";
+        node.style.width = columnWidth + "px";
 
         minColumn = 0;
 
@@ -53,8 +51,8 @@ function waterfallLayout(container, columnCount, rowSpace, columnSpace) {
             }
         }
 
-        node.style.left = leftInfo[minColumn] + 'px';
-        node.style.top = layoutInfo[minColumn] + 'px';
+        node.style.left = leftInfo[minColumn] + "px";
+        node.style.top = layoutInfo[minColumn] + "px";
 
         layoutInfo[minColumn] += node.offsetHeight + rowSpace;
 
@@ -67,6 +65,6 @@ function waterfallLayout(container, columnCount, rowSpace, columnSpace) {
             minColumn = layoutInfo[i];
         }
     }
-    container.style.height = Math.max(minColumn - rowSpace, 0) + 'px';
+    container.style.height = Math.max(minColumn - rowSpace, 0) + "px";
 
 }
