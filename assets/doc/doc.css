@@ -209,7 +209,7 @@
         text-decoration: underline;
     }
 
-    .doc > p a[href^=http]:after, .doc > h1 a[href^=http]:after, .doc > h2 a[href^=http]:after, .doc > h3 a[href^=http]:after, .doc > h4 a[href^=http]:after, .doc > h5 a[href^=http]:after, .doc > h6 a[href^=http]:after, .doc > ul a[href^=http]:after, .doc > ol a[href^=http]:after, .doc > dl a[href^=http]:after, .doc > blockquote a[href^=http]:after {
+    .doc > p a[target="_blank"][href^=http]:after, .doc > h1 a[target="_blank"][href^=http]:after, .doc > h2 a[target="_blank"][href^=http]:after, .doc > h3 a[target="_blank"][href^=http]:after, .doc > h4 a[target="_blank"][href^=http]:after, .doc > h5 a[target="_blank"][href^=http]:after, .doc > h6 a[target="_blank"][href^=http]:after, .doc > ul a[target="_blank"][href^=http]:after, .doc > ol a[target="_blank"][href^=http]:after, .doc > dl a[target="_blank"][href^=http]:after, .doc > blockquote a[target="_blank"][href^=http]:after {
         content: "\2650";
         font-family: DocIcoMoon;
         vertical-align: -2px;
