@@ -1814,8 +1814,8 @@ var Doc = {
                 item = list[path];
                 if (!item.level || (!filter && showHeader)) {
 
-                    name = showHeader && !filter ? item.name.replace(/^.*\//, "") : item.name;
-                    args.name = args.orignalName = name;
+                    args.orignalName = item.name;
+                    args.name = name = showHeader && !filter ? item.name.replace(/^.*\//, "") : item.name;
                     args.title = args.orignalTitle = item.title;
                     args.level = item.level;
                     args.status = item.status || 'done';

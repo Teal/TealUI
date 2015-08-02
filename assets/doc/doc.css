@@ -44,6 +44,10 @@
     margin: 0 0 1em;
 }
 
+.doc > p:last-child, .doc > ul:last-child, .doc > ol:last-child, .doc > dl:last-child, .doc > table:last-child, .doc > blockquote:last-child, .doc > img:last-child, .doc > pre:last-child, .doc-api pre:last-child, .doc > hr:last-child, .doc > figure:last-child, .doc > address:last-child, .doc > fieldset:last-child {
+    margin: 0;
+}
+
 .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6 {
     font-weight: 500;
     margin: 0 0 .5em;

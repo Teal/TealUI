@@ -214,6 +214,9 @@ body {
 // 块级元素边距
 p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
     margin: 0 0 @grid-margin;
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 /* #endregion */
