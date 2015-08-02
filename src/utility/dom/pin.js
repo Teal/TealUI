@@ -6,21 +6,21 @@
 // #require base
 
 /**
- * 设置当前节点的位置，使其依靠现有的其它节点。
- * @param {Element} target 依靠的目标节点。
+ * 设置当前集合的位置，使其依靠现有的其它节点。
+ * @param {Dom} target 依靠的目标节点。
  * @param {String} align 依靠的位置。位置使用 4 个字符或 1-2 个字符组成。
  * 当使用 1-2 个字符时，可以使用的位置字符串分别如图：
- * 
- *      tl    t   tr
- *      ┌──────────┐
- *   lt │          │ rt
- *      │          │
- *   l  │     c    │ r
- *      │          │
- *   lb │          │ rb
- *      └──────────┘
- *      bl    b   br
- * 
+ *      
+ *           tl    t   tr
+ *           ┌──────────┐
+ *        lt │          │ rt
+ *           │          │
+ *        l  │     c    │ r
+ *           │          │
+ *        lb │          │ rb
+ *           └──────────┘
+ *           bl    b   br
+ *      
  * 当使用 4 个字符时，
  * 
  * 前两位表示 X 方向的定位，其意义为：
@@ -46,29 +46,31 @@
  * @param {Number} [offsetY=0] 偏移的 Y 大小。
  * @param {Element} [container=document] 如果设置此元素，则超过此区域后重置位置。
  * @param {Number} [padding=10] 容器的内边距。
- * @returns {Object} 返回实际定位的位置。
- * 其中，offsetX 和 offsetY 表示为适应屏幕而导致位置发生的偏移量。如果未偏移则为 undefined。
- * 其中，overflowX 和 overflowY 表示为超过屏幕大小而产生越界，对应的值表示容器的最大值。如果未越界则为 undefined。
+ * @returns {Object} 返回实际定位的位置。包含的字段有：
+ * * @param {Number} [offsetX] 为适应屏幕而导致位置发生的水平偏移量。
+ * * @param {Number} [offsetY] 为适应屏幕而导致位置发生的垂直偏移量。
+ * * @param {Number} [overflowX] 超过屏幕宽度而产生越界，对应的值表示容器的最大值。
+ * * @param {Number} [overflowY] 超过屏幕高度而产生越界，对应的值表示容器的最大值。
  */
-Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, callback) {
+Dom.prototype.pin = function(target, align, offsetX, offsetY, container, padding, callback) {
 
     // allowReset 意义：
     //     第一次：undefined, 根据 align 判断是否允许。
     //     第二次：true。
     //     第三次：false。
     var aligns = Dom._aligns || (Dom._aligns = {
-            bl: 'lrbb',
-            lt: 'lltb',
-            l: 'llcc',
-            lb: 'llbt',
-            b: 'ccbb',
-            br: 'rlbt',
-            rb: 'lrbb',
-            r: 'rrcc',
-            rt: 'rrtb',
-            tr: 'rltt',
-            t: 'cctt',
-            tl: 'lltt'
+            bl: "lrbb",
+            lt: "lltb",
+            l: "llcc",
+            lb: "llbt",
+            b: "ccbb",
+            br: "rlbt",
+            rb: "lrbb",
+            r: "rrcc",
+            rt: "rrtb",
+            tr: "rltt",
+            t: "cctt",
+            tl: "lltt"
         }),
         containerRect = container && container.left != null && container.width != null ? container : Dom(container || document).rect(),
         targetRect = target instanceof Event ? {
@@ -94,7 +96,7 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
             // 如果超出屏幕，则修复到屏幕的边缘。
             if (fixType && (result < containerRect[leftOrTop] || result > containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight])) {
                 fixType = result < containerRect[leftOrTop] ? containerRect[leftOrTop] : containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight];
-                rect['offset' + xOrY] = fixType - result;
+                rect["offset" + xOrY] = fixType - result;
                 result = fixType;
             }
 
@@ -118,7 +120,7 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
 
                 // 如果 fixType === 2，表示之前已经超出，重新布局后仍然超出，说明左右都超出，这时布局到左边并设置超出距离。
                 if (fixType > 1) {
-                    rect['overflow' + xOrY] = containerRect[widthOrHeight];
+                    rect["overflow" + xOrY] = containerRect[widthOrHeight];
                     //// 考虑文档方向。
                     // return document.dir === "rtl" ? containerRect[leftOrTop] + containerRect[widthOrHeight] - rect[widthOrHeight] : containerRect[leftOrTop];
                     return containerRect[leftOrTop];
@@ -126,7 +128,7 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
 
                 // 翻转位置重新定位。
                 fixType = proc(xOrY, leftOrTop, widthOrHeight, offset, 5 - pos, 2, rect);
-                rect['offset' + xOrY] = fixType - result;
+                rect["offset" + xOrY] = fixType - result;
                 result = fixType;
 
             }
@@ -142,11 +144,11 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
     containerRect.width -= padding * 2;
     containerRect.top += padding;
     containerRect.height -= padding * 2;
-    return this.each(function (elem) {
+    return this.each(function(elem) {
         elem = Dom(elem);
         var rect = elem.rect();
-        proc('X', 'left', 'width', offsetX || 0, align.charAt(0) === 'c' ? 0 : (align.charAt(0) === 'r' ? 3 : 1) + (align.charAt(1) === 'r'), fixType, rect);
-        proc('Y', 'top', 'height', offsetY || 0, align.charAt(2) === 'c' ? 0 : (align.charAt(2) === 'b' ? 3 : 1) + (align.charAt(3) === 'b'), fixType, rect);
+        proc("X", "left", "width", offsetX || 0, align.charAt(0) === "c" ? 0 : (align.charAt(0) === "r" ? 3 : 1) + (align.charAt(1) === "r"), fixType, rect);
+        proc("Y", "top", "height", offsetY || 0, align.charAt(2) === "c" ? 0 : (align.charAt(2) === "b" ? 3 : 1) + (align.charAt(3) === "b"), fixType, rect);
 
         delete rect.width;
         delete rect.height;
