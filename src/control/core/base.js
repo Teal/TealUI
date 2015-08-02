@@ -26,7 +26,7 @@ var Control = Dom.roles.$default = Base.extend({
      * @example alert($("#elem1").role().role)
      * @inner
      */
-    role: null,
+    role: "control",
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
@@ -37,17 +37,26 @@ var Control = Dom.roles.$default = Base.extend({
     init: function () { },
 
     /**
+     * 当前组件的初始化模板。
+     */
+    tpl: '<div class="x-{role}"></div>',
+
+    /**
      * 当被子类重写时，负责创建 DOM 对象。
 	 * @protected
 	 * @virtual
      * @inner
      */
     create: function () {
-        var div = document.createElement('div');
-        if (this.role) {
-            div.className = 'x-' + this.role.toLowerCase();
+        var result = Dom(this.tpl.replace(/{role}/g, this.role.toLowerCase()));
+        if (document.body) {
+            Dom(document.body).append(result);
+        } else {
+            Dom(function() {
+                Dom(document.body).append(result);
+            });
         }
-        return div;
+        return result;
     },
 
     /**
@@ -57,12 +66,12 @@ var Control = Dom.roles.$default = Base.extend({
 	 * @constructor
      * @example new Control("#id")
 	 */
-    constructor: function Control(dom, options) {
+    constructor: function control(dom, options) {
 
         // 创建 DOM 节点。
         dom = Dom(dom);
         if (!dom.length) {
-            dom = Dom(this.create());
+            dom = this.create();
         }
         this.dom = dom;
 

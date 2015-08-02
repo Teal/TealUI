@@ -2,59 +2,63 @@
  * @author xuld
  */
 
-// #require ui/part/arrow.css
-// #require ui/tip/tooltip.css
-// #require ui/core/contentcontrol.js
-// #require ui/core/itooltip.js
+// #require ../typography/partial/arrow
+// #require ../control/popover
 
 /**
  * 表示一个工具提示。
- * @extends Control
+ * @extends Popover
  */
 var ToolTip = Popover.extend({
 
     /**
-     * 触发当前浮层显示的事件。
-     * 可能的值为：
-     * 'mouseover': 鼠标移上后显示。
-     * 'hover': 鼠标悬停时显示。
-     * 'click': 点击后显示。
-     * 'active': 拥有焦点时显示。
-     * 'focus': 获取焦点后显示。
-     * null: 手动显示。
+     * 触发当前浮层显示的事件。可能的值为：
+     * - "mouseover" 鼠标移上后显示。
+     * - "hover" 鼠标悬停时显示。
+     * - "click" 点击后显示。
+     * - "active" 拥有焦点时显示。
+     * - "focus" 获取焦点后显示。
+     * - null 手动显示。
+     * @inner
      */
     event: 'hover',
 
     /**
-     * 如果为 true 则根据鼠标事件定位。
+     * 如果为 @true，则自动对齐事件。
      * @type {Boolean}
+     * @inner
      */
     pinEvent: true,
 
     /**
-     * 自动定位的位置。如果为 null 则不自动定位。默认为 null。
+     * 自动定位的位置。如果为 @null 则不自动定位。默认为 'bl'。
      * @type {Boolean}
+     * @inner
      */
     pinAlign: 'bl',
 
     /**
      * 初始化当前控件。
+     * @inner
      */
-    init: function (options) {
+    init: function(options) {
         Popover.prototype.init.call(this, options);
-        this.elem.on('click', '.x-closebutton', this.hide, this);
+        this.dom.on('click', '.x-closebutton', this.hide, this);
     },
 
     /**
      * 设置某个控件的工具提示为当前工具提示。
      * @param {Dom} targets 要设置的目标节点。
      */
-    setToolTip: function (targets) {
+    setToolTip: function(targets) {
         var me = this;
-        NodeList.each(document.queryAll(targets), function (target) {
-            
-            target.hover(function (e) {
-                
+        Dom(targets).each(function (target) {
+
+        });
+        NodeList.each(document.queryAll(targets), function(target) {
+
+            target.hover(function(e) {
+
                 me.target = target;
 
                 // 根据目标节点的 data-title 自动绑定当前节点的属性。
@@ -74,7 +78,7 @@ var ToolTip = Popover.extend({
 
 });
 
-document.ready(function () {
+document.ready(function() {
     // 初始化所有 [data-title] 节点。
     var domNeedToolTip = document.querySelectorAll('[data-title]');
     if (domNeedToolTip.length) {

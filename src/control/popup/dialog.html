@@ -15,18 +15,16 @@
     <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/closeButton.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/mask.css" />
-    <link rel="stylesheet" type="text/css" href="../container/panel.css" />
-    <link rel="stylesheet" type="text/css" href="../popup/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/container/panel.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/popup/dialog.css" />
 
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
-    <script type="text/javascript" src="../../utility/dom/base.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
-    <script type="text/javascript" src="../../control/core/base.js"></script>
+    <script type="text/javascript" src="../../utility/dom/base.js"></script>
+    <script type="text/javascript" src="../../utility/ux/drag.js"></script>
 
-    <script type="text/javascript" src="../../utility/dom/animate.js"></script>
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
-    <script type="text/javascript" src="../../utility/dom/drag.js"></script>
-    <script type="text/javascript" src="../popup/dialog.js"></script>
+    <script type="text/javascript" src="../../control/core/base.js"></script>
+    <script type="text/javascript" src="../../control/popup/dialog.js"></script>
     
 </head>
 <body>
@@ -35,7 +33,7 @@
 
     <h2>基本用法</h2>
     <script class="doc-demo">
-        var dialog = new Dialog().setContent('<em>我是内容</em>').setTitle('我是标题').show();
+        var dialog = new Dialog().content('<em>我是内容</em>').title('我是标题').show();
     </script>
 
     <h2>基于已有的 HTML 创建对话框</h2>

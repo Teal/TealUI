@@ -871,6 +871,21 @@ Dom.List.prototype = Dom.prototype = {
 
     /** @category 增删 */
 
+    ///**
+    // * 将当前节点追加到指定父节点。
+    // * @param {Dom} parent 要追加的目标父节点。
+    // * @param {Boolean} checkAppended 如果设为 @true，则检查当前节点是否已添加到文档，如果已经添加则不再操作。
+    // * @returns this 
+    // * @example $("#elem").appendTo("#parent")
+    // */
+    //appendTo: function (parent, checkAppended) {
+    //    parent = Dom(parent)[0];
+    //    return this.each(function() {
+
+    //    });
+    //   // if (checkAppended && this.closest())
+    //},
+
     /**
      * 插入一段 HTML 到末尾。
      * @param {String} html 要插入的内容。

@@ -4,7 +4,6 @@
 
 // #require ../partial/mask
 // #require ../partial/closeButton
-// #require ../dom/animate
 // #require ../control/base
 
 /**
@@ -12,6 +11,8 @@
  * @extends Control
  */
 var Dialog = Control.extend({
+
+    role: "dialog",
 
 	toggleDuration: 150,
 	
@@ -24,28 +25,18 @@ var Dialog = Control.extend({
         </section>',
 
 	init: function () {
-        if (!this.elem) {
-            this.elem = document.parse(this.tpl);
-        }
-        this.elem.on('click', '.x-dialog-close', this.onCloseButtonClick, this);
+        this.dom.on('click', '.x-dialog-close', this.onCloseButtonClick, this);
 
         // 如果载入了拖动模块则自动启用拖动功能。
-        this.elem.setDraggable && this.elem.setDraggable({
-            handle: this.elem.querySelector('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5')
+        this.dom.draggable && this.dom.draggable({
+            handle: this.dom.find('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5')
         });
 	},
 
 	show: function (mask) {
-
-        // 追加节点。
-	    if (!this.elem.ownerDocument.body.contains(this.elem)) {
-	        this.elem.ownerDocument.body.appendChild(this.elem);
-	    }
-
         // 显示节点。
-	    this.elem.show('scale', null, this.toggleDuration);
+	    this.dom.show('scale', null, this.toggleDuration);
 	    this.setMask(mask);
-
 	    return this.center();
 	},
 
@@ -53,8 +44,8 @@ var Dialog = Control.extend({
 	    var me = this;
 	    if (me.trigger('closing')) {
 	        me.setMask(null);
-	        me.elem.hide('scale', function () {
-	            me.elem.removeSelf();
+	        me.dom.hide('scale', function () {
+	            me.dom.remove();
 	            me.trigger('close');
 	        }, me.toggleDuration);
 	    }
@@ -63,16 +54,12 @@ var Dialog = Control.extend({
 
 	setMask: function (opacity) {
 	    if (opacity === null) {
-	        this.maskElem && this.maskElem.hide('opacity', function() {
-	            this.removeSelf();
+	        this.maskDom && this.maskDom.hide('opacity', function () {
+	            Dom(this).remove();
 	        }, this.toggleDuration);
 	    } else {
-	        var maskElem = this.maskElem || (this.maskElem = document.body.append('<div class="x-mask x-mask-dialog"></div>'));
-	        if (!maskElem.ownerDocument.body.contains(maskElem)) {
-	            maskElem.ownerDocument.body.appendChild(maskElem);
-	        }
-
-	        maskElem.animate({ opacity: 0 }, {
+	        var maskDom = this.maskDom || (this.maskDom = Dom(document.body).append('<div class="x-mask x-mask-dialog"></div>'));
+	        maskDom.animate({ opacity: 0 }, {
 	            opacity: opacity === undefined ? .5 : opacity
 	        }, null, this.toggleDuration);
 	    }
@@ -80,35 +67,26 @@ var Dialog = Control.extend({
 	},
 	
 	removeCloseButton: function () {
-	    var closeButton = this.elem.querySelector('.x-dialog-close')
-	    closeButton && closeButton.removeSelf();
+	    this.dom.find('.x-dialog-close').remove();
 	    return this;
 	},
 
-	getTitle: function () {
-	    return this.elem.querySelector('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5').innerHTML;
+	title: function (value) {
+	    var header = this.dom.find('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5').html(value);
+	    return value !== undefined ? this : header;
 	},
 
-	setTitle: function (value) {
-	    this.elem.querySelector('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5').innerHTML = value;
-	    return this;
-	},
-
-	getContent: function () {
-	    return this.elem.querySelector('.x-panel-body').innerHTML;
-	},
-
-	setContent: function (value) {
-	    this.elem.querySelector('.x-panel-body').innerHTML = value;
-		return this.center();
+	content: function (value) {
+	    var content = this.dom.find('.x-panel-body').html(value);
+        return value !== undefined ? this.center() : content;
 	},
 
 	/**
 	 * 重对齐当前对话框的位置以确保居中显示。
 	 */
 	center: function () {
-		this.elem.setStyle('marginTop', -this.elem.offsetHeight / 2 + 'px');
-		this.elem.setStyle('marginLeft', -this.elem.offsetWidth / 2 + 'px');
+	    this.dom.css('marginTop', -this.dom[0].offsetHeight / 2);
+	    this.dom.css('marginLeft', -this.dom[0].offsetWidth / 2);
 		return this;
 	},
 
