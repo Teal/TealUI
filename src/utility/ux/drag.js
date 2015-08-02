@@ -12,15 +12,17 @@
  */
 function Draggable(elem, options) {
 
-    var me = this, key;
+    var me = this;
 
-    me.dom = Dom(elem);
+    me.proxy = me.handle = me.dom = Dom(elem);
 
     // 使用用户自定义配置覆盖默认配置。
-    for (key in options) me[key] = options[key];
+    for (var key in options) {
+        me[key] = options[key];
+    }
 
-    me.handle = me.handle ? Dom(me.handle) : me.dom[0];
-    me.proxy = me.proxy ? Dom(me.proxy) : me.dom[0];
+    me.handle = Dom(me.handle);
+    me.proxy = me.proxy === true ? me.dom.clone() : Dom(me.proxy);
 
     me.handle.on('mousedown', me.handlerMouseDown, me);
 
@@ -40,7 +42,7 @@ Draggable.prototype = {
      * 拖动的手柄。只有从手柄点击才能开始拖动。
      * @type {Dom}
      */
-    dom: null,
+    handle: null,
 
     /**
      * 从鼠标按下到开始拖动的延时。
@@ -54,7 +56,7 @@ Draggable.prototype = {
      */
     dragStart: function (e) {
         var me = this;
-        me.startOffset = me.dom[0].getOffset();
+        me.startOffset = me.proxy.offset();
         return !me.onDragStart || me.onDragStart(e);
     },
 
@@ -76,8 +78,8 @@ Draggable.prototype = {
 
             // 调用用户的拖动回调并更新位置。
             if (!me.onDragMove || me.onDragMove(e) !== false) {
-                me.dom[0].style.top = me.endOffset.top + 'px';
-                me.dom[0].style.left = me.endOffset.left + 'px';
+                me.proxy[0].style.top = me.endOffset.top + 'px';
+                me.proxy[0].style.left = me.endOffset.left + 'px';
             }
 
         }
@@ -126,7 +128,7 @@ Draggable.prototype = {
             }, me.dragDelay);
 
             // 绑定拖动和停止拖动事件。
-            var doc = me.dom[0].ownerDocument;
+            var doc = Dom(me.dom[0].ownerDocument);
             doc.on('mouseup', me.handlerMouseUp, me);
             doc.on('mousemove', me.handlerMouseMove, me);
 
@@ -188,7 +190,7 @@ Draggable.prototype = {
 
         // 锁定鼠标样式。
         me.orignalCursor = document.documentElement.style.cursor;
-        document.documentElement.style.cursor = me.dom[0].getStyle('cursor');
+        document.documentElement.style.cursor = me.dom.css('cursor');
         if ('pointerEvents' in document.body.style)
             document.body.style.pointerEvents = 'none';
         else if (document.body.setCapture)
@@ -209,7 +211,7 @@ Draggable.prototype = {
     stopDragging: function (e) {
 
         var me = this,
-            doc = me.dom[0].ownerDocument;
+            doc = Dom(me.dom[0].ownerDocument);
         doc.off('mousemove', me.handlerMouseMove);
         doc.off('mouseup', me.handlerMouseUp);
 
@@ -249,6 +251,8 @@ Draggable.prototype = {
 
 };
 
+Dom.roles.draggable = Draggable;
+
 /**
  * 初始化指定的元素为可拖动对象。
  * @param {Object} options 拖动的相关属性。
@@ -258,5 +262,5 @@ Draggable.prototype = {
  * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
  */
 Dom.prototype.draggable = function (options) {
-    return this.initAs('draggable', Draggable, options);
+    return this.role('draggable', options);
 };

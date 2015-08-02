@@ -1,5 +1,5 @@
-/**
- * @fileOverview »ñÈ¡ËùÓĞ Cookie ºÍÖ§³ÖºÍ´«Í³ ASP ¼æÈİµÄ×Ó Cookie ¹¦ÄÜ¡£
+ï»¿/**
+ * @fileOverview è·å–æ‰€æœ‰ Cookie å’Œæ”¯æŒå’Œä¼ ç»Ÿ ASP å…¼å®¹çš„å­ Cookie åŠŸèƒ½ã€‚
  * @author xuld
  */
 
@@ -9,8 +9,8 @@
 // #region @getAllCookies
 
 /**
- * »ñÈ¡ËùÓĞ Cookie ¡£
- * @returns {Object} ·µ»Ø°üº¬ËùÓĞ Cookie µÄ¼üÖµ¶Ô¡£
+ * è·å–æ‰€æœ‰ Cookie ã€‚
+ * @returns {Object} è¿”å›åŒ…å«æ‰€æœ‰ Cookie çš„é”®å€¼å¯¹ã€‚
  * @example getAllCookies()
  */
 function getAllCookies() {
@@ -26,11 +26,11 @@ function getAllCookies() {
 // #region @subCookie
 
 /**
- * »ñÈ¡Ò»¸ö×Ó Cookie Öµ¡£
- * @param {String} name Òª»ñÈ¡µÄ Cookie Ãû×Ö¡£
- * @param {String} name Òª»ñÈ¡µÄ×Ó Cookie Ãû×Ö¡£
- * @returns {String} ·µ»Ø¶ÔÓ¦µÄ Cookie Öµ¡£Èç¹û Cookie ²»´æÔÚÔò·µ»Ø null¡£
- * @example getSubcookie("sample", "subName") // Èç¹û Cookie ²»´æÔÚ£¬·µ»Ø null ¡£
+ * è·å–ä¸€ä¸ªå­ Cookie å€¼ã€‚
+ * @param {String} name è¦è·å–çš„ Cookie åå­—ã€‚
+ * @param {String} name è¦è·å–çš„å­ Cookie åå­—ã€‚
+ * @returns {String} è¿”å›å¯¹åº”çš„ Cookie å€¼ã€‚å¦‚æœ Cookie ä¸å­˜åœ¨åˆ™è¿”å› nullã€‚
+ * @example getSubcookie("sample", "subName") // å¦‚æœ Cookie ä¸å­˜åœ¨ï¼Œè¿”å› null ã€‚
  */
 function getSubcookie(name, subname) {
     var cookie = getCookie(name);
@@ -45,20 +45,20 @@ function getSubcookie(name, subname) {
 // #region @setSubCookie
 
 /**
- * ÉèÖÃ»òÉ¾³ıÒ»¸ö×Ó Cookie Öµ¡£
- * @param {String} name ÒªÉèÖÃµÄ Cookie Ãû×Ö¡£
- * @param {String} subname ÒªÉèÖÃµÄ×Ó Cookie Ãû×Ö¡£
- * @param {String} value ÒªÉèÖÃµÄ Cookie Öµ¡£Èç¹ûÉèÎª @null ÔòÉ¾³ı Cookie¡£
- * @param {Object} [expires=365*24*60*60*10] Cookie ¹ıÆÚµÄÃëÊı¡£Èç¹ûÉèÎª 0 ÔòÁ¢¼´¹ıÆÚ¡£
- * @param {Object} [path] ÉèÖÃ Cookie µÄÂ·¾¶¡£
- * @param {Object} [domain] ÉèÖÃ Cookie µÄËùÔÚÓò¡£
- * @param {Object} [secure] ÉèÖÃ Cookie µÄ°²È«ÏŞÖÆ¡£
- * @returns {String} ·µ»Ø value¡£
+ * è®¾ç½®æˆ–åˆ é™¤ä¸€ä¸ªå­ Cookie å€¼ã€‚
+ * @param {String} name è¦è®¾ç½®çš„ Cookie åå­—ã€‚
+ * @param {String} subname è¦è®¾ç½®çš„å­ Cookie åå­—ã€‚
+ * @param {String} value è¦è®¾ç½®çš„ Cookie å€¼ã€‚å¦‚æœè®¾ä¸º @null åˆ™åˆ é™¤ Cookieã€‚
+ * @param {Object} [expires=365*24*60*60*10] Cookie è¿‡æœŸçš„ç§’æ•°ã€‚å¦‚æœè®¾ä¸º 0 åˆ™ç«‹å³è¿‡æœŸã€‚
+ * @param {Object} [path] è®¾ç½® Cookie çš„è·¯å¾„ã€‚
+ * @param {Object} [domain] è®¾ç½® Cookie çš„æ‰€åœ¨åŸŸã€‚
+ * @param {Object} [secure] è®¾ç½® Cookie çš„å®‰å…¨é™åˆ¶ã€‚
+ * @returns {String} è¿”å› valueã€‚
  * @example
- * #### ÉèÖÃ×Ó Cookie
+ * ##### è®¾ç½®å­ Cookie
  * setSubcookie("sample", "subName", "the value")
  * 
- * #### É¾³ı×Ó Cookie
+ * ##### åˆ é™¤å­ Cookie
  * setSubcookie("sample", "subName", null)
  */
 function setSubcookie(name, subname, value, expires, path, domain, secure) {

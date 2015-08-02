@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>编辑事件扩展</title>
-    <meta name="module-info" content="order=base">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="为增强用户编辑时的交互体验提供的扩展。">
 
@@ -12,7 +12,6 @@
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
     <script type="text/javascript" src="../../utility/dom/disableTab.js"></script>
-    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
     <script type="text/javascript" src="../../utility/dom/at.js"></script>
     <script type="text/javascript" src="../../utility/dom/autoResize.js"></script>
     <script type="text/javascript" src="../../utility/dom/placeholder.js"></script>
@@ -36,52 +35,6 @@
                     <textarea id="disableTab_elem">abc</textarea>
                     <script>
                         $('#disableTab_elem').disableTab();
-                    </script>
-                </aside>
-            </td>
-        </tr>
-    </table>
-
-    <h2>键盘导航事件 <small>(源码: <a href="../../utility/dom/keyNav.js" target="_blank">utility/dom/keyNav.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.keyNav</code></td>
-            <td>绑定键盘上下左右等导航事件</td>
-            <td class="doc">
-                <h5>基本用法</h5>
-                <aside class="doc-demo">
-                    <input type="text" id="keyNav_elem">
-                    <span id="keyNav_result"></span>
-                    <script>
-                        $('#keyNav_elem').keyNav({
-
-                            up: function () { document.getElementById('keyNav_result').innerHTML = "up" },
-                            down: function () { document.getElementById('keyNav_result').innerHTML = "down" },
-                            left: function () { document.getElementById('keyNav_result').innerHTML = "left"; return true },
-                            right: function () { document.getElementById('keyNav_result').innerHTML = "right"; return true },
-
-                            home: function () { document.getElementById('keyNav_result').innerHTML = "home"; },
-                            end: function () { document.getElementById('keyNav_result').innerHTML = "end"; },
-                            pageUp: function () { document.getElementById('keyNav_result').innerHTML = "pageUp"; },
-                            pageDown: function () { document.getElementById('keyNav_result').innerHTML = "pageDown"; },
-
-                            enter: function () { document.getElementById('keyNav_result').innerHTML = "enter" },
-                            ctrlEnter: function () { document.getElementById('keyNav_result').innerHTML = "ctrl+enter"; },
-
-                            tab: function () { document.getElementById('keyNav_result').innerHTML = "tab"; },
-                            backspace: function () { return true },
-                            'delete': function () { document.getElementById('keyNav_result').innerHTML = "delete"; return true },
-                            'space': function () { document.getElementById('keyNav_result').innerHTML = "space"; return true },
-
-                            esc: function () { document.getElementById('keyNav_result').innerHTML = "esc"; },
-                            tab: function () { document.getElementById('keyNav_result').innerHTML = "tab"; return true },
-                            other: function () { document.getElementById('keyNav_result').innerHTML = "other"; return true }
-                        });
                     </script>
                 </aside>
             </td>

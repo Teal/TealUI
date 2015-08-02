@@ -30,10 +30,10 @@ function getCookie(name) {
  * @param {Object} [secure] 设置 Cookie 的安全限制。
  * @returns {String} 返回 @value。
  * @example
- * #### 设置 Cookie
+ * ##### 设置 Cookie
  * setCookie("sample", "the value")
  * 
- * #### 删除 Cookie
+ * ##### 删除 Cookie
  * setCookie("sample", null)
  */
 function setCookie(name, value, expires, path, domain, secure) {

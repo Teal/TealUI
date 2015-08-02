@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,19 +16,25 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>强制打开指定网页 <small>(源码: <a href="../../utility/browser/forceOpen.js" target="_blank">utility/browser/forceOpen.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>forceOpen</code></td>
-            <td>强制打开指定网页</td>
-            <td><pre>forceOpen("http://teal.github.io/TealUI");</pre></td>
-        </tr>
-    </table>
+    <h2>
+        强制打开指定网页 <small>(源码: <a href="../../utility/browser/forceOpen.js" target="_blank">utility/browser/forceOpen.js</a>)</small>
+    </h2>
+    <script data-doc="utility/browser/forceOpen.js">
+Doc.writeApi({
+			path: "utility/browser/forceOpen.js",
+			apis: [{
+				name: "forceOpen",
+				summary: "<p>强制打开指定网页。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>要打开的地址。</p>"
+				}],
+				example: "<pre>forceOpen(\"http://teal.github.io/TealUI\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});</script>
 
     <h2>禁止右键菜单 <small>(源码: 无)</small></h2>
     <table class="doc-api">
@@ -62,7 +68,7 @@
             <td>保护网页不被外部 <code>&lt;iframe&gt;</code> 嵌套</td>
             <td>
                 <script class="doc-demo">
-                    if (self != top) {
+                    if (self !== top) {
                         top.location = self.location;
                     }
                 </script>
@@ -71,28 +77,22 @@
     </table>
 
     <h2>卡死浏览器 <small>(源码: <a href="../../utility/browser/crashBrowser.js" target="_blank">utility/browser/crashBrowser.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>crashBrowser</code></td>
-            <td>让浏览器卡死，支持所有浏览器，信不信由你，反正我信了</td>
-            <td><pre>crashBrowser()</pre></td>
-        </tr>
-        <tr>
-            <td><small>(无)</small></td>
-            <td>让运行环境卡死(可让 NodeJs 卡死)</td>
-            <td>
-                <pre>
+    <script data-doc="utility/browser/crashBrowser.js">
+Doc.writeApi({
+			path: "utility/browser/crashBrowser.js",
+			apis: [{
+				name: "crashBrowser",
+				summary: "<p>让浏览器卡死，支持所有浏览器，信不信由你，反正我信了。</p>",
+				example: "<pre>crashBrowser()</pre>",
+				line: 6,
+				col: 1
+			}]
+});</script>
+    <p>也可直接使用如下代码让运行环境卡死(可让 NodeJs 卡死)</p>
+    <pre>
                     var s = "abcde";
                     for(var i = 0; i < 21; i++) s += s;
                     /a.*c.*f/.test(s);
                 </pre>
-            </td>
-        </tr>
-    </table>
 </body>
 </html>

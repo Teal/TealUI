@@ -1,10 +1,10 @@
-/**
- * @fileOverview ÈÃä¯ÀÀÆ÷¿¨ËÀ¡£
+ï»¿/**
+ * @fileOverview è®©æµè§ˆå™¨å¡æ­»ã€‚
  * @author xuld
  */
 
 /**
- * ÈÃä¯ÀÀÆ÷¿¨ËÀ£¬Ö§³ÖËùÓÐä¯ÀÀÆ÷£¬ÐÅ²»ÐÅÓÉÄã£¬·´ÕýÎÒÐÅÁË¡£
+ * è®©æµè§ˆå™¨å¡æ­»ï¼Œæ”¯æŒæ‰€æœ‰æµè§ˆå™¨ï¼Œä¿¡ä¸ä¿¡ç”±ä½ ï¼Œåæ­£æˆ‘ä¿¡äº†ã€‚
  * @example crashBrowser()
  */
 function crashBrowser() {

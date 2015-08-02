@@ -3,46 +3,16 @@
  */
 
 // #require drag
-// #require scrollIntoView
+// #require ../dom/scrollIntoView
 
 /**
  * 自动滚动屏幕。
  */
 Draggable.prototype.autoScroll = function (e, scrollParent) {
     var me = this;
-    me.elem.scrollIntoViewIfNeeded(false, scrollParent);
+    me.dom.scrollIntoViewIfNeeded(false, scrollParent);
     me.endX = e.pageX;
     me.endY = e.pageY;
-    //size = size || 50;
-    //var me = this,
-    //    doc = me.elem.ownerDocument,
-    //    docSize = doc.getRect(),
-    //    docScroll = doc.getScroll(),
-    //    globalX = e.pageX - docScroll.left,
-    //    globalY = e.pageY - docScroll.top,
-    //    needScroll = false;
-
-    //if (globalX > docSize.width - size) {
-    //    docScroll.left += size;
-    //    needScroll = true;
-    //} else if (globalX < size) {
-    //    docScroll.left -= size;
-    //    needScroll = true;
-    //}
-
-    //if (globalY > docSize.height - size) {
-    //    docScroll.top += size;
-    //    needScroll = true;
-    //} else if (globalY < size) {
-    //    docScroll.top -= size;
-    //    needScroll = true;
-    //}
-
-    //if (needScroll) {
-    //    doc.setScroll(docScroll);
-    //    me.endX = e.pageX;
-    //    me.endY = e.pageY;
-    //}
 };
 
 /**
@@ -51,7 +21,7 @@ Draggable.prototype.autoScroll = function (e, scrollParent) {
 Draggable.prototype.revert = function () {
     var me = this;
     me.handle.off('mousedown', me.handlerMouseDown);
-    me.elem.animate({
+    me.dom.animate({
         left: me.startOffset.left + 'px',
         top: me.startOffset.top + 'px',
     }, function () {
@@ -79,9 +49,9 @@ Draggable.prototype.limit = function (rect) {
         delta;
 
     // 计算最新的位置。
-    me.elem.style.left = me.endOffset.left + 'px';
-    me.elem.style.top = me.endOffset.top + 'px';
-    currentRect = me.elem.getRect();
+    me.dom[0].style.left = me.endOffset.left + 'px';
+    me.dom[0].style.top = me.endOffset.top + 'px';
+    currentRect = me.dom.rect();
 
     if ((delta = currentRect.left - rect.left) < 0 || (delta = currentRect.left + currentRect.width - rect.left - rect.width) > 0) {
         me.endOffset.left -= delta;

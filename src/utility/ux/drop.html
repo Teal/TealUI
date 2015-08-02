@@ -11,10 +11,8 @@
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
-    <script type="text/javascript" src="../../utility/dom/animate.js"></script>
-    <script type="text/javascript" src="../../utility/dom/drag.js"></script>
-    <script type="text/javascript" src="../../utility/dom/drop.js"></script>
+    <script type="text/javascript" src="../../utility/ux/drag.js"></script>
+    <script type="text/javascript" src="../../utility/ux/drop.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -25,21 +23,21 @@
         <div id="drop" style="height: 60px;padding: 10px;border: 1px #C6D880 solid; margin-bottom: 30px;"></div>
         <script>
             
-            document.getElementById('drop').setDroppable({
+            $('#drop').droppable({
                 onDragEnter: function (draggable) {
-                    draggable.elem.classList.add('doc-red');
-                    this.elem.style.backgroundColor = '#eee';
+                    draggable.dom.addClass('doc-red');
+                    this.dom.css('backgroundColor', '#eee');
                 },
                 onDrop: function() {
                     trace('拖放成功');
                 },
                 onDragLeave: function (draggable) {
-                    draggable.elem.classList.remove('doc-red');
-                    this.elem.style.backgroundColor = '';
+                    draggable.dom.removeClass('doc-red');
+                    this.dom.css('backgroundColor', '');
                 }
             });
 
-            document.getElementById('drag').setDraggable();
+            $('#drag').draggable();
         </script>
     </aside>
 </body>

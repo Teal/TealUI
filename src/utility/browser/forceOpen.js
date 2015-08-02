@@ -1,11 +1,11 @@
-/**
- * @fileOverview ÈÃä¯ÀÀÆ÷Ç¿ÖÆ´ò¿ªÖ¸¶¨ÍøÒ³¡£
+ï»¿/**
+ * @fileOverview è®©æµè§ˆå™¨å¼ºåˆ¶æ‰“å¼€æŒ‡å®šç½‘é¡µã€‚
  * @author xuld
  */
 
 /**
- * Ç¿ÖÆ´ò¿ªÖ¸¶¨ÍøÒ³¡£
- * @param {String} url Òª´ò¿ªµÄµØÖ·¡£
+ * å¼ºåˆ¶æ‰“å¼€æŒ‡å®šç½‘é¡µã€‚
+ * @param {String} url è¦æ‰“å¼€çš„åœ°å€ã€‚
  * @example forceOpen("http://teal.github.io/TealUI")
  */
 function forceOpen(url) {

@@ -28,11 +28,10 @@ Dom.prototype.keyNav = function (options, scope) {
         'delete': 46,
         space: 32
     }),
-        keyMap = {},
-        key;
+        keyMap = {};
 
     // 按照 Dom.keys 重新匹配键值。
-    for (key in options) {
+    for (var key in options) {
         keyMap[keys[key] || key] = options[key];
     }
 

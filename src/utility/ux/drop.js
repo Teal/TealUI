@@ -12,7 +12,7 @@
  */
 function Droppable(elem, options) {
 
-    this.elem = elem;
+    this.dom = Dom(elem);
 
     // 使用用户自定义配置覆盖默认配置。
     for (var key in options) {
@@ -34,9 +34,9 @@ Droppable.prototype = {
 
     /**
      * 当前拖放的节点。
-     * @type {Element}
+     * @type {Dom}
      */
-    elem: null,
+    dom: null,
 
     /**
      * 判断是否有拖动对象正在当前拖放区域内。
@@ -50,7 +50,7 @@ Droppable.prototype = {
      * @param {Event} e 事件参数。
      */
     dragStart: function (draggable, e) {
-        this.rect = this.elem.getRect();
+        this.rect = this.dom.rect();
         this.rect.right = this.rect.left + this.rect.width;
         this.rect.bottom = this.rect.top + this.rect.height;
         return !this.onDragStart || this.onDragStart(draggable, e);
@@ -193,6 +193,8 @@ Draggable.prototype.dragEnd = function (e) {
     
 };
 
+Dom.roles.droppable = Droppable;
+
 /**
  * 初始化指定的元素为可拖动对象。
  * @param {Object} options 拖动的相关属性。
@@ -202,6 +204,6 @@ Draggable.prototype.dragEnd = function (e) {
  * - autoSrcoll: 设置是否自动滚动屏幕。
  * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
  */
-Element.prototype.setDroppable = function (options) {
-    return new Droppable(this, options);
+Dom.prototype.droppable = function (options) {
+   return this.role('droppable', options);
 };

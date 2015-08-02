@@ -19,48 +19,67 @@
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <h2>添加到收藏夹 <small>(源码: <a href="../../utility/browser/addFavorite.js" target="_blank">utility/browser/addFavorite.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>addFavorite</code></td>
-            <td>弹出添加到收藏夹对话框</td>
-            <td class="doc">
-                <h5>添加当前网页到收藏夹</h5>
-                <pre>addFavorite();</pre>
-                <h5>添加指定网页到收藏夹</h5>
-                <pre>addFavorite("TealUI", "http://teal.github.io/TealUI");</pre>
-                <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
-            </td>
-        </tr>
-    </table>
+    <h2>添加到收藏夹</h2>
+    <script data-doc="utility/browser/addFavorite.js">Doc.writeApi({
+			path: "utility/browser/addFavorite.js",
+			apis: [{
+				name: "addFavorite",
+				summary: "<p>打开添加收藏夹对话框。</p>",
+				params: [{
+					type: "String",
+					name: "title",
+					optional: true,
+					summary: "<p>收藏的标题。默认为当前网页标题。</p>"
+				}, {
+					type: "String",
+					name: "url",
+					optional: true,
+					summary: "<p>收藏的地址。默认为当前网页地址。</p>"
+				}],
+				example: "<h5>添加当前网页到收藏夹</h5>\n\
+\n\
+<pre>addFavorite()</pre>\n\
+\n\
+<h5>添加指定网页到收藏夹</h5>\n\
+\n\
+<pre>addFavorite(\"TealUI\", \"http://teal.github.io/TealUI\")</pre>",
+				remark: "<blockquote class=\"doc-note\">\n\
+  <h4>注意</h4>\n\
+  \n\
+  <p>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</p>\n\
+</blockquote>",
+				line: 6,
+				col: 1
+			}]
+});</script>
 
-    <h2>设为主页 <small>(源码: <a href="../../utility/browser/setHomePage.js" target="_blank">utility/browser/setHomePage.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>setHomePage</code></td>
-            <td>弹出设为主页对话框</td>
-            <td class="doc">
-                <h5>设置当前网页为主页</h5>
-                <pre>setHomePage()</pre>
-                <h5>设置指定网页为主页</h5>
-                <pre>setHomePage("http://www.TealUI.com/")</pre>
-                <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
-            </td>
-        </tr>
-    </table>
+    <h2>设为主页</h2>
+    <script data-doc="utility/browser/setHomePage.js">Doc.writeApi({
+			path: "utility/browser/setHomePage.js",
+			apis: [{
+				name: "setHomePage",
+				summary: "<p>打开设为主页对话框。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					optional: true,
+					summary: "<p>设置的地址。</p>"
+				}],
+				example: "<h4>设置当前网页为主页</h4>\n\
+\n\
+<pre>setHomePage()</pre>\n\
+\n\
+<h4>设置指定网页为主页</h4>\n\
+\n\
+<pre>setHomePage(\"TealUI\", \"http://teal.github.io/TealUI\")</pre>",
+				remark: "<blockquote class=\"doc-note\"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>",
+				line: 6,
+				col: 1
+			}]
+});</script>
 
     <h2>添加到主屏幕 <small>(源码: <a href="../../utility/browser/addToScreen.less" target="_blank">utility/browser/addToScreen.less</a>、<a href="../../utility/browser/addToScreen.js" target="_blank">utility/browser/addToScreen.js</a>)</small></h2>
-    
+
     <h3>在 &lt;meta&gt; 中添加如下代码</h3>
     <script type="text/html" class="doc-demo">
         <!-- 设置主屏幕图标 -->
@@ -82,19 +101,23 @@
     <p>删除 <code>-precomposed</code> 可为图标添加高亮效果。另参考：<a href="http://www.prower.cn/technic/2314" target="_blank">iOS中为网站添加图标到主屏幕以及增加启动画面</a></p>
 
     <p>在 IOS 或安卓 UC 上提示用户添加到主屏幕</p>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code>addToScreen</code></td>
-            <td>弹出添加到主屏幕提示</td>
-            <td><pre>addToScreen()</pre></td>
-        </tr>
-    </table>
-    
+    <script data-doc="utility/browser/addToHomeScreen.js">Doc.writeApi({
+			path: "utility/browser/addToHomeScreen.js",
+			apis: [{
+				name: "addToHomeScreen",
+				summary: "<p>对于 IOS/Android 用户，弹出添加到主屏幕的浮层。</p>",
+				params: [{
+					type: "Object",
+					name: "options",
+					optional: true,
+					summary: "<p>可选的配置信息。</p>"
+				}],
+				remark: "<p>请确保必须在 DomReady 中调用本函数。</p>",
+				line: 5,
+				col: 1
+			}]
+});</script>
+
     <div class="x-addtohomescreen" style="">
         <span class="x-addtohomescreen-close">×</span>
         <img class="x-addtohomescreen-logo">

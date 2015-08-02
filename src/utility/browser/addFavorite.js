@@ -8,14 +8,15 @@
  * @param {String} [title] 收藏的标题。默认为当前网页标题。
  * @param {String} [url] 收藏的地址。默认为当前网页地址。
  * @example 
- * #### 添加当前网页到收藏夹
+ * ##### 添加当前网页到收藏夹
  * addFavorite()
  * 
- * #### 添加指定网页到收藏夹
+ * ##### 添加指定网页到收藏夹
  * addFavorite("TealUI", "http://teal.github.io/TealUI")
  * 
  * @remark
- * <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
+ * > #### !注意
+ * > 最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。
  */
 function addFavorite(title, url) {
     title = title || document.title;
