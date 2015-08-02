@@ -52,8 +52,10 @@ var Control = Dom.roles.$default = Base.extend({
         if (document.body) {
             Dom(document.body).append(result);
         } else {
-            Dom(function() {
-                Dom(document.body).append(result);
+            Dom(function () {
+                if (!result.closest("body")) {
+                    Dom("body").append(result);
+                }
             });
         }
         return result;
