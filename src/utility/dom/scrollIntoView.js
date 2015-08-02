@@ -7,10 +7,16 @@
 
 /**
  * 设置滚动到当前指定节点时的回调。
- * @param {Boolean} [alignCenter=true] 指示是否顶部对齐。
+ * @param {Boolean} [alignCenter=true] 如果设为 @true，则对齐到滚动区域两端，否则对齐到滚动区域中间。
  * @param {Number} [duration=0] 滚动的特效时间。如果为 0 则不使用渐变。
- * @param {Element} [scrollParent=document] 滚动所在的容器。
- * @param {Function} [callback] 滚动特效完成后的回调。
+ * @param {Dom} [scrollParent=document] 滚动所在的容器。
+ * @param {Function} [callback] 滚动特效完成后的回调。函数参数为：
+ * * @this {Element} 引发事件的节点。
+ * * @param {Number} x 滚动的目标水平位置。
+ * * @param {Number} y 滚动的目标垂直位置。
+ * * @param {Number} duration 滚动的特效时间。如果为 0 则不使用渐变。
+ * @returns this
+ * @example $("#elem1").scrollIntoViewIfNeeded();
  */
 Dom.prototype.scrollIntoViewIfNeeded = function (alignCenter, duration, scrollParent, callback) {
     alignCenter = alignCenter !== false;

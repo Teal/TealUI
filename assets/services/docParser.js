@@ -320,6 +320,9 @@ function parseMarkDown(content) {
         } else if (type === 'returns') {
             parsed = parseType(args);
             parsed.name = '返回值';
+        } else if (type === 'this') {
+            parsed = parseType(args);
+            parsed.name = '<strong>this</strong>';
         } else if (type === 'field') {
             parsed = parseType(args);
         } else {

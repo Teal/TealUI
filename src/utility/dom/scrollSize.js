@@ -1,21 +1,21 @@
-/**
- * @fileOverview »ñÈ¡»òÉèÖÃÍâ²¿ HTML¡£
+ï»¿/**
+ * @fileOverview è·å–æˆ–è®¾ç½®å¤–éƒ¨ HTMLã€‚
  * @author xuld
  */
 
 // #require base
 
 /**
- * »ñÈ¡Ö¸¶¨½ÚµãµÄ¹ö¶¯ÇøÓò´óĞ¡¡£
- * @returns {Size} ·µ»ØµÄ¶ÔÏó°üº¬Á½¸öÕûĞÍÊôĞÔ£ºwidth ºÍ height¡£
+ * è·å–å½“å‰é›†åˆç¬¬ä¸€é¡¹çš„æ»šåŠ¨åŒºåŸŸå¤§å°ã€‚
+ * @returns {Size} è¿”å›ä¸€ä¸ªåŒ…å«ä¸¤ä¸ª`width` å’Œ `height`å±æ€§çš„å¯¹è±¡ã€‚
+ * @example $("#elem1").scrollSize()
  */
 Dom.prototype.scrollSize = function () {
     var elem = this[0];
-    return elem && (elem.nodeType === 9 ? {
-        width: Math.max(elem.documentElement.scrollWidth || 0, elem.body.scrollWidth || 0, elem.clientWidth || 0),
-        height: Math.max(elem.documentElement.scrollHeight || 0, elem.body.scrollHeight || 0, elem.clientHeight || 0)
-    } : {
-        width: elem.scrollWidth,
-        height: elem.scrollHeight
-    });
+    if (elem) {
+        return {
+            width: elem.nodeType === 9 ? Math.max(elem.documentElement.scrollWidth || 0, elem.body.scrollWidth || 0, elem.clientWidth || 0) : elem.scrollWidth,
+            height: elem.nodeType === 9 ? Math.max(elem.documentElement.scrollHeight || 0, elem.body.scrollHeight || 0, elem.clientHeight || 0) : elem.scrollHeight
+        };
+    }
 };

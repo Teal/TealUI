@@ -1,16 +1,21 @@
-/**
- * @fileOverview CTRL »Ø³µÊÂ¼ş¡£
+ï»¿/**
+ * @fileOverview CTRL å›è½¦äº‹ä»¶ã€‚
  * @author xuld
  */
 
+// #require base
+
 /**
- * °ó¶¨ CTRL »Ø³µÊÂ¼ş¡£
- * @param {Function} callback ÉèÖÃ»Ø³µµÄ»Øµ÷¡£
- * @param {Object} [scope] ÉèÖÃ»Øµ÷º¯ÊıÖĞ this µÄÖ¸Ïò¡£
+ * ç»‘å®š CTRL å›è½¦äº‹ä»¶ã€‚
+ * @param {Function} callback è®¾ç½® CTRL å›è½¦çš„å›è°ƒã€‚å‡½æ•°å‚æ•°ä¸ºï¼š
+ * * @this {Element} å¼•å‘äº‹ä»¶çš„èŠ‚ç‚¹ã€‚
+ * * @param {Event} e å‘ç”Ÿçš„äº‹ä»¶å¯¹è±¡ã€‚
+ * @returns this
+ * @example $("#elem").ctrlEnter(function(){ alert("CTRL+ENTER"); });
  */
 Dom.prototype.ctrlEnter = function (callback) {
-    return this.on('keypress', function (e) {
-        if (e.ctrlKey && (e.which == 13 || e.which == 10)) {
+    return this.on("keypress", function (e) {
+        if (e.ctrlKey && (e.which === 13 || e.which === 10)) {
             return callback.call(this, e);
         }
     });

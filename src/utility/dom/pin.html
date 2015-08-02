@@ -17,27 +17,6 @@
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
     <script type="text/javascript" src="../../utility/dom/drag.js"></script>
 
-    <div id="target" class="doc-box doc-blue" style="z-index: 8; cursor: move;">
-        #target
-    </div>
-    <div id="elem" class="doc-box-large doc-green">#elem</div>
-
-    定位：<select id="position" onchange="realign()" onkeyup="realign()">
-        <option value="b" selected="selected">b</option>
-        <option value="r">r</option>
-        <option value="t">t</option>
-        <option value="l">l</option>
-        <option value="rt">rt</option>
-        <option value="bl">bl</option>
-    </select>
-    <script>
-        function realign() {
-            $('#elem').pin($('#target'), $('#position').text());
-        }
-
-        realign();
-        target.setDraggable({ onDragEnd: realign });
-    </script>
     <h5>定位节点</h5>
     <pre>$("#elem").pin("#target", "b", 0, 0);</pre>
 </body>

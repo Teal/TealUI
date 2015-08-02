@@ -33,25 +33,7 @@ webApp
 8/6
 	typography/scaffolding/loginBox
 8/7
-	utility/dom/ctrlEnter
-	utility/dom/keyNav
-	utility/dom/hashChange
-	utility/dom/resize
 
-	utility/dom/lazyload
-	utility/dom/loader
-	utility/dom/loadHtml
-	utility/dom/preload
-	
-	utility/dom/fixed
-	utility/dom/fixPng
-	utility/dom/outerhtml
-
-	utility/dom/scrollBy
-	utility/dom/scrollIntoView
-	utility/dom/scrollShow
-	utility/dom/scrollSize
-	utility/dom/scrollTo
 8/8
 	utility/ux/drag
 	utility/ux/dragEx

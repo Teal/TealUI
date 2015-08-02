@@ -6,8 +6,10 @@
 // #require base
 
 /**
- * 判断是否在可见内范围内。
- * @param {Element} [scrollParent=document] 滚动所在的容器。
+ * 判断集合第一项是否刚好滚在可见内范围内。
+ * @param {Dom} [scrollParent=document] 滚动所在的容器。
+ * @returns {Boolean} 如果部分或全部在可见内范围内，则返回 @true，否则返回 @false。
+ * @example $("#elem1").isScrollIntoView()
  */
 Dom.prototype.isScrollIntoView = function (scrollParent) {
     if (this[0]) {
@@ -23,35 +25,36 @@ Dom.prototype.isScrollIntoView = function (scrollParent) {
  * 设置滚动到当前指定节点时的回调。
  * @param {Function} callback 滚动到当前指定节点时的回调。
  * @param {String} [callbackMode] 回调方式。可以是 'every', 'each', 'once'
- * @param {Element} [scrollParent=document] 滚动所在的容器。
+ * @param {Dom} [scrollParent=document] 滚动所在的容器。
+ * @returns this
+ * @example $("#elem").scrollShow(function(){ alert("滚动到我的位置了"); });
  */
 Dom.prototype.scrollShow = function (callback, callbackMode, scrollParent) {
-    callbackMode = callbackMode == 'once' ? 0 : callbackMode == 'every' ? 2 : 1;
+    callbackMode = callbackMode === "once" ? 0 : callbackMode === "every" ? 2 : 1;
     scrollParent = scrollParent || document;
 
     return this.each(function (elem) {
         var inView = false,
             container = scrollParent.defaultView || scrollParent;
 
-        container.addEventListener('scroll', scrollCallback, false);
-        scrollCallback();
-
         function scrollCallback() {
             if (Dom(elem).isScrollIntoView(scrollParent)) {
                 if (!inView) {
                     callback.call(elem, elem);
                 }
-                if (callbackMode == 1) {
+                if (callbackMode === 1) {
                     inView = true;
-                }
-                if (callbackMode == 0) {
-                    container.removeEventListener('scroll', scrollCallback, false);
+                } else if (callbackMode === 0) {
+                    container.removeEventListener("scroll", scrollCallback, false);
                 }
             } else {
                 inView = false;
             }
 
         }
+
+        container.addEventListener("scroll", scrollCallback, false);
+        scrollCallback();
 
     });
 

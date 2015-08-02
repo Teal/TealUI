@@ -12,7 +12,6 @@
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
     <script type="text/javascript" src="../../utility/dom/disableTab.js"></script>
-    <script type="text/javascript" src="../../utility/dom/ctrlEnter.js"></script>
     <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
     <script type="text/javascript" src="../../utility/dom/at.js"></script>
     <script type="text/javascript" src="../../utility/dom/autoResize.js"></script>
@@ -37,40 +36,6 @@
                     <textarea id="disableTab_elem">abc</textarea>
                     <script>
                         $('#disableTab_elem').disableTab();
-                    </script>
-                </aside>
-            </td>
-        </tr>
-    </table>
-
-    <h2>CTRL 回车事件 <small>(源码: <a href="../../utility/dom/ctrlEnter.js" target="_blank">utility/dom/ctrlEnter.js</a>)</small></h2>
-    <table class="doc-api">
-        <tr>
-            <th>API</th>
-            <th>描述</th>
-            <th>示例</th>
-        </tr>
-        <tr>
-            <td><code><em>dom</em>.ctrlEnter</code></td>
-            <td>鼠标悬浮事件</td>
-            <td class="doc">
-                <h5>基本用法</h5>
-                <aside class="doc-demo">
-                    <input type="text" id="ctrlEnter_elem1">
-                    <span id="ctrlEnter_result"></span>
-                    <script>
-                        $('#ctrlEnter_elem1').ctrlEnter(function () {
-                            document.getElementById('ctrlEnter_result').innerHTML = 'CTRL+回车!';
-                        });
-                    </script>
-                </aside>
-                <h5>CTRL + 回车提交表单</h5>
-                <aside class="doc-demo">
-                    <form><input type="text" id="ctrlEnter_elem2"></form>
-                    <script>
-                        $('#ctrlEnter_elem2').ctrlEnter(function () {
-                            this.form.submit();
-                        });
                     </script>
                 </aside>
             </td>

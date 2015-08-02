@@ -2289,29 +2289,29 @@ var Doc = {
         }
 
         var result = '';
-        var inTable = false;
+        if (data.apis) {
+            var inTable = false;
+            for (var i = 0; i < data.apis.length; i++) {
+                var api = data.apis[i];
 
-        for (var i = 0; i < data.apis.length; i++) {
-            var api = data.apis[i];
-
-            if (api.memberType === 'category') {
-                if (inTable) {
-                    result += '</table>';
-                    inTable = false;
+                if (api.memberType === 'category') {
+                    if (inTable) {
+                        result += '</table>';
+                        inTable = false;
+                    }
+                    result += Doc.parseTpl('<h3>{name}</h3>{summary}', api);
+                    continue;
                 }
-                result += Doc.parseTpl('<h3>{name}</h3>{summary}', api);
-                continue;
-            }
 
-            if (!inTable) {
-                result += '<table class="doc-section doc-api">';
-                result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
-                inTable = true;
-            }
+                if (!inTable) {
+                    result += '<table class="doc-section doc-api">';
+                    result += '<tr><th>API</th><th>描述</th><th>示例</th></tr>';
+                    inTable = true;
+                }
 
-            var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
+                var match = /([\w$]+)\.prototype$/.exec(api.memberOf);
 
-            result += Doc.parseTpl('<tr><td class="doc"><code>{name}</code>{since}<div class="doc-toolbar">\
+                result += Doc.parseTpl('<tr><td class="doc"><code>{name}</code>{since}<div class="doc-toolbar">\
                     <a href="{baseUrl}assets/tools/sourceReader.html?path={path}#{line}" title="查看此 API 源码" target="_blank"><span class="doc-icon">/</span>源码</a>\
                 </div></td><td class="doc" id="doc_api_{dataIndex}_{apiIndex}">{summary}<div class="doc-toolbar">\
                     <a href="javascript:Doc.expandApi({dataIndex}, {apiIndex})" title="展开当前 API 的更多说明"><span class="doc-icon">﹀</span>更多</a>\
@@ -2327,16 +2327,14 @@ var Doc = {
                     line: api.line
                 });
 
+            }
+            if (inTable) {
+                result += '</table>';
+            }
         }
-
-        if (inTable) {
-            result += '</table>';
-        }
-
         if (!returnHtml) {
             document.write(result);
         }
-
         return result;
     },
 
@@ -2384,7 +2382,7 @@ var Doc = {
                 result += api.returns.summary.replace('<p>', '<p><code>' + (api.returns.type || "") + '</code> ');
             }
         }
-       
+
         if (api.type) {
             result += '<h4>类型</h4><p><code>' + api.type + '</code></p>';
         }

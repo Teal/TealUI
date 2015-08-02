@@ -1,27 +1,30 @@
-/**
- * @fileOverview »ñÈ¡»òÉèÖÃÍâ²¿ HTML¡£
+ï»¿/**
+ * @fileOverview è·å–æˆ–è®¾ç½®å¤–éƒ¨ HTMLã€‚
  * @author xuld
  */
 
-if (!('outerHTML' in Element.prototype)) {
+if (!("outerHTML" in Element.prototype)) {
 
     /**
-     * »ñÈ¡Íâ²¿ HTML¡£
+     * è·å–æˆ–è®¾ç½®å½“å‰å…ƒç´ çš„å¤–éƒ¨ HTMLã€‚
+     * @param {String} value è¦è®¾ç½®çš„å¤–éƒ¨ HTMLã€‚
+     * @returns {String} è¿”å›å¤–éƒ¨ HTMLã€‚
+     * @memberOf Element.prototype
+     * @property outerHTML
+     * @example document.body.outerHTML = "a";
      */
-    Element.prototype.__defineGetter__('outerHTML', function () {
-        var p = this.ownerDocument.createElement(this.parentNode.tagName)
+    Element.prototype.__defineGetter__("outerHTML", function() {
+        var p = this.ownerDocument.createElement(this.parentNode.tagName);
         p.appendChild(this.cloneNode(true));
         return p.innerHTML;
     });
 
-    /**
-     * »ñÈ¡Íâ²¿ HTML¡£
-     */
-    Element.prototype.__defineSetter__('outerHTML', function (value) {
+    Element.prototype.__defineSetter__("outerHTML", function(value) {
         var p = this.ownerDocument.createElement(this.parentNode.tagName);
         p.innerHTML = value;
-        while (p.firstChild)
+        while (p.firstChild) {
             this.parentNode.insertBefore(p.firstChild, this);
+        }
         this.parentNode.removeChild(this);
     });
 

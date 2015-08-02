@@ -1,15 +1,15 @@
-/**
+﻿/**
  * @author xuld
  */
 
 /**
- * �� IE6 ֧��͸�� PNG��
- * @param {Element} [image] �޸���ͼƬ�ڵ㡣�粻ָ�����޸������ĵ���ͼƬ�� 
+ * 让 IE6 支持透明 PNG。
+ * @param {Element} [image] 修复的图片节点。如不指定则修复整个文档的图片。 
  * @example 
- * #### �޸���ǰҳ�������ͼƬ
+ * ##### 修复当前页面的所有图片
  * fixPng()
  * 
- * #### �޸�ָ��ͼƬ
+ * ##### 修复指定图片
  * fixPng(doument.getElementById("id"))
  */
 function fixPng(image) {

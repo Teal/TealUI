@@ -3,11 +3,19 @@
  * @author xuld
  */
 
+// #require base
+
 /**
- * 定义鼠标移上后的操作。
- * @param {Function} [mouseEnter] 鼠标移上后的操作。
- * @param {Function} [mouseLeave] 鼠标移上后的操作。
- * @param {Function} [delay = 100] 延时执行的毫秒数。鼠标进入后指定时间内不触发函数。
+ * 绑定鼠标移上后的操作。
+ * @param {Function} [mouseEnter] 鼠标移上后的操作。函数参数为：
+ * * @this {Element} 引发事件的节点。
+ * * @param {Event} e 发生的事件对象。
+ * @param {Function} [mouseLeave] 鼠标移上后的操作。函数参数为：
+ * * @this {Element} 引发事件的节点。
+ * * @param {Event} e 发生的事件对象。
+ * @param {Function} [delay=100] 触发事件延时执行的毫秒数。鼠标进入后指定时间内不触发函数。
+ * @returns this
+ * @example $("#elem").hover(function(){ alert("鼠标进来了") }, function(){ alert("鼠标出去了") });
  */
 Dom.prototype.hover = function (mouseEnter, mouseLeave, delay) {
     if (delay == null) delay = 100;

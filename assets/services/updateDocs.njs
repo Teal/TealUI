@@ -30,7 +30,7 @@ function parseDocString(path){
 
     return 'Doc.writeApi(' + Doc.trace.dump(result).replace(/^\t/mg, "\t\t\t").replace(/\r?\n/g, "\r\n") + ');';
 
-    //return '<script data-gendoc="' + path + '">\n' +
+    //return '<script data-doc="' + path + '">\n' +
     //            'Doc.writeApi(' + Doc.trace.dump(result) + ');' +
     //            '\n<\/script>';
 
@@ -40,7 +40,7 @@ function updateDocs(path) {
 
     var content = IO.readFile(Path.resolve(Doc.basePath, "src", path), Doc.encoding);
   
-    content = content.replace(/(<script[^>]+data-gendoc=(['"]?)([^"']*)\1[^>]*>\s*)([\s\S]*?)(\s*<\/script>)/ig, function (_, scriptStart, q, path, content, scriptEnd) {
+    content = content.replace(/(<script[^>]+data-doc=(['"]?)([^"']*)\1[^>]*>\s*)([\s\S]*?)(\s*<\/script>)/ig, function (_, scriptStart, q, path, content, scriptEnd) {
         
         content = parseDocString(path);
 

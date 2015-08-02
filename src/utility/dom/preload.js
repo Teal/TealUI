@@ -4,8 +4,9 @@
  */
 
 /**
- * 预载入一个地址的资源。
+ * 预加载一个地址的资源。
  * @param {String} [src] 图片地址。
+ * @example preload("../../assets/resources/200x150.png")
  */
 function preload(src) {
     new Image().src = src;

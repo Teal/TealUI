@@ -50,7 +50,7 @@ Dom.List = function (selector, context) {
             selector.call(context);
         } else {
             /*@cc_on if(!+"\v1") {
-            return setTimeout(function() {Dom.init (selector, context);}, 14);
+            return setTimeout(function() {Dom.List (selector, context);}, 14);
             } @*/
             context.addEventListener('DOMContentLoaded', selector, false);
         }
@@ -452,7 +452,7 @@ Dom.roles = { $default: Dom };
 
 // #endregion
 
-Dom.init.prototype = Dom.prototype = {
+Dom.List.prototype = Dom.prototype = {
 
     // #region 集合操作
 

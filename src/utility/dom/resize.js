@@ -1,24 +1,27 @@
-/**
+﻿/**
  * @author xuld
  */
 
 // #require base
 
 /**
- * ���ô��ڸı��С��Ļص���
- * @param {Function} callback ��ϣֵ�ı���¼��ص���
- * @param {Number} [delay=50] ��ʱִ�е�ʱ�䡣
+ * 设置窗口改变大小后的回调。
+ * @param {Function} callback 哈希值改变的事件回调。函数参数为：
+ * * @this {Element} 引发事件的节点。
+ * * @param {Event} e 发生的事件对象。
+ * @param {Number} [delay=50] 延时执行的时间。
+ * @returns this
+ * @example $(window).resize(function(){ alert("窗口大小改变了"); });
  */
 Dom.prototype.resize = function (callback, delay) {
-    return this.each(function (elem) {
-        var timer;
-        Dom(elem.defaultView || elem).on('resize', function (e) {
-            timer && clearTimeout(timer);
-            timer = setTimeout(function () {
-                timer = 0;
-                callback && callback.call(elem, elem, e);
-            }, delay || 150);
-        });
+    var timer;
+    delay = delay || 150;
+    return this.on("resize", function (e) {
+        var elem = this;
+        timer && clearTimeout(timer);
+        timer = setTimeout(function () {
+            timer = 0;
+            callback.call(elem, e);
+        }, delay);
     });
-    callback.call(elem, elem);
 };
