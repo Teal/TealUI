@@ -7,6 +7,8 @@
 
 /**
  * 自动滚动屏幕。
+ * @param {Event} e 滚动的事件。
+ * @param {Dom} [scrollParent=document] 滚动所在的容器。
  */
 Draggable.prototype.autoScroll = function (e, scrollParent) {
     var me = this;

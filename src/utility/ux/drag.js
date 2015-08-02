@@ -9,6 +9,8 @@
  * 表示一个可拖动元素。
  * @param {Element} elem 要拖动的元素。
  * @param {Object} options 用户覆盖可拖动对象的配置。
+ * @class
+ * @inner
  */
 function Draggable(elem, options) {
 
@@ -255,11 +257,17 @@ Dom.roles.draggable = Draggable;
 
 /**
  * 初始化指定的元素为可拖动对象。
- * @param {Object} options 拖动的相关属性。
+ * @param {Object} [options] 拖动的相关配置。可用的字段有：
  * 
- * - handle: 拖动的句柄元素。
- * - dragDelay: 从鼠标按下到开始拖动的延时。
- * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
+ * * @param {Dom} handle 拖动的句柄元素。
+ * * @param {Dom} proxy 拖动的代理元素。
+ * * @param {Number} dragDelay 从鼠标按下到开始拖动的延时。
+ * * @param {Function} onDragStart 设置拖动开始时的回调。
+ * * @param {Function} onDragMove 设置拖动移动时的回调。
+ * * @param {Function} onDragEnd 设置拖动结束时的回调。
+ * 
+ * @returns {Draggable} 返回一个可拖动对象。
+ * @example $("#elem1").draggable();
  */
 Dom.prototype.draggable = function (options) {
     return this.role('draggable', options);

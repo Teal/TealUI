@@ -9,6 +9,8 @@
  * 创建一个新的可拖放区域。
  * @param {Element} elem 要拖放的元素。
  * @param {Object} options 用户覆盖可拖动对象的配置。
+ * @class
+ * @inner
  */
 function Droppable(elem, options) {
 
@@ -25,6 +27,7 @@ function Droppable(elem, options) {
 
 /**
  * 存储所有拖放区域实例的数组。
+ * @inner
  */
 Droppable.instances = [];
 
@@ -196,13 +199,18 @@ Draggable.prototype.dragEnd = function (e) {
 Dom.roles.droppable = Droppable;
 
 /**
- * 初始化指定的元素为可拖动对象。
- * @param {Object} options 拖动的相关属性。
+ * 初始化指定的元素为可拖放对象。
+ * @param {Object} [options] 拖放的相关属性。可用的字段有：
  * 
- * - handle: 拖动的句柄元素。
- * - dragDelay: 从鼠标按下到开始拖动的延时。
- * - autoSrcoll: 设置是否自动滚动屏幕。
- * - onDragStart/onDragMove/onDragEnd: 设置拖动开始/移动/结束时的回调。
+ * * @param {Dom} handle 拖动的句柄元素。
+ * * @param {Dom} proxy 拖动的代理元素。
+ * * @param {Number} dragDelay 从鼠标按下到开始拖动的延时。
+ * * @param {Function} onDragEnter: 设置拖动进入时的回调。
+ * * @param {Function} onDragLeave 设置拖动移动移出时的回调。
+ * * @param {Function} onDrop 设置拖放结束时的回调。
+ * 
+ * @returns {Draggable} 返回一个可拖放对象。
+ * @example $("#elem1").droppable();
  */
 Dom.prototype.droppable = function (options) {
    return this.role('droppable', options);
