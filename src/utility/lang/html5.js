@@ -168,30 +168,6 @@ var Document = Document || HTMLDocument;
         setter && obj.__defineSetter__(propName, setter);
     }
 
-    if (!ep.matches) {
-
-        /**
-         * 判断当前节点是否匹配指定的选择器。
-         * @param {String} selector 要判断的选择器。
-         * @returns {Boolean} 如果匹配则返回 @true，否则返回 @false。
-         * @example document.body.matches("body")
-         * @memberOf Element.prototype
-         * @since ES5
-         */
-        ep.matches = ep.matchesSelector || ep.webkitMatchesSelector || ep.msMatchesSelector || ep.mozMatchesSelector || ep.oMatchesSelector || function (selector) {
-            var parent = this.parentNode,
-                tempParent = !parent && this.ownerDocument.body;
-            tempParent && tempParent.appendChild(this);
-            try {
-                return Array.prototype.indexOf.call(parent.querySelectorAll(selector), this) >= 0;
-            } finally {
-                tempParent && tempParent.removeChild(this);
-            }
-        };
-        dp.matches = function () { return false; };
-
-    }
-
     if (!ep.contains) {
 
         /**

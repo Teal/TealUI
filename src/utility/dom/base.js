@@ -112,6 +112,33 @@ Dom.data = function (elem) {
 };
 
 /**
+ * 判断指定节点是否匹配指定的选择器。
+ * @param {String} selector 要判断的选择器。
+ * @returns {Boolean} 如果匹配则返回 @true，否则返回 @false。
+ * @example Dom.matches(document.body, "body")
+ */
+Dom.matches = function (node, selector) {
+
+    var nativeMatcher = node.matchesSelector || node.webkitMatchesSelector || node.msMatchesSelector || node.mozMatchesSelector || node.oMatchesSelector;
+    if (nativeMatcher) {
+        return nativeMatcher.call(node, selector);
+    }
+
+    if (!node.ownerDocument) {
+        return false;
+    }
+
+    var parent = node.parentNode,
+        tempParent = !parent && node.ownerDocument.body;
+    tempParent && tempParent.appendChild(node);
+    try {
+        return Array.prototype.indexOf.call(parent.querySelectorAll(selector), node) >= 0;
+    } finally {
+        tempParent && tempParent.removeChild(node);
+    }
+};
+
+/**
  * 获取指定节点及父节点对象中第一个满足指定 CSS 选择器或函数的节点。
  * @param {Node} node 节点。
  * @param {String} selector 用于判断的元素的 CSS 选择器。
@@ -121,7 +148,7 @@ Dom.data = function (elem) {
  * @inner
  */
 Dom.closest = function (node, selector, context) {
-    while (node && node !== context && !node.matches(selector)) {
+    while (node && node !== context && !Dom.matches(node, selector)) {
         node = node.parentNode;
     }
     return node;
@@ -569,7 +596,7 @@ Dom.List.prototype = Dom.prototype = {
     filter: function (selector, scope, not) {
         not = not || false;
         return selector ? this.map(function (node) {
-            return (selector.constructor === Function ? selector.call(scope, node, i, this) !== false : node.matches(selector)) !== not && node;
+            return (selector.constructor === Function ? selector.call(scope, node, i, this) !== false : Dom.matches(node, selector)) !== not && node;
         }, this) : this;
     },
 
@@ -613,7 +640,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").is("div")
      */
     is: function (selector) {
-        return this[0] && this[0].matches(selector);
+        return this[0] && Dom.matches(this[0], selector);
     },
 
     // #endregion
@@ -1489,33 +1516,38 @@ Dom.List.prototype = Dom.prototype = {
     show: function (fxName, callback, duration, ease) {
         fxName = Dom.toggleFx[fxName];
         return this.each(function (elem) {
+            if (Dom.css(elem, "display") === "none") {
 
-            // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
-            elem.style.display = "";
+                // 普通元素 设置为 空， 因为我们不知道这个元素本来的 display 是 inline 还是 block
+                elem.style.display = "";
 
-            // 如果元素的 display 仍然为 none , 说明通过 CSS 实现的隐藏。这里默认将元素恢复为 block。
-            if (Dom.css(elem, "display") === 'none') {
-                var defaultDisplay = elem.style.defaultDisplay;
-                if (!defaultDisplay) {
-                    defaultDisplay = (Dom._defaultDisplay || (Dom._defaultDisplay = {}))[elem.nodeName];
+                // 如果元素的 display 仍然为 none , 说明通过 CSS 实现的隐藏。这里默认将元素恢复为 block。
+                if (Dom.css(elem, "display") === "none") {
+                    var defaultDisplay = elem.style.defaultDisplay;
                     if (!defaultDisplay) {
-                        var tmp = document.createElement(elem.nodeName);
-                        document.body.appendChild(tmp);
-                        defaultDisplay = Dom.css(tmp, "display");
-                        if (defaultDisplay === "none") {
-                            defaultDisplay = "block";
+                        defaultDisplay = (Dom._defaultDisplay || (Dom._defaultDisplay = {}))[elem.nodeName];
+                        if (!defaultDisplay) {
+                            var tmp = document.createElement(elem.nodeName);
+                            document.body.appendChild(tmp);
+                            defaultDisplay = Dom.css(tmp, "display");
+                            if (defaultDisplay === "none") {
+                                defaultDisplay = "block";
+                            }
+                            defaultDisplay[elem.nodeName] = defaultDisplay;
+                            document.body.removeChild(tmp);
                         }
-                        defaultDisplay[elem.nodeName] = defaultDisplay;
-                        document.body.removeChild(tmp);
                     }
+                    elem.style.display = defaultDisplay;
                 }
-                elem.style.display = defaultDisplay;
-            }
 
-            // 执行特效。
-            if (fxName) {
-                delete elem.style._animatingHide;
-                Dom(elem).animate(fxName, "auto", callback, duration, ease, true);
+                // 执行特效。
+                if (fxName) {
+                    delete elem.style._animatingHide;
+                    Dom(elem).animate(fxName, "auto", callback, duration, ease, true);
+                } else {
+                    callback && callback.call(elem, elem);
+                }
+
             } else {
                 callback && callback.call(elem, elem);
             }
@@ -1543,7 +1575,7 @@ Dom.List.prototype = Dom.prototype = {
         }
 
         return this.each(function (elem) {
-            if (fxName) {
+            if (fxName && Dom.css(elem, "display") === "none") {
                 elem.style._animatingHide = true;
                 Dom(elem).animate("auto", fxName, function (elem) {
                     delete elem.style._animatingHide;
@@ -1606,7 +1638,7 @@ Dom.List.prototype = Dom.prototype = {
         } else {
             result = new (Dom.roles[roleName] || Dom.roles.$default)(this, options);
         }
-        
+
         return result;
     },
 

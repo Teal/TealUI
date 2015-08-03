@@ -22,15 +22,24 @@ var Menu = Control.extend({
 
     init: function () {
         var me = this;
-        me.dom.on('mouseenter', 'li', function () {
-            if (this.parentNode === me.dom[0]) {
-                me.selectItem(this);
+        me.dom.on('mouseover', function (e) {
+            var item = Dom(e.target);
+            if (!item.is(".x-menu")) {
+                item = item.closest("li");
+                if (item.parent()[0] === me.dom[0]) {
+                    me.selectItem(item);
+                }
             }
         });
         if (!me.floating) {
-            Dom(document).on('mousedown', function () {
-                Dom(document).off('mousedown', arguments.callee);
-                me.hideSub();
+            Dom(document).on('mousedown', function (e) {
+                if (!me.dom.contains(e.target)) {
+                    me.hideSub();
+                } else if (Dom(e.target).is("a,li")) {
+                    setTimeout(function() {
+                        me.hideSub();
+                    }, 60);
+                }
             });
         }
     },
@@ -74,7 +83,7 @@ var Menu = Control.extend({
      * 关闭当前菜单的子菜单。
      */
     hideSub: function () {
-        var me = this;
+        var me = this; 
         if (me.subMenu) {
             me.subMenu.hide();
             me.subMenu = null;
