@@ -23,8 +23,6 @@
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
     <script type="text/javascript" src="../../control/core/base.js"></script>
 
-    <script type="text/javascript" src="../../utility/dom/animate.js"></script>
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
     <script type="text/javascript" src="../../utility/dom/drag.js"></script>
     <script type="text/javascript" src="../popup/dialog.js"></script>
     <script type="text/javascript" src="../popup/messageBox.js"></script>
@@ -40,8 +38,8 @@
     <pre>MessageBox.confirm('<em>内容</em>', '我是标题', function(){alert("点击了确定")});</pre>
     <h3>输入框</h3>
     <pre>MessageBox.prompt('请输入文字', '我是标题', function(content){alert(content)});</pre>
-    <h3>确认框</h3>
-    <pre>MessageBox.tip('发送成功。<br><em>3 秒后刷新页面...</em>', null, 3000, function(){location.reload()});</pre>
+    <h3>简单提示</h3>
+    <pre>MessageBox.toast('发送成功。<br><em>{time} 秒后刷新页面...</em>', null, 3000, function(){location.reload()});</pre>
     <h2>纯HTML实现</h2>
     <aside class="doc-demo">
         <section class="x-panel x-dialog" data-role="dialog">

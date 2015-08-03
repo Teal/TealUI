@@ -6,97 +6,113 @@
 
 /**
  * 表示一个选项卡。
+ * @class
  */
-var Tab = Control.extend({
+Control.extend({
 
     role: 'tab',
 
     init: function () {
         var me = this;
-        me.elem.on('click', '.x-tab > li', function (e) {
+
+        // 绑定 TAB 切换事件。
+        me.dom.on('click', '.x-tab > li', function (e) {
             me.selectTab(this, e);
         });
 
         // 设置初始选项卡。
-        var body = me.getBody();
-        if (body) {
-            body.style.position = 'relative';
-            NodeList.each(body.children, function(elem) {
-                elem.hide();
-            });
-            var content = body.children[me.getActivedIndex()];
-            content && content.show();
-        }
-    },
-
-    /**
-     * 模拟用户选择指定的标签页。
-     */
-    selectTab: function(tab, e) {
-        if (this.trigger('select', tab)) {
-            this.setActivedIndex(tab.getIndex());
-        }
-        return this;
+        var body = me.body().css('position', 'relative');
+        Dom(body.children().hide()[me.selectedIndex()]).show();
     },
 
     /**
      * 当被子类重写时，负责获取选项卡的主体。
+     * @protected
      */
-    getBody: function() {
-        var body = this.elem.nextElementSibling;
-        if (!body.classList.contains('x-tab-body')) {
-            body = this.elem.previousElementSibling;
-            if (!body.classList.contains('x-tab-body')) {
-                body = null;
-            }
+    body: function () {
+        var result = this.dom.next('.x-tab-body');
+        if (!result.length) {
+            result = this.dom.prev('.x-tab-body');
         }
-        return body;
+        return result;
     },
 
-    getActivedIndex: function () {
-        var actived = this.elem.querySelector('.x-tab-actived');
-        return actived ? actived.getIndex() : 0;
+    /**
+     * 当新标签被选中时触发。
+     * @param {Dom} tab 要选择的标签页。
+     * @event select
+     */
+
+    /**
+     * 当选中的标签改变时触发。
+     * @event change
+     */
+
+    /**
+     * 模拟用户选择指定的标签页。
+     * @param {Dom} tab 要选择的标签页。
+     * @param {Event} [e] 引发选择操作的原始 DOM 事件。
+     * @returns this
+     * @example $("#elem1").role("tab").selectTab($("elem1_tab_1"))
+     */
+    selectTab: function (tab, e) {
+        var me = this;
+        tab = Dom(tab);
+        return me.trigger('select', tab) ?  me.selectedIndex(tab.index()) : me;
     },
 
-    setActivedIndex: function (index) {
+    /**
+     * 获取或设置当前选项卡的选中标签索引。
+     * @param {Number} [index] 要设置的索引。
+     * @returns {mixed}
+     * @example $("#elem1").role("tab").selectedIndex(1)
+     */
+    selectedIndex: function (value) {
 
-        var oldIndex = this.getActivedIndex(), el;
-        if (oldIndex !== index) {
+        var me = this;
+
+        var oldIndex = me.dom.find('.x-tab-actived').index() || 0;
+
+        // 只获取索引。
+        if (value === undefined) {
+            return oldIndex;
+        }
+
+        // 设置索引。
+        if (oldIndex !== value) {
+
+            var children = me.dom.children();
 
             // 切换高亮标签。
-            el = this.elem.children[oldIndex];
-            el && el.classList.remove('x-tab-actived');
-
-            el = this.elem.children[index];
-            el && el.classList.add('x-tab-actived');
+            Dom(children[oldIndex]).removeClass('x-tab-actived');
+            Dom(children[value]).addClass('x-tab-actived');
 
             // 切换主体。
-            var body = this.getBody();
-            if (body) {
+            var body = me.body();
+            if (body.length) {
+                children = body.children();
 
-                if (el = body.children[oldIndex]) {
-                    el.style.position = 'absolute';
-                    var rect = el.getOffset();
-                    el.style.left = rect.left + 'px';
-                    el.style.top = rect.top + 'px';
-                    el.hide('opacity', null, 150);
+                body = Dom(children[oldIndex]).css('position', 'absolute');
+                if (body.length) {
+                    var rect = body.offset();
+                    body
+                        .css('left', rect.left)
+                        .css('top', rect.top)
+                        .hide('opacity', null, me.duration);
                 }
-
-                if (el = body.children[index]) {
-                    el.style.position = el.style.left = el.style.top = '';
-                    el.show('opacity', null, 150);
-                }
-
+                
+                Dom(children[value])
+                    .css('position', null)
+                    .css('left', null)
+                    .css('top', null)
+                    .show('opacity', null, me.duration);
+                
             }
 
-            this.trigger('change');
+            me.trigger('change');
         }
 
-        return this;
+        return me;
     }
 
 });
-
-
-
-

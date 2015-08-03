@@ -14,8 +14,6 @@ var Dialog = Control.extend({
 
     role: "dialog",
 
-	toggleDuration: 150,
-	
 	tpl: '<section class="x-panel x-dialog">\
             <header class="x-panel-header">\
                 <a class="x-closebutton x-dialog-close">×</a>\
@@ -25,45 +23,61 @@ var Dialog = Control.extend({
         </section>',
 
 	init: function () {
-        this.dom.on('click', '.x-dialog-close', this.onCloseButtonClick, this);
+	    var me = this;
+	    me.dom.on('click', '.x-dialog-close', function() {
+	        me.onCloseButtonClick();
+	    });
 
         // 如果载入了拖动模块则自动启用拖动功能。
-        this.dom.draggable && this.dom.draggable({
-            handle: this.dom.find('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5')
+	    me.dom.draggable && me.dom.draggable({
+	        handle: me.dom.find('.x-panel-header h3, .x-panel-header h4, .x-panel-header h5')
         });
 	},
 
 	show: function (mask) {
-        // 显示节点。
-	    this.dom.show('scale', null, this.toggleDuration);
-	    this.setMask(mask);
-	    return this.center();
+	    var me = this;
+	    if (!Dom("body").contains(me.dom)) {
+	        Dom("body").append(me.dom);
+	    }
+	    if (me.dom.isHidden()) {
+	        // 显示节点。
+	        me.dom.show('scale', null, me.duration);
+	        me.mask(mask);
+	    }
+	    return me.center();
 	},
 
 	close: function () {
 	    var me = this;
 	    if (me.trigger('closing')) {
-	        me.setMask(null);
+	        me.mask(null);
 	        me.dom.hide('scale', function () {
 	            me.dom.remove();
 	            me.trigger('close');
-	        }, me.toggleDuration);
+	        }, me.duration);
 	    }
-	    return this;
+	    return me;
 	},
 
-	setMask: function (opacity) {
+	mask: function (opacity) {
+	    var me = this;
+	    var maskDom = me.maskDom;
 	    if (opacity === null) {
-	        this.maskDom && this.maskDom.hide('opacity', function () {
-	            Dom(this).remove();
-	        }, this.toggleDuration);
+	        maskDom.hide('opacity', function () {
+	            Dom(me).remove();
+	        }, me.duration);
 	    } else {
-	        var maskDom = this.maskDom || (this.maskDom = Dom(document.body).append('<div class="x-mask x-mask-dialog"></div>'));
-	        maskDom.animate({ opacity: 0 }, {
+	        if (!maskDom) {
+	            me.maskDom = maskDom = Dom('<div class="x-mask x-mask-dialog"></div>');
+	        }
+	        if (!Dom("body").contains(maskDom)) {
+	            Dom("body").append(maskDom);
+	        }
+	        maskDom.show().animate({ opacity: 0 }, {
 	            opacity: opacity === undefined ? .5 : opacity
-	        }, null, this.toggleDuration);
+	        }, null, me.duration);
 	    }
-		return this;
+	    return me;
 	},
 	
 	removeCloseButton: function () {

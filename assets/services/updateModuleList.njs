@@ -155,6 +155,7 @@ function generateModuleList() {
                         return;
                     }
                 }
+
             }
 
             // 如果没有合理位置则插入到末尾。
@@ -174,14 +175,23 @@ function generateModuleList() {
     function walkList(parent, result) {
         var level = 0;
         for (var i = 0; i < parent.length; i++) {
-            result[parent[i].path] = parent[i];
-            if (parent[i].children) {
-                parent[i].childCount = parent[i].children.length;
-                parent[i].level = walkList(parent[i].children, result) + 1;
-                level = Math.max(level, parent[i].level);
+            var item = parent[i];
+            result[item.path] = item;
+            if (item.children) {
+                item.childCount = item.children.length;
+                item.level = walkList(item.children, result) + 1;
+                level = Math.max(level, item.level);
             }
-            delete parent[i].parent;
-            delete parent[i].children;
+            delete item.order;
+            delete item.parent;
+            delete item.children;
+            delete item.path;
+            if (!item.keywords) {
+                delete item.keywords;
+            }
+            if (item.status === "done") {
+                delete item.status;
+            }
         }
         delete result["index.html"];
         return level;

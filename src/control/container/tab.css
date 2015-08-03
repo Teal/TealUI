@@ -14,7 +14,7 @@
 .x-tab li {
   list-style: none;
   float: left;
-  margin: 0 0 -1px 0;
+  margin: 0 0 -0.8px 0;
 }
 .x-tab li:first-child a {
   border-top-left-radius: 4px;

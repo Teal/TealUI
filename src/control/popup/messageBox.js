@@ -10,15 +10,15 @@ var MessageBox = Dialog.extend({
         this.cancel();
     },
 
-	onOk: function () {
-		return this.trigger('ok');
-	},
+    onOk: function () {
+        return this.trigger('ok');
+    },
 
-	onCancel: function () {
-		return this.trigger('cancel');
-	},
+    onCancel: function () {
+        return this.trigger('cancel');
+    },
 
-    ok: function(){
+    ok: function () {
         if (this.onOk() !== false) {
             this.close();
         }
@@ -30,13 +30,14 @@ var MessageBox = Dialog.extend({
         }
     },
 
-    setIcon: function (value) {
-        var body = this.elem.querySelector('.x-panel-body');
-        if (value == null) {
-            body.className = body.className.replace(/x-dialog-icon(-\w+)?/g, '');
-        } else {
-            body.classList.add('x-dialog-icon');
-            body.classList.add('x-dialog-icon-' + value);
+    icon: function (value) {
+        var body = this.dom.find('.x-panel-body');
+        if (value != null) {
+            body
+                .addClass('x-dialog-icon')
+                .addClass('x-dialog-icon-' + value);
+        } else if (body[0]) {
+            body[0].className = body[0].className.replace(/x-dialog-icon(-\w+)?/g, '');
         }
         return this;
     },
@@ -48,45 +49,41 @@ var MessageBox = Dialog.extend({
 	 * {文字： false} ->  取消按钮
 	 * {文字： func} ->  自定义按钮
 	 */
-    setButtons: function (options) {
+    buttons: function (options) {
 
-        var buttons = this.elem.querySelector('.x-dialog-buttons'),
-            key,
-            value,
-            button;
+        var me = this;
+        var buttons = me.dom.find('.x-dialog-buttons');
 
-        if (options == null) {
-            buttons && buttons.removeSelf();
-        } else {
-            buttons = buttons || this.elem.append('<div class="x-dialog-buttons"></div>');
+        if (options != null) {
+            if (!buttons.length) {
+                buttons = me.dom.append('<div class="x-dialog-buttons"></div>');
+            }
 
             // 清空节点。
-            while (buttons.firstChild) {
-                buttons.removeChild(buttons.firstChild);
-            }
+            buttons.html('');
 
-            for (key in options) {
-                value = options[key];
-                button = buttons.append('<button class="x-button' + (value === true ? ' x-button-primary' : '') + '"></button>');
-                button.textContent = key;
-
-                button.on('click', value === true ?this.ok: value === false ? this.cancel : (value || this.close)  , this);
+            for (var key in options) {
+                var value = options[key];
+                buttons.append('<button class="x-button' + (value === true ? ' x-button-primary' : '') + '"></button>')
+                    .text(key)
+                    .on('click', value === true ? this.ok : value === false ? this.cancel : (value || this.close), this);
                 buttons.append('  ');
             }
-
+        } else {
+            buttons.remove();
         }
 
-        return this;
+        return me;
     }
 
 });
 
 MessageBox.show = function (content, title, buttons, icon, onOk, onCancel) {
     var messageBox = new MessageBox()
-        .setContent(content)
-        .setTitle(title || "提示")
-        .setIcon(icon)
-        .setButtons(buttons || { '确定': false })
+        .content(content || null)
+        .title(title || "提示")
+        .icon(icon || null)
+        .buttons(buttons || { '确定': false })
         .show();
     onOk && messageBox.on('ok', onOk);
     onCancel && messageBox.on('cancel', onCancel);
@@ -98,34 +95,42 @@ MessageBox.alert = function (content, title, onOk) {
 };
 
 MessageBox.confirm = function (content, title, onOk, onCancel) {
-	return MessageBox.show(content, title, {
-		    '确定': true,
-		    '取消': false
-	}, 'confirm', onOk, onCancel);
+    return MessageBox.show(content, title, {
+        '确定': true,
+        '取消': false
+    }, 'confirm', onOk, onCancel);
 };
 
 MessageBox.prompt = function (content, title, onOk, onCancel) {
     var messageBox = MessageBox.show('<input type="text" class="x-textbox">', title, {
         '确定': true,
         '取消': false
-    }, null, function() {
-        onOk && onOk.call(this, this.elem.querySelector('.x-panel-body .x-textbox').value);
+    }, null, function () {
+        onOk && onOk.call(this, this.dom.find('.x-panel-body .x-textbox').text());
     }, onCancel);
-    messageBox.elem.querySelector('.x-panel-body .x-textbox').value = content || '';
+    messageBox.dom.find('.x-panel-body .x-textbox').val(content);
     return messageBox;
 };
 
-MessageBox.tip = function (content, icon, timeout, callback) {
+MessageBox.toast = function (content, icon, timeout, callback) {
 
     var messageBox = new MessageBox();
-    messageBox.elem.querySelector('.x-panel-header').removeSelf();
-    messageBox.setContent(content).setIcon(icon).show();
-    messageBox.timer = setTimeout(function(){
-    	messageBox.close();
-    	if(callback){
-    		callback.call(messageBox);
-    	}
-    }, timeout || 3000);
+    messageBox.dom.find('.x-panel-header').remove();
+    messageBox.content(content).icon(icon).show();
+    timeout = timeout || 3000;
+    messageBox.timer = setTimeout(function () {
+        clearInterval(messageBox.updater);
+        messageBox.close();
+        if (callback) {
+            callback.call(messageBox);
+        }
+    }, timeout);
+    if (~content.indexOf("{time}")) {
+        var counter = Math.floor(timeout / 1000);
+        messageBox.updater = setInterval(function () {
+            messageBox.content(content.replace("{time}", counter--));
+        });
+    }
 
     return messageBox;
 };

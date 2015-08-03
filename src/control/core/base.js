@@ -14,13 +14,6 @@
 var Control = Dom.roles.$default = Base.extend({
 
     /**
-	 * 获取当前控件对应的 DOM 对象。
-	 * @type {Dom}
-	 * @example $("#elem1").role().dom.html()
-	 */
-    dom: null,
-
-    /**
      * 获取当前组件的角色。
      * @type {String}
      * @example alert($("#elem1").role().role)
@@ -29,12 +22,16 @@ var Control = Dom.roles.$default = Base.extend({
     role: "control",
 
     /**
-	 * 当被子类重写时，负责初始化当前控件。
-	 * @protected
-	 * @virtual
-     * @inner
+	 * 获取当前控件对应的 DOM 对象。
+	 * @type {Dom}
+	 * @example $("#elem1").role().dom.html()
 	 */
-    init: function () { },
+    dom: null,
+
+    /**
+     * 当前组件涉及动画的特效时间。如果值为 0 则不使用特效。 
+     */
+    duration: 150,
 
     /**
      * 当前组件的初始化模板。
@@ -53,7 +50,7 @@ var Control = Dom.roles.$default = Base.extend({
             Dom(document.body).append(result);
         } else {
             Dom(function () {
-                if (!result.closest("body")) {
+                if (!Dom("body").contains(result)) {
                     Dom("body").append(result);
                 }
             });
@@ -62,13 +59,21 @@ var Control = Dom.roles.$default = Base.extend({
     },
 
     /**
+	 * 当被子类重写时，负责初始化当前控件。
+	 * @protected
+	 * @virtual
+     * @inner
+	 */
+    init: function () { },
+
+    /**
 	 * 初始化一个新的控件。
 	 * @param {Dom} dom 绑定当前控件的节点。
 	 * @param {Object} [options] 初始化控件的相关选项。
 	 * @constructor
      * @example new Control("#id")
 	 */
-    constructor: function control(dom, options) {
+    constructor: function (dom, options) {
 
         // 创建 DOM 节点。
         dom = Dom(dom);
@@ -140,6 +145,10 @@ var Control = Dom.roles.$default = Base.extend({
         for (var key in opt) {
             this[key](opt[key]);
         }
+    },
+
+    toString: function() {
+        return this.role;
     }
 
 });
@@ -165,6 +174,6 @@ Control.extend = function (prototype) {
 };
 
 // 默认初始化一次页面全部组件。
-Dom(function () {
-    Dom("[data-role]").role();
+Dom.ready(function () {
+    Dom.find("[data-role]").role();
 });

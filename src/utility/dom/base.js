@@ -23,7 +23,10 @@
  * @class
  */
 function Dom(selector, context) {
-    return new Dom.List(selector || 0, context || document);
+    selector = selector || 0;
+    return selector.constructor === String ?
+        /^</.test(selector) ? Dom.parse(selector, context) : Dom.find(selector, context) :
+        selector.constructor === Function ? Dom.ready(selector, context) : new Dom.List(selector);
 }
 
 /**
@@ -33,31 +36,62 @@ function Dom(selector, context) {
  * @returns {Dom} 返回匹配的节点列表。
  * @inner
  */
-Dom.List = function (selector, context) {
-
-    // 解析 HTML 或执行 CSS 选择器
-    if (selector.constructor === String) {
-        if (/^</.test(selector)) {
-            context = context === document ? Dom._parseContainer || (Dom._parseContainer = context.createElement('div')) : context.createElement('div');
-            context.innerHTML = selector;
-            selector = context.childNodes;
-        } else {
-            selector = context.querySelectorAll(selector);
+Dom.List = function (items) {
+    var me = this;
+    // 特殊处理 Node 或 window。
+    if (items.nodeType || items.document) {
+        me[me.length++] = items;
+    } else {
+        for (var i = 0, node; (node = items[i]) ; i++) {
+            me[me.length++] = node;
         }
-        // 支持 DOM Ready
-    } else if (selector.constructor === Function) {
-        if (/complete|loaded|interactive/.test(context.readyState) && context.body) {
-            selector.call(context);
-        } else {
-            /*@cc_on if(!+"\v1") {
-            return setTimeout(function() {Dom.List (selector, context);}, 14);
-            } @*/
-            context.addEventListener('DOMContentLoaded', selector, false);
-        }
-        return;
     }
+};
 
-    this.add(selector);
+/**
+ * 查询 CSS 选择器匹配的所有节点。
+ * @param {String} selector 要执行的 CSS 选择器。
+ * @param {Document} context 执行的上下文文档。
+ * @returns {Dom} 返回匹配的节点列表。
+ * @inner
+ */
+Dom.find = function (selector, context) {
+    return new Dom.List((context || document).querySelectorAll(selector));
+};
+
+/**
+ * 解析一个 HTML 片段并生成节点。
+ * @param {String} selector HTML 字符串。
+ * @param {Document} context 执行的上下文文档。
+ * @returns {Dom} 返回匹配的节点列表。
+ * @inner
+ */
+Dom.parse = function (html, context) {
+    if (typeof html === "object") {
+        return new Dom.List(html);
+    }
+    context = context || document;
+    context = context === document ? Dom._parseContainer || (Dom._parseContainer = context.createElement('div')) : context.createElement('div');
+    context.innerHTML = html;
+    return new Dom.List(context.childNodes);
+};
+
+/**
+ * 绑定一个 DOM Ready 回调。
+ * @param {Function} callback 要执行的 DOM Ready 回调。
+ * @param {Document} context 执行的上下文文档。
+ * @inner
+ */
+Dom.ready = function (callback, context) {
+    context = context || document;
+    if (/complete|loaded|interactive/.test(context.readyState) && context.body) {
+        callback.call(context);
+    } else {
+        /*@cc_on if(!+"\v1") {
+        return setTimeout(function() {Dom.ready (callback, context);}, 14);
+        } @*/
+        context.addEventListener('DOMContentLoaded', callback, false);
+    }
 };
 
 // #endregion
@@ -469,15 +503,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").add(document.body)
      */
     add: function (item) {
-        if (item) {
-            if (item.nodeType || item.document) {
-                this[this.length++] = item;
-            } else {
-                for (var i = 0, node; (node = item[i]); i++) {
-                    this[this.length++] = node;
-                }
-            }
-        }
+        item && Dom.List.call(this, item);
         return this;
     },
 
@@ -521,7 +547,7 @@ Dom.List.prototype = Dom.prototype = {
      */
     map: function (callback, scope) {
         var newDom = Dom();
-        for (var i = 0, node; (node = this[i]); i++) {
+        for (var i = 0, node; (node = this[i]) ; i++) {
             newDom.add(callback.call(scope, node, i, this));
         }
         return newDom;
@@ -887,6 +913,17 @@ Dom.List.prototype = Dom.prototype = {
     //},
 
     /**
+     * 判断第一个节点是否包含指定的子节点。
+     * @param {Dom} child 要判断的子节点。
+     * @returns {Boolean} 如果当前节点是 @child 或包含 @child，则返回 @true，否则返回 @false。
+     * @example  $("body").contains("#elem")
+     */
+    contains: function (child) {
+        child = Dom(child)[0];
+        return child && this[0] && this[0].contains(child);
+    },
+
+    /**
      * 插入一段 HTML 到末尾。
      * @param {String} html 要插入的内容。
      * @returns {Dom} 返回插入的新节点对象。
@@ -894,7 +931,7 @@ Dom.List.prototype = Dom.prototype = {
      */
     append: function (html) {
         var parent = this[0];
-        return Dom(html, parent && parent.ownerDocument).each(function (node) {
+        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
             parent.appendChild(node);
         });
     },
@@ -907,7 +944,7 @@ Dom.List.prototype = Dom.prototype = {
      */
     prepend: function (html) {
         var parent = this[0], c = parent.firstChild;
-        return Dom(html, parent && parent.ownerDocument).each(function (node) {
+        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
             parent.insertBefore(node, c);
         });
     },
@@ -920,7 +957,7 @@ Dom.List.prototype = Dom.prototype = {
      */
     before: function (html) {
         var parent = this[0];
-        return Dom(html, parent && parent.ownerDocument).each(function (node) {
+        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
             parent && parent.parentNode.insertBefore(node, parent);
         });
     },

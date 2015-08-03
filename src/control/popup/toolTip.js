@@ -11,6 +11,8 @@
  */
 var ToolTip = Popover.extend({
 
+    role: "toolTip",
+
     /**
      * 触发当前浮层显示的事件。可能的值为：
      * - "mouseover" 鼠标移上后显示。
@@ -38,51 +40,36 @@ var ToolTip = Popover.extend({
     pinAlign: 'bl',
 
     /**
+     * 自动从目标节点读取内容。
+     */
+    autoUpdate: false,
+
+    /**
      * 初始化当前控件。
      * @inner
      */
-    init: function(options) {
-        Popover.prototype.init.call(this, options);
+    init: function() {
+        Popover.prototype.init.call(this);
         this.dom.on('click', '.x-closebutton', this.hide, this);
     },
 
-    /**
-     * 设置某个控件的工具提示为当前工具提示。
-     * @param {Dom} targets 要设置的目标节点。
-     */
-    setToolTip: function(targets) {
+    onShow: function () {
         var me = this;
-        Dom(targets).each(function (target) {
-
-        });
-        NodeList.each(document.queryAll(targets), function(target) {
-
-            target.hover(function(e) {
-
-                me.target = target;
-
-                // 根据目标节点的 data-title 自动绑定当前节点的属性。
-                var title = target.getAttribute('data-title');
-                if (title) {
-                    var arrow = me.elem.queryChild('.x-arrow');
-                    me.elem.innerHTML = title;
-                    me.elem.prepend(arrow);
-                }
-
-                // 显示工具提示。
-                me.show(e);
-            }, me.hide, me.initialDelay, me);
-        });
-        return me;
+        if (me.autoUpdate) {
+            var title = me.target.attr('data-title');
+            if (title) {
+                var arrow = me.dom.find('.x-arrow');
+                me.dom.html(title).prepend(arrow);
+            }
+        }
     }
 
 });
 
-document.ready(function() {
+Dom.ready(function() {
     // 初始化所有 [data-title] 节点。
-    var domNeedToolTip = document.querySelectorAll('[data-title]');
+    var domNeedToolTip = Dom.find('[data-title]');
     if (domNeedToolTip.length) {
-        ToolTip.global = Control.get(document.body.append('<span class="x-tooltip"><span class="x-arrow x-arrow-bottom"></span></span>'), 'toolTip', { target: null }).setToolTip(domNeedToolTip);
+        ToolTip.global = Dom(document.body).append('<span class="x-tooltip"><span class="x-arrow x-arrow-bottom"></span></span>').role('toolTip', { target: domNeedToolTip, autoUpdate: true, pinEvent: false });
     }
-
 });
