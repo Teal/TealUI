@@ -168,27 +168,6 @@ var Document = Document || HTMLDocument;
         setter && obj.__defineSetter__(propName, setter);
     }
 
-    if (!ep.contains) {
-
-        /**
-         * 判断当前节点是否包含指定的子节点。
-         * @param {Node} node 要判断的子节点。
-         * @returns {Boolean} 如果指定节点是当前节点或其子节点则返回 @true，否则返回 @false。
-         * @example document.body.contains(document.body)
-         * @memberOf Node.prototype
-         * @since ES5
-         */
-        dp.contains = ep.contains = function (node) {
-            for (; node; node = node.parentNode) {
-                if (node === this) {
-                    return true;
-                }
-            }
-            return false;
-        };
-
-    }
-
     if (!('firstElementChild' in ep)) {
 
         /**

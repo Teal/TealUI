@@ -55,6 +55,8 @@ Dom.List = function (items) {
  * @inner
  */
 Dom.find = function (selector, context) {
+    window.console && console.assert(typeof selector === "string", "Dom.find(selector: 必须是字符串, [context])");
+    window.console && console.assert(!context || context.querySelectorAll, "Dom.find(selector, [context: 必须是节点])");
     return new Dom.List((context || document).querySelectorAll(selector));
 };
 
@@ -68,6 +70,7 @@ Dom.find = function (selector, context) {
 Dom.parse = function (html, context) {
     if (html && html.constructor === String) {
         context = context || document;
+        window.console && console.assert(context.createElement, "Dom.parse(selector, [context: 必须是文档])");
 
         // 首次解析。
         var parseFix = Dom._parseFix;
@@ -97,7 +100,7 @@ Dom.parse = function (html, context) {
         tag = tag && parseFix[tag[1].toLowerCase()];
 
         // IE6-8: 必须为 HTML 追加文本才能正常解析。
-        /**@cc_on if(!+"\v1" && !tag) { tag = [1, "$<div>", "</div>"] } @*/
+        /**@cc_on if(!+"\v1" && !tag) { tag = [1, "$<div>", "</div>"]; } @*/
 
         if (tag) {
             context.innerHTML = tag[1] + html + tag[2];
@@ -121,6 +124,8 @@ Dom.parse = function (html, context) {
  * @inner
  */
 Dom.ready = function (callback, context) {
+    window.console && console.assert(callback instanceof Function, "Dom.ready(callback: 必须是函数, [context])");
+    window.console && console.assert(!context || context.createElement, "Dom.ready(callback, [context: 必须是文档])");
     context = context || document;
     if (/complete|loaded|interactive/.test(context.readyState) && context.body) {
         callback.call(context);
@@ -139,14 +144,17 @@ Dom.ready = function (callback, context) {
 /**
  * 获取指定节点的数据容器。
  * @param {Element} elem 节点。
+ * @param {String} fieldName 要获取的字段名。
  * @returns {Object} 返回存储数据的字段。
- * @example Dom.data(document.getElementById('elem'))
+ * @example Dom.data(document.getElementById('elem'), "custom")
  * @inner
  */
-Dom.data = function (elem) {
-    var datas = Dom._datas || (Dom._datas = {}),
-        id = elem.__dataId__ || (elem.__dataId__ = Dom._dataId = Dom._dataId + 1 || 1);
-    return datas[id] || (datas[id] = {});
+Dom.data = function (elem, fieldName) {
+    window.console && console.assert(elem, "Dom.data(elem: 不能为空, fieldName)");
+    var datas = Dom._datas || (Dom._datas = {});
+    var id = elem.__dataId__ || (elem.__dataId__ = Dom._dataId = Dom._dataId + 1 || 1);
+    datas = datas[id] || (datas[id] = {});
+    return datas[fieldName] || (datas[fieldName] = {});
 };
 
 /**
@@ -159,7 +167,8 @@ Dom.data = function (elem) {
  */
 Dom.matches = function (node, selector) {
 
-    window.console && console.assert(node, "Dom.matches(null, ...)");
+    window.console && console.assert(node, "Dom.matches(node: 不能为空, selector)");
+    window.console && console.assert(typeof selector === "string", "Dom.matches(node, selector: 必须是字符串)");
 
     // 只对元素判断。
     if (node.nodeType !== 1) {
@@ -184,11 +193,34 @@ Dom.matches = function (node, selector) {
 };
 
 /**
- * 获取指定节点及父节点对象中第一个满足指定 CSS 选择器或函数的节点。
- * @param {Node} node 节点。
- * @param {String} selector 用于判断的元素的 CSS 选择器。
- * @param {Node} [context=document] 只在指定的节点内搜索此元素。
- * @returns {Node} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。如果不存在，则返回 null 。
+ * 判断指定节点是否包含另一个节点。
+ * @param {Node} node 要判断的节点。
+ * @param {Node} child 要判断的子节点。
+ * @returns {Boolean} 如果 @child 是 @node 或其子节点则返回 @true，否则返回 @false。
+ * @example Dom.contains(document.body, document.body)
+ * @memberOf Node.prototype
+ * @since ES5
+ */
+Dom.contains = function (node, child) {
+    window.console && console.assert(node, "Dom.contains(node: 必须是节点, child)");
+    window.console && console.assert(!child || child.parentNode, "Dom.contains(node, child: 必须是节点)");
+    if (node.contains) {
+        return node.contains(child);
+    }
+    for (; child; child = child.parentNode) {
+        if (child === node) {
+            return true;
+        }
+    }
+    return false;
+};
+
+/**
+ * 获取指定节点及其父节点中第一个匹配指定 CSS 选择器的节点。
+ * @param {Node} node 要判断的节点。
+ * @param {String} selector 要匹配的 CSS 选择器。
+ * @param {Node} [context=document] 指定搜索的限定范围，只在指定的节点内搜索。
+ * @returns {Node} 如果 @node 匹配 @selector，则返回 @node，否则返回 @node 第一个匹配的父节点对象。如果全部不匹配则返回 @null。
  * @example Dom.closest(document.getElementById('elem'), 'body')
  * @inner
  */
@@ -200,14 +232,16 @@ Dom.closest = function (node, selector, context) {
 };
 
 /**
- * 为 CSS 属性添加浏览器后缀。
- * @param {Element} elem 要获取的元素。
+ * 为指定的 CSS 属性添加当前浏览器特定的后缀（如 webkit-)。
+ * @param {Element} elem 要处理的元素。
  * @param {String} cssPropertyName 要处理的 CSS 属性名。
  * @returns {String} 返回已加后缀的 CSS 属性名。
  * @example Dom.vendor(document.getElementById('elem'), 'transform')
  * @inner
  */
 Dom.vendor = function (elem, cssPropertyName) {
+    window.console && console.assert(elem.style, "Dom.vendor(elem: 必须是元素, cssPropertyName)");
+    window.console && console.assert(typeof cssPropertyName === "string", "Dom.vendor(elem, cssPropertyName: 必须是字符串)");
     if (!(cssPropertyName in elem.style)) {
         var capName = cssPropertyName.charAt(0).toUpperCase() + cssPropertyName.slice(1);
         for (var prefix in { webkit: 1, Moz: 1, ms: 1, O: 1 }) {
@@ -220,34 +254,18 @@ Dom.vendor = function (elem, cssPropertyName) {
 };
 
 /**
- * 不需要单位的数字 css 属性。
- * @inner
- */
-Dom.styleNumbers = {
-    columnCount: 1,
-    fillOpacity: 1,
-    flexGrow: 1,
-    flexShrink: 1,
-    fontWeight: 1,
-    lineHeight: 1,
-    opacity: 1,
-    order: 1,
-    orphans: 1,
-    widows: 1,
-    zIndex: 1,
-    zoom: 1
-};
-
-/**
  * 获取或设置节点的当前 CSS 属性值。
  * @param {Element} elem 要获取或设置的元素。
- * @param {String} name cssPropertyName 属性名或 CSS 字符串。
- * @param {String/Number} [value] CSS属性值， 数字如果不加单位，则会自动添加像素单位。
- * @returns {String} 返回值。
+ * @param {String} cssPropertyName 要获取或设置的 CSS 属性名。属性名必须使用骆驼规则。
+ * @param {mixed} [value] 要设置的 CSS 属性值，数字会自动追加像素单位。留空则不设置值。
+ * @returns {String} 如果 @value 为 @undefined 则返回 CSS 属性值。否则不返回。
  * @example Dom.css(document.getElementById('elem'), 'fontSize')
  * @inner
  */
 Dom.css = function (elem, cssPropertyName, value) {
+
+    window.console && console.assert(elem.style, "Dom.css(elem: 必须是元素, cssPropertyName, [value])");
+    window.console && console.assert(!/-/.test(cssPropertyName), "Dom.css(elem, cssPropertyName: CSS 属性名必须使用骆驼规则(如将 font-size 改成 fontSize), [value])");
 
     /*@cc_on if(!+"\v1") {
 
@@ -339,7 +357,7 @@ Dom.css = function (elem, cssPropertyName, value) {
     }
 
     // 自动追加像素单位。
-    if (value && value.constructor === Number && !(cssPropertyName in Dom.styleNumbers)) {
+    if (value && value.constructor === Number && !/^(columnCount|fillOpacity|flexGrow|flexShrink|fontWeight|lineHeight|opacity|order|orphans|widows|zIndex|zoom)$/.test(cssPropertyName)) {
         value += 'px';
     }
 
@@ -356,168 +374,13 @@ Dom.css = function (elem, cssPropertyName, value) {
  * @inner
  */
 Dom.calc = function (elem, expression) {
+    window.console && console.assert(elem.style, "Dom.calc(elem: 必须是元素, expression)");
+    window.console && console.assert(typeof expression === "string", "Dom.calc(elem, expression: 必须是字符串)");
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/
     // ReSharper disable once UnusedLocals
     var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
     return eval(expression.replace(/(\w+)/g, "(parseFloat(computedStyle['$1'])||0)"));
 };
-
-// #endregion
-
-// #region @事件
-
-/**
- * 特殊事件列表。
- * @inner
- * @remark
- * 对于特殊处理的事件。每个事件都包含以下信息：
- * 
- * - bindType: 在绑定事件时映射为另一个事件。
- * - delegateType: 在绑定委托事件时映射为另一个事件。
- * - filter: 映射事件触发后判定当前事件是否有效。
- * - add: 自定义事件添加逻辑。
- * - remove: 自定义事件删除逻辑。
- */
-Dom.eventFix = (function () {
-
-    var html = document.documentElement,
-        eventFix = {
-            // mouseenter/mouseleave 事件不支持冒泡，委托时使用 mouseover/mouseout 实现。
-            mouseenter: { delegateType: "mouseover" },
-            mouseleave: { delegateType: "mouseout" },
-
-            // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
-            focus: { delegateType: "focusin" },
-            blur: { delegateType: "focusout" },
-
-            // 支持直接绑定原生事件。
-            'native:click': { bindType: "click" },
-            'native:mousedown': { bindType: 'mousedown' },
-            'native:mouseup': { bindType: 'mouseup' },
-            'native:mousemove': { bindType: 'mousemove' }
-        };
-
-    // 部分标准浏览器不支持 mouseenter/mouseleave 事件。
-    // 如果浏览器原生支持 mouseenter/mouseleave 则不作过滤。
-    if (!("onmouseenter" in html)) {
-        eventFix.mouseenter.filter = eventFix.mouseleave.filter = function (elem, e) {
-            return !elem.contains(e.relatedTarget);
-        };
-    }
-
-    // Firefox: 不支持 focusin/focusout 事件。
-    if (!("onfocusin" in html)) {
-        eventFix.focusin = { bindType: "focus" };
-        eventFix.focusout = { bindType: "blur" };
-        eventFix.focusin.add = eventFix.focusout.add = function (elem) {
-            elem.addEventListener(bindType, this.bindType, true);
-        };
-        eventFix.focusin.remove = eventFix.focusout.remove = function (elem) {
-            elem.removeEventListener(bindType, this.bindType, true);
-        };
-    }
-
-    // Firefox: 不支持 mousewheel 事件。
-    if (!('onmousewheel' in html)) {
-        eventFix.mousewheel = {
-            bindType: 'DOMMouseScroll',
-            filter: function (elem, e) {
-                // 修正滚轮单位。
-                e.wheelDelta = -(e.detail || 0) / 3;
-            }
-        };
-    }
-
-    // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
-    if (window.TouchEvent) {
-
-        // 让浏览器快速响应鼠标点击事件，而非等待 300ms 。
-        eventFix.mousedown = { bindType: "touchstart" };
-        eventFix.mousemove = { bindType: "touchmove" };
-        eventFix.mouseup = { bindType: "touchend" };
-        eventFix.click = {
-            bindType: "touchstart",
-            add: function (elem, eventName, eventListener) {
-                var firedInTouch = false;
-
-                elem.addEventListener(this.bindType, eventListener.proxyHandler = function (e) {
-                    if (e.changedTouches.length === 1) {
-                        var touchX = e.changedTouches[0].pageX,
-                            touchY = e.changedTouches[0].pageY;
-                        elem.addEventListener("touchend", function (e) {
-                            elem.removeEventListener("touchend", arguments.callee, true);
-                            touchX -= e.changedTouches[0].pageX;
-                            touchY -= e.changedTouches[0].pageY;
-                            if (touchX * touchX + touchY * touchY <= 25) {
-                                firedInTouch = true;
-                                return eventListener.call(elem, e);
-                            }
-                        }, true);
-                    }
-                }, false);
-
-                elem.addEventListener(eventName, eventListener.orignalHandler = function (e) {
-                    if (firedInTouch) {
-                        firedInTouch = false;
-                    } else {
-                        return eventListener.call(this, e);
-                    }
-                }, false);
-
-            }
-        };
-
-        eventFix.mousedown.filter = eventFix.mousemove.filter = eventFix.mouseup.filter = eventFix.click.filter = function (elem, e) {
-            // PC Chrome 下触摸事件的 pageX 和 pageY 始终是 0。
-            if (!e.pageX && !e.pageY && e.changedTouches && e.changedTouches.length) {
-                e.__defineGetter__("pageX", function () {
-                    return this.changedTouches[0].pageX;
-                });
-                e.__defineGetter__("pageY", function () {
-                    return this.changedTouches[0].pageY;
-                });
-                e.__defineGetter__("clientX", function () {
-                    return this.changedTouches[0].clientX;
-                });
-                e.__defineGetter__("clientY", function () {
-                    return this.changedTouches[0].clientY;
-                });
-                e.__defineGetter__("which", function () {
-                    return 1;
-                });
-            }
-        };
-
-        eventFix.mousedown.add = eventFix.mousemove.add = eventFix.mouseup.add = function (elem, eventName, eventListener) {
-
-            var firedInTouch = false;
-
-            // 绑定委托事件。
-            elem.addEventListener(this.bindType, eventListener.proxyHandler = function (e) {
-                firedInTouch = true;
-                return eventListener.call(this, e);
-            }, false);
-
-            // 绑定原事件。
-            elem.addEventListener(eventName, eventListener.orignalHandler = function (e) {
-                if (firedInTouch) {
-                    firedInTouch = false;
-                } else {
-                    return eventListener.call(this, e);
-                }
-            }, false);
-        };
-
-        eventFix.mousedown.remove = eventFix.mousemove.remove = eventFix.mouseup.remove = eventFix.click.remove = function (elem, eventName, eventListener) {
-            elem.removeEventListener(this.bindType, eventListener.proxyHandler, false);
-            elem.removeEventListener(eventName, eventListener.orignalHandler, false);
-        };
-
-    }
-
-    return eventFix;
-
-})();
 
 // #endregion
 
@@ -594,6 +457,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").each(function(elem){ console.log(elem); })
      */
     each: function (callback, scope) {
+        window.console && console.assert(callback instanceof Function, "dom.each(callback: 必须是函数, [scope])");
         for (var i = 0, node; (node = this[i]) && callback.call(scope, node, i, this) !== false; i++);
         return this;
     },
@@ -612,6 +476,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").map(function(node){return node.firstChild})
      */
     map: function (callback, scope) {
+        window.console && console.assert(callback instanceof Function, "dom.map(callback: 必须是函数, [scope])");
         var result = Dom();
         for (var i = 0, node; (node = this[i]) ; i++) {
             result.add(callback.call(scope, node, i, this));
@@ -661,6 +526,7 @@ Dom.List.prototype = Dom.prototype = {
      * 如果当前节点列表为空则返回另一个节点列表，否则返回当前节点列表。
      * @param {Dom} other 要判断的另一个节点列表。 
      * @returns {Dom} 返回一个节点列表。 
+     * @example $().or($("#elem"))
      */
     or: function (other) {
         return this.length ? this : other;
@@ -720,6 +586,176 @@ Dom.List.prototype = Dom.prototype = {
      */
     on: function (eventName, delegateSelector, eventListener, scope) {
 
+        var me = this;
+
+        var eventFix = Dom._eventFix || (Dom._eventFix = (function (html) {
+
+            // Firefox: 不支持 mouseenter/mouseleave 事件。
+            function mouseFilter(elem, e) {
+                // 基于 mouseover 和 mouseout 触发，筛选来自目标的事件。
+                // 如果浏览器原生支持 mouseenter/mouseleave，则不执行过滤。
+                return e.type.length > 9 || !Dom.contains(elem, e.relatedTarget);
+            }
+
+            var eventFix = {
+                // mouseenter/mouseleave 事件不支持冒泡，委托时使用 mouseover/mouseout 实现。
+                mouseenter: { delegate: "mouseover", filter: mouseFilter },
+                mouseleave: { delegate: "mouseout", filter: mouseFilter },
+
+                // focus/blur 事件不支持冒泡，委托时使用 foucin/foucsout 实现。
+                focus: { delegate: "focusin" },
+                blur: { delegate: "focusout" },
+
+                // 支持直接绑定原生事件。
+                'native_click': { bind: "click" },
+                'native_mousedown': { bind: 'mousedown' },
+                'native_mouseup': { bind: 'mouseup' },
+                'native_mousemove': { bind: 'mousemove' }
+            };
+
+            // Firefox: 不支持 focusin/focusout 事件。
+            if (!("onfocusin" in html)) {
+                // 基于事件捕获绑定事件模拟冒泡。
+                function focusAdd(elem) {
+                    elem.addEventListener(bind, this.bind, true);
+                }
+                function focusRemove(elem) {
+                    elem.addEventListener(bind, this.bind, true);
+                }
+                eventFix.focusin = { bind: "focus", add: focusAdd, remove: focusRemove };
+                eventFix.focusout = { bind: "blur", add: focusAdd, remove: focusRemove };
+            }
+
+            // Firefox: 不支持 mousewheel 事件。
+            if (!('onmousewheel' in html)) {
+                eventFix.mousewheel = {
+                    bind: 'DOMMouseScroll',
+                    filter: function (elem, e) {
+                        // 修正滚轮单位。
+                        e.wheelDelta = -(e.detail || 0) / 3;
+                    }
+                };
+            }
+
+            // 触屏上 mouse 相关事件太慢，改用 touch 事件模拟。
+            if (window.TouchEvent) {
+
+                function touchFilter(elem, e) {
+                    // PC Chrome: 触摸事件的 pageX 和 pageY 始终是 0。
+                    if (!e.pageX && !e.pageY && (e.changedTouches || 0).length) {
+                        e.__defineGetter__("pageX", function () {
+                            return this.changedTouches[0].pageX;
+                        });
+                        e.__defineGetter__("pageY", function () {
+                            return this.changedTouches[0].pageY;
+                        });
+                        e.__defineGetter__("clientX", function () {
+                            return this.changedTouches[0].clientX;
+                        });
+                        e.__defineGetter__("clientY", function () {
+                            return this.changedTouches[0].clientY;
+                        });
+                        e.__defineGetter__("which", function () {
+                            return 1;
+                        });
+                    }
+                }
+
+                function touchAdd(elem, eventName, eventListener) {
+
+                    var eventState = 0;
+
+                    // 绑定委托事件。
+                    elem.addEventListener(this.bind, eventListener.proxy = function (e) {
+                        eventState = 1;
+                        return eventListener.call(this, e);
+                    }, false);
+
+                    // 绑定原事件。
+                    elem.addEventListener(eventName, eventListener.orignal = function (e) {
+                        if (eventState) {
+                            eventState = 0;
+                        } else {
+                            return eventListener.call(this, e);
+                        }
+                    }, false);
+                }
+
+                function touchRemove(elem, eventName, eventListener) {
+                    elem.removeEventListener(this.bind, eventListener.proxy, false);
+                    elem.removeEventListener(eventName, eventListener.orignal, false);
+                }
+
+                // 让浏览器快速响应鼠标点击事件，而非等待 300ms 。
+                eventFix.mousedown = {
+                    bind: "touchstart",
+                    filter: touchFilter,
+                    add: touchAdd,
+                    remove: touchRemove
+                };
+                eventFix.mousemove = {
+                    bind: "touchmove",
+                    filter: touchFilter,
+                    add: touchAdd,
+                    remove: touchRemove
+                };
+                eventFix.mouseup = {
+                    bind: "touchend",
+                    filter: touchFilter,
+                    add: touchAdd,
+                    remove: touchRemove
+                };
+                eventFix.click = {
+                    filter: touchFilter,
+                    add: function (elem, eventName, eventListener) {
+                        var eventState = 0;
+
+                        elem.addEventListener("touchstart", eventListener.proxy1 = function (e) {
+                            if (e.changedTouches.length === 1) {
+                                eventState = [e.changedTouches[0].pageX, e.changedTouches[0].pageY];
+                            }
+                        }, false);
+
+                        elem.addEventListener("touchend", eventListener.proxy2 = function (e) {
+                            if (e.changedTouches.length === 1 && eventState && Math.pow(e.changedTouches[0].pageX - eventState[0], 2) + Math.pow(e.changedTouches[0].pageY - eventState[1], 2) < 25) {
+                                eventState = 2;
+                                return eventListener.call(elem, e);
+                            }
+                        }, false);
+
+                        elem.addEventListener(eventName, eventListener.orignal = function (e) {
+                            if (eventState === 2) {
+                                eventState = 0;
+                            } else {
+                                eventState = 0;
+                                return eventListener.call(this, e);
+                            }
+                        }, false);
+                    },
+
+                    remove: function (elem, eventName, eventListener) {
+                        elem.removeEventListener("touchstart", eventListener.proxy1, false);
+                        elem.removeEventListener("touchend", eventListener.proxy2, false);
+                        elem.removeEventListener(eventName, eventListener.orignal, false);
+                    }
+
+                };
+            }
+
+            return eventFix;
+        })(Document.prototype));
+
+        // 支持 .on({...}) 语法简写。
+        if (eventName && eventName.constructor === Object) {
+            for (var key in eventName) {
+                var match = /^\w+/.exec(key) || [key];
+                me.on(match[0], key.slice(match[0].length), eventName[key], delegateSelector);
+            }
+            return me;
+        }
+
+        window.console && console.assert(typeof delegateSelector === "string" || delegateSelector instanceof Function, "dom.on(eventName, [delegateSelector: 必须是字符串或函数], eventListener, [scope])");
+
         // 允许不传递 delegateSelector 参数。
         if (delegateSelector.constructor !== String) {
             scope = eventListener;
@@ -727,27 +763,27 @@ Dom.List.prototype = Dom.prototype = {
             delegateSelector = '';
         }
 
-        return this.each(function (elem) {
+        window.console && console.assert(eventListener instanceof Function, "dom.on(eventName, [delegateSelector], eventListener: 必须是函数, [scope])");
+
+        return me.each(function (elem) {
+
+            // 获取事件列表。
+            var events = Dom.data(elem, "events");
+            var eventListeners = events[eventName] || (events[eventName] = []);
+
+            // 最后绑定的实际函数。
+            var actualListener = eventListener;
 
             // 获取特殊处理的事件。
-            var eventFix = Dom.eventFix[eventName] || 0,
-
-                // 获取存储事件列表的对象。
-                datas = Dom.data(elem),
-                events = datas.events || (datas.events = {}),
-                event = events[eventName] || (events[eventName] = []),
-
-                // 最后绑定的实际函数。
-                actualListener = eventListener;
+            var eventFixer = eventFix[eventName] || 0;
 
             // 如果满足以下任一要求，则生成代码事件句柄。
             // 1. 定义委托事件。
             // 2. 事件本身需要特殊过滤。
             // 3. 事件重复绑定。（通过代理令事件支持重复绑定）
             // 4. IE8: 默认事件绑定的 this 不正确。
-            if (/*@cc_on !+"\v1" || @*/delegateSelector || scope || eventFix.filter || event.indexOf(eventListener) >= 0) {
+            if (/*@cc_on !+"\v1" || @*/delegateSelector || scope || eventFixer.filter || eventListeners.indexOf(eventListener) >= 0) {
                 actualListener = function (e) {
-
                     // 实际触发事件的节点。
                     var actucalTarget = elem;
 
@@ -760,27 +796,23 @@ Dom.List.prototype = Dom.prototype = {
                     }
 
                     // 处理特殊事件绑定。
-                    if (eventFix.filter && eventFix.filter(actucalTarget, e) === false) {
-                        return;
+                    if (!eventFixer.filter || eventFixer.filter(actucalTarget, e) !== false) {
+                        return eventListener.call(scope || actucalTarget, e);
                     }
-
-                    return eventListener.call(scope || actucalTarget, e);
-
                 };
-
                 actualListener.orignal = eventListener;
             }
 
-            // 如果当前事件的委托事件，则先添加选择器过滤器。
-            if (delegateSelector && eventFix.delegateType) {
-                eventFix = eventFix[eventName = eventFix.delegateType] || 0;
+            // 更新事件为委托事件。
+            if (delegateSelector && eventFixer.delegate) {
+                eventFixer = eventFixer[eventName = eventFixer.delegate] || 0;
             }
 
             // 添加函数句柄。
-            eventFix.add ? eventFix.add(elem, eventName, actualListener) : elem.addEventListener(eventFix.bindType || eventName, actualListener, false);
+            eventFixer.add ? eventFixer.add(elem, eventName, actualListener) : elem.addEventListener(eventFixer.bind || eventName, actualListener, false);
 
             // 添加当前处理函数到列表。以便之后删除事件或触发事件。
-            event.push(actualListener);
+            eventListeners.push(actualListener);
 
         });
 
@@ -798,54 +830,57 @@ Dom.List.prototype = Dom.prototype = {
      * $("#elem").off('click');
      */
     off: function (eventName, eventListener) {
-        return this.each(function (elem) {
+        var me = this;
+        return me.each(function (elem) {
 
-            var events = (Dom.data(elem).events || 0)[eventName],
-                eventFix;
-
-            // 存在事件则依次执行。
-            if (events) {
+            // 获取事件列表。
+            var eventListeners = Dom.data(elem, "events")[eventName];
+            if (eventListeners) {
 
                 // 未指定句柄则删除所有函数。
                 if (!eventListener) {
-                    for (var i = 0; i < events.length; i++) {
-                        this.off(eventName, events[i]);
+                    for (var i = 0; i < eventListeners.length; i++) {
+                        me.off(eventName, eventListeners[i]);
                     }
                     return;
                 }
 
                 // 找到已绑定的事件委托。
-                var index = events.indexOf(eventListener);
+                var index = eventListeners.indexOf(eventListener);
 
                 // 如果事件被代理了，则找到代理的事件。
                 if (index < 0) {
-                    for (index = events.length; --index >= 0 && events[index].orignal !== eventListener;);
+                    for (index = eventListeners.length; index-- && eventListeners[index].orignal !== eventListener;);
                 }
 
-                if (index >= 0) {
+                // 更新为实际事件句柄。
+                if (~index) {
 
                     // 获取实际绑定的处理函数。
-                    eventListener = events[index];
+                    eventListener = eventListeners[index];
 
-                    // 删除数组。
-                    events.splice(index, 1);
+                    // 从数组删除。
+                    eventListeners.splice(index, 1);
 
                     // 清空整个事件函数。
-                    if (!events.length) {
-                        delete Dom.data(elem).events[eventName];
+                    if (!eventListeners.length) {
+                        delete Dom.data(elem, "events")[eventName];
                     }
 
                 }
 
                 // 解析特殊事件。
-                eventFix = Dom.eventFix[eventName] || 0;
+                if (!Dom._eventFix) {
+                    me.on({});
+                }
+                var eventFixer = Dom._eventFix[eventName] || 0;
 
                 // 删除函数句柄。
-                eventFix.remove ? eventFix.remove(elem, eventName, eventListener) : elem.removeEventListener(eventFix.bindType || eventName, eventListener, false);
+                eventFixer.remove ? eventFixer.remove(elem, eventName, eventListener) : elem.removeEventListener(eventFixer.bind || eventName, eventListener, false);
 
             }
 
-        }, this);
+        });
 
     },
 
@@ -857,21 +892,34 @@ Dom.List.prototype = Dom.prototype = {
      */
     trigger: function (eventName, eventArgs) {
         return this.each(function (elem) {
-            var events = (Dom.data(elem).events || 0)[eventName],
-                handlers;
 
-            if (events) {
+            // 获取事件列表。
+            var eventListeners = Dom.data(elem, "events")[eventName];
+            if (eventListeners) {
 
+                // 初始化事件参数。
                 eventArgs = eventArgs || {};
                 eventArgs.type = eventName;
                 eventArgs.target = elem;
 
-                handlers = events.slice(0);
-                for (var i = 0; i < handlers.length; i++) {
-                    handlers[i].call(elem, eventArgs);
+                // 调用每个函数。
+                eventListeners = eventListeners.slice(0);
+                for (var i = 0; i < eventListeners.length; i++) {
+                    eventListeners[i].call(elem, eventArgs);
                 }
 
             }
+        });
+    },
+
+    /**
+     * 绑定或触发当前节点列表每一项的点击事件。
+     * @param {Function} 绑定的事件监听器。 
+     * @returns this 
+     */
+    click: function (callback) {
+        return callback !== undefined ? this.on('click', callback) : this.each(function (elem) {
+            elem.click ? elem.click() : Dom(elem).trigger('click');
         });
     },
 
@@ -953,7 +1001,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前节点列表第一项在父节点的索引。
+     * 获取当前节点列表第一项在其父节点的索引。
      * @returns {Number} 返回索引。
      * @example $("#elem").index()
      */
@@ -974,7 +1022,7 @@ Dom.List.prototype = Dom.prototype = {
     /** @category 增删 */
 
     /**
-     * 将当前节点追加到指定父节点。
+     * 将当前节点列表每一项追加到指定父节点末尾。
      * @param {Dom} parent 要追加的目标父节点。
      * @param {Boolean} checkAppended 如果设为 @true，则检查当前节点是否已添加到文档，如果已经添加则不再操作。
      * @returns this 
@@ -983,25 +1031,25 @@ Dom.List.prototype = Dom.prototype = {
     appendTo: function (parent, checkAppended) {
         parent = Dom(parent)[0];
         return parent ? this.each(function (elem) {
-            if (!checkAppended || !document.body.contains(elem)) {
+            if (!checkAppended || !Dom.contains(document.body, elem)) {
                 parent.appendChild(elem);
             }
         }) : this;
     },
 
     /**
-     * 判断第一个节点是否包含指定的子节点。
+     * 判断当前节点列表第一项是否包含指定的子节点。
      * @param {Dom} child 要判断的子节点。
      * @returns {Boolean} 如果当前节点是 @child 或包含 @child，则返回 @true，否则返回 @false。
      * @example  $("body").contains("#elem")
      */
     contains: function (child) {
         child = Dom(child)[0];
-        return child && this[0] && this[0].contains(child);
+        return child && this[0] && Dom.contains(this[0], child);
     },
 
     /**
-     * 插入一段 HTML 到末尾。
+     * 在当前节点列表第一项插入一段 HTML 到末尾。
      * @param {String} html 要插入的内容。
      * @returns {Dom} 返回插入的新节点对象。
      * @example $("#elem").append("append")
