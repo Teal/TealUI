@@ -921,7 +921,7 @@ Dom.List.prototype = Dom.prototype = {
     before: function (html) {
         var parent = this[0];
         return Dom(html, parent && parent.ownerDocument).each(function (node) {
-            parent.parentNode.insertBefore(node, parent);
+            parent && parent.parentNode.insertBefore(node, parent);
         });
     },
 
@@ -932,7 +932,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").after("after")
      */
     after: function (html) {
-        return this[0] && this[0].nextSibling ? this.before(html) : this.parent().append(html);
+        return this[0] && this[0].nextSibling ? Dom(this[0].nextSibling).before(html) : this.parent().append(html);
     },
 
     /**

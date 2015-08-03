@@ -166,6 +166,19 @@ fieldset,
 figure {
   margin: 0 0 1em;
 }
+p:last-child,
+hr:last-child,
+table:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+blockquote:last-child,
+pre:last-child,
+address:last-child,
+fieldset:last-child,
+figure:last-child {
+  margin-bottom: 0;
+}
 /* #endregion */
 /* #region @<a> */
 a {

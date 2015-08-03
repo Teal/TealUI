@@ -693,7 +693,8 @@ a#doc_logo {
         padding: 0 7px !important;
         text-decoration: none;
         color: #616161 !important;
-        line-height: 30px;
+        line-height: 250%;
+        font-size: 13.5px;
     }
 
         .doc-list a:hover, .doc-list .doc-list-actived a {
