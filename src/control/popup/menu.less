@@ -22,6 +22,10 @@
         }
     }
 
+    .x-menu {
+        position: absolute;
+    }
+
     &.x-dropdown, .x-menu {
         display: none;
     }
@@ -34,7 +38,7 @@
     margin: @border-radius 0;
 }
 
-.x-menu-selected > a, .x-menu > li > a:hover {
+.x-menu .x-menu-selected > a, .x-menu > li:hover > a {
     background-color: @selected-background-color;
     color: @selected-text-color;
     text-decoration: none;
@@ -49,7 +53,7 @@
     margin-top: -12px;
 }
 
-.x-menu-disabled a {
+.x-menu-disabled > a {
     pointer-events: none;
     color: @text-color-disabled!important;
     background-color: transparent!important;

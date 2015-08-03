@@ -10,41 +10,76 @@
 
 var Menu = Control.extend({
 
-    init: function() {
-        var me = this;
-        me.elem.on('mouseenter', 'li', function() {
-            if (this.parentNode === me.elem) {
-                me.onMouseEnter(this);
-            }
-        });
+    role: "menu",
+
+    floating: false,
+
+    create: function() {
+        var dom = Control.prototype.create.call(this);
+        this.floating = true;
+        return dom;
     },
 
-    onMouseEnter: function(item) {
-        this.hovering(item);
-
-        // 显示子菜单。
-        var subMenu = this._findChild('.x-menu', item);
-        if (subMenu) {
-            subMenu.show('opacity');
+    init: function () {
+        var me = this;
+        me.dom.on('mouseenter', 'li', function () {
+            if (this.parentNode === me.dom[0]) {
+                me.selectItem(this);
+            }
+        });
+        if (!me.floating) {
+            Dom(document).on('mousedown', function () {
+                Dom(document).off('mousedown', arguments.callee);
+                me.hideSub();
+            });
         }
     },
 
-    _findChild: function(selector, parentNode) {
-        for (var node = parentNode.firstElementChild; node; node = node.nextElementSibling) {
-            if (node.matches(selector)) {
-                return node;
-            }
+    selectItem: function (item, e) {
+        var me = this;
+        me.hover(item);
+
+        // 显示子菜单。
+        var subMenu = Dom(item).children('.x-menu');
+        if (subMenu.length) {
+            me.subMenu = subMenu.role('menu').show(item, me);
         }
     },
 
     /**
      * 重新设置当前高亮项。
      */
-    hovering: function (item) {
-        var current = this._findChild('.x-menu-selected', this.elem);
-        current && current.classList.remove('x-menu-selected');
-        item && item.classList.add('x-menu-selected');
-        return this;
+    hover: function (item) {
+        var me = this;
+        me.dom.children('.x-menu-selected').removeClass('x-menu-selected');
+        Dom(item).addClass('x-menu-selected');
+        return me.hideSub();
+    },
+
+    show: function (pos) {
+        var me = this;
+        if (me.dom.isHidden()) {
+            me.dom.show('opacity').pin(pos, "rt", 0, -5);
+        }
+        return me; 
+    },
+
+    hide: function () {
+        var me = this;
+        me.dom.hide();
+        return me.hideSub();
+    },
+
+    /**
+     * 关闭当前菜单的子菜单。
+     */
+    hideSub: function () {
+        var me = this;
+        if (me.subMenu) {
+            me.subMenu.hide();
+            me.subMenu = null;
+        }
+        return me;
     }
 
 });
@@ -52,7 +87,7 @@ var Menu = Control.extend({
 //var Menu2 = TreeControl.extend({
 
 //	cssClass: 'x-menu',
-    
+
 //	showArgs: null,
 
 //	floating: false,
@@ -214,7 +249,7 @@ var Menu = Control.extend({
 //	createSub: function(treeControl){
 //		return new Menu(treeControl);
 //	},
-	
+
 //	/**
 //	 * 当被子类重写时，用于初始化子树。
 //	 * @param {TreeControl} treeControl 要初始化的子树。
@@ -226,7 +261,7 @@ var Menu = Control.extend({
 //		Dom.prepend(this.elem, '<i class="x-menuitem-arrow"></i>');
 //		Dom.on(this.elem, 'mouseup', this._cancelHideMenu, this);
 //	},
-	
+
 //	/**
 //	 * 当被子类重写时，用于删除初始化子树。
 //	 * @param {TreeControl} treeControl 要删除初始化的子树。
@@ -245,7 +280,7 @@ var Menu = Control.extend({
 //		else if(this.owner())
 //			this.owner().hideSub();
 //	},
-	
+
 //	onMouseOut: function() {
 
 //		// 没子菜单，需要自取消激活。
@@ -257,7 +292,7 @@ var Menu = Control.extend({
 //		}
 
 //	},
-	
+
 //	/**
 //	 *
 //	 */
@@ -269,7 +304,7 @@ var Menu = Control.extend({
 //			Dom.on(this.elem, 'mouseout', this.onMouseOut, this);
 //		}
 //	},
-	
+
 //	_cancelHideMenu: function(e) {
 //		e.stopPropagation();
 //	},
@@ -292,17 +327,17 @@ var Menu = Control.extend({
 
 //		// 使用父菜单打开本菜单，显示子菜单。
 //		owner && owner.showSub(this);
-		
+
 //		return this;
 //	},
-	
+
 //	hideSub: function () {
 
 //		var owner = this.owner();
 
 //		// 使用父菜单打开本菜单，显示子菜单。
 //		owner && owner.hideSub(this);
-		
+
 //		return this;
 //	}
 

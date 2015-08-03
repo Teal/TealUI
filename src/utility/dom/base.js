@@ -1595,13 +1595,18 @@ Dom.List.prototype = Dom.prototype = {
             options = roleName;
             roleName = null;
         }
-        this.each(function (elem) {
-            var data = Dom.data(elem);
-            var name = roleName || elem.getAttribute("data-role");
-            var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
-            // 只保存第一项的结果。
-            result = result || role;
-        });
+        if (this.length) {
+            this.each(function (elem) {
+                var data = Dom.data(elem);
+                var name = roleName || elem.getAttribute("data-role");
+                var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
+                // 只保存第一项的结果。
+                result = result || role;
+            });
+        } else {
+            result = new (Dom.roles[roleName] || Dom.roles.$default)(this, options);
+        }
+        
         return result;
     },
 
