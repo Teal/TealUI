@@ -35,8 +35,9 @@ Base.extend = function (members) {
 
     // 生成缺省构造函数：直接调用父类构造函数 。
     if (!members.hasOwnProperty("constructor")) {
-        members.constructor = function CustomClass() {
+        members.constructor = function Class() {
             // 缺省构造函数：直接调用父类构造函数。
+            // ReSharper disable once VariableUsedInInnerScopeBeforeDeclared
             return subClass.__proto__.apply(this, arguments);
         };
     }
@@ -80,7 +81,7 @@ Base.extend = function (members) {
  * @returns {String} 返回字符串。
  * @example new (Base.extend())().toString()
  */
-Base.prototype.toString = function() {
+Base.prototype.toString = function () {
     for (var clazz in window) {
         if (window[clazz] === this.constructor) {
             return clazz;

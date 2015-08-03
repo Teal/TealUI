@@ -7,13 +7,13 @@
 
 // #region 核心
 
-/** @category 集合操作 */
+/** @category 列表操作 */
 
 /**
  * 查询 CSS 选择器匹配的所有节点；解析一个 HTML 字符串生成对应的节点；绑定一个 DOM Ready 回调。
- * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
+ * @param {mixed} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
  * @param {Document} context 执行的上下文文档。
- * @returns {Dom} 返回匹配的节点列表。
+ * @returns {mixed} 返回匹配的节点列表或创建的节点列表或空。
  * @example
  * $(".doc-box")
  * 
@@ -30,9 +30,8 @@ function Dom(selector, context) {
 }
 
 /**
- * 查询 CSS 选择器匹配的所有节点；解析一个 HTML 字符串生成对应的节点；绑定一个 DOM Ready 回调。
- * @param {String} selector 要执行的 CSS 选择器或 HTML 字符串或 DOM Ready 回调。
- * @param {Document} context 执行的上下文文档。
+ * 表示一个节点列表。
+ * @param {String} items 设置节点列表中的项列表。
  * @returns {Dom} 返回匹配的节点列表。
  * @inner
  */
@@ -61,19 +60,58 @@ Dom.find = function (selector, context) {
 
 /**
  * 解析一个 HTML 片段并生成节点。
- * @param {String} selector HTML 字符串。
- * @param {Document} context 执行的上下文文档。
- * @returns {Dom} 返回匹配的节点列表。
+ * @param {String} selector 要解析的 HTML 字符串。
+ * @param {Document} context 解析所在的文档。
+ * @returns {Dom} 返回生成的节点列表。
  * @inner
  */
 Dom.parse = function (html, context) {
-    if (typeof html === "object") {
-        return new Dom.List(html);
+    if (html && html.constructor === String) {
+        context = context || document;
+
+        // 首次解析。
+        var parseFix = Dom._parseFix;
+        if (!parseFix) {
+            Dom._parseFix = parseFix = {
+                option: [1, "<select multiple='multiple'>", "</select>"],
+                legend: [1, "<fieldset>", "</fieldset>"],
+                area: [1, "<map>", "</map>"],
+                param: [1, "<object>", "</object>"],
+                thead: [1, "<table>", "</table>"],
+                tr: [2, "<table><tbody>", "</tbody></table>"],
+                col: [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
+                td: [3, "<table><tbody><tr>", "</tr></tbody></table>"]
+            };
+            parseFix.optgroup = parseFix.option;
+            parseFix.tbody = parseFix.tfoot = parseFix.colgroup = parseFix.caption = parseFix.thead;
+            parseFix.th = parseFix.td;
+
+            Dom._parseContainer = context.createElement('div');
+        }
+
+        // 确定容器。
+        context = context === document ? Dom._parseContainer : context.createElement('div');
+
+        // 测试是否包含需要特殊处理的片段。
+        var tag = /^<([!\w:]+)/.exec(html);
+        tag = tag && parseFix[tag[1].toLowerCase()];
+
+        // IE6-8: 必须为 HTML 追加文本才能正常解析。
+        /**@cc_on if(!+"\v1" && !tag) { tag = [1, "$<div>", "</div>"] } @*/
+
+        if (tag) {
+            context.innerHTML = tag[1] + html + tag[2];
+            // 转到正确的深度。
+            for (var i = tag[0]; i--;) {
+                context = context.lastChild;
+            }
+        } else {
+            context.innerHTML = html;
+        }
+
+        html = context.childNodes;
     }
-    context = context || document;
-    context = context === document ? Dom._parseContainer || (Dom._parseContainer = context.createElement('div')) : context.createElement('div');
-    context.innerHTML = html;
-    return new Dom.List(context.childNodes);
+    return new Dom.List(html);
 };
 
 /**
@@ -88,7 +126,7 @@ Dom.ready = function (callback, context) {
         callback.call(context);
     } else {
         /*@cc_on if(!+"\v1") {
-        return setTimeout(function() {Dom.ready (callback, context);}, 14);
+        return setTimeout(function() { Dom.ready(callback, context); }, 14);
         } @*/
         context.addEventListener('DOMContentLoaded', callback, false);
     }
@@ -113,26 +151,33 @@ Dom.data = function (elem) {
 
 /**
  * 判断指定节点是否匹配指定的选择器。
+ * @param {Node} node 要判断的节点。
  * @param {String} selector 要判断的选择器。
  * @returns {Boolean} 如果匹配则返回 @true，否则返回 @false。
  * @example Dom.matches(document.body, "body")
+ * @inner
  */
 Dom.matches = function (node, selector) {
 
-    var nativeMatcher = node.matchesSelector || node.webkitMatchesSelector || node.msMatchesSelector || node.mozMatchesSelector || node.oMatchesSelector;
+    window.console && console.assert(node, "Dom.matches(null, ...)");
+
+    // 只对元素判断。
+    if (node.nodeType !== 1) {
+        return false;
+    }
+
+    // 优先调用原始 API。
+    var nativeMatcher = node.webkitMatchesSelector || node.msMatchesSelector || node.mozMatchesSelector || node.oMatchesSelector || node.matchesSelector;
     if (nativeMatcher) {
         return nativeMatcher.call(node, selector);
     }
 
-    if (!node.ownerDocument) {
-        return false;
-    }
-
+    // 判断是否可以通过选择器获取节点。
     var parent = node.parentNode,
         tempParent = !parent && node.ownerDocument.body;
     tempParent && tempParent.appendChild(node);
     try {
-        return Array.prototype.indexOf.call(parent.querySelectorAll(selector), node) >= 0;
+        return ~Array.prototype.indexOf.call(Dom.find(selector, parent), node);
     } finally {
         tempParent && tempParent.removeChild(node);
     }
@@ -151,7 +196,7 @@ Dom.closest = function (node, selector, context) {
     while (node && node !== context && !Dom.matches(node, selector)) {
         node = node.parentNode;
     }
-    return node;
+    return node === context ? null : node;
 };
 
 /**
@@ -322,7 +367,7 @@ Dom.calc = function (elem, expression) {
 // #region @事件
 
 /**
- * 特殊事件集合。
+ * 特殊事件列表。
  * @inner
  * @remark
  * 对于特殊处理的事件。每个事件都包含以下信息：
@@ -515,39 +560,35 @@ Dom.roles = { $default: Dom };
 
 Dom.List.prototype = Dom.prototype = {
 
-    // #region 集合操作
+    // #region 列表操作
 
     /**
-     * 获取当前集合的长度。
+     * 获取当前节点列表的长度。
      * @type Number
      * @example $("#elem").length
      */
     length: 0,
 
     /**
-     * 向当前集合添加一个或多个节点。
-     * @param {Node} item 要添加的节点或节点列表。
+     * 向当前节点列表添加一个或多个节点。
+     * @param {mixed} items 要添加的节点或节点列表。
+     * @returns this
      * @example $("#elem").add(document.body)
      */
-    add: function (item) {
-        item && Dom.List.call(this, item);
+    add: function (items) {
+        items && Dom.List.call(this, items);
         return this;
     },
 
     /**
-     * 遍历当前集合，并对每一项执行函数 @fn。
-     * @param {Function} fn 对每个一项执行的函数。函数的参数依次为:
+     * 遍历当前节点列表，并对每一项执行函数 @fn。
+     * @param {Function} fn 对每一项执行的函数。函数的参数依次为:
      * 
-     * * @param {Object} value 当前项的值。
+     * * @param {Node} value 当前项的值。
      * * @param {Number} index 当前项的索引。
-     * * @param {Array} array 当前正在遍历的数组。
+     * * @param {Dom} dom 当前正在遍历的节点列表。
      * * @returns {Boolean} 如果返回 @false，则终止循环。
      *
-     * 参数名 | 类型       | 说明
-     * value | `Object`  | 当前元素的值。
-     * index | `Number`  | 当前元素的索引。
-     * dom   | `Dom`     | 当前正在遍历的集合。
-     * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
      * @returns this
      * @example $("#elem").each(function(elem){ console.log(elem); })
@@ -558,30 +599,28 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 对当前集合每一项进行处理，并将结果组成一个新数组。
-     * @param {Function} callback 对每个元素运行的函数。函数的参数依次为:
-     * @param {Function} fn 对每个元素运行的函数。函数的参数依次为:
+     * 对当前节点列表每一项进行处理，并将结果组成一个新数组。
+     * @param {Function} callback 对每一项运行的函数。函数的参数依次为:
      *
-     * 参数名 | 类型      | 说明
-     * value | `Object`  | 当前元素的值。
-     * index | `Number`  | 当前元素的索引。
-     * dom   | `Dom`     | 当前正在遍历的集合。
-     * 返回值 | `Boolean` | 返回处理后的新值。
+     * * @param {Node} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Dom} dom 当前正在遍历的节点列表。
+     * * @returns {mixed} 返回一个或多个节点，这些节点将被添加到返回的列表。
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回新集合。
+     * @returns {Dom} 返回一个新节点列表。
      * @example $("#elem").map(function(node){return node.firstChild})
      */
     map: function (callback, scope) {
-        var newDom = Dom();
+        var result = Dom();
         for (var i = 0, node; (node = this[i]) ; i++) {
-            newDom.add(callback.call(scope, node, i, this));
+            result.add(callback.call(scope, node, i, this));
         }
-        return newDom;
+        return result;
     },
 
     /**
-     * 将当前集合中符合要求的项组成一个新集合。
+     * 将当前节点列表中符合要求的项组成一个新节点列表。
      * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
      * 
      * * @param {Object} value 当前项的值。
@@ -590,19 +629,20 @@ Dom.List.prototype = Dom.prototype = {
      * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回一个新集合。
+     * @returns {Dom} 返回一个新节点列表。如果过滤条件为空则返回 @this。
      * @example $("#elem").filter('div')
      */
     filter: function (selector, scope, not) {
+        var me = this;
         not = not || false;
-        return selector ? this.map(function (node) {
-            return (selector.constructor === Function ? selector.call(scope, node, i, this) !== false : Dom.matches(node, selector)) !== not && node;
-        }, this) : this;
+        return selector ? me.map(function (node) {
+            return (selector.constructor === Function ? selector.call(scope, node, i, me) !== false : Dom.matches(node, selector)) !== not;
+        }) : me;
     },
 
     /**
-     * 将当前集合中不符合要求的项组成一个新集合。
-     * @param {String} selector 过滤的选择器或对每个元素运行的函数。函数的参数依次为:
+     * 将当前节点列表中不符合要求的项组成一个新列表。
+     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
      * 
      * * @param {Object} value 当前项的值。
      * * @param {Number} index 当前项的索引。
@@ -610,37 +650,46 @@ Dom.List.prototype = Dom.prototype = {
      * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
      * 
      * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回一个新集合。
+     * @returns {Dom} 返回一个新列表，或者如果过滤条件为空则返回 @this。
      * @example $("#elem").not('div')
      */
     not: function (selector, scope) {
         return this.filter(selector, scope, true);
     },
 
+    /**
+     * 如果当前节点列表为空则返回另一个节点列表，否则返回当前节点列表。
+     * @param {Dom} other 要判断的另一个节点列表。 
+     * @returns {Dom} 返回一个节点列表。 
+     */
+    or: function (other) {
+        return this.length ? this : other;
+    },
+
     // #endregion
 
-    // #region 选择器
+    // #region @选择器
 
     /** @category 选择器 */
 
     /**
-     * 在第一项子节点中查找指定的元素。
+     * 在当前节点列表第一项中查找指定的子节点。
      * @param {String} selector 要查找的选择器。
-     * @returns {Dom} 返回一个新集合。
+     * @returns {Dom} 返回一个新列表。如果节点列表为空则返回 @this。
      * @example $("#elem").find("div")
      */
     find: function (selector) {
-        return Dom(this[0] && selector, this[0]);
+        return this[0] ? Dom.find(selector, this[0]) : this;
     },
 
     /**
-     * 检查当前集合第一项是否符合指定的表达式。
+     * 判断当前节点列表第一项是否匹配指定的 CSS 选择器。
      * @param {String} selector 要判断的选择器。
-     * @returns {Boolean} 如果匹配表达式就返回 @true，否则返回 @false 。
+     * @returns {Boolean} 如果匹配则返回 @true，否则返回 @false 。如果节点列表为空则返回 @false。
      * @example $("#elem").is("div")
      */
     is: function (selector) {
-        return this[0] && Dom.matches(this[0], selector);
+        return !!this[0] && Dom.matches(this[0], selector);
     },
 
     // #endregion
@@ -650,7 +699,7 @@ Dom.List.prototype = Dom.prototype = {
     /** @category 事件 */
 
     /**
-     * 添加一个事件监听器。
+     * 为当前节点列表每一项添加一个事件监听器。
      * @param {String} eventName 要添加的事件名。
      * @param {String} [delegateSelector] 代理目标节点选择器。
      * @param {Function} eventListener 要添加的事件监听器。
@@ -730,7 +779,7 @@ Dom.List.prototype = Dom.prototype = {
             // 添加函数句柄。
             eventFix.add ? eventFix.add(elem, eventName, actualListener) : elem.addEventListener(eventFix.bindType || eventName, actualListener, false);
 
-            // 添加当前处理函数到集合。以便之后删除事件或触发事件。
+            // 添加当前处理函数到列表。以便之后删除事件或触发事件。
             event.push(actualListener);
 
         });
@@ -833,7 +882,7 @@ Dom.List.prototype = Dom.prototype = {
     /** @category 遍历 */
 
     /**
-     * 获取当前集合第一项的第一个子节点对象。
+     * 获取当前节点列表第一项的第一个子节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").first()
@@ -843,7 +892,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项的最后一个子节点对象。
+     * 获取当前节点列表第一项的最后一个子节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").last()
@@ -853,7 +902,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项的下一个相邻节点对象。
+     * 获取当前节点列表第一项的下一个相邻节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").next()
@@ -863,7 +912,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项的上一个相邻的节点对象。
+     * 获取当前节点列表第一项的上一个相邻的节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").prev()
@@ -873,7 +922,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项的直接父节点对象。
+     * 获取当前节点列表第一项的直接父节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").parent()
@@ -883,7 +932,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项的全部直接子节点。
+     * 获取当前节点列表第一项的全部直接子节点。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").children()
@@ -893,7 +942,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项指及其父节点对象中第一个满足指定 CSS 选择器的节点。
+     * 获取当前节点列表第一项指及其父节点对象中第一个满足指定 CSS 选择器的节点。
      * @param {String} selector 用于判断的元素的 CSS 选择器。
      * @param {Node} [context=document] 只在指定的节点内搜索此元素。
      * @returns {Dom} 如果要获取的节点满足要求，则返回要获取的节点，否则返回一个匹配的父节点对象。
@@ -904,7 +953,7 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 获取当前集合第一项在父节点的索引。
+     * 获取当前节点列表第一项在父节点的索引。
      * @returns {Number} 返回索引。
      * @example $("#elem").index()
      */
@@ -924,20 +973,21 @@ Dom.List.prototype = Dom.prototype = {
 
     /** @category 增删 */
 
-    ///**
-    // * 将当前节点追加到指定父节点。
-    // * @param {Dom} parent 要追加的目标父节点。
-    // * @param {Boolean} checkAppended 如果设为 @true，则检查当前节点是否已添加到文档，如果已经添加则不再操作。
-    // * @returns this 
-    // * @example $("#elem").appendTo("#parent")
-    // */
-    //appendTo: function (parent, checkAppended) {
-    //    parent = Dom(parent)[0];
-    //    return this.each(function() {
-
-    //    });
-    //   // if (checkAppended && this.closest())
-    //},
+    /**
+     * 将当前节点追加到指定父节点。
+     * @param {Dom} parent 要追加的目标父节点。
+     * @param {Boolean} checkAppended 如果设为 @true，则检查当前节点是否已添加到文档，如果已经添加则不再操作。
+     * @returns this 
+     * @example $("#elem").appendTo("#parent")
+     */
+    appendTo: function (parent, checkAppended) {
+        parent = Dom(parent)[0];
+        return parent ? this.each(function (elem) {
+            if (!checkAppended || !document.body.contains(elem)) {
+                parent.appendChild(elem);
+            }
+        }) : this;
+    },
 
     /**
      * 判断第一个节点是否包含指定的子节点。
@@ -957,10 +1007,11 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").append("append")
      */
     append: function (html) {
-        var parent = this[0];
-        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
+        var me = this;
+        var parent = me[0];
+        return parent ? Dom.parse(html, parent.ownerDocument).each(function (node) {
             parent.appendChild(node);
-        });
+        }) : me;
     },
 
     /**
@@ -970,10 +1021,12 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").prepend("prepend")
      */
     prepend: function (html) {
-        var parent = this[0], c = parent.firstChild;
-        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
-            parent.insertBefore(node, c);
-        });
+        var me = this;
+        var parent = me[0];
+        var firstChild = parent && parent.firstChild;
+        return parent ? Dom.parse(html, parent.ownerDocument).each(function (node) {
+            parent.insertBefore(node, firstChild);
+        }) : me;
     },
 
     /**
@@ -983,10 +1036,11 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").before("before")
      */
     before: function (html) {
-        var parent = this[0];
-        return Dom.parse(html, parent && parent.ownerDocument).each(function (node) {
-            parent && parent.parentNode.insertBefore(node, parent);
-        });
+        var me = this;
+        var parent = me[0];
+        return parent ? Dom.parse(html, parent.ownerDocument).each(function (node) {
+            parent.parentNode.insertBefore(node, parent);
+        }) : me;
     },
 
     /**
@@ -1013,13 +1067,12 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 克隆当前集合的第一个节点。
-     * @param {Boolean} [cloneChild=true] 是否克隆子节点。
+     * 克隆当前节点列表的第一个节点。
      * @returns {Dom} 返回克隆的新节点。
      * @example $("#elem").clone()
      */
     clone: function (cloneChild) {
-        return Dom(this[0] && this[0].cloneNode(cloneChild !== false));
+        return Dom(this[0] && this[0].cloneNode(true));
     },
 
     // #endregion
@@ -1575,7 +1628,7 @@ Dom.List.prototype = Dom.prototype = {
         }
 
         return this.each(function (elem) {
-            if (fxName && Dom.css(elem, "display") === "none") {
+            if (fxName && Dom.css(elem, "display") !== "none") {
                 elem.style._animatingHide = true;
                 Dom(elem).animate("auto", fxName, function (elem) {
                     delete elem.style._animatingHide;
@@ -1615,7 +1668,7 @@ Dom.List.prototype = Dom.prototype = {
     /** @category 角色 */
 
     /**
-     * 初始化当前集合为指定的角色。
+     * 初始化当前节点列表为指定的角色。
      * @param {String} [roleName] 要初始化的角色名。
      * @param {Object} [options] 传递给角色类的参数。
      * @returns {Object} 返回第一项对应的角色对象。
@@ -1627,19 +1680,16 @@ Dom.List.prototype = Dom.prototype = {
             options = roleName;
             roleName = null;
         }
-        if (this.length) {
-            this.each(function (elem) {
-                var data = Dom.data(elem);
-                var name = roleName || elem.getAttribute("data-role");
-                var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
-                // 只保存第一项的结果。
-                result = result || role;
-            });
-        } else {
-            result = new (Dom.roles[roleName] || Dom.roles.$default)(this, options);
-        }
 
-        return result;
+        this.each(function (elem) {
+            var data = Dom.data(elem);
+            var name = roleName || elem.getAttribute("data-role");
+            var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
+            // 只保存第一项的结果。
+            result = result || role;
+        });
+
+        return result || new (Dom.roles[roleName] || Dom.roles.$default)(this, options);
     },
 
     // #endregion

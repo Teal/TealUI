@@ -73,7 +73,7 @@ var Control = Dom.roles.$default = Base.extend({
 	 * @constructor
      * @example new Control("#id")
 	 */
-    constructor: function (dom, options) {
+    constructor: function Control(dom, options) {
 
         // 创建 DOM 节点。
         dom = Dom(dom);

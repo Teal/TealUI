@@ -51,7 +51,7 @@ if (!Array.prototype.forEach) {
 
     /**
      * 遍历当前数组，并对每一项执行函数 @fn。
-     * @param {Function} fn 对每个一项执行的函数。函数的参数依次为:
+     * @param {Function} fn 对每一项执行的函数。函数的参数依次为:
      *
      * * @param {Object} value 当前项的值。
      * * @param {Number} index 当前项的索引。
@@ -179,10 +179,12 @@ var Document = Document || HTMLDocument;
          * @since ES5
          */
         dp.contains = ep.contains = function (node) {
-            for (; node; node = node.parentNode)
-                if (node == this)
+            for (; node; node = node.parentNode) {
+                if (node === this) {
                     return true;
-            return false
+                }
+            }
+            return false;
         };
 
     }

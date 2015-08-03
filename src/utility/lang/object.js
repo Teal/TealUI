@@ -34,7 +34,7 @@ if (!Object.assign) {
 /**
  * 遍历一个对象或数组，并对每一项执行函数 @fn。
  * @param {Object} iterable 要遍历的数组或对象（函数除外）。
- * @param {Function} fn 对每个一项执行的函数。函数的参数依次为:
+ * @param {Function} fn 对每一项执行的函数。函数的参数依次为:
  *
  * * @param {Object} value 当前项的值。
  * * @param {Number} index 当前项的索引。
