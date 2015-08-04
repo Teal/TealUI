@@ -115,9 +115,9 @@ if (!String.prototype.trim) {
 
 // #endregion
 
-// #region lte IE 8
-
 /*@cc_on if(!+"\v1") {
+
+// #region lte IE 8
 
 /// 获取指定项在数组内的索引。
 /// @param {Object} value 一个类数组对象。
@@ -150,135 +150,19 @@ XMLHttpRequest = function(){
 // IE8: 只支持 Document，不支持 HTMLDocument。
 var Document = Document || HTMLDocument;
 
-} @*/
-
 // #endregion
 
 // #region DOM 2
 
-/// @category DOM 扩展
+/// @category IE8 DOM 补丁
 
 (function (ep, dp) {
 
     // 定义一个属性。
     function defineProperty(obj, propName, getter, setter) {
-        if (Object.defineProperty)
-            return Object.defineProperty(obj, propName, { get: getter, set: setter });
-        getter && obj.__defineGetter__(propName, getter);
-        setter && obj.__defineSetter__(propName, setter);
+        Object.defineProperty(obj, propName, { get: getter, set: setter });
     }
 
-    if (!('firstElementChild' in ep)) {
-
-        /**
-         * 获取当前元素的第一个子元素。
-         * @returns {Element} 返回当前元素的所有直接子节点。如果找不到则返回 @null。
-         * @example document.body.firstElementChild
-         * @memberOf Element.prototype
-         * @name firstElementChild
-         * @property
-         * @since ES5
-         */
-
-        /**
-         * 获取当前元素的最后一个子元素。
-         * @returns {Element} 返回当前元素的所有直接子节点。如果找不到则返回 @null。
-         * @example document.body.lastElementChild
-         * @memberOf Element.prototype
-         * @name lastElementChild
-         * @property
-         * @since ES5
-         */
-
-        /**
-         * 获取当前元素的下一个兄弟元素。
-         * @returns {Element} 返回当前元素的所有直接子节点。如果找不到则返回 @null。
-         * @example document.body.nextElementSibling
-         * @memberOf Element.prototype
-         * @name nextElementSibling
-         * @property
-         * @since ES5
-         */
-
-        /**
-         * 获取当前元素的上一个兄弟元素。
-         * @returns {Element} 返回当前元素的所有直接子节点。如果找不到则返回 @null。
-         * @example document.body.previousElementSibling
-         * @memberOf Element.prototype
-         * @name previousElementSibling
-         * @property
-         * @since ES5
-         */
-
-        function defineWalker(first, next) {
-            next = next ? 'nextSibling' : 'previousSibling';
-            first = first || next;
-            defineProperty(ep, first.replace(/([SC])/, 'Element$1'), function () {
-                var node = this[first];
-                // 找到第一个nodeType == 1 的节点。
-                while (node && node.nodeType !== 1)
-                    node = node[next];
-                return node;
-            });
-        }
-
-        defineWalker('firstChild', 1);
-        defineWalker('lastChild');
-        defineWalker();
-        defineWalker(0, 1);
-    }
-
-    if (!('children' in ep)) {
-
-        /**
-         * 获取当前元素的所有直接子节点。
-         * @returns {NodeList} 返回当前元素的所有直接子节点。
-         * @example document.body.children
-         * @memberOf Element.prototype
-         * @name children
-         * @property
-         * @since ES5
-         */
-        function children() {
-            return Array.prototype.slice.call(this.childNodes, 0).filter(function (elem) {
-                return elem.nodeType === 1;
-            });
-        }
-
-        defineProperty(ep, 'children', children);
-        defineProperty(dp, 'children', children);
-    }
-
-    if (!('classList' in ep)) {
-
-        /**
-         * 获取当前元素的 CSS 类列表。
-         * @returns {DomTokenList} 返回当前元素的 CSS 类列表。可对其调用 `add`, `remove`, `contains` 操作 CSS 类。
-         * @example document.body.classList
-         * @memberOf Element.prototype
-         * @since ES5
-         */
-        defineProperty(ep, 'classList', function () {
-            var elem = this;
-            return {
-                contains: function (className) {
-                    return (" " + elem.className + " ").indexOf(" " + className + " ") >= 0;
-                },
-                add: function (className) {
-                    if ((" " + elem.className + " ").indexOf(className) < 0)
-                        elem.className += ' ' + className;
-                },
-                remove: function (className) {
-                    elem.className = (" " + elem.className + " ").replace(" " + className + " ", " ").trim();
-                }
-            };
-        });
-    }
-
-    // #region lte IE 8
-
-    /*@cc_on if(!+"\v1") {
-    
     // 文档。
 
     /// 获取当前文档的所属窗口。
@@ -413,10 +297,8 @@ var Document = Document || HTMLDocument;
             return this.bottom - this.top;
     });
    
-    } @*/
-
-    // #endregion
-
 })(Element.prototype, Document.prototype);
 
 // #endregion
+
+} @*/

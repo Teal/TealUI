@@ -160,108 +160,9 @@
 				line: 138,
 				col: 1
 			}, {
-				name: "DOM 扩展",
+				name: "IE8 DOM 补丁",
 				memberType: "category",
-				line: 159,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "matches",
-				summary: "<p>判断当前节点是否匹配指定的选择器。</p>",
-				params: [{
-					type: "String",
-					name: "selector",
-					summary: "<p>要判断的选择器。</p>"
-				}],
-				returns: {
-					type: "Boolean",
-					summary: "<p>如果匹配则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
-				},
-				example: "<pre>document.body.matches(\"body\")</pre>",
-				since: "ES5",
-				line: 173,
-				col: 1
-			}, {
-				memberOf: "Node.prototype",
-				name: "contains",
-				summary: "<p>判断当前节点是否包含指定的子节点。</p>",
-				params: [{
-					type: "Node",
-					name: "node",
-					summary: "<p>要判断的子节点。</p>"
-				}],
-				returns: {
-					type: "Boolean",
-					summary: "<p>如果指定节点是当前节点或其子节点则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
-				},
-				example: "<pre>document.body.contains(document.body)</pre>",
-				since: "ES5",
-				line: 197,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "firstElementChild",
-				summary: "<p>获取当前元素的第一个子元素。</p>",
-				returns: {
-					type: "Element",
-					summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
-				},
-				example: "<pre>document.body.firstElementChild</pre>",
-				since: "ES5",
-				memberType: "property",
-				line: 216,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "lastElementChild",
-				summary: "<p>获取当前元素的最后一个子元素。</p>",
-				returns: {
-					type: "Element",
-					summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
-				},
-				example: "<pre>document.body.lastElementChild</pre>",
-				since: "ES5",
-				memberType: "property",
-				line: 226,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "nextElementSibling",
-				summary: "<p>获取当前元素的下一个兄弟元素。</p>",
-				returns: {
-					type: "Element",
-					summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
-				},
-				example: "<pre>document.body.nextElementSibling</pre>",
-				since: "ES5",
-				memberType: "property",
-				line: 236,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "previousElementSibling",
-				summary: "<p>获取当前元素的上一个兄弟元素。</p>",
-				returns: {
-					type: "Element",
-					summary: "<p>返回当前元素的所有直接子节点。如果找不到则返回 <strong>null</strong>。</p>"
-				},
-				example: "<pre>document.body.previousElementSibling</pre>",
-				since: "ES5",
-				memberType: "property",
-				line: 246,
-				col: 1
-			}, {
-				memberOf: "Element.prototype",
-				name: "children",
-				summary: "<p>获取当前元素的所有直接子节点。</p>",
-				returns: {
-					type: "NodeList",
-					summary: "<p>返回当前元素的所有直接子节点。</p>"
-				},
-				example: "<pre>document.body.children</pre>",
-				since: "ES5",
-				memberType: "property",
-				line: 276,
+				line: 157,
 				col: 1
 			}, {
 				memberOf: "Element.prototype",
@@ -269,7 +170,7 @@
 				summary: "<p>为当前元素添加指定监听器。</p>",
 				since: "ES4",
 				example: "<pre>document.body.addEventListener('click', function(){}, false)</pre>",
-				line: 350,
+				line: 191,
 				col: 1
 			}, {
 				memberOf: "Element.prototype",
@@ -277,7 +178,7 @@
 				summary: "<p>为当前元素移除指定监听器。</p>",
 				since: "ES4",
 				example: "<pre>document.body.removeEventListener('click', function(){}, false)</pre>",
-				line: 358,
+				line: 199,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -287,7 +188,7 @@
     e.stopPropagation();\n\
 }</pre>",
 				since: "ES4",
-				line: 369,
+				line: 210,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -297,7 +198,7 @@
     e.preventDefault();\n\
 }</pre>",
 				since: "ES4",
-				line: 378,
+				line: 219,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -307,7 +208,7 @@
     console.log(e.target);\n\
 }</pre>",
 				since: "ES4",
-				line: 387,
+				line: 228,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -317,7 +218,7 @@
     console.log(e.relatedTarget);\n\
 }</pre>",
 				since: "ES4",
-				line: 397,
+				line: 238,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -327,7 +228,7 @@
     console.log(e.which);\n\
 }</pre>",
 				since: "ES4",
-				line: 407,
+				line: 248,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -337,7 +238,7 @@
     console.log(e.pageX);\n\
 }</pre>",
 				since: "ES4",
-				line: 419,
+				line: 260,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -347,7 +248,7 @@
     console.log(e.pageY);\n\
 }</pre>",
 				since: "ES4",
-				line: 429,
+				line: 270,
 				col: 1
 			}, {
 				memberOf: "TextRectangle.prototype",
@@ -355,7 +256,7 @@
 				summary: "<p>获取当前区域的宽。</p>",
 				example: "<pre>document.body.getBoundingClientRect().width</pre>",
 				since: "ES4",
-				line: 441,
+				line: 282,
 				col: 1
 			}, {
 				memberOf: "TextRectangle.prototype",
@@ -363,7 +264,7 @@
 				summary: "<p>获取当前区域的高。</p>",
 				example: "<pre>document.body.getBoundingClientRect().height</pre>",
 				since: "ES4",
-				line: 450,
+				line: 291,
 				col: 1
 			}]
 });

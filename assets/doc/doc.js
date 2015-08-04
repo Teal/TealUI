@@ -2248,7 +2248,7 @@ var Doc = {
             var src = pre.textContent || pre.innerText, result;
             try {
                 result = window.eval(src);
-                console.log(src, ' => ' + result);
+                console.log(src, ' => ', result);
             } catch (e) {
                 console.error(src + ' => ' + e);
             }
