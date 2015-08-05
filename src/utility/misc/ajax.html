@@ -24,13 +24,6 @@
     Doc.writeApi({
 			path: "utility/misc/ajax.js",
 			apis: [{
-				memberOf: "Ajax.prototype",
-				name: "subAjax",
-				summary: "<p>多个外部 AJAX 请求组成。</p>",
-				inneri: ["= ajax.url.length"],
-				line: 507,
-				col: 1
-			}, {
 				memberOf: "Ajax",
 				name: "send",
 				summary: "<p>发送一个 AJAX 请求。</p>",
@@ -92,7 +85,7 @@
          alert(data1 + data2)\n\
      }\n\
 });</pre>",
-				line: 551,
+				line: 553,
 				col: 1
 			}, {
 				memberOf: "Ajax",
@@ -101,7 +94,7 @@
 				type: ["Function"],
 				example: "<pre>Ajax.init = function(options){ options.url = options.url.replace(\"~/\", \"http://api.domain.com\");  }</pre>",
 				memberType: "field",
-				line: 629,
+				line: 635,
 				col: 1
 			}, {
 				memberOf: "Ajax",
@@ -139,7 +132,7 @@
 					summary: "<p>返回请求对象。</p>"
 				},
 				example: "<pre>Ajax.get(\"../../../assets/resources/ajax/test.txt\", function(data){alert(data)})</pre>",
-				line: 675,
+				line: 681,
 				col: 1
 			}, {
 				memberOf: "Ajax",
@@ -177,7 +170,7 @@
 					summary: "<p>返回请求对象。</p>"
 				},
 				example: "<pre>Ajax.post(\"../../../assets/resources/ajax/test.txt\", function(data){alert(data)})</pre>",
-				line: 689,
+				line: 695,
 				col: 1
 			}, {
 				memberOf: "Ajax",
@@ -209,7 +202,7 @@
 					summary: "<p>返回请求对象。</p>"
 				},
 				example: "<pre>Ajax.jsonp(\"../../../assets/resources/ajax/jsonp.js\", function(data){alert(data)})</pre>",
-				line: 707,
+				line: 713,
 				col: 1
 			}]
 });</script>
@@ -274,7 +267,7 @@
 					summary: "<p>返回请求对象。</p>"
 				},
 				example: "<pre>Ajax.submit(document.getElementById(\"form\"), function(data){alert(\"提交成功了, 返回数据\" + data)}, function(errorCode){alert(\"提交失败了， 错误码\" + errorCode)})</pre>",
-				line: 45,
+				line: 46,
 				col: 1
 			}]
 });</script>

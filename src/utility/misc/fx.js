@@ -3,10 +3,12 @@
  * @author xuld
  */
 
-// #require taskQueue
+// #require asyncQueue
 
 // 补齐 Date.now() 
-Date.now = Date.now || function () { return +new Date; };
+if (!Date.now) {
+    Date.now = function () { return +new Date; };
+}
 
 /**
  * 表示一个特效驱动。
@@ -25,7 +27,7 @@ function Fx(options) {
  * 用于管理多个特效的队列。
  * @inner
  */
-Fx.taskQueue = new TaskQueue;
+Fx.asyncQueue = new AsyncQueue;
 
 Fx.prototype = {
 
@@ -74,9 +76,9 @@ Fx.prototype = {
      */
     run: function () {
         var me = this;
-        Fx.taskQueue.then(function () {
+        Fx.asyncQueue.then(function () {
             if (!me.start || me.start() !== false) {
-                Fx.taskQueue.suspend(me);
+                Fx.asyncQueue.suspend(me);
                 me.time = 0;
                 me.set(0, 0);
                 me.resume();
@@ -161,7 +163,7 @@ Fx.prototype = {
             me.complete && me.complete(isAbort);
 
             // 驱动下一个任务。
-            Fx.taskQueue.resume();
+            Fx.asyncQueue.resume();
         }
     },
 
@@ -172,7 +174,7 @@ Fx.prototype = {
     abort: function () {
         var me = this;
         me.pause();
-        Fx.taskQueue.resume();
+        Fx.asyncQueue.resume();
         return me;
     }
 
@@ -205,5 +207,8 @@ Fx.prototype = {
  * });
  */
 Fx.run = function (options) {
+    window.console && console.assert(!options || !options.start || options.start instanceof Function, "Fx.run(options: start 必须是函数)");
+    window.console && console.assert(!options || !options.complete || options.complete instanceof Function, "Fx.run(options: complete 必须是函数)");
+    window.console && console.assert(!options || !options.set || options.set instanceof Function, "Fx.run(options: set 必须是函数)");
     return new Fx(options).run();
 };

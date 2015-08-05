@@ -9,6 +9,7 @@
  * 表示一个 Ajax 请求。
  * @param {Object} options 发送的配置。具体见`Ajax.send`。
  * @class
+ * @inner
  */
 function Ajax(options) {
 
@@ -32,13 +33,8 @@ function Ajax(options) {
         // data
         me.data = QueryString.stringify(me.data);
         if (me.data && me.type === 'GET') {
-            me.url = Ajax.appendQuerys(me.url, me.data);
+            me.url = Ajax.appendQuery(me.url, me.data);
             me.data = null;
-        }
-
-        // cache
-        if (me.cache !== true) {
-            me.url = Ajax.appendCacheQuery(me.url);
         }
 
         // async
@@ -59,7 +55,6 @@ Ajax.prototype = {
 
     /**
      * 发送当前的请求。
-     * @inner
      */
     send: function () {
 
@@ -80,7 +75,6 @@ Ajax.prototype = {
 
     /**
      * 当被子类重写时，负责终止当前请求。
-     * @inner
      */
     abort: function () {
         this.done && this.done('Aborted', -1);
@@ -112,6 +106,7 @@ Ajax.getCurrentUrl = function () {
  * @inner
  */
 Ajax.isCrossDomain = function (url) {
+    window.console && console.assert(typeof url === "string", "Ajax.isCrossDomain(url: 必须是字符串)");
     var rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
         locParts = rUrl.exec(Ajax.getCurrentUrl().toLowerCase()) || 0;
     url = rUrl.exec(url.toLowerCase());
@@ -125,7 +120,8 @@ Ajax.isCrossDomain = function (url) {
  * @returns {String} 返回处理后的地址。
  * @inner
  */
-Ajax.appendQuerys = function (url, param) {
+Ajax.appendQuery = function (url, param) {
+    window.console && console.assert(typeof url === "string", "Ajax.appendQuery(url: 必须是字符串, [param])");
     return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
 };
 
@@ -137,8 +133,8 @@ Ajax.appendQuerys = function (url, param) {
  */
 Ajax.appendCacheQuery = function (url) {
     // 不需要完美添加或删除功能。
-    // return (/[?&]_=/.test(url) ? url : Ajax.appendQuerys(url, "_=")).replace(/([?&]_=)([^&]*)/, "$1" + +new Date);
-    return Ajax.appendQuerys(url, "_=" + +new Date);
+    // return (/[?&]_=/.test(url) ? url : Ajax.appendQuery(url, "_=")).replace(/([?&]_=)([^&]*)/, "$1" + +new Date);
+    return Ajax.appendQuery(url, "_=" + +new Date);
 };
 
 /**
@@ -173,7 +169,6 @@ Ajax.parsers = {
     /**
      * 获取文本格式数据。
      * @type {Object} options 要处理的原始 options。
-     * @inner
      */
     text: function (options) {
         var responseText;
@@ -191,7 +186,6 @@ Ajax.parsers = {
     /**
      * 执行 JavaScript 代码。
      * @type {Object} options 要处理的原始 options。
-     * @inner
      */
     script: function (options) {
         var sourceCode = Ajax.parsers.text(options);
@@ -205,7 +199,6 @@ Ajax.parsers = {
     /**
      * 获取 JSON 格式数据。
      * @type {Object} options 要处理的原始 options。
-     * @inner
      */
     json: function (options) {
         return JSON.parse(Ajax.parsers.text(options));
@@ -218,7 +211,6 @@ Ajax.parsers = {
     /**
      * 获取 XML 格式数据。
      * @type {Object} options 要处理的原始 options。
-     * @inner
      */
     xml: function (options) {
         var xml = options.xhr.responseXML;
@@ -239,7 +231,6 @@ Ajax.transports = {
 
     /**
      * 文本格式传输协议。
-     * @inner
      */
     text: function (ajax, callback) {
 
@@ -277,6 +268,12 @@ Ajax.transports = {
         // #endregion
 
         // #region 发送请求
+
+        // 生成请求地址。
+        var url = ajax.url;
+        if (ajax.cache !== true) {
+            url = Ajax.appendCacheQuery(url);
+        }
 
         // 请求对象。
         var xhr = ajax.xhr = new XMLHttpRequest();
@@ -356,7 +353,7 @@ Ajax.transports = {
         }
 
         try {
-            ajax.username ? xhr.open(ajax.type, ajax.url, ajax.async, ajax.username, ajax.password) : xhr.open(ajax.type, ajax.url, ajax.async);
+            ajax.username ? xhr.open(ajax.type, url, ajax.async, ajax.username, ajax.password) : xhr.open(ajax.type, url, ajax.async);
         } catch (ieOpenError) {
             // IE: 地址错误时产生异常。
             done(ieOpenError, -3);
@@ -406,7 +403,6 @@ Ajax.transports = {
 
     /**
      * 脚本格式传输协议。
-     * @inner
      */
     script: function (ajax, callback) {
 
@@ -414,6 +410,12 @@ Ajax.transports = {
         if (!ajax.crossDomain && Ajax.transports.text) {
             ajax.dataType = 'script';
             return Ajax.transports.text(ajax, callback);
+        }
+
+        // 生成请求地址。
+        var url = ajax.url;
+        if (ajax.cache !== true) {
+            url = Ajax.appendCacheQuery(url);
         }
 
         var script = ajax.xhr = document.createElement('SCRIPT');
@@ -439,7 +441,7 @@ Ajax.transports = {
             }
         };
 
-        script.src = ajax.url;
+        script.src = url;
         script.type = "text/javascript";
         if (ajax.async) {
             script.async = "async";
@@ -459,22 +461,23 @@ Ajax.transports = {
 
     /**
      * 脚本远程执行格式传输协议。
-     * @inner
      */
     jsonp: function (ajax, callback) {
-
+        
         var jsonpCallback = "jsonp" + +new Date() + (Ajax._jsonpCounter = Ajax._jsonpCounter + 1 || 0),
             jsonpCallbackOverwritten = window[jsonpCallback],
             responseData;
 
         // jsonp
         if (ajax.jsonp == null) {
-            ajax.jsonp = 'done';
+            ajax.jsonp = "callback";
         }
 
-        // done=jsonp123
+        // callback=jsonp123
         if (ajax.jsonp) {
-            ajax.url = Ajax.appendQuerys(ajax.url, ajax.jsonp + "=" + jsonpCallback);
+            ajax.url = Ajax.appendQuery(ajax.url, ajax.jsonp + "=" + jsonpCallback);
+            // 由于已经加入了用于避免缓存的后缀，强制禁止缓存。
+            ajax.cache = false;
         }
 
         // 插入 JSONP 回调。
@@ -506,7 +509,6 @@ Ajax.transports = {
 
     /**
      * 多个外部 AJAX 请求组成。
-     * @inneri = ajax.url.length
      */
     subAjax: function (ajax) {
         ajax.url = ajax.url.slice(0);
@@ -600,13 +602,13 @@ Ajax.transports = {
  * });
  */
 Ajax.send = function (options, url, data, onsuccess, onerror, dataType) {
-
+    window.console && console.assert(options != null, "Ajax.send(options: 不能为空, [url], [data], [onsuccess], [onerror], [dataType])");
     // 支持直接传递相关参数以发起请求。
-    if (options && options.constructor === String) {
+    if (options.constructor === String) {
 
         // 填充 data 参数。
-        if (data && data.constructor === Function) {
-            dataType = onerror;
+        if (data instanceof Function) {
+            dataType = dataType || onerror;
             onerror = onsuccess;
             onsuccess = data;
             data = null;
@@ -622,6 +624,10 @@ Ajax.send = function (options, url, data, onsuccess, onerror, dataType) {
         };
     }
 
+    window.console && console.assert(!options.start || options.start instanceof Function, "Ajax.send(options: start 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    window.console && console.assert(!options.error || options.error instanceof Function, "Ajax.send(options: error 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    window.console && console.assert(!options.success || options.success instanceof Function, "Ajax.send(options: success 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    window.console && console.assert(!options.complete || options.complete instanceof Function, "Ajax.send(options: complete 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
     return new Ajax(options).send();
 
 };
@@ -714,7 +720,7 @@ Ajax.post = function (url, data, onsuccess, onerror, dataType) {
  * @example Ajax.jsonp("../../../assets/resources/ajax/jsonp.js", function(data){alert(data)})
  */
 Ajax.jsonp = function (url, data, onsuccess, onerror) {
-    return Ajax.send(null, url, data, onsuccess, onerror, 'jsonp');
+    return Ajax.send('', url, data, onsuccess, onerror, 'jsonp');
 };
 
 // #endregion

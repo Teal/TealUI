@@ -261,7 +261,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				example: "<pre>Array.range(6) // [0, 1, 2, 3, 4, 5]</pre>\n\
 \n\
 <pre>Array.range(2, 11, 3) // [2, 5, 8]</pre>",
-				line: 43,
+				line: 42,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -294,7 +294,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]</pre>",
 				since: "ES5",
-				line: 75,
+				line: 74,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -360,7 +360,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				},
 				example: "<pre>[1, 9, 9, 0].some(function(item){return item > 5}); // true</pre>",
 				since: "ES5",
-				line: 132,
+				line: 133,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -375,9 +375,9 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					type: "Array",
 					summary: "<p>返回新数组。</p>"
 				},
-				example: "<pre>[\"I\", \"love\"].concat(\"you\"); // [\"I\", \"love\", \"you\"]</pre>",
+				example: "<pre>[\"I\", \"love\"].concat([\"you\"]); // [\"I\", \"love\", \"you\"]</pre>",
 				since: "ES4",
-				line: 160,
+				line: 162,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -397,7 +397,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回 <em>value</em>。</p>"
 				},
 				example: "<pre>[\"I\", \"you\"].insert(1, \"love\"); // [\"I\", \"love\", \"you\"]</pre>",
-				line: 177,
+				line: 179,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -417,7 +417,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回所有调用结果的返回值。</p>"
 				},
 				example: "<pre>[\"I\", \"you\"].invoke(\"length\"); // [1, 3]</pre>",
-				line: 193,
+				line: 195,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -433,7 +433,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回指定索引的项。</p>"
 				},
 				example: "<pre>['a', 'b'].item(-1) // 'b'</pre>",
-				line: 217,
+				line: 219,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -444,7 +444,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回过滤后的新数组。</p>"
 				},
 				example: "<pre>[\"\", false, 0, undefined, null, {}].clean(); // [{}]</pre>",
-				line: 231,
+				line: 233,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -455,7 +455,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有项的最小值。</p>"
 				},
 				example: "<pre>[1, 2].min() // 1</pre>",
-				line: 244,
+				line: 248,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -466,7 +466,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有项的最大值。</p>"
 				},
 				example: "<pre>[1, 2].max() // 2</pre>",
-				line: 253,
+				line: 257,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -477,7 +477,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有数值的和。</p>"
 				},
 				example: "<pre>[1, 2].sum() // 3</pre>",
-				line: 266,
+				line: 270,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -488,7 +488,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组中所有数值的算术平均值。</p>"
 				},
 				example: "<pre>[1, 2].avg() // 1.5</pre>",
-				line: 283,
+				line: 287,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -504,7 +504,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回数组和指定键组成的键值对。</p>"
 				},
 				example: "<pre>[1, 2].associate([\"a\", \"b\"]) // {a: 1, b: 2}</pre>",
-				line: 303,
+				line: 307,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -514,7 +514,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>this</p>"
 				},
 				example: "<pre>[1, 2].clear() // []</pre>",
-				line: 321,
+				line: 326,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -525,7 +525,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回不为空的元素，如果所有元素都为空则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>[undefined, null, 1, 2].pick() // 1</pre>",
-				line: 335,
+				line: 340,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -536,7 +536,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回找到的项。如果数组为空，则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>[1, 2, 3].random()</pre>",
-				line: 352,
+				line: 357,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -546,7 +546,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>this</p>"
 				},
 				example: "<pre>[1, 2, 3].shuffle()</pre>",
-				line: 365,
+				line: 370,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -557,7 +557,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回新数组。</p>"
 				},
 				example: "<pre>[[1, 2], [[[3]]]].flatten() // [1, 2, 3]</pre>",
-				line: 384,
+				line: 389,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -570,7 +570,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				example: "<pre>[1, 9, 0].isUnique() // true</pre>\n\
 \n\
 <pre>[1, 9, 9, 0].isUnique() // false</pre>",
-				line: 401,
+				line: 406,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -586,7 +586,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 					summary: "<p>返回新数组。</p>"
 				},
 				example: "<pre>[1, 2].sub([1]) // [2]</pre>",
-				line: 423,
+				line: 427,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -604,7 +604,7 @@ Array.parseArray({length: 1, \"0\": \"value\"}); // [\"value\"]</pre>",
 				example: "<pre>[1, 9, 0].pushIf(1) // [1, 9, 0]</pre>\n\
 \n\
 <pre>[1, 9, 0].pushIf(2) // [1, 9, 0, 2]</pre>",
-				line: 443,
+				line: 448,
 				col: 1
 			}]
 });

@@ -1,8 +1,7 @@
 /**
  * @fileOverview 为低版本浏览器提供 HTML5 的部分常用函数。
  * @author xuld
- * @remark 
- * 本文件主要针对 IE8 以及老版本 FireFox, Safari 和 Chrome。
+ * @remark 本组件主要针对 IE8 以及老版本 FireFox, Safari 和 Chrome。
  */
 
 // #region ECMA 5
@@ -65,6 +64,7 @@ if (!Array.prototype.forEach) {
      * @since ES5
      */
     Array.prototype.forEach = function (fn, scope) {
+        window.console && console.assert(fn instanceof Function, "array.forEach(fn: 必须是函数, [scope])");
         for (var i = 0, length = this.length; i < length; i++) {
             fn.call(scope, this[i], i, this);
         }
@@ -85,6 +85,7 @@ if (!Array.prototype.forEach) {
      * @since ES5
      */
     Array.prototype.filter = function (fn, scope) {
+        window.console && console.assert(fn instanceof Function, "array.filter(fn: 必须是函数, [scope])");
         var results = [];
         for (var i = 0, l = this.length; i < l; i++) {
             if (i in this) {
@@ -115,9 +116,11 @@ if (!String.prototype.trim) {
 
 // #endregion
 
+// #region lte IE 8
+
 /*@cc_on if(!+"\v1") {
 
-// #region lte IE 8
+/// @category IE8 补丁
 
 /// 获取指定项在数组内的索引。
 /// @param {Object} value 一个类数组对象。
@@ -143,20 +146,11 @@ XMLHttpRequest = function(){
 };
 
 // 让 IE6-8 支持 HTML5 新标签。
-'article section header footer nav aside details summary menu'.replace(/\w+/g, function (tagName) {
+"article section header footer nav aside details summary menu".replace(/\w+/g, function (tagName) {
     document.createElement(tagName);
 });
-    
-// IE8: 只支持 Document，不支持 HTMLDocument。
-var Document = Document || HTMLDocument;
 
-// #endregion
-
-// #region DOM 2
-
-/// @category IE8 DOM 补丁
-
-(function (ep, dp) {
+(function (ep, dp, evtp, trp) {
 
     // 定义一个属性。
     function defineProperty(obj, propName, getter, setter) {
@@ -203,9 +197,6 @@ var Document = Document || HTMLDocument;
     window.removeEventListener = dp.removeEventListener = ep.removeEventListener = function (eventName, eventHandler) {
         this.detachEvent('on' + eventName, eventHandler);
     };
-
-    // 事件。
-    var evtp = Event.prototype;
 
     /// 阻止当前事件冒泡。
     /// @memberOf Event.prototype
@@ -284,7 +275,7 @@ var Document = Document || HTMLDocument;
     /// @name width
     /// @example document.body.getBoundingClientRect().width
     /// @since ES4
-    defineProperty(TextRectangle.prototype, 'width', function () {
+    defineProperty(trp, 'width', function () {
         return this.right - this.left;
     });
     
@@ -293,12 +284,12 @@ var Document = Document || HTMLDocument;
     /// @name height
     /// @example document.body.getBoundingClientRect().height
     /// @since ES4
-    defineProperty(TextRectangle.prototype, 'height', function () {
-            return this.bottom - this.top;
+    defineProperty(trp, 'height', function () {
+        return this.bottom - this.top;
     });
    
-})(Element.prototype, Document.prototype);
-
-// #endregion
+})(Element.prototype, HTMLDocument.prototype, Event.prototype, TextRectangle.prototype);
 
 } @*/
+
+// #endregion

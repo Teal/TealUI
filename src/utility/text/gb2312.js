@@ -10,6 +10,7 @@
  * @example encodeGB2312("你") // "%C4%E3"
  */
 function encodeGB2312(str) {
+    window.console && console.assert(typeof str === "string", "encodeGB2312(str: 必须是字符串)");
     var result = "";
     for (var i = 0; i < str.length; i++) {
     	var c = str.charCodeAt(i) - 0x4e00;
@@ -39,6 +40,7 @@ function encodeGB2312(str) {
  * @example decodeGB2312("%C4%E3") // "你"
  */
 function decodeGB2312(str) {
+    window.console && console.assert(typeof str === "string", "decodeGB2312(str: 必须是字符串)");
 	return str.replace(/%([\da-f][\da-f])(%([\da-f][\da-f]))?/ig, function(all, x, __, y){
 		if(!y) {
 			return String.fromCharCode(parseInt(x, 16));

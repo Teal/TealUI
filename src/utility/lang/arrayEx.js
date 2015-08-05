@@ -26,8 +26,7 @@ Array.parseArray = function (iterable, startIndex) {
     // IE6-8: [DOM Object] 。
     /*@cc_on if(!+"\v1") {
     var result = [], length = iterable.length;
-    for (startIndex = startIndex || 0; startIndex < length;
-    startIndex++) {
+    for (startIndex = startIndex || 0; startIndex < length; startIndex++) {
         result.push(iterable[startIndex]);
     }
     return result;
@@ -88,6 +87,7 @@ Array.range = function (start, stop, step) {
  * @since ES5
  */
 Array.prototype.map = Array.prototype.map || function (fn, scope) {
+    window.console && console.assert(fn instanceof Function, "array.map(fn: 必须是函数, [scope])");
     var result = [];
     for (var i = 0, length = this.length; i < length; i++) {
         if (i in this) {
@@ -117,6 +117,7 @@ Array.prototype.map = Array.prototype.map || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.every = Array.prototype.every || function (fn, scope) {
+    window.console && console.assert(fn instanceof Function, "array.every(fn: 必须是函数, [scope])");
     for (var i = 0, length = this.length; i < length; i++) {
         if ((i in this) && fn.call(scope, this[i], i, this)) {
             return false;
@@ -145,6 +146,7 @@ Array.prototype.every = Array.prototype.every || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.some = Array.prototype.some || function (fn, scope) {
+    window.console && console.assert(fn instanceof Function, "array.some(fn: 必须是函数, [scope])");
     for (var i = 0, length = this.length; i < length; i++) {
         if ((i in this) && fn.call(scope, this[i], i, this)) {
             return true;
@@ -161,7 +163,7 @@ Array.prototype.some = Array.prototype.some || function (fn, scope) {
  * 合并当前数组和另一个数组并返回一个新数组。
  * @param {Array} array 要合并的数组。
  * @returns {Array} 返回新数组。
- * @example ["I", "love"].concat("you"); // ["I", "love", "you"]
+ * @example ["I", "love"].concat(["you"]); // ["I", "love", "you"]
  * @since ES4
  */
 Array.prototype.concat = Array.prototype.concat || function (array) {
@@ -234,7 +236,9 @@ Array.prototype.item = function (index) {
  * @example ["", false, 0, undefined, null, {}].clean(); // [{}]
  */
 Array.prototype.clean = function () {
-    return this.filter(function (obj) { return !obj });
+    return this.filter(function (obj) {
+        return !obj
+    });
 };
 
 // #endregion
@@ -307,6 +311,7 @@ Array.prototype.avg = function () {
  * @example [1, 2].associate(["a", "b"]) // {a: 1, b: 2}
  */
 Array.prototype.associate = function (keys) {
+    window.console && console.assert(keys && typeof keys.length === "number", "array.associate(keys: 必须是数组)");
     var result = {};
     for (var i = 0, length = Math.min(this.length, keys.length) ; i < length; i++) {
         result[keys[i]] = this[i];
@@ -396,14 +401,13 @@ Array.prototype.flatten = function () {
 
 // #endregion
 
-// #region @Array#checkRepeat
+// #region @Array#isUnique
 
 /**
  * 判断数组中是否存在重复项。
  * @returns {Boolean} 若数组中存在重复值，则返回 @true，否则返回 @false。
  * @example 
  * [1, 9, 0].isUnique() // true
- * 
  * 
  * [1, 9, 9, 0].isUnique() // false
  */
@@ -427,6 +431,7 @@ Array.prototype.isUnique = function () {
  * @example [1, 2].sub([1]) // [2]
  */
 Array.prototype.sub = function (array) {
+    window.console && console.assert(array && array.indexOf, "array.sub(array: 必须是数组)");
     var result = this.slice(0), i;
     for (i = result.length - 1; i >= 0; i--) {
         if (array.indexOf(result[i]) < 0) {

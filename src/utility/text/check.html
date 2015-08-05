@@ -23,244 +23,229 @@
         Doc.writeApi({
 			path: "utility/text/check.js",
 			apis: [{
-				memberOf: "Check",
 				name: "isEmail",
 				summary: "<p>判断指定字符串是否为合法邮箱地址。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isEmail(\"work&#64;xuld.net\") // true</pre>",
-				line: 12,
+				example: "<pre>isEmail(\"work&#64;xuld.net\") // true</pre>",
+				line: 7,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isInt",
 				summary: "<p>判断指定字符串是否为整数。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isInt(\"-45\") // true</pre>",
-				line: 26,
+				example: "<pre>isInt(\"-45\") // true</pre>",
+				line: 21,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isNumber",
 				summary: "<p>判断指定字符串是否为数字。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isNumber(\"-45.35\") // true</pre>",
-				line: 40,
+				example: "<pre>isNumber(\"-45.35\") // true</pre>",
+				line: 35,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isDate",
 				summary: "<p>判断指定字符串是否为日期。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isDate(\"2014/1/1\") // true</pre>",
-				line: 54,
+				example: "<pre>isDate(\"2014/1/1\") // true</pre>",
+				line: 49,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isLetter",
 				summary: "<p>判断指定字符串是否为字母。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isLetter(\"abc\") // true</pre>",
-				line: 71,
+				example: "<pre>isLetter(\"abc\") // true</pre>",
+				line: 67,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isDight",
 				summary: "<p>判断指定字符串是否为数字。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isLetter(\"1\") // true</pre>",
-				line: 85,
+				example: "<pre>isLetter(\"1\") // true</pre>",
+				line: 81,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isLetterOrDight",
 				summary: "<p>判断指定字符串是否为字母或数字。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isLetterOrDight(\"x09\") // true</pre>",
-				line: 99,
+				example: "<pre>isLetterOrDight(\"x09\") // true</pre>",
+				line: 95,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isIndentifier",
 				summary: "<p>判断指定字符串是否为 JavaScript 标识符。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isIndentifier(\"x09\") // true</pre>",
-				line: 113,
+				example: "<pre>isIndentifier(\"x09\") // true</pre>",
+				line: 109,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isUrl",
 				summary: "<p>判断指定字符串是否为网址。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isIndentifier(\"http://teal.github.io/\") // true</pre>",
-				line: 127,
+				example: "<pre>isIndentifier(\"http://teal.github.io/\") // true</pre>",
+				line: 123,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isIP",
 				summary: "<p>判断指定字符串是否为 IP 地址。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isIP(\"127.0.0.1\") // true</pre>",
-				line: 141,
+				example: "<pre>isIP(\"127.0.0.1\") // true</pre>",
+				line: 137,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isPhone",
 				summary: "<p>判断指定字符串是否为手机号。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isPhone(\"+8613211111111\") // true</pre>",
-				line: 155,
+				example: "<pre>isPhone(\"+8613211111111\") // true</pre>",
+				line: 151,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isChinese",
 				summary: "<p>判断指定字符串是否为中文。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isChinese(\"你好\") // true</pre>",
-				line: 169,
+				example: "<pre>isChinese(\"你好\") // true</pre>",
+				line: 165,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isPostCode",
 				summary: "<p>判断指定字符串是否为邮编。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isPostCode(\"310000\") // true</pre>",
-				line: 183,
+				example: "<pre>isPostCode(\"310000\") // true</pre>",
+				line: 179,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isId",
 				summary: "<p>判断指定字符串是否为身份证号。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isId(\"152500198909267865\") // true</pre>",
-				line: 197,
+				example: "<pre>isId(\"152500198909267865\") // true</pre>",
+				line: 193,
 				col: 1
 			}, {
-				memberOf: "Check",
 				name: "isQQ",
 				summary: "<p>判断指定字符串是否为 QQ 号。</p>",
 				params: [{
 					type: "String",
-					name: "value",
+					name: "str",
 					summary: "<p>要判断的字符串。</p>"
 				}],
 				returns: {
 					type: "Boolean",
 					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
-				example: "<pre>Check.isQQ(\"10000\") // true</pre>",
-				line: 211,
+				example: "<pre>isQQ(\"10000\") // true</pre>",
+				line: 207,
 				col: 1
 			}]
 });</script>

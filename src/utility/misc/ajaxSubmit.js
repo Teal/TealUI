@@ -8,7 +8,8 @@
  * @returns {String} 返回表单是参数形式。
  * @example Ajax.paramForm(document.getElementById("form"))
  */
-Ajax.paramForm = function(formElem) {
+Ajax.paramForm = function (formElem) {
+    window.console && console.assert(formElem, "Ajax.paramForm(formElem: 不能为空)");
 	var s = [], input, e = encodeURIComponent, value, name;
 	for (var i = 0, len = formElem.length; i < len; i++) {
 		input = formElem[i];
@@ -50,10 +51,11 @@ Ajax.paramForm = function(formElem) {
  * @returns {Object} 返回请求对象。
  * @example Ajax.submit(document.getElementById("form"), function(data){alert("提交成功了, 返回数据" + data)}, function(errorCode){alert("提交失败了， 错误码" + errorCode)})
  */
-Ajax.submit = function(formElem, onsuccess, onerror) {
+Ajax.submit = function (formElem, onsuccess, onerror) {
+    window.console && console.assert(formElem, "Ajax.submit(formElem: 不能为空)");
 	return Ajax.send({
-		type: form.method,
-		url: form.action,
+	    type: formElem.method,
+	    url: formElem.action,
 		data: Ajax.paramForm(formElem),
 		success: onsuccess,
 		error: onerror

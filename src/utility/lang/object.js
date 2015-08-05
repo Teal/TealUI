@@ -18,6 +18,7 @@ if (!Object.assign) {
      * @since ES6
      */
     Object.assign = function (target, source) {
+        window.console && console.assert(target != null, "Object.assign(target: 不能为空, source)");
         // ECMA 6 内置此函数，但是功能更丰富。
         for (var key in source) {
             target[key] = source[key];
@@ -53,6 +54,7 @@ if (!Object.assign) {
  * });
  */
 Object.each = function (iterable, fn, scope) {
+    window.console && console.assert(fn instanceof Function, "Object.each(iterable, fn: 必须是函数, [scope])");
 
     var length;
 

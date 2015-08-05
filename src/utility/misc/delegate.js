@@ -24,6 +24,7 @@ function Delegate() {
  * @example new Delegate().add(function(){})
  */
 Delegate.prototype.add = function (fn) {
+    window.console && console.assert(fn instanceof Function, "delegate.add(fn: 必须是函数)");
     this.handlers.push(fn);
     return this;
 };

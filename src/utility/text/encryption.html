@@ -65,7 +65,7 @@
 					summary: "<p>返回解密后的字符串。</p>"
 				},
 				example: "<pre>dencryptString(\"abc\", 123) // \"cce\"</pre>",
-				line: 23,
+				line: 24,
 				col: 1
 			}]
 });</script>
@@ -114,6 +114,10 @@
 					type: "String",
 					name: "str",
 					summary: "<p>要计算的字符串。</p>"
+				}, {
+					type: "String",
+					name: "key",
+					summary: "<p>加密的密钥。</p>"
 				}],
 				returns: {
 					type: "String",
@@ -136,7 +140,7 @@
 					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
 				},
 				example: "<pre>md5.base64Md5(\"abc\") // \"kAFQmDzST7DWlj99KOF/cg\"</pre>",
-				line: 39,
+				line: 41,
 				col: 1
 			}, {
 				memberOf: "md5",
@@ -146,13 +150,17 @@
 					type: "String",
 					name: "str",
 					summary: "<p>要计算的字符串。</p>"
+				}, {
+					type: "String",
+					name: "key",
+					summary: "<p>加密的密钥。</p>"
 				}],
 				returns: {
 					type: "String",
 					summary: "<p>返回 <em>str</em> 加密后的字符串。其所有字符均为大写。</p>"
 				},
 				example: "<pre>md5.base64HmacMd5(\"abc\", \"key\") // \"0v6YBj+HawMZOvtJtJeVkQ\"</pre>",
-				line: 70,
+				line: 73,
 				col: 1
 			}]
 });</script>

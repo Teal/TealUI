@@ -2246,11 +2246,13 @@ var Doc = {
     execAllCodes: function () {
         Doc.iterate('pre', function (pre) {
             var src = pre.textContent || pre.innerText, result;
-            try {
-                result = window.eval(src);
-                console.log(src, ' => ', result);
-            } catch (e) {
-                console.error(src + ' => ' + e);
+            if (!/^</.test(src)) {
+                try {
+                    result = window.eval(src);
+                    console.log(src, ' => ', result);
+                } catch (e) {
+                    console.error(src + ' => ' + e);
+                }
             }
         });
     },
@@ -2388,6 +2390,9 @@ var Doc = {
         }
 
         if (api.remark) {
+            if (/^<p/.test(api.remark)) {
+                result += "<h4>备注</h4>";
+            }
             result += api.remark;
         }
 

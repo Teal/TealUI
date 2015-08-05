@@ -28,6 +28,7 @@
  * > 元字符区分大小写。
  */
 Date.prototype.format = function (format) {
+    window.console && console.assert(!format || typeof format === "string", "date.format([format: 必须是字符串])");
     var me = this, formators = Date._formators;
     if (!formators) {
         Date._formators = formators = {

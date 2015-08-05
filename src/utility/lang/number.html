@@ -172,7 +172,12 @@
         Doc.writeApi({
 			path: "utility/lang/bigInt.js",
 			apis: [{
-				memberOf: "BigInt",
+				name: "BigInt",
+				summary: "<p>提供大整数计算相关函数。</p>",
+				type: "Object",
+				line: 5,
+				col: 1
+			}, {
 				name: "add",
 				summary: "<p>计算大正整数的和。</p>",
 				params: [{
@@ -192,7 +197,6 @@
 				line: 10,
 				col: 1
 			}, {
-				memberOf: "BigInt",
 				name: "mul",
 				summary: "<p>计算大正整数的积。</p>",
 				params: [{
@@ -209,10 +213,9 @@
 					summary: "<p>返回计算的结果。</p>"
 				},
 				example: "<pre>BigInt.mul(\"1\", \"2\") // \"2\"</pre>",
-				line: 34,
+				line: 36,
 				col: 1
 			}, {
-				memberOf: "BigInt",
 				name: "pow",
 				summary: "<p>计算大正整数的幂。</p>",
 				params: [{
@@ -229,7 +232,7 @@
 					summary: "<p>返回计算的结果。</p>"
 				},
 				example: "<pre>BigInt.pow(\"1\", \"2\") // \"1\"</pre>",
-				line: 63,
+				line: 67,
 				col: 1
 			}]
 });
@@ -268,7 +271,13 @@
         Doc.writeApi({
 			path: "utility/lang/currency.js",
 			apis: [{
-				memberOf: "Currency",
+				name: "Currency",
+				summary: "<p>提供货币计算相关函数。</p>",
+				remark: "<p>本类型支持的最大货币范围为：10,000,000,000,000.00</p>",
+				type: "Object",
+				line: 5,
+				col: 1
+			}, {
 				name: "add",
 				summary: "<p>精确计算两个货币的和。</p>",
 				params: [{
@@ -288,7 +297,6 @@
 				line: 11,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "sub",
 				summary: "<p>精确计算两个货币的差。</p>",
 				params: [{
@@ -308,7 +316,6 @@
 				line: 23,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "mul",
 				summary: "<p>精确计算两个货币的积。</p>",
 				params: [{
@@ -328,7 +335,6 @@
 				line: 35,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "div",
 				summary: "<p>精确计算两个货币的商。</p>",
 				params: [{
@@ -348,7 +354,6 @@
 				line: 48,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "round",
 				summary: "<p>保留小数点后两位四舍五入。</p>",
 				params: [{
@@ -364,7 +369,6 @@
 				line: 61,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "format",
 				summary: "<p>将指定的货币格式化为字符串。</p>",
 				params: [{
@@ -380,7 +384,6 @@
 				line: 71,
 				col: 1
 			}, {
-				memberOf: "Currency",
 				name: "toChinese",
 				summary: "<p>将货币转为中文大写金额。</p>",
 				params: [{

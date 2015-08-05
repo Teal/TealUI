@@ -96,7 +96,7 @@
 				example: "<pre>new DataTable().set(2, {});</pre>\n\
 \n\
 <pre>new DataTable().set([{}]);</pre>",
-				line: 83,
+				line: 90,
 				col: 1
 			}, {
 				memberOf: "DataTable.prototype",
@@ -122,7 +122,7 @@
 					summary: "<p>返回最新的长度。</p>"
 				},
 				example: "<pre>new DataTable().add([1, 2, 3])</pre>",
-				line: 102,
+				line: 112,
 				col: 1
 			}, {
 				memberOf: "DataTable.prototype",
@@ -144,7 +144,7 @@
 					summary: "<p>返回本次被删除的行组成的数组。如果未删除则返回空数组。</p>"
 				},
 				example: "<pre>new DataTable().remove(1)</pre>",
-				line: 123,
+				line: 134,
 				col: 1
 			}, {
 				memberOf: "DataTable.prototype",
@@ -154,7 +154,7 @@
 					summary: "<p>this</p>"
 				},
 				example: "<pre>new DataTable().clear()</pre>",
-				line: 139,
+				line: 150,
 				col: 1
 			}, {
 				memberOf: "DataTable.prototype",
@@ -171,7 +171,7 @@
 					summary: "<p>返回指定列或全部列的值。</p>"
 				},
 				example: "<pre>new DataTable().values(\"columnName\")</pre>",
-				line: 149,
+				line: 162,
 				col: 1
 			}, {
 				memberOf: "DataTable.prototype",
@@ -192,7 +192,7 @@
 <h5>按自定义排序</h5>\n\
 \n\
 <pre>new DataTable().sort(function(x, y){ return x.id > y.id })</pre>",
-				line: 169,
+				line: 184,
 				col: 1
 			}]
 });</script>
@@ -203,6 +203,11 @@
         Doc.writeApi({
 			path: "utility/misc/json.js",
 			apis: [{
+				name: "JSON",
+				summary: "<p>提供解析 JSON 的函数。</p>",
+				line: 6,
+				col: 1
+			}, {
 				memberOf: "JSON",
 				name: "stringify",
 				summary: "<p>将对象格式化为字符串。</p>",

@@ -77,7 +77,7 @@ Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.each([1, 2, 3], function(item, index){\n\
      console.log(index, \"=>\", item);\n\
 });</pre>",
-				line: 34,
+				line: 35,
 				col: 1
 			}]
 });
@@ -200,7 +200,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
   <p>考虑项目实际需求和性能，<code>Object.clone</code> 不拷贝函数，因此拷贝的对象成员函数将保持引用关系。</p>\n\
 </blockquote>",
 				example: "<pre>Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}</pre>",
-				line: 109,
+				line: 110,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -220,7 +220,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>如果比较的对象相同则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>Object.areSame([], []) // true</pre>",
-				line: 146,
+				line: 147,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -236,7 +236,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回属性数。只返回对象自身的属性数，不含原型属性。</p>"
 				},
 				example: "<pre>Object.size({v: 3, g: 5}) // 2</pre>",
-				line: 170,
+				line: 171,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -253,7 +253,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 				},
 				example: "<pre>Object.keys({a: 3, b: 5}) // [\"a\", \"b\"]</pre>",
 				since: "ES5",
-				line: 190,
+				line: 191,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -269,7 +269,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回所有值组成的数组。</p>"
 				},
 				example: "<pre>Object.values({a: 3, b: 5}) // [3, 5]</pre>",
-				line: 211,
+				line: 212,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -289,7 +289,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回匹配的第一个键，如果不存在返回 null。</p>"
 				},
 				example: "<pre>Object.keyOf({a:1, b:1}, 1) // \"a\"</pre>",
-				line: 231,
+				line: 232,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -317,7 +317,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回 <em>obj</em>。</p>"
 				},
 				example: "<pre>Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}</pre>",
-				line: 251,
+				line: 252,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -351,7 +351,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 				example: "<pre>Object.filter([1, 2], function(v){return v > 1;}) // [2]</pre>\n\
 \n\
 <pre>Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}</pre>",
-				line: 280,
+				line: 282,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -393,7 +393,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 <pre>Object.map({length: 1, \"0\": \"a\"}, function(a){\n\
        return a + a\n\
 }) // [\"a\"];</pre>",
-				line: 326,
+				line: 329,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -425,7 +425,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false</pre>",
-				line: 376,
+				line: 379,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -477,7 +477,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回新对象。</p>"
 				},
 				example: "<pre>Object.subset({a:1, b:1}, ['a']) // {a:1}</pre>",
-				line: 462,
+				line: 459,
 				col: 1
 			}, {
 				memberOf: "Object",
@@ -493,7 +493,7 @@ Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
 					summary: "<p>返回第一个不为空的值。如果都为空则返回 <strong>undefined</strong>。</p>"
 				},
 				example: "<pre>Object.pick(undefined, null, 1) // 1</pre>",
-				line: 483,
+				line: 482,
 				col: 1
 			}]
 });

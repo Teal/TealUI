@@ -100,9 +100,12 @@ var DataTable = Base.extend.call(Array, {
     set: function (index, row) {
         if(index != null && index.constructor === Number && this.onRemoveRow(index, 1) && this.onAddRow(index, row)) {
             this[index] = row;
-            if(index + 1 > this.length) this.length = index + 1;
-        } else
+            if(index + 1 > this.length) {
+                this.length = index + 1;
+            }
+        } else {
             this.clear().add.apply(this, index);
+        }
         return this;
     },
 
@@ -118,9 +121,10 @@ var DataTable = Base.extend.call(Array, {
 
         // 判断是否包含位置标记。
         var firstRowArgIndex = 0;
-        if(index != null && index.constructor === Number) firstRowArgIndex = 1;
-
-        for(firstRowArgIndex; firstRowArgIndex < arguments.length; firstRowArgIndex++)
+        if (typeof index === "number") {
+            firstRowArgIndex = 1;
+        }
+        for(; firstRowArgIndex < arguments.length; firstRowArgIndex++)
             if(this.onAddRow(firstRowArgIndex ? index : this.length, arguments[firstRowArgIndex]))
                 firstRowArgIndex ? this.splice(index++, 0, arguments[firstRowArgIndex]) : this.push(arguments[firstRowArgIndex]);
 
@@ -135,11 +139,11 @@ var DataTable = Base.extend.call(Array, {
      * @example new DataTable().remove(1)
      */
     remove: function (row, length) {
-
         length = length == undefined ? 1 : length;
         // 将行内容转为行号。
-        if (!row || row.constructor !== Number) row = this.indexOf(row);
-
+        if (typeof row !== "number") {
+            row = this.indexOf(row);
+        }
         return this.onRemoveRow(row, length) ? this.splice(row, length) : [];
     },
 
@@ -149,7 +153,9 @@ var DataTable = Base.extend.call(Array, {
      * @example new DataTable().clear()
      */
     clear: function(){
-        if(this.onRemoveRow(0, this.length)) this.length = 0;
+        if(this.onRemoveRow(0, this.length)) {
+            this.length = 0;
+        }
         return this;
     },
 
@@ -162,12 +168,14 @@ var DataTable = Base.extend.call(Array, {
     values: function (column) {
 
         // 未指定列名获取所有数据。
-        if(column == undefined) return this.slice(0);
+        if(column == undefined) {
+            return this.slice(0);
+        }
 
         // 选出指定列的值。
         column = this.columns[column];
-        var result = [], i;
-        for(i = 0; i < this.length; i++) {
+        var result = [];
+        for(var i = 0; i < this.length; i++) {
             result.push(this[i][column.name]);
         }
         return result;

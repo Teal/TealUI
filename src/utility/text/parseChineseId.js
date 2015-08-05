@@ -5,7 +5,7 @@
 
 /**
  * 解析中国身份证号。
- * @param {String} idNumber 要解析的身份证号。
+ * @param {String} str 要解析的身份证号。
  * @returns {Object} 返回一个 JSON，其格式为：
  * 
  *      {
@@ -17,7 +17,8 @@
  * 
  * @example parseChineseId("152500198909267865")
  */
-function parseChineseId(idNumber) {
+function parseChineseId(str) {
+    window.console && console.assert(typeof str === "string", "parseChineseId(str: 必须是字符串)");
 
     var provinces = parseChineseId._provinces || (parseChineseId._provinces = {
         '11': '北京',
@@ -56,10 +57,10 @@ function parseChineseId(idNumber) {
         '82': '澳门',
         '91': '国外'
     }),
-        province = provinces[idNumber.substring(0, 2)],
-        birthdayYear = +idNumber.substr(6, 4),
-        birthdayMonth = +idNumber.substr(10, 2),
-        birthdayDay = +idNumber.substr(12, 2),
+        province = provinces[str.substring(0, 2)],
+        birthdayYear = +str.substr(6, 4),
+        birthdayMonth = +str.substr(10, 2),
+        birthdayDay = +str.substr(12, 2),
         date = new Date(birthdayYear, birthdayMonth - 1, birthdayDay),
         valid = province && date.getFullYear() == birthdayYear &&
         date.getMonth() + 1 == birthdayMonth &&
@@ -70,7 +71,7 @@ function parseChineseId(idNumber) {
     if (valid) {
         valid = 0;
         for (i = 0; i < 18; i++)
-            valid += ((1 << i) % 11) * (/^x$/i.test(idNumber.charAt(17 - i)) ? 10 : parseInt(idNumber.charAt(17 - i), 11));
+            valid += ((1 << i) % 11) * (/^x$/i.test(str.charAt(17 - i)) ? 10 : parseInt(str.charAt(17 - i), 11));
         valid = valid % 11 == 1;
     }
 
@@ -78,7 +79,7 @@ function parseChineseId(idNumber) {
         valid: valid,
         province: province,
         birthday: date,
-        sex: (+idNumber.substr(16, 1) % 2) === 1 ? '男' : '女'
+        sex: (+str.substr(16, 1) % 2) === 1 ? '男' : '女'
     };
 
 };

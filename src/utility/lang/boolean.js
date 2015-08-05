@@ -12,7 +12,7 @@
  * @example Boolean.parseBoolean("true")
  */
 Boolean.parseBoolean = function (str) {
-    return str ? !/^(false|0|off|no)$/.test(str) : false;
+    return !!str && !/^(false|0|off|no)$/.test(str);
 };
 
 // #endregion

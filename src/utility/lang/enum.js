@@ -18,9 +18,11 @@ var Enum = {
      * @example Enum.getName(WeekDay, 0) // 'sunday'
      */
     getName: function (enumType, enumValue) {
-        for (var key in enumType)
-            if (enumType[key] === enumValue)
+        for (var key in enumType) {
+            if (enumType[key] === enumValue) {
                 return key;
+            }
+        }
         return null;
     },
 

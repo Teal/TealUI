@@ -42,7 +42,12 @@
         Doc.writeApi({
 			path: "utility/text/tpl.js",
 			apis: [{
-				memberOf: "Tpl",
+				name: "Tpl",
+				summary: "<p>表示一个 JavaScript 模板解析器。</p>",
+				type: "Object",
+				line: 9,
+				col: 1
+			}, {
 				name: "compile",
 				summary: "<p>编译指定的模板。</p>",
 				params: [{
@@ -50,15 +55,13 @@
 					name: "tplSource",
 					summary: "<p>要编译的模板文本。</p>"
 				}, {
-					type: "String?",
-					name: "cacheKey",
-					summary: "<p>= tplSource 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。</p>"
+					type: "String",
+					summary: "<p>[cacheKey = <em>tplSource</em>] 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。</p>"
 				}],
 				example: "<pre>Tpl.compile(\"{if $data === 1}OK{/if}\", 1) // function($data){ ... }</pre>",
 				line: 16,
 				col: 1
 			}, {
-				memberOf: "Tpl",
 				name: "parse",
 				summary: "<p>使用指定的数据解析模板，并返回生成的内容。</p>",
 				params: [{
@@ -186,7 +189,7 @@
 <li><code>$key</code>: foreach 语句中获取最近的循环索引或键。</li>\n\
 <li><code>$target</code>: foreach 语句中获取最近的循环对象。</li>\n\
 </ul>",
-				line: 27,
+				line: 28,
 				col: 1
 			}]
 });</script>

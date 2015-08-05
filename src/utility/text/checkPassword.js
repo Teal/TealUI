@@ -1,7 +1,7 @@
 ﻿
 /**
  * 检查一个密码的复杂度。 
- * @param {Object} value 要检查的密码。
+ * @param {String} str 要检查的密码。
  * @returns {Number} 数字越大，复杂度越高。
  * 
  * - 复杂度 < 0：简单密码。
@@ -15,19 +15,17 @@
  * 2. 重复字符、连续字符越多越简单。
  * @example checkPassword("123456") // -1
  */
-function checkPassword(value) {
+function checkPassword(str) {
+    window.console && console.assert(typeof str === "string", "checkPassword(str: 必须是字符串)");
 
-    var complexLevel = 0,
-        i,
-        equalCount = 0,
-        chainCount = 0,
-        oldCharCode,
-        oldCharType,
-        newCharCode,
-        newCharType;
-    for (i = 0; i < value.length; i++) {
-        newCharCode = value.charCodeAt(i);
-        newCharType = newCharCode >= 48 && newCharCode <= 57 ? 0 : newCharCode >= 97 && newCharCode <= 122 ? 1 : newCharCode >= 65 && newCharCode <= 90 ? 2 : 3;
+    var complexLevel = 0;
+    var equalCount = 0;
+    var chainCount = 0;
+    var oldCharCode;
+    var oldCharType;
+    for (var i = 0; i < str.length; i++) {
+        var newCharCode = str.charCodeAt(i);
+        var newCharType = newCharCode >= 48 && newCharCode <= 57 ? 0 : newCharCode >= 97 && newCharCode <= 122 ? 1 : newCharCode >= 65 && newCharCode <= 90 ? 2 : 3;
         if (i) {
             if (oldCharType != newCharType) {
                 complexLevel++;
@@ -40,10 +38,5 @@ function checkPassword(value) {
         oldCharType = newCharType;
     }
 
-    if (value.length - equalCount <= 1) 
-        complexLevel -= 2;
-    else if (value.length - chainCount <= 1)
-        complexLevel--;
-
-    return complexLevel;
+    return complexLevel - (str.length - equalCount <= 1 ? 2 : str.length - chainCount <= 1 ? 1 : 0);
 }

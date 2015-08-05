@@ -29,6 +29,7 @@ String.isString = function (obj) {
  * String.ellipsis("1234567", 9) //   "1234567"
  */
 String.ellipsis = function (str, length) {
+    window.console && console.assert(!str || typeof str === "string", "String.ellipsis(str: 必须是字符串, length)");
     return str ? str.length > length ? str.substr(0, length - 3) + "..." : str : "";
 };
 
@@ -43,6 +44,7 @@ String.ellipsis = function (str, length) {
  * @example String.ellipsisByWord("abc def", 8) //   "abc..."
  */
 String.ellipsisByWord = function (str, length) {
+    window.console && console.assert(!str || typeof str === "string", "String.ellipsisByWord(str: 必须是字符串, length)");
     if (str && str.length > length) {
         length -= 3;
         if (/[\x00-\xff]/.test(str.charAt(length))) {
@@ -83,6 +85,7 @@ String.containsWord = function (str, separator) {
  * @example String.removeLeadingWhiteSpaces("  a") // "a"
  */
 String.removeLeadingWhiteSpaces = function (str) {
+    window.console && console.assert(typeof str === "string", "String.removeLeadingWhiteSpaces(str: 必须是字符串)");
     str = str.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
     var space = /^\s+/.exec(str), i;
     if (space) {
@@ -149,6 +152,7 @@ String.prototype.trimEnd = function () {
  * @example "1234567".startsWith("123") // true
  */
 String.prototype.startsWith = function (str) {
+    window.console && console.assert(typeof str === "string", "string.startsWith(str: 必须是字符串)");
     return this.substr(0, str.length) === str;
 };
 
@@ -159,6 +163,7 @@ String.prototype.startsWith = function (str) {
  * @example "1234567".endsWith("67") // true
  */
 String.prototype.endsWith = function (str) {
+    window.console && console.assert(typeof str === "string", "string.endsWith(str: 必须是字符串)");
     return this.substr(this.length - str.length) === str;
 };
 

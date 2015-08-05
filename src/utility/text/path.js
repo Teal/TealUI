@@ -53,21 +53,18 @@ var Path = {
      * @example Path.resolve("a/b", "../", "c") // "a/c"
      */
 	resolve: function () {
-		var resolvedPath = '',
-			resolvedAbsolute = false;
+	    var resolvedPath = '';
+		var resolvedAbsolute = false;
 
 		for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-			var path = (i >= 0) ? arguments[i] : Path.basePath;
+		    var path = (i >= 0) ? arguments[i] : Path.basePath;
+		    window.console && console.assert(typeof path === "string", "Path.resolve(...: 必须是字符串)");
 
-			// Skip empty and invalid entries
-			if (typeof path !== 'string') {
-				throw new TypeError('Arguments to path.resolve must be strings');
-			} else if (!path) {
-				continue;
+		    if (path) {
+		        resolvedPath = path + '/' + resolvedPath;
+		        resolvedAbsolute = path.charAt(0) === '/';
 			}
 
-			resolvedPath = path + '/' + resolvedPath;
-			resolvedAbsolute = path.charAt(0) === '/';
 		}
 
 		// At this point the path should be resolved to a full absolute path, but
@@ -88,6 +85,7 @@ var Path = {
      * @example Path.normalize("a/b/../c/d/e") // "a/c/d/e"
      */
 	normalize: function (path) {
+	    window.console && console.assert(typeof path === "string", "Path.normalize(path: 必须是字符串)");
 		var isAbsolute = path.charAt(0) === '/',
 			trailingSlash = path.substr(-1) === '/';
 
@@ -115,9 +113,6 @@ var Path = {
 	join: function() {
 		var paths = Array.prototype.slice.call(arguments, 0);
 		return Path.normalize(paths.filter(function (p, index) {
-			if (typeof p !== 'string') {
-				throw new TypeError('Arguments to path.join must be strings');
-			}
 			return p;
 		}).join('/'));
 	},
@@ -136,17 +131,12 @@ var Path = {
 
 		function trim(arr) {
 			var start = 0;
-			for (; start < arr.length; start++) {
-				if (arr[start] !== '') break;
-			}
+		    for (; start < arr.length && !arr[start]; start++);
 
 			var end = arr.length - 1;
-			for (; end >= 0; end--) {
-				if (arr[end] !== '') break;
-			}
+		    for (; end >= 0 && !arr[end]; end--);
 
-			if (start > end) return [];
-			return arr.slice(start, end - start + 1);
+			return start > end ? [] : arr.slice(start, end - start + 1);
 		}
 
 		var fromParts = trim(basePath.split('/'));
@@ -178,9 +168,9 @@ var Path = {
      * @example Path.dirname("e/a/b") // "e/a"
      */
 	dirname: function(path) {
-		var result = Path._splitPath(path),
-			root = result[0],
-			dir = result[1];
+	    var result = Path._splitPath(path);
+	    var root = result[0];
+		var dir = result[1];
 
 		if (!root && !dir) {
 			// No dirname whatsoever
@@ -202,12 +192,7 @@ var Path = {
      * @example Path.basename("e/a/b.txt") // "b.txt"
      */
 	basename: function(path, ext) {
-		var f = Path._splitPath(path)[2];
-		// TODO: make this comparison case-insensitive on windows?
-		if (ext && f.substr(-1 * ext.length) === ext) {
-			f = f.substr(0, f.length - ext.length);
-		}
-		return f;
+	    return Path._splitPath(path)[2];
 	},
 
     /**

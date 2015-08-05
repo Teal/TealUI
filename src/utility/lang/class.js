@@ -30,6 +30,8 @@ function Base() { }
  */
 Base.extend = function (members) {
 
+    var subClass;
+
     // 未指定函数则使用默认构造函数(Object.prototype.constructor)。
     members = members || {};
 
@@ -37,13 +39,12 @@ Base.extend = function (members) {
     if (!members.hasOwnProperty("constructor")) {
         members.constructor = function Class() {
             // 缺省构造函数：直接调用父类构造函数。
-            // ReSharper disable once VariableUsedInInnerScopeBeforeDeclared
             return subClass.__proto__.apply(this, arguments);
         };
     }
 
     // 直接使用构造函数作为类型本身。
-    var subClass = members.constructor;
+    subClass = members.constructor;
 
     // 设置派生类的原型。
     subClass.prototype = members;
@@ -52,17 +53,19 @@ Base.extend = function (members) {
 
     // IE6-9: 不支持 __proto__
     if (!('__proto__' in Object.prototype)) {
+        var key;
         var delegateClass = function() {
             for (key in members) {
                 this[key] = members[key];
             }
-        }, key;
+            // IE6-8 无法遍历 JS 内置 constructor 属性，这里手动覆盖。
+            this.constructor = subClass;
+        };
         for (key in this) {
             subClass[key] = this[key];
         }
         delegateClass.prototype = this.prototype;
         subClass.prototype = new delegateClass;
-        subClass.prototype.constructor = subClass;
     }
 
     @*/
@@ -73,24 +76,6 @@ Base.extend = function (members) {
     return subClass;
 
 };
-
-//#region @toString
-
-/**
- * 返回当前对象的字符串形式。
- * @returns {String} 返回字符串。
- * @example new (Base.extend())().toString()
- */
-Base.prototype.toString = function () {
-    for (var clazz in window) {
-        if (window[clazz] === this.constructor) {
-            return clazz;
-        }
-    }
-    return "Class";
-};
-
-// #endregion
 
 //#region @事件
 
@@ -105,14 +90,15 @@ Base.prototype.toString = function () {
  * });
  */
 Base.prototype.on = function (eventName, eventListener) {
+    window.console && console.assert(eventListener instanceof Function, "base.on(eventName, eventListener: 必须是函数)");
 
-    var me = this,
+    var me = this;
 
-        // 获取存储事件对象的空间。
-        events = me.__events__ || (me.__events__ = {}),
+    // 获取存储事件对象的空间。
+    var events = me.__events__ || (me.__events__ = {});
 
-        // 获取当前事件对应的函数监听器列表。
-        eventListeners = events[eventName];
+    // 获取当前事件对应的函数监听器列表。
+    var eventListeners = events[eventName];
 
     // 如果未绑定过这个事件, 则创建列表，否则添加到列表末尾。
     if (eventListeners) {
@@ -144,29 +130,21 @@ Base.prototype.on = function (eventName, eventListener) {
  *
  * 如果同一个 *eventListener* 被增加多次，off 只删除第一个。
  * @example
- * // 创建一个实例。
- * var a = new Base();
- *
- * var fn = function (e) {
- * 		return true;
- * };
- *
- * // 绑定一个 click 事件。
- * a.on('click', fn);
- *
- * // 删除一个 click 事件。
- * a.off('click', fn);
+ * var base = new Base(); // 创建一个实例。
+ * function fn() { }
+ * base.on('click', fn); // 绑定一个 click 事件。
+ * base.off('click', fn); // 删除一个 click 事件。
  */
 Base.prototype.off = function (eventName, eventListener) {
 
     // 获取本对象 本对象的数据内容 本事件值
-    var me = this,
-        events = me.__events__,
-        eventListeners;
+    var me = this;
+    var events = me.__events__;
 
     if (events) {
 
         // 获取指定事件的监听器。
+        var eventListeners;
         if (eventListeners = events[eventName]) {
 
             // 如果删除特定的处理函数。
@@ -192,28 +170,20 @@ Base.prototype.off = function (eventName, eventListener) {
 };
 
 /**
- * 手动触发一个监听器。
+ * 触发一个事件。
  * @param {String} eventName 要触发的事件名。
  * @param {Object} eventArgs 传递给监听器的参数。
  * @returns 如果事件被阻止则返回 @false，否则返回 @true。
  * @example
- *
- * // 创建一个实例。
- * var a = new Base();
- *
- * // 绑定一个 click 事件。
- * a.on('click', function (e) {
- * 		return true;
- * });
- *
- * // 手动触发 click， 即执行  on('click') 过的函数。
- * a.trigger('click');
+ * var base = new Base(); // 创建一个实例。
+ * base.on('click', function (e) { alert("事件触发了"); }); // 绑定一个 click 事件。
+ * base.trigger('click'); // 手动触发 click， 即执行  on('click') 过的函数。
  */
 Base.prototype.trigger = function (eventName, eventArgs) {
     var eventListeners = this.__events__;
     if (eventListeners && (eventListeners = eventListeners[eventName])) {
         eventListeners = eventListeners.slice(0);
-        for (var eventListener, i = 0; eventListener = eventListeners[i]; i++) {
+        for (var i = 0, eventListener; eventListener = eventListeners[i]; i++) {
             if (eventListener.call(this, eventArgs) === false) {
                 return false;
             }

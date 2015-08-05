@@ -22,7 +22,7 @@
 			apis: [{
 				name: "语言扩展",
 				memberType: "category",
-				line: 10,
+				line: 9,
 				col: 1
 			}, {
 				memberOf: "Function.prototype",
@@ -39,7 +39,7 @@
 				},
 				example: "<pre>(function(){ return this;  }).bind(0)() // 0</pre>",
 				since: "ES5",
-				line: 14,
+				line: 13,
 				col: 1
 			}, {
 				memberOf: "Array",
@@ -60,7 +60,7 @@
 \n\
 <pre>Array.isArray(new Array); // true</pre>",
 				since: "ES5",
-				line: 32,
+				line: 31,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -86,7 +86,7 @@
      console.log(value);\n\
 }); // 输出 2  5</pre>",
 				since: "ES5",
-				line: 52,
+				line: 51,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -127,7 +127,12 @@
 				},
 				example: "<pre>\"   g h   \".trim(); // \"g h\"</pre>",
 				since: "ES5",
-				line: 104,
+				line: 105,
+				col: 1
+			}, {
+				name: "IE8 补丁",
+				memberType: "category",
+				line: 123,
 				col: 1
 			}, {
 				memberOf: "Array.prototype",
@@ -150,19 +155,14 @@
 				},
 				example: "<pre>[\"b\", \"c\", \"a\", \"a\"].indexOf(\"a\"); // 2</pre>",
 				since: "ES4",
-				line: 122,
+				line: 125,
 				col: 1
 			}, {
 				name: "XMLHttpRequest",
 				summary: "<p>用于创建一个异步请求。</p>",
 				example: "<pre>new XMLHttpRequest()</pre>",
 				since: "ES4",
-				line: 138,
-				col: 1
-			}, {
-				name: "IE8 DOM 补丁",
-				memberType: "category",
-				line: 157,
+				line: 141,
 				col: 1
 			}, {
 				memberOf: "Element.prototype",
@@ -170,7 +170,7 @@
 				summary: "<p>为当前元素添加指定监听器。</p>",
 				since: "ES4",
 				example: "<pre>document.body.addEventListener('click', function(){}, false)</pre>",
-				line: 191,
+				line: 185,
 				col: 1
 			}, {
 				memberOf: "Element.prototype",
@@ -178,7 +178,7 @@
 				summary: "<p>为当前元素移除指定监听器。</p>",
 				since: "ES4",
 				example: "<pre>document.body.removeEventListener('click', function(){}, false)</pre>",
-				line: 199,
+				line: 193,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -188,7 +188,7 @@
     e.stopPropagation();\n\
 }</pre>",
 				since: "ES4",
-				line: 210,
+				line: 201,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -198,7 +198,7 @@
     e.preventDefault();\n\
 }</pre>",
 				since: "ES4",
-				line: 219,
+				line: 210,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -208,7 +208,7 @@
     console.log(e.target);\n\
 }</pre>",
 				since: "ES4",
-				line: 228,
+				line: 219,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -218,7 +218,7 @@
     console.log(e.relatedTarget);\n\
 }</pre>",
 				since: "ES4",
-				line: 238,
+				line: 229,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -228,7 +228,7 @@
     console.log(e.which);\n\
 }</pre>",
 				since: "ES4",
-				line: 248,
+				line: 239,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -238,7 +238,7 @@
     console.log(e.pageX);\n\
 }</pre>",
 				since: "ES4",
-				line: 260,
+				line: 251,
 				col: 1
 			}, {
 				memberOf: "Event.prototype",
@@ -248,7 +248,7 @@
     console.log(e.pageY);\n\
 }</pre>",
 				since: "ES4",
-				line: 270,
+				line: 261,
 				col: 1
 			}, {
 				memberOf: "TextRectangle.prototype",
@@ -256,7 +256,7 @@
 				summary: "<p>获取当前区域的宽。</p>",
 				example: "<pre>document.body.getBoundingClientRect().width</pre>",
 				since: "ES4",
-				line: 282,
+				line: 273,
 				col: 1
 			}, {
 				memberOf: "TextRectangle.prototype",
@@ -264,7 +264,7 @@
 				summary: "<p>获取当前区域的高。</p>",
 				example: "<pre>document.body.getBoundingClientRect().height</pre>",
 				since: "ES4",
-				line: 291,
+				line: 282,
 				col: 1
 			}]
 });

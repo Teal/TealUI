@@ -11,7 +11,9 @@ var XMLDocument = XMLDocument || {};
  * @example XMLDocument.parse("&lt;a>&lt;/a>")
  */
 XMLDocument.parse = function (value) {
-    if (typeof value !== "string" || !value) return null;
+    if (typeof value !== "string" || !value) {
+        return null;
+    }
     var xml, tmp;
     try {
         if (window.DOMParser) {// Standard

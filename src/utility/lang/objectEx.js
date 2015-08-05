@@ -93,6 +93,7 @@ Object.isObject = function (obj) {
  * Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}
  */
 Object.assignIf = function (target, source) {
+    window.console && console.assert(target != null, "Object.assignIf(target: 不能为空, source)");
     // 和 Object.assign 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
     for (var key in source) {
         if (target[key] === undefined) {
@@ -176,7 +177,7 @@ Object.areSame = function (objA, objB) {
 Object.size = function (obj) {
     var result = 0;
     for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
             result++;
         }
     }
@@ -254,10 +255,11 @@ Object.keyOf = function (obj, value) {
  * @param {String} refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
  * @param {String} newKey 新插入的键。
  * @param {Object} newValue 新插入的值。
- * @returns {Object} 返回 @obj。
+ * @returns {Object} 返回 @obj。Function.getSour
  * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
  */
 Object.insertBefore = function (obj, refKey, newKey, newValue) {
+    window.console && console.assert(obj, "Object.insertBefore(obj: 不能为空, refKey, newKey, newValue)");
     var tmpObj = {}, foundKey = false;
     for (var key in obj) {
         if (key === refKey) foundKey = true;
@@ -295,6 +297,7 @@ Object.insertBefore = function (obj, refKey, newKey, newValue) {
  * Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}
  */
 Object.filter = function (iterable, fn, scope) {
+    window.console && console.assert(fn instanceof Function, "Object.filter(iterable, fn: 必须是函数, [scope])");
 
     var target;
 
@@ -349,24 +352,24 @@ Object.filter = function (iterable, fn, scope) {
  * }) // ["a"];
  */
 Object.map = function (iterable, fn, scope) {
+    window.console && console.assert(fn instanceof Function, "Object.map(iterable, fn: 必须是函数, [scope])");
 
-    var target;
+    var result;
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
-        target = [];
+        result = [];
         for (var i = 0, length = iterable.length; i < length; i++) {
-            target[i] = fn.call(scope, iterable[i], i, iterable);
+            result[i] = fn.call(scope, iterable[i], i, iterable);
         }
     } else {
-        target = {};
-        for (i in iterable) {
-            target[i] = fn.call(scope, iterable[i], i, iterable);
+        result = {};
+        for (var i in iterable) {
+            result[i] = fn.call(scope, iterable[i], i, iterable);
         }
     }
 
-    // 返回目标。
-    return target;
+    return result;
 }
 
 // #endregion
@@ -388,19 +391,16 @@ Object.map = function (iterable, fn, scope) {
  * @example Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false
  */
 Object.every = function (iterable, fn, scope) {
-
-    var target, length, i;
+    window.console && console.assert(fn instanceof Function, "Object.every(iterable, fn: 必须是函数, [scope])");
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
-        target = [];
         for (var i = 0, length = iterable.length; i < length; i++) {
             if ((i in this) && fn.call(scope, iterable[i], i, iterable)) {
                 return false;
             }
         }
     } else {
-        target = {};
         for (var i in iterable) {
             if (fn.call(scope, iterable[i], i, iterable)) {
                 return false;
@@ -431,19 +431,16 @@ Object.every = function (iterable, fn, scope) {
  * @example Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。
  */
 Object.some = function (iterable, fn, scope) {
-
-    var target;
+    window.console && console.assert(fn instanceof Function, "Object.some(iterable, fn: 必须是函数, [scope])");
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
-        target = [];
         for (var i = 0, length = iterable.length; i < length; i++) {
             if ((i in this) && fn.call(scope, iterable[i], i, iterable)) {
                 return true;
             }
         }
     } else {
-        target = {};
         for (var i in iterable) {
             if (fn.call(scope, iterable[i], i, iterable)) {
                 return true;
@@ -467,6 +464,8 @@ Object.some = function (iterable, fn, scope) {
  * @example Object.subset({a:1, b:1}, ['a']) // {a:1}
  */
 Object.subset = function (obj, keys) {
+    window.console && console.assert(keys instanceof Array, "Object.subset(obj, keys: 必须是数组)");
+
     var result = {};
     for (var i = 0; i < keys.length; i++) {
         if (keys[i] in obj) {

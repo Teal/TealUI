@@ -12,18 +12,19 @@ var QueryString = {
 
     /**
      * 解析查询字符串为对象。
-     * @param {String} value 要解析的字符串。
+     * @param {String} str 要解析的字符串。
      * @returns {Object} 返回解析后的对象。
      * @example QueryString.parse("a=1&b=3") // {a: 1, b:3}
      */
-    parse: function (value) {
+    parse: function (str) {
         var result = {};
-        if (value) {
-            value = value.replace(/^\?/, "").replace(/\+/g, '%20').split('&');
-            for (var i = 0; i < value.length; i++) {
-                var t = value[i].indexOf('='),
-                    key = t >= 0 ? value[i].substr(0, t) : value[i];
-                val = value[i].substr(key.length + 1);
+        if (str) {
+            window.console && console.assert(typeof str === "string", "QueryString.parse(str: 必须是字符串)");
+            str = str.replace(/^\?/, "").replace(/\+/g, '%20').split('&');
+            for (var i = 0; i < str.length; i++) {
+                var t = str[i].indexOf('='),
+                    key = t >= 0 ? str[i].substr(0, t) : str[i];
+                val = str[i].substr(key.length + 1);
 
                 try {
                     key = decodeURIComponent(key);

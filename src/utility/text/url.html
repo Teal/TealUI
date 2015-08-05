@@ -77,7 +77,12 @@
         Doc.writeApi({
 			path: "utility/text/path.js",
 			apis: [{
-				memberOf: "Path",
+				name: "Path",
+				summary: "<p>提供路径解析相关的函数。</p>",
+				type: "Object",
+				line: 6,
+				col: 1
+			}, {
 				name: "resolve",
 				summary: "<p>合并多个路径为一个。</p>",
 				params: [{
@@ -93,7 +98,6 @@
 				line: 49,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "normalize",
 				summary: "<p>规划化指定的路径。</p>",
 				params: [{
@@ -106,10 +110,9 @@
 					summary: "<p>返回处理后的新路径。</p>"
 				},
 				example: "<pre>Path.normalize(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
-				line: 84,
+				line: 81,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "join",
 				summary: "<p>合并多个文件夹路径为一个。</p>",
 				params: [{
@@ -122,10 +125,9 @@
 					summary: "<p>返回合并后的新路径。</p>"
 				},
 				example: "<pre>Path.join(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
-				line: 109,
+				line: 107,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "relative",
 				summary: "<p>计算指定路径相对于基路径的相对路径。</p>",
 				params: [{
@@ -142,10 +144,9 @@
 					summary: "<p><em>path</em> 相对于 <em>basePath</em> 的基路径。</p>"
 				},
 				example: "<pre>Path.relative(\"a/b\", \"a/c\") // \"../c\"</pre>",
-				line: 125,
+				line: 120,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "dirname",
 				summary: "<p>获取指定路径的文件夹名部分。</p>",
 				params: [{
@@ -158,10 +159,9 @@
 					summary: "<p>返回文件夹部分。</p>"
 				},
 				example: "<pre>Path.dirname(\"e/a/b\") // \"e/a\"</pre>",
-				line: 174,
+				line: 164,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "basename",
 				summary: "<p>获取指定路径的文件名部分。</p>",
 				params: [{
@@ -174,10 +174,9 @@
 					summary: "<p>返回文件部分。</p>"
 				},
 				example: "<pre>Path.basename(\"e/a/b.txt\") // \"b.txt\"</pre>",
-				line: 198,
+				line: 188,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "extname",
 				summary: "<p>获取指定路径的扩展名部分（包括点）。</p>",
 				params: [{
@@ -190,7 +189,7 @@
 					summary: "<p>返回扩展名部分。</p>"
 				},
 				example: "<pre>Path.extname(\"e/a/b.txt\") // \".txt\"</pre>",
-				line: 213,
+				line: 198,
 				col: 1
 			}]
 });</script>
@@ -252,7 +251,12 @@
         Doc.writeApi({
 			path: "utility/text/path.js",
 			apis: [{
-				memberOf: "Path",
+				name: "Path",
+				summary: "<p>提供路径解析相关的函数。</p>",
+				type: "Object",
+				line: 6,
+				col: 1
+			}, {
 				name: "resolve",
 				summary: "<p>合并多个路径为一个。</p>",
 				params: [{
@@ -268,7 +272,6 @@
 				line: 49,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "normalize",
 				summary: "<p>规划化指定的路径。</p>",
 				params: [{
@@ -281,10 +284,9 @@
 					summary: "<p>返回处理后的新路径。</p>"
 				},
 				example: "<pre>Path.normalize(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
-				line: 84,
+				line: 81,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "join",
 				summary: "<p>合并多个文件夹路径为一个。</p>",
 				params: [{
@@ -297,10 +299,9 @@
 					summary: "<p>返回合并后的新路径。</p>"
 				},
 				example: "<pre>Path.join(\"a/b/../c/d/e\") // \"a/c/d/e\"</pre>",
-				line: 109,
+				line: 107,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "relative",
 				summary: "<p>计算指定路径相对于基路径的相对路径。</p>",
 				params: [{
@@ -317,10 +318,9 @@
 					summary: "<p><em>path</em> 相对于 <em>basePath</em> 的基路径。</p>"
 				},
 				example: "<pre>Path.relative(\"a/b\", \"a/c\") // \"../c\"</pre>",
-				line: 125,
+				line: 120,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "dirname",
 				summary: "<p>获取指定路径的文件夹名部分。</p>",
 				params: [{
@@ -333,10 +333,9 @@
 					summary: "<p>返回文件夹部分。</p>"
 				},
 				example: "<pre>Path.dirname(\"e/a/b\") // \"e/a\"</pre>",
-				line: 174,
+				line: 164,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "basename",
 				summary: "<p>获取指定路径的文件名部分。</p>",
 				params: [{
@@ -349,10 +348,9 @@
 					summary: "<p>返回文件部分。</p>"
 				},
 				example: "<pre>Path.basename(\"e/a/b.txt\") // \"b.txt\"</pre>",
-				line: 198,
+				line: 188,
 				col: 1
 			}, {
-				memberOf: "Path",
 				name: "extname",
 				summary: "<p>获取指定路径的扩展名部分（包括点）。</p>",
 				params: [{
@@ -365,7 +363,7 @@
 					summary: "<p>返回扩展名部分。</p>"
 				},
 				example: "<pre>Path.extname(\"e/a/b.txt\") // \".txt\"</pre>",
-				line: 213,
+				line: 198,
 				col: 1
 			}]
 });</script>

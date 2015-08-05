@@ -2,222 +2,216 @@
  * @author xuld
  */
 
+// #region @isEmail
+
 /**
- * 提供数据校验相关函数。
+ * 判断指定字符串是否为合法邮箱地址。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isEmail("work&#64;xuld.net") // true
  */
-var Check = {
+function isEmail(str) {
+    return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w][\u4E00-\u9FA5\uFE30-\uFFA0\w-+\.]*@[\u4E00-\u9FA5\uFE30-\uFFA0\w]+(\.[\u4E00-\u9FA5\uFE30-\uFFA0\w]+)+$/.test(str);
+}
 
-    // #region @Check.isEmail
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为合法邮箱地址。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isEmail("work&#64;xuld.net") // true
-	 */
-    isEmail: function (value) {
-        return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w][\u4E00-\u9FA5\uFE30-\uFFA0\w-+\.]*@[\u4E00-\u9FA5\uFE30-\uFFA0\w]+(\.[\u4E00-\u9FA5\uFE30-\uFFA0\w]+)+$/.test(value);
-    },
+// #region @isInteger
 
-    // #endregion
+/**
+ * 判断指定字符串是否为整数。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isInt("-45") // true
+ */
+function isInt(str) {
+    return /^[-]?\d+$/.test(str);
+}
 
-    // #region @Check.isInteger
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为整数。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isInt("-45") // true
-	 */
-    isInt: function (value) {
-        return /^[-]?\d+$/.test(value);
-    },
+// #region @isNumber
 
-    // #endregion
+/**
+ * 判断指定字符串是否为数字。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isNumber("-45.35") // true
+ */
+function isNumber(str) {
+    return /^[-]?\d+(\.\d*)$/.test(str);
+}
 
-    // #region @Check.isNumber
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为数字。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isNumber("-45.35") // true
-	 */
-    isNumber: function (value) {
-        return /^[-]?\d+(\.\d*)$/.test(value);
-    },
+// #region @isDate
 
-    // #endregion
+/**
+ * 判断指定字符串是否为日期。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isDate("2014/1/1") // true
+ */
+function isDate(str) {
+    window.console && console.assert(typeof str === "string", "isDate(str: 必须是字符串)");
+    var result = str.match(/^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+    if (result == null) return false;
+    var dt = new Date(result[1], result[3] - 1, result[4]);
+    return (dt.getFullYear() == result[1] && dt.getMonth() + 1 == result[3] && dt.getDate() == result[4]);
+}
 
-    // #region @Check.isDate
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为日期。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isDate("2014/1/1") // true
-	 */
-    isDate: function (value) {
-        var result = value.match(/^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-        if (result == null) return false;
-        var dt = new Date(result[1], result[3] - 1, result[4]);
-        return (dt.getFullYear() == result[1] && dt.getMonth() + 1 == result[3] && dt.getDate() == result[4]);
-    },
+// #region @isLetter
 
-    // #endregion
+/**
+ * 判断指定字符串是否为字母。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isLetter("abc") // true
+ */
+function isLetter(str) {
+    return /^[a-zA-Z]+$/.test(str);
+}
 
-    // #region @Check.isLetter
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为字母。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isLetter("abc") // true
-	 */
-    isLetter: function (value) {
-        return /^[a-zA-Z]+$/.test(value);
-    },
+// #region @isDight
 
-    // #endregion
+/**
+ * 判断指定字符串是否为数字。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isLetter("1") // true
+ */
+function isDight(str) {
+    return /^\d+$/.test(str);
+}
 
-    // #region @Check.isDight
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为数字。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isLetter("1") // true
-	 */
-    isDight: function (value) {
-        return /^\d+$/.test(value);
-    },
+// #region @isLetterOrDight
 
-    // #endregion
+/**
+ * 判断指定字符串是否为字母或数字。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isLetterOrDight("x09") // true
+ */
+function isLetterOrDight(str) {
+    return /^[a-zA-Z\d]+$/.test(str);
+}
 
-    // #region @Check.isLetterOrDight
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为字母或数字。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isLetterOrDight("x09") // true
-	 */
-    isLetterOrDight: function (value) {
-        return /^[a-zA-Z\d]+$/.test(value);
-    },
+// #region @isIndentifier
 
-    // #endregion
+/**
+ * 判断指定字符串是否为 JavaScript 标识符。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isIndentifier("x09") // true
+ */
+function isIndentifier(str) {
+    return /^[\u4E00-\u9FA5\uFE30-\uFFA0a-zA-Z_$][\u4E00-\u9FA5\uFE30-\uFFA0\w$]+$/.test(str);
+}
 
-    // #region @Check.isIndentifier
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为 JavaScript 标识符。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isIndentifier("x09") // true
-	 */
-    isIndentifier: function (value) {
-        return /^[\u4E00-\u9FA5\uFE30-\uFFA0a-zA-Z_$][\u4E00-\u9FA5\uFE30-\uFFA0\w$]+$/.test(value);
-    },
+// #region @isUrl
 
-    // #endregion
+/**
+ * 判断指定字符串是否为网址。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isIndentifier("http://teal.github.io/") // true
+ */
+function isUrl(str) {
+    return /^(\w+:)?\/\/.+$/.test(str);
+}
 
-    // #region @Check.isUrl
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为网址。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isIndentifier("http://teal.github.io/") // true
-	 */
-    isUrl: function (value) {
-        return /^(\w+:)?\/\/.+$/.test(value);
-    },
+// #region @isIP
 
-    // #endregion
+/**
+ * 判断指定字符串是否为 IP 地址。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isIP("127.0.0.1") // true
+ */
+function isIP(str) {
+    return /::1|localhost/.test(str) || (/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/g.test(str) && +RegExp.$1 < 256 && +RegExp.$2 < 256 && +RegExp.$3 < 256 && +RegExp.$4 < 256);
+}
 
-    // #region @Check.isIP
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为 IP 地址。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isIP("127.0.0.1") // true
-	 */
-    isIP: function (value) {
-        return /::1|localhost/.test(value) || (/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/g.test(value) && +RegExp.$1 < 256 && +RegExp.$2 < 256 && +RegExp.$3 < 256 && +RegExp.$4 < 256);
-    },
+// #region @isMobile
 
-    // #endregion
+/**
+ * 判断指定字符串是否为手机号。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isPhone("+8613211111111") // true
+ */
+function isPhone(str) {
+    return /^(\+\d\d)?1\d{10}$/.test(str);
+}
 
-    // #region @Check.isMobile
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为手机号。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isPhone("+8613211111111") // true
-	 */
-    isPhone: function (value) {
-        return /^(\+\d\d)?1\d{10}$/.test(value);
-    },
+// #region @isChinese
 
-    // #endregion
+/**
+ * 判断指定字符串是否为中文。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isChinese("你好") // true
+ */
+function isChinese(str) {
+    return /^[\u4E00-\u9FA5\uFE30-\uFFA0]+$/gi.test(str);
+}
 
-    // #region @Check.isChinese
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为中文。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isChinese("你好") // true
-	 */
-    isChinese: function (value) {
-        return /^[\u4E00-\u9FA5\uFE30-\uFFA0]+$/gi.test(value);
-    },
+// #region @isPostCode
 
-    // #endregion
+/**
+ * 判断指定字符串是否为邮编。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isPostCode("310000") // true
+ */
+function isPostCode(str) {
+    return /^\d{6}$/.test(str);
+}
 
-    // #region @Check.isPostCode
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为邮编。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isPostCode("310000") // true
-	 */
-    isPostCode: function (value) {
-        return /^\d{6}$/.test(value);
-    },
+// #region @isId
 
-    // #endregion
+/**
+ * 判断指定字符串是否为身份证号。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isId("152500198909267865") // true
+ */
+function isId(str) {
+    return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(str);
+}
 
-    // #region @Check.isId
+// #endregion
 
-    /**
-	 * 判断指定字符串是否为身份证号。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isId("152500198909267865") // true
-	 */
-    isId: function (value) {
-        return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value);
-    },
+// #region @isQQ
 
-    // #endregion
+/**
+ * 判断指定字符串是否为 QQ 号。
+ * @param {String} str 要判断的字符串。
+ * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
+ * @example isQQ("10000") // true
+ */
+function isQQ(str) {
+    return /^\d{5,12}$/.test(str);
+}
 
-    // #region @Check.isQQ
-
-    /**
-	 * 判断指定字符串是否为 QQ 号。
-	 * @param {String} value 要判断的字符串。
-	 * @returns {Boolean} 如果检验合法则返回 @true，否则返回 @false。
-	 * @example Check.isQQ("10000") // true
-	 */
-    isQQ: function (value) {
-        return /^\d{5,12}$/.test(value);
-    }
-
-    // #endregion
-
-};
+// #endregion

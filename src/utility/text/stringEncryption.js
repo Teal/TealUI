@@ -7,14 +7,15 @@
  * @example encryptString("abc", 123) // "``e"
  */
 function encryptString(str, key) {
-    if (key == undefined) key = 19901206;
-
+    window.console && console.assert(typeof str === "string", "encryptString(str: 必须是字符串, [key])");
+    if (key == undefined) {
+        key = 19901206;
+    }
     var length = str.length,
         chartemp = new Array(length--),
-        f = str.charCodeAt(0),
         key1 = ~key;
     for (var i = 0; i <= length; i++) {
-        chartemp[i] = String.fromCharCode(~(((str.charCodeAt(i) & key1) | ((i === length ? f : str.charCodeAt(i + 1)) & key)) ^ (~(i + length))));
+        chartemp[i] = String.fromCharCode(~(((str.charCodeAt(i) & key1) | ((i === length ? str.charCodeAt(0) : str.charCodeAt(i + 1)) & key)) ^ (~(i + length))));
     }
         
     return chartemp.join('');
@@ -28,8 +29,10 @@ function encryptString(str, key) {
  * @example dencryptString("abc", 123) // "cce"
  */
 function dencryptString(str, key) {
-    if (key == undefined) key = 19901206;
-
+    window.console && console.assert(typeof str === "string", "dencryptString(str: 必须是字符串, [key])");
+    if (key == undefined) {
+        key = 19901206;
+    }
     var length = str.length,
         chartemp = new Array(length--),
         key1 = ~key;

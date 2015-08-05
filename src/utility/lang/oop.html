@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -125,17 +125,6 @@
 				col: 1
 			}, {
 				memberOf: "Base.prototype",
-				name: "toString",
-				summary: "<p>返回当前对象的字符串形式。</p>",
-				returns: {
-					type: "String",
-					summary: "<p>返回字符串。</p>"
-				},
-				example: "<pre>new (Base.extend())().toString()</pre>",
-				line: 78,
-				col: 1
-			}, {
-				memberOf: "Base.prototype",
 				name: "on",
 				summary: "<p>添加一个事件监听器。</p>",
 				params: [{
@@ -153,7 +142,7 @@
 				example: "<pre>new Base().on('click', function (e) {\n\
         return true;\n\
 });</pre>",
-				line: 96,
+				line: 82,
 				col: 1
 			}, {
 				memberOf: "Base.prototype",
@@ -189,24 +178,16 @@
 </code></pre>\n\
 \n\
 <p>如果同一个 <em>eventListener</em> 被增加多次，off 只删除第一个。</p>",
-				example: "<pre>// 创建一个实例。\n\
-var a = new Base();</pre>\n\
-\n\
-<pre>var fn = function (e) {\n\
-        return true;\n\
-};</pre>\n\
-\n\
-<pre>// 绑定一个 click 事件。\n\
-a.on('click', fn);</pre>\n\
-\n\
-<pre>// 删除一个 click 事件。\n\
-a.off('click', fn);</pre>",
-				line: 126,
+				example: "<pre>var base = new Base(); // 创建一个实例。\n\
+function fn() { }\n\
+base.on('click', fn); // 绑定一个 click 事件。\n\
+base.off('click', fn); // 删除一个 click 事件。</pre>",
+				line: 113,
 				col: 1
 			}, {
 				memberOf: "Base.prototype",
 				name: "trigger",
-				summary: "<p>手动触发一个监听器。</p>",
+				summary: "<p>触发一个事件。</p>",
 				params: [{
 					type: "String",
 					name: "eventName",
@@ -219,17 +200,10 @@ a.off('click', fn);</pre>",
 				returns: {
 					summary: "<p>如果事件被阻止则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
 				},
-				example: "<pre>// 创建一个实例。\n\
-var a = new Base();</pre>\n\
-\n\
-<pre>// 绑定一个 click 事件。\n\
-a.on('click', function (e) {\n\
-        return true;\n\
-});</pre>\n\
-\n\
-<pre>// 手动触发 click， 即执行  on('click') 过的函数。\n\
-a.trigger('click');</pre>",
-				line: 193,
+				example: "<pre>var base = new Base(); // 创建一个实例。\n\
+base.on('click', function (e) { alert(\"事件触发了\"); }); // 绑定一个 click 事件。\n\
+base.trigger('click'); // 手动触发 click， 即执行  on('click') 过的函数。</pre>",
+				line: 172,
 				col: 1
 			}]
 });
@@ -256,7 +230,12 @@ a.trigger('click');</pre>",
         Doc.writeApi({
 			path: "utility/lang/enum.js",
 			apis: [{
-				memberOf: "Enum",
+				name: "Enum",
+				summary: "<p>枚举相关功能。</p>",
+				type: "Object",
+				line: 6,
+				col: 1
+			}, {
 				name: "getName",
 				summary: "<p>根据枚举值返回其枚举名。</p>",
 				params: [{
@@ -276,7 +255,6 @@ a.trigger('click');</pre>",
 				line: 13,
 				col: 1
 			}, {
-				memberOf: "Enum",
 				name: "hasFlags",
 				summary: "<p>判断指定枚举值是否包含指定的标记位。</p>",
 				params: [{
@@ -298,10 +276,9 @@ a.trigger('click');</pre>",
     blue: 1 << 3,\n\
 };\n\
 Enum.hasFlags(Flags.red | Flags.yellow, Flags.red); // true</pre>",
-				line: 31,
+				line: 33,
 				col: 1
 			}, {
-				memberOf: "Enum",
 				name: "setFlag",
 				summary: "<p>设置指定枚举的标记位。</p>",
 				params: [{
@@ -328,7 +305,7 @@ Enum.hasFlags(Flags.red | Flags.yellow, Flags.red); // true</pre>",
 };\n\
 var flag = 0;\n\
 flag = Enum.setFlag(flag, Flags.red, true);</pre>",
-				line: 52,
+				line: 54,
 				col: 1
 			}]
 });

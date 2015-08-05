@@ -16,11 +16,12 @@ var Tpl = {
     /**
      * 编译指定的模板。
      * @param {String} tplSource 要编译的模板文本。
-     * @param {String?} cacheKey = tplSource 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。
+     * @param {String} [cacheKey = @tplSource] 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。
      * @example Tpl.compile("{if $data === 1}OK{/if}", 1) // function($data){ ... }
      */
     compile: function (tplSource, cacheKey) {
         cacheKey = cacheKey || tplSource;
+        window.console && console.assert(typeof tplSource === "string", "Tpl.compile(tplSource: 必须是字符串, [cacheKey])");
         return Tpl._compiled[cacheKey] || (Tpl._compiled[cacheKey] = Tpl._compileCore(tplSource));
     },
 
