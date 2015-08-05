@@ -44,7 +44,7 @@ var Input = Control.extend({
         var className = 'x-' + role + '-' + state.toLowerCase();
         var input = this.input();
         if (value === undefined) {
-            return input.hasClass(className);
+            return input.is('.' + className);
         }
         input.toggleClass(className, value).attr(name, value);
         return this;

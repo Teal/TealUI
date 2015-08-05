@@ -290,7 +290,7 @@ var Popover = Control.extend({
             }
 
             // 找到当前的实际箭头。
-            while (--arrow > 0 && !arrowDom.hasClass("x-arrow-" + arrows[arrow]));
+            while (--arrow > 0 && !arrowDom.is(".x-arrow-" + arrows[arrow]));
 
             // 根据箭头决定定位。
             me.dom.pin(pinTarget, arrows[3 - arrow].charAt(0), me.arrowDistance, me.arrowDistance, me.pinContainer, me.pinContainerPadding, function (rect) {

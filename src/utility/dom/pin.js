@@ -24,20 +24,21 @@
  * 当使用 4 个字符时，
  * 
  * 前两位表示 X 方向的定位，其意义为：
- * ll │ lr    c   rl │ rr 
+ *      
+ *       ll │ lr    c   rl │ rr 
  * 
  * 后两位表示 Y 方向的定位，其意义为：
- * 
- *   tt 
- *  ────
- *   tb
- *     
- *   c 
- *     
- *   bt
- *  ────
- *   bb 
- * 
+ *      
+ *        tt 
+ *       ────
+ *        tb
+ *          
+ *        c 
+ *          
+ *        bt
+ *       ────
+ *        bb 
+ *      
  * 合法的例子比如：'llbt'，其意义同 'lb'。 
  * 
  * 只当使用 1-2 个字符时，元素将根据容器范围自动切换位置以保证容器是完全可见范围内的。
@@ -46,11 +47,13 @@
  * @param {Number} [offsetY=0] 偏移的 Y 大小。
  * @param {Element} [container=document] 如果设置此元素，则超过此区域后重置位置。
  * @param {Number} [padding=10] 容器的内边距。
- * @returns {Object} 返回实际定位的位置。包含的字段有：
- * * @param {Number} [offsetX] 为适应屏幕而导致位置发生的水平偏移量。
- * * @param {Number} [offsetY] 为适应屏幕而导致位置发生的垂直偏移量。
- * * @param {Number} [overflowX] 超过屏幕宽度而产生越界，对应的值表示容器的最大值。
- * * @param {Number} [overflowY] 超过屏幕高度而产生越界，对应的值表示容器的最大值。
+ * @param {Function} [callback] 定位完成后的回调。其参数为：
+ * * @param {Object} rect 包含实际定位的结果。可能包含的字段有：
+ * * * @param {Number} [offsetX] 为适应屏幕而导致位置发生的水平偏移量。
+ * * * @param {Number} [offsetY] 为适应屏幕而导致位置发生的垂直偏移量。
+ * * * @param {Number} [overflowX] 超过屏幕宽度而产生越界，对应的值表示容器的最大值。
+ * * * @param {Number} [overflowY] 超过屏幕高度而产生越界，对应的值表示容器的最大值。
+ * @returns this
  */
 Dom.prototype.pin = function(target, align, offsetX, offsetY, container, padding, callback) {
 

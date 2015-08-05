@@ -30,11 +30,7 @@ Control.extend({
      * @protected
      */
     body: function () {
-        var result = this.dom.next('.x-tab-body');
-        if (!result.length) {
-            result = this.dom.prev('.x-tab-body');
-        }
-        return result;
+        return this.dom.next('.x-tab-body').valueOf() || this.dom.prev('.x-tab-body');
     },
 
     /**

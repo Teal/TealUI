@@ -19,25 +19,28 @@
  * @example $(document).scrollTo(100, 400);
  */
 Dom.prototype.scrollTo = function (x, y, duration, callback) {
-    if (duration === 0) {
-        this.scroll({ left: x, top: y });
-        return callback ? this.each(function (elem) {
-            callback.call(elem, x, y, duration);
-        }) : this;
-    }
-    return this.each(function (elem) {
+    typeof console === "object" && console.assert(!callback || callback instanceof Function, "dom.scrollTo(x, y, duration, callback: 必须是函数)");
+    var me = this;
+    return duration === 0 ? me.scroll({ left: x, top: y }).each(function (elem) {
+        callback && callback.call(elem, x, y, duration);
+    }) : me.each(function (elem) {
         duration = duration || 100;
         elem = Dom(elem);
-        var count = duration / 20,
-            fps = duration / count,
-            currentSceoll = elem.scroll(),
-            stepX = (x - currentSceoll.left) / count,
-            stepY = (y - currentSceoll.top) / count;
+
+        var count = duration / 20;
+        var fps = duration / count;
+        var currentScroll = elem.scroll();
+        var stepX = (x - currentScroll.left) / count;
+        var stepY = (y - currentScroll.top) / count;
 
         function step() {
-            if (x != null) currentSceoll.left += stepX;
-            if (y != null) currentSceoll.top += stepY;
-            elem.scroll(currentSceoll);
+            if (x != null) {
+                currentScroll.left += stepX;
+            }
+            if (y != null) {
+                currentScroll.top += stepY;
+            }
+            elem.scroll(currentScroll);
             if (--count > 0) {
                 setTimeout(step, fps);
             } else {

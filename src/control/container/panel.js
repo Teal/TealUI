@@ -14,7 +14,7 @@ Control.extend({
 
     init: function () {
         var me = this;
-        if (me.dom.hasClass('x-panel-collapsed') || me.dom.hasClass('x-panel-expanded')) {
+        if (me.dom.is('.x-panel-collapsed, .x-panel-expanded')) {
             me.dom.on('click', '.x-panel-header', function () {
                 me.toggleCollapse();
             });
@@ -28,7 +28,7 @@ Control.extend({
      */
     collapsed: function (value) {
         if (value === undefined) {
-            return this.dom.hasClass('x-panel-collapsed');
+            return this.dom.is('.x-panel-collapsed');
         }
         this.dom.toggleClass('x-panel-collapsed', value);
         return this;
@@ -54,7 +54,7 @@ Control.extend({
         // value 最终是 true: 表示即将折叠。
         // value 最终是 false: 表示即将展开。
 
-        if (!me.dom.hasClass('x-panel-collapsing') && me.trigger('collapsing', value)) {
+        if (!me.dom.is('.x-panel-collapsing') && me.trigger('collapsing', value)) {
 
             var body = me.dom.find('.x-panel-body');
 

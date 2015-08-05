@@ -191,7 +191,7 @@ var MultiListBox = ListBox.implement({
 //	onClick: function (e) {
 		
 //		// 如果无法更改值，则直接忽略。
-//		if(this.hasClass('x-' + this.xtype + '-disabled') || this.hasClass('x-' + this.xtype + '-readonly'))
+//		if(this.is('.x-' + this.xtype + '-disabled') || this.is('.x-' + this.xtype + '-readonly'))
 //			return;
 			
 //		//获取当前项。

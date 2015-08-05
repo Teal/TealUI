@@ -423,6 +423,27 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
+     * 将当前节点列表中符合要求的项组成一个新节点列表。
+     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
+     * 
+     * * @param {Object} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Array} array 当前正在遍历的数组。
+     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
+     * 
+     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+     * @returns {Dom} 返回一个新节点列表。如果过滤条件为空则返回 @this。
+     * @example $("#elem").filter('div')
+     */
+    filter: function (selector, scope, not) {
+        not = not || false;
+        var me = this;
+        return selector ? me.map(function (node, index) {
+            return (selector.constructor === Function ? selector.call(scope, node, index, me) !== false : Dom.matches(node, selector)) !== not && node;
+        }) : me;
+    },
+
+    /**
      * 对当前节点列表每一项进行处理，并将结果组成一个新数组。
      * @param {Function} callback 对每一项运行的函数。函数的参数依次为:
      *
@@ -445,27 +466,6 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 将当前节点列表中符合要求的项组成一个新节点列表。
-     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
-     * 
-     * * @param {Object} value 当前项的值。
-     * * @param {Number} index 当前项的索引。
-     * * @param {Array} array 当前正在遍历的数组。
-     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
-     * 
-     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回一个新节点列表。如果过滤条件为空则返回 @this。
-     * @example $("#elem").filter('div')
-     */
-    filter: function (selector, scope, not) {
-        var me = this;
-        not = not || false;
-        return selector ? me.map(function (node) {
-            return (selector.constructor === Function ? selector.call(scope, node, i, me) !== false : Dom.matches(node, selector)) !== not;
-        }) : me;
-    },
-
-    /**
      * 将当前节点列表中不符合要求的项组成一个新列表。
      * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
      * 
@@ -482,14 +482,23 @@ Dom.List.prototype = Dom.prototype = {
         return this.filter(selector, scope, true);
     },
 
+    ///**
+    // * 获取当前节点列表指定项。
+    // * @param {Number} index 要获取的索引。如果小于 0 则获取倒数项。
+    // * @returns {Dom} 返回一个新列表。
+    // * @example $("#elem").item(-1)
+    // */
+    //item: function (index) {
+    //    return Dom(this[index < 0 ? this.length + index : index]);
+    //},
+
     /**
-     * 如果当前节点列表为空则返回另一个节点列表，否则返回当前节点列表。
-     * @param {Dom} other 要判断的另一个节点列表。 
+     * 如果当前节点列表为空则返回 @null，否则返回当前节点列表。
      * @returns {Dom} 返回一个节点列表。 
-     * @example $().or($("#elem"))
+     * @example $().valueOf()
      */
-    or: function (other) {
-        return this.length ? this : other;
+    valueOf: function () {
+        return this.length ? this : null;
     },
 
     // #endregion
@@ -553,9 +562,11 @@ Dom.List.prototype = Dom.prototype = {
                 function focusAdd(elem) {
                     elem.addEventListener(bind, this.bind, true);
                 }
+
                 function focusRemove(elem) {
                     elem.addEventListener(bind, this.bind, true);
                 }
+
                 eventFix.focusin = { bind: "focus", add: focusAdd, remove: focusRemove };
                 eventFix.focusout = { bind: "blur", add: focusAdd, remove: focusRemove };
             }
@@ -716,7 +727,7 @@ Dom.List.prototype = Dom.prototype = {
             // 2. 事件本身需要特殊过滤。
             // 3. 事件重复绑定。（通过代理令事件支持重复绑定）
             // 4. IE8: 默认事件绑定的 this 不正确。
-            if (/*@cc_on !+"\v1" || @*/delegateSelector || scope || eventFixer.filter || eventListeners.indexOf(eventListener) >= 0) {
+            if ( /*@cc_on !+"\v1" || @*/delegateSelector || scope || eventFixer.filter || eventListeners.indexOf(eventListener) >= 0) {
                 actualListener = function (e) {
                     // 实际触发事件的节点。
                     var actucalTarget = elem;
@@ -890,28 +901,28 @@ Dom.List.prototype = Dom.prototype = {
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").first()
      */
-    
+
     /**
      * 获取当前节点列表第一项的最后一个子节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").last()
      */
-    
+
     /**
      * 获取当前节点列表第一项的下一个相邻节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").next()
      */
-   
+
     /**
      * 获取当前节点列表第一项的上一个相邻的节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").prev()
      */
-    
+
     /**
      * 获取当前节点列表第一项的直接父节点对象。
      * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
@@ -924,19 +935,15 @@ Dom.List.prototype = Dom.prototype = {
 
     /**
      * 获取当前节点列表第一项的全部直接子节点或指定子节点。
-     * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数或索引。
+     * @param {mixed} [selector] 用于查找子元素的 CSS 选择器或用于筛选元素的过滤函数。
      * @returns {Dom} 返回节点列表。
      * @example $("#elem").children()
      */
     children: function (selector) {
         var elem = this[0];
-        var dom = Dom(elem && (elem.children || elem.childNodes));
-        if (!elem.children) {
-            dom = dom.filter(function(elem) {
-                return elem.nodeType === 1;
-            });
-        }
-        return typeof selector === "number" ? Dom(dom[selector]) : dom.filter(selector);
+        return Dom(elem && elem.childNodes).filter(function (elem) {
+            return elem.nodeType === 1;
+        }).filter(selector);
     },
 
     /**
