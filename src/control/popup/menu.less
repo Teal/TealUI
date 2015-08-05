@@ -22,19 +22,19 @@
         }
     }
 
-    .x-menu-selected, > li:hover {
-        > a {
-            background-color: @selected-background-color;
-            color: @selected-text-color;
-            text-decoration: none;
+        .x-menu-selected, > li:hover {
+            > a {
+                background-color: @selected-background-color;
+                color: @selected-text-color;
+                text-decoration: none;
+            }
         }
-    }
+}
 
-    &.x-popover, .x-menu, .x-contextmenu, .x-dropdownmenu {
+    .x-menu.x-popover, .x-menu .x-menu, .x-contextmenu, .x-dropdownmenu {
         display: none;
         position: absolute;
     }
-}
 
 .x-menu-divider {
     height: 1px;

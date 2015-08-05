@@ -8,20 +8,19 @@
 
 var SplitButton = Control.extend({
 
+    role: "splitButton",
+
     init: function () {
         var me = this;
-        me.dropDown = Control.get(me.elem.nextElementSibling, 'dropDown', {
-            target: me.elem.querySelector('.x-button:last-child')
-        });
-        me.dropDown.on('show', function () {
-            me.dropDown.elem.pin(me.elem, 'bl');
-            me.elem.querySelector('.x-button:last-child').classList.add('x-button-actived');
-        });
-        me.dropDown.on('hide', function () {
-            me.elem.querySelector('.x-button:last-child').classList.remove('x-button-actived');
-        });
-        me.dropDown.elem.on('click', function () {
-            me.dropDown.hide();
+        me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover, .x-dropdownmenu')).role('popover', {
+            target: me.dom.find('.x-button:last-child'),
+            pinTarget: me.dom,
+            onShow: function () {
+                me.dom.find('.x-button:last-child').addClass('x-button-actived');
+            },
+            onHide: function () {
+                me.dom.find('.x-button:last-child').removeClass('x-button-actived');
+            }
         });
     }
 

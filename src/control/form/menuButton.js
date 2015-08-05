@@ -7,20 +7,18 @@
 
 var MenuButton = Control.extend({
 
+    role: "menuButton",
+
     init: function () {
         var me = this;
-        me.dropDown = Control.get(me.elem.nextElementSibling, 'dropDown', {
-            target: me.elem
-        });
-        me.dropDown.on('show', function () {
-            me.dropDown.elem.pin(me.elem, 'bl');
-            me.elem.classList.add('x-button-actived');
-        });
-        me.dropDown.on('hide', function () {
-            me.elem.classList.remove('x-button-actived');
-        });
-        me.dropDown.elem.on('click', function() {
-            me.dropDown.hide();
+        me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover, .x-dropdownmenu')).role('popover', {
+            target: me.dom,
+            onShow: function () {
+                me.dom.addClass('x-button-actived');
+            },
+            onHide: function () {
+                me.dom.removeClass('x-button-actived');
+            }
         });
     }
 

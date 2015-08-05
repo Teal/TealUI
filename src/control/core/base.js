@@ -45,14 +45,13 @@ var Control = Base.extend({
      * @inner
      */
     create: function () {
-        var result = Dom(this.tpl.replace(/{role}/g, this.role.toLowerCase()));
+        var me = this;
+        var result = me.created = Dom(me.tpl.replace(/{role}/g, me.role.toLowerCase()));
         if (document.body) {
             Dom(document.body).append(result);
         } else {
             Dom(function () {
-                if (!Dom("body").contains(result)) {
-                    Dom("body").append(result);
-                }
+                result.appendTo(document.body, true);
             });
         }
         return result;

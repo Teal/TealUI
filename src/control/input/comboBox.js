@@ -17,57 +17,54 @@
  */
 var ComboBox = Picker.extend({
 
-    /**
-	 * 创建当前 Picker 的菜单。
-	 * @returns {Control} 下拉菜单。
-	 * @protected override
-	 */
-    createDropDown: function (existDom) {
-        return Control.get(dropDown, 'dropDownMenu', { target: this.getButton() });
+    role: "comboBox",
+
+    initDropDown: function() {
+        this.menu = this.dropDown.dom.role('menu');
     },
-	
+
     /**
 	 * 将当前文本的值同步到下拉菜单。
 	 * @protected override
 	 */
     updateDropDown: function(){
-        this.dropDown.hovering(this.getSelectedItem());
+       // this.dropDown.hovering(this.getSelectedItem());
     },
 	
-    init: function (options) {
+    init: function () {
 		
-        // 1. 处理 <select>
-    	var selectNode;
+        //// 1. 处理 <select>
+    	//var selectNode;
 		
-        // 如果初始化的时候传入一个 <select> 则替换 <select>, 并拷贝相关数据。
-        if(this.elem.tagName === 'SELECT') {
+        //// 如果初始化的时候传入一个 <select> 则替换 <select>, 并拷贝相关数据。
+        //if(this.elem.tagName === 'SELECT') {
 			
-        	this.selectNode = selectNode = this.elem;
+        //	this.selectNode = selectNode = this.elem;
 			
-            // 调用 create 重新生成 dom 。
-        	this.elem = this.create();
+        //    // 调用 create 重新生成 dom 。
+        //	this.elem = this.create();
 
-        	// 插入当前节点。
-        	Dom.after(selectNode, this.elem);
+        //	// 插入当前节点。
+        //	Dom.after(selectNode, this.elem);
 			
-        }
+        //}
 		
-        // 2. 初始化文本框
+        //// 2. 初始化文本框
 		
         // 初始化文本框
-        Picker.prototype.init.call(this, options);
+        Picker.prototype.init.apply(this, arguments);
 		
-        // 3. 设置默认项
+        //// 3. 设置默认项
 			
-        if (selectNode) {
+        //if (selectNode) {
 			
-            // 让 listBox 拷贝 <select> 的成员。
-        	this.copyItemsFromSelect(selectNode);
+        //    // 让 listBox 拷贝 <select> 的成员。
+        //	this.copyItemsFromSelect(selectNode);
 
-        	// 隐藏 <select> 为新的 dom。
-        	Dom.hide(selectNode);
+        //	// 隐藏 <select> 为新的 dom。
+        //	Dom.hide(selectNode);
 
-        }
+        //}
 		
     },
 	
@@ -78,7 +75,7 @@ var ComboBox = Picker.extend({
 
         var me = this, old;
     	
-        if (me.trigger('selecting', item)) {
+        if (me.trigger('select', item)) {
             old = me.getValue();
             me.setSelectedItem(item);
             if (old !== me.getValue()) {
@@ -178,5 +175,3 @@ var ComboBox = Picker.extend({
     }
 
 });
-
-ListControl.alias(ComboBox, "getDropDown");

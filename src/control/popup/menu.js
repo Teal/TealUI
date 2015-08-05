@@ -11,6 +11,10 @@
  * 表示一个菜单。
  * @class
  * @extends Control
+ * @remark 菜单可以以三种方式显示：
+ * 1. 右键菜单。
+ * 2. 下拉菜单。
+ * 3. 静态菜单。
  */
 var Menu = Control.extend({
 
@@ -50,22 +54,25 @@ var Menu = Control.extend({
 
         // 设置为下拉菜单。
         if (me.dom.is(".x-dropdownmenu")) {
-            me.popover = Dom(me.dom).role("popover");
-        }
-
-        // 如果不是子菜单，则绑定点击隐藏事件。
-        if (!me.parent()) {
-            Dom(document).on('mousedown', function (e) {
-                function hideCall() {
-                    me.dom.is(".x-popover") ? me.hide(e) : me.hideSub(e);
-                }
-
-                if (!me.dom.contains(e.target)) {
-                    hideCall();
-                } else if (Dom(e.target).is("a,li")) {
-                    setTimeout(hideCall, 60);
-                }
+            me.popover = me.dom.role("popover");
+            me.dom.on('click', function (e) {
+                me.popover.hide(e);
             });
+            me.popover.on('show', function() {
+                me.hideSub().selectedItem(null);
+            });
+            me.popover.target.keyNav && me.popover.target.keyNav(me.keyBindings());
+        } else if (!me.parent()) {
+
+            // 如果不是子菜单，则绑定点击隐藏事件。
+            // x-dropdownmenu 的子菜单显示与否由 Popover 管理。
+            function hideCore(e) {
+                me.dom.is(".x-contextmenu, .x-popover") ? me.hide(e) : me.hideSub(e);
+            }
+            Dom(document).on('mousedown', function (e) {
+                me.dom.contains(e.target) || hideCore(e);
+            });
+            me.dom.on('click', hideCore);
         }
     },
 

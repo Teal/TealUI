@@ -26,8 +26,8 @@
 }
 .x-menu.x-popover,
 .x-menu .x-menu,
-.x-menu .x-contextmenu,
-.x-menu .x-dropdownmenu {
+.x-contextmenu,
+.x-dropdownmenu {
   display: none;
   position: absolute;
 }

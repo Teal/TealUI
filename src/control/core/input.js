@@ -41,7 +41,7 @@ var Input = Control.extend({
      * @param {Boolean} value=false 要设置的状态值。
      */
     state: function (name, value) {
-        var className = 'x-' + role + '-' + state.toLowerCase();
+        var className = 'x-' + this.role + '-' + name.toLowerCase();
         var input = this.input();
         if (value === undefined) {
             return input.is('.' + className);

@@ -93,27 +93,33 @@ Dom.parse = function (html, context) {
             Dom._parseContainer = context.createElement('div');
         }
 
-        // 确定容器。
-        context = context === document ? Dom._parseContainer : context.createElement('div');
-
         // 测试是否包含需要特殊处理的片段。
         var tag = /^<([!\w:]+)/.exec(html);
         tag = tag && parseFix[tag[1].toLowerCase()];
 
+        // 确定容器。
+        var container = context === document ? Dom._parseContainer : context.createElement('div');
+
         // IE6-8: 必须为 HTML 追加文本才能正常解析。
-        /**@cc_on if(!+"\v1" && !tag) { tag = [1, "$<div>", "</div>"]; } @*/
+        /*@cc_on if(!+"\v1") { 
+            tag = tag || [1, "$<div>", "</div>"]; 
+            if(context.createFragment){
+                var fragment = context.createFragment();
+                fragment.appendChild(container);
+            }
+         } @*/
 
         if (tag) {
-            context.innerHTML = tag[1] + html + tag[2];
+            container.innerHTML = tag[1] + html + tag[2];
             // 转到正确的深度。
             for (var i = tag[0]; i--;) {
-                context = context.lastChild;
+                container = container.lastChild;
             }
         } else {
-            context.innerHTML = html;
+            container.innerHTML = html;
         }
 
-        html = context.childNodes;
+        html = container.childNodes;
     }
     return new Dom.List(html);
 };

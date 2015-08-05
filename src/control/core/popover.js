@@ -86,6 +86,10 @@ var Popover = Control.extend({
 
             me.target = target = target ? Dom(target) : this.dom.prev();
 
+            if (me.created) {
+                me.target.parent().append(me.dom);
+            }
+
             switch (triggerEvent) {
                 case "click":
                     target.on(triggerEvent, function (e) {
@@ -225,6 +229,7 @@ var Popover = Control.extend({
      * @returns this
      */
     show: function (e) {
+        debugger
         var me = this;
         me.dom.show("opacity", null, me.duration);
         me.onShow && me.onShow(e);

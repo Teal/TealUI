@@ -145,17 +145,29 @@ XMLHttpRequest = function(){
     return new ActiveXObject("Microsoft.XMLHTTP");
 };
 
-// 让 IE6-8 支持 HTML5 新标签。
-"article section header footer nav aside details summary menu".replace(/\w+/g, function (tagName) {
-    document.createElement(tagName);
-});
+var Document = Document || HTMLDocument;
 
 (function (ep, dp, evtp, trp) {
+
+    function createHTML5Tags(doc){
+        "abbr article aside audio bdi canvas data datalist details figcaption figure footer header hgroup mark meter nav output progress section summary time video".replace(/\w+/g, function (tagName) {
+            doc.createElement(tagName);
+        });
+    }
 
     // 定义一个属性。
     function defineProperty(obj, propName, getter, setter) {
         Object.defineProperty(obj, propName, { get: getter, set: setter });
     }
+    
+    // 让 IE6-8 支持 HTML5 新标签。
+    createHTML5Tags(document);
+
+    dp.createFragment = function(){
+        var fragment = this.createDocumentFragment();
+        createHTML5Tags(fragment);
+        return fragment;
+    };
 
     // 文档。
 
@@ -288,7 +300,7 @@ XMLHttpRequest = function(){
         return this.bottom - this.top;
     });
    
-})(Element.prototype, HTMLDocument.prototype, Event.prototype, TextRectangle.prototype);
+})(Element.prototype, Document.prototype, Event.prototype, TextRectangle.prototype);
 
 } @*/
 
