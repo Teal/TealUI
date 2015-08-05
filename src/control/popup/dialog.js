@@ -16,7 +16,7 @@ var Dialog = Control.extend({
 
 	tpl: '<section class="x-panel x-dialog">\
             <header class="x-panel-header">\
-                <a class="x-closebutton x-dialog-close">×</a>\
+                <a class="x-closebutton x-dialog-close" title="关闭">×</a>\
                 <h4></h4>\
             </header>\
             <div class="x-panel-body"></div>\

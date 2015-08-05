@@ -25,7 +25,9 @@
   text-decoration: none;
 }
 .x-menu.x-popover,
-.x-menu .x-menu {
+.x-menu .x-menu,
+.x-menu .x-contextmenu,
+.x-menu .x-dropdownmenu {
   display: none;
   position: absolute;
 }
