@@ -10,7 +10,7 @@
  * @example namespace("MyNameSpace.SubNamespace")
  */
 function namespace(ns) {
-    window.console && console.assert(typeof ns === "string", "namespace(ns: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof ns === "string", "namespace(ns: 必须是字符串)");
 
 	// 取值，创建。
 	ns = ns.split('.');

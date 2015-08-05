@@ -27,7 +27,7 @@ function countDown(startDate, endDate, callback) {
         startDate = 0;
     }
 
-    window.console && console.assert(callback instanceof Function, "countDown([startDate], endDate, callback: 必须是函数)");
+    /^o/.test(typeof console) && console.assert(callback instanceof Function, "countDown([startDate], endDate, callback: 必须是函数)");
     var startDateOffset = startDate ? (new Date() - (startDate instanceof Date ? startDate : new Date(startDate))) : 0;
     endDate = +(endDate instanceof Date ? endDate : new Date(endDate));
 

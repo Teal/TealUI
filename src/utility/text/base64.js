@@ -22,7 +22,7 @@ if (!this.btoa && !this.atob) {
          * @since ES4
          */
         window.btoa = function (str) {
-            window.console && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
+            /^o/.test(typeof console) && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
             for (
                 // initialize result and counter
               var block, charCode, idx = 0, map = characters, output = '';
@@ -50,7 +50,7 @@ if (!this.btoa && !this.atob) {
          * @since ES4
          */
         window.atob = function (str) {
-            window.console && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
+            /^o/.test(typeof console) && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
             str = str.replace(/=+$/, '')
             if (str.length % 4 == 1) throwInvalideCharError();
             for (

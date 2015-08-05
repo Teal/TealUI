@@ -29,7 +29,7 @@
  * String.format("在字符串内使用两个{{和}}避免被转换"); //  "在字符串内使用两个{和}避免被转换"
  */
 String.format = function (format) {
-    window.console && console.assert(!format || typeof format === "string", "String.format(format: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(!format || typeof format === "string", "String.format(format: 必须是字符串)");
     var args = arguments;
     return format ? format.replace(/\{\{|\{(\w+)\}|\}\}/g, function (matched, argName) {
         return argName ? (matched = +argName + 1) ? args[matched] : args[1][argName] : matched[0];

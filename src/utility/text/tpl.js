@@ -21,7 +21,7 @@ var Tpl = {
      */
     compile: function (tplSource, cacheKey) {
         cacheKey = cacheKey || tplSource;
-        window.console && console.assert(typeof tplSource === "string", "Tpl.compile(tplSource: 必须是字符串, [cacheKey])");
+        /^o/.test(typeof console) && console.assert(typeof tplSource === "string", "Tpl.compile(tplSource: 必须是字符串, [cacheKey])");
         return Tpl._compiled[cacheKey] || (Tpl._compiled[cacheKey] = Tpl._compileCore(tplSource));
     },
 

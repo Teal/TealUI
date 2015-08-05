@@ -64,7 +64,7 @@ if (!Array.prototype.forEach) {
      * @since ES5
      */
     Array.prototype.forEach = function (fn, scope) {
-        window.console && console.assert(fn instanceof Function, "array.forEach(fn: 必须是函数, [scope])");
+        /^o/.test(typeof console) && console.assert(fn instanceof Function, "array.forEach(fn: 必须是函数, [scope])");
         for (var i = 0, length = this.length; i < length; i++) {
             fn.call(scope, this[i], i, this);
         }
@@ -85,7 +85,7 @@ if (!Array.prototype.forEach) {
      * @since ES5
      */
     Array.prototype.filter = function (fn, scope) {
-        window.console && console.assert(fn instanceof Function, "array.filter(fn: 必须是函数, [scope])");
+        /^o/.test(typeof console) && console.assert(fn instanceof Function, "array.filter(fn: 必须是函数, [scope])");
         var results = [];
         for (var i = 0, l = this.length; i < l; i++) {
             if (i in this) {

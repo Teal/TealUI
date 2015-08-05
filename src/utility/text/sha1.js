@@ -21,7 +21,7 @@
  * @example sha1("abc") // "a9993e364706816aba3e25717850c26c9cd0d89d"
  */
 function sha1(str) {
-    window.console && console.assert(typeof str === "string", "sha1(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "sha1(str: 必须是字符串)");
     return sha1.binaryToString(sha1.calc(sha1.stringToBinary(str)));
 }
 

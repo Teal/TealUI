@@ -82,7 +82,7 @@ var Control = Dom.roles.$default = Base.extend({
         }
         this.dom = dom;
 
-        window.console && console.assert(dom && dom[0], "Control 缺少关联的原生节点");
+        /^o/.test(typeof console) && console.assert(dom && dom[0], "Control 缺少关联的原生节点");
 
         var opt = {};
 

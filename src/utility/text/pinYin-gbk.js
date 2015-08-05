@@ -12,7 +12,7 @@
  * @example getPinYin("你好") // "Ni Hao"
  */
 function getPinYin(str, firstLetterOnly, joinChar) {
-    window.console && console.assert(typeof str === "string", "getPinYin(str: 必须是字符串, [firstLetterOnly], [joinChar])");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "getPinYin(str: 必须是字符串, [firstLetterOnly], [joinChar])");
     var result = [];
     if (str) {
         for (var i = 0; i < str.length; i++) {

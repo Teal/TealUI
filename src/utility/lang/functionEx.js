@@ -30,7 +30,7 @@ Function.concat = function () {
     var s = Array.prototype.slice.call(arguments, 0);
     return function () {
         for (var i = 0; i < s.length; i++) {
-            window.console && console.assert(!s[i] || s[i] instanceof Function, "Function.concat(...: 必须是函数)");
+            /^o/.test(typeof console) && console.assert(!s[i] || s[i] instanceof Function, "Function.concat(...: 必须是函数)");
             s[i] && s[i].apply(this, arguments);
         }
     };
@@ -54,7 +54,7 @@ Function.concat = function () {
 Function.tryThese = function () {
     var result;
     for (var i = 0, l = arguments.length; i < l; i++) {
-        window.console && console.assert(arguments[i] instanceof Function, "Function.tryThese(...: 必须是函数)");
+        /^o/.test(typeof console) && console.assert(arguments[i] instanceof Function, "Function.tryThese(...: 必须是函数)");
         try {
             result = arguments[i].apply(this, arguments);
         } catch (e) { }
@@ -78,7 +78,7 @@ Function.tryThese = function () {
  * @example Function.interval(function(a){console.log(a) }, 10, 400)
  */
 Function.interval = function (fn, times, duration) {
-    window.console && console.assert(fn instanceof Function, "Function.interval(fn: 必须是函数, [times], [duration])");
+    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Function.interval(fn: 必须是函数, [times], [duration])");
     var count = 0;
     duration = duration || 0;
     function callback() {
@@ -105,7 +105,7 @@ Function.interval = function (fn, times, duration) {
  * }, 100);
  */
 Function.createDelayed = function (fn, duration) {
-    window.console && console.assert(fn instanceof Function, "Function.createDelayed(fn: 必须是函数, [duration])");
+    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Function.createDelayed(fn: 必须是函数, [duration])");
     var timer;
     return function () {
         var me = this, args = arguments;

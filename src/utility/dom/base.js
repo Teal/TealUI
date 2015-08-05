@@ -55,8 +55,8 @@ Dom.List = function (items) {
  * @inner
  */
 Dom.find = function (selector, context) {
-    window.console && console.assert(typeof selector === "string", "Dom.find(selector: 必须是字符串, [context])");
-    window.console && console.assert(!context || context.querySelectorAll, "Dom.find(selector, [context: 必须是节点])");
+    /^o/.test(typeof console) && console.assert(typeof selector === "string", "Dom.find(selector: 必须是字符串, [context])");
+    /^o/.test(typeof console) && console.assert(!context || context.querySelectorAll, "Dom.find(selector, [context: 必须是节点])");
     return new Dom.List((context || document).querySelectorAll(selector));
 };
 
@@ -71,7 +71,7 @@ Dom.parse = function (html, context) {
     if (html && html.constructor === String) {
 
         context = context ? context.ownerDocument || context : document;
-        window.console && console.assert(context.createElement, "Dom.parse(selector, [context: 必须是文档])");
+        /^o/.test(typeof console) && console.assert(context.createElement, "Dom.parse(selector, [context: 必须是文档])");
 
         // 首次解析。
         var parseFix = Dom._parseFix;
@@ -125,8 +125,8 @@ Dom.parse = function (html, context) {
  * @inner
  */
 Dom.ready = function (callback, context) {
-    window.console && console.assert(callback instanceof Function, "Dom.ready(callback: 必须是函数, [context])");
-    window.console && console.assert(!context || context.createElement, "Dom.ready(callback, [context: 必须是文档])");
+    /^o/.test(typeof console) && console.assert(callback instanceof Function, "Dom.ready(callback: 必须是函数, [context])");
+    /^o/.test(typeof console) && console.assert(!context || context.createElement, "Dom.ready(callback, [context: 必须是文档])");
     context = context || document;
     if (/complete|loaded|interactive/.test(context.readyState) && context.body) {
         callback.call(context);
@@ -147,7 +147,7 @@ Dom.ready = function (callback, context) {
  * @inner
  */
 Dom.data = function (elem, fieldName) {
-    window.console && console.assert(elem, "Dom.data(elem: 不能为空, fieldName)");
+    /^o/.test(typeof console) && console.assert(elem, "Dom.data(elem: 不能为空, fieldName)");
     var datas = Dom._datas || (Dom._datas = {});
     var id = elem.__dataId__ || (elem.__dataId__ = Dom._dataId = Dom._dataId + 1 || 1);
     datas = datas[id] || (datas[id] = {});
@@ -164,8 +164,8 @@ Dom.data = function (elem, fieldName) {
  */
 Dom.matches = function (node, selector) {
 
-    window.console && console.assert(node, "Dom.matches(node: 不能为空, selector)");
-    window.console && console.assert(typeof selector === "string", "Dom.matches(node, selector: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(node, "Dom.matches(node: 不能为空, selector)");
+    /^o/.test(typeof console) && console.assert(typeof selector === "string", "Dom.matches(node, selector: 必须是字符串)");
 
     // 只对元素判断。
     if (node.nodeType !== 1) {
@@ -199,8 +199,8 @@ Dom.matches = function (node, selector) {
  * @since ES5
  */
 Dom.contains = function (node, child) {
-    window.console && console.assert(node, "Dom.contains(node: 必须是节点, child)");
-    window.console && console.assert(!child || child.parentNode, "Dom.contains(node, child: 必须是节点)");
+    /^o/.test(typeof console) && console.assert(node, "Dom.contains(node: 必须是节点, child)");
+    /^o/.test(typeof console) && console.assert(!child || child.parentNode, "Dom.contains(node, child: 必须是节点)");
     if (node.contains) {
         return node.contains(child);
     }
@@ -237,8 +237,8 @@ Dom.closest = function (node, selector, context) {
  * @inner
  */
 Dom.vendor = function (elem, cssPropertyName) {
-    window.console && console.assert(elem && elem.style, "Dom.vendor(elem: 必须是元素, cssPropertyName)");
-    window.console && console.assert(typeof cssPropertyName === "string", "Dom.vendor(elem, cssPropertyName: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(elem && elem.style, "Dom.vendor(elem: 必须是元素, cssPropertyName)");
+    /^o/.test(typeof console) && console.assert(typeof cssPropertyName === "string", "Dom.vendor(elem, cssPropertyName: 必须是字符串)");
     if (!(cssPropertyName in elem.style)) {
         var capName = cssPropertyName.charAt(0).toUpperCase() + cssPropertyName.slice(1);
         for (var prefix in { webkit: 1, Moz: 1, ms: 1, O: 1 }) {
@@ -261,8 +261,8 @@ Dom.vendor = function (elem, cssPropertyName) {
  */
 Dom.css = function (elem, cssPropertyName, value) {
 
-    window.console && console.assert(elem && elem.style, "Dom.css(elem: 必须是元素, cssPropertyName, [value])");
-    window.console && console.assert(!/-/.test(cssPropertyName), "Dom.css(elem, cssPropertyName: CSS 属性名必须使用骆驼规则(如将 font-size 改成 fontSize), [value])");
+    /^o/.test(typeof console) && console.assert(elem && elem.style, "Dom.css(elem: 必须是元素, cssPropertyName, [value])");
+    /^o/.test(typeof console) && console.assert(!/-/.test(cssPropertyName), "Dom.css(elem, cssPropertyName: CSS 属性名必须使用骆驼规则(如将 font-size 改成 fontSize), [value])");
 
     /*@cc_on if(!+"\v1") {
 
@@ -371,8 +371,8 @@ Dom.css = function (elem, cssPropertyName, value) {
  * @inner
  */
 Dom.calc = function (elem, expression) {
-    window.console && console.assert(elem && elem.style, "Dom.calc(elem: 必须是元素, expression)");
-    window.console && console.assert(typeof expression === "string", "Dom.calc(elem, expression: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(elem && elem.style, "Dom.calc(elem: 必须是元素, expression)");
+    /^o/.test(typeof console) && console.assert(typeof expression === "string", "Dom.calc(elem, expression: 必须是字符串)");
     /*@cc_on if(!+"\v1") {return eval(expression.replace(/\w+/g, '(parseFloat(Dom.css(elem, "$1")) || 0)'));} @*/
     // ReSharper disable once UnusedLocals
     var computedStyle = elem.ownerDocument.defaultView.getComputedStyle(elem, null);
@@ -417,7 +417,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").each(function(elem){ console.log(elem); })
      */
     each: function (callback, scope) {
-        window.console && console.assert(callback instanceof Function, "dom.each(callback: 必须是函数, [scope])");
+        /^o/.test(typeof console) && console.assert(callback instanceof Function, "dom.each(callback: 必须是函数, [scope])");
         for (var i = 0, node; (node = this[i]) && callback.call(scope, node, i, this) !== false; i++);
         return this;
     },
@@ -436,7 +436,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem").map(function(node){return node.firstChild})
      */
     map: function (callback, scope) {
-        window.console && console.assert(callback instanceof Function, "dom.map(callback: 必须是函数, [scope])");
+        /^o/.test(typeof console) && console.assert(callback instanceof Function, "dom.map(callback: 必须是函数, [scope])");
         var result = Dom();
         for (var i = 0, node; (node = this[i]) ; i++) {
             result.add(callback.call(scope, node, i, this));
@@ -688,7 +688,7 @@ Dom.List.prototype = Dom.prototype = {
             return me;
         }
 
-        window.console && console.assert(typeof delegateSelector === "string" || delegateSelector instanceof Function, "dom.on(eventName, [delegateSelector: 必须是字符串或函数], eventListener, [scope])");
+        /^o/.test(typeof console) && console.assert(typeof delegateSelector === "string" || delegateSelector instanceof Function, "dom.on(eventName, [delegateSelector: 必须是字符串或函数], eventListener, [scope])");
 
         // 允许不传递 delegateSelector 参数。
         if (delegateSelector.constructor !== String) {
@@ -697,7 +697,7 @@ Dom.List.prototype = Dom.prototype = {
             delegateSelector = '';
         }
 
-        window.console && console.assert(eventListener instanceof Function, "dom.on(eventName, [delegateSelector], eventListener: 必须是函数, [scope])");
+        /^o/.test(typeof console) && console.assert(eventListener instanceof Function, "dom.on(eventName, [delegateSelector], eventListener: 必须是函数, [scope])");
 
         return me.each(function (elem) {
 
@@ -1087,7 +1087,7 @@ Dom.List.prototype = Dom.prototype = {
      * $("#elem").attr("className", "doc-doc") // 设置为 null 表示删除。
      */
     attr: function (attrName, value) {
-        window.console && console.assert(attrName != null, "dom.attr(attrName: 不能为空, value)");
+        /^o/.test(typeof console) && console.assert(attrName != null, "dom.attr(attrName: 不能为空, value)");
         var me = this;
         if (attrName.constructor !== String) {
             for (value in attrName) {
@@ -1147,7 +1147,7 @@ Dom.List.prototype = Dom.prototype = {
      * > 可使用 <a href="http://www.useragentman.com/IETransformsTranslator/">IE Transforms Translator</a> 工具实现 IE6-9 Transform 效果。
      */
     css: function (cssPropertyName, value) {
-        window.console && console.assert(cssPropertyName != null, "dom.css(cssPropertyName: 不能为空, value)");
+        /^o/.test(typeof console) && console.assert(cssPropertyName != null, "dom.css(cssPropertyName: 不能为空, value)");
         if (cssPropertyName.constructor !== String) {
             for (value in cssPropertyName) {
                 this.css(value, cssPropertyName[value]);
@@ -1251,11 +1251,11 @@ Dom.List.prototype = Dom.prototype = {
             return result;
         }
 
-        window.console && console.assert(value != null, "dom.rect(value: 不能为空)");
+        /^o/.test(typeof console) && console.assert(value != null, "dom.rect(value: 不能为空)");
 
         return this.each(function (elem) {
 
-            window.console && console.assert(elem && elem.style, "dom.rect(value): dom[*] 必须是元素");
+            /^o/.test(typeof console) && console.assert(elem && elem.style, "dom.rect(value): dom[*] 必须是元素");
 
             var style = elem.style;
 
@@ -1379,7 +1379,7 @@ Dom.List.prototype = Dom.prototype = {
             };
         }
 
-        window.console && console.assert(value != null, "dom.scroll(value: 不能为空)");
+        /^o/.test(typeof console) && console.assert(value != null, "dom.scroll(value: 不能为空)");
 
         return this.each(function (elem) {
             if (elem.nodeType === 9) {
@@ -1700,7 +1700,7 @@ Dom.List.prototype = Dom.prototype = {
 
         return this.each(function (elem) {
 
-            window.console && console.assert(elem && elem.style, "dom.toggle(animation, callback, duration, ease): dom[*] 必须是元素");
+            /^o/.test(typeof console) && console.assert(elem && elem.style, "dom.toggle(animation, callback, duration, ease): dom[*] 必须是元素");
 
             // 如果在调用 show/hide 时，元素正在执行上一次调用的特效。
             // 则终止特效，并以最终 display 属性是否符合期望为标准判断是否需要调用回调。

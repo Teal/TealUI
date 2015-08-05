@@ -19,7 +19,7 @@ var QueryString = {
     parse: function (str) {
         var result = {};
         if (str) {
-            window.console && console.assert(typeof str === "string", "QueryString.parse(str: 必须是字符串)");
+            /^o/.test(typeof console) && console.assert(typeof str === "string", "QueryString.parse(str: 必须是字符串)");
             str = str.replace(/^\?/, "").replace(/\+/g, '%20').split('&');
             for (var i = 0; i < str.length; i++) {
                 var t = str[i].indexOf('='),

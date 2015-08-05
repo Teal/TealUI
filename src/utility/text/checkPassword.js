@@ -16,7 +16,7 @@
  * @example checkPassword("123456") // -1
  */
 function checkPassword(str) {
-    window.console && console.assert(typeof str === "string", "checkPassword(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "checkPassword(str: 必须是字符串)");
 
     var complexLevel = 0;
     var equalCount = 0;

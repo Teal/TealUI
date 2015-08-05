@@ -7,7 +7,7 @@
  * @example encryptString("abc", 123) // "``e"
  */
 function encryptString(str, key) {
-    window.console && console.assert(typeof str === "string", "encryptString(str: 必须是字符串, [key])");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "encryptString(str: 必须是字符串, [key])");
     if (key == undefined) {
         key = 19901206;
     }
@@ -29,7 +29,7 @@ function encryptString(str, key) {
  * @example dencryptString("abc", 123) // "cce"
  */
 function dencryptString(str, key) {
-    window.console && console.assert(typeof str === "string", "dencryptString(str: 必须是字符串, [key])");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "dencryptString(str: 必须是字符串, [key])");
     if (key == undefined) {
         key = 19901206;
     }

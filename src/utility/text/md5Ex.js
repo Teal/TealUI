@@ -20,7 +20,7 @@ md5.hmacMd5 = function (str, key) {
  * @inner
  */
 md5.hmacMd5c = function (str, key) {
-    window.console && console.assert(typeof str === "string", "md5.hmacMd5c(str: 必须是字符串, key)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "md5.hmacMd5c(str: 必须是字符串, key)");
     var me = md5,
         bkey = me.stringToBinary(key),
         ipad = Array(16),
@@ -45,7 +45,7 @@ md5.hmacMd5c = function (str, key) {
  * @example md5.base64Md5("abc") // "kAFQmDzST7DWlj99KOF/cg"
  */
 md5.base64Md5 = function (str) {
-    window.console && console.assert(typeof str === "string", "md5.base64Md5(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "md5.base64Md5(str: 必须是字符串)");
     return md5.binaryToBase64(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 };
 

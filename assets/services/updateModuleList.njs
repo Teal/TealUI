@@ -238,7 +238,7 @@ function getFileByName(path) {
 var finalList = generateModuleList();
 
 context.response.contentType = 'text/javascript;charset=utf-8';
-context.response.write('var _ =' + JSON.stringify(finalList));
+context.response.write('Doc.moduleList = ' + JSON.stringify(finalList));
 
 IO.writeFile(Path.resolve(Doc.basePath, Doc.indexPath), 'Doc.moduleList = ' + JSON.stringify(finalList), Doc.encoding);
 

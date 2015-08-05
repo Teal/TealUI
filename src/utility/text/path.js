@@ -58,7 +58,7 @@ var Path = {
 
 		for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
 		    var path = (i >= 0) ? arguments[i] : Path.basePath;
-		    window.console && console.assert(typeof path === "string", "Path.resolve(...: 必须是字符串)");
+		    /^o/.test(typeof console) && console.assert(typeof path === "string", "Path.resolve(...: 必须是字符串)");
 
 		    if (path) {
 		        resolvedPath = path + '/' + resolvedPath;
@@ -85,7 +85,7 @@ var Path = {
      * @example Path.normalize("a/b/../c/d/e") // "a/c/d/e"
      */
 	normalize: function (path) {
-	    window.console && console.assert(typeof path === "string", "Path.normalize(path: 必须是字符串)");
+	    /^o/.test(typeof console) && console.assert(typeof path === "string", "Path.normalize(path: 必须是字符串)");
 		var isAbsolute = path.charAt(0) === '/',
 			trailingSlash = path.substr(-1) === '/';
 

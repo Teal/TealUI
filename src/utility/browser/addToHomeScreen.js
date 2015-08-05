@@ -1,14 +1,19 @@
-/** * @author xuld *//**
+/**
+ * @author xuld
+ */
+
+/**
  * 对于 IOS/Android 用户，弹出添加到主屏幕的浮层。
  * @param {Object} [options] 可选的配置信息。
  * @remark
  * 请确保必须在 DomReady 中调用本函数。
- */function addToHomeScreen(options) {
+ */
+function addToHomeScreen(options) {
 
     // IE6-8: 不支持。
     /*@cc_on if(!-"\v1")return; @*/
 
-    window.console && console.assert(document.body, "必须在 DOM Ready 后才能调用 addToHomeScreen()");
+    /^o/.test(typeof console) && console.assert(document.body, "addToHomeScreen(options): 必须在 DOM Ready 后才能调用此函数");
 
     // 排除一些浏览器。
     var opt = {
@@ -403,4 +408,6 @@
         return target;
     }
 
-}
+}
+
+

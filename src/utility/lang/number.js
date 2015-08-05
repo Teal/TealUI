@@ -37,7 +37,7 @@ Number.prototype.format = function (format) {
         return this.toString();
     }
 
-    window.console && console.assert(typeof format === "string", "number.format(format: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof format === "string", "number.format(format: 必须是字符串)");
     function splitPart(str) {
         var p = str.indexOf('.');
         return [p < 0 ? str : str.substr(0, p), p < 0 ? '' : str.substr(p + 1)];

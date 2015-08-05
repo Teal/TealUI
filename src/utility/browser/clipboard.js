@@ -7,13 +7,10 @@
  * @example copyText("文本")
  */
 function copyText(content) {
-	
-	// IE
+	// IE：目前只有 IE 支持此接口。
 	if(window.clipboardData) {
 		window.clipboardData.setData("Text", content);
 		return true;
 	}
-	
 	return false;
-
 }

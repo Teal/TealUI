@@ -32,7 +32,7 @@ var TradionalChinese = {
      * @example TradionalChinese.toTradionalChinese("简") // "簡"
      */
     toTradionalChinese: function (str) {
-        window.console && console.assert(typeof str === "string", "TradionalChinese.toTradionalChinese(str: 必须是字符串)");
+        /^o/.test(typeof console) && console.assert(typeof str === "string", "TradionalChinese.toTradionalChinese(str: 必须是字符串)");
         return TradionalChinese._convert(str, TradionalChinese.dictionarySimple, TradionalChinese.dictionaryTradional);
     },
 
@@ -43,7 +43,7 @@ var TradionalChinese = {
      * @example TradionalChinese.toSimpleChinese("簡") // "简"
      */
     toSimpleChinese: function (str) {
-        window.console && console.assert(typeof str === "string", "TradionalChinese.toTradionalChinese(str: 必须是字符串)");
+        /^o/.test(typeof console) && console.assert(typeof str === "string", "TradionalChinese.toTradionalChinese(str: 必须是字符串)");
         return TradionalChinese._convert(str, TradionalChinese.dictionaryTradional, TradionalChinese.dictionarySimple);
     }
 

@@ -14,7 +14,8 @@
  * setHomePage("TealUI", "http://teal.github.io/TealUI")
  * 
  * @remark
- * <blockquote class="doc-note"><h4>注意</h4>最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。</blockquote>
+ * > #### !注意
+ * > 最新浏览器由于安全限制，不允许使用此功能。这时，函数会提示用户手动操作。
  */
 function setHomePage(url) {
     try {

@@ -18,7 +18,7 @@
  * @example parseChineseId("152500198909267865")
  */
 function parseChineseId(str) {
-    window.console && console.assert(typeof str === "string", "parseChineseId(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "parseChineseId(str: 必须是字符串)");
 
     var provinces = parseChineseId._provinces || (parseChineseId._provinces = {
         '11': '北京',

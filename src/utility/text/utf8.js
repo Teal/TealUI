@@ -11,7 +11,7 @@
  * @example encodeUTF8("你") // "\\u4f60"
  */
 function encodeUTF8(str) {
-    window.console && console.assert(typeof str === "string", "encodeUTF8(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "encodeUTF8(str: 必须是字符串)");
     var result = "";
     for (var i = 0, len = str.length; i < len; i++) {
         var temp = str.charCodeAt(i).toString(16);
@@ -31,7 +31,7 @@ function encodeUTF8(str) {
  * @example decodeUTF8("\\u4f60") // "你"
  */
 function decodeUTF8(str) {
-    window.console && console.assert(typeof str === "string", "decodeUTF8(str: 必须是字符串)");
+    /^o/.test(typeof console) && console.assert(typeof str === "string", "decodeUTF8(str: 必须是字符串)");
     return str.replace(/\\u(\w{4}|\w{2})/gi, function (_, unicode) {
         return String.fromCharCode(parseInt(unicode, 16));
     });
