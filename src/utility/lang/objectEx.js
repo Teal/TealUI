@@ -93,7 +93,7 @@ Object.isObject = function (obj) {
  * Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}
  */
 Object.assignIf = function (target, source) {
-    /^o/.test(typeof console) && console.assert(target != null, "Object.assignIf(target: 不能为空, source)");
+    typeof console === "object" && console.assert(target != null, "Object.assignIf(target: 不能为空, source)");
     // 和 Object.assign 类似，只是判断目标的值，如果不是 undefined 然后拷贝。
     for (var key in source) {
         if (target[key] === undefined) {
@@ -259,7 +259,7 @@ Object.keyOf = function (obj, value) {
  * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
  */
 Object.insertBefore = function (obj, refKey, newKey, newValue) {
-    /^o/.test(typeof console) && console.assert(obj, "Object.insertBefore(obj: 不能为空, refKey, newKey, newValue)");
+    typeof console === "object" && console.assert(obj, "Object.insertBefore(obj: 不能为空, refKey, newKey, newValue)");
     var tmpObj = {}, foundKey = false;
     for (var key in obj) {
         if (key === refKey) foundKey = true;
@@ -297,7 +297,7 @@ Object.insertBefore = function (obj, refKey, newKey, newValue) {
  * Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}
  */
 Object.filter = function (iterable, fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Object.filter(iterable, fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "Object.filter(iterable, fn: 必须是函数, [scope])");
 
     var target;
 
@@ -352,7 +352,7 @@ Object.filter = function (iterable, fn, scope) {
  * }) // ["a"];
  */
 Object.map = function (iterable, fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Object.map(iterable, fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "Object.map(iterable, fn: 必须是函数, [scope])");
 
     var result;
 
@@ -391,7 +391,7 @@ Object.map = function (iterable, fn, scope) {
  * @example Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false
  */
 Object.every = function (iterable, fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Object.every(iterable, fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "Object.every(iterable, fn: 必须是函数, [scope])");
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
@@ -431,7 +431,7 @@ Object.every = function (iterable, fn, scope) {
  * @example Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。
  */
 Object.some = function (iterable, fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "Object.some(iterable, fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "Object.some(iterable, fn: 必须是函数, [scope])");
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
@@ -464,7 +464,7 @@ Object.some = function (iterable, fn, scope) {
  * @example Object.subset({a:1, b:1}, ['a']) // {a:1}
  */
 Object.subset = function (obj, keys) {
-    /^o/.test(typeof console) && console.assert(keys instanceof Array, "Object.subset(obj, keys: 必须是数组)");
+    typeof console === "object" && console.assert(keys instanceof Array, "Object.subset(obj, keys: 必须是数组)");
 
     var result = {};
     for (var i = 0; i < keys.length; i++) {

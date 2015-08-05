@@ -47,7 +47,7 @@ function setCookie(name, value, expires, path, domain, secure) {
     if (domain != undefined) updatedCookie += "; domain=" + domain;
     if (secure != undefined) updatedCookie += "; secure=" + secure;
 
-    /^o/.test(typeof console) && console.assert(updatedCookie.length <= 4096, "setCookie(name, value, [expires], [path], [domain], [secure]): Cookie 过长（超过 4096 字节），可能导致 Cookie 写入失败");
+    typeof console === "object" && console.assert(updatedCookie.length <= 4096, "setCookie(name, value, [expires], [path], [domain], [secure]): Cookie 过长（超过 4096 字节），可能导致 Cookie 写入失败");
 
     document.cookie = updatedCookie;
     return value;

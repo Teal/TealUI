@@ -87,7 +87,7 @@ Array.range = function (start, stop, step) {
  * @since ES5
  */
 Array.prototype.map = Array.prototype.map || function (fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "array.map(fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "array.map(fn: 必须是函数, [scope])");
     var result = [];
     for (var i = 0, length = this.length; i < length; i++) {
         if (i in this) {
@@ -117,7 +117,7 @@ Array.prototype.map = Array.prototype.map || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.every = Array.prototype.every || function (fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "array.every(fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "array.every(fn: 必须是函数, [scope])");
     for (var i = 0, length = this.length; i < length; i++) {
         if ((i in this) && fn.call(scope, this[i], i, this)) {
             return false;
@@ -146,7 +146,7 @@ Array.prototype.every = Array.prototype.every || function (fn, scope) {
  * @since ES5
  */
 Array.prototype.some = Array.prototype.some || function (fn, scope) {
-    /^o/.test(typeof console) && console.assert(fn instanceof Function, "array.some(fn: 必须是函数, [scope])");
+    typeof console === "object" && console.assert(fn instanceof Function, "array.some(fn: 必须是函数, [scope])");
     for (var i = 0, length = this.length; i < length; i++) {
         if ((i in this) && fn.call(scope, this[i], i, this)) {
             return true;
@@ -311,7 +311,7 @@ Array.prototype.avg = function () {
  * @example [1, 2].associate(["a", "b"]) // {a: 1, b: 2}
  */
 Array.prototype.associate = function (keys) {
-    /^o/.test(typeof console) && console.assert(keys && typeof keys.length === "number", "array.associate(keys: 必须是数组)");
+    typeof console === "object" && console.assert(keys && typeof keys.length === "number", "array.associate(keys: 必须是数组)");
     var result = {};
     for (var i = 0, length = Math.min(this.length, keys.length) ; i < length; i++) {
         result[keys[i]] = this[i];
@@ -431,7 +431,7 @@ Array.prototype.isUnique = function () {
  * @example [1, 2].sub([1]) // [2]
  */
 Array.prototype.sub = function (array) {
-    /^o/.test(typeof console) && console.assert(array && array.indexOf, "array.sub(array: 必须是数组)");
+    typeof console === "object" && console.assert(array && array.indexOf, "array.sub(array: 必须是数组)");
     var result = this.slice(0), i;
     for (i = result.length - 1; i >= 0; i--) {
         if (array.indexOf(result[i]) < 0) {

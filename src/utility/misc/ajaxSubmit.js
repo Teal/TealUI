@@ -9,7 +9,7 @@
  * @example Ajax.paramForm(document.getElementById("form"))
  */
 Ajax.paramForm = function (formElem) {
-    /^o/.test(typeof console) && console.assert(formElem, "Ajax.paramForm(formElem: 不能为空)");
+    typeof console === "object" && console.assert(formElem, "Ajax.paramForm(formElem: 不能为空)");
 	var s = [], input, e = encodeURIComponent, value, name;
 	for (var i = 0, len = formElem.length; i < len; i++) {
 		input = formElem[i];
@@ -52,7 +52,7 @@ Ajax.paramForm = function (formElem) {
  * @example Ajax.submit(document.getElementById("form"), function(data){alert("提交成功了, 返回数据" + data)}, function(errorCode){alert("提交失败了， 错误码" + errorCode)})
  */
 Ajax.submit = function (formElem, onsuccess, onerror) {
-    /^o/.test(typeof console) && console.assert(formElem, "Ajax.submit(formElem: 不能为空)");
+    typeof console === "object" && console.assert(formElem, "Ajax.submit(formElem: 不能为空)");
 	return Ajax.send({
 	    type: formElem.method,
 	    url: formElem.action,

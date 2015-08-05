@@ -13,7 +13,7 @@ function addToHomeScreen(options) {
     // IE6-8: 不支持。
     /*@cc_on if(!-"\v1")return; @*/
 
-    /^o/.test(typeof console) && console.assert(document.body, "addToHomeScreen(options): 必须在 DOM Ready 后才能调用此函数");
+    typeof console === "object" && console.assert(document.body, "addToHomeScreen(options): 必须在 DOM Ready 后才能调用此函数");
 
     // 排除一些浏览器。
     var opt = {

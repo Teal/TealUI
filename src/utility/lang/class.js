@@ -90,7 +90,7 @@ Base.extend = function (members) {
  * });
  */
 Base.prototype.on = function (eventName, eventListener) {
-    /^o/.test(typeof console) && console.assert(eventListener instanceof Function, "base.on(eventName, eventListener: 必须是函数)");
+    typeof console === "object" && console.assert(eventListener instanceof Function, "base.on(eventName, eventListener: 必须是函数)");
 
     var me = this;
 

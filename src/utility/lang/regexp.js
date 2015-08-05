@@ -12,7 +12,7 @@
  * @example RegExp.parseRegExp("\\s") // /\s/
  */
 RegExp.parseRegExp = function (str, flag) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "RegExp.parseRegExp(str: 必须是字符串, [flag])");
+    typeof console === "object" && console.assert(typeof str === "string", "RegExp.parseRegExp(str: 必须是字符串, [flag])");
     return new RegExp(str.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1'), flag);
 };
 

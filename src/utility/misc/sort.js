@@ -19,7 +19,7 @@
 */
 function bubbleSort(iteratable, compareFn, start, end) {
     compareFn = compareFn || function (x, y) { return x < y; };
-    /^o/.test(typeof console) && console.assert(compareFn instanceof Function, "bubbleSort(iteratable, compareFn: 必须是函数, [start], [end])");
+    typeof console === "object" && console.assert(compareFn instanceof Function, "bubbleSort(iteratable, compareFn: 必须是函数, [start], [end])");
     start = start || 0;
     end = end || iteratable.length;
     for (; start < end; start++) {
@@ -52,7 +52,7 @@ function bubbleSort(iteratable, compareFn, start, end) {
  */
 function shellSort(iteratable, compareFn, start, end) {
     compareFn = compareFn || function (x, y) { return x < y; };
-    /^o/.test(typeof console) && console.assert(compareFn instanceof Function, "shellSort(iteratable, compareFn: 必须是函数, [start], [end])");
+    typeof console === "object" && console.assert(compareFn instanceof Function, "shellSort(iteratable, compareFn: 必须是函数, [start], [end])");
     start = start || 0;
     end = end || iteratable.length;
     for (var gap = (end - start) >> 1; gap > 0; gap = gap >> 1) {
@@ -84,7 +84,7 @@ function shellSort(iteratable, compareFn, start, end) {
  * @example quickSort([1, 3, 5, 4, 3]) // [1, 3, 3, 4, 5]
 */
 function quickSort(iteratable, compareFn, start, end) {
-    /^o/.test(typeof console) && console.assert(!compareFn || compareFn instanceof Function, "quickSort(iteratable, compareFn: 必须是函数, [start], [end])");
+    typeof console === "object" && console.assert(!compareFn || compareFn instanceof Function, "quickSort(iteratable, compareFn: 必须是函数, [start], [end])");
 
     function qsort(iteratable, compareFn, start, end){
             

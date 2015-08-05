@@ -207,8 +207,8 @@ Fx.prototype = {
  * });
  */
 Fx.run = function (options) {
-    /^o/.test(typeof console) && console.assert(!options || !options.start || options.start instanceof Function, "Fx.run(options: start 必须是函数)");
-    /^o/.test(typeof console) && console.assert(!options || !options.complete || options.complete instanceof Function, "Fx.run(options: complete 必须是函数)");
-    /^o/.test(typeof console) && console.assert(!options || !options.set || options.set instanceof Function, "Fx.run(options: set 必须是函数)");
+    typeof console === "object" && console.assert(!options || !options.start || options.start instanceof Function, "Fx.run(options: start 必须是函数)");
+    typeof console === "object" && console.assert(!options || !options.complete || options.complete instanceof Function, "Fx.run(options: complete 必须是函数)");
+    typeof console === "object" && console.assert(!options || !options.set || options.set instanceof Function, "Fx.run(options: set 必须是函数)");
     return new Fx(options).run();
 };

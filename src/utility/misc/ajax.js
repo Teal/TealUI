@@ -106,7 +106,7 @@ Ajax.getCurrentUrl = function () {
  * @inner
  */
 Ajax.isCrossDomain = function (url) {
-    /^o/.test(typeof console) && console.assert(typeof url === "string", "Ajax.isCrossDomain(url: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof url === "string", "Ajax.isCrossDomain(url: 必须是字符串)");
     var rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
         locParts = rUrl.exec(Ajax.getCurrentUrl().toLowerCase()) || 0;
     url = rUrl.exec(url.toLowerCase());
@@ -121,7 +121,7 @@ Ajax.isCrossDomain = function (url) {
  * @inner
  */
 Ajax.appendQuery = function (url, param) {
-    /^o/.test(typeof console) && console.assert(typeof url === "string", "Ajax.appendQuery(url: 必须是字符串, [param])");
+    typeof console === "object" && console.assert(typeof url === "string", "Ajax.appendQuery(url: 必须是字符串, [param])");
     return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
 };
 
@@ -602,7 +602,7 @@ Ajax.transports = {
  * });
  */
 Ajax.send = function (options, url, data, onsuccess, onerror, dataType) {
-    /^o/.test(typeof console) && console.assert(options != null, "Ajax.send(options: 不能为空, [url], [data], [onsuccess], [onerror], [dataType])");
+    typeof console === "object" && console.assert(options != null, "Ajax.send(options: 不能为空, [url], [data], [onsuccess], [onerror], [dataType])");
     // 支持直接传递相关参数以发起请求。
     if (options.constructor === String) {
 
@@ -624,10 +624,10 @@ Ajax.send = function (options, url, data, onsuccess, onerror, dataType) {
         };
     }
 
-    /^o/.test(typeof console) && console.assert(!options.start || options.start instanceof Function, "Ajax.send(options: start 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    /^o/.test(typeof console) && console.assert(!options.error || options.error instanceof Function, "Ajax.send(options: error 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    /^o/.test(typeof console) && console.assert(!options.success || options.success instanceof Function, "Ajax.send(options: success 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    /^o/.test(typeof console) && console.assert(!options.complete || options.complete instanceof Function, "Ajax.send(options: complete 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    typeof console === "object" && console.assert(!options.start || options.start instanceof Function, "Ajax.send(options: start 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    typeof console === "object" && console.assert(!options.error || options.error instanceof Function, "Ajax.send(options: error 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    typeof console === "object" && console.assert(!options.success || options.success instanceof Function, "Ajax.send(options: success 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
+    typeof console === "object" && console.assert(!options.complete || options.complete instanceof Function, "Ajax.send(options: complete 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
     return new Ajax(options).send();
 
 };

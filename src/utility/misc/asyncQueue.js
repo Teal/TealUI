@@ -80,7 +80,7 @@ AsyncQueue.prototype = {
 	 * @example new AsyncQueue().then(function(){ });
      */
     then: function (fn, scope, link) {
-        /^o/.test(typeof console) && console.assert(fn instanceof Function, "taskQueue.then(fn: 必须是函数, [scope], link)");
+        typeof console === "object" && console.assert(fn instanceof Function, "taskQueue.then(fn: 必须是函数, [scope], link)");
         if (this._queue.length) {
             switch (link) {
 

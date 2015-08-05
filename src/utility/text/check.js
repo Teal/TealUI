@@ -53,7 +53,7 @@ function isNumber(str) {
  * @example isDate("2014/1/1") // true
  */
 function isDate(str) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "isDate(str: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof str === "string", "isDate(str: 必须是字符串)");
     var result = str.match(/^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
     if (result == null) return false;
     var dt = new Date(result[1], result[3] - 1, result[4]);

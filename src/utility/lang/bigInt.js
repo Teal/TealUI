@@ -15,8 +15,8 @@ var BigInt = {
 	 * @example BigInt.add("1", "2") // "3"
 	 */
     add: function (x, y) {
-        /^o/.test(typeof console) && console.assert(typeof x === "string", "BigInt.add(x: 必须是字符串, y)");
-        /^o/.test(typeof console) && console.assert(typeof y === "string", "BigInt.add(x, y: 必须是字符串)");
+        typeof console === "object" && console.assert(typeof x === "string", "BigInt.add(x: 必须是字符串, y)");
+        typeof console === "object" && console.assert(typeof y === "string", "BigInt.add(x, y: 必须是字符串)");
         var m = x.split('').reverse(),
             n = y.split('').reverse(),
             result = [],
@@ -41,8 +41,8 @@ var BigInt = {
 	 * @example BigInt.mul("1", "2") // "2"
 	 */
     mul: function (x, y) {
-        /^o/.test(typeof console) && console.assert(typeof x === "string", "BigInt.mul(x: 必须是字符串, y)");
-        /^o/.test(typeof console) && console.assert(typeof y === "string", "BigInt.mul(x, y: 必须是字符串)");
+        typeof console === "object" && console.assert(typeof x === "string", "BigInt.mul(x: 必须是字符串, y)");
+        typeof console === "object" && console.assert(typeof y === "string", "BigInt.mul(x, y: 必须是字符串)");
         var p = x.match(/\d{1,4}/g).reverse(),
 			q = y.match(/\d{1,4}/g).reverse(),
 			f1 = 0,

@@ -9,7 +9,7 @@
  * @example encodeHTML("&lt;a&gt;&lt;/a&gt;") // &amp;lt;a&amp;gt;&amp;lt;/a&amp;gt;
  */
 function encodeHTML(str) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "encodeHTML(str: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof str === "string", "encodeHTML(str: 必须是字符串)");
     return str.replace(/[&<>\'\"]/g, function (v) {
         return ({
             '&': '&amp;',
@@ -33,7 +33,7 @@ function encodeHTML(str) {
  * @example encodeHTML("'") // &amp;#39;
  */
 function encodeHTMLAttribute(str) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "encodeHTMLAttribute(str: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof str === "string", "encodeHTMLAttribute(str: 必须是字符串)");
     return str.replace(/[\'\"]/g, function (v) {
         return ({
             '\'': '&#39;',
@@ -53,7 +53,7 @@ function encodeHTMLAttribute(str) {
  * @example decodeHTML("&lt;a&gt;&lt;/a&gt;") // &amp;lt;a&amp;gt;&amp;lt;/a&amp;gt;
  */
 function decodeHTML(str) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "decodeHTML(str: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof str === "string", "decodeHTML(str: 必须是字符串)");
     return str.replace(/&(\w+);/g, function (_, v) {
         return {
             'amp': '&',

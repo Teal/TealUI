@@ -217,25 +217,27 @@
 				col: 1
 			}, {
 				memberOf: "String.prototype",
-				name: "trimStart",
+				name: "trimLeft",
 				summary: "<p>去除当前字符串开始空格。</p>",
 				returns: {
 					type: "String",
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"  a\".trimStart() // \"a\"</pre>",
+				since: "ES6",
 				line: 126,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
-				name: "trimEnd",
+				name: "trimRight",
 				summary: "<p>去除当前字符串结尾空格。</p>",
 				returns: {
 					type: "String",
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"a  \".trimStart() // \"a\"</pre>",
-				line: 135,
+				since: "ES6",
+				line: 136,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -251,7 +253,7 @@
 					summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>\"1234567\".startsWith(\"123\") // true</pre>",
-				line: 148,
+				line: 150,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -267,7 +269,7 @@
 					summary: "<p>返回符合要求则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
 				},
 				example: "<pre>\"1234567\".endsWith(\"67\") // true</pre>",
-				line: 159,
+				line: 161,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -278,7 +280,7 @@
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\" a b   \".clean() // \"ab\"</pre>",
-				line: 174,
+				line: 176,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -289,7 +291,7 @@
 					summary: "<p>返回长度值。</p>"
 				},
 				example: "<pre>\"a中文\".byteLength() // 5</pre>",
-				line: 187,
+				line: 189,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -300,7 +302,7 @@
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"aabbcc\".unique() // \"abc\"</pre>",
-				line: 201,
+				line: 203,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -311,7 +313,7 @@
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"a\".repeat(4) // \"aaaa\"</pre>",
-				line: 214,
+				line: 216,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -322,7 +324,7 @@
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"qwert\".capitalize() // \"Qwert\"</pre>",
-				line: 227,
+				line: 229,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -333,7 +335,7 @@
 					summary: "<p>返回新字符串。</p>"
 				},
 				example: "<pre>\"Qwert\".uncapitalize() // \"qwert\"</pre>",
-				line: 242,
+				line: 244,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -346,7 +348,7 @@
 				example: "<pre><pre>\n\
 \"font-size\".toCamelCase() // \"fontSize\"\n\
 </pre></pre>",
-				line: 257,
+				line: 259,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -362,7 +364,7 @@
 					summary: "<p>返回字符串左边 <em>length</em> 长度的子字符串。</p>"
 				},
 				example: "<pre>\"abcde\".left(3) // \"abc\"</pre>",
-				line: 275,
+				line: 277,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -378,7 +380,7 @@
 					summary: "<p>返回字符串右边 <em>length</em> 长度的子字符串。</p>"
 				},
 				example: "<pre>\"abcde\".right(3); // \"cde\"</pre>",
-				line: 285,
+				line: 287,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -400,7 +402,7 @@
 					summary: "<p>返回处理后的字符串。</p>"
 				},
 				example: "<pre>\"6\".padLeft(3, '0'); // \"006\"</pre>",
-				line: 299,
+				line: 301,
 				col: 1
 			}, {
 				memberOf: "String.prototype",
@@ -422,7 +424,7 @@
 					summary: "<p>返回处理后的字符串。</p>"
 				},
 				example: "<pre>\"6\".padRight(3, '0'); // \"600\"</pre>",
-				line: 310,
+				line: 312,
 				col: 1
 			}]
 });

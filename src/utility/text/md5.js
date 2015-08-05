@@ -9,7 +9,7 @@
  * @example md5("a") // "0cc175b9c0f1b6a831c399e269772661"
  */
 function md5(str) {
-    /^o/.test(typeof console) && console.assert(typeof str === "string", "md5(str: 必须是字符串)");
+    typeof console === "object" && console.assert(typeof str === "string", "md5(str: 必须是字符串)");
     return md5.binaryToString(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 }
 
