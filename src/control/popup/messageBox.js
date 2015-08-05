@@ -125,11 +125,15 @@ MessageBox.toast = function (content, icon, timeout, callback) {
             callback.call(messageBox);
         }
     }, timeout);
+
+    // 自动更新文本中的 {time} 
     if (~content.indexOf("{time}")) {
         var counter = Math.floor(timeout / 1000);
-        messageBox.updater = setInterval(function () {
+        function updateTime() {
             messageBox.content(content.replace("{time}", counter--));
-        });
+        }
+        updateTime();
+        messageBox.updater = setInterval(updateTime, 1000);
     }
 
     return messageBox;

@@ -1722,7 +1722,7 @@ Dom.List.prototype = Dom.prototype = {
             if (animation) {
 
                 // 当前正在执行相同的特效渐变则不重复处理。
-                if (elem.style._toggling === show) {
+                if (('_toggling' in elem ? elem.style._toggling : !displayNone) === show) {
                     return;
                 }
 
@@ -1767,21 +1767,29 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem1").role("draggable")
      */
     role: function (roleName, options) {
-        var result;
         if (roleName && roleName.constructor !== String) {
             options = roleName;
             roleName = null;
         }
 
-        this.each(function (elem) {
-            var data = Dom.data(elem);
-            var name = roleName || elem.getAttribute("data-role");
-            var role = data[name] || (data[name] = new (Dom.roles[name] || Dom.roles.$default)(elem, options));
-            // 只保存第一项的结果。
-            result = result || role;
-        });
+        // 如果节点列表为空，则表示创建一个全新的组件。
+        if (!this.length) {
+            return roleName in Dom.roles ? new Dom.roles[roleName](this, options) : null;
+        }
 
-        return result || new (Dom.roles[roleName] || Dom.roles.$default)(this, options);
+        var result;
+        this.each(function (elem, index) {
+            typeof console === "object" && console.assert(elem && elem.getAttribute, "dom.role([roleName], [options]): dom[...] 必须是元素)");
+            var roles = Dom.data(elem, "roles");
+            var name = roleName || elem.getAttribute("data-role");
+            var role = roles[name] || (roles[name] = name in Dom.roles ? new Dom.roles[name](elem, options) : null);
+
+            // 只保存第一项的结果。
+            if (!index) {
+                result = role;
+            }
+        });
+        return result;
     },
 
     // #endregion
@@ -1809,7 +1817,7 @@ Dom.List.prototype = Dom.prototype = {
  * 所有支持的角色列表。
  * @inner
  */
-Dom.roles = { $default: Dom };
+Dom.roles = {};
 
 // #endregion
 

@@ -11,7 +11,7 @@
  * @class
  * @abstract
  */
-var Control = Dom.roles.$default = Base.extend({
+var Control = Base.extend({
 
     /**
      * 获取当前组件的角色。
@@ -82,7 +82,7 @@ var Control = Dom.roles.$default = Base.extend({
         }
         this.dom = dom;
 
-        typeof console === "object" && console.assert(dom && dom[0], "Control 缺少关联的原生节点");
+        typeof console === "object" && console.assert(dom && dom[0], "new Control: control.dom 不能为空");
 
         var opt = {};
 
@@ -174,6 +174,6 @@ Control.extend = function (prototype) {
 };
 
 // 默认初始化一次页面全部组件。
-Dom.ready(function () {
-    Dom.find("[data-role]").role();
+Dom(function () {
+    Dom("[data-role]").role();
 });

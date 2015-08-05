@@ -7,357 +7,209 @@
 // #require fx/animate.js
 // #require ui/core/treecontrol.js
 
-
+/**
+ * 表示一个菜单。
+ * @class
+ * @extends Control
+ */
 var Menu = Control.extend({
 
     role: "menu",
 
-    floating: false,
-
-    create: function() {
-        var dom = Control.prototype.create.call(this);
-        this.floating = true;
-        return dom;
+    /**
+     * 当被子类重写时，获取当前菜单的父菜单。
+     * @returns {Menu} 返回父菜单。如果不存在父菜单则返回 @null。 
+     */
+    parent: function () {
+        var parent = this.dom.parent().closest(".x-menu");
+        return parent.length ? parent.role("menu") : null;
     },
 
     init: function () {
         var me = this;
+
+        // 鼠标移到每一项高亮相关项。
         me.dom.on('mouseover', function (e) {
             var item = Dom(e.target);
-            if (!item.is(".x-menu")) {
-                item = item.closest("li");
+            if (item.is(".x-menu > li > a")) {
+                item = item.parent();
                 if (item.parent()[0] === me.dom[0]) {
                     me.selectItem(item);
                 }
             }
         });
-        if (!me.floating) {
+
+        // 设置为右键菜单。
+        if (me.dom.is(".x-contextmenu")) {
+            (me.target || me.dom.prev()).on('contextmenu', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                me.selectedItem(null).show(e);
+            });
+        }
+
+        // 设置为下拉菜单。
+        if (me.dom.is(".x-dropdownmenu")) {
+            me.popover = Dom(me.dom).role("popover");
+        }
+
+        // 如果不是子菜单，则绑定点击隐藏事件。
+        if (!me.parent()) {
             Dom(document).on('mousedown', function (e) {
+                function hideCall() {
+                    me.dom.is(".x-popover") ? me.hide(e) : me.hideSub(e);
+                }
+
                 if (!me.dom.contains(e.target)) {
-                    me.hideSub();
+                    hideCall();
                 } else if (Dom(e.target).is("a,li")) {
-                    setTimeout(function() {
-                        me.hideSub();
-                    }, 60);
+                    setTimeout(hideCall, 60);
                 }
             });
         }
     },
 
+    /**
+     * 模拟用户选择一项。
+     * @param {Dom} item 要选择的项。 
+     * @param {Event} [e] 相关的事件对象。 
+     * @returns this 
+     */
     selectItem: function (item, e) {
-        var me = this;
-        me.hover(item);
-
-        // 显示子菜单。
+        var me = this.selectedItem(item);
         var subMenu = Dom(item).children('.x-menu');
         if (subMenu.length) {
-            me.subMenu = subMenu.role('menu').show(item, me);
+            me._subMenu = subMenu.role('menu').selectedItem(null).show(item, me);
         }
+        return me;
     },
 
     /**
-     * 重新设置当前高亮项。
+     * 获取或设置当前选中的项。
+     * @param {Dom} item 要选择的项。 
+     * @returns this 
      */
-    hover: function (item) {
+    selectedItem: function (item) {
         var me = this;
-        me.dom.children('.x-menu-selected').removeClass('x-menu-selected');
+        var selected = me.dom.children('.x-menu-selected')
+        if (item === undefined) {
+            return selected;
+        }
+        selected.removeClass('x-menu-selected');
         Dom(item).addClass('x-menu-selected');
         return me.hideSub();
     },
 
+    /**
+     * 显示当前菜单。
+     * @param {mixed} [pos] 显示的位置或依靠的节点或事件对象。
+     * @returns this
+     */
     show: function (pos) {
-        var me = this;
-        if (me.dom.isHidden()) {
-            me.dom.show('opacity').pin(pos, "rt", 0, -5);
-        }
-        return me; 
-    },
-
-    hide: function () {
-        var me = this;
-        me.dom.hide();
-        return me.hideSub();
+        this.dom.show('opacity', null, this.duration);
+        pos && this.dom.pin(pos, "rt", 0, -5);
+        return this;
     },
 
     /**
-     * 关闭当前菜单的子菜单。
+     * 隐藏当前菜单。
+     * @returns this
+     */
+    hide: function () {
+        this.dom.hide();
+        return this.hideSub();
+    },
+
+    /**
+     * 关闭当前菜单的所有子菜单。
+     * @returns this
      */
     hideSub: function () {
-        var me = this; 
-        if (me.subMenu) {
-            me.subMenu.hide();
-            me.subMenu = null;
+        var me = this;
+        if (me._subMenu) {
+            me._subMenu.hide();
+            me._subMenu = null;
         }
         return me;
+    },
+
+    /**
+     * 获取当前菜单的默认键盘绑定。
+     * @returns {Object} 返回各个键盘绑定对象。
+     */
+    keyBindings: function () {
+        var me = this;
+        function activeMenu() {
+            var currentMenu = me._activeMenu;
+            return currentMenu && !currentMenu.dom.isHidden() ? currentMenu : me;
+        }
+        function upDown(e, isUp, prev, end) {
+            var currentMenu = activeMenu();
+
+            currentMenu.show();
+
+            // 定位当前选中项。
+            var current = prev || currentMenu.selectedItem();
+
+            // 执行移动。
+            current = isUp ? current.prev() : current.next();
+
+            // 如果移动到末尾则回到第一项。
+            if (!current.length) {
+                current = isUp ? currentMenu.dom.last() : currentMenu.dom.first();
+            }
+
+            // 跳过禁用项和分隔符。
+            // 避免终找不到正确的菜单发生死循环。
+            if (current.is(".x-menu-disabled, .x-menu-divider") && (!end || current[0] !== end[0])) {
+                current = upDown(e, isUp, current, end || current);
+            }
+
+            // 内部获取实际项。
+            if (prev) {
+                return current;
+            }
+
+            // 选中指定项。
+            currentMenu.selectedItem(current);
+
+        }
+        return {
+            up: function (e) {
+                upDown(e, true);
+            },
+            down: function (e) {
+                upDown(e, false);
+            },
+            right: function (e) {
+                var currentMenu = activeMenu();
+                currentMenu.selectItem(currentMenu.selectedItem(), e);
+                if (currentMenu._subMenu) {
+                    me._activeMenu = currentMenu._subMenu;
+                    upDown(e, false);
+                    return false;
+                }
+                return true;
+            },
+            left: function (e) {
+                var currentMenu = activeMenu();
+                if (currentMenu != me) {
+                    me._activeMenu = currentMenu.parent() || me;
+                    me._activeMenu.hideSub();
+                    if (me._activeMenu === me) {
+                        delete _activeMenu;
+                    }
+                    return false;
+                }
+                return true;
+            },
+            enter: function (e) {
+                activeMenu().selectedItem().click();
+            },
+            esc: function () {
+                me.hide();
+            }
+        };
     }
 
 });
-
-//var Menu2 = TreeControl.extend({
-
-//	cssClass: 'x-menu',
-
-//	showArgs: null,
-
-//	floating: false,
-
-//    createNode: function (existDom) {
-//    	return new MenuItem(existDom);
-//    },
-
-//	/**
-//	 * 初始化并返回每一个 TreeItem 对象。
-//	 * @param {Dom} li 包含树节点的  li 节点对象。
-//	 * @param {Dom} [childControl] 强制指定 li 内指定的子节点。
-//	 * @private
-//	 */
-//    initChildNode: function (li) {
-//    	this.itemOf(li);
-//    	TreeControl.prototype.initChildNode.call(this, li);
-//    },
-
-//    insertBefore: function (newItem, refItem) {
-
-//    	// 将 - 转为分隔符。
-//    	if (newItem === "-") {
-//    		newItem = new MenuSeperator();
-//    	}
-
-//    	return TreeControl.prototype.insertBefore.call(this, newItem, refItem);
-//    },
-
-//    show: function () {
-//    	Dom.show(this.elem, this.showArgs);
-
-//        // 如果菜单是浮动的，则点击后关闭菜单，否则，只关闭子菜单。
-//    	if (this.floating)
-//    		Dom.on(document, 'mouseup', function () {
-//    			Dom.un(document, 'mouseup', arguments.callee);
-//    			this.hide();
-//    		}, this);
-//        this.trigger('show');
-//        return this;
-//    },
-
-//    /**
-//	 * 关闭本菜单。
-//	 */
-//    hide: function () {
-//    	Dom.hide(this.elem, this.showArgs);
-
-//        // 先关闭子菜单。
-//        this.hideSub();
-//        this.trigger('hide');
-//        return this;
-//    },
-
-//    /**
-//	 * 当前菜单依靠某个控件显示。
-//	 * @param {Control} ctrl 方向。
-//	 */
-//    showAt: function (p) {
-
-//        // 确保菜单已添加到文档内。
-//        Dom.render(this.elem);
-
-//        // 显示节点。
-//        this.show();
-
-//        Dom.setPosition(this.elem, p);
-
-//        return this;
-//    },
-
-//    /**
-//	 * 当前菜单依靠某个控件显示。
-//	 * @param {Control} ctrl 方向。
-//	 */
-//    showBy: function (ctrl, pos, offsetX, offsetY, enableReset) {
-
-//        // 确保菜单已添加到文档内。
-//    	if (!Dom.contains(document.body, this.elem)) {
-//    		Dom.append(ctrl.parentNode, this.elem);
-//        }
-
-//        // 显示节点。
-//        this.show();
-
-//        Dom.pin(this.elem, ctrl.elem ||ctrl, pos || 'r', offsetX != null ? offsetX : -5, offsetY != null ? offsetY : -5, enableReset);
-
-//        return this;
-//    },
-
-//    /**
-//	 * 显示指定项的子菜单。
-//	 * @param {MenuItem} menuItem 子菜单项。
-//	 * @protected
-//	 */
-//    showSub: function (menuItem) {
-
-//    	// 如果不是右键的菜单，在打开子菜单后监听点击，并关闭此子菜单。
-//    	if (!this.floating) {
-//    		Dom.on(document, 'mouseup', function () {
-//    			Dom.un(document, 'mouseup', arguments.callee);
-//    			this.hideSub();
-//    		}, this);
-//    	}
-
-//        // 隐藏当前项子菜单。
-//        this.hideSub();
-
-//        // 激活本项。
-//        Dom.addClass(menuItem.elem, "x-menuitem-hover");
-
-//        // 如果指定的项存在子菜单。
-//        if (menuItem.getSub()) {
-
-//            // 设置当前激活的项。
-//            this.currentSub = menuItem;
-
-//            // 显示子菜单。
-//            menuItem.getSub().showBy(menuItem);
-
-//        }
-
-//    },
-
-//    /**
-//	 * 关闭本菜单打开的子菜单。
-//	 * @protected
-//	 */
-//    hideSub: function () {
-
-//        // 如果有子菜单，就隐藏。
-//        if (this.currentSub) {
-
-//            // 关闭子菜单。
-//        	this.currentSub.getSub().hide();
-
-//        	// 取消激活菜单。
-//        	Dom.removeClass(this.currentSub.elem, "x-menuitem-hover");
-//            this.currentSub = null;
-//        }
-
-//    }
-
-//});
-
-///**
-// * 表示菜单项。 
-// */
-//var MenuItem = TreeControl.Node.extend({
-
-//	cssClass: 'x-menuitem',
-
-//	/**
-//	 * 当被子类重写时，用于创建子树。
-//	 * @param {TreeControl} treeControl 要初始化的子树。
-//	 * @returns {TreeControl} 新的 {@link TreeControl} 对象。
-//	 * @protected override
-//	 */
-//	createSub: function(treeControl){
-//		return new Menu(treeControl);
-//	},
-
-//	/**
-//	 * 当被子类重写时，用于初始化子树。
-//	 * @param {TreeControl} treeControl 要初始化的子树。
-//	 * @protected override
-//	 */
-//	initSub: function (treeControl) {
-//		treeControl.hide();
-//		treeControl.floating = false;
-//		Dom.prepend(this.elem, '<i class="x-menuitem-arrow"></i>');
-//		Dom.on(this.elem, 'mouseup', this._cancelHideMenu, this);
-//	},
-
-//	/**
-//	 * 当被子类重写时，用于删除初始化子树。
-//	 * @param {TreeControl} treeControl 要删除初始化的子树。
-//	 * @protected override
-//	 */
-//	uninitSub: function (treeControl) {
-//		treeControl.floating = true;
-//		Dom.remove(Dom.find('x-menuitem-arrow'));
-//		Dom.un(this.elem, 'mouseup', this._cancelHideMenu);
-//	},
-
-//	onMouseOver: function () {
-//		Dom.addClass(this.elem, "x-menuitem-hover");
-//		if (this.getSub())
-//			this.showSub();
-//		else if(this.owner())
-//			this.owner().hideSub();
-//	},
-
-//	onMouseOut: function() {
-
-//		// 没子菜单，需要自取消激活。
-//		// 否则，由父菜单取消当前菜单的状态。
-//		// 因为如果有子菜单，必须在子菜单关闭后才能关闭激活。
-
-//		if (!this.getSub()) {
-//			Dom.removeClass(this.elem, "x-menuitem-hover");
-//		}
-
-//	},
-
-//	/**
-//	 *
-//	 */
-//	init: function (options) {
-//		TreeControl.Node.prototype.init.call(this, options);
-//		if(Dom.hasClass(this.elem, this.cssClass)) {
-//			Dom.setStyle(this.elem, 'user-select', 'none');
-//			Dom.on(this.elem, 'mouseover', this.onMouseOver, this);
-//			Dom.on(this.elem, 'mouseout', this.onMouseOut, this);
-//		}
-//	},
-
-//	_cancelHideMenu: function(e) {
-//		e.stopPropagation();
-//	},
-
-//	_hideTargetMenu: function(e) {
-//		var tg = e.relatedTarget;
-//		while (tg && !Dom.hasClass(tg, 'x-menu')) {
-//			tg = tg.parentNode;
-//		}
-
-//		if (tg) {
-//			Dom.data(tg).treeControl.hideSub();
-//		}
-
-//	},
-
-//	showSub: function(){
-
-//		var owner = this.owner();
-
-//		// 使用父菜单打开本菜单，显示子菜单。
-//		owner && owner.showSub(this);
-
-//		return this;
-//	},
-
-//	hideSub: function () {
-
-//		var owner = this.owner();
-
-//		// 使用父菜单打开本菜单，显示子菜单。
-//		owner && owner.hideSub(this);
-
-//		return this;
-//	}
-
-//});
-
-//var MenuSeperator = MenuItem.extend({
-
-//	cssClass: 'x-menuseperator',
-
-//	tpl: '<div class="{cssClass}"></div>',
-
-//	init: Function.empty
-
-//});

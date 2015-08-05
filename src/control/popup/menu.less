@@ -22,12 +22,17 @@
         }
     }
 
-    .x-menu {
-        position: absolute;
+    .x-menu-selected, > li:hover {
+        > a {
+            background-color: @selected-background-color;
+            color: @selected-text-color;
+            text-decoration: none;
+        }
     }
 
-    &.x-dropdown, .x-menu {
+    &.x-popover, .x-menu {
         display: none;
+        position: absolute;
     }
 }
 
@@ -36,12 +41,6 @@
     background-color: @border-color;
     overflow: hidden;
     margin: @border-radius 0;
-}
-
-.x-menu .x-menu-selected > a, .x-menu > li:hover > a {
-    background-color: @selected-background-color;
-    color: @selected-text-color;
-    text-decoration: none;
 }
 
 .x-menu-arrow > a:after, .x-menu > li > .x-menu + a:after {
@@ -55,6 +54,6 @@
 
 .x-menu-disabled > a {
     pointer-events: none;
-    color: @text-color-disabled!important;
-    background-color: transparent!important;
+    color: @text-color-disabled !important;
+    background-color: transparent !important;
 }
