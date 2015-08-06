@@ -6,47 +6,47 @@
 // #require base
 
 /**
- * 设置当前集合的位置，使其依靠现有的其它节点。
+ * 设置当前节点列表每一项的位置使其依靠现有的节点布局。
  * @param {Dom} target 依靠的目标节点。
- * @param {String} align 依靠的位置。位置使用 4 个字符或 1-2 个字符组成。
- * 当使用 1-2 个字符时，可以使用的位置字符串分别如图：
+ * @param {String} align 依靠的位置。位置用 1、2 或 4 个字符表示。
+ * 当使用 1-2 个字符表示时，可以使用的位置字符串分别如图：
  *      
- *           tl    t   tr
- *           ┌──────────┐
- *        lt │          │ rt
- *           │          │
- *        l  │     c    │ r
- *           │          │
- *        lb │          │ rb
- *           └──────────┘
- *           bl    b   br
+ *           "tl"   "t"   "tr"
+ *           ┌───────────────┐
+ *       "lt"│               │ "rt"
+ *           │               │
+ *        "l"│      "c"      │ "r"
+ *           │               │
+ *       "lb"│               │ "rb"
+ *           └───────────────┘
+ *           "bl"   "b"   "br"
  *      
- * 当使用 4 个字符时，
+ * 当使用 4 个字符表示时，则前后两位各表示 X 和 Y 方向的定位。
  * 
  * 前两位表示 X 方向的定位，其意义为：
  *      
- *       ll │ lr    c   rl │ rr 
+ *       "ll" │ "lr"    "cc"   "rl" │ "rr" 
  * 
  * 后两位表示 Y 方向的定位，其意义为：
  *      
- *        tt 
- *       ────
- *        tb
+ *        "tt" 
+ *       ──────
+ *        "tb"
  *          
- *        c 
+ *        "cc" 
  *          
- *        bt
- *       ────
- *        bb 
+ *        "bt"
+ *       ──────
+ *        "bb" 
  *      
- * 合法的例子比如：'llbt'，其意义同 'lb'。 
+ * 比如："llbt" 表示 X 方向显示在左边之左，Y 方向显示在下边之上。最终效果同 "lb"。
  * 
- * 只当使用 1-2 个字符时，元素将根据容器范围自动切换位置以保证容器是完全可见范围内的。
+ * 只当使用 1-2 个字符时，元素将根据容器范围自动切换位置以保证当前节点显示在可见范围内。
  * 
- * @param {Number} [offsetX=0] 偏移的 X 大小。
- * @param {Number} [offsetY=0] 偏移的 Y 大小。
- * @param {Dom} [container=document] 如果设置此元素，则超过此区域后重置位置。
- * @param {Number} [padding=10] 容器的内边距。
+ * @param {Number} [offsetX=0] X 方向偏移距离。
+ * @param {Number} [offsetY=0] Y 方向偏移距离。
+ * @param {mixed} [container=document] 限制的显示区域或对应的容器节点。
+ * @param {Number} [padding=10] 额外设置容器的内边距。
  * @param {Function} [callback] 定位完成后的回调。其参数为：
  * * @param {Object} rect 包含实际定位的结果。可能包含的字段有：
  * * * @param {Number} [offsetX] 为适应屏幕而导致位置发生的水平偏移量。
@@ -55,34 +55,39 @@
  * * * @param {Number} [overflowY] 超过屏幕高度而产生越界，对应的值表示容器的最大值。
  * @returns this
  */
-Dom.prototype.pin = function(target, align, offsetX, offsetY, container, padding, callback) {
+Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, callback) {
 
-    // allowReset 意义：
-    //     第一次：undefined, 根据 align 判断是否允许。
-    //     第二次：true。
-    //     第三次：false。
     var aligns = Dom._aligns || (Dom._aligns = {
-            bl: "lrbb",
-            lt: "lltb",
-            l: "llcc",
-            lb: "llbt",
-            b: "ccbb",
-            br: "rlbt",
-            rb: "lrbb",
-            r: "rrcc",
-            rt: "rrtb",
-            tr: "rltt",
-            t: "cctt",
-            tl: "lltt"
-        }),
-        containerRect = container && container.left != null && container.width != null ? container : Dom(container || document).rect(),
-        targetRect = target instanceof Event ? {
-            left: target.pageX,
-            top: target.pageY,
-            width: 1,
-            height: 1
-        } : Dom(target).rect(),
-        fixType = align.length < 3 ? 1 : 0;
+        bl: "lrbb",
+        lt: "lltb",
+        l: "llcc",
+        lb: "llbt",
+        b: "ccbb",
+        br: "rlbt",
+        rb: "lrbb",
+        r: "rrcc",
+        rt: "rrtb",
+        tr: "rltt",
+        t: "cctt",
+        tl: "lltt"
+    });
+
+    // 确定容器区域。
+    var containerRect = container && container.top != null && container.width != null ? container : (Dom(container).valueOf() || Dom(document)).rect();
+    padding = padding === undefined ? 10 : padding;
+    containerRect.left += padding;
+    containerRect.width -= padding * 2;
+    containerRect.top += padding;
+    containerRect.height -= padding * 2;
+
+    // 确定目标区域。
+    var targetRect = target instanceof Event ? {
+        left: target.pageX,
+        top: target.pageY,
+        width: 1,
+        height: 1
+    } : Dom(target).rect();
+    var fixType = align.length < 3 ? 1 : 0;
 
     // 处理允许翻转的水平位置。
     // pos：1 | 2     0     3 | 4
@@ -141,22 +146,21 @@ Dom.prototype.pin = function(target, align, offsetX, offsetY, container, padding
         return rect[leftOrTop] = result;
     }
 
+    // 确定实际位置。
     align = aligns[align] || align;
-    padding = padding === undefined ? 10 : padding;
-    containerRect.left += padding;
-    containerRect.width -= padding * 2;
-    containerRect.top += padding;
-    containerRect.height -= padding * 2;
-    return this.each(function(elem) {
+
+    return this.each(function (elem) {
         elem = Dom(elem);
         var rect = elem.rect();
         proc("X", "left", "width", offsetX || 0, align.charAt(0) === "c" ? 0 : (align.charAt(0) === "r" ? 3 : 1) + (align.charAt(1) === "r"), fixType, rect);
         proc("Y", "top", "height", offsetY || 0, align.charAt(2) === "c" ? 0 : (align.charAt(2) === "b" ? 3 : 1) + (align.charAt(3) === "b"), fixType, rect);
 
+        // 设置节点位置。
         delete rect.width;
         delete rect.height;
         elem.rect(rect);
 
+        // 调用回调。
         callback && callback.call(elem, rect);
     });
 

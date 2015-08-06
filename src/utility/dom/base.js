@@ -202,8 +202,7 @@ Dom.matches = function (node, selector) {
  * @param {Node} child 要判断的子节点。
  * @returns {Boolean} 如果 @child 是 @node 或其子节点则返回 @true，否则返回 @false。
  * @example Dom.contains(document.body, document.body)
- * @memberOf Node.prototype
- * @since ES5
+ * @inner
  */
 Dom.contains = function (node, child) {
     typeof console === "object" && console.assert(node, "Dom.contains(node: 必须是节点, child)");

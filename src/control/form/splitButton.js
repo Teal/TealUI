@@ -14,13 +14,11 @@ var SplitButton = Control.extend({
         var me = this;
         me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover, .x-dropdownmenu')).role('popover', {
             target: me.dom.find('.x-button:last-child'),
-            pinTarget: me.dom,
-            onShow: function () {
-                me.dom.find('.x-button:last-child').addClass('x-button-actived');
-            },
-            onHide: function () {
-                me.dom.find('.x-button:last-child').removeClass('x-button-actived');
-            }
+            pinTarget: me.dom
+        }).on('show', function () {
+            me.dom.find('.x-button:last-child').addClass('x-button-actived');
+        }).on('hide', function () {
+            me.dom.find('.x-button:last-child').removeClass('x-button-actived');
         });
     }
 

@@ -23,7 +23,7 @@ var Popover = Control.extend({
      * 获取或设置当前浮层的目标。
      * @type {Dom}
      */
-    target: 0,
+    target: null,
 
     /**
      * 触发当前浮层显示的事件。可能的值为：
@@ -58,7 +58,7 @@ var Popover = Control.extend({
      * 如果为 @true，则自动对齐事件。
      * @type {Boolean}
      */
-    pinEvent: null,
+    pinEvent: false,
 
     /**
      * 自动定位时的容器。如果为 @null 则为文档。
@@ -76,187 +76,156 @@ var Popover = Control.extend({
     arrowDistance: 10,
 
     init: function () {
-        this.target = Dom(this.target);
-        this.pinTarget = Dom(this.pinTarget);
-        this.pinContainer = Dom(this.pinContainer);
-        this.setPopover(this.target, this.event);
+
+        var me = this;
+
+        var target = me.target = Dom(me.target).valueOf() || me.dom.prev();
+        me.pinTarget = Dom(me.pinTarget);
+        me.pinContainer = Dom(me.pinContainer);
+
+        var event = me.event;
+
+        if (me.created) {
+            me.target.parent().append(me.dom);
+        }
+
+        me.setPopover();
+
     },
 
     /**
      * 设置指定元素的弹出菜单。
      * @param {Dom} [target] 要设置的目标节点。
-     * @param {String} [triggerEvent] 要设置的触发事件。默认为当前触发事件源。
+     * @param {String} [event] 要设置的触发事件。默认为当前触发事件源。
      */
-    setPopover: function (target, triggerEvent) {
-
+    setPopover: function (target, event) {
         var me = this;
 
-        if (target !== null) {
+        target = target || me.target;
+        event = event || me.event;
 
-            me.target = target = target ? Dom(target) : this.dom.prev();
+        switch (event) {
+            case "click":
+                target.on(event, function (e) {
+                    var targetElem = this;
+                    if (me.isHidden()) {
+                        // 设置隐藏事件。
+                        Dom(document).on("mousedown", function (e) {
+                            // 不处理下拉菜单本身事件。
+                            if (!me.dom.contains(e.target)) {
 
-            if (me.created) {
-                me.target.parent().append(me.dom);
-            }
-
-            switch (triggerEvent) {
-                case "click":
-                    target.on(triggerEvent, function (e) {
-                        var targetElem = this;
-                        if (me.isHidden()) {
-
-                            // 设置隐藏事件。
-                            Dom(document).on("mousedown", function (e) {
-
-                                // 不处理下拉菜单本身事件。
-                                if (!me.dom.contains(e.target)) {
-
-                                    // 如果在目标节点点击，则直接由目标节点调用 hide()。
-                                    if (!Dom(targetElem).contains(e.target)) {
-                                        me.hide(e);
-                                    }
-
-                                    // 确保当前事件只执行一次。
-                                    Dom(document).off("mousedown", arguments.callee);
-                                }
-
-                            });
-
-                            me.target = Dom(targetElem);
-                            me.show(e);
-                        } else {
-                            me.hide(e);
-                        }
-                    });
-                    break;
-                case "mouseover":
-                case "hover":
-                    var openTimer;
-                    var closeTimer;
-                    var closeDelay = me.delay;
-
-                    function openCallback(e) {
-                        var targetElem = this;
-                        // 如果正在关闭，则不关闭保持打开状态。
-                        if (closeTimer) {
-                            clearTimeout(closeTimer);
-                            closeTimer = 0;
-                        } else {
-                            // 否则倒计时开始打开。
-                            openTimer = openTimer || setTimeout(function () {
-                                openTimer = 0;
-                                if (targetElem !== window) {
-                                    me.target = Dom(targetElem);
-                                }
-                                me.show(e);
-                            }, me.delay);
-                        }
-                    }
-
-                    function closeCallback(e) {
-                        // 如果正在打开，则不打开保持关闭状态。
-                        if (openTimer) {
-                            clearTimeout(openTimer);
-                            openTimer = 0;
-                        } else {
-                            // 否则倒计时开始关闭。
-                            closeTimer = closeTimer || setTimeout(function () {
-                                closeTimer = 0;
-                                me.hide(e);
-                            }, closeDelay);
-                        }
-                    }
-
-                    // 移到目标节点则显示浮层。
-                    // 移出目标节点则倒计时隐藏。
-                    target
-                        .on("mouseenter", openCallback)
-                        .on("mouseleave", closeCallback);
-
-                    if (triggerEvent !== "hover") {
-
-                        closeDelay *= 8;
-
-                        // 移到当前节点则不再显示。
-                        // 移出目标节点则倒计时隐藏。
-                        me.dom
-                            .on("mouseenter", openCallback, window)
-                            .on("mouseleave", closeCallback);
-
-                    }
-                    break;
-                case "focus":
-                    // 设置获取焦点后显示浮层，全局除浮层和目标外单击关闭。
-                    target.on(triggerEvent, function (e) {
-                        // 不重复显示。
-                        if (me.isHidden()) {
-
-                            var targetElem = this;
-
-                            // 设置全局点击之后隐藏浮层。
-                            Dom(document).on("mousedown", function (e) {
-
-                                // 不处理下拉菜单本身事件。
-                                // 不处理目标本身。
-                                if (!me.dom.contains(e.target) && !Dom(targetElem).contains(e.target)) {
-
-                                    // 确保当前事件只执行一次。
-                                    Dom(document).off("mousedown", arguments.callee);
-
-                                    // 隐藏浮层。
+                                // 如果在目标节点点击，则直接由目标节点调用 hide()。
+                                if (!Dom.contains(targetElem, e.target)) {
                                     me.hide(e);
-
                                 }
 
-                            }, this);
-
-                            // 显示浮层。
-                            me.target = Dom(targetElem);
-                            me.show(e);
-
-                        }
-                    });
-                    break;
-                case "active":
-                    target
-                        .on("focus", function (e) {
-                            me.target = Dom(this);
-                            me.show(e);
-                        })
-                        .on("blur", function (e) {
-                            me.hide(e);
+                                // 确保当前事件只执行一次。
+                                Dom(document).off("mousedown", arguments.callee);
+                            }
                         });
-                    break;
-            }
+                        me.target = Dom(targetElem);
+                        me.show(e);
+                    } else {
+                        me.hide(e);
+                    }
+                });
+                break;
+            case "mouseover":
+            case "hover":
+                var openTimer;
+                var closeTimer;
+                var closeDelay = me.delay;
 
+                function openCallback(e) {
+                    var targetElem = this;
+                    // 如果正在关闭，则不关闭保持打开状态。
+                    if (closeTimer) {
+                        clearTimeout(closeTimer);
+                        closeTimer = 0;
+                    } else {
+                        // 否则倒计时开始打开。
+                        openTimer = openTimer || setTimeout(function () {
+                            openTimer = 0;
+                            if (targetElem !== window) {
+                                me.target = Dom(targetElem);
+                            }
+                            me.show(e);
+                        }, me.delay);
+                    }
+                }
+
+                function closeCallback(e) {
+                    // 如果正在打开，则不打开保持关闭状态。
+                    if (openTimer) {
+                        clearTimeout(openTimer);
+                        openTimer = 0;
+                    } else {
+                        // 否则倒计时开始关闭。
+                        closeTimer = closeTimer || setTimeout(function () {
+                            closeTimer = 0;
+                            me.hide(e);
+                        }, closeDelay);
+                    }
+                }
+
+                // 移到目标节点则显示浮层。
+                // 移出目标节点则倒计时隐藏。
+                target.on("mouseenter", openCallback).on("mouseleave", closeCallback);
+
+                // 如果 event == "mouseover"
+                if (event.length > 5) {
+
+                    closeDelay *= 8;
+
+                    // 移到当前节点则不再显示。
+                    // 移出目标节点则倒计时隐藏。
+                    me.dom.on("mouseenter", openCallback, window).on("mouseleave", closeCallback);
+
+                }
+                break;
+            case "focus":
+                // 设置获取焦点后显示浮层，全局除浮层和目标外单击关闭。
+                target.on(event, function (e) {
+                    // 不重复显示。
+                    if (me.isHidden()) {
+
+                        var targetElem = this;
+
+                        // 设置全局点击之后隐藏浮层。
+                        Dom(document).on("mousedown", function (e) {
+
+                            // 不处理下拉菜单本身事件。
+                            // 不处理目标本身。
+                            if (!me.dom.contains(e.target) && !Dom.contains(targetElem, e.target)) {
+
+                                // 确保当前事件只执行一次。
+                                Dom(document).off("mousedown", arguments.callee);
+
+                                // 隐藏浮层。
+                                me.hide(e);
+
+                            }
+
+                        });
+
+                        // 显示浮层。
+                        me.target = Dom(targetElem);
+                        me.show(e);
+
+                    }
+                });
+                break;
+            case "active":
+                target
+                    .on("focus", function (e) {
+                        me.target = Dom(this);
+                        me.show(e);
+                    })
+                    .on("blur", function (e) {
+                        me.hide(e);
+                    });
+                break;
         }
-
-    },
-
-    /**
-     * 显示当前浮层。
-     * @returns this
-     */
-    show: function (e) {
-        debugger
-        var me = this;
-        me.dom.show("opacity", null, me.duration);
-        me.onShow && me.onShow(e);
-        me.trigger("show", e);
-        me.realign(e);
-        return me;
-    },
-
-    /**
-     * 隐藏当前浮层。
-     * @returns this
-     */
-    hide: function (e) {
-        var me = this;
-        me.dom.hide("opacity", null, me.duration);
-        me.onHide && me.onHide(e);
-        me.trigger("hide", e);
-        return me;
     },
 
     /**
@@ -269,7 +238,35 @@ var Popover = Control.extend({
     },
 
     /**
+     * 显示当前浮层。
+     * @param {Event} [e] 相关的事件对象。
+     * @returns this
+     */
+    show: function (e) {
+        var me = this;
+        me.dom.show("opacity", null, me.duration);
+        me.onShow && me.onShow(e);
+        me.trigger("show", e);
+        me.realign(e);
+        return me;
+    },
+
+    /**
+     * 隐藏当前浮层。
+     * @param {Event} [e] 相关的事件对象。
+     * @returns this
+     */
+    hide: function (e) {
+        var me = this;
+        me.dom.hide("opacity", null, me.duration);
+        me.onHide && me.onHide(e);
+        me.trigger("hide", e);
+        return me;
+    },
+
+    /**
      * 切换显示下拉菜单。
+     * @param {Event} [e] 相关的事件对象。
      * @returns this
      */
     toggle: function (e) {
@@ -278,25 +275,27 @@ var Popover = Control.extend({
 
     /**
      * 重新设置当前浮层的位置。
+     * @param {Event} [e] 相关的事件对象。
+     * @protected
      */
     realign: function (e) {
 
-        // 实现箭头定位。
         var me = this;
+
+        // 优先基于箭头定位。
         var arrowDom = me.dom.children(".x-arrow");
         if (arrowDom.length) {
 
-            //             0       1        2       3
-            var arrows = ["bottom", "right", "left", "top"],
-                arrow = 4,
-                rect,
-                pinTarget = me.pinTarget || me.target;
+            //             0         1         2       3
+            var arrows = ["bottom", "right", "left", "top"];
+            var arrow = 4;
+            var pinTarget = me.pinTarget.valueOf() || me.target;
 
             function toggleArrow(to) {
                 arrowDom.removeClass("x-arrow-" + arrows[3 - to]).addClass("x-arrow-" + arrows[to]);
             }
 
-            // 恢复原始的箭头样式。
+            // 如果上次显示时箭头发生移动，则恢复原始的箭头样式。
             if (me._orignalArrow) {
                 arrowDom.css('left', null).css('top', null).css('display', null);
                 toggleArrow(me._orignalArrow - 1);
@@ -340,7 +339,7 @@ var Popover = Control.extend({
 
             // 实现自动定位逻辑。
         } else if (me.pinAlign) {
-            me.dom.pin(me.pinEvent && e || me.pinTarget || me.target, me.pinAlign, 0, me.pinEvent ? 10 : 0);
+            me.dom.pin(me.pinEvent && e || me.pinTarget.valueOf() || me.target, me.pinAlign, 0, me.pinEvent ? 10 : 0);
         }
     }
 

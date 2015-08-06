@@ -2,10 +2,8 @@
  * @author xuld
  */
 
-// #require ui/menu/menu.css
-// #require dom/pin.js
-// #require fx/animate.js
-// #require ui/core/treecontrol.js
+// #require ../control/base
+// #require ../utility/dom/pin
 
 /**
  * 表示一个菜单。
@@ -21,7 +19,7 @@ var Menu = Control.extend({
     role: "menu",
 
     /**
-     * 当被子类重写时，获取当前菜单的父菜单。
+     * 获取当前菜单的父菜单。
      * @returns {Menu} 返回父菜单。如果不存在父菜单则返回 @null。 
      */
     parent: function () {
@@ -53,13 +51,13 @@ var Menu = Control.extend({
         }
 
         // 设置为下拉菜单。
-        if (me.dom.is(".x-dropdownmenu")) {
+        if (me.dom.is(".x-dropdownmenu") || Dom.data(me.dom[0], 'roles').popover) {
             me.popover = me.dom.role("popover");
+            me.popover.on('show', function () {
+                me.hideSub().selectedItem(null);
+            });
             me.dom.on('click', function (e) {
                 me.popover.hide(e);
-            });
-            me.popover.on('show', function() {
-                me.hideSub().selectedItem(null);
             });
             me.popover.target.keyNav && me.popover.target.keyNav(me.keyBindings());
         } else if (!me.parent()) {
@@ -82,11 +80,11 @@ var Menu = Control.extend({
      * @param {Event} [e] 相关的事件对象。 
      * @returns this 
      */
-    selectItem: function (item, e) {
+    selectItem: function (item) {
         var me = this.selectedItem(item);
         var subMenu = Dom(item).children('.x-menu');
         if (subMenu.length) {
-            me._subMenu = subMenu.role('menu').selectedItem(null).show(item, me);
+            me._subMenu = subMenu.role('menu').selectedItem(null).show(item);
         }
         return me;
     },
@@ -98,12 +96,16 @@ var Menu = Control.extend({
      */
     selectedItem: function (item) {
         var me = this;
-        var selected = me.dom.children('.x-menu-selected')
+        var selected = me.dom.children('.x-menu-selected');
         if (item === undefined) {
             return selected;
         }
+        item = Dom(item);
+        if (item[0] === selected[0]) {
+            return me;
+        }
         selected.removeClass('x-menu-selected');
-        Dom(item).addClass('x-menu-selected');
+        item.addClass('x-menu-selected');
         return me.hideSub();
     },
 
@@ -150,7 +152,7 @@ var Menu = Control.extend({
             var currentMenu = me._activeMenu;
             return currentMenu && !currentMenu.dom.isHidden() ? currentMenu : me;
         }
-        function upDown(e, isUp, prev, end) {
+        function upDown(isUp, prev, end) {
             var currentMenu = activeMenu();
 
             currentMenu.show();
@@ -169,7 +171,7 @@ var Menu = Control.extend({
             // 跳过禁用项和分隔符。
             // 避免终找不到正确的菜单发生死循环。
             if (current.is(".x-menu-disabled, .x-menu-divider") && (!end || current[0] !== end[0])) {
-                current = upDown(e, isUp, current, end || current);
+                current = upDown(isUp, current, end || current);
             }
 
             // 内部获取实际项。
@@ -182,25 +184,25 @@ var Menu = Control.extend({
 
         }
         return {
-            up: function (e) {
-                upDown(e, true);
+            up: function () {
+                upDown(true);
             },
-            down: function (e) {
-                upDown(e, false);
+            down: function () {
+                upDown(false);
             },
-            right: function (e) {
+            right: function () {
                 var currentMenu = activeMenu();
-                currentMenu.selectItem(currentMenu.selectedItem(), e);
+                currentMenu.selectItem(currentMenu.selectedItem());
                 if (currentMenu._subMenu) {
                     me._activeMenu = currentMenu._subMenu;
-                    upDown(e, false);
+                    upDown(false);
                     return false;
                 }
                 return true;
             },
-            left: function (e) {
+            left: function () {
                 var currentMenu = activeMenu();
-                if (currentMenu != me) {
+                if (currentMenu !== me) {
                     me._activeMenu = currentMenu.parent() || me;
                     me._activeMenu.hideSub();
                     if (me._activeMenu === me) {
@@ -210,7 +212,7 @@ var Menu = Control.extend({
                 }
                 return true;
             },
-            enter: function (e) {
+            enter: function () {
                 activeMenu().selectedItem().click();
             },
             esc: function () {

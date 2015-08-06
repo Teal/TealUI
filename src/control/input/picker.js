@@ -32,41 +32,29 @@ var Picker = Input.extend({
 
     init: function () {
 
-        var me = this,
-
-            // 获取输入框。
-            input = me.input(),
-
-            // 获取额外的按钮。
-            button = me.button(),
-
-            // 初始化下拉菜单。
-            // 菜单可以由 menu 直接指定，或者紧跟着的 .x-popover，如果找不到则自动生成。
-            dropDown = Dom(me.menu).valueOf() || me.dom.next('.x-popover');
+        var me = this;
 
         // 关闭默认的智能提示。
-        input.attr('autocomplete', 'off');
+        var input = me.input().attr('autocomplete', 'off');
+
+        // 绑定下拉按钮。
+        me.button().on('click', function () {
+            var input = me.input()[0];
+            input && input.focus();
+        });
 
         // 获取或创建下拉菜单。
-        me.dropDown = dropDown = dropDown.role('popover', {
+        // 菜单可以由 menu 直接指定，或者紧跟着的 .x-popover，如果找不到则自动生成。
+        me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover, .x-dropdownmenu')).role('popover', {
             event: 'focus',
             pinAlign: 'bl',
             target: input
-        });
-
-        // 绑定下拉按钮。
-        button.on('click', function () {
-            input[0] && input[0].focus();
-        });
-        
-        dropDown.on('show', function (e) {
-            me.realignDropDown(e);
-            me.updateDropDown(e);
+        }).on('show', function (e) {
             me.state('actived', true);
+            me.updateDropDown(e);
             me.onDropDownShow && me.onDropDownShow(e);
-        });
-
-        dropDown.on('hide', function (e) {
+            me.realignDropDown(e);
+        }).on('hide', function (e) {
             me.state('actived', false);
             me.onDropDownHide && me.onDropDownHide(e);
         });
@@ -95,7 +83,7 @@ var Picker = Input.extend({
 	 */
     realignDropDown: function () {
         var me = this;
-
+        
         // 更新下拉菜单尺寸。
         if (me.dropDownWidth) {
             me.dropDown.dom.rect({ width: /%$/.test(me.dropDownWidth) ? me.dom[0].offsetWidth * parseFloat(me.dropDownWidth) / 100 : parseFloat(me.dropDownWidth) });

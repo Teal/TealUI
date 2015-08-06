@@ -20,9 +20,10 @@
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
     <script type="text/javascript" src="../../utility/dom/base.js"></script>
-    <script type="text/javascript" src="../../control/core/base.js"></script>
-
     <script type="text/javascript" src="../../utility/dom/pin.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+
+    <script type="text/javascript" src="../../control/core/base.js"></script>
     <script type="text/javascript" src="../../control/core/popover.js"></script>
     <script type="text/javascript" src="../../control/core/input.js"></script>
     <script type="text/javascript" src="../../control/input/picker.js"></script>
@@ -35,7 +36,7 @@
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <span class="x-picker">
+        <span class="x-picker" data-role="comboBox">
             <input type="text" class="x-textbox" />
             <button class="x-button"><i class="x-icon">&#9662;</i></button>
         </span>
@@ -47,7 +48,7 @@
         </menu>
     </aside>
 
-    <article>
+    <!--<article>
         <h2>创建组合框</h2>
         <p>ComboBox 用于美化 <a href="../Form/Select.html">Select</a> 组件。另参考 <a href="../Button/MenuButton.html">MenuButton</a> 和 <a href="ComboBox.html">DropDownList</a> 。</p>
         <h3>最简单方式： 基于 &lt;select&gt; 创建</h3>
@@ -68,7 +69,6 @@
         <script type="text/html">
             <input class="x-textbox" id="comboBox2" value="B">
 
-            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
             <ul class="x-dropdown x-listbox">
                 <li>预定义的选项</li>
             </ul>
@@ -85,7 +85,6 @@
                 <button class="x-button"><span class="x-menubutton-arrow"></span></button>
             </span>
 
-            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
             <ul class="x-dropdown x-listbox">
                 <li>预定义的选项</li>
             </ul>
@@ -94,8 +93,8 @@
                 var comboBox3 = new ComboBox("#comboBox3");
             </script>
         </aside>
-    </article>
-    <article>
+    </article>-->
+    <!--<article>
         <h2>常用 API</h2>
 
         <section class="demo-sample">
@@ -125,12 +124,12 @@
                 '手动展开下拉菜单': 'comboBox.showDropDown()',
 
                 '状态相关': '-',
-                '禁用': function () {
+                '禁用': function() {
                     comboBox.setAttr("disabled", true); // 设置
                     comboBox.setAttr("disabled", false); // 取消
                     comboBox.getAttr("disabled"); // 获取目前状态
                 },
-                '只读': function () {
+                '只读': function() {
                     comboBox.setAttr("readOnly", true); // 设置
                     comboBox.setAttr("readOnly", false); // 取消
                     comboBox.getAttr("readOnly"); // 获取目前状态
@@ -142,6 +141,7 @@
         <blockquote>其它 API 参考 <a href="Picker.html">Picker</a> 组件。(ComboBox 继承于 Picker)</blockquote>
         <blockquote>要控制下拉菜单， 参考 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 组件。(ComboBox 实现了 IDropDownOwner 接口)</blockquote>
         <blockquote>ComboBox 使用 <a href="DropDownMenu.html">DropDownMenu</a> 组件作为下拉菜单。</blockquote>
-    </article>
+    </article>-->
+
 </body>
 </html>

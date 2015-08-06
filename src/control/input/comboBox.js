@@ -28,10 +28,12 @@ var ComboBox = Picker.extend({
 	 * @protected override
 	 */
     updateDropDown: function(){
-       // this.dropDown.hovering(this.getSelectedItem());
+        this.menu.selectedItem(this.selectedItem());
     },
 	
     init: function () {
+
+        var me = this;
 		
         //// 1. 处理 <select>
     	//var selectNode;
@@ -53,11 +55,16 @@ var ComboBox = Picker.extend({
 		
         // 初始化文本框
         Picker.prototype.init.apply(this, arguments);
-		
+
+        // 设置点击选中功能。
+        me.dropDown.dom.on('click', function (e) {
+            me.selectItem(Dom(e.target).closest("li"));
+        });
+
         //// 3. 设置默认项
-			
+
         //if (selectNode) {
-			
+
         //    // 让 listBox 拷贝 <select> 的成员。
         //	this.copyItemsFromSelect(selectNode);
 
@@ -65,62 +72,49 @@ var ComboBox = Picker.extend({
         //	Dom.hide(selectNode);
 
         //}
-		
+
     },
 	
     /**
 	 * 模拟用户选择某一个项。
 	 */
     selectItem: function (item) {
-
-        var me = this, old;
-    	
+        var me = this;
         if (me.trigger('select', item)) {
-            old = me.getValue();
-            me.setSelectedItem(item);
-            if (old !== me.getValue()) {
-                me.trigger('change');
-            }
-            me.hideDropDown();
+            me.selectedItem(item);
+            me.trigger('change');
         }
-
         return me;
     },
 	
     /**
-	 * 设置当前选中的项。
+	 * 获取或设置当前选中的项。
 	 * @param {Dom} item 选中的项。
-	 * @returns this
+	 * @returns this 如果不存在选中的项，则返回 null 。
 	 */
-    setSelectedItem: function (item) {
-    	this.setValue(item ? Dom.getText(item) : "");
-        return this;
+    selectedItem: function (value) {
+        var me = this;
+        if (value === undefined) {
+            var result = null;
+            value = me.value();
+            me.menu.dom.find("li").each(function (item) {
+                if (me.textOf(Dom(item)) === value) {
+                    result = Dom(item);
+                    return false;
+                }
+            });
+            return result;
+        }
+        return me.value(me.textOf(Dom(value)));
     },
 
     /**
-	 * 获取当前选中的项。如果不存在选中的项，则返回 null 。
-	 * @returns {Dom} 选中的项。
-	 */
-    getSelectedItem: function () {
-    	var value = this.getValue();
-    	var ret = null;
-    	this.dropDown.each(function (item) {
-    		if (Dom.getText(item) === value) {
-    			ret = item;
-    			return false;
-
-        	}
-        });
-
-    	return ret;
-    },
-	
-    setSelectedIndex: function(value){
-        return this.setSelectedItem(this.dropDown.item(value));
-    },
-
-    getSelectedIndex: function () {
-        return this.dropDown.indexOf(this.getSelectedItem());
+     * 获取指定下拉菜单对应的文本。
+     * @param {Dom} item 
+     * @returns {String} 要获取的文本。 
+     */
+    textOf: function(item) {
+        return item.attr("data-text") || item.text();
     },
 
     // select
