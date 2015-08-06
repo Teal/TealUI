@@ -25,10 +25,6 @@ var Popover = Control.extend({
      */
     target: 0,
 
-    target: Control.prop(Dom, function() {
-        this.setPopover(this.target);
-    }),
-
     /**
      * 触发当前浮层显示的事件。可能的值为：
      * - "mouseover" 鼠标移上后显示。
@@ -81,6 +77,8 @@ var Popover = Control.extend({
 
     init: function () {
         this.target = Dom(this.target);
+        this.pinTarget = Dom(this.pinTarget);
+        this.pinContainer = Dom(this.pinContainer);
         this.setPopover(this.target, this.event);
     },
 

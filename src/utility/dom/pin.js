@@ -45,7 +45,7 @@
  * 
  * @param {Number} [offsetX=0] 偏移的 X 大小。
  * @param {Number} [offsetY=0] 偏移的 Y 大小。
- * @param {Element} [container=document] 如果设置此元素，则超过此区域后重置位置。
+ * @param {Dom} [container=document] 如果设置此元素，则超过此区域后重置位置。
  * @param {Number} [padding=10] 容器的内边距。
  * @param {Function} [callback] 定位完成后的回调。其参数为：
  * * @param {Object} rect 包含实际定位的结果。可能包含的字段有：

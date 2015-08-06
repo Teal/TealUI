@@ -85,7 +85,7 @@ var Control = Base.extend({
         var opt = {};
 
         // 从 HTML 载入配置。
-        for (var key = 0; key < dom[0].attributes.length; i++) {
+        for (var key = 0; key < dom[0].attributes.length; key++) {
             var attr = dom[0].attributes[key];
             var attrName = attr.name.toLowerCase();
             if (/^data-/.test(attrName) && attrName !== 'data-role') {
@@ -145,16 +145,16 @@ var Control = Base.extend({
         }
     },
 
-    /**
-     * 设置当前组件的选项。
-     * @param {Object} options 要设置的选项。
-     * @returns this
-     */
-    set: function(options, initing) {
+    ///**
+    // * 设置当前组件的选项。
+    // * @param {Object} options 要设置的选项。
+    // * @returns this
+    // */
+    //set: function(options, initing) {
         
 
 
-    },
+    //},
 
     toString: function () {
         return this.role;
@@ -180,14 +180,6 @@ Control.extend = function (prototype) {
         Dom.roles[role] = clazz;
     }
     return clazz;
-};
-
-/**
- * 创建一个可读写的属性。
- * @returns {Function} 一个用于读写属性的函数。 
- */
-Control.prop = function(parser, updater) {
-
 };
 
 // 默认初始化一次页面全部组件。

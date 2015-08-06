@@ -26,6 +26,7 @@ function Dom(selector, context) {
     selector = selector || 0;
     return selector.constructor === String ?
         /^</.test(selector) ? Dom.parse(selector, context) : Dom.find(selector, context) :
+        selector instanceof Dom ? selector :
         selector.constructor === Function ? Dom.ready(selector, context) : new Dom.List(selector);
 }
 
