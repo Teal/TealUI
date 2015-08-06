@@ -55,7 +55,7 @@ var Calender = Control.extend({
         var me = this;
 
         // 初始化界面。
-        me.elem.innerHTML = Calender.locale.tpl;
+        me.dom.html(Calender.locale.tpl);
 
         me.min = Date.from(me.min);
         me.max = Date.from(me.max);

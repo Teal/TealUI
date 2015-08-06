@@ -11,13 +11,23 @@
  */
 var Popover = Control.extend({
 
+    /**
+     * 获取当前组件的角色。
+     * @type {String}
+     * @example alert($("#elem").role().role)
+     * @inner
+     */
     role: "popover",
 
     /**
      * 获取或设置当前浮层的目标。
      * @type {Dom}
      */
-    target: "",
+    target: 0,
+
+    target: Control.prop(Dom, function() {
+        this.setPopover(this.target);
+    }),
 
     /**
      * 触发当前浮层显示的事件。可能的值为：
@@ -37,6 +47,12 @@ var Popover = Control.extend({
     delay: 30,
 
     /**
+     * 自动定位的位置。如果为 @null 则不自动定位。默认为 @null。
+     * @type {Boolean}
+     */
+    pinAlign: null,
+
+    /**
      * 自动定位的目标节点。默认为 @target。
      * @type {Boolean}
      */
@@ -47,12 +63,6 @@ var Popover = Control.extend({
      * @type {Boolean}
      */
     pinEvent: null,
-
-    /**
-     * 自动定位的位置。如果为 @null 则不自动定位。默认为 @null。
-     * @type {Boolean}
-     */
-    pinAlign: null,
 
     /**
      * 自动定位时的容器。如果为 @null 则为文档。
@@ -70,6 +80,7 @@ var Popover = Control.extend({
     arrowDistance: 10,
 
     init: function () {
+        this.target = Dom(this.target);
         this.setPopover(this.target, this.event);
     },
 

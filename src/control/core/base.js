@@ -16,7 +16,7 @@ var Control = Base.extend({
     /**
      * 获取当前组件的角色。
      * @type {String}
-     * @example alert($("#elem1").role().role)
+     * @example alert($("#elem").role().role)
      * @inner
      */
     role: "control",
@@ -24,36 +24,33 @@ var Control = Base.extend({
     /**
 	 * 获取当前控件对应的 DOM 对象。
 	 * @type {Dom}
-	 * @example $("#elem1").role().dom.html()
+	 * @example $("#elem").role().dom.html()
 	 */
     dom: null,
 
     /**
      * 当前组件涉及动画的特效时间。如果值为 0 则不使用特效。 
      */
-    duration: 150,
+    duration: 100,
 
     /**
-     * 当前组件的初始化模板。
+     * 用于创建当前组件的模板。
      */
     tpl: '<div class="x-{role}"></div>',
 
     /**
-     * 当被子类重写时，负责创建 DOM 对象。
+     * 当被子类重写时，负责创建当前组件对应的 DOM 对象。
+     * @returns {Dom} 返回新创建的 DOM 组件。
 	 * @protected
 	 * @virtual
      * @inner
      */
     create: function () {
-        var me = this;
-        var result = me.created = Dom(me.tpl.replace(/{role}/g, me.role.toLowerCase()));
-        if (document.body) {
-            Dom(document.body).append(result);
-        } else {
-            Dom(function () {
-                result.appendTo(document.body, true);
-            });
-        }
+        var result = Dom(this.tpl.replace(/{role}/g, this.role.toLowerCase()));
+        var body = document.body;
+        body ? Dom(body).append(result) : Dom(function () {
+            result.appendTo(document.body, true);
+        });
         return result;
     },
 
@@ -74,23 +71,25 @@ var Control = Base.extend({
 	 */
     constructor: function Control(dom, options) {
 
-        // 创建 DOM 节点。
+        var me = this;
+
+        // 获取或创建 DOM 节点。
         dom = Dom(dom);
         if (!dom.length) {
-            dom = this.create();
+            me.created = dom = me.create();
         }
-        this.dom = dom;
+        me.dom = dom;
 
-        typeof console === "object" && console.assert(dom && dom[0], "new Control: control.dom 不能为空");
+        typeof console === "object" && console.assert(dom && dom.length === 1, "new Control(dom, options): control.dom 必须有且仅有一项");
 
         var opt = {};
 
         // 从 HTML 载入配置。
-        for (var i = 0; i < dom[0].attributes.length; i++) {
-            var attr = dom[0].attributes[i],
-                attrName = attr.name.toLowerCase();
+        for (var key = 0; key < dom[0].attributes.length; i++) {
+            var attr = dom[0].attributes[key];
+            var attrName = attr.name.toLowerCase();
             if (/^data-/.test(attrName) && attrName !== 'data-role') {
-                opt[attrName.substr(5).replace(/-(\w)/, function (_, w) {
+                opt[attrName.slice(5).replace(/-(\w)/, function (_, w) {
                     return w.toUpperCase();
                 })] = attr.value;
             }
@@ -146,7 +145,18 @@ var Control = Base.extend({
         }
     },
 
-    toString: function() {
+    /**
+     * 设置当前组件的选项。
+     * @param {Object} options 要设置的选项。
+     * @returns this
+     */
+    set: function(options, initing) {
+        
+
+
+    },
+
+    toString: function () {
         return this.role;
     }
 
@@ -170,6 +180,14 @@ Control.extend = function (prototype) {
         Dom.roles[role] = clazz;
     }
     return clazz;
+};
+
+/**
+ * 创建一个可读写的属性。
+ * @returns {Function} 一个用于读写属性的函数。 
+ */
+Control.prop = function(parser, updater) {
+
 };
 
 // 默认初始化一次页面全部组件。
