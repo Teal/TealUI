@@ -780,8 +780,17 @@ Dom.List.prototype = Dom.prototype = {
      * #### 删除全部点击事件
      * $("#elem").off('click');
      */
-    off: function (eventName, eventListener) {
+    off: function (eventName, delegateSelector, eventListener) {
         var me = this;
+
+        typeof console === "object" && console.assert(!delegateSelector || typeof delegateSelector === "string" || delegateSelector instanceof Function, "dom.off(eventName, [delegateSelector: 必须是字符串或函数], eventListener)");
+
+        // 允许不传递 delegateSelector 参数。
+        if (delegateSelector != null && delegateSelector.constructor !== String) {
+            eventListener = delegateSelector;
+            delegateSelector = '';
+        }
+
         return me.each(function (elem) {
 
             // 获取事件列表。
@@ -827,7 +836,7 @@ Dom.List.prototype = Dom.prototype = {
                 var eventFixer = Dom._eventFix[eventName] || 0;
 
                 // 删除函数句柄。
-                eventFixer.remove ? eventFixer.remove(elem, eventName, eventListener) : elem.removeEventListener(eventFixer.bind || eventName, eventListener, false);
+                eventFixer.remove ? eventFixer.remove(elem, eventName, eventListener) : elem.removeEventListener((delegateSelector ? eventFixer.delegate : eventFixer.bind) || eventName, eventListener, false);
 
             }
 
@@ -1079,7 +1088,7 @@ Dom.List.prototype = Dom.prototype = {
      * @returns {Dom} 返回克隆的新节点。
      * @example $("#elem").clone()
      */
-    clone: function (cloneChild) {
+    clone: function () {
         return Dom(this[0] && this[0].cloneNode(true));
     },
 
