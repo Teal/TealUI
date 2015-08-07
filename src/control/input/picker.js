@@ -45,7 +45,7 @@ var Picker = Input.extend({
 
         // 获取或创建下拉菜单。
         // 菜单可以由 menu 直接指定，或者紧跟着的 .x-popover，如果找不到则自动生成。
-        me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover, .x-dropdownmenu')).role('popover', {
+        me.dropDown = (Dom(me.menu).valueOf() || me.dom.next('.x-popover')).role('popover', {
             event: 'focus',
             pinAlign: 'bl',
             target: input

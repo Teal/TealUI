@@ -6,298 +6,250 @@
 // #require ui/core/listcontrol.js
 
 /**
- * 表示一个列表框。
+ * 表示一个单选或多选列表框。
  */
 var ListBox = Input.extend({
 
+    role: 'listBox',
+
+    /**
+     * 设置当前列表框是否是多选的。
+     */
+    multiple: true,
+
     init: function () {
         var me = this;
-        Dom.on(me.elem, 'mouseenter', 'li', function () {
-            me.onMouseEnter(this);
+
+        // 从 <select> 生成项。
+        if (me.dom.is("select")) {
+            me._input = me.dom;
+            me.dom = me._input.hide().after('<ul class="x-listbox"><ul>');
+            me.copyItemsFromSelect(me._input);
+        }
+
+        var rendered = false;
+
+        // 鼠标点击选中。
+        me.dom.on('click', 'li', function (e) {
+            e.preventDefault();
+            if (!rendered) {
+                me.selectItem(this, e);
+            }
+            rendered = false;
         });
-    },
 
-    onMouseEnter: function (item) {
-        var current = Dom.find('.x-listbox-selected', this.elem);
-        current && current.classList.remove('x-menu-selected');
-        item && item.classList.add('x-menu-selected');
-    },
-
-    _findChild: function (selector, parentNode) {
-        for (var node = parentNode.firstElementChild; node; node = node.nextElementSibling) {
-            if (node.matches(selector)) {
-                return node;
-            }
+        // 如果是多选框。则支持用户拖动选择功能。
+        if (me.multiple) {
+            me.dom.on('mousedown', 'li', function (e) {
+                e.preventDefault();
+                var start = Dom(this);
+                function selectRange(e) {
+                    var range = me.range(start, Dom(this));
+                    if (rendered || range.length > 1) {
+                        rendered = true;
+                        me.selectItem(range, e);
+                    }
+                }
+                me.dom.on('mousemove', 'li', selectRange);
+                Dom(document).on('mouseup', function () {
+                    me.dom.off('mousemove', selectRange);
+                    Dom(document).off('mouseup', arguments.callee);
+                });
+            });
         }
+
+        // 初始化列表值。
+        me.value(me.value());
+
     },
 
     /**
-     * 重新设置当前高亮项。
+     * 获取选中指定两个节点及中间所有节点。
+     * @param {Dom} from 选区的第一个节点。
+     * @param {Dom} to 选区的最后一个节点。
+     * @returns {Dom} 返回一个节点列表。
      */
-    hovering: function (item) {
-        var clazz = this.cssClass + '-hover';
-
-        if (this._hovering) {
-            Dom.removeClass(this._hovering, clazz);
+    range: function (from, to) {
+        var start = from.index();
+        var end = to.index();
+        if (end < start) {
+            start = end;
+            end = Dom(from[from.length - 1]).index();
         }
-
-        if (item) {
-            Dom.addClass(item, clazz);
-        }
-
-        this._hovering = item;
-        return this;
-    },
-
-	/**
-     * 获取当前高亮项。
-     */
-	getSelectedItem: function () {
-		return Dom.find('.' + this.cssClass + '-selected', this.elem);
-	},
-
-    /**
-     * 重新设置当前高亮项。
-     */
-    setSelectedItem: function (item) {
-    	var clazz = this.cssClass + '-selected';
-    	Dom.query('.' + clazz, this.elem).iterate(Dom.removeClass, [clazz]);
-
-        if(item) {
-        	Dom.addClass(item, clazz);
-        }
-
-        return this;
-    },
-
-    getSelectedIndex: function () {
-    	return this.indexOf(this.getSelectedItem());
-    },
-
-    setSelectedIndex: function (value) {
-    	return this.setSelectedItem(this.item(value));
+        return this.dom.children().slice(start, end + 1);
     },
 
     /**
-	 * 模拟用户选择某一项。
+	 * 选中当前列表的指定项。
+     * @param {Dom} item 要选择的项。 
+     * @param {Event} [e] 相关的事件参数。 
 	 */
-    selectItem: function (item) {
-        if (this.trigger('selecting', item) !== false) {
-            var old = this.getSelectedItem();
-            this.setSelectedItem(item);
-
-            if (!(old ? old === item : item)) {
-                this.trigger('change');
-            }
+    selectItem: function (item, e) {
+        var me = this;
+        // 支持批量选择。
+        if (e && e.shiftKey) {
+            item = me.range(me.selectedItem(), Dom(item));
         }
-    },
-
-    onItemClick: function(item){
-        if(!this.getAttr('disabled') && !this.getAttr('readonly')) {
-            this.selectItem(item);
+        // 判断是否禁用。
+        if (!me.state('disabled') && !me.state('readOnly') && me.trigger('select', item)) {
+            me.selectedItem(item, e && e.ctrlKey);
         }
-        return false;
     },
 
     /**
-     * 设置当前下拉菜单的所有者。绑定所有者的相关事件。
+     * 判断或设置指定的项是否被选中。
+     * @param {Dom} item 要选择的项。如果是多选则传递包含多个项的列表。
+     * @param {Boolean} value 要设置是否选中。
+     * @returns {mixed} 返回选中状态或 this。
      */
-    init: function () {
+    selected: function (item, value) {
+        item = Dom(item);
+        if (value === undefined) {
+            return item.is('.x-listbox-selected');
+        }
+        var me = this;
+        item.toggleClass('x-listbox-selected', value);
+        me.selectedItem(me.selectedItem());
+        return me;
+    },
 
-        // 绑定下拉菜单的点击事件
-        this.itemOn('mousedown', this.onItemClick, this);
+    /**
+     * 获取或设置当前选中的项。
+     * @param {Dom} [item] 要选择的项。如果是多选则传递包含多个项的列表。
+     * @param {Boolean} [multiple] 设置是否支持多选。
+     * @returns {mixed} 返回 @this 或当前选择的项。 
+     */
+    selectedItem: function (item, multiple) {
+        var me = this;
+        var selected = me.dom.children('.x-listbox-selected');
+        if (item === undefined) {
+            return selected;
+        }
+        item = Dom(item);
 
+        // 多选模式下，清空当前项选中状态。
+        // FIXME: 支持完美多选复选效果。
+        if (multiple && me.multiple && item.length === 1 && ~selected.indexOf(item[0])) {
+            return me.selected(item, false);
+        }
+
+        // 设置样式。
+        multiple || selected.removeClass('x-listbox-selected');
+        item.addClass('x-listbox-selected');
+
+        // 更新值。
+        var values = [];
+        me.dom.children('.x-listbox-selected').each(function (item, index) {
+            values[index] = me.getValueOf(Dom(item));
+        });
+        me.input().text(values.join(","));
+
+        me.trigger('change');
+        return me;
+    },
+
+    /**
+     * 获取或设置当前输入框的值。
+     * @param {String} [value] 要设置的文本。
+     * @returns this
+     */
+    value: function (value) {
+        var me = this;
+        if (value === undefined) {
+            return me.input().text();
+        }
+        if (value) {
+            if (typeof value === "string") {
+                value = value.split(",");
+            }
+            var items = Dom();
+            me.dom.children().each(function (item) {
+                if (~value.indexOf(me.getValueOf(Dom(item)))) {
+                    items.add(item);
+                }
+            });
+            me.selectedItem(items);
+        }
+        return me;
+    },
+
+    /**
+     * 获取或设置当前列表的全部项。
+     * @param {} item 
+     * @returns {} 
+     */
+    items: function (item) {
+        if (items === undefined) {
+            return this.dom.children();
+        }
+        this.dom.html('');
+        this.dom.append(item);
+        return this;
+    },
+
+    /**
+     * 获取指定项对应的值。
+     * @param {Dom} item 
+     * @returns {String} 要获取的文本。 
+     */
+    getValueOf: function (item) {
+        return item.attr("data-value") || item.text();
+    },
+
+    /**
+     * 获取当前菜单的默认键盘绑定。
+     * @returns {Object} 返回各个键盘绑定对象。
+     */
+    keyBindings: function () {
+        var me = this;
+        function upDown(isUp) {
+
+            // 定位当前选中项。
+            var current = Dom(me.selectedItem()[0]);
+
+            // 执行移动。
+            current = isUp ? current.prev() : current.next();
+
+            // 如果移动到末尾则回到第一项。
+            if (!current.length) {
+                current = isUp ? me.dom.last() : me.dom.first();
+            }
+
+            // 选中指定项。
+            me.selectedItem(current);
+
+        }
+        return {
+            up: function () {
+                upDown(true);
+            },
+            down: function () {
+                upDown(false);
+            },
+            enter: function () {
+                me.selectedItem().click();
+            }
+        };
+    },
+    
+    copyItemsFromSelect: function (select) {
+        var me = this;
+        me.multiple = select[0].multiple;
+        if (select[0].readOnly) {
+            me.state('readOnly');
+        }
+        if (select[0].disbaled) {
+            me.state('disbaled');
+        }
+
+        var html = '';
+        select.children("option").each(function (item) {
+            html += '<li data-value="' + item.value + '"' + (item.selected ? ' selected' : '') + '><a href="javascript:;">' + Dom(item).text() + '</a></li>';
+        });
+        me.dom.html(html)[0].onclick = select[0].onclick;
+        if (me._input.onchange) {
+            me.on('change', select[0].onchange);
+        }
     }
 
 });
-
-
-/**
- * @author xuld
- */
-
-// #require ui/form/listbox.js
-
-/**
- * 表示一个列表框。
- * @extends ListBox
- */
-var MultiListBox = ListBox.implement({
-
-    /**
-     * 重新设置当前高亮项。
-     */
-    setSelectedItems: function (items) {
-        if (items) {
-            items.iterate(Dom.addClass, [clazz]);
-        } else {
-            Dom.query('.' + this.cssClass + '-selected', this.elem).iterate(Dom.removeClasss, [this.cssClass + '-selected']);
-        }
-
-        return this;
-    },
-
-    /**
-     * 获取当前高亮项。
-     */
-    getSelectedItem: function () {
-        return Dom.query('.' + this.cssClass + '-selected', this.elem);
-    },
-
-    /**
-	 * 模拟用户选择某一项。
-	 */
-    selectItem: function (item) {
-        if (this.trigger('selecting', item) !== false) {
-            this.setSelectedItems(item);
-            this.trigger('change');
-        }
-    }
-
-});
-
-///**
-// * 表示一个列表框。
-// * @class
-// * @extends ListControl
-// * @implements IInput
-// */
-//var ListBox = ListControl.extend(IInput).implement({
-	
-//	xtype: 'listbox',
-	
-//	/**
-//	 * 当用户点击一项时触发。
-//	 */
-//	onItemClick: function (item) {
-//		return this.trigger('itemclick', item);
-//	},
-	
-//	/**
-//	 * 当一个选项被选中时触发。
-//	 */
-//	onSelect: function(item){
-		
-//		// 如果存在代理元素，则同步更新代理元素的值。
-//		if(this.formProxy)
-//			this.formProxy.value = this.baseGetValue(item);
-			
-//		return this.trigger('select', item);
-//	},
-	
-//	/**
-//	 * 点击时触发。
-//	 */
-//	onClick: function (e) {
-		
-//		// 如果无法更改值，则直接忽略。
-//		if(this.is('.x-' + this.xtype + '-disabled') || this.is('.x-' + this.xtype + '-readonly'))
-//			return;
-			
-//		//获取当前项。
-//		var item = e.getTarget().closest('li');
-//		if(item && !!this.clickItem(item)){
-//			return false;
-//		}
-//	},
-	
-//	/**
-//	 * 底层获取一项的值。
-//	 */
-//	baseGetValue: function(item){
-//		return item ? item.value !== undefined ? item.value : item.getText() : null;
-//	},
-	
-//	/**
-//	 * 模拟点击一项。
-//	 */
-//	clickItem: function(item){
-//		if(this.onItemClick(item)){
-//			this.toggleSelected(item);
-//			return true;
-//		}
-		
-//		return false;
-//	},
-	
-//	init: function(options){
-//		var t;
-//		if(this.node.tagName === 'SELECT'){
-//			t = this.node;
-//			this.node = this.create(options);
-//			t.parentNode.replaceChild(this.node, t);
-//		}
-		
-//		this.base('init');
-			
-//		this.on('click', this.onClick);
-		
-//		if(t)
-//			this.copyItemsFromSelect(t);
-		
-//	},
-	
-//	// form
-	
-//	/**
-//	 * 反选择一项。
-//	 */
-//	clear: function () {
-//		return this.setSelectedItem(null);
-//	},
-	
-//	/**
-//	 * 获取选中项的值，如果每天项被选中，则返回 null 。
-//	 */
-//	getValue: function(){
-//		var selectedItem = this.getSelectedItem();
-//		return selectedItem ? this.baseGetValue(selectedItem) : this.formProxy ? this.formProxy.value : null;
-//	},
-	
-//	/**
-//	 * 查找并选中指定值内容的项。如果没有项的值和当前项相同，则清空选择状态。
-//	 */
-//	setValue: function(value){
-		
-//		// 默认设置为值。
-//		if(this.formProxy)
-//			this.formProxy.value = value;
-			
-//		var t;
-		
-//		this.each(function(item){
-//			if(this.baseGetValue(item) === value){
-//				t = item;
-//				return false;
-//			}
-//		}, this);
-		
-//		return this.setSelectedItem(t);
-//	},
-	
-//	copyItemsFromSelect: function(select){
-//		if(select.name){
-//			this.setName(select.name);
-//			select.name = '';
-//		}
-//		for(var node = select.firstChild; node; node = node.nextSibling) {
-//			if(node.tagName  === 'OPTION') {
-//				var item = this.add(Dom.getText(node));
-					
-//				item.value = node.value;
-//				if(node.selected){
-//					this.setSelectedItem(item);
-//				}
-//			}
-//		}
-		
-//		if(select.onclick)
-//			this.node.onclick = select.onclick;
-		
-//		if(select.onchange)
-//			this.on('change', select.onchange);
-		
-//	}
-	
-//});
-

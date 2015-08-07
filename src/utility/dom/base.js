@@ -617,13 +617,13 @@ Dom.List.prototype = Dom.prototype = {
                     var eventState = 0;
 
                     // 绑定委托事件。
-                    elem.addEventListener(this.bind, eventListener.proxy = function (e) {
+                    elem.addEventListener(this.bind, eventListener.proxy1 = function (e) {
                         eventState = 1;
                         return eventListener.call(this, e);
                     }, false);
 
                     // 绑定原事件。
-                    elem.addEventListener(eventName, eventListener.orignal = function (e) {
+                    elem.addEventListener(eventName, eventListener.proxy2 = function (e) {
                         if (eventState) {
                             eventState = 0;
                         } else {
@@ -633,8 +633,8 @@ Dom.List.prototype = Dom.prototype = {
                 }
 
                 function touchRemove(elem, eventName, eventListener) {
-                    elem.removeEventListener(this.bind, eventListener.proxy, false);
-                    elem.removeEventListener(eventName, eventListener.orignal, false);
+                    elem.removeEventListener(this.bind, eventListener.proxy1, false);
+                    elem.removeEventListener(eventName, eventListener.proxy2, false);
                 }
 
                 // 让浏览器快速响应鼠标点击事件，而非等待 300ms 。
@@ -674,7 +674,7 @@ Dom.List.prototype = Dom.prototype = {
                             }
                         }, false);
 
-                        elem.addEventListener(eventName, eventListener.orignal = function (e) {
+                        elem.addEventListener(eventName, eventListener.proxy3 = function (e) {
                             if (eventState === 2) {
                                 eventState = 0;
                             } else {
@@ -687,7 +687,7 @@ Dom.List.prototype = Dom.prototype = {
                     remove: function (elem, eventName, eventListener) {
                         elem.removeEventListener("touchstart", eventListener.proxy1, false);
                         elem.removeEventListener("touchend", eventListener.proxy2, false);
-                        elem.removeEventListener(eventName, eventListener.orignal, false);
+                        elem.removeEventListener(eventName, eventListener.proxy3, false);
                     }
 
                 };

@@ -8,19 +8,21 @@
 /**
  * 表示一个组合框。
  * @extends Picker
- * @example <pre>
+ * @example
  * var comboBox = new ComboBox();
  * comboBox.add("aaa");
  * comboBox.add("bbb");
  * comboBox.setSelectedIndex(0);
- * </pre>
  */
 var ComboBox = Picker.extend({
 
     role: "comboBox",
 
-    initDropDown: function() {
-        this.menu = this.dropDown.dom.role('menu');
+    initDropDown: function () {
+        var me = this;
+        me.dropDown.dom.on('mouseenter', 'li', function (e) {
+            me.selectedItem(this, e);
+        });
     },
 
     /**
@@ -28,7 +30,7 @@ var ComboBox = Picker.extend({
 	 * @protected override
 	 */
     updateDropDown: function(){
-        this.menu.selectedItem(this.selectedItem());
+        this.list.selectedItem(this.selectedItem());
     },
 	
     init: function () {
@@ -97,7 +99,7 @@ var ComboBox = Picker.extend({
         if (value === undefined) {
             var result = null;
             value = me.value();
-            me.menu.dom.find("li").each(function (item) {
+            me.list.dom.find("li").each(function (item) {
                 if (me.textOf(Dom(item)) === value) {
                     result = Dom(item);
                     return false;

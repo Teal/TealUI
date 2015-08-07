@@ -8,6 +8,7 @@
   border-radius: 4px;
   background-color: #ffffff;
   max-height: 240px;
+  min-width: 150px;
 }
 .x-listbox a {
   display: block;

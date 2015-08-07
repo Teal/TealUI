@@ -5,7 +5,7 @@
 .x-picker .x-textbox {
   padding-right: 36px;
 }
-.x-picker .x-textbox:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error):hover {
+.x-picker .x-textbox:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error) {
   border-color: #66afe9;
 }
 .x-picker .x-button {
