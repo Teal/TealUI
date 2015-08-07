@@ -23,10 +23,10 @@ var Input = Control.extend({
         var me = this;
         if (value === undefined) {
 
-            // 如果当前控件本身就是 INPUT|SELECT|TEXTAREA|BUTTON，则输入域为自身。
+            // 如果当前控件本身就是 INPUT|SELECT|TEXTAREA，则输入域为自身。
             // 否则在控件内部查找合适的输入域。
             // 如果找不到，则创建一个 input:hidden 。
-            return me._input || (me._input = me.dom.is("input,select,textarea,button") ? me.dom : me.dom.find("input,select,textarea").valueOf() || me.dom.parent().append('<input type="hidden" name="' + (me.dom.attr('name') || '') + '">'));
+            return me._input || (me._input = me.dom.is("input,select,textarea") ? me.dom : me.dom.find("input,select,textarea").valueOf() || me.dom.parent().append('<input type="hidden" name="' + (me.dom.attr('name') || '') + '">'));
         }
         me._input = value;
         return me;

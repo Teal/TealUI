@@ -113,11 +113,20 @@ var ListBox = Input.extend({
      */
     updateValue: function () {
         var me = this;
-        var values = [];
-        me.dom.children('.x-listbox-selected').each(function (item, index) {
-            values[index] = me.getValueOf(item);
-        });
-        me.input().text(values.join(","));
+        if (me.input().is("select")) {
+            var options = me.input().find("option");
+            me.items().each(function (item, index) {
+                if (options[index]) {
+                    options[index].selected = me.selected(item);
+                }
+            });
+        } else {
+            var values = [];
+            me.selectedItem().each(function (item, index) {
+                values[index] = me.getValueOf(item);
+            });
+            me.input().text(values.join(","));
+        }
         me.trigger('change');
         return me;
     },
@@ -199,12 +208,27 @@ var ListBox = Input.extend({
      * @param {} item 
      * @returns {} 
      */
-    items: function (item) {
+    items: function (items) {
         if (items === undefined) {
             return this.dom.children();
         }
-        this.dom.html('');
-        this.dom.append(item);
+
+        var html = '';
+        if (!items || items instanceof Dom) {
+            this.dom.html(html);
+            this.dom.append(items);
+        } else {
+            if (items instanceof Array) {
+                for (var key = 0; key < items.length; key++) {
+                    html += '<li><a href="javascript:;">' + items[key] + '</a></li>';
+                }
+            } else {
+                for (var i in items) {
+                    html += '<li data-value="' + items[i] + '"><a href="javascript:;">' + i + '</a></li>';
+                }
+            }
+            this.dom.html(html);
+        }
         return this;
     },
 

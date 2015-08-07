@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>组合框</title>
-    <meta name="module-info" content="status=doing">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="将文本框和按钮自由组合成新的组件。">
 
@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../control/form/listBox.css" />
     <link rel="stylesheet" type="text/css" href="../../control/input/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/input/dropDownList.css" />
     <link rel="stylesheet" type="text/css" href="../../control/core/popover.css" />
 
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
@@ -43,12 +44,28 @@
         <menu class="x-listbox x-popover">
             <li><a href="###">菜单 1</a></li>
             <li><a href="###">菜单 2</a></li>
-            <li class="x-menu-divider"></li>
             <li><a href="###">菜单 3</a></li>
         </menu>
     </aside>
+    <script>var comboBox = $('[data-role="comboBox"]').role(); </script>
 
-    <!--<article>
+<aside class="doc-demo">
+    <button class="x-button x-dropdownlist" data-role="comboBox"><span>asdasdas</span> <i class="x-icon">&#9662;</i></button>
+    <menu class="x-listbox x-popover">
+        <li><a href="###">菜单 1</a></li>
+        <li><a href="###">菜单 2</a></li>
+        <li><a href="###">菜单 3</a></li>
+    </menu>
+</aside>
+
+    <select  data-role="comboBox">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+    </select>
+
+<!--<article>
         <h2>创建组合框</h2>
         <p>ComboBox 用于美化 <a href="../Form/Select.html">Select</a> 组件。另参考 <a href="../Button/MenuButton.html">MenuButton</a> 和 <a href="ComboBox.html">DropDownList</a> 。</p>
         <h3>最简单方式： 基于 &lt;select&gt; 创建</h3>

@@ -145,7 +145,7 @@ Base.prototype.off = function (eventName, eventListener) {
 
         // 获取指定事件的监听器。
         var eventListeners;
-        if (eventListeners = events[eventName]) {
+        if ((eventListeners = events[eventName])) {
 
             // 如果删除特定的处理函数。
             // 搜索特定的处理函数。
@@ -183,7 +183,7 @@ Base.prototype.trigger = function (eventName, eventArgs) {
     var eventListeners = this.__events__;
     if (eventListeners && (eventListeners = eventListeners[eventName])) {
         eventListeners = eventListeners.slice(0);
-        for (var i = 0, eventListener; eventListener = eventListeners[i]; i++) {
+        for (var i = 0, eventListener; (eventListener = eventListeners[i]); i++) {
             if (eventListener.call(this, eventArgs) === false) {
                 return false;
             }
