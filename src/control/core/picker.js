@@ -25,6 +25,8 @@ var Picker = Input.extend({
      */
     menu: null,
 
+    autoPopup: false,
+
     /**
      * 设置菜单对应的控件。
      */
@@ -61,6 +63,9 @@ var Picker = Input.extend({
 
         // 关闭默认的智能提示。
         var input = me.getInput().attr('autocomplete', 'off').on('input', function (e) {
+            if (me.autoPopup) {
+                me.popover.show(e);
+            }
             if (!me.popover.isHidden(e)) {
                 me.updateDropDown(e);
             }
@@ -92,7 +97,9 @@ var Picker = Input.extend({
         });
 
         // 绑定键盘事件。
-        me.popover.target.keyNav(me.keyBindings());
+        if (me.dropDown.keyBindings) {
+            me.popover.target.keyNav(me.keyBindings());
+        }
 
     },
 

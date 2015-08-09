@@ -10,41 +10,53 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/button.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
-    <link rel="stylesheet" type="text/css" href="../form/listBox.css" />
-    <link rel="stylesheet" type="text/css" href="../control/dropDown.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/core/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/core/popover.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/form/listBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/input/dropDownList.css" />
 
-    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
-    <script type="text/javascript" src="../../utility/dom/animate.js"></script>
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/dom/base.js"></script>
     <script type="text/javascript" src="../../utility/dom/pin.js"></script>
-    <script type="text/javascript" src="../control/popover.js"></script>
-    <script type="text/javascript" src="../control/input.js"></script>
-    <script type="text/javascript" src="../input/picker.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+
+    <script type="text/javascript" src="../../control/core/base.js"></script>
+    <script type="text/javascript" src="../../control/core/popover.js"></script>
+    <script type="text/javascript" src="../../control/core/input.js"></script>
+    <script type="text/javascript" src="../../control/form/listBox.js"></script>
+    <script type="text/javascript" src="../../control/core/picker.js"></script>
+    <script type="text/javascript" src="../../control/input/comboBox.js"></script>
+    <script type="text/javascript" src="../../control/input/suggest.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
-    <link rel="stylesheet" type="text/css" href="../input/textBox.css" />
 
     <h2>基本功能</h2>
 
     <aside class="doc-demo">
         <input type="text" class="x-textbox" placeholder="输入 a...">
         <script>
-            $('.x-textbox').suggest([
-                "abc",
-                "abcg",
-                "abcer",
-                "abcewrewr",
-                "desssdasd",
-                "dwerer"
-            ]);
+            $('.x-textbox').role("suggest", {
+                items: [
+                    "abc",
+                    "abcg",
+                    "abcer",
+                    "abcewrewr",
+                    "desssdasd",
+                    "dwerer"
+                ]
+            });
         </script>
     </aside>
 
     <h2>后台动态载入自动填充列表</h2>
 
-    <aside class="doc-demo">
+    <!--<aside class="doc-demo">
         <input type="text" class="x-textbox" placeholder="输入 a...">
         <script>
             $('.x-textbox').suggest(function (value, callback) {
@@ -53,11 +65,11 @@
                 }, 400);
             });
         </script>
-    </aside>
+    </aside>-->
 
     <h2>自定义点击项后的回调</h2>
 
-    <aside class="doc-demo">
+    <!--<aside class="doc-demo">
         <input type="text" class="x-textbox" placeholder="输入 a...">
         <script>
             $('.x-textbox').suggest([
@@ -71,11 +83,11 @@
                 return '自动追加的 ' + value;
             });
         </script>
-    </aside>
+    </aside>-->
 
 
 
-    <article>
+    <!--<article>
 
         <h3>预定义的智能提示项</h3>
 
@@ -193,7 +205,7 @@
 
         </aside>
 
-    </article>
+    </article>-->
 
 </body>
 </html>
