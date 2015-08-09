@@ -84,8 +84,8 @@ Dom.prototype.pin = function (target, align, offsetX, offsetY, container, paddin
     var targetRect = target instanceof Event ? {
         left: target.pageX,
         top: target.pageY,
-        width: 1,
-        height: 1
+        width: 0,
+        height: 0
     } : Dom(target).rect();
     var fixType = align.length < 3 ? 1 : 0;
 

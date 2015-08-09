@@ -2,11 +2,12 @@
  * @author xuld
  */
 
-// #require ui/form/listbox.css
-// #require ui/core/listcontrol.js
+// #require ../core/input
 
 /**
- * 表示一个单选或多选列表框。
+ * 表示一个列表框。
+ * @class
+ * @extends Input
  */
 var ListBox = Input.extend({
 
@@ -17,17 +18,19 @@ var ListBox = Input.extend({
      */
     multiple: true,
 
+    tpl: '<ul class="x-listbox"><ul>',
+
     init: function () {
         var me = this;
 
         // 从 <select> 生成项。
         if (me.dom.is("select")) {
-            me.input(me.dom);
-            me.dom = me._input.hide().after('<ul class="x-listbox"><ul>');
-            me.copyFrom(me.input());
+            me.input = me.dom.hide();
+            me.dom = me.dom.after(me.tpl);
+            me.copyFromSelect(me.input);
         }
 
-        // 禁用 CTRL 点击跳转。
+        // 禁用链接。
         me.dom.on('click', function (e) {
             e.preventDefault();
         });
@@ -36,15 +39,17 @@ var ListBox = Input.extend({
         me.dom.on('mousedown', 'li', function (e) {
             e.preventDefault();
 
-            var startItem = Dom(this);
-            me.selectItem(startItem, e);
+            var initalItem = Dom(this);
+            me.selectItem(initalItem, e);
+
             var selectedItem = e.ctrlKey && me.selectedItem();
-            var deselectMode = e.ctrlKey && !me.selected(startItem);
+            var deselectMode = e.ctrlKey && !me.selected(initalItem);
 
             function select(e) {
-                me.selectItem(this, e, startItem, selectedItem, deselectMode);
+                me.selectItem(this, e, initalItem, selectedItem, deselectMode);
             }
 
+            // 点击后鼠标经过的节点都被选中。
             me.dom.on('mouseenter', 'li', select);
             Dom(document).on('mouseup', function () {
                 me.dom.off('mouseenter', 'li', select);
@@ -61,23 +66,33 @@ var ListBox = Input.extend({
 	 * 选中当前列表的指定项。
      * @param {Dom} item 要选择的项。 
      * @param {Event} [e] 相关的事件参数。 
+     * @param {Dom} [initalItem] 在连击选择模式中第一个被选中的项。 
+     * @param {Dom} [initalSelectedItem] 在连击选择模式中第一个被选中的项。 
+     * @param {Boolean} [deselectMode] 指示连击模式是否是反选模式。 
 	 */
-    selectItem: function (item, e, startItem, startSelectedItem, deselectMode) {
+    selectItem: function (item, e, initalItem, initalSelectedItem, deselectMode) {
         var me = this;
 
         // 判断是否只读或禁用。
-        if (!me.state('disabled') && !me.state('readOnly') && me.trigger("select", item)) {
+        if (!me.state('disabled') && !me.state('readOnly') && me.trigger("select", {
+            item: item,
+            event: e,
+            value: me.getValueOf(item),
+            initalItem: initalItem,
+            initalSelectedItem: initalSelectedItem,
+            deselectMode: deselectMode
+        })) {
 
             // 多选功能。
             if (e && me.multiple) {
                 // 批量选择。
                 if (e.shiftKey) {
                     item = me.range(me.selectedItem(), Dom(item));
-                } else if (startItem) {
-                    var range = me.range(startItem, Dom(item));
-                    item = deselectMode ? startSelectedItem.filter(function (item) {
+                } else if (initalItem) {
+                    var range = me.range(initalItem, Dom(item));
+                    item = deselectMode ? initalSelectedItem.filter(function (item) {
                         return range.indexOf(item) < 0;
-                    }) : range.add(startSelectedItem);
+                    }) : range.add(initalSelectedItem);
                 } else if (e.ctrlKey) {
                     return me.selected(item, !me.selected(item));
                 }
@@ -107,14 +122,14 @@ var ListBox = Input.extend({
     },
 
     /**
-     * 当选中项发生改变时负责更新最新的值到 this.input()。
+     * 当选中项发生改变时负责更新最新的值到 this.getInput()。
      * @protected
      * @virtual
      */
     updateValue: function () {
         var me = this;
-        if (me.input().is("select")) {
-            var options = me.input().find("option");
+        if (me.getInput().is("select")) {
+            var options = me.getInput().find("option");
             me.items().each(function (item, index) {
                 if (options[index]) {
                     options[index].selected = me.selected(item);
@@ -125,7 +140,7 @@ var ListBox = Input.extend({
             me.selectedItem().each(function (item, index) {
                 values[index] = me.getValueOf(item);
             });
-            me.input().text(values.join(","));
+            me.getInput().text(values.join(","));
         }
         me.trigger('change');
         return me;
@@ -138,7 +153,8 @@ var ListBox = Input.extend({
      */
     getValueOf: function (item) {
         item = Dom(item);
-        return item.attr("data-value") || item.text();
+        var value = item.attr("data-value");
+        return value != null ? value : item.text();
     },
 
     /**
@@ -186,11 +202,11 @@ var ListBox = Input.extend({
     value: function (value) {
         var me = this;
         if (value === undefined) {
-            return me.input().text();
+            return me.getInput().text();
         }
         if (value) {
             if (typeof value === "string") {
-                value = value.split(",");
+                value = me.multiple ? value.split(",") : [value];
             }
             var items = Dom();
             me.dom.children().each(function (item) {
@@ -262,19 +278,24 @@ var ListBox = Input.extend({
             down: function () {
                 upDown(false);
             },
-            enter: function () {
+            enter: function() {
                 me.selectedItem().click();
             }
         };
     },
 
-    copyFrom: function (select) {
+    /**
+     * 从 <select> 复制所有选项。
+     * @param {} select 
+     * @returns {} 
+     */
+    copyFromSelect: function (select) {
         var me = this;
 
         // 拷贝所有项。
         var html = '';
         select.find("option").each(function (item) {
-            html += '<li data-value="' + item.value + '"' + (item.selected ? ' class="x-listbox-selected"' : '') + '><a href="javascript:;">' + Dom(item).text() + '</a></li>';
+            html += '<li' + (item.getAttributeNode('value') ? ' data-value="' + item.value + '"' : '') + (item.selected ? ' class="x-listbox-selected"' : '') + '><a href="javascript:;">' + Dom(item).text() + '</a></li>';
         });
         me.dom.html(html);
 

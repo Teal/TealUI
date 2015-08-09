@@ -878,11 +878,20 @@ Dom.List.prototype = Dom.prototype = {
      * @returns this 
      * @example $("#elem").click()
      */
-    click: function (callback) {
-        return callback !== undefined ? this.on('click', callback) : this.each(function (elem) {
-            elem.click ? elem.click() : Dom(elem).trigger('click');
-        });
-    },
+
+    /**
+     * 绑定或触发当前节点列表每一项的获取焦点事件。
+     * @param {Function} 绑定的事件监听器。 
+     * @returns this 
+     * @example $("#elem").focus()
+     */
+
+    /**
+     * 绑定或触发当前节点列表每一项的取消焦点事件。
+     * @param {Function} 绑定的事件监听器。 
+     * @returns this 
+     * @example $("#elem").blur()
+     */
 
     // #endregion
 
@@ -1833,6 +1842,18 @@ Dom.List.prototype = Dom.prototype = {
  * @inner
  */
 Dom.roles = {};
+
+// #endregion
+
+// #region @事件
+
+Dom.prototype.each.call(['click', 'focus', 'blur'], function (fnName, index) {
+    Dom.prototype[fnName] = function (callback) {
+        return callback !== undefined ? this.on(fnName, callback) : this.each(function (elem) {
+            elem[fnName] ? elem[fnName]() : Dom(elem).trigger(fnName);
+        });
+    };
+});
 
 // #endregion
 

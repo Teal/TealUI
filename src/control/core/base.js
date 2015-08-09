@@ -8,6 +8,7 @@
 
 /**
  * 表示一个控件。
+ * @abstract
  * @class
  * @abstract
  */
@@ -76,7 +77,8 @@ var Control = Base.extend({
         // 获取或创建 DOM 节点。
         dom = Dom(dom);
         if (!dom.length) {
-            me.created = dom = me.create();
+            dom = me.create();
+            me.created = true;
         }
         me.dom = dom;
 
@@ -108,7 +110,7 @@ var Control = Base.extend({
                     // 自定义事件。
                     var match = /^on[a-z]/.exec(key);
                     if (match) {
-                        if (value != null && value.constructor == String) {
+                        if (typeof value === "string") {
                             try {
                                 value = new Function("event", value);
                             } catch (e) { }
@@ -151,13 +153,19 @@ var Control = Base.extend({
     // * @returns this
     // */
     //set: function(options, initing) {
-        
-
-
     //},
 
     toString: function () {
         return this.role;
+    },
+
+    /**
+     * 将当前控件作为指定控件返回。
+     * @returns {Control} 如果允许作为指定控件则返回相应控件，否则返回 @undefined。 
+     */
+    as: function (controlType) {
+        var role = controlType.prototype.role;
+        return this.dom.is(".x-" + role.toLowerCase()) ? this.dom.role(role) : Dom.data(this.dom[0], 'roles')[role];
     }
 
 });
@@ -181,6 +189,32 @@ Control.extend = function (prototype) {
     }
     return clazz;
 };
+
+///**
+// * 创建一个节点属性。
+// * @returns {} 
+// */
+//Control.prop = function (parser, defaultValue) {
+//    parser = parser || function (value) { return value; };
+//    var propValue;
+//    return function (value) {
+//        var me = this;
+//
+//        // 设置属性。
+//        if (value !== undefined) {
+//            propValue = parser.call(me, propValue);
+//            return me;
+//        }
+//
+//        // 获取默认属性。
+//        if (propValue === undefined) {
+//            propValue = defaultValue ? null : defaultValue.call(me);
+//        }
+//
+//        // 返回属性。
+//        return propValue;
+//    };
+//};
 
 // 默认初始化一次页面全部组件。
 Dom(function () {

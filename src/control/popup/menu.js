@@ -15,7 +15,6 @@
  * 3. 静态菜单。
  */
 var Menu = Control.extend({
-
     role: "menu",
 
     /**
@@ -41,37 +40,39 @@ var Menu = Control.extend({
             }
         });
 
-        // 设置为右键菜单。
-        if (me.dom.is(".x-contextmenu")) {
-            (me.target || me.dom.prev()).on('contextmenu', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                me.selectedItem(null).show(e);
-            });
-        }
-
-        // 设置为下拉菜单。
-        if (me.dom.is(".x-dropdownmenu") || Dom.data(me.dom[0], 'roles').popover) {
-            me.popover = me.dom.role("popover");
-            me.popover.on('show', function () {
-                me.hideSub().selectedItem(null);
-            });
-            me.dom.on('click', function (e) {
-                me.popover.hide(e);
-            });
-            me.popover.target.keyNav && me.popover.target.keyNav(me.keyBindings());
-        } else if (!me.parent()) {
-
-            // 如果不是子菜单，则绑定点击隐藏事件。
-            // x-dropdownmenu 的子菜单显示与否由 Popover 管理。
-            function hideCore(e) {
-                me.dom.is(".x-contextmenu, .x-popover") ? me.hide(e) : me.hideSub(e);
+        // 子菜单：菜单的显示和隐藏由父菜单管理。
+        if (!me.parent()) {
+            var popover = me.as(Popover);
+            // 主菜单：如果是浮动菜单，则交由浮动处理。
+            if (popover) {
+                // 设置为右键或下拉菜单。
+                me.popover = popover.on('show', function () {
+                    me.hideSub().selectedItem(null);
+                });
+                me.dom.on('click', function (e) {
+                    e.preventDefault();
+                    // 如果是禁用或展开菜单，则点击无效。
+                    if (me.onItemClick(e)) {
+                        me.popover.hide(e);
+                    }
+                });
+                me.popover.target.keyNav && me.popover.target.keyNav(me.keyBindings());
+            } else {
+                // 如果不是子菜单，则绑定点击隐藏事件。
+                Dom(document).on('click', function (e) {
+                    if (!me.dom.contains(e.target) || me.onItemClick(e)) {
+                        me.hideSub(e);
+                    }
+                });
             }
-            Dom(document).on('mousedown', function (e) {
-                me.dom.contains(e.target) || hideCore(e);
-            });
-            me.dom.on('click', hideCore);
         }
+    },
+
+    onItemClick: function(e) {
+        var target = Dom(e.target).closest('li');
+        // 禁用无法点击。
+        // 有子菜单无法点击。
+        return !target.is(".x-menu-disbaled,.x-menu-arrow") && !target.children(".x-menu").length;
     },
 
     /**
@@ -148,10 +149,12 @@ var Menu = Control.extend({
      */
     keyBindings: function () {
         var me = this;
+
         function activeMenu() {
             var currentMenu = me._activeMenu;
             return currentMenu && !currentMenu.dom.isHidden() ? currentMenu : me;
         }
+
         function upDown(isUp, prev, end) {
             var currentMenu = activeMenu();
 
@@ -183,6 +186,7 @@ var Menu = Control.extend({
             currentMenu.selectedItem(current);
 
         }
+
         return {
             up: function () {
                 upDown(true);
