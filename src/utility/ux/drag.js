@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../dom/dom#角色,位置,事件
+typeof include === "function" && include("../dom/dom#角色,位置,事件");
 
 /**
  * 表示一个可拖动元素。

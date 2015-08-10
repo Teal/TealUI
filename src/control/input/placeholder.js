@@ -2,7 +2,8 @@
  * @author xuld
  */
 
-// #require ../core/control
+typeof include === "function" && include("../core/control
+");
 
 var Placeholder = Control.extend({
 

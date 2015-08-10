@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require control
+typeof include === "function" && include("control");
 
 /**
  * 表示一个表单控件。

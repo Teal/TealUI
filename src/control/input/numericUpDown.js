@@ -3,7 +3,7 @@
  */
 
 
-// #require ui/suggest/updown.js
+typeof include === "function" && include("ui/suggest/updown.js");
 
 var NumericUpDown = UpDown.extend({
 

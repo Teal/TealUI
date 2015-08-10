@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require control
-// #require ../../utility/dom/pin
+typeof include === "function" && include("control
+");
+typeof include === "function" && include("../../utility/dom/pin
+");
 
 /**
  * 表示一个浮层。

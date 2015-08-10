@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../core/formControl
+typeof include === "function" && include("../core/formControl");
 
 /**
  * 表示一个列表框。

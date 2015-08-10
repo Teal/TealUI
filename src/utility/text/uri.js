@@ -5,7 +5,7 @@
 
 
 
-// #require querystring
+typeof include === "function" && include("querystring");
 
 
 var Uri = (function () {

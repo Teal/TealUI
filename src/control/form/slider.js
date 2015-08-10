@@ -1,7 +1,17 @@
-/** * @author xuld */// #require control/input.js// #require dom/drag.js/**
+/**
+ * @author xuld
+ */
+
+typeof include === "function" && include("control/input.js
+typeof include === "function" && include("dom/drag.js
+");
+
+/**
+");
  * 表示一个滑块。
  * @class
- */var Slider = Input.extend({
+ */
+var Slider = Input.extend({
 
     /**
      * 设置滑动的最小值。
@@ -14,15 +24,21 @@
      * @type {Number}
      */
     max: 100,
-    /**
+
+    /**
      * 设置滑动的步长。
      * @type {Number}
-     */    step: 0,    init: function (options) {
+     */
+    step: 0,
+
+    init: function (options) {
         NodeList.each(this.elem.queryAll('.x-slider-handle'), this.initHandle, this);
         var me = this;
         this.elem.on('mousedown', function (e) { me.onClick(e); });
         this.onChange();
-    },    onClick: function (e) {
+    },
+
+    onClick: function (e) {
 
         if (e.target.matches('.x-slider-handle')) {
             return;
@@ -46,13 +62,17 @@
 
         this._setHandleOffset(handle, left);
         handle.trigger('mousedown', e);
-    },    _setHandleOffset: function (handle, left) {
+    },
+
+    _setHandleOffset: function (handle, left) {
         var draggable = {
             endOffset: { left: left }
         };
         this._handleDragStart(handle, draggable);
         this._handleDragMove(handle, draggable);
-    },    _handleDragStart: function (handle, draggable) {
+    },
+
+    _handleDragStart: function (handle, draggable) {
         // 拖动开始前确定当前滑块的可用范围。每个滑块的范围的前后滑块之间。
         var handles = this.elem.queryAll('.x-slider-handle'),
             min = 101,
@@ -92,7 +112,9 @@
         }
 
         draggable.part = this.step && this.elem.offsetWidth * this.step / (this.max - this.min);
-    },    _handleDragMove: function (handle, draggable, e) {
+    },
+
+    _handleDragMove: function (handle, draggable, e) {
         var left = draggable.endOffset.left;
 
         // 实时步长。
@@ -116,7 +138,9 @@
 
         }
 
-    },    initHandle: function (handle) {
+    },
+
+    initHandle: function (handle) {
         var me = this;
         handle.setDraggable({
             autoSrcoll: 0,
@@ -134,30 +158,41 @@
         if (!/%$/.test(handle.style.left)) {
             handle.style.left = handle.getOffset().left * 100 / this.elem.offsetWidth + '%';
         }
-    },    /**
+    },
+
+    /**
      * 计算某个滑块的值。
      * @param {Element} handle 要设置的滑块。
      * @returns {Number} 返回一个 0 到 1 的值，表示这个滑块的值。
-     */    getValueOfHandle: function (handle) {
+     */
+    getValueOfHandle: function (handle) {
         return handle ? this.min + parseFloat(handle.style.left) * (this.max - this.min) / 100 : 0;
-    },    /**
+    },
+
+    /**
      * 设置某个滑块的值。
      * @param {Element} handle 要设置的滑块。
      * @param {Number} value 一个 0 到 1 的值，表示这个滑块的值。
-     */    setValueOfHandle: function (handle, value) {
+     */
+    setValueOfHandle: function (handle, value) {
         if (handle) {
             handle.style.left = (value - this.min) * 100 / (this.max - this.min) + '%';
             this.onChange();
         }
         return this;
-    },    /**
+    },
+
+    /**
      * 在滑块即将移动前触发。
      * @param {Object} draggable 保存本次滑块相关的信息。
      * @param {Event} e 引发滑动的原始事件信息。
      * @returns {Boolean} 如果本次滑动无效，则返回 false。
-     */    onChanging: function (draggable, e) {
+     */
+    onChanging: function (draggable, e) {
         return this.trigger('chaning', draggable);
-    },    onChange: function () {
+    },
+
+    onChange: function () {
 
         // 更新文本域。
         this.getInput().value = this.getValues();
@@ -172,15 +207,20 @@
         fore.style.width = endHandle ? Math.max(0, parseFloat(endHandle.style.left) - start) + '%' : 0;
 
         return this.trigger('change');
-    },    /**
+    },
+
+    /**
      * 获取每个滑块的值。
-     */    getValues: function () {
+     */
+    getValues: function () {
         var values = [];
         NodeList.each(this.elem.queryAll('.x-slider-handle'), function (handle, index) {
             values[index] = this.getValueOfHandle(handle);
         }, this);
         return values;
-    },    getStartHandle: function () {
+    },
+
+    getStartHandle: function () {
         var handles =  this.elem.queryAll('.x-slider-handle'),
             min = 0;
         for (var i = 1; i < handles.length; i++) {
@@ -189,7 +229,9 @@
             }
         }
         return handles.length > 1 ? handles[min] : null;
-    },    getEndHandle: function () {
+    },
+
+    getEndHandle: function () {
         var handles =  this.elem.queryAll('.x-slider-handle'),
             max = 0;
         for (var i = 1; i < handles.length; i++) {
@@ -198,17 +240,30 @@
             }
         }
         return handles[max];
-    },    getStart: function (value) {
+    },
+
+    getStart: function (value) {
         return this.getValueOfHandle(this.getStartHandle());
-    },    setStart: function (value) {
+    },
+
+    setStart: function (value) {
         return this.setValueOfHandle(this.getStartHandle(), value);
-    },    getEnd: function (value) {
+    },
+
+    getEnd: function (value) {
         return this.getValueOfHandle(this.getEndHandle());
-    },    setEnd: function (value) {
+    },
+
+    setEnd: function (value) {
         return this.setValueOfHandle(this.getEndHandle(), value);
-    },    getValue: function () {
+    },
+
+    getValue: function () {
         return this.getEnd() - this.getStart();
-    },    setValue: function (value) {
+    },
+
+    setValue: function (value) {
         return this.setEnd(this.getStart() + value);
     }
-});
+
+});

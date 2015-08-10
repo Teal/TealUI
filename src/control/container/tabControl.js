@@ -2,8 +2,8 @@
  * @author 
  */
 
-// #require ui/tab/tabbable.css
-// #require ui/core/tabbablecontrol.js
+typeof include === "function" && include("ui/tab/tabbable.css");
+typeof include === "function" && include("ui/core/tabbablecontrol.js");
 
 /**
  * TAB 选项卡。

@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require dom/imagezoom.css
-// #require dom/dom.js
+typeof include === "function" && include("dom/imagezoom.css");
+typeof include === "function" && include("dom/dom.js");
 
 Dom.imageZoom = function (elem, getUrlCallback) {
 

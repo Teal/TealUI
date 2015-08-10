@@ -3,7 +3,7 @@
  * @author xuld 
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 设置当前节点列表每一项的位置使其依靠现有的节点布局。

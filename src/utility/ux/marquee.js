@@ -3,8 +3,8 @@
  */
 
 
-// #require fx/animate.js
-// #require dom/dom.js
+typeof include === "function" && include("fx/animate.js");
+typeof include === "function" && include("dom/dom.js");
 
 var Marquee = Base.extend({
 

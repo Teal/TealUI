@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require suggest
+typeof include === "function" && include("suggest");
 
 var EmailSuggest = Suggest.extend({
 

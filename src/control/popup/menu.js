@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require ../control/base
-// #require ../utility/dom/pin
+typeof include === "function" && include("../control/base
+");
+typeof include === "function" && include("../utility/dom/pin
+");
 
 /**
  * 表示一个菜单。

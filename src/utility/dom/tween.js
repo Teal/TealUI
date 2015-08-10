@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require fx/base.js
-// #require dom/dom.js
+typeof include === "function" && include("fx/base.js");
+typeof include === "function" && include("dom/dom.js");
 
 /**
  * @namespace Fx

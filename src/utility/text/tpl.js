@@ -4,7 +4,7 @@
  */
 
 // 为了支持 foreach 模板使用的 Object.each 函数。
-// #require ../utility/base.js
+typeof include === "function" && include("../utility/base.js");
 
 /**
  * 表示一个 JavaScript 模板解析器。

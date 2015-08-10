@@ -2,7 +2,7 @@
  * @author 
  */
 
-// #require dom/dom.jsDom.implement({	
+typeof include === "function" && include("dom/dom.jsDom.implement({	");
 	scrollSpy: function(){
 		var me = this,
 			initY = me.getPosition().y,

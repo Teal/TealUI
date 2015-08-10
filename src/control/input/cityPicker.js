@@ -3,7 +3,7 @@
  */
 
 
-// #require ui/suggest/combobox.js
+typeof include === "function" && include("ui/suggest/combobox.js");
 
 var CityChooser = Base.extend({
 

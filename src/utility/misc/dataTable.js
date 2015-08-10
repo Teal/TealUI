@@ -1,6 +1,6 @@
 ﻿
 
-// #require ../lang/class
+typeof include === "function" && include("../lang/class");
 
 
 /**

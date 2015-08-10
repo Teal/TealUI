@@ -3,8 +3,8 @@
  * @author xuld
  */
 
-// #require ../lang/class
-// #require ../../utility/dom/dom
+typeof include === "function" && include("../lang/class");
+typeof include === "function" && include("../../utility/dom/dom");
 
 /**
  * 表示一个控件。

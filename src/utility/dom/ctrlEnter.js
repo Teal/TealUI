@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 绑定 CTRL 回车事件。

@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-// #require ui/nav/treeview.css
-// #require ui/core/treecontrol.js
-// #require ui/core/icollapsable.js
+typeof include === "function" && include("ui/nav/treeview.css");
+typeof include === "function" && include("ui/core/treecontrol.js");
+typeof include === "function" && include("ui/core/icollapsable.js");
 
 var TreeView = TreeControl.extend({
 

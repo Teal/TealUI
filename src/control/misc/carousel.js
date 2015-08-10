@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-// #require ui/composite/carousel.css
-// #require fx/animate.js
-// #require ui/core/base.js
+typeof include === "function" && include("ui/composite/carousel.css");
+typeof include === "function" && include("fx/animate.js");
+typeof include === "function" && include("ui/core/base.js");
 
 var Carousel = Control.extend({
 

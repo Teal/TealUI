@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 渐变滚动当前元素指定位置。

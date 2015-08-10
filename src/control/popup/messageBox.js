@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require dialog
+typeof include === "function" && include("dialog");
 
 var MessageBox = Dialog.extend({
 

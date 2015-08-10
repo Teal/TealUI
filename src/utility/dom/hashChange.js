@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 获取当前页面的哈希值。

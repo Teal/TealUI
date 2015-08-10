@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require drag
-// #require ../dom/scrollIntoView
+typeof include === "function" && include("drag");
+typeof include === "function" && include("../dom/scrollIntoView");
 
 /**
  * 自动滚动屏幕。

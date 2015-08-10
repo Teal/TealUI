@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require ../lang/html5
-// #require ../text/queryString#QueryString.stringify
+typeof include === "function" && include("../lang/html5");
+typeof include === "function" && include("../text/queryString#QueryString.stringify");
 
 /**
  * 表示一个 Ajax 请求。

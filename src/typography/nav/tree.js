@@ -1,5 +1,6 @@
 ﻿
-// #require ../control/base
+typeof include === "function" && include("../control/base
+");
 
 var Tree = Control.extend({
 

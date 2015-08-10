@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../control/base
+typeof include === "function" && include("../control/base");
 
 /**
  * ½ø¶ÈÌõ¡£

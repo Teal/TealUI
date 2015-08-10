@@ -2,10 +2,10 @@
  * @author xuld
  */
 
-// #require ../control/base
-// #require ../dom/animate
-// #require ../dom/scrollTo
-// #require ../dom/rect
+typeof include === "function" && include("../control/base");
+typeof include === "function" && include("../dom/animate");
+typeof include === "function" && include("../dom/scrollTo");
+typeof include === "function" && include("../dom/rect");
 
 Control.extend({
 

@@ -2,9 +2,12 @@
  * @author xuld
  */
 
-// #require ui/button/buttongroup.css
-// #require ui/button/splitbutton.css
-// #require ui/button/menubutton.js
+typeof include === "function" && include("ui/button/buttongroup.css
+");
+typeof include === "function" && include("ui/button/splitbutton.css
+");
+typeof include === "function" && include("ui/button/menubutton.js
+");
 
 var SplitButton = Control.extend({
 

@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require scrollShow
+typeof include === "function" && include("scrollShow");
 
 /**
  * 懒加载图片。

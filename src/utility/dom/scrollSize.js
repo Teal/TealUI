@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 获取当前集合第一项的滚动区域大小。

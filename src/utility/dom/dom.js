@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../lang/html5
+typeof include === "function" && include("../lang/html5");
 
 // #region 核心
 

@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require drag
+typeof include === "function" && include("drag");
 
 /**
  * 创建一个新的可拖放区域。

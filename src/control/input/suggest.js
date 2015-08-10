@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require ui/core/idropdownowner.js
-// #require ui/suggest/dropdownmenu.js
+typeof include === "function" && include("ui/core/idropdownowner.js
+");
+typeof include === "function" && include("ui/suggest/dropdownmenu.js
+");
 
 /**
  * 智能提示组件。

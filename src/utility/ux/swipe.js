@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require base.js
+typeof include === "function" && include("base.js");
 
 /**
  * 创建一个新的可滑动区域。

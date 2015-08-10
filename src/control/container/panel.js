@@ -2,7 +2,8 @@
  * @author xuld
  */
 
-// #require ../control/base
+typeof include === "function" && include("../control/base
+");
 
 /**
  * 表示一个面板。

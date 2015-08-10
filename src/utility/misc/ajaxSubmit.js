@@ -1,6 +1,6 @@
 
 
-// #require ajax
+typeof include === "function" && include("ajax");
 
 /**
  * 返回一个表单的参数表示形式。

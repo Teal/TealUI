@@ -1,5 +1,5 @@
 ﻿
-// #require ../utility/class
+typeof include === "function" && include("../utility/class");
 
 var LayoutEngine = Base.extend({
 

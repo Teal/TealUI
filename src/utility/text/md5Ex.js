@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require md5
+typeof include === "function" && include("md5");
 
 /**
  * 计算一个字符串的 HMAC-MD5 值。

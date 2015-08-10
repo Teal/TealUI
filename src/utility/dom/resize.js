@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require base
+typeof include === "function" && include("base");
 
 /**
  * 设置窗口改变大小后的回调。

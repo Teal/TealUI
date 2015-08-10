@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-// #require ../partial/icon
-// #require picker
-// #require ../form/calender
+typeof include === "function" && include("../partial/icon");
+typeof include === "function" && include("picker");
+typeof include === "function" && include("../form/calender");
 
 var DatePicker = Picker.extend({
 

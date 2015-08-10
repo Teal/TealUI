@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require asyncQueue
+typeof include === "function" && include("asyncQueue");
 
 // 补齐 Date.now() 
 if (!Date.now) {

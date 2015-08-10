@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require ../typography/partial/arrow
-// #require ../control/popover
+typeof include === "function" && include("../typography/partial/arrow
+");
+typeof include === "function" && include("../control/popover
+");
 
 /**
  * 表示一个工具提示。

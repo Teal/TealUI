@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require ../dom/keyNav
-// #require ../control/base
+typeof include === "function" && include("../dom/keyNav");
+typeof include === "function" && include("../control/base");
 
 var UpDown = Control.extend({
 

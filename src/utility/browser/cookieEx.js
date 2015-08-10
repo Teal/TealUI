@@ -3,8 +3,10 @@
  * @author xuld
  */
 
-// #require cookie
-// #require ../text/queryString
+typeof include === "function" && include("cookie
+");
+typeof include === "function" && include("../text/queryString
+");
 
 // #region @getAllCookies
 

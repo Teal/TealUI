@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ui/core/base.js
+typeof include === "function" && include("ui/core/base.js");
 
 
 /**

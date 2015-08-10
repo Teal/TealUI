@@ -2,7 +2,7 @@
  * @author  xuld
  */
 
-// #require ../control/base
+typeof include === "function" && include("../control/base");
 
 /**
  * 一个标签选择器。

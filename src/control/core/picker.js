@@ -2,9 +2,12 @@
  * @author  xuld
  */
 
-// #require control
-// #require formControl
-// #require popover
+typeof include === "function" && include("control
+");
+typeof include === "function" && include("formControl
+");
+typeof include === "function" && include("popover
+");
 
 /**
  * 表示一个填选框。

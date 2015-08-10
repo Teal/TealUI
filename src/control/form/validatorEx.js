@@ -1,7 +1,7 @@
 /**
  * @author xuld
  */
-// #require ui/form/validator.js
+typeof include === "function" && include("ui/form/validator.js");
 
 Validator.get = function (dom) {
     dom = Dom.get(dom);

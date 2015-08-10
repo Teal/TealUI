@@ -2,7 +2,7 @@
  * @author 
  */
 
-// #require ui/button/safeanchor.css
+typeof include === "function" && include("ui/button/safeanchor.css");
 
 
 

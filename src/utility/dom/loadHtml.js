@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require base
-// #require ../misc/ajax
+typeof include === "function" && include("base");
+typeof include === "function" && include("../misc/ajax");
 
 /**
  * 从一个地址载入 HTML 片段并设为当前节点的内容。

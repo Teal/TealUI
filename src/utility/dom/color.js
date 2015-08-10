@@ -3,8 +3,7 @@
  * @author xuld
  */
 
-// #require fx/tween.js
-
+typeof include === "function" && include("fx/tween.js");
 
 Fx.defaultTweeners.unshift({
 	

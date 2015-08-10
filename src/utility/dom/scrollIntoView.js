@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require scrollTo
+typeof include === "function" && include("scrollTo");
 
 /**
  * 设置滚动到当前指定节点时的回调。

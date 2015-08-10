@@ -2,8 +2,8 @@
  * @author xuld
  */
 
-// #require ../utility/date
-// #require ../dom/animate
+typeof include === "function" && include("../utility/date");
+typeof include === "function" && include("../dom/animate");
 
 /**
  * 表示一个日历组件。

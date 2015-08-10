@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require picker
-// #require dropdownMenu
+typeof include === "function" && include("picker
+");
+typeof include === "function" && include("dropdownMenu
+");
 
 /**
  * 表示一个组合框。

@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../browser/cookie
+typeof include === "function" && include("../browser/cookie");
 
 var localStorage = localStorage || {
 

@@ -2,8 +2,10 @@
  * @author xuld
  */
 
-// #require ../form/button
-// #require ../core/base
+typeof include === "function" && include("../form/button
+");
+typeof include === "function" && include("../core/base
+");
 
 Control.extend({
 

@@ -2,9 +2,9 @@
  * @author xuld
  */
 
-// #require ../partial/mask
-// #require ../partial/closeButton
-// #require ../control/base
+typeof include === "function" && include("../partial/mask");
+typeof include === "function" && include("../partial/closeButton");
+typeof include === "function" && include("../control/base");
 
 /**
  * @class Dialog
