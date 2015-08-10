@@ -66,14 +66,22 @@ function include(modulePath, async) {
     xmlHttp.open("GET", modulePath, !!async);
     xmlHttp.send(null);
 
+    function isErrorStatus(status) {
+        return (status < 200 || status >= 300) && status !== 304 && status !== 1223;
+    }
+
     if (async) {
-        
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState === 4 && !isErrorStatus(xmlHttp.status)) {
+                var sourceCode = xmlHttp.responseText;
+            }
+        };
     }
 
     var status = xmlHttp.status;
 
     // 检查相应状态。
-    if ((status < 200 || status >= 300) && status !== 304 && status !== 1223) {
+    if (isErrorStatus(status)) {
         return;
     }
 
@@ -105,20 +113,6 @@ function include(modulePath, async) {
      */
 
     var bootjs = (function (window) {
-
-        var isStd = !!document.constructor,
-            typeAsserts = {
-                'Function': 'typeof $ === "function"',
-                'Number': 'typeof $.length === "number"',
-                'Number': 'typeof $ === "number" || $ instanceof Number',
-                'String': 'typeof $ === "string" || $ instanceof String',
-                'Object': 'typeof $ === "object" || typeof $ === "function" || typeof $.nodeType === "number"',
-                'Node': ' typeof $.nodeType === "number" || $.setTimeout',
-                'Element': '$.nodeType === 1',
-                'Document': '$.nodeType === 9'
-            },
-            modules = {},
-            bootjs = {};
 
         /**
          * Get the absolute url of specified script or link node.
@@ -192,28 +186,6 @@ function include(modulePath, async) {
             }
 
             return modulePath;
-        }
-
-        function replaceAssert(args) {
-
-            // args = exp @fun(args): message
-
-            var at = args.indexOf('@'),
-                expr = at < 0 ? args : args.substr(0, at),
-                defaultMessage = expr,
-                message = at > 0 ? args.substr(at + 1) : "Assertion fails";
-
-            // value:type check
-            if ((at = /^(.+):\s*(\w+)(\??)\s*$/.exec(expr)) && at[2] in typeAsserts) {
-                expr = (at[3] ? at[1] + ' == null || ' : at[1] + ' != null && ') + typeAsserts[at[2]].replace(/\$/g, at[1]);
-                defaultMessage = at[1] + ' should be a(an) ' + at[2] + (at[3] ? ' or undefined.' : '.');
-            }
-
-            if (message.indexOf(':') < 0) {
-                message += ': ' + defaultMessage;
-            }
-
-            return 'if(!(' + (expr || 1) + ') && window.console && console.error) console.error("' + message.replace(/\"/g, "\\\"") + '");';
         }
 
         function loadModule(moduleUrl) {
