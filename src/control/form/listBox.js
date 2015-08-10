@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-// #require ../core/input
+// #require ../core/formControl
 
 /**
  * 表示一个列表框。

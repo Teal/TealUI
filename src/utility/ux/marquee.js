@@ -4,7 +4,7 @@
 
 
 // #require fx/animate.js
-// #require dom/base.js
+// #require dom/dom.js
 
 var Marquee = Base.extend({
 

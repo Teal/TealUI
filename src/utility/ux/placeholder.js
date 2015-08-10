@@ -2,7 +2,7 @@
  * @author xuld
  */
 
-//#include dom/base.js
+//#include dom/dom.js
 
 /**
  * 设置当文本框空的时候，显示的文本。

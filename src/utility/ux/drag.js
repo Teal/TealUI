@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-// #require ../dom/base#角色,位置,事件
+// #require ../dom/dom#角色,位置,事件
 
 /**
  * 表示一个可拖动元素。

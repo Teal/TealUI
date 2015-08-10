@@ -14,5 +14,4 @@ document.write('<script type="text/javascript" src="../src/core/date.js"></scrip
 document.write('<script type="text/javascript" src="../src/text/tpl.js"></script>');
 document.write('<script type="text/javascript" src="../src/text/querystring.js"></script>');
 
-document.write('<script type="text/javascript" src="../src/app/model.js"></script>');
-document.write('<script type="text/javascript" src="../src/app/view.js"></script>');
+document.write('<script type="text/javascript" src="../src/app/base.js"></script>');

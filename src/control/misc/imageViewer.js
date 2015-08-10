@@ -3,7 +3,7 @@
  */
 
 // #require dom/imagezoom.css
-// #require dom/base.js
+// #require dom/dom.js
 
 Dom.imageZoom = function (elem, getUrlCallback) {
 

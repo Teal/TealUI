@@ -3,7 +3,7 @@
  */
 
 // #require fx/base.js
-// #require dom/base.js
+// #require dom/dom.js
 
 /**
  * @namespace Fx
