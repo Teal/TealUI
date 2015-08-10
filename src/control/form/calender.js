@@ -112,7 +112,7 @@ var Calender = Control.extend({
         this.now = value;
         value = Date.from(value);
         var now = this.elem.querySelector('.x-calender-now');
-        now.setAttribute('data-value', +value);
+        now.setAttribute('x-value', +value);
         now.innerHTML = value.format(Calender.locale.today);
     },
 
@@ -343,7 +343,7 @@ var Calender = Control.extend({
      * @returns this
      */
     selectItem: function (item) {
-        var value = new Date(+item.getAttribute('data-value'));
+        var value = new Date(+item.getAttribute('x-value'));
         this.saveHours(value);
         if (!(this.min && value < this.min) && !(this.max && value > this.max) && this.trigger('select', value)) {
             this.setValue(value);
@@ -479,7 +479,7 @@ Calender.views = {
                 var holiday = Calender.locale.holidays[tmpDate.format('M-d')] || calender.getHoliday(tmpDate),
                     html = '';
 
-                html += '<td data-value="' + tmpDateValue + '"' + (holiday ? ' title="' + holiday + '"' : '') + ' class="' + calender.getClassName(tmpDate);
+                html += '<td x-value="' + tmpDateValue + '"' + (holiday ? ' title="' + holiday + '"' : '') + ' class="' + calender.getClassName(tmpDate);
 
                 if (holiday) { html += ' x-calender-holiday'; }
 
@@ -510,7 +510,7 @@ Calender.views = {
             // 如果是 alt， 则是上个月或下个月, 则切换为新视图。
             // 否则，设置并更新当前的值。
             if (item.classList.contains('x-calender-alt')) {
-                var value = calender.value = new Date(+item.getAttribute('data-value'));
+                var value = calender.value = new Date(+item.getAttribute('x-value'));
                 return calender[value.getDate() < 15 ? 'onNextClick' : 'onPrevClick'](e);
             }
 
@@ -557,7 +557,7 @@ Calender.views = {
                     return date ? year === date.getFullYear() ? month - date.getMonth() : year - date.getFullYear() : NaN;
                 }
 
-                var html = '<td data-value="' + month + '" class="';
+                var html = '<td x-value="' + month + '" class="';
 
                 // 超过日期范围。
                 if (compare(calender.min) < 0 || compare(calender.max) > 0) { html += ' x-calender-invalid'; }
@@ -588,7 +588,7 @@ Calender.views = {
             var actived = calender.elem.querySelector('.x-calender-actived');
             actived && actived.classList.remove('x-calender-actived');
             item.classList.add('x-calender-actived');
-            calender.displayValue.setMonth(item.getAttribute('data-value'));
+            calender.displayValue.setMonth(item.getAttribute('x-value'));
             calender.setView('day', 'zoomOut');
         },
 
@@ -629,7 +629,7 @@ Calender.views = {
                     return date ? year - date.getFullYear() : NaN;
                 }
 
-                var html = '<td data-value="' + year + '" class="';
+                var html = '<td x-value="' + year + '" class="';
 
                 // 超过日期范围。
                 if (compare(calender.min) < 0 || compare(calender.max) > 0) { html += ' x-calender-invalid'; }
@@ -662,7 +662,7 @@ Calender.views = {
             var actived = calender.elem.querySelector('.x-calender-actived');
             actived && actived.classList.remove('x-calender-actived');
             item.classList.add('x-calender-actived');
-            calender.displayValue.setFullYear(item.getAttribute('data-value'));
+            calender.displayValue.setFullYear(item.getAttribute('x-value'));
             calender.setView(!/M/.test(calender.format) ? 'day' : 'month', 'zoomOut');
         },
 
@@ -691,7 +691,7 @@ Calender.views = {
                     return date ? year - Math.floor(date.getFullYear() / 10) * 10 : NaN;
                 }
 
-                var html = '<td data-value="' + year + '" class="';
+                var html = '<td x-value="' + year + '" class="';
 
                 // 超过日期范围。
                 if (compare(calender.min) < 0 || compare(calender.max) > 0) { html += ' x-calender-invalid'; }
@@ -716,7 +716,7 @@ Calender.views = {
             var actived = calender.elem.querySelector('.x-calender-actived');
             actived && actived.classList.remove('x-calender-actived');
             item.classList.add('x-calender-actived');
-            calender.displayValue.setFullYear(item.getAttribute('data-value'));
+            calender.displayValue.setFullYear(item.getAttribute('x-value'));
             calender.setView('year', 'zoomOut');
         },
 

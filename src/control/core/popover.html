@@ -28,16 +28,16 @@
     <p>弹出层控件是一个抽象的控件基类。控件封装了鼠标操作后显示弹出层的交互实现。</p>
 
     <h2>基本用法</h2>
-    <p>添加 <code>[data-role="popover"]</code>，即可将指定节点初始化为上一个节点的浮层。</p>
+    <p>添加 <code>[x-role="popover"]</code>，即可将指定节点初始化为上一个节点的浮层。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover">我是浮层</div>
+        <div class="x-popover" x-role="popover">我是浮层</div>
     </aside>
 
-    <p>为下拉菜单添加 <code>[data-target="{目标节点选择器}"]</code> 可设置目标节点。</p>
+    <p>为下拉菜单添加 <code>[x-target="{目标节点选择器}"]</code> 可设置目标节点。</p>
     <aside class="doc-demo">
         <button id="button1">按钮</button>
-        <div class="x-popover" data-role="popover" data-target="#button1">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-target="#button1">我是浮层</div>
     </aside>
 
     <h2>触发类型</h2>
@@ -46,47 +46,47 @@
     <p>鼠标点击目标显示，空白处单击隐藏。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="click">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="click">我是浮层</div>
     </aside>
 
     <h3>鼠标移上后显示</h3>
     <p>鼠标移到目标或浮层时显示，移出目标和浮层时隐藏。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="mouseover">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="mouseover">我是浮层</div>
     </aside>
 
     <h3>悬停时显示</h3>
     <p>鼠标移到目标时显示，移出目标时隐藏。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="hover">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="hover">我是浮层</div>
     </aside>
 
     <h3>获取焦点后显示</h3>
     <p>目标获取焦点后显示，空白处单击隐藏。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="focus">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="focus">我是浮层</div>
     </aside>
 
     <h3>包含焦点时显示</h3>
     <p>目标获取焦点时显示，失去焦点时隐藏。</p>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="active">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="active">我是浮层</div>
     </aside>
 
     <h3>手动显示</h3>
     <aside class="doc-demo">
         <button onclick="$(this.nextElementSibling).role().toggle()">按钮</button>
-        <div class="x-popover" data-role="popover" data-event="null">我是浮层</div>
+        <div class="x-popover" x-role="popover" x-event="null">我是浮层</div>
     </aside>
 
     <h2>箭头支持</h2>
     <aside class="doc-demo">
         <button>按钮</button>
-        <div class="x-popover" data-role="popover" data-event="click">
+        <div class="x-popover" x-role="popover" x-event="click">
             <span class="x-arrow x-arrow-bottom"></span>
             我包含了一个向下的箭头。如果显示不下，系统自动调节位置。
         </div>
@@ -98,12 +98,12 @@
     <pre>$('#popover1').role('popover', {target: '#button1'});</pre>
 
     <h5>手动显示菜单</h5>
-    <pre>$('[data-role=popover]').role().show();</pre>
+    <pre>$('[x-role=popover]').role().show();</pre>
 
     <h5>手动隐藏菜单</h5>
-    <pre>$('[data-role=popover]').role().hide();</pre>
+    <pre>$('[x-role=popover]').role().hide();</pre>
 
     <h5>设置菜单打开后的回调</h5>
-    <pre>$('[data-role=popover]').role().on('hide', function(){   alert("弹出层关闭了") } );</pre>
+    <pre>$('[x-role=popover]').role().on('hide', function(){   alert("弹出层关闭了") } );</pre>
 </body>
 </html>

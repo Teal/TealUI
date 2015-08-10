@@ -10,7 +10,7 @@ function Base() { }
 
 /**
  * 继承当前类创建派生类。
- * @param {Object} [members] 子类实例成员列表。其中 `contructor` 成员表示类型构造函数。
+ * @param {Object} [prototype] 子类实例成员列表。其中 `contructor` 成员表示类型构造函数。
  * @returns {Function} 返回继承创建的子类。
  * @remark
  * #### 单继承
@@ -28,35 +28,35 @@ function Base() { }
  * 
  * var obj = new MyClass(); // 创建子类的实例。
  */
-Base.extend = function (members) {
+Base.extend = function (prototype) {
+
+    // 未指定函数则使用默认构造函数(Object.prototype.constructor)。
+    prototype = prototype || {};
 
     var subClass;
 
-    // 未指定函数则使用默认构造函数(Object.prototype.constructor)。
-    members = members || {};
-
     // 生成缺省构造函数：直接调用父类构造函数 。
-    if (!members.hasOwnProperty("constructor")) {
-        members.constructor = function Class() {
+    if (!Object.prototype.hasOwnProperty.call(prototype, "constructor")) {
+        prototype.constructor = function Class() {
             // 缺省构造函数：直接调用父类构造函数。
             return subClass.__proto__.apply(this, arguments);
         };
     }
 
     // 直接使用构造函数作为类型本身。
-    subClass = members.constructor;
+    subClass = prototype.constructor;
 
     // 设置派生类的原型。
-    subClass.prototype = members;
+    subClass.prototype = prototype;
 
     /*@cc_on 
 
     // IE6-9: 不支持 __proto__
     if (!('__proto__' in Object.prototype)) {
         var key;
-        var delegateClass = function() {
-            for (key in members) {
-                this[key] = members[key];
+        function BaseClass() {
+            for (key in prototype) {
+                this[key] = prototype[key];
             }
             // IE6-8 无法遍历 JS 内置 constructor 属性，这里手动覆盖。
             this.constructor = subClass;
@@ -64,14 +64,14 @@ Base.extend = function (members) {
         for (key in this) {
             subClass[key] = this[key];
         }
-        delegateClass.prototype = this.prototype;
-        subClass.prototype = new delegateClass;
+        BaseClass.prototype = this.prototype;
+        subClass.prototype = new BaseClass;
     }
 
     @*/
 
     subClass.__proto__ = this;
-    members.__proto__ = this.prototype;
+    prototype.__proto__ = this.prototype;
 
     return subClass;
 

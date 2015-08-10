@@ -8,20 +8,24 @@
   border-radius: 4px;
   background-color: #ffffff;
   max-height: 240px;
-  min-width: 150px;
+  min-width: 98px;
+  max-width: 280px;
 }
 .x-listbox a {
   display: block;
   color: #212121;
   padding: 2px 10px;
-  -moz-transition: background-color 0.15s;
-  -o-transition: background-color 0.15s;
-  -webkit-transition: background-color 0.15s;
-  transition: background-color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .x-listbox a:hover {
   background-color: #f5f5f5;
   text-decoration: none;
+  -moz-transition: background-color 0.1s;
+  -o-transition: background-color 0.1s;
+  -webkit-transition: background-color 0.1s;
+  transition: background-color 0.1s;
 }
 .x-listbox li:first-child a {
   border-top-left-radius: 4px;

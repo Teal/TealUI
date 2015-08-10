@@ -9,7 +9,7 @@
     <meta name="description" content="控件即 UI 组件，控件基类定义了所有 UI 组件的生命周期和统一使用方式。">
 
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
 
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
@@ -26,14 +26,14 @@
     <h3>使用组件</h3>
     <p>假设有一个 UI 组件叫 <code>MyButton</code>，那用法如下：</p>
     <script type="text/html" class="doc-demo">
-        <div data-role="myButton">组件内容</div>
+        <div x-role="myButton">组件内容</div>
     </script>
-    <p>系统会在 DOM ready 时遍历所有 <code>[data-role]</code>并初始化为相应组件。</p>
+    <p>系统会在 DOM ready 时遍历所有 <code>[x-role]</code>并初始化为相应组件。</p>
 
     <p>如果 HTML 是动态生成的，需要在生成之后手动执行初始化：</p>
     <script type="text/html" class="doc-demo">
-        <div data-role="myButton" id="myButton1">组件内容</div>
-        &lt;script>$('[data-role]').role();&lt;/script>
+        <div x-role="myButton" id="myButton1">组件内容</div>
+        &lt;script>$('[x-role]').role();&lt;/script>
     </script>
 
     <p>也可完全通过 JavaScript 初始化组件，不依赖 HTML：</p>
@@ -45,7 +45,7 @@
     <h3>配置组件</h3>
     <p>假设<code>MyButton</code> 组件有一个 <code>buttonSize</code> 配置项和 <code>customevent</code> 自定义事件，那可在 HTML 中配置：</p>
     <script type="text/html" class="doc-demo">
-        <div data-role="myButton" data-button-size="3" data-oncustomevent="alert(0)">组件内容</div>
+        <div x-role="myButton" x-button-size="3" x-oncustomevent="alert(0)">组件内容</div>
     </script>
 
     <p>或在 JavaScript 中，传递第二个参数：</p>
@@ -110,7 +110,7 @@
     <p>一般地，组件拥有一个同名的 CSS 类负责定制样式。组件内部也可通过 CSS 类定位元素。合理的组件结构应该把交互细节交给 JS 完成，而把样式细节交给 CSS 完成。</p>
 
     <h3>API</h3>
-    <script data-doc="control/core/control.js">
+    <script x-doc="control/core/control.js">
         Doc.writeApi({
             path: "control/core/control.js",
             apis: [{

@@ -18,11 +18,18 @@ var ComboBox = Picker.extend({
 
     role: "comboBox",
 
-    dropDownRole: "comboBox.menu",
+    menuRole: "comboBox.menu",
 
+    menuWidth: "100%",
+
+    /**
+     * 设置组件是否自动根据下拉菜单调整宽度。
+     */
     autoResize: true,
 
-    tpl: '<button class="x-button x-dropdownlist" data-role="comboBox"><span></span> <i class="x-icon">&#9662;</i></button>',
+    autoResizePadding: 20,
+
+    tpl: '<button class="x-button x-dropdownlist" x-role="{role}" x-generated="true"><span> </span> <i class="x-icon">&#9662;</i></button>',
 
     init: function () {
 
@@ -37,11 +44,18 @@ var ComboBox = Picker.extend({
         }
 
         // 初始化文本框
-        Picker.prototype.init.apply(this, arguments);
+        Picker.prototype.init.apply(me, arguments);
 
-        if (fromSelect) {
-            me.dropDown.copyFromSelect(me.input);
-            me.dropDown.selectItem(me.dropDown.selectedItem());
+        // 隐藏空菜单。
+        me.popover.on("show", function (e) {
+            if (!me.menu.dom.first().length) {
+                me.popover.hide(e);
+            }
+        });
+        
+        if (fromSelect && me.menu.copySelect) {
+            me.menu.copySelect(me.input);
+            me.menu.selectItem(me.menu.selectedItem());
         }
 
         if (me.autoResize) {
@@ -50,18 +64,13 @@ var ComboBox = Picker.extend({
     },
 
     resizeToFitItems: function () {
-        var dropDown = this.dropDown,
-			oldWidth = dropDown.dom.css('width'),
-			oldDisplay = dropDown.dom.css('display');
-
-        dropDown.dom.css('display', 'inline-block');
-        dropDown.dom.css('width', 'auto');
-
-        this.dom.rect({ width: dropDown.dom.rect().width + 20 });
-
-        dropDown.dom.css('width', oldWidth);
-        dropDown.dom.css('display', oldDisplay);
-        return this;
+        var me = this;
+        var menu = me.menu.dom;
+        var oldDisplay = menu.css('display');
+        menu.css('display', 'inline-block');
+        me.dom.rect({ width: menu.rect().width + me.autoResizePadding });
+        menu.css('display', oldDisplay);
+        return me;
     }
 
 });
@@ -72,10 +81,16 @@ ComboBox.Menu = ListBox.extend({
 
     multiple: false,
 
+    getInput: function () {
+        // 浮层模式不需要自带隐藏域。
+        return Dom();
+    },
+
     init: function () {
         var me = this;
 
-        me.popover = me.dom.addClass("x-popover").role('popover');
+        // 追加浮层样式。
+        me.dom.addClass("x-popover");
 
         // 浮层模式下鼠标移上后直接高亮节点。
         me.dom.on('mouseenter', 'li', function (e) {
@@ -91,6 +106,8 @@ ComboBox.Menu = ListBox.extend({
 
     },
 
-    updateValue: function () { }
+    updateValue: function() {
+        return this;
+    }
 
 });

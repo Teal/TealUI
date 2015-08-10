@@ -622,7 +622,7 @@ var Zepto = (function() {
         })
     },
     data: function(name, value){
-      var data = this.attr('data-' + name.replace(capitalRE, '-$1').toLowerCase(), value)
+      var data = this.attr('x-' + name.replace(capitalRE, '-$1').toLowerCase(), value)
       return data !== null ? deserializeValue(data) : undefined
     },
     val: function(value){
@@ -1806,7 +1806,7 @@ window.$ === undefined && (window.$ = Zepto)
   // Get value from node:
   // 1. first try key as given,
   // 2. then try camelized key,
-  // 3. fall back to reading "data-*" attribute.
+  // 3. fall back to reading "x-*" attribute.
   function getData(node, name) {
     var id = node[exp], store = id && data[id]
     if (name === undefined) return store || setData(node)
@@ -1828,12 +1828,12 @@ window.$ === undefined && (window.$ = Zepto)
     return store
   }
 
-  // Read all "data-*" attributes from a node
+  // Read all "x-*" attributes from a node
   function attributeData(node) {
     var store = {}
     $.each(node.attributes || emptyArray, function(i, attr){
-      if (attr.name.indexOf('data-') == 0)
-        store[camelize(attr.name.replace('data-', ''))] =
+      if (attr.name.indexOf('x-') == 0)
+        store[camelize(attr.name.replace('x-', ''))] =
           $.zepto.deserializeValue(attr.value)
     })
     return store

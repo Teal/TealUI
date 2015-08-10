@@ -9,7 +9,7 @@
     <meta name="description" content="工具提示也即 HTML 的 title 效果，可以在鼠标移上之后显示一些提示层。">
 
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/arrow.css" />
     <link rel="stylesheet" type="text/css" href="../popup/toolTip.css" />
 
@@ -28,30 +28,30 @@
 
     <h2>快速用法</h2>
     <aside class="doc-demo">
-        <button data-title="我是工具提示">鼠标移到我上面，然后稍等</button>
+        <button x-title="我是工具提示">鼠标移到我上面，然后稍等</button>
     </aside>
 
     <h2>基本用法</h2>
-    <p>书写 <code>[data-role="toolTip"]</code> 并设置 <code>[data-target="{目标选择器}"]</code>。</p>
+    <p>书写 <code>[x-role="toolTip"]</code> 并设置 <code>[x-target="{目标选择器}"]</code>。</p>
     <aside class="doc-demo">
         <button id="target1">鼠标移到我上面，然后稍等</button>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1">我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-top"></span>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-left"></span>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-bottom"></span>我是提示文案</span>
-        <span class="x-tooltip" data-role="toolTip" data-target="#target1"><span class="x-arrow x-arrow-right"></span>我是提示文案</span>
+        <span class="x-tooltip" x-role="toolTip" x-target="#target1">我是提示文案</span>
+        <span class="x-tooltip" x-role="toolTip" x-target="#target1"><span class="x-arrow x-arrow-top"></span>我是提示文案</span>
+        <span class="x-tooltip" x-role="toolTip" x-target="#target1"><span class="x-arrow x-arrow-left"></span>我是提示文案</span>
+        <span class="x-tooltip" x-role="toolTip" x-target="#target1"><span class="x-arrow x-arrow-bottom"></span>我是提示文案</span>
+        <span class="x-tooltip" x-role="toolTip" x-target="#target1"><span class="x-arrow x-arrow-right"></span>我是提示文案</span>
     </aside>
 
     <h2>常用 API</h2>
     
     <h5>手动显示工具提示</h5>
-    <pre>$('[data-role="toolTip"]').role().show();</pre>
+    <pre>$('[x-role="toolTip"]').role().show();</pre>
 
     <h5>手动关闭工具提示</h5>
-    <pre>$('[data-role="toolTip"]').role().hide();</pre>
+    <pre>$('[x-role="toolTip"]').role().hide();</pre>
 
     <h5>工具提示显示后回调</h5>
-    <pre>$('[data-role="toolTip"]').role().on('show', function(){ this.dom.setText('浮层被显示了') });</pre>
+    <pre>$('[x-role="toolTip"]').role().on('show', function(){ this.dom.setText('浮层被显示了') });</pre>
     
     <h2>纯 HTML 样式</h2>
     <style>

@@ -429,27 +429,6 @@ Dom.List.prototype = Dom.prototype = {
     },
 
     /**
-     * 将当前节点列表中符合要求的项组成一个新节点列表。
-     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
-     * 
-     * * @param {Object} value 当前项的值。
-     * * @param {Number} index 当前项的索引。
-     * * @param {Array} array 当前正在遍历的数组。
-     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
-     * 
-     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @returns {Dom} 返回一个新节点列表。如果过滤条件为空则返回 @this。
-     * @example $("#elem").filter('div')
-     */
-    filter: function (selector, scope, not) {
-        not = not || false;
-        var me = this;
-        return selector ? me.map(function (node, index) {
-            return (selector.constructor === Function ? selector.call(scope, node, index, me) !== false : Dom.matches(node, selector)) !== not && node;
-        }) : me;
-    },
-
-    /**
      * 对当前节点列表每一项进行处理，并将结果组成一个新数组。
      * @param {Function} callback 对每一项运行的函数。函数的参数依次为:
      *
@@ -469,6 +448,27 @@ Dom.List.prototype = Dom.prototype = {
             result.add(callback.call(scope, node, i, this));
         }
         return result;
+    },
+
+    /**
+     * 将当前节点列表中符合要求的项组成一个新节点列表。
+     * @param {mixed} selector 过滤使用的 CSS 选择器或用于判断每一项是否符合要求的函数。函数的参数依次为:
+     * 
+     * * @param {Object} value 当前项的值。
+     * * @param {Number} index 当前项的索引。
+     * * @param {Array} array 当前正在遍历的数组。
+     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
+     * 
+     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
+     * @returns {Dom} 返回一个新节点列表。如果过滤条件为空则返回 @this。
+     * @example $("#elem").filter('div')
+     */
+    filter: function (selector, scope, not) {
+        not = not || false;
+        var me = this;
+        return selector ? me.map(function (node, index) {
+            return (selector.constructor === Function ? !!selector.call(scope, node, index, me) : Dom.matches(node, selector)) !== not && node;
+        }) : me;
     },
 
     /**
@@ -1805,7 +1805,7 @@ Dom.List.prototype = Dom.prototype = {
         this.each(function (elem, index) {
             typeof console === "object" && console.assert(elem && elem.getAttribute, "dom.role([roleName], [options]): dom[...] 必须是元素)");
             var roles = Dom.data(elem, "roles");
-            var name = roleName || elem.getAttribute("data-role");
+            var name = roleName || elem.getAttribute("x-role");
             var role = roles[name] || (roles[name] = name in Dom.roles ? new Dom.roles[name](elem, options) : null);
 
             // 只保存第一项的结果。

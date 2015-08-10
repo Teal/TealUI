@@ -56,7 +56,7 @@ var ToolTip = Popover.extend({
     onShow: function () {
         var me = this;
         if (me.autoUpdate) {
-            var title = me.target.attr('data-title');
+            var title = me.target.attr('x-title');
             if (title) {
                 var arrow = me.dom.find('.x-arrow');
                 me.dom.html(title).prepend(arrow);
@@ -67,8 +67,8 @@ var ToolTip = Popover.extend({
 });
 
 Dom.ready(function() {
-    // 初始化所有 [data-title] 节点。
-    var domNeedToolTip = Dom.find('[data-title]');
+    // 初始化所有 [x-title] 节点。
+    var domNeedToolTip = Dom.find('[x-title]');
     if (domNeedToolTip.length) {
         ToolTip.global = Dom(document.body).append('<span class="x-tooltip"><span class="x-arrow x-arrow-bottom"></span></span>').role('toolTip', { target: domNeedToolTip, autoUpdate: true, pinEvent: false });
     }

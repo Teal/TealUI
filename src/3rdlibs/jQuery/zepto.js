@@ -469,7 +469,7 @@ var Zepto = (function () {
               })
         },
         data: function (name, value) {
-            var data = this.attr('data-' + dasherize(name), value)
+            var data = this.attr('x-' + dasherize(name), value)
             return data !== null ? data : undefined
         },
         val: function (value) {

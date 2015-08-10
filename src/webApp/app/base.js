@@ -754,9 +754,9 @@
 //            containerSelector = this.find(containerSelector)
 //        } else {
 //            tplSelector = this.find(tplSelector);
-//            containerSelector = tplSelector.prev('div[data-gen="tpl"]');
+//            containerSelector = tplSelector.prev('div[x-gen="tpl"]');
 //            if (!containerSelector.length) {
-//                tplSelector.before(containerSelector = $('<div data-gen="tpl"/>'));
+//                tplSelector.before(containerSelector = $('<div x-gen="tpl"/>'));
 //            }
 //        }
 
@@ -1004,9 +1004,9 @@
 //        containerSelector = this.find(containerSelector)
 //    } else {
 //        tplSelector = this.find(tplSelector);
-//        containerSelector = tplSelector.prev('div[data-gen="tpl"]');
+//        containerSelector = tplSelector.prev('div[x-gen="tpl"]');
 //        if (!containerSelector.length) {
-//            tplSelector.before(containerSelector = $('<div data-gen="tpl"/>'));
+//            tplSelector.before(containerSelector = $('<div x-gen="tpl"/>'));
 //        }
 //    }
         

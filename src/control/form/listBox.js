@@ -7,18 +7,18 @@
 /**
  * 表示一个列表框。
  * @class
- * @extends Input
+ * @extends FormControl
  */
-var ListBox = Input.extend({
+var ListBox = FormControl.extend({
 
-    role: 'listBox',
+    role: 'listbox',
+
+    tpl: '<ul class="x-listbox" x-role="{role}" x-generated="true"><ul>',
 
     /**
      * 设置当前列表框是否允许多选。
      */
     multiple: true,
-
-    tpl: '<ul class="x-listbox"><ul>',
 
     init: function () {
         var me = this;
@@ -27,13 +27,8 @@ var ListBox = Input.extend({
         if (me.dom.is("select")) {
             me.input = me.dom.hide();
             me.dom = me.dom.after(me.tpl);
-            me.copyFromSelect(me.input);
+            me.copySelect(me.input);
         }
-
-        // 禁用链接。
-        me.dom.on('click', function (e) {
-            e.preventDefault();
-        });
 
         // 鼠标按下后选中当前项。
         me.dom.on('mousedown', 'li', function (e) {
@@ -42,11 +37,11 @@ var ListBox = Input.extend({
             var initalItem = Dom(this);
             me.selectItem(initalItem, e);
 
-            var selectedItem = e.ctrlKey && me.selectedItem();
+            var initalSelectedItem = e.ctrlKey && me.selectedItem();
             var deselectMode = e.ctrlKey && !me.selected(initalItem);
 
             function select(e) {
-                me.selectItem(this, e, initalItem, selectedItem, deselectMode);
+                me.selectItem(this, e, initalItem, initalSelectedItem, deselectMode);
             }
 
             // 点击后鼠标经过的节点都被选中。
@@ -57,8 +52,10 @@ var ListBox = Input.extend({
             });
         });
 
-        // 初始化列表值。
-        me.value(me.value());
+        // 禁用链接。
+        me.dom.on('click', function (e) {
+            e.preventDefault();
+        });
 
     },
 
@@ -137,8 +134,8 @@ var ListBox = Input.extend({
             });
         } else {
             var values = [];
-            me.selectedItem().each(function (item, index) {
-                values[index] = me.getValueOf(item);
+            me.selectedItem().each(function (item) {
+                values.push(me.getValueOf(item));
             });
             me.getInput().text(values.join(","));
         }
@@ -184,11 +181,10 @@ var ListBox = Input.extend({
         if (item === undefined) {
             return selected;
         }
-        item = Dom(item);
 
         // 设置样式。
         selected.removeClass('x-listbox-selected');
-        item.addClass('x-listbox-selected');
+        Dom(item).addClass('x-listbox-selected');
 
         // 更新值。
         return me.updateValue();
@@ -197,26 +193,20 @@ var ListBox = Input.extend({
     /**
      * 获取或设置当前输入框的值。
      * @param {String} [value] 要设置的文本。
-     * @returns this
+     * @returns {mixed} this
      */
     value: function (value) {
         var me = this;
         if (value === undefined) {
             return me.getInput().text();
         }
-        if (value) {
-            if (typeof value === "string") {
-                value = me.multiple ? value.split(",") : [value];
-            }
-            var items = Dom();
-            me.dom.children().each(function (item) {
-                if (~value.indexOf(me.getValueOf(item))) {
-                    items.add(item);
-                }
-            });
-            me.selectedItem(items);
+        if (typeof value === "string") {
+            value = me.multiple ? value.split(",") : [value];
         }
-        return me;
+        typeof console === "object" && console.assert(!value || value.indexOf, "listBox.value(value: 必须是字符串或数组)");
+        return me.selectedItem(value ? me.dom.children().filter(function (item) {
+            return ~value.indexOf(me.getValueOf(item));
+        }) : null);
     },
 
     /**
@@ -225,27 +215,31 @@ var ListBox = Input.extend({
      * @returns {} 
      */
     items: function (items) {
+
+        var me = this;
+
         if (items === undefined) {
-            return this.dom.children();
+            return me.dom.children();
         }
 
         var html = '';
         if (!items || items instanceof Dom) {
-            this.dom.html(html);
-            this.dom.append(items);
+            me.dom.html(html);
+            me.dom.append(items);
         } else {
             if (items instanceof Array) {
                 for (var key = 0; key < items.length; key++) {
                     html += '<li><a href="javascript:;">' + items[key] + '</a></li>';
                 }
             } else {
-                for (var i in items) {
-                    html += '<li data-value="' + items[i] + '"><a href="javascript:;">' + i + '</a></li>';
+                for (var key in items) {
+                    html += '<li data-value="' + items[key] + '"><a href="javascript:;">' + key + '</a></li>';
                 }
             }
-            this.dom.html(html);
+            me.dom.html(html);
         }
-        return this;
+        me.value(me.value());
+        return me;
     },
 
     /**
@@ -257,7 +251,7 @@ var ListBox = Input.extend({
         function upDown(isUp) {
 
             // 定位当前选中项。
-            var current = Dom(me.selectedItem()[0]);
+            var current = me.selectedItem();
 
             // 执行移动。
             current = isUp ? current.prev() : current.next();
@@ -278,7 +272,7 @@ var ListBox = Input.extend({
             down: function () {
                 upDown(false);
             },
-            enter: function() {
+            enter: function () {
                 me.selectedItem().click();
             }
         };
@@ -289,7 +283,7 @@ var ListBox = Input.extend({
      * @param {} select 
      * @returns {} 
      */
-    copyFromSelect: function (select) {
+    copySelect: function (select) {
         var me = this;
 
         // 拷贝所有项。
@@ -302,12 +296,8 @@ var ListBox = Input.extend({
         // 拷贝基本属性。
         select = select[0];
         me.multiple = select.multiple;
-        if (select.readOnly) {
-            me.state('readOnly');
-        }
-        if (select.disbaled) {
-            me.state('disbaled');
-        }
+        me.state('readOnly', select.readOnly);
+        me.state('disbaled', select.disbaled);
         me.dom[0].onclick = select.onclick;
         if (select.onchange) {
             me.on('change', select.onchange);

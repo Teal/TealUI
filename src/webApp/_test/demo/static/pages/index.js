@@ -482,7 +482,7 @@
 
         this.flightStore.setAttr('tabtype', cur);
         this.els.elcitytabItems.removeClass('cityTabCrt');
-        this.els.elcitytabItems.filter("[data-type='" + cur + "']").addClass('cityTabCrt');
+        this.els.elcitytabItems.filter("[x-type='" + cur + "']").addClass('cityTabCrt');
         var self = this;
         switch (cur) {
             case 1:

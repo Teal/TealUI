@@ -8,13 +8,14 @@
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="经典菜单效果。">
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../control/popup/menu.css" />
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
     <script type="text/javascript" src="../../utility/dom/dom.js"></script>
     <script type="text/javascript" src="../../utility/dom/pin.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
 
     <script type="text/javascript" src="../../control/core/control.js"></script>
     <script type="text/javascript" src="../../control/core/popover.js"></script>
@@ -25,14 +26,14 @@
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <menu class="x-menu" data-role="menu">
+        <menu class="x-menu" x-role="menu">
             <li><a href="###">菜单 1</a></li>
             <li class="x-menu-disabled"><a href="###">菜单 2</a></li>
             <li class="x-menu-divider"></li>
             <li class="x-menu-arrow">
-                <ul class="x-menu" data-role="menu">
+                <ul class="x-menu" x-role="menu">
                     <li>
-                        <ul class="x-menu" data-role="menu">
+                        <ul class="x-menu" x-role="menu">
                             <li><a href="###">菜单 3-1-1</a></li>
                             <li><hr /></li>
                             <li><a href="###">菜单 3-1-2</a></li>
@@ -42,7 +43,7 @@
                     </li>
                     <li><hr /></li>
                     <li>
-                        <ul class="x-menu" data-role="menu">
+                        <ul class="x-menu" x-role="menu">
                             <li><a href="###">菜单 3-2-1</a></li>
                             <li><hr /></li>
                             <li><a href="###">菜单 3-2-2</a></li>
@@ -59,14 +60,14 @@
 
     <aside class="doc-demo">
         <button>右击我(id=d)</button>
-        <menu class="x-menu x-popover" data-role="menu" data-event="contextmenu">
+        <menu class="x-menu x-popover" x-role="menu" x-event="contextmenu">
             <li><a href="###">菜单 1</a></li>
             <li class="x-menu-disabled"><a href="###">菜单 2</a></li>
             <li class="x-menu-divider"></li>
             <li class="x-menu-arrow">
-                <ul class="x-menu" data-role="menu">
+                <ul class="x-menu" x-role="menu">
                     <li>
-                        <ul class="x-menu" data-role="menu">
+                        <ul class="x-menu" x-role="menu">
                             <li><a href="###">菜单 3-1-1</a></li>
                             <li><hr /></li>
                             <li><a href="###">菜单 3-1-2</a></li>
@@ -76,7 +77,7 @@
                     </li>
                     <li><hr /></li>
                     <li>
-                        <ul class="x-menu" data-role="menu">
+                        <ul class="x-menu" x-role="menu">
                             <li><a href="###">菜单 3-2-1</a></li>
                             <li><hr /></li>
                             <li><a href="###">菜单 3-2-2</a></li>

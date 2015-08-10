@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>列表框</title>
-    <meta name="module-info" content="status=doing">
+    <meta name="module-info" content="">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="同时显示多项，并且列可以选择。">
 
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
-    <link rel="stylesheet" type="text/css" href="../../control/form/listBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/form/listbox.css" />
 
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
@@ -20,7 +20,7 @@
 
     <script type="text/javascript" src="../../control/core/control.js"></script>
     <script type="text/javascript" src="../../control/core/formControl.js"></script>
-    <script type="text/javascript" src="../../control/form/listBox.js"></script>
+    <script type="text/javascript" src="../../control/form/listbox.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -42,16 +42,16 @@
 
     <h2>基本用法</h2>
     <aside class="doc-demo">
-        <select data-role="listBox" multiple size="4">
+        <select x-role="listbox" multiple size="4" id="listBox1">
             <option>A</option>
             <option>B</option>
-            <option>C</option>
-            <option>D</option>
+            <option selected>C</option>
+            <option selected>D</option>
         </select>
     </aside>
 
     <aside class="doc-demo">
-        <ul class="x-listbox" data-role="listBox">
+        <ul class="x-listbox" x-role="listbox">
             <li class="x-listbox-selected"><a href="###">内容  tmp</a></li>
             <li><a href="###">内容   tmp</a></li>
             <li><a href="###">内容  tmp</a></li>
@@ -62,7 +62,7 @@
     </aside>
 
     <aside class="doc-demo">
-        <ul class="x-listbox" data-role="listBox" data-multiple="false">
+        <ul class="x-listbox" x-role="listbox" x-multiple="false">
             <li class="x-listbox-selected"><a href="###">内容  tmp</a></li>
             <li><a href="###">内容   tmp</a></li>
             <li><a href="###">内容  tmp</a></li>

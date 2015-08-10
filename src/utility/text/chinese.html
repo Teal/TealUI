@@ -24,7 +24,7 @@
         <input type="button" value="转为拼音" onclick="document.getElementById('pinyin_result').innerHTML = getPinYin(document.getElementById('pinyin_value').value)" />
         <span id="pinyin_result"></span>
     </p>
-    <script data-doc="utility/text/pinYin.js">
+    <script x-doc="utility/text/pinYin.js">
     Doc.writeApi({
 			path: "utility/text/pinYin.js",
 			apis: [{
@@ -68,7 +68,7 @@
         <span id="pinyin_gbk_result"></span>
     </p>
 
-    <script data-doc="utility/text/pinYin-gbk.js">
+    <script x-doc="utility/text/pinYin-gbk.js">
     Doc.writeApi({
 			path: "utility/text/pinYin-gbk.js",
 			apis: [{
@@ -110,7 +110,7 @@
         <input type="button" value="转繁体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toTradionalChinese(document.getElementById('tradionalChinese_value').value)" />
         <input type="button" value="转简体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toSimpleChinese(document.getElementById('tradionalChinese_value').value)" />
     </p>
-    <script data-doc="utility/text/tradionalChinese.js">
+    <script x-doc="utility/text/tradionalChinese.js">
     Doc.writeApi({
 			path: "utility/text/tradionalChinese.js",
 			apis: [{

@@ -18,28 +18,52 @@ var Suggest = ComboBox.extend({
      */
     items: null,
 
-    autoPopup: true,
+    autoPopover: true,
 
     /**
-     * 更新当前正在提示的项。
-     * @param {} item 
+     * 设置组件是否自动根据下拉菜单调整宽度。
+     */
+    autoResize: false,
+
+    /**
+     * 更新当前所有的提示项。
+     * @param {Dom} item 
      * @returns {} 
      */
-    update: function(items) {
-        
-        // 找出提示项中匹配的项。
-        var value = this.value().trim().toLowerCase();
+    suggest: function (items, matchOnly, hideMenuIfFound) {
 
+        var me = this;
+
+        // 找出提示项中匹配的项。
+        var value = me.value().trim().toLowerCase();
+
+        // 无过滤，直接显示全部项。
+        if (!value) {
+            me.menu.items(items);
+            return me;
+        }
+
+        // 存在一项完全匹配，提示完成。
+        if (hideMenuIfFound && ~items.indexOf(value)) {
+            me.popover.hide();
+            return me;
+        }
+
+        // 高亮并筛选全部符合要求的项。
         var html = '';
         for (var i = 0; i < items.length; i++) {
             if (items[i].toLowerCase().indexOf(value) === 0) {
                 html += '<li><a href="javascript:;">' + value + "<strong>" + items[i].substr(value.length) + "</strong>" + '</a></li>';
+            } else if (!matchOnly) {
+                html += '<li><a href="javascript:;">' + items[i] + '</a></li>';
             }
         }
+        me.menu.dom.html(html);
 
-        this.dropDown.dom.html(html);
-        this.dropDown.selectedItem(this.dropDown.dom.first());
+        // 默认选择第一个结果。
+        me.menu.selectedItem(me.menu.dom.first());
 
+        return me;
     },
 
     /**
@@ -47,24 +71,8 @@ var Suggest = ComboBox.extend({
 	 * @protected 
 	 * @virtual
 	 */
-    updateDropDown: function () {
-
-        var items = this.items;
-        var value = this.value().trim();
-
-        // 无过滤，直接显示全部项。
-        if (!value) {
-            this.dropDown.items(items);
-            return;
-        }
-
-        // 存在一项完全匹配，提示完成。
-        if (~items.indexOf(value)) {
-            this.popover.hide();
-            return;
-        }
-
-        this.update(items);
+    updateMenu: function () {
+        this.suggest(this.items, true, true);
     }
 
 });

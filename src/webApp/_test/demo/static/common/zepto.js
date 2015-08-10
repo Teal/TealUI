@@ -628,7 +628,7 @@ var Zepto = (function () {
               (this[0] && this[0][name])
         },
         data: function (name, value) {
-            var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
+            var attrName = 'x-' + name.replace(capitalRE, '-$1').toLowerCase()
 
             var data = (1 in arguments) ?
               this.attr(attrName, value) :

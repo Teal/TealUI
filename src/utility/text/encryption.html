@@ -25,7 +25,7 @@
         <input type="button" value="加密" onclick="document.getElementById('stringEncryption_value').value = encryptString(document.getElementById('stringEncryption_value').value)" />
         <input type="button" value="解密" onclick="document.getElementById('stringEncryption_value').value = dencryptString(document.getElementById('stringEncryption_value').value)" />
     </p>
-    <script data-doc="utility/text/stringEncryption.js">
+    <script x-doc="utility/text/stringEncryption.js">
 
         Doc.writeApi({
 			path: "utility/text/stringEncryption.js",
@@ -79,7 +79,7 @@
         <input type="button" value="base64 Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64Md5(document.getElementById('md5_value').value)" />
         <input type="button" value="hmacMd5 & HMAC Md5 加密" onclick="document.getElementById('md5_value').value = md5.base64HmacMd5(document.getElementById('md5_value').value, 'key')" />
     </p>
-    <script data-doc="utility/text/md5.js">
+    <script x-doc="utility/text/md5.js">
 
         Doc.writeApi({
 			path: "utility/text/md5.js",
@@ -102,7 +102,7 @@
 });</script>
 
     <h2>MD5 加密扩展</h2>
-    <script data-doc="utility/text/md5Ex.js">
+    <script x-doc="utility/text/md5Ex.js">
 
         Doc.writeApi({
 			path: "utility/text/md5Ex.js",
@@ -170,7 +170,7 @@
         <input type="text" id="sha1_value" style="width: 300px;" />
         <input type="button" value="SHA-1 加密" onclick="document.getElementById('sha1_value').value = sha1(document.getElementById('sha1_value').value)" />
     </p>
-    <script data-doc="utility/text/sha1.js">
+    <script x-doc="utility/text/sha1.js">
 
         Doc.writeApi({
 			path: "utility/text/sha1.js",
@@ -200,7 +200,7 @@
         密钥：<input type="text" id="des_key" />
         <input type="button" value="DES 加密" onclick="document.getElementById('des_value').value = des(document.getElementById('des_value').value, document.getElementById('des_key').value)" />
     </p>
-    <script data-doc="utility/text/des.js">
+    <script x-doc="utility/text/des.js">
 
         Doc.writeApi({
 			path: "utility/text/des.js",

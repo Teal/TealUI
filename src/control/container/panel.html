@@ -9,7 +9,7 @@
     <meta name="description" content="面板可以用于展示一块信息。">
 
     <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
     <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
     <link rel="stylesheet" type="text/css" href="../../control/container/panel.css" />
 
@@ -179,9 +179,9 @@
     </aside>
 
     <h2>折叠</h2>
-    <p>为 <code>.x-panel</code> 添加 <code>[data-role="panel"]</code>，即可支持面板的折叠效果。</p>
+    <p>为 <code>.x-panel</code> 添加 <code>[x-role="panel"]</code>，即可支持面板的折叠效果。</p>
     <aside class="doc-demo">
-        <section class="x-panel x-panel-collapsed" data-role="panel">
+        <section class="x-panel x-panel-collapsed" x-role="panel">
             <header class="x-panel-header">
                 <h5>我是被折叠起来的面板</h5>
             </header>
@@ -193,7 +193,7 @@
     
     <h5>手动切换折叠</h5>
     <pre>
-        $('[data-role=panel]').role().toggleCollapse();
+        $('[x-role=panel]').role().toggleCollapse();
     </pre>
 </body>
 </html>

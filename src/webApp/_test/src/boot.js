@@ -183,9 +183,9 @@ var bootjs = (function (window) {
         nodes = document.getElementsByTagName("script");
         node = nodes[nodes.length - 1];
 
-        bootjs.debug = node.getAttribute('data-debug') === "true";
-        bootjs.basePath = node.getAttribute('data-base');
-        bootjs.mainModule = node.getAttribute('data-main');
+        bootjs.debug = node.getAttribute('x-debug') === "true";
+        bootjs.basePath = node.getAttribute('x-base');
+        bootjs.mainModule = node.getAttribute('x-main');
 
         bootjs.basePath = bootjs.basePath || getAbsoluteUrl(node, 'src').replace(/\/[^\/]*$/, "");
 

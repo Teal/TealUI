@@ -42,9 +42,9 @@ var Menu = Control.extend({
 
         // 子菜单：菜单的显示和隐藏由父菜单管理。
         if (!me.parent()) {
-            var popover = me.as(Popover);
             // 主菜单：如果是浮动菜单，则交由浮动处理。
-            if (popover) {
+            if (me.dom.is(".x-popover") || Dom.data(me.dom[0], 'roles').popover) {
+                var popover = me.dom.role('popover');
                 // 设置为右键或下拉菜单。
                 me.popover = popover.on('show', function () {
                     me.hideSub().selectedItem(null);
@@ -56,7 +56,7 @@ var Menu = Control.extend({
                         me.popover.hide(e);
                     }
                 });
-                me.popover.target.keyNav && me.popover.target.keyNav(me.keyBindings());
+                me.popover.target.keyNav(me.keyBindings());
             } else {
                 // 如果不是子菜单，则绑定点击隐藏事件。
                 Dom(document).on('click', function (e) {
@@ -68,7 +68,7 @@ var Menu = Control.extend({
         }
     },
 
-    onItemClick: function(e) {
+    onItemClick: function (e) {
         var target = Dom(e.target).closest('li');
         // 禁用无法点击。
         // 有子菜单无法点击。

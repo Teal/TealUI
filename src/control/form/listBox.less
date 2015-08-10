@@ -11,17 +11,21 @@
     border-radius: @border-radius;
     background-color: @background-color;
     max-height: @line-height * 10;
-    min-width: 150px;
+    min-width: @font-size * 7;
+    max-width: @font-size * 20;
 
     a {
         display: block;
         color: @text-color;
         padding: @padding-y / 2 @padding-x;
-        .transition(background-color .15s);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &:hover {
             background-color: @background-color-hover;
             text-decoration: none;
+            .transition(background-color .1s);
         }
     }
 
