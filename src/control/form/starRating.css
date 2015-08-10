@@ -1,4 +1,4 @@
-.x-starrating {
+﻿.x-starrating {
   position: relative;
   display: inline-block;
   *display: inline;
@@ -8,7 +8,7 @@
 }
 .x-starrating-back,
 .x-starrating-fore {
-  background-image: url("images/star.png");
+  background-image: url(images/star.png);
   background-repeat: repeat-x;
   height: 14px;
   width: 100%;
@@ -22,7 +22,7 @@
   line-height: 20px;
 }
 .x-starrating-do ul {
-  background: url("images/icon-starrating-big.gif") repeat-x left top;
+  background: url(images/icon-starrating-big.gif) repeat-x left top;
   height: 20px;
   overflow: hidden;
   position: relative;

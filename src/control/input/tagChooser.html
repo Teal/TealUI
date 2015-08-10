@@ -10,14 +10,15 @@
 
     <!-- 以下是本组件的全部源码 -->
     <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../form/tagChooser.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/input/tagChooser.css" />
 
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
-    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
     <script type="text/javascript" src="../../utility/lang/class.js"></script>
-    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
 
-    <script type="text/javascript" src="../form/tagChooser.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../control/input/tagChooser.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
@@ -25,10 +26,12 @@
     <link rel="stylesheet" type="text/css" href="../input/textBox.css" />
     
     <aside>
-        <input type="text" class="x-textbox" id="tagchooser" x-role="tagChooser" />
-        <a class="x-tagchooser x-tagchooser-selected" href="javascript:;">选项1</a>
-        <a class="x-tagchooser" href="javascript:;">选项2</a>
-        <a class="x-tagchooser" href="javascript:;">选项3</a>
+        <input type="text" class="x-textbox" id="tagchooser"/>
+        <span class="x-tagchooser" x-role="tagchooser">
+            <a class="x-tagchooser-selected" href="javascript:;">选项1</a>
+            <a href="javascript:;">选项2</a>
+            <a href="javascript:;">选项3</a>
+        </span>
     </aside>
 </body>
 </html>

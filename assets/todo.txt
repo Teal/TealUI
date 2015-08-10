@@ -63,8 +63,6 @@ webApp
 8/18
 	control/form/calender
 	control/input/datePicker
-8/19
-	control/input/suggest
 8/20
 	control/input/upDown
 	control/input/upDown-traditional
@@ -76,9 +74,6 @@ webApp
 	control/form/slider
 8/22
 	control/form/starRating
-	control/input/charCounter
-	control/input/placeholder
-	control/form/tagChooser
 8/23
 	control/input/cityPicker
 8/24

@@ -1,15 +1,15 @@
-﻿.x-tagchooser {
+﻿.x-tagchooser a {
   display: inline-block;
   padding: 3px 8px;
   text-decoration: none;
   color: #337ab7;
   border-radius: 4px;
 }
-.x-tagchooser:before {
+.x-tagchooser a:before {
   content: '✚ ';
 }
-.x-tagchooser-selected,
-.x-tagchooser:hover {
+a.x-tagchooser-selected,
+.x-tagchooser a:hover {
   background-color: #337ab7;
   color: #ffffff;
   text-decoration: none;

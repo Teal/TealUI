@@ -2,18 +2,18 @@
  * @author xuld
  */
 
-// #require ../control/base
+// #require ../core/control
 
 var Placeholder = Control.extend({
 
-    init: function() {
-        var me = this,
-            input = me.elem.nextElementSibling;
-        input.on('focus', function() {
-            me.elem.hide();
-        });
-        input.on('blur', function() {
-            !input.value && me.elem.show();
+    role: "placeholder",
+
+    init: function () {
+        var dom = this.dom;
+        dom.next().on("focus", function () {
+            dom.hide();
+        }).on("blur", function() {
+            Dom(this).text() || dom.show();
         });
     }
 

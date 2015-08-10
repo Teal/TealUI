@@ -6,26 +6,24 @@
 
 var CharCounter = Control.extend({
 
+    role: "charcounter",
+
     maxLength: 300,
 
-    target: null,
-
-    init: function() {
+    init: function () {
         var me = this;
-        me.target = document.query(me.target);
-        me.tpl = me.elem.innerHTML;
-        me.target.on('keyup', me.update, me);
+        me.target = (Dom(me.target).valueOf() || me.dom.prev()).on("input", function () {
+            me.update();
+        });
+        me.contentTpl = me.dom.html();
         me.update();
     },
 
-	update: function () {
-	    var me = this,
-            length = me.target.value.length,
-	        left = me.maxLength - length;
-
-	    me.elem.classList[left >= 0 ? 'remove' : 'add']('x-tip-error');
-	    me.elem.innerHTML = me.tpl.replace('{input}', length).replace('{total}', me.maxLength).replace('{left}', left);
-
+    update: function () {
+        var me = this;
+        var length = me.target.text().length;
+        var left = me.maxLength - length;
+        me.dom.toggleClass('x-tip-error', left < 0).html(me.contentTpl.replace('{input}', length).replace('{total}', me.maxLength).replace('{left}', left));
     }
 
 });
