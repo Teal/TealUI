@@ -3,7 +3,7 @@
  * @author xuld 
  */
 
-typeof include === "function" && include("base");
+typeof include === "function" && include("dom");
 
 /**
  * 设置当前节点列表每一项的位置使其依靠现有的节点布局。
@@ -54,6 +54,7 @@ typeof include === "function" && include("base");
  * * * @param {Number} [overflowX] 超过屏幕宽度而产生越界，对应的值表示容器的最大值。
  * * * @param {Number} [overflowY] 超过屏幕高度而产生越界，对应的值表示容器的最大值。
  * @returns this
+ * @example $("#elem").pin("#target", "rb")
  */
 Dom.prototype.pin = function (target, align, offsetX, offsetY, container, padding, callback) {
 

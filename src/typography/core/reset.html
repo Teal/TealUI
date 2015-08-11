@@ -8,14 +8,20 @@
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="定义全局 CSS 样式。">
 
-    <!-- 以下是本组件的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 </head>
 <body>
-    <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" data-doc />
+
+    <h2>标签重置 <small>(CSS Reset)</small></h2>
     
-    <h2>默认字体</h2>
+    <ul>
+        <li>IOS, Android, IE: 阻止调整设备方向后自动调整文本大小</li>
+        <li>IOS: 隐藏触摸按下的灰色阴影</li>
+    </ul>
+
+    <h3>默认字体</h3>
     <p>为使中文排版更加美观，TealUI 默认使用了 14px 大号字体。</p>
     <pre>
         body {
@@ -32,7 +38,7 @@
         <span style="font-size:.5em">我是很小很小的字，手机 Chrome 可以显示很小。</span>
     </aside>
 
-    <h2>默认间距</h2>
+    <h3>默认间距</h3>
     <p>TealUI 为语义化块级标签定义 1em(同字体大小, 14px) 的下边距：</p>
     <pre>
         p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
@@ -169,7 +175,7 @@
         <input type="button" value="按钮1" />
         <button>按钮2</button>
         <textarea>文本域</textarea>
-        
+
         <fieldset>
             <legend>标签</legend>
             文字
@@ -210,7 +216,7 @@ function fn(){
     </pre>
     <aside class="doc-demo">
         <aside>aside</aside>
-        
+
         <input type="number" />
         <input type="range" />
         <input type="search" />

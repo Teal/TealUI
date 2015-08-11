@@ -1,8 +1,6 @@
 
 
-
-
-typeof include === "function" && include("dom/dom.js");
+typeof include === "function" && include("../dom/dom.js");
 
 
 Dom.implement({

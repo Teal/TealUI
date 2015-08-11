@@ -5,8 +5,6 @@ typography
 utility
 	browser
 		addToHomeScreen
-		swfObject
-		zeroClipboard
 	dom
 		*
 	drawing
@@ -17,10 +15,6 @@ utility
 		*
 webApp
 	
-8/8
-	typography/misc/*
-	typography/form/*
-	typography/nav/*
 8/9
 	less 生成工具
 8/10
@@ -40,10 +34,6 @@ webApp
 	utility/ux/touchRolate
 8/16
 	utility/dom/cssRule
-	utility/dom/windowRect
-	utility/dom/within
-	utility/dom/morph
-	utility/dom/pin
 8/17
 	utility/ux/popup
 
@@ -121,9 +111,6 @@ webApp
 9/8
 9/9
 	utility/browser/addToHomeScreen
-9/10
-	utility/browser/swfObject
-	utility/browser/zeroClipboard
 9/11
 	utility/ux/highlightKeywords
 9/13

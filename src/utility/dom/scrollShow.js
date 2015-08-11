@@ -3,13 +3,13 @@
  * @author xuld
  */
 
-typeof include === "function" && include("base");
+typeof include === "function" && include("dom");
 
 /**
  * 判断集合第一项是否刚好滚在可见内范围内。
  * @param {Dom} [scrollParent=document] 滚动所在的容器。
  * @returns {Boolean} 如果部分或全部在可见内范围内，则返回 @true，否则返回 @false。
- * @example $("#elem1").isScrollIntoView()
+ * @example $("#elem").isScrollIntoView()
  */
 Dom.prototype.isScrollIntoView = function (scrollParent) {
     if (this[0]) {

@@ -8,18 +8,22 @@
     <meta name="description" content="基于 Flash　支持复制功能。">
     <meta name="keywords" content="复制, copy, 拷贝, 剪贴板, clipboard">
     <!-- 以下是本组件的全部源码 -->
-    <script type="text/javascript" src="../browser/zeroClipboard.js"></script>
+    <script type="text/javascript" src="../lang/html5.js"></script>
+    <script type="text/javascript" src="zeroClipboard.js"></script>
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
-    <article>
-        <script>
-            Demo.writeExamples({
-                "复制内容到剪贴板": 'Browser.copyText("content")'
-            });
-        </script>
-    </article>
+    <button id="button1">复制</button>
+
+    <textarea id="textBox1">我是需要复制的文本</textarea>
+
+    <script>
+        ZeroClipboard.init({
+            dom: document.getElementById("button1"),
+            input: document.getElementById("textBox1"),
+        });
+    </script>
 </body>
 </html>

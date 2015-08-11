@@ -2,54 +2,49 @@
 //  动态CSS  css.js      A
 //===========================================
 
+
 /**
- * 动态操作样式表。
+ * 动态增加一个样式。
  */
-var CssRules = {
+function addCssRule(selector, styles, styleSheetName) {
+    throw "此函数未完成";
+}
 
-    /**
-     * 动态增加一个样式。
-     */
-    add: function(selector, styles, styleSheetName){
-        throw "此函数未完成";
-    },
-    
-    /**
-     * 动态删除一个样式。
-     */
-    remove: function (selector, styles, styleSheetName) {
-        throw "此函数未完成";
-    },
-    
-    /**
-     * 获取指定样式。
-     */
-    get: function (selector, styleSheetName) {
-        throw "此函数未完成";
-    },
+/**
+ * 动态删除一个样式。
+ */
+function removeCssRule(selector, styles, styleSheetName) {
+    throw "此函数未完成";
+}
 
-    /**
-     * 获取指定样式。
-     */
-    set: function (selector, styles, styleSheetName) {
-        throw "此函数未完成";
-    },
-    
-    /**
-     * 禁用或启用指定的样式表文件。
-     */
-    disableStyleSheet: function (styleSheetName, disabled) {
-        throw "此函数未完成";
-    },
+/**
+ * 获取指定样式。
+ */
+function getCssRule(selector, styleSheetName) {
+    throw "此函数未完成";
+}
 
-    /**
-     * 设置指定的样式表文件路径。
-     */
-    setStyleSheet: function (styleSheetName, src) {
-        throw "此函数未完成";
-    }
-    
-};
+/**
+ * 获取指定样式。
+ */
+function setCssRule(selector, styles, styleSheetName) {
+    throw "此函数未完成";
+}
+
+/**
+ * 禁用或启用指定的样式表文件。
+ */
+function disableStyleSheet(styleSheetName, disabled) {
+    throw "此函数未完成";
+}
+
+/**
+ * 设置指定的样式表文件路径。
+ */
+function setStyleSheet(styleSheetName, src) {
+    throw "此函数未完成";
+}
+
 
 
 //Object.extend(Dom, (function(){
@@ -154,13 +149,13 @@ var CssRules = {
 //        }
 //        return result;
 //    },
-   
-   
+
+
 //   refreshCache : function(){
 //       return this.getRules(true);
 //   },
 
-   
+
 //   cacheStyleSheet : function(ss){
 //       if(!rules){
 //           rules = {};
@@ -172,8 +167,8 @@ var CssRules = {
 //           }
 //       }catch(e){}
 //   },
-   
-   
+
+
 //   getRules : function(refreshCache){
 //   		if(rules == null || refreshCache){
 //   			rules = {};
@@ -186,8 +181,8 @@ var CssRules = {
 //   		}
 //   		return rules;
 //   	},
-   	
-   	
+
+
 //   getRule : function(selector, refreshCache){
 //   		var rs = this.getRules(refreshCache);
 //   		if(!(selector instanceof Array)){
@@ -200,9 +195,9 @@ var CssRules = {
 //		}
 //		return null;
 //   	},
-   	
-   	
-   	
+
+
+
 //   updateRule : function(selector, property, value){
 //   		if(!(selector instanceof Array)){
 //   			var rule = this.getRule(selector);
@@ -219,17 +214,17 @@ var CssRules = {
 //   		}
 //   		return false;
 //   	},
-   	
+
 //   	/**
 //     * dynamicStyleMap - <Hash> used to keep a reference to dynamically
 //     * created style sheets for quick access
 //     */
 //    dynamicStyleMap: new Hash(),
-   
+
 //   };	
 //}));
 
-   
+
 //createStyleSheet : function(cssText){
 //    var ss;
 //    if(Ext.isIE){
@@ -251,7 +246,7 @@ var CssRules = {
 //    return ss;
 //},
 
-   
+
 //removeStyleSheet : function(id){
 //    var existing = doc.getElementById(id);
 //    if(existing){
@@ -259,7 +254,7 @@ var CssRules = {
 //    }
 //},
 
-   
+
 //swapStyleSheet : function(id, url){
 //    this.removeStyleSheet(id);
 //    var ss = doc.createElement("link");

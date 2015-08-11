@@ -10,21 +10,12 @@
 
     <!-- 以下是本组件的全部源码 -->
     <script type="text/javascript" src="../../utility/lang/html5.js"></script>
-    <script type="text/javascript" src="../../utility/dom/iframe.js"></script>
-    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/morph.js"></script>
 </head>
-<body>
-    <div id="a" class="doc-box"></div>
-    <div id="b" class="doc-box-small"></div>
-    <article class="demo">
-        
-        <script>
-            Demo.writeExamples({
-                '变形到指定节点': 'Dom.get("a").morph("b")',
-                '变形到指定区块': 'Dom.get("a").morph(100, 500, 234, 667)',
-                '变形到指定坐标': 'Dom.get("a").morph(250, 170)'
-            });
-        </script>
-    </article>
+<body>    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <div id="b" class="doc-box-small doc-red"></div>
+    <div id="a" class="doc-box" style="position: absolute;"></div>
 </body>
 </html>

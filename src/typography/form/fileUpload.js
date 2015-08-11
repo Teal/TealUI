@@ -2,14 +2,12 @@
  * @author xuld
  */
 
-typeof include === "function" && include("../form/button
-");
-typeof include === "function" && include("../core/base
-");
+typeof include === "function" && include("../form/button");
+typeof include === "function" && include("../core/base");
 
 Control.extend({
 
-    role: 'fileUpload',
+    role: 'fileupload',
 
     init: function () {
         var dom = this.dom;

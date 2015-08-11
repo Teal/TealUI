@@ -16,10 +16,10 @@
 }
 .x-fileupload input[type="file"]:focus + .x-button,
 .x-fileupload input[type="file"]:hover + .x-button {
-  background-color: #e1e1e1;
+  background-color: #50a3e6;
 }
 .x-fileupload input[type="file"]:active + .x-button {
-  background-color: #cfcfcf;
-  border-color: #cfcfcf;
+  background-color: #3093e1;
+  border-color: #3093e1;
   box-shadow: inset 0 1px 10px rgba(0, 0, 0, 0.15);
 }
