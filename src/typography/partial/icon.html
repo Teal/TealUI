@@ -4,37 +4,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>图标</title>
-    <meta name="module-info" content="order=^, parent-title=小部件, parent-order=typography, package=default, group=icon">
     <meta name="author" content="xuld@vip.qq.com">
-    <meta name="description" content="基于字体实现各类小图标。">
+    <meta name="description" content="提供各类小图标。">
 
-    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
-
-    <!-- 以下是本组件扩展的全部源码 -->
-    <link rel="stylesheet" type="text/css" href="../../typography/partial/iconEx.css" />
-    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon-glyph.css" />
 </head>
 <body>
-    <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../typography/partial/spin.css" />
-
     <h2>基本用法</h2>
-    <p>创建一个独立的 <code>&lt;span class="x-icon"&gt;</code> 标签来表示图标，标签内部文本决定了图标的内容。</p>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" data-doc />
+    <p>创建一个独立的 <code>&lt;span class="x-icon"&gt;</code> 标签来表示图标，标签内部字符决定了图标的内容。</p>
     <aside class="doc-demo">
         <span class="x-icon">&#9733;</span> 你好　　
         <a href="###"><span class="x-icon">&#9733;</span>你好</a>
     </aside>
     <blockquote class="doc-note">
         <h4>注意</h4>
-        1. 不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。<br />
-        2. 使用图标时应在图标后追加一个空格以保证美观。<br />
-        3. 链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。
+        <ol>
+            <li>不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。</li>
+            <li>使用图标时应在图标后追加一个空格以保证美观。</li>
+            <li>链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。</li>
+        </ol>
     </blockquote>
 
-    <h2>通过 class 指定图标</h2>
+    <h2>通过 <code>class</code> 指定图标</h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/iconEx.css" data-doc />
     <p>部分用户习惯使用 <code>class</code> 来指定图标，所以 TealUI 也提供了额外的 <code>iconEx.css</code>。但我们不建议用户使用它，因为这会大幅增加最终的 CSS 代码量。</p>
     <aside class="doc-demo">
         <span class="x-icon x-icon-star"></span> 你好　
@@ -42,6 +37,7 @@
     </aside>
 
     <h2>旋转图标</h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/spin.css" />
     <p>结合 <a href="spin.html">旋转效果(spin)</a> 组件，可以完成加载中的效果。</p>
     <aside class="doc-demo">
         <span class="x-icon x-spin">&#1161;</span> 正在加载...　　
@@ -101,10 +97,10 @@
         document.write(html);
     </script>
 
-    <h2>更多图标及定制</h2>
-    <p>所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供。在其官方应用导入 <a target="_blank" href="icomoon_TealUI.json">icomoon_TealUI.json</a> 配置文件，可继续自定义图标。</p>
+    <blockquote>所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供。在其官方应用导入 <a target="_blank" href="icomoon_TealUI.json">icomoon_TealUI.json</a> 配置文件，可继续自定义图标。</blockquote>
     
     <h2>经典图标 <small>(兼容IE6)</small></h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon-glyph.css" />
     <p>除了使用字体图标，还可使用经典的图片图标效果。图标由 <a target="_blank" href="http://glyphicons.com">Glyphicons</a> 提供。</p>
     <style>
         #list li {
@@ -264,6 +260,5 @@
         <li><i class="x-icon-glyph x-icon-glyph-briefcase"></i>x-icon-glyph-briefcase</li>
         <li><i class="x-icon-glyph x-icon-glyph-fullscreen"></i>x-icon-glyph-fullscreen</li>
     </ul>
-
 </body>
 </html>
