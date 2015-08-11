@@ -50,9 +50,9 @@
 .x-page-header {
     background-color: @header-backgorund-color;
     color: @selected-text-color;
-    padding: @padding-x;
+    padding: @padding-width;
     height: @header-height;
-    line-height: @header-height - @padding-x * 2;
+    line-height: @header-height - @padding-width * 2;
 
     a {
         color: @selected-text-color;
@@ -80,7 +80,7 @@
         text-align: center;
         color: @text-color-tip;
         text-decoration: none;
-        padding: @padding-x 0;
+        padding: @padding-width 0;
 
         .x-icon {
             margin-right: 0;
@@ -108,18 +108,18 @@
         border: 1px solid @selected-text-color;
         border-left: 0;
         color: @selected-text-color;
-        padding: 0 @padding-x * 1;
+        padding: 0 @padding-width * 1;
         line-height: 150%;
 
         &:first-child {
             border-left: 1px solid @selected-text-color;
             border-radius: @font-size 0 0 @font-size;
-            padding-left: @padding-x * 1.5;
+            padding-left: @padding-width * 1.5;
         }
 
         &:last-child {
             border-radius: 0 @font-size @font-size 0;
-            padding-right: @padding-x * 1.5;
+            padding-right: @padding-width * 1.5;
         }
     }
 
@@ -137,7 +137,7 @@
 
 .x-page-list-header {
     margin-top: .5em;
-    padding: 0 @padding-x;
+    padding: 0 @padding-width;
 }
 
 .x-page-list {

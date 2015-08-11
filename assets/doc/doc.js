@@ -97,6 +97,7 @@ var Doc = {
                         <li{actived:docs}><a href="{baseUrl}docs/{indexUrl}">开始使用</a></li>\
                         <li{actived:src}><a href="{baseUrl}src/{indexUrl}">所有组件</a></li>\
                         <li{actived:assets}><a href="{baseUrl}assets/tools/download.html">下载和定制</a></li>\
+                        <li><a href="https://github.com/Teal/TealUI/issues" target="_blank">讨论</a></li>\
                     </ul>\
                     <form id="doc_search" class="doc-right" onsubmit="Doc.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
                         <input type="text" placeholder="搜索组件..." value="{search}" autocomplete="off"  onfocus="Doc.showSearchSuggest(this.value)" onblur="Doc.hideSearchSuggest()" oninput="Doc.onSuggestInput(\'doc_search_suggest\', this.value, false)" onchange="Doc.onSuggestInput(\'doc_search_suggest\', this.value, false)" onkeydown="Doc.onSuggestKeyPress(\'doc_search_suggest\', event)" />\

@@ -2,48 +2,241 @@
  * @author xuld
  */
 
-typeof include === "function" && include("../utility/date");
-typeof include === "function" && include("../dom/animate");
+typeof include === "function" && include("../../utility/lang/date.js");
 
 /**
  * 表示一个日历组件。
+ * @class
+ * @extends Control
  */
 var Calender = Control.extend({
 
     /**
-     * 获取或设置现在选中的时间。
-     */
-    value: null,
-
-    /**
-     * 获取或设置当前日历显示的时间。
+     * 设置当前日历显示的时间。
      */
     displayValue: null,
 
     /**
-     * 获取或设置当前日历显示的时间。
+     * 设置当前日期的字符串格式。
      */
-    now: null,
+    _format: 'yyyy/M/d',
 
     /**
-     * 指示当前选择的范围。
+     * 获取或设置显示的日期格式。
      */
-    format: 'yyyy/M/d',
+    format: function (value) {
+        if (value === undefined) {
+            return this._format;
+        }
+        this._format = value;
+        var showTime = /[Hhms]/.test(value);
+        this.dom.find('.x-calender-time').toggle(showTime);
+        if (showTime) {
+            var inputs = this.dom.find('.x-calender-time input');
+            inputs[0].readOnly = value.indexOf('H') < 0;
+            inputs[1].readOnly = value.indexOf('m') < 0;
+            inputs[2].readOnly = value.indexOf('s') < 0;
+        }
+        return this;
+    },
+
+    /**
+     * 获取或设置当前日历显示的时间。
+     */
+    _now: null,
+
+    /**
+     * 设置显示的当前时间。
+     */
+    now: function (value) {
+        if (value === undefined) {
+            return this._now;
+        }
+        this._now = value = Date.parseDate(value);
+        this.dom.find('.x-calender-now').attr('data-value', +value).text(value.format(Calender.locale.today));
+        return this;
+    },
+
+    /**
+     * 设置可选择的最小值。
+     */
+    _min: null,
+
+    /**
+     * 设置可选择的最小值。
+     * @param {Date} value 要设置的最小值。
+     */
+    min: function (value) {
+        if (value === undefined) {
+            return this._min;
+        }
+        this._min = value = Date.parseDate(value);
+        if (this._value < value) {
+            this.value(value);
+        }
+        return this;
+    },
+
+    /**
+     * 设置可选择的最大值。
+     */
+    _max: null,
+
+    /**
+     * 设置可选择的最小值。
+     * @param {Date} value 要设置的最大值。
+     */
+    max: function (value) {
+        if (value === undefined) {
+            return this._max;
+        }
+        this._max = value = Date.parseDate(value);
+        if (this._value > value) {
+            this.value(value);
+        }
+        return this;
+    },
+
+    /**
+     * 获取或设置现在选中的时间。
+     */
+    _value: null,
+
+    /**
+     * 获取或设置当前日历的值。
+     * @param {Date} value 要设置的值。
+     */
+    value: function (value) {
+        var me = this;
+        if (value === undefined) {
+            return me._value;
+        }
+        if (me._value - value) {
+            me._value = value;
+            me.displayValue = new Date(+value);
+            me.loadHours(value);
+            me.view(/d/.test(me._format) ? 'day' : /M/.test(me._format) ? 'month' : 'year');
+            me.trigger('change');
+        }
+        return me;
+    },
 
     /**
      * 获取或设置当前显示的视图。可能的值为'day'、'month'、'year'或'decade'。
      */
-    view: null,
+    _view: null,
 
     /**
-     * 获取或设置可选择的最小值。
+     * 获取或设置当前显示的视图。
+     * @param {String} view 视图名。可能的值为 'day'、'month'、'year' 或 'decade'。
+     * @param {String} [animation] 切换使用的渐变效果。可能值有： 'slideLeft'、'slideRight'、'zoomIn'或'zoomOut'。
+     * @returns this
      */
-    min: null,
+    view: function (view, animation) {
 
-    /**
-     * 获取或设置可选择的最大值。
-     */
-    max: null,
+        var me = this;
+
+        if (view === undefined) {
+            return me._view;
+        }
+
+        // 保存当前显示的视图。
+        me.view = view;
+
+        // 渲染视图。
+        var body = me.dom.find('.x-calender-body');
+        var oldContainer = body.last();
+        var newContainer = !animation && me.newContainer || body.appendChild(document.createElement('div'));
+        var reverse;
+        var newFrom;
+        var to;
+        var oldTo;
+
+        // 记住高宽。
+        var body = me.elem.querySelector('.x-calender-body');
+        if (!body.style.width && body.offsetHeight) {
+            body.style.height = body.offsetHeight + 'px';
+            body.style.width = body.offsetWidth + 'px';
+        }
+
+        // 渲染当前视图的内容。
+        newContainer.setStyle('transform', 'translateX(0) scale(1, 1)');
+        Calender.views[view].render(this, newContainer, this.elem.querySelector('.x-calender-title'));
+
+        if (oldContainer) {
+            if (animation) {
+
+                reverse = /(Out|Right)$/.test(animation);
+
+                if (/^zoom/.test(animation)) {
+                    var container = reverse ? oldContainer : newContainer,
+                        actived = container.querySelector('.x-calender-actived'),
+                        activedRect = actived.getRect(),
+                        tableRect = container.getRect(),
+                        origin = (activedRect.left - tableRect.left + activedRect.width / 2) + 'px ' + (activedRect.top - tableRect.top + activedRect.height / 2) + 'px';
+
+                    newFrom = {
+                        transform: 'scale(4, 4)',
+                        transformOrigin: origin,
+                        opacity: 0
+                    };
+
+                    to = {
+                        transform: 'scale(1, 1)',
+                        transformOrigin: origin,
+                        opacity: 1
+                    };
+
+                    oldTo = {
+                        transform: 'scale(0, 0)',
+                        transformOrigin: origin,
+                        opacity: 0
+                    };
+
+                } else {
+
+                    newFrom = {
+                        transform: 'translateX(100%)',
+                    };
+
+                    to = {
+                        transform: 'translateX(0)',
+                    };
+
+                    oldTo = {
+                        transform: 'translateX(-100%)',
+                    };
+
+                }
+
+                if (reverse) {
+                    reverse = oldTo;
+                    oldTo = newFrom;
+                    newFrom = reverse;
+                }
+
+                newContainer.style.position = '';
+                oldContainer.style.position = 'absolute';
+
+                me.newContainer = newContainer;
+                newContainer.animate(newFrom, to, null, null, 'linear');
+
+                // 渐变缩小移除旧表。
+                oldContainer.animate(to, oldTo, function () {
+                    oldContainer.removeSelf();
+                    me.newContainer = null;
+                }, null, 'linear');
+
+            } else if (!me.newContainer) {
+                oldContainer.removeSelf();
+            }
+        }
+
+        this.trigger('update');
+
+        return this;
+
+    },
 
     /**
 	 * 当被子类重写时，负责初始化当前控件。
@@ -57,13 +250,13 @@ var Calender = Control.extend({
         // 初始化界面。
         me.dom.html(Calender.locale.tpl);
 
-        me.min = Date.from(me.min);
-        me.max = Date.from(me.max);
+        me.min = Date.parseDate(me.min);
+        me.max = Date.parseDate(me.max);
 
         // 初始化时间字段。
-        me.now = Date.from(me.now) || new Date();
-        me.value = Date.from(me.value) || me.now;
-        me.displayValue = Date.from(me.displayValue) || new Date(+me.now);
+        me.now = Date.parseDate(me.now) || new Date();
+        me.value = Date.parseDate(me.value) || me.now;
+        me.displayValue = Date.parseDate(me.displayValue) || new Date(+me.now);
 
         // 初始化时间输入框。
         me.setFormat(me.format);
@@ -88,32 +281,6 @@ var Calender = Control.extend({
         }
         me.setView(me.view);
 
-    },
-
-    /**
-     * 设置显示的日期格式。
-     */
-    setFormat: function (value) {
-        this.format = value;
-        var showTime = /[Hhms]/.test(value), inputs;
-        if (showTime) {
-            inputs = this.elem.querySelectorAll('.x-calender-time input');
-            inputs[0].readOnly = value.indexOf('H') < 0;
-            inputs[1].readOnly = value.indexOf('m') < 0;
-            inputs[2].readOnly = value.indexOf('s') < 0;
-        }
-        this.elem.querySelector('.x-calender-time').toggle(showTime);
-    },
-
-    /**
-     * 设置显示的当前时间。
-     */
-    setNow: function (value) {
-        this.now = value;
-        value = Date.from(value);
-        var now = this.elem.querySelector('.x-calender-now');
-        now.setAttribute('x-value', +value);
-        now.innerHTML = value.format(Calender.locale.today);
     },
 
     /**
@@ -232,112 +399,6 @@ var Calender = Control.extend({
     },
 
     /**
-     * 设置当前显示的视图。
-     * @param {String} view 视图名。可能的值为 'day'、'month'、'year'或'decade'。
-     * @param {String} animation 切换使用的渐变效果。可能值有： null、'slideLeft'、'slideRight'、 'zoomIn'或'zoomOut'。
-     * @returns this
-     */
-    setView: function (view, animation) {
-
-        // 保存当前显示的视图。
-        this.view = view;
-
-        // 渲染视图。
-        var me = this, body = me.elem.querySelector('.x-calender-body'),
-            oldContainer = body.lastChild,
-            newContainer = !animation && me.newContainer || body.appendChild(document.createElement('div')),
-            reverse,
-            newFrom,
-            to,
-            oldTo;
-
-        // 记住高宽。
-        var body = me.elem.querySelector('.x-calender-body');
-        if (!body.style.width && body.offsetHeight) {
-            body.style.height = body.offsetHeight + 'px';
-            body.style.width = body.offsetWidth + 'px';
-        }
-
-        // 渲染当前视图的内容。
-        newContainer.setStyle('transform', 'translateX(0) scale(1, 1)');
-        Calender.views[view].render(this, newContainer, this.elem.querySelector('.x-calender-title'));
-
-        if (oldContainer) {
-            if (animation) {
-
-                reverse = /(Out|Right)$/.test(animation);
-
-                if (/^zoom/.test(animation)) {
-                    var container = reverse ? oldContainer : newContainer,
-                        actived = container.querySelector('.x-calender-actived'),
-                        activedRect = actived.getRect(),
-                        tableRect = container.getRect(),
-                        origin = (activedRect.left - tableRect.left + activedRect.width / 2) + 'px ' + (activedRect.top - tableRect.top + activedRect.height / 2) + 'px';
-
-                    newFrom = {
-                        transform: 'scale(4, 4)',
-                        transformOrigin: origin,
-                        opacity: 0
-                    };
-
-                    to = {
-                        transform: 'scale(1, 1)',
-                        transformOrigin: origin,
-                        opacity: 1
-                    };
-
-                    oldTo = {
-                        transform: 'scale(0, 0)',
-                        transformOrigin: origin,
-                        opacity: 0
-                    };
-
-                } else {
-
-                    newFrom = {
-                        transform: 'translateX(100%)',
-                    };
-
-                    to = {
-                        transform: 'translateX(0)',
-                    };
-
-                    oldTo = {
-                        transform: 'translateX(-100%)',
-                    };
-
-                }
-
-                if (reverse) {
-                    reverse = oldTo;
-                    oldTo = newFrom;
-                    newFrom = reverse;
-                }
-
-                newContainer.style.position = '';
-                oldContainer.style.position = 'absolute';
-
-                me.newContainer = newContainer;
-                newContainer.animate(newFrom, to, null, null, 'linear');
-
-                // 渐变缩小移除旧表。
-                oldContainer.animate(to, oldTo, function () {
-                    oldContainer.removeSelf();
-                    me.newContainer = null;
-                }, null, 'linear');
-
-            } else if (!me.newContainer) {
-                oldContainer.removeSelf();
-            }
-        }
-
-        this.trigger('update');
-
-        return this;
-
-    },
-
-    /**
      * 模拟用户选中某一项。
      * @param {Element} item 需要选中的项。
      * @returns this
@@ -366,59 +427,20 @@ var Calender = Control.extend({
      */
     loadHours: function (value) {
         var inputs = this.elem.querySelectorAll('.x-calender-time input');
-        value = Date.from(value.format(this.format));
+        value = Date.parseDate(value.format(this.format));
         inputs[0].value = value.getHours();
         inputs[1].value = value.getMinutes();
         inputs[2].value = value.getSeconds();
-    },
-
-    /**
-     * 设置可选日期的范围。
-     * @param {Date} min 要设置的最小值。如果不设置，可传递 null。
-     * @param {Date} max 要设置的最大值。如果不设置，可传递 null。
-     */
-    setRange: function (min, max) {
-        this.min = Date.from(min);
-        this.max = Date.from(max);
-        if (this.value < this.min) {
-            this.setValue(this.min);
-        }
-        if (this.value > this.max) {
-            this.setValue(this.max);
-        }
-        return this;
-    },
-
-    /**
-     * 设置当前日历的值。
-     * @param {Date} value 要设置的值。
-     */
-    setValue: function (value) {
-        var me = this;
-        if (+me.value !== +value) {
-            me.value = value;
-            me.displayValue = new Date(+value);
-            me.loadHours(value);
-            me.setView(/d/.test(me.format) ? 'day' : /M/.test(me.format) ? 'month' : 'year');
-            me.trigger('change');
-        }
-        return me;
-    },
-
-    /**
-     * 获取当前日历的值。
-     */
-    getValue: function () {
-        return this.value;
     }
 
 });
 
 Calender._generateTable = function (className, rowCount, colCount, generator, header) {
-    var html = '<table class="' + className + '">' + (header || ''), rowIndex, colIndex, index = 0;
-    for (rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+    var html = '<table class="' + className + '">' + (header || '');
+    var index = 0;
+    for (var rowIndex = 0; rowIndex < rowCount; rowIndex++) {
         html += '<tr>';
-        for (colIndex = 0; colIndex < colCount; colIndex++) {
+        for (var colIndex = 0; colIndex < colCount; colIndex++) {
             html += generator(index++);
         }
         html += '</tr>';
@@ -431,55 +453,51 @@ Calender.views = {
     day: {
 
         /**
-         * 向指定的 *calender* 内的 *contentNode* 节点渲染日视图。
+         * 向指定的 @calender 内的 @contentNode 节点渲染日视图。
          * @param {MonthCalender} calender 要渲染的目标日历对象。
          */
         render: function (calender, container, title) {
 
-            var displayValue = calender.displayValue,
-                value = calender.value,
-                min = calender.min ? +calender.min.toDay() : NaN,
-                max = calender.max ? +calender.max.toDay() : NaN,
-                value = calender.value ? +calender.value.toDay() : 0,
-                now = +calender.now.toDay(),
-                tmpDate = new Date(displayValue.getFullYear(), displayValue.getMonth(), 1),
-                weekHtml = '',
-
-                // 一次绘制会存在3个月，此序号标记正在绘制哪一月。
-                monthDelta = 0,
-
-                tmpDateValue,
-                day;
-
-            // 调整日期为星期天。
-            day = tmpDate.getDay();
-            tmpDate = tmpDate.addDay(day === 0 ? -7 : -day);
+            // 当前需要显示的日期。
+            var displayValue = calender.displayValue;
 
             // 设置顶部标题。
-            title.innerHTML = displayValue.format(Calender.locale.month);
+            title.html(displayValue.format(Calender.locale.month));
 
             // 绘制星期。
-            weekHtml += '<tr class="x-calender-weeks">';
-            for (i = 0; i < Calender.locale.weeks.length; i++) {
+            var weekHtml = '<tr class="x-calender-weeks">';
+            for (var i = 0; i < Calender.locale.weeks.length; i++) {
                 weekHtml += '<th>' + Calender.locale.weeks[i] + '</th>';
             }
             weekHtml += '</tr>';
 
-            // 设置内容。
-            container.innerHTML = Calender._generateTable('x-calender-days', 6, 7, function () {
+            var value = calender.value();
+            var min = calender.min() ? +calender.min().toDay() : NaN;
+            var max = calender.max() ? +calender.max().toDay() : NaN;
+            var value = calender.value ? +calender.value.toDay() : 0;
+            var now = +calender.now.toDay();
 
-                tmpDateValue = +tmpDate;
+            // 同一次绘制操作会跨三个月，此序号标记正在绘制哪一月。
+            var monthCounter = 0;
+
+            // 计算本月一号所在周的第一天。
+            var date = new Date(displayValue.getFullYear(), displayValue.getMonth(), 1).addDay(-date.getDay() || -7);
+
+            // 设置内容。
+            container.html(Calender._generateTable('x-calender-days', 6, 7, function () {
+
+                var tmpDateValue = +date;
 
                 // 如果是第一天，切换 是否当前月 。
-                day = tmpDate.getDate();
+                var day = date.getDate();
                 if (day == 1) {
-                    monthDelta++;
+                    monthCounter++;
                 }
 
-                var holiday = Calender.locale.holidays[tmpDate.format('M-d')] || calender.getHoliday(tmpDate),
-                    html = '';
+                var holiday = Calender.locale.holidays[date.format('M-d')] || calender.getHoliday(date);
+                var html = '';
 
-                html += '<td x-value="' + tmpDateValue + '"' + (holiday ? ' title="' + holiday + '"' : '') + ' class="' + calender.getClassName(tmpDate);
+                html += '<td x-value="' + tmpDateValue + '"' + (holiday ? ' title="' + holiday + '"' : '') + ' class="' + calender.getClassName(date);
 
                 if (holiday) { html += ' x-calender-holiday'; }
 
@@ -492,14 +510,14 @@ Calender.views = {
                 // 今天。
                 if (tmpDateValue === now) { html += ' x-calender-actived'; }
 
-                html += monthDelta !== 1 ? ' x-calender-alt">' + day + '</td>' : '"><a href="javascript:;">' + day + '</a></td>';
+                html += monthCounter !== 1 ? ' x-calender-alt">' + day + '</td>' : '"><a href="javascript:;">' + day + '</a></td>';
 
                 // 计算下一天。
-                tmpDate.setDate(day + 1);
+                date.setDate(day + 1);
 
                 return html;
 
-            }, weekHtml);
+            }, weekHtml));
 
         },
 

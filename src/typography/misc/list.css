@@ -12,10 +12,10 @@
   float: left;
 }
 .x-list-ellipsis > li {
-  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 .x-list-line > li {
   padding: 4px 0;

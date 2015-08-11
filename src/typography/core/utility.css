@@ -52,10 +52,10 @@
 /* #endregion */
 /* #region @文本 */
 .x-ellipsis {
-  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
   display: block;
 }
 .x-break-word {
@@ -76,3 +76,4 @@
   overflow-x: auto;
   width: 100%;
 }
+/* #endregion */

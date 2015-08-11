@@ -7,10 +7,10 @@
 }
 .x-tree li {
   list-style: none;
-  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
 }
 .x-tree ul {
   margin: 0;

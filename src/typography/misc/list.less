@@ -19,11 +19,12 @@
 // Ê¡ÂÔºÅ¡£
 .x-list-ellipsis > li{
     .text-overflow();
+    width: 100%;
 }
 
 // ·Ö¸îÏß¡£
 .x-list-line > li{
-    padding: @padding-y 0;
+    padding: @padding-height 0;
 
     &:not(:first-child) {
         border-top: 1px solid @border-color;
@@ -43,7 +44,7 @@
     border-radius: @border-radius;
 
     > li {
-        padding: @padding-y @padding-x;
+        padding: @padding-height @padding-width;
         .box-sizing(border-box);
     }
 }

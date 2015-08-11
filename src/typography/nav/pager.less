@@ -10,13 +10,13 @@
 
     a {
         display: inline-block;
-        min-width: @line-height - @padding-x + 2px; // 2px 视觉差
+        min-width: @line-height - @padding-width + 2px; // 2px 视觉差
         border: 1px solid @border-color;
-        padding: @padding-y @padding-x;
+        padding: @padding-height @padding-width;
         border-radius: @border-radius;
 
         & + a {
-            margin-left: @padding-x / 2;
+            margin-left: @padding-width / 2;
         }
 
         &:hover {

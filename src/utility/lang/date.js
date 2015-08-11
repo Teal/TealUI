@@ -66,7 +66,7 @@ Date.prototype.format = function (format) {
     }
     return (format || 'yyyy/MM/dd HH:mm:ss').replace(/(\w)\1*/g, function (all, key) {
         if (key in formators) {
-            key = formators[key](me, all.length);
+            key = String(formators[key](me, all.length));
             while (key.length < all.length) {
                 key = '0' + key;
             }

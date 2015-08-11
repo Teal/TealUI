@@ -4,9 +4,9 @@
 .x-textbox {
     border: 1px solid @border-color-input;
     border-radius: @border-radius;
-    padding: @padding-y @padding-x;
+    padding: @padding-height @padding-width;
     line-height: @line-height;
-    height: @line-height + (@padding-y + 1) * 2;
+    height: @line-height + (@padding-height + 1) * 2;
     outline: 0;
     background-color: @background-color;
     width: @input-width;
@@ -52,20 +52,20 @@
 
 // ³ß´ç
 .x-textbox-small {
-    padding: @padding-small-y @padding-small-x;
+    padding: @padding-height-small @padding-width-small;
     border-radius: @border-radius-small;
     font-size: @font-size-small;
     line-height: @line-height-small;
-    height: round(@font-size-small * @line-height-small) + @padding-small-y * 2 + 2;
+    height: round(@font-size-small * @line-height-small) + @padding-height-small * 2 + 2;
     width: @input-width-small;
 }
 
 .x-textbox-large {
-    padding: @padding-large-y @padding-large-x;
+    padding: @padding-height-large @padding-width-large;
     border-radius: @border-radius-large;
     font-size: @font-size-large;
     line-height: @line-height-large;
-    height: round(@font-size-large * @line-height-large + @padding-large-y * 2 + 2);
+    height: round(@font-size-large * @line-height-large + @padding-height-large * 2 + 2);
     width: @input-width-large;
 }
 
