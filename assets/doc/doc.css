@@ -183,7 +183,7 @@
     color: #009688;
 }*/
 
-.doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code {
+.doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code, .doc-section kbd, .doc > h1 kbd, .doc > h2 kbd, .doc > h3 kbd, .doc > h4 kbd, .doc > h5 kbd, .doc > h6 kbd, .doc > p kbd, .doc > ul kbd, .doc > ol kbd, .doc > dl kbd, .doc > blockquote kbd {
     font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
     color: #990000;
     background-color: #f9f9f7;
@@ -201,6 +201,12 @@
     padding: 6px;
     color: inherit;
     background-color: #f9f9f7;
+}
+
+.doc-section kbd, .doc > h1 kbd, .doc > h2 kbd, .doc > h3 kbd, .doc > h4 kbd, .doc > h5 kbd, .doc > h6 kbd, .doc > p kbd, .doc > ul kbd, .doc > ol kbd, .doc > dl kbd, .doc > blockquote kbd {
+    color: #ffffff;
+    background-color: #212121;
+    border-radius: 4px;
 }
 
 .doc-section a, .doc > h1 a, .doc > h2 a, .doc > h3 a, .doc > h4 a, .doc > h5 a, .doc > h6 a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > blockquote a {

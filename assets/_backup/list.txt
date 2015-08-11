@@ -1,4 +1,13 @@
-﻿control
+﻿https://placeholdit.imgix.net/~text?txtsize=40&txt=150%C3%97150&w=150&h=150
+
+
+
+
+
+
+
+
+control
 	*
 typography
 	*

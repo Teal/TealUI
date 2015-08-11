@@ -4,17 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>栅格布局</title>
-    <meta name="module-info" content="package=default">
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="栅格布局法：将网页分成 N 行，每行分成 N 列。通过此方法对整体网页分成多个模块进行排版。">
-    <!-- 以下是本组件的全部源码 -->
+
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../core/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../core/grid.css" />
+    <link rel="stylesheet" type="text/css" href="../core/grid.css" data-doc />
 </head>
 <body>
-    <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
-    <link rel="stylesheet" type="text/css" href="../core/utility.css" />
     <style>
         .x-col span {
             background: #EEEEEE;
@@ -26,6 +24,7 @@
             display: block;
         }
     </style>
+
     <h2>基本用法</h2>
     <p>使用 <code>.x-row</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度自行设置。</p>
     <aside class="doc-demo">
@@ -120,6 +119,7 @@
     </aside>
 
     <h3>列排序</h3>
+    <link rel="stylesheet" type="text/css" href="../core/utility.css" />
     <p>使用 <a href="../core/utility.html">辅助样式(utility)</a> 提供的 <code>.x-left</code> 和 <code>.x-right</code> 可重定义列的顺序。这在为了 SEO 需要将重要内容提前又不希望内容显示在左边的时候特别有用。</p>
     <aside class="doc-demo">
         <div class="x-row">
