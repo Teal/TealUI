@@ -8,12 +8,29 @@
     <meta name="author" content="xuld@vip.qq.com">
     <meta name="description" content="一个实现用于实现特效渐变的基类。Fx 会根据一定的变化曲线不断调用指定函数，这个函数可根据参数的变化因子实现自定义的特效渐变。">
     <!-- 以下是本组件的全部源码 -->
-
     <script type="text/javascript" src="../../utility/misc/color.js"></script>
+
+    <script>
+        function getChanger(c1, c2) {
+            c1 = new Color(c1);
+            c2 = new Color(c2);
+            var h = c1.toHSL().h - c2.toHSL().h;
+            var l = c1.toHSL().l - c2.toHSL().l;
+            var s = c1.toHSL().s - c2.toHSL().s;
+            return "spin(darken(" + c1 + ", " + l * 100 + "%), -" + h + "%)"
+        }
+    </script>
+
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <input type="color" id="color1" />
+    <input type="color" id="color2" />
+
+    <input type="button" value="叠加" onclick="document.getElementById('color3').value = new Color(document.getElementById('color1').value).mix(new Color(document.getElementById('color2').value), .5).toString()" />
+    <input type="color" id="color3" readonly />
 
     <h2>特效底层</h2>
     <script x-doc="utility/misc/fx.js">
@@ -79,21 +96,19 @@
 			}]
 });</script>
     <h2>渐变曲线</h2>
-
     <script x-doc="utility/misc/fxTransitions.js">
         Doc.writeApi({
-			path: "utility/misc/fxTransitions.js",
-			apis: [{
-				memberOf: "Fx",
-				name: "Transitions",
-				summary: "<p>提供多个渐变函数曲线。</p>",
-				type: "Object",
-				line: 6,
-				col: 1
-			}]
-});
+            path: "utility/misc/fxTransitions.js",
+            apis: [{
+                memberOf: "Fx",
+                name: "Transitions",
+                summary: "<p>提供多个渐变函数曲线。</p>",
+                type: "Object",
+                line: 6,
+                col: 1
+            }]
+        });
     </script>
-
     <style>
         .p {
             height: 3px;
@@ -102,15 +117,11 @@
             background: red;
         }
     </style>
-
     <div style="border: 1px solid #ccc; position: relative;">
         <div class="doc-box-small" id="handler" style="position: relative;"></div>
     </div>
-
     <div style="border: 1px solid #ccc; height: 200px; position: relative;" id="chart">
-
     </div>
-
     <script>
 
         function runFx(transition) {
@@ -154,8 +165,6 @@
         }
     </script>
     <div style="float: right; width: 500px; text-align: right">
-
     </div>
-
 </body>
 </html>

@@ -306,14 +306,14 @@ ul, ol {
 
 dt {
     font-weight: 700;
-
-    dd ~ & {
-        margin-top: @grid-margin / 2;
-    }
 }
 
 dd {
     margin: 0;
+
+    ~ dt {
+        margin-top: @grid-margin / 2;
+    }
 }
 
 /* #endregion */

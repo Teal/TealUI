@@ -19,28 +19,55 @@
 //  A700#00BFA5
 //
 //  灰色：
-//  分割：#DADADA
+//  分割：@border-color
 //  提示：#B8B8B8
 //  图标：#727272
 //  文本：#212121
 //  黑色：#4d4e53
 
-@base-font-size: 14px;
-@sidebar-width: @base-font-size * 18px;
+@font-size: 14px;
+@line-height: 24px;
 
-@primary-color-light: #4DB6AC;
+@primary-color-lightest: #B2DFDB;
+@primary-color-lighter: #00BFA5;
+@primary-color-light: #00897B;
 @primary-color: #009688;
-@primary-color-darker: #00796B;
+@primary-color-dark: #00796B;
+@primary-color-darker: #004D40;
+
+@border-color: #DADADA;
+@tip-color: #B8B8B8;
+@icon-color: #757575;
+@text-color: #616161;
+@code-color: #990000;
+@error-color: #B94A48;
+@info-color: #1B809E;
+
+@header-color: #F1F1F1;
+@striped-color: #F7F7F7;
+@blockquote-color: #F9F9F7;
+@summary-background: #F8F8F8;
+@summary-border: #EEE;
+@topbar-color: #E9E9E9;
+
+@grid-margin: 1em;
+@grid-padding: @font-size;
+@sidebar-width: @font-size * 18px;
+
+@font-family-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
+
+@textarea-height: 125px;
 
 /* #region 全局基础样式 */
 
 .doc {
 
-    &-section, > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > dl, > table, > blockquote {
-        font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
-        font-size: 14px;
-        line-height: 100% * 24px / 14px + 0.6%;
-        color: #4d4e53;
+    &-section, > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > dl, > table, > blockquote, .doc-demo:before {
+        font-family: @font-family-serif;
+        font-size: @font-size;
+        line-height: 100% * @line-height / @font-size + 0.6%;
+        color: @text-color;
     }
 
     > img, > table, > textarea, > input, > button, > video, > audio, > canvas {
@@ -48,7 +75,7 @@
     }
 
     > p, > ul, > ol, > dl, > table, > blockquote, > img, > pre, .doc-api pre, > hr, > figure, > address, > fieldset {
-        margin: 0 0 1em;
+        margin: 0 0 @grid-margin;
 
         &:last-child {
             margin: 0;
@@ -56,23 +83,23 @@
     }
 
     > h1, > h2, > h3, > h4, > h5, > h6 {
-        margin: 0 0 .5em;
+        margin: 0 0 @grid-margin / 2;
         font-weight: 500;
         line-height: 125%;
     }
 
-    > h2:before, > h3:before, &-index dt:before, &-index dd:before {
-        color: #888;
-        font-weight: 400;
-    }
+        > h2:before, > h3:before, &-index dt:before, &-index dd:before {
+            color: @icon-color;
+            font-weight: 400;
+        }
 
     > h1 {
-        font-size: 30px;
-        border-bottom: 1px solid #dadada;
+        font-size: @font-size + 16px;
+        border-bottom: 1px solid @border-color;
     }
 
     > h2 {
-        font-size: 22px;
+        font-size: @font-size + 8px;
         counter-increment: doc-h2;
         counter-reset: doc-h3;
 
@@ -86,7 +113,7 @@
     }
 
     > h3 {
-        font-size: 18px;
+        font-size: @font-size + 4px;
         counter-increment: doc-h3;
 
         &:before {
@@ -95,28 +122,28 @@
     }
 
     > h4 {
-        font-size: 16px;
+        font-size: @font-size + 2px;
     }
 
     > h5 {
-        font-size: 14px;
+        font-size: @font-size;
     }
 
     > h6 {
-        font-size: 12px;
+        font-size: @font-size - 2px;
     }
 
     > dl {
         dt {
             font-weight: 600;
-
-            dd ~ & {
-                margin-top: .5em;
-            }
         }
 
         dd {
             margin: 0;
+
+            ~ dt {
+                margin-top: .5em;
+            }
         }
     }
 
@@ -129,19 +156,19 @@
         th, td {
             line-height: 150%;
             vertical-align: top;
-            border: 1px solid #DADADA;
+            border: 1px solid @border-color;
             padding: 6px;
         }
 
         th {
-            background-color: #F1F1F1;
-            color: #727272;
+            background-color: @header-color;
+            color: @icon-color;
             padding: 2px 6px;
             text-align: left;
         }
 
         tbody tr:hover {
-            background-color: #F7F7F7;
+            background-color: @striped-color;
         }
 
         p {
@@ -150,15 +177,15 @@
     }
 
     > hr {
-        border-color: #DADADA;
+        border-color: @border-color;
         border-width: 1px 0 0 0;
         border-style: solid;
         height: 0;
     }
 
     > blockquote {
-        background-color: #f9f9f7;
-        border: 1px solid #DADADA;
+        background-color: @blockquote-color;
+        border: 1px solid @border-color;
         padding: 8px 12px;
         position: relative;
         word-break: break-word;
@@ -170,7 +197,7 @@
             left: -1px;
             top: -1px;
             bottom: -1px;
-            background-color: #009688; // #1B809E
+            background-color: @primary-color;
         }
 
         h4 {
@@ -178,59 +205,57 @@
             font-weight: 500;
             margin: 0;
             line-height: 150%;
-            color: #009688; // #1B809E;
+            color: @primary-color;
         }
     }
 
     &note:after {
-        background-color: #b94a48 !important;
+        background-color: @error-color !important;
     }
 
     &note h4 {
-        color: #b94a48 !important;
+        color: @error-color !important;
     }
 
     > pre, &-api pre, &-section code, > h1 code, > h2 code, > h3 code, > h4 code, > h5 code, > h6 code, > p code, > ul code, > ol code, > dl code, > table code, > blockquote code, &-section kbd, > h1 kbd, > h2 kbd, > h3 kbd, > h4 kbd, > h5 kbd, > h6 kbd, > p kbd, > ul kbd, > ol kbd, > dl kbd, > blockquote kbd {
-        font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
-        color: #990000;
-        background-color: #f8f8f8;
+        font-family: @font-family-monospace;
+        color: @code-color;
+        background-color: @blockquote-color;
         padding: 2px 4px;
         border-radius: 0;
     }
 
     > pre, &-api pre {
-        border: 1px solid #DADADA;
+        border: 1px solid @border-color;
         white-space: pre-wrap;
         -ms-word-break: break-all;
         word-break: break-all;
         line-height: 150%;
         font-size: 13px;
         padding: 6px;
-        color: inherit;
-        background-color: #f9f9f7;
     }
 
     &-section, > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > dl, > blockquote {
 
         kbd {
-            color: #ffffff;
-            background-color: #212121;
+            color: #fff;
+            background-color: @text-color;
             border-radius: 4px;
         }
 
         a {
-            color: #00796B;
+            color: @primary-color;
             text-decoration: none;
 
             &:hover {
-                color: #004D40;
+                color: @primary-color-darker;
                 text-decoration: underline;
             }
         }
 
         small {
-            color: #B8B8B8;
-            font-size: 12px;
+            color: @tip-color;
+            font-size: @font-size - 2px;
             font-weight: normal;
 
             a {
@@ -251,18 +276,18 @@
 
     > textarea {
         width: 100%;
-        height: 100px;
+        height: @textarea-height;
     }
 }
 
 ::-moz-selection {
-    background: #00BFA5;
-    color: #fff;
+    background: @primary-color-lighter;
+    color: #fff; //contrast(@primary-color-lighter);
 }
 
 ::selection {
-    background: #00BFA5;
-    color: #fff;
+    background: @primary-color-lighter;
+    color: #fff; //contrast(@primary-color-lighter);
 }
 
 /* #endregion */
@@ -288,10 +313,10 @@
 
 // 布局
 .doc-row {
-    margin: 0 -14px;
+    margin: 0 -@grid-padding;
 
     &:first-child {
-        margin-top: -1em;
+        margin-top: -@grid-margin;
     }
 }
 
@@ -300,8 +325,8 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 0 14px;
-    margin-top: 1em;
+    padding: 0 @grid-padding;
+    margin-top: @grid-margin;
     min-height: 1px;
 
     .doc-row-1 & {
@@ -336,15 +361,11 @@
 // 代码框语法高亮
 .doc-code {
 
-    &-comment {
-        color: #93a1a1;
-    }
-
     &-literal {
         color: #195f91;
     }
 
-    &-punctuation, &-leftbracket, &-rightbracket {
+    &-comment, &-punctuation, &-leftbracket, &-rightbracket {
         color: #93a1a1;
     }
 
@@ -365,7 +386,7 @@
     }
 
     &-plain {
-        color: #333;
+        color: @text-color;
     }
 }
 
@@ -374,15 +395,15 @@
     float: right;
     padding: 0 7px;
     display: inline-block;
-    color: #999;
-    border: 1px solid #DADADA;
+    color: @tip-color;
+    border: 1px solid @border-color;
     border-width: 0 0 1px 1px;
     text-decoration: none;
     font-size: 12px;
     line-height: 175%;
 
     &:hover, &.doc-hover {
-        background-color: #009688;
+        background-color: @primary-color;
         color: #FFF;
         text-decoration: none;
     }
@@ -394,25 +415,24 @@
 
 // 演示框
 .doc-demo {
-    padding: 35px 14px 21px;
-    border: 1px solid #DADADA;
+    padding: @grid-padding * 2 @grid-padding @grid-padding;
+    border: 1px solid @border-color;
     position: relative;
     margin-bottom: 14px;
 
     &:before {
         content: "实例:";
-        font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
-        font-size: 10px;
-        line-height: 20px;
-        color: rgba(94, 94, 94, .5);
+        color: rgba(94, 94, 94, .5) !important;
+        font-size: @font-size - 2px !important;
+        line-height: 1 !important;
         position: absolute;
-        top: 7px;
-        left: 14px;
+        top: @grid-padding / 2 + 2px;
+        left: @grid-padding;
         cursor: default;
     }
 
     + .doc-code-toolbar, + .doc-code, + .doc-code-toolbar + .doc-code {
-        margin-top: -15px;
+        margin-top: -@grid-padding - 1px;
     }
 
     script& + .doc-code-toolbar, script& + .doc-code, script& + .doc-code-toolbar + .doc-code {
@@ -420,7 +440,7 @@
     }
 }
 
-/* 示例框 */
+// 示例框
 .doc-box, .doc-box-small, .doc-box-large {
     position: relative;
     width: 100px;
@@ -468,16 +488,16 @@
 
 // 工具条
 .doc-toolbar {
-    font-size: 12px !important;
+    font-size: @font-size - 2px !important;
     line-height: 150% !important;
 
     a, a:hover {
         color: #838384;
     }
 
-    a ~ a {
-        margin-left: 20px;
-    }
+        a ~ a {
+            margin-left: 20px;
+        }
 }
 
 // 水平列表
@@ -502,7 +522,7 @@
 .doc-waterfall ul {
     padding: 0;
     list-style-position: inside;
-    color: #dadada;
+    color: @border-color;
 }
 
 // 表格布局。
@@ -547,13 +567,13 @@
 
 // 目录
 .doc-index {
-    background: #f8f8f8;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    background: @summary-background;
+    border-top: 1px solid @summary-border;
+    border-bottom: 1px solid @summary-border;
     margin-bottom: 1em;
 
     h2 {
-        background: #009688;
+        background: @primary-color;
         color: #fff;
         float: left;
         font-weight: 500;
@@ -567,7 +587,7 @@
         background: #fff;
         margin: 0 0 0 60px;
         padding: .5em 1em;
-        border-left: 1px solid #eee;
+        border-left: 1px solid @summary-border;
     }
 
     dt {
@@ -595,10 +615,10 @@
         }
     }
 
-    dd a {
-        color: #555;
-        font-size: 13px;
-    }
+        dd a {
+            color: @text-color;
+            font-size: @font-size - 1px;
+        }
 }
 
 /* #endregion */
@@ -640,13 +660,13 @@
 .doc-page {
     // 统一浏览器默认背景色
     background-color: #fff;
-    margin: 0 @base-font-size 0 @base-font-size + @sidebar-width + @base-font-size;
+    margin: 0 @font-size 0 @font-size + @sidebar-width + @font-size;
     padding: 0;
 }
 
 .doc-container {
-    margin: 0 -@base-font-size 0 -(@base-font-size + @sidebar-width + @base-font-size);
-    padding: 0 @base-font-size;
+    margin: 0 -@font-size 0 -(@font-size + @sidebar-width + @font-size);
+    padding: 0 @font-size;
 }
 
 // 顶部
@@ -654,30 +674,30 @@
 // 进度条
 #doc_progress {
     position: fixed;
-    /* 解决 Chrome fixed 抖动问题 */
+    // 解决 Chrome fixed 抖动问题
     -webkit-transform: translateZ(0);
     width: 0;
     height: 1.5px;
-    background-color: #B2DFDB;
+    background-color: @primary-color-lightest;
     top: 0;
     left: 0;
 }
 
 // 顶部条
 #doc_topbar {
-    background-color: #00796B;
-}
+    background-color: @primary-color-dark;
 
-#doc_topbar a {
-    color: #e9e9e9;
-    display: block;
-    padding: 7px 14px;
-    text-decoration: none;
-}
+    a {
+        color: @topbar-color;
+        display: block;
+        padding: 7px 14px;
+        text-decoration: none;
+    }
 
-#doc_topbar a:hover, #doc_topbar .doc-actived a {
-    background-color: #004D40;
-    color: #FFF;
+        a:hover, .doc-actived a {
+            background-color: @primary-color-darker;
+            color: #FFF;
+        }
 }
 
 #doc_logo, #doc_navbar li {
@@ -687,13 +707,13 @@
 a#doc_logo {
     font-weight: 600;
     color: #fbfbfb;
-    margin-left: -14px;
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAMAAADK8RQqAAAA21BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9mUQOSAAAASHRSTlMAVQUDGSFOPV33qnXkKYZ4ZVgMiRPvywkbkl4O1umxOhiHTK9NbYW+2aIzatTMnnSO5yIQB7q8P8O/N1vj+O65AVnrfjArU0Df1dKvAAAAk0lEQVR4Xm3NRRLDMBQDUCcNlpmZmZm5uv+JOr9pWs/YWmmeFmJOAjEmjReajDUbIZlbgD8n8SAAn8THACZR0SsAEBY9Qp70CB5P0LD99FSaGzLkWWpKvlAsldWvV8lr9UazRaXd6Trc68PNYDgy9emMdL746XL1P1fXrm4M7nK3x4HweFLOHF+ut/vDNJ4vnfF5A8lzHGFxo7RyAAAAAElFTkSuQmCC') no-repeat 14px 40%;
+    margin-left: -@grid-padding;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAMAAADK8RQqAAAA21BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9mUQOSAAAASHRSTlMAVQUDGSFOPV33qnXkKYZ4ZVgMiRPvywkbkl4O1umxOhiHTK9NbYW+2aIzatTMnnSO5yIQB7q8P8O/N1vj+O65AVnrfjArU0Df1dKvAAAAk0lEQVR4Xm3NRRLDMBQDUCcNlpmZmZm5uv+JOr9pWs/YWmmeFmJOAjEmjReajDUbIZlbgD8n8SAAn8THACZR0SsAEBY9Qp70CB5P0LD99FSaGzLkWWpKvlAsldWvV8lr9UazRaXd6Trc68PNYDgy9emMdL746XL1P1fXrm4M7nK3x4HweFLOHF+ut/vDNJ4vnfF5A8lzHGFxo7RyAAAAAElFTkSuQmCC') no-repeat @grid-padding 40%;
     padding-left: 40px;
-}
 
-#doc_logo:hover {
-    background-color: transparent !important;
+    &:hover {
+        background-color: transparent;
+    }
 }
 
 #doc_logo small {
@@ -743,7 +763,7 @@ a#doc_logo {
         border: 0;
         margin: 2px;
         width: 30px;
-        color: #727272;
+        color: @icon-color;
 
         :active {
             right: -1px;
@@ -776,10 +796,10 @@ a#doc_logo {
         font-size: 13.5px;
     }
 
-    a:hover, &-actived a {
-        background-color: #e8e8e8 !important;
-        text-decoration: none;
-    }
+        a:hover, &-actived a {
+            background-color: #e8e8e8 !important;
+            text-decoration: none;
+        }
 
     dt {
         line-height: 120%;
@@ -815,10 +835,10 @@ a#doc_logo {
     position: absolute;
     right: 0;
     z-index: 10;
-    border: 1px solid #DADADA;
-    -webkit-box-shadow: 1px 1px 2px #cccccc;
-    -moz-box-shadow: 1px 1px 2px #cccccc;
-    box-shadow: 1px 1px 2px #cccccc;
+    border: 1px solid @border-color;
+    -webkit-box-shadow: 1px 1px 2px #ccc;
+    -moz-box-shadow: 1px 1px 2px #ccc;
+    box-shadow: 1px 1px 2px #ccc;
     border-radius: 4px;
 
     dd:first-child {
@@ -832,45 +852,45 @@ a#doc_logo {
 
 // 头部
 #doc_header {
-    background-color: #009688;
-    background-image: linear-gradient(#00897B, #009688);
+    background-color: @primary-color;
+    background-image: linear-gradient(@primary-color-light, @primary-color);
     color: #FFF;
-    padding-bottom: 2.5em;
-    margin-bottom: 1em;
+    padding-bottom: @grid-margin * 2.5;
+    margin-bottom: @grid-margin;
 
     h1 {
         color: inherit;
-        font-size: 40px;
+        font-size: @font-size + 26px;
         font-weight: 500;
         line-height: 150%;
         margin: 0;
-        padding: .5em 0;
+        padding: @grid-margin / 2 0;
     }
 
     p {
-        color: #e9e9e9;
-        font-size: 16px;
+        color: @topbar-color;
+        font-size: @font-size + 2px;
         margin: 0;
     }
 }
 
 #doc_summary {
-    border: 1px solid #eee;
-    background-color: #f8f8f8;
+    border: 1px solid @summary-border;
+    background-color: @summary-background;
     padding: 8px 14px;
 }
 
 // 列表
 #doc_sidebar {
-    border-right: 1px solid #dadada;
-    width: 252px; /* 14px * 18 */
-    left: 14px;
+    border-right: 1px solid @border-color;
+    width: @sidebar-width;
+    left: @grid-padding;
     position: absolute;
-    -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
+    -webkit-transform: translateZ(0); // 解决 Chrome fixed 抖动问题
     background: #fff;
 
     &_filter {
-        padding-right: 14px;
+        padding-right: @grid-padding;
         padding-bottom: .3em;
 
         &:before {
@@ -891,14 +911,14 @@ a#doc_logo {
             box-sizing: border-box;
             padding: 4px 4px 4px 20px;
             border: 0;
-            border-bottom: 1px solid #dadada;
+            border-bottom: 1px solid @border-color;
             background: none;
             outline: 0;
             -webkit-appearance: none;
             border-radius: 0;
 
             &:hover, &:focus {
-                border-bottom-color: #009688;
+                border-bottom-color: @primary-color;
             }
         }
     }
@@ -944,9 +964,9 @@ a#doc_logo {
     }
 }
 
-.doc-pager span {
-    margin: 0;
-}
+    .doc-pager span {
+        margin: 0;
+    }
 
 #doc_pager_left {
     right: 56px;
@@ -963,59 +983,48 @@ a#doc_logo {
 
 // 底部
 #doc_footer {
-    border-top: 1px solid #dadada;
+    border-top: 1px solid @border-color;
     font-size: small;
     margin-top: 2em;
     padding-top: 14px;
     padding-bottom: 42px;
 }
 
-#doc_footer div {
-    float: right;
-}
+    #doc_footer div {
+        float: right;
+    }
 
-#doc_footer a {
-    padding: 0 .5em;
-}
+    #doc_footer a {
+        padding: 0 .5em;
+    }
 
-#doc_footer, #doc_footer a {
-    color: #b8b8b8;
-}
+    #doc_footer, #doc_footer a {
+        color: #b8b8b8;
+    }
 
 /* #endregion */
 
 /* #region 自适应 */
 
-// 更大屏幕增加边距
-@media (min-width: 1280px) {
-    .doc-page {
-        margin: 0 174px 0 426px; /* 14px + 160px */ /* 280px - 14px + 160px */
-    }
+.large-screen-padding(@min-width, @padding-size) {
+    @media (min-width: @min-width) {
+        .doc-page {
+            margin: 0 @padding-size + @grid-padding 0 @sidebar-width + @grid-padding + @padding-size;
+        }
 
-    .doc-container {
-        margin: 0 -174px 0 -426px;
-        padding: 0 160px;
-    }
+        .doc-container {
+            margin: 0 -(@padding-size + @grid-padding) 0 -(@sidebar-width + @grid-padding + @padding-size);
+            padding: 0 160px;
+        }
 
-    #doc_sidebar {
-        left: 160px;
+        #doc_sidebar {
+            left: @padding-size;
+        }
     }
 }
 
-@media (min-width: 1600px) {
-    .doc-page {
-        margin: 0 334px 0 586px; /* 14px + 320px */ /* 280px - 14px + 320px */
-    }
-
-    .doc-container {
-        margin: 0 -334px 0 -586px;
-        padding: 0 320px;
-    }
-
-    #doc_sidebar {
-        left: 320px;
-    }
-}
+.large-screen-padding(1280px, 160px);
+.large-screen-padding(1600px, 320px);
 
 @media (max-width: 768px) {
 
@@ -1030,32 +1039,32 @@ a#doc_logo {
             border: 0 !important;
         }
 
-        > tbody > tr > td {
-            padding: 5px 0 !important;
+            > tbody > tr > td {
+                padding: 5px 0 !important;
 
-            &:first-child {
-                width: auto;
-                display: inline-block;
-
-                &:after {
-                    content: ':';
-                }
-
-                & + td {
+                &:first-child {
+                    width: auto;
                     display: inline-block;
+
+                    &:after {
+                        content: ':';
+                    }
+
+                    & + td {
+                        display: inline-block;
+                    }
                 }
             }
-        }
     }
 
-    /* 全局边框 */
+    // 全局边框
     .doc-page {
-        margin: 0 14px;
+        margin: 0 @grid-padding;
     }
 
     .doc-container {
-        margin: 0 -14px;
-        padding: 0 14px;
+        margin: 0 -@grid-padding;
+        padding: 0 @grid-padding;
     }
 
     .doc-col {
@@ -1063,13 +1072,13 @@ a#doc_logo {
         width: 100% !important;
     }
 
-    /* 菜单 */
-    #doc_search {
+    // 菜单
+    #doc_search, #doc_module_toolbar, &-toolbar a:last-child {
         display: none;
     }
 
     #doc_navbar {
-        margin: 0 -14px;
+        margin: 0 -@grid-padding;
         height: 0;
         clear: both;
         overflow: hidden;
@@ -1079,13 +1088,13 @@ a#doc_logo {
         transition: height .3s ease-out;
     }
 
-    #doc_navbar li {
-        float: none;
-    }
+        #doc_navbar li {
+            float: none;
+        }
 
     #doc_menu {
         display: block;
-        margin: 0 -14px 0 0;
+        margin: 0 -@grid-padding 0 0;
 
         button {
             -webkit-appearance: button;
@@ -1102,12 +1111,12 @@ a#doc_logo {
             border-radius: 0;
         }
 
-        button:active, .doc-menu-actived {
-            background-color: #004D40;
-        }
+            button:active, .doc-menu-actived {
+                background-color: #004D40;
+            }
     }
 
-    /* 侧边栏 */
+    // 侧边栏
     #doc_sidebar {
         position: fixed;
         left: -100%;
@@ -1155,16 +1164,12 @@ a#doc_logo {
         opacity: .15;
     }
 
-    #doc_module_toolbar, &-toolbar a:last-child {
-        display: none;
-    }
-
     #doc_footer {
         text-align: center;
-    }
 
-    #doc_footer div {
-        float: none;
+        div {
+            float: none;
+        }
     }
 }
 
