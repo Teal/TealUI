@@ -55,7 +55,7 @@ function Color(r, g, b, a) {
             if (r.length < 5) {
                 r = r.replace(/([0-9a-f])/ig, "$1$1");
             }
-            var match = r.match(/[0-9a-f]{2}/g);
+            var match = r.match(/[0-9a-f]{2}/ig);
             if (match) {
                 r = parseInt(match[0], 16);
                 g = parseInt(match[1], 16);
@@ -137,15 +137,16 @@ Color.prototype = {
         return { h: h * 360, s: s, l: l, a: me.a };
     },
 
-    toRGB: function () {
+    toARGB: function () {
+        var me = this;
         function toHex(val) {
-            val = val.toString(16);
+            val = Math.round(val).toString(16);
             return val.length < 2 ? '0' + val : val;
         }
         return '#' + (me.a < 1 ? toHex(me.a) : "") + toHex(me.r) + toHex(me.g) + toHex(me.b);
     },
 
-    valueOf: function () {
+    toInt: function () {
         var me = this;
         return me.r << 16 | me.g << 8 | me.b | me.a << 24;
     },
@@ -156,74 +157,48 @@ Color.prototype = {
      */
     toString: function () {
         var me = this;
-        return me.a < 1 ? "rgba(" + me.r + "," + me.g + "," + me.b + "," + me.a + ")" : me.toRGB();
+        return me.a < 1 ? "rgba(" + me.r + "," + me.g + "," + me.b + "," + me.a + ")" : me.toARGB();
     },
 
     /**
      * 计算当前颜色值增加指定饱和度后的颜色值。
-     * @param {Number} amount 增加的数值。范围应在 0-1 之间。
+     * @param {Number} value 增加的数值。范围应在 0-1 之间。
      * @returns {Color} 返回新颜色对象。 
      */
-    saturate: function (amount) {
+    saturate: function (value) {
         var hsl = this.toHSL();
-        hsl.s += amount.value / 100;
-        hsl.s = clamp(hsl.s);
-        return hsla(hsl);
-    },
-    darken: function (color, amount) {
-        var hsl = color.toHSL();
-
-        hsl.l -= amount.value / 100;
-        hsl.l = clamp(hsl.l);
-        return hsla(hsl);
-    },
-    fadein: function (color, amount) {
-        var hsl = color.toHSL();
-
-        hsl.a += amount.value / 100;
-        hsl.a = clamp(hsl.a);
-        return hsla(hsl);
-    },
-    fadeout: function (color, amount) {
-        var hsl = color.toHSL();
-
-        hsl.a -= amount.value / 100;
-        hsl.a = clamp(hsl.a);
-        return hsla(hsl);
-    },
-    fade: function (color, amount) {
-        var hsl = color.toHSL();
-
-        hsl.a = amount.value / 100;
-        hsl.a = clamp(hsl.a);
-        return hsla(hsl);
-    },
-    spin: function (color, amount) {
-        var hsl = color.toHSL();
-        var hue = (hsl.h + amount.value) % 360;
-
-        hsl.h = hue < 0 ? 360 + hue : hue;
-
-        return hsla(hsl);
+        hsl.s += value;
+        return Color.fromHSL(hsl);
     },
 
-    mix: function(color1, color2, weight) {
-        var p = weight.value / 100.0;
-        var w = p * 2 - 1;
-        var a = color1.toHSL().a - color2.toHSL().a;
+    darken: function (value) {
+        var hsl = this.toHSL();
+        hsl.l -= value;
+        return Color.fromHSL(hsl);
+    },
+
+    fadeBy: function (value) {
+        return this.fade(this.a + value);
+    },
+
+    fadeTo: function (value) {
+        return new Color(this.r, this.g, this.b, value);
+    },
+
+    spin: function (value) {
+        var hsl = this.toHSL();
+        hsl.h += value;
+        return Color.fromHSL(hsl);
+    },
+
+    mix: function (color, weight) {
+        var w = weight * 2 - 1;
+        var a = this.a - color.a;
 
         var w1 = (((w * a == -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
         var w2 = 1 - w1;
-
-        var rgb = [
-            color1.rgb[0] * w1 + color2.rgb[0] * w2,
-            color1.rgb[1] * w1 + color2.rgb[1] * w2,
-            color1.rgb[2] * w1 + color2.rgb[2] * w2
-        ];
-
-        var alpha = color1.alpha * p + color2.alpha * (1 - p);
-
-        return new(tree.Color)(rgb, alpha);
+        
+        return new Color(this.r * w1 + color.r * w2, this.g * w1 + color.g * w2, this.b * w1 + color.b * w2, color1.a * weight + color2.a * (1 - weight));
     }
 
 };
@@ -247,27 +222,24 @@ Color.fromHSL = function (h, s, l, a) {
     if (arguments.length < 2) {
         a = h.a;
         l = h.l;
-        s = h.h;
+        s = h.s;
         h = h.h;
     }
 
     h = (h % 360) / 360;
-    
+    s = Math.max(0, Math.min(1, s)) || 0;
+    l = Math.max(0, Math.min(1, l)) || 0;
+
     var m2 = l <= 0.5 ? l * (s + 1) : l + s - l * s;
     var m1 = l * 2 - m2;
 
     function hue(h) {
         h = h < 0 ? h + 1 : (h > 1 ? h - 1 : h);
-        trace((h * 6 < 1 ? m1 + (m2 - m1) * h * 6 :
-            h * 2 < 1 ? m2 :
-            h * 3 < 2 ? m1 + (m2 - m1) * (2 / 3 - h) * 6 :
-            m1))
         return (h * 6 < 1 ? m1 + (m2 - m1) * h * 6 :
             h * 2 < 1 ? m2 :
             h * 3 < 2 ? m1 + (m2 - m1) * (2 / 3 - h) * 6 :
             m1) * 255;
     }
-   // trace(hue(h + 1 / 3), hue(h), hue(h - 1 / 3), a)
     return new Color(hue(h + 1 / 3), hue(h), hue(h - 1 / 3), a);
 };
 
