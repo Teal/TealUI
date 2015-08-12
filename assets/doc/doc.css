@@ -44,9 +44,9 @@
     margin: 0 0 1em;
 }
 
-.doc > p:last-child, .doc > ul:last-child, .doc > ol:last-child, .doc > dl:last-child, .doc > table:last-child, .doc > blockquote:last-child, .doc > img:last-child, .doc > pre:last-child, .doc-api pre:last-child, .doc > hr:last-child, .doc > figure:last-child, .doc > address:last-child, .doc > fieldset:last-child {
-    margin: 0;
-}
+    .doc > p:last-child, .doc > ul:last-child, .doc > ol:last-child, .doc > dl:last-child, .doc > table:last-child, .doc > blockquote:last-child, .doc > img:last-child, .doc > pre:last-child, .doc-api pre:last-child, .doc > hr:last-child, .doc > figure:last-child, .doc > address:last-child, .doc > fieldset:last-child {
+        margin: 0;
+    }
 
 .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6 {
     font-weight: 500;
@@ -156,7 +156,8 @@
         left: -1px;
         top: -1px;
         bottom: -1px;
-        background-color: #1B809E;
+        background-color: #009688;
+        /*background-color: #1B809E;*/
     }
 
     .doc > blockquote h4 {
@@ -164,7 +165,8 @@
         font-weight: 500;
         margin: 0;
         line-height: 150%;
-        color: #1B809E;
+        color: #009688;
+        /*color: #1B809E;*/
     }
 
 .doc-note:after {
@@ -759,6 +761,7 @@ a#doc_logo {
 /* 头部 */
 #doc_header {
     background-color: #009688;
+    background-image: linear-gradient(#00897B, #009688);
     color: #FFF;
     padding-bottom: 2.5em;
     margin-bottom: 1em;

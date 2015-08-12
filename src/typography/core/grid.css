@@ -11,13 +11,13 @@
   margin-left: -14px;
   margin-right: -14px;
 }
-    .x-row:first-child {
-    margin-top: -1em;
-    }
 .x-row:after {
   content: " ";
   display: table;
   clear: both;
+}
+.x-row:first-child {
+  margin-top: -1em;
 }
 .x-container {
   margin-left: auto;
@@ -35,7 +35,6 @@
   margin-top: 1em;
   min-height: 1px;
 }
-
 /* #region @12栅格布局 */
 .x-col-1 {
   width: 8.33333333%;

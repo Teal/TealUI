@@ -10,9 +10,10 @@
     <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../core/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../core/grid.css" data-doc />
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="../core/grid.css" />
+
+    <!-- 以下代码仅用于当前文档演示 -->
+    <link rel="stylesheet" type="text/css" href="../core/utility.css" />
     <style>
         .x-col span {
             background: #EEEEEE;
@@ -24,7 +25,8 @@
             display: block;
         }
     </style>
-
+</head>
+<body>
     <h2>基本用法</h2>
     <p>使用 <code>.x-row</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度自行设置。</p>
     <aside class="doc-demo">
@@ -46,7 +48,7 @@
     </aside>
 
     <blockquote class="doc-note"><h4>注意</h4>不能将 <code>.x-container</code> 和 <code>.x-row</code> 赋予同一个标签，而应该用 <code>.x-container</code> 嵌套 <code>.x-row</code>。</blockquote>
-    
+
     <h2>12栅格法</h2>
     <p>使用 <code>.x-col-*</code>(其中 * 是 1-12 的整数) 标识列宽。只要一行内的所有列宽度后缀加起来等于 12，即可占满一行。如果超过 12，列会自动换行。</p>
     <aside class="doc-demo">
@@ -101,9 +103,9 @@
             <div class="x-col"><span>C</span></div>
         </div>
     </aside>
-    
+
     <h2>高级用法</h2>
-    
+
     <h3>布局嵌套</h3>
     <p>在任一列中又可以继续应用栅格方法细分。</p>
     <aside class="doc-demo">
@@ -119,7 +121,6 @@
     </aside>
 
     <h3>列排序</h3>
-    <link rel="stylesheet" type="text/css" href="../core/utility.css" />
     <p>使用 <a href="../core/utility.html">辅助样式(utility)</a> 提供的 <code>.x-left</code> 和 <code>.x-right</code> 可重定义列的顺序。这在为了 SEO 需要将重要内容提前又不希望内容显示在左边的时候特别有用。</p>
     <aside class="doc-demo">
         <div class="x-row">
@@ -174,6 +175,7 @@
             <div class="x-col x-col-12 x-col-medium-9"><span>主体</span></div>
         </div>
     </aside>
+
     <h3>左大右小</h3>
     <aside class="doc-demo">
         <div class="x-row">
@@ -181,6 +183,7 @@
             <div class="x-col x-col-12 x-col-medium-3"><span>右边栏</span></div>
         </div>
     </aside>
+
     <h3>左右平分</h3>
     <aside class="doc-demo">
         <div class="x-row">
@@ -188,6 +191,7 @@
             <div class="x-col x-col-12 x-col-medium-6"><span>主体 2</span></div>
         </div>
     </aside>
+
     <h3>左中右</h3>
     <aside class="doc-demo">
         <div class="x-row">
@@ -196,6 +200,7 @@
             <div class="x-col x-col-12 x-col-medium-2"><span>右边栏</span></div>
         </div>
     </aside>
+
     <h3>三等分</h3>
     <aside class="doc-demo">
         <div class="x-row">
@@ -204,6 +209,7 @@
             <div class="x-col x-col-12 x-col-medium-4"><span>主体 3</span></div>
         </div>
     </aside>
+
     <h3>四等分</h3>
     <aside class="doc-demo">
         <div class="x-row">
@@ -294,6 +300,5 @@
             <div class="x-col"><span>F</span></div>
         </div>
     </aside>
-
 </body>
 </html>

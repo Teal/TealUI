@@ -21,12 +21,21 @@ var Doc = {
     folders: {
 
         /**
-         * 存放文档系统文件的文件夹。
+         * 存放文档文件的文件夹。
          */
-        assets: {
-            pageName: '工具',
-            pageTitle: '开发者工具',
-            pageDescription: 'TealUI 提供了组件定制、代码压缩、合并等常用工具'
+        docs: {
+            pageName: '文档',
+            pageTitle: '开始使用',
+            pageDescription: '这里包含了所有文档和教程，从零开始快速上手组件。'
+        },
+
+        /**
+         * 存放文档文件的文件夹。
+         */
+        demos: {
+            pageName: 'DEMO',
+            pageTitle: 'DEMO演示',
+            pageDescription: '这里包含了所有组件的效果预览，以及一些现成的网页模板。'
         },
 
         /**
@@ -39,12 +48,12 @@ var Doc = {
         },
 
         /**
-         * 存放文档文件的文件夹。
+         * 存放文档系统文件的文件夹。
          */
-        docs: {
-            pageName: '文档',
-            pageTitle: '开始使用',
-            pageDescription: '这里包含了所有文档和教程，从零开始快速上手组件。'
+        assets: {
+            pageName: '工具',
+            pageTitle: '开发者工具',
+            pageDescription: 'TealUI 提供了组件定制、代码压缩、合并等常用工具'
         }
 
     },
@@ -95,8 +104,9 @@ var Doc = {
                     </span>\
                     <ul id="doc_navbar">\
                         <li{actived:docs}><a href="{baseUrl}docs/{indexUrl}">开始使用</a></li>\
+                        <li{actived:demos}><a href="{baseUrl}demos/{indexUrl}">DEMO演示</a></li>\
                         <li{actived:src}><a href="{baseUrl}src/{indexUrl}">所有组件</a></li>\
-                        <li{actived:assets}><a href="{baseUrl}assets/tools/download.html">下载和定制</a></li>\
+                        <li{actived:assets}><a href="{baseUrl}assets/tools/download.html">下载定制</a></li>\
                         <li><a href="https://github.com/Teal/TealUI/issues" target="_blank">讨论</a></li>\
                     </ul>\
                     <form id="doc_search" class="doc-right" onsubmit="Doc.onSuggestSubmit(\'doc_search_suggest\'); return false;">\
