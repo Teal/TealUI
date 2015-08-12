@@ -191,14 +191,21 @@ Color.prototype = {
         return Color.fromHSL(hsl);
     },
 
+    /**
+     * 叠加当前颜色和目标颜色的值。
+     * @param {Color} color 另一个颜色值。
+     * @param {Number} weight 当前颜色叠加的透明度。
+     * @returns {Color} 返回叠加后的新颜色。 
+     */
     mix: function (color, weight) {
+        var me = this;
         var w = weight * 2 - 1;
-        var a = this.a - color.a;
+        var a = me.a - color.a;
 
         var w1 = (((w * a == -1) ? w : (w + a) / (1 + w * a)) + 1) / 2.0;
         var w2 = 1 - w1;
-        
-        return new Color(this.r * w1 + color.r * w2, this.g * w1 + color.g * w2, this.b * w1 + color.b * w2, color1.a * weight + color2.a * (1 - weight));
+
+        return new Color(me.r * w1 + color.r * w2, me.g * w1 + color.g * w2, me.b * w1 + color.b * w2, me.a * weight + color.a * (1 - weight));
     }
 
 };
