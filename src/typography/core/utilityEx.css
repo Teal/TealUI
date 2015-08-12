@@ -1,0 +1,19 @@
+﻿/* #region @显示 */
+.x-inline {
+  display: inline;
+}
+.x-block {
+  display: block;
+}
+.x-inline-block {
+  display: inline-block;
+}
+/* #endregion */
+/* #region @定位 */
+.x-relative {
+  position: relative !important;
+}
+.x-absolute {
+  position: absolute !important;
+}
+/* #endregion */

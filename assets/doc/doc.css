@@ -568,12 +568,12 @@ a .doc-icon {
 .doc-page {
     /* 统一浏览器默认背景色 */
     background-color: #fff;
-    margin: 0 14px 0 196px; /* 14px(侧边栏左边空白) + 14px * 12px(侧边栏) + 14px(侧边栏右边空白) = 196px */
+    margin: 0 14px 0 280px; /* 14px(侧边栏左边空白) + 14px * 18px(侧边栏) + 14px(侧边栏右边空白) = 280px */
     padding: 0;
 }
 
 .doc-container {
-    margin: 0 -14px 0 -196px;
+    margin: 0 -14px 0 -280px;
     padding: 0 14px;
 }
 
@@ -791,7 +791,7 @@ a#doc_logo {
 /* 列表 */
 #doc_sidebar {
     border-right: 1px solid #dadada;
-    width: 168px; /* 14px * 12 */
+    width: 252px; /* 14px * 18 */
     left: 14px;
     position: absolute;
     -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
@@ -969,7 +969,7 @@ a#doc_logo {
 /* 更大屏幕增加边距 */
 @media (min-width: 1280px) {
     .doc-page {
-        margin: 0 174px 0 342px; /* 14px + 160px */ /* 196px - 14px + 160px */
+        margin: 0 174px 0 426px; /* 14px + 160px */ /* 280px - 14px + 160px */
     }
 
     .doc-container {
@@ -984,11 +984,11 @@ a#doc_logo {
 
 @media (min-width: 1600px) {
     .doc-page {
-        margin: 0 334px 0 502px; /* 14px + 320px */ /* 196px - 14px + 320px */
+        margin: 0 334px 0 586px; /* 14px + 320px */ /* 280px - 14px + 320px */
     }
 
     .doc-container {
-        margin: 0 -334px 0 -502px;
+        margin: 0 -334px 0 -586px;
         padding: 0 320px;
     }
 
