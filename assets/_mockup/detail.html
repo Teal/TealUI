@@ -20,9 +20,10 @@
         </span>
         <ul id="doc_navbar">
             <li><a href="docs/index.html">开始使用</a></li>
+            <li><a href="demos/index.html">DEMO演示</a></li>
             <li><a href="src/index.html">所有组件</a></li>
-            <li><a href="tools/customize/index.html">下载和定制</a></li>
-            <li><a href="tools/devTools/index.html">开发者工具</a></li>
+            <li><a href="assets/tools/download.html">下载定制</a></li>
+            <li><a href="https://github.com/Teal/TealUI/issues" target="_blank">讨论</a></li>
         </ul>
         <form id="doc_search" class="doc-right">
             <input type="text" placeholder="搜索组件..." />
@@ -103,8 +104,7 @@
         <span class="x-button">span 按钮</span>
     </aside>
 
-    <aside class="doc-code-toolbar doc-section"><a href="javascript://编辑并执行源码">编辑</a><a href="javascript://全选并复制源码">复制</a></aside>
-
+    <aside class="doc-code-toolbar doc-section"><a title="执行本代码" href="javascript://执行本代码"><span class="doc-icon">▶</span></a><a title="编辑本代码" href="javascript://编辑本代码"><span class="doc-icon">✍</span></a><a title="全选并复制本源码" href="javascript://全选并复制本源码"><span class="doc-icon">❐</span></a></aside>
     <pre class="doc doc-code doc-code-html"><span class="doc-code-plain">不同的标签：
 </span><span class="doc-code-tag">&lt;a</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"###"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">a 按钮</span><span class="doc-code-tag">&lt;/a&gt;</span><span class="doc-code-plain">
 </span><span class="doc-code-tag">&lt;input</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"x-button"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">value</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"input 按钮"</span><span class="doc-code-plain"> </span><span class="doc-code-attrname">type</span><span class="doc-code-punctuation">=</span><span class="doc-code-attrvalue">"button"</span><span class="doc-code-tag">&gt;</span><span class="doc-code-plain">
@@ -131,8 +131,9 @@
             <th>示例</th>
         </tr>
         <tr>
-            <td>
-                <small>(ES6)</small><code>Object.assign</code>
+            <td class="doc">
+                <code>Object.assign</code>
+                <small><span title="HTML5 内置此 API" class="doc-icon">5</span></small>
                 <div class="doc-toolbar">
                     <a href="###" title="查看源码"><span class="doc-icon">/</span>源码</a>
                 </div>
@@ -143,7 +144,7 @@
                     <a href="###"><span class="doc-icon">﹀</span>更多</a>
                 </div>
             </td>
-            <td><pre>Object.assign({}, {a: 1});</pre></td>
+            <td class="doc"><pre>Object.assign({}, {a: 1});</pre></td>
         </tr>
         <tr>
             <td><code>Object.each</code></td>

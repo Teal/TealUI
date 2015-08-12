@@ -33,8 +33,8 @@ var Doc = {
          * 存放文档文件的文件夹。
          */
         demos: {
-            pageName: 'DEMO',
-            pageTitle: 'DEMO演示',
+            pageName: '实例',
+            pageTitle: '实例演示',
             pageDescription: '这里包含了所有组件的效果预览，以及一些现成的网页模板。'
         },
 
@@ -104,7 +104,7 @@ var Doc = {
                     </span>\
                     <ul id="doc_navbar">\
                         <li{actived:docs}><a href="{baseUrl}docs/{indexUrl}">开始使用</a></li>\
-                        <li{actived:demos}><a href="{baseUrl}demos/{indexUrl}">DEMO演示</a></li>\
+                        <li{actived:demos}><a href="{baseUrl}demos/{indexUrl}">实例演示</a></li>\
                         <li{actived:src}><a href="{baseUrl}src/{indexUrl}">所有组件</a></li>\
                         <li{actived:assets}><a href="{baseUrl}assets/tools/download.html">下载定制</a></li>\
                         <li><a href="https://github.com/Teal/TealUI/issues" target="_blank">讨论</a></li>\
