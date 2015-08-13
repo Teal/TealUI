@@ -2,6 +2,8 @@
  * @fileOverflow 本文件提供文档演示的相关样式，不是组件的一部分。
  */
 
+/*#region 配置 */
+
 //  色系：Teal
 //  50#E0F2F1
 //  100#B2DFDB
@@ -27,6 +29,14 @@
 
 @font-size: 14px;
 @line-height: 24px;
+@textarea-height: @line-height * 5;
+
+@grid-margin: 1em;
+@grid-padding: @font-size;
+@sidebar-width: @font-size * 16;
+
+@font-family-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
 
 @primary-color-lightest: #B2DFDB;
 @primary-color-lighter: #00BFA5;
@@ -35,29 +45,23 @@
 @primary-color-dark: #00796B;
 @primary-color-darker: #004D40;
 
-@border-color: #DADADA;
-@tip-color: #B8B8B8;
+@text-color: #4D4E53;
 @icon-color: #757575;
-@text-color: #616161;
+@tip-color: #B8B8B8;
+@topbar-color: #E9E9E9;
+
 @code-color: #990000;
 @error-color: #B94A48;
 @info-color: #1B809E;
 
+@border-color: #DADADA;
+@border-color-light: #EEE;
+
 @header-color: #F1F1F1;
 @striped-color: #F7F7F7;
-@blockquote-color: #F9F9F7;
-@summary-background: #F8F8F8;
-@summary-border: #EEE;
-@topbar-color: #E9E9E9;
+@blockquote-color: #F9F9F9;
 
-@grid-margin: 1em;
-@grid-padding: @font-size;
-@sidebar-width: @font-size * 16px;
-
-@font-family-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
-@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
-
-@textarea-height: 125px;
+/*#endregion */
 
 /* #region 全局基础样式 */
 
@@ -394,7 +398,7 @@
 // 代码框工具条
 .doc-code-toolbar a {
     float: right;
-    padding: 0 7px;
+    padding: 0 6px;
     display: inline-block;
     color: @tip-color;
     border: 1px solid @border-color;
@@ -568,9 +572,9 @@
 
 // 目录
 .doc-index {
-    background: @summary-background;
-    border-top: 1px solid @summary-border;
-    border-bottom: 1px solid @summary-border;
+    background: @blockquote-color;
+    border-top: 1px solid @border-color-light;
+    border-bottom: 1px solid @border-color-light;
     margin-bottom: 1em;
 
     h2 {
@@ -588,7 +592,7 @@
         background: #fff;
         margin: 0 0 0 60px;
         padding: .5em 1em;
-        border-left: 1px solid @summary-border;
+        border-left: 1px solid @border-color-light;
     }
 
     dt {
@@ -876,8 +880,8 @@ a#doc_logo {
 }
 
 #doc_summary {
-    border: 1px solid @summary-border;
-    background-color: @summary-background;
+    border: 1px solid @border-color-light;
+    background-color: @blockquote-color;
     padding: 8px 14px;
 }
 
@@ -1009,6 +1013,7 @@ a#doc_logo {
 
 .large-screen-padding(@min-width, @padding-size) {
     @media (min-width: @min-width) {
+
         .doc-page {
             margin: 0 @padding-size + @grid-padding 0 @sidebar-width + @grid-padding + @padding-size;
         }
