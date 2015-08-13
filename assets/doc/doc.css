@@ -174,10 +174,10 @@
   line-height: 150%;
   color: #009688;
 }
-.docnote:after {
+.doc-note:after {
   background-color: #b94a48 !important;
 }
-.docnote h4 {
+.doc-note h4 {
   color: #b94a48 !important;
 }
 .doc > pre,
@@ -631,11 +631,11 @@ a .doc-icon {
 /* #region 文档页面样式 */
 .doc-page {
   background-color: #fff;
-  margin: 0 14px 0 252px;
+  margin: 0 14px 0 224px;
   padding: 0;
 }
 .doc-container {
-  margin: 0 -14px 0 -252px;
+  margin: 0 -14px 0 -224px;
   padding: 0 14px;
 }
 #doc_progress {
@@ -723,55 +723,85 @@ a#doc_logo:hover {
   right: -1px;
 }
 .doc-list {
-  margin: 0;
   background: #fff;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
 }
-.doc-list dd {
+.doc-list,
+.doc-list ul {
   margin: 0;
   padding: 0;
-  width: 100%;
+  list-style: none;
+  overflow: hidden;
+  -moz-transition: height .3s;
+  -o-transition: height .3s;
+  -webkit-transition: height .3s;
+  transition: height .3s;
 }
-.doc-list dt,
+.doc-list .doc-icon {
+  -moz-transition: -moz-transform 0.3s;
+  -o-transition: -o-transform 0.3s;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform .3s;
+}
+.doc-list-expanded .doc-icon {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.doc-list-collapsed .doc-icon {
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
 .doc-list a {
   display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  padding: 0 7px !important;
   text-decoration: none;
-  color: #616161 !important;
-  line-height: 250%;
+  color: #626262 !important;
+  line-height: 240%;
   font-size: 13.5px;
+  padding-left: .18em;
 }
 .doc-list a:hover,
 .doc-list-actived a {
-  background-color: #e8e8e8 !important;
+  background-color: #E8E8E8 !important;
   text-decoration: none;
 }
-.doc-list dt {
-  line-height: 120%;
-  margin: .5em 0;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 0 !important;
+.doc-list ul a {
+  padding-left: 1.32em;
 }
-.doc-list-header-1 {
-  border-left: 2px solid #009688;
-  font-size: 16px;
-  padding: 0 7px !important;
+.doc-list ul ul a {
+  padding-left: 2.64em;
 }
-.doc-list-header-2 {
-  font-weight: 500;
+.doc-list ul ul ul a {
+  padding-left: 3.96em;
+}
+.doc-list ul ul ul ul a {
+  padding-left: 5.28em;
+}
+.doc-list ul ul ul ul ul a {
+  padding-left: 6.6em;
 }
 .doc-list small {
-  padding-left: 4px;
+  margin-left: .65em;
 }
 .doc-list-doing a,
 .doc-list-todo a {
   color: #AAA !important;
   font-style: italic;
+}
+#doc_search_suggest a {
+  line-height: 125%;
+}
+#doc_search_suggest a small {
+  margin: 0;
 }
 #doc_search_suggest {
   width: 236px;
@@ -818,7 +848,7 @@ a#doc_logo:hover {
 }
 #doc_sidebar {
   border-right: 1px solid #dadada;
-  width: 224px;
+  width: 196px;
   left: 14px;
   position: absolute;
   -webkit-transform: translateZ(0);
@@ -922,10 +952,10 @@ a#doc_logo:hover {
 /* #region 自适应 */
 @media (min-width: 1280px) {
   .doc-page {
-    margin: 0 174px 0 398px;
+    margin: 0 174px 0 370px;
   }
   .doc-container {
-    margin: 0 -174px 0 -398px;
+    margin: 0 -174px 0 -370px;
     padding: 0 160px;
   }
   #doc_sidebar {
@@ -934,10 +964,10 @@ a#doc_logo:hover {
 }
 @media (min-width: 1600px) {
   .doc-page {
-    margin: 0 334px 0 558px;
+    margin: 0 334px 0 530px;
   }
   .doc-container {
-    margin: 0 -334px 0 -558px;
+    margin: 0 -334px 0 -530px;
     padding: 0 160px;
   }
   #doc_sidebar {

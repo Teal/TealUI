@@ -33,7 +33,7 @@
 
 @grid-margin: 1em;
 @grid-padding: @font-size;
-@sidebar-width: @font-size * 16;
+@sidebar-width: @font-size * 14;
 
 @font-family-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 @font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
@@ -92,10 +92,10 @@
         line-height: 125%;
     }
 
-        > h2:before, > h3:before, &-index dt:before, &-index dd:before {
-            color: @icon-color;
-            font-weight: 400;
-        }
+    > h2:before, > h3:before, &-index dt:before, &-index dd:before {
+        color: @icon-color;
+        font-weight: 400;
+    }
 
     > h1 {
         font-size: @font-size + 16px;
@@ -213,11 +213,11 @@
         }
     }
 
-    &note:after {
+    &-note:after {
         background-color: @error-color !important;
     }
 
-    &note h4 {
+    &-note h4 {
         color: @error-color !important;
     }
 
@@ -500,9 +500,9 @@
         color: #838384;
     }
 
-        a ~ a {
-            margin-left: 20px;
-        }
+    a ~ a {
+        margin-left: 20px;
+    }
 }
 
 // 水平列表
@@ -620,10 +620,10 @@
         }
     }
 
-        dd a {
-            color: @text-color;
-            font-size: @font-size - 1px;
-        }
+    dd a {
+        color: @text-color;
+        font-size: @font-size - 1px;
+    }
 }
 
 /* #endregion */
@@ -699,10 +699,10 @@
         text-decoration: none;
     }
 
-        a:hover, .doc-actived a {
-            background-color: @primary-color-darker;
-            color: #FFF;
-        }
+    a:hover, .doc-actived a {
+        background-color: @primary-color-darker;
+        color: #FFF;
+    }
 }
 
 #doc_logo, #doc_navbar li {
@@ -778,59 +778,115 @@ a#doc_logo {
 
 // 列表
 .doc-list {
-    margin: 0;
     background: #fff;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
 
-    dd {
+    &, ul {
         margin: 0;
         padding: 0;
-        width: 100%;
+        list-style: none;
+        overflow: hidden;
+        -moz-transition: height .3s;
+        -o-transition: height .3s;
+        -webkit-transition: height .3s;
+        transition: height .3s;
     }
 
-    dt, a {
+    .doc-icon {
+        -moz-transition: -moz-transform .3s;
+        -o-transition: -o-transform .3s;
+        -webkit-transition: -webkit-transform .3s;
+        transition: transform .3s;
+    }
+
+    &-expanded {
+        .doc-icon {
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    }
+
+    &-collapsed {
+        .doc-icon {
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+    }
+
+    a {
         display: block;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        padding: 0 7px !important;
         text-decoration: none;
-        color: #616161 !important;
-        line-height: 250%;
+        color: #626262 !important;
+        line-height: 240%;
         font-size: 13.5px;
+        padding-left: .18em;
     }
 
-        a:hover, &-actived a {
-            background-color: #e8e8e8 !important;
-            text-decoration: none;
+    a:hover, &-actived a {
+        background-color: #E8E8E8 !important;
+        text-decoration: none;
+    }
+
+    ul {
+
+        @indent-width: 1.32em;
+
+        a {
+            padding-left: @indent-width * 1;
         }
 
-    dt {
-        line-height: 120%;
-        margin: .5em 0;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 0 !important;
-    }
+        ul {
+            a {
+                padding-left: @indent-width * 2;
+            }
 
-    &-header-1 {
-        border-left: 2px solid #009688;
-        font-size: 16px;
-        padding: 0 7px !important;
-    }
+            ul {
+                a {
+                    padding-left: @indent-width * 3;
+                }
 
-    &-header-2 {
-        font-weight: 500;
+                ul {
+                    a {
+                        padding-left: @indent-width * 4;
+                    }
+
+                    ul {
+                        a {
+                            padding-left: @indent-width * 5;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     small {
-        padding-left: 4px;
+        margin-left: .65em;
     }
 
     &-doing a, &-todo a {
         color: #AAA !important;
         font-style: italic;
+    }
+}
+
+#doc_search_suggest {
+    a {
+        line-height: 125%;
+
+        small {
+            margin: 0;
+        }
     }
 }
 
@@ -969,9 +1025,9 @@ a#doc_logo {
     }
 }
 
-    .doc-pager span {
-        margin: 0;
-    }
+.doc-pager span {
+    margin: 0;
+}
 
 #doc_pager_left {
     right: 56px;
@@ -995,17 +1051,17 @@ a#doc_logo {
     padding-bottom: 42px;
 }
 
-    #doc_footer div {
-        float: right;
-    }
+#doc_footer div {
+    float: right;
+}
 
-    #doc_footer a {
-        padding: 0 .5em;
-    }
+#doc_footer a {
+    padding: 0 .5em;
+}
 
-    #doc_footer, #doc_footer a {
-        color: #b8b8b8;
-    }
+#doc_footer, #doc_footer a {
+    color: #b8b8b8;
+}
 
 /* #endregion */
 
@@ -1045,22 +1101,22 @@ a#doc_logo {
             border: 0 !important;
         }
 
-            > tbody > tr > td {
-                padding: 5px 0 !important;
+        > tbody > tr > td {
+            padding: 5px 0 !important;
 
-                &:first-child {
-                    width: auto;
+            &:first-child {
+                width: auto;
+                display: inline-block;
+
+                &:after {
+                    content: ':';
+                }
+
+                & + td {
                     display: inline-block;
-
-                    &:after {
-                        content: ':';
-                    }
-
-                    & + td {
-                        display: inline-block;
-                    }
                 }
             }
+        }
     }
 
     // 全局边框
@@ -1094,9 +1150,9 @@ a#doc_logo {
         transition: height .3s ease-out;
     }
 
-        #doc_navbar li {
-            float: none;
-        }
+    #doc_navbar li {
+        float: none;
+    }
 
     #doc_menu {
         display: block;
@@ -1117,9 +1173,9 @@ a#doc_logo {
             border-radius: 0;
         }
 
-            button:active, .doc-menu-actived {
-                background-color: #004D40;
-            }
+        button:active, .doc-menu-actived {
+            background-color: #004D40;
+        }
     }
 
     // 侧边栏
