@@ -1,15 +1,14 @@
 ﻿
-var Path = require('path'),
-	IO = require('utilskit/io'),
-	FS = require('fs'),
-    Doc = require('../doc/doc.js');
+var Path = require('path');
+var IO = require('utilskit/io');
+var FS = require('fs');
+var Doc = require('../doc/doc.js');
+var ModuleList = require(Doc.basePath + Doc.indexPath);
 
 /**
  * 文档文件的扩展名。
  */
-const docExtName = '.html';
-
-var reModuleInfo = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + Doc.moduleInfo + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>)', 'i');
+var docExtName = '.html';
 
 /**
  * 更新指定的列表缓存文件。
@@ -109,18 +108,25 @@ function generateModuleList() {
      */
     function getModuleInfo(filePath) {
         var content = IO.readFile(filePath, Doc.encoding);
-        var match = reModuleInfo.exec(content);
-        var moduleInfo = match && Doc.parseModuleInfo(match[4]) || {};
+
+        // 获取元信息。
+        var moduleInfoString = getMetaInfo(content, Doc.moduleInfo);
+        var moduleInfo = moduleInfoString && Doc.parseModuleInfo(moduleInfoString) || {};
+
+        // 获取标题。
         moduleInfo.title = (/(<title[^\>]*?>)(.*?)(<\/title>)/i.exec(content) || [])[2];
-        moduleInfo.author = (/<meta\s+name\s*=\s*"author"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
-        moduleInfo.keywords = (/<meta\s+name\s*=\s*"keywords"\s+content=\s*"([^"]*)"\s*>/i.exec(content) || [])[1] || '';
-        moduleInfo.contents = [];
-        content.replace(/<h(2)>(.*?)<\/h\1>/g, function (h2, _, c) {
-            c = c.replace(/<[^>]*>/g, '');
-            c = c.replace('源码: ', ' ');
-            moduleInfo.contents.push(c);
-        });
-        moduleInfo.contents = moduleInfo.contents.join(',');
+        // moduleInfo.author = getMetaInfo(content, "author");
+        moduleInfo.keywords = getMetaInfo(content, "keywords");
+
+        // 获取提纲。
+        moduleInfo.index = [];
+        //content.replace(/doc-demo>/).replace(/<h(2)>(.*?)<\/h\1>/g, function (h2, _, c) {
+        //    c = c.replace(/<[^>]*>/g, '');
+        //    c = c.replace('源码: ', ' ');
+        //    moduleInfo.contents.push(c);
+        //});
+
+        //moduleInfo.contents = moduleInfo.contents.join(',');
         return moduleInfo;
     }
 
@@ -233,6 +239,11 @@ function getFileByName(path) {
             return Path.resolve(folder, files[i]);
         }
     }
+}
+
+function getMetaInfo(content, name) {
+    var match = new RegExp('(<meta\\s+name\\s*=\\s*([\'\"])' + name + '\\2\\s+content\\s*=\\s*([\'\"]))(.*?)(\\3\\s*\\/?>)', 'i').exec(content);
+    return match ? match[4] : "";
 }
 
 var finalList = generateModuleList();

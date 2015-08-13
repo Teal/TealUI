@@ -1,4 +1,4 @@
-Doc.moduleList = {
+(typeof exports === "undefined" ? Doc : exports).moduleList = {
     src: {
         typography: {
             "title": "CSS 排版",
