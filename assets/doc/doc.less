@@ -52,7 +52,7 @@
 
 @grid-margin: 1em;
 @grid-padding: @font-size;
-@sidebar-width: @font-size * 18px;
+@sidebar-width: @font-size * 16px;
 
 @font-family-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
 @font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
@@ -233,6 +233,7 @@
         line-height: 150%;
         font-size: 13px;
         padding: 6px;
+        color: @text-color;
     }
 
     &-section, > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > dl, > blockquote {
@@ -244,7 +245,7 @@
         }
 
         a {
-            color: @primary-color;
+            color: @primary-color-dark;
             text-decoration: none;
 
             &:hover {
