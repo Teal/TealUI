@@ -44,7 +44,7 @@ var Doc = {
         src: {
             pageName: '组件',
             pageTitle: '所有组件',
-            pageDescription: 'TealUI 提供了 200 多个常用组件，满足多数需求。每个组件依赖性小，可单独下载。'
+            pageDescription: 'TealUI 提供了 200 多个常用组件，满足多数需求。每个组件依赖性小，代码短，可单独下载。'
         },
 
         /**
@@ -1438,7 +1438,7 @@ var Doc = {
                     },
 
                     favorite: function (html) {
-                        return ~(Doc.getStore('favorites') || '').indexOf(Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
+                        return ~(Doc.getStore('favorites') || '').indexOf(Doc.folder + "/" + Doc.path) ? '<span class="doc-icon">★</span>已收藏' : '<span class="doc-icon">✰</span>收藏';
                     },
 
                     actived: function (name) {
@@ -1988,11 +1988,12 @@ var Doc = {
         if (window.localStorage) {
             var button = document.getElementById('doc_module_toolbar_favorite');
             var favorates = Doc.getStore('favorites') || [];
-            if (favorates.indexOf(Doc.path) < 0) {
-                favorates.push(Doc.path);
+            var path = Doc.folder + "/" + Doc.path;
+            if (favorates.indexOf(path) < 0) {
+                favorates.push(path);
                 button.innerHTML = '<span class="doc-icon">★</span>已收藏';
             } else {
-                favorates.splice(favorates.indexOf(Doc.path), 1);
+                favorates.splice(favorates.indexOf(path), 1);
                 button.innerHTML = '<span class="doc-icon">✰</span>收藏';
             }
             Doc.setStore('favorites', favorates);
@@ -2028,7 +2029,7 @@ var Doc = {
         Doc.iterate('.doc > pre, .doc-api pre, .doc-demo', function (node) {
 
             // 不重复解析。
-            if (node._docInited) {
+            if (node._docInited || node.getAttribute("data-toolbar") === "false") {
                 return;
             }
             node._docInited = true;
