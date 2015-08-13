@@ -104,7 +104,7 @@ textarea {
   overflow: auto;
   vertical-align: top;
 }
-:-moz-placeholder {
+::-moz-placeholder {
   color: #bdbdbd;
 }
 :-ms-input-placeholder,
@@ -254,11 +254,11 @@ ol ol {
 dt {
   font-weight: 700;
 }
-dd ~ dt {
-  margin-top: 0.5em;
-}
 dd {
   margin: 0;
+}
+dd ~ dt {
+  margin-top: 0.5em;
 }
 /* #endregion */
 /* #endregion */

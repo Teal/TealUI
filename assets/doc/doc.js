@@ -1,6 +1,6 @@
 ﻿/**
- * @fileOverview 提供文档演示的相关功能。
- * @author xuld
+ * @fileOverview 本文件提供文档演示的相关功能，不是组件的一部分。
+ * @author xuld@vip.qq.com
  */
 
 /**
@@ -1538,7 +1538,7 @@ var Doc = {
 
                 // 为 PC 用户增加体验，隐藏滚动条。
                 if (!Doc.isTouch()) {
-                    list.className += ' doc-sidebar-hidescrollbar';
+                    list.className += ' doc-hidescrollbar';
                 }
 
                 // 滚动和重置大小后实时更新。
