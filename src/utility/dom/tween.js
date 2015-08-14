@@ -11,70 +11,8 @@ typeof include === "function" && include("dom/dom.js");
  * @param {Object} options 动画的相关参数。
  * @class
  */
-function Tween(dom, options) {
-    var me = this;
-    me.asyncQueue = new AsyncQueue;
-    me.dom = dom;
-    Fx.call(me, options);
-
-    // 处理 start 到 end.
-    me.current = {};
-
-    // 处理每个 CSS 属性。
-    var enginesCache = Tween._enginesCache || (Tween._enginesCache || {});
-    for (var cssPropertyName in me.params) {
-        
-        var value = me.params[cssPropertyName];
-
-        // 获取针对当前 CSS 属性的补间动画。
-        var engine = enginesCache[cssPropertyName];
-
-        // 如果未缓存过此属性的补间动画则重新生成。
-        if (!engine) {
-            for (engine in Tween.engines) {
-                if (engine.support(cssPropertyName)) {
-                    enginesCache[cssPropertyName] = engine;
-                    break;
-                }
-            }
-        }
-
-        var part;
-        
-        // 如果 value 是字符串，判断 += -= 或 a-b
-        if (typeof value === 'string') {
-            part = /^([+-]=|(.+?)-)(.*)$/.exec(value);
-            if (part) {
-                value = part[3];
-            }
-        }
-
-        me.params[to] = {
-            
-            // 找到用于变化指定属性的解析器。
-            tweener = Fx.tweeners[key = Dom.camelCase(key)];
-
-        // 如果有特殊功能。 ( += -= a-b)
-        if (part) {
-            parsed = part[2];
-            i = parsed ? tweener.parse(parsed) : tweener.get(options.elem, key);
-            parsed = parsed ? tweener.parse(value) : (i + parseFloat(part[1] === '+=' ? value : '-' + value));
-        } else {
-            parsed = tweener.parse(value);
-            i = tweener.get(options.elem, key);
-        }
-
-        params[key] = {
-            tweener: tweener,
-            from: i,
-            to: parsed
-        };
-    };
-}
-
-
-
-
+function Tween(dom) {
+    this.dom = Dom(dom);
 }
 
 Dom.roles.tween = Tween;
@@ -82,19 +20,75 @@ Dom.roles.tween = Tween;
 Tween.prototype = new Fx();
 
 Tween.prototype.constructor = Tween;
-Tween.prototype.set = function (delta) {
-    var options = this.options,
-				params = options.params,
-				elem = options.elem,
-				tweener,
-				key,
-				value;
 
+/**
+ * 生成当前变化所进行的初始状态。
+ * @param {Object} options 开始。
+ * @protected override
+ */
+Tween.prototype.init = function (options) {
+    var me = this;
+    Fx.prototype.init.call(this, options);
+    
+    // 存储解析后的渐变信息。
+    me.current = {};
+
+    // 处理每个 CSS 属性。
+    var enginesCache = Tween._enginesCache || (Tween._enginesCache || {});
+    for (var cssPropertyName in me.params) {
+        
+        var to = me.params[cssPropertyName];
+
+        // 获取针对当前 CSS 属性的补间动画。
+        var engine = enginesCache[cssPropertyName];
+
+        // 如果未缓存过此属性的补间动画则重新生成。
+        if (!engine) {
+            for (engine in Tween.engines) {
+                if (engine.support(cssPropertyName, to)) {
+                    enginesCache[cssPropertyName] = engine;
+                    break;
+                }
+            }
+        }
+
+        var from;
+        var part;
+        
+        // 支持 +=x -=y 或 a-b 格式。
+        if (typeof value === 'string') {
+            part = /^([+-]=|(.+?)-)(.*)$/.exec(value);
+            if (part) {
+                from = part[2] ? engine.parse(part[2]) : engine.get(me.dom, key);
+                to = engine.parse(part[3]);
+            }
+        }
+
+        if (!part) {
+            from = engine.get(me.dom, key);
+            to = engine.parse(value);
+        }
+
+        me.current[cssPropertyName] = {
+            engine: engine,
+            from: from,
+            to: to
+        }
+    }
+
+};
+
+/**
+ * 根据指定变化量设置值。
+ * @param {Number} delta 变化量。 0 - 1 。
+ * @protected override
+ */
+Tween.prototype.set = function (delta) {
+    var me = this;
     // 对当前每个需要执行的特效进行重新计算并赋值。
-    for (key in params) {
-        value = params[key];
-        tweener = value.tweener;
-        tweener.set(elem, key, tweener.compute(value.from, value.to, delta));
+    for (var key in me.current) {
+        var current = me.current[key];
+        current.engine.set(me.dom, key, current.engine.compute(current.from, current.to, delta));
     }
 };
 
@@ -102,262 +96,93 @@ Tween.prototype.set = function (delta) {
  * 默认的补间动画的引擎。 
  */
 Tween.engines = {
+
+    scroll: {
+        support: function (key) {
+            return /^scroll(Top|Left)/i.test(key);
+        },
+        get: function(dom, key) {
+            return dom.scroll()[/p$/.test(key) ? "top" : "left"];
+        },
+        set: function(dom, key, value) {
+            var obj = {};
+            obj[/p$/.test(key) ? "top" : "left"] = value;
+            dom.scroll(obj);
+        }
+    },
+
     color: {
 	
-        set: Fx.numberTweener.set,
+    set: Fx.numberTweener.set,
 	
-        compute: function(from, to, delta){
-            var compute = Fx.numberTweener.compute,
-                r = [
-                    Math.round(compute(from[0], to[0], delta)),
-                    Math.round(compute(from[1], to[1], delta)),
-                    Math.round(compute(from[2], to[2], delta))
-                ],
-                i = 0;
+    compute: function(from, to, delta){
+        var compute = Fx.numberTweener.compute,
+            r = [
+                Math.round(compute(from[0], to[0], delta)),
+                Math.round(compute(from[1], to[1], delta)),
+                Math.round(compute(from[2], to[2], delta))
+            ],
+            i = 0;
 		
-            while(i < 3) {
-                delta = r[i].toString(16);
-                r[i++] = delta.length === 1 ? '0' + delta : delta;
-            }
-            return '#' + r.join('');
-        },
-	
-        parse: function(value){
-            if(value === 'transparent')
-                return [255, 255, 255];
-            var i, r, part;
-		
-            if(part = /^#([\da-f]{1,2})([\da-f]{1,2})([\da-f]{1,2})$/i.exec(value)){
-                i = 0;
-                r = [];
-                while (++i <= 3) {
-                    value = part[i];
-                    r.push(parseInt(value.length == 1 ? value + value : value, 16));
-                }
-            } else if(part = /(\d+),\s*(\d+),\s*(\d+)/.exec(value)){
-                i = 0;
-                r = [];
-                while (++i <= 3) {
-                    r.push(parseInt(part[i]));
-                }
-            }
-		
-            return r;
-        },
-	
-        get: function(elem, name){
-            return this.parse(Dom.styleString(elem, name));
+        while(i < 3) {
+            delta = r[i].toString(16);
+            r[i++] = delta.length === 1 ? '0' + delta : delta;
         }
+        return '#' + r.join('');
+    },
+	
+    parse: function(value){
+        if(value === 'transparent')
+            return [255, 255, 255];
+        var i, r, part;
+		
+        if(part = /^#([\da-f]{1,2})([\da-f]{1,2})([\da-f]{1,2})$/i.exec(value)){
+            i = 0;
+            r = [];
+            while (++i <= 3) {
+                value = part[i];
+                r.push(parseInt(value.length == 1 ? value + value : value, 16));
+            }
+        } else if(part = /(\d+),\s*(\d+),\s*(\d+)/.exec(value)){
+            i = 0;
+            r = [];
+            while (++i <= 3) {
+                r.push(parseInt(part[i]));
+            }
+        }
+		
+        return r;
+    },
+	
+    get: function(elem, name){
+        return this.parse(Dom.styleString(elem, name));
+    }
 
     },
 
     number: {
-        get: Dom.clac,
+            get: Dom.clac,
 
         /**
-		 * 常用计算。
-		 * @param {Object} from 开始。
-		 * @param {Object} to 结束。
-		 * @param {Object} delta 变化。
-		 */
-        compute: function (from, to, delta) {
-            return (to - from) * delta + from;
-        },
+         * 常用计算。
+         * @param {Object} from 开始。
+         * @param {Object} to 结束。
+         * @param {Object} delta 变化。
+         */
+            compute: function (from, to, delta) {
+                return (to - from) * delta + from;
+            },
 
-        parse: function (value) {
-            return typeof value == "number" ? value : parseFloat(value);
-        },
+            parse: function (value) {
+                return typeof value == "number" ? value : parseFloat(value);
+            },
 
-        set: function (elem, name, value) {
-            Dom.css(elem, name, value);
-        }
-    },
+            set: function (elem, name, value) {
+                Dom.css(elem, name, value);
+            }
+    }
 
 };
-
-/**
- * @namespace Fx
- */
-Object.extend(Fx, {
-
-    /**
-	 * 用于特定 css 补间动画的引擎。 
-	 */
-    tweeners: {},
-
-    defaultTweeners: [],
-
-    /**
-	 * 补间动画
-	 * @class Fx.Tween
-	 * @extends Fx
-	 */
-    Tween: Fx.extend({
-
-        /**
-		 * 初始化当前特效。
-		 */
-        constructor: function () {
-
-        },
-
-        /**
-		 * 根据指定变化量设置值。
-		 * @param {Number} delta 变化量。 0 - 1 。
-		 * @protected override
-		 */
-        set: function (delta) {
-            var options = this.options,
-				params = options.params,
-				elem = options.elem,
-				tweener,
-				key,
-				value;
-
-            // 对当前每个需要执行的特效进行重新计算并赋值。
-            for (key in params) {
-                value = params[key];
-                tweener = value.tweener;
-                tweener.set(elem, key, tweener.compute(value.from, value.to, delta));
-            }
-        },
-
-        /**
-		 * 生成当前变化所进行的初始状态。
-		 * @param {Object} options 开始。
-		 * @protected override
-		 */
-        init: function (options) {
-
-            // 对每个设置属性
-            var key,
-				tweener,
-				part,
-				value,
-				parsed,
-				i,
-				// 生成新的 tween 对象。
-				params = {};
-
-            for (key in options.params) {
-
-                // value
-                value = options.params[key];
-
-                // 如果 value 是字符串，判断 += -= 或 a-b
-                if (typeof value === 'string' && (part = /^([+-]=|(.+?)-)(.*)$/.exec(value))) {
-                    value = part[3];
-                }
-
-                // 找到用于变化指定属性的解析器。
-                tweener = Fx.tweeners[key = Dom.camelCase(key)];
-
-                // 已经编译过，直接使用， 否则找到合适的解析器。
-                if (!tweener) {
-
-                    // 如果是纯数字属性，使用 numberParser 。
-                    if (key in Dom.styleNumbers) {
-                        tweener = Fx.numberTweener;
-                    } else {
-
-                        i = Fx.defaultTweeners.length;
-
-                        // 尝试使用每个转换器
-                        while (i-- > 0) {
-
-                            // 获取转换器
-                            parsed = Fx.defaultTweeners[i].parse(value, key);
-
-                            // 如果转换后结果合格，证明这个转换器符合此属性。
-                            if (parsed || parsed === 0) {
-                                tweener = Fx.defaultTweeners[i];
-                                break;
-                            }
-                        }
-
-                        // 找不到合适的解析器。
-                        if (!tweener) {
-                            continue;
-                        }
-
-                    }
-
-                    // 缓存 tweeners，下次直接使用。
-                    Fx.tweeners[key] = tweener;
-                }
-
-                // 如果有特殊功能。 ( += -= a-b)
-                if (part) {
-                    parsed = part[2];
-                    i = parsed ? tweener.parse(parsed) : tweener.get(options.elem, key);
-                    parsed = parsed ? tweener.parse(value) : (i + parseFloat(part[1] === '+=' ? value : '-' + value));
-                } else {
-                    parsed = tweener.parse(value);
-                    i = tweener.get(options.elem, key);
-                }
-
-                params[key] = {
-                    tweener: tweener,
-                    from: i,
-                    to: parsed
-                };
-
-                //assert(i !== null && parsed !== null, "Fx.Tween#init(options): 无法正确获取属性 {key} 的值({from} {to})。", key, i, parsed);
-
-            }
-
-            options.params = params;
-        }
-
-    }),
-
-    createTweener: function (tweener) {
-        return Object.extendIf(tweener, Fx.numberTweener);
-    }
-
-});
-
-Object.each(Dom.styleHooks, function (value, key) {
-    Fx.tweeners[key] = this;
-}, Fx.createTweener({
-    set: function (elem, name, value) {
-        Dom.styleHooks[name].set(elem, value);
-    }
-}));
-
-Fx.tweeners.scrollTop = Fx.createTweener({
-    set: function (elem, name, value) {
-        Dom.setScroll(elem, { y: value });
-    },
-    get: function (elem) {
-        return Dom.getScroll(elem).y;
-    }
-});
-
-Fx.tweeners.scrollLeft = Fx.createTweener({
-    set: function (elem, name, value) {
-        Dom.setScroll(elem, { x: value });
-    },
-    get: function (elem) {
-        return Dom.getScroll(elem).x;
-    }
-});
-
-Fx.defaultTweeners.push(Fx.createTweener({
-
-    set: navigator.isIE678 ? function (elem, name, value) {
-        try {
-
-            // ie 对某些负属性内容报错
-            elem.style[name] = value;
-        } catch (e) { }
-    } : function (elem, name, value) {
-
-        elem.style[name] = value + 'px';
-    }
-
-}));
-
 
 
 Dom.prototype.tween = function (params, duration, callback, link) {
@@ -370,7 +195,75 @@ Dom.prototype.tween = function (params, duration, callback, link) {
 };
 
 
-/** * 系统的颜色 * @author xuld */typeof include === "function" && include("fx/color.js");Object.extend(Fx.defaultTweeners[0], {	    // Some named colors to work with    // From Interface by Stefan Petre    // http://interface.eyecon.ro/    color: {        aqua:[0,255,255],        azure:[240,255,255],        beige:[245,245,220],        black:[0,0,0],        blue:[0,0,255],        brown:[165,42,42],        cyan:[0,255,255],        darkblue:[0,0,139],        darkcyan:[0,139,139],        darkgrey:[169,169,169],        darkgreen:[0,100,0],        darkkhaki:[189,183,107],        darkmagenta:[139,0,139],        darkolivegreen:[85,107,47],        darkorange:[255,140,0],        darkorchid:[153,50,204],        darkred:[139,0,0],        darksalmon:[233,150,122],        darkviolet:[148,0,211],        fuchsia:[255,0,255],        gold:[255,215,0],        green:[0,128,0],        indigo:[75,0,130],        khaki:[240,230,140],        lightblue:[173,216,230],        lightcyan:[224,255,255],        lightgreen:[144,238,144],        lightgrey:[211,211,211],        lightpink:[255,182,193],        lightyellow:[255,255,224],        lime:[0,255,0],        magenta:[255,0,255],        maroon:[128,0,0],        navy:[0,0,128],        olive:[128,128,0],        orange:[255,165,0],        pink:[255,192,203],        purple:[128,0,128],        violet:[128,0,128],        red:[255,0,0],        silver:[192,192,192],        white:[255,255,255],        yellow:[255,255,0],        transparent: [255,255,255]    },	    _parse: Fx.defaultTweeners[0].parse,	    parse: function(value){        return this.color[value] || this._parse(value);    }});/**
+/**
+ * 系统的颜色
+ * @author xuld
+ */
+
+typeof include === "function" && include("fx/color.js");
+
+Object.extend(Fx.defaultTweeners[0], {
+	
+    // Some named colors to work with
+    // From Interface by Stefan Petre
+    // http://interface.eyecon.ro/
+
+    color: {
+        aqua:[0,255,255],
+        azure:[240,255,255],
+        beige:[245,245,220],
+        black:[0,0,0],
+        blue:[0,0,255],
+        brown:[165,42,42],
+        cyan:[0,255,255],
+        darkblue:[0,0,139],
+        darkcyan:[0,139,139],
+        darkgrey:[169,169,169],
+        darkgreen:[0,100,0],
+        darkkhaki:[189,183,107],
+        darkmagenta:[139,0,139],
+        darkolivegreen:[85,107,47],
+        darkorange:[255,140,0],
+        darkorchid:[153,50,204],
+        darkred:[139,0,0],
+        darksalmon:[233,150,122],
+        darkviolet:[148,0,211],
+        fuchsia:[255,0,255],
+        gold:[255,215,0],
+        green:[0,128,0],
+        indigo:[75,0,130],
+        khaki:[240,230,140],
+        lightblue:[173,216,230],
+        lightcyan:[224,255,255],
+        lightgreen:[144,238,144],
+        lightgrey:[211,211,211],
+        lightpink:[255,182,193],
+        lightyellow:[255,255,224],
+        lime:[0,255,0],
+        magenta:[255,0,255],
+        maroon:[128,0,0],
+        navy:[0,0,128],
+        olive:[128,128,0],
+        orange:[255,165,0],
+        pink:[255,192,203],
+        purple:[128,0,128],
+        violet:[128,0,128],
+        red:[255,0,0],
+        silver:[192,192,192],
+        white:[255,255,255],
+        yellow:[255,255,0],
+        transparent: [255,255,255]
+    },
+	
+    _parse: Fx.defaultTweeners[0].parse,
+	
+    parse: function(value){
+        return this.color[value] || this._parse(value);
+    }
+
+});
+
+/**
  * @author xuld
  */
 
@@ -821,3 +714,34 @@ typeof include === "function" && include("fx/tween.js");
     });
 
 })();
+
+
+// 如果是纯数字属性，使用 numberParser 。
+if (/^(columnCount|fillOpacity|flexGrow|flexShrink|fontWeight|lineHeight|opacity|order|orphans|widows|zIndex|zoom)$/.test(cssPropertyName)) {
+    tweener = Fx.numberTweener;
+} else {
+
+    i = Fx.defaultTweeners.length;
+
+    // 尝试使用每个转换器
+    while (i-- > 0) {
+
+        // 获取转换器
+        parsed = Fx.defaultTweeners[i].parse(value, key);
+
+        // 如果转换后结果合格，证明这个转换器符合此属性。
+        if (parsed || parsed === 0) {
+            tweener = Fx.defaultTweeners[i];
+            break;
+        }
+    }
+
+    // 找不到合适的解析器。
+    if (!tweener) {
+        continue;
+    }
+
+}
+
+// 缓存 tweeners，下次直接使用。
+Fx.tweeners[key] = tweener;

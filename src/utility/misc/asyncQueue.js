@@ -40,14 +40,16 @@ AsyncQueue.prototype = {
 	 */
     resume: function () {
 
-        // 保存当前的数据。
-        this.data = arguments;
+        var me = this;
+
+        // 更新当前的回调数据。
+        me.data = arguments;
 
         // 当前任务已执行完成，从队列移除。
-        this._queue.shift();
+        me._queue.shift();
 
         // 继续执行下一个任务。
-        this._queue.length && this._progress();
+        me._queue.length && me._progress();
     },
 
     /**
@@ -65,7 +67,6 @@ AsyncQueue.prototype = {
      * 如果是异步函数，则函数内部必须调用 @suspend 挂起队列，并在异步完成后调用 @resume 恢复队列。
      * 函数应该返回一个包含 `abort` 方法的对象，以便于终止此异步操作。
      * 
-     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
      * @param {String} [link="wait"] 定义正在执行其它异步任务时，@fn 的操作。
      * 
      * 值        | 意义
@@ -79,27 +80,29 @@ AsyncQueue.prototype = {
      * @returns this
 	 * @example new AsyncQueue().then(function(){ });
      */
-    then: function (fn, scope, link) {
-        typeof console === "object" && console.assert(fn instanceof Function, "taskQueue.then(fn: 必须是函数, [scope], link)");
-        if (this._queue.length) {
+    then: function (fn, link) {
+        typeof console === "object" && console.assert(typeof fn === "function", "taskQueue.then(fn: 必须是函数, [scope], link)");
+
+        var me = this;
+        if (me._queue.length) {
             switch (link) {
 
                 case "abort":
                     // 清空队列，终止操作，然后立即执行。
-                    this._queue.length = 1;
-                    this._queue.push([fn, scope]);
-                    this.abort();
+                    me._queue.length = 1;
+                    me._queue.push(fn);
+                    me.skip();
                     break;
 
                 case "insert":
                     // 插入队伍前面，等待当前任务完成后执行。
-                    this._queue.splice(1, 0, [fn, scope]);
+                    me._queue.splice(1, 0, fn);
                     break;
 
                 case "replace":
                     // 替换队首，终止操作，然后恢复执行。
-                    this._queue.splice(1, 0, [fn, scope]);
-                    this.abort();
+                    me._queue.splice(1, 0, fn);
+                    me.skip();
                     // 继续向下执行。
 
                 case "cancel":
@@ -108,24 +111,25 @@ AsyncQueue.prototype = {
 
                 default:
                     // 插入队伍后面，等待当前任务完成后执行。
-                    this._queue.push([fn, scope]);
+                    me._queue.push(fn);
 
             }
         } else {
-            this._queue.push([fn, scope]);
-            this._progress();
+            me._queue.push(fn);
+            me._progress();
         }
-        return this;
+        return me;
     },
 
     /**
-     * 终止当前正在执行的异步任务。
+     * 终止当前正在执行的异步任务并执行后续任务。
      * @returns this
 	 * @example new AsyncQueue().abort();
      */
-    abort: function () {
-        this._waiting && this._waiting.abort ? this._waiting.abort() : this.resume();
-        return this;
+    skip: function () {
+        var me = this;
+        me._waiting && me._waiting.abort ? me._waiting.abort() : me.resume();
+        return me;
     },
 
     /**
@@ -134,13 +138,14 @@ AsyncQueue.prototype = {
      */
     _progress: function () {
 
-        this._waiting = null;
+        var me = this;
+        me._waiting = null;
 
         // 执行指定的任务函数。
-        this._queue[0][0].apply(this._queue[0][1], this.data || []);
+        me._queue[0].apply(me, me.data || []);
 
         // 如果当前对象未被挂起，继续执行下一个任务。
-        if (!this._waiting) this.resume();
+        if (!me._waiting) me.resume();
     }
 
 };

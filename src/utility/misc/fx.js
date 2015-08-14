@@ -14,13 +14,10 @@ if (!Date.now) {
  * 表示一个特效驱动。
  * @param {Object} options 特效的配置。具体见 `Fx.run`。
  * @class
- * @inner
+ * @abstract
  */
 function Fx(options) {
-    // 拷贝用户配置。
-    for (var key in options) {
-        this[key] = options[key];
-    }
+    this.init(options);
 }
 
 Fx.prototype = {
@@ -71,18 +68,20 @@ Fx.prototype = {
 
     /**
      * 开始运行当前设定的特效。
+     * @param {Number} options 当前特效的执行参数。
      * @returns this
      */
-    run: function () {
+    run: function (options) {
         var me = this;
         me.asyncQueue.then(function () {
-            if (!me.start || me.start() !== false) {
+            me.init(options);
+            if (!me.start || me.start(options) !== false) {
                 me.asyncQueue.suspend(me);
                 me.time = 0;
                 me.set(0, 0);
                 me.resume();
             }
-        }, me, me.link);
+        }, options, me.link);
         return me;
     },
 
@@ -139,8 +138,26 @@ Fx.prototype = {
     },
 
     /**
-     * 根据指定的变化量设置实际的效果值。
+     * 当被子类重写时，负责根据指定的变化量设置实际的效果值。
+     * @param {Number} options 当前特效的执行参数。
+     * @method init
+     * @protected
+     * @virtual
+     */
+    init: function (options) {
+        var me = this;
+        // 拷贝用户配置。
+        for (var key in options) {
+            me[key] = options[key];
+        }
+        me.asyncQueue = me.asyncQueue || new AsyncQueue;
+    },
+
+    /**
+     * 当被子类重写时，负责根据指定的变化量设置实际的效果值。
      * @param {Number} delta 当前的变化因子，大小在 0-1 之间。
+     * @protected
+     * @abstract
      */
     set: function () { },
 
@@ -209,5 +226,5 @@ Fx.run = function (options) {
     typeof console === "object" && console.assert(!options || !options.start || options.start instanceof Function, "Fx.run(options: start 必须是函数)");
     typeof console === "object" && console.assert(!options || !options.complete || options.complete instanceof Function, "Fx.run(options: complete 必须是函数)");
     typeof console === "object" && console.assert(!options || !options.set || options.set instanceof Function, "Fx.run(options: set 必须是函数)");
-    return new Fx(options).run();
+    return (Fx._instance || (Fx._instance = new Fx)).run(options);
 };
