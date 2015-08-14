@@ -1,4 +1,5 @@
 /**
+ * @fileOverview 基于 JavaScript 实现 DOM 特效。
  * @author xuld
  */
 
@@ -113,55 +114,55 @@ Tween.engines = {
 
     color: {
 	
-    set: Fx.numberTweener.set,
+        set: Fx.numberTweener.set,
 	
-    compute: function(from, to, delta){
-        var compute = Fx.numberTweener.compute,
-            r = [
-                Math.round(compute(from[0], to[0], delta)),
-                Math.round(compute(from[1], to[1], delta)),
-                Math.round(compute(from[2], to[2], delta))
-            ],
-            i = 0;
+        compute: function(from, to, delta){
+            var compute = Fx.numberTweener.compute,
+                r = [
+                    Math.round(compute(from[0], to[0], delta)),
+                    Math.round(compute(from[1], to[1], delta)),
+                    Math.round(compute(from[2], to[2], delta))
+                ],
+                i = 0;
 		
-        while(i < 3) {
-            delta = r[i].toString(16);
-            r[i++] = delta.length === 1 ? '0' + delta : delta;
-        }
-        return '#' + r.join('');
-    },
-	
-    parse: function(value){
-        if(value === 'transparent')
-            return [255, 255, 255];
-        var i, r, part;
-		
-        if(part = /^#([\da-f]{1,2})([\da-f]{1,2})([\da-f]{1,2})$/i.exec(value)){
-            i = 0;
-            r = [];
-            while (++i <= 3) {
-                value = part[i];
-                r.push(parseInt(value.length == 1 ? value + value : value, 16));
+            while(i < 3) {
+                delta = r[i].toString(16);
+                r[i++] = delta.length === 1 ? '0' + delta : delta;
             }
-        } else if(part = /(\d+),\s*(\d+),\s*(\d+)/.exec(value)){
-            i = 0;
-            r = [];
-            while (++i <= 3) {
-                r.push(parseInt(part[i]));
-            }
-        }
-		
-        return r;
-    },
+            return '#' + r.join('');
+        },
 	
-    get: function(elem, name){
-        return this.parse(Dom.styleString(elem, name));
-    }
+        parse: function(value){
+            if(value === 'transparent')
+                return [255, 255, 255];
+            var i, r, part;
+		
+            if(part = /^#([\da-f]{1,2})([\da-f]{1,2})([\da-f]{1,2})$/i.exec(value)){
+                i = 0;
+                r = [];
+                while (++i <= 3) {
+                    value = part[i];
+                    r.push(parseInt(value.length == 1 ? value + value : value, 16));
+                }
+            } else if(part = /(\d+),\s*(\d+),\s*(\d+)/.exec(value)){
+                i = 0;
+                r = [];
+                while (++i <= 3) {
+                    r.push(parseInt(part[i]));
+                }
+            }
+		
+            return r;
+        },
+	
+        get: function(elem, name){
+            return this.parse(Dom.styleString(elem, name));
+        }
 
     },
 
     number: {
-            get: Dom.clac,
+        get: Dom.clac,
 
         /**
          * 常用计算。
@@ -169,17 +170,17 @@ Tween.engines = {
          * @param {Object} to 结束。
          * @param {Object} delta 变化。
          */
-            compute: function (from, to, delta) {
-                return (to - from) * delta + from;
-            },
+        compute: function (from, to, delta) {
+            return (to - from) * delta + from;
+        },
 
-            parse: function (value) {
-                return typeof value == "number" ? value : parseFloat(value);
-            },
+        parse: function (value) {
+            return typeof value == "number" ? value : parseFloat(value);
+        },
 
-            set: function (elem, name, value) {
-                Dom.css(elem, name, value);
-            }
+        set: function (elem, name, value) {
+            Dom.css(elem, name, value);
+        }
     }
 
 };
