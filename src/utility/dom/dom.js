@@ -24,10 +24,10 @@ typeof include === "function" && include("../lang/html5");
  */
 function Dom(selector, context) {
     selector = selector || 0;
-    return selector.constructor === String ?
+    return typeof selector === "string" ?
         /^</.test(selector) ? Dom.parse(selector, context) : Dom.find(selector, context) :
         selector instanceof Dom ? selector :
-        selector.constructor === Function ? Dom.ready(selector, context) : new Dom.List(selector);
+        typeof selector === "function" ? Dom.ready(selector, context) : new Dom.List(selector);
 }
 
 /**
@@ -69,7 +69,7 @@ Dom.find = function (selector, context) {
  * @inner
  */
 Dom.parse = function (html, context) {
-    if (html && html.constructor === String) {
+    if (typeof html === "string") {
 
         context = context ? context.ownerDocument || context : document;
         typeof console === "object" && console.assert(context.createElement, "Dom.parse(selector, [context: 必须是文档])");
@@ -360,7 +360,7 @@ Dom.css = function (elem, cssPropertyName, value) {
     }
 
     // 自动追加像素单位。
-    if (value && value.constructor === Number && !/^(columnCount|fillOpacity|flexGrow|flexShrink|fontWeight|lineHeight|opacity|order|orphans|widows|zIndex|zoom)$/.test(cssPropertyName)) {
+    if (value && typeof value === "number" && !/^(columnCount|fillOpacity|flexGrow|flexShrink|fontWeight|lineHeight|opacity|order|orphans|widows|zIndex|zoom)$/.test(cssPropertyName)) {
         value += 'px';
     }
 
@@ -1120,7 +1120,7 @@ Dom.List.prototype = Dom.prototype = {
     attr: function (attrName, value) {
         typeof console === "object" && console.assert(attrName != null, "dom.attr(attrName: 不能为空, value)");
         var me = this;
-        if (attrName.constructor !== String) {
+        if (typeof attrName !== "string") {
             for (value in attrName) {
                 me.attr(value, attrName[value]);
             }
@@ -1179,7 +1179,7 @@ Dom.List.prototype = Dom.prototype = {
      */
     css: function (cssPropertyName, value) {
         typeof console === "object" && console.assert(cssPropertyName != null, "dom.css(cssPropertyName: 不能为空, value)");
-        if (cssPropertyName.constructor !== String) {
+        if (typeof cssPropertyName !== "string") {
             for (value in cssPropertyName) {
                 this.css(value, cssPropertyName[value]);
             }
@@ -1464,7 +1464,7 @@ Dom.List.prototype = Dom.prototype = {
         var from;
 
         // 提取 from 参数。
-        if (callback && callback.constructor !== Function) {
+        if (callback && typeof callback !== "function") {
             from = to;
             to = callback;
             callback = duration;
@@ -1791,7 +1791,7 @@ Dom.List.prototype = Dom.prototype = {
      * @example $("#elem1").role("draggable")
      */
     role: function (roleName, options) {
-        if (roleName && roleName.constructor !== String) {
+        if (typeof roleName !== "string") {
             options = roleName;
             roleName = null;
         }

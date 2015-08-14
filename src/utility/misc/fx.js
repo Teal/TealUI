@@ -23,12 +23,6 @@ function Fx(options) {
     }
 }
 
-/**
- * 用于管理多个特效的队列。
- * @inner
- */
-Fx.asyncQueue = new AsyncQueue;
-
 Fx.prototype = {
 
     /**
@@ -71,14 +65,19 @@ Fx.prototype = {
     link: "wait",
 
     /**
+     * 当前特效执行所在队列。
+     */
+    asyncQueue: new AsyncQueue,
+
+    /**
      * 开始运行当前设定的特效。
      * @returns this
      */
     run: function () {
         var me = this;
-        Fx.asyncQueue.then(function () {
+        me.asyncQueue.then(function () {
             if (!me.start || me.start() !== false) {
-                Fx.asyncQueue.suspend(me);
+                me.asyncQueue.suspend(me);
                 me.time = 0;
                 me.set(0, 0);
                 me.resume();
@@ -160,10 +159,10 @@ Fx.prototype = {
             me.set(1, 1);
 
             // 调用回调函数。
-            me.complete && me.complete(isAbort);
+            me.complete && me.complete();
 
             // 驱动下一个任务。
-            Fx.asyncQueue.resume();
+            me.asyncQueue.resume();
         }
     },
 
@@ -174,7 +173,7 @@ Fx.prototype = {
     abort: function () {
         var me = this;
         me.pause();
-        Fx.asyncQueue.resume();
+        me.asyncQueue.resume();
         return me;
     }
 
