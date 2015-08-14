@@ -1,0 +1,18 @@
+{
+  "name": "tealui",
+  "version": "3.0.0",
+  "description": "TealUI.",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Teal/TealUI"
+  },
+  "keywords": [
+    "teal",
+    "ui"
+  ],
+  "author": {
+    "name": "xuld",
+    "email": "xuld@vip.qq.com"
+  },
+  "readme": "最完整的开源前端代码库"
+}
