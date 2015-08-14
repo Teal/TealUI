@@ -3,7 +3,7 @@
  * @author xuld
  */
 
-typeof include === "function" && include("base");
+typeof include === "function" && include("../dom/dom.js");
 
 /**
  * 渐变滚动当前元素到指定位置。

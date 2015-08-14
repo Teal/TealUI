@@ -21,7 +21,7 @@ if (!this.btoa && !this.atob) {
          * @example btoa("abcefg")
          * @since ES4
          */
-        btoa = function (str) {
+        this.btoa = function (str) {
             typeof console === "object" && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
             for (
                 // initialize result and counter
@@ -49,15 +49,15 @@ if (!this.btoa && !this.atob) {
          * @example atob("abcefg")
          * @since ES4
          */
-        atob = function (str) {
+        this.atob = function (str) {
             typeof console === "object" && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
-            str = str.replace(/=+$/, '')
-            if (str.length % 4 == 1) throwInvalideCharError();
+            str = str.replace(/=+$/, '');
+            if (str.length % 4 === 1) throwInvalideCharError();
             for (
                 // initialize result and counters
               var bc = 0, bs, buffer, idx = 0, output = '';
                 // get next character
-              buffer = str.charAt(idx++) ;
+              (buffer = str.charAt(idx++)) ;
                 // character found in table? initialize bit storage and add its ascii value;
               ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
                 // and if not first of each 4 characters,

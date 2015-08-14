@@ -27,11 +27,14 @@ function checkPassword(str) {
         var newCharCode = str.charCodeAt(i);
         var newCharType = newCharCode >= 48 && newCharCode <= 57 ? 0 : newCharCode >= 97 && newCharCode <= 122 ? 1 : newCharCode >= 65 && newCharCode <= 90 ? 2 : 3;
         if (i) {
-            if (oldCharType != newCharType) {
+            if (oldCharType !== newCharType) {
                 complexLevel++;
             } else if (Math.abs(newCharCode - oldCharCode) <= 1) {
-                if (newCharCode == oldCharCode) equalCount++;
-                else chainCount++;
+                if (newCharCode === oldCharCode) {
+                    equalCount++;
+                } else {
+                    chainCount++;
+                }
             }
         }
         oldCharCode = newCharCode;
