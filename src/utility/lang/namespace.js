@@ -8,6 +8,7 @@
  * @param {String} ns 要创建的命名空间。
  * @returns {Object} 如果命名空间已存在则返回之前的命名空间，否则返回新创建的命名空间。
  * @example namespace("MyNameSpace.SubNamespace")
+ * @remark 定义命名空间可避免组件冲突。
  */
 function namespace(ns) {
     typeof console === "object" && console.assert(typeof ns === "string", "namespace(ns: 必须是字符串)");

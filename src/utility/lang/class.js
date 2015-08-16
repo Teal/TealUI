@@ -1,10 +1,84 @@
 ﻿/**
  * @fileOverview 实现类、类继承以及类事件。
+ * @author xuld@vip.qq.com
  */
 
 /**
  * 所有自定义类的基类。
  * @class
+ * @remark
+ * ### 创建最简单的类
+ * ```var Animal = Base.extend();```
+ * 
+ * ### 为类添加字段和方法
+ * 
+ *      var Animal = Base.extend({
+ *      
+ *          // 我是字段（Field）
+ *          name: '小黑',
+ *      
+ *          // 我是方法（Method）
+ *          say: function () {
+ *              alert(this.name + "调用了 say 方法");
+ *          }
+ *      });
+ * 
+ *      var ani = new Animal();  // 创建一个类的实例。
+ *      ani.name = '大白';       // 为字段赋值。
+ *      ani.say();               // 调用 Animal 类的 say 方法。
+ * 
+ * ### 为类添加构造函数
+ * 
+ *      var Animal = Base.extend({
+ *          constructor: function (args) {
+ *              alert("正在执行 Animal 类的构造函数。");
+ *          }
+ *      });
+ * 
+ *      var ani = new Animal(); // 创建一个类的实例时会调用类构造函数。
+ * 
+ * 如果子类未定义构造函数，则继承父类构造函数。
+ * 
+ * ### 继承
+ * 
+ *     <pre>
+ *         var Animal = Base.extend({
+ *             say: function () {
+ *                 alert("正在执行 Animal 类的 say 方法");
+ *             },
+ *             constructor: function (args) {
+ *                 alert("正在执行 Animal 类的构造函数。");
+ *             }
+ *         });
+ *     </pre>
+ *     <pre>
+ *         // 继承 Animal 类创建子类。
+ *         var Dog = Animal.extend({
+ *             say2: function () {
+ *                 alert("正在执行 Dog 类的 say 方法");
+ *             }
+ *         });
+ *     </pre>
+ *     <pre>
+ *         var dog = new Dog(); // 创建一个类的实例。
+ *         dog.say(); // 调用 Animal 类的 say 方法。
+ *         dog.say2(); // 调用 Dog 类的 say2 方法。
+ *     </pre>
+ * 
+ * 如果子类需要调用被覆盖的父类成员，可通过原型调用，如 `Animal.progress.say.apply(this, arguments)`。
+ * 
+ * ### 事件
+ * 
+ * 自定义类默认支持事件模型。
+ * 
+ *     <pre>
+ *         var Animal = Base.extend();
+ *         var ani = new Animal();
+ *         ani.on('needsay', function (name) {
+ *             alert("needsay事件被触发了， 参数 name=" + name);
+ *         });
+ *         ani.trigger('needsay', "触发needsay事件时的参数");
+ *     </pre>
  */
 function Base() { }
 

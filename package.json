@@ -2,6 +2,7 @@
   "name": "tealui",
   "version": "3.0.0",
   "description": "TealUI.",
+  "license": "SEE LICENSE IN LICENSE.txt",
   "repository": {
     "type": "git",
     "url": "http://github.com/Teal/TealUI"
