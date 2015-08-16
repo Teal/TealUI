@@ -1,6 +1,6 @@
 /**
  * @fileOverview 基于 JavaScript 实现 DOM 特效。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../misc/fx.js");
@@ -198,7 +198,7 @@ Dom.prototype.tween = function (params, duration, callback, link) {
 
 /**
  * 系统的颜色
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("fx/color.js");
@@ -265,7 +265,7 @@ Object.extend(Fx.defaultTweeners[0], {
 });
 
 /**
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("fx/tween.js");

@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 获取所有 Cookie 和支持和传统 ASP 兼容的子 Cookie 功能。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("cookie

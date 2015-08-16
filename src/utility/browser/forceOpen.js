@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 让浏览器强制打开指定网页。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

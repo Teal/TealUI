@@ -1,6 +1,6 @@
 /**
  * @fileOverview 定义命名空间以避免组件冲突。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

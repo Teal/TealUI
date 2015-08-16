@@ -1,6 +1,6 @@
 /**
  * @fileOverview 简单但完整的模板引擎。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // 为了支持 foreach 模板使用的 Object.each 函数。

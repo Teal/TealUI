@@ -1,6 +1,6 @@
 ﻿/**
- * @fileOverview 布尔扩展。
- * @author xuld
+ * @fileOverview 扩展 Boolean 相关的 API。
+ * @author xuld@vip.qq.com
  */
 
 // #region @Boolean.parseBoolean

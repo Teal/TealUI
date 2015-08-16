@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 提供 DOM 操作的辅助函数。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../lang/html5");
@@ -1847,7 +1847,7 @@ Dom.roles = {};
 
 // #region @事件
 
-Dom.prototype.each.call(['click', 'focus', 'blur'], function (fnName, index) {
+Dom.prototype.each.call(['click', 'focus', 'blur'], function (fnName) {
     Dom.prototype[fnName] = function (callback) {
         return callback !== undefined ? this.on(fnName, callback) : this.each(function (elem) {
             elem[fnName] ? elem[fnName]() : Dom(elem).trigger(fnName);

@@ -2,10 +2,8 @@
  * @author  xuld
  */
 
-typeof include === "function" && include("../control/base
-");
-typeof include === "function" && include("../control/dropDown
-");
+typeof include === "function" && include("../control/base");
+typeof include === "function" && include("../control/dropDown");
 
 var MenuButton = Control.extend({
 

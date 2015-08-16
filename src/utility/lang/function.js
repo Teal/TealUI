@@ -1,4 +1,8 @@
-﻿
+﻿/**
+ * @fileOverview 扩展 Function 相关的 API。
+ * @author xuld@vip.qq.com
+ */
+
 // #region @Function.empty
 
 /**

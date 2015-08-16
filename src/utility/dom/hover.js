@@ -1,6 +1,6 @@
 /**
  * @fileOverview 鼠标悬浮事件。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("base");

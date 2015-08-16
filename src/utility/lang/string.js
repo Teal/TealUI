@@ -1,6 +1,6 @@
 /**
  * @fileOverview 字符串扩展。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @String.format

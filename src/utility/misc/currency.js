@@ -1,5 +1,6 @@
 /**
- * @author xuld
+ * @fileOverview 直接使用 JS 进行计算会产生误差，本组件提供了精确计算货币的功能。
+ * @author xuld@vip.qq.com
  */
 
 /**
@@ -80,46 +81,6 @@ var Currency = {
             c = (result.length - 1) % 3 + (val < 0 ? 2 : 1);
 
         return result.substr(0, c) + result.substr(c).replace(/(\d{3})/g, ',$1') + '.' + Math.floor(t / 10) % 10 + t % 10;
-    },
-
-    /**
-	 * 将货币转为中文大写金额。
-	 * @param {Number} val 要处理的值。
-	 * @returns {String} 返回格式化后的字符串。
-	 * @example Currency.format(10000000) // "壹千万元整"
-	 */
-    toChinese: function (val) {
-
-        var digits = '零壹贰叁肆伍陆柒捌玖',
-            units0 = '元万亿',
-            units1 = ['', '拾', '佰', '仟'],
-            neg = val < 0,
-            s = '',
-            t;
-
-        val = Math.abs(val);
-
-        // 零。
-        if (val < 0.005) {
-            return '零元整';
-        }
-
-        // 得到小数点后两位。
-        t = Math.round(val * 100) % 100;
-        s += t ? (t >= 10 ? digits.charAt(Math.floor(t / 10)) + '角' : '') + (t % 10 ? digits.charAt(t % 10) + '分' : '') : '整';
-
-        // 得到整数位。
-        t = Math.floor(val);
-        for (var i = 0; i < units0.length && t > 0; i++) {
-            var p = '';
-            for (var j = 0; j < units1.length && t > 0; j++) {
-                p = digits.charAt(t % 10) + units1[j] + p;
-                t = Math.floor(t / 10);
-            }
-            s = (p.replace(/(零.)*零$/, '') || '零') + units0.charAt(i) + s;
-        }
-
-        return (neg ? '负' : '') + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零');
     }
 
 };

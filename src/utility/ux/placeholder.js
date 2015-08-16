@@ -1,5 +1,5 @@
 /**
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 //#include dom/dom.js

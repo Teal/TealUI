@@ -1,6 +1,6 @@
 ﻿/**
- * @fileOverview 提供日期操作的辅助函数。
- * @author xuld
+ * @fileOverview 扩展 Date 相关的 API。
+ * @author xuld@vip.qq.com
  */
 
 // #region @Date#format

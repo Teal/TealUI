@@ -1,7 +1,7 @@
 ﻿
 //// #region 核心
 ///**
-// * @author xuld
+// * @author xuld@vip.qq.com
 // * @fileOverview 提供 DOM 操作的辅助函数。
 // */
 

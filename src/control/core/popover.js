@@ -1,11 +1,9 @@
 /**
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
-typeof include === "function" && include("control
-");
-typeof include === "function" && include("../../utility/dom/pin
-");
+typeof include === "function" && include("control");
+typeof include === "function" && include("../../utility/dom/pin");
 
 /**
  * 表示一个浮层。

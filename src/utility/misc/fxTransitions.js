@@ -1,6 +1,6 @@
 /**
  * @fileOverview 特效渐变方式。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

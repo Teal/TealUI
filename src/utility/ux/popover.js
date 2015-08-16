@@ -1,24 +1,38 @@
-/** * @author xuld *//**
+/**
+ * @author xuld@vip.qq.com
+ */
+
+/**
  * 设置当前节点的弹层。
  * @param {Object} [options] 弹层的配置。 
  * @returns this
- */Dom.prototype.popover = function (options) {
-    var popover = {
+ */
+Dom.prototype.popover = function (options) {
+
+    var popover = {
         dom: this,
         delay: 30,
         isHidden: function () {
             return this.dom.isHidden();
-        },        show: function () {
-            var me = this;            me.dom.show("opacity", null, 100);
+        },
+        show: function () {
+            var me = this;
+            me.dom.show("opacity", null, 100);
             me.onShow && me.onShow(e);
-        },        hide: function () {
+        },
+        hide: function () {
             var me = this;
             me.dom.hide("opacity", null, 100);
             me.onHide && me.onHide(e);
         }
-    };    for (var key in options) {
+    };
+
+    for (var key in options) {
         popover[key] = options[key];
-    }    var target = popover.target = Dom(popover.target);
+    }
+
+    var target = popover.target = Dom(popover.target);
+
     switch (event) {
         case "click":
             target.on(event, function (e) {
@@ -161,5 +175,8 @@
                 popover.show(e);
             });
             break;
-    }    return popover;
-};
+    }
+
+    return popover;
+
+};

@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview Node 端用于接收所有功能请求的模块。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

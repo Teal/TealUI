@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 数字扩展。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @Number.isNumber

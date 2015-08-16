@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 获取或设置外部 HTML。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 if (!("outerHTML" in Element.prototype)) {

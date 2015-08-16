@@ -1,6 +1,6 @@
 /**
  * @fileOverview 让 C 类浏览器支持本地存储。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../browser/cookie");

@@ -1,6 +1,6 @@
 /**
  * @fileOverview 提供 Cookie 操作功能。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @getCookie

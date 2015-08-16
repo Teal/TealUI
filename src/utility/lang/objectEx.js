@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 扩展 Object 相关的 API。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @Object.type

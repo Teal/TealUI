@@ -1,6 +1,6 @@
 /**
  * @fileOverview 获取查询字符串。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

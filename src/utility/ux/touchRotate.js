@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 设置滚动显示指定元素时回调。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../dom/dom.js");

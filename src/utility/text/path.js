@@ -1,5 +1,5 @@
 ﻿/**
- * @author xuld
+ * @author xuld@vip.qq.com
  * Modified from https://github.com/joyent/node/blob/master/lib/path.js
  */
 

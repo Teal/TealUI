@@ -1,6 +1,6 @@
 /**
  * @fileOverview 实现拖放功能。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("drag");

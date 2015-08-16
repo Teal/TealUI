@@ -1,6 +1,6 @@
 /**
  * @fileOverview 所有控件的基类。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../lang/class");

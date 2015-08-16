@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 提供日期操作的辅助函数。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @Date.now

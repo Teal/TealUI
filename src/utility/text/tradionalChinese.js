@@ -1,6 +1,6 @@
 /**
  * @fileOverview 中文简繁体转换。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

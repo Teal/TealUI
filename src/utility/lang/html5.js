@@ -1,6 +1,6 @@
 /**
  * @fileOverview 为低版本浏览器提供 HTML5 的部分常用函数。
- * @author xuld
+ * @author xuld@vip.qq.com
  * @remark 本组件主要针对 IE8 以及老版本 FireFox, Safari 和 Chrome。
  */
 

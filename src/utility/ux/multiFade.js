@@ -1,6 +1,6 @@
 /**
  * @fileOverview 多个元素的效果
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../dom/dom");

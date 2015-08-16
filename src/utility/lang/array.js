@@ -1,6 +1,6 @@
 ﻿/**
- * @fileOverview 数组扩展。
- * @author xuld
+ * @fileOverview 扩展 Array 相关的 API。
+ * @author xuld@vip.qq.com
  */
 
 // #region @Array#lastIndexOf

@@ -1,6 +1,6 @@
 /**
  * @fileOverview 对齐节点。
- * @author xuld 
+ * @author xuld@vip.qq.com 
  */
 
 typeof include === "function" && include("dom");

@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview CTRL 回车事件。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("base");

@@ -1,6 +1,6 @@
 ///**
 // * @fileOverview 提供单页应用的基础构架。
-// * @author xuld
+// * @author xuld@vip.qq.com
 // */
 
 //// #include core/utility.js

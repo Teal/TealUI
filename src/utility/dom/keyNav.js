@@ -1,6 +1,6 @@
 /**
  * @fileOverview 绑定键盘上下左右等常用事件。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("base");

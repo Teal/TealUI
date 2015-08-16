@@ -1,5 +1,5 @@
 ﻿/**
- * @author xuld
+ * @author xuld@vip.qq.com
  * @fileOverview 处理查询字符串。
  */
 

@@ -1,6 +1,6 @@
 /**
  * @fileOverview 实现拖动功能。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../dom/dom#角色,位置,事件");

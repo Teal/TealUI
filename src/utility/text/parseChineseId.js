@@ -1,6 +1,6 @@
 /**
  * @fileOverview 解析中国身份证号的信息。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 /**

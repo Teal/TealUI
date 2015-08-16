@@ -1,5 +1,5 @@
 /**
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 var ShareTo = Control.extend({

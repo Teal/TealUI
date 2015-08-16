@@ -1,6 +1,6 @@
 /**
  * @fileOverview ½ø¶ÈÌõ¡£
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../control/base");

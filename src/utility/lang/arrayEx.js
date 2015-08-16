@@ -1,6 +1,6 @@
 ﻿/**
  * @fileOverview 数组扩展。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 // #region @Array.parseArray

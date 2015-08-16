@@ -1,9 +1,8 @@
 ﻿/**
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
-typeof include === "function" && include("../control/base
-");
+typeof include === "function" && include("../control/base");
 
 /**
  * 表示一个面板。

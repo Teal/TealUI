@@ -1,6 +1,6 @@
 /**
  * @fileOverview 一个实现用于实现特效渐变的基类。
- * @author xuld
+ * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("asyncQueue");
