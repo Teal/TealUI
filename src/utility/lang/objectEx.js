@@ -105,6 +105,62 @@ Object.assignIf = function (target, source) {
 
 // #endregion
 
+// #region @Object.set
+
+/**
+ * 设置一个对象的属性。
+ * @param {Object} obj 要处理的对象。
+ * @param {String} prop 设置的属性表达式。如 "a.b[0][6]"
+ * @param {Object} value 要设置的值。
+ * @returns {Object} 返回 @obj。
+ * @example
+ * Object.set({}, "a[1].y", 4) // {a:[undefined, {y: 4}]
+ */
+Object.set = function (obj, prop, value) {
+    if(obj == null) obj = {};
+	var props = [];
+	prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function(_, propName, propName2){
+		props.push([propName || propName2, !!propName]);
+	});
+	var p = obj;
+	for(var i = 0; i < props.length - 1; i++){
+		prop = props[i][0];
+		if(p[prop] == null){
+			p[prop] = props[i + 1][1] ? {} : [];
+		}
+		p = p[prop];
+	}
+	p[props[props.length - 1][0]] = value;
+	return obj;
+};
+
+// #endregion
+
+// #region @Object.get
+
+/**
+ * 获取一个对象的属性。
+ * @param {Object} obj 要处理的对象。
+ * @param {String} prop 获取的属性表达式。如 "a.b[0][-1]"
+ * @returns {Object}  返回属性值。如果属性不存在则返回 @undefined。
+ * @example
+ * Object.get({}, "a.b") // undefined
+ */
+Object.get = function (obj, prop) {
+	var props = [];
+	prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function(_, propName, propName2){
+		props.push(propName || propName2);
+	});
+	for(var i = 0; i < props.length ; i++){
+		if(obj) {
+			obj = obj[props[i]];
+		}
+	}
+	return obj;
+};
+
+// #endregion
+
 // #region @Object.clone
 
 /**
