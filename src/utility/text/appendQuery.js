@@ -1,10 +1,15 @@
 ﻿
 /**
- * 在指定的地址追加查询字符串参数。
+ * 在指定的地址追加（如果存在则替换）查询字符串参数。
  * @param {String} url 要追加的地址。
- * @param {String} paramName 要追加的查询参数名。
- * @param {String} paramValue 要追加的查询参数值。
- * @example appendQuery("a.html", "b", "c") // "a.html?a=b"
+ * @param {String} paramName 要追加或替换的查询参数名。
+ * @param {String} paramValue 要追加或替换的查询参数值。
+ * @example 
+ * appendQuery("a.html", "b", "c") // "a.html?b=c"
+ *
+ * appendQuery("a.html?b=d", "b", "c") // "a.html?b=c"
+ *
+ * appendQuery("a.html?b=d, "add", "val") // "a.html?b=d&add=val"
  */
 function appendQuery(url, paramName, paramValue) {
     paramName = encodeURIComponent(paramName);
