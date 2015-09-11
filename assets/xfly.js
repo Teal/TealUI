@@ -1,23 +1,44 @@
 var xfly = require('xfly');
 
-xfly.srcPath = __dirname + "/../";
+var baseUrl = __dirname;
 
-xfly.src("*.es").pipe(require("xfly/plugins/es6")());
-xfly.src("*.less").pipe(require("xfly/plugins/less")());
-xfly.src("*.md").pipe(require("xfly/plugins/markdown")());
+var commonRules = [{
+	src: "*.less",
+	process: require("xfly-less"),
+	dest: "$1.css"
+}, {
+	src: "*.es",
+	process: require("xfly-es6"),
+	dest: "$1.js"
+}];
 
-xfly.src("../dist/teal-all.config.js")
-	.pipe(require("xfly/plugins/requirex")())
-	.dest("../dist/teal-all.js", "../dist/teal-all.css");
+// 打包发布项目。
+exports.dist = function(){
+	xfly.build({	
+		src: baseUrl,
+		rules: commonRules.concat([
+			{
+				src: "/dist/*.config.js",
+				process: require("xfly-require"),
+				dest: ["/dist/$1.js", "/dist/$1.css", "../dist/"]
+			}
+		])
+	});
+};
 
-xfly.task('build', function () {
-	xfly.build();
-});
+// 监听文件生成。
+exports.watch = function(){
+	xfly.watch({	
+		src: baseUrl,
+		rules: commonRules
+	});
+};
 
-xfly.task('watch', function () {
-	xfly.watch();
-});
-
-xfly.task('default', function () {
-	xfly.startServer(require('../doc/doc.js').serverUrl);
-});
+// 启动服务器。
+exports.server = function(){
+	xfly.startServer({	
+		src: baseUrl,
+        url: require('doc/doc.js').serverUrl,
+		rules: commonRules
+	});
+};
