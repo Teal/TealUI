@@ -1,5 +1,4 @@
-/**
- * @fileOverview 倒计时。
+﻿/**
  * @author xuld@vip.qq.com
  */
 
@@ -19,7 +18,7 @@
  * @returns {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
  * @example countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime){ console.log(day, hour, minute, second); })
  */
-function countDown(startDate, endDate, callback) {
+export function countDown(startDate, endDate, callback) {
 
     // 填充第一个参数。
     if (!callback) {

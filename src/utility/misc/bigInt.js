@@ -17,10 +17,10 @@ var BigInt = {
     add: function (x, y) {
         typeof console === "object" && console.assert(typeof x === "string", "BigInt.add(x: 必须是字符串, y)");
         typeof console === "object" && console.assert(typeof y === "string", "BigInt.add(x, y: 必须是字符串)");
-        var m = x.split('').reverse(),
-            n = y.split('').reverse(),
-            result = [],
-            s = 0;
+        var m = x.split('').reverse();
+        var n = y.split('').reverse();
+        var result = [];
+        var s = 0;
 
         for (var i = 0; i < x.length || i < y.length; i++) {
             var t = (m[i] | 0) + (n[i] | 0) + s;
