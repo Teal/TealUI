@@ -78,7 +78,7 @@ Date.prototype.format = function (format) {
 
 // #endregion
 
-// #region @Date.parseDate
+// #region @Date.from
 
 /**
  * 将指定对象解析为日期对象。
@@ -109,7 +109,7 @@ Date.prototype.format = function (format) {
  * > #### !注意
  * > 元字符区分大小写。
  */
-Date.parseDate = function (value, format) {
+Date.from = function (value, format) {
     if (value && !(value instanceof Date)) {
         if (format) {
             var groups = [0],
@@ -125,7 +125,7 @@ Date.parseDate = function (value, format) {
             }
             value = new Date(obj.y || new Date().getFullYear(), obj.M ? obj.M - 1 : new Date().getMonth(), obj.d || 1, obj.H || 0, obj.m || 0, obj.s || 0);
         } else {
-            value = new Date(value.constructor === String ? value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3') : value);
+			value = new Date(value) || new Date(String(value).replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3'));
         }
 
     }
