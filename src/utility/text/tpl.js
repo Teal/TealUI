@@ -151,7 +151,7 @@ var Tpl = {
 
         // 获取模板指定部分。
         function getSource(start, end) {
-            return tplSource.substring(start, end).replace(/([{}])\1/g, '$1');
+            return tplSource.substring(start, end).replace(/([{}])\1/g, '$1').trim();
         }
 
         // 获取模板指定部分并解析为字符串。
@@ -225,7 +225,7 @@ var Tpl = {
                     case 'switch':
                     case 'with':
                         // 追加括号。
-                        commandText = commandName + '(' + commandText.substr(commandMatch[0].length) + ')';
+                        commandText = commandName + '(' + commandText.substr(commandMatch[0].length).replace(/^\(/, '').replace(/\)$/, '') + ')';
 
                         // 不需要 break 。
                     case 'function':
@@ -234,7 +234,7 @@ var Tpl = {
                         break;
                     case 'else':
                         commandMatch = /^\s*else\s+if\b(.*)/.exec(commandText);
-                        compiledCode += commandMatch ? '}else if(' + commandMatch[1] + ') {\n' : '}else{\n';
+                        compiledCode += commandMatch ? '}else if(' + commandMatch[1].trim().replace(/^\(/, '').replace(/\)$/, '') + ') {\n' : '}else{\n';
                         break;
                     case 'var':
                     case 'void':
