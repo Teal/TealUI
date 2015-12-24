@@ -1,16 +1,9 @@
 ## 用户自定义路径
 
 _my
-
-## IDE 相关
-
-*.sublime-workspace
-*.suo
-*.user
-*.sln.docstates
-WebWorkbench.mswwsettings
-_notes
-.settings
+_my.*
+packages.config
+node_modules
 
 ## 操作系统通用
 
@@ -22,11 +15,21 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
+*.tmp
+*.log
+
+## IDE 相关
+
+*.sublime-workspace
+*.suo
+*.user
+*.sln.docstates
+WebWorkbench.mswwsettings
+_notes
+.settings
 
 ## Visual Studio 相关
 
-[Oo]bj/[Dd]ebug/
-[Oo]bj/[Rr]elease/
 *_i.c
 *_p.c
 *.ilk
@@ -41,13 +44,10 @@ $RECYCLE.BIN/
 *.tlb
 *.tli
 *.tlh
-*.tmp
 *.tmp_proj
-*.log
 *.vspscc
 *.vssscc
 *.pidb
-*.log
 *.scc
 csx
 *.build.csdef
@@ -77,4 +77,7 @@ DocProject/Help/Html2
 DocProject/Help/html
 *.vshost.*
 
-
+.vs
+.ntvs_analysis.dat
+bin/Microsoft.NodejsTools.WebRole.dll
+packages/

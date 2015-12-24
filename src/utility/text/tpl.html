@@ -27,6 +27,11 @@
     <h2>TealUI 模板引擎</h2>
     <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
 &lt;ul>
+    {for(var i = 0; i < $data.dataArr.length; i++)}
+        {if (i > 1)}&lt;li>{i}: {$data.dataArr[i]}&lt;/li>{/if}
+    {/for}
+&lt;/ul>
+&lt;ul>
     {foreach a in $data.dataArr}
         {if a % 2 == 1}&lt;li>{a}&lt;/li>{/if}
     {/foreach}

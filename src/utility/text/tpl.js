@@ -151,7 +151,7 @@ var Tpl = {
 
         // 获取模板指定部分。
         function getSource(start, end) {
-            return tplSource.substring(start, end).replace(/([{}])\1/g, '$1').trim();
+            return tplSource.substring(start, end).replace(/([{}])\1/g, '$1');
         }
 
         // 获取模板指定部分并解析为字符串。
@@ -212,11 +212,13 @@ var Tpl = {
 
                 switch (commandName = commandMatch[2]) {
                     case 'foreach':
-                        commandMatch = /^\s*foreach\s*(var)?\s*([\w$]+)(\s*,\s*([\w$]+))?\s+in\s+(.*)$/.exec(commandText);
+						commandMatch = /^\s*foreach\s*(\(([\s\S]*)\)|[\s\S]*)\s*$/.exec(commandText);
+						commandText = commandMatch[2] || commandMatch[1];
+                        commandMatch = /^\s*(?:var)?\s*([\w$]+)(?:\s*,\s*([\w$]+))?\s+in\s+([\s\S]*)\s*$/.exec(commandText);
                         if (!commandMatch) {
                             throw new SyntaxError("模板编译错误：foreach 格式不合法，应为 foreach item in object：\r\n在“" + commandText + "”附近");
                         }
-                        compiledCode += 'Object.each(' + commandMatch[5] + ',function(' + commandMatch[2] + ',' + (commandMatch[4] || '$key') + ',$target){\n';
+                        compiledCode += 'Object.each(' + commandMatch[3] + ',function(' + commandMatch[1] + ',' + (commandMatch[2] || '$key') + ',$target){\n';
                         commandsStack.push(commandName);
                         break;
                     case 'if':
@@ -225,7 +227,7 @@ var Tpl = {
                     case 'switch':
                     case 'with':
                         // 追加括号。
-                        commandText = commandName + '(' + commandText.substr(commandMatch[0].length).replace(/^\(/, '').replace(/\)$/, '') + ')';
+                        commandText = commandName + '(' + commandText.substr(commandMatch[0].length).replace(/^\s*\(/, '').replace(/\)\s*$/, '') + ')';
 
                         // 不需要 break 。
                     case 'function':
@@ -234,7 +236,7 @@ var Tpl = {
                         break;
                     case 'else':
                         commandMatch = /^\s*else\s+if\b(.*)/.exec(commandText);
-                        compiledCode += commandMatch ? '}else if(' + commandMatch[1].trim().replace(/^\(/, '').replace(/\)$/, '') + ') {\n' : '}else{\n';
+                        compiledCode += commandMatch ? '}else if(' + commandMatch[1].replace(/^\s*\(/, '').replace(/\)\s*$/, '') + ') {\n' : '}else{\n';
                         break;
                     case 'var':
                     case 'void':

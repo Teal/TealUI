@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
+    <title>横线划屏</title>
+    <script type="text/javascript" src="xswipe.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <ul id="sortable" style="width:100%; list-style: none; padding: 0;">
+        <li style="width: 100%;"><div style="background: #3d1f1f; text-align: center; height: 300px; line-height: 300px; margin:0 5px; color: #fff">AAA</div></li>
+        <li style="width: 100%;"><div style="background: #7e6969; text-align: center; height: 300px; line-height: 300px; margin:0 5px; color: #fff">BBB</div></li>
+        <li style="width: 100%;"><div style="background: #553232; text-align: center; height: 300px; line-height: 300px; margin:0 5px; color: #fff">CCC</div></li>
+        <li style="width: 100%;"><div style="background: #886060; text-align: center; height: 300px; line-height: 300px; margin:0 5px; color: #fff">DDD</div></li>
+    </ul>
+
+    <script>
+        XSwipe(document.getElementById('sortable'), 3000);
+    </script>
+
+</body>
+</html>
