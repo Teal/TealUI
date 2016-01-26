@@ -238,7 +238,7 @@ Color.prototype = {
      * @example new Color("#fff").fadeBy(0.5) 
      */
     fadeBy: function (value) {
-        return this.fade(this.a + value);
+        return this.fadeTo(this.a + value);
     },
 
     /**
