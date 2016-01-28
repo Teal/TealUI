@@ -1,0 +1,381 @@
+/**
+ * @fileOverflow TealUI 3.0
+ * @copyright 2011-2015 The TealUI Team
+ * @license The Teal License
+ */
+
+// #package default
+
+@import "../../typography/core/mixins.scss";
+
+/* #region @标签重置 */
+
+/* #region @<html> */
+
+// IOS, Android, IE: 阻止调整设备方向后自动调整文本大小。
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    // IOS：隐藏触摸按下的灰色阴影。
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* #endregion */
+
+/* #region @html5 标签 */
+
+// IE6-9：修复部分 HTML5 标签显示。
+// IE6-11：修复 main 标签显示。
+// IE6-11、Firefox：修复 details, summary 标签显示。
+// 注：hgroup 已被从 HTML5 标准移除，这里不再支持。
+article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary {
+    display: block;
+}
+
+// IE6-10：隐藏 [hidden]。
+// IE6-11、Safari、Firefox2-21：隐藏 template。
+// 不显示缺少 controls 的 audio 标记。
+[hidden], template, audio:not([controls]) {
+    display: none;
+    // IOS 5 会显示额外高度。
+    height: 0;
+}
+
+/* #endregion */
+
+/* #region @<svg> */
+
+// IE 9/10/11： 隐藏超出部分。
+svg:not(:root) {
+    overflow: hidden;
+}
+
+/* #endregion */
+
+/* #region @内联块级标签 */
+
+img, textarea, progress, input, audio, video, canvas {
+    // IE6-8: 修复默认显示方式。
+    display: inline-block;
+    // 避免默认 inline-block 的元素影响页面最大宽度导致出现滚动条。
+    max-width: 100%;
+    // Chrome, Firefox, Opera: 统一对齐方式。
+    vertical-align: baseline;
+}
+
+/* #endregion */
+
+/* #region @<sub>, <sup> */
+
+// 避免 sub 和 sup 影响行高。
+sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    top: -.5em;
+}
+
+sub {
+    bottom: -.25em;
+}
+
+/* #endregion */
+
+/* #region @<img> */
+
+// 删除链接内图片边框。
+img {
+    border: 0;
+}
+
+/* #endregion */
+
+/* #region @表单标签 */
+
+//
+//button, select {
+//    // Firefox Android：修复默认背景图片。
+//    // 参考 https://github.com/necolas/normalize.css/issues/214
+//    // 但这会影响按钮默认样式，因此删除此修复。
+//    background-image: none;
+//    // Firefox, IE 8/9/10/11, Opera：修复 button 继承 text-transform 属/性。
+//    // Firefox：修复 select 继承 text-transform 属性。
+//    // 由于应用场景不高，因此删除此修复。
+//    text-transform: none;
+//}
+
+input, button, select, textarea, optgroup {
+    // 禁止表单元素单独指定字体。
+    font: inherit;
+    // 统一各浏览器默认边距。
+    margin: 0;
+}
+
+    // 避免 Android 4.0.* WebKit 按钮点击销毁  `audio` 和 `video` 控件。
+    // 确保 IOS input 样式可修改。
+    button, html input[type=button], input[type=reset], input[type=submit] {
+        -moz-appearance: button;
+        -webkit-appearance: button;
+        appearance: button;
+    }
+
+        // Firefox 4+：删除表单元素默认 2px 边距。
+        button::-moz-focus-inner, input::-moz-focus-inner {
+            padding: 0;
+            border: 0;
+        }
+
+    // 重置输入框对齐高度。
+    input[type=checkbox], input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+        margin-top: 1px \9; // IE8-9
+        vertical-align: -2px;
+    }
+
+textarea {
+    overflow: auto; // IE 6-9：删除默认滚动条。
+    vertical-align: top; // 改进文本框对齐方式。
+}
+
+// 设置全局占位符颜色。
+.placeholder();
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region @默认样式 */
+
+/* #region @<body> */
+
+body {
+    margin: 0;
+    // Windows Vista+：Segoe UI Symbol, Segoe UI
+    // iOS7+, OSX 10.10+：Lucida Grande
+    // Ubuntu：FreeSans
+    font-family: @font-family-sans-serif;
+    font-size: @font-size;
+    line-height: 100% * @line-height / @font-size + 0.6%;
+    color: @text-color;
+    // IE:会使用系统背景色作为默认的背景色。
+    background-color: @background-color;
+}
+
+/* #endregion */
+
+/* #region @块级标签 */
+
+// 块级元素边距
+p, hr, table, ul, ol, dl, blockquote, pre, address, fieldset, figure {
+    margin: 0 0 @grid-margin;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* #endregion */
+
+/* #region @<a> */
+
+// 链接
+a {
+    // IE10: 删除激活时的灰色。
+    background-color: transparent;
+    color: @text-color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: darken(@text-color-link, 15%);
+        text-decoration: underline;
+    }
+}
+
+/* #endregion */
+
+/* #region @<h1>-<h6> */
+
+// 标题
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 @grid-margin / 2;
+    font-weight: 500;
+    // 标题换行更宽松。
+    line-height: 125%;
+}
+
+h1 {
+    font-size: @font-size + 16px;
+}
+
+h2 {
+    font-size: @font-size + 8px;
+}
+
+h3 {
+    font-size: @font-size + 4px;
+}
+
+h4 {
+    font-size: @font-size + 2px;
+}
+
+h5 {
+    font-size: @font-size;
+}
+
+h6 {
+    font-size: @font-size - 2px;
+}
+
+/* #endregion */
+
+/* #region @<code>, <pre>, <kbd>, <samp> */
+
+// 代码
+pre, code, kbd, samp {
+    font-family: @font-family-monospace;
+}
+
+pre, code, kbd {
+    border-radius: @border-radius;
+    font-size: 95%;
+    line-height: 1.5;
+    .word-break();
+    padding: 2px 4px;
+}
+
+code {
+    color: #c7254e;
+    background-color: #f9f2f4;
+}
+
+pre {
+    padding: @font-size / 2;
+    color: inherit;
+    background-color: #f7f7f7;
+
+    code {
+        padding: 0;
+        color: inherit;
+        font: inherit;
+        background-color: transparent;
+        border-radius: 0;
+    }
+}
+
+/* #region @<kbd> */
+
+kbd {
+    color: @selected-text-color;
+    background-color: @text-color;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region @<hr> */
+
+// 水平线
+hr {
+    border-color: @border-color;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    box-sizing: content-box; // Firefox: 统一浏览器行为。
+    height: 0;
+}
+
+/* #endregion */
+
+/* #region @<ul>, <ol>, <dl> */
+
+// 列表
+
+ul, ol {
+    ul, ol {
+        margin-bottom: 0;
+    }
+}
+
+/* #region @<dl> */
+
+dt {
+    font-weight: 700;
+}
+
+dd {
+    margin: 0;
+
+    ~ dt {
+        margin-top: @grid-margin / 2;
+    }
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region @<table> */
+
+// 表格
+table {
+    border-collapse: collapse;
+    border-spacing: 0; // 删除默认边距。
+    empty-cells: show;
+    max-width: 100%;
+}
+
+th, td {
+    padding: @padding-height @padding-width;
+    border: 1px solid @border-color;
+    text-align: left;
+}
+
+/* #endregion */
+
+/* #region @<small> */
+
+// 小字
+small {
+    font-weight: 100;
+    font-size: @font-size-small;
+    color: @text-color-small;
+}
+
+/* #endregion */
+
+/* #region @<abbr> */
+
+// IE 8-11、Safari、Chrome: 添加下划线。
+abbr[title] {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+/* #endregion */
+
+/* #region @<address>, <cite>, <dfn> */
+
+// 统一为非斜体。
+address, cite, dfn {
+    font-style: normal;
+}
+
+/* #endregion */
+
+/* #region @<mark> */
+
+// IE 8/9: 添加 mark 标签样式。
+mark {
+    background: #ffff88;
+    color: #000;
+}
+
+/* #endregion */
+
+/* #endregion */
