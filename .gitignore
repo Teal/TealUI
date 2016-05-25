@@ -1,45 +1,53 @@
-## 用户自定义路径
+## 本项目专用
 
-## 前端项目通用
+## 资源文件
+_my
+
+## 第三方包
 
 node_modules
+packages
 communicate
 
-## 常用忽略文件
-
-*.patch
-*.diff
-.svn
+## 临时文件
 *.tmp
 *.log
 *~
 
-## 操作系统通用
+## 版本控制
+.svn
+.git
+*.patch
+*.diff
 
+## Windows
 Thumbs.db
 ehthumbs.db
-Desktop.ini
 $RECYCLE.BIN/
+Desktop.ini
+
+## Mac
 .DS_Store
 
-## IDE 相关
-
+## Sublime
 *.sublime-workspace
-WebWorkbench.mswwsettings
+
+## Dreamweaver
 _notes
-.settings
+
+## WebStorm
+WebWorkbench.mswwsettings
 .idea
+.settings
 
-## Visual Studio 相关
-
+## Visual Studio
+*.sln.docstates
+*.vshost.*
+obj/
 .vs
-.ntvs_analysis.dat
-/Bin/Microsoft.NodejsTools.WebRole.dll
-/obj/
-/packages/
+.vscode
 *.suo
 *.user
-*.sln.docstates
 *_i.c
 *_p.c
 *.ilk
@@ -64,19 +72,25 @@ csx
 ipch/
 *.aps
 *.ncb
-*.opensdf
-*.sdf
 *.cachefile
 *.psess
 *.vsp
 *.vspx
 *.gpState
-_ReSharper*/
-*.[Rr]e[Ss]harper
 _TeamCity*
-*.dotCover
-*.ncrunch*
-.*crunch*.local.xml
+TestResults/
+
+## Visual Studio - 数据库
+*.opensdf
+*.sdf
+
+## Visual Studio - Node 插件
+
+.ntvs_analysis.dat
+/Bin/Microsoft.NodejsTools.WebRole.dll
+
+## Visual Studio - Sandcastle 插件
+
 DocProject/buildhelp/
 DocProject/Help/*.HxT
 DocProject/Help/*.HxC
@@ -85,4 +99,15 @@ DocProject/Help/*.hhk
 DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
-*.vshost.*
+
+## Visual Studio - ReSharper 插件
+*.dotCover
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+## Visual Studio - NCrunch 插件
+*.ncrunch*
+.*crunch*.local.xml
+
+## Visual Studio - GhostDoc 插件
+*.GhostDoc.xml
