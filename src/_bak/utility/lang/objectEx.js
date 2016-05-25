@@ -3,66 +3,6 @@
  * @author xuld@vip.qq.com
  */
 
-// #region @Object.type
-
-/**
- * 获取指定对象的类型。
- * @param {Object} obj 要判断的对象。
- * @returns {String} 返回类型字符串。可能返回的值有： 
- * `string`, `number`, `boolean`, `undefined`, `null`, `array`, 
- * `function`, `element`, `date`, `regexp`, `object`。
- * @example
- * Object.type(null) // "null"
- * 
- * Object.type(undefined) // "undefined"
- * 
- * Object.type(new Function) // "function"
- * 
- * Object.type(+'a') // "number"
- * 
- * Object.type(/a/) // "regexp"
- * 
- * Object.type([]) // "array"
- */
-Object.type = function (obj) {
-    var types = Object._types;
-    if (!types) {
-        Object._types = types = {};
-        "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g, function (name) {
-            types["[object " + name + "]"] = name.toLowerCase()
-        });
-    }
-
-    return obj == null ? String(obj) : types[types.toString.call(obj)] || "object";
-};
-
-// #endregion
-
-// #region @Object.isEmpty
-
-/**
- * 判断一个对象是否空。
- * @param {Object} obj 要判断的对象。
- * @returns {Boolean} 如果 @obj 是 @null、@false、空字符串或空数组，则返回 @true，否则返回 @false。
- * @example
- * Object.isEmpty(null) // true
- * 
- * Object.isEmpty(undefined) // true
- * 
- * Object.isEmpty("") // true
- * 
- * Object.isEmpty(" ") // false
- * 
- * Object.isEmpty([]) // true
- * 
- * Object.isEmpty({}) // false
- */
-Object.isEmpty = function (obj) {
-    return !obj || obj.length === 0;
-};
-
-// #endregion
-
 // #region @Object.isObject
 
 /**
@@ -117,21 +57,21 @@ Object.assignIf = function (target, source) {
  * Object.set({}, "a[1].y", 4) // {a:[undefined, {y: 4}]
  */
 Object.set = function (obj, prop, value) {
-    if(obj == null) obj = {};
-	var props = [];
-	prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function(_, propName, propName2){
-		props.push([propName || propName2, !!propName]);
-	});
-	var p = obj;
-	for(var i = 0; i < props.length - 1; i++){
-		prop = props[i][0];
-		if(p[prop] == null){
-			p[prop] = props[i + 1][1] ? {} : [];
-		}
-		p = p[prop];
-	}
-	p[props[props.length - 1][0]] = value;
-	return obj;
+    if (obj == null) obj = {};
+    var props = [];
+    prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function (_, propName, propName2) {
+        props.push([propName || propName2, !!propName]);
+    });
+    var p = obj;
+    for (var i = 0; i < props.length - 1; i++) {
+        prop = props[i][0];
+        if (p[prop] == null) {
+            p[prop] = props[i + 1][1] ? {} : [];
+        }
+        p = p[prop];
+    }
+    p[props[props.length - 1][0]] = value;
+    return obj;
 };
 
 // #endregion
@@ -147,16 +87,16 @@ Object.set = function (obj, prop, value) {
  * Object.get({}, "a.b") // undefined
  */
 Object.get = function (obj, prop) {
-	var props = [];
-	prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function(_, propName, propName2){
-		props.push(propName || propName2);
-	});
-	for(var i = 0; i < props.length ; i++){
-		if(obj) {
-			obj = obj[props[i]];
-		}
-	}
-	return obj;
+    var props = [];
+    prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, function (_, propName, propName2) {
+        props.push(propName || propName2);
+    });
+    for (var i = 0; i < props.length ; i++) {
+        if (obj) {
+            obj = obj[props[i]];
+        }
+    }
+    return obj;
 };
 
 // #endregion
