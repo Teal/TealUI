@@ -14,7 +14,7 @@
 Object.each = function (iterable, callback, scope) {
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable && typeof iterable.length === "number") {
-        for (var i = 0; i < iterable.length; i++)
+        for (var i = 0, length_1 = iterable.length; i < length_1; i++)
             if (callback.call(scope, iterable[i], i, iterable) === false)
                 return false;
     }

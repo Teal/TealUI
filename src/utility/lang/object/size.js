@@ -1,8 +1,9 @@
 /**
  * 计算对象的属性数。
- * @param {Object} obj 要处理的对象。
- * @returns {Number} 返回属性数。只返回对象自身的属性数，不含原型属性。
- * @example Object.size({v: 3, g: 5}) // 2
+ * @param obj 要处理的对象。
+ * @returns 返回对象自身的属性数，不包含原型属性。
+ * @example Object.size({a: 1, b: 2}) // 2
+ * @example Object.size([0, 1]) // 2
  */
 Object.size = function (obj) {
     var result = 0;

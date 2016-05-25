@@ -14,7 +14,7 @@ interface ObjectConstructor {
      * @example Object.each({a: 1, b: 2}, console.log, console); // 打印 'a  1' 和 'b  2'
      * @example Object.each(['a', 'b'], console.log, console); // 打印 '0  a' 和 '1  b'
      */
-    each<T>(iterable: any, callback: (value: any, index: number | string, target: any) => boolean | void, scope?: Object): boolean;
+    each<T>(iterable: any, callback: (value: any, index: number | string, target: any) => boolean | void, scope?: any): boolean;
 
 }
 
@@ -35,7 +35,7 @@ Object.each = function (iterable: any, callback: (value: any, index: number | st
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable && typeof iterable.length === "number") {
-        for (let i = 0; i < iterable.length; i++)
+        for (let i = 0, length = iterable.length; i < length; i++)
             if (callback.call(scope, iterable[i], i, iterable) === false)
                 return false;
     } else {
