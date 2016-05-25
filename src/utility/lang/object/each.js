@@ -19,8 +19,8 @@ Object.each = function (iterable, callback, scope) {
                 return false;
     }
     else {
-        for (var key in iterable)
-            if (callback.call(scope, iterable[key], key, iterable) === false)
+        for (var i in iterable)
+            if (callback.call(scope, iterable[i], i, iterable) === false)
                 return false;
     }
     return true;

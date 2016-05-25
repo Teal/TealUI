@@ -39,8 +39,8 @@ Object.each = function (iterable: any, callback: (value: any, index: number | st
             if (callback.call(scope, iterable[i], i, iterable) === false)
                 return false;
     } else {
-        for (let key in iterable)
-            if (callback.call(scope, iterable[key], key, iterable) === false)
+        for (let i in iterable)
+            if (callback.call(scope, iterable[i], i, iterable) === false)
                 return false;
     }
 
