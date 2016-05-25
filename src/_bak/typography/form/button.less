@@ -1,0 +1,109 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-button {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    .user-select(none);
+    .box-sizing(border-box);
+    touch-action: manipulation;
+    outline: 0;
+    // 按钮风格定义。
+    padding: @padding-height @font-size;
+    line-height: @line-height;
+    border: 1px solid @border-color-input;
+    border-radius: @border-radius;
+    color: @text-color;
+    background-color: @background-color-header;
+    .transition(~"background-color .15s ease-in-out, border-color .15s ease-in-out");
+
+    &:focus {
+        border-color: @border-color-input-hover;
+    }
+
+    &:hover {
+        color: @text-color;
+        background-color: darken(@background-color-header, 5%);
+        text-decoration: none;
+    }
+}
+
+.x-button:active, .x-button-actived, .x-dropdown-actived {
+    background-color: darken(@background-color-header, 10%);
+    border-color: darken(@border-color-input, 10%);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.x-button[disabled], .x-button-disabled {
+    // 禁止事件，参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+    pointer-events: none;
+    // 由于 pointer-events: none 可能不生效
+    cursor: not-allowed;
+    .opacity(.5);
+    box-shadow: none;
+}
+
+// 色系
+.x-button-state(@state) {
+    .x-button-@{state} {
+        color: @selected-text-color;
+        background-color: ~"@{@{state}-brand-color}";
+        border-color: darken(color(~"@{@{state}-brand-color}"), 5%);
+
+        .x-badge {
+            background-color: @selected-text-color;
+            color: ~"@{@{state}-text-color}";
+        }
+
+        &:hover {
+            color: @selected-text-color;
+            background-color: darken(color(~"@{@{state}-brand-color}"), 5%);
+        }
+    }
+}
+
+.x-button-state(primary);
+.x-button-state(info);
+.x-button-state(success);
+.x-button-state(warning);
+.x-button-state(error);
+
+// .x-button-primary, .x-button-info, .x-button-// success, .x-button-warning, .x-button-error{
+//     .x-badge {
+//         background-color: @selected-text-color;
+//         color: @text-color;
+//     }
+// }
+
+.x-button-transparent {
+    background-color: transparent;
+}
+
+// 尺寸
+.x-button-small {
+    padding: @padding-height-small @padding-width-small;
+    border-radius: @border-radius-large;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+}
+
+.x-button-large {
+    padding: @padding-height-large @padding-height-large + @font-size-large;
+    border-radius: @border-radius-large;
+    font-size: @font-size-large;
+    line-height: @line-height-large;
+}
+
+// 微小版按钮
+.x-button-mini {
+    padding: 0 4px;
+    border-radius: @border-radius-large;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+}
+
+.x-button-block {
+    display: block;
+    width: 100%;
+}

@@ -1,0 +1,28 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-tr {
+    display: table;
+    // 避免继承上级表格的属性。
+    border-collapse: separate;
+    width: 100%;
+}
+
+.x-td {
+    display: table-cell;
+    vertical-align: top;
+    width: 1%;
+    white-space: nowrap;
+
+    & ~ .x-td {
+        padding-left: @grid-gutter-width;
+    }
+}
+
+.x-td-block {
+    width: 99%;
+    white-space: normal;
+}

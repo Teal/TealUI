@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>星级评分</title>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="手风琴即多个面板的组合，同时只有一个面板是展开状态。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/form/starRating.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../control/form/starRating.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <article>
+    	
+    	<h2>只读模式</h2>
+
+        <aside class="doc-demo">
+
+            <div class="x-starrating">
+                <div class="x-starrating-fore" style="width: 74%"></div>
+                <div class="x-starrating-back"></div>
+            </div>
+            
+        </aside>
+    	
+    	<h2>正常模式</h2>
+
+        <aside class="doc-demo">
+
+
+            <a class="x-star x-star-actived"></a>
+            <a class="x-star"></a>
+
+
+
+            <div class="x-starrating-do x-clear x-relative" read-only="">
+                <input id="x-starrating-do-result" type="hidden" value="80" x-grade="推荐">
+                <span class="x-left">请您评分：</span>
+                <ul class="x-starrating-do-ul x-plain x-relative x-left">
+                    <li><a class="x-star1" href="javascript:;" title="很差" x-rate="20">20</a></li>
+                    <li><a class="x-star2" href="javascript:;" title="较差" x-rate="40">40</a></li>
+                    <li><a class="x-star3" href="javascript:;" title="还行" x-rate="60">60</a></li>
+                    <li><a class="x-star4" href="javascript:;" title="推荐" x-rate="80">80</a></li>
+                    <li><a class="x-star5" href="javascript:;" title="力荐" x-rate="100">100</a></li>
+                    <li class="x-starrating-current">&nbsp;</li>
+                </ul>
+                <span id="x-starrating-grade" class="x-starrating-grade"></span>
+                <div class="x-absolute x-starrating-readonly"></div>
+            </div>
+            <script>
+		Starrating.init();
+            </script>
+        </aside>
+
+    </article>
+	
+</body>
+</html>

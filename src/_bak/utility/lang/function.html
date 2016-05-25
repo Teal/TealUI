@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>函数扩展</title>
+    <meta name="module-info" content="order=date">
+    <meta name="author" content="">
+    <meta name="description" content="扩展 Function 相关的 API。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/function.js"></script>
+    <script type="text/javascript" src="../../utility/lang/functionEx.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <h2>标准 API</h2>
+    <p>以下 API 由于使用频率高已被移入 <a href="../lang/html5.html#date">HTML5 兼容补丁</a> 组件。</p>
+    <script>
+        Doc.writeApi({
+            url: "utility/lang/html5.js",
+            apis: [{
+                memberOf: "Function.prototype",
+                name: "bind",
+                summary: "<p>返回一个新函数，这个函数执行时 <strong>this</strong> 始终为指定的 <em>scope</em>。</p>",
+                params: [{
+                    type: "Object",
+                    name: "scope",
+                    summary: "<p>要绑定的 <strong>this</strong> 的值。</p>"
+                }],
+                returns: {
+                    type: "Function",
+                    summary: "<p>返回一个新函数。</p>"
+                },
+                example: "<pre>(function(){ return this;  }).bind(0)() // 0</pre>",
+                since: "ES5",
+                line: 14,
+                col: 1
+            }]
+        });
+    </script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/lang/function.js">
+        Doc.writeApi({
+			path: "utility/lang/function.js",
+			apis: [{
+				memberOf: "Function",
+				name: "empty",
+				summary: "<p>空函数。</p>",
+				example: "<pre>var fn = Function.empty</pre>",
+				line: 4,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "from",
+				summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>",
+				params: [{
+					type: "Object",
+					name: "value",
+					summary: "<p>新函数的返回值。</p>"
+				}],
+				returns: {
+					type: "Function",
+					summary: "<p>返回一个新函数，这个函数始终返回指定值。</p>"
+				},
+				example: "<pre>Function.from(false)() // false</pre>",
+				line: 14,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>其它 API</h2>
+    <script x-doc="utility/lang/functionEx.js">
+        Doc.writeApi({
+			path: "utility/lang/functionEx.js",
+			apis: [{
+				memberOf: "Function",
+				name: "isFunction",
+				summary: "<p>判断一个对象是否是函数。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>obj</em> 是函数则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Function.isFunction(function () {}); // true</pre>\n\
+\n\
+<pre>Function.isFunction(null); // false</pre>\n\
+\n\
+<pre>Function.isFunction(new Function); // true</pre>",
+				line: 4,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "concat",
+				summary: "<p>串联多个函数并返回一个将依次执行串联的函数新函数。</p>",
+				params: [{
+					type: "Function",
+					name: "...",
+					summary: "<p>要串联的函数。</p>"
+				}],
+				returns: {
+					type: "Functin",
+					summary: "<p>返回一个新函数。该函数无返回值。</p>"
+				},
+				example: "<pre>Function.concat(function(){}, function(){})()</pre>",
+				line: 23,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "tryThese",
+				summary: "<p>运行多个函数，如果函数发生异常则继续执行下一个函数，否则返回其返回值。</p>",
+				params: [{
+					type: "Funcion",
+					name: "...",
+					summary: "<p>要运行的函数。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回第一个未发生异常函数的返回值。如果所有函数都发生异常则返回 <strong>undefined</strong>。</p>"
+				},
+				example: "<pre>var xhr = Function.tryThese(function(){ \n\
+     return new ActiveXObject(\"Microsoft.XMLHttp\"); \n\
+}, function(){\n\
+     return new XMLHttpRequest();\n\
+})</pre>",
+				line: 43,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "interval",
+				summary: "<p>每隔指定时间执行一次函数。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>要执行的函数。其参数为：</p>\n\
+\n\
+<ul>\n\
+<li>count: <code>Number</code> 当前执行的次数。</li>\n\
+<li>返回值: <code>Boolean</code> 如果返回 <strong>false</strong> 则强制停止执行。</li>\n\
+</ul>"
+				}, {
+					type: "Number",
+					name: "times",
+					defaultValue: "-1",
+					optional: true,
+					summary: "<p>执行的次数。如果指定为 -1 则无限次执行。</p>"
+				}, {
+					type: "Number",
+					name: "duration",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>每次执行之间的间隔毫秒数。</p>"
+				}],
+				example: "<pre>Function.interval(function(a){console.log(a) }, 10, 400)</pre>",
+				line: 69,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "createDelayed",
+				summary: "<p>创建一个延时执行函数。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>执行的函数。</p>"
+				}, {
+					type: "Number",
+					name: "duration",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>延时的毫秒数。</p>"
+				}],
+				returns: {
+					type: "Function",
+					summary: "<p>返回一个可触发延时执行的函数。 <br>\n\
+如果在延时等待期间有新的调用，则之前的延时失效，重新开始延时执行。</p>"
+				},
+				example: "<pre>document.onscroll = Function.createDelayed(function(){\n\
+     console.log('延时执行');\n\
+}, 100);</pre>",
+				line: 96,
+				col: 1
+			}, {
+				memberOf: "Function",
+				name: "getSource",
+				summary: "<p>获取指定函数的源码。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>要获取的函数。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回函数源码。</p>"
+				},
+				example: "<pre>Function.getSource(function(x){ return x; })</pre>",
+				line: 124,
+				col: 1
+			}]
+});
+    </script>
+</body>
+</html>

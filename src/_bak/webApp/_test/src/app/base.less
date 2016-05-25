@@ -1,0 +1,216 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+
+@import "../../typography/core/mixins.less";
+
+@header-backgorund-color: #3F51B5;
+@header-height: 40px;
+@footer-height: 50px;
+
+/*
+50#E8EAF6
+100#C5CAE9
+200#9FA8DA
+300#7986CB
+400#5C6BC0
+500#3F51B5
+600#3949AB
+700#303F9F
+800#283593
+900#1A237E
+*/
+
+// 主体。
+
+.x-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: #F9F9F9;
+}
+
+.x-page-header, .x-page-body, .x-page-footer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    .box-sizing(border-box);
+}
+
+.x-page-header, .x-page-footer {
+    text-align: center;
+    line-height: 120%;
+
+    .x-icon {
+        font-size: @font-size + 4px;
+        vertical-align: -3px;
+    }
+}
+
+.x-page-header {
+    background-color: @header-backgorund-color;
+    color: @selected-text-color;
+    padding: @padding-width;
+    height: @header-height;
+    line-height: @header-height - @padding-width * 2;
+
+    a {
+        color: @selected-text-color;
+        text-decoration: none;
+
+        &:active {
+            color: @background-color-hover;
+        }
+    }
+
+    .x-right a {
+        padding-left: 1em;
+    }
+}
+
+.x-page-footer {
+    bottom: 0;
+    height: @footer-height - 1px;
+    border-top: 1px solid @border-color;
+    display: table;
+
+    a {
+        display: table-cell;
+        width: 10000px;
+        text-align: center;
+        color: @text-color-tip;
+        text-decoration: none;
+        padding: @padding-width 0;
+
+        .x-icon {
+            margin-right: 0;
+            display: block;
+        }
+    }
+
+    .x-page-footer-actived {
+        color: @header-backgorund-color;
+    }
+}
+
+.x-page-body {
+    top: @header-height;
+    bottom: @footer-height;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.x-page-header-tab {
+    display: inline-table;
+
+    a {
+        display: table-cell;
+        border: 1px solid @selected-text-color;
+        border-left: 0;
+        color: @selected-text-color;
+        padding: 0 @padding-width * 1;
+        line-height: 150%;
+
+        &:first-child {
+            border-left: 1px solid @selected-text-color;
+            border-radius: @font-size 0 0 @font-size;
+            padding-left: @padding-width * 1.5;
+        }
+
+        &:last-child {
+            border-radius: 0 @font-size @font-size 0;
+            padding-right: @padding-width * 1.5;
+        }
+    }
+
+    .x-page-header-tab-actived {
+        background-color: @selected-text-color;
+        color: @header-backgorund-color;
+
+        &:hover {
+            color: @header-backgorund-color;
+        }
+    }
+}
+
+// 列表。
+
+.x-page-list-header {
+    margin-top: .5em;
+    padding: 0 @padding-width;
+}
+
+.x-page-list {
+    border-top: 1px solid @border-color;
+    background: @background-color;
+    border-bottom: 1px solid @border-color;
+    list-style: none;
+    font-size: @font-size - 2px;
+    line-height: 150%;
+    padding: 0;
+
+    .x-tag {
+        margin: 0;
+    }
+
+    h3 {
+        font-size: @font-size;
+        font-weight: 700;
+        margin: 5px 0;
+    }
+
+    p {
+        margin: 5px 0;
+    }
+
+    li {
+        &:first-child .x-page-list-container {
+            border-top: none;
+        }
+
+        &:active {
+            background-color: @background-color-hover;
+        }
+    }
+}
+
+.x-page-list-container {
+    margin-left: 10px;
+    padding: 5px 10px 5px 0;
+    border-top: 1px solid @border-color;
+    display: table;
+}
+
+.x-page-list-left, .x-page-list-center, .x-page-list-right {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.x-page-list-left {
+    padding-right: 5px;
+
+    .x-icon {
+        font-size: 20px;
+    }
+}
+
+.x-page-list-center {
+    width: 10000px;
+}
+
+.x-page-list-right {
+    padding-left: 5px;
+    color: @disabled-text-color;
+}
+
+.x-page-list-align-right {
+    text-align: right;
+}
+
+.x-page-list-align-top {
+    vertical-align: top;
+}
+
+.x-page-container {
+    margin: 1em 10px;
+}

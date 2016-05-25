@@ -1,0 +1,24 @@
+﻿.x-closebutton {
+  display: block;
+  float: right;
+  margin: 4px 0 4px 1em;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  color: inherit;
+  font-size: 17px;
+  font-weight: normal !important;
+  text-align: center;
+  line-height: 1;
+  border-radius: 50%;
+}
+.x-closebutton:hover {
+  background-color: #a94442;
+  color: #ffffff;
+  text-decoration: none;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}

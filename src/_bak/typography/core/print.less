@@ -1,0 +1,97 @@
+
+@import "../../typography/core/mixins.less";
+
+@media print {
+
+    @page {
+        margin: 0.5cm;
+        // IE9+: 禁止使用手机模式打印页面。 
+        min-width: @screen-medium-min;
+    }
+
+    body {
+        margin: 0;
+        padding: 0!important;
+        // 禁止使用手机模式打印页面。 
+        min-width: @screen-medium-min;
+    }
+
+    // 黑色打印更快：http://h5bp.com/s
+    *, *:before, *:after {
+        color: #000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    // 恢复链接下划线
+    a, a:visited {
+        text-decoration: underline;
+    }
+
+    // 追加链接地址
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    // 不追加非链接地址
+    a[href^="javascript:"]:after, a[href^="#"]:after {
+        content: "";
+    }
+
+    // 追加备注信息
+    abbr[title]:after {
+        content: " [" attr(title) "] ";
+    }
+
+    // 避免连贯的元素被分页
+    pre, blockquote, tr, img {
+        page-break-inside: avoid;
+    }
+
+    pre, blockquote {
+        border: 1px solid #999;
+    }
+
+    // 修复表格显示，参考 h5bp.com/t
+    thead {
+        display: table-header-group;
+    }
+
+    // 防止图片跳出打印位置
+    img {
+        max-width: 100% !important;
+    }
+
+    p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2, h3 {
+        page-break-after: avoid;
+    }
+
+    // 修复 Chrome (OSX) 选择框
+    select {
+        background: #fff !important;
+    }
+
+    // 指示打印时必须隐藏
+    .x-hide-print {
+        display: none !important;
+    }
+
+    // Safari: 打印时设置容器大小会导致字体过小。
+    .x-container {
+        width: auto;
+    }
+}
+
+@media not print {
+
+    // 指示打印时必须显示
+    .x-show-print {
+        display: none !important;
+    }
+}

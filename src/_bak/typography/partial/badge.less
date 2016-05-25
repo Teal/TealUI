@@ -1,0 +1,27 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-badge {
+    display: inline-block;
+    min-width: @border-radius * 2;
+    border-radius: @border-radius * 2;
+    background-color: @gray-dark;
+    padding: 3px 6px;
+    font-size: @font-size-small;
+    color: @selected-text-color;
+    vertical-align: 1px;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: center;
+    // 补齐 @line-height
+    margin: (@line-height - 3px * 2 - @font-size-small) / 2 - 1px 0 (@line-height - 3px * 2 - @font-size-small) / 2 - 1px .2em;
+    
+    // 无内容自动隐藏（不支持 IE8)
+    &:empty {
+        display: none;
+    }
+
+}

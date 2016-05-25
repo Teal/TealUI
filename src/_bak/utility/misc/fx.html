@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>特效驱动</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="一个实现用于实现特效渐变的基类。Fx 会根据一定的变化曲线不断调用指定函数，这个函数可根据参数的变化因子实现自定义的特效渐变。">
+    <!-- 以下是本组件的全部源码 -->
+
+    <script type="text/javascript" src="../../utility/misc/asyncQueue.js"></script>
+    <script type="text/javascript" src="../../utility/misc/fx.js"></script>
+    <script type="text/javascript" src="../../utility/misc/fxTransitions.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>特效底层</h2>
+    <script x-doc="utility/misc/fx.js">
+        Doc.writeApi({
+			path: "utility/misc/fx.js",
+			apis: [{
+				memberOf: "Fx",
+				name: "run",
+				summary: "<p>立即执行一个特效。</p>",
+				params: [{
+					type: "Object",
+					name: "options",
+					summary: "<p>特效的配置。支持的值有：</p>\n\
+\n\
+<ul>\n\
+<li>complete: <code>Function</code> 特效执行完成的回调。回调参数为一个布尔值，表示是否是强制终止执行。</li>\n\
+<li>duration: <code>Number</code> 特效执行的总毫秒数。(默认：300）</li>\n\
+<li>fps: <code>Number</code> 每秒的运行帧次。(默认：50）</li>\n\
+<li>transition: <code>Function</code> 特效执行的渐变曲线。默认为 sin 曲线变化。</li>\n\
+<li>link: <code>String</code> 多个特效的串联方式。可取值：</li>\n\
+</ul>\n\
+\n\
+<table>\n\
+<thead>\n\
+<tr>\n\
+  <th>值</th>\n\
+  <th>意义</th>\n\
+</tr>\n\
+</thead>\n\
+<tr>\n\
+  <td>wait(默认)</td>\n\
+  <td>等待之前的所有特效都完成后再执行当前任务。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>abort</td>\n\
+  <td>立即终止正在执行的特效并撤销等待的剩余任务，然后立即执行当前任务。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>replace</td>\n\
+  <td>立即终止正在执行的特效并立即执行当前任务，然后继续执行其它正在等待的特效。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>insert</td>\n\
+  <td>等待正在执行的特效完成后执行当前任务，然后继续执行其它正在等待的特效。</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>cancel</td>\n\
+  <td>取消当前任务。</td>\n\
+</tr>\n\
+</table>\n\
+\n\
+\n\
+<p>- set: <code>Function</code> 根据指定的变化量设置实际的效果值。 <br>\n\
+ - start: <code>Function</code> 特效开始执行的回调。</p>"
+				}],
+				example: "<pre>Fx.run({\n\
+    set: function (value) {\n\
+        console.log(value);\n\
+    }\n\
+});</pre>",
+				line: 181,
+				col: 1
+			}]
+});</script>
+    <h2>渐变曲线</h2>
+
+    <script x-doc="utility/misc/fxTransitions.js">
+        Doc.writeApi({
+			path: "utility/misc/fxTransitions.js",
+			apis: [{
+				memberOf: "Fx",
+				name: "Transitions",
+				summary: "<p>提供多个渐变函数曲线。</p>",
+				type: "Object",
+				line: 6,
+				col: 1
+			}]
+});
+    </script>
+
+    <style>
+        .p {
+            height: 3px;
+            position: absolute;
+            width: 3px;
+            background: red;
+        }
+    </style>
+
+    <div style="border: 1px solid #ccc; position: relative;">
+        <div class="doc-box-small" id="handler" style="position: relative;"></div>
+    </div>
+
+    <div style="border: 1px solid #ccc; height: 200px; position: relative;" id="chart">
+
+    </div>
+
+    <script>
+
+        function runFx(transition) {
+            Fx.run({
+
+                link: 'abort',
+
+                duration: 2000,
+
+                fps: 120,
+
+                start: function (time) {
+                    document.getElementById('chart').innerHTML = '';
+                },
+
+                set: function (delta, tick) {
+                    function compute(from, to, delta) {
+                        return (to - from) * delta + from;
+                    }
+
+                    var handler = document.getElementById('handler');
+                    handler.style.left = compute(0, handler.parentNode.offsetWidth - handler.offsetWidth - 20, delta) + 'px';
+
+                    var chart = document.getElementById('chart');
+                    var p = chart.appendChild(document.createElement('i'));
+                    p.className = 'p';
+                    p.style.left = compute(0, chart.offsetWidth - 10, tick) + 'px';
+                    p.style.top = compute(chart.offsetHeight - 5, 0, delta) + 'px';
+                },
+
+                transition: transition
+
+            });
+        }
+
+        for (var i in Fx.Transitions) {
+            document.write('<input type="button" onclick="runFx(Fx.Transitions.' + i + ')" value="' + i + '"> ');
+            document.write('<input type="button" onclick="runFx(Fx.easeOut(Fx.Transitions.' + i + '))" value="easeOut(' + i + ')"> ');
+            document.write('<input type="button" onclick="runFx(Fx.easeInOut(Fx.Transitions.' + i + '))" value="easeInOut(' + i + ')"> ');
+            document.write('<br>');
+        }
+    </script>
+    <div style="float: right; width: 500px; text-align: right">
+
+    </div>
+
+</body>
+</html>

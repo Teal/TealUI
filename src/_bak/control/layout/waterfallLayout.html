@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>瀑布流布局</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="经典瀑布流布局模型。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../control/layout/waterfallLayout.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <style>
+        #waterfallLayout1 > div {
+            background: #f7f7f7;
+        }
+    </style>
+
+    <div id="waterfallLayout1">
+        <div style="height:50px;">我是元素1</div>
+        <div style="height:70px;">我是元素2</div>
+        <div style="height:30px;">我是元素3</div>
+        <div style="height:80px;">我是元素4</div>
+        <div style="height:30px;">我是元素5</div>
+        <div style="height:50px;">我是元素1</div>
+        <div style="height:70px;">我是元素2</div>
+        <div style="height:30px;">我是元素3</div>
+        <div style="height:80px;">我是元素4</div>
+        <div style="height:30px;">我是元素5</div>
+    </div>
+
+    <script class="doc-demo">waterfallLayout(document.getElementById('waterfallLayout1'))</script>
+</body>
+</html>

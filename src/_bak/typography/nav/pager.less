@@ -1,0 +1,57 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-pager {
+    text-align: center;
+    margin: @grid-margin * 2 0;
+
+    a {
+        display: inline-block;
+        min-width: @line-height - @padding-width + 2px; // 2px 视觉差
+        border: 1px solid @border-color;
+        padding: @padding-height @padding-width;
+        border-radius: @border-radius;
+
+        & + a {
+            margin-left: @padding-width / 2;
+        }
+
+        &:hover {
+            background-color: @background-color-hover;
+            text-decoration: none;
+        }
+
+        &.x-pager-actived {
+            background-color: @selected-background-color;
+            border-color: @selected-background-color;
+            color: @selected-text-color;
+        }
+
+        &.x-pager-disabled {
+            color: @text-color-disabled;
+            pointer-events: none;
+        }
+    }
+
+    .x-icon {
+        margin-right: 0;
+    }
+}
+
+/* #region @多尺寸 */
+
+.x-pager-size(@size) {
+    .x-pager-@{size} a {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+    }
+}
+
+.x-pager-size(small);
+
+/* #endregion */

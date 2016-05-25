@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>文本框</title>
+    <meta name="module-info" content="order=form">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="文本框也叫输入框，用于输入文字。">
+    <meta name="keywords" content="输入框,文本域,input,text">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../form/textBox.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/core/utility.css" />
+    <link rel="stylesheet" type="text/css" href="../core/grid12.css" />
+    <style>
+        .x-textbox {
+            margin-bottom: 1em;
+        }
+    </style>
+
+    <h2>基本用法</h2>
+    <h3>输入框</h3>
+    <aside class="doc-demo">
+        输入：<input type="text" class="x-textbox" placeholder="请输入内容..."><br />
+        输入：<input type="text" class="x-textbox x-textbox-info" placeholder="信息"><br />
+        输入：<input type="text" class="x-textbox x-textbox-success" placeholder="成功"><br />
+        输入：<input type="text" class="x-textbox x-textbox-warning" placeholder="警告"><br />
+        输入：<input type="text" class="x-textbox x-textbox-error" placeholder="错误">
+    </aside>
+
+    <h3>输入域</h3>
+    <aside class="doc-demo">
+        输入：<textarea class="x-textbox" placeholder="请输入内容..."></textarea><br />
+        输入：<textarea class="x-textbox x-textbox-info" placeholder="请输入内容..."></textarea><br />
+        输入：<textarea class="x-textbox x-textbox-success" placeholder="请输入内容..."></textarea><br />
+        输入：<textarea class="x-textbox x-textbox-warning" placeholder="请输入内容..."></textarea><br />
+        输入：<textarea class="x-textbox x-textbox-error" placeholder="请输入内容..."></textarea><br />
+    </aside>
+
+    <h3>选择框</h3>
+    <aside class="doc-demo">
+        输入：<select class="x-textbox"><option>选项</option></select><br />
+        输入：<select class="x-textbox x-textbox-info"><option>选项</option></select><br />
+        输入：<select class="x-textbox x-textbox-success"><option>选项</option></select><br />
+        输入：<select class="x-textbox x-textbox-warning"><option>选项</option></select><br />
+        输入：<select class="x-textbox x-textbox-error"><option>选项</option></select><br />
+    </aside>
+
+    <h2>状态</h2>
+    <aside class="doc-demo">
+        输入：<input type="text" class="x-textbox" readonly="readonly" value="只读">
+        <input type="text" class="x-textbox" disabled="disabled" value="禁用">
+    </aside>
+
+    <h2>尺寸</h2>
+    <aside class="doc-demo">
+        更大：<input type="text" class="x-textbox x-textbox-large"><br />
+        更小：<input type="text" class="x-textbox x-textbox-small">
+    </aside>
+
+    <h2>宽度</h2>
+    <p>利用 <a href="../core/grid12.html">12栅格布局(grid12)</a> 提供的列宽可直接设置宽度。</p>
+    <aside class="doc-demo">
+        更宽：<input type="text" class="x-textbox x-col-6"><br />
+        更窄：<input type="text" class="x-textbox x-col-2">
+    </aside>
+
+    <h2>占满整行</h2>
+    <aside class="doc-demo">
+        <input type="text" class="x-textbox x-textbox-block" placeholder="任意内容...">
+    </aside>
+</body>
+</html>

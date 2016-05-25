@@ -1,0 +1,69 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+.x-inputgroup {
+  display: inline-table;
+  border-collapse: separate;
+  line-height: 24px;
+}
+.x-inputgroup > span,
+.x-inputgroup .x-textbox {
+  display: table-cell;
+  position: relative;
+  vertical-align: middle;
+}
+.x-inputgroup > span:not(:first-child),
+.x-inputgroup .x-textbox:not(:first-child),
+.x-inputgroup .x-button:not(:first-child),
+.x-inputgroup span:not(:first-child) .x-button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.x-inputgroup > span:not(:last-child),
+.x-inputgroup .x-textbox:not(:last-child),
+.x-inputgroup .x-button:not(:last-child),
+.x-inputgroup > span:not(:last-child) .x-button {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+.x-inputgroup > span {
+  border-color: #cccccc;
+  white-space: nowrap;
+}
+.x-inputgroup > span .x-button {
+  float: left;
+}
+.x-inputgroup > span:not(:first-child) {
+  border-left-width: 0;
+}
+.x-inputgroup > span:not(:first-child) .x-button {
+  position: relative;
+  margin-left: -1px;
+}
+.x-inputgroup > span:not(:first-child) .x-button:focus {
+  z-index: 3;
+}
+.x-inputgroup > span:not(:last-child) {
+  border-right-width: 0;
+}
+.x-inputgroup > span:not(:last-child) .x-button {
+  position: relative;
+  margin-right: -1px;
+}
+.x-inputgroup > span:not(:last-child) .x-button:focus {
+  z-index: 3;
+}
+.x-inputgroup .x-textbox {
+  z-index: 2;
+  float: left\9;
+}
+div.x-inputgroup {
+  display: table;
+  width: 100%;
+}
+div.x-inputgroup > span {
+  width: 1%;
+}
+div.x-inputgroup .x-textbox {
+  width: 100%;
+}

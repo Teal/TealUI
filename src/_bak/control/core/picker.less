@@ -1,0 +1,48 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-picker {
+    position: relative;
+    display: inline-block;
+
+    .x-textbox {
+        padding-right: @padding-width + @line-height + 2px;
+
+        &:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error) {
+            border-color: @border-color-input-hover;
+        }
+    }
+    
+    .x-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-color: @border-color-input;
+        border-radius: 0 @border-radius @border-radius 0;
+
+        padding-left: 0;
+        padding-right: 0;
+        width: @padding-width + @line-height;
+
+        &:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+            background-color: transparent;
+            border-color: transparent;
+        }
+        
+    }
+    
+    // 色系
+    .x-button-state(@state){
+        .x-button-@{state} {
+            border-color: ~"@{@{state}-text-color}";
+        }
+        .x-button-@{state}:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+            color: ~"@{@{state}-text-color}";
+        }
+    }
+
+    .x-button-state(success);
+    .x-button-state(warning);
+    .x-button-state(error);
+
+}

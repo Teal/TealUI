@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>编辑事件扩展</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="为增强用户编辑时的交互体验提供的扩展。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/disableTab.js"></script>
+    <script type="text/javascript" src="../../utility/dom/at.js"></script>
+    <script type="text/javascript" src="../../utility/dom/autoResize.js"></script>
+    <script type="text/javascript" src="../../utility/dom/placeholder.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>禁止 TAB <small>(源码: <a href="../../utility/dom/disableTab.js" target="_blank">utility/dom/disableTab.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.disableTab</code></td>
+            <td>在文本框按 TAB 不切换焦点，改为输入 TAB</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="disableTab_elem">abc</textarea>
+                    <script>
+                        $('#disableTab_elem').disableTab();
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <h2>@提示 <small>(源码: <a href="../../utility/dom/at.js" target="_blank">utility/dom/at.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.at</code></td>
+            <td>输入 at 后插入提示层</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="at_elem"></textarea>
+                    <script>
+                        $('#at_elem').at({
+                            char: '@',
+                            show: function (x, y, contentBefore, contentAfter, e) {
+                                // 创建弹层...
+                            },
+                            hide: function (e) {
+                                // 关闭弹层...
+                            },
+                            up: function (e) {
+                                // 弹层显示后输入上的操作。
+                            },
+                            down: function (e) {
+                                // 弹层显示后输入下的操作。
+                            },
+                            enter: function (e) {
+                                // 弹层显示后输入回车的操作。
+                            },
+                            keyPress: function (e) {
+                                // 谈层显示后输入键盘事件的操作。
+                            }
+                        });
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <h2>文本域自动放大缩小 <small>(源码: <a href="../../utility/dom/autoResize.js" target="_blank">utility/dom/autoResize.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.autoResize</code></td>
+            <td>查找子节点</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="autoResize_elem"></textarea>
+                    <script>
+                        $('#autoResize_elem').autoResize();
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+
+    <p>您也可以选择使用可编辑的 HTML 片段代替文本框，同样有自动放大缩小效果。</p>
+    <aside class="doc-demo">
+        <div style="border:1px solid #ccc;padding: 10px;" contenteditable="true">我是内容</div>
+    </aside>
+
+    <h2>文本框占位符 <small>(源码: <a href="../../utility/dom/placeholder.js" target="_blank">utility/dom/placeholder.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.placeholder</code></td>
+            <td>设置当文本框空的时候，显示的文本</td>
+            <td>
+                <aside class="doc-demo">
+                    <textarea id="placeholder_elem"></textarea>
+                    <script>
+                        $('#placeholder_elem').placeholder("请输入内容...");
+                    </script>
+                </aside>
+            </td>
+        </tr>
+    </table>
+    <blockquote><h4>建议</h4>尽量使用 HTML5 <code>placeholder</code> 属性来实现占位符效果。</blockquote>
+
+    <h2>键码表</h2>
+    <p><input onkeydown="this.value=event.keyCode" placeholder="按键以测试键盘码..." /></p>
+
+    <h3>字母和数字键的键码值</h3>
+    <table>
+        <tr>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>65</td>
+            <td>J</td>
+            <td>74</td>
+            <td>S</td>
+            <td>83</td>
+            <td>1</td>
+            <td>49</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>66</td>
+            <td>K</td>
+            <td>75</td>
+            <td>T</td>
+            <td>84</td>
+            <td>2</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>67</td>
+            <td>L</td>
+            <td>76</td>
+            <td>U</td>
+            <td>85</td>
+            <td>3</td>
+            <td>51</td>
+        </tr>
+        <tr>
+            <td>D</td>
+            <td>68</td>
+            <td>M</td>
+            <td>77</td>
+            <td>V</td>
+            <td>86</td>
+            <td>4</td>
+            <td>52</td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td>69</td>
+            <td>N</td>
+            <td>78</td>
+            <td>W</td>
+            <td>87</td>
+            <td>5</td>
+            <td>53</td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>70</td>
+            <td>O</td>
+            <td>79</td>
+            <td>X</td>
+            <td>88</td>
+            <td>6</td>
+            <td>54</td>
+        </tr>
+        <tr>
+            <td>G</td>
+            <td>71</td>
+            <td>P</td>
+            <td>80</td>
+            <td>Y</td>
+            <td>89</td>
+            <td>7</td>
+            <td>55</td>
+        </tr>
+        <tr>
+            <td>H</td>
+            <td>72</td>
+            <td>Q</td>
+            <td>81</td>
+            <td>Z</td>
+            <td>90</td>
+            <td>8</td>
+            <td>56</td>
+        </tr>
+        <tr>
+            <td>I</td>
+            <td>73</td>
+            <td>R</td>
+            <td>82</td>
+            <td>0</td>
+            <td>48</td>
+            <td>9</td>
+            <td>57</td>
+        </tr>
+    </table>
+
+    <h3>数字/功能键盘上的键的键码值</h3>
+    <table>
+        <tr>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>96</td>
+            <td>8</td>
+            <td>104</td>
+            <td>F1</td>
+            <td>112</td>
+            <td>F7</td>
+            <td>118</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>97</td>
+            <td>9</td>
+            <td>105</td>
+            <td>F2</td>
+            <td>113</td>
+            <td>F8</td>
+            <td>119</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>98</td>
+            <td>*</td>
+            <td>106</td>
+            <td>F3</td>
+            <td>114</td>
+            <td>F9</td>
+            <td>120</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>99</td>
+            <td>+</td>
+            <td>107</td>
+            <td>F4</td>
+            <td>115</td>
+            <td>F10</td>
+            <td>121</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>100</td>
+            <td>Enter</td>
+            <td>108</td>
+            <td>F5</td>
+            <td>116</td>
+            <td>F11</td>
+            <td>122</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>101</td>
+            <td>-</td>
+            <td>109</td>
+            <td>F6</td>
+            <td>117</td>
+            <td>F12</td>
+            <td>123</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>102</td>
+            <td>.</td>
+            <td>110</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>103</td>
+            <td>/</td>
+            <td>111</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+
+    </table>
+
+    <h3>控制键键码值</h3>
+    <table>
+        <tr>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+        </tr>
+        <tr>
+            <td>BackSpace</td>
+            <td>8</td>
+            <td>Esc</td>
+            <td>27</td>
+            <td>Right Arrow</td>
+            <td>39</td>
+            <td>-_</td>
+            <td>189</td>
+        </tr>
+        <tr>
+            <td>Tab</td>
+            <td>9</td>
+            <td>Spacebar</td>
+            <td>32</td>
+            <td>Dw Arrow</td>
+            <td>40</td>
+            <td>.&gt;</td>
+            <td>190</td>
+        </tr>
+        <tr>
+            <td>Clear</td>
+            <td>12</td>
+            <td>Page Up</td>
+            <td>33</td>
+            <td>Insert</td>
+            <td>45</td>
+            <td>/?</td>
+            <td>191</td>
+        </tr>
+        <tr>
+            <td>Enter</td>
+            <td>13</td>
+            <td>Page Down</td>
+            <td>34</td>
+            <td>Delete</td>
+            <td>46</td>
+            <td>`~</td>
+            <td>192</td>
+        </tr>
+        <tr>
+            <td>Shift</td>
+            <td>16</td>
+            <td>End</td>
+            <td>35</td>
+            <td>Num Lock</td>
+            <td>144</td>
+            <td>[{</td>
+            <td>219</td>
+        </tr>
+        <tr>
+            <td>Control</td>
+            <td>17</td>
+            <td>Home</td>
+            <td>36</td>
+            <td>;:</td>
+            <td>186</td>
+            <td>|</td>
+            <td>220</td>
+        </tr>
+        <tr>
+            <td>Alt</td>
+            <td>18</td>
+            <td>Left Arrow</td>
+            <td>37</td>
+            <td>=+</td>
+            <td>187</td>
+            <td>]}</td>
+            <td>221</td>
+        </tr>
+        <tr>
+            <td>Cape Lock</td>
+            <td>20</td>
+            <td>Up Arrow</td>
+            <td>38</td>
+            <td>,&lt;</td>
+            <td>188</td>
+            <td>'"</td>
+            <td>222</td>
+        </tr>
+
+    </table>
+
+    <h3>多媒体键码值</h3>
+    <table>
+        <tr>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+            <th>按键</th>
+            <th>键码</th>
+        </tr>
+        <tr>
+            <td>音量加</td>
+            <td>175</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>音量减</td>
+            <td>174</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>停止</td>
+            <td>179</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>静音</td>
+            <td>173</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>浏览器</td>
+            <td>172</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>邮件</td>
+            <td>180</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>搜索</td>
+            <td>170</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>收藏</td>
+            <td>171</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</body>
+</html>

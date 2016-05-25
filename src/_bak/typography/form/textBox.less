@@ -1,0 +1,75 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-textbox {
+    border: 1px solid @border-color-input;
+    border-radius: @border-radius;
+    padding: @padding-height @padding-width;
+    line-height: @line-height;
+    height: @line-height + (@padding-height + 1) * 2;
+    outline: 0;
+    background-color: @background-color;
+    width: @input-width;
+    .box-sizing(border-box);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    .transition(~"background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s");
+
+    &:focus {
+        border-color: @border-color-input-hover;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(red(@border-color-input-hover), green(@border-color-input-hover), blue(@border-color-input-hover), .6);
+    }
+
+    &[disabled], &[readonly], [disabled] & {
+        box-shadow: none !important;
+        background-color: lighten(@gray-lighter, 5%);
+    }
+
+    textarea& {
+        width: @input-width-large;
+        height: @input-max-height;
+    }
+    // 存在　rows 的 textarea 和存在 multiple/size 的 select，则根据 rows 定制宽度。
+    &[rows], &[multiple], &[size] {
+        height: auto;
+    }
+}
+
+.x-textbox-state(@state) {
+    .x-textbox-@{state} {
+        border-color: ~"@{@{state}-text-color}";
+
+        &:focus {
+            border-color: ~"@{@{state}-text-color}";
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(red(color(~"@{@{state}-text-color}")), green(color(~"@{@{state}-text-color}")), blue(color(~"@{@{state}-text-color}")), .6);
+        }
+    }
+}
+
+.x-textbox-state(info);
+.x-textbox-state(success);
+.x-textbox-state(warning);
+.x-textbox-state(error);
+
+// 尺寸
+.x-textbox-small {
+    padding: @padding-height-small @padding-width-small;
+    border-radius: @border-radius-small;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    height: round(@font-size-small * @line-height-small) + @padding-height-small * 2 + 2;
+    width: @input-width-small;
+}
+
+.x-textbox-large {
+    padding: @padding-height-large @padding-width-large;
+    border-radius: @border-radius-large;
+    font-size: @font-size-large;
+    line-height: @line-height-large;
+    height: round(@font-size-large * @line-height-large + @padding-height-large * 2 + 2);
+    width: @input-width-large;
+}
+
+.x-textbox-block {
+    display: block;
+    width: 100%;
+}

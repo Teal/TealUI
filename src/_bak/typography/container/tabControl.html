@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>选项卡控件</title>
+    <meta name="module-info" content="status=todo">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="完整的选项卡控件，支持折叠和渐变。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../tab/tabbable.css" />
+    <link rel="stylesheet" type="text/css" href="../tab/tabcontrol.css" />
+    <script type="text/javascript" src="../../core/core.js"></script>
+    <script type="text/javascript" src="../../core/class.js"></script>
+    <script type="text/javascript" src="../../dom/core.js"></script>
+    <script type="text/javascript" src="../../utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../fx/base.js"></script>
+    <script type="text/javascript" src="../../fx/tween.js"></script>
+    <script type="text/javascript" src="../../fx/animate.js"></script>
+    <script type="text/javascript" src="../core/base.js"></script>
+    <script type="text/javascript" src="../core/tabbablecontrol.js"></script>
+    <script type="text/javascript" src="../container/tabControl.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+
+    <aside class="doc-demo">
+        <div class="x-tabcontrol" x-tabcontrol>
+            <ul class="x-tabcontrol-header">
+                <li class="x-tabcontrol-selected"><a href="javascript:;">第一个标签</a></li>
+                <li><a href="javascript:;">第二个标签</a></li>
+                <li><a href="javascript:;">第三个标签</a></li>
+            </ul>
+            <div class="x-tabcontrol-body">
+                <div class="x-tabpage x-tabcontrol-selected">
+                    内容1
+                </div>
+                <div class="x-tabpage">
+                    内容2
+                </div>
+                <div class="x-tabpage">
+                    内容3
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <h2>常用 API</h2>
+
+    <h3>手动切换当前展开的面板</h3>
+
+    <pre>
+        $('.x-tabcontrol').tabControl().selectedIndex(1);
+    </pre>
+
+    <h3>动态插入一个面板</h3>
+
+    <pre>
+        $('.x-tabcontrol > .x-tabcontrol-header').append('<li><a href="javascript:;">动态新增的标签</a></li>');
+        $('.x-tabcontrol > .x-tabcontrol-body').append('<div class="x-tabpage">\
+            标签内容\
+        </div>');
+    </pre>
+
+</body>
+</html>

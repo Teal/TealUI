@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>图片查看器</title>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="图片查看器。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../dom/imagezoom.css" />
+    
+    <script type="text/javascript" src="../core/core.js"></script>
+    <script type="text/javascript" src="../../utility/dom/core.js"></script>
+    <script type="text/javascript" src="../control/imageZoom.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <aside class="demo">
+            <img src="../../apps/demo/resources/200x150.png" id="imageZoom1" class="x-imagezoom" style="width: 100px;">
+            
+            <script>
+                Dom.imageZoom(Dom.get('imageZoom1'));
+            </script>
+        </aside>
+        
+        <aside class="demo">
+            <img src="../../apps/demo/resources/100x100.png" id="imageZoom2" class="x-imagezoom">
+            
+            <script>
+                Dom.imageZoom(Dom.get('imageZoom2'), function(url){
+                    return "../../apps/demo/resources/200x150.png";
+                });
+            </script>
+        </aside>
+    </article>
+</body>
+</html>

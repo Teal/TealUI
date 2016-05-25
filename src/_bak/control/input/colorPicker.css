@@ -1,0 +1,10 @@
+﻿.x-colorpicker-demo {
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  width: 12px;
+  height: 12px;
+}
+.x-colorpicker-demo + .x-textbox {
+  padding-left: 28px;
+}

@@ -1,0 +1,56 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// 内联列表。
+.x-list-inline {
+    .clearfix();
+    
+    > li {
+        float: left;
+    }
+}
+
+// 省略号。
+.x-list-ellipsis > li{
+    .text-overflow();
+    width: 100%;
+}
+
+// 分割线。
+.x-list-line > li{
+    padding: @padding-height 0;
+
+    &:not(:first-child) {
+        border-top: 1px solid @border-color;
+    }
+}
+
+// 间接色。
+.x-list-striped {
+    > li:nth-child(even) {
+        background-color: @background-color-striped;
+    }
+}
+
+// 边框。
+.x-list-bordered {
+    border: 1px solid @border-color;
+    border-radius: @border-radius;
+
+    > li {
+        padding: @padding-height @padding-width;
+        .box-sizing(border-box);
+    }
+}
+
+.x-list-seperate{
+    > li ~ li {
+        margin-left: @grid-gutter-width / 2;
+    }
+}

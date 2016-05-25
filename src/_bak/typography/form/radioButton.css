@@ -1,0 +1,13 @@
+﻿.x-radiobutton input {
+  position: absolute;
+  visibility: hidden;
+}
+.x-radiobutton input:checked + .x-icon,
+.x-radiobutton input .x-radiobutton-checked + .x-icon,
+.x-radiobutton input:not(:checked) + .x-icon + .x-icon,
+.x-radiobutton input .x-radiobutton-unchecked + .x-icon + .x-icon {
+  display: none;
+}
+.x-radiobutton .x-icon {
+  color: #095f8b;
+}

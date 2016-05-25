@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>数据检验</title>
+    <meta name="module-info" content="parent-title=文本处理, parent-order=shim">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="检验数据合法性。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/text/check.js"></script>
+    <script type="text/javascript" src="../../utility/text/checkPassword.js"></script>
+    <script type="text/javascript" src="../../utility/text/parseChineseId.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/text/check.js">
+
+        Doc.writeApi({
+			path: "utility/text/check.js",
+			apis: [{
+				name: "isEmail",
+				summary: "<p>判断指定字符串是否为合法邮箱地址。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isEmail(\"work&#64;xuld.net\") // true</pre>",
+				line: 7,
+				col: 1
+			}, {
+				name: "isInt",
+				summary: "<p>判断指定字符串是否为整数。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isInt(\"-45\") // true</pre>",
+				line: 21,
+				col: 1
+			}, {
+				name: "isNumber",
+				summary: "<p>判断指定字符串是否为数字。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isNumber(\"-45.35\") // true</pre>",
+				line: 35,
+				col: 1
+			}, {
+				name: "isDate",
+				summary: "<p>判断指定字符串是否为日期。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isDate(\"2014/1/1\") // true</pre>",
+				line: 49,
+				col: 1
+			}, {
+				name: "isLetter",
+				summary: "<p>判断指定字符串是否为字母。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isLetter(\"abc\") // true</pre>",
+				line: 67,
+				col: 1
+			}, {
+				name: "isDight",
+				summary: "<p>判断指定字符串是否为数字。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isLetter(\"1\") // true</pre>",
+				line: 81,
+				col: 1
+			}, {
+				name: "isLetterOrDight",
+				summary: "<p>判断指定字符串是否为字母或数字。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isLetterOrDight(\"x09\") // true</pre>",
+				line: 95,
+				col: 1
+			}, {
+				name: "isIndentifier",
+				summary: "<p>判断指定字符串是否为 JavaScript 标识符。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isIndentifier(\"x09\") // true</pre>",
+				line: 109,
+				col: 1
+			}, {
+				name: "isUrl",
+				summary: "<p>判断指定字符串是否为网址。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isIndentifier(\"http://teal.github.io/\") // true</pre>",
+				line: 123,
+				col: 1
+			}, {
+				name: "isIP",
+				summary: "<p>判断指定字符串是否为 IP 地址。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isIP(\"127.0.0.1\") // true</pre>",
+				line: 137,
+				col: 1
+			}, {
+				name: "isPhone",
+				summary: "<p>判断指定字符串是否为手机号。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isPhone(\"+8613211111111\") // true</pre>",
+				line: 151,
+				col: 1
+			}, {
+				name: "isChinese",
+				summary: "<p>判断指定字符串是否为中文。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isChinese(\"你好\") // true</pre>",
+				line: 165,
+				col: 1
+			}, {
+				name: "isPostCode",
+				summary: "<p>判断指定字符串是否为邮编。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isPostCode(\"310000\") // true</pre>",
+				line: 179,
+				col: 1
+			}, {
+				name: "isId",
+				summary: "<p>判断指定字符串是否为身份证号。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isId(\"152500198909267865\") // true</pre>",
+				line: 193,
+				col: 1
+			}, {
+				name: "isQQ",
+				summary: "<p>判断指定字符串是否为 QQ 号。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要判断的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果检验合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>isQQ(\"10000\") // true</pre>",
+				line: 207,
+				col: 1
+			}]
+});</script>
+
+    <h2>检验密码复杂度</h2>
+    <p>
+        输入密码:
+        <input type="text" id="checkPassword_value" value="123456" />
+        <input type="button" value="解析复杂度" onclick="document.getElementById('checkPassword_result').innerHTML = checkPassword(document.getElementById('checkPassword_value').value)" />
+        <span id="checkPassword_result"></span>
+    </p>
+    <script x-doc="utility/text/checkPassword.js">
+
+        Doc.writeApi({
+			path: "utility/text/checkPassword.js",
+			apis: [{
+				name: "checkPassword",
+				summary: "<p>检查一个密码的复杂度。</p>",
+				params: [{
+					type: "Object",
+					name: "value",
+					summary: "<p>要检查的密码。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>数字越大，复杂度越高。</p>\n\
+\n\
+<ul>\n\
+<li>复杂度 &lt; 0：简单密码。</li>\n\
+<li>复杂度 = 0：普通密码。</li>\n\
+<li>复杂度 > 0：复杂密码。</li>\n\
+<li>复杂度 > 2：安全密码。</li>\n\
+</ul>"
+				},
+				remark: "<p>密码检验策略： <br>\n\
+1. 将字符分为四类：数字，小写字母，大写字母，特殊字符。种类转换次数越多越复杂。 <br>\n\
+2. 重复字符、连续字符越多越简单。</p>",
+				example: "<pre>checkPassword(\"123456\") // -1</pre>",
+				line: 2,
+				col: 1
+			}]
+});</script>
+
+    <h2>解析中国身份证号 <small>(源码: <a href="../../utility/text/parseChineseId.js" target="_blank">utility/text/parseChineseId.js</a>)</small></h2>
+    <p>
+        输入身份证号码:
+        <input type="text" id="parseChineseId_value" value="152500198909267865" />
+        <input type="button" value="解析" onclick="var idInfo = parseChineseId(document.getElementById('parseChineseId_value').value); document.getElementById('parseChineseId_result').innerHTML = '<br>合法：' + idInfo.valid + '<br>性别：' + idInfo.sex + '<br>省份：' + (idInfo.province || '') + '<br>生日： ' + idInfo.birthday.toLocaleString();" />
+        <span id="parseChineseId_result"></span>
+    </p>
+    <script x-doc="utility/text/parseChineseId.js">
+
+        Doc.writeApi({
+			path: "utility/text/parseChineseId.js",
+			apis: [{
+				name: "parseChineseId",
+				summary: "<p>解析中国身份证号。</p>",
+				params: [{
+					type: "String",
+					name: "idNumber",
+					summary: "<p>要解析的身份证号。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回一个 JSON，其格式为：</p>\n\
+\n\
+<pre><code> {\n\
+      \"valid\": true,      // 表示身份证信息合法。\n\
+      \"province\": \"北京\", // 表示省份。\n\
+      \"birthday\": Date(), // 表示生日。\n\
+      \"sex\": \"男\"         // 表示性别。\n\
+ }\n\
+</code></pre>"
+				},
+				example: "<pre>parseChineseId(\"152500198909267865\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});</script>
+</body>
+</html>

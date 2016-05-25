@@ -1,0 +1,14 @@
+﻿.x-checkbox-proxy {
+  position: absolute;
+  visibility: hidden;
+}
+.x-checkbox-proxy + span {
+  color: #337ab7;
+}
+.x-checkbox-proxy[disabled] + span {
+  color: #bdbdbd;
+}
+.x-checkbox-proxy:not(:checked) + span .x-icon:last-child,
+.x-checkbox-proxy:checked + span .x-icon:first-child {
+  display: none;
+}

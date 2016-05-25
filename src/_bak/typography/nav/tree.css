@@ -1,0 +1,22 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+.x-tree {
+  margin: 0;
+  padding: 0;
+}
+.x-tree li {
+  list-style: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.x-tree ul {
+  margin: 0;
+  padding-left: 2em;
+}
+.x-tree-selected > a {
+  color: #e9985e;
+  font-weight: bold;
+}

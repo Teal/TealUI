@@ -1,0 +1,21 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-tip {
+    color: @text-color-tip;
+}
+
+// 色系
+.x-tip-state(@state){
+    .x-tip-@{state} {
+        color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-tip-state(info);
+.x-tip-state(success);
+.x-tip-state(warning);
+.x-tip-state(error);

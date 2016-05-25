@@ -1,0 +1,79 @@
+﻿
+@import "../../typography/core/mixins.less";
+
+// 注意，本页样式顺序不能随便调整。
+
+.x-container, .x-col {
+    padding-left: @grid-gutter-width / 2;
+    padding-right: @grid-gutter-width / 2;
+    position: relative;
+    .box-sizing(border-box);
+}
+
+.x-row {
+    margin-left: -@grid-gutter-width / 2;
+    margin-right: -@grid-gutter-width / 2;
+    .clearfix();
+}
+
+// 容器
+.x-container {
+    margin-left: auto;
+    margin-right: auto;
+    // 电脑固定尺寸。
+    @media (min-width: @screen-large-min) {
+        width: @grid-container-width;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.x-col {
+    float: left;
+    margin-bottom: @grid-margin;
+    min-height: 1px;
+}
+
+/* #region @12栅格布局 */
+
+.generateColumns12(@classPrefix: ~'', @index: 1, @count: @grid-column-count) when (@index =< @count) {
+    .x-col@{classPrefix}-@{index} {
+        width: 100% * @index / @count;
+    }
+
+    .generateColumns12(@classPrefix, (@index + 1), @count);
+}
+
+.generateColumns12();
+
+@media (min-width: @screen-medium-min) {
+    .generateColumns12(-medium);
+}
+
+@media (min-width: @screen-large-min) {
+    .generateColumns12(-large);
+}
+
+/* #endregion */
+
+/* #region @等分布局 */
+
+.generateColumnsAvg(@classPrefix: ~'', @index: 1, @count: 6) when (@index =< @count) {
+    .x-row@{classPrefix}-@{index} > .x-col {
+        width: 100% / @index;
+    }
+
+    .generateColumnsAvg(@classPrefix, (@index + 1), @count);
+}
+
+.generateColumnsAvg();
+
+@media (min-width: @screen-medium-min) {
+    .generateColumnsAvg(-medium);
+}
+
+@media (min-width: @screen-large-min) {
+    .generateColumnsAvg(-large);
+}
+
+/* #endregion */

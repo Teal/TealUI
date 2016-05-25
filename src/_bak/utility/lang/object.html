@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>对象扩展</title>
+    <meta name="module-info" content="order=html5">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展 Object 相关的 API。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/object.js"></script>
+    <script type="text/javascript" src="../../utility/lang/objectEx.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/lang/object.js">
+        Doc.writeApi({
+			path: "utility/lang/object.js",
+			apis: [{
+				memberOf: "Object",
+				name: "assign",
+				summary: "<p>复制对象的所有属性到其它对象。</p>",
+				params: [{
+					type: "Object",
+					name: "target",
+					summary: "<p>复制的目标对象。</p>"
+				}, {
+					type: "Object",
+					name: "source",
+					summary: "<p>复制的源对象。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回 <em>target</em>。</p>"
+				},
+				example: "<pre>var a = {v: 3}, b = {g: 2};\n\
+Object.assign(a, b); // a 现在是 {v: 3, g: 2}</pre>",
+				since: "ES6",
+				line: 10,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "each",
+				summary: "<p>遍历一个对象或数组，并对每一项执行函数 <em>fn</em>。</p>",
+				params: [{
+					type: "Object",
+					name: "iterable",
+					summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每一项执行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 如果返回 <strong>false</strong>，则终止循环。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果循环是因为 <em>fn</em> 返回 <strong>false</strong> 而中止，则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
+				},
+				example: "<pre>Object.each({a: '1', c: '3'}, function (value, key) {\n\
+     console.log(key + ' : ' + value);\n\
+}); // 输出 'a : 1' 'c : 3'</pre>\n\
+\n\
+<pre>Object.each([1, 2, 3], function(item, index){\n\
+     console.log(index, \"=>\", item);\n\
+});</pre>",
+				line: 35,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>其它 API</h2>
+    <script x-doc="utility/lang/objectEx.js">
+        Doc.writeApi({
+			path: "utility/lang/objectEx.js",
+			apis: [{
+				memberOf: "Object",
+				name: "type",
+				summary: "<p>获取指定对象的类型。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回类型字符串。可能返回的值有：  <br>\n\
+<code>string</code>, <code>number</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>array</code>,  <br>\n\
+<code>function</code>, <code>element</code>, <code>date</code>, <code>regexp</code>, <code>object</code>。</p>"
+				},
+				example: "<pre>Object.type(null) // \"null\"</pre>\n\
+\n\
+<pre>Object.type(undefined) // \"undefined\"</pre>\n\
+\n\
+<pre>Object.type(new Function) // \"function\"</pre>\n\
+\n\
+<pre>Object.type(+'a') // \"number\"</pre>\n\
+\n\
+<pre>Object.type(/a/) // \"regexp\"</pre>\n\
+\n\
+<pre>Object.type([]) // \"array\"</pre>",
+				line: 8,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "isEmpty",
+				summary: "<p>判断一个对象是否空。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>obj</em> 是 <strong>null</strong>、<strong>false</strong>、空字符串或空数组，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Object.isEmpty(null) // true</pre>\n\
+\n\
+<pre>Object.isEmpty(undefined) // true</pre>\n\
+\n\
+<pre>Object.isEmpty(\"\") // true</pre>\n\
+\n\
+<pre>Object.isEmpty(\" \") // false</pre>\n\
+\n\
+<pre>Object.isEmpty([]) // true</pre>\n\
+\n\
+<pre>Object.isEmpty({}) // false</pre>",
+				line: 43,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "isObject",
+				summary: "<p>判断一个对象是否是引用对象。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>obj</em> 是引用变量，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				remark: "<p>此函数等效于 <code>obj !== null &amp;&amp; typeof obj === \"object\"</code></p>",
+				example: "<pre>Object.isObject({}) // true</pre>\n\
+\n\
+<pre>Object.isObject(null) // false</pre>",
+				line: 68,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "assignIf",
+				summary: "<p>复制对象的所有属性到其它对象，但不覆盖原对象的相应值。</p>",
+				params: [{
+					type: "Object",
+					name: "target",
+					summary: "<p>复制的目标对象。</p>"
+				}, {
+					type: "Object",
+					name: "source",
+					summary: "<p>复制的源对象。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回 <em>target</em>。</p>"
+				},
+				example: "<pre>var a = {v: 3}, b = {g: 2};\n\
+Object.assignIf(a, b) // a 现在是 {v: 3, g: 2}</pre>",
+				line: 86,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "clone",
+				summary: "<p>深拷贝一个对象，拷贝的对象和原对象无引用关系。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要复制的对象。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回新对象。</p>"
+				},
+				remark: "<blockquote class=\"doc-note\">\n\
+  <h4>不拷贝函数</h4>\n\
+  \n\
+  <p>考虑项目实际需求和性能，<code>Object.clone</code> 不拷贝函数，因此拷贝的对象成员函数将保持引用关系。</p>\n\
+</blockquote>",
+				example: "<pre>Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}</pre>",
+				line: 110,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "areSame",
+				summary: "<p>比较两个引用对象的内容是否相同。</p>",
+				params: [{
+					type: "Object",
+					name: "objA",
+					summary: "<p>要比较的第一个对象。</p>"
+				}, {
+					type: "Object",
+					name: "objB",
+					summary: "<p>要比较的第二个对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果比较的对象相同则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Object.areSame([], []) // true</pre>",
+				line: 147,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "size",
+				summary: "<p>计算对象的属性数。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要处理的对象。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回属性数。只返回对象自身的属性数，不含原型属性。</p>"
+				},
+				example: "<pre>Object.size({v: 3, g: 5}) // 2</pre>",
+				line: 171,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "keys",
+				summary: "<p>获取对象的所有键。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要处理的对象。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回所有键组成的数组。</p>"
+				},
+				example: "<pre>Object.keys({a: 3, b: 5}) // [\"a\", \"b\"]</pre>",
+				since: "ES5",
+				line: 191,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "values",
+				summary: "<p>获取对象的所有值。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要处理的对象。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回所有值组成的数组。</p>"
+				},
+				example: "<pre>Object.values({a: 3, b: 5}) // [3, 5]</pre>",
+				line: 212,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "keyOf",
+				summary: "<p>返回对象中指定值对应的第一个键。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要搜索的对象。</p>"
+				}, {
+					type: "Object",
+					name: "value",
+					summary: "<p>要查找的值。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回匹配的第一个键，如果不存在返回 null。</p>"
+				},
+				example: "<pre>Object.keyOf({a:1, b:1}, 1) // \"a\"</pre>",
+				line: 232,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "insertBefore",
+				summary: "<p>在对象指定键之前插入一个键值对。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要插入的对象。</p>"
+				}, {
+					type: "String",
+					name: "refKey",
+					summary: "<p>插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。</p>"
+				}, {
+					type: "String",
+					name: "newKey",
+					summary: "<p>新插入的键。</p>"
+				}, {
+					type: "Object",
+					name: "newValue",
+					summary: "<p>新插入的值。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回 <em>obj</em>。</p>"
+				},
+				example: "<pre>Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}</pre>",
+				line: 252,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "filter",
+				summary: "<p>将指定数组或对象中符合要求的项组成一个新数组。</p>",
+				params: [{
+					type: "Object",
+					name: "iterable",
+					summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>用于判断每一项是否符合要求的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回一个新数组或对象。</p>"
+				},
+				example: "<pre>Object.filter([1, 2], function(v){return v > 1;}) // [2]</pre>\n\
+\n\
+<pre>Object.filter({a:1, b:2}, function(v){return v > 1;}) // {b:2}</pre>",
+				line: 282,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "map",
+				summary: "<p>对指定数组或对象每一项进行处理，并将结果组成一个新数组。</p>",
+				params: [{
+					type: "Object",
+					name: "iterable",
+					summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>用于处理每一项的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Object</code> 返回处理后的新值，这些新值将组成结构数组。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回一个新数组或对象。</p>"
+				},
+				example: "<pre>Object.map([\"a\",\"b\"], function(a){\n\
+      return a + a;\n\
+}) // [\"aa\", \"bb\"];</pre>\n\
+\n\
+<pre>Object.map({a: \"a\", b: \"b\"}, function(a){\n\
+      return a + a\n\
+}) // {a: \"aa\", b: \"bb\"};</pre>\n\
+\n\
+<pre>Object.map({length: 1, \"0\": \"a\"}, function(a){\n\
+       return a + a\n\
+}) // [\"a\"];</pre>",
+				line: 329,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "every",
+				summary: "<p>判断指定数组或对象是否每一项都满足指定条件。</p>",
+				params: [{
+					type: "Object",
+					name: "iterable",
+					summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>用于判断每一项是否满足条件的回调。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果全部满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Object.every({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // false</pre>",
+				line: 379,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "some",
+				summary: "<p>判断指定数组或对象是否至少存在一项满足指定条件。</p>",
+				params: [{
+					type: "Object",
+					name: "iterable",
+					summary: "<p>要遍历的数组或对象（函数除外）。</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>用于判断每一项是否满足条件的回调。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果至少存在一项满足条件返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Object.some({a:1, b:9, c:9, d:0}, function(item){return item > 5}) // true。</pre>",
+				line: 419,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "subset",
+				summary: "<p>获取对象指定键的子集。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要处理的对象。</p>"
+				}, {
+					type: "Array",
+					name: "keys",
+					summary: "<p>要获取的键列表。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回新对象。</p>"
+				},
+				example: "<pre>Object.subset({a:1, b:1}, ['a']) // {a:1}</pre>",
+				line: 459,
+				col: 1
+			}, {
+				memberOf: "Object",
+				name: "pick",
+				summary: "<p>获取参数中第一个不为空的值。</p>",
+				params: [{
+					type: "Object",
+					name: "...",
+					summary: "<p>要检测的对象。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>返回第一个不为空的值。如果都为空则返回 <strong>undefined</strong>。</p>"
+				},
+				example: "<pre>Object.pick(undefined, null, 1) // 1</pre>",
+				line: 482,
+				col: 1
+			}]
+});
+    </script>
+</body>
+</html>

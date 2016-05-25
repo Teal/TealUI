@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>布局引擎</title>
+    <meta name="module-info" content="status=doing, order=^, parent-title=布局引擎, parent-order=control">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="JavaScript 实现的强大布局引擎。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../layoutEngine/layoutEngine.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <p>本组件是其它布局组件的基类。要查看本组件功能，请查看具体组件：</p>
+    <ul>
+        <li><a href="borderLayoutEngine.html">边框布局(borderLayoutEngine)</a></li>
+        <li><a href="tableLayoutEngine.html">表格布局(tableLayoutEngine)</a></li>
+    </ul>
+    
+    <h2>常用 API</h2>
+    <pre>
+        var layoutEngine = new LayoutEngine(document.getElementById('container'));
+        layoutEngine.update();
+    </pre>
+</body>
+</html>

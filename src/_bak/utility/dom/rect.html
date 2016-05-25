@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>位置扩展</title>
+    <meta name="module-info" content="status=doing, order=touching">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="Window 对象操作。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/pin.js"></script>
+    <script type="text/javascript" src="../../utility/dom/window.js"></script>
+    <script type="text/javascript" src="../../utility/dom/within.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <div id="target" class="doc-box doc-blue" style="z-index: 8; cursor: move;">
+        #target
+    </div>
+    <div id="elem" class="doc-box-large doc-green">#elem</div>
+    定位：<select id="position" onchange="realign()" onkeyup="realign()">
+        <option value="b" selected="selected">b</option>
+        <option value="r">r</option>
+        <option value="t">t</option>
+        <option value="l">l</option>
+        <option value="rt">rt</option>
+        <option value="bl">bl</option>
+    </select>
+<script>
+    function realign() {
+        $('#elem').pin($('#target'), $('#position').text());
+    }
+
+    realign();
+    target.setDraggable({ onDragEnd: realign });
+</script>
+
+<script x-doc="utility/dom/pin.js"></script>
+
+
+<div id="elem" class="doc-box-large doc-green">#elem</div>
+    <article class="demo">
+
+        <script>
+            Demo.writeExamples({
+                '判断节点': 'Dom.get("a").within("b")',
+                '判断区块': 'Dom.get("a").within(100, 500, 234, 667)',
+                '判断坐标': 'Dom.get("a").within(250, 170)'
+            });
+
+
+            Demo.writeExamples({
+                '获取窗口大小': 'Dom.window.getSize()',
+                '设置窗口大小': 'Dom.window.setSize(100, 400)',
+                '获取窗口位置': 'Dom.window.getPosition()'
+            });
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,206 @@
+﻿
+/* 整体样式 */
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+#todolist {
+    background: url('data:image/png;base64,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') /*images/todolist-bg.png*/ repeat scroll 0 0 #eaeaea;
+    color: #4d4d4d;
+    font: 24px/1.4em "Microsoft YaHei", hei, Arial, "Lucida Grande", Verdana;
+    height: 100%;
+}
+
+    #todolist input {
+        font: inherit;
+    }
+
+    /* 标题 */
+    #todolist h1 {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 70px;
+        font-weight: bold;
+        text-align: center;
+        text-rendering: optimizelegibility;
+        text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+        margin: 0;
+        padding: 40px 0 12px;
+        height: 70px;
+        line-height: 70px;
+    }
+
+    /* 主体 */
+    #todolist .itemlist {
+        width: 90%;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    #todolist table {
+        width: 100%;
+        border-spacing: 0;
+        empty-cells: show;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ccc;
+        border-top: 14px solid #8d7d77;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    #todolist .item-toggle {
+        width: 40px;
+        text-align: center;
+        vertical-align: top;
+        border-right: 1px solid #f5d6d6;
+    }
+
+    #todolist .item-spacing {
+        width: 0;
+        border-right: 1px solid #f5d6d6;
+        padding: 0 1px;
+    }
+
+    #todolist .item-action {
+        width: 40px;
+        text-align: center;
+        vertical-align: top;
+    }
+
+    /* 头部 */
+    #todolist thead {
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+        #todolist thead .item-action {
+            vertical-align: middle;
+        }
+
+        #todolist thead .item-label input {
+            padding: 6px;
+            border: none;
+            background: none;
+            box-shadow: none;
+            text-align: left;
+            width: 100%;
+        }
+
+            #todolist thead .item-label input::-webkit-input-placeholder {
+                font-style: italic;
+                color: rgba(0, 0, 0, 0.4);
+            }
+
+            #todolist thead .item-label input::-moz-placeholder {
+                font-style: italic;
+                color: rgba(0, 0, 0, 0.4);
+            }
+
+    /* 内容 */
+    #todolist tbody th, #todolist tbody td {
+        border-top: 1px dotted #ccc;
+        padding: 3px;
+    }
+
+    #todolist .checkbox {
+        -webkit-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+    }
+
+        #todolist .checkbox:after {
+            color: #d9d9d9;
+            content: "✔";
+            font-size: 20px;
+            line-height: 10px;
+            text-shadow: 0 -1px 0 #bfbfbf;
+        }
+
+        #todolist .checkbox:checked:after {
+            color: #85ada7;
+            text-shadow: 0 1px 0 #669991;
+        }
+
+    #todolist .done .item-label {
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+        color: #ccc;
+        text-decoration: line-through;
+    }
+
+    #todolist .item-action a {
+        vertical-align: middle;
+        text-decoration: none;
+        font-size: 22px;
+        color: #a88a8a;
+        -webkit-transition: all 0.2s;
+        transition: all 0.2s;
+        visibility: hidden;
+    }
+
+        #todolist .item-action a:hover {
+            text-shadow: 0 0 1px #000, 0 0 10px rgba(199, 107, 107, 0.8);
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+        }
+
+    #todolist tr:hover .item-action a, #todolist tr:active .item-action a {
+        visibility: visible;
+    }
+
+    /* 底部 */
+    #todolist .toolbar {
+        color: #777;
+        height: 30px;
+        font-size: 14px;
+        line-height: 28px;
+        background: #F1F1F1;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+        margin: 0 6px;
+        text-align: center;
+    }
+
+    #todolist .toolbar-shadow {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+        height: 2px;
+        margin: 0 -3px;
+        background: #E8E8E8;
+    }
+
+    #todolist .states {
+        float: left;
+    }
+
+    #todolist .filter a {
+        width: 60px;
+        display: inline-block;
+        text-decoration: none;
+        color: #777;
+    }
+
+    #todolist .filter-actived {
+        font-weight: bold;
+    }
+
+    #todolist .clearCompleted {
+        float: right;
+        color: #777;
+        background: rgba(0, 0, 0, 0.1);
+        padding: 1px 10px;
+        border-radius: 3px;
+        margin-top: 6px;
+        margin-right: 6px;
+        box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.2);
+        border: 0;
+    }
+
+        #todolist .clearCompleted:active {
+            color: #000;
+        }
+
+    #todolist .footer {
+        font-size: 10px;
+        line-height: 26px;
+        text-align: center;
+    }

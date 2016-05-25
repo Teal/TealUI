@@ -1,0 +1,120 @@
+
+@import "../../typography/core/mixins.less";
+
+
+.x-carousel {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+}
+
+.x-carousel-body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    .clearfix();
+
+    > li {
+        float: left;
+        display: none;
+        line-height: 0;
+        width: 100%;
+
+        &.x-carousel-actived {
+            display: block;
+        }
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.x-carousel-title {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    bottom: 24px;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    color: @white;
+}
+
+.x-carousel-indicators {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    text-align: center;
+    .opacity(.8);
+
+    li {
+        display: inline-block;
+        width: @font-size / 2;
+        height: @font-size / 2;
+        border: 1px solid @white;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 0 2px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+        &.x-carousel-actived {
+            background-color: @white;
+        }
+    }
+}
+
+.x-carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    .opacity(.8);
+    color: @white;
+
+    span {
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        margin-top: -15px;
+        margin-right: 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+
+    &:hover {
+        color: @white;
+        .opacity(1);
+        text-decoration: none;
+    }
+}
+
+.x-carousel-control-prev {
+    left: 0;
+
+    span {
+        left: 20px;
+    }
+
+    &:hover {
+        #gradient > .horizontal(rgba(0,0,0,.2), rgba(0,0,0,.0005));
+    }
+}
+
+.x-carousel-control-next {
+    right: 0;
+
+    span {
+        right: 20px;
+    }
+
+    &:hover {
+        #gradient > .horizontal(rgba(0,0,0,.0005), rgba(0,0,0,.2));
+    }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>布尔扩展</title>
+    <meta name="module-info" content="order=string">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展 Boolean 相关的 API。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/boolean.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/lang/boolean.js">
+        Doc.writeApi({
+			path: "utility/lang/boolean.js",
+			apis: [{
+				memberOf: "Boolean",
+				name: "parseBoolean",
+				summary: "<p>解析字符串为布尔类型。</p>",
+				params: [{
+					type: "String",
+					name: "str",
+					summary: "<p>要解析的字符串。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>返回结果值。如果字符串为空或 <code>false/0/off/no</code> 则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
+				},
+				example: "<pre>Boolean.parseBoolean(\"true\")</pre>",
+				line: 8,
+				col: 1
+			}]
+});
+    </script>
+</body>
+</html>

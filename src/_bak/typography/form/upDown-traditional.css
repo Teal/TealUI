@@ -1,0 +1,15 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+.x-updown .x-updown-up,
+.x-updown .x-updown-down {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 17px;
+  line-height: 20px;
+}
+.x-updown .x-updown-down {
+  top: auto;
+  bottom: 0;
+  line-height: 12px;
+}

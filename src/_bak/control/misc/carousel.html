@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>图片轮播</title>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="经典图片轮播效果。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../misc/carousel.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+
+    <script type="text/javascript" src="../composite/carousel.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    
+    <aside class="doc-demo">
+        <div class="x-carousel" style="width:100%;">
+            <ul class="x-carousel-body">
+                <li class="x-carousel-actived">
+                    <a href="###">
+                        <img src="../../../assets/resources/200x150.png">
+                        <div class="x-carousel-title">
+                            <h3>图片说明</h3>
+                            <p>文字说明</p>
+                        </div>
+                    </a>
+                </li>
+                <li><img src="../../../assets/resources/200x150.png"></li>
+                <li><img src="../../../assets/resources/200x150.png"></li>
+            </ul>
+            <ul class="x-carousel-indicators">
+                <li class="x-carousel-actived"></li>
+                <li></li>
+                <li></li>
+            </ul>
+            <a class="x-carousel-control x-carousel-control-prev" href="###">
+                <span class="x-icon">＜</span>
+            </a>
+            <a class="x-carousel-control x-carousel-control-next" href="###">
+                <span class="x-icon">＞</span>
+            </a>
+        </div>
+    </aside>
+
+    <article>
+
+        <script type="text/html">
+
+            <!-- 必须定义宽度和高度 -->
+
+            < script>
+                var carousel = new Carousel('#carousel');
+            < /script>
+
+        </script>
+
+        <h2>常用 API</h2>
+
+        <script>
+
+            Demo.writeExamples({
+                '设置滚动效果的时间': function () {
+                    carousel.delay = 900; // 自动滚动的时间。
+                    carousel.duration = 300; // 滚动效果使用的时间。    
+
+                    // 注意 carousel.delay 必须大于 carousel.duration
+                },
+                '停止自动播放': 'carousel.stop()',
+                '开始自动播放': 'carousel.start()',
+                '强制移到下一张': 'carousel.next()',
+                '强制移到上一张': 'carousel.prev()',
+                '强制往右移动2张': 'carousel.moveBy(2)',
+                '强制移到第1张': 'carousel.moveTo(0)'
+            });
+
+        </script>
+
+    </article>
+</body>
+</html>

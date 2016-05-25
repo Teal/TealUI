@@ -1,0 +1,22 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-tooltip {
+    position: absolute;
+    z-index: @z-index-tooltip;
+    display: none;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    background-color: @text-color;
+    color: @selected-text-color;
+    padding: 0 4px;
+    border-radius: @border-radius-small;
+    max-width: @font-size * 15;
+    border: 2px solid @text-color;
+
+    // Òþ²Ø¼ýÍ·Ç°¾°É«¡£
+    &.x-arrow:after {
+        content: none;
+        display: none;
+    }
+}

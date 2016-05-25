@@ -1,0 +1,54 @@
+﻿.x-tipbox {
+  display: inline-block;
+  border: 1px solid #e0e0e0;
+  padding: 4px 10px;
+  line-height: 24px;
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.x-tipbox a {
+  font-weight: bold;
+  color: inherit;
+}
+div.x-tipbox {
+  display: block;
+}
+.x-tipbox-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.x-tipbox-success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.x-tipbox-warning {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #9c7a3e;
+}
+.x-tipbox-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.x-tipbox-transparent {
+  background-color: transparent;
+  border-color: transparent;
+}
+.x-tipbox-small {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.x-tipbox-large {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.3333333;
+}

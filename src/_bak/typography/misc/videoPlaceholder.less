@@ -1,0 +1,26 @@
+﻿
+@import "../../typography/core/mixins.less";
+
+.x-videoplaceholder {
+    display: inline-block;
+    position: relative;
+
+    &:after {
+        font-family: 'IcoMoon';
+        content: '▹';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: @text-color;
+        .opacity(.3);
+        font-size: @font-size * 3;
+        margin-top: -@font-size;
+        margin-left: -@font-size * 3 / 2 + 2px;
+        .transition(opacity .3s ease-in-out);
+    }
+
+    &:hover:after {
+        .opacity(.6);
+    }
+
+}

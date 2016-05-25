@@ -1,0 +1,28 @@
+
+@import "../../typography/core/mixins.less";
+
+// 屏幕隐藏，只为阅读器显示。
+// 参考 http://a11yproject.com/posts/how-to-hide-content/
+.x-show-reader {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+// 可阅读区域内生成点击区域。
+// 参考 http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
+.x-show-reader-focusable {
+    &:active, &:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        overflow: visible;
+        clip: auto;
+    }
+}

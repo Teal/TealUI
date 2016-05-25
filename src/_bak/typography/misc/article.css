@@ -1,0 +1,26 @@
+﻿.x-article table,
+.x-article img,
+.x-article audio,
+.x-article video,
+.x-article canvas {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1em;
+}
+.x-article img {
+  display: block;
+}
+.x-article img.x-left,
+.x-article img[align=left] {
+  margin-right: 1em;
+}
+.x-article img.x-right,
+.x-article img[align=right] {
+  margin-left: 1em;
+}
+.x-article figure {
+  text-align: center;
+}
+.x-article figure *:first-child {
+  margin-bottom: 0;
+}

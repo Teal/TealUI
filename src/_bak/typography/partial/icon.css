@@ -1,0 +1,25 @@
+﻿@font-face {
+  font-family: 'IcoMoon';
+  src: url('fonts/IcoMoon.eot?fczhay');
+  src: url('fonts/IcoMoon.eot?#iefixfczhay') format('embedded-opentype'), url('fonts/IcoMoon.woff?fczhay') format('woff'), url('fonts/IcoMoon.ttf?fczhay') format('truetype'), url('fonts/IcoMoon.svg?fczhay#IcoMoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.x-icon {
+  display: inline-block;
+  font-family: 'IcoMoon';
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  speak: none;
+  line-height: 1;
+  vertical-align: -1px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+a .x-icon {
+  margin-right: 0.32em;
+}

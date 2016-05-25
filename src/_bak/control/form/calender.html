@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>日历</title>
+    <meta name="module-info" content="status=done">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="日历、时间选择器。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../form/calender.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+
+    <script type="text/javascript" src="../../utility/dom/rect.js"></script>
+    <script type="text/javascript" src="../../utility/dom/animate.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../../utility/lang/date.js"></script>
+    <script type="text/javascript" src="../form/calender.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    
+    <blockquote class="doc-info">本组件是日历本身，如果需要日期时间选择器，请参考 <a href="../input/datePicker.html">日期选择器(datePicker)</a> 组件。</blockquote>
+
+    <h2>基本用法</h2>
+    <p>日历组件不需要用户提供 HTML，指定为日历控件后内容将自动生成。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" x-role="calender"></div>
+    </aside>
+    
+    <h2>自定义样式</h2>
+
+    <h3>显示时间选择器</h3>
+    <p>设置 <code>x-format</code> 字段，如果包含 HH:mm:ss 的任一部分，就会显示时间选择器，否则不显示。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" x-role="calender" x-format="yyyy/MM/dd HH:30:00"></div>
+    </aside>
+
+    <h3>月份选择器</h3>
+    <p>设置 <code>x-format</code> 字段，如果不包含 d 的任一部分，就会只显示月份选择器。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" x-role="calender" x-format="yyyy/MM"></div>
+    </aside>
+
+    <h3>设置现在时间</h3>
+    <p>设置 <code>x-now</code> 字段可指定当前时间。这在需要显示服务器时间时非常有用。</p>
+    <aside class="doc-demo">
+        <div class="x-calender" x-role="calender" x-now="2015/1/1"></div>
+    </aside>
+
+    <h3>隐藏现在时间</h3>
+    <p>直接通过 CSS 覆盖即可隐藏。</p>
+    <pre>
+        .x-calender-now { 
+            display:none; 
+        }
+    </pre>
+
+    <h3>设置可选的区间</h3>
+    <aside class="doc-demo">
+        <div class="x-calender" x-role="calender" x-min="2014/2/4" x-max="2016/1/1"></div>
+    </aside>
+
+    <h2>数据处理</h2>c
+    
+    <h5>获取当前用户选中的日期</h5>
+    <pre>$('[x-role="calender"]').role().on('select', function(date){ alert(date); });</pre>
+    <p>注意：当用户切换月份或点击禁用按钮都不会触发 <code>select</code> 事件。</p>
+
+    <h5>当值发生改变后触发</h5>
+    <pre>$('[x-role="calender"]').role().on('change', function(date){ alert(date); });</pre>
+
+    <h5>获取当前选中的值</h5>
+    <pre>$('[x-role="calender"]').role().getValue();</pre>
+
+    <h5>设置当前选中的值</h5>
+    <pre>$('[x-role="calender"]').role().setValue(new Date());</pre>
+
+    <h2>更多定制</h2>
+
+    <h5>自定义节日</h5>
+    <pre>$('[x-role="calender"]').role().getHoliday = function(date){ if(date.format("MM/dd") == "4/1") return "愚人节"; };</pre>
+
+    <h5>自定义不可选日期</h5>
+    <pre>$('[x-role="calender"]').role().getClassName = function(date){ if(date.format("MM/dd") == "4/1") return "x-calender-invalid"; };</pre>
+
+    <h5>切换当前显示的视图</h5>
+    <pre>$('[x-role="calender"]').role().setView('month');</pre>
+
+    <h5>缩小渐变切换当前显示的视图</h5>
+    <pre>$('[x-role="calender"]').role().setView('month', 'zoomIn');</pre>
+
+    <h2>HTML 结构</h2>
+    <div class="x-calender">
+        <div class="x-calender-container">
+            <div class="x-calender-header">
+                <a href="javascript://下一页" title="下一页" class="x-calender-next x-icon">▸</a>
+                <a href="javascript://上一页" title="上一页" class="x-calender-prev x-icon">◂</a>
+                <a href="javascript://上一级" title="返回上一级" class="x-calender-title">2011年11月</a>
+            </div>
+            <div class="x-calender-body">
+                <div class="x-calender-days">
+                    <table>
+                        <tr class="x-calender-weeks">
+                            <th class="x-calender-sunday">日</th>
+                            <th class="x-calender-monday">一</th>
+                            <th class="x-calender-tuesday">二</th>
+                            <th class="x-calender-wednesday">三</th>
+                            <th class="x-calender-thursday">四</th>
+                            <th class="x-calender-friday">五</th>
+                            <th class="x-calender-saturday">六</th>
+                        </tr>
+                        <tr>
+                            <td class="x-calender-alt x-calender-invalid">31</td>
+                            <td class="x-calender-invalid"><a href="###">1</a></td>
+                            <td><a href="###">2</a></td>
+                            <td><a href="###">3</a></td>
+                            <td><a href="###">4</a></td>
+                            <td><a href="###">5</a></td>
+                            <td><a href="###">6</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="###">7</a></td>
+                            <td><a href="###">8</a></td>
+                            <td><a href="###">9</a></td>
+                            <td><a href="###">10</a></td>
+                            <td class="x-calender-selected x-calender-actived"><a href="###">11</a></td>
+                            <td><a href="###">12</a></td>
+                            <td><a href="###">13</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="###">14</a></td>
+                            <td><a href="###">15</a></td>
+                            <td><a href="###">16</a></td>
+                            <td><a href="###">17</a></td>
+                            <td><a href="###">18</a></td>
+                            <td><a href="###">19</a></td>
+                            <td><a href="###">20</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="###">21</a></td>
+                            <td class="x-calender-selected"><a href="###">22</a></td>
+                            <td><a href="###">23</a></td>
+                            <td><a href="###">24</a></td>
+                            <td><a href="###">25</a></td>
+                            <td class="x-calender-actived"><a href="###">26</a></td>
+                            <td><a href="###">27</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="###">28</a></td>
+                            <td><a href="###">29</a></td>
+                            <td class="x-calender-holiday"><a href="###">30</a></td>
+                            <td><a href="###">31</a></td>
+                            <td class="x-calender-alt">1</td>
+                            <td class="x-calender-alt">2</td>
+                            <td class="x-calender-alt">3</td>
+                        </tr>
+                        <tr>
+                            <td class="x-calender-alt">4</td>
+                            <td class="x-calender-alt">5</td>
+                            <td class="x-calender-alt">6</td>
+                            <td class="x-calender-alt">7</td>
+                            <td class="x-calender-alt">8</td>
+                            <td class="x-calender-alt">9</td>
+                            <td class="x-calender-alt">10</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!--<div class="x-calender-months">
+                    <table>
+                        <tr>
+                            <td>一月</td>
+                            <td>二月</td>
+                            <td>三月</td>
+                            <td>四月</td>
+                        </tr>
+                        <tr>
+                            <td>五月</td>
+                            <td>六月</td>
+                            <td>七月</td>
+                            <td>八月</td>
+                        </tr>
+                        <tr>
+                            <td>九月</td>
+                            <td>十月</td>
+                            <td>十一月</td>
+                            <td>十二月</td>
+                        </tr>
+                    </table>
+                </div>-->
+            </div>
+            <div class="x-calender-time">
+                时间:
+                <input type="number" value="23" min="0" max="24" maxlength="2" />
+                :<input type="number" value="23" min="0" max="60" maxlength="2" />
+                :<input type="number" value="23" maxlength="2" readonly />
+            </div>
+            <div class="x-calender-footer">
+                <a href="javascript://今天" class="x-calender-now">今天: 2010年10月20日</a>
+            </div>
+        </div>
+    </div>
+
+    <script> Doc.renderCodes();</script>
+</body>
+</html>

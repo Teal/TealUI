@@ -1,0 +1,22 @@
+﻿/**
+ * @author xuld@vip.qq.com
+ */
+.x-searchtextbox {
+  display: inline-block;
+  position: relative;
+}
+.x-searchtextbox .x-textbox {
+  padding-right: 32px;
+}
+.x-searchtextbox .x-searchtextbox-button {
+  background: none;
+  border: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px 10px;
+}
+.x-searchtextbox .x-searchtextbox-button:active {
+  right: -1px;
+  top: 1px;
+}

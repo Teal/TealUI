@@ -1,0 +1,20 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-checkbox-proxy {
+    position: absolute;
+    visibility: hidden;
+
+    & + span {
+        color: @text-color-link;
+    }
+    
+    &[disabled] + span {
+        color: @text-color-disabled;
+    }
+
+    &:not(:checked) + span .x-icon:last-child, &:checked  + span .x-icon:first-child {
+        display: none;
+    }
+
+}

@@ -1,0 +1,34 @@
+﻿.x-linklist li {
+  padding: 0;
+}
+.x-linklist li a {
+  display: block;
+  padding: 0.3em 0.6em;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.x-linklist li a:hover {
+  background-color: #f5f5f5;
+  text-decoration: none;
+}
+.x-linklist li:first-child a {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.x-linklist li:last-child a {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.x-linklist .x-badge {
+  float: right;
+}
+.x-linklist .x-list-selected a {
+  background-color: #337ab7 !important;
+  color: #ffffff !important;
+}
+.x-linklist .x-list-selected a .x-badge {
+  background-color: #ffffff;
+  color: #337ab7;
+}
