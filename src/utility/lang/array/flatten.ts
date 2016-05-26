@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 将多维数组合并为一维数组。
  * @returns {Array} 返回新数组。

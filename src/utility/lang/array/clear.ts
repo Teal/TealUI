@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 清空数组所有项。
  * @returns this

@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 创建一个从 0 到指定指定值组成的数组。
  * @param {Number} [start=0] 开始的数值。

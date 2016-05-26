@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 将一个类数组对象转为原生数组。
  * @param {Object} iterable 一个类数组对象。

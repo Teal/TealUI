@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 合并当前数组和另一个数组并返回一个新数组。
  * @param {Array} array 要合并的数组。

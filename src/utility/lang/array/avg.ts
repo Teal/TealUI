@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 计算数组中所有数值的算术平均值。
  * @returns {Number} 返回数组中所有数值的算术平均值。

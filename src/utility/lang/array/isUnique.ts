@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 判断数组中是否存在重复项。
  * @returns {Boolean} 若数组中存在重复值，则返回 @true，否则返回 @false。

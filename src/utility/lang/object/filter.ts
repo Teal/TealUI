@@ -33,25 +33,25 @@ interface ObjectConstructor {
  */
 Object.filter = function (iterable: any, callback: (value: any, index: number | string, target: any) => boolean, scope?: any) {
 
-    let target;
+    let result;
 
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
-        target = [];
+        result = [];
         for (let i = 0, length = iterable.length; i < length; i++) {
             if ((i in this) && callback.call(scope, iterable[i], i, iterable)) {
-                target.push(iterable[i]);
+                result.push(iterable[i]);
             }
         }
     } else {
-        target = {};
+        result = {};
         for (let i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
-                target[i] = iterable[i];
+                result[i] = iterable[i];
             }
         }
     }
 
     // 返回目标。
-    return target;
+    return result;
 };

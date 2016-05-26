@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 将数组中的值和指定的键表组合为对象。
  * @param {Array} keys 要匹配的键名。

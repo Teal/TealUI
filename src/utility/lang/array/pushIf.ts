@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 如果当前数组中不存在项则添加到数组末尾。
  * @param {Array} item 元素。

@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 删除数组中值为 @false 的值。
  * @returns {Array} 返回过滤后的新数组。

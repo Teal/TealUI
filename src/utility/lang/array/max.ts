@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 计算数组中所有项的最大值。
  * @returns {Number} 返回数组中所有项的最大值。

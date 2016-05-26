@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 删除当前数组中匹配的第一个项。
  * @param {Object} value 要删除的项。

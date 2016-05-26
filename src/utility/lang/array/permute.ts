@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 计算数组的全排列结果。
  * @returns {Array} 如果已新增则返回 @true，否则返回 @false。

@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 if (!Array.prototype.lastIndexOf) {
 
     /**

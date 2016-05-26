@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 调用数组每一项的成员函数。
  * @param {Number} funcName 要调用的函数名。

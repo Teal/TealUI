@@ -12,24 +12,24 @@
  * @example Object.filter({a:1, b:2}, function(item){ return item > 1; }) // {b:2}
  */
 Object.filter = function (iterable, callback, scope) {
-    var target;
+    var result;
     // 普通对象使用 for( in ) , 数组用 0 -> length 。
     if (iterable instanceof Array) {
-        target = [];
+        result = [];
         for (var i = 0, length_1 = iterable.length; i < length_1; i++) {
             if ((i in this) && callback.call(scope, iterable[i], i, iterable)) {
-                target.push(iterable[i]);
+                result.push(iterable[i]);
             }
         }
     }
     else {
-        target = {};
+        result = {};
         for (var i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
-                target[i] = iterable[i];
+                result[i] = iterable[i];
             }
         }
     }
     // 返回目标。
-    return target;
+    return result;
 };

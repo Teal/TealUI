@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 获取数组指定索引的项。
  * @param {Number} index 要获取的索引。如果值为负数，则获取倒数的项。

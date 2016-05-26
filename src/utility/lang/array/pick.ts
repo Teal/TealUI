@@ -1,4 +1,8 @@
 ﻿
+interface Array<T> {
+
+}
+
 /**
  * 获取数组中第一个不为空的元素。
  * @returns {Object} 返回不为空的元素，如果所有元素都为空则返回 @undefined。
