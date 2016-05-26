@@ -8,98 +8,6 @@
 
 /// @category 语言扩展
 
-if (!Function.prototype.bind) {
-
-    /**
-     * 返回一个新函数，这个函数执行时 @this 始终为指定的 @scope。
-     * @param {Object} scope 要绑定的 @this 的值。
-     * @returns {Function} 返回一个新函数。
-     * @example (function(){ return this;  }).bind(0)() // 0
-     * @since ES5
-     */
-    Function.prototype.bind = function (scope) {
-        var me = this;
-        return function () {
-            return me.apply(scope, arguments);
-        }
-    };
-
-}
-
-if (!Array.isArray) {
-
-    /**
-     * 判断一个对象是否是数组。
-     * @param {Object} obj 要判断的对象。
-     * @returns {Boolean} 如果 @obj 是数组则返回 @true，否则返回 @false。
-     * @example
-     * Array.isArray([]); // true
-     * 
-     * Array.isArray(document.getElementsByTagName("div")); // false
-     * 
-     * Array.isArray(new Array); // true
-     * @since ES5
-     */
-    Array.isArray = function (obj) {
-        return Object.prototype.toString.call(obj) === "[object Array]";
-    };
-
-}
-
-if (!Array.prototype.forEach) {
-
-    /**
-     * 遍历当前数组，并对每一项执行函数 @fn。
-     * @param {Function} fn 对每一项执行的函数。函数的参数依次为:
-     *
-     * * @param {Object} value 当前项的值。
-     * * @param {Number} index 当前项的索引。
-     * * @param {Array} array 当前正在遍历的数组。
-     * 
-     * @param {Object} [scope] 定义 @fn 执行时 @this 的值。
-     * @example
-     * [2, 5].forEach(function (value, index) {
-     *      console.log(value);
-     * }); // 输出 2  5
-     * @since ES5
-     */
-    Array.prototype.forEach = function (fn, scope) {
-        typeof console === "object" && console.assert(fn instanceof Function, "array.forEach(fn: 必须是函数, [scope])");
-        for (var i = 0, length = this.length; i < length; i++) {
-            fn.call(scope, this[i], i, this);
-        }
-    };
-
-    /**
-     * 将当前数组中符合要求的项组成一个新数组。
-     * @param {Function} fn 用于判断每一项是否符合要求的函数。函数的参数依次为:
-     * 
-     * * @param {Object} value 当前项的值。
-     * * @param {Number} index 当前项的索引。
-     * * @param {Array} array 当前正在遍历的数组。
-     * * @returns {Boolean} 返回 @true 说明当前元素符合条件，否则不符合。
-     * 
-     * @param {Object} [scope] 指定 @fn 执行时 @this 的值。
-     * @returns {Array} 返回一个新数组。
-     * @example [1, 2].filter(function(v){return v > 1;}) // [2]
-     * @since ES5
-     */
-    Array.prototype.filter = function (fn, scope) {
-        typeof console === "object" && console.assert(fn instanceof Function, "array.filter(fn: 必须是函数, [scope])");
-        var results = [];
-        for (var i = 0, l = this.length; i < l; i++) {
-            if (i in this) {
-                var value = this[i];
-                if (fn.call(scope, value, i, this)) {
-                    results.push(value);
-                }
-            }
-        }
-        return results;
-    };
-
-}
-
 if (!String.prototype.trim) {
 
     /**
@@ -121,22 +29,6 @@ if (!String.prototype.trim) {
 /*@cc_on if(!+"\v1") {
 
 /// @category IE8 补丁
-
-/// 获取指定项在数组内的索引。
-/// @param {Object} value 一个类数组对象。
-/// @param {Number} [startIndex=0] 转换开始的位置。
-/// @returns {Number} 返回索引。如果找不到则返回 -1。
-/// @example ["b", "c", "a", "a"].indexOf("a"); // 2
-/// @since ES4
-Array.prototype.indexOf = Array.prototype.indexOf || function (value, startIndex) {
-    startIndex = startIndex || 0;
-    for (var len = this.length; startIndex < len; startIndex++) {
-        if (this[startIndex] === value) {
-            return startIndex;
-        }
-    }
-    return -1;
-};
 
 /// 用于创建一个异步请求。
 /// @example new XMLHttpRequest()

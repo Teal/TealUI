@@ -1,10 +1,4 @@
-﻿/**
- * @fileOverview 扩展 Boolean 相关的 API。
- * @author xuld@vip.qq.com
- */
-
-// #region @Boolean.parseBoolean
-
+﻿
 /**
  * 解析字符串为布尔类型。
  * @param {String} str 要解析的字符串。
@@ -14,5 +8,3 @@
 Boolean.parseBoolean = function (str) {
     return !!str && !/^(false|0|off|no)$/.test(str);
 };
-
-// #endregion
