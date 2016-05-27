@@ -1,0 +1,1 @@
+<aside class="doc-demo"><input type="email" class="x-textbox" id="emailSuggest" x-role="emailsuggest" placeholder="输入邮箱地址..."></aside>

@@ -1,0 +1,1 @@
+<article class="demo"><script>Demo.writeExamples({ 'Dom#highlight': function () { return Dom.query("#a").highlight(); } }, { times: 8 });</script></article>

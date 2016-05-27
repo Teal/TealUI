@@ -1,0 +1,1 @@
+<article><textarea id="a"></textarea><script>var a = new RichTextBox('a');</script></article>

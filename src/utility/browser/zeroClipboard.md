@@ -1,0 +1,1 @@
+<button id="button1">复制</button> <textarea id="textBox1">我是需要复制的文本</textarea> <script>ZeroClipboard.init({ dom: document.getElementById("button1"), input: document.getElementById("textBox1"), });</script>

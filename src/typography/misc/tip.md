@@ -1,0 +1,1 @@
+<aside class="doc-demo"><span class="x-tip">提示</span> <span class="x-tip x-tip-info">信息</span> <span class="x-tip x-tip-success">成功</span> <span class="x-tip x-tip-warning">警告</span> <span class="x-tip x-tip-error">失败</span></aside>
