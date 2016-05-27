@@ -1,7 +1,6 @@
-﻿对象(Object)扩展
+﻿布尔(Boolean)扩展
 ========================================================
 
 常用 API
 ------------------------------------------
-@doc object/assign
-@doc object/each
+@api number/number.js

@@ -7,7 +7,7 @@
         "noImplicitUseStrict": true,
         "sourceMap": true,
         "stripInternal": true,
-        "outDir": "lib",
+        "outDir": "_build/dist",
         "rootDir": "src",
         "pretty": false,
         "experimentalDecorators": true
