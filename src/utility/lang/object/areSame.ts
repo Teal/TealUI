@@ -19,7 +19,7 @@ interface ObjectConstructor {
  * @returns 如果比较的对象相同则返回 true，否则返回 false。
  * @example Object.areSame([], []) // true
  */
-Object.areSame = function (objX, objY) {
+Object.areSame = function (objX: any, objY: any) {
     if (objX && objY && typeof objX === "object" && typeof objY === "object") {
         for (let key in objX) {
             if (!Object.areSame(objX[key], objY[key])) {

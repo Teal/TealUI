@@ -1,7 +1,7 @@
 {
   "name": "tealui",
   "version": "4.0.0",
-  "description": "TealUI - 最完整的开源前端代码库",
+  "description": "专业的大型前端开源代码库",
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
@@ -15,5 +15,10 @@
     "name": "xuld",
     "email": "xuld@vip.qq.com"
   },
-  "readme": "最完整的开源前端代码库"
+  "devDependencies": {
+    "tpack": "^2.8.3",
+    "tpack-typescript": "^2.9.0",
+    "tpack-less": "^2.9.0",
+    "marked": "^0.3.5"
+  }
 }

@@ -1,8 +1,27 @@
+
 ## 本项目专用
 
 ## 个人文件
 _my
 _build
+
+## NPM 忽略文件
+packages.config
+tsconfig.json
+/src
+/doc*
+/demo*
+/tool*
+/test
+/assets
+.*
+*proj
+*.sln
+*.md
+gulpfile.js
+gruntfile.js
+webpack.config.js
+tpack.config.js
 
 ## 第三方程序包
 node_modules

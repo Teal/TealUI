@@ -5,8 +5,8 @@ tpack.srcPath = "src";
 tpack.destPath = "dest";
 
 // 设置全局忽略的路径。
-tpack.loadIgnoreFile(".gitignore");
-tpack.ignore(".*", "_*", "$*", "*~", "tpack*", "node_modules");
+tpack.loadIgnore(".gitignore");
+tpack.ignore(".*", "_*", "$*", "*~", "tpack*");
 
 // 所有任务都需要先执行以下预编译的规则。
 tpack.src("*.scss", "*.sass").pipe(require("tpack-node-sass")).dest("$1.css");
@@ -21,7 +21,7 @@ tpack.src("*.html", "*.htm", "*.js", "*.css").pipe(require("tpack-assets"), {
 });
 
 // 压缩 CSS 和 JS。
-if(tpack.cmd === "build") {
+if (tpack.cmd === "build") {
     tpack.src("*.css").pipe(require('tpack-clean-css'));
     tpack.src("*.js").pipe(require('tpack-uglify-js'));
 }
