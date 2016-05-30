@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    replaceAll(): string;
+
+}
+
 /**
  * 替换当前字符串内全部子字符串。
  * @param {String} from 替换的源字符串。

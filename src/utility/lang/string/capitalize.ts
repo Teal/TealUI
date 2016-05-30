@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    capitalize(): string;
+
+}
+
 /**
  * 将字符串首字母大写。
  * @returns {String} 返回新字符串。

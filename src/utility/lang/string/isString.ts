@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    isString(): string;
+
+}
+
 /**
  * 判断一个对象是否是字符串。
  * @param {Object} obj 要判断的对象。

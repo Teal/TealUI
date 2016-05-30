@@ -1,11 +1,16 @@
 ﻿
 interface Array<T> {
 
+    /**
+     * 清空数组所有项。
+     * @example [1, 2].clear() // []
+     */
+    clear(): this;
+
 }
 
 /**
  * 清空数组所有项。
- * @returns this
  * @example [1, 2].clear() // []
  */
 Array.prototype.clear = function () {

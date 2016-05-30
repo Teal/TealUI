@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    format(): string;
+
+}
+
 /**
  * 格式化指定的字符串。
  * @param {String} format 格式字符串。具体见下文。

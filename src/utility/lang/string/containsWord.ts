@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    containsWord(): string;
+
+}
+
 /**
  * 判断字符串是否包含指定单词。
  * @param {String} str 要判断的字符串。

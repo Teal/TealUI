@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    ellipsisByWord(): string;
+
+}
+
 /**
  * 将字符串限定在指定长度内，超出部分用 ... 代替。同时确保不强制分割单词。
  * @param {String} str 要处理的字符串。

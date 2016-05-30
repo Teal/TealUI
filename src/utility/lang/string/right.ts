@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    right(): string;
+
+}
+
 /**
  * 获取字符串右边指定长度的子字符串。
  * @param {Number} length 要获取的子字符串长度。

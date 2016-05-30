@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    trimRight(): string;
+
+}
+
 /**
  * 去除当前字符串结尾空格。
  * @returns {String} 返回新字符串。

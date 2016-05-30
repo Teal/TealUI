@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    padRight(): string;
+
+}
+
 /**
  * 将字符串扩展到指定长度，不够的部分在右边使用@paddingChar 补齐。
  * @param {Number} totalLength 对齐之后的总长度。

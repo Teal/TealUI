@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    toCamelCase(): string;
+
+}
+
 /**
  * 将字符串转为骆驼规则（如 fontSize）。
  * @returns {String} 处理后的字符串。

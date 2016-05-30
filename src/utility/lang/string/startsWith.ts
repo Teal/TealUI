@@ -1,4 +1,10 @@
 ﻿
+interface String {
+
+    startsWith(): string;
+
+}
+
 /**
  * 判断当前字符串是否以某个特定字符串开头。
  * @param {String} str 开头的字符串。
