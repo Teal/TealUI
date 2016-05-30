@@ -1,20 +1,18 @@
 ﻿var tpack = require("tpack");
 
-tpack.srcPath = "src/_bak";
-tpack.destPath = "src/_bak2";
+// 设置全局忽略的路径。
+tpack.loadIgnore(".gitignore");
+tpack.ignore(".*", "_*", "$*", "*~", "tpack*");
 
-tpack.src("*.html").pipe(function (file) {
-    file.content = require("to-markdown")(file.content, { gfm: true });
-}).dest("$1.md");
-tpack.src("*.js").dest("$1.ts");
+// 设置文件夹。
+tpack.srcPath = "src";
+tpack.destPath = "_build";
 
-//// 设置文件夹。
-//tpack.srcPath = "src";
-//tpack.destPath = "dest";
+tpack.task("default", function (e) {
 
-//// 设置全局忽略的路径。
-//tpack.loadIgnore(".gitignore");
-//tpack.ignore(".*", "_*", "$*", "*~", "tpack*");
+    tpack.src("*.md").pipe(tpack.plugin("./_build/tools/build/doc"));
+
+});
 
 //// 所有任务都需要先执行以下预编译的规则。
 //tpack.src("*.scss", "*.sass").pipe(require("tpack-node-sass")).dest("$1.css");
