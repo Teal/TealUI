@@ -4,7 +4,7 @@
 
 常用 API
 --------------------------------------------------------
-@api date/format
+@api date/format.ts
 @api date/from
 @api date/addDay
 @api date/addMonth

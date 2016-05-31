@@ -5,12 +5,11 @@ tpack.loadIgnore(".gitignore");
 tpack.ignore(".*", "_*", "$*", "*~", "tpack*");
 
 // 设置文件夹。
-tpack.srcPath = "src";
 tpack.destPath = "_build";
 
 tpack.task("default", function (e) {
 
-    tpack.src("*.md").pipe(tpack.plugin("./_build/tools/build/doc"));
+    tpack.src("*.md").pipe(require("./_build/dist/TealUI/tools/build/doc"));
 
 });
 

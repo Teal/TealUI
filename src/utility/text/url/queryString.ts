@@ -1,12 +1,12 @@
 ﻿/**
+ * @fileOverview 解析查询字符串。
  * @author xuld@vip.qq.com
- * @fileOverview 处理查询字符串。
  */
 
 /**
  * 提供处理查询字符串的方法。
  */
-var QueryString = {
+export var QueryString = {
 
     // #region @QueryString.parse
 

@@ -4,12 +4,11 @@
 
 /**
  * 计算一个字符串的 MD5 值。
- * @param {String} str 要计算的字符串。
- * @returns {String} 返回 @str 加密后的字符串。其所有字符均为小写。
+ * @param str 要计算的字符串。
+ * @returns 返回 *str* 加密后的字符串。其所有字符均为小写。
  * @example md5("a") // "0cc175b9c0f1b6a831c399e269772661"
  */
-function md5(str) {
-    typeof console === "object" && console.assert(typeof str === "string", "md5(str: 必须是字符串)");
+export function md5(str: string) {
     return md5.binaryToString(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
 }
 

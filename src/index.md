@@ -7,7 +7,6 @@
 </head>
 <body>
     <!-- 以下代码仅用于文档演示 -->
-    <script type="text/javascript" src="../assets/doc/doc.js"></script>
     <script type="text/javascript" src="control/layout/waterfallLayout.js"></script>
     <div id="list" class="doc">
         正在载入列表...

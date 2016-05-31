@@ -5,11 +5,9 @@
 <script x-doc="utility/text/pinYin.js">Doc.writeApi({ path: "utility/text/pinYin.js", apis: [{ name: "getPinYin", summary: "<p>根据简体中文获取拼音。</p>", params: [{ type: "String", name: "value", summary: "<p>要获取的中文。</p>" }, { type: "Boolean", name: "firstLetterOnly", defaultValue: "false", optional: true, summary: "<p>如果为 <strong>true</strong> 则只获取首字母，否则获取全拼。</p>" }, { type: "String", name: "joinChar", defaultValue: "' '", optional: true, summary: "<p>用于连接各组成部分的字符。如果设置为 null，则不连接。</p>" }], returns: { type: "String", summary: "<p>返回结果拼音字符串。如果 <em>joinChar</em> 为 null 则返回数组。</p>" }, example: "<pre>getPinYin(\"你好\") // \"Ni Hao\"</pre>", line: 6, col: 1 }] });</script>
 
 > #### 实现原理
-> 
 > 在库文件中有一个拼音字母表，函数会查询此表并返回对应拼音。
 
 > #### 注意
-> 
 > 不支持多音字。
 
 ## 中文（繁体）转拼音

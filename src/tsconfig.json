@@ -7,8 +7,8 @@
         "noImplicitUseStrict": true,
         "sourceMap": true,
         "stripInternal": true,
-        "outDir": "_build/dist",
-        "rootDir": "src",
+        "outDir": "../_build/dist",
+        "rootDir": "",
         "pretty": false,
         "experimentalDecorators": true
     },
