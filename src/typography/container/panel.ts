@@ -1,4 +1,6 @@
 ﻿/**
+ * @fileOverview 面板
+ * @description 面板可以用于展示一块信息。
  * @author xuld@vip.qq.com
  */
 
