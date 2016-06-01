@@ -1,5 +1,5 @@
 /**
- * @fileOverview 根据简体中文获取拼音。
+ * @fileOverview 中文（简体）转拼音。
  * @author xuld@vip.qq.com
  */
 
@@ -435,7 +435,7 @@ getPinYin.dictionary = {
  * @param {String} ch 单个字符。
  * @inner
  */
-getPinYin.lookup = function(ch) {
+getPinYin.lookup = function (ch) {
     for (var pinyin in getPinYin.dictionary) {
         if (getPinYin.dictionary[pinyin].indexOf(ch) >= 0) {
             return pinyin;

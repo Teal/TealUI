@@ -1,4 +1,6 @@
 /**
+ * @fileOverview 文字计数器。
+ * @description 统计并显示实际可输入的文字数。
  * @author xuld@vip.qq.com
  */
 

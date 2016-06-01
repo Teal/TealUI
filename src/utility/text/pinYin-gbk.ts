@@ -1,5 +1,5 @@
 /**
- * @fileOverview 根据繁体中文获取拼音。
+ * @fileOverview 中文（繁体）转拼音。
  * @author xuld@vip.qq.com
  */
 

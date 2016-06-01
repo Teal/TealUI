@@ -1,5 +1,5 @@
 ﻿/**
- * @fileOverview 追加 URL 查询参数（如 ?a=b&c=d）。
+ * @fileOverview 追加查询参数。
  * @author xuld@vip.qq.com
  */
 

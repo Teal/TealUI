@@ -1,5 +1,5 @@
 {
-  "name": "tealui",
+  "name": "tealui-build",
   "version": "4.0.0",
   "description": "专业的大型前端开源代码库",
   "license": "SEE LICENSE IN LICENSE",
@@ -15,7 +15,7 @@
     "name": "xuld",
     "email": "xuld@vip.qq.com"
   },
-  "devDependencies": {
+  "dependencies": {
     "tpack": "^2.8.3",
     "tpack-typescript": "^2.9.0",
     "tpack-less": "^2.9.0",

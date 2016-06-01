@@ -1,4 +1,6 @@
 /**
+ * @fileOverview 标签选择器。
+ * @description 提供备选项帮助用户书写信息。
  * @author  xuld
  */
 
