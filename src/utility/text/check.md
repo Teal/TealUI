@@ -20,5 +20,5 @@
 @doc check/isChineseId.ts
 
 <input type="text" id="parseChineseId_value" placeholder="输入身份证号..." />
-<input type="button" value="解析" onclick="var idInfo = parseChineseId(document.getElementById('parseChineseId_value').value || (document.getElementById('parseChineseId_value').value = '152500198909267865')); document.getElementById('parseChineseId_result').innerHTML = '<br>合法：' + idInfo.valid + '<br>性别：' + idInfo.sex + '<br>省份：' + (idInfo.province || '') + '<br>生日： ' + idInfo.birthday.toLocaleString();" />
+<input type="button" value="解析" onclick="var idInfo = parseChineseId(document.getElementById('parseChineseId_value').value || (document.getElementById('parseChineseId_value').value = '152500198909267865')); document.getElementById('parseChineseId_result').innerHTML = '<br>合法：' + idInfo.valid + '<br>性别：' + (idInfo.sex ? '男' : '女') + '<br>省份：' + (idInfo.province || '') + '<br>生日： ' + idInfo.birthday.toLocaleString();" />
 <span id="parseChineseId_result"></span>

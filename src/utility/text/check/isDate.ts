@@ -6,10 +6,5 @@
  * @example isDate("2014/1/1") // true
  */
 export default function isDate(value: string) {
-    let match = /(\d{4})\D*(\d\d?)\D*(\d\d?)/.exec(value);
-    let year = +match[1];
-    let month = +match[2] - 1;
-    let day = +match[3];
-    let date = new Date(year, month, day);
-    return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day;
+    return !!+new Date(value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, "$1/$2/$3"));
 }

@@ -21,8 +21,8 @@ export default function checkPassword(value: string) {
     let oldCharCode;
     let oldCharType;
     for (let i = 0; i < value.length; i++) {
-        let newCharCode = value.charCodeAt(i);
-        let newCharType = newCharCode >= 48 && newCharCode <= 57 ? 0 : newCharCode >= 97 && newCharCode <= 122 ? 1 : newCharCode >= 65 && newCharCode <= 90 ? 2 : 3;
+        const newCharCode = value.charCodeAt(i);
+        const newCharType = newCharCode >= 48 && newCharCode <= 57 ? 0 : newCharCode >= 97 && newCharCode <= 122 ? 1 : newCharCode >= 65 && newCharCode <= 90 ? 2 : 3;
         if (i) {
             if (oldCharType !== newCharType) {
                 complexLevel++;
