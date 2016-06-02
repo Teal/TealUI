@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isNumber("-45.35") // true
  */
-export default function isNumber(value: string) {
+export function isNumber(value: string) {
     return /^[-]?\d+(\.\d*)$/.test(value);
 }

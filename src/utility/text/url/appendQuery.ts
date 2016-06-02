@@ -12,7 +12,7 @@
  * @example appendQuery("a.html?b=d", "b", "c") // "a.html?b=c"
  * @example appendQuery("a.html?b=d, "add", "val") // "a.html?b=d&add=val"
  */
-function appendQuery(url: string, name: string, value: string) {
+export default function appendQuery(url: string, name: string, value: string) {
     name = encodeURIComponent(name);
     value = name + '=' + encodeURIComponent(value);
     let match = /^(.*?)(\?.+?)?(#.*)?$/.exec(url);

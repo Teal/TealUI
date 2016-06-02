@@ -18,7 +18,7 @@
  * @example parseChineseId("152500198909267865")
  * @remark > 注意：本函数只检验身份证的数值特征，本函数认为非法的身份证必然是非法的，本函数认为合法的身份证可能实际是不存在的。
  */
-export default function parseChineseId(value: string) {
+export function parseChineseId(value: string) {
 
     // 身份证 0 - 1 表示省份(省,自治区,直辖市)。
     const province = ({

@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isIndentifier("x09") // true
  */
-export default function isIndentifier(value: string) {
+export function isIndentifier(value: string) {
     return /^[\u4E00-\u9FA5\uFE30-\uFFA0a-zA-Z_$][\u4E00-\u9FA5\uFE30-\uFFA0\w$]+$/.test(value);
 }

@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isQQ("10000") // true
  */
-export default function isQQ(value: string) {
+export function isQQ(value: string) {
     return /^\d{5,12}$/.test(value);
 }

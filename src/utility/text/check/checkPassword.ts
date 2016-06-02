@@ -13,7 +13,7 @@
  * 2. 重复字符、连续字符越多越简单。
  * @example checkPassword("123456") // -1
  */
-export default function checkPassword(value: string) {
+export function checkPassword(value: string) {
 
     let complexLevel = 0;
     let equalCount = 0;

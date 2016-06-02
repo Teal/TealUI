@@ -8,7 +8,7 @@
  * @example isValidDate(2015, 2, 29) // false
  * @example isValidDate(2016, 2, 29) // true
  */
-export default function isValidDate(year: number, month: number, day: number) {
+export function isValidDate(year: number, month: number, day: number) {
     const date = new Date(year, --month, day);
     return date.getFullYear() === year && date.getMonth() === month && date.getDate() === day;
 }

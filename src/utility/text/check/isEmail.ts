@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true；否则返回 false。
  * @example isEmail("work&#64;xuld.net") // true
  */
-export default function isEmail(value: string) {
+export function isEmail(value: string) {
     return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w][\u4E00-\u9FA5\uFE30-\uFFA0\w-+\.]*@[\u4E00-\u9FA5\uFE30-\uFFA0\w]+(\.[\u4E00-\u9FA5\uFE30-\uFFA0\w]+)+$/.test(value);
 }

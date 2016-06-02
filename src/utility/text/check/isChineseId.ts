@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isId("152500198909267865") // true
  */
-export default function isChineseId(value: string) {
+export function isChineseId(value: string) {
     return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value);
 }

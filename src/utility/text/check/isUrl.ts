@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isUrl("http://teal.github.io/") // true
  */
-export default function isUrl(value: string) {
+export function isUrl(value: string) {
     return /^(\w+:)?\/\/.+$/.test(value);
 }

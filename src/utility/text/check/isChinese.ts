@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isChinese("你好") // true
  */
-export default function isChinese(value: string) {
+export function isChinese(value: string) {
     return /^[\u4E00-\u9FA5\uFE30-\uFFA0]+$/gi.test(value);
 }

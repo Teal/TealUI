@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isLetter("abc") // true
  */
-export default function isLetter(value: string) {
+export function isLetter(value: string) {
     return /^[a-zA-Z]+$/.test(value);
 }

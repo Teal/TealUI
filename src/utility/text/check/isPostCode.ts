@@ -5,6 +5,6 @@
  * @returns 如果检验合法则返回 true，否则返回 false。
  * @example isPostCode("310000") // true
  */
-export default function isPostCode(value: string) {
+export function isPostCode(value: string) {
     return /^\d{6}$/.test(value);
 }
