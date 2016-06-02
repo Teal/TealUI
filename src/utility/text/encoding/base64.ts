@@ -6,7 +6,7 @@
  */
 
 // 改自 https://bitbucket.org/davidchambers/base64.js
-if (!this.btoa && !this.atob) {
+if (!this.btoa && !this.atob || 1) {
     (function () {
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
@@ -24,7 +24,6 @@ if (!this.btoa && !this.atob) {
          * @since ES4
          */
         this.btoa = function (str) {
-            typeof console === "object" && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
             for (
                 // initialize result and counter
                 var block, charCode, idx = 0, map = characters, output = '';
@@ -52,7 +51,6 @@ if (!this.btoa && !this.atob) {
          * @since ES4
          */
         this.atob = function (str) {
-            typeof console === "object" && console.assert(typeof str === "string", "btoa(str: 必须是字符串)");
             str = str.replace(/=+$/, '');
             if (str.length % 4 === 1) throwInvalideCharError();
             for (
