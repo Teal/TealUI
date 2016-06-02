@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @fileOverview 特效渐变方式。
  * @author xuld@vip.qq.com

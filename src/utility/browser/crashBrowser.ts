@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 让浏览器卡死。
  * @author xuld@vip.qq.com
  */

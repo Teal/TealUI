@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @fileOverview 格式化时间为: N 天前|N 分前|刚刚 格式。
  * @author xuld@vip.qq.com

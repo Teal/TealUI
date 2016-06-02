@@ -1,4 +1,6 @@
-﻿
+// #todo
+
+
 /**
  * 空函数。
  * @example var fn = Function.empty

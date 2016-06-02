@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 解析查询字符串。
  * @author xuld@vip.qq.com
  */

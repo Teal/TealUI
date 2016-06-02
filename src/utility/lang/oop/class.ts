@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 实现类、类继承以及类事件。
  * @author xuld@vip.qq.com
  */

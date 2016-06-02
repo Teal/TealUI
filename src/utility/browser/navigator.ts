@@ -1,21 +1,23 @@
+// #todo
+
 
 (function (ua) {
 
     var match = ua.match(/(IE|Firefox|Chrome|Safari|Opera)[\/\s](\d*)/i) || ua.match(/(WebKit|Gecko)[\/\s]([\w\.]*)/i) || [0, "Other", 0];
 
     /**
-     * »ñÈ¡µ±Ç°ä¯ÀÀÆ÷Ãû¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     navigator.browser = match[1];
 
     /**
-     * »ñÈ¡µ±Ç°ä¯ÀÀÆ÷°æ±¾¡£
+     * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½
      */
     navigator.version = match[2];
 
 })(navigator.userAgent);
 
 /**
- * »ñÈ¡µ±Ç°ä¯ÀÀÆ÷ÒýÇæ¡£
+ * ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¡£
  */
 navigator.engine = window.opera ? 'Presto' : window.ActiveXObject ? 'Trident' : document.getBoxObjectFor != null || window.mozInnerScreenX != null ? 'Gecko' : document.childNodes && !document.all && !navigator.taintEnabled ? 'Webkit' : 'Other';

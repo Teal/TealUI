@@ -1,12 +1,14 @@
+// #todo
+
 /**
- * @fileOverview ½ø¶ÈÌõ¡£
+ * @fileOverview ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author xuld@vip.qq.com
  */
 
 typeof include === "function" && include("../control/base");
 
 /**
- * ½ø¶ÈÌõ¡£
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 Control.extend({
 

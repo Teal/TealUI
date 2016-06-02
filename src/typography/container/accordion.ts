@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @author xuld@vip.qq.com
  */
@@ -18,7 +20,7 @@ Control.extend({
 
         me.dom.children().each(function(panelElem, index) {
 
-            // ³õÊ¼ÎªÃæ°å¡£
+            // ï¿½ï¿½Ê¼Îªï¿½ï¿½ï¿½å¡£
             var panel = panels[index] = Dom(panelElem).role('panel');
 
             panel.on('collapsing', function(value) {
@@ -27,14 +29,14 @@ Control.extend({
                     return;
                 }
 
-                // ½ûÖ¹ÕÛµþµ±Ç°Ïî¡£
+                // ï¿½ï¿½Ö¹ï¿½Ûµï¿½ï¿½ï¿½Ç°ï¿½î¡£
                 if (value == true || !me.trigger('changing', this)) {
                     return false;
                 }
 
                 triggerBySelf = true;
 
-                // Õ¹¿ªµ±Ç°ÏîÍ¬Ê±ÕÛµþÆäËüÏî¡£
+                // Õ¹ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Í¬Ê±ï¿½Ûµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¡£
                 for (var i = 0; i < panels.length; i++) {
                     if (this !== panels[i]) {
                         panels[i].toggleCollapse(true);

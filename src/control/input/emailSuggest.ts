@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @author xuld@vip.qq.com
  */
@@ -19,7 +21,7 @@ var EmailSuggest = Suggest.extend({
     },
 
     /**
-	 * 当被子类重写时，负责将当前文本的值同步到下拉菜单。
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷写时锟斤拷锟斤拷锟金将碉拷前锟侥憋拷锟斤拷值同锟斤拷锟斤拷锟斤拷锟斤拷锟剿碉拷锟斤拷
 	 * @protected 
 	 * @virtual
 	 */

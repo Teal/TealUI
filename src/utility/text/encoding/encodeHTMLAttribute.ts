@@ -1,4 +1,6 @@
-﻿
+// #todo
+
+
 /**
  * 编码 HTML 属性特殊字符。
  * @param {String} str 要编码的字符串。

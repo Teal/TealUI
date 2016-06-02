@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 表示一个颜色对象。
  * @author xuld@vip.qq.com
  */

@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @author xuld@vip.qq.com
  */
@@ -9,12 +11,12 @@ typeof include === "function" && include("../form/calender");
 var DatePicker = Picker.extend({
 
     /**
-     * 设置下拉菜单的宽度。如果为百分数，则根据目标节点自动调整。
+     * 锟斤拷锟斤拷锟斤拷锟斤拷锟剿碉拷锟侥匡拷锟饺★拷锟斤拷锟斤拷为锟劫凤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷目锟斤拷锟节碉拷锟皆讹拷锟斤拷锟斤拷锟斤拷
      */
     dropDownWidth: 'auto',
 
     /**
-     * 设置使用的日历组件。
+     * 锟斤拷锟斤拷使锟矫碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
      */
     calenderRole: 'calender',
 	

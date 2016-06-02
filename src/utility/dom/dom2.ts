@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 提供 DOM 操作的辅助函数。
  * @author xuld@vip.qq.com
  */

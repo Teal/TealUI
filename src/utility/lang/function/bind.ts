@@ -1,4 +1,6 @@
-﻿
+// #todo
+
+
 if (!Function.prototype.bind) {
 
     /**

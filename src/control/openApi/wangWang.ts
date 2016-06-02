@@ -1,3 +1,5 @@
+// #todo
+
 
 /**
  * @author 
@@ -31,7 +33,7 @@ var WangWang = {
     		return input.replace(/\{wangWangId\}/ig, wangWangId).replace(/\{siteId\}/ig, siteId || "taobao").replace(/&/g, "&amp;");
     	}
 
-    	document.write('<a href="' + format(WangWang.link) + '"><img border="0" alt="ÍúÍú" src="' + format(WangWang.image) + '" style="vertical-align:-4px"></a>');
+    	document.write('<a href="' + format(WangWang.link) + '"><img border="0" alt="ï¿½ï¿½ï¿½ï¿½" src="' + format(WangWang.image) + '" style="vertical-align:-4px"></a>');
     }
 
 };

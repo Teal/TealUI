@@ -1,4 +1,6 @@
-﻿/**
+// #todo
+
+/**
  * @fileOverview 将货币转为中文大写金额。
  * @author xuld@vip.qq.com
  */

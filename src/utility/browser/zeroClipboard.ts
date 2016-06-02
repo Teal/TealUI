@@ -1,3 +1,5 @@
+// #todo
+
 // Simple Set Clipboard System// Author: Joseph Huckaby// https://github.com/jonrohan/ZeroClipboard/**
  * 表示一个 Flash 复制工具。
  */var ZeroClipboard = {

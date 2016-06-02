@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @fileOverview 获取 URL 查询参数（如 ?a=b&c=d）。
  * @author xuld@vip.qq.com

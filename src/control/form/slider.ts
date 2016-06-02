@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @author xuld@vip.qq.com
  */
@@ -8,25 +10,25 @@ typeof include === "function" && include("dom/drag.js
 
 /**
 ");
- * 表示一个滑块。
+ * 锟斤拷示一锟斤拷锟斤拷锟介。
  * @class
  */
 var Slider = Input.extend({
 
     /**
-     * 设置滑动的最小值。
+     * 锟斤拷锟矫伙拷锟斤拷锟斤拷锟斤拷小值锟斤拷
      * @type {Number}
      */
     min: 0,
 
     /**
-     * 设置滑动的最大值。
+     * 锟斤拷锟矫伙拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
      * @type {Number}
      */
     max: 100,
 
     /**
-     * 设置滑动的步长。
+     * 锟斤拷锟矫伙拷锟斤拷锟侥诧拷锟斤拷锟斤拷
      * @type {Number}
      */
     step: 0,
@@ -50,9 +52,9 @@ var Slider = Input.extend({
             min = 101,
             handle = handles[0];
 
-        // 找到最近的点。
+        // 锟揭碉拷锟斤拷锟斤拷锟侥点。
         for (var i = handles.length - 1; i >= 0; i--) {
-            // 离右边更近则退出循环。
+            // 锟斤拷锟揭边革拷锟斤拷锟斤拷锟剿筹拷循锟斤拷锟斤拷
             var value = Math.abs(parseFloat(handles[i].style.left) - leftP);
             if (value < min) {
                 handle = handles[i];
@@ -73,7 +75,7 @@ var Slider = Input.extend({
     },
 
     _handleDragStart: function (handle, draggable) {
-        // 拖动开始前确定当前滑块的可用范围。每个滑块的范围的前后滑块之间。
+        // 锟较讹拷锟斤拷始前确锟斤拷锟斤拷前锟斤拷锟斤拷锟侥匡拷锟矫凤拷围锟斤拷每锟斤拷锟斤拷锟斤拷锟侥凤拷围锟斤拷前锟襟滑匡拷之锟戒。
         var handles = this.elem.queryAll('.x-slider-handle'),
             min = 101,
             max = -1,
@@ -102,7 +104,7 @@ var Slider = Input.extend({
         draggable.min = min,
         draggable.max = max;
 
-        // 当两个滑块重叠时，允许滑块切换顺序。
+        // 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟截碉拷时锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫伙拷顺锟斤拷锟斤拷
         var currentValue = parseFloat(handle.style.left);
         if (currentValue === draggable.min) {
             draggable.min = 0;
@@ -117,23 +119,23 @@ var Slider = Input.extend({
     _handleDragMove: function (handle, draggable, e) {
         var left = draggable.endOffset.left;
 
-        // 实时步长。
+        // 实时锟斤拷锟斤拷锟斤拷
         if (draggable.part) {
             left = draggable.part * Math.floor((left + draggable.part / 2) / draggable.part);
         }
 
-        // 计算百分比。
+        // 锟斤拷锟斤拷锟劫分比★拷
         left = left * 100 / this.elem.offsetWidth;
 
-        // 确保滑块在合理拖动范围内。
+        // 确锟斤拷锟斤拷锟斤拷锟节猴拷锟斤拷锟较讹拷锟斤拷围锟节★拷
         draggable.value = left = Math.max(draggable.min, Math.min(draggable.max, left));
 
         if (this.onChanging(draggable, e) !== false) {
 
-            // 仅设置 X 坐标即可。
+            // 锟斤拷锟斤拷锟斤拷 X 锟斤拷锟疥即锟缴★拷
             handle.style.left = left + '%';
 
-            // 更新滑块区域。
+            // 锟斤拷锟铰伙拷锟斤拷锟斤拷锟斤拷锟斤拷
             this.onChange();
 
         }
@@ -149,30 +151,30 @@ var Slider = Input.extend({
             },
             onDragMove: function (e) {
                 me._handleDragMove(handle, this, e);
-                // 阻止默认的设置位置功能。
+                // 锟斤拷止默锟较碉拷锟斤拷锟斤拷位锟矫癸拷锟杰★拷
                 return false;
             }
         });
 
-        // 修复 handle 的 left 值。
+        // 锟睫革拷 handle 锟斤拷 left 值锟斤拷
         if (!/%$/.test(handle.style.left)) {
             handle.style.left = handle.getOffset().left * 100 / this.elem.offsetWidth + '%';
         }
     },
 
     /**
-     * 计算某个滑块的值。
-     * @param {Element} handle 要设置的滑块。
-     * @returns {Number} 返回一个 0 到 1 的值，表示这个滑块的值。
+     * 锟斤拷锟斤拷某锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
+     * @param {Element} handle 要锟斤拷锟矫的伙拷锟介。
+     * @returns {Number} 锟斤拷锟斤拷一锟斤拷 0 锟斤拷 1 锟斤拷值锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
      */
     getValueOfHandle: function (handle) {
         return handle ? this.min + parseFloat(handle.style.left) * (this.max - this.min) / 100 : 0;
     },
 
     /**
-     * 设置某个滑块的值。
-     * @param {Element} handle 要设置的滑块。
-     * @param {Number} value 一个 0 到 1 的值，表示这个滑块的值。
+     * 锟斤拷锟斤拷某锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
+     * @param {Element} handle 要锟斤拷锟矫的伙拷锟介。
+     * @param {Number} value 一锟斤拷 0 锟斤拷 1 锟斤拷值锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
      */
     setValueOfHandle: function (handle, value) {
         if (handle) {
@@ -183,10 +185,10 @@ var Slider = Input.extend({
     },
 
     /**
-     * 在滑块即将移动前触发。
-     * @param {Object} draggable 保存本次滑块相关的信息。
-     * @param {Event} e 引发滑动的原始事件信息。
-     * @returns {Boolean} 如果本次滑动无效，则返回 false。
+     * 锟节伙拷锟介即锟斤拷锟狡讹拷前锟斤拷锟斤拷锟斤拷
+     * @param {Object} draggable 锟斤拷锟芥本锟轿伙拷锟斤拷锟斤拷锟截碉拷锟斤拷息锟斤拷
+     * @param {Event} e 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷原始锟铰硷拷锟斤拷息锟斤拷
+     * @returns {Boolean} 锟斤拷锟斤拷锟斤拷锟轿伙拷锟斤拷锟斤拷效锟斤拷锟津返伙拷 false锟斤拷
      */
     onChanging: function (draggable, e) {
         return this.trigger('chaning', draggable);
@@ -194,10 +196,10 @@ var Slider = Input.extend({
 
     onChange: function () {
 
-        // 更新文本域。
+        // 锟斤拷锟斤拷锟侥憋拷锟斤拷锟斤拷
         this.getInput().value = this.getValues();
 
-        // 设置滑块前景色。
+        // 锟斤拷锟矫伙拷锟斤拷前锟斤拷色锟斤拷
         var handles = this.elem.queryAll('.x-slider-handle'),
             startHandle = this.getStartHandle(),
             endHandle = this.getEndHandle(),
@@ -210,7 +212,7 @@ var Slider = Input.extend({
     },
 
     /**
-     * 获取每个滑块的值。
+     * 锟斤拷取每锟斤拷锟斤拷锟斤拷锟斤拷值锟斤拷
      */
     getValues: function () {
         var values = [];

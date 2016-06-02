@@ -1,3 +1,5 @@
+// #todo
+
 /**
  * @fileOverview 为低版本浏览器提供 HTML5 的部分常用函数。
  * @author xuld@vip.qq.com

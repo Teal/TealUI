@@ -1,4 +1,6 @@
-﻿
+// #todo
+
+
 interface String {
 
     clean(): string;

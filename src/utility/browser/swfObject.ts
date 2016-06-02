@@ -1,4 +1,6 @@
-﻿/*!    SWFObject v2.3.20130521 <http://github.com/swfobject/swfobject>
+// #todo
+
+/*!    SWFObject v2.3.20130521 <http://github.com/swfobject/swfobject>
     is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 */
 

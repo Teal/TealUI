@@ -1,6 +1,8 @@
+// #todo
+
 /**
- * @fileOverview 文字计数器。
- * @description 统计并显示实际可输入的文字数。
+ * @fileOverview 锟斤拷锟街硷拷锟斤拷锟斤拷锟斤拷
+ * @description 统锟狡诧拷锟斤拷示实锟绞匡拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
  * @author xuld@vip.qq.com
  */
 
