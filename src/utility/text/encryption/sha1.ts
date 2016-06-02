@@ -1,20 +1,3 @@
-// #todo
-
-/*
- * 
- * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
- * in FIPS PUB 180-1
- *
- * By lizq
- *
- * 2006-11-11
- * 
- * 
- * Modified by xuld
- * 
- * 2015-7-29
- *
- */
 
 /**
  * 计算一个字符串的 SHA-1 值。
@@ -59,14 +42,14 @@ sha1["stringToBinary"] = function (value: string) {
 
 /**
  * 转换数组到十六进的字符串。
- * @param 二进制数组。
+ * @param binArray 二进制数组。
  * @returns 字符串。
  * @inner
  */
 sha1["binaryToString"] = function (binArray: number[]) {
     let result = "";
     for (let i = 0; i < binArray.length * 4; i++) {
-        result += sha1["hexChars"].charAt((binArray[i >> 2] >> ((3 - i % 4) * 8 + 4)) & 0xF) + sha1.hexChars.charAt((binArray[i >> 2] >> ((3 - i % 4) * 8)) & 0xF);
+        result += sha1["hexChars"].charAt((binArray[i >> 2] >> ((3 - i % 4) * 8 + 4)) & 0xF) + sha1["hexChars"].charAt((binArray[i >> 2] >> ((3 - i % 4) * 8)) & 0xF);
     }
     return result;
 };

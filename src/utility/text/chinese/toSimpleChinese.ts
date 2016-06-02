@@ -1,4 +1,3 @@
-// #todo
 
 import {TradionalChineseDict} from './tradionalChineseDict';
 

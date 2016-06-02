@@ -1,17 +1,15 @@
-﻿// #todo
-
+﻿
 /**
  * 计算一个字符串的 DES 值。
  * @param value 要计算的字符串。
  * @param key 加密使用的密钥。
  * @param decrypt = false 如果是 true 则表示解密，否则表示加密。
- * @param cbc = false 是否使用密码段链接（Cipher Block Chaining，CBC）模式。
- * @param iv 初始向量。
+ * @param iv 如果使用密码段链接（Cipher Block Chaining，CBC）模式，则提供初始向量；如果未提供则不适用此模式。
  * @param padding = 0 对齐字符数，可以是 0、1 或 2。
  * @returns 返回加密后的字符串。
- * @example des("a", "1") // "UDtçø"
+ * @example des("a", "1")
  */
-export function des(value: string, key: string, decrypt?: boolean, cbc?: boolean, iv?: string, padding?: number) {
+export function des(value: string, key: string, decrypt?: boolean, iv?: string, padding?: number) {
 
     const sp1 = [0x1010400, 0, 0x10000, 0x1010404, 0x1010004, 0x10404, 0x4, 0x10000, 0x400, 0x1010400, 0x1010404, 0x400, 0x1000404, 0x1010004, 0x1000000, 0x4, 0x404, 0x1000400, 0x1000400, 0x10400, 0x10400, 0x1010000, 0x1010000, 0x1000404, 0x10004, 0x1000004, 0x1000004, 0x10004, 0, 0x404, 0x10404, 0x1000000, 0x10000, 0x1010404, 0x4, 0x1010000, 0x1010400, 0x1000000, 0x1000000, 0x400, 0x1010004, 0x10000, 0x10400, 0x1000004, 0x400, 0x4, 0x1000404, 0x10404, 0x1010404, 0x10004, 0x1010000, 0x1000404, 0x1000004, 0x404, 0x10404, 0x1010400, 0x404, 0x1000400, 0x1000400, 0, 0x10004, 0x10400, 0, 0x1010004];
     const sp2 = [-0x7fef7fe0, -0x7fff8000, 0x8000, 0x108020, 0x100000, 0x20, -0x7fefffe0, -0x7fff7fe0, -0x7fffffe0, -0x7fef7fe0, -0x7fef8000, -0x80000000, -0x7fff8000, 0x100000, 0x20, -0x7fefffe0, 0x108000, 0x100020, -0x7fff7fe0, 0, -0x80000000, 0x8000, 0x108020, -0x7ff00000, 0x100020, -0x7fffffe0, 0, 0x108000, 0x8020, -0x7fef8000, -0x7ff00000, 0x8020, 0, 0x108020, -0x7fefffe0, 0x100000, -0x7fff7fe0, -0x7ff00000, -0x7fef8000, 0x8000, -0x7ff00000, -0x7fff8000, 0x20, -0x7fef7fe0, 0x108020, 0x20, 0x8000, -0x80000000, 0x8020, -0x7fef8000, 0x100000, -0x7fffffe0, 0x100020, -0x7fff7fe0, -0x7fffffe0, 0x100020, 0x108000, 0, -0x7fff8000, 0x8020, -0x80000000, -0x7fefffe0, -0x7fef7fe0, 0x108000];
@@ -25,9 +23,9 @@ export function des(value: string, key: string, decrypt?: boolean, cbc?: boolean
     // 转换加密键字符串为初始化向量。
     const keys = des["createKeys"](key);
 
-    // 计算循环次数，3: 单次；9：双次。
+    // 计算循环次数(单次 = 3, 双次 = 9)。
     const count = keys.length === 32 ? 3 : 9;
-    // 每次循环的向量。    const shifts = decrypt ? count == 3 ? [30, -2, -2] : [94, 62, -2, 32, 64, 2, 30, -2, -2] :
+    // 每次循环的向量。    const loops = decrypt ? count == 3 ? [30, -2, -2] : [94, 62, -2, 32, 64, 2, 30, -2, -2] :
         count == 3 ? [0, 32, 2] : [0, 32, 2, 62, 30, -2, 64, 96, 2];
 
     let len = value.length;
@@ -46,94 +44,107 @@ export function des(value: string, key: string, decrypt?: boolean, cbc?: boolean
 
     //store the result here
     let result = "";
-    let tempresult = "";
+    let current = "";
     // CBC 支持。
-    let cbcleft: number;
-    let cbcleft2: number;
-    let cbcright: number;
-    let cbcright2: number;
-    if (cbc) {
-        cbcleft = iv.charCodeAt(0) << 24 | iv.charCodeAt(1) << 16 | iv.charCodeAt(2) << 8 | iv.charCodeAt(3);
-        cbcright = iv.charCodeAt(4) << 24 | iv.charCodeAt(5) << 16 | iv.charCodeAt(6) << 8 | iv.charCodeAt(7);
+    let cbcLeft: number;
+    let cbcRight: number;
+    if (iv) {
+        cbcLeft = iv.charCodeAt(0) << 24 | iv.charCodeAt(1) << 16 | iv.charCodeAt(2) << 8 | iv.charCodeAt(3);
+        cbcRight = iv.charCodeAt(4) << 24 | iv.charCodeAt(5) << 16 | iv.charCodeAt(6) << 8 | iv.charCodeAt(7);
     }
 
     let chunk = 0;
-    for (let m = 0; m < len;) {
-        let left = value.charCodeAt(m++) << 24 | value.charCodeAt(m++) << 16 | value.charCodeAt(m++) << 8 | value.charCodeAt(m++);
-        let right = value.charCodeAt(m++) << 24 | value.charCodeAt(m++) << 16 | value.charCodeAt(m++) << 8 | value.charCodeAt(m++);
+    for (let p = 0; p < len;) {
+
+        let left: number;
+        let right: number;
+        if (decrypt) {
+            left = value.charCodeAt(p++) << 24 | value.charCodeAt(p++) << 16 | value.charCodeAt(p++) << 8 | value.charCodeAt(p++);
+            right = value.charCodeAt(p++) << 24 | value.charCodeAt(p++) << 16 | value.charCodeAt(p++) << 8 | value.charCodeAt(p++);
+        } else {
+            left = value.charCodeAt(p++) << 16 | value.charCodeAt(p++);
+            right = value.charCodeAt(p++) << 16 | value.charCodeAt(p++);
+        }
 
         // 对之前的结果做异或操作。
-        if (cbc) {
+        let oldCbcLeft: number;
+        let oldCbcRight: number;
+        if (iv) {
             if (decrypt) {
-                cbcleft2 = cbcleft;
-                cbcright2 = cbcright;
-                cbcleft = left;
-                cbcright = right;
+                oldCbcLeft = cbcLeft;
+                oldCbcRight = cbcRight;
+                cbcLeft = left;
+                cbcRight = right;
             } else {
-                left ^= cbcleft;
-                right ^= cbcright;
+                left ^= cbcLeft;
+                right ^= cbcRight;
             }
         }
 
-        // 计算第一步。
-        let temp = ((left >>> 4) ^ right) & 0x0f0f0f0f; right ^= temp; left ^= temp << 4;
-        temp = ((left >>> 16) ^ right) & 0x0000ffff; right ^= temp; left ^= temp << 16;
-        temp = ((right >>> 2) ^ left) & 0x33333333; left ^= temp; right ^= temp << 2;
-        temp = ((right >>> 8) ^ left) & 0x00ff00ff; left ^= temp; right ^= temp << 8;
-        temp = ((left >>> 1) ^ right) & 0x55555555; right ^= temp; left ^= temp << 1;
+        let t;
+        t = (left >>> 4 ^ right) & 0x0f0f0f0f; right ^= t; left ^= t << 4;
+        t = (left >>> 16 ^ right) & 0x0000ffff; right ^= t; left ^= t << 16;
+        t = (right >>> 2 ^ left) & 0x33333333; left ^= t; right ^= t << 2;
+        t = (right >>> 8 ^ left) & 0x00ff00ff; left ^= t; right ^= t << 8;
+        t = (left >>> 1 ^ right) & 0x55555555; right ^= t; left ^= t << 1;
 
         left = left << 1 | left >>> 31;
         right = right << 1 | right >>> 31;
 
         // 处理每个片段。
         for (let i = 0; i < count; i += 3) {
-            const endloop = shifts[i + 1];
-            const loopinc = shifts[i + 2];
-            //now go through and perform the encryption or decryption
-            for (let j = shifts[i]; j != endloop; j += loopinc) { //for efficiency
-                const right1 = right ^ keys[j];
-                const right2 = ((right >>> 4) | (right << 28)) ^ keys[j + 1];
-                //the result is attained by passing these bytes through the S selection functions
-                temp = left;
+            const end = loops[i + 1];
+            const step = loops[i + 2];
+
+            // 执行加密算法。
+            for (let j = loops[i]; j != end; j += step) {
+                const r1 = right ^ keys[j];
+                const r2 = (right >>> 4 | right << 28) ^ keys[j + 1];
+
+                t = left;
                 left = right;
-                right = temp ^ (sp2[(right1 >>> 24) & 0x3f] | sp4[(right1 >>> 16) & 0x3f]
-                    | sp6[(right1 >>> 8) & 0x3f] | sp8[right1 & 0x3f]
-                    | sp1[(right2 >>> 24) & 0x3f] | sp3[(right2 >>> 16) & 0x3f]
-                    | sp5[(right2 >>> 8) & 0x3f] | sp7[right2 & 0x3f]);
+                right = t ^ (sp2[r1 >>> 24 & 0x3f] | sp4[r1 >>> 16 & 0x3f]
+                    | sp6[r1 >>> 8 & 0x3f] | sp8[r1 & 0x3f]
+                    | sp1[r2 >>> 24 & 0x3f] | sp3[r2 >>> 16 & 0x3f]
+                    | sp5[r2 >>> 8 & 0x3f] | sp7[r2 & 0x3f]);
             }
 
             // 交换 left 和 right。
-            temp = left; left = right; right = temp;
+            t = left; left = right; right = t;
         }
 
-        //move then each one bit to the right
+        // 继续处理后 32 位。
         left = left >>> 1 | left << 31;
         right = right >>> 1 | right << 31;
 
-        //now perform IP-1, which is IP in the opposite direction
-        temp = ((left >>> 1) ^ right) & 0x55555555; right ^= temp; left ^= (temp << 1);
-        temp = ((right >>> 8) ^ left) & 0x00ff00ff; left ^= temp; right ^= (temp << 8);
-        temp = ((right >>> 2) ^ left) & 0x33333333; left ^= temp; right ^= (temp << 2);
-        temp = ((left >>> 16) ^ right) & 0x0000ffff; right ^= temp; left ^= (temp << 16);
-        temp = ((left >>> 4) ^ right) & 0x0f0f0f0f; right ^= temp; left ^= (temp << 4);
+        t = ((left >>> 1) ^ right) & 0x55555555; right ^= t; left ^= (t << 1);
+        t = ((right >>> 8) ^ left) & 0x00ff00ff; left ^= t; right ^= (t << 8);
+        t = ((right >>> 2) ^ left) & 0x33333333; left ^= t; right ^= (t << 2);
+        t = ((left >>> 16) ^ right) & 0x0000ffff; right ^= t; left ^= (t << 16);
+        t = ((left >>> 4) ^ right) & 0x0f0f0f0f; right ^= t; left ^= (t << 4);
 
-        //for Cipher Block Chaining mode, xor the str with the previous result
-        if (cbc) {
+        if (iv) {
             if (decrypt) {
-                left ^= cbcleft2;
-                right ^= cbcright2;
+                left ^= oldCbcLeft;
+                right ^= oldCbcRight;
             } else {
-                cbcleft = left;
-                cbcright = right;
+                cbcLeft = left;
+                cbcRight = right;
             }
         }
-        tempresult += String.fromCharCode((left >>> 24), ((left >>> 16) & 0xff), ((left >>> 8) & 0xff), (left & 0xff), (right >>> 24), ((right >>> 16) & 0xff), ((right >>> 8) & 0xff), (right & 0xff));
 
-        chunk += 8;
-        if (chunk == 512) { result += tempresult; tempresult = ""; chunk = 0; }
+        if (decrypt) {
+            current += String.fromCharCode(left >>> 16 & 0xffff, left & 0xffff, right >>> 24, right >>> 16 & 0xffff, right & 0xffff);
+            chunk += 8;
+        } else {
+            current += String.fromCharCode(left >>> 24, left >>> 16 & 0xff, left >>> 8 & 0xff, left & 0xff, right >>> 24, right >>> 16 & 0xff, right >>> 8 & 0xff, right & 0xff);
+            chunk += 16;
+        }
+
+        if (chunk == 512) { result += current; current = ""; chunk = 0; }
     }
 
-    return result + tempresult;
+    return result + current;
 }
 
 /**
@@ -158,15 +169,15 @@ des["createKeys"] = function (key: string) {
 
     const shifts = [0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0];
 
-    // 计算循环次数，(des: 1, triple des: 3)
+    // 计算循环次数(单次 = 1, 双次 = 3)。
     const count = key.length > 8 ? 3 : 1;
 
     let result = new Array<number>(count * 32);
-    let m = 0;
-    let n = 0;
+    let p = 0;
+    let ri = 0;
     for (let i = 0; i < count; i++) {
-        let left = key.charCodeAt(m++) << 24 | key.charCodeAt(m++) << 16 | key.charCodeAt(m++) << 8 | key.charCodeAt(m++);
-        let right = key.charCodeAt(m++) << 24 | key.charCodeAt(m++) << 16 | key.charCodeAt(m++) << 8 | key.charCodeAt(m++);
+        let left = key.charCodeAt(p++) << 24 | key.charCodeAt(p++) << 16 | key.charCodeAt(p++) << 8 | key.charCodeAt(p++);
+        let right = key.charCodeAt(p++) << 24 | key.charCodeAt(p++) << 16 | key.charCodeAt(p++) << 8 | key.charCodeAt(p++);
         let t;
         t = (left >>> 4 ^ right) & 0x0f0f0f0f; right ^= t; left ^= t << 4;
         t = (right >>> -16 ^ left) & 0x0000ffff; left ^= t; right ^= t << -16;
@@ -193,22 +204,19 @@ des["createKeys"] = function (key: string) {
             left &= -0xf;
             right &= -0xf;
 
-            //now apply PC-2, in such a way that E is easier when encrypting or decrypting
-            //this conversion will look like PC-2 except only the last 6 bits of each byte are used
-            //rather than 48 consecutive bits and the order of lines will be according to
-            //how the S selection functions will be applied: S2, S4, S6, S8, S1, S3, S5, S7
-            const lefttemp = pc2bytes0[left >>> 28] | pc2bytes1[(left >>> 24) & 0xf]
+            // S2, S4, S6, S8, S1, S3, S5, S7
+            const tl = pc2bytes0[left >>> 28] | pc2bytes1[(left >>> 24) & 0xf]
                 | pc2bytes2[(left >>> 20) & 0xf] | pc2bytes3[(left >>> 16) & 0xf]
                 | pc2bytes4[(left >>> 12) & 0xf] | pc2bytes5[(left >>> 8) & 0xf]
                 | pc2bytes6[(left >>> 4) & 0xf];
-            const righttemp = pc2bytes7[right >>> 28] | pc2bytes8[(right >>> 24) & 0xf]
+            const tr = pc2bytes7[right >>> 28] | pc2bytes8[(right >>> 24) & 0xf]
                 | pc2bytes9[(right >>> 20) & 0xf] | pc2bytes10[(right >>> 16) & 0xf]
                 | pc2bytes11[(right >>> 12) & 0xf] | pc2bytes12[(right >>> 8) & 0xf]
                 | pc2bytes13[(right >>> 4) & 0xf];
 
-            t = (righttemp >>> 16 ^ lefttemp) & 0x0000ffff;
-            result[n++] = lefttemp ^ t;
-            result[n++] = righttemp ^ t << 16;
+            t = (tr >>> 16 ^ tl) & 0x0000ffff;
+            result[ri++] = tl ^ t;
+            result[ri++] = tr ^ t << 16;
         }
     }
 

@@ -1,5 +1,3 @@
-// #todo
-
 
 export const TradionalChineseDict = {
 
