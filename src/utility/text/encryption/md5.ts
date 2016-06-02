@@ -4,49 +4,49 @@
 
 /**
  * 计算一个字符串的 MD5 值。
- * @param str 要计算的字符串。
- * @returns 返回 *str* 加密后的字符串。其所有字符均为小写。
+ * @param value 要计算的字符串。
+ * @returns 返回加密后的字符串。其所有字符均为小写。
  * @example md5("a") // "0cc175b9c0f1b6a831c399e269772661"
  */
-export function md5(str: string) {
-    return md5.binaryToString(md5.calc(md5.stringToBinary(str), str.length * md5.charSize));
+export function md5(value: string) {
+    return md5["binaryToString"](md5["calc"](md5["stringToBinary"](value), value.length * md5["charSize"]));
 }
 
 /**
  * MD5 算法使用的字符集。如需更改 MD5 返回的大小写可更改此字段。
  * @inner
  */
-md5.hexChars = "0123456789abcdef";
+md5["hexChars"] = "0123456789abcdef";
 
 /**
  * MD5 算法使用的字符大小。
  * @inner
  */
-md5.charSize = 8;
+md5["charSize"] = 8;
 
 /**
  * 转换字符串到二进制。
  * 如果字符大于 255 ， 高位被截掉。
  * @inner
  */
-md5.stringToBinary = function (str) {
-    var result = [];
-    for (var i = 0, len = str.length * md5.charSize, mask = (1 << md5.charSize) - 1; i < len; i += md5.charSize) {
-        result[i >> 5] |= (str.charCodeAt(i / md5.charSize) & mask) << (i % 32);
+md5["stringToBinary"] = function (value: string) {
+    let result = [];
+    for (let i = 0, len = value.length * md5["charSize"], mask = (1 << md5["charSize"]) - 1; i < len; i += md5["charSize"]) {
+        result[i >> 5] |= (value.charCodeAt(i / md5["charSize"]) & mask) << (i % 32);
     }
     return result;
 };
 
 /**
  * 转换数组到十六进的字符串。
- * @param {Array} 二进制数组。
- * @returns {String} 字符串。
+ * @param 二进制数组。
+ * @returns 字符串。
  * @inner
  */
-md5.binaryToString = function (binArray) {
-    var result = "";
-    for (var i = 0; i < binArray.length * 4; i++) {
-        result += md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + md5.hexChars.charAt((binArray[i >> 2] >> ((i % 4) * 8)) & 0xF);
+md5["binaryToString"] = function (binArray: number[]) {
+    let result = "";
+    for (let i = 0; i < binArray.length * 4; i++) {
+        result += md5["hexChars"].charAt((binArray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + md5["hexChars"].charAt((binArray[i >> 2] >> ((i % 4) * 8)) & 0xF);
     }
     return result;
 };
@@ -55,45 +55,16 @@ md5.binaryToString = function (binArray) {
  * 计算一个数组的 MD5 值。
  * @inner
  */
-md5.calc = function (binArray, length) {
+md5["calc"] = function (binArray: number[], length: number) {
 
-    /**
-     * 将32位数拆成高16位和低16位分别进行相加，从而实现 MOD 2^32 的加法。
-     * @inner
-     */
-    function safeAdd(x, y) {
-        var lsw = (x & 0xFFFF) + (y & 0xFFFF);
-        return (((x >> 16) + (y >> 16) + (lsw >> 16)) << 16) | (lsw & 0xFFFF);
-    }
+    const fns = [
+        function (b, c, d) { return (b & c) | ((~b) & d); },
+        function (b, c, d) { return (b & d) | (c & (~d)); },
+        function (b, c, d) { return b ^ c ^ d; },
+        function (b, c, d) { return c ^ (b | (~d)); }
+    ];
 
-    function combine(q, a, b, x, str, t) {
-        var num = safeAdd(safeAdd(a, q), safeAdd(x, t));
-        return safeAdd((num << str) | (num >>> (32 - str)), b);
-    }
-
-    function proc(j0, j1, j2, j3, ts0, ts1, ts2, ts3) {
-        var fn = fns[procIndex],
-            ps = pss[procIndex];
-        a = combine(fn(b, c, d), a, b, binArray[i + j0], ps[0], ts0);
-        d = combine(fn(a, b, c), d, a, binArray[i + j1], ps[1], ts1);
-        c = combine(fn(d, a, b), c, d, binArray[i + j2], ps[2], ts2);
-        b = combine(fn(c, d, a), b, c, binArray[i + j3], ps[3], ts3);
-    }
-
-    var fns = [
-        function (b, c, d) {
-            return (b & c) | ((~b) & d);
-        },
-        function (b, c, d) {
-            return (b & d) | (c & (~d));
-        },
-        function (b, c, d) {
-            return b ^ c ^ d;
-        },
-        function (b, c, d) {
-            return c ^ (b | (~d));
-        }
-    ], pss = [
+    const pss = [
         [7, 12, 17, 22],
         [5, 9, 14, 20],
         [4, 11, 16, 23],
@@ -104,18 +75,18 @@ md5.calc = function (binArray, length) {
     binArray[length >> 5] |= 0x80 << ((length) % 32);
     binArray[(((length + 64) >>> 9) << 4) + 14] = length;
 
-    var a = 1732584193,
-        b = -271733879,
-        c = -1732584194,
-        d = 271733878,
-        i = 0,
-        procIndex = 0;
+    let a = 1732584193;
+    let b = -271733879;
+    let c = -1732584194;
+    let d = 271733878;
+    let procIndex = 0;
 
-    for (; i < binArray.length; i += 16) {
-        var oldA = a,
-            oldB = b,
-            oldC = c,
-            oldD = d;
+    for (let i = 0; i < binArray.length; i += 16) {
+
+        const oldA = a;
+        const oldB = b;
+        const oldC = c;
+        const oldD = d;
 
         procIndex = 0;
         proc(0, 1, 2, 3, -680876936, -389564586, 606105819, -1044525330);
@@ -145,6 +116,32 @@ md5.calc = function (binArray, length) {
         b = safeAdd(b, oldB);
         c = safeAdd(c, oldC);
         d = safeAdd(d, oldD);
+
+        function proc(j0, j1, j2, j3, ts0, ts1, ts2, ts3) {
+            const fn = fns[procIndex];
+            const ps = pss[procIndex];
+            a = combine(fn(b, c, d), a, b, binArray[i + j0], ps[0], ts0);
+            d = combine(fn(a, b, c), d, a, binArray[i + j1], ps[1], ts1);
+            c = combine(fn(d, a, b), c, d, binArray[i + j2], ps[2], ts2);
+            b = combine(fn(c, d, a), b, c, binArray[i + j3], ps[3], ts3);
+        }
+
     }
+
     return [a, b, c, d];
+
+    function combine(q: number, a: number, b: number, x: number, str: number, t: number) {
+        const num = safeAdd(safeAdd(a, q), safeAdd(x, t));
+        return safeAdd((num << str) | (num >>> (32 - str)), b);
+    }
+
+    /**
+     * 将32位数拆成高16位和低16位分别进行相加，从而实现 MOD 2^32 的加法。
+     * @inner
+     */
+    function safeAdd(x: number, y: number) {
+        const lsw = (x & 0xFFFF) + (y & 0xFFFF);
+        return (x >> 16 + y >> 16 + lsw >> 16) << 16 | lsw & 0xFFFF;
+    }
+
 };

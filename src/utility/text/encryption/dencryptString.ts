@@ -1,33 +1,29 @@
 ﻿
 /**
  * 解密指定的字符串。
- * @param {String} str 要解密的字符串。
- * @param {key} str 解密的密钥。
- * @returns {String} 返回解密后的字符串。
+ * @param value 要解密的字符串。
+ * @param key 解密的密钥。
+ * @returns 返回解密后的字符串。
  * @example dencryptString("abc", 123) // "cce"
+ * @see encryptString
  */
-function dencryptString(str, key) {
-    typeof console === "object" && console.assert(typeof str === "string", "dencryptString(str: 必须是字符串, [key])");
-    if (key == undefined) {
-        key = 19901206;
-    }
-    var length = str.length,
-        chartemp = new Array(length--),
-        key1 = ~key;
+export function dencryptString(value: string, key = 19901206) {
+    let t = [];
+    const end = value.length - 1;
 
-    for (var i = length; i >= 0; i--) {
-        chartemp[i] = ~(str.charCodeAt(i) ^ (~(i + length)));
-    }
-       
-    var f = chartemp[length];
-
-    for (var i = length; i >= 0; i--) {
-        chartemp[i] = ((chartemp[i] & key1) | ((i === 0 ? f : (chartemp[i - 1])) & key));
+    for (let i = end; i >= 0; i--) {
+        t[i] = ~(value.charCodeAt(i) ^ (~(i + end)));
     }
 
-    for (var i = length; i >= 0; i--) {
-        chartemp[i] = String.fromCharCode(chartemp[i]);
+    const rkey = ~key;
+    const last = t[end];
+    for (let i = end; i >= 0; i--) {
+        t[i] = ((t[i] & rkey) | ((i === 0 ? last : (t[i - 1])) & key));
     }
 
-    return chartemp.join('');
+    for (let i = end; i >= 0; i--) {
+        t[i] = String.fromCharCode(t[i]);
+    }
+
+    return t.join('');
 }

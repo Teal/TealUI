@@ -1,5 +1,7 @@
 ﻿var tpack = require("tpack");
 
+process.chdir(tpack.basePath = require("path").resolve(__dirname, "../../"));
+
 // 设置全局忽略的路径。
 tpack.loadIgnore(".gitignore");
 tpack.ignore(".*", "_*", "$*", "*~", "tpack*");
@@ -12,6 +14,11 @@ tpack.task("default", function (e) {
     tpack.src("*.md").pipe(require("./_build/dist/TealUI/tools/build/doc"));
 
 });
+
+tpack.task("dd", function(){
+	tpack.destPath = tpack.srcPath = "src";
+	tpack.src("*.ts").prepend("// #todo\n\n");
+})
 
 //// 所有任务都需要先执行以下预编译的规则。
 //tpack.src("*.scss", "*.sass").pipe(require("tpack-node-sass")).dest("$1.css");

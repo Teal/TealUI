@@ -3,7 +3,30 @@
  * @author xuld@vip.qq.com
  */
 
-const dictionary = {
+/**
+ * 获取简体中文的拼音。
+ * @param value 要获取的中文。
+ * @param firstLetterOnly 如果为 true 则只获取首字母，否则获取全拼。
+ * @param joinChar 用于连接各组成部分的字符。如果设置为 null，则不连接。
+ * @returns 返回结果拼音字符串。如果 joinChar 为 null 则返回数组。
+ * @example getPinYin("你好") // ["Ni", "Hao"]
+ */
+export default function getPinYin(value: string, firstLetterOnly: boolean) {
+    const dictionary = getPinYin["dictionary"];
+    let result: string[] = [];
+    for (let i = 0; i < value.length; i++) {
+        const c = value.charAt(i);
+        for (const pinyin in dictionary) {
+            if (dictionary[pinyin].indexOf(c) >= 0) {
+                result[i] = firstLetterOnly ? pinyin.charAt(0) : pinyin;
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+getPinYin["dictionary"] = {
     "A": "啊阿吖嗄锕",
     "Ai": "埃挨哎唉哀皑癌蔼矮艾碍爱隘捱嗳嫒瑷暧砹锿霭",
     "An": "鞍氨安俺按暗岸胺案谙埯揞庵桉铵鹌黯",
@@ -405,25 +428,3 @@ const dictionary = {
     "Zun": "尊遵撙樽鳟",
     "Zuo": "昨左佐做作坐座阼唑嘬怍胙祚酢"
 };
-
-/**
- * 获取简体中文的拼音。
- * @param value 要获取的中文。
- * @param firstLetterOnly 如果为 true 则只获取首字母，否则获取全拼。
- * @param joinChar 用于连接各组成部分的字符。如果设置为 null，则不连接。
- * @returns 返回结果拼音字符串。如果 joinChar 为 null 则返回数组。
- * @example getPinYin("你好") // ["Ni", "Hao"]
- */
-export default function getPinYin(value: string, firstLetterOnly: boolean) {
-    let result: string[] = [];
-    for (let i = 0; i < value.length; i++) {
-        const c = value.charAt(i);
-        for (const pinyin in dictionary) {
-            if (dictionary[pinyin].indexOf(c) >= 0) {
-                result[i] = firstLetterOnly ? pinyin.charAt(0) : pinyin;
-                break;
-            }
-        }
-    }
-    return result;
-}

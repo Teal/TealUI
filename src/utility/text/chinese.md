@@ -22,10 +22,13 @@
 
 > 注意：不支持多音字。
 
-@doc chinese/tradionalChinese.ts
+中文简繁体转换
+--------------------------------------------------------
+@doc chinese/toTradionalChinese.ts
+@doc chinese/toSimpleChinese.ts
 
 <input type="text" id="tradionalChinese_value" placeholder="输入中文...">
-<input type="button" value="转繁体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toTradionalChinese(document.getElementById('tradionalChinese_value').value || '简体')">
-<input type="button" value="转简体" onclick="document.getElementById('tradionalChinese_value').value = TradionalChinese.toSimpleChinese(document.getElementById('tradionalChinese_value').value || '简体')">
+<input type="button" value="转繁体" onclick="document.getElementById('tradionalChinese_value').value = toTradionalChinese(document.getElementById('tradionalChinese_value').value || '简体')">
+<input type="button" value="转简体" onclick="document.getElementById('tradionalChinese_value').value = toSimpleChinese(document.getElementById('tradionalChinese_value').value || '简体')">
 
 > 实现原理：在源码中有一个繁简字检索表，函数会检索此表得到对应繁体或简体。
