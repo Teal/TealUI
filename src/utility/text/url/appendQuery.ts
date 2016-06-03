@@ -1,5 +1,3 @@
-// #todo
-
 /**
  * @fileOverview 追加查询参数。
  * @author xuld@vip.qq.com
@@ -19,13 +17,11 @@ export default function appendQuery(url: string, name: string, value: string) {
     value = name + '=' + encodeURIComponent(value);
     let match = /^(.*?)(\?.+?)?(#.*)?$/.exec(url);
     match[0] = '';
-    match[2] = match[2] && match[2].replace(new RegExp('([?&])' + name.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + '(=[^&]*)?(&|$)'), (_, q1, __, q2) => {
+    match[2] = match[2] && match[2].replace(new RegExp('([?&])' + name.replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + '(=[^&]*)?(&|$)'), (_: string, q1: string, __: string, q2: string) => {
         // 标记已解析过。
         name = "";
         return q1 + value + q2;
     });
-    if (name) {
-        match[2] = (match[2] ? match[2] + '&' : '?') + value;
-    }
+    if (name) match[2] = (match[2] ? match[2] + '&' : '?') + value;
     return match.join('');
 }
