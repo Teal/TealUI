@@ -21,7 +21,7 @@
  * @returns {Number} 返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。
  * @example countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime){ console.log(day, hour, minute, second); })
  */
-function countDown(startDate, endDate, callback) {
+function countDown(startDate: Date, endDate: Date, callback: (day: number, hour: number, minute: number, second: number, totalSenconds: number) => void) {
 
     // 填充第一个参数。
     if (!callback) {
@@ -33,6 +33,10 @@ function countDown(startDate, endDate, callback) {
     typeof console === "object" && console.assert(callback instanceof Function, "countDown([startDate], endDate, callback: 必须是函数)");
     var startDateOffset = startDate ? (new Date() - (startDate instanceof Date ? startDate : new Date(startDate))) : 0;
     endDate = +(endDate instanceof Date ? endDate : new Date(endDate));
+
+    step();
+
+    return setInterval(step, 1000);
 
     function step() {
         var leftTime = endDate - new Date() + startDateOffset;
@@ -46,7 +50,4 @@ function countDown(startDate, endDate, callback) {
         callback(day, hour, minute, second, leftTime);
     }
 
-    step();
-
-    return setInterval(step, 1000);
 }

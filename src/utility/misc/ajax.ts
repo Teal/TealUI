@@ -4,47 +4,52 @@
  * @author xuld@vip.qq.com
  */
 
-typeof include === "function" && include("../lang/html5");
-typeof include === "function" && include("../text/queryString#QueryString.stringify");
+import {stringify} from './text/queryString';
 
 /**
  * 表示一个 Ajax 请求。
- * @param {Object} options 发送的配置。具体见`Ajax.send`。
  * @class
- * @inner
  */
-function Ajax(options) {
+export class Ajax {
 
-    // 复制用户传递的配置。
-    var me = this;
-    for (var key in options) {
-        me[key] = options[key];
-    }
+    /**
+     * 请求的地址。
+     */
+    url: string;
 
-    // 支持同时发送多个请求。
-    if (me.url && me.url.constructor === Array) {
-        me.dataType = 'subAjax';
-    } else {
+    /**
+     * 初始化一个新的 AJAX 请求。
+     * @param options 请求的配置。
+     */
+    constructor(options) {
+        Object.assign(this, options);
 
-        // url
-        me.url = me.url ? me.url.replace(/#.*$/, "") : Ajax.getCurrentUrl();
+        // 支持同时发送多个请求。
+        if (me.url && me.url.constructor === Array) {
+            me.dataType = 'subAjax';
+        } else {
 
-        // type
-        me.type = me.type ? me.type.toUpperCase() : 'GET';
+            // url
+            me.url = me.url ? me.url.replace(/#.*$/, "") : Ajax.getCurrentUrl();
 
-        // data
-        me.data = QueryString.stringify(me.data);
-        if (me.data && me.type === 'GET') {
-            me.url = Ajax.appendQuery(me.url, me.data);
-            me.data = null;
-        }
+            // type
+            me.type = me.type ? me.type.toUpperCase() : 'GET';
 
-        // async
-        me.async = me.async !== false;
+            // data
+            me.data = QueryString.stringify(me.data);
+            if (me.data && me.type === 'GET') {
+                me.url = Ajax.appendQuery(me.url, me.data);
+                me.data = null;
+            }
 
-        // crossDomain
-        if (me.crossDomain == null) {
-            me.crossDomain = Ajax.isCrossDomain(me.url);
+            // async
+            me.async = me.async !== false;
+
+            // crossDomain
+            if (me.crossDomain == null) {
+                me.crossDomain = Ajax.isCrossDomain(me.url);
+            }
+
         }
 
     }
@@ -65,11 +70,11 @@ Ajax.prototype = {
         // 调用用户自定义 Ajax 初始化回调。
         // 根据 dataType 获取当前用于传输的工具。实际的发送操作。
         (!Ajax.init || Ajax.init(me) !== false) &&
-        (!me.start || me.start() !== false) &&
-        (Ajax.transports[me.dataType] || Ajax.transports.text)(me, Ajax.done) !== false &&
-        (me.timeout > 0 && me.done && setTimeout(function () {
-            me.done('Timeout', -2);
-        }, me.timeout));
+            (!me.start || me.start() !== false) &&
+            (Ajax.transports[me.dataType] || Ajax.transports.text)(me, Ajax.done) !== false &&
+            (me.timeout > 0 && me.done && setTimeout(function () {
+                me.done('Timeout', -2);
+            }, me.timeout));
 
         return me;
 
@@ -465,7 +470,7 @@ Ajax.transports = {
      * 脚本远程执行格式传输协议。
      */
     jsonp: function (ajax, callback) {
-        
+
         var jsonpCallback = "jsonp" + +new Date() + (Ajax._jsonpCounter = Ajax._jsonpCounter + 1 || 0),
             jsonpCallbackOverwritten = window[jsonpCallback],
             responseData;

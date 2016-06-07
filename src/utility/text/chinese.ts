@@ -24,7 +24,7 @@ export function getPinYin(value: string, firstLetterOnly: boolean) {
     return result;
 }
 
-export module getPinYin {
+export namespace getPinYin {
 
     /**
      * 获取或设置获取拼音的字典。
@@ -439,7 +439,7 @@ export module getPinYin {
 
 // #region 拼音(繁体)
 
-export namespace getPinYin {
+export module getPinYin {
     export var dictionary: { [key: string]: string } = {
         "A": "啊阿呵吖嗄腌锕錒",
         "Ai": "爱矮挨哎碍癌艾唉哀蔼隘埃皑呆嗌嫒瑷暧捱砹嗳锿霭乂乃伌僾儗凒剀剴叆呃呝啀嘊噫噯堨塧壒奇娭娾嬡嵦愛懓懝敱敳昹曖欬欸毐溰溾濭烠焥璦皚皧瞹硋磑礙絠薆藹諰譪譺賹躷醷鎄鑀閡阂阨阸隑靄靉餲馤騃鯦鱫鴱崖",

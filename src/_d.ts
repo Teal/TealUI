@@ -1,8 +1,0 @@
-﻿ interface String {
-    a() {
-        
-    }
-}
-
-
-"".a

@@ -295,7 +295,7 @@ export function md5(value: string) {
     return md5.binaryToString(md5.calc(md5.stringToBinary(value), value.length * md5.charSize));
 }
 
-export module md5 {
+export namespace md5 {
 
     /**
      * MD5 算法使用的字符集。如需更改 MD5 返回的大小写可更改此字段。
@@ -439,7 +439,7 @@ export module md5 {
 /**
  * MD5 扩展。
  */
-export namespace md5 {
+export module md5 {
 
     /**
      * 计算一个字符串的 Base64-MD5 值。
@@ -524,7 +524,7 @@ export function sha1(value: string) {
     return sha1.binaryToString(sha1.calc(sha1.stringToBinary(value)));
 }
 
-export module sha1 {
+export namespace sha1 {
 
     /**
      * SHA-1 算法使用的字符集。如需更改 SHA-1 返回的大小写可更改此字段。
