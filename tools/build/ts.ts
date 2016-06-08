@@ -56,6 +56,7 @@ export class TypeScriptCompiler {
     }
 
     private visitFunction(node: ts.FunctionLikeDeclaration) {
+        this._checker.get
         node.type
     }
 

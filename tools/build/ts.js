@@ -45,6 +45,7 @@ var TypeScriptCompiler = (function () {
         });
     };
     TypeScriptCompiler.prototype.visitFunction = function (node) {
+        this._checker.get;
         node.type;
     };
     return TypeScriptCompiler;
