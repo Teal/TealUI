@@ -6,53 +6,68 @@
 // #region 字符
 
 /**
- * 判断指定字符串是否为数字。
+ * 判断指定字符串是否只包含英文字母(a-z)。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isDight("1") // true
- */
-export function isDight(value: string) {
-    return /^\d+$/.test(value);
-}
-
-/**
- * 判断指定字符串是否为数字。
- * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isNumber("-45.35") // true
- */
-export function isNumber(value: string) {
-    return /^[-]?\d+(\.\d*)$/.test(value);
-}
-
-/**
- * 判断指定字符串是否为字母。
- * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isLetter("abc") // true
+ * @example isLetter("ab0") // false
+ * @see isDight
+ * @see isLetterOrDight
  */
 export function isLetter(value: string) {
     return /^[a-zA-Z]+$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为字母或数字。
+ * 判断指定字符串是否只包含数字(0-9)。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isDight("1") // true
+ * @example isDight("a") // false
+ * @see isLetter
+ * @see isLetterOrDight
+ */
+export function isDight(value: string) {
+    return /^\d+$/.test(value);
+}
+
+/**
+ * 判断指定字符串是否只包含数字(0-9)或英文字母(a-z)。
+ * @param value 要判断的字符串。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isLetterOrDight("x09") // true
+ * @example isLetterOrDight("1.2f") // false
+ * @see isLetter
+ * @see isDight
  */
 export function isLetterOrDight(value: string) {
     return /^[a-zA-Z\d]+$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为整数。
+ * 判断指定字符串是否表示一个整数。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isInt("-45") // true
+ * @example isInt("-45.0") // false
+ * @remark 要判断字符串能否转换为整数，可以使用 `!!parseInt("0x00")`。
+ * @see isNumber
  */
 export function isInt(value: string) {
-    return /^[-]?\d+$/.test(value);
+    return /^[-+]?\d+$/.test(value);
+}
+
+/**
+ * 判断指定字符串是否表示一个数字。
+ * @param value 要判断的字符串。
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isNumber("-45.35") // true
+ * @example isNumber("0x00") // false
+ * @remark 要判断字符串能否转换为数字，可以使用 `!!parseFloat("0x00")`。
+ * @see isInt
+ */
+export function isNumber(value: string) {
+    return /^[-+]?\d+(?:\.\d*)?$/.test(value);
 }
 
 // #endregion
@@ -60,20 +75,23 @@ export function isInt(value: string) {
 // #region 格式
 
 /**
- * 判断指定字符串是否为合法的邮箱地址。
+ * 判断指定字符串是否表示一个电子邮箱地址。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true；否则返回 false。
- * @example isEmail("work&#64;xuld.net") // true
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isEmail("bug@tealui.com") // true
+ * @example isEmail("bug@@tealui.com") // false
  */
 export function isEmail(value: string) {
-    return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w][\u4E00-\u9FA5\uFE30-\uFFA0\w-+\.]*@[\u4E00-\u9FA5\uFE30-\uFFA0\w]+(\.[\u4E00-\u9FA5\uFE30-\uFFA0\w]+)+$/.test(value);
+    return /^[\u4E00-\u9FA5\uFE30-\uFFA0\w\-+\.]+@[\u4E00-\u9FA5\uFE30-\uFFA0\w\-]+(?:\.[\u4E00-\u9FA5\uFE30-\uFFA0\w\-]+)*$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为日期。
+ * 判断指定字符串是否表示一个日期。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isDate("2014/1/1") // true
+ * @example isDate("hello") // false
+ * @example isDate("2014年1月1日") // false
  */
 export function isDate(value: string) {
     return !!+new Date(value.replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, "$1/$2/$3"));
@@ -84,9 +102,9 @@ export function isDate(value: string) {
  * @param year 要判断的年。
  * @param month 要判断的月。
  * @param day 要判断的日。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isValidDate(2015, 2, 29) // false
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isValidDate(2016, 2, 29) // true
+ * @example isValidDate(2015, 2, 29) // false
  */
 export function isValidDate(year: number, month: number, day: number) {
     const date = new Date(year, --month, day);
@@ -94,19 +112,9 @@ export function isValidDate(year: number, month: number, day: number) {
 }
 
 /**
- * 判断指定字符串是否为 JavaScript 标识符。
+ * 判断指定字符串是否表示一个 IP 地址。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isIndentifier("x09") // true
- */
-export function isIndentifier(value: string) {
-    return /^[\u4E00-\u9FA5\uFE30-\uFFA0a-zA-Z_$][\u4E00-\u9FA5\uFE30-\uFFA0\w$]+$/.test(value);
-}
-
-/**
- * 判断指定字符串是否为 IP 地址。
- * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isIP("127.0.0.1") // true
  */
 export function isIP(value: string) {
@@ -114,37 +122,39 @@ export function isIP(value: string) {
 }
 
 /**
- * 判断指定字符串是否为手机号。
+ * 判断指定字符串是否表示一个手机号码。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isPhone("+8613211111111") // true
+ * @see isTelephone
  */
 export function isPhone(value: string) {
-    return /^(\+\d\d)?1\d{10}$/.test(value);
+    return /^(?:\+\d\d)?1\d{10}$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为邮编号码。
+ * 判断指定字符串是否表示一个电话号码（400 电话和国际电话除外）。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isPostCode("310000") // true
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isTelephone("010-86000000") // true
+ * @see isPhone
  */
-export function isPostCode(value: string) {
-    return /^\d{6}$/.test(value);
+export function isTelephone(value: string) {
+    return /^(?:\d{3,4}\-)?8?\d{7}$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为网址。
+ * 判断指定字符串是否表示一个网址。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isUrl("http://teal.github.io/") // true
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isUrl("http://tealui.com/") // true
  */
 export function isUrl(value: string) {
-    return /^(\w+:)?\/\/.+$/.test(value);
+    return /^(?:\w+:)?\/\/./.test(value);
 }
 
 /**
- * 检查密码的复杂度。 
+ * 检验密码的复杂度。 
  * @param value 要检查的密码。
  * @returns 返回一个整数。值越大表示复杂度越高。具体范围如下：        
  * - 复杂度 < 0：简单密码。
@@ -186,33 +196,53 @@ export function checkPassword(value: string) {
 }
 
 /**
- * 判断指定字符串是否为英文。
+ * 判断指定字符串是否表示一个 JavaScript 标识符。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isIndentifier("x09") // true
+ */
+export function isIndentifier(value: string) {
+    return /^[\u4E00-\u9FA5\uFE30-\uFFA0a-zA-Z_$][\u4E00-\u9FA5\uFE30-\uFFA0\w$]+$/.test(value);
+}
+
+/**
+ * 判断指定字符串是否只包含英文。
+ * @param value 要判断的字符串。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isEnglish("Hello") // true
  */
 export function isEnglish(value: string) {
-    return /^[-\w ]+$/gi.test(value);
+    return /^[\-a-zA-Z\s]+$/.test(value);
 }
 
 // #endregion
 
-// #region 中文
+// #region 中国特有格式
 
 /**
- * 判断指定字符串是否为 QQ 号。
+ * 判断指定字符串是否表示一个邮编号码。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
- * @example isQQ("10000") // true
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isPostCode("310000") // true
  */
-export function isQQ(value: string) {
-    return /^\d{5,12}$/.test(value);
+export function isPostCode(value: string) {
+    return /^\d{6}$/.test(value);
 }
 
 /**
- * 判断指定字符串是否为中文。
+ * 判断指定字符串是否表示一个 QQ 号。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
+ * @example isQQ("10000") // true
+ */
+export function isQQ(value: string) {
+    return /^\d{5,13}$/.test(value);
+}
+
+/**
+ * 判断指定字符串是否只包含中文。
+ * @param value 要判断的字符串。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isChinese("你好") // true
  */
 export function isChinese(value: string) {
@@ -220,9 +250,9 @@ export function isChinese(value: string) {
 }
 
 /**
- * 判断指定字符串是否为身份证号。
+ * 判断指定字符串是否表示一个身份证号。
  * @param value 要判断的字符串。
- * @returns 如果检验合法则返回 true，否则返回 false。
+ * @returns 如果符合条件则返回 true，否则返回 false。
  * @example isId("152500198909267865") // true
  */
 export function isChineseId(value: string) {
@@ -230,19 +260,19 @@ export function isChineseId(value: string) {
 }
 
 /**
- * 解析中国身份证号的信息。
+ * 解析身份证号的信息并检验合法性。
  * @param value 要解析的身份证号。
- * @returns 返回一个 JSON，其格式为：
- * 
- *      {
- *           "valid": true,      // 表示身份证信息合法。
- *           "province": "北京", // 表示省份。
- *           "birthday": Date(), // 表示生日。
- *           "sex": "男"         // 表示性别。
- *      }
- * 
+ * @returns 返回一个 JSON，如：
+ * ```json
+ * {
+ *      "valid": true,      // 表示身份证信息合法。
+ *      "province": "北京", // 表示省份。
+ *      "birthday": Date(), // 表示生日。
+ *      "sex": "男"         // 表示性别。
+ * }
+ * ```
  * @example parseChineseId("152500198909267865")
- * @remark > 注意：本函数只检验身份证的数值特征，本函数认为非法的身份证必然是非法的，本函数认为合法的身份证可能实际是不存在的。
+ * @remark > 注意：本函数只验证身份证的数值特征，因此只适用于过滤无效的身份证号，并不能判定身份证是否真实存在。
  */
 export function parseChineseId(value: string) {
 

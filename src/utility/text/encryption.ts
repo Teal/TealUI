@@ -78,27 +78,33 @@ export function des(value: string, key: string, decrypt?: boolean, iv?: string, 
 
     // 计算循环次数(单次 = 3, 双次 = 9)。
     const count = keys.length === 32 ? 3 : 9;
-    // 每次循环的向量。    const loops = decrypt ? count == 3 ? [30, -2, -2] : [94, 62, -2, 32, 64, 2, 30, -2, -2] :
+
+    // 每次循环的向量。
+    const loops = decrypt ? count == 3 ? [30, -2, -2] : [94, 62, -2, 32, 64, 2, 30, -2, -2] :
         count == 3 ? [0, 32, 2] : [0, 32, 2, 62, 30, -2, 64, 96, 2];
 
     let len = value.length;
 
-    // 对齐字符串。    switch (padding) {
+    // 对齐字符串。
+    switch (padding) {
         case 2:
             value += " ";
-            break;        case 1:
+            break;
+        case 1:
             let t = 8 - (len % 8);
             value += String.fromCharCode(t, t, t, t, t, t, t, t);
             if (t == 8) len += 8;
             break;
         //PKCS7 padding
         default:
-            value += "\0\0\0\0\0\0\0\0";    }
+            value += "\0\0\0\0\0\0\0\0";
+    }
 
     //store the result here
     let result = "";
     let current = "";
-    // CBC 支持。
+
+    // CBC 支持。
     let cbcLeft: number;
     let cbcRight: number;
     if (iv) {
@@ -234,7 +240,8 @@ export module des {
         for (let i = 0; i < count; i++) {
             let left = key.charCodeAt(p++) << 24 | key.charCodeAt(p++) << 16 | key.charCodeAt(p++) << 8 | key.charCodeAt(p++);
             let right = key.charCodeAt(p++) << 24 | key.charCodeAt(p++) << 16 | key.charCodeAt(p++) << 8 | key.charCodeAt(p++);
-            let t;
+
+            let t;
             t = (left >>> 4 ^ right) & 0x0f0f0f0f; right ^= t; left ^= t << 4;
             t = (right >>> -16 ^ left) & 0x0000ffff; left ^= t; right ^= t << -16;
             t = (left >>> 2 ^ right) & 0x33333333; right ^= t; left ^= t << 2;
