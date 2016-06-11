@@ -66,17 +66,17 @@ export function decodeBase64(value: string) {
     let t = [];
     for (let i = 0; i < value.length;) {
 
-        const c1 = base64Chars.indexOf(value.charAt(i++));
-        const c2 = base64Chars.indexOf(value.charAt(i++));
-        if (!(c1 >= 0 && c2 >= 0)) continue;
+        const c1 = i < value.length ? base64Chars.indexOf(value.charAt(i++)) : -1;
+        const c2 = i < value.length ? base64Chars.indexOf(value.charAt(i++)) : -1;
+        if (c1 < 0 || c2 < 0) continue;
         t.push(c1 << 2 | (c2 & 48) >> 4);
 
-        const c3 = base64Chars.indexOf(value.charAt(i++));
-        if (!(c3 >= 0)) continue;
+        const c3 = i < value.length ? base64Chars.indexOf(value.charAt(i++)) : -1;
+        if (c3 < 0) continue;
         t.push((c2 & 15) << 4 | (c3 & 60) >> 2);
 
-        const c4 = base64Chars.indexOf(value.charAt(i++));
-        if (!(c4 >= 0)) continue;
+        const c4 = i < value.length ? base64Chars.indexOf(value.charAt(i++)) : -1;
+        if (c4 < 0) continue;
         t.push((c3 & 3) << 6 | c4);
 
     }

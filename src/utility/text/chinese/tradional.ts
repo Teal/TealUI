@@ -30,7 +30,7 @@ function convert(value: string, from: string, to: string) {
  * 将繁体中文转为简体中文。
  * @param value 要转换的中文。
  * @returns 返回转换后的中文。
- * @example toSimpleChinese("簡体") // "简体"
+ * @example toSimpleChinese("簡体") // "简體"
  * @see toTradionalChinese
  */
 export function toSimpleChinese(value: string) {
@@ -41,7 +41,7 @@ export function toSimpleChinese(value: string) {
  * 将简体中文转为繁体中文。
  * @param value 要转换的中文。
  * @returns 返回转换后的中文。
- * @example toTradionalChinese("简体") // "簡体"
+ * @example toTradionalChinese("简體") // "簡体"
  * @see toSimpleChinese
  */
 export function toTradionalChinese(value: string) {
