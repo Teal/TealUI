@@ -22,12 +22,6 @@ export namespace sha1 {
     export const hexChars = "0123456789abcdef";
 
     /**
-     * 计算使用的字符位数。如果要支持 Unicode 字符可更改此字段。
-     * @private
-     */
-    export const charSize = 8;
-
-    /**
      * 将文本转为字节数组。
      * @param value 要编码的文本。
      * @return 返回二进制字节数组。
@@ -36,10 +30,7 @@ export namespace sha1 {
      */
     export function stringToBinary(value: string) {
         const nblk = ((value.length + 8) >> 6) * 16 + 16;
-        let blks = [];
-        for (let i = 0; i < nblk; i++) {
-            blks[i] = 0;
-        }
+        let blks: number[] = [];
         for (let i = 0; i < value.length; i++) {
             blks[i >> 2] |= value.charCodeAt(i) << (24 - (i & 3) * 8);
         }
@@ -106,7 +97,7 @@ export namespace sha1 {
 
         function safeAdd(x: number, y: number) {
             const lsw = (x & 0xFFFF) + (y & 0xFFFF);
-            return (x >> 16 + y >> 16 + lsw >> 16) << 16 | lsw & 0xFFFF;
+            return ((x >> 16) + (y >> 16) + (lsw >> 16)) << 16 | lsw & 0xFFFF;
         }
 
     };

@@ -144,7 +144,7 @@ export function des(value: string, key: string, decrypt?: boolean, iv?: string, 
         }
 
         if (decrypt) {
-            current += String.fromCharCode(left >>> 16 & 0xffff, left & 0xffff, right >>> 24, right >>> 16 & 0xffff, right & 0xffff);
+            current += String.fromCharCode(left >>> 16 & 0xffff, left & 0xffff, right >>> 24, right >>> 16 & 0xffff, right & 0xffff).replace(/\0/g, "");
             chunk += 8;
         } else {
             current += String.fromCharCode(left >>> 24, left >>> 16 & 0xff, left >>> 8 & 0xff, left & 0xff, right >>> 24, right >>> 16 & 0xff, right >>> 8 & 0xff, right & 0xff);

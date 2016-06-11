@@ -12,14 +12,12 @@
  * @see encryptString
  */
 export function decryptSimple(value: string, key = 19901206) {
-    let t = [];
     const end = value.length - 1;
-
+    const rkey = ~key;
+    let t = [];
     for (let i = end; i >= 0; i--) {
         t[i] = ~(value.charCodeAt(i) ^ (~(i + end)));
     }
-
-    const rkey = ~key;
     const last = t[end];
     for (let i = end; i >= 0; i--) {
         t[i] = ((t[i] & rkey) | ((i === 0 ? last : (t[i - 1])) & key));
@@ -41,11 +39,11 @@ export function decryptSimple(value: string, key = 19901206) {
  * @see dencryptString
  */
 export function encryptSimple(value: string, key = 19901206) {
-    let t = [];
-    const length = value.length;
+    const end = value.length - 1;
     const rkey = ~key;
-    for (let i = 0; i <= length; i++) {
-        t[i] = String.fromCharCode(~((value.charCodeAt(i) & rkey | (i === length ? value.charCodeAt(0) : value.charCodeAt(i + 1)) & key) ^ ~(i + length)));
+    let t = [];
+    for (let i = 0; i <= end; i++) {
+        t[i] = String.fromCharCode(~((value.charCodeAt(i) & rkey | (i === end ? value.charCodeAt(0) : value.charCodeAt(i + 1)) & key) ^ ~(i + end)));
     }
     return t.join('');
 }

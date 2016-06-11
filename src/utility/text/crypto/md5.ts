@@ -3,6 +3,8 @@
  * @author xuld@vip.qq.com
  */
 
+declare function unescape(value: string): string;
+
 /**
  * 使用 MD5 算法加密指定字符串。
  * @param value 要加密的字符串。
@@ -10,7 +12,7 @@
  * @example md5("a") // "0cc175b9c0f1b6a831c399e269772661"
  */
 export function md5(value: string) {
-    return md5.binaryToString(md5.calc(md5.stringToBinary(value), value.length * md5.charSize));
+    return md5.binaryToString(md5.raw(value));
 }
 
 export namespace md5 {
@@ -22,12 +24,6 @@ export namespace md5 {
     export const hexChars = "0123456789abcdef";
 
     /**
-     * 计算使用的字符位数。如果要支持 Unicode 字符可更改此字段。
-     * @private
-     */
-    export const charSize = 8;
-
-    /**
      * 将文本转为字节数组。
      * @param value 要编码的文本。
      * @return 返回二进制字节数组。
@@ -35,9 +31,10 @@ export namespace md5 {
      * @private
      */
     export function stringToBinary(value: string) {
-        let result = [];
-        for (let i = 0, len = value.length * md5.charSize, mask = (1 << md5.charSize) - 1; i < len; i += md5.charSize) {
-            result[i >> 5] |= (value.charCodeAt(i / md5.charSize) & mask) << (i % 32);
+        const len = value.length * 8;
+        let result: number[] = [];
+        for (let i = 0; i < len; i += 8) {
+            result[i >> 5] |= (value.charCodeAt(i / 8) & 0xff) << (i % 32);
         }
         return result;
     }
@@ -50,11 +47,23 @@ export namespace md5 {
      * @private
      */
     export function binaryToString(value: number[]) {
+        const len = value.length * 32;
         let result = "";
-        for (let i = 0; i < value.length * 4; i++) {
-            result += md5.hexChars.charAt((value[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + md5.hexChars.charAt((value[i >> 2] >> ((i % 4) * 8)) & 0xF);
+        for (let i = 0; i < len; i += 8) {
+            const t = (value[i >> 5] >>> (i % 32)) & 0xFF;
+            result += hexChars[(t >>> 4) & 0x0F] + hexChars[t & 0x0F];
         }
         return result;
+    }
+
+    /**
+     * 执行 MD5 加密算法。
+     * @param value 要加密的字符串。
+     * @returns 返回加密后的字节数组。
+     */
+    export function raw(value: string) {
+        value = unescape(encodeURIComponent(value));
+        return md5.calc(md5.stringToBinary(value), value.length * 8);
     }
 
     /**
@@ -64,13 +73,13 @@ export namespace md5 {
      * @returns 返回已加密的字节数组。
      * @private
      */
-    export function calc(value: number[], length: number) {
+    export function calc(value: number[], count: number) {
 
         const fns = [
-            function (b, c, d) { return (b & c) | ((~b) & d); },
-            function (b, c, d) { return (b & d) | (c & (~d)); },
-            function (b, c, d) { return b ^ c ^ d; },
-            function (b, c, d) { return c ^ (b | (~d)); }
+            (b: number, c: number, d: number) => b & c | ~b & d,
+            (b: number, c: number, d: number) => b & d | c & ~d,
+            (b: number, c: number, d: number) => b ^ c ^ d,
+            (b: number, c: number, d: number) => c ^ (b | ~d)
         ];
 
         const pss = [
@@ -81,8 +90,8 @@ export namespace md5 {
         ];
 
         // 对齐字符串。
-        value[length >> 5] |= 0x80 << ((length) % 32);
-        value[(((length + 64) >>> 9) << 4) + 14] = length;
+        value[count >> 5] |= 0x80 << (count % 32);
+        value[(((count + 64) >>> 9) << 4) + 14] = count;
 
         let a = 1732584193;
         let b = -271733879;
@@ -146,7 +155,7 @@ export namespace md5 {
 
         function safeAdd(x: number, y: number) {
             const lsw = (x & 0xFFFF) + (y & 0xFFFF);
-            return (x >> 16 + y >> 16 + lsw >> 16) << 16 | lsw & 0xFFFF;
+            return ((x >> 16) + (y >> 16) + (lsw >> 16)) << 16 | lsw & 0xFFFF;
         }
 
     }

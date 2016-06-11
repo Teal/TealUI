@@ -5,23 +5,19 @@
 
 /**
  * 获取中文(繁体)的拼音。
- * @param value 要获取的中文。
- * @returns 返回结果拼音字符串。如果 joinChar 为 null 则返回数组。
- * @example getPinYin("你好") // ["Ni", "Hao"]
+ * @param value 要获取的中文，仅支持单个字符。
+ * @returns 返回结果拼音字符串。如果无法获取则返回 undefined。
+ * @remark 注意：本函数不支持多音字。
+ * @example getPinYin("你") // "Ni"
  */
 export function getPinYin(value: string) {
-    const dictionary = getPinYin.dictionary;
-    let result: string[] = [];
-    for (let i = 0; i < value.length; i++) {
-        const c = value.charAt(i);
-        for (const pinyin in dictionary) {
-            if (dictionary[pinyin].indexOf(c) >= 0) {
-                result[i] = pinyin;
-                break;
-            }
+    // #assert value.length === 1, "只支持单个字符"
+    const dict = getPinYin.dict;
+    for (const pinyin in dict) {
+        if (dict[pinyin].indexOf(value) >= 0) {
+            return pinyin;
         }
     }
-    return result;
 }
 
 export namespace getPinYin {
@@ -29,7 +25,7 @@ export namespace getPinYin {
     /**
      * 获取或设置获取拼音的字典。
      */
-    export const dictionary: { [key: string]: string } = {
+    export const dict: { [pinyin: string]: string } = {
         "A": "啊阿呵吖嗄腌锕錒",
         "Ai": "爱矮挨哎碍癌艾唉哀蔼隘埃皑呆嗌嫒瑷暧捱砹嗳锿霭乂乃伌僾儗凒剀剴叆呃呝啀嘊噫噯堨塧壒奇娭娾嬡嵦愛懓懝敱敳昹曖欬欸毐溰溾濭烠焥璦皚皧瞹硋磑礙絠薆藹諰譪譺賹躷醷鎄鑀閡阂阨阸隑靄靉餲馤騃鯦鱫鴱崖",
         "An": "按安暗岸俺案鞍氨胺厂庵揞犴铵桉谙鹌埯黯侒儑匼厈咹唵啽垵垾堓婩媕屽峖干晻洝玵痷盒盦盫碪罯腤荌菴萻葊蓭裺誝諳豻貋遃鉗銨錌钳闇陰隂隌雸鞌韽頇頞顸馣鮟鴳鵪鶕",

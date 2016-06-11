@@ -1,13 +1,13 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "umd",
         "target": "es5",
         "noImplicitAny": false,
         "noImplicitUseStrict": true,
         "sourceMap": true,
         "stripInternal": true,
-        "outDir": "../_build/lib",
+        "outDir": "../../TealUI_build/lib",
         "rootDir": "",
         "pretty": false,
         "experimentalDecorators": true
