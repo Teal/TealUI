@@ -1,5 +1,7 @@
 ﻿/**
- * @fileOverview 数据检验。
+ * @fileOverview 数据检验
+ * @author xuld@vip.qq.com
+ * @keywords 验证,validate,判断
  * @description 提供数据校验的功能。
  */
 
