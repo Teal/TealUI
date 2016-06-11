@@ -1,32 +1,24 @@
-// #todo
-
 /**
- * @fileOverview 为 C 类浏览器（IE6-7, FF2-3, SF3-4）提供 JSON 对象。
+ * @fileOverview 提供 JSON 对象
+ * @platform IE6-7, FF2-3, SF3-4
  * @author xuld@vip.qq.com
  */
 
 /**
  * 提供解析 JSON 的函数。
+ * @since ES5
  */
-var JSON = JSON || {};
-
-if (!JSON.stringify) {
-
-    JSON.specialChars = { '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' };
-
-    JSON.replaceChars = function(chr){
-        return JSON.specialChars[chr] || '\\u00' + Math.floor(chr.charCodeAt() / 16).toString(16) + (chr.charCodeAt() % 16).toString(16);
-    };
+export var JSON = JSON || {
 
     /**
      * 将对象格式化为字符串。
-     * @returns {String} 返回字符串。
+     * @returns 返回字符串。
      * @example JSON.stringify([{}])
      */
-    JSON.stringify = function (obj) {
+    stringify(obj: any) {
         switch (typeof obj) {
             case 'string':
-                return '"' + obj.replace(/[\x00-\x1f\\"]/g, JSON.replaceChars) + '"';
+                return '"' + obj.replace(/[\x00-\x1f\\"]/g, chr => ({ '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' })[chr] || '\\u00' + Math.floor(chr.charCodeAt(0) / 16).toString(16) + (chr.charCodeAt() % 16).toString(16)) + '"';
             case 'object':
                 if (obj) {
                     var s = [];
@@ -42,19 +34,19 @@ if (!JSON.stringify) {
                     }
                     return '{' + s + '}';
                 }
-                // 直接转到 default
+            // 直接转到 default
             default:
                 return String(obj);
         }
-    };
+    },
 
     /**
      * 解析字符串为 JSON。
-     * @returns {Object} 返回新对象。
+     * @returns 返回 JSON 对象。
      * @example JSON.parse("[{}]")
      */
-    JSON.parse = function (str) {
-        return new Function('return ' + str)();
-    };
+    parse(value: string) {
+        return new Function('return ' + value)();
+    }
 
-}
+};

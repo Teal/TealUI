@@ -168,37 +168,113 @@ QUnit.module("check", function () {
 
     importModule("utility/text/check");
     QUnit.test("isLetter", function (assert) {
-
+        assert.strictEqual(isLetter("abc"), true);
+        assert.strictEqual(isLetter("ab0"), false);
+    });
+    QUnit.test("isDight", function (assert) {
+        assert.strictEqual(isDight("1"), true);
+        assert.strictEqual(isDight("a"), false);
+    });
+    QUnit.test("isLetterOrDight", function (assert) {
+        assert.strictEqual(isLetterOrDight("x09"), true);
+        assert.strictEqual(isLetterOrDight("1.2f"), false);
+    });
+    QUnit.test("isLetter", function (assert) {
+        assert.strictEqual(isInt("-45"), true);
+        assert.strictEqual(isInt("-45.0"), false);
+    });
+    QUnit.test("isNumber", function (assert) {
+        assert.strictEqual(isNumber("-45.35"), true);
+        assert.strictEqual(isNumber("0x00"), false);
+    });
+    QUnit.test("isEmail", function (assert) {
+        assert.strictEqual(isEmail("bug@tealui.com"), true);
+        assert.strictEqual(isEmail("bug@@tealui.com"), false);
+    });
+    QUnit.test("isLetter", function (assert) {
+        assert.strictEqual(isDate("2014/1/1"), true);
+        assert.strictEqual(isDate("hello"), false);
+        assert.strictEqual(isDate("2014年1月1日"), false);
+    });
+    QUnit.test("isValidDate", function (assert) {
+        assert.strictEqual(isValidDate(2016, 2, 29), true);
+        assert.strictEqual(isValidDate(2015, 2, 29), false);
+    });
+    QUnit.test("isIP", function (assert) {
+        assert.strictEqual(isIP("127.0.0.1"), true);
+    });
+    QUnit.test("isPhone", function (assert) {
+        assert.strictEqual(isPhone("+8613211111111"), true);
+    });
+    QUnit.test("isTelephone", function (assert) {
+        assert.strictEqual(isTelephone("010-86000000"), true);
+    });
+    QUnit.test("isUrl", function (assert) {
+        assert.strictEqual(isUrl("http://tealui.com/"), true);
+    });
+    QUnit.test("checkPassword", function (assert) {
+        assert.strictEqual(checkPassword("123456"), -1);
+    });
+    QUnit.test("isIndentifier", function (assert) {
+        assert.strictEqual(isIndentifier("x09"), true);
+    });
+    QUnit.test("isEnglish", function (assert) {
+        assert.strictEqual(isEnglish("Hello"), true);
+    });
+    QUnit.test("isPostCode", function (assert) {
+        assert.strictEqual(isPostCode("310000"), true);
+    });
+    QUnit.test("isQQ", function (assert) {
+        assert.strictEqual(isQQ("10000"), true);
+    });
+    QUnit.test("isChinese", function (assert) {
+        assert.strictEqual(isChinese("你好"), true);
+    });
+    QUnit.test("isChineseId", function (assert) {
+        assert.strictEqual(isChineseId("152500198909267865"), true);
+    });
+    QUnit.test("parseChineseId", function (assert) {
+        assert.deepEqual(parseChineseId("152500198909267865"), {
+            "birthday": new Date("Tue Sep 26 1989 00:00:00 GMT+0800"),
+            "province": "内蒙古",
+            "sex": false,
+            "valid": true
+        });
     });
 
 });
 
+QUnit.module("url", function () {
 
+    importModule("utility/text/url/query");
+    QUnit.test("parseQuery", function (assert) {
+        assert.deepEqual(parseQuery("a=1&b=3"), { a: '1', b: '3' });
+        assert.deepEqual(parseQuery("?a=1&a=r"), { a: ['1', 'r'] });
+    });
+    QUnit.test("stringifyQuery", function (assert) {
+        assert.strictEqual(stringifyQuery({ a: "2", c: "4" }), "a=2&c=4");
+        assert.strictEqual(stringifyQuery({ a: [2, 4] }), "a=2&a=4");
+    });
+    QUnit.test("getQuery", function (assert) {
+        assert.strictEqual(getQuery("?a=b", "a"), "b");
+        assert.strictEqual(getQuery("?a=b", "abc"), undefined);
+    });
+    QUnit.test("setQuery", function (assert) {
+        assert.strictEqual(setQuery("a.html", "b", "c"), "a.html?b=c");
+        assert.strictEqual(setQuery("a.html?b=d", "b", "c"), "a.html?b=c");
+        assert.strictEqual(setQuery("a.html?b=d", "add", "val"), "a.html?b=d&add=val");
+    });
+});
 
-//test("JSON.decode", function () {
-//    return
-//    expect(8);
+QUnit.module("json", function () {
 
-//    equal(JSON.decode(), null, "Nothing in, null out.");
-//    equal(JSON.decode(null), null, "Nothing in, null out.");
-//    equal(JSON.decode(""), null, "Nothing in, null out.");
+    importModule("utility/text/json");
+    QUnit.test("JSON.parse", function (assert) {
+        assert.deepEqual(JSON.parse("{\"test\":1}"), { "test": 1 });
+        assert.deepEqual(JSON.parse("\n{\"test\":1}"), { "test": 1 });
+    });
+    QUnit.test("JSON.stringify", function (assert) {
+        assert.deepEqual(JSON.stringify("{\"test\":1}"), { "test": 1 });
+    });
 
-//    deepEqual(JSON.decode("{}"), {}, "Plain object parsing.");
-//    deepEqual(JSON.decode("{\"test\":1}"), { "test": 1 }, "Plain object parsing.");
-
-//    deepEqual(JSON.decode("\n{\"test\":1}"), { "test": 1 }, "Make sure leading whitespaces are handled.");
-
-//    try {
-//        JSON.decode("{a:1}");
-//        ok(false, "Test malformed JSON string.");
-//    } catch (e) {
-//        ok(true, "Test malformed JSON string.");
-//    }
-
-//    try {
-//        JSON.decode("{'a':1}");
-//        ok(false, "Test malformed JSON string.");
-//    } catch (e) {
-//        ok(true, "Test malformed JSON string.");
-//    }
-//});
+});

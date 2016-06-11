@@ -255,7 +255,7 @@ export function isChinese(value: string) {
  * 判断指定字符串是否表示一个身份证号。
  * @param value 要判断的字符串。
  * @returns 如果符合条件则返回 true，否则返回 false。
- * @example isId("152500198909267865") // true
+ * @example isChineseId("152500198909267865") // true
  */
 export function isChineseId(value: string) {
     return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value);
@@ -270,7 +270,7 @@ export function isChineseId(value: string) {
  *      "valid": true,      // 表示身份证信息合法。
  *      "province": "北京", // 表示省份。
  *      "birthday": Date(), // 表示生日。
- *      "sex": "男"         // 表示性别。
+ *      "sex": false        // 表示性别。true 表示 '男'。
  * }
  * ```
  * @example parseChineseId("152500198909267865")
