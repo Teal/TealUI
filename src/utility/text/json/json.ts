@@ -46,7 +46,7 @@ export var JSON = JSON || {
      * @example JSON.parse("[{}]")
      */
     parse(value: string) {
-        return new Function('return ' + value)();
+        return new Function('return (' + value + ")")();
     }
 
 };

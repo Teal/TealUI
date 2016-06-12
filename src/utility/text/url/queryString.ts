@@ -5,6 +5,9 @@
 
 import {parseQuery, stringifyQuery} from './query';
 
+/**
+ * 提供查询字符串相关的函数。
+ */
 module QueryString {
     export const parse = parseQuery;
     export const stringify = stringifyQuery;

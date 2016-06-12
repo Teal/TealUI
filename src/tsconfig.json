@@ -1,7 +1,7 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "module": "umd",
+        "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
         "noImplicitUseStrict": true,

@@ -268,13 +268,183 @@ QUnit.module("url", function () {
 
 QUnit.module("json", function () {
 
-    importModule("utility/text/json");
+    importModule("utility/text/json/json");
     QUnit.test("JSON.parse", function (assert) {
         assert.deepEqual(JSON.parse("{\"test\":1}"), { "test": 1 });
         assert.deepEqual(JSON.parse("\n{\"test\":1}"), { "test": 1 });
     });
     QUnit.test("JSON.stringify", function (assert) {
-        assert.deepEqual(JSON.stringify("{\"test\":1}"), { "test": 1 });
+        assert.deepEqual(JSON.stringify({ "test": 1 }), "{\"test\":1}");
     });
 
+    importModule("utility/text/json/decode");
+    QUnit.test("JSON.decode", function (assert) {
+        assert.deepEqual(JSON.decode("{test:1}"), { "test": 1 });
+        assert.deepEqual(JSON.decode("\n{test:1}"), { "test": 1 });
+    });
+
+});
+
+QUnit.module("path", function () {
+
+    importModule("utility/text/path");
+    QUnit.test("Path.isAbsolute", function (assert) {
+        assert.strictEqual(Path.isAbsolute('/home/foo'), true);
+        assert.strictEqual(Path.isAbsolute('/home/foo/..'), true);
+        assert.strictEqual(Path.isAbsolute('bar/'), false);
+        assert.strictEqual(Path.isAbsolute('./baz'), false);
+    });
+    QUnit.test("Path.resolve", function (assert) {
+        assert.strictEqual(Path.resolve('/var/lib', '../', 'file/'), '/var/file');
+        assert.strictEqual(Path.resolve('/var/lib', '/../', 'file/'), '/file');
+        assert.strictEqual(Path.resolve('/some/dir', '.', '/absolute/'), '/absolute');
+        assert.strictEqual(Path.resolve('/foo/tmp.3/', '../tmp.3/cycles/root.js'), '/foo/tmp.3/cycles/root.js');
+    });
+    QUnit.test("Path.relative", function (assert) {
+        assert.strictEqual(Path.relative('/var/lib', '/var'), '..');
+        assert.strictEqual(Path.relative('/var/lib', '/bin'), '../../bin');
+        assert.strictEqual(Path.relative('/var/lib', '/var/lib'), '');
+        assert.strictEqual(Path.relative('/var/lib', '/var/apache'), '../apache');
+        assert.strictEqual(Path.relative('/var/', '/var/lib'), 'lib');
+        assert.strictEqual(Path.relative('/', '/var/lib'), 'var/lib');
+        assert.strictEqual(Path.relative('/foo/test', '/foo/test/bar/package.json'), 'bar/package.json');
+        assert.strictEqual(Path.relative('/Users/a/web/b/test/mails', '/Users/a/web/b'), '../..');
+        assert.strictEqual(Path.relative('/foo/bar/baz-quux', '/foo/bar/baz'), '../baz');
+        assert.strictEqual(Path.relative('/foo/bar/baz', '/foo/bar/baz-quux'), '../baz-quux');
+        assert.strictEqual(Path.relative('/baz-quux', '/baz'), '../baz');
+        assert.strictEqual(Path.relative('/baz', '/baz-quux'), '../baz-quux');
+    });
+    QUnit.test("Path.normalize", function (assert) {
+        assert.strictEqual(Path.normalize('./fixtures///b/../b/c.js'), 'fixtures/b/c.js');
+        assert.strictEqual(Path.normalize('/foo/../../../bar'), '/bar');
+        assert.strictEqual(Path.normalize('a//b//../b'), 'a/b');
+        assert.strictEqual(Path.normalize('a//b//./c'), 'a/b/c');
+        assert.strictEqual(Path.normalize('a//b//.'), 'a/b');
+        assert.strictEqual(Path.normalize('/a/b/c/../../../x/y/z'), '/x/y/z');
+        assert.strictEqual(Path.normalize('///..//./foo/.//bar'), '/foo/bar');
+    });
+    QUnit.test("Path.join", function (assert) {
+        assert.strictEqual(Path.join('.', 'x/b', '..', '/b/c.js'), 'x/b/c.js');
+        assert.strictEqual(Path.join('/.', 'x/b', '..', '/b/c.js'), '/x/b/c.js');
+        assert.strictEqual(Path.join('/foo', '../../../bar'), '/bar');
+        assert.strictEqual(Path.join('foo', '../../../bar'), '../../bar');
+        assert.strictEqual(Path.join('foo/', '../../../bar'), '../../bar');
+        assert.strictEqual(Path.join('foo/x', '../../../bar'), '../bar');
+        assert.strictEqual(Path.join('foo/x', './bar'), 'foo/x/bar');
+        assert.strictEqual(Path.join('foo/x/', './bar'), 'foo/x/bar');
+        assert.strictEqual(Path.join('foo/x/', '.', 'bar'), 'foo/x/bar');
+        assert.strictEqual(Path.join('./'), './');
+        assert.strictEqual(Path.join('.', './'), './');
+        assert.strictEqual(Path.join('.', '.', '.'), '.');
+        assert.strictEqual(Path.join('.', './', '.'), '.');
+        assert.strictEqual(Path.join('.', '/./', '.'), '.');
+        assert.strictEqual(Path.join('.', '/////./', '.'), '.');
+        assert.strictEqual(Path.join('.'), '.');
+        assert.strictEqual(Path.join('', '.'), '.');
+        assert.strictEqual(Path.join('', 'foo'), 'foo');
+        assert.strictEqual(Path.join('foo', '/bar'), 'foo/bar');
+        assert.strictEqual(Path.join('', '/foo'), '/foo');
+        assert.strictEqual(Path.join('', '', '/foo'), '/foo');
+        assert.strictEqual(Path.join('', '', 'foo'), 'foo');
+        assert.strictEqual(Path.join('foo', ''), 'foo');
+        assert.strictEqual(Path.join('foo/', ''), 'foo/');
+        assert.strictEqual(Path.join('foo', '', '/bar'), 'foo/bar');
+        assert.strictEqual(Path.join('./', '..', '/foo'), '../foo');
+        assert.strictEqual(Path.join('./', '..', '..', '/foo'), '../../foo');
+        assert.strictEqual(Path.join('.', '..', '..', '/foo'), '../../foo');
+        assert.strictEqual(Path.join('', '..', '..', '/foo'), '../../foo');
+        assert.strictEqual(Path.join('/'), '/');
+        assert.strictEqual(Path.join('/', '.'), '/');
+        assert.strictEqual(Path.join('/', '..'), '/');
+        assert.strictEqual(Path.join('/', '..', '..'), '/');
+        assert.strictEqual(Path.join(''), '.');
+        assert.strictEqual(Path.join('', ''), '.');
+        assert.strictEqual(Path.join(' /foo'), ' /foo');
+        assert.strictEqual(Path.join(' ', 'foo'), ' /foo');
+        assert.strictEqual(Path.join(' ', '.'), ' ');
+        assert.strictEqual(Path.join(' ', '/'), ' /');
+        assert.strictEqual(Path.join(' ', ''), ' ');
+        assert.strictEqual(Path.join('/', 'foo'), '/foo');
+        assert.strictEqual(Path.join('/', '/foo'), '/foo');
+        assert.strictEqual(Path.join('/', '//foo'), '/foo');
+        assert.strictEqual(Path.join('/', '', '/foo'), '/foo');
+        assert.strictEqual(Path.join('', '/', 'foo'), '/foo');
+        assert.strictEqual(Path.join('', '/', '/foo'), '/foo');
+    });
+    QUnit.test("Path.dirname", function (assert) {
+        assert.strictEqual(Path.dirname('/a/b/'), '/a');
+        assert.strictEqual(Path.dirname('/a/b'), '/a');
+        assert.strictEqual(Path.dirname('/a'), '/');
+        assert.strictEqual(Path.dirname(''), '.');
+        assert.strictEqual(Path.dirname('/'), '/');
+        assert.strictEqual(Path.dirname('////'), '/');
+        assert.strictEqual(Path.dirname('foo'), '.');
+    });
+    QUnit.test("Path.basename", function (assert) {
+        assert.strictEqual(Path.basename('basename.ext'), 'basename.ext');
+        assert.strictEqual(Path.basename('basename.ext', '.ext'), 'basename');
+        assert.strictEqual(Path.basename(''), '');
+        assert.strictEqual(Path.basename('/dir/basename.ext'), 'basename.ext');
+        assert.strictEqual(Path.basename('/basename.ext'), 'basename.ext');
+        assert.strictEqual(Path.basename('basename.ext'), 'basename.ext');
+        assert.strictEqual(Path.basename('basename.ext/'), 'basename.ext');
+        assert.strictEqual(Path.basename('basename.ext//'), 'basename.ext');
+        assert.strictEqual(Path.basename('aaa/bbb', '/bbb'), 'bbb');
+        assert.strictEqual(Path.basename('aaa/bbb', 'a/bbb'), 'bbb');
+        assert.strictEqual(Path.basename('aaa/bbb', 'bbb'), 'bbb');
+        assert.strictEqual(Path.basename('aaa/bbb//', 'bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/bbb', '/bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/bbb', 'a/bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/bbb', 'bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/bbb//', 'bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/bbb'), 'bbb');
+        assert.strictEqual(Path.basename('/aaa/'), 'aaa');
+        assert.strictEqual(Path.basename('/aaa/b'), 'b');
+        assert.strictEqual(Path.basename('/a/b'), 'b');
+        assert.strictEqual(Path.basename('//a'), 'a');
+    });
+    QUnit.test("Path.extname", function (assert) {
+        assert.strictEqual(Path.extname(''), '');
+        assert.strictEqual(Path.extname('/path/to/file'), '');
+        assert.strictEqual(Path.extname('/path/to/file.ext'), '.ext');
+        assert.strictEqual(Path.extname('/path.to/file.ext'), '.ext');
+        assert.strictEqual(Path.extname('/path.to/file'), '');
+        assert.strictEqual(Path.extname('/path.to/.file'), '');
+        assert.strictEqual(Path.extname('/path.to/.file.ext'), '.ext');
+        assert.strictEqual(Path.extname('/path/to/f.ext'), '.ext');
+        assert.strictEqual(Path.extname('/path/to/..ext'), '.ext');
+        assert.strictEqual(Path.extname('/path/to/..'), '');
+        assert.strictEqual(Path.extname('file'), '');
+        assert.strictEqual(Path.extname('file.ext'), '.ext');
+        assert.strictEqual(Path.extname('.file'), '');
+        assert.strictEqual(Path.extname('.file.ext'), '.ext');
+        assert.strictEqual(Path.extname('/file'), '');
+        assert.strictEqual(Path.extname('/file.ext'), '.ext');
+        assert.strictEqual(Path.extname('/.file'), '');
+        assert.strictEqual(Path.extname('/.file.ext'), '.ext');
+        assert.strictEqual(Path.extname('.path/file.ext'), '.ext');
+        assert.strictEqual(Path.extname('file.ext.ext'), '.ext');
+        assert.strictEqual(Path.extname('file.'), '.');
+        assert.strictEqual(Path.extname('.'), '');
+        assert.strictEqual(Path.extname('./'), '');
+        assert.strictEqual(Path.extname('.file.ext'), '.ext');
+        assert.strictEqual(Path.extname('.file'), '');
+        assert.strictEqual(Path.extname('.file.'), '.');
+        assert.strictEqual(Path.extname('.file..'), '.');
+        assert.strictEqual(Path.extname('..'), '');
+        assert.strictEqual(Path.extname('../'), '');
+        assert.strictEqual(Path.extname('..file.ext'), '.ext');
+        assert.strictEqual(Path.extname('..file'), '.file');
+        assert.strictEqual(Path.extname('..file.'), '.');
+        assert.strictEqual(Path.extname('..file..'), '.');
+        assert.strictEqual(Path.extname('...'), '.');
+        assert.strictEqual(Path.extname('...ext'), '.ext');
+        assert.strictEqual(Path.extname('....'), '.');
+        assert.strictEqual(Path.extname('file.ext/'), '.ext');
+        assert.strictEqual(Path.extname('file.ext//'), '.ext');
+        assert.strictEqual(Path.extname('file/'), '');
+        assert.strictEqual(Path.extname('file//'), '');
+        assert.strictEqual(Path.extname('file./'), '.');
+        assert.strictEqual(Path.extname('file.//'), '.');
+    });
 });

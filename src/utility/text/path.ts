@@ -1,5 +1,3 @@
-// #todo
-
 /**
  * @author xuld@vip.qq.com
  * Modified from https://github.com/joyent/node/blob/master/lib/path.js
@@ -8,203 +6,185 @@
 /**
  * 提供路径解析相关的函数。
  */
-var Path = {
+module Path {
 
-	// resolves . and .. elements in a path array with directory names there
-	// must be no slashes, empty elements, or device names (c:\) in the array
-	// (so also no leading and trailing slashes - it does not distinguish
-	// relative and absolute paths)
-	_normalizeArray: function (parts, allowAboveRoot) {
-		// if the path tries to go above the root, `up` ends up > 0
-		var up = 0;
-		for (var i = parts.length - 1; i >= 0; i--) {
-			var last = parts[i];
-			if (last === '.') {
-				parts.splice(i, 1);
-			} else if (last === '..') {
-				parts.splice(i, 1);
-				up++;
-			} else if (up) {
-				parts.splice(i, 1);
-				up--;
-			}
-		}
-
-		// if the path is allowed to go above the root, restore leading ..s
-		if (allowAboveRoot) {
-			for (; up--; up) {
-				parts.unshift('..');
-			}
-		}
-
-		return parts;
-	},
-
-	// Split a filename into [root, dir, basename, ext], unix version
-	// 'root' is just a slash, or nothing.
-	_splitPath: function(filename) {
-		return /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/.exec(filename).slice(1);
-	},
-
-	basePath: "",
+    /**
+     * 判断指定的路径是否为绝对路径。
+     * @param path 判断的路径。
+     * @returns 如果是绝对路径则返回 true，否则返回 false。
+     */
+    export function isAbsolute(path: string) {
+        return path.length > 0 && path.charCodeAt(0) === 47/*/*/;
+    }
 
     /**
      * 合并多个路径为一个。
-     * @param {String} ... 要合并的路径。
-     * @returns {String} 返回合并后的新路径。
+     * @param paths 要合并的路径。
+     * @returns 返回合并后的新路径。
      * @example Path.resolve("a/b", "../", "c") // "a/c"
      */
-	resolve: function () {
-	    var resolvedPath = '';
-		var resolvedAbsolute = false;
+    export function resolve(...paths: string[]) {
+        let resolvedPath = "";
+        let resolvedAbsolute = false;
 
-		for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
-		    var path = (i >= 0) ? arguments[i] : Path.basePath;
-		    typeof console === "object" && console.assert(typeof path === "string", "Path.resolve(...: 必须是字符串)");
+        for (let i = arguments.length - 1; i >= 0 && !resolvedAbsolute; i--) {
+            let path = arguments[i];
+            if (path) {
+                resolvedPath = path + "/" + resolvedPath;
+                resolvedAbsolute = path.charCodeAt(0) === 47 /*/*/;
+            }
+        }
 
-		    if (path) {
-		        resolvedPath = path + '/' + resolvedPath;
-		        resolvedAbsolute = path.charAt(0) === '/';
-			}
-
-		}
-
-		// At this point the path should be resolved to a full absolute path, but
-		// handle relative paths to be safe (might happen when process.cwd() fails)
-
-		// Normalize the path
-		resolvedPath = Path._normalizeArray(resolvedPath.split('/').filter(function (p) {
-			return !!p;
-		}), !resolvedAbsolute).join('/');
-
-		return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
-	},
-
-    /**
-     * 规划化指定的路径。
-     * @param {String} path 要处理的路径。
-     * @returns {String} 返回处理后的新路径。
-     * @example Path.normalize("a/b/../c/d/e") // "a/c/d/e"
-     */
-	normalize: function (path) {
-	    typeof console === "object" && console.assert(typeof path === "string", "Path.normalize(path: 必须是字符串)");
-		var isAbsolute = path.charAt(0) === '/',
-			trailingSlash = path.substr(-1) === '/';
-
-		// Normalize the path
-		path = Path._normalizeArray(path.split('/').filter(function (p) {
-			return !!p;
-		}), !isAbsolute).join('/');
-
-		if (!path && !isAbsolute) {
-			path = '.';
-		}
-		if (path && trailingSlash) {
-			path += '/';
-		}
-
-		return (isAbsolute ? '/' : '') + path;
-	},
-
-    /**
-     * 合并多个文件夹路径为一个。
-     * @param {String} path 要处理的文件夹路径。
-     * @returns {String} 返回合并后的新路径。
-     * @example Path.join("a/b/../c/d/e") // "a/c/d/e"
-     */
-	join: function() {
-		var paths = Array.prototype.slice.call(arguments, 0);
-		return Path.normalize(paths.filter(function (p, index) {
-			return p;
-		}).join('/'));
-	},
+        return ((resolvedAbsolute ? '/' : '') + Path._normalizeArray(resolvedPath.split("/"), !resolvedAbsolute).join('/')) || '.';
+    }
 
     /**
      * 计算指定路径相对于基路径的相对路径。
-     * @param {String} basePath 解析的基路径。
-     * @param {String} path 要处理的路径。
-     * @returns {String} @path 相对于 @basePath 的基路径。
+     * @param basePath 解析的基路径。
+     * @param path 要处理的路径。
+     * @returns 返回 *path* 相对于 *basePath* 的基路径。
      * @example Path.relative("a/b", "a/c") // "../c"
      */
-	relative: function (basePath, path) {
-		
-		basePath = Path.resolve(basePath);
-		path = Path.resolve(path);
+    export function relative(basePath: string, path: string) {
 
-		function trim(arr) {
-			var start = 0;
-		    for (; start < arr.length && !arr[start]; start++);
+        basePath = Path.resolve(basePath);
+        path = Path.resolve(path);
 
-			var end = arr.length - 1;
-		    for (; end >= 0 && !arr[end]; end--);
+        const fromParts = trim(basePath.split('/'));
+        const toParts = trim(path.split('/'));
 
-			return start > end ? [] : arr.slice(start, end - start + 1);
-		}
+        const length = Math.min(fromParts.length, toParts.length);
+        let samePartsLength = length;
+        for (var i = 0; i < length; i++) {
+            if (fromParts[i] !== toParts[i]) {
+                samePartsLength = i;
+                break;
+            }
+        }
 
-		var fromParts = trim(basePath.split('/'));
-		var toParts = trim(path.split('/'));
+        let outputParts = [];
+        for (let i = samePartsLength; i < fromParts.length; i++) {
+            outputParts.push('..');
+        }
 
-		var length = Math.min(fromParts.length, toParts.length);
-		var samePartsLength = length;
-		for (var i = 0; i < length; i++) {
-			if (fromParts[i] !== toParts[i]) {
-				samePartsLength = i;
-				break;
-			}
-		}
+        outputParts.push.apply(outputParts, toParts.slice(samePartsLength));
 
-		var outputParts = [];
-		for (var i = samePartsLength; i < fromParts.length; i++) {
-			outputParts.push('..');
-		}
+        return outputParts.join('/');
 
-		outputParts.push.apply(outputParts, toParts.slice(samePartsLength));
+        function trim(arr: string[]) {
+            let start = 0;
+            for (; start < arr.length && !arr[start]; start++);
 
-		return outputParts.join('/');
-	},
+            let end = arr.length - 1;
+            for (; end >= 0 && !arr[end]; end--);
+
+            return start > end ? [] : arr.slice(start, end + 1);
+        }
+
+    }
+
+    /**
+     * 规划化指定的路径。
+     * @param path 要处理的路径。
+     * @returns 返回处理后的新路径。
+     * @example Path.normalize("a/b/../c/d/e") // "a/c/d/e"
+     */
+    export function normalize(path: string) {
+        const isAbsolute = path.charAt(0) === '/';
+        const trailingSlash = path.substr(-1) === '/';
+        path = Path._normalizeArray(path.split('/'), !isAbsolute).join('/');
+        if (!path && !isAbsolute) path = '.';
+        if (path && trailingSlash) path += '/';
+        return (isAbsolute ? '/' : '') + path;
+    }
+
+    /**
+     * 合并多个文件夹路径为一个。
+     * @param paths 要处理的文件夹路径。
+     * @returns 返回合并后的新路径。
+     * @example Path.join("a/b/../c/d/e") // "a/c/d/e"
+     */
+    export function join(...paths: string[]) {
+        let parts = [];
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i]) parts.push(arguments[i]);
+        }
+        return Path.normalize(parts.join('/'));
+    }
 
     /**
      * 获取指定路径的文件夹名部分。
-     * @param {String} path 要处理的路径。
-     * @returns {String} 返回文件夹部分。
+     * @param path 要处理的路径。
+     * @returns 返回文件夹部分。
      * @example Path.dirname("e/a/b") // "e/a"
      */
-	dirname: function(path) {
-	    var result = Path._splitPath(path);
-	    var root = result[0];
-		var dir = result[1];
-
-		if (!root && !dir) {
-			// No dirname whatsoever
-			return '.';
-		}
-
-		if (dir) {
-			// It has a dirname, strip trailing slash
-			dir = dir.substr(0, dir.length - 1);
-		}
-
-		return root + dir;
-	},
+    export function dirname(path: string) {
+        const parts = Path._splitPath(path);
+        const root = parts[0];
+        const dir = parts[1];
+        return !root && !dir ? '.' : root + (dir && dir.substr(0, dir.length - 1));
+    }
 
     /**
      * 获取指定路径的文件名部分。
-     * @param {String} path 要处理的路径。
-     * @returns {String} 返回文件部分。
+     * @param path 要处理的路径。
+     * @param ext 如果指定扩展名，则删除对应的扩展名部分。
+     * @returns 返回文件部分。
      * @example Path.basename("e/a/b.txt") // "b.txt"
      */
-	basename: function(path, ext) {
-	    return Path._splitPath(path)[2];
-	},
+    export function basename(path: string, ext?: string) {
+        const parts = Path._splitPath(path);
+        return ext && parts[3] === ext ? parts[2].substr(0, parts[2].length - ext.length) : parts[2];
+    }
 
     /**
      * 获取指定路径的扩展名部分（包括点）。
-     * @param {String} path 要处理的路径。
-     * @returns {String} 返回扩展名部分。
+     * @param path 要处理的路径。
+     * @returns 返回扩展名部分。
      * @example Path.extname("e/a/b.txt") // ".txt"
      */
-	extname: function(path) {
-		return Path._splitPath(path)[3];
-	}
+    export function extname(path: string) {
+        return Path._splitPath(path)[3];
+    }
 
-};
+    /**
+     * 规范化路径数组部分。
+     * @param parts 各路径部分。
+     * @param allowAboveRoot 是否允许超过基路径。
+     */
+    export function _normalizeArray(parts: string[], allowAboveRoot: boolean) {
+        let up = 0;
+        for (let i = parts.length - 1; i >= 0; i--) {
+            const last = parts[i];
+            if (!last || last === '.') {
+                parts.splice(i, 1);
+            } else if (last === '..') {
+                parts.splice(i, 1);
+                up++;
+            } else if (up) {
+                parts.splice(i, 1);
+                up--;
+            }
+        }
+
+        if (allowAboveRoot) {
+            while (up--) {
+                parts.unshift('..');
+            }
+        }
+
+        return parts;
+    }
+
+    /**
+     * 将文件名分割为数组。
+     * @param filename 要处理的文件名。
+     * @returns 返回一个数组。其内容分别标识跟路径、文件夹、文件基础名和扩展名。
+     */
+    export function _splitPath(filename: string) {
+        return /^(\/?|)([\s\S]*?)((?:\.{1,2}|[^\/]+?|)(\.[^.\/]*|))(?:[\/]*)$/.exec(filename).slice(1);
+    }
+
+}
+
+export = Path;

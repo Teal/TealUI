@@ -7,7 +7,7 @@ export namespace JSON {
      * @return 返回 JSON 对象。
      */
     export function decode(value: string) {
-        return new Function('return ' + value)();
+        return new Function('return (' + value + ")")();
     }
 
 }

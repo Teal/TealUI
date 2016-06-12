@@ -17,7 +17,7 @@ interface Array<T> {
      * @since ES5
      * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
      */
-    filter<T>(callback: (value: T, index: number, target: Array<T>) => boolean, scope?: any): T;
+    filter(callback: (value: T, index: number, target: Array<T>) => boolean, scope?: any): Array<T>;
 
 }
 
