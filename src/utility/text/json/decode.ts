@@ -1,4 +1,8 @@
-﻿
+﻿/**
+ * @fileOverview 解码 JSON 对象
+ * @author xuld@vip.qq.com
+ */
+
 export namespace JSON {
 
     /**

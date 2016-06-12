@@ -1,4 +1,5 @@
 /**
+ * @fileOverflow 路径解析
  * @author xuld@vip.qq.com
  * Modified from https://github.com/joyent/node/blob/master/lib/path.js
  */
