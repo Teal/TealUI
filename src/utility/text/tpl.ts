@@ -3,4 +3,4 @@
  * @author xuld@vip.qq.com
  */
 
-export * from './tpl/curly';
+export {CurlyTpl as Tpl} from './tpl/curly';
