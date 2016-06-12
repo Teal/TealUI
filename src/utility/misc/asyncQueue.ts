@@ -1,4 +1,5 @@
 /**
+ * 异步队列
  * @author xuld@vip.qq.com
  */
 
