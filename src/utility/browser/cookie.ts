@@ -3,8 +3,6 @@
  * @author xuld@vip.qq.com
  */
 
-// #region 基本功能
-
 /**
  * 获取一个 Cookie 值。
  * @param name 要获取的 Cookie 名字。
@@ -12,7 +10,7 @@
  * @example getCookie("sample") // 如果 Cookie 不存在，返回 null 。
  */
 export function getCookie(name: string) {
-    var matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
+    const matches = document.cookie.match(new RegExp("(?:^|; )" + encodeURIComponent(name).replace(/([-.*+?^${}()|[\]\/\\])/g, '\\$1') + "=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : null;
 }
 
@@ -48,8 +46,6 @@ export function setCookie(name: string, value: string, expires: number, path: st
     return value;
 }
 
-// #endregion
-
 // #region 扩展功能
 
 /**
@@ -58,7 +54,7 @@ export function setCookie(name: string, value: string, expires: number, path: st
  * @example getAllCookies()
  */
 function getAllCookies() {
-    var cookies = {};
+    let cookies = {};
     document.cookie.replace(/(.+?)=(.+?)(;\s*|$)/g, (_: string, cookieName: string, cookieValue: string) => {
         cookies[decodeURIComponent(cookieName)] = decodeURIComponent(cookieValue);
         return "";
@@ -66,7 +62,7 @@ function getAllCookies() {
     return cookies;
 }
 
-import {get} from "../text/queryString";
+import {getQuery} from "../text/url/query";
 
 /**
  * 获取一个子 Cookie 值。
@@ -76,10 +72,10 @@ import {get} from "../text/queryString";
  * @example getSubcookie("sample", "subName") // 如果 Cookie 不存在，返回 null 。
  */
 function getSubcookie(name: string, subname: string) {
-    return get(getCookie(name) || "", subname);
+    return getQuery(getCookie(name) || "", subname);
 }
 
-import {set} from "../text/queryString";
+import {setQuery} from "../text/url/query";
 
 /**
  * 设置或删除一个子 Cookie 值。
@@ -90,7 +86,7 @@ import {set} from "../text/queryString";
  * @param path 设置 Cookie 的路径。
  * @param domain 设置 Cookie 的所在域。
  * @param secure 设置 Cookie 的安全限制。
- * @returns {String} 返回 value。
+ * @returns 返回 *value*。
  * @example
  * ##### 设置子 Cookie
  * setSubcookie("sample", "subName", "the value")
