@@ -1897,3 +1897,12 @@ QUnit.module("url", function () {
         }), 'http://tealui.com:8080/p/to.txt?q=1#f');
     });
 });
+
+QUnit.module("xml", function() {
+    
+    importModule("utility/text/xml");
+    QUnit.test("parseXML", function (assert) {
+        assert.deepEqual(parseXML("<div/>").firstChild.nodeName, "div");
+    });
+
+});
