@@ -3,7 +3,7 @@ declare global {
 
     interface Array<T> {
 
-        // #region 语言自带
+        // #region 语言内置
 
         /**
          * 获取指定项在当前数组内的第一个索引。
@@ -29,13 +29,13 @@ declare global {
 
         /**
          * 合并当前数组和另一个数组并返回一个新数组。
-         * @param others 要合并的数组。
+         * @param values 要合并的数组。
          * @returns 返回新数组。
          * @example ["I", "love"].concat(["you"]); // ["I", "love", "you"]
          * @since ES4
          * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
          */
-        concat(...others: ArrayLike<T>[]);
+        concat(...values: (T | ArrayLike<T>)[]);
 
         /**
          * 遍历当前数组，并对每一项执行 *callback*。
@@ -150,11 +150,62 @@ declare global {
          */
         reduceRight<K>(callback: (previousValue: K, currentValue: T, index: number, target: T[]) => K, initialValue?: K);
 
+        /**
+         * 找出当前数组中符合要求的第一项。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的数组。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+         * @example [1, 2].find(function(item){return item > 1;}) // 2
+         * @since ES5
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+         */
+        find(callback: (value: T, index: number, target: T[]) => boolean, scope?: any): T;
+
+        /**
+         * 找出当前数组中符合要求的第一项的索引。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的数组。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 -1。
+         * @example [1, 2].findIndex(function(item){return item > 1;}) // 1
+         * @since ES5
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+         */
+        findIndex(callback: (value: T, index: number, target: T[]) => boolean, scope?: any): number;
+
+        /**
+         * 判断当前数组是否包含指定值。
+         * @param value 要判断的值。
+         * @returns 如果包含则返回 true，否则返回 false。
+         * @since ES7
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+         */
+        includes(value: T): boolean;
+
+        /**
+         * 填充数组每个项为指定的值。
+         * @param value 要填充的值。
+         * @param startIndex 填充的开始位置。
+         * @param endIndex 填充的结束位置(不包含结束位置本身)。
+         * @since ES7
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+         */
+        fill(value: T, startIndex?: number, endIndex?: number): void;
+
         // #endregion
 
     }
 
     interface ArrayConstructor {
+
+        // #region 语言内置
 
         /**
          * 判断一个对象是否是数组。
@@ -168,11 +219,13 @@ declare global {
          */
         isArray(obj: any): obj is any[];
 
+        // #endregion
+
     }
 
 }
 
-// #region 语言自带
+// #region 语言内置
 
 export module indexOf {
 
@@ -254,7 +307,9 @@ export module forEach {
     Array.prototype.forEach = Array.prototype.forEach || function <T>(callback: (value: T, index: number, target: T[]) => void, scope?: any) {
         const length = this.length;
         for (let i = 0; i < length; i++) {
-            callback.call(scope, this[i], i, this);
+            if (i in this) {
+                callback.call(scope, this[i], i, this);
+            }
         }
     };
 
@@ -395,10 +450,16 @@ export module reduce {
      */
     Array.prototype.reduce = Array.prototype.reduce || function <T, K>(callback: (previousValue: K, currentValue: T, index: number, target: T[]) => K, initialValue?: K) {
         const length = this.length;
-        let result = this[0];
-        if (initialValue !== undefined) result = callback(initialValue, result, 0, this);
-        for (let i = 1; i < length; i++) {
-            result = callback(result, this[i], i, this);
+        let result;
+        for (let i = 0, first = true; i < length; i++) {
+            if (i in this) {
+                if (first) {
+                    first = false;
+                    result = initialValue === undefined ? this[i] : callback(initialValue, this[i], i, this);
+                } else {
+                    result = callback(result, this[i], i, this);
+                }
+            }
         }
         return result;
     };
@@ -424,13 +485,113 @@ export module reduceRight {
      * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight
      */
     Array.prototype.reduceRight = Array.prototype.reduceRight || function <T, K>(callback: (previousValue: K, currentValue: T, index: number, target: T[]) => K, initialValue?: K) {
-        const end = this.length - 1;
-        let result = this[end];
-        if (initialValue !== undefined) result = callback(initialValue, result, end, this);
-        for (let i = end - 1; i >= 0; i--) {
-            result = callback(result, this[i], i, this);
+        let result;
+        for (let i = this.length, first = true; --i >= 0;) {
+            if (i in this) {
+                if (first) {
+                    first = false;
+                    result = initialValue === undefined ? this[i] : callback(initialValue, this[i], i, this);
+                } else {
+                    result = callback(result, this[i], i, this);
+                }
+            }
         }
         return result;
     };
 
 }
+
+export module find {
+
+    /**
+     * 找出当前数组中符合要求的第一项。
+     * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+     * - param value 当前项的值。
+     * - param index 当前项的索引或键。
+     * - param target 当前正在遍历的数组。
+     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * @param scope 设置 *callback* 执行时 this 的值。
+     * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+     * @example [1, 2].find(function(item){return item > 1;}) // 2
+     * @since ES5
+     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+     */
+    Array.prototype.find = Array.prototype.find || function <T>(callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+        const length = this.length;
+        for (let i = 0; i < length; i++) {
+            if ((i in this) && callback.call(scope, this[i], i, this)) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+}
+
+export module findIndex {
+
+    /**
+     * 找出当前数组中符合要求的第一项的索引。
+     * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+     * - param value 当前项的值。
+     * - param index 当前项的索引或键。
+     * - param target 当前正在遍历的数组。
+     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * @param scope 设置 *callback* 执行时 this 的值。
+     * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 -1。
+     * @example [1, 2].findIndex(function(item){return item > 1;}) // 1
+     * @since ES5
+     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+     */
+    Array.prototype.findIndex = Array.prototype.findIndex || function <T>(callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+        const length = this.length;
+        for (let i = 0; i < length; i++) {
+            if ((i in this) && callback.call(scope, this[i], i, this)) {
+                return i;
+            }
+        }
+        return -1;
+    };
+
+}
+
+export module includes {
+
+    /**
+     * 判断当前数组是否包含指定值。
+     * @param value 要判断的值。
+     * @returns 如果包含则返回 true，否则返回 false。
+     * @since ES7
+     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
+     */
+    Array.prototype.includes = Array.prototype.includes || function <T>(value: T) {
+        const length = this.length;
+        for (let i = 0; i < length; i++) {
+            if (this[i] === value || (value !== value && this[i] !== this[i])) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+}
+
+export module fill {
+
+    /**
+     * 填充数组每个项为指定的值。
+     * @param value 要填充的值。
+     * @param startIndex 填充的开始位置。
+     * @param endIndex 填充的结束位置(不包含结束位置本身)。
+     * @since ES7
+     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+     */
+    Array.prototype.fill = Array.prototype.fill || function <T>(value: T, startIndex: number = 0, endIndex: number = this.length) {
+        for (; startIndex < endIndex; startIndex++) {
+            this[startIndex] = value;
+        }
+    };
+
+}
+
+// #endregion

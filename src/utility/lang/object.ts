@@ -6,7 +6,7 @@ declare global {
 
     interface ObjectConstructor {
 
-        // #region 语言自带
+        // #region 语言内置
 
         /**
          * 复制对象的所有属性到目标对象。
@@ -197,23 +197,6 @@ declare global {
         some<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): boolean;
 
         /**
-         * 从左往右依次合并对象中的每一项并最终返回一个值。
-         * @param iterable 要遍历的对象（不支持函数）。
-         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
-         * - param previousValue 要合并的前一项。
-         * - param currentValue 要合并的当前项。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的对象。
-         * - returns 返回合并的结果。
-         * @param initialValue 用于合并第一项的初始值。
-         * @param scope 设置 *callback* 执行时 this 的值。
-         * @returns 返回合并后的最终结果值。
-         * @example Object.reduce([1, 2], function(x, y) {return x + y}) // 3
-         * @example Object.reduce([1, 2], function(x, y) {return x + y}, 10) // 13
-         */
-        reduce<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
-
-        /**
          * 从左往右依次合并类数组中的每一项并最终返回一个值。
          * @param iterable 要遍历的类数组（不支持函数）。
          * @param callback 对每一项执行的回调函数，每次合并两项为一项。
@@ -228,10 +211,10 @@ declare global {
          * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}) // 3
          * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
          */
-        reduce<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: string, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+        reduce<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
 
         /**
-         * 从右往左依次合并对象中的每一项并最终返回一个值。
+         * 从左往右依次合并对象中的每一项并最终返回一个值。
          * @param iterable 要遍历的对象（不支持函数）。
          * @param callback 对每一项执行的回调函数，每次合并两项为一项。
          * - param previousValue 要合并的前一项。
@@ -242,10 +225,10 @@ declare global {
          * @param initialValue 用于合并第一项的初始值。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回合并后的最终结果值。
-         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}) // 3
-         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}, 10) // 13
+         * @example Object.reduce([1, 2], function(x, y) {return x + y}) // 3
+         * @example Object.reduce([1, 2], function(x, y) {return x + y}, 10) // 13
          */
-        reduceRight<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+        reduce<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: string, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
 
         /**
          * 从右往左依次合并类数组中的每一项并最终返回一个值。
@@ -262,7 +245,80 @@ declare global {
          * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}) // 3
          * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
          */
+        reduceRight<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 从右往左依次合并对象中的每一项并最终返回一个值。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
+         * - param previousValue 要合并的前一项。
+         * - param currentValue 要合并的当前项。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的对象。
+         * - returns 返回合并的结果。
+         * @param initialValue 用于合并第一项的初始值。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回合并后的最终结果值。
+         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}) // 3
+         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}, 10) // 13
+         */
         reduceRight<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: string, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 找出指定类数组中符合要求的第一项。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的类数组。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+         * @example Object.find([1, 2], function(item){return item > 1;}) // 2
+         */
+        find<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): T | void;
+
+        /**
+         * 找出指定对象中符合要求的第一项。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的对象。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+         * @example Object.find({a: 1, b: 2}, function(item){return item > 1;}) // 2
+         */
+        find<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): T | void;
+
+        /**
+         * 找出指定类数组中符合要求的第一项的索引。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的类数组。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 undefined。
+         * @example Object.findIndex([1, 2], function(item){return item > 1;}) // 2
+         */
+        findIndex<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): number | void;
+
+        /**
+         * 找出指定对象中符合要求的第一项的键。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * - param value 当前项的值。
+         * - param index 当前项的索引或键。
+         * - param target 当前正在遍历的对象。
+         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项的键，如果没有满足条件的项，则返回 undefined。
+         * @example Object.findIndex({a: 1, b: 2}, function(item){return item > 1;}) // 2
+         */
+        findIndex<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): string | void;
 
         // #endregion
 
@@ -363,7 +419,7 @@ declare global {
 
 }
 
-// #region 语言自带
+// #region 语言内置
 
 export module assignSimple {
 
@@ -481,7 +537,7 @@ export module each {
         if (iterable && typeof iterable.length === "number") {
             const length = iterable.length;
             for (let i = 0; i < length; i++) {
-                if (callback.call(scope, iterable[i], i, iterable) === false) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable) === false) {
                     return false;
                 }
             }
@@ -522,7 +578,7 @@ export module filter {
             result = [];
             const length = iterable.length;
             for (let i = 0; i < length; i++) {
-                if ((i in this) && callback.call(scope, iterable[i], i, iterable)) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable)) {
                     result.push(iterable[i]);
                 }
             }
@@ -565,7 +621,9 @@ export module map {
             result = [];
             const length = iterable.length;
             for (let i = 0; i < length; i++) {
-                result[i] = callback.call(scope, iterable[i], i, iterable);
+                if (i in iterable) {
+                    result[i] = callback.call(scope, iterable[i], i, iterable);
+                }
             }
         } else {
             result = {};
@@ -604,7 +662,7 @@ export module every {
         if (iterable && typeof iterable.length === "number") {
             const length = iterable.length;
             for (let i = 0; i < length; i++) {
-                if ((i in this) && callback.call(scope, iterable[i], i, iterable)) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable)) {
                     return false;
                 }
             }
@@ -646,7 +704,7 @@ export module some {
         if (iterable && typeof iterable.length === "number") {
             const length = iterable.length;
             for (let i = 0; i < length; i++) {
-                if ((i in this) && callback.call(scope, iterable[i], i, iterable)) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable)) {
                     return true;
                 }
             }
@@ -685,19 +743,25 @@ export module reduce {
     Object.reduce = function (iterable: any, callback: (previousValue: any, currentValue: any, index: number | string, target: any) => any, initialValue?: any, scope?: any) {
 
         let result;
+        let first = true;
         // 普通对象使用 for( in ) , 数组用 0 -> length 。
         if (iterable && typeof iterable.length === "number") {
             const length = iterable.length;
-            result = this[0];
-            if (initialValue !== undefined) result = callback.call(scope, initialValue, result, 0, iterable);
-            for (let i = 1; i < length; i++) {
-                result = callback.call(scope, result, iterable[i], i, iterable);
+            for (let i = 0; i < length; i++) {
+                if (i in iterable) {
+                    if (first) {
+                        first = false;
+                        result = initialValue === undefined ? iterable[i] : callback.call(scope, initialValue, iterable[i], i, iterable);
+                    } else {
+                        result = callback.call(scope, result, iterable[i], i, iterable);
+                    }
+                }
             }
         } else {
             for (let i in iterable) {
-                if (initialValue !== undefined) {
-                    result = callback.call(scope, initialValue, iterable[i], i, iterable);
-                    initialValue = undefined;
+                if (first) {
+                    first = false;
+                    result = initialValue === undefined ? iterable[i] : callback.call(scope, initialValue, iterable[i], i, iterable);
                 } else {
                     result = callback.call(scope, result, iterable[i], i, iterable);
                 }
@@ -733,11 +797,15 @@ export module reduceRight {
         let result;
         // 普通对象使用 for( in ) , 数组用 0 -> length 。
         if (iterable && typeof iterable.length === "number") {
-            const end = iterable.length - 1;
-            result = this[end];
-            if (initialValue !== undefined) result = callback.call(scope, initialValue, result, end, iterable);
-            for (let i = end - 1; i >= 0; i--) {
-                result = callback.call(scope, result, iterable[i], i, iterable);
+            for (let i = this.length, first = true; --i >= 0;) {
+                if (i in this) {
+                    if (first) {
+                        first = false;
+                        result = initialValue === undefined ? this[i] : callback(initialValue, this[i], i, this);
+                    } else {
+                        result = callback(result, this[i], i, this);
+                    }
+                }
             }
         } else {
             let keys = [];
@@ -748,6 +816,79 @@ export module reduceRight {
         }
 
         return result;
+    };
+
+}
+
+export module find {
+
+    /**
+     * 找出指定类数组或对象中符合要求的第一项。
+     * @param iterable 要遍历的类数组或对象（不支持函数）。
+     * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+     * - param value 当前项的值。
+     * - param index 当前项的索引或键。
+     * - param target 当前正在遍历的类数组或对象。
+     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * @param scope 设置 *callback* 执行时 this 的值。
+     * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+     * @example Object.find([1, 2], function(item){ return item > 1; }) // 2
+     * @example Object.find({a: 1, b: 2}, function(item){return item > 1;}) // 2
+     */
+    Object.find = function (iterable: any, callback: (value: any, index: number | string, target: any) => boolean, scope?: any) {
+
+        // 普通对象使用 for( in ) , 数组用 0 -> length 。
+        if (iterable && typeof iterable.length === "number") {
+            const length = iterable.length;
+            for (let i = 0; i < length; i++) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable)) {
+                    return iterable[i];
+                }
+            }
+            return false;
+        } else {
+            for (let i in iterable) {
+                if (callback.call(scope, iterable[i], i, iterable)) {
+                    return iterable[i];
+                }
+            }
+        }
+    };
+
+}
+
+export module findIndex {
+
+    /**
+     * 找出指定类数组或对象中符合要求的第一项的索引或键。
+     * @param iterable 要遍历的类数组或对象（不支持函数）。
+     * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+     * - param value 当前项的值。
+     * - param index 当前项的索引或键。
+     * - param target 当前正在遍历的类数组或对象。
+     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * @param scope 设置 *callback* 执行时 this 的值。
+     * @returns 返回符合条件的第一项的索引或键，如果没有满足条件的项，则返回 undefined。
+     * @example Object.findIndex([1, 2], function(item){ return item > 1; }) // 1
+     * @example Object.findIndex({a: 1, b: 2}, function(item){return item > 1;}) // 'b'
+     */
+    Object.findIndex = function (iterable: any, callback: (value: any, index: number | string, target: any) => boolean, scope?: any): any {
+
+        // 普通对象使用 for( in ) , 数组用 0 -> length 。
+        if (iterable && typeof iterable.length === "number") {
+            const length = iterable.length;
+            for (let i = 0; i < length; i++) {
+                if ((i in iterable) && callback.call(scope, iterable[i], i, iterable)) {
+                    return i;
+                }
+            }
+        } else {
+            for (let i in iterable) {
+                if (callback.call(scope, iterable[i], i, iterable)) {
+                    return i;
+                }
+            }
+        }
     };
 
 }
