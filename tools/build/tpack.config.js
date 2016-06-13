@@ -20,6 +20,10 @@ tpack.task("dd", function(){
 	tpack.src("*.ts").prepend("// #todo\n\n");
 })
 
+tpack.task("dd", function () {
+    
+})
+
 //// 所有任务都需要先执行以下预编译的规则。
 //tpack.src("*.scss", "*.sass").pipe(require("tpack-node-sass")).dest("$1.css");
 //tpack.src("*.less").pipe(require("tpack-less")).pipe(require("tpack-autoprefixer")).dest("$1.css");

@@ -427,6 +427,171 @@ QUnit.module("path", function () {
     });
 });
 
+QUnit.module("pattern", function () {
+
+    importModule("utility/text/pattern");
+    QUnit.test("compilePatterns", function (assert) {
+
+        var fn = compilePatterns(["# 注释", "    "]);
+        assert.ok(!fn(''));
+        assert.ok(!fn('# 注释'));
+        assert.ok(!fn('foo/abc'));
+        assert.ok(!fn('abc/foo'));
+        assert.ok(!fn('foo.txt'));
+
+        var fn = compilePatterns(["foo"]);
+        assert.ok(fn('foo'));
+        assert.ok(fn('foo/'));
+        assert.ok(fn('foo/abc'));
+        assert.ok(fn('abc/foo'));
+        assert.ok(fn('abc/foo/'));
+        assert.ok(fn('abc/foo/abc.txt'));
+        assert.ok(!fn('foo.txt'));
+
+        var fn = compilePatterns(["foo/"]);
+        assert.ok(!fn('foo'));
+        assert.ok(fn('foo/'));
+        assert.ok(!fn('abc/foo'));
+        assert.ok(fn('abc/foo/'));
+        assert.ok(fn('abc/foo/abc.txt'));
+
+        var fn = compilePatterns(["/foo"]);
+        assert.ok(fn('foo'));
+        assert.ok(!fn('foo.txt'));
+        assert.ok(!fn('abc/foo'));
+        assert.ok(!fn('abc/foo.txt'));
+
+        var fn = compilePatterns(["/foo/"]);
+        assert.ok(!fn('foo'));
+        assert.ok(fn('foo/'));
+        assert.ok(fn('foo/abc'));
+        assert.ok(!fn('abc/foo/abc'));
+
+        var fn = compilePatterns(["foo/foo2"]);
+        assert.ok(!fn('foo'));
+        assert.ok(!fn('foo2'));
+        assert.ok(fn('foo/foo2'));
+        assert.ok(fn('foo/foo2/foo3'));
+        assert.ok(!fn('foo/foo2-foo3'));
+
+        var fn = compilePatterns(["*.jpg"]);
+        assert.ok(fn('.jpg'));
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('foo/a.jpg'));
+        assert.ok(fn('foo/.jpg/a.txt'));
+
+        var fn = compilePatterns(["/*.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(!fn('foo/a.jpg'));
+
+        var fn = compilePatterns(["abc/*.jpg"]);
+        assert.ok(fn('abc/a.jpg'));
+        assert.ok(fn('def/abc/a.jpg'));
+        assert.ok(!fn('def/abc/b/c.jpg'));
+        assert.ok(!fn('def/abc/b/c.jpg'));
+
+        var fn = compilePatterns(["/abc/*.jpg"]);
+        assert.ok(fn('abc/a.jpg'));
+        assert.ok(!fn('abc/b/c.jpg'));
+
+        var fn = compilePatterns(["**.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('a/a.jpg'));
+
+        var fn = compilePatterns(["/**.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('a/a.jpg'));
+
+        var fn = compilePatterns(["/a**.jpg"]);
+        assert.ok(fn('abc.jpg'));
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('a/bc/d.jpg'));
+        assert.ok(!fn('bc/abc.jpg'));
+
+        var fn = compilePatterns(["**/a.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('foo/a.jpg'));
+        assert.ok(fn('a/b/c/a.jpg'));
+        assert.ok(!fn('.jpg'));
+
+        var fn = compilePatterns(["**/*.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(fn('foo/a.jpg'));
+        assert.ok(fn('a/b/c/a.jpg'));
+        assert.ok(fn('.jpg'));
+
+        var fn = compilePatterns(["foo/**"]);
+        assert.ok(!fn('foo'));
+        assert.ok(fn('foo/'));
+        assert.ok(fn('foo/a'));
+
+        assert.ok(!fn('abc/foo'));
+        assert.ok(fn('abc/foo/'));
+        assert.ok(fn('abc/foo/a'));
+
+        var fn = compilePatterns(["foo/**/a.jpg"]);
+        assert.ok(!fn('foo'));
+        assert.ok(fn('foo/a.jpg'));
+        assert.ok(fn('foo/b/a.jpg'));
+        assert.ok(fn('foo/b/c/a.jpg'));
+
+        var fn = compilePatterns(["*/**/*.jpg"]);
+        assert.ok(fn('a/b.jpg'));
+        assert.ok(!fn('c.jpg'));
+
+        var fn = compilePatterns(["?.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(!fn('bc.jpg'));
+        assert.ok(fn('abc/a.jpg'));
+
+        var fn = compilePatterns(["*.jpg", "!foo.jpg", "!*/foo2.jpg"]);
+        assert.ok(fn('a.jpg'));
+        assert.ok(!fn('foo.jpg'));
+        assert.ok(fn('foo2.jpg'));
+
+        assert.ok(fn('abc/a.jpg'));
+        assert.ok(!fn('abc/foo.jpg'));
+        assert.ok(!fn('abc/foo2.jpg'));
+
+        var fn = compilePatterns(["[aA]", "[bc].jpg"]);
+        assert.ok(fn('a'));
+        assert.ok(fn('A'));
+        assert.ok(!fn('aa'));
+
+        assert.ok(fn('b.jpg'));
+        assert.ok(fn('c.jpg'));
+        assert.ok(!fn('bc.jpg'));
+        assert.ok(!fn('[bc].jpg'));
+
+        var fn = compilePatterns(["(", "[]", "\\ "]);
+        assert.ok(fn('('));
+        assert.ok(fn(' '));
+        assert.ok(fn('[]'));
+        assert.ok(!fn('['));
+        assert.ok(!fn(']'));
+
+        var fn = compilePatterns(["*.jpg"]);
+        assert.equal(fn('a.jpg', "$1.txt"), "a.txt");
+        assert.equal(fn('foo/b/abc.jpg', "$1.txt"), "foo/b/abc.txt");
+
+        assert.equal(fn('foo/b/a.jpg', "$0.txt"), "foo/b/a.jpg.txt");
+        assert.equal(fn('foo/b/a.jpg', "$2.txt"), "foo/b/$2.txt");
+
+        var fn = compilePatterns(["name.foo"]);
+        assert.equal(fn('name.foo', "name2.foo"), "name2.foo");
+        assert.equal(fn('foo/name.foo', "name2.foo"), "foo/name2.foo");
+
+        var fn = compilePatterns(["foo/**/a.jpg"]);
+        assert.equal(fn('foo/a.jpg', "$1a.jpg"), "a.jpg");
+        assert.equal(fn('foo/b/a.jpg', "$1a.jpg"), "b/a.jpg");
+
+        var fn = compilePatterns(["*.jpg", "!foo.jpg", "!*/foo2.jpg"]);
+        assert.equal(fn('a.jpg', "$1.txt"), "a.txt");
+
+    });
+
+});
+
 QUnit.module("tpl", function () {
 
     importModule("utility/text/tpl/asp");
@@ -1898,8 +2063,8 @@ QUnit.module("url", function () {
     });
 });
 
-QUnit.module("xml", function() {
-    
+QUnit.module("xml", function () {
+
     importModule("utility/text/xml");
     QUnit.test("parseXML", function (assert) {
         assert.deepEqual(parseXML("<div/>").firstChild.nodeName, "div");
