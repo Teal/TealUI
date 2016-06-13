@@ -1,4 +1,7 @@
-﻿
+﻿/**
+ * @fileOverview 对象(Object)扩展
+ */
+
 declare global {
 
     interface Array<T> {

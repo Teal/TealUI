@@ -43,6 +43,14 @@ declare global {
          */
         values(obj: any): string[];
 
+        /**
+         * 创建一个包含指定原型的对象。
+         * @param proto 原型。
+         * @param properties 包含的属性。
+         * @returns 返回创建的对象。
+         */
+        create(proto: any, properties: any): { [key: string]: any, [key: number]: any };
+
         // #endregion
 
         // #region 模拟数组
