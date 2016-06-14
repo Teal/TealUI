@@ -346,8 +346,8 @@ export function fill<T>(_this: Array<T>, value: T, startIndex: number = 0, endIn
  * @example while(arr.remove("wow") >= 0); // 删除所有 "wow"。
  */
 export function remove<T>(_this: Array<T>, value: T, startIndex?: number) {
-    startIndex = this.indexOf(value, startIndex);
-    ~startIndex && this.splice(startIndex, 1);
+    startIndex = _this.indexOf(value, startIndex);
+    ~startIndex && _this.splice(startIndex, 1);
     return startIndex;
 }
 

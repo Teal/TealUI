@@ -7,9 +7,9 @@
 
 /**
  * 格式化指定的字符串。
- * @param {String} format 格式字符串。具体见下文。
- * @param {Object} ... 格式化参数。
- * @returns {String} 返回格式化后的字符串。
+ * @param formatString 格式字符串。具体见下文。
+ * @param args 格式化参数。
+ * @returns 返回格式化后的字符串。
  * @remark
  * #### 格式化语法
  * 格式字符串中，以下内容会被替换：
@@ -21,156 +21,122 @@
  * {{      | 被替换为 { |
  * }}      | 被替换为 } |
  * 
- * @example
- * String.format("我是{0}，不是{1}", "小黑", "大白"); // "我是小黑，不是大白"
- * 
- * String.format("我是{xiaohei}，不是{dabai}", {xiaohei: "小黑", dabai: "大白"}); // "我是小黑，不是大白"
- * 
- * String.format("在字符串内使用两个{{和}}避免被转换"); //  "在字符串内使用两个{和}避免被转换"
+ * @example String.format("我是{0}，不是{1}", "小黑", "大白"); // "我是小黑，不是大白"
+ * @example String.format("我是{xiaohei}，不是{dabai}", {xiaohei: "小黑", dabai: "大白"}); // "我是小黑，不是大白"
+ * @example String.format("在字符串内使用两个{{和}}避免被转换"); //  "在字符串内使用两个{和}避免被转换"
  */
-export function format (format) {
-    typeof console === "object" && console.assert(!format || typeof format === "string", "String.format(format: 必须是字符串)");
-    var args = arguments;
+export function format(formatString: string, ...args: any[]) {
+    let arg = arguments;
     // 如果第二个参数是数组，则认为是数组本身。
-    if (args.length === 2 && args[1] && typeof args[1].length === "number") {
-        Array.prototype.unshift.call(args = args[1], format);
+    if (arg.length === 2 && arg[1] && typeof arg[1].length === "number") {
+        Array.prototype.unshift.call(arg = arg[1], formatString);
     }
-    return format ? format.replace(/\{\{|\{(\w+)\}|\}\}/g, function (matched, argName) {
-        return argName ? (matched = +argName + 1) ? args[matched] : args[1][argName] : matched[0];
-    }) : "";
+    return formatString ? formatString.replace(/\{\{|\{(\w+)\}|\}\}/g, (matched: any, argName: any) => argName ? (matched = +argName + 1) ? arg[matched] : arg[1][argName] : matched[0]) : "";
 }
 
 /**
  * 判断当前字符串是否以某个特定字符串开头。
- * @param {String} str 开头的字符串。
- * @returns {Boolean} 返回符合要求则返回 @true，否则返回 @false。
+ * @param str 开头的字符串。
+ * @returns 返回符合要求则返回 true，否则返回 false。
  * @example "1234567".startsWith("123") // true
  */
-export function startsWith(_this: String, str) {
-    typeof console === "object" && console.assert(typeof str === "string", "string.startsWith(str: 必须是字符串)");
-    return this.substr(0, str.length) === str;
+export function startsWith(_this: string, value: string) {
+    return _this.substr(0, value.length) === value;
 }
 
 /**
  * 判断当前字符串是否以某个特定字符串结尾。
- * @param {String} str 开头的字符串。
- * @returns {Boolean} 返回符合要求则返回 @true，否则返回 @false。
+ * @param value 开头的字符串。
+ * @returns 返回符合要求则返回 true，否则返回 false。
  * @example "1234567".endsWith("67") // true
  */
-export function endsWith(_this: String, str) {
-    typeof console === "object" && console.assert(typeof str === "string", "string.endsWith(str: 必须是字符串)");
-    return this.substr(this.length - str.length) === str;
+export function endsWith(_this: string, value: string) {
+    return _this.substr(_this.length - value.length) === value;
 }
-
-// #region @String.isString
 
 /**
  * 判断一个对象是否是字符串。
- * @param {Object} obj 要判断的对象。
- * @returns {Boolean} 如果 @obj 是字符串则返回 @true，否则返回 @false。
+ * @param obj 要判断的对象。
+ * @returns 如果 obj 是字符串则返回 true，否则返回 false。
  * @example String.isString("") // true
  */
-export function isString (obj) {
+export function isString(obj: any): obj is string {
     return typeof obj === 'string';
 }
 
-// #endregion
-
-// #region @String.ellipsis
-
 /**
  * 将字符串限定在指定长度内，超出部分用 ... 代替。
- * @param {String} str 要处理的字符串。
- * @param {Number} length 最终期望的最大长度。
- * @example 
- * String.ellipsis("1234567", 6) //   "123..."
- * 
- * String.ellipsis("1234567", 9) //   "1234567"
+ * @param str 要处理的字符串。
+ * @param length 最终期望的最大长度。
+ * @example String.ellipsis("1234567", 6) // "123..."
+ * @example String.ellipsis("1234567", 9) // "1234567"
  */
-export function ellipsis (str, length) {
-    typeof console === "object" && console.assert(!str || typeof str === "string", "String.ellipsis(str: 必须是字符串, length)");
-    return str ? str.length > length ? str.substr(0, length - 3) + "..." : str : "";
+export function ellipsis(value: string, length: number) {
+    return value ? value.length > length ? value.substr(0, length - 3) + "..." : value : "";
 }
-
-// #endregion
-
-// #region @String.ellipsis
 
 /**
  * 将字符串限定在指定长度内，超出部分用 ... 代替。同时确保不强制分割单词。
- * @param {String} str 要处理的字符串。
- * @param {Number} length 最终期望的最大长度。
+ * @param value 要处理的字符串。
+ * @param length 最终期望的最大长度。
  * @example String.ellipsisByWord("abc def", 8) //   "abc..."
  */
-export function ellipsisByWord (str, length) {
-    typeof console === "object" && console.assert(!str || typeof str === "string", "String.ellipsisByWord(str: 必须是字符串, length)");
-    if (str && str.length > length) {
+export function ellipsisByWord(value: string, length: number) {
+    if (value && value.length > length) {
         length -= 3;
-        if (/[\x00-\xff]/.test(str.charAt(length))) {
-            var p = str.lastIndexOf(' ', length);
+        if (/[\x00-\xff]/.test(value.charAt(length))) {
+            const p = value.lastIndexOf(' ', length);
             if (p !== -1) {
                 length = p;
             }
         }
-        str = str.substr(0, length) + '...';
+        value = value.substr(0, length) + '...';
     }
-    return str || '';
+    return value || '';
 }
-
-// #endregion
-
-// #region @String.containsWord
 
 /**
  * 判断字符串是否包含指定单词。
- * @param {String} str 要判断的字符串。
- * @param {String} [separator=' '] 指定单词的分割符，默认为空格。
- * @returns {Boolean} 如果包含指定的单词则返回 @true，否则返回 @false。
+ * @param value 要判断的字符串。
+ * @param separator 指定单词的分割符，默认为空格。
+ * @returns 如果包含指定的单词则返回 true，否则返回 false。
  * @example String.containsWord("abc ab", "ab")
  */
-export function containsWord (str, separator) {
+export function containsWord(_this: string, value: string, separator = " ") {
     separator = separator || ' ';
-    return (separator ? (separator + this + separator) : this).indexOf(str) >= 0;
+    return (separator ? (separator + _this + separator) : _this).indexOf(value) >= 0;
 }
-
-// #endregion
-
-// #region @String.removeLeadingWhiteSpaces
 
 /**
  * 删除字符串的公共缩进部分。
- * @param {String} str 要处理的字符串。
- * @returns {String} 返回处理后的字符串。
+ * @param value 要处理的字符串。
+ * @returns 返回处理后的字符串。
  * @example String.removeLeadingWhiteSpaces("  a") // "a"
  */
-export function removeLeadingWhiteSpaces (str) {
-    typeof console === "object" && console.assert(typeof str === "string", "String.removeLeadingWhiteSpaces(str: 必须是字符串)");
-    str = str.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
-    var space = /^\s+/.exec(str), i;
-    if (space) {
-        space = space[0];
-        str = str.split(/[\r\n]/);
-        for (i = str.length - 1; i >= 0; i--) {
-            str[i] = str[i].replace(space, "");
+export function removeLeadingWhiteSpaces(value: string) {
+    value = value.replace(/^[\r\n]+/, "").replace(/\s+$/, "");
+    const match = /^\s+/.exec(value);
+    if (match) {
+        const space = match[0];
+        let t = value.split(/[\r\n]/);
+        for (let i = t.length - 1; i >= 0; i--) {
+            t[i] = t[i].replace(space, "");
         }
-        str = str.join('\r\n');
+        value = t.join('\r\n');
     }
-    return str;
+    return value;
 }
-
-// #endregion
-
-// #region @String#replaceAll
 
 /**
  * 替换当前字符串内全部子字符串。
- * @param {String} from 替换的源字符串。
- * @param {String} to 替换的目标字符串。
- * @returns {String} 返回替换后的字符串。
+ * @param from 替换的源字符串。
+ * @param to 替换的目标字符串。
+ * @returns 返回替换后的字符串。
  * @example "1121".replaceAll("1", "3") // "3323"
  */
-export function replaceAll(_this: String, from, to) {
-    var str = this, p = 0;
+export function replaceAll(_this: string, from: string, to: string) {
+    let str = _this;
+    let p = 0;
     while ((p = str.indexOf(from), p) >= 0) {
         str = str.replace(from, to);
         p += to.length + 1;
@@ -178,180 +144,135 @@ export function replaceAll(_this: String, from, to) {
     return str;
 }
 
-// #endregion
-
-// #region @String#trimLeft/String#trimRight
-
 /**
  * 去除当前字符串开始空格。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "  a".trimStart() // "a"
  * @since ES6
  */
-export function trimLeft(_this: String, ) {
-    return this.replace(/^\s+/, '');
+export function trimLeft(_this: string) {
+    return _this.replace(/^\s+/, '');
 }
 
 /**
  * 去除当前字符串结尾空格。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "a  ".trimStart() // "a"
  * @since ES6
  */
-export function trimRight(_this: String, ) {
-    return this.replace(/\s+$/, '');
+export function trimRight(_this: string) {
+    return _this.replace(/\s+$/, '');
 }
-
-// #endregion
-
-// #region @String#startsWith/String#endsWith
-
-// #endregion
-
-// #region @String#clean
 
 /**
  * 删除当前字符串内所有空格。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example " a b   ".clean() // "ab"
  */
-export function clean(_this: String, ) {
-    return this.replace(/\s+/g, ' ');
+export function clean(_this: string) {
+    return _this.replace(/\s+/g, ' ');
 }
-
-// #endregion
-
-// #region @String#byteLength
 
 /**
  * 获得当前字符串按字节计算的长度（英文算一个字符，中文算两个个字符）。
- * @returns {Number} 返回长度值。
+ * @returns 返回长度值。
  * @example "a中文".byteLength() // 5
  */
-export function byteLength(_this: String, ) {
-    var arr = this.match(/[^\x00-\xff]/g);
-    return this.length + (arr ? arr.length : 0);
+export function byteLength(_this: string) {
+    const arr = _this.match(/[^\x00-\xff]/g);
+    return _this.length + (arr ? arr.length : 0);
 }
-
-// #endregion
-
-// #region @String#unique
 
 /**
  * 删除字符串内的重复字符。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "aabbcc".unique() // "abc"
  */
-export function unique(_this: String, ) {
-    return this.replace(/(^|\s)(\S+)(?=\s(?:\S+\s)*\2(?:\s|$))/g, '');
+export function unique(_this: string) {
+    return _this.replace(/(^|\s)(\S+)(?=\s(?:\S+\s)*\2(?:\s|$))/g, '');
 }
-
-// #endregion
-
-// #region @String#repeat
 
 /**
  * 重复当前字符串内容指定次数。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "a".repeat(4) // "aaaa"
  * @since ES6
  */
-export function repeat(_this: String, count) {
-    return new Array(count + 1).join(this);
+export function repeat(_this: string, count: number) {
+    return new Array(count + 1).join(_this);
 }
-
-// #endregion
-
-// #region @String#capitalize
 
 /**
  * 将字符串首字母大写。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "qwert".capitalize() // "Qwert"
  */
-export function capitalize(_this: String, ) {
-    return this.replace(/(\b[a-z])/g, function (w) {
+export function capitalize(_this: string) {
+    return _this.replace(/(\b[a-z])/g, function (w) {
         return w.toUpperCase();
     });
 }
 
-// #endregion
-
-// #region @String#uncapitalize
-
 /**
  * 将字符串首字母小写。
- * @returns {String} 返回新字符串。
+ * @returns 返回新字符串。
  * @example "Qwert".uncapitalize() // "qwert"
  */
-export function uncapitalize(_this: String, ) {
-    return this.replace(/(\b[A-Z])/g, function (w) {
+export function uncapitalize(_this: string) {
+    return _this.replace(/(\b[A-Z])/g, function (w) {
         return w.toLowerCase();
     });
 }
 
-// #endregion
-
-// #region @String#toCamelCase
-
 /**
  * 将字符串转为骆驼规则（如 fontSize）。
- * @returns {String} 处理后的字符串。
- * @example
- * <pre>
- * "font-size".toCamelCase() // "fontSize"
- * </pre>
+ * @returns 处理后的字符串。
+ * @example "font-size".toCamelCase() // "fontSize"
  */
-export function toCamelCase(_this: String, ) {
-    return this.replace(/-(\w)/g, function (w) {
-        return w.toUpperCase();
-    });
+export function toCamelCase(_this: string) {
+    return _this.replace(/-(\w)/g, w => w.toUpperCase());
 }
-
-// #endregion
-
-// #region @String#left/String#right
 
 /**
  * 获取字符串左边指定长度的子字符串。
- * @param {Number} length 要获取的子字符串长度。
- * @returns {String} 返回字符串左边 @length 长度的子字符串。
+ * @param length 要获取的子字符串长度。
+ * @returns 返回字符串左边 length 长度的子字符串。
  * @example "abcde".left(3) // "abc"
  */
-export function left(_this: String, length) {
-    return this.substr(0, length);
+export function left(_this: string, length: number) {
+    return _this.substr(0, length);
 }
 
 /**
  * 获取字符串右边指定长度的子字符串。
- * @param {Number} length 要获取的子字符串长度。
- * @returns {String} 返回字符串右边 @length 长度的子字符串。
+ * @param length 要获取的子字符串长度。
+ * @returns 返回字符串右边 length 长度的子字符串。
  * @example "abcde".right(3); // "cde"
  */
-export function right(_this: String, length) {
-    return this.substr(this.length - length, length);
+export function right(_this: string, length: number) {
+    return _this.substr(_this.length - length, length);
 }
 
 /**
  * 将字符串扩展到指定长度，不够的部分在左边使用 @paddingChar 补齐。
- * @param {Number} totalLength 对齐之后的总长度。
- * @param {String} [paddingChar=" "] 填补空白的字符。
- * @returns {String} 返回处理后的字符串。
+ * @param totalLength 对齐之后的总长度。
+ * @param paddingChar 填补空白的字符。
+ * @returns 返回处理后的字符串。
  * @example "6".padLeft(3, '0'); // "006"
  */
-export function padLeft(_this: String, totalLength, paddingChar) {
-    return new Array(totalLength - this.length + 1).join(paddingChar || " ") + this;
+export function padLeft(_this: string, totalLength: number, paddingChar = " ") {
+    return new Array(totalLength - _this.length + 1).join(paddingChar || " ") + _this;
 }
 
 /**
  * 将字符串扩展到指定长度，不够的部分在右边使用@paddingChar 补齐。
- * @param {Number} totalLength 对齐之后的总长度。
- * @param {String} [paddingChar=" "] 填补空白的字符。
- * @returns {String} 返回处理后的字符串。
+ * @param totalLength 对齐之后的总长度。
+ * @param paddingChar 填补空白的字符。
+ * @returns 返回处理后的字符串。
  * @example "6".padRight(3, '0'); // "600"
  */
-export function padRight(_this: String, totalLength, paddingChar) {
-    return this + new Array(totalLength - this.length + 1).join(paddingChar || " ");
+export function padRight(_this: string, totalLength: number, paddingChar = " ") {
+    return _this + new Array(totalLength - _this.length + 1).join(paddingChar || " ");
 }
 
 // #endregion
