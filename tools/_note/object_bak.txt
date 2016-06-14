@@ -1,0 +1,465 @@
+﻿
+declare global {
+
+    interface ObjectConstructor {
+
+        // #region 语言内置
+
+        /**
+         * 复制对象的所有属性到目标对象。
+         * @param target 复制的目标对象。
+         * @param sources 复制的源对象。
+         * @returns 返回 *target*。
+         * @example Object.assign({a: 1}, {b: 2}) // {a: 1, b: 2}
+         * @example Object.assign({a: 1}, {a: 2}) // {a: 2}
+         * @example Object.assign({a: 1}, {b: 2}, {b: 3}) // {a: 1, b: 3}
+         * @since ES6
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+         */
+        assign<T>(target: T, ...sources: any[]): T;
+
+        /**
+         * 获取对象的所有键。
+         * @param obj 要获取的对象。
+         * @returns 返回所有键组成的数组。
+         * @example Object.keys({a: 3, b: 5}) // ["a", "b"]
+         * @since ES5
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+         * @see values
+         */
+        keys(obj: any): string[];
+
+        /**
+         * 获取对象的所有值。
+         * @param obj 要获取的对象。
+         * @returns 返回所有值组成的数组。
+         * @example Object.values({a: 3, b: 5}) // [3, 5]
+         * @since ES7
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+         * @see keys
+         */
+        values(obj: any): string[];
+
+        /**
+         * 创建一个包含指定原型的对象。
+         * @param proto 原型。
+         * @param properties 包含的属性。
+         * @returns 返回创建的对象。
+         * @example Object.create({a: 3, b: 5}) // {a: 3, b: 5}
+         * @since ES6
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+         */
+        create(proto: any, properties: any): { [key: string]: any, [key: number]: any };
+
+        // #endregion
+
+        // #region 模拟数组
+
+        /**
+         * 遍历指定类数组，并对每一项执行 *callback*。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 函数可以返回 false 以终止循环。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果循环是因为 *callback* 返回 false 而中止，则返回 false，否则返回 true。
+         * @example Object.each(["a", "b"], console.log, console); // 打印 '0  a' 和 '1  b'
+         */
+        each<T>(iterable: ArrayLike<any>, callback: (value: T, index: number, target: typeof iterable) => boolean | void, scope?: any): boolean;
+
+        /**
+         * 遍历指定对象，并对每一项执行 *callback*。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 函数可以返回 false 以终止循环。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果循环是因为 *callback* 返回 false 而中止，则返回 false，否则返回 true。
+         * @example Object.each({a: 1, b: 2}, console.log, console); // 打印 'a  1' 和 'b  2'
+         */
+        each<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean | void, scope?: any): boolean;
+
+        /**
+         * 遍历指定类数组，并对每一项执行 *callback*。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @example Object.forEach(["a", "b"], console.log, console); // 打印 '0  a' 和 '1  b'
+         */
+        forEach<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => void, scope?: any): void;
+
+        /**
+         * 遍历指定对象，并对每一项执行 *callback*。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @example Object.forEach({a: 1, b: 2}, console.log, console); // 打印 'a  1' 和 'b  2'
+         */
+        forEach<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => void, scope?: any): void;
+
+        /**
+         * 筛选指定类数组中符合要求的项并组成一个新数组。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回一个新数组。
+         * @example Object.filter([1, 2], function(item){return item > 1;}) // [2]
+         */
+        filter<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): T[];
+
+        /**
+         * 筛选指定对象中符合要求的项并组成一个对象。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回一个对象。
+         * @example Object.filter({a: 1, b: 2}, function(item){ return item > 1; }) // {b:2}
+         */
+        filter<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): { [key: string]: T };
+
+        /**
+         * 遍历指定类数组，并对每一项执行 *callback*，然后返回每个结果组成的新数组。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于计算每一项的返回值。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 返回结果。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回一个新数组。
+         * @example Object.map(["a", "b"], function(a){ return a + a; }) // ["aa", "bb"]
+         * @example Object.map({length: 1, "0": "a"}, function(a){ return a + a; }) // ["a"]
+         */
+        map<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (value: TInput, index: number, target: typeof iterable) => TOutput, scope?: any): TOutput[];
+
+        /**
+         * 遍历指定对象，并对每一项执行 *callback*，然后返回每个结果组成的对象。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于计算每一项的返回值。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 返回结果。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回一个对象。
+         * @example Object.map({a: "a", b: "b"}, function(a){ return a + a; }) // {a: "aa", b: "bb"}
+         */
+        map<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (value: TInput, index: string, target: typeof iterable) => TOutput, scope?: any): { [key: string]: TInput };
+
+        /**
+         * 判断指定类数组是否每一项都满足指定条件。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果所有项满足条件则返回 true，否则返回 false。
+         * @example Object.every([1, 2], function(item) {return item > 0}) // true
+         * @example Object.every([1, 2], function(item) {return item > 1}) // false
+         * @example Object.every([1, 2], function(item) {return item > 2}) // false
+         */
+        every<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): boolean;
+
+        /**
+         * 判断指定对象是否每一项都满足指定条件。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果所有项满足条件则返回 true，否则返回 false。
+         * @example Object.every({a: 1, b: 2}, function(item) {return item > 0}) // true
+         * @example Object.every({a: 1, b: 2}, function(item) {return item > 1}) // false
+         * @example Object.every({a: 1, b: 2}, function(item) {return item > 2}) // false
+         */
+        every<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): boolean;
+
+        /**
+         * 判断指定类数组是否至少存在一项满足指定条件。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
+         * @example Object.some([1, 2], function(item) {return item > 0}) // true
+         * @example Object.some([1, 2], function(item) {return item > 1}) // true
+         * @example Object.some([1, 2], function(item) {return item > 2}) // false
+         */
+        some<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): boolean;
+
+        /**
+         * 判断指定对象是否至少存在一项满足指定条件。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
+         * @example Object.some({a: 1, b: 2}, function(item) {return item > 1}) // true
+         * @example Object.some({a: 1, b: 2}, function(item) {return item > 1}) // true
+         * @example Object.some({a: 1, b: 2}, function(item) {return item > 2}) // false
+         */
+        some<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): boolean;
+
+        /**
+         * 从左往右依次合并类数组中的每一项并最终返回一个值。
+         * @param iterable 要遍历的类数组（不支持函数）。
+         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 返回合并的结果。
+         * @param initialValue 用于合并第一项的初始值。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回合并后的最终结果值。
+         * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}) // 3
+         * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
+         */
+        reduce<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 从左往右依次合并对象中的每一项并最终返回一个值。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 返回合并的结果。
+         * @param initialValue 用于合并第一项的初始值。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回合并后的最终结果值。
+         * @example Object.reduce([1, 2], function(x, y) {return x + y}) // 3
+         * @example Object.reduce([1, 2], function(x, y) {return x + y}, 10) // 13
+         */
+        reduce<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: string, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 从右往左依次合并类数组中的每一项并最终返回一个值。
+         * @param iterable 要遍历的类数组（不支持函数）。
+         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 返回合并的结果。
+         * @param initialValue 用于合并第一项的初始值。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回合并后的最终结果值。
+         * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}) // 3
+         * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
+         */
+        reduceRight<TInput, TOutput>(iterable: { [key: number]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: number, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 从右往左依次合并对象中的每一项并最终返回一个值。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，每次合并两项为一项。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 返回合并的结果。
+         * @param initialValue 用于合并第一项的初始值。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回合并后的最终结果值。
+         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}) // 3
+         * @example Object.reduceRight([1, 2], function(x, y) {return x + y}, 10) // 13
+         */
+        reduceRight<TInput, TOutput>(iterable: { [key: string]: TInput }, callback: (previousValue: TOutput, currentValue: TInput, index: string, target: typeof iterable) => boolean, initialValue?: TOutput, scope?: any): TOutput;
+
+        /**
+         * 找出指定类数组中符合要求的第一项。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+         * @example Object.find([1, 2], function(item){return item > 1;}) // 2
+         */
+        find<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): T | void;
+
+        /**
+         * 找出指定对象中符合要求的第一项。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
+         * @example Object.find({a: 1, b: 2}, function(item){return item > 1;}) // 2
+         */
+        find<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): T | void;
+
+        /**
+         * 找出指定类数组中符合要求的第一项的索引。
+         * @param iterable 要遍历的类数组。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的类数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 undefined。
+         * @example Object.findIndex([1, 2], function(item){return item > 1;}) // 2
+         */
+        findIndex<T>(iterable: { [key: number]: T }, callback: (value: T, index: number, target: typeof iterable) => boolean, scope?: any): number | void;
+
+        /**
+         * 找出指定对象中符合要求的第一项的键。
+         * @param iterable 要遍历的对象（不支持函数）。
+         * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的对象。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * @param scope 设置 *callback* 执行时 this 的值。
+         * @returns 返回符合条件的第一项的键，如果没有满足条件的项，则返回 undefined。
+         * @example Object.findIndex({a: 1, b: 2}, function(item){return item > 1;}) // 2
+         */
+        findIndex<T>(iterable: { [key: string]: T }, callback: (value: T, index: string, target: typeof iterable) => boolean, scope?: any): string | void;
+
+        // #endregion
+
+        // #region 对象扩展
+
+        /**
+         * 复制对象的所有目标对象不存在的属性到目标对象。
+         * @param target 复制的目标对象。
+         * @param sources 复制的源对象。
+         * @returns 返回 *target*。
+         * @example Object.assignIf({a: 1}, {b: 2}) // {a: 1, b: 2}
+         * @example Object.assignIf({a: 1}, {b: 2}, {b: 3}) // {a: 1, b: 2}
+         */
+        assignIf<T>(target: T, ...sources: any[]): T;
+
+        /**
+         * 获取指定对象的类型。
+         * @param obj 要判断的对象。
+         * @returns 返回类型字符串。
+         * @example Object.type(null) // "null"
+         * @example Object.type(undefined) // "undefined"
+         * @example Object.type(new Function) // "function"
+         * @example Object.type(+'a') // "number"
+         * @example Object.type(/a/) // "regexp"
+         * @example Object.type([]) // "array"
+         */
+        type(obj: any): "string" | "number" | "boolean" | "undefined" | "null" | "array" | "function" | "date" | "regexp" | "error" | "object";
+
+        /**
+         * 返回第一个不为空的值。
+         * @param objs 要检测的对象。
+         * @returns 返回第一个不为空的值。如果都为空则返回 undefined。
+         * @example Object.pick(undefined, null, 1) // 1
+         */
+        pick(...objs: any[]): any;
+
+        /**
+         * 返回对象中指定值对应的第一个键。
+         * @param obj 要搜索的对象。
+         * @param value 要查找的值。
+         * @returns 返回匹配的第一个键，如果不存在匹配的值则返回 null。
+         * @example Object.keyOf({a:1, b:1}, 1) // "a"
+         */
+        keyOf(obj: any, value: any): string;
+
+        /**
+         * 判断一个对象是否是引用对象。
+         * @param obj 要判断的对象。
+         * @returns 如果 *obj* 是引用变量，则返回 true，否则返回 false。
+         * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
+         * @example Object.isObject({}) // true
+         * @example Object.isObject(null) // false
+         */
+        isObject(obj: any): boolean;
+
+        /**
+         * 判断一个对象是否为空。
+         * @param obj 要判断的对象。
+         * @returns 如果 *obj* 是 null、undefined、false、空字符串或空数组，则返回 true，否则返回 false。
+         * @example Object.isEmpty(null) // true
+         * @example Object.isEmpty(undefined) // true
+         * @example Object.isEmpty("") // true
+         * @example Object.isEmpty(" ") // false
+         * @example Object.isEmpty([]) // true
+         * @example Object.isEmpty({}) // false
+         */
+        isEmpty(obj: any): boolean;
+
+        /**
+         * 在对象指定键之前插入一个键值对。
+         * @param obj 要插入的对象。
+         * @param refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
+         * @param newKey 新插入的键。
+         * @param newValue 新插入的值。
+         * @returns 返回 *obj*。
+         * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
+         */
+        insertBefore(obj: any, refKey: string, newKey: string, newValue: any);
+
+        /**
+         * 设置对象指定属性的值。
+         * @param obj 要获取的对象。
+         * @param prop 要获取的属性表达式。如 `a.b[0]`。
+         * @returns 返回属性值。如果属性不存在则返回 undefined。
+         * @example Object.get({a: {b: 1}}, "a.b") // 1
+         */
+        get(obj: any, prop: string): any;
+
+        /**
+         * 深拷贝一个对象，返回和原对象无引用关系的副本。
+         * @param obj 要复制的对象。
+         * @returns 返回新对象。
+         * @remark
+         * > 注意：出于性能考虑，`Object.clone` 不会深拷贝函数。
+         * @example Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}
+         */
+        deepClone<T>(obj: T): T;
+
+        /**
+         * 比较两个引用对象的内容是否相同。
+         * @param objX 要比较的第一个对象。
+         * @param objY 要比较的第二个对象。
+         * @returns 如果比较的对象相同则返回 true，否则返回 false。
+         * @example Object.deepEqual([], []) // true
+         */
+        deepEqual(objX: any, objY: any): boolean;
+
+        // #endregion
+
+    }
+
+}
