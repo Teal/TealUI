@@ -929,229 +929,319 @@ export module assignIf {
 
 }
 
-/**
- * 比较两个引用对象的内容是否相同。
- * @param objX 要比较的第一个对象。
- * @param objY 要比较的第二个对象。
- * @returns 如果比较的对象相同则返回 true，否则返回 false。
- * @example Object.deepEqual([], []) // true
- */
-Object.deepEqual = function (objX: any, objY: any) {
-    if (objX && objY && typeof objX === "object" && typeof objY === "object") {
-        for (let key in objX) {
-            if (!Object.deepEqual(objX[key], objY[key])) {
-                return false;
+export module deepEqual {
+
+    /**
+     * 比较两个引用对象的内容是否相同。
+     * @param objX 要比较的第一个对象。
+     * @param objY 要比较的第二个对象。
+     * @returns 如果比较的对象相同则返回 true，否则返回 false。
+     * @example Object.deepEqual([], []) // true
+     */
+    Object.deepEqual = function (objX: any, objY: any) {
+        if (objX && objY && typeof objX === "object" && typeof objY === "object") {
+            for (let key in objX) {
+                if (!Object.deepEqual(objX[key], objY[key])) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
 
-    return objX === objY;
-};
+        return objX === objY;
+    };
 
-/**
- * 深拷贝一个对象，返回和原对象无引用关系的副本。
- * @param obj 要复制的对象。
- * @returns 返回新对象。
- * @remark
- * > 注意：出于性能考虑，`Object.clone` 不会深拷贝函数和正则表达式。
- * @example Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}
- */
-Object.clone = function (obj: any) {
-    if (obj && typeof obj === 'object') {
-        if (obj instanceof Array) {
-            let newObj = [];
-            for (let i = 0; i < obj.length; i++) {
-                newObj[i] = Object.clone(obj[i]);
-            }
-            obj = newObj;
-        } else if (obj instanceof Date) {
-            obj = new Date(+obj);
-        } else if (!(obj instanceof RegExp)) {
-            let newObj = {};
-            for (let i in obj) {
-                newObj[i] = Object.clone(obj[i]);
-            }
-            obj = newObj;
-        }
-    }
-    return obj;
-};
-
-/**
- * 设置对象指定属性的值。
- * @param obj 要获取的对象。
- * @param prop 要获取的属性表达式。如 `a.b[0]`。
- * @returns 返回属性值。如果属性不存在则返回 undefined。
- * @example Object.get({a: {b: 1}}, "a.b") // 1
- */
-Object.get = function (obj: any, prop: string) {
-    prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, (_: string, propName: string, indexer: string) => {
-        if (obj) obj = obj[propName || indexer];
-        return "";
-    });
-    return obj;
-};
-
-/**
- * 在对象指定键之前插入一个键值对。
- * @param obj 要插入的对象。
- * @param refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
- * @param newKey 新插入的键。
- * @param newValue 新插入的值。
- * @returns 返回 *obj*。
- * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
- */
-Object.insertBefore = function (obj, refKey, newKey, newValue) {
-    // #assert obj != null
-    let tmpObj;
-    for (let key in obj) {
-        if (key === refKey) tmpObj = {};
-        if (tmpObj) {
-            tmpObj[key] = obj[key];
-            delete obj[key];
-        }
-    }
-    obj[newKey] = newValue;
-    for (let key in tmpObj) {
-        obj[key] = tmpObj[key];
-    }
-    return obj;
-};
-
-/**
- * 判断一个对象是否为空。
- * @param obj 要判断的对象。
- * @returns 如果 *obj* 是 null、undefined、false、空字符串或空数组，则返回 true，否则返回 false。
- * @example Object.isEmpty(null) // true
- * @example Object.isEmpty(undefined) // true
- * @example Object.isEmpty("") // true
- * @example Object.isEmpty(" ") // false
- * @example Object.isEmpty([]) // true
- * @example Object.isEmpty({}) // false
- */
-Object.isEmpty = function (obj: any) {
-    return !obj || obj.length === 0;
-};
-/**
- * 判断一个对象是否是引用对象。
- * @param obj 要判断的对象。
- * @returns 如果 *obj* 是引用变量，则返回 true，否则返回 false。
- * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
- * @example Object.isObject({}) // true
- * @example Object.isObject(null) // false
- */
-Object.isObject = function (obj: any) {
-    return obj !== null && typeof obj === "object";
-};
-/**
- * 返回对象中指定值对应的第一个键。
- * @param obj 要搜索的对象。
- * @param value 要查找的值。
- * @returns 返回匹配的第一个键，如果不存在匹配的值则返回 null。
- * @example Object.keyOf({a:1, b:1}, 1) // "a"
- */
-Object.keyOf = function (obj: any, value: any) {
-    for (let key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] === value) {
-            return key;
-        }
-    }
-    return null;
-};
-
-/**
- * 返回第一个不为空的值。
- * @param objs 要检测的对象。
- * @returns 返回第一个不为空的值。如果都为空则返回 undefined。
- * @example Object.pick(undefined, null, 1) // 1
- */
-Object.pick = function () {
-    for (let i = 0; i < arguments.length; i++) {
-        if (arguments[i] != undefined) {
-            return arguments[i];
-        }
-    }
 }
 
-/**
- * 设置对象指定属性的值。
- * @param obj 要设置的对象。
- * @param prop 要设置的属性表达式。如 `a.b[0]`。
- * @param value 要设置的值。
- * @returns 返回 *obj*。
- * @example Object.set({}, "a[1].b", 2) // {a:[undefined, {b: 2}]}
- */
-Object.set = function (obj: any, prop: string, value: any) {
-    if (obj == null) obj = {};
+export module deepClone {
 
-    let t = obj;
-    prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, (source: string, propName: string, indexer: string, index: number) => {
-        let key = propName || indexer;
-        if (index + source.length === prop.length) {
-            t[key] = value;
-        } else {
-            if (t[key] == null) t[key] = propName ? {} : [];
-            t = t[key];
+    /**
+     * 深拷贝一个对象，返回和原对象无引用关系的副本。
+     * @param obj 要复制的对象。
+     * @returns 返回新对象。
+     * @remark
+     * > 注意：出于性能考虑，`Object.clone` 不会深拷贝函数和正则表达式。
+     * @example Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}
+     */
+    Object.deepClone = function (obj: any) {
+        if (obj && typeof obj === 'object') {
+            if (obj instanceof Array) {
+                let newObj = [];
+                for (let i = 0; i < obj.length; i++) {
+                    newObj[i] = Object.clone(obj[i]);
+                }
+                obj = newObj;
+            } else if (obj instanceof Date) {
+                obj = new Date(+obj);
+            } else if (!(obj instanceof RegExp)) {
+                let newObj = {};
+                for (let i in obj) {
+                    newObj[i] = Object.clone(obj[i]);
+                }
+                obj = newObj;
+            }
         }
-        return "";
-    });
+        return obj;
+    };
 
-    return obj;
-};
-
-/**
- * 获取对象指定键列表的子集。
- * @param obj 要处理的对象。
- * @param keys 要获取的键列表。
- * @returns 返回新对象。
- * @example Object.subset({a: 1, b: 2}, ['a']) // {a: 1}
- */
-Object.subset = function (obj: any, keys: string[]) {
-    let result = {};
-    for (let i = 0; i < keys.length; i++) {
-        if (keys[i] in obj) {
-            result[keys[i]] = obj[keys[i]];
-        }
-    }
-    return result;
 }
 
-/**
- * 计算对象的属性数。
- * @param obj 要处理的对象。
- * @returns 返回对象自身的属性数，不包含原型属性。
- * @example Object.size({a: 1, b: 2}) // 2
- * @example Object.size([0, 1]) // 2
- */
-Object.size = function (obj: any) {
-    let result = 0;
-    for (let key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) {
-            result++;
+export module get {
+
+    /**
+     * 设置对象指定属性的值。
+     * @param obj 要获取的对象。
+     * @param prop 要获取的属性表达式。如 `a.b[0]`。
+     * @returns 返回属性值。如果属性不存在则返回 undefined。
+     * @example Object.get({a: {b: 1}}, "a.b") // 1
+     */
+    Object.get = function (obj: any, prop: string) {
+        prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, (_: string, propName: string, indexer: string) => {
+            if (obj) obj = obj[propName || indexer];
+            return "";
+        });
+        return obj;
+    };
+
+}
+
+export module insertBefore {
+
+    /**
+     * 在对象指定键之前插入一个键值对。
+     * @param obj 要插入的对象。
+     * @param refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
+     * @param newKey 新插入的键。
+     * @param newValue 新插入的值。
+     * @returns 返回 *obj*。
+     * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
+     */
+    Object.insertBefore = function (obj, refKey, newKey, newValue) {
+        // #assert obj != null
+        let tmpObj;
+        for (let key in obj) {
+            if (key === refKey) tmpObj = {};
+            if (tmpObj) {
+                tmpObj[key] = obj[key];
+                delete obj[key];
+            }
+        }
+        obj[newKey] = newValue;
+        for (let key in tmpObj) {
+            obj[key] = tmpObj[key];
+        }
+        return obj;
+    };
+
+}
+
+export module isEmpty {
+
+    /**
+     * 判断一个对象是否为空。
+     * @param obj 要判断的对象。
+     * @returns 如果 *obj* 是 null、undefined、false、空字符串或空数组，则返回 true，否则返回 false。
+     * @example Object.isEmpty(null) // true
+     * @example Object.isEmpty(undefined) // true
+     * @example Object.isEmpty("") // true
+     * @example Object.isEmpty(" ") // false
+     * @example Object.isEmpty([]) // true
+     * @example Object.isEmpty({}) // false
+     */
+    Object.isEmpty = function (obj: any) {
+        return !obj || obj.length === 0;
+    };
+
+}
+
+export module isObject {
+
+    /**
+     * 判断一个对象是否是引用对象。
+     * @param obj 要判断的对象。
+     * @returns 如果 *obj* 是引用变量，则返回 true，否则返回 false。
+     * @remark 此函数等效于 `obj !== null && typeof obj === "object"`
+     * @example Object.isObject({}) // true
+     * @example Object.isObject(null) // false
+     */
+    Object.isObject = function (obj: any) {
+        return obj !== null && typeof obj === "object";
+    };
+
+}
+
+export module keyOf {
+
+    /**
+     * 返回对象中指定值对应的第一个键。
+     * @param obj 要搜索的对象。
+     * @param value 要查找的值。
+     * @returns 返回匹配的第一个键，如果不存在匹配的值则返回 null。
+     * @example Object.keyOf({a:1, b:1}, 1) // "a"
+     */
+    Object.keyOf = function (obj: any, value: any) {
+        for (let key in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, key) && obj[key] === value) {
+                return key;
+            }
+        }
+        return null;
+    };
+
+}
+
+export module pick {
+
+    /**
+     * 返回第一个不为空的值。
+     * @param objs 要检测的对象。
+     * @returns 返回第一个不为空的值。如果都为空则返回 undefined。
+     * @example Object.pick(undefined, null, 1) // 1
+     */
+    Object.pick = function () {
+        for (let i = 0; i < arguments.length; i++) {
+            if (arguments[i] != undefined) {
+                return arguments[i];
+            }
         }
     }
-    return result;
-};
 
-/**
- * 获取指定对象的类型。
- * @param obj 要判断的对象。
- * @returns 返回类型字符串。
- * @example Object.type(null) // "null"
- * @example Object.type(undefined) // "undefined"
- * @example Object.type(new Function) // "function"
- * @example Object.type(+'a') // "number"
- * @example Object.type(/a/) // "regexp"
- * @example Object.type([]) // "array"
- */
-Object.type = function (obj: any): "string" | "number" | "boolean" | "undefined" | "null" | "array" | "function" | "date" | "regexp" | "error" | "object" {
-    let types = Object["_types"];
-    if (!types) {
-        Object["_types"] = types = {};
-        "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g, (typeName: string) => types["[object " + typeName + "]"] = typeName.toLowerCase());
+}
+
+export module set {
+
+    /**
+     * 设置对象指定属性的值。
+     * @param obj 要设置的对象。
+     * @param prop 要设置的属性表达式。如 `a.b[0]`。
+     * @param value 要设置的值。
+     * @returns 返回 *obj*。
+     * @example Object.set({}, "a[1].b", 2) // {a:[undefined, {b: 2}]}
+     */
+    Object.set = function (obj: any, prop: string, value: any) {
+        if (obj == null) obj = {};
+
+        let t = obj;
+        prop.replace(/\.?\s*([^\.\[]+)|\[\s*([^\]]*)\s*\]/g, (source: string, propName: string, indexer: string, index: number) => {
+            let key = propName || indexer;
+            if (index + source.length === prop.length) {
+                t[key] = value;
+            } else {
+                if (t[key] == null) t[key] = propName ? {} : [];
+                t = t[key];
+            }
+            return "";
+        });
+
+        return obj;
+    };
+
+}
+
+export module subset {
+
+    /**
+     * 获取对象指定键列表的子集。
+     * @param obj 要处理的对象。
+     * @param keys 要获取的键列表。
+     * @returns 返回新对象。
+     * @example Object.subset({a: 1, b: 2}, ['a']) // {a: 1}
+     */
+    Object.subset = function (obj: any, keys: string[]) {
+        let result = {};
+        for (let i = 0; i < keys.length; i++) {
+            if (keys[i] in obj) {
+                result[keys[i]] = obj[keys[i]];
+            }
+        }
+        return result;
     }
-    return obj == null ? String(obj) : types[types.toString.call(obj)] || "object";
-};
 
+}
+
+export module size {
+
+    /**
+     * 计算对象的属性数。
+     * @param obj 要处理的对象。
+     * @returns 返回对象自身的属性数，不包含原型属性。
+     * @example Object.size({a: 1, b: 2}) // 2
+     * @example Object.size([0, 1]) // 2
+     */
+    Object.size = function (obj: any) {
+        let result = 0;
+        for (let key in obj) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
+                result++;
+            }
+        }
+        return result;
+    };
+
+}
+
+export module type {
+
+    /**
+     * 获取指定对象的类型。
+     * @param obj 要判断的对象。
+     * @returns 返回类型字符串。
+     * @example Object.type(null) // "null"
+     * @example Object.type(undefined) // "undefined"
+     * @example Object.type(new Function) // "function"
+     * @example Object.type(+'a') // "number"
+     * @example Object.type(/a/) // "regexp"
+     * @example Object.type([]) // "array"
+     */
+    Object.type = function (obj: any): "string" | "number" | "boolean" | "undefined" | "null" | "array" | "function" | "date" |
+        "regexp" | "error" | "object" {
+        let types = Object["_types"];
+        if (!types) {
+            Object["_types"] = types = {};
+            "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g,
+                (typeName: string) => types["[object " + typeName + "]"] = typeName.toLowerCase());
+        }
+        return obj == null ? String(obj) : types[types.toString.call(obj)] || "object";
+    };
+
+}
+
+export module diff {
+
+
+    function compareJson(objX, objY, result) {
+
+        result = result || [];
+
+        // 基础类型
+
+
+        // 对象类型
+        for (var key in objY) {
+            if (objY[key] !== objX[key]) {
+                if (!(key in objX)) {
+                    result.push({
+                        action: 'delete',
+                        key: key
+                    });
+                    continue;
+                }
+                compareJson(objX[key], objY[key], result.children = []);
+            }
+        }
+        for (var key in objX) {
+            if (!(key in objY)) {
+                result.push({
+                    action: "add",
+                    key: key
+                });
+            }
+        }
+
+
+        return result;
+    }
+
+
+}
 // #endregion
