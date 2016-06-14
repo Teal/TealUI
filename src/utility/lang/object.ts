@@ -458,7 +458,7 @@ export function reduceRight<T, R>(iterable: ArrayLike<T> | { [key: string]: T },
  * @example Object.type([]) // "array"
  */
 export function type(obj: any): "string" | "number" | "boolean" | "undefined" | "null" | "array" | "function" | "date" | "regexp" | "error" | "object" {
-    let cache = type.cache;
+    let cache = type.types;
     if (!cache) {
         Object["_types"] = cache = {};
         "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g, typeName => cache["[object " + typeName + "]"] = typeName.toLowerCase());
@@ -467,7 +467,7 @@ export function type(obj: any): "string" | "number" | "boolean" | "undefined" | 
 }
 
 export namespace type {
-    export var cache: { [key: string]: any };
+    export var types: { [key: string]: any };
 }
 
 /**
