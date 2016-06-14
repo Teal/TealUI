@@ -1,16 +1,19 @@
-// #todo
-
 /**
+ * @fileOverview AJAX 请求
  * @author xuld@vip.qq.com
  */
 
-import {stringify} from './text/queryString';
+import {stringifyQuery} from '../text/url/query';
 
 /**
- * 表示一个 Ajax 请求。
- * @class
+ * 表示一个 AJAX 请求。
  */
-export class Ajax {
+class Ajax {
+
+    /**
+     * 当前请求的类型。如 "GET"。
+     */
+    type: string;
 
     /**
      * 请求的地址。
@@ -18,258 +21,144 @@ export class Ajax {
     url: string;
 
     /**
-     * 初始化一个新的 AJAX 请求。
-     * @param options 请求的配置。
+     * 当前请求的数据。
      */
-    constructor(options) {
-        Object.assign(this, options);
+    data: string;
 
-        // 支持同时发送多个请求。
-        if (me.url && me.url.constructor === Array) {
-            me.dataType = 'subAjax';
-        } else {
+    /**
+     * 设置额外的请求头。
+     */
+    headers: { [name: string]: string };
 
-            // url
-            me.url = me.url ? me.url.replace(/#.*$/, "") : Ajax.getCurrentUrl();
+    /**
+     * 请求是否是异步的。
+     */
+    async: boolean;
 
-            // type
-            me.type = me.type ? me.type.toUpperCase() : 'GET';
+    /**
+     * 请求的超时毫秒数。如果值为 -1 则不设置超时。
+     */
+    timeout: number;
 
-            // data
-            me.data = QueryString.stringify(me.data);
-            if (me.data && me.type === 'GET') {
-                me.url = Ajax.appendQuery(me.url, me.data);
-                me.data = null;
-            }
+    /**
+     * 标记当前请求是否是跨域请求。默认为自动判断。
+     */
+    crossDomain: boolean;
 
-            // async
-            me.async = me.async !== false;
+    /**
+     * 是否允许从缓存请求。
+     */
+    cache: boolean;
 
-            // crossDomain
-            if (me.crossDomain == null) {
-                me.crossDomain = Ajax.isCrossDomain(me.url);
-            }
+    /**
+     * 实际发送请求的对象。
+     */
+    xhr: any;
 
-        }
+    /**
+     * 请求开始的回调函数。函数可以返回 false 以终止请求。
+     */
+    start: () => boolean | void;
 
-    }
+    /**
+     * 请求成功的回调函数。
+     * @param data 响应的数据。
+     */
+    success: (data: string) => void;
 
-}
+    /**
+     * 请求失败的回调函数。
+     * @param error 错误的原因。
+     */
+    error: (error: string) => void;
 
-Ajax.prototype = {
+    /**
+     * 请求完成的回调函数。无论请求是否成功都会执行此回调。
+     * @param error 如果请求错误，则值为错误的原因。
+     * @param data 如果请求成功，则返回响应的数据。
+     */
+    complete: (error: string, data: string) => void;
 
-    constructor: Ajax,
+    /**
+     * 请求的用户名。
+     */
+    username: string;
+
+    /**
+     * 请求的密码。
+     */
+    password: string;
+
+    /**
+     * 获取服务器返回的状态码。
+     */
+    status: number;
+
+    /**
+     * 获取服务器返回的状态文本。
+     */
+    statusText: string;
+
+    /**
+     * 获取服务器返回的数据。
+     */
+    responseText: string;
+
+    //* * @param {Function} [error] 请求失败时的回调。回调参数为发生的错误。
+    //* * @param {String} [jsonp] 如果使用 jsonp 请求，则指示 jsonp 参数名。如果设为 @false，则不添加 jsonp 参数。
+    //* * @param {Boolean} [jsonpCallback] jsonp 请求回调函数名。如未指定则根据当前时间戳自动生成。
+    //* * @param {String} [password] 请求的密码。
+    //* * @param {Function} [start] 请求开始时的回调。
+    //* * @param {Function} [success] 请求成功时的回调。参数为请求的数据。
+    //* * @param {Number} [timeout=-1] 请求超时毫秒数。-1 表示不设超时。
+    //* * @param {mixed} [type="GET"] 请求类型。
+    //* * @param {String} [url] 请求的地址。请求的多个地址时可使用error: error数组，这时所有请求完成后才触发回调。如未指定则使用当前页面。
+    //* 
+    //* 响应时， options 将被追加以下参数：
+    //* 
+    //* * @param {Number} errorCode 返回的错误码。0： 无错误；-1：状态码错误；2：数据解析错误。-1：操作被取消；-2：请求超时；-3...-6：其它内部错误。
+    //* * @param {Number} status 服务器返回的状态码。
+    //* * @param {Number} statusText 服务器返回的状态文本。
+    //* * @param {Object} response 如果有错误则返回错误信息，否则返回请求的数据。
+    //*
 
     /**
      * 发送当前的请求。
      */
-    send: function () {
+    send() {
 
-        var me = this;
+        this.url = (this.url || Ajax.getCurrentUrl()).replace(/#.*$/, "") : ;
 
-        // 调用用户自定义 Ajax 初始化回调。
-        // 根据 dataType 获取当前用于传输的工具。实际的发送操作。
-        (!Ajax.init || Ajax.init(me) !== false) &&
-            (!me.start || me.start() !== false) &&
-            (Ajax.transports[me.dataType] || Ajax.transports.text)(me, Ajax.done) !== false &&
-            (me.timeout > 0 && me.done && setTimeout(function () {
-                me.done('Timeout', -2);
-            }, me.timeout));
-
-        return me;
-
-    },
-
-    /**
-     * 当被子类重写时，负责终止当前请求。
-     */
-    abort: function () {
-        this.done && this.done('Aborted', -1);
-    }
-
-};
-
-/**
- * 获取当前页的地址。
- * @returns {String} 返回当前地址。
- * @inner
- */
-Ajax.getCurrentUrl = function () {
-    // 如果设置了 document.domain, IE 会抛出异常。
-    try {
-        return location.href;
-    } catch (e) {
-        // 使用 a 的默认属性获取当前地址。
-        var ajaxLoc = document.createElement("a");
-        ajaxLoc.href = "";
-        return ajaxLoc.href;
-    }
-};
-
-/**
- * 判断指定的地址是否跨域。
- * @param {String} url 要判断的地址。
- * @returns {String} 返回处理后的地址。
- * @inner
- */
-Ajax.isCrossDomain = function (url) {
-    typeof console === "object" && console.assert(typeof url === "string", "Ajax.isCrossDomain(url: 必须是字符串)");
-    var rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/,
-        locParts = rUrl.exec(Ajax.getCurrentUrl().toLowerCase()) || 0;
-    url = rUrl.exec(url.toLowerCase());
-    return !!url && (url[1] != locParts[1] || url[2] != locParts[2] || (url[3] || (url[1] === "http:" ? 80 : 443)) != (locParts[3] || (locParts[1] === "http:" ? 80 : 443)));
-};
-
-/**
- * 在指定地址添加参数以避免服务器端缓存。
- * @param {String} url 要处理的地址。
- * @param {String} param 要添加的参数。
- * @returns {String} 返回处理后的地址。
- * @inner
- */
-Ajax.appendQuery = function (url, param) {
-    typeof console === "object" && console.assert(typeof url === "string", "Ajax.appendQuery(url: 必须是字符串, [param])");
-    return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
-};
-
-/**
- * 在指定地址添加参数以避免服务器端缓存。
- * @param {String} url 要处理的地址。
- * @returns {String} 返回处理后的地址。
- * @inner
- */
-Ajax.appendCacheQuery = function (url) {
-    // 不需要完美添加或删除功能。
-    // return (/[?&]_=/.test(url) ? url : Ajax.appendQuery(url, "_=")).replace(/([?&]_=)([^&]*)/, "$1" + +new Date);
-    return Ajax.appendQuery(url, "_=" + +new Date);
-};
-
-/**
- * 所有支持的 MimeType。
- * @inner
- */
-Ajax.accepts = {
-    script: 'text/javascript, application/javascript, application/x-javascript',
-
-    // #region @json
-
-    json: 'application/json',
-
-    // #endregion
-
-    // #region @xml
-
-    xml: 'application/xml, text/xml',
-
-    // #endregion
-
-    html: 'text/html',
-    text: 'text/plain'
-};
-
-/**
- * 支持的数据解析器。
- * @inner
- */
-Ajax.parsers = {
-
-    /**
-     * 获取文本格式数据。
-     * @type {Object} options 要处理的原始 options。
-     */
-    text: function (options) {
-        var responseText;
-        try {
-            responseText = options.xhr.responseText;
-        } catch (ieResponseTextError) {
-            // IE6-9：请求二进制格式的文件报错。
-            responseText = '';
+        if (this.data && typeof this.data === "object") {
+            this.data = stringifyQuery(this.data);
         }
-        return options.responseText = responseText;
-    },
 
-    // #region @script
+        this.async = this.async !== false;
 
-    /**
-     * 执行 JavaScript 代码。
-     * @type {Object} options 要处理的原始 options。
-     */
-    script: function (options) {
-        var sourceCode = Ajax.parsers.text(options);
-        window.execScript ? window.execScript(sourceCode) : window.eval(sourceCode);
-    },
+        if (this.crossDomain == null) {
+            this.crossDomain = Ajax.isCrossDomain(this.url);
+        }
 
-    // #endregion
+        if ((Ajax.start && Ajax.start(this) === false) || (this.start && this.start() === false)) return;
 
-    // #region @json
-
-    /**
-     * 获取 JSON 格式数据。
-     * @type {Object} options 要处理的原始 options。
-     */
-    json: function (options) {
-        return JSON.parse(Ajax.parsers.text(options));
-    },
-
-    // #endregion
-
-    // #region @xml
-
-    /**
-     * 获取 XML 格式数据。
-     * @type {Object} options 要处理的原始 options。
-     */
-    xml: function (options) {
-        var xml = options.xhr.responseXML;
-        return xml && xml.documentElement ? xml : null;
-    }
-
-    // #endregion
-
-};
-
-/**
- * 所有支持的传输协议集合。
- * @inner
- */
-Ajax.transports = {
-
-    // #region @text
-
-    /**
-     * 文本格式传输协议。
-     */
-    text: function (ajax, callback) {
+        (me.timeout > 0 && me.done && setTimeout(function () {
+            me.done('Timeout', -2);
+        }, me.timeout));
 
         // #region 生成请求头
 
         // headers['Accept']
         var headers = {
-            Accept: ajax.dataType in Ajax.accepts ? Ajax.accepts[ajax.dataType] + ", *\u005c*; q=0.01" : "*\u005c*"
+            Accept: "*\u005c*"
         };
 
-        // headers['Accept-Charset']
-        if (ajax.charset) {
-            headers["Accept-Charset"] = value;
-        }
-
-        // headers['Content-Type']
-        if (ajax.data) {
-            headers['Content-Type'] = "application/x-www-form-urlencoded; charset=" + (ajax.charset || "UTF-8");
-        }
-
-        if (ajax.contentType) {
-            headers['Content-Type'] = ajax.contentType;
-        }
-
-        // headers['x-Requested-With']
-        if (!ajax.crossDomain) {
-            headers['x-Requested-With'] = 'XMLHttpRequest';
-        }
+        if (!headers['Accept']) headers['Accept'] = "*\u005c*";
+        if (this.data && !headers['Content-Type']) headers['Content-Type'] = "application/x-www-form-urlencoded; charset=UTF-8";
+        if (!this.crossDomain) headers['x-Requested-With'] = 'XMLHttpRequest';
 
         // 如果参数有 headers, 复制到当前 headers 。
-        for (var key in ajax.headers) {
-            headers[key] = ajax.headers[key];
+        for (var key in this.headers) {
+            headers[key] = this.headers[key];
         }
 
         // #endregion
@@ -281,6 +170,10 @@ Ajax.transports = {
         if (ajax.cache !== true) {
             url = Ajax.appendCacheQuery(url);
         }
+
+        /*@cc_on if(!+"\v1") {
+        XMLHttpRequest = function() { return new ActiveXObject("Microsoft.XMLHTTP"); };
+        } @*/
 
         // 请求对象。
         var xhr = ajax.xhr = new XMLHttpRequest();
@@ -402,6 +295,182 @@ Ajax.transports = {
 
         // #endregion
 
+    }
+
+    /**
+     * 当被子类重写时，负责终止当前请求。
+     */
+    abort() {
+        this.done && this.done('Aborted', -1);
+    }
+
+    /**
+     * 获取当前网页的地址。
+     * @returns 返回当前地址。
+     */
+    static getCurrentUrl() {
+        // 如果设置了 document.domain, IE 会抛出异常。
+        try {
+            return location.href;
+        } catch (e) {
+            // 使用 a 的默认属性获取当前地址。
+            var ajaxLoc = document.createElement("a");
+            ajaxLoc.href = "";
+            return ajaxLoc.href;
+        }
+    }
+
+    /**
+     * 判断指定的地址是否跨域。
+     * @param url 要判断的地址。
+     * @returns 返回处理后的地址。
+     */
+    static isCrossDomain(url: string) {
+        const rUrl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+)|)|)/;
+        const locParts = rUrl.exec(Ajax.getCurrentUrl().toLowerCase()) || 0;
+        const match = rUrl.exec(url.toLowerCase());
+        return !!match && (match[1] != locParts[1] || match[2] != locParts[2] || (match[3] || (match[1] === "http:" ? 80 : 443)) != (locParts[3] || (locParts[1] === "http:" ? 80 : 443)));
+    }
+
+    /**
+     * 发送所有请求时执行的回调。
+     * @param ajax 当前要发送的 Ajax 请求。
+     * @returns 如果阻止请求则返回 false。
+     */
+    static start: (ajax: Ajax) => boolean | void;
+
+    /**
+     * 在指定地址添加参数以避免服务器端缓存。
+     * @param {String} url 要处理的地址。
+     * @param {String} param 要添加的参数。
+     * @returns {String} 返回处理后的地址。
+     * @inner
+     */
+    static appendQuery(url: string, param: string) {
+        typeof console === "object" && console.assert(typeof url === "string", "Ajax.appendQuery(url: 必须是字符串, [param])");
+        return param ? url + (url.indexOf('?') >= 0 ? '&' : '?') + param : url;
+    };
+
+    /**
+     * 在指定地址添加参数以避免服务器端缓存。
+     * @param {String} url 要处理的地址。
+     * @returns {String} 返回处理后的地址。
+     * @inner
+     */
+    static appendCacheQuery(url: string) {
+        // 不需要完美添加或删除功能。
+        // return (/[?&]_=/.test(url) ? url : Ajax.appendQuery(url, "_=")).replace(/([?&]_=)([^&]*)/, "$1" + +new Date);
+        return Ajax.appendQuery(url, "_=" + +new Date);
+    };
+
+}
+
+export = Ajax;
+
+/**
+ * 表示 Ajax 发送请求的选项。
+ */
+interface AjaxOptions extends Ajax {
+
+}
+
+/**
+ * 所有支持的 MimeType。
+ * @inner
+ */
+Ajax.accepts = {
+    script: 'text/javascript, application/javascript, application/x-javascript',
+
+    // #region @json
+
+    json: 'application/json',
+
+    // #endregion
+
+    // #region @xml
+
+    xml: 'application/xml, text/xml',
+
+    // #endregion
+
+    html: 'text/html',
+    text: 'text/plain'
+};
+
+/**
+ * 支持的数据解析器。
+ * @inner
+ */
+Ajax.parsers = {
+
+    /**
+     * 获取文本格式数据。
+     * @type {Object} options 要处理的原始 options。
+     */
+    text: function (options) {
+        var responseText;
+        try {
+            responseText = options.xhr.responseText;
+        } catch (ieResponseTextError) {
+            // IE6-9：请求二进制格式的文件报错。
+            responseText = '';
+        }
+        return options.responseText = responseText;
+    },
+
+    // #region @script
+
+    /**
+     * 执行 JavaScript 代码。
+     * @type {Object} options 要处理的原始 options。
+     */
+    script: function (options) {
+        var sourceCode = Ajax.parsers.text(options);
+        window.execScript ? window.execScript(sourceCode) : window.eval(sourceCode);
+    },
+
+    // #endregion
+
+    // #region @json
+
+    /**
+     * 获取 JSON 格式数据。
+     * @type {Object} options 要处理的原始 options。
+     */
+    json: function (options) {
+        return JSON.parse(Ajax.parsers.text(options));
+    },
+
+    // #endregion
+
+    // #region @xml
+
+    /**
+     * 获取 XML 格式数据。
+     * @type {Object} options 要处理的原始 options。
+     */
+    xml: function (options) {
+        var xml = options.xhr.responseXML;
+        return xml && xml.documentElement ? xml : null;
+    }
+
+    // #endregion
+
+};
+
+/**
+ * 所有支持的传输协议集合。
+ * @inner
+ */
+Ajax.transports = {
+
+    // #region @text
+
+    /**
+     * 文本格式传输协议。
+     */
+    text: function (ajax, callback) {
+
     },
 
     // #endregion
@@ -515,6 +584,29 @@ Ajax.transports = {
     // #endregion
 
     /**
+     * 判断一个 HTTP 状态码是否表示正常响应。
+     * @param {Number} status 要判断的状态码。
+     * @returns {Boolean} 如果正常则返回true, 否则返回 false 。
+     * @remark 一般地， 200、304、1223 被认为是正常的状态吗。
+     * @inner
+     */
+    static checkStatus(statusCode) {
+
+        // 获取状态。
+        if (!statusCode) {
+
+            // 获取协议。
+            var protocol = window.location.protocol;
+
+            // 对谷歌浏览器, 在有些协议， status 不存在。
+            return (protocol == "file: " || protocol == "chrome: " || protocol == "app: ");
+        }
+
+        // 检查， 各浏览器支持不同。
+        return (statusCode >= 200 && statusCode < 300) || statusCode == 304 || statusCode == 1223;
+    }
+
+    /**
      * 多个外部 AJAX 请求组成。
      */
     subAjax: function (ajax) {
@@ -561,32 +653,6 @@ Ajax.transports = {
  * 发送一个 AJAX 请求。
  * @param {Object} options 发送的配置。支持的值有：
  * 
- * * @param {Boolean} [async=true] 是否为异步的请求。
- * * @param {Boolean} [cache=true] 是否允许缓存。
- * * @param {String} [charset=true] 请求的字符编码。
- * * @param {Function} [complete] 请求完成时的回调。回调参数为请求的数据或发生的错误。
- * * @param {Boolean} [crossDomain] 指示 AJAX 强制使用跨域方式的请求。如未指定则自动判断。
- * * @param {Object} [data] 请求的数据。
- * * @param {String} [dataType] 请求数据的类型。可选的值有：`"text"/"script"/"html"/"xml"/"json"/"jsonp"`。如未指定则自动判断。
- * * @param {Function} [error] 请求失败时的回调。回调参数为发生的错误。
- * * @param {Object} [headers] 附加的额外请求头信息。
- * * @param {String} [jsonp] 如果使用 jsonp 请求，则指示 jsonp 参数名。如果设为 @false，则不添加 jsonp 参数。
- * * @param {Boolean} [jsonpCallback] jsonp 请求回调函数名。如未指定则根据当前时间戳自动生成。
- * * @param {String} [password] 请求的密码。
- * * @param {Function} [start] 请求开始时的回调。
- * * @param {Function} [success] 请求成功时的回调。参数为请求的数据。
- * * @param {Number} [timeout=-1] 请求超时毫秒数。-1 表示不设超时。
- * * @param {mixed} [type="GET"] 请求类型。
- * * @param {String} [url] 请求的地址。请求的多个地址时可使用error: error数组，这时所有请求完成后才触发回调。如未指定则使用当前页面。
- * * @param {String} [username] 请求的用户名。
- * 
- * 响应时， options 将被追加以下参数：
- * 
- * * @param {Number} errorCode 返回的错误码。0： 无错误；-1：状态码错误；2：数据解析错误。-1：操作被取消；-2：请求超时；-3...-6：其它内部错误。
- * * @param {Number} status 服务器返回的状态码。
- * * @param {Number} statusText 服务器返回的状态文本。
- * * @param {Object} response 如果有错误则返回错误信息，否则返回请求的数据。
- *
  * @returns {Ajax} 返回新创建的 Ajax 对象。
  * @example 
  * Ajax.send({
@@ -631,10 +697,6 @@ Ajax.send = function (options, url, data, onsuccess, onerror, dataType) {
         };
     }
 
-    typeof console === "object" && console.assert(!options.start || options.start instanceof Function, "Ajax.send(options: start 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    typeof console === "object" && console.assert(!options.error || options.error instanceof Function, "Ajax.send(options: error 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    typeof console === "object" && console.assert(!options.success || options.success instanceof Function, "Ajax.send(options: success 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
-    typeof console === "object" && console.assert(!options.complete || options.complete instanceof Function, "Ajax.send(options: complete 必须是函数, [url], [data], [onsuccess], [onerror], [dataType])");
     return new Ajax(options).send();
 
 };
@@ -661,29 +723,6 @@ Ajax.done = function (ajax) {
 };
 
 // #region @text
-
-/**
- * 判断一个 HTTP 状态码是否表示正常响应。
- * @param {Number} status 要判断的状态码。
- * @returns {Boolean} 如果正常则返回true, 否则返回 false 。
- * @remark 一般地， 200、304、1223 被认为是正常的状态吗。
- * @inner
- */
-Ajax.checkStatus = function (statusCode) {
-
-    // 获取状态。
-    if (!statusCode) {
-
-        // 获取协议。
-        var protocol = window.location.protocol;
-
-        // 对谷歌浏览器, 在有些协议， status 不存在。
-        return (protocol == "file: " || protocol == "chrome: " || protocol == "app: ");
-    }
-
-    // 检查， 各浏览器支持不同。
-    return (statusCode >= 200 && statusCode < 300) || statusCode == 304 || statusCode == 1223;
-};
 
 /**
  * 发送一个 GET 异步请求。
