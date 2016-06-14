@@ -1,5 +1,6 @@
 ﻿/**
  * @fileOverview 对象(Object)扩展
+ * @description 提供 JavaScript 内置对象 Array 的扩展 API。
  */
 
 declare global {
@@ -63,9 +64,9 @@ declare global {
         /**
          * 遍历当前数组，并对每一项执行 *callback*。
          * @param callback 对每一项执行的回调函数。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @example ["a", "b"].forEach(console.log, console); // 打印 '0  a' 和 '1  b'
          * @since ES5
@@ -76,10 +77,10 @@ declare global {
         /**
          * 筛选当前数组中符合要求的项并组成一个新数组。
          * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回一个新数组。
          * @example [1, 2].filter(function(item){return item > 1;}) // [2]
@@ -91,10 +92,10 @@ declare global {
         /**
          * 遍历当前数组，并对每一项执行 *callback*，然后返回每个结果组成的新数组或对象。
          * @param callback 对每一项执行的回调函数，用于计算每一项的返回值。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 返回结果。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 返回结果。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回一个新数组。
          * @example [1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]
@@ -106,10 +107,10 @@ declare global {
         /**
          * 判断当前数组是否每一项都满足指定条件。
          * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 如果所有项满足条件则返回 true，否则返回 false。
          * @example [1, 2].every(function(item) {return item > 0}) // true
@@ -123,10 +124,10 @@ declare global {
         /**
          * 判断当前数组是否至少存在一项满足指定条件。
          * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
          * @example [1, 2].some(function(item) {return item > 0}) // true
@@ -140,11 +141,11 @@ declare global {
         /**
          * 从左往右依次合并当前数组中的每一项并最终返回一个值。
          * @param callback 对每一项执行的回调函数，每次合并两项为一项。
-         * - param previousValue 要合并的前一项。
-         * - param currentValue 要合并的当前项。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 返回合并的结果。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 返回合并的结果。
          * @param initialValue 用于合并第一项的初始值。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回合并后的最终结果值。
@@ -158,11 +159,11 @@ declare global {
         /**
          * 从右往左依次合并当前数组中的每一项并最终返回一个值。
          * @param callback 对每一项执行的回调函数，每次合并两项为一项。
-         * - param previousValue 要合并的前一项。
-         * - param currentValue 要合并的当前项。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 返回合并的结果。
+         * * param previousValue 要合并的前一项。
+         * * param currentValue 要合并的当前项。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 返回合并的结果。
          * @param initialValue 用于合并第一项的初始值。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回合并后的最终结果值。
@@ -176,10 +177,10 @@ declare global {
         /**
          * 找出当前数组中符合要求的第一项。
          * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
          * @example [1, 2].find(function(item){return item > 1;}) // 2
@@ -191,10 +192,10 @@ declare global {
         /**
          * 找出当前数组中符合要求的第一项的索引。
          * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-         * - param value 当前项的值。
-         * - param index 当前项的索引或键。
-         * - param target 当前正在遍历的数组。
-         * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+         * * param value 当前项的值。
+         * * param index 当前项的索引或键。
+         * * param target 当前正在遍历的数组。
+         * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
          * @param scope 设置 *callback* 执行时 this 的值。
          * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 -1。
          * @example [1, 2].findIndex(function(item){return item > 1;}) // 1
@@ -299,9 +300,9 @@ export module forEach {
     /**
      * 遍历当前数组，并对每一项执行 *callback*。
      * @param callback 对每一项执行的回调函数。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @example ["a", "b"].forEach(console.log, console); // 打印 '0  a' 和 '1  b'
      * @since ES5
@@ -323,10 +324,10 @@ export module filter {
     /**
      * 筛选当前数组中符合要求的项并组成一个新数组。
      * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回一个新数组。
      * @example [1, 2].filter(function(item){return item > 1;}) // [2]
@@ -352,10 +353,10 @@ export module map {
     /**
      * 遍历当前数组，并对每一项执行 *callback*，然后返回每个结果组成的新数组或对象。
      * @param callback 对每一项执行的回调函数，用于计算每一项的返回值。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 返回结果。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 返回结果。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回一个新数组。
      * @example [1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]
@@ -380,10 +381,10 @@ export module every {
     /**
      * 判断当前数组是否每一项都满足指定条件。
      * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 如果所有项满足条件则返回 true，否则返回 false。
      * @example [1, 2].every(function(item) {return item > 0}) // true
@@ -409,10 +410,10 @@ export module some {
     /**
      * 判断当前数组是否至少存在一项满足指定条件。
      * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
      * @example [1, 2].some(function(item) {return item > 0}) // true
@@ -438,11 +439,11 @@ export module reduce {
     /**
      * 从左往右依次合并当前数组中的每一项并最终返回一个值。
      * @param callback 对每一项执行的回调函数，每次合并两项为一项。
-     * - param previousValue 要合并的前一项。
-     * - param currentValue 要合并的当前项。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 返回合并的结果。
+     * * param previousValue 要合并的前一项。
+     * * param currentValue 要合并的当前项。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 返回合并的结果。
      * @param initialValue 用于合并第一项的初始值。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回合并后的最终结果值。
@@ -474,11 +475,11 @@ export module reduceRight {
     /**
      * 从右往左依次合并当前数组中的每一项并最终返回一个值。
      * @param callback 对每一项执行的回调函数，每次合并两项为一项。
-     * - param previousValue 要合并的前一项。
-     * - param currentValue 要合并的当前项。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 返回合并的结果。
+     * * param previousValue 要合并的前一项。
+     * * param currentValue 要合并的当前项。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 返回合并的结果。
      * @param initialValue 用于合并第一项的初始值。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回合并后的最终结果值。
@@ -509,10 +510,10 @@ export module find {
     /**
      * 找出当前数组中符合要求的第一项。
      * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
      * @example [1, 2].find(function(item){return item > 1;}) // 2
@@ -536,10 +537,10 @@ export module findIndex {
     /**
      * 找出当前数组中符合要求的第一项的索引。
      * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
-     * - param value 当前项的值。
-     * - param index 当前项的索引或键。
-     * - param target 当前正在遍历的数组。
-     * - returns 如果当前项符合条件则应该返回 true，否则返回 false。
+     * * param value 当前项的值。
+     * * param index 当前项的索引或键。
+     * * param target 当前正在遍历的数组。
+     * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
      * @param scope 设置 *callback* 执行时 this 的值。
      * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 -1。
      * @example [1, 2].findIndex(function(item){return item > 1;}) // 1

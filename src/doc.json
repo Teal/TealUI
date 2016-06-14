@@ -15,7 +15,9 @@
                     "path": "lang",
                     "title": "语言扩展",
                     "pages": [
-                        "object.md"
+                        "object.md",
+                        "array.md",
+                        ""
                     ]
                 },
                 {

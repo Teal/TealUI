@@ -1,6 +1,7 @@
 ﻿/**
  * @fileOverview 日期(Date)扩展
  * @author xuld@vip.qq.com
+ * @keywords 时间, time, 刚刚, 天前
  */
 
 declare global {
