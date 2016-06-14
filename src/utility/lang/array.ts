@@ -4,6 +4,26 @@
 
 declare global {
 
+    interface ArrayConstructor {
+
+        // #region 语言内置
+
+        /**
+         * 判断一个对象是否是数组。
+         * @param obj 要判断的对象。
+         * @returns 如果 *obj* 是数组则返回 true，否则返回 false。
+         * @example Array.isArray([]) // true
+         * @example Array.isArray(document.getElementsByTagName("div")) // false
+         * @example Array.isArray(new Array) // true
+         * @since ES5
+         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+         */
+        isArray(obj: any): obj is any[];
+
+        // #endregion
+
+    }
+
     interface Array<T> {
 
         // #region 语言内置
@@ -206,29 +226,27 @@ declare global {
 
     }
 
-    interface ArrayConstructor {
-
-        // #region 语言内置
-
-        /**
-         * 判断一个对象是否是数组。
-         * @param obj 要判断的对象。
-         * @returns 如果 *obj* 是数组则返回 true，否则返回 false。
-         * @example Array.isArray([]) // true
-         * @example Array.isArray(document.getElementsByTagName("div")) // false
-         * @example Array.isArray(new Array) // true
-         * @since ES5
-         * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-         */
-        isArray(obj: any): obj is any[];
-
-        // #endregion
-
-    }
-
 }
 
 // #region 语言内置
+
+export module isArray {
+
+    /**
+     * 判断一个对象是否是数组。
+     * @param obj 要判断的对象。
+     * @returns 如果 *obj* 是数组则返回 true，否则返回 false。
+     * @example Array.isArray([]) // true
+     * @example Array.isArray(document.getElementsByTagName("div")) // false
+     * @example Array.isArray(new Array) // true
+     * @since ES5
+     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+     */
+    Array.isArray = Array.isArray || function (obj: any): obj is any[] {
+        return Object.prototype.toString.call(obj) === "[object Array]";
+    };
+
+}
 
 export module indexOf {
 
@@ -273,24 +291,6 @@ export module concat {
         return result;
     };
     @*/
-
-}
-
-export module isArray {
-
-    /**
-     * 判断一个对象是否是数组。
-     * @param obj 要判断的对象。
-     * @returns 如果 *obj* 是数组则返回 true，否则返回 false。
-     * @example Array.isArray([]) // true
-     * @example Array.isArray(document.getElementsByTagName("div")) // false
-     * @example Array.isArray(new Array) // true
-     * @since ES5
-     * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-     */
-    Array.isArray = Array.isArray || function (obj: any): obj is any[] {
-        return Object.prototype.toString.call(obj) === "[object Array]";
-    };
 
 }
 
