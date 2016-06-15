@@ -156,8 +156,8 @@ export function each<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback:
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的类数组或对象。
  * @param scope 设置 *callback* 执行时 this 的值。
- * @example Object.forEach({a: 1, b: 2}, console.log, console); // 打印 'a  1' 和 'b  2'
- * @example Object.forEach(["a", "b"], console.log, console); // 打印 '0  a' 和 '1  b'
+ * @example Object.forEach({a: 1, b: 2}, console.log, console) // 打印 'a  1' 和 'b  2'
+ * @example Object.forEach(["a", "b"], console.log, console) // 打印 '0  a' 和 '1  b'
  */
 export function forEach<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean | void, scope?: any) {
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {

@@ -1,4 +1,5 @@
-﻿QUnit.test("Object.assign", function (assert) {
+﻿
+QUnit.test("Object.assign", function (assert) {
     var result;
     assert.equal(Object.assign({}, { a: 'b' }).a, 'b', 'can extend an object with the attributes of another');
     assert.equal(Object.assign({ a: 'x' }, { a: 'b' }).a, 'b', 'properties in source override destination');
@@ -91,4 +92,33 @@ QUnit.test('Object.create', function (assert) {
     Child.prototype.foo = 'foo';
     var created = _.create(Child.prototype, new Child);
     assert.notOk(created.hasOwnProperty('foo'), 'should only add own properties');
+});
+QUnit.test('Object.create_simple', function (assert) {
+    var Parent = function () { };
+    Parent.prototype = { foo: function () { }, bar: 2 };
+
+    _.each(['foo', null, void 0, 1], function (val) {
+        assert.deepEqual(_.create(val), {}, 'should return empty object when a non-object is provided');
+    });
+
+    assert.ok(_.create([]) instanceof Array, 'should return new instance of array when array is provided');
+
+    var Child = function () { };
+    Child.prototype = _.create(Parent.prototype);
+    assert.ok(new Child instanceof Parent, 'object should inherit prototype');
+
+    var func = function () { };
+    Child.prototype = _.create(Parent.prototype, { func: func });
+    assert.strictEqual(Child.prototype.func, func, 'properties should be added to object');
+
+    Child.prototype = _.create(Parent.prototype, { constructor: Child });
+    assert.strictEqual(Child.prototype.constructor, Child);
+
+    Child.prototype.foo = 'foo';
+    var created = _.create(Child.prototype, new Child);
+    assert.notOk(created.hasOwnProperty('foo'), 'should only add own properties');
+});
+
+QUnit.test('Object.each', function (assert) {
+    
 });
