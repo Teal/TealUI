@@ -8,7 +8,7 @@
 /**
  * 判断一个对象是否是数字。
  * @param obj 要判断的对象。
- * @returns 如果是数字则返回 @true，否则返回 @false。
+ * @returns 如果是数字则返回 true，否则返回 false。
  * @example Number.isNumber(7) // true
  */
 export function isNumber(obj: any) {
