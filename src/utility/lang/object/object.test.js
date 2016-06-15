@@ -1,4 +1,5 @@
-﻿
+﻿//   https://github.com/jashkenas/underscore/blob/master/test/objects.js
+
 QUnit.test("Object.assign", function (assert) {
     var result;
     assert.equal(Object.assign({}, { a: 'b' }).a, 'b', 'can extend an object with the attributes of another');

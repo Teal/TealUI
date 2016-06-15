@@ -804,17 +804,17 @@ export function set<T>(obj: T, prop: string, value: any) {
  * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
  */
 export function insertBefore<T>(obj: T, key: string, value: any, refKey?: string) {
-    let tmpObj;
-    for (const key in obj) {
-        if (key === refKey) tmpObj = {};
+    let tmpObj: any;
+    for (const k in obj) {
+        if (k === refKey) tmpObj = {};
         if (tmpObj) {
-            tmpObj[key] = obj[key];
-            delete obj[key];
+            tmpObj[k] = obj[k];
+            delete obj[k];
         }
     }
     obj[key] = value;
-    for (const key in tmpObj) {
-        obj[key] = tmpObj[key];
+    for (const k in tmpObj) {
+        obj[k] = tmpObj[k];
     }
     return obj;
 }
