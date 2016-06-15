@@ -2,6 +2,7 @@
  * @fileOverview 对象(Object)扩展
  * @author xuld@vip.qq.com
  * @description 提供 JavaScript 内置对象 Object 的扩展 API。
+ * @state done
  * @namespace Object
  */
 

@@ -1,52 +1,8 @@
-/**
- * @fileOverview 提供 JSON 对象
- * @platform IE6-7, FF2-3, SF3-4
+﻿/**
+ * @fileOverview 地址处理
  * @author xuld@vip.qq.com
+ * @description 提供地址处理相关功能。
  */
 
-/**
- * 提供解析 JSON 的函数。
- * @since ES5
- */
-export var JSON = JSON || {
-
-    /**
-     * 将对象格式化为字符串。
-     * @returns 返回字符串。
-     * @example JSON.stringify([{}])
-     */
-    stringify(obj: any) {
-        switch (typeof obj) {
-            case 'string':
-                return '"' + obj.replace(/[\x00-\x1f\\"]/g, chr => ({ '\b': '\\b', '\t': '\\t', '\n': '\\n', '\f': '\\f', '\r': '\\r', '"': '\\"', '\\': '\\\\' })[chr] || '\\u00' + Math.floor(chr.charCodeAt(0) / 16).toString(16) + (chr.charCodeAt() % 16).toString(16)) + '"';
-            case 'object':
-                if (obj) {
-                    var s = [];
-                    if (obj instanceof Array) {
-                        for (var i = 0; i < obj.length; i++) {
-                            s[i] = JSON.stringify(obj[i]);
-                        }
-                        return '[' + s + ']';
-                    }
-
-                    for (var key in obj) {
-                        s.push(JSON.stringify(key) + ':' + JSON.stringify(obj[key]));
-                    }
-                    return '{' + s + '}';
-                }
-            // 直接转到 default
-            default:
-                return String(obj);
-        }
-    },
-
-    /**
-     * 解析字符串为 JSON。
-     * @returns 返回 JSON 对象。
-     * @example JSON.parse("[{}]")
-     */
-    parse(value: string) {
-        return new Function('return (' + value + ")")();
-    }
-
-};
+export * from './json/json';
+export * from './json/decode';

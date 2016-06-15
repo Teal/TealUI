@@ -1,0 +1,19 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": false,
+        "noImplicitUseStrict": true,
+        "sourceMap": true,
+        "stripInternal": true,
+        "outDir": "lib",
+        "rootDir": "src",
+        "pretty": true,
+        "experimentalDecorators": true
+    },
+    "exclude": [
+        "node_modules",
+        "test"
+    ]
+}
