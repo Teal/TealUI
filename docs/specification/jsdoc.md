@@ -1,8 +1,45 @@
-﻿JSDoc 编码规范
+﻿JS 文档注释规范
 ========================================================
 
+开始使用
+--------------------------------------------------------
+
+公共
+			<br />
+			@summary Summary 简介。
+			<br />
+			@remark Summary 备注。
+			<br />
+			@example Summary 示例。
+			<br />
+			@syntax Summary 手动指定语法。
+标签
+--------------------------------------------------------
+### `@summary TEXT`, `@overview TEXT`
+表示概述，一般是一句话概述。`@summary` 标签默认可省略不写。
+
+### `@description TEXT`, `@remark TEXT`
+表示详细描述。
+
+### 通用
 
 
+
+		<p>
+			@author Summary 指示代码的作者 。
+			<br />
+			@projectDescription Summary 项目描述。
+			<br />
+			@lisense Summary 表示代码的协议。
+			<br />
+			@version Summary 表示版本。
+			<br />
+			@fileOverview Summary 文件描述。
+			<br />
+			@file Summary 表示当前文件。
+			<br />
+			@requires Link 表示需要的类。
+		</p>
 <h4>什么是文档注释?</h4>
 		<p>
 			文档注释 就是 Javascript代码中用于标示API的/** */ 注释，文档注释分析软件可以根据文档注释生成相应的文档。
@@ -68,21 +105,6 @@
 		</p>
 		<p>
 			顶级
-		</p>
-		<p>
-			@author Summary 指示代码的作者 。
-			<br />
-			@projectDescription Summary 项目描述。
-			<br />
-			@lisense Summary 表示代码的协议。
-			<br />
-			@version Summary 表示版本。
-			<br />
-			@fileOverview Summary 文件描述。
-			<br />
-			@file Summary 表示当前文件。
-			<br />
-			@requires Link 表示需要的类。
 		</p>
 		<p>
 			&nbsp;
@@ -162,15 +184,7 @@
 			&nbsp;
 		</p>
 		<p>
-			公共
-			<br />
-			@summary Summary 简介。
-			<br />
-			@remark Summary 备注。
-			<br />
-			@example Summary 示例。
-			<br />
-			@syntax Summary 手动指定语法。
+			
 		</p>
 		<p>
 			@name Name 名字。
