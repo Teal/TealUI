@@ -73,57 +73,75 @@ function parseJsDoc() {
  * @param result 存放解析结果的对象。
  */
 function parseJsDocTag(tagName, argument, tag, result) {
-    switch (tagName) {
-        // 标识符
-        case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
-        case "name": // Document the name of an object.
-        case "namespace": // Document a namespace object.
-        case "fires": // (synonyms: @emits)  Describe the events this method may fire.
-        case "alias": // Treat a member as if it had a different name.
-        case "memberOf":
-            if (result[tagName])
-                reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
-            result[tagName] = argument;
-            break;
-        case "memberof":
-            return parseJsDocTag("memberOf", argument, tag, result);
-        case "emits":
-            return parseJsDocTag("fires", argument, tag, result);
-        case "extend":
-            return parseJsDocTag("extends", argument, tag, result);
-        // 单行文本
-        case "author": // Identify the author of an item.
-        case "copyright": // Document some copyright information.
-        case "license":
-            if (result[tagName])
-                reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
-            result[tagName] = argument;
-            break;
+    switch (tagName.toLowerCase()) {
+        // 类型名
         case "augments":
+        case "extend":
             return parseJsDocTag("extends", argument, tag, result);
         case "module":
             return parseJsDocTag("namespace", argument, tag, result);
-        // 多行文本
-        case "classdesc": // Use the following text to describe the entire class.
-        case "summary": // A shorter version of the full description.
-        case "description": // (synonyms: @desc) Describe a symbol.
-        case "file":
-            result[tagName] = (result[tagName] ? result[tagName] + "\n" : "") + argument;
+        case "lends":
+            return parseJsDocTag("memberof", argument, tag, result);
+        case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
+        case "namespace": // Document a namespace object.
+        case "memberof":
+            if (result[tagName])
+                reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析 argument 为类型。
+            result[tagName] = argument;
             break;
+        // 允许重复的类型名
+        case "implements": // This symbol implements an interface.
+        case "borrows":
+            // TODO：解析 argument 为类型。
+            result[tagName] = result[tagName] || [];
+            result[tagName].push(argument);
+            break;
+        // 成员名
+        case "emits":
+            return parseJsDocTag("fires", argument, tag, result);
+        case "name": // Document the name of an object.
+        case "fires": // (synonyms: @emits)  Describe the events this method may fire.
+        case "alias":
+            if (result[tagName])
+                reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析 argument 为名字。
+            result[tagName] = argument;
+            break;
+        // 单行文本
+        // 允许重复的单行文本
+        case "author": // Identify the author of an item.
+        case "copyright": // Document some copyright information.
+        case "license":
+            result[tagName] = (result[tagName] ? result[tagName] + "," : "") + argument;
+            break;
+        // 多行文本
         case "desc":
             return parseJsDocTag("description", argument, tag, result);
         case "fileoverview":
         case "fileOverview":
         case "overview":
             return parseJsDocTag("file", argument, tag, result);
-        // 多个文本
+        case "classdesc": // Use the following text to describe the entire class.
+        case "summary": // A shorter version of the full description.
+        case "description": // (synonyms: @desc) Describe a symbol.
+        case "file": //(synonyms: @fileoverview, @overview)  Describe a file.
+        case "todo":
+            result[tagName] = (result[tagName] ? result[tagName] + "\n" : "") + argument;
+            break;
+        // 地址
         case "see": // Refer to some other documentation for more information.
-        case "todo": // Document tasks to be completed.
-        case "requires":
+        case "requires": // This file requires a JavaScript module.
+        case "throws":
             result[tagName] = result[tagName] || [];
+            // TODO: 解析特殊的地址
             result[tagName].push(argument);
             break;
         // 布尔型标签
+        case "inner":
+            return parseJsDocTag("internal", argument, tag, result);
+        case "host":
+            return parseJsDocTag("external", argument, tag, result);
         case "abstract": // This member must be implemented by the inheritor.
         case "virtual": // This member must be overridden by the inheritor.
         case "override": // Indicate that a symbol overrides its parent.
@@ -133,28 +151,16 @@ function parseJsDocTag(tagName, argument, tag, result) {
         case "public": // This symbol is meant to be public.
         case "internal": // This symbol is meant to be internal.
         case "static": // Document a static member.
-        case "ignore":
+        case "ignore": // Omit a symbol from the documentation.
+        case "external": //(synonyms: @host)  Identifies an external class, namespace, or module.
+        case "inheritdoc":
             if (result[tagName])
                 reportDocError(result, tag, "Duplicate tag: @" + tagName + ". The specific member has been marked as " + tagName + ".");
             if (argument)
                 reportDocError(result, tag, "Tag @" + tagName + " has no parameters.");
             result[tagName] = true;
             break;
-        case "inner":
-            return parseJsDocTag("internal", argument, tag, result);
         // 可选名字的布尔型标签
-        case "function": // (synonyms: @func, @method)  Describe a function or method.
-        case "property": // (synonyms: @prop)   Document a property of an object.
-        case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
-        case "interface": // This symbol is an interface that others can implement
-        case "enum": // Document a collection of related properties.
-        case "const": // (synonyms: @const)  Document an object as a constant.
-        case "event": // Document an event.
-        case "member":
-            if (argument)
-                result.name = argument;
-            argument[argument] = true;
-            break;
         case "func":
         case "method":
             return parseJsDocTag("function", argument, tag, result);
@@ -167,6 +173,24 @@ function parseJsDocTag(tagName, argument, tag, result) {
             return parseJsDocTag("const", argument, tag, result);
         case "var":
             return parseJsDocTag("member", argument, tag, result);
+        case "function": // (synonyms: @func, @method)  Describe a function or method.
+        case "property": // (synonyms: @prop)   Document a property of an object.
+        case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+        case "interface": // This symbol is an interface that others can implement
+        case "enum": // Document a collection of related properties.
+        case "const": // (synonyms: @const)  Document an object as a constant.
+        case "member": // (synonyms: @var) Document a member.
+        case "callback": // Document a callback function.
+        case "event": // Document an event.
+        case "config": // Document a config.
+        case "exports": // Identify the member that is exported by a JavaScript module.
+        case "instance": // Document an instance member..
+        case "global":
+            // TODO：解析 argument 为名字。
+            if (argument)
+                result.name = argument;
+            argument[argument] = true;
+            break;
         // 代码
         case "default": //  (synonyms: @defaultvalue)  Document the default value.
         case "example":
@@ -174,64 +198,80 @@ function parseJsDocTag(tagName, argument, tag, result) {
             break;
         case "defaultvalue":
             return parseJsDocTag("default", argument, tag, result);
-        // 类型标签
-        case "returns":
-            // todo
-            break;
-        case "return":
-            return parseJsDocTag("returns", argument, tag, result);
-        case "type":
-            // todo
-            break;
-        case "typedef":
-            // todo
-            break;
-        case "this":
-            // todo
-            break;
-        case "implements":
-            break;
         // 版本
         case "deprecated": // Document that this is no longer the preferred way.
         case "version": // Documents the version number of an item.
         case "since":
             if (result[tagName])
                 reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析版本号
             result[tagName] = argument;
             break;
-        // 其它标签
+        // 特定标签
+        case "return":
+            return parseJsDocTag("returns", argument, tag, result);
+        case "returns":
+            // todo
+            break;
+        case "type": // Document the type of an object.
+        case "this":
+            // todo
+            break;
+        case "typedef":
+            // todo
+            break;
+        case "arg":
+        case "argument":
+            return parseJsDocTag("param", argument, tag, result);
+        case "param":
+            // todo
+            break;
         case "access":
             switch (argument) {
                 case "private":
                 case "protected":
                 case "public":
                 case "internal":
-                    if (result[argument]) {
-                        reportDocError(result, tag, "Duplicate tag: @" + tagName + ". The specific member has been marked as " + argument + ".");
-                    }
-                    result[tagName] = true;
-                    break;
+                    return parseJsDocTag(argument, null, tag, result);
                 default:
                     reportDocError(result, tag, "Invalid argument of tag @" + tagName + ": '" + argument + "'. Supported values are: 'private', 'protected', 'public', 'internal'.");
                     break;
             }
             break;
-        case "borrows": // This object uses something from another object.
-        case "callback": // Document a callback function.
-        case "exports": // Identify the member that is exported by a JavaScript module.
-        case "external": //(synonyms: @host)  Identifies an external class, namespace, or module.
-        case "global": // Document a global object.
-        case "inheritdoc": // Indicate that a symbol should inherit its parent's documentation.
-        case "instance": // Document an instance member..
-        case "kind": // What kind of symbol is this?
-        case "lends": // Document properties on an object literal as if they belonged to a symbol with a given name.
+        case "kind":
+            switch (argument) {
+                case "func":
+                case "method":
+                case "prop":
+                case "constructs": // This function member will be the constructor for the previous class.
+                case "constructor":
+                case "constant":
+                case "var":
+                case "function": // (synonyms: @func, @method)  Describe a function or method.
+                case "property": // (synonyms: @prop)   Document a property of an object.
+                case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+                case "interface": // This symbol is an interface that others can implement
+                case "enum": // Document a collection of related properties.
+                case "const": // (synonyms: @const)  Document an object as a constant.
+                case "member": // (synonyms: @var) Document a member.
+                case "callback": // Document a callback function.
+                case "event": // Document an event.
+                case "config": // Document a config.
+                case "exports": // Identify the member that is exported by a JavaScript module.
+                case "instance":
+                    return parseJsDocTag(argument, null, tag, result);
+                default:
+                    reportDocError(result, tag, "Invalid argument of tag @" + tagName + ": '" + argument + "'.");
+                    break;
+            }
         case "listens": // List the events that a symbol listens for.
         case "mixes": // This object mixes in all the members from another object.
         case "mixin": // Document a mixin object.
-        case "param": //(synonyms: @arg, @argument)  Document the parameter to a function.
-        case "throws": //(synonyms: @exception) Describe what errors could be thrown.
         case "tutorial": // Insert a link to an included tutorial file.
         case "variation": // Distinguish different objects with the same name.
+        default:
+            reportDocError(result, tag, "Unknown tag @" + tagName + ".");
+            break;
     }
 }
 function reportDocError(result, node, message) {
