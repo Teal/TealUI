@@ -5,14 +5,14 @@
 
 TypeScript 内置提供了以下几种数据类型：
 
-1. [`number`(数字)](#2.1number数字)
-2. [`string`(字符串)](#2.2string字符串)
-3. [`boolean`(布尔)](#2.3boolean布尔)
-4. [`void`(未定义)](#2.4void未定义)(在 JavaScript 称为 `undefined`)
-5. [`Array`(数组)](#2.5Array数组)
-6. [`Object`(对象)](#2.6Object对象)
-7. [`Function`(函数)](#2.7Function函数)
-8. [`RegExp`(正则)](#2.8RegExp正则)
+1. [`number`(数字)](#21number数字)
+2. [`string`(字符串)](#22string字符串)
+3. [`boolean`(布尔)](#23boolean布尔)
+4. [`void`(未定义)](#24void未定义)(在 JavaScript 称为 `undefined`)
+5. [`Array`(数组)](#25Array数组)
+6. [`Object`(对象)](#26Object对象)
+7. [`Function`(函数)](#27Function函数)
+8. [`RegExp`(正则)](#28RegExp正则)
 
 对于每种类型，我们都需要熟练掌握其**表示方式**、**格式规范**、以及**支持的运算**，这是编程的基础。
 掌握了表示方式，我们就可以知道如何去表示一个类型；
