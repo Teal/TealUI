@@ -1,5 +1,5 @@
 
-var ts = require("../lib/compiler.js");
+var ts = require("../lib/tscript.js");
 
 var file = 'samples/basic.ts';
 
@@ -12,7 +12,9 @@ var result = ts.transpileModule(input, {
         includedExports: "a,c"
     },
     fileName: file,
-    reportDiagnostics: true
+    reportDiagnostics: true,
+
+    doc: true,
 });
 
 console.log("--------------------------------------------------");
