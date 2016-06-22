@@ -127,7 +127,8 @@ export function from(value, formatString) {
             }
             value = new Date(obj.y || new Date().getFullYear(), obj.M ? obj.M - 1 : new Date().getMonth(), obj.d || 1, obj.H || 0, obj.m || 0, obj.s || 0);
         } else {
-            value = new Date(value) || new Date(String(value).replace(/(\d{4})\D*(\d\d?)\D*(\d\d?).*(\d\d?)\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3 $4:$5:$6').replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3'));
+            let obj = new Date(value);
+            value = +obj ? obj : new Date(String(value).replace(/(\d{4})\D*(\d\d?)\D*(\d\d?).*(\d\d?)\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3 $4:$5:$6').replace(/(\d{4})\D*(\d\d?)\D*(\d\d?)/, '$1/$2/$3'));
         }
 
     }

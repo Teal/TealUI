@@ -9,12 +9,11 @@ var result = ts.transpileModule(input, {
     compilerOptions: {
         allowNonTsExtensions: true,
         jsx: 2,
-        includedExports: "a,c"
+        includedExports: "a,c",
+        doc: true
     },
     fileName: file,
     reportDiagnostics: true,
-
-    doc: true,
 });
 
 console.log("--------------------------------------------------");

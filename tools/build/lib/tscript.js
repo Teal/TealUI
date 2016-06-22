@@ -5,19 +5,24 @@
 var ts = require("typescript");
 /**
  * 表示一个 TypeScript 语法转换器。
+ * @remark 转换器负责更新 TypeScript 语法树和解析 JSDoc 文档。
  */
 var Transpiler = (function () {
     function Transpiler() {
     }
     /**
      * 转换指定的程序。
-     * @param program 要转换的程序。
-     * @param options 转换的选项。
+     * @param program 要处理的程序。
+     * @param options 要使用的选项。
      */
     Transpiler.prototype.transpile = function (program, options) {
         this.program = program;
         this.options = options;
         this.checker = program.getTypeChecker();
+        // 生成文档。
+        if (options.doc) {
+            this.docs = {};
+        }
         // 处理每个源文件。
         for (var _i = 0, _a = program.getSourceFiles(); _i < _a.length; _i++) {
             var sourceFile = _a[_i];
@@ -31,51 +36,86 @@ var Transpiler = (function () {
     Transpiler.prototype.transpileModule = function (sourceFile) {
         this.sourceFile = sourceFile;
         if (this.options.doc) {
-            this.doc = {
-                members: [],
-                imports: []
-            };
-            // 获取属于当前文档的文档注释。
-            var sourceFileComment = this.getJsDocCommentOfSourceFile();
-            if (sourceFileComment) {
-                this.doc.title = sourceFileComment.file;
-                this.doc.keywords = sourceFileComment.keywords;
-                this.doc.author = sourceFileComment.author;
-                this.doc.description = sourceFileComment.description || sourceFileComment.summary;
-                this.doc.state = sourceFileComment.state;
-                this.doc.platform = sourceFileComment.platform.split(/\s*,\s*/);
-                this.doc.viewport = sourceFileComment.viewport;
-            }
+            this.resolveDocs();
         }
-        // 解析每个成员。
-        mapChild(sourceFile, function (node) {
-            return node;
-        });
+        //// 解析每个成员。
+        //mapChild(sourceFile, (node: ts.Node) => {
+        //    return node;
+        //});
     };
     /**
-     * 获取文件的首个注释。
-     * @param sourceFile
+     * 解析当前源码的文档注释。
      */
-    Transpiler.prototype.getJsDocCommentOfSourceFile = function () {
-        var comments = ts.getJsDocComments(this.sourceFile, this.sourceFile);
+    Transpiler.prototype.resolveDocs = function () {
+        // 创建文档对象。
+        this.docs[this.sourceFile.path] = this.doc = {
+            members: [],
+            imports: []
+        };
+        //// 获取属于当前文档的文档注释。
+        //const sourceFileComment = this.getJsDocCommentOfSourceFile();
+        //if (sourceFileComment) {
+        //    this.doc.title = sourceFileComment.fileOverview;
+        //    this.doc.keywords = sourceFileComment.keywords;
+        //    this.doc.author = sourceFileComment.author;
+        //    this.doc.description = sourceFileComment.description || sourceFileComment.summary;
+        //    this.doc.state = sourceFileComment.state;
+        //    this.doc.platform = sourceFileComment.platform.split(/\s*,\s*/);
+        //    this.doc.viewport = sourceFileComment.viewport;
+        //}
+        var me = this;
+        // 解析子节点注释。
+        visit(this.sourceFile);
+        /**
+         * 解析单个节点的文档注释。
+         * @param node
+         */
+        function visit(node) {
+            switch (node.kind) {
+                case ts.SyntaxKind.FunctionDeclaration:
+                    me.addDocCommentFromNode(node);
+                    break;
+            }
+            ts.forEachChild(node, visit);
+        }
+    };
+    /**
+     * 添加属于某个节点的文档注释。
+     * @param node 当前节点。
+     */
+    Transpiler.prototype.addDocCommentFromNode = function (node) {
+        // 从节点获取文档信息。
+        var docComment = this.parseDocCommentFromNode(node);
+        // 添加到列表。
+        if (docComment) {
+            this.addDocComment(docComment);
+        }
+    };
+    /**
+     * 解析属于某个节点的文档注释。
+     * @param node 当前节点。
+     */
+    Transpiler.prototype.parseDocCommentFromNode = function (node) {
+        // 首先读取文档注释。
+        var comments = ts.getJsDocComments(node, this.sourceFile);
         if (!comments.length)
             return;
-        var comment = comments[0];
-        if (!comment.hasTrailingNewLine)
-            return;
-        return this.parseJsDoc(comment.pos, comment.end);
+        // 然后解析文档注释。
+        var comment = comments[comments.length - 1];
+        var docComment = this.parseDocComment(comment.pos, comment.end);
+        // 从节点提取文档信息。
+        // 返回文档注释。
+        return docComment;
     };
-    // #endregion
-    // #region 节点遍历
-    // #endregion
-    // #region 解析文档注释
     /**
      * 解析指定区间的文档注释。
      * @param pos 注释的起始位置。
      * @param end 注释的结束位置。
      */
-    Transpiler.prototype.parseJsDoc = function (pos, end) {
-        var result = {};
+    Transpiler.prototype.parseDocComment = function (pos, end) {
+        console.log("解析注释：" + this.sourceFile.text.substring(pos, end));
+        return;
+        var result = { diagnostics: [] };
         var parsed = ts.parseIsolatedJSDocComment(this.sourceFile.text, pos, end);
         // 保留解析的注释。
         if (parsed.diagnostics) {
@@ -83,6 +123,7 @@ var Transpiler = (function () {
         }
         // 解析标签。
         if (parsed.jsDocComment) {
+            console.log();
         }
         return result;
         var _a;
@@ -296,6 +337,28 @@ var Transpiler = (function () {
                 this.reportDocError(result, tag, "Unknown tag @" + tagName + ".");
                 break;
         }
+    };
+    /**
+     * 获取文件的首个注释。
+     * @param sourceFile
+     */
+    Transpiler.prototype.getJsDocCommentOfSourceFile = function () {
+        //const comments: ts.CommentRange[] = (ts as any).getJsDocComments(this.sourceFile, this.sourceFile);
+        //if (!comments.length) return;
+        //const comment = comments[0];
+        //if (!comment.hasTrailingNewLine) return;
+        //return this.parseJsDoc(comment.pos, comment.end);
+    };
+    /**
+     * 添加一个已解析的文档注释。
+     * @param node 当前节点。
+     */
+    Transpiler.prototype.addDocComment = function (docComment) {
+        if (docComment.category)
+            this.category = docComment.category;
+        if (docComment.namespace)
+            this.namespace = docComment.namespace;
+        this.doc.members.push(docComment);
     };
     /**
      * 报告一个文档错误。
@@ -808,6 +871,15 @@ var writeCommentRange = ts.writeCommentRange;
 ts.writeCommentRange = function (text, lineMap, writer, comment, newLine) {
     // console.log("输出注释:" + text.substring(comment.pos, comment.end));
     return writeCommentRange.apply(this, arguments);
+};
+// 添加文档。
+var transpileModule = ts.transpileModule;
+ts.transpileModule = function (input, transpileOptions) {
+    var result = transpileModule.apply(this, arguments);
+    if (transpiler.options.doc) {
+        result["doc"] = transpiler.docs;
+    }
+    return result;
 };
 module.exports = ts;
 // #endregion

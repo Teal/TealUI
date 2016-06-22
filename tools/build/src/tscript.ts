@@ -7,20 +7,21 @@ import * as ts from "typescript";
 
 /**
  * 表示一个 TypeScript 语法转换器。
+ * @remark 转换器负责更新 TypeScript 语法树和解析 JSDoc 文档。
  */
 class Transpiler {
 
     // #region 接口
 
     /**
-     * 获取正在转换的程序。
+     * 获取正在处理的程序。
      */
     program: ts.Program;
 
     /**
-     * 获取正在解析的选项。
+     * 获取正在使用的选项。
      */
-    options: TranspilerOptions;
+    options: TranspileOptions;
 
     /**
      * 获取正在使用的类型转换器。
@@ -33,19 +34,19 @@ class Transpiler {
     private sourceFile: ts.SourceFile;
 
     /**
-     * 获取当前文件的文档。
-     */
-    private doc: JsDoc;
-
-    /**
      * 转换指定的程序。
-     * @param program 要转换的程序。
-     * @param options 转换的选项。
+     * @param program 要处理的程序。
+     * @param options 要使用的选项。
      */
-    transpile(program: ts.Program, options: TranspilerOptions) {
+    transpile(program: ts.Program, options: TranspileOptions) {
         this.program = program;
         this.options = options;
         this.checker = program.getTypeChecker();
+
+        // 生成文档。
+        if (options.doc) {
+            this.docs = {};
+        }
 
         // 处理每个源文件。
         for (const sourceFile of program.getSourceFiles()) {
@@ -62,43 +63,15 @@ class Transpiler {
         this.sourceFile = sourceFile;
 
         if (this.options.doc) {
-            this.doc = {
-                members: [],
-                imports: []
-            } as JsDoc;
-
-            // 获取属于当前文档的文档注释。
-            const sourceFileComment = this.getJsDocCommentOfSourceFile();
-            if (sourceFileComment) {
-                this.doc.title = sourceFileComment.file;
-                this.doc.keywords = sourceFileComment.keywords;
-                this.doc.author = sourceFileComment.author;
-                this.doc.description = sourceFileComment.description || sourceFileComment.summary;
-                this.doc.state = sourceFileComment.state;
-                this.doc.platform = sourceFileComment.platform.split(/\s*,\s*/);
-                this.doc.viewport = sourceFileComment.viewport;
-            }
-
+            this.resolveDocs();
         }
 
-        // 解析每个成员。
-        mapChild(sourceFile, (node: ts.Node) => {
+        //// 解析每个成员。
+        //mapChild(sourceFile, (node: ts.Node) => {
 
-            return node;
-        });
+        //    return node;
+        //});
 
-    }
-
-    /**
-     * 获取文件的首个注释。
-     * @param sourceFile
-     */
-    private getJsDocCommentOfSourceFile() {
-        const comments: ts.CommentRange[] = (ts as any).getJsDocComments(this.sourceFile, this.sourceFile);
-        if (!comments.length) return;
-        const comment = comments[0];
-        if (!comment.hasTrailingNewLine) return;
-        return this.parseJsDoc(comment.pos, comment.end);
     }
 
     // #endregion
@@ -110,12 +83,117 @@ class Transpiler {
     // #region 解析文档注释
 
     /**
+     * 存储所有已解析的文档。
+     */
+    docs: { [path: string]: SourceFileDocComment };
+
+    /**
+     * 获取当前正在解析的文档。
+     */
+    private doc: SourceFileDocComment;
+
+    /**
+     * 存储当前分类。
+     */
+    private category: string;
+
+    /**
+     * 存储当前命名空间。
+     */
+    private namespace: string;
+
+    /**
+     * 解析当前源码的文档注释。
+     */
+    private resolveDocs() {
+
+        // 创建文档对象。
+        this.docs[this.sourceFile.path as string] = this.doc = {
+            members: [],
+            imports: []
+        } as SourceFileDocComment;
+
+        //// 获取属于当前文档的文档注释。
+        //const sourceFileComment = this.getJsDocCommentOfSourceFile();
+        //if (sourceFileComment) {
+        //    this.doc.title = sourceFileComment.fileOverview;
+        //    this.doc.keywords = sourceFileComment.keywords;
+        //    this.doc.author = sourceFileComment.author;
+        //    this.doc.description = sourceFileComment.description || sourceFileComment.summary;
+        //    this.doc.state = sourceFileComment.state;
+        //    this.doc.platform = sourceFileComment.platform.split(/\s*,\s*/);
+        //    this.doc.viewport = sourceFileComment.viewport;
+        //}
+
+        let me = this;
+
+        // 解析子节点注释。
+        visit(this.sourceFile);
+
+        /**
+         * 解析单个节点的文档注释。
+         * @param node
+         */
+        function visit(node: ts.Node) {
+            switch (node.kind) {
+                case ts.SyntaxKind.FunctionDeclaration:
+                    me.addDocCommentFromNode(node);
+                    break;
+            }
+
+            ts.forEachChild(node, visit);
+        }
+
+    }
+
+    /**
+     * 添加属于某个节点的文档注释。
+     * @param node 当前节点。
+     */
+    addDocCommentFromNode(node: ts.Node) {
+
+        // 从节点获取文档信息。
+        let docComment = this.parseDocCommentFromNode(node);
+
+        // 添加到列表。
+        if (docComment) {
+            this.addDocComment(docComment);
+        }
+
+    }
+
+    /**
+     * 解析属于某个节点的文档注释。
+     * @param node 当前节点。
+     */
+    parseDocCommentFromNode(node: ts.Node) {
+
+        // 首先读取文档注释。
+        const comments: ts.CommentRange[] = (ts as any).getJsDocComments(node, this.sourceFile);
+        if (!comments.length) return;
+
+        // 然后解析文档注释。
+        const comment = comments[comments.length - 1];
+        const docComment = this.parseDocComment(comment.pos, comment.end);
+
+        // 从节点提取文档信息。
+
+        // 返回文档注释。
+        return docComment;
+    }
+
+    /**
      * 解析指定区间的文档注释。
      * @param pos 注释的起始位置。
      * @param end 注释的结束位置。
      */
-    private parseJsDoc(pos: number, end: number) {
-        let result = {} as ParsedJsDocComment;
+    private parseDocComment(pos: number, end: number) {
+
+        console.log("解析注释：" + this.sourceFile.text.substring(pos, end));
+
+        return;
+
+        let result = { diagnostics: [] } as DocComment;
 
         const parsed = (ts as any).parseIsolatedJSDocComment(this.sourceFile.text, pos, end);
 
@@ -126,6 +204,7 @@ class Transpiler {
 
         // 解析标签。
         if (parsed.jsDocComment) {
+            console.log()
             // TODO: 处理 parsed.jsDocComment.tags，调用 parseJsDocTag
         }
 
@@ -142,7 +221,7 @@ class Transpiler {
      * @param tag 文档标签。
      * @param result 存放解析结果的对象。
      */
-    private parseJsDocTag(tagName: string, argument: string, tag: ts.JSDocTag, result: ParsedJsDocComment) {
+    private parseJsDocTag(tagName: string, argument: string, tag: ts.JSDocTag, result: DocComment) {
         switch (tagName.toLowerCase()) {
 
             // 类型名
@@ -358,12 +437,34 @@ class Transpiler {
     }
 
     /**
+     * 获取文件的首个注释。
+     * @param sourceFile
+     */
+    private getJsDocCommentOfSourceFile() {
+        //const comments: ts.CommentRange[] = (ts as any).getJsDocComments(this.sourceFile, this.sourceFile);
+        //if (!comments.length) return;
+        //const comment = comments[0];
+        //if (!comment.hasTrailingNewLine) return;
+        //return this.parseJsDoc(comment.pos, comment.end);
+    }
+
+    /**
+     * 添加一个已解析的文档注释。
+     * @param node 当前节点。
+     */
+    addDocComment(docComment: DocComment) {
+        if (docComment.category) this.category = docComment.category;
+        if (docComment.namespace) this.namespace = docComment.namespace;
+        this.doc.members.push(docComment);
+    }
+
+    /**
      * 报告一个文档错误。
      * @param result 目标文档注释。
      * @param node 源节点。
      * @param message 错误内容。
      */
-    private reportDocError(result: ParsedJsDocComment, node: ts.Node, message: string) {
+    private reportDocError(result: DocComment, node: ts.Node, message: string) {
         result.diagnostics.push({
             file: this.sourceFile,
             start: node.pos,
@@ -381,7 +482,7 @@ class Transpiler {
 /**
  * 表示转换的选项。
  */
-interface TranspilerOptions extends ts.CompilerOptions {
+interface TranspileOptions extends ts.CompilerOptions {
 
     /**
      * 生成的文档路径。如果未提供则不生成文档。
@@ -391,9 +492,380 @@ interface TranspilerOptions extends ts.CompilerOptions {
 }
 
 /**
- * 表示一个 JS 文档。
+ * 表示一个文档注释。
  */
-interface JsDoc {
+interface DocComment {
+
+    // #region 注释属性
+
+    /**
+     * 注释在源文件的行号。
+     */
+    line: number;
+
+    /**
+     * 注释在源文件的列号。
+     */
+    column: number;
+
+    /**
+     * 解析此注释时产生的错误提示。
+     */
+    diagnostics: ts.Diagnostic[];
+
+    // #endregion 修饰符
+
+    // #region 描述
+
+    /**
+     * 获取概述。
+     */
+    summary: string;
+
+    /**
+     * 获取详细说明。
+     */
+    description: string;
+
+    /**
+     * 获取分类。
+     */
+    category: string;
+
+    /**
+     * 获取作者。
+     */
+    author: string;
+
+    /**
+     * 获取协议。
+     */
+    license: string;
+
+    /**
+     * 获取版权。
+     */
+    copyright: string;
+
+    /**
+     * 获取版本号。
+     */
+    version: string;
+
+    /**
+     * 获取开始生效的版本号。
+     */
+    since: string;
+
+    /**
+     * 获取废弃的版本号。
+     */
+    deprecated: string;
+
+    /**
+     * 获取待完成项。
+     */
+    todo: string[];
+
+    /**
+     * 获取参考。
+     */
+    see: (string | DocComment)[];
+
+    /**
+     * 获取依赖列表。
+     */
+    requires: (string | DocComment)[];
+
+    /**
+     * 获取关键字。
+     */
+    keywords: string;
+
+    /**
+     * 获取状态。
+     */
+    state: string;
+
+    /**
+     * 获取平台。
+     */
+    platform: string;
+
+    // #endregion 
+
+    // #region 修饰符
+
+    /**
+     * 当前成员是静态的。直接通过类名可以访问此成员。
+     */
+    static: boolean;
+
+    /**
+     * 当前成员是最终的。无法重写或覆盖此成员。
+     */
+    final: boolean;
+
+    /**
+     * 当前成员是抽象的。子类必须实现当前成员。
+     */
+    abstract: boolean;
+
+    /**
+     * 当前成员是虚拟的。子类可以重写当前成员。
+     */
+    virtual: boolean;
+
+    /**
+     * 当前成员用于实现或覆盖基类成员。
+     */
+    override: boolean;
+
+    /**
+     * 当前成员是私有的。只能在当前类内部使用。
+     */
+    private: boolean;
+
+    /**
+     * 当前成员是保护的。只能在当前类及子类内部使用。
+     */
+    protected: boolean;
+
+    /**
+     * 当前成员是公开的。可以直接使用。
+     */
+    public: boolean;
+
+    /**
+     * 当前成员是内部使用的。外部程序不应该使用此接口。
+     */
+    internal: boolean;
+
+    // #endregion
+
+    // #region 成员类型
+
+    /**
+     * 当前成员是一个类。
+     */
+    class: boolean;
+
+    /**
+     * 当前成员是一个接口。
+     */
+    interface: boolean;
+
+    /**
+     * 当前成员是一个枚举。
+     */
+    enum: boolean;
+
+    /**
+     * 当前成员是一个事件。
+     */
+    event: boolean;
+
+    /**
+     * 当前成员是一个构造函数。
+     */
+    constructor: boolean;
+
+    /**
+     * 当前成员是一个析构函数。
+     */
+    deconstructor: boolean;
+
+    /**
+     * 当前成员是一个属性。
+     */
+    property: boolean;
+
+    /**
+     * 当前成员是一个方法。
+     */
+    method: boolean;
+
+    /**
+     * 当前成员是一个字段。
+     */
+    field: boolean;
+
+    /**
+     * 当前成员是一个全局函数。
+     */
+    function: boolean;
+
+    /**
+     * 当前成员是一个命名空间。
+     */
+    namespace: string;
+
+    /**
+     * 当前成员是一个模块。
+     */
+    module: string;
+
+    /**
+     * 当前成员是一个变量。
+     */
+    variable: boolean;
+
+    /**
+     * 当前成员是一个常量。
+     */
+    constant: boolean;
+
+    // #endregion
+
+    // #region 成员名
+
+    /**
+     * 当前标记的成员名。
+     */
+    name: string;
+
+    /**
+     * 当前成员的所属名。
+     */
+    memberOf: string;
+
+    // #endregion
+
+    // #region 全局专属
+
+    /**
+     * 获取文件概述。
+     */
+    fileOverview: string;
+
+    /**
+     * 获取文件视图。
+     */
+    viewport: string;
+
+    // #endregion
+
+    // #region 类专属
+
+    /**
+     * 当前类的描述。
+     */
+    classDescripton: string;
+
+    /**
+     * 当前类的基类。
+     */
+    extends: string;
+
+    /**
+     * 当前类实现的接口。
+     */
+    implements: string;
+
+    // #endregion
+
+    // #region 字段属性专属
+
+    /**
+     * 获取默认值。
+     */
+    defaultValue: string;
+
+    // #endregion
+
+    // #region 函数专属
+
+    /**
+     * 获取参数列表。
+     */
+    params: ({
+
+        /**
+         * 获取参数的类型。
+         */
+        type: string | DocComment,
+
+        /**
+         * 获取参数的名字。
+         */
+        name: string,
+
+        /**
+         * 获取参数是否可选。
+         */
+        optional: boolean,
+
+        /**
+         * 获取参数是否动态。
+         */
+        varibale: boolean,
+
+        /**
+         * 获取参数的默认值。
+         */
+        defaultValue: string,
+
+        /**
+         * 获取参数的描述。
+         */
+        description: string
+    })[];
+
+    /**
+     * 获取返回信息。
+     */
+    return: {
+
+        /**
+         * 获取返回值的类型。
+         */
+        type: string | DocComment,
+
+        /**
+         * 获取返回值的描述。
+         */
+        description: string
+    };
+
+    /**
+     * 获取抛出的异常信息。
+     */
+    throws: ({
+
+        /**
+         * 获取异常的类型。
+         */
+        type: string | DocComment,
+
+        /**
+         * 获取异常的描述。
+         */
+        description: string
+
+    })[];
+
+    // #endregion
+
+    // #region 解析需要
+
+    /**
+     * 获取复制的成员。
+     */
+    borrows: string[];
+
+    /**
+     * 获取触发的事件列表。
+     */
+    emits: string[];
+
+    // #endregion
+
+}
+
+/**
+ * 表示一个文件的文档注释。
+ */
+interface SourceFileDocComment {
 
     /**
      * 获取当前文档的标题。
@@ -433,121 +905,12 @@ interface JsDoc {
     /**
      * 获取当前文档的所有成员。
      */
-    members: ParsedJsDocComment[];
+    members: DocComment[];
 
     /**
      * 获取当前文档的所有导入模块。
      */
     imports: any[];
-
-}
-
-/**
- * 表示一个已解析的 JS 文档注释。
- */
-interface ParsedJsDocComment {
-
-    // #region 注释属性
-
-    /**
-     * 注释在源文件的起始位置。
-     */
-    pos: number;
-
-    /**
-     * 注释在源文件的结束位置。
-     */
-    end: number;
-
-    /**
-     * 解析此注释时产生的错误提示。
-     */
-    diagnostics: ts.Diagnostic[];
-
-    // #endregion 修饰符
-
-    // #region 描述
-
-    /**
-     * 获取注释的概述部分。
-     */
-    summary: string;
-
-    /**
-     * 参考。
-     */
-    see: string[];
-
-    todo: string[];
-
-    requires: string[];
-
-    /**
-     * 协议。
-     */
-    license: string;
-
-    // #endregion 修饰符
-
-    // #region 命名空间
-
-    /**
-     * 当前标记的成员名。
-     */
-    name: string;
-
-    /**
-     * 当前标记的命名空间。
-     */
-    namespace: string;
-
-    classdesc: string;
-
-    // #endregion 修饰符
-
-    // #region 修饰符
-
-    /**
-     * 判断是否标记为 abstract。
-     */
-    abstract: boolean;
-
-    /**
-     * 判断是否标记为 virtual。
-     */
-    virtual: boolean;
-
-    /**
-     * 判断是否标记为 override。
-     */
-    override: boolean;
-
-    /**
-     * 判断是否标记为 private。
-     */
-    private: boolean;
-
-    /**
-     * 判断是否标记为 protected。
-     */
-    protected: boolean;
-
-    /**
-     * 判断是否标记为 public。
-     */
-    public: boolean;
-
-    /**
-     * 判断是否标记为 internal。
-     */
-    internal: boolean;
-
-    /**
-     * 判断是否标记为 static。
-     */
-    static: boolean;
-
-    // #endregion
 
 }
 
@@ -1043,7 +1406,7 @@ const transpiler = new Transpiler();
 
 // 更改创建程序的方式。
 const createProgram = ts.createProgram;
-ts.createProgram = function (rootNames: string[], options: ts.CompilerOptions, host?: ts.CompilerHost, oldProgram?: ts.Program) {
+ts.createProgram = function (rootNames: string[], options: TranspileOptions, host?: ts.CompilerHost, oldProgram?: ts.Program) {
 
     // 设置默认选项。
     options.noImplicitUseStrict = options.noImplicitUseStrict !== false;
@@ -1064,6 +1427,16 @@ const writeCommentRange = (ts as any).writeCommentRange;
     // console.log("输出注释:" + text.substring(comment.pos, comment.end));
     return writeCommentRange.apply(this, arguments);
 };
+
+// 添加文档。
+const transpileModule = ts.transpileModule;
+ts.transpileModule = function (input: string, transpileOptions: ts.TranspileOptions) {
+    let result: ts.TranspileOutput = transpileModule.apply(this, arguments);
+    if (transpiler.options.doc) {
+        result["doc"] = transpiler.docs;
+    }
+    return result;
+}
 
 export = ts;
 

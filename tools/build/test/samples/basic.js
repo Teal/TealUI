@@ -1,24 +1,24 @@
-/**
- * BBBB
- * @fileOverview AAA
- * @namespace Array
- * @aaa {dasd} aasd
- */
+///**
+// * BBBB
+// * @fileOverview AAA
+// * @namespace Array
+// * @aaa {dasd} aasd
+// */
 "use strict";
 /**
  * 返回空数组。
+ * @param a 参数 A。
  * @returns 空数组。
  */
-function empty() {
+function empty(a) {
     empty2();
     return [];
 }
 exports.empty = empty;
-/**
- * 返回空数组。
- * @returns 空数组。
- */
-function empty2() {
-    return [];
-}
-exports.empty2 = empty2;
+///**
+// * 返回空数组2。
+// * @returns 空数组2。 
+// */
+//export function empty2<T>(): T[] {
+//    return [];
+//}
