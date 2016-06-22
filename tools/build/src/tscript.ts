@@ -189,13 +189,11 @@ class Transpiler {
      */
     private parseDocComment(pos: number, end: number) {
 
-        console.log("解析注释：" + this.sourceFile.text.substring(pos, end));
-
-        return;
+        _("解析注释：" + this.sourceFile.text.substring(pos, end));
 
         let result = { diagnostics: [] } as DocComment;
 
-        const parsed = (ts as any).parseIsolatedJSDocComment(this.sourceFile.text, pos, end);
+        const parsed = (ts as any).parseIsolatedJSDocComment(this.sourceFile.text, pos, end) as { diagnostics: ts.Diagnostic[], jsDocComment: ts.JSDocComment };
 
         // 保留解析的注释。
         if (parsed.diagnostics) {
@@ -204,7 +202,22 @@ class Transpiler {
 
         // 解析标签。
         if (parsed.jsDocComment) {
-            console.log()
+            let firstLine = this.sourceFile.text.substring(pos + 3, parsed.jsDocComment.tags.length ? parsed.jsDocComment.tags[0].pos : end - 2).trim().replace(/^\s*\*\s*/gm, "");
+
+            if (firstLine) {
+                this.parseJsDocTag("summary", firstLine, null, result);
+            }
+
+            let lastTag: ts.JSDocTag;
+            let p = parsed.jsDocComment.pos;
+            for (let tag of parsed.jsDocComment.tags) {
+                if (lastTag) {
+                    this.parseJsDocTag(tag.tagName.text, this.sourceFile.text.substring(p, tag.pos), tag, result);
+                } else {
+
+                }
+                p = tag.end;
+            }
             // TODO: 处理 parsed.jsDocComment.tags，调用 parseJsDocTag
         }
 
@@ -222,6 +235,10 @@ class Transpiler {
      * @param result 存放解析结果的对象。
      */
     private parseJsDocTag(tagName: string, argument: string, tag: ts.JSDocTag, result: DocComment) {
+
+        _("解析标签：" + tagName, " 参数：", argument);
+
+        return;
         switch (tagName.toLowerCase()) {
 
             // 类型名
@@ -1441,3 +1458,5 @@ ts.transpileModule = function (input: string, transpileOptions: ts.TranspileOpti
 export = ts;
 
 // #endregion
+
+const _ = console.log.bind(console);

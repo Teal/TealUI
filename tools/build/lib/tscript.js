@@ -113,8 +113,7 @@ var Transpiler = (function () {
      * @param end 注释的结束位置。
      */
     Transpiler.prototype.parseDocComment = function (pos, end) {
-        console.log("解析注释：" + this.sourceFile.text.substring(pos, end));
-        return;
+        _("解析注释：" + this.sourceFile.text.substring(pos, end));
         var result = { diagnostics: [] };
         var parsed = ts.parseIsolatedJSDocComment(this.sourceFile.text, pos, end);
         // 保留解析的注释。
@@ -123,7 +122,21 @@ var Transpiler = (function () {
         }
         // 解析标签。
         if (parsed.jsDocComment) {
-            console.log();
+            var firstLine = this.sourceFile.text.substring(pos + 3, parsed.jsDocComment.tags.length ? parsed.jsDocComment.tags[0].pos : end - 2).trim().replace(/^\s*\*\s*/gm, "");
+            if (firstLine) {
+                this.parseJsDocTag("summary", firstLine, null, result);
+            }
+            var lastTag = void 0;
+            var p = parsed.jsDocComment.pos;
+            for (var _i = 0, _b = parsed.jsDocComment.tags; _i < _b.length; _i++) {
+                var tag = _b[_i];
+                if (lastTag) {
+                    this.parseJsDocTag(tag.tagName.text, this.sourceFile.text.substring(p, tag.pos), tag, result);
+                }
+                else {
+                }
+                p = tag.end;
+            }
         }
         return result;
         var _a;
@@ -137,6 +150,8 @@ var Transpiler = (function () {
      * @param result 存放解析结果的对象。
      */
     Transpiler.prototype.parseJsDocTag = function (tagName, argument, tag, result) {
+        _("解析标签：" + tagName, " 参数：", argument);
+        return;
         switch (tagName.toLowerCase()) {
             // 类型名
             case "augments":
@@ -881,6 +896,7 @@ ts.transpileModule = function (input, transpileOptions) {
     }
     return result;
 };
-module.exports = ts;
 // #endregion
+var _ = console.log.bind(console);
+module.exports = ts;
 //# sourceMappingURL=tscript.js.map
