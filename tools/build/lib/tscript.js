@@ -361,12 +361,12 @@ var Transpiler = (function () {
     };
     Transpiler.prototype.parseJSDocTopLevelType = function () {
         var type = this.parseJSDocType();
-        if (this.scanner.getToken() === ts.SyntaxKind.BarToken) {
+        if (this.scanner.getToken() === ts.SyntaxKind.BarToken /*|*/) {
             var unionType = ts.createNode(ts.SyntaxKind.JSDocUnionType, type.pos);
             unionType.types = this.parseJSDocTypeList(type);
             type = this.finishNode(unionType);
         }
-        if (this.scanner.getToken() === ts.SyntaxKind.EqualsToken) {
+        if (this.scanner.getToken() === ts.SyntaxKind.EqualsToken /*=*/) {
             var optionalType = ts.createNode(ts.SyntaxKind.JSDocOptionalType, type.pos);
             this.scanner.scanJSDocToken();
             optionalType.type = type;
@@ -443,7 +443,7 @@ var Transpiler = (function () {
             case ts.SyntaxKind.VoidKeyword:
                 return this.parseTokenNode();
         }
-        // TODO (drosen): Parse string literal types in ts.JSDoc as well.
+        // TODO (drosen): Parse string literal types in JSDoc as well.
         return this.parseJSDocTypeReference();
     };
     Transpiler.prototype.parseTokenNode = function () {
@@ -489,7 +489,7 @@ var Transpiler = (function () {
         var saveParsingContext = parsingContext;
         parsingContext |= 1 << kind;
         var result = [];
-        result.pos = getNodePos();
+        result.pos = this.scanner.getStartPos();
         var commaStart = -1; // ts.Meaning the previous this.scanner.getToken() was not a comma
         while (true) {
             if (isListElement(kind, /*inErrorRecovery*/ false)) {
@@ -515,7 +515,7 @@ var Transpiler = (function () {
                 }
                 continue;
             }
-            if (isListTerminator(kind)) {
+            if (this.isListTerminator(kind)) {
                 break;
             }
             if (abortParsingListOrMoveToNextToken(kind)) {
@@ -617,7 +617,7 @@ var Transpiler = (function () {
     Transpiler.prototype.parseJSDocTupleType = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocTupleType);
         this.scanner.scanJSDocToken();
-        result.types = this.parseDelimitedList(25 /* JSDocTupleTypes */, parseJSDocType);
+        result.types = this.parseDelimitedList(25 /* JSDocTupleTypes */, this.parseJSDocType.bind(this));
         this.checkForTrailingComma(result.types);
         this.parseExpected(ts.SyntaxKind.CloseBracketToken);
         return this.finishNode(result);
