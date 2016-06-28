@@ -5,6 +5,8 @@
 
 import * as ts from "typescript";
 
+const Debug = ts["Debug"];
+
 /**
  * 表示一个 TypeScript 语法转换器。
  * @remark 转换器负责更新 TypeScript 语法树和解析 JSDoc 文档。
@@ -45,7 +47,7 @@ class Transpiler {
 
         // 生成文档。
         if (options.doc) {
-            this.docs = {};
+            this.jsDocs = {};
         }
 
         // 处理每个源文件。
@@ -89,12 +91,12 @@ class Transpiler {
     /**
      * 存储所有已解析的文档。
      */
-    docs: { [path: string]: SourceFileDocComment };
+    jsDocs: { [path: string]: SourceFileDocComment };
 
     /**
      * 获取当前正在解析的文档。
      */
-    private doc: SourceFileDocComment;
+    private jsDoc: SourceFileDocComment;
 
     /**
      * 存储当前分类。
@@ -112,7 +114,7 @@ class Transpiler {
     private resolveDocs() {
 
         // 创建文档对象。
-        this.docs[this.sourceFile.path as string] = this.doc = {
+        this.jsDocs[this.sourceFile.path as string] = this.jsDoc = {
             members: [],
             imports: []
         } as SourceFileDocComment;
@@ -120,13 +122,13 @@ class Transpiler {
         //// 获取属于当前文档的文档注释。
         //const sourceFileComment = this.getJsDocCommentOfSourceFile();
         //if (sourceFileComment) {
-        //    this.doc.title = sourceFileComment.fileOverview;
-        //    this.doc.keywords = sourceFileComment.keywords;
-        //    this.doc.author = sourceFileComment.author;
-        //    this.doc.description = sourceFileComment.description || sourceFileComment.summary;
-        //    this.doc.state = sourceFileComment.state;
-        //    this.doc.platform = sourceFileComment.platform.split(/\s*,\s*/);
-        //    this.doc.viewport = sourceFileComment.viewport;
+        //    this.jsDoc.title = sourceFileComment.fileOverview;
+        //    this.jsDoc.keywords = sourceFileComment.keywords;
+        //    this.jsDoc.author = sourceFileComment.author;
+        //    this.jsDoc.description = sourceFileComment.description || sourceFileComment.summary;
+        //    this.jsDoc.state = sourceFileComment.state;
+        //    this.jsDoc.platform = sourceFileComment.platform.split(/\s*,\s*/);
+        //    this.jsDoc.viewport = sourceFileComment.viewport;
         //}
 
         let me = this;
@@ -154,7 +156,7 @@ class Transpiler {
      * 添加属于某个节点的文档注释。
      * @param node 当前节点。
      */
-    addDocCommentFromNode(node: ts.Node) {
+    private addDocCommentFromNode(node: ts.Node) {
 
         // 从节点获取文档信息。
         let docComment = this.parseDocCommentFromNode(node);
@@ -170,7 +172,7 @@ class Transpiler {
      * 解析属于某个节点的文档注释。
      * @param node 当前节点。
      */
-    parseDocCommentFromNode(node: ts.Node) {
+    private parseDocCommentFromNode(node: ts.Node) {
 
         // 首先读取文档注释。
         const comments: ts.CommentRange[] = (ts as any).getJsDocComments(node, this.sourceFile);
@@ -188,278 +190,404 @@ class Transpiler {
     }
 
     /**
+     * 默认的扫描器。
+     */
+    private scanner = ts.createScanner(ts.ScriptTarget.Latest, /*skipTrivia*/ true);
+
+    /**
+     * 存储当前正在解析的文档。
+     */
+    private jsDocComment: ParsedJSDocComment;
+
+    /**
      * 解析指定区间的文档注释。
-     * @param pos 注释的起始位置。
+     * @param start 注释的起始位置。
      * @param end 注释的结束位置。
      */
-    private parseDocComment(pos: number, end: number) {
+    private parseDocComment(start: number, end: number) {
 
-        _("解析注释：" + this.sourceFile.text.substring(pos, end));
+        _("解析注释：" + this.sourceFile.text.substring(start, end));
+        this.scanner.setText(this.sourceFile.text, start + 3, end - start - 5);
 
-        let result = { diagnostics: [] } as DocComment;
+        const p = ts.getLineAndCharacterOfPosition(this.sourceFile, start);
+        this.jsDocComment = { line: p.line, column: p.character } as ParsedJSDocComment;
 
-        const parsed = (ts as any).parseIsolatedJSDocComment(this.sourceFile.text, pos, end) as { diagnostics: ts.Diagnostic[], jsDocComment: ts.JSDocComment };
+        // 解析前缀文本。
+        const summary = this.scanToJSDocTagStart();
+        _("文本：", summary);
 
-        // 保留解析的注释。
-        if (parsed.diagnostics) {
-            result.diagnostics.push(...parsed.diagnostics);
+        // 解析每个标签。
+        while (this.scanner.getToken() !== ts.SyntaxKind.EndOfFileToken) {
+            Debug.assert(this.scanner.getToken() === ts.SyntaxKind.AtToken);
+            this.scanner.scanJSDocToken();
+            const tagName = this.scanner.getTokenText();
+            this.scanner.scanJSDocToken();
+            this.parseJsDocTag(tagName);
         }
 
-        // 解析标签。
-        if (parsed.jsDocComment) {
-            let firstLine = this.sourceFile.text.substring(pos + 3, parsed.jsDocComment.tags.length ? parsed.jsDocComment.tags[0].pos : end - 2).trim().replace(/^\s*\*\s*/gm, "");
+        return this.jsDocComment;
 
-            if (firstLine) {
-                this.parseJsDocTag("summary", firstLine, null, result);
+    }
+
+    /**
+     * 解析到下一个 JSDoc 标签开始。
+     */
+    private scanToJSDocTagStart() {
+        let buffer = "";
+
+        let canParseTag = true;
+        let seenAsterisk = true;
+
+        let pos = this.scanner.getTokenPos();
+        while (true) {
+            switch (this.scanner.scanJSDocToken()) {
+                case ts.SyntaxKind.AtToken:
+                    if (canParseTag) {
+                        return (buffer + this.sourceFile.text.substring(pos, this.scanner.getTokenPos())).trim();
+                    }
+                    break;
+
+                case ts.SyntaxKind.NewLineTrivia:
+                    buffer += this.sourceFile.text.substring(pos, this.scanner.getTokenPos()).trim(); (buffer + this.sourceFile.text.substring(pos, this.scanner.getTokenPos())).trim();
+                    if (buffer.charCodeAt(buffer.length - 1) !== 10/*\n*/) {
+                        buffer += "\n";
+                    }
+                    pos = this.scanner.getTextPos();
+                    canParseTag = true;
+                    seenAsterisk = false;
+                    break;
+
+                case ts.SyntaxKind.AsteriskToken:
+                    if (seenAsterisk) {
+                        canParseTag = false;
+                    } else {
+                        seenAsterisk = true;
+                        pos = this.scanner.getTextPos();
+                    }
+                    break;
+
+                case ts.SyntaxKind.EndOfFileToken:
+                    return (buffer + this.sourceFile.text.substring(pos, this.scanner.getTokenPos())).trim();
+
             }
-
-            let lastTag: ts.JSDocTag;
-            let p = parsed.jsDocComment.pos;
-            for (let tag of parsed.jsDocComment.tags) {
-                if (lastTag) {
-                    this.parseJsDocTag(tag.tagName.text, this.sourceFile.text.substring(p, tag.pos), tag, result);
-                } else {
-
-                }
-                p = tag.end;
-            }
-            // TODO: 处理 parsed.jsDocComment.tags，调用 parseJsDocTag
         }
-
-        return result;
-
-        //const defaultTagName = "summary";
-
-        function removeLeadingAsterisk(text: string) {
-            return text.replace(/^\s*\*\s*/gm, "");
-        }
-
     }
 
     /**
      * 从源文件的文档注释标签截取信息。
      * @param tagName 标签名。
-     * @param argument 标签参数，即从当前标签结束到下一个标签之间的文本。
-     * @param tag 文档标签。
-     * @param result 存放解析结果的对象。
      */
-    private parseJsDocTag(tagName: string, argument: string, tag: ts.JSDocTag, result: DocComment) {
+    private parseJsDocTag(tagName: string) {
 
-        _("解析标签：" + tagName, " 参数：", argument);
+        console.log("标签：", tagName, JSON.stringify(this.scanToJSDocTagStart()));
 
-        return;
         switch (tagName.toLowerCase()) {
 
-            // 类型名
-            case "augments":
-            case "extend":
-                return this.parseJsDocTag("extends", argument, tag, result);
-            case "module": // Document a JavaScript module.
-                return this.parseJsDocTag("namespace", argument, tag, result);
-            case "lends": // Document properties on an object literal as if they belonged to a symbol with a given name.
-                return this.parseJsDocTag("memberof", argument, tag, result);
-            case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
-            case "namespace": // Document a namespace object.
-            case "memberof": // This symbol belongs to a parent symbol.
-                if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
-                // TODO：解析 argument 为类型。
-                result[tagName] = argument;
-                break;
+            //// 类型名
+            //case "augments":
+            //case "extend":
+            //    return this.parseJsDocTag("extends", argument, tag, result);
+            //case "module": // Document a JavaScript module.
+            //    return this.parseJsDocTag("namespace", argument, tag, result);
+            //case "lends": // Document properties on an object literal as if they belonged to a symbol with a given name.
+            //    return this.parseJsDocTag("memberof", argument, tag, result);
+            //case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
+            //case "namespace": // Document a namespace object.
+            //case "memberof": // This symbol belongs to a parent symbol.
+            //    if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
+            //    // TODO：解析 argument 为类型。
+            //    result[tagName] = argument;
+            //    break;
 
-            // 允许重复的类型名
-            case "implements": // This symbol implements an interface.
-            case "borrows": // This object uses something from another object.
-                // TODO：解析 argument 为类型。
-                result[tagName] = result[tagName] || [];
-                result[tagName].push(argument);
-                break;
+            //// 允许重复的类型名
+            //case "implements": // This symbol implements an interface.
+            //case "borrows": // This object uses something from another object.
+            //    // TODO：解析 argument 为类型。
+            //    result[tagName] = result[tagName] || [];
+            //    result[tagName].push(argument);
+            //    break;
 
-            // 成员名
-            case "emits":
-                return this.parseJsDocTag("fires", argument, tag, result);
-            case "name": // Document the name of an object.
-            case "fires":// (synonyms: @emits)  Describe the events this method may fire.
-            case "alias": // Treat a member as if it had a different name.
-                if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
-                // TODO：解析 argument 为名字。
-                result[tagName] = argument;
-                break;
+            //// 成员名
+            //case "emits":
+            //    return this.parseJsDocTag("fires", argument, tag, result);
+            //case "name": // Document the name of an object.
+            //case "fires":// (synonyms: @emits)  Describe the events this method may fire.
+            //case "alias": // Treat a member as if it had a different name.
+            //    if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
+            //    // TODO：解析 argument 为名字。
+            //    result[tagName] = argument;
+            //    break;
 
-            // 单行文本
+            //// 单行文本
 
-            // 允许重复的单行文本
-            case "author": // Identify the author of an item.
-            case "copyright": // Document some copyright information.
-            case "license": // Identify the license that applies to this code.
-                result[tagName] = (result[tagName] ? result[tagName] + "," : "") + argument;
-                break;
+            //// 允许重复的单行文本
+            //case "author": // Identify the author of an item.
+            //case "copyright": // Document some copyright information.
+            //case "license": // Identify the license that applies to this code.
+            //    result[tagName] = (result[tagName] ? result[tagName] + "," : "") + argument;
+            //    break;
 
-            // 多行文本
-            case "desc":
-                return this.parseJsDocTag("description", argument, tag, result);
-            case "fileoverview":
-            case "fileOverview":
-            case "overview":
-                return this.parseJsDocTag("file", argument, tag, result);
-            case "classdesc": // Use the following text to describe the entire class.
-            case "summary": // A shorter version of the full description.
-            case "description": // (synonyms: @desc) Describe a symbol.
-            case "file"://(synonyms: @fileoverview, @overview)  Describe a file.
-            case "todo": // Document tasks to be completed.
-                result[tagName] = (result[tagName] ? result[tagName] + "\n" : "") + argument;
-                break;
+            //// 多行文本
+            //case "desc":
+            //    return this.parseJsDocTag("description", argument, tag, result);
+            //case "fileoverview":
+            //case "fileOverview":
+            //case "overview":
+            //    return this.parseJsDocTag("file", argument, tag, result);
+            //case "classdesc": // Use the following text to describe the entire class.
+            //case "summary": // A shorter version of the full description.
+            //case "description": // (synonyms: @desc) Describe a symbol.
+            //case "file"://(synonyms: @fileoverview, @overview)  Describe a file.
+            //case "todo": // Document tasks to be completed.
+            //    result[tagName] = (result[tagName] ? result[tagName] + "\n" : "") + argument;
+            //    break;
 
-            // 地址
-            case "see": // Refer to some other documentation for more information.
-            case "requires": // This file requires a JavaScript module.
-            case "throws": //(synonyms: @exception) Describe what errors could be thrown.
-                result[tagName] = result[tagName] || [];
-                // TODO: 解析特殊的地址
-                result[tagName].push(argument);
-                break;
+            //// 地址
+            //case "see": // Refer to some other documentation for more information.
+            //case "requires": // This file requires a JavaScript module.
+            //case "throws": //(synonyms: @exception) Describe what errors could be thrown.
+            //    result[tagName] = result[tagName] || [];
+            //    // TODO: 解析特殊的地址
+            //    result[tagName].push(argument);
+            //    break;
 
-            // 布尔型标签
-            case "inner": // Document an inner object.
-                return this.parseJsDocTag("internal", argument, tag, result);
-            case "host": // Document an inner object.
-                return this.parseJsDocTag("external", argument, tag, result);
-            case "abstract": // This member must be implemented by the inheritor.
-            case "virtual": // This member must be overridden by the inheritor.
-            case "override": // Indicate that a symbol overrides its parent.
-            case "readonly": // This symbol is meant to be read- only.
-            case "private": // This symbol is meant to be private.
-            case "protected": // This symbol is meant to be protected.
-            case "public": // This symbol is meant to be public.
-            case "internal": // This symbol is meant to be internal.
-            case "static": // Document a static member.
-            case "ignore": // Omit a symbol from the documentation.
-            case "external"://(synonyms: @host)  Identifies an external class, namespace, or module.
-            case "inheritdoc": // Indicate that a symbol should inherit its parent's documentation.
-                if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tagName}. The specific member has been marked as ${tagName}.`);
-                if (argument) this.reportDocError(result, tag, `Tag @${tagName} has no parameters.`);
-                result[tagName] = true;
-                break;
+            //// 布尔型标签
+            //case "inner": // Document an inner object.
+            //    return this.parseJsDocTag("internal", argument, tag, result);
+            //case "host": // Document an inner object.
+            //    return this.parseJsDocTag("external", argument, tag, result);
+            //case "abstract": // This member must be implemented by the inheritor.
+            //case "virtual": // This member must be overridden by the inheritor.
+            //case "override": // Indicate that a symbol overrides its parent.
+            //case "readonly": // This symbol is meant to be read- only.
+            //case "private": // This symbol is meant to be private.
+            //case "protected": // This symbol is meant to be protected.
+            //case "public": // This symbol is meant to be public.
+            //case "internal": // This symbol is meant to be internal.
+            //case "static": // Document a static member.
+            //case "ignore": // Omit a symbol from the documentation.
+            //case "external"://(synonyms: @host)  Identifies an external class, namespace, or module.
+            //case "inheritdoc": // Indicate that a symbol should inherit its parent's documentation.
+            //    if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tagName}. The specific member has been marked as ${tagName}.`);
+            //    if (argument) this.reportDocError(result, tag, `Tag @${tagName} has no parameters.`);
+            //    result[tagName] = true;
+            //    break;
 
-            // 可选名字的布尔型标签
-            case "func":
-            case "method":
-                return this.parseJsDocTag("function", argument, tag, result);
-            case "prop":
-                return this.parseJsDocTag("property", argument, tag, result);
-            case "constructs": // This function member will be the constructor for the previous class.
-            case "constructor":
-                return this.parseJsDocTag("class", argument, tag, result);
-            case "constant":
-                return this.parseJsDocTag("const", argument, tag, result);
-            case "var":
-                return this.parseJsDocTag("member", argument, tag, result);
-            case "function": // (synonyms: @func, @method)  Describe a function or method.
-            case "property": // (synonyms: @prop)   Document a property of an object.
-            case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
-            case "interface": // This symbol is an interface that others can implement
-            case "enum": // Document a collection of related properties.
-            case "const": // (synonyms: @const)  Document an object as a constant.
-            case "member": // (synonyms: @var) Document a member.
-            case "callback": // Document a callback function.
-            case "event": // Document an event.
-            case "config": // Document a config.
-            case "exports": // Identify the member that is exported by a JavaScript module.
-            case "instance": // Document an instance member..
-            case "global": // Document a global object.
-                // TODO：解析 argument 为名字。
-                if (argument) result.name = argument;
-                argument[argument] = true;
-                break;
+            //// 可选名字的布尔型标签
+            //case "func":
+            //case "method":
+            //    return this.parseJsDocTag("function", argument, tag, result);
+            //case "prop":
+            //    return this.parseJsDocTag("property", argument, tag, result);
+            //case "constructs": // This function member will be the constructor for the previous class.
+            //case "constructor":
+            //    return this.parseJsDocTag("class", argument, tag, result);
+            //case "constant":
+            //    return this.parseJsDocTag("const", argument, tag, result);
+            //case "var":
+            //    return this.parseJsDocTag("member", argument, tag, result);
+            //case "function": // (synonyms: @func, @method)  Describe a function or method.
+            //case "property": // (synonyms: @prop)   Document a property of an object.
+            //case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+            //case "interface": // This symbol is an interface that others can implement
+            //case "enum": // Document a collection of related properties.
+            //case "const": // (synonyms: @const)  Document an object as a constant.
+            //case "member": // (synonyms: @var) Document a member.
+            //case "callback": // Document a callback function.
+            //case "event": // Document an event.
+            //case "config": // Document a config.
+            //case "exports": // Identify the member that is exported by a JavaScript module.
+            //case "instance": // Document an instance member..
+            //case "global": // Document a global object.
+            //    // TODO：解析 argument 为名字。
+            //    if (argument) result.name = argument;
+            //    argument[argument] = true;
+            //    break;
 
-            // 代码
-            case "default": //  (synonyms: @defaultvalue)  Document the default value.
-            case "example": // Provide an example of how to use a documented item.
-                argument[argument] = result;
-                break;
-            case "defaultvalue":
-                return this.parseJsDocTag("default", argument, tag, result);
+            //// 代码
+            //case "default": //  (synonyms: @defaultvalue)  Document the default value.
+            //case "example": // Provide an example of how to use a documented item.
+            //    argument[argument] = result;
+            //    break;
+            //case "defaultvalue":
+            //    return this.parseJsDocTag("default", argument, tag, result);
 
-            // 版本
-            case "deprecated": // Document that this is no longer the preferred way.
-            case "version": // Documents the version number of an item.
-            case "since": // When was this feature added?
-                if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
-                // TODO：解析版本号
-                result[tagName] = argument;
-                break;
+            //// 版本
+            //case "deprecated": // Document that this is no longer the preferred way.
+            //case "version": // Documents the version number of an item.
+            //case "since": // When was this feature added?
+            //    if (result[tagName]) this.reportDocError(result, tag, `Duplicate tag: @${tag.tagName.text}.`);
+            //    // TODO：解析版本号
+            //    result[tagName] = argument;
+            //    break;
 
             // 特定标签
             case "return":
-                return this.parseJsDocTag("returns", argument, tag, result);
+                return this.parseJsDocTag("returns");
             case "returns": // (synonyms: @return) Document the return value of a function.
-                // todo
+                let type = this.tryParseJSDocTypeExpression();
                 break;
 
-            case "type": // Document the type of an object.
-            case "this": // What does the 'this' keyword refer to here?
-                // todo
-                break;
+            //case "type": // Document the type of an object.
+            //case "this": // What does the 'this' keyword refer to here?
+            //    // todo
+            //    break;
 
-            case "typedef": // Document a custom type.
-                // todo
-                break;
+            //case "typedef": // Document a custom type.
+            //    // todo
+            //    break;
 
-            case "arg":
-            case "argument":
-                return this.parseJsDocTag("param", argument, tag, result);
-            case "param": //(synonyms: @arg, @argument)  Document the parameter to a function.
-                // todo
-                break;
+            //case "arg":
+            //case "argument":
+            //    return this.parseJsDocTag("param", argument, tag, result);
+            //case "param": //(synonyms: @arg, @argument)  Document the parameter to a function.
+            //    // todo
+            //    break;
 
-            case "access": //  Specify the access level of this member (private, public, or protected).
-                switch (argument) {
-                    case "private":
-                    case "protected":
-                    case "public":
-                    case "internal":
-                        return this.parseJsDocTag(argument, null, tag, result);
-                    default:
-                        this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'. Supported values are: 'private', 'protected', 'public', 'internal'.`);
-                        break;
-                }
-                break;
+            //case "access": //  Specify the access level of this member (private, public, or protected).
+            //    switch (argument) {
+            //        case "private":
+            //        case "protected":
+            //        case "public":
+            //        case "internal":
+            //            return this.parseJsDocTag(argument, null, tag, result);
+            //        default:
+            //            this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'. Supported values are: 'private', 'protected', 'public', 'internal'.`);
+            //            break;
+            //    }
+            //    break;
 
-            case "kind": // What kind of symbol is this?
-                switch (argument) {
-                    case "func":
-                    case "method":
-                    case "prop":
-                    case "constructs": // This function member will be the constructor for the previous class.
-                    case "constructor":
-                    case "constant":
-                    case "var":
-                    case "function": // (synonyms: @func, @method)  Describe a function or method.
-                    case "property": // (synonyms: @prop)   Document a property of an object.
-                    case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
-                    case "interface": // This symbol is an interface that others can implement
-                    case "enum": // Document a collection of related properties.
-                    case "const": // (synonyms: @const)  Document an object as a constant.
-                    case "member": // (synonyms: @var) Document a member.
-                    case "callback": // Document a callback function.
-                    case "event": // Document an event.
-                    case "config": // Document a config.
-                    case "exports": // Identify the member that is exported by a JavaScript module.
-                    case "instance": // Document an instance member..
-                        return this.parseJsDocTag(argument, null, tag, result);
-                    default:
-                        this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'.`);
-                        break;
-                }
+            //case "kind": // What kind of symbol is this?
+            //    switch (argument) {
+            //        case "func":
+            //        case "method":
+            //        case "prop":
+            //        case "constructs": // This function member will be the constructor for the previous class.
+            //        case "constructor":
+            //        case "constant":
+            //        case "var":
+            //        case "function": // (synonyms: @func, @method)  Describe a function or method.
+            //        case "property": // (synonyms: @prop)   Document a property of an object.
+            //        case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+            //        case "interface": // This symbol is an interface that others can implement
+            //        case "enum": // Document a collection of related properties.
+            //        case "const": // (synonyms: @const)  Document an object as a constant.
+            //        case "member": // (synonyms: @var) Document a member.
+            //        case "callback": // Document a callback function.
+            //        case "event": // Document an event.
+            //        case "config": // Document a config.
+            //        case "exports": // Identify the member that is exported by a JavaScript module.
+            //        case "instance": // Document an instance member..
+            //            return this.parseJsDocTag(argument, null, tag, result);
+            //        default:
+            //            this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'.`);
+            //            break;
+            //    }
 
-            case "listens": // List the events that a symbol listens for.
-            case "mixes": // This object mixes in all the members from another object.
-            case "mixin": // Document a mixin object.
-            case "tutorial": // Insert a link to an included tutorial file.
-            case "variation": // Distinguish different objects with the same name.
-            default:
-                this.reportDocError(result, tag, `Unknown tag @${tagName}.`);
-                break;
+            //case "listens": // List the events that a symbol listens for.
+            //case "mixes": // This object mixes in all the members from another object.
+            //case "mixin": // Document a mixin object.
+            //case "tutorial": // Insert a link to an included tutorial file.
+            //case "variation": // Distinguish different objects with the same name.
+            //default:
+            //    this.reportDocError(result, tag, `Unknown tag @${tagName}.`);
+            //    break;
         }
+    }
+
+    tryParseJSDocTypeExpression() {
+        if (this.scanner.getToken() !== ts.SyntaxKind.OpenBraceToken) {
+            return undefined;
+        }
+
+        const typeExpression = this.parseJSDocTypeExpression();
+        return typeExpression;
+    }
+
+    parseJSDocTypeExpression() {
+        const result = <ts.JSDocTypeExpression>ts.createNode(ts.SyntaxKind.JSDocTypeExpression, this.scanner.getTokenPos());
+
+        this.parseExpected(ts.SyntaxKind.OpenBraceToken);
+        result.type = this.parseJSDocTopLevelType();
+        this.parseExpected(ts.SyntaxKind.CloseBraceToken);
+
+        return this.finishNode(result);
+    }
+
+    parseExpected(kind: ts.SyntaxKind, diagnosticMessage?: ts.DiagnosticMessage, shouldAdvance = true): boolean {
+        if (this.scanner.getToken() === kind) {
+            if (shouldAdvance) {
+                this.scanner.scanJSDocToken();
+            }
+            return true;
+        }
+
+        // Report specific message if provided with one.  Otherwise, report generic fallback message.
+        //if (diagnosticMessage) {
+        //    parseErrorAtCurrentToken(diagnosticMessage);
+        //}
+        //else {
+        //    parseErrorAtCurrentToken(Diagnostics._0_expected, tokenToString(kind));
+        //}
+        return false;
+    }
+
+    finishNode<T extends ts.Node>(node: T, end = this.scanner.getStartPos()): T {
+        node.end = end;
+        return node;
+    }
+
+    parseJSDocTopLevelType(): ts.JSDocType {
+        let type = this.parseJSDocType();
+        if (this.scanner.getToken() === ts.SyntaxKind.BarToken) {
+            const unionType = <ts.JSDocUnionType>ts.createNode(ts.SyntaxKind.JSDocUnionType, type.pos);
+            unionType.types = this.parseJSDocTypeList(type);
+            type = this.finishNode(unionType);
+        }
+
+        if (this.scanner.getToken() === ts.SyntaxKind.EqualsToken) {
+            const optionalType = <ts.JSDocOptionalType>ts.createNode(ts.SyntaxKind.JSDocOptionalType, type.pos);
+            this.scanner.scanJSDocToken();
+            optionalType.type = type;
+            type = this.finishNode(optionalType);
+        }
+
+        return type;
+    }
+
+    parseJSDocType(): ts.JSDocType {
+        let type = this.parseBasicTypeExpression();
+
+        while (true) {
+            if (this.scanner.getToken() === ts.SyntaxKind.OpenBracketToken) {
+                const arrayType = <ts.JSDocArrayType>ts.createNode(ts.SyntaxKind.JSDocArrayType, type.pos);
+                arrayType.elementType = type;
+
+                this.scanner.scanJSDocToken();
+                this.parseExpected(ts.SyntaxKind.CloseBracketToken);
+
+                type = this.finishNode(arrayType);
+            }
+            else if (this.scanner.getToken() === ts.SyntaxKind.QuestionToken) {
+                const nullableType = <ts.JSDocNullableType>ts.createNode(ts.SyntaxKind.JSDocNullableType, type.pos);
+                nullableType.type = type;
+
+                this.scanner.scanJSDocToken();
+                type = this.finishNode(nullableType);
+            }
+            else if (this.scanner.getToken() === ts.SyntaxKind.ExclamationToken) {
+                const nonNullableType = <ts.JSDocNonNullableType>ts.createNode(ts.SyntaxKind.JSDocNonNullableType, type.pos);
+                nonNullableType.type = type;
+
+                this.scanner.scanJSDocToken();
+                type = this.finishNode(nonNullableType);
+            }
+            else {
+                break;
+            }
+        }
+
+        return type;
     }
 
     /**
@@ -474,14 +602,330 @@ class Transpiler {
         //return this.parseJsDoc(comment.pos, comment.end);
     }
 
+    parseBasicTypeExpression(): ts.JSDocType {
+        switch (this.scanner.getToken()) {
+            case ts.SyntaxKind.AsteriskToken:
+                return this.parseJSDocAllType();
+            case ts.SyntaxKind.QuestionToken:
+                return this.parseJSDocUnknownOrNullableType();
+            case ts.SyntaxKind.OpenParenToken:
+                return this.parseJSDocUnionType();
+            case ts.SyntaxKind.OpenBracketToken:
+                return this.parseJSDocTupleType();
+            case ts.SyntaxKind.ExclamationToken:
+                return this.parseJSDocNonNullableType();
+            case ts.SyntaxKind.OpenBraceToken:
+                return this.parseJSDocRecordType();
+            case ts.SyntaxKind.FunctionKeyword:
+                return this.parseJSDocFunctionType();
+            case ts.SyntaxKind.DotDotDotToken:
+                return this.parseJSDocVariadicType();
+            case ts.SyntaxKind.NewKeyword:
+                return this.parseJSDocConstructorType();
+            case ts.SyntaxKind.ThisKeyword:
+                return this.parseJSDocThisType();
+            case ts.SyntaxKind.AnyKeyword:
+            case ts.SyntaxKind.StringKeyword:
+            case ts.SyntaxKind.NumberKeyword:
+            case ts.SyntaxKind.BooleanKeyword:
+            case ts.SyntaxKind.SymbolKeyword:
+            case ts.SyntaxKind.VoidKeyword:
+                return this.parseTokenNode<ts.JSDocType>();
+        }
+
+        // TODO (drosen): Parse string literal types in ts.JSDoc as well.
+        return this.parseJSDocTypeReference();
+    }
+
+    parseTokenNode<T extends ts.Node>(): T {
+        const node = <T>ts.createNode(this.scanner.getToken());
+        this.scanner.scanJSDocToken();
+        return this.finishNode(node);
+    }
+
+    parseJSDocThisType(): ts.JSDocThisType {
+        const result = <ts.JSDocThisType>ts.createNode(ts.SyntaxKind.JSDocThisType);
+        this.scanner.scanJSDocToken();
+        this.parseExpected(ts.SyntaxKind.ColonToken);
+        result.type = this.parseJSDocType();
+        return this.finishNode(result);
+    }
+
+    parseJSDocConstructorType(): ts.JSDocConstructorType {
+        const result = <ts.JSDocConstructorType>ts.createNode(ts.SyntaxKind.JSDocConstructorType);
+        this.scanner.scanJSDocToken();
+        this.parseExpected(ts.SyntaxKind.ColonToken);
+        result.type = this.parseJSDocType();
+        return this.finishNode(result);
+    }
+
+    parseJSDocVariadicType(): ts.JSDocVariadicType {
+        const result = <ts.JSDocVariadicType>ts.createNode(ts.SyntaxKind.JSDocVariadicType);
+        this.scanner.scanJSDocToken();
+        result.type = this.parseJSDocType();
+        return this.finishNode(result);
+    }
+
+    parseJSDocFunctionType(): ts.JSDocFunctionType {
+        const result = <ts.JSDocFunctionType>ts.createNode(ts.SyntaxKind.JSDocFunctionType);
+        this.scanner.scanJSDocToken();
+
+        this.parseExpected(ts.SyntaxKind.OpenParenToken);
+        result.parameters = this.parseDelimitedList(ParsingContext.JSDocFunctionParameters, this.parseJSDocParameter.bind(this));
+        this.checkForTrailingComma(result.parameters);
+        this.parseExpected(ts.SyntaxKind.CloseParenToken);
+
+        if (this.scanner.getToken() === ts.SyntaxKind.ColonToken) {
+            this.scanner.scanJSDocToken();
+            result.type = this.parseJSDocType();
+        }
+
+        return this.finishNode(result);
+    }
+
+    // ts.Parses a comma-delimited list of elements
+    parseDelimitedList<T extends ts.Node>(kind: ParsingContext, parseElement: () => T, considerSemicolonAsDelimiter?: boolean): ts.NodeArray<T> {
+        const saveParsingContext = parsingContext;
+        parsingContext |= 1 << kind;
+        const result = <NodeArray<T>>[];
+        result.pos = getNodePos();
+
+        let commaStart = -1; // ts.Meaning the previous this.scanner.getToken() was not a comma
+        while (true) {
+            if (isListElement(kind, /*inErrorRecovery*/ false)) {
+                result.push(parseListElement(kind, parseElement));
+                commaStart = scanner.getTokenPos();
+                if (parseOptional(ts.SyntaxKind.CommaToken)) {
+                    continue;
+                }
+
+                commaStart = -1; // ts.Back to the state where the last this.scanner.getToken() was not a comma
+                if (isListTerminator(kind)) {
+                    break;
+                }
+
+                // ts.We didn't get a comma, and the list wasn't terminated, explicitly parse
+                // out a comma so we give a good error message.
+                parseExpected(ts.SyntaxKind.CommaToken);
+
+                // ts.If the this.scanner.getToken() was a semicolon, and the caller allows that, then skip it and
+                // continue.  ts.This ensures we get back on track and don't result in tons of
+                // parse errors.  ts.For example, this can happen when people do things like use
+                // a semicolon to delimit object literal members.   ts.Note: we'll have already
+                // reported an error when we called parseExpected above.
+                if (considerSemicolonAsDelimiter && this.scanner.getToken() === ts.SyntaxKind.SemicolonToken && !scanner.hasPrecedingLineBreak()) {
+                    this.scanner.scanJSDocToken();
+                }
+                continue;
+            }
+
+            if (isListTerminator(kind)) {
+                break;
+            }
+
+            if (abortParsingListOrMoveToNextToken(kind)) {
+                break;
+            }
+        }
+
+        // ts.Recording the trailing comma is deliberately done after the previous
+        // loop, and not just if we see a list terminator. ts.This is because the list
+        // may have ended incorrectly, but it is still important to know if there
+        // was a trailing comma.
+        // ts.Check if the last this.scanner.getToken() was a comma.
+        if (commaStart >= 0) {
+            // ts.Always preserve a trailing comma by marking it on the ts.NodeArray
+            result.hasTrailingComma = true;
+        }
+
+        result.end = this.getNodeEnd();
+        parsingContext = saveParsingContext;
+        return result;
+    }
+
+    parseJSDocParameter(): ts.ParameterDeclaration {
+        const parameter = <ts.ParameterDeclaration>ts.createNode(ts.SyntaxKind.Parameter);
+        parameter.type = this.parseJSDocType();
+        if (this.parseOptional(ts.SyntaxKind.EqualsToken)) {
+            parameter.questionToken = ts.createNode(ts.SyntaxKind.EqualsToken);
+        }
+        return this.finishNode(parameter);
+    }
+
+    parseOptional(t: ts.SyntaxKind): boolean {
+        if (this.scanner.getToken() === t) {
+            this.scanner.scanJSDocToken();
+            return true;
+        }
+        return false;
+    }
+
+    parseJSDocTypeReference(): ts.JSDocTypeReference {
+        const result = <ts.JSDocTypeReference>ts.createNode(ts.SyntaxKind.JSDocTypeReference);
+        result.name = this.parseSimplePropertyName();
+
+        if (this.scanner.getToken() === ts.SyntaxKind.LessThanToken) {
+            result.typeArguments = this.parseTypeArguments();
+        }
+        else {
+            while (this.parseOptional(ts.SyntaxKind.DotToken)) {
+                if (this.scanner.getToken() === ts.SyntaxKind.LessThanToken) {
+                    result.typeArguments = this.parseTypeArguments();
+                    break;
+                }
+                else {
+                    result.name = this.parseQualifiedName(result.name);
+                }
+            }
+        }
+
+
+        return this.finishNode(result);
+    }
+
+    parseTypeArguments() {
+        // Move past the <
+        this.scanner.scanJSDocToken();
+        const typeArguments = this.parseDelimitedList(ParsingContext.JSDocTypeArguments, this.parseJSDocType);
+        this.checkForTrailingComma(typeArguments);
+        this.checkForEmptyTypeArgumentList(typeArguments);
+        this.parseExpected(ts.SyntaxKind.GreaterThanToken);
+
+        return typeArguments;
+    }
+
+    checkForEmptyTypeArgumentList(typeArguments: ts.NodeArray<Node>) {
+        if (this.parseDiagnostics.length === 0 && typeArguments && typeArguments.length === 0) {
+            const start = typeArguments.pos - "<".length;
+            const end = this.skipTrivia(this.sourceFile.text, typeArguments.end) + ">".length;
+            return this.parseErrorAtPosition(start, end - start, Diagnostics.Type_argument_list_cannot_be_empty);
+        }
+    }
+
+    parseQualifiedName(left: ts.EntityName): ts.QualifiedName {
+        const result = <ts.QualifiedName>ts.createNode(ts.SyntaxKind.QualifiedName, left.pos);
+        result.left = left;
+        result.right = this.parseIdentifierName();
+
+        return this.finishNode(result);
+    }
+
+    parseJSDocRecordType(): ts.JSDocRecordType {
+        const result = <ts.JSDocRecordType>ts.createNode(ts.SyntaxKind.JSDocRecordType);
+        this.scanner.scanJSDocToken();
+        result.members = this.parseDelimitedList(ParsingContext.JSDocRecordMembers, this.parseJSDocRecordMember.bind(this));
+        this.checkForTrailingComma(result.members);
+        this.parseExpected(ts.SyntaxKind.CloseBraceToken);
+        return this.finishNode(result);
+    }
+
+    parseJSDocRecordMember(): ts.JSDocRecordMember {
+        const result = <ts.JSDocRecordMember>ts.createNode(ts.SyntaxKind.JSDocRecordMember);
+        result.name = this.parseSimplePropertyName();
+
+        if (this.scanner.getToken() === ts.SyntaxKind.ColonToken) {
+            this.scanner.scanJSDocToken();
+            result.type = this.parseJSDocType();
+        }
+
+        return this.finishNode(result);
+    }
+
+    parseJSDocNonNullableType(): ts.JSDocNonNullableType {
+        const result = <ts.JSDocNonNullableType>ts.createNode(ts.SyntaxKind.JSDocNonNullableType);
+        this.scanner.scanJSDocToken();
+        result.type = this.parseJSDocType();
+        return this.finishNode(result);
+    }
+
+    parseJSDocTupleType(): ts.JSDocTupleType {
+        const result = <ts.JSDocTupleType>ts.createNode(ts.SyntaxKind.JSDocTupleType);
+        this.scanner.scanJSDocToken();
+        result.types = this.parseDelimitedList(ParsingContext.JSDocTupleTypes, parseJSDocType);
+        this.checkForTrailingComma(result.types);
+        this.parseExpected(ts.SyntaxKind.CloseBracketToken);
+
+        return this.finishNode(result);
+    }
+
+    checkForTrailingComma(list: ts.NodeArray<ts.Node>) {
+        if (this.parseDiagnostics.length === 0 && list.hasTrailingComma) {
+            const start = list.end - ",".length;
+            this.parseErrorAtPosition(start, ",".length, Diagnostics.Trailing_comma_not_allowed);
+        }
+    }
+
+    parseJSDocUnionType(): ts.JSDocUnionType {
+        const result = <ts.JSDocUnionType>ts.createNode(ts.SyntaxKind.JSDocUnionType);
+        this.scanner.scanJSDocToken();
+        result.types = this.parseJSDocTypeList(this.parseJSDocType());
+
+        this.parseExpected(ts.SyntaxKind.CloseParenToken);
+
+        return this.finishNode(result);
+    }
+
+    parseJSDocTypeList(firstType: ts.JSDocType) {
+        Debug.assert(!!firstType);
+
+        const types = <ts.NodeArray<ts.JSDocType>>[];
+        types.pos = firstType.pos;
+
+        types.push(firstType);
+        while (this.parseOptional(ts.SyntaxKind.BarToken)) {
+            types.push(this.parseJSDocType());
+        }
+
+        types.end = this.scanner.getStartPos();
+        return types;
+    }
+
+    parseJSDocAllType(): ts.JSDocAllType {
+        const result = <ts.JSDocAllType>ts.createNode(ts.SyntaxKind.JSDocAllType);
+        this.scanner.scanJSDocToken();
+        return this.finishNode(result);
+    }
+
+    parseJSDocUnknownOrNullableType(): ts.JSDocUnknownType | ts.JSDocNullableType {
+        const pos = this.scanner.getStartPos();
+        // skip the ?
+        this.scanner.scanJSDocToken();
+
+        // Need to lookahead to decide if this is a nullable or unknown type.
+
+        // Here are cases where we'll pick the unknown type:
+        //
+        //      Foo(?,
+        //      { a: ? }
+        //      Foo(?)
+        //      Foo<?>
+        //      Foo(?=
+        //      (?|
+        if (this.scanner.getToken() === ts.SyntaxKind.CommaToken ||
+            this.scanner.getToken() === ts.SyntaxKind.CloseBraceToken ||
+            this.scanner.getToken() === ts.SyntaxKind.CloseParenToken ||
+            this.scanner.getToken() === ts.SyntaxKind.GreaterThanToken ||
+            this.scanner.getToken() === ts.SyntaxKind.EqualsToken ||
+            this.scanner.getToken() === ts.SyntaxKind.BarToken) {
+
+            const result = <ts.JSDocUnknownType>ts.createNode(ts.SyntaxKind.JSDocUnknownType, pos);
+            return this.finishNode(result);
+        }
+        else {
+            const result = <ts.JSDocNullableType>ts.createNode(ts.SyntaxKind.JSDocNullableType, pos);
+            result.type = this.parseJSDocType();
+            return this.finishNode(result);
+        }
+    }
+
     /**
      * 添加一个已解析的文档注释。
      * @param node 当前节点。
      */
-    addDocComment(docComment: DocComment) {
-        if (docComment.category) this.category = docComment.category;
-        if (docComment.namespace) this.namespace = docComment.namespace;
-        this.doc.members.push(docComment);
+    addDocComment(jsDocComment: ParsedJSDocComment) {
+        if (jsDocComment.category) this.category = jsDocComment.category;
+        if (jsDocComment.namespace) this.namespace = jsDocComment.namespace;
+        this.jsDoc.members.push(jsDocComment);
     }
 
     /**
@@ -520,7 +964,7 @@ interface TranspileOptions extends ts.CompilerOptions {
 /**
  * 表示一个文档注释。
  */
-export interface DocComment {
+export interface ParsedJSDocComment {
 
     // #region 注释属性
 
@@ -809,7 +1253,7 @@ export interface DocComment {
         /**
          * 获取参数的类型。
          */
-        type: string | DocComment,
+        type: string,
 
         /**
          * 获取参数的名字。
@@ -845,7 +1289,7 @@ export interface DocComment {
         /**
          * 获取返回值的类型。
          */
-        type: string | DocComment,
+        type: string,
 
         /**
          * 获取返回值的描述。
@@ -861,7 +1305,7 @@ export interface DocComment {
         /**
          * 获取异常的类型。
          */
-        type: string | DocComment,
+        type: string,
 
         /**
          * 获取异常的描述。
@@ -938,6 +1382,36 @@ interface SourceFileDocComment {
      */
     imports: any[];
 
+}
+
+const enum ParsingContext {
+    SourceElements,            // Elements in source file
+    BlockStatements,           // Statements in block
+    SwitchClauses,             // Clauses in switch statement
+    SwitchClauseStatements,    // Statements in switch clause
+    TypeMembers,               // Members in interface or type literal
+    ClassMembers,              // Members in class declaration
+    EnumMembers,               // Members in enum declaration
+    HeritageClauseElement,     // Elements in a heritage clause
+    VariableDeclarations,      // Variable declarations in variable statement
+    ObjectBindingElements,     // Binding elements in object binding list
+    ArrayBindingElements,      // Binding elements in array binding list
+    ArgumentExpressions,       // Expressions in argument list
+    ObjectLiteralMembers,      // Members in object literal
+    JsxAttributes,             // Attributes in jsx element
+    JsxChildren,               // Things between opening and closing JSX tags
+    ArrayLiteralMembers,       // Members in array literal
+    Parameters,                // Parameters in parameter list
+    TypeParameters,            // Type parameters in type parameter list
+    TypeArguments,             // Type arguments in type argument list
+    TupleElementTypes,         // Element types in tuple element type list
+    HeritageClauses,           // Heritage clauses for a class or interface declaration.
+    ImportOrExportSpecifiers,  // Named import clause's import specifier list
+    JSDocFunctionParameters,
+    JSDocTypeArguments,
+    JSDocRecordMembers,
+    JSDocTupleTypes,
+    Count                      // Number of parsing contexts
 }
 
 // #region 节点遍历
@@ -1458,8 +1932,8 @@ const writeCommentRange = (ts as any).writeCommentRange;
 const transpileModule = ts.transpileModule;
 ts.transpileModule = function (input: string, transpileOptions: ts.TranspileOptions) {
     let result: ts.TranspileOutput = transpileModule.apply(this, arguments);
-    if (transpiler.options.doc) {
-        result["doc"] = transpiler.docs;
+    if (transpiler.options.jsDoc) {
+        result["jsDoc"] = transpiler.jsDocs;
     }
     return result;
 }

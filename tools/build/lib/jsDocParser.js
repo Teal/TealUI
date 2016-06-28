@@ -3,6 +3,7 @@
  * @descrition 解析 JsDoc 风格的文档注释。
  */
 var ts = require("typescript");
+var _ = console.log.bind(console);
 // #region 接口
 /**
  * 解析指定文本的文档注释。
@@ -12,62 +13,10 @@ var ts = require("typescript");
  * @returns {}
  */
 function parseJsDocComment(sourceFile, start, end) {
-    return parseDocCommentWorker(sourceFile, start, end);
 }
 exports.parseJsDocComment = parseJsDocComment;
 // #endregion
-// #region 解析标签
-/**
- * 标签的词法类型。
- */
-var TagType;
-(function (TagType) {
-    /**
-     * 纯文本。
-     */
-    TagType[TagType["text"] = 0] = "text";
-    /**
-     * HTML 。
-     */
-    TagType[TagType["html"] = 1] = "html";
-    /**
-     * 参数。
-     */
-    TagType[TagType["param"] = 2] = "param";
-})(TagType || (TagType = {}));
-/**
- * 所有支持的标签信息。
- */
-var Tags = {
-    access: { type: 'text' },
-    summary: { type: 'html' },
-    params: { type: 'param' },
-    param: { alias: 'params' },
-    'type': { type: 'type' },
-    'returns': { type: 'return' },
-    'return': { alias: 'returns' },
-    'exception': { type: 'exception' },
-    'throws': { alias: 'throw' },
-    'throw': { alias: 'exception' },
-    'since': { type: 'text' },
-    'version': { alias: 'since' },
-    'property': { type: 'memberType' },
-    'field': { type: 'memberType' },
-    'function': { type: 'memberType' },
-    'method': { type: 'memberType' },
-    'event': { type: 'memberType' },
-    'constructor': { type: 'memberType' },
-    'category': { type: 'memberType' },
-    'class': { type: 'memberType' },
-    'namespace': { type: 'memberType' },
-    name: { type: 'text' },
-    memberOf: { type: 'text' },
-    author: { type: 'text' },
-    fileOverview: { type: 'html' },
-    remark: { type: 'html' },
-    example: { type: 'code' },
-    sample: { alias: 'example' }
-};
+// #region 解析词法
 var CharacterCodes = ts["CharacterCodes"];
 var Debug = ts["Debug"];
 // 全局统一使用。
@@ -77,51 +26,7 @@ var token;
 // 存储结果对象。
 var result;
 function parseDocCommentWorker(sourceFile, start, end) {
-    var p = ts.getLineAndCharacterOfPosition(sourceFile, start);
-    result = { line: p.line, column: p.character };
     scanner.setText(sourceFile.text, start + 3, end - 2);
-    // Initially we can parse out a tag.  We also have seen a starting asterisk.
-    // This is so that /** * @type */ doesn't parse.
-    var canParseTag = true;
-    var seenAsterisk = true;
-    nextJSDocToken();
-    while (token !== ts.SyntaxKind.EndOfFileToken) {
-        switch (token) {
-            case ts.SyntaxKind.AtToken:
-                if (canParseTag) {
-                    parseTag();
-                }
-                // This will take us to the end of the line, so it's OK to parse a tag on the next pass through the loop
-                seenAsterisk = false;
-                break;
-            case ts.SyntaxKind.NewLineTrivia:
-                // After a line break, we can parse a tag, and we haven't seen an asterisk on the next line yet
-                canParseTag = true;
-                seenAsterisk = false;
-                break;
-            case ts.SyntaxKind.AsteriskToken:
-                if (seenAsterisk) {
-                    // If we've already seen an asterisk, then we can no longer parse a tag on this line
-                    canParseTag = false;
-                }
-                // Ignore the first asterisk on a line
-                seenAsterisk = true;
-                break;
-            case ts.SyntaxKind.Identifier:
-                // Anything else is doc comment text.  We can't do anything with it.  Because it
-                // wasn't a tag, we can no longer parse a tag on this line until we hit the next
-                // line break.
-                canParseTag = false;
-                break;
-            case ts.SyntaxKind.EndOfFileToken:
-                break;
-        }
-        nextJSDocToken();
-    }
-    return createJSDocComment();
-}
-function nextJSDocToken() {
-    return token = scanner.scanJSDocToken();
 }
 function parseTag() {
     Debug.assert(token === ts.SyntaxKind.AtToken);
@@ -134,14 +39,6 @@ function parseTag() {
     }
     var tag = handleTag(atToken, tagName) || handleUnknownTag(atToken, tagName);
     addTag(tag);
-}
-function createJSDocComment() {
-    if (!tags) {
-        return undefined;
-    }
-    var result = createNode(SyntaxKind.JSDocComment, start);
-    result.tags = tags;
-    return finishNode(result, end);
 }
 function skipWhitespace() {
     while (token === SyntaxKind.WhitespaceTrivia || token === SyntaxKind.NewLineTrivia) {
@@ -181,13 +78,6 @@ function addTag(tag) {
         tags.push(tag);
         tags.end = tag.end;
     }
-}
-function tryParseTypeExpression() {
-    if (token !== SyntaxKind.OpenBraceToken) {
-        return undefined;
-    }
-    var typeExpression = parseJSDocTypeExpression();
-    return typeExpression;
 }
 function handleParamTag(atToken, tagName) {
     var typeExpression = tryParseTypeExpression();
@@ -388,7 +278,7 @@ function handleTemplateTag(atToken, tagName) {
     return result;
 }
 function parseJSDocIdentifierName() {
-    return createJSDocIdentifier(tokenIsIdentifierOrKeyword(token));
+    return createJSDocIdentifier(ts["tokenIsIdentifierOrKeyword"](token));
 }
 function createJSDocIdentifier(isIdentifier) {
     if (!isIdentifier) {
@@ -823,23 +713,6 @@ var Parser;
         }
         return token > SyntaxKind.LastReservedWord;
     }
-    function parseExpected(kind, diagnosticMessage, shouldAdvance) {
-        if (shouldAdvance === void 0) { shouldAdvance = true; }
-        if (token === kind) {
-            if (shouldAdvance) {
-                nextToken();
-            }
-            return true;
-        }
-        // Report specific message if provided with one.  Otherwise, report generic fallback message.
-        if (diagnosticMessage) {
-            parseErrorAtCurrentToken(diagnosticMessage);
-        }
-        else {
-            parseErrorAtCurrentToken(Diagnostics._0_expected, tokenToString(kind));
-        }
-        return false;
-    }
     function parseOptional(t) {
         if (token === t) {
             nextToken();
@@ -856,11 +729,6 @@ var Parser;
     function parseExpectedToken(t, reportAtCurrentPosition, diagnosticMessage, arg0) {
         return parseOptionalToken(t) ||
             createMissingNode(t, reportAtCurrentPosition, diagnosticMessage, arg0);
-    }
-    function parseTokenNode() {
-        var node = createNode(token);
-        nextToken();
-        return finishNode(node);
     }
     function canParseSemicolon() {
         // If there's a real semicolon, then we can always parse it out.
@@ -889,20 +757,6 @@ var Parser;
             pos = scanner.getStartPos();
         }
         return new NodeConstructor(kind, pos, pos);
-    }
-    function finishNode(node, end) {
-        node.end = end === undefined ? scanner.getStartPos() : end;
-        if (contextFlags) {
-            node.flags |= contextFlags;
-        }
-        // Keep track on the node if we encountered an error while parsing it.  If we did, then
-        // we cannot reuse the node incrementally.  Once we've marked this node, clear out the
-        // flag so that we don't mark any subsequent nodes.
-        if (parseErrorBeforeNextFinishedNode) {
-            parseErrorBeforeNextFinishedNode = false;
-            node.flags |= NodeFlags.ThisNodeHasError;
-        }
-        return node;
     }
     function createMissingNode(kind, reportAtCurrentPosition, diagnosticMessage, arg0) {
         if (reportAtCurrentPosition) {
@@ -4991,263 +4845,6 @@ var Parser;
             return tokenIsIdentifierOrKeyword(token);
         }
         JSDocParser.isJSDocType = isJSDocType;
-        // Parses out a JSDoc type expression.
-        /* @internal */
-        function parseJSDocTypeExpression() {
-            var result = createNode(SyntaxKind.JSDocTypeExpression, scanner.getTokenPos());
-            parseExpected(SyntaxKind.OpenBraceToken);
-            result.type = parseJSDocTopLevelType();
-            parseExpected(SyntaxKind.CloseBraceToken);
-            fixupParentReferences(result);
-            return finishNode(result);
-        }
-        JSDocParser.parseJSDocTypeExpression = parseJSDocTypeExpression;
-        function parseJSDocTopLevelType() {
-            var type = parseJSDocType();
-            if (token === SyntaxKind.BarToken) {
-                var unionType = createNode(SyntaxKind.JSDocUnionType, type.pos);
-                unionType.types = parseJSDocTypeList(type);
-                type = finishNode(unionType);
-            }
-            if (token === SyntaxKind.EqualsToken) {
-                var optionalType = createNode(SyntaxKind.JSDocOptionalType, type.pos);
-                nextToken();
-                optionalType.type = type;
-                type = finishNode(optionalType);
-            }
-            return type;
-        }
-        function parseJSDocType() {
-            var type = parseBasicTypeExpression();
-            while (true) {
-                if (token === SyntaxKind.OpenBracketToken) {
-                    var arrayType = createNode(SyntaxKind.JSDocArrayType, type.pos);
-                    arrayType.elementType = type;
-                    nextToken();
-                    parseExpected(SyntaxKind.CloseBracketToken);
-                    type = finishNode(arrayType);
-                }
-                else if (token === SyntaxKind.QuestionToken) {
-                    var nullableType = createNode(SyntaxKind.JSDocNullableType, type.pos);
-                    nullableType.type = type;
-                    nextToken();
-                    type = finishNode(nullableType);
-                }
-                else if (token === SyntaxKind.ExclamationToken) {
-                    var nonNullableType = createNode(SyntaxKind.JSDocNonNullableType, type.pos);
-                    nonNullableType.type = type;
-                    nextToken();
-                    type = finishNode(nonNullableType);
-                }
-                else {
-                    break;
-                }
-            }
-            return type;
-        }
-        function parseBasicTypeExpression() {
-            switch (token) {
-                case SyntaxKind.AsteriskToken:
-                    return parseJSDocAllType();
-                case SyntaxKind.QuestionToken:
-                    return parseJSDocUnknownOrNullableType();
-                case SyntaxKind.OpenParenToken:
-                    return parseJSDocUnionType();
-                case SyntaxKind.OpenBracketToken:
-                    return parseJSDocTupleType();
-                case SyntaxKind.ExclamationToken:
-                    return parseJSDocNonNullableType();
-                case SyntaxKind.OpenBraceToken:
-                    return parseJSDocRecordType();
-                case SyntaxKind.FunctionKeyword:
-                    return parseJSDocFunctionType();
-                case SyntaxKind.DotDotDotToken:
-                    return parseJSDocVariadicType();
-                case SyntaxKind.NewKeyword:
-                    return parseJSDocConstructorType();
-                case SyntaxKind.ThisKeyword:
-                    return parseJSDocThisType();
-                case SyntaxKind.AnyKeyword:
-                case SyntaxKind.StringKeyword:
-                case SyntaxKind.NumberKeyword:
-                case SyntaxKind.BooleanKeyword:
-                case SyntaxKind.SymbolKeyword:
-                case SyntaxKind.VoidKeyword:
-                    return parseTokenNode();
-            }
-            // TODO (drosen): Parse string literal types in JSDoc as well.
-            return parseJSDocTypeReference();
-        }
-        function parseJSDocThisType() {
-            var result = createNode(SyntaxKind.JSDocThisType);
-            nextToken();
-            parseExpected(SyntaxKind.ColonToken);
-            result.type = parseJSDocType();
-            return finishNode(result);
-        }
-        function parseJSDocConstructorType() {
-            var result = createNode(SyntaxKind.JSDocConstructorType);
-            nextToken();
-            parseExpected(SyntaxKind.ColonToken);
-            result.type = parseJSDocType();
-            return finishNode(result);
-        }
-        function parseJSDocVariadicType() {
-            var result = createNode(SyntaxKind.JSDocVariadicType);
-            nextToken();
-            result.type = parseJSDocType();
-            return finishNode(result);
-        }
-        function parseJSDocFunctionType() {
-            var result = createNode(SyntaxKind.JSDocFunctionType);
-            nextToken();
-            parseExpected(SyntaxKind.OpenParenToken);
-            result.parameters = parseDelimitedList(22 /* JSDocFunctionParameters */, parseJSDocParameter);
-            checkForTrailingComma(result.parameters);
-            parseExpected(SyntaxKind.CloseParenToken);
-            if (token === SyntaxKind.ColonToken) {
-                nextToken();
-                result.type = parseJSDocType();
-            }
-            return finishNode(result);
-        }
-        function parseJSDocParameter() {
-            var parameter = createNode(SyntaxKind.Parameter);
-            parameter.type = parseJSDocType();
-            if (parseOptional(SyntaxKind.EqualsToken)) {
-                parameter.questionToken = createNode(SyntaxKind.EqualsToken);
-            }
-            return finishNode(parameter);
-        }
-        function parseJSDocTypeReference() {
-            var result = createNode(SyntaxKind.JSDocTypeReference);
-            result.name = parseSimplePropertyName();
-            if (token === SyntaxKind.LessThanToken) {
-                result.typeArguments = parseTypeArguments();
-            }
-            else {
-                while (parseOptional(SyntaxKind.DotToken)) {
-                    if (token === SyntaxKind.LessThanToken) {
-                        result.typeArguments = parseTypeArguments();
-                        break;
-                    }
-                    else {
-                        result.name = parseQualifiedName(result.name);
-                    }
-                }
-            }
-            return finishNode(result);
-        }
-        function parseTypeArguments() {
-            // Move past the <
-            nextToken();
-            var typeArguments = parseDelimitedList(23 /* JSDocTypeArguments */, parseJSDocType);
-            checkForTrailingComma(typeArguments);
-            checkForEmptyTypeArgumentList(typeArguments);
-            parseExpected(SyntaxKind.GreaterThanToken);
-            return typeArguments;
-        }
-        function checkForEmptyTypeArgumentList(typeArguments) {
-            if (parseDiagnostics.length === 0 && typeArguments && typeArguments.length === 0) {
-                var start = typeArguments.pos - "<".length;
-                var end = skipTrivia(sourceText, typeArguments.end) + ">".length;
-                return parseErrorAtPosition(start, end - start, Diagnostics.Type_argument_list_cannot_be_empty);
-            }
-        }
-        function parseQualifiedName(left) {
-            var result = createNode(SyntaxKind.QualifiedName, left.pos);
-            result.left = left;
-            result.right = parseIdentifierName();
-            return finishNode(result);
-        }
-        function parseJSDocRecordType() {
-            var result = createNode(SyntaxKind.JSDocRecordType);
-            nextToken();
-            result.members = parseDelimitedList(24 /* JSDocRecordMembers */, parseJSDocRecordMember);
-            checkForTrailingComma(result.members);
-            parseExpected(SyntaxKind.CloseBraceToken);
-            return finishNode(result);
-        }
-        function parseJSDocRecordMember() {
-            var result = createNode(SyntaxKind.JSDocRecordMember);
-            result.name = parseSimplePropertyName();
-            if (token === SyntaxKind.ColonToken) {
-                nextToken();
-                result.type = parseJSDocType();
-            }
-            return finishNode(result);
-        }
-        function parseJSDocNonNullableType() {
-            var result = createNode(SyntaxKind.JSDocNonNullableType);
-            nextToken();
-            result.type = parseJSDocType();
-            return finishNode(result);
-        }
-        function parseJSDocTupleType() {
-            var result = createNode(SyntaxKind.JSDocTupleType);
-            nextToken();
-            result.types = parseDelimitedList(25 /* JSDocTupleTypes */, parseJSDocType);
-            checkForTrailingComma(result.types);
-            parseExpected(SyntaxKind.CloseBracketToken);
-            return finishNode(result);
-        }
-        function checkForTrailingComma(list) {
-            if (parseDiagnostics.length === 0 && list.hasTrailingComma) {
-                var start = list.end - ",".length;
-                parseErrorAtPosition(start, ",".length, Diagnostics.Trailing_comma_not_allowed);
-            }
-        }
-        function parseJSDocUnionType() {
-            var result = createNode(SyntaxKind.JSDocUnionType);
-            nextToken();
-            result.types = parseJSDocTypeList(parseJSDocType());
-            parseExpected(SyntaxKind.CloseParenToken);
-            return finishNode(result);
-        }
-        function parseJSDocTypeList(firstType) {
-            Debug.assert(!!firstType);
-            var types = [];
-            types.pos = firstType.pos;
-            types.push(firstType);
-            while (parseOptional(SyntaxKind.BarToken)) {
-                types.push(parseJSDocType());
-            }
-            types.end = scanner.getStartPos();
-            return types;
-        }
-        function parseJSDocAllType() {
-            var result = createNode(SyntaxKind.JSDocAllType);
-            nextToken();
-            return finishNode(result);
-        }
-        function parseJSDocUnknownOrNullableType() {
-            var pos = scanner.getStartPos();
-            // skip the ?
-            nextToken();
-            // Need to lookahead to decide if this is a nullable or unknown type.
-            // Here are cases where we'll pick the unknown type:
-            //
-            //      Foo(?,
-            //      { a: ? }
-            //      Foo(?)
-            //      Foo<?>
-            //      Foo(?=
-            //      (?|
-            if (token === SyntaxKind.CommaToken ||
-                token === SyntaxKind.CloseBraceToken ||
-                token === SyntaxKind.CloseParenToken ||
-                token === SyntaxKind.GreaterThanToken ||
-                token === SyntaxKind.EqualsToken ||
-                token === SyntaxKind.BarToken) {
-                var result_7 = createNode(SyntaxKind.JSDocUnknownType, pos);
-                return finishNode(result_7);
-            }
-            else {
-                var result_8 = createNode(SyntaxKind.JSDocNullableType, pos);
-                result_8.type = parseJSDocType();
-                return finishNode(result_8);
-            }
-        }
         function parseIsolatedJSDocComment(content, start, length) {
             initializeState("file.js", content, ScriptTarget.Latest, /*_syntaxCursor:*/ undefined, ScriptKind.JS);
             sourceFile = { languageVariant: LanguageVariant.Standard, text: content };
@@ -5274,4 +4871,269 @@ var Parser;
     })(JSDocParser = Parser.JSDocParser || (Parser.JSDocParser = {}));
 })(Parser || (Parser = {}));
 // #endregion
-//# sourceMappingURL=docParser.js.map
+// #region 解析标签
+/**
+ * 标签的词法类型。
+ */
+var TagType;
+(function (TagType) {
+    /**
+     * 纯文本。
+     */
+    TagType[TagType["text"] = 0] = "text";
+    /**
+     * HTML 。
+     */
+    TagType[TagType["html"] = 1] = "html";
+    /**
+     * 参数。
+     */
+    TagType[TagType["param"] = 2] = "param";
+})(TagType || (TagType = {}));
+/**
+ * 所有支持的标签信息。
+ */
+var Tags = {
+    access: { type: 'text' },
+    summary: { type: 'html' },
+    params: { type: 'param' },
+    param: { alias: 'params' },
+    'type': { type: 'type' },
+    'returns': { type: 'return' },
+    'return': { alias: 'returns' },
+    'exception': { type: 'exception' },
+    'throws': { alias: 'throw' },
+    'throw': { alias: 'exception' },
+    'since': { type: 'text' },
+    'version': { alias: 'since' },
+    'property': { type: 'memberType' },
+    'field': { type: 'memberType' },
+    'function': { type: 'memberType' },
+    'method': { type: 'memberType' },
+    'event': { type: 'memberType' },
+    'constructor': { type: 'memberType' },
+    'category': { type: 'memberType' },
+    'class': { type: 'memberType' },
+    'namespace': { type: 'memberType' },
+    name: { type: 'text' },
+    memberOf: { type: 'text' },
+    author: { type: 'text' },
+    fileOverview: { type: 'html' },
+    remark: { type: 'html' },
+    example: { type: 'code' },
+    sample: { alias: 'example' }
+};
+/**
+ * 从源文件的文档注释标签截取信息。
+ * @param tagName 标签名。
+ * @param argument 标签参数，即从当前标签结束到下一个标签之间的文本。
+ * @param tag 文档标签。
+ * @param result 存放解析结果的对象。
+ */
+function parseJsDocTag(tagName, argument, tag, result) {
+    _("解析标签：" + tagName, " 参数：", argument);
+    switch (tagName.toLowerCase()) {
+        // 类型名
+        case "augments":
+        case "extend":
+            return this.parseJsDocTag("extends", argument, tag, result);
+        case "module":
+            return this.parseJsDocTag("namespace", argument, tag, result);
+        case "lends":
+            return this.parseJsDocTag("memberof", argument, tag, result);
+        case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
+        case "namespace": // Document a namespace object.
+        case "memberof":
+            if (result[tagName])
+                this.reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析 argument 为类型。
+            result[tagName] = argument;
+            break;
+        // 允许重复的类型名
+        case "implements": // This symbol implements an interface.
+        case "borrows":
+            // TODO：解析 argument 为类型。
+            result[tagName] = result[tagName] || [];
+            result[tagName].push(argument);
+            break;
+        // 成员名
+        case "emits":
+            return this.parseJsDocTag("fires", argument, tag, result);
+        case "name": // Document the name of an object.
+        case "fires": // (synonyms: @emits)  Describe the events this method may fire.
+        case "alias":
+            if (result[tagName])
+                this.reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析 argument 为名字。
+            result[tagName] = argument;
+            break;
+        // 单行文本
+        // 允许重复的单行文本
+        case "author": // Identify the author of an item.
+        case "copyright": // Document some copyright information.
+        case "license":
+            result[tagName] = (result[tagName] ? result[tagName] + "," : "") + argument;
+            break;
+        // 多行文本
+        case "desc":
+            return this.parseJsDocTag("description", argument, tag, result);
+        case "fileoverview":
+        case "fileOverview":
+        case "overview":
+            return this.parseJsDocTag("file", argument, tag, result);
+        case "classdesc": // Use the following text to describe the entire class.
+        case "summary": // A shorter version of the full description.
+        case "description": // (synonyms: @desc) Describe a symbol.
+        case "file": //(synonyms: @fileoverview, @overview)  Describe a file.
+        case "todo":
+            result[tagName] = (result[tagName] ? result[tagName] + "\n" : "") + argument;
+            break;
+        // 地址
+        case "see": // Refer to some other documentation for more information.
+        case "requires": // This file requires a JavaScript module.
+        case "throws":
+            result[tagName] = result[tagName] || [];
+            // TODO: 解析特殊的地址
+            result[tagName].push(argument);
+            break;
+        // 布尔型标签
+        case "inner":
+            return this.parseJsDocTag("internal", argument, tag, result);
+        case "host":
+            return this.parseJsDocTag("external", argument, tag, result);
+        case "abstract": // This member must be implemented by the inheritor.
+        case "virtual": // This member must be overridden by the inheritor.
+        case "override": // Indicate that a symbol overrides its parent.
+        case "readonly": // This symbol is meant to be read- only.
+        case "private": // This symbol is meant to be private.
+        case "protected": // This symbol is meant to be protected.
+        case "public": // This symbol is meant to be public.
+        case "internal": // This symbol is meant to be internal.
+        case "static": // Document a static member.
+        case "ignore": // Omit a symbol from the documentation.
+        case "external": //(synonyms: @host)  Identifies an external class, namespace, or module.
+        case "inheritdoc":
+            if (result[tagName])
+                this.reportDocError(result, tag, "Duplicate tag: @" + tagName + ". The specific member has been marked as " + tagName + ".");
+            if (argument)
+                this.reportDocError(result, tag, "Tag @" + tagName + " has no parameters.");
+            result[tagName] = true;
+            break;
+        // 可选名字的布尔型标签
+        case "func":
+        case "method":
+            return this.parseJsDocTag("function", argument, tag, result);
+        case "prop":
+            return this.parseJsDocTag("property", argument, tag, result);
+        case "constructs": // This function member will be the constructor for the previous class.
+        case "constructor":
+            return this.parseJsDocTag("class", argument, tag, result);
+        case "constant":
+            return this.parseJsDocTag("const", argument, tag, result);
+        case "var":
+            return this.parseJsDocTag("member", argument, tag, result);
+        case "function": // (synonyms: @func, @method)  Describe a function or method.
+        case "property": // (synonyms: @prop)   Document a property of an object.
+        case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+        case "interface": // This symbol is an interface that others can implement
+        case "enum": // Document a collection of related properties.
+        case "const": // (synonyms: @const)  Document an object as a constant.
+        case "member": // (synonyms: @var) Document a member.
+        case "callback": // Document a callback function.
+        case "event": // Document an event.
+        case "config": // Document a config.
+        case "exports": // Identify the member that is exported by a JavaScript module.
+        case "instance": // Document an instance member..
+        case "global":
+            // TODO：解析 argument 为名字。
+            if (argument)
+                result.name = argument;
+            argument[argument] = true;
+            break;
+        // 代码
+        case "default": //  (synonyms: @defaultvalue)  Document the default value.
+        case "example":
+            argument[argument] = result;
+            break;
+        case "defaultvalue":
+            return this.parseJsDocTag("default", argument, tag, result);
+        // 版本
+        case "deprecated": // Document that this is no longer the preferred way.
+        case "version": // Documents the version number of an item.
+        case "since":
+            if (result[tagName])
+                this.reportDocError(result, tag, "Duplicate tag: @" + tag.tagName.text + ".");
+            // TODO：解析版本号
+            result[tagName] = argument;
+            break;
+        // 特定标签
+        case "return":
+            return this.parseJsDocTag("returns", argument, tag, result);
+        case "returns":
+            // todo
+            break;
+        case "type": // Document the type of an object.
+        case "this":
+            // todo
+            break;
+        case "typedef":
+            // todo
+            break;
+        case "arg":
+        case "argument":
+            return this.parseJsDocTag("param", argument, tag, result);
+        case "param":
+            // todo
+            break;
+        case "access":
+            switch (argument) {
+                case "private":
+                case "protected":
+                case "public":
+                case "internal":
+                    return this.parseJsDocTag(argument, null, tag, result);
+                default:
+                    this.reportDocError(result, tag, "Invalid argument of tag @" + tagName + ": '" + argument + "'. Supported values are: 'private', 'protected', 'public', 'internal'.");
+                    break;
+            }
+            break;
+        case "kind":
+            switch (argument) {
+                case "func":
+                case "method":
+                case "prop":
+                case "constructs": // This function member will be the constructor for the previous class.
+                case "constructor":
+                case "constant":
+                case "var":
+                case "function": // (synonyms: @func, @method)  Describe a function or method.
+                case "property": // (synonyms: @prop)   Document a property of an object.
+                case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+                case "interface": // This symbol is an interface that others can implement
+                case "enum": // Document a collection of related properties.
+                case "const": // (synonyms: @const)  Document an object as a constant.
+                case "member": // (synonyms: @var) Document a member.
+                case "callback": // Document a callback function.
+                case "event": // Document an event.
+                case "config": // Document a config.
+                case "exports": // Identify the member that is exported by a JavaScript module.
+                case "instance":
+                    return this.parseJsDocTag(argument, null, tag, result);
+                default:
+                    this.reportDocError(result, tag, "Invalid argument of tag @" + tagName + ": '" + argument + "'.");
+                    break;
+            }
+        case "listens": // List the events that a symbol listens for.
+        case "mixes": // This object mixes in all the members from another object.
+        case "mixin": // Document a mixin object.
+        case "tutorial": // Insert a link to an included tutorial file.
+        case "variation": // Distinguish different objects with the same name.
+        default:
+            this.reportDocError(result, tag, "Unknown tag @" + tagName + ".");
+            break;
+    }
+}
+function parseTextTag(tagName, argument) {
+}
+// #endregion
+//# sourceMappingURL=jsDocParser.js.map

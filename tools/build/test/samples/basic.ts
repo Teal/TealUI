@@ -6,9 +6,10 @@
 // */
 
 /**
- * 返回空数组。
+ * 2 返回空数组。
+ * 4 返回空数组。
  * @param a 参数 A。
- * @returns 空数组。 
+ * @returns 空数组。
  */
 export function empty<T>(a: number): T[] {
     empty2<any>();

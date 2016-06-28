@@ -16,6 +16,6 @@ var result = ts.transpileModule(input, {
     reportDiagnostics: true,
 });
 
-console.log("--------------------------------------------------");
-console.log(result.outputText);
-console.log(result.diagnostics);
+//console.log("--------------------------------------------------");
+//console.log(result.outputText);
+//console.log(result.diagnostics);
