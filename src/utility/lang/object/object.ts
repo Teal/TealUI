@@ -12,10 +12,10 @@
  * 复制对象的所有属性到目标对象。
  * @param target 复制的目标对象。
  * @param sources 复制的源对象。
- * @returns 返回 *target*。
- * @example Object.assign({a: 1}, {b: 2}) // {a: 1, b: 2}
+ * @returns target
  * @example Object.assign({a: 1}, {a: 2}) // {a: 2}
- * @example Object.assign({a: 1}, {b: 2}, {b: 3}) // {a: 1, b: 3}
+ * @example Object.assign({a: 1}, {b: 2}) // {a: 1, b: 2}
+ * @example Object.assign({a: 1}, {b: 2}, {b: 3}, {c: 4}) // {a: 1, b: 3, c: 4}
  * @since ES6
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
  */
@@ -36,7 +36,8 @@ export function assign<T>(target: T, ...sources: any[]) {
  * 复制对象的所有属性到目标对象。
  * @param target 复制的目标对象。
  * @param source 复制的源对象。
- * @returns 返回 *target*。
+ * @returns target
+ * @example Object.assign({a: 1}, {a: 2}) // {a: 2}
  * @example Object.assign({a: 1}, {b: 2}) // {a: 1, b: 2}
  * @since ES6
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
@@ -53,6 +54,7 @@ export function assign_simple<T>(target: T, source: any) {
  * @param obj 要获取的对象。
  * @returns 返回所有键组成的数组。
  * @example Object.keys({a: 3, b: 5}) // ["a", "b"]
+ * @example Object.keys([0, 1]) // ["0", "1"]
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
  * @see values
@@ -72,6 +74,7 @@ export function keys(obj: any) {
  * @param obj 要获取的对象。
  * @returns 返回所有值组成的数组。
  * @example Object.values({a: 3, b: 5}) // [3, 5]
+ * @example Object.values([0, 1]) // [0, 1]
  * @since ES7
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/values
  * @see keys
@@ -119,8 +122,8 @@ export function create_simple<T>(obj: T): T {
 // #region 集合处理
 
 /**
- * 遍历指定类数组或对象，并对每一项执行 *callback*。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * 遍历指定类数组或对象（函数除外），并对每一项执行 *callback*。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -140,7 +143,7 @@ export function each<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback:
             }
         }
     } else {
-        for (let i in iterable) {
+        for (const i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable) === false) {
                 return false;
             }
@@ -150,8 +153,8 @@ export function each<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback:
 }
 
 /**
- * 遍历指定类数组或对象，并对每一项执行 *callback*。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * 遍历指定类数组或对象（函数除外），并对每一项执行 *callback*。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -169,7 +172,7 @@ export function forEach<T>(iterable: ArrayLike<T> | { [key: string]: T }, callba
             }
         }
     } else {
-        for (let i in iterable) {
+        for (const i in iterable) {
             callback.call(scope, iterable[i], i, iterable);
         }
     }
@@ -177,7 +180,7 @@ export function forEach<T>(iterable: ArrayLike<T> | { [key: string]: T }, callba
 
 /**
  * 筛选指定类数组或对象中符合要求的项并组成一个新数组或对象。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -185,8 +188,8 @@ export function forEach<T>(iterable: ArrayLike<T> | { [key: string]: T }, callba
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回一个新数组或对象。
- * @example Object.filter([1, 2], function(item){return item > 1;}) // [2]
- * @example Object.filter({a: 1, b: 2}, function(item){ return item > 1; }) // {b:2}
+ * @example Object.filter([1, 2], function(item) { return item > 1; }) // [2]
+ * @example Object.filter({a: 1, b: 2}, function(item) { return item > 1; }) // {b: 2}
  */
 export function filter<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
     let result: T[] | { [key: string]: T };
@@ -200,7 +203,7 @@ export function filter<T>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
         }
     } else {
         result = {};
-        for (let i in iterable) {
+        for (const i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
                 result[i] = iterable[i];
             }
@@ -210,8 +213,8 @@ export function filter<T>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
 }
 
 /**
- * 遍历指定类数组或对象，并对每一项执行 *callback*，然后返回每个结果组成的新数组或对象。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * 遍历指定类数组或对象（函数除外），并对每一项执行 *callback*，然后返回每个结果组成的新数组或对象。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于计算每一项的返回值。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -219,11 +222,11 @@ export function filter<T>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
  * * returns 返回结果。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回一个新数组或对象。
- * @example Object.map(["a", "b"], function(a){ return a + a; }) // ["aa", "bb"]
- * @example Object.map({length: 1, "0": "a"}, function(a){ return a + a; }) // ["a"]
- * @example Object.map({a: "a", b: "b"}, function(a){ return a + a; }) // {a: "aa", b: "bb"}
+ * @example Object.map(["a", "b"], function(a) { return a + a; }) // ["aa", "bb"]
+ * @example Object.map({length: 1, "0": "a"}, function(a) { return a + a; }) // ["a"]
+ * @example Object.map({a: "a", b: "b"}, function(a) { return a + a; }) // {a: "aa", b: "bb"}
  */
-export function map<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: R) => boolean, scope?: any) {
+export function map<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => R, scope?: any) {
     let result: R[] | { [key: string]: R };
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {
         result = [];
@@ -235,7 +238,7 @@ export function map<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
         }
     } else {
         result = {};
-        for (let i in iterable) {
+        for (const i in iterable) {
             result[i] = callback.call(scope, iterable[i], i, iterable);
         }
     }
@@ -244,7 +247,7 @@ export function map<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
 
 /**
  * 判断指定类数组或对象是否每一项都满足指定条件。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -252,14 +255,14 @@ export function map<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callbac
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 如果所有项满足条件则返回 true，否则返回 false。
- * @example Object.every([1, 2], function(item) {return item > 0}) // true
- * @example Object.every([1, 2], function(item) {return item > 1}) // false
- * @example Object.every([1, 2], function(item) {return item > 2}) // false
- * @example Object.every({a: 1, b: 2}, function(item) {return item > 0}) // true
- * @example Object.every({a: 1, b: 2}, function(item) {return item > 1}) // false
- * @example Object.every({a: 1, b: 2}, function(item) {return item > 2}) // false
+ * @example Object.every([1, 2], function(item) { return item > 0; }) // true
+ * @example Object.every([1, 2], function(item) { return item > 1; }) // false
+ * @example Object.every([1, 2], function(item) { return item > 2; }) // false
+ * @example Object.every({a: 1, b: 2}, function(item) { return item > 0; }) // true
+ * @example Object.every({a: 1, b: 2}, function(item) { return item > 1; }) // false
+ * @example Object.every({a: 1, b: 2}, function(item) { return item > 2; }) // false
  */
-export function every<T>(iterable: ArrayLike<any> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
+export function every<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {
         const length = (iterable as ArrayLike<T>).length;
         for (let i = 0; i < length; i++) {
@@ -268,7 +271,7 @@ export function every<T>(iterable: ArrayLike<any> | { [key: string]: T }, callba
             }
         }
     } else {
-        for (let i in iterable) {
+        for (const i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
                 return false;
             }
@@ -279,7 +282,7 @@ export function every<T>(iterable: ArrayLike<any> | { [key: string]: T }, callba
 
 /**
  * 判断指定类数组或对象是否至少存在一项满足指定条件。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -287,14 +290,14 @@ export function every<T>(iterable: ArrayLike<any> | { [key: string]: T }, callba
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
- * @example Object.some([1, 2], function(item) {return item > 0}) // true
- * @example Object.some([1, 2], function(item) {return item > 1}) // true
- * @example Object.some([1, 2], function(item) {return item > 2}) // false
- * @example Object.some({a: 1, b: 2}, function(item) {return item > 1}) // true
- * @example Object.some({a: 1, b: 2}, function(item) {return item > 1}) // true
- * @example Object.some({a: 1, b: 2}, function(item) {return item > 2}) // false
+ * @example Object.some([1, 2], function(item) { return item > 0; }) // true
+ * @example Object.some([1, 2], function(item) { return item > 1; }) // true
+ * @example Object.some([1, 2], function(item) { return item > 2; }) // false
+ * @example Object.some({a: 1, b: 2}, function(item) { return item > 1; }) // true
+ * @example Object.some({a: 1, b: 2}, function(item) { return item > 1; }) // true
+ * @example Object.some({a: 1, b: 2}, function(item) { return item > 2; }) // false
  */
-export function some<T>(iterable: ArrayLike<any> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
+export function some<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {
         const length = (iterable as ArrayLike<T>).length;
         for (let i = 0; i < length; i++) {
@@ -303,7 +306,7 @@ export function some<T>(iterable: ArrayLike<any> | { [key: string]: T }, callbac
             }
         }
     } else {
-        for (let i in iterable) {
+        for (const i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
                 return true;
             }
@@ -314,7 +317,7 @@ export function some<T>(iterable: ArrayLike<any> | { [key: string]: T }, callbac
 
 /**
  * 找出指定类数组或对象中符合要求的第一项。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -322,10 +325,10 @@ export function some<T>(iterable: ArrayLike<any> | { [key: string]: T }, callbac
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
- * @example Object.find([1, 2], function(item){ return item > 1; }) // 2
- * @example Object.find({a: 1, b: 2}, function(item){return item > 1;}) // 2
+ * @example Object.find([1, 2], function(item) { return item > 1; }) // 2
+ * @example Object.find({a: 1, b: 2}, function(item) { return item > 1; }) // 2
  */
-export function find<T>(iterable: ArrayLike<any> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
+export function find<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any) {
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {
         const length = (iterable as ArrayLike<T>).length;
         for (let i = 0; i < length; i++) {
@@ -344,7 +347,7 @@ export function find<T>(iterable: ArrayLike<any> | { [key: string]: T }, callbac
 
 /**
  * 找出指定类数组或对象中符合要求的第一项的索引或键。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，用于确定每一项是否符合条件。
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
@@ -352,10 +355,12 @@ export function find<T>(iterable: ArrayLike<any> | { [key: string]: T }, callbac
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回符合条件的第一项的索引或键，如果没有满足条件的项，则返回 undefined。
- * @example Object.findIndex([1, 2], function(item){ return item > 1; }) // 1
- * @example Object.findIndex({a: 1, b: 2}, function(item){return item > 1;}) // 'b'
+ * @example Object.findIndex([1, 2], function (item){ return item > 1; }) // 1
+ * @example Object.findIndex([1, 2], function (item){ return item > 2; }) // undefined
+ * @example Object.findIndex({a: 1, b: 2}, function (item){return item > 1;}) // 'b'
+ * @example Object.findIndex({a: 1, b: 2}, function (item){return item > 2;}) // undefined
  */
-export function findIndex<T>(iterable: ArrayLike<any> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any): number | string {
+export function findIndex<T>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (value: T, index: number | string, target: typeof iterable) => boolean, scope?: any): number | string {
     if (iterable && typeof (iterable as ArrayLike<T>).length === "number") {
         const length = (iterable as ArrayLike<T>).length;
         for (let i = 0; i < length; i++) {
@@ -364,7 +369,7 @@ export function findIndex<T>(iterable: ArrayLike<any> | { [key: string]: T }, ca
             }
         }
     } else {
-        for (let i in iterable) {
+        for (const i in iterable) {
             if (callback.call(scope, iterable[i], i, iterable)) {
                 return i;
             }
@@ -374,7 +379,7 @@ export function findIndex<T>(iterable: ArrayLike<any> | { [key: string]: T }, ca
 
 /**
  * 从左往右依次合并类数组或对象中的每一项并最终返回一个值。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，每次合并两项为一项。
  * * param previousValue 要合并的前一项。
  * * param currentValue 要合并的当前项。
@@ -384,10 +389,10 @@ export function findIndex<T>(iterable: ArrayLike<any> | { [key: string]: T }, ca
  * @param initialValue 用于合并第一项的初始值。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回合并后的最终结果值。
- * @example Object.reduce([1, 2], function(x, y) {return x + y}) // 3
- * @example Object.reduce([1, 2], function(x, y) {return x + y}, 10) // 13
- * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}) // 3
- * @example Object.reduce({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
+ * @example Object.reduce([1, 2], function(x, y) { return x + y; }) // 3
+ * @example Object.reduce([1, 2], function(x, y) { return x + y; }, 10) // 13
+ * @example Object.reduce({a: 1, b: 2}, function(x, y) { return x + y; }) // 3
+ * @example Object.reduce({a: 1, b: 2}, function(x, y) { return x + y; }, 10) // 13
  */
 export function reduce<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (previousValue: R, currentValue: T, index: number | string, target: typeof iterable) => R, initialValue?: R, scope?: any) {
     let result: R;
@@ -411,7 +416,7 @@ export function reduce<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, call
 
 /**
  * 从左往右依次合并类数组或对象中的每一项并最终返回一个值。
- * @param iterable 要遍历的类数组或对象（不支持函数）。
+ * @param iterable 要遍历的类数组或对象（函数除外）。
  * @param callback 对每一项执行的回调函数，每次合并两项为一项。
  * * param previousValue 要合并的前一项。
  * * param currentValue 要合并的当前项。
@@ -421,10 +426,10 @@ export function reduce<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, call
  * @param initialValue 用于合并第一项的初始值。
  * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回合并后的最终结果值。
- * @example Object.reduceRight([1, 2], function(x, y) {return x + y}) // 3
- * @example Object.reduceRight([1, 2], function(x, y) {return x + y}, 10) // 13
- * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}) // 3
- * @example Object.reduceRight({a: 1, b: 2}, function(x, y) {return x + y}, 10) // 13
+ * @example Object.reduceRight([1, 2], function(x, y) { return x + y; }) // 3
+ * @example Object.reduceRight([1, 2], function(x, y) { return x + y; }, 10) // 13
+ * @example Object.reduceRight({a: 1, b: 2}, function(x, y) { return x + y; }) // 3
+ * @example Object.reduceRight({a: 1, b: 2}, function(x, y) { return x + y; }, 10) // 13
  */
 export function reduceRight<T, R>(iterable: ArrayLike<T> | { [key: string]: T }, callback: (previousValue: R, currentValue: T, index: number | string, target: typeof iterable) => R, initialValue?: R, scope?: any) {
     let result: R;
@@ -445,6 +450,23 @@ export function reduceRight<T, R>(iterable: ArrayLike<T> | { [key: string]: T },
     return result;
 }
 
+/**
+ * 获取对象指定键列表的子集。
+ * @param obj 要处理的对象。
+ * @param keys 要获取的键列表。
+ * @returns 返回新对象。
+ * @example Object.subset({a: 1, b: 2}, ['a']) // {a: 1}
+ */
+export function subset<T>(obj: { [key: number]: T } | { [key: string]: T }, keys: string[]) {
+    let result: { [key: string]: T } = {};
+    for (let i = 0; i < keys.length; i++) {
+        if (keys[i] in obj) {
+            result[keys[i]] = obj[keys[i]];
+        }
+    }
+    return result;
+}
+
 // #endregion
 
 // #region 对象处理
@@ -461,15 +483,19 @@ export function reduceRight<T, R>(iterable: ArrayLike<T> | { [key: string]: T },
  * @example Object.type([]) // "array"
  */
 export function type(obj: any): "string" | "number" | "boolean" | "undefined" | "null" | "array" | "function" | "date" | "regexp" | "error" | "object" {
-    let cache = type.types;
-    if (!cache) {
-        Object["_types"] = cache = {};
-        "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g, typeName => cache["[object " + typeName + "]"] = typeName.toLowerCase());
+    let types = type.types;
+    if (!types) {
+        type.types = types = {};
+        "Boolean Number String Function Array Date RegExp Object Error".replace(/\w+/g, typeName => types["[object " + typeName + "]"] = typeName.toLowerCase());
     }
-    return obj == null ? String(obj) : cache[cache.toString.call(obj)] || "object";
+    return obj == null ? String(obj) : types[types.toString.call(obj)] || "object";
 }
 
 export namespace type {
+
+    /**
+     * 缓存所有类型转为字符串的效果。
+     */
     export var types: { [key: string]: any };
 }
 
@@ -504,11 +530,11 @@ export function isObject(obj: any) {
  * 复制对象的所有目标对象不存在的属性到目标对象。
  * @param target 复制的目标对象。
  * @param sources 复制的源对象。
- * @returns 返回 *target*。
+ * @returns target
  * @example Object.assignIf({a: 1}, {b: 2}) // {a: 1, b: 2}
  * @example Object.assignIf({a: 1}, {b: 2}, {b: 3}) // {a: 1, b: 2}
  */
-export function assignIf<T>(target: T) {
+export function assignIf<T>(target: T, ...sources: any[]) {
     target = Object(target);
     for (let i = 1; i < arguments.length; i++) {
         const source = arguments[i];
@@ -525,21 +551,21 @@ export function assignIf<T>(target: T) {
  * 浅拷贝一个对象并返回和原对象无引用关系的副本。
  * @param obj 要复制的对象。
  * @returns 返回拷贝的新对象，更新新对象不会影响原对象。
- * @remark > 注意：出于性能考虑，`export function clone` 不会拷贝函数和正则表达式。
+ * @remark > 注意：出于性能考虑，本函数不会拷贝函数和正则表达式。
  * @example Object.clone({a: 3, b: [5]}) // {a: 3, b: [5]}
  */
-export function clone(obj: any) {
+export function clone<T>(obj: T) {
     if (obj && typeof obj === 'object') {
         if (obj instanceof Array) {
-            obj = obj.slice(0);
+            obj = (obj as any as any[]).slice(0) as any;
         } else if (obj instanceof Date) {
-            obj = new Date(+obj);
+            obj = new Date(+obj) as any;
         } else if (!(obj instanceof RegExp)) {
-            let newObj = { __proto__: obj.__proto__ };
+            let newObj = { __proto__: (obj as any).__proto__ };
             for (const i in obj) {
                 newObj[i] = obj[i];
             }
-            obj = newObj;
+            obj = newObj as any;
         }
     }
     return obj;
@@ -549,25 +575,25 @@ export function clone(obj: any) {
  * 深拷贝一个对象并返回和原对象无引用关系的副本。
  * @param obj 要复制的对象。
  * @returns 返回拷贝的新对象，更新新对象不会影响原对象。
- * @remark > 注意：出于性能考虑，`export function deepClone` 不会深拷贝函数和正则表达式。
+ * @remark > 注意：出于性能考虑，本函数不会深拷贝函数和正则表达式。
  * @example Object.deepClone({a: 3, b: [5]}) // {a: 3, b: [5]}
  */
-export function deepClone(obj: any) {
+export function deepClone<T>(obj: T) {
     if (obj && typeof obj === 'object') {
         if (obj instanceof Array) {
             let newObj = [];
-            for (let i = 0; i < obj.length; i++) {
+            for (let i = 0; i < (obj as any as any[]).length; i++) {
                 newObj[i] = deepClone(obj[i]);
             }
-            obj = newObj;
+            obj = newObj as any;
         } else if (obj instanceof Date) {
-            obj = new Date(+obj);
+            obj = new Date(+obj) as any;
         } else if (!(obj instanceof RegExp)) {
             let newObj = { __proto__: obj.__proto__ };
             for (const i in obj) {
                 newObj[i] = deepClone(obj[i]);
             }
-            obj = newObj;
+            obj = newObj as any;
         }
     }
     return obj;
@@ -592,31 +618,31 @@ export function size(obj: any) {
 
 /**
  * 比较两个引用对象的内容是否相同。
- * @param objX 要比较的第一个对象。
- * @param objY 要比较的第二个对象。
+ * @param x 要比较的第一个对象。
+ * @param y 要比较的第二个对象。
  * @returns 如果比较的对象相同则返回 true，否则返回 false。
  * @example Object.deepEqual([], []) // true
  */
-export function deepEqual(objX: any, objY: any) {
-    if (objX && objY && typeof objX === "object" && typeof objY === "object") {
-        for (const key in objX) {
-            if (!deepEqual(objX[key], objY[key])) {
+export function deepEqual(x: any, y: any) {
+    if (x && y && typeof x === "object" && typeof y === "object") {
+        for (const key in x) {
+            if (!deepEqual(x[key], y[key])) {
                 return false;
             }
         }
         return true;
     }
-    return objX === objY;
+    return x === y;
 }
 
 /**
  * 深度比较两个对象的差异。
  * @param objX 要比较的第一个对象。
- * @param objY 要比较的第二个对象。
+ * @param y 要比较的第二个对象。
  * @returns 返回一个对象。
  * @example Object.diff({a:1, c: 1}, {b:1, c: 2}) // {left: ["a"], right: ["b"], both: ["c"]}
  */
-export function diff(objX: any, objY: any) {
+export function diff(x: any, y: any) {
 
     let result = {
 
@@ -637,16 +663,16 @@ export function diff(objX: any, objY: any) {
 
     };
 
-    for (const key in objX) {
-        if (!(key in objY)) {
+    for (const key in x) {
+        if (!(key in y)) {
             result.left.push(key);
-        } else if (objX[key] !== objY[key]) {
+        } else if (x[key] !== y[key]) {
             result.both.push(key);
         }
     }
 
-    for (const key in objY) {
-        if (!(key in objX)) {
+    for (const key in y) {
+        if (!(key in x)) {
             result.right.push(key);
         }
     }
@@ -659,9 +685,9 @@ export function diff(objX: any, objY: any) {
  * @param objX 要比较的第一个对象。
  * @param objY 要比较的第二个对象。
  * @returns 返回一个对象。
- * @example Object.diff({a:1, c: 1}, {b:1, c: 2}) // {left: ["a"], right: ["b"], both: ["c"]}
+ * @example Object.deepDiff({a:1, c: 1}, {b:1, c: 2}) // {left: ["a"], right: ["b"], both: ["c"]}
  */
-export function deepDiff(objX: any, objY: any) {
+export function deepDiff(x: any, y: any) {
     let result = {
 
         /**
@@ -681,25 +707,25 @@ export function deepDiff(objX: any, objY: any) {
 
     };
 
-    diff(objX, objY, "");
+    diff(x, y, "");
 
     return result;
 
-    function diff(objX: any, objY: any, prefix: string) {
-        for (const key in objX) {
-            if (!(key in objY)) {
+    function diff(x: any, y: any, prefix: string) {
+        for (const key in x) {
+            if (!(key in y)) {
                 result.left.push(prefix + key);
-            } else if (objX[key] !== objY[key]) {
-                if (typeof objX[key] !== typeof objY[key]) {
+            } else if (x[key] !== y[key]) {
+                if (typeof x[key] !== typeof y[key]) {
                     result.both.push(prefix + key);
                 } else {
-                    diff(objX[key], objY[key], prefix + key + ".");
+                    diff(x[key], y[key], prefix + key + ".");
                 }
             }
         }
 
-        for (const key in objY) {
-            if (!(key in objX)) {
+        for (const key in y) {
+            if (!(key in x)) {
                 result.right.push(prefix + key);
             }
         }
@@ -709,11 +735,11 @@ export function deepDiff(objX: any, objY: any) {
 
 /**
  * 返回第一个不为空的值。
- * @param objs 要检测的对象。
+ * @param values 要检测的对象。
  * @returns 返回第一个不为空的值。如果都为空则返回 undefined。
  * @example Object.pick(undefined, null, 1) // 1
  */
-export function pick() {
+export function pick(...values: any[]) {
     for (let i = 0; i < arguments.length; i++) {
         if (arguments[i] != undefined) {
             return arguments[i];
@@ -742,23 +768,6 @@ export function keyOf(obj: any, value: any) {
 }
 
 /**
- * 获取对象指定键列表的子集。
- * @param obj 要处理的对象。
- * @param keys 要获取的键列表。
- * @returns 返回新对象。
- * @example Object.subset({a: 1, b: 2}, ['a']) // {a: 1}
- */
-export function subset<T>(obj: { [key: number]: T } | { [key: string]: T }, keys: string[]) {
-    let result: { [key: string]: T } = {};
-    for (let i = 0; i < keys.length; i++) {
-        if (keys[i] in obj) {
-            result[keys[i]] = obj[keys[i]];
-        }
-    }
-    return result;
-}
-
-/**
  * 获取对象指定属性的值。
  * @param obj 要获取的对象。
  * @param prop 要获取的属性表达式。如 `a.b[0]`。
@@ -777,7 +786,7 @@ export function get(obj: any, prop: string) {
  * @param obj 要设置的对象。
  * @param prop 要设置的属性表达式。如 `a.b[0]`。
  * @param value 要设置的值。
- * @returns 返回 *obj*。
+ * @returns obj
  * @example Object.set({}, "a[1].b", 2) // {a:[undefined, {b: 2}]}
  */
 export function set<T>(obj: T, prop: string, value: any) {
@@ -798,24 +807,24 @@ export function set<T>(obj: T, prop: string, value: any) {
 /**
  * 在对象指定键之前插入一个键值对。
  * @param obj 要插入的对象。
- * @param key 新插入的键。
- * @param value 新插入的值。
+ * @param newKey 新插入的键。
+ * @param newValue 新插入的值。
  * @param refKey 插入的位置。新键值对将插入在指定的键前。如果指定键不存在则插入到末尾。
- * @returns 返回 *obj*。
- * @example Object.insertBefore({a:1}, 'a', 'b', 2) // {b:2, a: 1}
+ * @returns obj
+ * @example Object.insertBefore({a: 1}, 'b', 2, 'a') // {b:2, a: 1}
  */
-export function insertBefore<T>(obj: T, key: string, value: any, refKey?: string) {
+export function insertBefore<T>(obj: T, newKey: string, newValue: any, refKey?: string) {
     let tmpObj: any;
-    for (const k in obj) {
-        if (k === refKey) tmpObj = {};
+    for (const key in obj) {
+        if (key === refKey) tmpObj = {};
         if (tmpObj) {
-            tmpObj[k] = obj[k];
-            delete obj[k];
+            tmpObj[key] = obj[key];
+            delete obj[key];
         }
     }
-    obj[key] = value;
-    for (const k in tmpObj) {
-        obj[k] = tmpObj[k];
+    obj[newKey] = newValue;
+    for (const key in tmpObj) {
+        obj[key] = tmpObj[key];
     }
     return obj;
 }

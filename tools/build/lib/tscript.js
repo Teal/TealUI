@@ -38,10 +38,17 @@ var Transpiler = (function () {
         if (this.options.doc) {
             this.resolveDocs();
         }
-        //// 解析每个成员。
-        //mapChild(sourceFile, (node: ts.Node) => {
-        //    return node;
-        //});
+    };
+    // #endregion
+    // #region 节点遍历
+    /**
+     * 解析指定的类型字符串实际指代的类型。
+     * @param pos
+     * @param text
+     */
+    Transpiler.prototype.stringToType = function (text, pos, end) {
+        // ts.createScanner(this.options.target, true, this.options.jsx == ts.JsxEmit.None ? ts.LanguageVariant.Standard : ts.LanguageVariant.JSX, text, null, pos, end - pos);
+        // return this.checker.getTypeAtLocation();
     };
     /**
      * 解析当前源码的文档注释。
@@ -139,8 +146,11 @@ var Transpiler = (function () {
             }
         }
         return result;
-        var _a;
         //const defaultTagName = "summary";
+        function removeLeadingAsterisk(text) {
+            return text.replace(/^\s*\*\s*/gm, "");
+        }
+        var _a;
     };
     /**
      * 从源文件的文档注释标签截取信息。

@@ -24,13 +24,14 @@ export function isArray(obj: any): obj is any[] {
 /**
  * 获取指定项在当前数组内的第一个索引。
  * @param value 一个类数组对象。
- * @param startIndex=0 搜索开始的位置。
+ * @param startIndex 搜索开始的位置。
  * @returns 返回索引。如果找不到则返回 -1。
- * @example ["b", "c", "a", "a"].indexOf("a"); // 2
+ * @example ["a", "b", "b", "c"].indexOf("b"); // 1
+ * @example ["a", "b", "b", "c"].indexOf("e"); // -1
  * @since ES4
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
  */
-export function indexOf<T>(_this: Array<T>, value: T, startIndex = 0) {
+export function indexOf<T>(_this: T[], value: T, startIndex = 0) {
     for (const length = _this.length; startIndex < length; startIndex++) {
         if (_this[startIndex] === value) {
             return startIndex;
@@ -44,11 +45,12 @@ export function indexOf<T>(_this: Array<T>, value: T, startIndex = 0) {
  * @param value 一个类数组对象。
  * @param startIndex=0 搜索开始的位置。
  * @returns 返回索引。如果找不到则返回 -1。
- * @example ["b", "c", "a", "a"].lastIndexOf("a"); // 3
+ * @example ["a", "b", "b", "c"].lastIndexOf("b"); // 2
+ * @example ["a", "b", "b", "c"].lastIndexOf("e"); // -1
  * @since ES4
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
  */
-export function lastIndexOf<T>(_this: Array<T>, value: T, startIndex = 0) {
+export function lastIndexOf<T>(_this: T[], value: T, startIndex = 0) {
     for (let i = _this.length - 1; i >= startIndex; i--) {
         if (_this[i] === value) {
             return i;
@@ -65,7 +67,7 @@ export function lastIndexOf<T>(_this: Array<T>, value: T, startIndex = 0) {
  * @since ES4
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
  */
-export function concat<T>(_this: Array<T>, ...values: (T | ArrayLike<T>)[]) {
+export function concat<T>(_this: T[], ...values: (T | ArrayLike<T>)[]) {
     let result = _this.slice(0);
     for (let i = 0; i < arguments.length; i++) {
         result.push.apply(result, arguments[i]);
@@ -79,12 +81,12 @@ export function concat<T>(_this: Array<T>, ...values: (T | ArrayLike<T>)[]) {
  * * param value 当前项的值。
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @example ["a", "b"].forEach(console.log, console); // 打印 '0  a' 和 '1  b'
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
  */
-export function forEach<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => void, scope?: any) {
+export function forEach<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => void, scope?: any) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if (i in _this) {
@@ -100,13 +102,13 @@ export function forEach<T>(_this: Array<T>, callback: (value: T, index: number, 
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回一个新数组。
- * @example [1, 2].filter(function(item){return item > 1;}) // [2]
+ * @example [1, 2].filter(function(item) { return item > 1; }) // [2]
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
  */
-export function filter<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => boolean,
+export function filter<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => boolean,
     scope?: any) {
     const length = _this.length;
     let result = [];
@@ -125,13 +127,13 @@ export function filter<T>(_this: Array<T>, callback: (value: T, index: number, t
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 返回结果。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回一个新数组。
  * @example [1, 9, 9, 0].map(function(item){return item + 1}); // [2, 10, 10, 1]
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map
  */
-export function map<T>(_this: Array<T>, callback, scope) {
+export function map<T, R>(_this: T[], callback: (value: T, index: number, target: typeof _this) => R, scope?: any) {
     const length = _this.length;
     let result = [];
     for (let i = 0; i < length; i++) {
@@ -149,7 +151,7 @@ export function map<T>(_this: Array<T>, callback, scope) {
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 如果所有项满足条件则返回 true，否则返回 false。
  * @example [1, 2].every(function(item) {return item > 0}) // true
  * @example [1, 2].every(function(item) {return item > 1}) // false
@@ -157,7 +159,7 @@ export function map<T>(_this: Array<T>, callback, scope) {
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every
  */
-export function every<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+export function every<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => boolean, scope?: any) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if ((i in _this) && callback.call(scope, _this[i], i, _this)) {
@@ -174,7 +176,7 @@ export function every<T>(_this: Array<T>, callback: (value: T, index: number, ta
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 如果至少存在一项满足条件则返回 true，否则返回 false。
  * @example [1, 2].some(function(item) {return item > 0}) // true
  * @example [1, 2].some(function(item) {return item > 1}) // true
@@ -182,7 +184,7 @@ export function every<T>(_this: Array<T>, callback: (value: T, index: number, ta
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some
  */
-export function some<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+export function some<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => boolean, scope?: any) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if ((i in _this) && callback.call(scope, _this[i], i, _this)) {
@@ -201,14 +203,14 @@ export function some<T>(_this: Array<T>, callback: (value: T, index: number, tar
  * * param target 当前正在遍历的数组。
  * * returns 返回合并的结果。
  * @param initialValue 用于合并第一项的初始值。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回合并后的最终结果值。
  * @example [1, 2].reduce(function(x, y) {return x + y}) // 3
  * @example [1, 2].reduce(function(x, y) {return x + y}, 10) // 13
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
  */
-export function reduce<T, R>(_this: Array<T>, callback: (previousValue: R, currentValue: T, index: number, target: T[]) => R, initialValue?: R) {
+export function reduce<T, R>(_this: T[], callback: (previousValue: R, currentValue: T, index: number, target: typeof _this) => R, initialValue?: R) {
     const length = _this.length;
     let result: R;
     for (let i = 0, first = true; i < length; i++) {
@@ -233,14 +235,14 @@ export function reduce<T, R>(_this: Array<T>, callback: (previousValue: R, curre
  * * param target 当前正在遍历的数组。
  * * returns 返回合并的结果。
  * @param initialValue 用于合并第一项的初始值。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回合并后的最终结果值。
  * @example [1, 2].reduce(function(x, y) {return x + y}) // 3
  * @example [1, 2].reduce(function(x, y) {return x + y}, 10) // 13
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight
  */
-export function reduceRight<T, R>(_this: Array<T>, callback: (previousValue: R, currentValue: T, index: number, target: T[]) => R, initialValue?: R) {
+export function reduceRight<T, R>(_this: T[], callback: (previousValue: R, currentValue: T, index: number, target: typeof _this) => R, initialValue?: R) {
     let result: R;
     for (let i = _this.length, first = true; --i >= 0;) {
         if (i in _this) {
@@ -262,13 +264,13 @@ export function reduceRight<T, R>(_this: Array<T>, callback: (previousValue: R, 
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回符合条件的第一项，如果没有满足条件的项，则返回 undefined。
  * @example [1, 2].find(function(item){return item > 1;}) // 2
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find
  */
-export function find<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+export function find<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => boolean, scope?: any) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if ((i in _this) && callback.call(scope, _this[i], i, _this)) {
@@ -285,13 +287,13 @@ export function find<T>(_this: Array<T>, callback: (value: T, index: number, tar
  * * param index 当前项的索引或键。
  * * param target 当前正在遍历的数组。
  * * returns 如果当前项符合条件则应该返回 true，否则返回 false。
- * @param scope 设置 *callback* 执行时 _this 的值。
+ * @param scope 设置 *callback* 执行时 this 的值。
  * @returns 返回符合条件的第一项的索引，如果没有满足条件的项，则返回 -1。
  * @example [1, 2].findIndex(function(item){return item > 1;}) // 1
  * @since ES5
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
  */
-export function findIndex<T>(_this: Array<T>, callback: (value: T, index: number, target: T[]) => boolean, scope?: any) {
+export function findIndex<T>(_this: T[], callback: (value: T, index: number, target: typeof _this) => boolean, scope?: any) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if ((i in _this) && callback.call(scope, _this[i], i, _this)) {
@@ -308,7 +310,7 @@ export function findIndex<T>(_this: Array<T>, callback: (value: T, index: number
  * @since ES7
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
  */
-export function includes<T>(_this: Array<T>, value: T) {
+export function includes<T>(_this: T[], value: T) {
     const length = _this.length;
     for (let i = 0; i < length; i++) {
         if (_this[i] === value || (value !== value && _this[i] !== _this[i])) {
@@ -326,7 +328,7 @@ export function includes<T>(_this: Array<T>, value: T) {
  * @since ES7
  * @see https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
  */
-export function fill<T>(_this: Array<T>, value: T, startIndex: number = 0, endIndex: number = _this.length) {
+export function fill<T>(_this: T[], value: T, startIndex = 0, endIndex = _this.length) {
     for (; startIndex < endIndex; startIndex++) {
         _this[startIndex] = value;
     }
@@ -345,7 +347,7 @@ export function fill<T>(_this: Array<T>, value: T, startIndex: number = 0, endIn
  * @example [1, 9, 9, 0].remove(9) // 1, 数组变成 [1, 9, 0]
  * @example while(arr.remove("wow") >= 0); // 删除所有 "wow"。
  */
-export function remove<T>(_this: Array<T>, value: T, startIndex?: number) {
+export function remove<T>(_this: T[], value: T, startIndex?: number) {
     startIndex = _this.indexOf(value, startIndex);
     ~startIndex && _this.splice(startIndex, 1);
     return startIndex;
@@ -357,7 +359,7 @@ export function remove<T>(_this: Array<T>, value: T, startIndex?: number) {
  * @param value 要插入的内容。
  * @example ["I", "you"].insert(1, "love"); // ["I", "love", "you"]
  */
-export function insert<T>(_this: Array<T>, index: number, value: T) {
+export function insert<T>(_this: T[], index: number, value: T) {
     _this.splice(index, 0, value);
 }
 
@@ -368,7 +370,7 @@ export function insert<T>(_this: Array<T>, index: number, value: T) {
  * @example [1, 9, 0].pushIf(1) // [1, 9, 0]
  * @example [1, 9, 0].pushIf(2) // [1, 9, 0, 2]
  */
-export function pushIf<T>(_this: Array<T>, item: T) {
+export function pushIf<T>(_this: T[], item: T) {
     return _this.indexOf(item) >= 0 && _this.push(item) > 0;
 }
 
@@ -377,7 +379,7 @@ export function pushIf<T>(_this: Array<T>, item: T) {
  * @returns 返回过滤后的新数组。
  * @example ["", false, 0, undefined, null, {}].clean(); // [{}]
  */
-export function clean<T>(_this: Array<T>) {
+export function clean<T>(_this: T[]) {
     let result: T[] = [];
     for (let i = 0; i < _this.length; i++) {
         _this[i] && result.push(_this[i]);
@@ -389,7 +391,7 @@ export function clean<T>(_this: Array<T>) {
  * 清空数组所有项。
  * @example [1, 2].clear() // []
  */
-export function clear<T>(_this: Array<T>) {
+export function clear<T>(_this: T[]) {
     _this.length = 0;
     return _this;
 }
@@ -398,7 +400,7 @@ export function clear<T>(_this: Array<T>) {
  * 随机打乱数组的内容。
  * @example [1, 2, 3].shuffle()
  */
-export function shuffle<T>(_this: Array<T>) {
+export function shuffle<T>(_this: T[]) {
     for (let i = _this.length; --i >= 0;) {
         const r = Math.floor((i + 1) * Math.random());
         const temp = _this[i];
@@ -415,10 +417,10 @@ export function shuffle<T>(_this: Array<T>) {
 /**
  * 将一个类数组对象转为原生数组。
  * @param iterable 一个类数组对象。
- * @returns 返回新数组，其值和 @iterable 一一对应。
+ * @returns 返回新数组，其值和 *iterable* 一一对应。
  * @since ES5
  * @example Array.from([1, 4]); // [1, 4]
- * @example (function(){return Array.from(arguments)})(0, 1, 2); // [0, 1, 2]
+ * @example (function() { return Array.from(arguments); })(0, 1, 2); // [0, 1, 2]
  * @example Array.from({length: 1, "0": "value"}); // ["value"]
  */
 export function from<T>(iterable: ArrayLike<T>): T[] {
@@ -458,7 +460,7 @@ export function range(from: number, to: number, step?: number) {
  * @returns 返回指定索引的项。
  * @example ['a', 'b'].item(-1) // 'b'
  */
-export function item<T>(_this: Array<T>, index: number) {
+export function item<T>(_this: T[], index: number) {
     return _this[index < 0 ? _this.length + index : index];
 }
 
@@ -467,7 +469,7 @@ export function item<T>(_this: Array<T>, index: number) {
  * @returns 返回过滤后的新数组。
  * @example [1, 9, 9, 0].unique() // 返回 [1, 9, 0]
  */
-export function unique<T>(_this: Array<T>) {
+export function unique<T>(_this: T[]) {
     let result = [];
     for (let i = 0; i < _this.length; i++) {
         ~result.indexOf(_this[i], i + 1) && result.push(_this[i]);
@@ -481,7 +483,7 @@ export function unique<T>(_this: Array<T>) {
  * @example [1, 9, 0].isUnique() // true
  * @example [1, 9, 9, 0].isUnique() // false
  */
-export function isUnique<T>(_this: Array<T>) {
+export function isUnique<T>(_this: T[]) {
     for (let i = _this.length - 1; i > 0; i--) {
         if (~_this.indexOf(_this[i - 1], i)) {
             return false;
@@ -496,7 +498,7 @@ export function isUnique<T>(_this: Array<T>) {
  * @returns 返回数组和指定键组成的键值对。
  * @example [1, 2].associate(["a", "b"]) // {a: 1, b: 2}
  */
-export function associate<T>(_this: Array<T>, keys: string[]) {
+export function associate<T>(_this: T[], keys: string[]) {
     let result = {};
     const length = Math.min(_this.length, keys.length);
     for (let i = 0; i < length; i++) {
@@ -510,7 +512,7 @@ export function associate<T>(_this: Array<T>, keys: string[]) {
  * @returns 返回不为空的元素，如果所有元素都为空则返回 undefined。
  * @example [undefined, null, 1, 2].pick() // 1
  */
-export function pick<T>(_this: Array<T>) {
+export function pick<T>(_this: T[]) {
     for (var i = 0, l = _this.length; i < l; i++) {
         if (_this[i] != undefined) {
             return _this[i];
@@ -520,14 +522,14 @@ export function pick<T>(_this: Array<T>) {
 
 /**
  * 从当前数组中删除另一个数组的所有元素，返回剩下的元素组成的新数组。
- * @param array 被除去的元素数组。
+ * @param other 被除去的元素数组。
  * @returns 返回新数组。
  * @example [1, 2].sub([1]) // [2]
  */
-export function sub<T>(_this: Array<T>, array: Array<T>) {
+export function sub<T>(_this: T[], other: T[]) {
     let result: T[] = [];
     for (let i = _this.length; --i >= 0;) {
-        ~array.indexOf(_this[i]) || result.push(_this[i]);
+        ~other.indexOf(_this[i]) || result.push(_this[i]);
     }
     return result;
 }
@@ -540,7 +542,7 @@ export function sub<T>(_this: Array<T>, array: Array<T>) {
 export function flatten(_this: Array<any>) {
     let result: any[] = [];
     for (let i = 0; i < _this.length; i++) {
-        _this[i] && _this[i] instanceof Array ? result.push.apply(result, flatten(_this[i])) : result.push(_this[i]);
+        _this[i] && _this[i] instanceof Array ? result.push(...flatten(_this[i])) : result.push(_this[i]);
     }
     return result;
 }
@@ -550,7 +552,7 @@ export function flatten(_this: Array<any>) {
  * @returns 返回找到的项。如果数组为空，则返回 undefined。
  * @example [1, 2, 3].random()
  */
-export function random<T>(_this: Array<T>) {
+export function random<T>(_this: T[]) {
     return _this[Math.floor(_this.length * Math.random())];
 }
 
@@ -558,7 +560,7 @@ export function random<T>(_this: Array<T>) {
  * 计算数组的全排列结果。
  * @returns 如果已新增则返回 true，否则返回 false。
  */
-export function permute<T>(_this: Array<T>) {
+export function permute<T>(_this: T[]) {
     let result = [];
     let usedItems = [];
     next(_this);
@@ -585,7 +587,7 @@ export function permute<T>(_this: Array<T>) {
  * @returns 返回所有调用结果的返回值。
  * @example ["I", "you"].invoke("length"); // [1, 3]
  */
-export function invoke<T>(_this: Array<T>, funcName: string, ...args: any[]) {
+export function invoke<T>(_this: T[], funcName: string, ...args: any[]) {
     let result = [];
     for (let i = 0; i < _this.length; i++) {
         let item = _this[i][funcName];
@@ -606,8 +608,8 @@ export function invoke<T>(_this: Array<T>, funcName: string, ...args: any[]) {
  * @returns 返回数组中所有项的最小值。
  * @example [1, 2].min() // 1
  */
-export function min(_this: Array<number>): number {
-    return Math.min.apply(null, _this);
+export function min(_this: number[]) {
+    return Math.min(..._this);
 }
 
 /**
@@ -615,8 +617,8 @@ export function min(_this: Array<number>): number {
  * @returns 返回数组中所有项的最大值。
  * @example [1, 2].max() // 2
  */
-export function max(_this: Array<number>): number {
-    return Math.max.apply(null, _this);
+export function max(_this: number[]) {
+    return Math.max(..._this);
 }
 
 /**
@@ -624,7 +626,7 @@ export function max(_this: Array<number>): number {
  * @returns 返回数组中所有数值的和。计算时忽略非数字项。
  * @example [1, 2].sum() // 3
  */
-export function sum(_this: Array<number>) {
+export function sum(_this: number[]) {
     let result = 0;
     let i = _this.length;
     while (--i >= 0) {
@@ -638,7 +640,7 @@ export function sum(_this: Array<number>) {
  * @returns 返回数组中所有数值的算术平均值。计算时忽略非数字项。
  * @example [1, 2].avg() // 1.5
  */
-export function avg(_this: Array<number>): number {
+export function avg(_this: number[]) {
     let sum = 0;
     let c = 0;
     let i = _this.length;

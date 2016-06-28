@@ -66,17 +66,21 @@ class Transpiler {
             this.resolveDocs();
         }
 
-        //// 解析每个成员。
-        //mapChild(sourceFile, (node: ts.Node) => {
-
-        //    return node;
-        //});
-
     }
 
     // #endregion
 
     // #region 节点遍历
+
+    /**
+     * 解析指定的类型字符串实际指代的类型。
+     * @param pos
+     * @param text
+     */
+    stringToType(text: string, pos: number, end: number) {
+        // ts.createScanner(this.options.target, true, this.options.jsx == ts.JsxEmit.None ? ts.LanguageVariant.Standard : ts.LanguageVariant.JSX, text, null, pos, end - pos);
+        // return this.checker.getTypeAtLocation();
+    }
 
     // #endregion
 
@@ -178,6 +182,7 @@ class Transpiler {
 
         // 从节点提取文档信息。
 
+
         // 返回文档注释。
         return docComment;
     }
@@ -224,6 +229,10 @@ class Transpiler {
         return result;
 
         //const defaultTagName = "summary";
+
+        function removeLeadingAsterisk(text: string) {
+            return text.replace(/^\s*\*\s*/gm, "");
+        }
 
     }
 
@@ -511,7 +520,7 @@ interface TranspileOptions extends ts.CompilerOptions {
 /**
  * 表示一个文档注释。
  */
-interface DocComment {
+export interface DocComment {
 
     // #region 注释属性
 
