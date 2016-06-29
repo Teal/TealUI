@@ -2,6 +2,7 @@
  * @fileOverview TypeScript 编译器
  * @descrition 编译 TypeScript，生成高性能的 JavaScript 和 API 文档数据。
  */
+/// <reference path="../.vscode/typings/node/node.d.ts" />
 var ts = require("typescript");
 var Debug = ts["Debug"];
 /**
@@ -33,7 +34,9 @@ var Transpiler = (function () {
         // 处理每个源文件。
         for (var _i = 0, _a = program.getSourceFiles(); _i < _a.length; _i++) {
             var sourceFile = _a[_i];
-            this.transpileModule(sourceFile);
+            if (sourceFile.path !== "lib.d.ts") {
+                this.transpileModule(sourceFile);
+            }
         }
     };
     /**
@@ -101,7 +104,7 @@ var Transpiler = (function () {
     Transpiler.prototype.parseDocCommentFromNode = function (node) {
         // 首先读取文档注释。
         var comments = ts.getJsDocComments(node, this.sourceFile);
-        if (!comments.length)
+        if (!comments || !comments.length)
             return;
         // 然后解析文档注释。
         var comment = comments[comments.length - 1];
@@ -142,7 +145,7 @@ var Transpiler = (function () {
         _("解析注释：" + this.sourceFile.text.substring(start, end));
         // 初始化结果。
         var p = ts.getLineAndCharacterOfPosition(this.sourceFile, start);
-        this.jsDocComment = { line: p.line, column: p.character };
+        this.jsDocComment = { line: p.line, column: p.character, diagnostics: [] };
         // 初始化扫描器。
         this.scanner.setText(this.sourceFile.text, start + 3, end - start - 5);
         // 解析所有标签前的文本。
@@ -230,6 +233,27 @@ var Transpiler = (function () {
         node.end = this.scanner.getStartPos();
         return node;
     };
+    Transpiler.prototype.fixupParentReferences = function (rootNode) {
+        // normally parent references are set during binding. However, for clients that only need
+        // a syntax tree, and no semantic features, then the binding process is an unnecessary
+        // overhead.  This functions allows us to set all the parents, without all the expense of
+        // binding.
+        var parent = rootNode;
+        ts.forEachChild(rootNode, visitNode);
+        return;
+        function visitNode(n) {
+            // walk down setting parents that differ from the parent we think it should be.  This
+            // allows us to quickly bail out of setting parents for subtrees during incremental
+            // parsing
+            if (n.parent !== parent) {
+                n.parent = parent;
+                var saveParent = parent;
+                parent = n;
+                ts.forEachChild(n, visitNode);
+                parent = saveParent;
+            }
+        }
+    };
     /**
      * 报告一个文档注释解析错误。
      * @param message 错误内容。
@@ -244,12 +268,13 @@ var Transpiler = (function () {
             code: -1
         });
     };
+    // #endregion
+    // #region 解析单个标签
     /**
      * 从源文件的文档注释标签截取信息。
      * @param tagName 标签名。
      */
     Transpiler.prototype.handleTag = function (tagName) {
-        console.log("标签：", tagName, JSON.stringify(this.scanToJSDocTagStart()));
         switch (tagName.toLowerCase()) {
             //// 类型名
             //case "augments":
@@ -380,9 +405,67 @@ var Transpiler = (function () {
             //    break;
             // 特定标签
             case "return":
-                return this.handleTag("returns");
             case "returns":
-                var type = this.tryParseJSDocTypeExpression();
+                return this.handleTypeHtmlTag("returns");
+            //case "type": // Document the type of an object.
+            //case "this": // What does the 'this' keyword refer to here?
+            //    // todo
+            //    break;
+            //case "typedef": // Document a custom type.
+            //    // todo
+            //    break;
+            //case "arg":
+            //case "argument":
+            //    return this.handleTag("param", argument, tag, result);
+            //case "param": //(synonyms: @arg, @argument)  Document the parameter to a function.
+            //    // todo
+            //    break;
+            //case "access": //  Specify the access level of this member (private, public, or protected).
+            //    switch (argument) {
+            //        case "private":
+            //        case "protected":
+            //        case "public":
+            //        case "internal":
+            //            return this.handleTag(argument, null, tag, result);
+            //        default:
+            //            this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'. Supported values are: 'private', 'protected', 'public', 'internal'.`);
+            //            break;
+            //    }
+            //    break;
+            //case "kind": // What kind of symbol is this?
+            //    switch (argument) {
+            //        case "func":
+            //        case "method":
+            //        case "prop":
+            //        case "constructs": // This function member will be the constructor for the previous class.
+            //        case "constructor":
+            //        case "constant":
+            //        case "var":
+            //        case "function": // (synonyms: @func, @method)  Describe a function or method.
+            //        case "property": // (synonyms: @prop)   Document a property of an object.
+            //        case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
+            //        case "interface": // This symbol is an interface that others can implement
+            //        case "enum": // Document a collection of related properties.
+            //        case "const": // (synonyms: @const)  Document an object as a constant.
+            //        case "member": // (synonyms: @var) Document a member.
+            //        case "callback": // Document a callback function.
+            //        case "event": // Document an event.
+            //        case "config": // Document a config.
+            //        case "exports": // Identify the member that is exported by a JavaScript module.
+            //        case "instance": // Document an instance member..
+            //            return this.handleTag(argument, null, tag, result);
+            //        default:
+            //            this.reportDocError(result, tag, `Invalid argument of tag @${tagName}: '${argument}'.`);
+            //            break;
+            //    }
+            //case "listens": // List the events that a symbol listens for.
+            //case "mixes": // This object mixes in all the members from another object.
+            //case "mixin": // Document a mixin object.
+            //case "tutorial": // Insert a link to an included tutorial file.
+            //case "variation": // Distinguish different objects with the same name.
+            default:
+                this.reportJsDocError("Unknown tag @" + tagName + ".");
+                this.scanToJSDocTagStart();
                 break;
         }
     };
@@ -405,6 +488,63 @@ var Transpiler = (function () {
         if (!text) {
             return;
         }
+    };
+    /**
+     * 处理类型加描述的标签。
+     * @param tagName 标签名。
+     */
+    Transpiler.prototype.handleTypeHtmlTag = function (tagName) {
+        var type = this.tryReadType();
+        var description = this.readText();
+        _("类型", type);
+        _("描述", description);
+        this.jsDocComment[tagName] = {
+            type: type,
+            description: description
+        };
+    };
+    /**
+     * 读取可选的类型。
+     */
+    Transpiler.prototype.tryReadType = function () {
+        var type = this.tryParseJSDocTypeExpression();
+        if (!type) {
+            return undefined;
+        }
+        return this.typeNodeToString(type.type);
+    };
+    /**
+     * 读取类型。
+     */
+    Transpiler.prototype.readType = function () {
+        var type = this.parseJSDocTopLevelType();
+        if (!type) {
+            return undefined;
+        }
+        return this.typeNodeToString(type);
+    };
+    /**
+     * 读取名字。
+     */
+    Transpiler.prototype.readName = function () {
+        return this.parseSimplePropertyName();
+    };
+    /**
+     * 读取文本。
+     */
+    Transpiler.prototype.readText = function () {
+        return this.scanToJSDocTagStart();
+    };
+    Transpiler.prototype.typeNodeToString = function (type) {
+        if (!type.parent)
+            type.parent = this.sourceFile;
+        this.fixupParentReferences(type);
+        // HACK: JsDoc 类型不被认为是类型。
+        var isTypeNode = ts["isTypeNode"];
+        ts["isTypeNode"] = function () { return true; };
+        var t = this.checker.getTypeAtLocation(type);
+        ts["isTypeNode"] = isTypeNode;
+        return this.checker.typeToString(t, null, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.WriteArrayAsGenericType);
     };
     // #endregion
     // #region 解析类型
@@ -472,7 +612,11 @@ var Transpiler = (function () {
         return type;
     };
     Transpiler.prototype.parseBasicTypeExpression = function () {
-        switch (this.scanner.getToken()) {
+        var token = this.scanner.getToken();
+        if (token === ts.SyntaxKind.Identifier) {
+            token = ts["stringToToken"](this.scanner.getTokenText()) || token;
+        }
+        switch (token) {
             case ts.SyntaxKind.AsteriskToken:
                 return this.parseJSDocAllType();
             case ts.SyntaxKind.QuestionToken:
@@ -499,13 +643,13 @@ var Transpiler = (function () {
             case ts.SyntaxKind.BooleanKeyword:
             case ts.SyntaxKind.SymbolKeyword:
             case ts.SyntaxKind.VoidKeyword:
-                return this.parseTokenNode();
+                return this.parseTokenNode(token);
         }
         // TODO (drosen): Parse string literal types in JsDoc as well.
         return this.parseJSDocTypeReference();
     };
-    Transpiler.prototype.parseTokenNode = function () {
-        var node = ts.createNode(this.scanner.getToken());
+    Transpiler.prototype.parseTokenNode = function (token) {
+        var node = ts.createNode(token, this.scanner.getTokenPos());
         this.scanner.scanJSDocToken();
         return this.finishNode(node);
     };
@@ -1183,8 +1327,6 @@ var transpiler = new Transpiler();
 // 更改创建程序的方式。
 var createProgram = ts.createProgram;
 ts.createProgram = function (rootNames, options, host, oldProgram) {
-    // 设置默认选项。
-    options.noImplicitUseStrict = options.noImplicitUseStrict !== false;
     // 编译。
     var program = createProgram.apply(this, arguments);
     // 转换。
@@ -1206,6 +1348,58 @@ ts.transpileModule = function (input, transpileOptions) {
         result["jsDoc"] = transpiler.jsDocs;
     }
     return result;
+};
+ts["transpileModuleWithDoc"] = function (input, transpileOptions) {
+    var inputFileName = transpileOptions.fileName || (transpileOptions.compilerOptions.jsx ? "module.tsx" : "module.ts");
+    var sourceFile = ts.createSourceFile(inputFileName, input, transpileOptions.compilerOptions.target);
+    if (transpileOptions.moduleName) {
+        sourceFile.moduleName = transpileOptions.moduleName;
+    }
+    sourceFile["renamedDependencies"] = transpileOptions.renamedDependencies;
+    var newLine = ts["getNewLineCharacter"](transpileOptions.compilerOptions);
+    // Output
+    var outputText;
+    var sourceMapText;
+    // Create a compilerHost object to allow the compiler to read and write files
+    var compilerHost = {
+        getSourceFile: function (fileName, target) {
+            if (fileName === ts["normalizeSlashes"](inputFileName))
+                return sourceFile;
+            if (fileName === compilerHost.getDefaultLibFileName()) {
+                return ts.createSourceFile(fileName, require("fs").readFileSync(require.resolve("typescript/lib/" + fileName), "utf-8"), transpileOptions.compilerOptions.target);
+            }
+            return undefined;
+        },
+        writeFile: function (name, text, writeByteOrderMark) {
+            if (ts["fileExtensionIs"](name, ".map")) {
+                ts["Debug"].assert(sourceMapText === undefined, "Unexpected multiple source map outputs for the file '" + name + "'");
+                sourceMapText = text;
+            }
+            else {
+                ts["Debug"].assert(outputText === undefined, "Unexpected multiple outputs for the file: '" + name + "'");
+                outputText = text;
+            }
+        },
+        getDefaultLibFileName: function () { return "lib.d.ts"; },
+        useCaseSensitiveFileNames: function () { return false; },
+        getCanonicalFileName: function (fileName) { return fileName; },
+        getCurrentDirectory: function () { return ""; },
+        getNewLine: function () { return newLine; },
+        fileExists: function (fileName) { return fileName === inputFileName; },
+        readFile: function (fileName) { return ""; },
+        directoryExists: function (directoryExists) { return true; }
+    };
+    var program = ts.createProgram([inputFileName], transpileOptions.compilerOptions, compilerHost);
+    var diagnostics;
+    if (transpileOptions.reportDiagnostics) {
+        diagnostics = [];
+        ts["addRange"](/*to*/ diagnostics, /*from*/ program.getSyntacticDiagnostics(sourceFile));
+        ts["addRange"](/*to*/ diagnostics, /*from*/ program.getOptionsDiagnostics());
+    }
+    // Emit
+    program.emit();
+    ts["Debug"].assert(outputText !== undefined, "Output generation failed");
+    return { outputText: outputText, diagnostics: diagnostics, sourceMapText: sourceMapText, jsDoc: transpiler.jsDocs };
 };
 // #endregion
 var _ = console.log.bind(console);
