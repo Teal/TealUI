@@ -6,12 +6,14 @@ var ts = require("typescript");
 var Debug = ts["Debug"];
 /**
  * 表示一个 TypeScript 语法转换器。
- * @remark 转换器负责更新 TypeScript 语法树和解析 JSDoc 文档。
+ * @remark 转换器负责更新 TypeScript 语法树和解析 JsDoc 文档。
  */
 var Transpiler = (function () {
     function Transpiler() {
+        // #endregion
+        // #region 解析单个文档注释
         /**
-         * 默认的扫描器。
+         * 存储词法分析器。
          */
         this.scanner = ts.createScanner(ts.ScriptTarget.Latest, /*skipTrivia*/ true);
     }
@@ -44,24 +46,13 @@ var Transpiler = (function () {
             this.resolveDocs();
         }
     };
-    // #endregion
-    // #region 节点遍历
-    /**
-     * 解析指定的类型字符串实际指代的类型。
-     * @param pos
-     * @param text
-     */
-    Transpiler.prototype.stringToType = function (text, pos, end) {
-        // ts.createScanner(this.options.target, true, this.options.jsx == ts.JsxEmit.None ? ts.LanguageVariant.Standard : ts.LanguageVariant.JSX, text, null, pos, end - pos);
-        // return this.checker.getTypeAtLocation();
-    };
     /**
      * 解析当前源码的文档注释。
      */
     Transpiler.prototype.resolveDocs = function () {
         // 创建文档对象。
         this.jsDocs[this.sourceFile.path] = this.jsDoc = {
-            members: [],
+            comments: [],
             imports: []
         };
         //// 获取属于当前文档的文档注释。
@@ -100,7 +91,7 @@ var Transpiler = (function () {
         var docComment = this.parseDocCommentFromNode(node);
         // 添加到列表。
         if (docComment) {
-            this.addDocComment(docComment);
+            this.addJsDocComment(docComment);
         }
     };
     /**
@@ -114,36 +105,63 @@ var Transpiler = (function () {
             return;
         // 然后解析文档注释。
         var comment = comments[comments.length - 1];
-        var docComment = this.parseDocComment(comment.pos, comment.end);
+        var docComment = this.parseJsDocComment(comment.pos, comment.end);
         // 从节点提取文档信息。
+        // todo
         // 返回文档注释。
         return docComment;
+    };
+    /**
+     * 获取文件的首个注释。
+     * @param sourceFile
+     */
+    Transpiler.prototype.getJsDocCommentOfSourceFile = function () {
+        //const comments: ts.CommentRange[] = (ts as any).getJsDocComments(this.sourceFile, this.sourceFile);
+        //if (!comments.length) return;
+        //const comment = comments[0];
+        //if (!comment.hasTrailingNewLine) return;
+        //return this.parseJsDoc(comment.pos, comment.end);
+    };
+    /**
+     * 添加一个已解析的文档注释。
+     * @param node 当前节点。
+     */
+    Transpiler.prototype.addJsDocComment = function (jsDocComment) {
+        if (jsDocComment.category)
+            this.category = jsDocComment.category;
+        if (jsDocComment.namespace)
+            this.namespace = jsDocComment.namespace;
+        this.jsDoc.comments.push(jsDocComment);
     };
     /**
      * 解析指定区间的文档注释。
      * @param start 注释的起始位置。
      * @param end 注释的结束位置。
      */
-    Transpiler.prototype.parseDocComment = function (start, end) {
+    Transpiler.prototype.parseJsDocComment = function (start, end) {
         _("解析注释：" + this.sourceFile.text.substring(start, end));
-        this.scanner.setText(this.sourceFile.text, start + 3, end - start - 5);
+        // 初始化结果。
         var p = ts.getLineAndCharacterOfPosition(this.sourceFile, start);
         this.jsDocComment = { line: p.line, column: p.character };
-        // 解析前缀文本。
-        var summary = this.scanToJSDocTagStart();
-        _("文本：", summary);
+        // 初始化扫描器。
+        this.scanner.setText(this.sourceFile.text, start + 3, end - start - 5);
+        // 解析所有标签前的文本。
+        this.handleHtmlTag("summary", this.scanToJSDocTagStart());
         // 解析每个标签。
         while (this.scanner.getToken() !== ts.SyntaxKind.EndOfFileToken) {
             Debug.assert(this.scanner.getToken() === ts.SyntaxKind.AtToken);
+            // 解析标签名。
             this.scanner.scanJSDocToken();
             var tagName = this.scanner.getTokenText();
+            // 解析标签空格。
             this.scanner.scanJSDocToken();
-            this.parseJsDocTag(tagName);
+            this.handleTag(tagName);
         }
         return this.jsDocComment;
     };
     /**
-     * 解析到下一个 JSDoc 标签开始。
+     * 读取标记到下一个文档注释标签为止。
+     * @return 返回读取到的文本，其中不包含前缀的 *。
      */
     Transpiler.prototype.scanToJSDocTagStart = function () {
         var buffer = "";
@@ -182,20 +200,65 @@ var Transpiler = (function () {
         }
     };
     /**
+     * 解析指定的标记。
+     * @param kind 期待的标记。
+     */
+    Transpiler.prototype.parseExpected = function (kind) {
+        if (this.scanner.getToken() === kind) {
+            this.scanner.scanJSDocToken();
+            return true;
+        }
+        this.reportJsDocError("Unexpected token " + ts.SyntaxKind[this.scanner.getToken()] + ". Expected " + ts.SyntaxKind[kind]);
+        return false;
+    };
+    /**
+     * 如果匹配则解析指定的标记。
+     * @param kind 期待的标记。
+     */
+    Transpiler.prototype.parseOptional = function (kind) {
+        if (this.scanner.getToken() === kind) {
+            this.scanner.scanJSDocToken();
+            return true;
+        }
+        return false;
+    };
+    /**
+     * 完成指定节点的读取，追加节点结束位置信息。
+     * @param node 解析完成的节点。
+     */
+    Transpiler.prototype.finishNode = function (node) {
+        node.end = this.scanner.getStartPos();
+        return node;
+    };
+    /**
+     * 报告一个文档注释解析错误。
+     * @param message 错误内容。
+     */
+    Transpiler.prototype.reportJsDocError = function (message) {
+        this.jsDocComment.diagnostics.push({
+            file: this.sourceFile,
+            start: this.scanner.getTokenPos(),
+            length: this.scanner.getTextPos() - this.scanner.getTokenPos(),
+            messageText: message,
+            category: ts.DiagnosticCategory.Warning,
+            code: -1
+        });
+    };
+    /**
      * 从源文件的文档注释标签截取信息。
      * @param tagName 标签名。
      */
-    Transpiler.prototype.parseJsDocTag = function (tagName) {
+    Transpiler.prototype.handleTag = function (tagName) {
         console.log("标签：", tagName, JSON.stringify(this.scanToJSDocTagStart()));
         switch (tagName.toLowerCase()) {
             //// 类型名
             //case "augments":
             //case "extend":
-            //    return this.parseJsDocTag("extends", argument, tag, result);
+            //    return this.handleTag("extends", argument, tag, result);
             //case "module": // Document a JavaScript module.
-            //    return this.parseJsDocTag("namespace", argument, tag, result);
+            //    return this.handleTag("namespace", argument, tag, result);
             //case "lends": // Document properties on an object literal as if they belonged to a symbol with a given name.
-            //    return this.parseJsDocTag("memberof", argument, tag, result);
+            //    return this.handleTag("memberof", argument, tag, result);
             //case "extends": // (synonyms: @extends)  Indicate that a symbol inherits from, ands adds to, a parent symbol.
             //case "namespace": // Document a namespace object.
             //case "memberof": // This symbol belongs to a parent symbol.
@@ -212,7 +275,7 @@ var Transpiler = (function () {
             //    break;
             //// 成员名
             //case "emits":
-            //    return this.parseJsDocTag("fires", argument, tag, result);
+            //    return this.handleTag("fires", argument, tag, result);
             //case "name": // Document the name of an object.
             //case "fires":// (synonyms: @emits)  Describe the events this method may fire.
             //case "alias": // Treat a member as if it had a different name.
@@ -229,11 +292,11 @@ var Transpiler = (function () {
             //    break;
             //// 多行文本
             //case "desc":
-            //    return this.parseJsDocTag("description", argument, tag, result);
+            //    return this.handleTag("description", argument, tag, result);
             //case "fileoverview":
             //case "fileOverview":
             //case "overview":
-            //    return this.parseJsDocTag("file", argument, tag, result);
+            //    return this.handleTag("file", argument, tag, result);
             //case "classdesc": // Use the following text to describe the entire class.
             //case "summary": // A shorter version of the full description.
             //case "description": // (synonyms: @desc) Describe a symbol.
@@ -251,9 +314,9 @@ var Transpiler = (function () {
             //    break;
             //// 布尔型标签
             //case "inner": // Document an inner object.
-            //    return this.parseJsDocTag("internal", argument, tag, result);
+            //    return this.handleTag("internal", argument, tag, result);
             //case "host": // Document an inner object.
-            //    return this.parseJsDocTag("external", argument, tag, result);
+            //    return this.handleTag("external", argument, tag, result);
             //case "abstract": // This member must be implemented by the inheritor.
             //case "virtual": // This member must be overridden by the inheritor.
             //case "override": // Indicate that a symbol overrides its parent.
@@ -273,16 +336,16 @@ var Transpiler = (function () {
             //// 可选名字的布尔型标签
             //case "func":
             //case "method":
-            //    return this.parseJsDocTag("function", argument, tag, result);
+            //    return this.handleTag("function", argument, tag, result);
             //case "prop":
-            //    return this.parseJsDocTag("property", argument, tag, result);
+            //    return this.handleTag("property", argument, tag, result);
             //case "constructs": // This function member will be the constructor for the previous class.
             //case "constructor":
-            //    return this.parseJsDocTag("class", argument, tag, result);
+            //    return this.handleTag("class", argument, tag, result);
             //case "constant":
-            //    return this.parseJsDocTag("const", argument, tag, result);
+            //    return this.handleTag("const", argument, tag, result);
             //case "var":
-            //    return this.parseJsDocTag("member", argument, tag, result);
+            //    return this.handleTag("member", argument, tag, result);
             //case "function": // (synonyms: @func, @method)  Describe a function or method.
             //case "property": // (synonyms: @prop)   Document a property of an object.
             //case "class": //  (synonyms: @constructor) This function is intended to be called with the "new" keyword.
@@ -306,7 +369,7 @@ var Transpiler = (function () {
             //    argument[argument] = result;
             //    break;
             //case "defaultvalue":
-            //    return this.parseJsDocTag("default", argument, tag, result);
+            //    return this.handleTag("default", argument, tag, result);
             //// 版本
             //case "deprecated": // Document that this is no longer the preferred way.
             //case "version": // Documents the version number of an item.
@@ -317,12 +380,37 @@ var Transpiler = (function () {
             //    break;
             // 特定标签
             case "return":
-                return this.parseJsDocTag("returns");
+                return this.handleTag("returns");
             case "returns":
                 var type = this.tryParseJSDocTypeExpression();
                 break;
         }
     };
+    /**
+     * 处理单行文本类标签。
+     * @param tagName 标签名。
+     * @param text 内容。
+     */
+    Transpiler.prototype.handleTextTag = function (tagName, text) {
+        if (!text) {
+            return;
+        }
+    };
+    /**
+     * 处理多行文本类标签。
+     * @param tagName 标签名。
+     * @param text 内容。
+     */
+    Transpiler.prototype.handleHtmlTag = function (tagName, text) {
+        if (!text) {
+            return;
+        }
+    };
+    // #endregion
+    // #region 解析类型
+    /**
+     * 如果存在则解析文档注释中的 {*类型*}。
+     */
     Transpiler.prototype.tryParseJSDocTypeExpression = function () {
         if (this.scanner.getToken() !== ts.SyntaxKind.OpenBraceToken) {
             return undefined;
@@ -330,34 +418,15 @@ var Transpiler = (function () {
         var typeExpression = this.parseJSDocTypeExpression();
         return typeExpression;
     };
+    /**
+     * 解析文档注释中的 {*类型*}。
+     */
     Transpiler.prototype.parseJSDocTypeExpression = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocTypeExpression, this.scanner.getTokenPos());
         this.parseExpected(ts.SyntaxKind.OpenBraceToken);
         result.type = this.parseJSDocTopLevelType();
         this.parseExpected(ts.SyntaxKind.CloseBraceToken);
         return this.finishNode(result);
-    };
-    Transpiler.prototype.parseExpected = function (kind, diagnosticMessage, shouldAdvance) {
-        if (shouldAdvance === void 0) { shouldAdvance = true; }
-        if (this.scanner.getToken() === kind) {
-            if (shouldAdvance) {
-                this.scanner.scanJSDocToken();
-            }
-            return true;
-        }
-        // Report specific message if provided with one.  Otherwise, report generic fallback message.
-        //if (diagnosticMessage) {
-        //    parseErrorAtCurrentToken(diagnosticMessage);
-        //}
-        //else {
-        //    parseErrorAtCurrentToken(Diagnostics._0_expected, tokenToString(kind));
-        //}
-        return false;
-    };
-    Transpiler.prototype.finishNode = function (node, end) {
-        if (end === void 0) { end = this.scanner.getStartPos(); }
-        node.end = end;
-        return node;
     };
     Transpiler.prototype.parseJSDocTopLevelType = function () {
         var type = this.parseJSDocType();
@@ -402,17 +471,6 @@ var Transpiler = (function () {
         }
         return type;
     };
-    /**
-     * 获取文件的首个注释。
-     * @param sourceFile
-     */
-    Transpiler.prototype.getJsDocCommentOfSourceFile = function () {
-        //const comments: ts.CommentRange[] = (ts as any).getJsDocComments(this.sourceFile, this.sourceFile);
-        //if (!comments.length) return;
-        //const comment = comments[0];
-        //if (!comment.hasTrailingNewLine) return;
-        //return this.parseJsDoc(comment.pos, comment.end);
-    };
     Transpiler.prototype.parseBasicTypeExpression = function () {
         switch (this.scanner.getToken()) {
             case ts.SyntaxKind.AsteriskToken:
@@ -443,7 +501,7 @@ var Transpiler = (function () {
             case ts.SyntaxKind.VoidKeyword:
                 return this.parseTokenNode();
         }
-        // TODO (drosen): Parse string literal types in JSDoc as well.
+        // TODO (drosen): Parse string literal types in JsDoc as well.
         return this.parseJSDocTypeReference();
     };
     Transpiler.prototype.parseTokenNode = function () {
@@ -475,65 +533,51 @@ var Transpiler = (function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocFunctionType);
         this.scanner.scanJSDocToken();
         this.parseExpected(ts.SyntaxKind.OpenParenToken);
-        result.parameters = this.parseDelimitedList(22 /* JSDocFunctionParameters */, this.parseJSDocParameter.bind(this));
-        this.checkForTrailingComma(result.parameters);
-        this.parseExpected(ts.SyntaxKind.CloseParenToken);
+        result.parameters = this.parseDelimitedList(this.parseJSDocParameter, ts.SyntaxKind.CloseParenToken);
         if (this.scanner.getToken() === ts.SyntaxKind.ColonToken) {
             this.scanner.scanJSDocToken();
             result.type = this.parseJSDocType();
         }
         return this.finishNode(result);
     };
-    // ts.Parses a comma-delimited list of elements
-    Transpiler.prototype.parseDelimitedList = function (kind, parseElement, considerSemicolonAsDelimiter) {
-        var saveParsingContext = parsingContext;
-        parsingContext |= 1 << kind;
+    Transpiler.prototype.parseDelimitedList = function (parseElement, terminatorToken) {
         var result = [];
         result.pos = this.scanner.getStartPos();
-        var commaStart = -1; // ts.Meaning the previous this.scanner.getToken() was not a comma
-        while (true) {
-            if (isListElement(kind, /*inErrorRecovery*/ false)) {
-                result.push(parseListElement(kind, parseElement));
-                commaStart = scanner.getTokenPos();
-                if (parseOptional(ts.SyntaxKind.CommaToken)) {
-                    continue;
-                }
-                commaStart = -1; // ts.Back to the state where the last this.scanner.getToken() was not a comma
-                if (isListTerminator(kind)) {
-                    break;
-                }
-                // ts.We didn't get a comma, and the list wasn't terminated, explicitly parse
-                // out a comma so we give a good error message.
-                parseExpected(ts.SyntaxKind.CommaToken);
-                // ts.If the this.scanner.getToken() was a semicolon, and the caller allows that, then skip it and
-                // continue.  ts.This ensures we get back on track and don't result in tons of
-                // parse errors.  ts.For example, this can happen when people do things like use
-                // a semicolon to delimit object literal members.   ts.Note: we'll have already
-                // reported an error when we called parseExpected above.
-                if (considerSemicolonAsDelimiter && this.scanner.getToken() === ts.SyntaxKind.SemicolonToken && !scanner.hasPrecedingLineBreak()) {
-                    this.scanner.scanJSDocToken();
-                }
+        while (!this.parseOptional(terminatorToken)) {
+            if (this.scanner.getToken() !== ts.SyntaxKind.CommaToken) {
+                result.hasTrailingComma = false;
+                result.push(parseElement.call(this));
+            }
+            if (this.parseOptional(ts.SyntaxKind.CommaToken)) {
+                result.hasTrailingComma = true;
                 continue;
             }
-            if (this.isListTerminator(kind)) {
-                break;
-            }
-            if (abortParsingListOrMoveToNextToken(kind)) {
+            // 缺少逗号。
+            this.parseExpected(ts.SyntaxKind.CommaToken);
+            // 换行后自动终止。
+            this.scanner.scanJSDocToken();
+            if (this.scanner.hasPrecedingLineBreak()) {
                 break;
             }
         }
-        // ts.Recording the trailing comma is deliberately done after the previous
-        // loop, and not just if we see a list terminator. ts.This is because the list
-        // may have ended incorrectly, but it is still important to know if there
-        // was a trailing comma.
-        // ts.Check if the last this.scanner.getToken() was a comma.
-        if (commaStart >= 0) {
-            // ts.Always preserve a trailing comma by marking it on the ts.NodeArray
-            result.hasTrailingComma = true;
-        }
-        result.end = this.getNodeEnd();
-        parsingContext = saveParsingContext;
+        result.end = this.scanner.getStartPos();
         return result;
+    };
+    Transpiler.prototype.isJSDocType = function () {
+        switch (this.scanner.getToken()) {
+            case ts.SyntaxKind.AsteriskToken:
+            case ts.SyntaxKind.QuestionToken:
+            case ts.SyntaxKind.OpenParenToken:
+            case ts.SyntaxKind.OpenBracketToken:
+            case ts.SyntaxKind.ExclamationToken:
+            case ts.SyntaxKind.OpenBraceToken:
+            case ts.SyntaxKind.FunctionKeyword:
+            case ts.SyntaxKind.DotDotDotToken:
+            case ts.SyntaxKind.NewKeyword:
+            case ts.SyntaxKind.ThisKeyword:
+                return true;
+        }
+        return ts["tokenIsIdentifierOrKeyword"](this.scanner.getToken());
     };
     Transpiler.prototype.parseJSDocParameter = function () {
         var parameter = ts.createNode(ts.SyntaxKind.Parameter);
@@ -542,13 +586,6 @@ var Transpiler = (function () {
             parameter.questionToken = ts.createNode(ts.SyntaxKind.EqualsToken);
         }
         return this.finishNode(parameter);
-    };
-    Transpiler.prototype.parseOptional = function (t) {
-        if (this.scanner.getToken() === t) {
-            this.scanner.scanJSDocToken();
-            return true;
-        }
-        return false;
     };
     Transpiler.prototype.parseJSDocTypeReference = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocTypeReference);
@@ -572,31 +609,19 @@ var Transpiler = (function () {
     Transpiler.prototype.parseTypeArguments = function () {
         // Move past the <
         this.scanner.scanJSDocToken();
-        var typeArguments = this.parseDelimitedList(23 /* JSDocTypeArguments */, this.parseJSDocType);
-        this.checkForTrailingComma(typeArguments);
-        this.checkForEmptyTypeArgumentList(typeArguments);
-        this.parseExpected(ts.SyntaxKind.GreaterThanToken);
+        var typeArguments = this.parseDelimitedList(this.parseJSDocType, ts.SyntaxKind.GreaterThanToken);
         return typeArguments;
-    };
-    Transpiler.prototype.checkForEmptyTypeArgumentList = function (typeArguments) {
-        if (this.parseDiagnostics.length === 0 && typeArguments && typeArguments.length === 0) {
-            var start = typeArguments.pos - "<".length;
-            var end = this.skipTrivia(this.sourceFile.text, typeArguments.end) + ">".length;
-            return this.parseErrorAtPosition(start, end - start, Diagnostics.Type_argument_list_cannot_be_empty);
-        }
     };
     Transpiler.prototype.parseQualifiedName = function (left) {
         var result = ts.createNode(ts.SyntaxKind.QualifiedName, left.pos);
         result.left = left;
-        result.right = this.parseIdentifierName();
+        result.right = this.parseSimplePropertyName();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocRecordType = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocRecordType);
         this.scanner.scanJSDocToken();
-        result.members = this.parseDelimitedList(24 /* JSDocRecordMembers */, this.parseJSDocRecordMember.bind(this));
-        this.checkForTrailingComma(result.members);
-        this.parseExpected(ts.SyntaxKind.CloseBraceToken);
+        result.members = this.parseDelimitedList(this.parseJSDocRecordMember, ts.SyntaxKind.CloseBraceToken);
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocRecordMember = function () {
@@ -608,6 +633,12 @@ var Transpiler = (function () {
         }
         return this.finishNode(result);
     };
+    Transpiler.prototype.parseSimplePropertyName = function () {
+        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.Identifier, this.scanner.getTokenPos());
+        result.text = this.scanner.getTokenText();
+        return this.finishNode(result);
+    };
     Transpiler.prototype.parseJSDocNonNullableType = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocNonNullableType);
         this.scanner.scanJSDocToken();
@@ -617,16 +648,8 @@ var Transpiler = (function () {
     Transpiler.prototype.parseJSDocTupleType = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocTupleType);
         this.scanner.scanJSDocToken();
-        result.types = this.parseDelimitedList(25 /* JSDocTupleTypes */, this.parseJSDocType.bind(this));
-        this.checkForTrailingComma(result.types);
-        this.parseExpected(ts.SyntaxKind.CloseBracketToken);
+        result.types = this.parseDelimitedList(this.parseJSDocType, ts.SyntaxKind.CloseBracketToken);
         return this.finishNode(result);
-    };
-    Transpiler.prototype.checkForTrailingComma = function (list) {
-        if (this.parseDiagnostics.length === 0 && list.hasTrailingComma) {
-            var start = list.end - ",".length;
-            this.parseErrorAtPosition(start, ",".length, Diagnostics.Trailing_comma_not_allowed);
-        }
     };
     Transpiler.prototype.parseJSDocUnionType = function () {
         var result = ts.createNode(ts.SyntaxKind.JSDocUnionType);
@@ -678,33 +701,6 @@ var Transpiler = (function () {
             result.type = this.parseJSDocType();
             return this.finishNode(result);
         }
-    };
-    /**
-     * 添加一个已解析的文档注释。
-     * @param node 当前节点。
-     */
-    Transpiler.prototype.addDocComment = function (jsDocComment) {
-        if (jsDocComment.category)
-            this.category = jsDocComment.category;
-        if (jsDocComment.namespace)
-            this.namespace = jsDocComment.namespace;
-        this.jsDoc.members.push(jsDocComment);
-    };
-    /**
-     * 报告一个文档错误。
-     * @param result 目标文档注释。
-     * @param node 源节点。
-     * @param message 错误内容。
-     */
-    Transpiler.prototype.reportDocError = function (result, node, message) {
-        result.diagnostics.push({
-            file: this.sourceFile,
-            start: node.pos,
-            length: node.end - node.pos,
-            messageText: message,
-            category: ts.DiagnosticCategory.Warning,
-            code: -1
-        });
     };
     return Transpiler;
 }());
@@ -1206,7 +1202,7 @@ ts.writeCommentRange = function (text, lineMap, writer, comment, newLine) {
 var transpileModule = ts.transpileModule;
 ts.transpileModule = function (input, transpileOptions) {
     var result = transpileModule.apply(this, arguments);
-    if (transpiler.options.jsDoc) {
+    if (transpiler.options.doc) {
         result["jsDoc"] = transpiler.jsDocs;
     }
     return result;
