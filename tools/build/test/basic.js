@@ -1,7 +1,7 @@
 
 var ts = require("../lib/tscript.js");
 
-var file = 'samples/basic.ts';
+var file = __dirname + '/samples/basic.ts';
 
 var input = require('fs').readFileSync(file, 'utf-8');
 

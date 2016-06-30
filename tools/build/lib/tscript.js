@@ -208,7 +208,7 @@ var Transpiler = (function () {
      */
     Transpiler.prototype.parseExpected = function (kind) {
         if (this.scanner.getToken() === kind) {
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             return true;
         }
         this.reportJsDocError("Unexpected token " + ts.SyntaxKind[this.scanner.getToken()] + ". Expected " + ts.SyntaxKind[kind]);
@@ -220,7 +220,7 @@ var Transpiler = (function () {
      */
     Transpiler.prototype.parseOptional = function (kind) {
         if (this.scanner.getToken() === kind) {
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             return true;
         }
         return false;
@@ -541,9 +541,17 @@ var Transpiler = (function () {
         this.fixupParentReferences(type);
         // HACK: JsDoc 类型不被认为是类型。
         var isTypeNode = ts["isTypeNode"];
-        ts["isTypeNode"] = function () { return true; };
+        ts["isTypeNode"] = function (node) {
+            if (isTypeNode(node))
+                return true;
+            if (node.kind >= ts.SyntaxKind.JSDocAllType && node.kind <= ts.SyntaxKind.JSDocThisType) {
+                return true;
+            }
+            return false;
+        };
         var t = this.checker.getTypeAtLocation(type);
         ts["isTypeNode"] = isTypeNode;
+        debugger;
         return this.checker.typeToString(t, null, ts.TypeFormatFlags.NoTruncation | ts.TypeFormatFlags.WriteArrayAsGenericType);
     };
     // #endregion
@@ -577,7 +585,7 @@ var Transpiler = (function () {
         }
         if (this.scanner.getToken() === ts.SyntaxKind.EqualsToken /*=*/) {
             var optionalType = ts.createNode(ts.SyntaxKind.JSDocOptionalType, type.pos);
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             optionalType.type = type;
             type = this.finishNode(optionalType);
         }
@@ -589,20 +597,20 @@ var Transpiler = (function () {
             if (this.scanner.getToken() === ts.SyntaxKind.OpenBracketToken) {
                 var arrayType = ts.createNode(ts.SyntaxKind.JSDocArrayType, type.pos);
                 arrayType.elementType = type;
-                this.scanner.scanJSDocToken();
+                this.scanner.scan();
                 this.parseExpected(ts.SyntaxKind.CloseBracketToken);
                 type = this.finishNode(arrayType);
             }
             else if (this.scanner.getToken() === ts.SyntaxKind.QuestionToken) {
                 var nullableType = ts.createNode(ts.SyntaxKind.JSDocNullableType, type.pos);
                 nullableType.type = type;
-                this.scanner.scanJSDocToken();
+                this.scanner.scan();
                 type = this.finishNode(nullableType);
             }
             else if (this.scanner.getToken() === ts.SyntaxKind.ExclamationToken) {
                 var nonNullableType = ts.createNode(ts.SyntaxKind.JSDocNonNullableType, type.pos);
                 nonNullableType.type = type;
-                this.scanner.scanJSDocToken();
+                this.scanner.scan();
                 type = this.finishNode(nonNullableType);
             }
             else {
@@ -612,11 +620,7 @@ var Transpiler = (function () {
         return type;
     };
     Transpiler.prototype.parseBasicTypeExpression = function () {
-        var token = this.scanner.getToken();
-        if (token === ts.SyntaxKind.Identifier) {
-            token = ts["stringToToken"](this.scanner.getTokenText()) || token;
-        }
-        switch (token) {
+        switch (this.scanner.getToken()) {
             case ts.SyntaxKind.AsteriskToken:
                 return this.parseJSDocAllType();
             case ts.SyntaxKind.QuestionToken:
@@ -643,43 +647,44 @@ var Transpiler = (function () {
             case ts.SyntaxKind.BooleanKeyword:
             case ts.SyntaxKind.SymbolKeyword:
             case ts.SyntaxKind.VoidKeyword:
-                return this.parseTokenNode(token);
+                return this.parseTokenNode();
         }
         // TODO (drosen): Parse string literal types in JsDoc as well.
         return this.parseJSDocTypeReference();
     };
-    Transpiler.prototype.parseTokenNode = function (token) {
-        var node = ts.createNode(token, this.scanner.getTokenPos());
-        this.scanner.scanJSDocToken();
+    Transpiler.prototype.parseTokenNode = function () {
+        var node = ts.createNode(this.scanner.getToken(), this.scanner.getTokenPos());
+        this.scanner.scan();
         return this.finishNode(node);
     };
     Transpiler.prototype.parseJSDocThisType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocThisType);
-        this.scanner.scanJSDocToken();
-        this.parseExpected(ts.SyntaxKind.ColonToken);
-        result.type = this.parseJSDocType();
+        var result = ts.createNode(ts.SyntaxKind.JSDocThisType, this.scanner.getTokenPos());
+        this.scanner.scan();
+        if (this.parseOptional(ts.SyntaxKind.ColonToken)) {
+            result.type = this.parseJSDocType();
+        }
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocConstructorType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocConstructorType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocConstructorType, this.scanner.getTokenPos());
+        this.scanner.scan();
         this.parseExpected(ts.SyntaxKind.ColonToken);
         result.type = this.parseJSDocType();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocVariadicType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocVariadicType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocVariadicType, this.scanner.getTokenPos());
+        this.scanner.scan();
         result.type = this.parseJSDocType();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocFunctionType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocFunctionType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocFunctionType, this.scanner.getTokenPos());
+        this.scanner.scan();
         this.parseExpected(ts.SyntaxKind.OpenParenToken);
         result.parameters = this.parseDelimitedList(this.parseJSDocParameter, ts.SyntaxKind.CloseParenToken);
         if (this.scanner.getToken() === ts.SyntaxKind.ColonToken) {
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             result.type = this.parseJSDocType();
         }
         return this.finishNode(result);
@@ -699,7 +704,7 @@ var Transpiler = (function () {
             // 缺少逗号。
             this.parseExpected(ts.SyntaxKind.CommaToken);
             // 换行后自动终止。
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             if (this.scanner.hasPrecedingLineBreak()) {
                 break;
             }
@@ -724,15 +729,15 @@ var Transpiler = (function () {
         return ts["tokenIsIdentifierOrKeyword"](this.scanner.getToken());
     };
     Transpiler.prototype.parseJSDocParameter = function () {
-        var parameter = ts.createNode(ts.SyntaxKind.Parameter);
+        var parameter = ts.createNode(ts.SyntaxKind.Parameter, this.scanner.getTokenPos());
         parameter.type = this.parseJSDocType();
         if (this.parseOptional(ts.SyntaxKind.EqualsToken)) {
-            parameter.questionToken = ts.createNode(ts.SyntaxKind.EqualsToken);
+            parameter.questionToken = ts.createNode(ts.SyntaxKind.EqualsToken, this.scanner.getTokenPos());
         }
         return this.finishNode(parameter);
     };
     Transpiler.prototype.parseJSDocTypeReference = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocTypeReference);
+        var result = ts.createNode(ts.SyntaxKind.JSDocTypeReference, this.scanner.getTokenPos());
         result.name = this.parseSimplePropertyName();
         if (this.scanner.getToken() === ts.SyntaxKind.LessThanToken) {
             result.typeArguments = this.parseTypeArguments();
@@ -752,7 +757,7 @@ var Transpiler = (function () {
     };
     Transpiler.prototype.parseTypeArguments = function () {
         // Move past the <
-        this.scanner.scanJSDocToken();
+        this.scanner.scan();
         var typeArguments = this.parseDelimitedList(this.parseJSDocType, ts.SyntaxKind.GreaterThanToken);
         return typeArguments;
     };
@@ -763,41 +768,41 @@ var Transpiler = (function () {
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocRecordType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocRecordType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocRecordType, this.scanner.getTokenPos());
+        this.scanner.scan();
         result.members = this.parseDelimitedList(this.parseJSDocRecordMember, ts.SyntaxKind.CloseBraceToken);
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocRecordMember = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocRecordMember);
+        var result = ts.createNode(ts.SyntaxKind.JSDocRecordMember, this.scanner.getTokenPos());
         result.name = this.parseSimplePropertyName();
         if (this.scanner.getToken() === ts.SyntaxKind.ColonToken) {
-            this.scanner.scanJSDocToken();
+            this.scanner.scan();
             result.type = this.parseJSDocType();
         }
         return this.finishNode(result);
     };
     Transpiler.prototype.parseSimplePropertyName = function () {
-        this.scanner.scanJSDocToken();
+        this.scanner.scan();
         var result = ts.createNode(ts.SyntaxKind.Identifier, this.scanner.getTokenPos());
         result.text = this.scanner.getTokenText();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocNonNullableType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocNonNullableType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocNonNullableType, this.scanner.getTokenPos());
+        this.scanner.scan();
         result.type = this.parseJSDocType();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocTupleType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocTupleType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocTupleType, this.scanner.getTokenPos());
+        this.scanner.scan();
         result.types = this.parseDelimitedList(this.parseJSDocType, ts.SyntaxKind.CloseBracketToken);
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocUnionType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocUnionType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocUnionType, this.scanner.getTokenPos());
+        this.scanner.scan();
         result.types = this.parseJSDocTypeList(this.parseJSDocType());
         this.parseExpected(ts.SyntaxKind.CloseParenToken);
         return this.finishNode(result);
@@ -814,14 +819,14 @@ var Transpiler = (function () {
         return types;
     };
     Transpiler.prototype.parseJSDocAllType = function () {
-        var result = ts.createNode(ts.SyntaxKind.JSDocAllType);
-        this.scanner.scanJSDocToken();
+        var result = ts.createNode(ts.SyntaxKind.JSDocAllType, this.scanner.getTokenPos());
+        this.scanner.scan();
         return this.finishNode(result);
     };
     Transpiler.prototype.parseJSDocUnknownOrNullableType = function () {
         var pos = this.scanner.getStartPos();
         // skip the ?
-        this.scanner.scanJSDocToken();
+        this.scanner.scan();
         // Need to lookahead to decide if this is a nullable or unknown type.
         // Here are cases where we'll pick the unknown type:
         //
@@ -1399,7 +1404,7 @@ ts["transpileModuleWithDoc"] = function (input, transpileOptions) {
     // Emit
     program.emit();
     ts["Debug"].assert(outputText !== undefined, "Output generation failed");
-    return { outputText: outputText, diagnostics: diagnostics, sourceMapText: sourceMapText, jsDoc: transpiler.jsDocs };
+    return { outputText: outputText, diagnostics: diagnostics, sourceMapText: sourceMapText, jsDocs: transpiler.jsDocs };
 };
 // #endregion
 var _ = console.log.bind(console);
