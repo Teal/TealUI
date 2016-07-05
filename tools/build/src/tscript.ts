@@ -2076,3 +2076,35 @@ export = ts;
 // #endregion
 
 const _ = console.log.bind(console);
+
+var p = ts.createProgram(["F:\\Teal\\TealScript\\src\\ast\\tokenType.ts"], {});
+var s = p.getSourceFiles()[p.getSourceFiles().length - 1];
+var r = [];
+ts.forEachChild(s, (n: ts.ClassExpression) => {
+    if (n.kind == ts.SyntaxKind.VariableStatement || !n.name) return;
+    var d = ((ts as any).getJsDocComments(n, s) || [])[0];
+    var rrrrrr = {
+        name: n.name && n.name.getText(s),
+    };
+    if (n.heritageClauses && n.heritageClauses[0]) rrrrrr.extends = n.heritageClauses[0].getText(s).replace("extends ", "");
+    rrrrrr.summary = d ? s.text.substring(d.pos, d.end).replace(/^\/\*\*\s*\*/, "").replace(/\*\/$/, "").trim() : ""
+    if (n.kind == ts.SyntaxKind.EnumDeclaration) rrrrrr.type = "enum";
+    if (n.members) {
+        rrrrrr.members = n.members.map((nn: ts.GetAccessorDeclaration) => {
+            var dd = ((ts as any).getJsDocComments(nn, s) || [])[0];
+            var ee = {
+                name: nn.name && nn.name.getText(s),
+                type: nn.type && nn.type.getText(s),
+                summary: dd ? s.text.substring(dd.pos, dd.end).replace(/^\/\*\*\s*\*/, "").replace(/\*\/$/, "").trim() : ""
+            };
+            if (nn.body) {
+                ee.body = nn.body && nn.body.getText(s).replace(/^\{|\}$/g, "").trim();
+            }
+            return ee
+        })
+    }
+    r.push(rrrrrr);
+});
+
+require('fs').writeFile("F:\\Teal\\TealScript\\src\\ast\\tokens_g.json", JSON.stringify(r, undefined, 4));
+console.log(r);
