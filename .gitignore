@@ -1,0 +1,53 @@
+# 项目
+
+## 生成文件
+/_*
+
+## Node.js
+node_modules
+jspm_packages
+bower_components
+
+# 编辑器
+
+## Sublime
+*.sublime-workspace
+
+## Webstorm
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dataSources*
+.idea/libraries/
+*.iws
+
+## Visual Studio
+.vs
+**/[Bb]in/[Dd]ebug/
+**/[Bb]in/[Rr]elease/
+[Oo]bj/
+*.sln.*
+*.vshost.*
+*.suo
+*.user
+_ReSharper*
+*.ReSharper
+.ntvs_analysis.dat
+**/[Bb]in/Microsoft.NodejsTools.WebRole.dll
+
+# 操作系统
+
+## 临时文件
+*.tmp
+*.log
+*~
+._*
+
+## Windows
+*.lnk
+$RECYCLE.BIN
+Desktop.ini
+ehthumbs.db
+Thumbs.db
+
+## OSX
+.DS_Store
