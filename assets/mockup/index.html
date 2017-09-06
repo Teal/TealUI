@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="4.0.0">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="keywords" content="HTML5 UI Framework, 前端 UI 组件库">
+    <title>TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../doc/images/favicon.ico">
+    <link rel="stylesheet" href="../doc/doc.css">
+    <link rel="stylesheet" href="../doc/index.css">
+</head>
+<body>
+    <!--[if lte IE 9]>
+        <div class="doc-container" style="border: 1px solid #F7941D; color: #F44336; padding: 10px 20px; background: #FEEFDA; text-align: center; font-size: 14px;">
+            <strong style="float: right; cursor: pointer" onclick="this.parentNode.style.display='none'">&times;</strong>
+            您使用的浏览器版本过低，将影响使用本网站的功能。请 <a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser" target="_blank">点此升级</a> 或下载更快更安全的 <a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank">谷歌浏览器</a> 或者 <a href="http://www.firefox.com.cn/download/" target="_blank">火狐浏览器</a>。
+        </div>
+    <![endif]-->
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="" id="doc_logo_image"><img src="../doc/images/logo.svg" alt="TealUI"></a>
+                <a href="" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="docs" title="文档和规范">文档</a></li>
+                    <li><a href="components" title="组件和演示">组件</a></li>
+                    <li><a href="tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="仓库地址" id="doc_repository" class="doc-icon">😺</a>
+            </nav>
+        </div>
+        <div id="doc_wall" class="doc-container">
+            <div class="doc-row">
+                <div id="doc_wall_logo" class="doc-col">
+                    <img src="../doc/images/logo.svg" alt="Teal" onload="this.className='doc-logo-show'" />
+                </div>
+                <div id="doc_wall_primary" class="doc-col">
+                    <h1>TealUI</h1>
+                    <h2>打造小而全、精而美的开源组件库</h2>
+                    <a href="docs/getting-started/" id="doc_mainbutton">开始使用</a>
+                    <small>当前版本：4.0.0</small>
+                </div>
+            </div>
+            <div>
+                <a href="components/">组件 DEMO</a>
+                <a href="https://github.com/Teal/TealUI">源码仓库</a>
+                <a href="tools/download/">定制下载</a>
+            </div>
+            <div>
+                <iframe src="https://ghbtns.com/github-btn.html?user=teal&amp;repo=TealUI&amp;type=star&amp;count=true" frameborder="0" width="90" height="20"></iframe>
+                <iframe src="https://ghbtns.com/github-btn.html?user=teal&amp;repo=TealUI&amp;type=fork&amp;count=true" frameborder="0" width="90" height="20"></iframe>
+            </div>
+        </div>
+    </header>
+    <article id="doc_body" class="doc-container doc">
+        <h2>300+ 个组件：通用前端解决方案，同时支持多个平台！</h2>
+        <p>TealUI = 简约现代的 <strong>CSS 设计</strong> + 高可定制的 <strong>UI 组件</strong> + 高可复用的 <strong>JS 函数库</strong> + 简单统一的<strong>交互规范</strong> + 专业可靠的<strong>前端架构</strong> + 便捷实用的<strong>开发工具</strong></p>
+        <div class="doc-row">
+            <div class="doc-col doc">
+                <img src="../doc/images/palette.png" />
+                <h3>无需设计：快速搭建漂亮界面</h3>
+                <p>无论是展示页面还是后台系统，都可使用现成组件快速搭建；所有组件风格统一、用法相同，轻松上手。</p>
+            </div>
+            <div class="doc-col doc">
+                <img src="../doc/images/moduler.png" />
+                <h3>高可定制：轻松打造团队内部组件库</h3>
+                <p>全程模块化，样式和逻辑分离，可独立修改；使用时按需加载，支持换肤。</p>
+            </div>
+            <div class="doc-col doc">
+                <img src="../doc/images/localization.png" />
+                <h3>更懂国情：专为中文优化</h3>
+                <p>根据国内业务需要，提供城市选择、身份证验证等国内特定业务组件。</p>
+            </div>
+        </div>
+    </article>
+    <section id="doc_features">
+        <div class="doc-container">
+            <div class="doc-row doc">
+                <dl class="doc-col">
+                    <dt>兼容性</dt>
+                    <dd><i class="doc-icon">✓</i> <i class="doc-icon">ℯ</i> IE 10+</dd>
+                    <dd><i class="doc-icon">✓</i> <i class="doc-icon">🦊</i> Firefox 21+</dd>
+                    <dd><i class="doc-icon">✓</i> <i class="doc-icon">֍</i> Chrome 23+</dd>
+                    <dd><i class="doc-icon">✓</i> <i class="doc-icon">ʘ</i> Safari 10+(仅 IOS)</dd>
+                    <dd><i class="doc-icon">✓</i> <i class="doc-icon">⊚</i> Opera 42+</dd>
+                </dl>
+                <dl class="doc-col">
+                    <dt>4.0 新特性</dt>
+                    <dd>1. 所有代码使用 <a href="http://sass-lang.com/" target="_blank">Sass</a> 和 <a href="http://www.typescriptlang.org/" target="_blank">TypeScript</a> 完全重写。</dd>
+                    <dd>2. 新增大量交互效果组件。</dd>
+                    <dd>3. 视觉重新设计，风格更现代。</dd>
+                    <dd>4. 全面完善文档和教程，<a href="docs/getting-started/">五分钟上手</a>。</dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+</body>
+</html>

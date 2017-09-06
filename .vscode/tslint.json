@@ -1,0 +1,87 @@
+{
+    "rules": {
+        "arrow-return-shorthand": true,
+        "ban-types": [
+            [
+                "Boolean",
+                "Use `boolean` instead."
+            ],
+            [
+                "Number",
+                "Use `number` instead."
+            ],
+            [
+                "String",
+                "Use `string` instead."
+            ],
+            [
+                "Symbol",
+                "Use `symbol` instead."
+            ]
+        ],
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "eofline": true,
+        "import-spacing": true,
+        "interface-over-type-literal": true,
+        "no-angle-bracket-type-assertion": true,
+        "no-console": [
+            true,
+            "log"
+        ],
+        "no-debugger": true,
+        "no-duplicate-super": true,
+        "no-inferrable-types": [
+            true
+        ],
+        "no-internal-module": true,
+        "no-misused-new": true,
+        "no-trailing-whitespace": true,
+        "no-unnecessary-initializer": true,
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-whitespace"
+        ],
+        "prefer-const": true,
+        "prefer-for-of": true,
+        "quotemark": [
+            true,
+            "double",
+            "avoid-escape"
+        ],
+        "semicolon": [
+            true
+        ],
+        "typedef-whitespace": [
+            true,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            }
+        ],
+        "typeof-compare": true,
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore",
+            "allow-pascal-case"
+        ],
+        "whitespace": [
+            true,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-module",
+            "check-type",
+            "check-typecast"
+        ]
+    }
+}

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件名 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../doc/images/favicon.ico">
+    <link rel="stylesheet" href="../doc/doc.css">
+    <script src="../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="" title="Teal" id="doc_logo_image"><img src="../doc/images/logo.svg" alt="TealUI"></a>
+                <a href="" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="components" title="组件和演示">组件</a></li>
+                    <li><a href="tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="GitHub" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+                <!-- <li>
+                    <span>大分类</span>
+                    <ul>
+                        <li>
+                            <span>小分类</span>
+                            <ul>
+                                <li><a href="###">组件<small>zujian</small></a></li>
+                                <li><a href="###">组件组件组件组件组件组件组件组件组件组件组件组件组件组件<small>zujian</small></a></li>
+                                <li><a href="###">组件<small>zujianzujianzujianzujianzujianzujianzujianzujianzujianzujianzujianzujian</small></a></li>
+                                <li class="doc-sidebar-active" aria-selected="true"><a href="###">组件<small>zujian</small></a></li>
+                                <li><a href="###">组<mark>件</mark><small>zu<mark>jian</mark></small></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li> -->
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+            <aside id="doc_mainmenu" class="doc-menubutton">
+                <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                <menu>
+                    <li><a href="tools/download/?module=zuJianMing#cdn" accesskey="r"><i class="doc-icon">🌨</i>引用组件</a></li>
+                    <li><a href="tools/download/?module=zuJianMing#download" accesskey="d"><i class="doc-icon">⭳</i>下载组件</a></li>
+                    <li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li>
+                    <li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li>
+                    <li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li>
+                    <li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li>
+                    <li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/master/" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li>
+                    <li><a href="https://github.com/Teal/TealUI/issues/new?title=zuJianMing" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li>
+                    <li><a href="https://github.com/Teal/TealUI/edit/master/" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                </menu>
+            </aside>
+            <h1 id="组件名">
+                <a href="#组件名" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>组件名
+                <div class="doc-menubutton">
+                    <small>zuJianMing</small>
+                    <menu role="menu">
+                        <li><a href="javascript:Doc.copy('import')">复制 <code>import "zuJianMing"</code></a></li>
+                        <li><a href="javascript:Doc.copy('require')">复制 <code>require("zuJianMing")</code></a></li>
+                        <li class="doc-menu-divider"><a href="javascript:Doc.copy('zuJianMing')">复制 <code>"zuJianMing"</code></a></li>
+                    </menu>
+                </div>
+                <span class="doc-tag">IE6</span>
+                <span class="doc-tag">Touch</span>
+            </h1>
+            <p>一句话描述。</p>
+
+            <dl id="doc_toc">
+                <dt><a href="#用法">用法</a></dt>
+                <dt><a href="#API">API</a></dt>
+                <dd><a href="#Button">Button</a></dd>
+                <dt><a href="#工具">工具</a></dt>
+            </dl>
+
+            <h2 id="用法"><a href="#用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>用法</h2>
+            <p>我是很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的一段话，
+                <a href="###">链接</a> 和 <a href="http://github.com/Teal/TealUI" target="_blank" class="doc-external">外链</a>，还有 <code>Code</code>。</p>
+
+            <pre><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮</span><span class="doc-code-name">&lt;/a&gt;</span><br><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮<span class="doc-code-name">&lt;/a&gt;</span></pre>
+
+            <div class="doc-demo">
+                <div class="doc-demo-body" aria-label="示例">
+                    <div class="doc-row">
+                        <div class="doc-col">组件示例</div>
+                        <div class="doc-col">组件示例</div>
+                        <div class="doc-col">组件示例</div>
+                    </div>
+                </div>
+                <pre class="doc-code"><a href="javascript://编辑源码" title="在 jsfiddle.net 编辑此源码" aria-hidden="true" class="doc-icon" onclick="Doc.editCode(this)">☁</a><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮</span><span class="doc-code-name">&lt;/a&gt;</span><br><hr><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮<span class="doc-code-name">&lt;/a&gt;</span></code></pre>
+            </div>
+
+            <div class="doc-demo">
+                <div class="doc-demo-body" aria-label="示例">
+                    <div class="doc-row">
+                        <div class="doc-col">组件示例</div>
+                        <div class="doc-col">组件示例</div>
+                        <div class="doc-col">组件示例</div>
+                    </div>
+                </div>
+                <pre class="doc-code"><a href="javascript://编辑源码" title="在 jsfiddle.net 编辑此源码" aria-hidden="true" class="doc-icon" onclick="Doc.editCode(this)">☁</a><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮</span><span class="doc-code-name">&lt;/a&gt;</span><br><hr><span class="doc-code-name">&lt;a</span> <span class="doc-code-attr">href</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"###"</span> <span class="doc-code-attr">class</span><span class="doc-code-punctuation">=</span><span class="doc-code-string">"x-button"</span><span class="doc-code-name">&gt;</span>a 按钮<span class="doc-code-name">&lt;/a&gt;</span></code></pre>
+                <a href="javascript://查看源码" aria-label="折叠源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+            </div>
+
+            <h2 id="API" data-doc-src="zuJianMing.ts#1"><a href="#API" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2>
+            <h3 id="Button"><a href="#Button" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="###" title="源码：zuJianMing.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a><code>Button</code> 类</h3>
+            <p>继承自：<code><a href="###">Control</a></code>；实现接口：<code><a href="###">Control</a></code>, <code><a href="###">Control</a></code></p>
+            <p>表示一个按钮。</p>
+            <div class="doc doc-scrollable">
+                <table class="doc-api">
+                    <tr>
+                        <th class="doc-api-property">属性</th>
+                        <th class="doc-api-type">类型</th>
+                        <th class="doc-api-summary">描述</th>
+                        <th class="doc-api-extends">继承自</th>
+                    </tr>
+                    <tr id="assign">
+                        <td>
+                            <a href="###" title="源码：zuJianMing.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                            <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                            <code>assign</code>
+                            <span class="doc-api-more">:<code>string</code></span>
+                            <div class="doc doc-api-detail">
+                                <p>(只读)复制所有成员。</p>
+                                <h4>默认值</h4>
+                                <p><code>"code"</code></p>
+                            </div>
+                        </td>
+                        <td>
+                            <code>string</code>
+                        </td>
+                        <td class="doc">
+                            <p>(只读)复制所有成员。</p>
+                        </td>
+                        <td>
+                            —
+                        </td>
+                    </tr>
+                </table>
+                <table class="doc-api">
+                    <tr>
+                        <th class="doc-api-method">方法</th>
+                        <th class="doc-api-summary">描述</th>
+                        <th class="doc-api-extends">继承自</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="###" title="源码：zuJianMing.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                            <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                            <code>assign&lt;T&gt;<i class="doc-tip doc-api-ellipsis">(dest, ...)</i><span class="doc-tip doc-api-more">(dest:<code>string</code>, src?: <code>string</code>):<code>string</code></span>
+                            </code>
+                            <div class="doc doc-api-detail">
+                                <p>复制所有成员。</p>
+                                <p>this：<code>string</code></p>
+                                <table>
+                                    <tr>
+                                        <th>参数</th>
+                                        <th>类型</th>
+                                        <th>描述</th>
+                                        <th>默认值</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <code>dest</code>
+                                            <span class="doc-api-required">*</span>
+                                        </td>
+                                        <td>
+                                            <code><a href="###">string</a></code>
+                                        </td>
+                                        <td class="doc">
+                                            <p>复制所有成员。</p>
+                                        </td>
+                                        <td>
+                                            —
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <code>src</code>
+                                        </td>
+                                        <td>
+                                            <code>string</code>
+                                        </td>
+                                        <td class="doc">
+                                            <p>复制所有成员。</p>
+                                        </td>
+                                        <td>
+                                            <code>null</code>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td class="doc">
+                            <p>复制所有成员。</p>
+                        </td>
+                        <td>
+                            —
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2 id="工具"><a href="#工具" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>工具</h2>
+            <div class="doc-row">
+                <div class="doc-col doc">
+                    A
+                </div>
+                <div class="doc-col doc">
+                    B
+                </div>
+            </div>
+            <div class="doc-row">
+                <div class="doc-col doc">
+                    C
+                </div>
+                <div class="doc-col doc">
+                    D
+                </div>
+            </div>
+
+            <p id="doc_loading"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</p>
+
+            <blockquote class="doc">
+                <h5>注意</h5> 文字
+            </blockquote>
+            <blockquote class="doc doc-blockquote">
+                <h5>注意</h5> 文字
+            </blockquote>
+            <blockquote class="doc doc-blockquote doc-blockquote-info">
+                <h5>注意</h5> 文字
+            </blockquote>
+            <blockquote class="doc doc-blockquote doc-blockquote-warning">
+                <h5>注意</h5> 文字
+            </blockquote>
+            <blockquote class="doc doc-blockquote doc-blockquote-error">
+                <h5>注意</h5> 文字
+            </blockquote>
+
+            <div class="doc-box doc-box-small"></div>
+            <div class="doc-box">doc-box</div>
+            <div class="doc-box doc-box-large">doc-box</div>
+            <div class="doc-box doc-box-red">doc-box</div>
+            <div class="doc-box doc-box-yellow">doc-box</div>
+            <div class="doc-box doc-box-blue">doc-box</div>
+
+            <h2><a href="#标题2" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>标题2<small>(说明)</small></h2>
+            <h3><a href="#标题3" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>标题3<small>(说明)</small></h3>
+            <h4>标题4<small>(说明)</small></h4>
+            <h5>标题5<small>(说明)</small></h5>
+            <h6>标题6<small>(说明)</small></h6>
+            <ul>
+                <li>列表1</li>
+                <li>列表2</li>
+                <li>
+                    列表3
+                    <ul>
+                        <li>列表1</li>
+                        <li>列表2</li>
+                        <li>列表3</li>
+                    </ul>
+                </li>
+            </ul>
+            <ol>
+                <li>列表1</li>
+                <li>列表2</li>
+                <li>列表3</li>
+            </ol>
+            <table>
+                <tr>
+                    <th>列1</th>
+                    <th>列2</th>
+                    <th>列3</th>
+                </tr>
+                <tr>
+                    <td>行1-1</td>
+                    <td>行1-2</td>
+                    <td>行1-3</td>
+                </tr>
+                <tr>
+                    <td>行2-1</td>
+                    <td>行2-2</td>
+                    <td class="doc">
+                        <p>行2-3</p>
+                    </td>
+                </tr>
+            </table>
+
+            <hr> 字段:
+            <select>
+                <option>选项1</option>
+                <option>选项2</option>
+            </select>
+            <input type="checkbox" value="文本框">
+            <input type="radio" value="文本框">
+            <input type="text" value="文本框">
+            <input type="button" value="按钮">
+            <button>按钮</button>
+
+            <textarea></textarea>
+
+            <h2 id="分类"><a href="#分类" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>分类<small>(10)</small></h2>
+            <div class="doc-waterfall doc-row">
+                <section class="doc-col doc">
+                    <h3><input type="checkbox">分类<small>(4)</small></h3>
+                    <ul>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><input type="checkbox"><a href="###" title="组件">组件</a><small>components</small></li>
+                    </ul>
+                    <h3><input type="checkbox">分类<small>(5)</small></h3>
+                    <ul>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><input type="checkbox"><a href="###" title="组件">组件</a><small>components</small></li>
+                    </ul>
+                </section>
+                <section class="doc-col doc">
+                    <h3><input type="checkbox">分类<small>(10)</small></h3>
+                    <ul>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><a href="###" title="组件">组件</a><small>components</small></li>
+                        <li><input type="checkbox"><a href="###">组件</a><small>components</small></li>
+                    </ul>
+                </section>
+            </div>
+
+            <nav id="doc_pager">
+                <a href="###" title="上一页" id="doc_pager_prev"><i class="doc-icon">⮜</i> 上一页</a>
+                <a href="###" title="下一页" id="doc_pager_next">下一页 <i class="doc-icon">⮞</i></a>
+            </nav>
+        </article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <!-- <div id="doc_progress" style="width: 50%"></div>
+    <a href="#" id="doc_gototop" class="doc-icon">↑</a> -->
+    <script src="../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({
+            root: "../..",
+            dir: "components",
+            active: "zuJian",
+            test: "zuJian-test"
+        });
+    </script>
+    <script>
+        Doc.initList({
+            分类: {
+                分类: [
+                    {
+                        title: "组件",
+                        href: "zuJian",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }
+                ],
+                分类2: [
+                    {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }, {
+                        title: "组件",
+                        href: "zuJian2",
+                        pinyin: "zu jian"
+                    }
+                ]
+            }
+        });
+        Doc.writeList();
+    </script>
+</body>
+</html>
