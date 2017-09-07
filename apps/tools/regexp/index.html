@@ -1,0 +1,42 @@
+<HTML>
+	<HEAD>
+		<TITLE>Regular Exprssion Test Tool</TITLE>
+		<SCRIPT LANGUAGE="JavaScript" TYPE="text/JavaScript" SRC="assets/RegEx2.js">
+// Core Functionality in this script file
+		</SCRIPT>
+		<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="assets/support.js">
+// Supporting functions
+		</SCRIPT>
+		<SCRIPT LANGUAGE="javascript" TYPE="text/javascript"><!--
+function RegExTestClass () {
+	var me = this;
+	me.theText = "asdfghjkl [asdfghjkl] asdfghjklasdfghjkl\r\nASDFGHJKL [ASDFGHJKL] ASDFGHJKLASDFGHJKL\r\n",
+	me.globalFlag = true; // Flag is true or false
+	me.ignoreCaseFlag = true; // Flag is true or false
+	me.multiLineFlag = true; // Flag is true or false
+	me.regExType = "literal"; // can be "literal" or "string"
+	me.theExpression = "\\[([^\\]]*)\\]",
+	me.replaceString = "{some new and the old \"$1\" text}",
+	me.replaceType = "string"; // can be "string" or "function"
+	me.theOutput = '';
+	return this;
+};
+// RegExTest is the User Data Structure, format is in JSON,
+// see http://www.JSON.org/ for more info
+// RegExTest is what we'll save to, and load from, disk or database
+// RegExTest contains a copy of all of the values from
+// all of the fields from all of the frames
+
+var RegExTest = new RegExTestClass(); //creates the object with the constructor
+// -->
+		</SCRIPT>
+	</HEAD>
+	<FRAMESET ROWS="74,61,*" FRAMESPACING="0" FRAMEBORDER="0">
+		<FRAME SRC="assets/flags.htm" NAME="flags" NORESIZE SCROLLING="no" APPLICATION="yes" MARGINWIDTH="0" MARGINHEIGHT="0" FRAMEBORDER="no">
+		<FRAME SRC="assets/RegExInput.htm" NAME="regexinput" NORESIZE SCROLLING="no" APPLICATION="yes" MARGINWIDTH="0" MARGINHEIGHT="0" FRAMEBORDER="no">
+		<FRAMESET COLS="50%,50%" FRAMEBORDER="1" FRAMESPACING="1" BORDER="1">
+			<FRAME SRC="assets/input.htm" NAME="input" APPLICATION="yes">
+			<FRAME SRC="assets/output.htm" NAME="output" APPLICATION="yes">
+		</FRAMESET>
+	</FRAMESET>
+</HTML>

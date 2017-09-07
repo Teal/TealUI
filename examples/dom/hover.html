@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>鼠标移上后的操作</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/hover.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <span id="hover">移到我这里</span>
+        <script class="demo">
+            Dom.query("#hover").hover(function () {
+                Dom.setHtml(this, '鼠标进来了');
+            }, function () {
+                Dom.setHtml(this, '鼠标走掉了');
+            });
+        </script>
+    </article>
+</body>
+</html>

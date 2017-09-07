@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>载入内容</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/ajax/base.js"></script>
+    <script type="text/javascript" src="../../src/ajax/html.js"></script>
+    <script type="text/javascript" src="../../src/ajax/load.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <div id="a">
+        </div>
+
+        <script>
+
+            Demo.writeExamples({
+                '载入 div#a 的内容': 'Dom.query("#a").load("../../apps/demo/ajax/test.html")'
+            }, {
+                times: 4
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

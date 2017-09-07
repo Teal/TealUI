@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>开发系统文档</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <h2 class="demo">开发系统介绍</h2>
+
+        <h3 class="demo">功能</h3>
+
+        <p class="demo">开发系统就像是 jPlusUI 的后勤服务部，它让模块开发和使用更轻松。它提供：</p>
+
+        <ol class="demo">
+            <li>管理所有模块，自动列出所有模块。<a href="../../examples/index.html" target="_blank" class="demo">查看生成的列表</a></li>
+            <li>新建/删除模块。</li>
+            <li>模块的演示和测试支持。（如本页面顶部的导航就是开发系统自动生成的）</li>
+            <li>其它开发工具。（点击右上角工具）</li>
+        </ol>
+
+        <h3 class="demo">源码位置</h3>
+
+        <p class="demo">开发系统源码在项目跟目录的 <code class="demo">apps/</code> 目录。</p>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">模块演示和测试的支持</h2>
+
+        <p class="demo">模块开发完成后，需要写一些文档和示例。开发系统帮助您快速写出漂亮的文档。</p>
+
+        <h3 class="demo">载入开发系统</h3>
+
+        <p class="demo">
+            只需引入 <code class="demo">/apps/demo/demo.js</code> 文件即可载入开发系统。
+        </p>
+
+        <h3 class="demo">模块演示页面的基本结构</h3>
+
+        <script class="demo demo-noformat" type="code/html">
+            <body>
+                <article class="demo">
+                    <h2 class="demo">大标题</h2>
+
+                    <h3 class="demo">标题1</h3>
+                    
+                    <p class="demo">说明文字</p>
+                    
+                    <h3 class="demo">标题2</h3>
+                    
+                    <p class="demo">说明文字</p>
+                </article>
+            </body>
+        </script>
+
+        <p class="demo">用于演示的标签应该加上 <code class="demo">class="demo"</code>, 这样可以美化界面。其中, <code class="demo">article.demo</code> 用于保证全部内容是 980px 居中的。</p>
+
+        <h3 class="demo">开发系统内置的 css 类</h3>
+
+        <p class="demo">开发系统内置了很多常用的css类，供演示用。所有样式均在 <code class="demo">apps/demo/demo.css</code> 定义。</p>
+
+        <dl class="demo">
+            <dt>位置</dt>
+            <dd><code class="demo">demo-left</code>: 左浮动</dd>
+            <dd><code class="demo">demo-center</code>: 居中</dd>
+            <dd><code class="demo">demo-right</code>: 右浮动</dd>
+            <dd><code class="demo">demo-clear</code>: 清除浮动</dd>
+            <dt>显示</dt>
+            <dd><code class="demo">demo-inline</code>: 内联</dd>
+            <dd><code class="demo">demo-block</code>: 块</dd>
+            <dd><code class="demo">demo-inline-block</code>: 内联块</dd>
+            <dd><code class="demo">demo-hide</code>: 隐藏元素（display:none)</dd>
+            <dt>定位</dt>
+            <dd><code class="demo">demo-relative</code>: 相对定位</dd>
+            <dd><code class="demo">demo-absolute</code>: 绝对定位</dd>
+            <dd><code class="demo">demo-fixed</code>: 固定定位</dd>
+            <dt>颜色</dt>
+            <dd><code class="demo">demo-red</code>: <span class="demo-red">红色</span></dd>
+            <dd><code class="demo">demo-yellow</code>: <span class="demo-yellow">黄色</span></dd>
+            <dd><code class="demo">demo-green</code>: <span class="demo-green">绿色</span></dd>
+            <dd><code class="demo">demo-blue</code>: <span class="demo-blue">蓝色</span></dd>
+            <dt>杂项</dt>
+            <dd><code class="demo">demo-plain</code>: 重置 margin=0, padding=0</dd>
+            <dd><code class="demo">demo-row</code>: margin-bottom=10px</dd>
+            <dt>盒子模型</dt>
+        </dl>
+
+        <div class="demo-container" title="demo-container">
+            <div class="demo-area" title="demo-area">demo-area 区域</div>
+            <div class="demo-box-small" title="demo-box-small">小盒子</div>
+            <div class="demo-box" title="demo-box">盒子</div>
+            <div class="demo-box-large" title="demo-box-large">demo-box-large 大盒子</div>
+        </div>
+
+        <h3 class="demo">在页面内插入代码</h3>
+
+        <p class="demo">系统共提供了5种方式来显示代码。</p>
+
+        <script class="demo" type="code/html">
+            < script class="demo" type="code/html">
+                // 这里直接写 HTML 代码
+            < /script>
+        </script>
+
+        <script class="demo" type="code/html">
+            < script class="demo" type="code/javascript">
+                // 这里直接写 JavaScript 代码
+            < /script>
+        </script>
+
+        <script class="demo" type="code/html">
+            < script class="demo" type="text/html">
+                // 这里的 HTML 代码会被执行，同时显示源码。
+            < /script>
+        </script>
+
+        <script class="demo" type="code/html">
+            < script class="demo" type="text/javascript">
+                // 这里的 JavaScript 代码会被执行，同时显示源码。
+            < /script>
+        </script>
+
+        <script class="demo" type="code/html">
+            <aside class="demo">
+                这里放模块的示例代码。代码会被执行，同时显示源码。
+            </aside>
+        </script>
+
+        <p class="demo">如果需要在 <code class="demo">&lt;script&gt;</code> 标签内书写 <code class="demo">&lt;script&gt;</code> 标签，应该写成： <code class="demo">&lt; script&gt;</code> 和 <code class="demo">&lt; /script&gt;</code>。如果希望格式化代码，需要额外载入 <code class="demo">/apps/demo/beautify.js</code>, 载入后为 <code class="demo">&lt;script&gt;</code> 增加 class=“<code class="demo">demo-noformat</code>” 可取消个别标签的格式化。</p>
+
+        <h3 class="demo">显示示例代码</h3>
+
+        <script class="demo" type="code/javascript">
+            Demo.writeExamples({
+                // 情况1： 后面是 ‘-’，表示这是一个分组信息。
+                '分组': '-', // 
+
+                // 情况2： 后面是一个函数。点击之后执行此函数。	
+                '普通的测试': function(){
+                    
+                },
+		
+                // 情况3：后面是一个字符串。点击后执行此代码。
+                '简单版的测试': 'alert(3)', // 如果代码比较短，可以写成字符串形式。
+            });
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">模块开发服务器</h2>
+
+        <h3 class="demo">功能</h3>
+        
+        <p class="demo">模块源码本身不需要服务器支持，服务器主要用于模块开发和应用。功能有：</p>
+
+        <ol class="demo">
+            <li>自动生成模块列表。扫描 <code class="demo">/examples</code> 文件夹里的页面，生成的列表缓存文件位于 <code class="demo">/apps/data/modulelist.js</code>。</li>
+            <li>模块打包、合并功能。库里有超过 200 个模块，项目中一般需要先提取需要使用的模块，打包合并。（具体见右上角 工具/模块打包工具）</li>
+        </ol>
+
+        <h3 class="demo">启动服务器</h3>
+
+        <p class="demo">双击 <code class="demo">/apps/startserver.cmd</code> 即可启动服务器。（非 Windows 系统需要先安装 node.js, 然后在控制台打开 /apps/startserver ）。</p>
+
+        <p class="demo">双击 <code class="demo">/apps/start.cmd</code> 也可启动服务器，并同时在浏览器打开服务器首页。</p>
+
+        <p class="demo">如果需要修改服务器默认端口，需要修改 <code class="demo">/apps/data/server.json</code> 和 <code class="demo">/apps/demo/demo.js</code>。</p>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

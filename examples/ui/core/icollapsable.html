@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#12">
+    <title>可折叠控件接口</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/icollapsable.js"></script>
+    
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">ICollapsable 是一个可折叠的容器。</blockquote>
+
+        <section class="demo demo-sample">
+
+            <aside class="demo">
+                <div id="a">
+                    内容
+                </div>
+
+                <script>
+
+                    // 获取上文的节点对象。
+                    var collapsable = new Control(Dom.get('a'));
+
+                    // 复制 ICollapsable 的接口。
+                    Object.extend(collapsable, ICollapsable);
+
+                </script>
+            </aside>
+
+        </section>
+
+        <section class="demo">
+
+            <script>
+
+                Demo.writeExamples({
+                    '折叠': 'collapsable.collapse(300)',
+                    '展开': 'collapsable.expand(300)',
+                    '切换折叠': 'collapsable.toggleCollapse(300)',
+                    '判断是否折叠': 'collapsable.isCollapsed()'
+                });
+            </script>
+
+        </section>
+
+    </article>
+</body>
+</html>

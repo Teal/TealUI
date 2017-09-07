@@ -1,0 +1,281 @@
+
+@import "mixins.less";
+
+// 工具
+
+.mono() {
+    font-family: 'Open Sans', 'Microsoft YaHei', 'Segoe UI', Verdana, Arial;
+}
+
+.font(){
+	font-size: 14px;
+	line-height: 20px;
+	.mono();
+}
+
+.doc() {
+    padding: 10px;
+    overflow: auto;
+}
+
+.heading() {
+    margin: 10px 0;
+    font-weight: bold;
+
+    small {
+        font-size: 12px;
+		line-height: 12px;
+        margin-left: 10px;
+        color: #999999;
+        font-weight: normal;
+    }
+}
+
+.content() {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.list() {
+    margin: 0 0 10px 25px;
+    padding: 0;
+}
+
+// 元素
+
+.body() {
+    margin: 0;
+    padding: 0;
+}
+
+.h1() {
+    color: #3F529C;
+    font-size: 30px;
+    line-height: 30px;
+    height: 39px;
+    border-bottom: 1px solid #E5E5E5;
+    _width: 100%;
+    _margin-top: 0px;
+}
+
+.h2() {
+    color: #3F529C;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.h3() {
+    color: #333333;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.h4() {
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.h5() {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.h6() {
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.a() {
+    color: #0088CC;
+    text-decoration: none;
+
+    &:hover {
+        color: #005580;
+        text-decoration: underline;
+    }
+}
+
+.pre() {
+    overflow-x: auto;
+}
+
+.hr() {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #E5E5E5;
+    border-color: #E5E5E5 -moz-use-text-color -moz-use-text-color;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    margin: 12px 0;
+}
+
+.p() {
+    margin: 10px 0;
+}
+
+.table() {
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    width: auto;
+    min-width: 300px;
+
+    th, td {
+        border: 0;
+        border-bottom: 1px solid #DDDDDD;
+        line-height: 20px;
+        padding: 8px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    th, thead {
+        background-color: #F1F1F1;
+        color: #707070;
+        line-height: 18px;
+        padding: 3px 8px;
+    }
+
+    tr:hover {
+        background-color: #F3F3F3;
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+.dl() {
+
+    dt {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    dd {
+        margin-left: 20px;
+    }
+}
+
+.ul() {
+    li {
+        list-style-type: disc;
+    }
+}
+
+.ol() {
+    li {
+        list-style-type: decimal;
+    }
+}
+
+.blockquote() {
+    border: 2px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.aside() {
+    float: right;
+    background: #F7F7F7;
+    .border-radius(3px);
+    padding: 0 20px 0 10px;
+    border: 1px solid #ddd;
+    color: #555;
+    margin-left: 15px;
+    margin-bottom: 20px;
+}
+
+.textarea() {
+    width: 500px;
+    height: 136px;
+}
+
+.code() {
+    font-family: "Courier New", Menlo, Monaco, monospace;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 0 4px;
+    color: #1e347b;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+}
+
+.input() {
+    vertical-align: middle;
+}
+
+.img() {
+    text-align: center;
+
+    a & {
+        border: 0;
+    }
+}
+
+// 语法高亮
+
+.syntaxhighligher() {
+
+    .sh {
+        border: 1px solid #e1e1e8;
+        display: block;
+        margin: 9px 0;
+        white-space: pre;
+        background-color: #F7F7F7;
+		.border-radius(3px);
+        word-break: break-all;
+        overflow: auto;
+		line-height: 18px;
+        font-size: 12px;
+        padding: 5px;
+        font-family: "Courier New", Menlo, Monaco, monospace;
+    }
+
+    /* 语法 */
+    .sh-comment {
+        color: #93a1a1;
+    }
+
+    .sh-literal {
+        color: #195f91;
+    }
+
+    .sh-punctuation, .sh-leftbracket, .sh-rightbracket {
+        color: #93a1a1;
+    }
+
+    .sh-function {
+        color: #dc322f;
+    }
+
+    .sh-string, .sh-attrvalue {
+        color: #D14;
+    }
+
+    .sh-keyword, .sh-tag {
+        color: #1e347b;
+    }
+
+    .sh-type, .sh-attrname, .sh-declaration, .sh-var {
+        color: teal;
+    }
+
+    .sh-plain {
+        color: #48484c;
+    }
+}

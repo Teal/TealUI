@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>jPlusUI 用户手册</title>
+    <link rel="stylesheet" href="../../build/jplus-all.css">
+    <link rel="stylesheet" href="../assets/common.css">
+    <script type="text/javascript" src="../../build/jplus-all.js"></script>
+    <script type="text/javascript" src="../assets/common.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+
+            <div class="toolbar">
+                <input type="text" class="x-textbox x-searchtextbox" id="d1" placeholder="搜索组件..." />
+            </div>
+
+            <h1><a href="index.html">jPlusUI</a></h1>
+            <h2>一个轻量但完整的 Web UI 组件库，快速构建互联网页面</h2>
+        </div>
+
+        <div id="navbar" class="x-clear">
+            <ul class="container">
+                <li><a href="../index.html" title="首页">首页</a></li>
+                <li><a href="../guides/index.html" title="如何开始">如何开始</a></li>
+                <li class="selected"><a href="../demos/index.html" title="组件演示">演示</a></li>
+                <li><a href="../api/index.html" title="API 文档">文档</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="body" class="container x-clear">
+
+        <div id="sidebar">
+
+            <h2>示例列表</h2>
+
+            <ul id="menu">
+                <li>正在加载列表...</li>
+            </ul>
+
+        </div>
+
+        <div id="main">
+
+            <nav class="x-right"><a target="_blank" href="http://localhost:8021/docs/demos/basecss.html" id="opennew">❒ 在新窗口打开</a></nav>
+
+            <div id="breadcrumb">首页</div>
+
+            <iframe id="contentiframe" frameborder="0" style="width: 100%; height: 600px;" onload="UI.resetIFrame(this)"></iframe>
+
+        </div>
+
+        <script>
+            UI.initMenu(docData);
+            UI.initSearchBox();
+        </script>
+
+    </div>
+    <div id="footer">
+        <div class="container">
+            Copyright &copy; 2011-2012 jPlusUI Team. All Rights Reserved.<br />
+            All code on this site is licensed under the <a href="LICENSE.txt" target="_blank">The BSD License</a> unless stated otherwise.
+            <p>
+                <a href="https://github.com/jplusui/jplusui/issues/new" target="_blank">用户反馈</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="../joinus.html">加入我们</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

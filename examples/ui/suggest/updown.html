@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>上下按钮的文本框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/updown.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/updown.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <aside class="demo">
+
+            <span class="x-picker x-updown" id="upDown">
+                <input type="text" class="x-textbox">
+                <button type="button" class="x-button x-updown-button-up">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+                <button type="button" class="x-button x-updown-button-down">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <script>
+                var upDown = new UpDown('#upDown');
+                upDown.onUp = function () {
+                    Dom.setText(upDown.input(), '+');
+                };
+                upDown.onDown = function () {
+                    Dom.setText(upDown.input(), '-');
+                };
+            </script>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+#topbar {
+  height: 40px;
+  background-color: #1b1b1b;
+  background-image: -moz-linear-gradient(top, #212121, #121212);
+  background-image: -ms-linear-gradient(top, #212121, #121212);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#212121), to(#121212));
+  background-image: -webkit-linear-gradient(top, #212121, #121212);
+  background-image: -o-linear-gradient(top, #212121, #121212);
+  background-image: linear-gradient(top, #212121, #121212);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#212121', endColorstr='#121212', GradientType=0);
+  background: #1C1C1C;
+}
+#topbar h1 {
+  font-size: 20px;
+  line-height: 40px;
+  margin: 0 10px 0 -14px;
+}
+#topbar li {
+  float: left;
+  text-align: center;
+}
+#topbar a,
+#topbar span {
+  color: #CCCCCC;
+  line-height: 20px;
+  font-size: 14px;
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+#topbar .selcted,
+#topbar a:hover {
+  color: #ffffff;
+}

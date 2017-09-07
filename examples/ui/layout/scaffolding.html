@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>网页结构</title>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    
+   <article class="demo">
+
+       <blockquote class="demo demo-info">本组件不含任何代码，只规定了一个网页的基本结构。</blockquote>
+
+       <script class="demo" type="code/html">
+           <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>标题</title>
+            </head>
+            <body>
+                <div id="topbar">
+                </div>
+                <div id="main">
+                    <div id="header">
+                    </div>
+                    <div id="body">
+                    </div>
+                    <div id="footer">
+                    </div>
+                </div>
+            </body>
+            </html>
+       </script>
+
+       <blockquote class="demo">本组件库只支持 HTML 标准模式（CSS1Compact），因此必须定义 !doctype 。</blockquote>
+
+   </article>
+
+   <article class="demo">
+
+        <h2 class="demo">980px 宽度居中</h2>
+
+       <p class="demo">要实现 980px 宽度居中，可以使用 <a class="demo" href="grid.html">grid</a> 组件中的 <code class="demo">x-container</code> 类。</p>
+
+       <script class="demo" type="code/html">
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title></title>
+            </head>
+            <body>
+                <div id="topbar">
+                    <div class="x-container"></div>
+                </div>
+                <div id="main" class="x-container">
+                    <div id="header"></div>
+                    <div id="body"></div>
+                    <div id="footer"></div>
+                </div>
+            </body>
+            </html>
+       </script>
+       <p class="demo">有些网页设计需要头部和底部背景全屏扩展，此时不能将整个 #main 居中，而应该各个部分各自居中。</p>
+
+       <script class="demo" type="code/html">
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title></title>
+            </head>
+            <body>
+                <div id="topbar">
+                    <div class="x-container"></div>
+                </div>
+                <div id="main">
+                    <div id="header">
+                        <div class="x-container"></div>
+                    </div>
+                    <div id="body">
+                        <div class="x-container"></div>
+                    </div>
+                    <div id="footer">
+                        <div class="x-container"></div>
+                    </div>
+                </div>
+            </body>
+            </html>
+       </script>
+   </article>
+
+    <article class="demo">
+
+        <h2 class="demo">HTML5 新标签</h2>
+
+        <p class="demo">可以使用 HTML5 新标签代替 DIV 。</p>
+
+        <script class="demo" type="code/html">
+           <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title></title>
+            </head>
+            <body>
+                <section id="topbar">
+                    <nav class="x-container"></nav>
+                </section>
+                <section id="main" class="x-container">
+                    <header id="header"></header>
+                    <article id="body"></article>
+                    <footer id="footer"></footer>
+                </section>
+            </body>
+            </html>
+        </script>
+    </article>
+
+</body>
+</html>

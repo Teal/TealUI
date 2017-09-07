@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>IE6模拟 Fixed</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/fixed.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <style>
+            /* ʹ�ò���1�� ��ʽ��д fixed ��ʽ��*/
+
+            .mystyle {
+                position: fixed;
+                right: 10px;
+                bottom: 10px;
+            }
+        </style>
+
+        <div class="mystyle" id="a">fixed on rightbottom</div>
+
+
+        <script class="demo">
+            /* ʹ�ò���2�� �������´��� */
+            var a = Dom.get('a').fixed();
+        </script>
+
+
+    </article>
+</body>
+</html>

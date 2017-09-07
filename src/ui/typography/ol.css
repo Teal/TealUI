@@ -1,0 +1,7 @@
+ol {
+  margin: 0 0 9px 25px;
+  padding: 0;
+}
+ol ol {
+  margin-bottom: 0;
+}

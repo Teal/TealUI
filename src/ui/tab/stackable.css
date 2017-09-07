@@ -1,0 +1,40 @@
+.x-stackable {
+  border-bottom: none;
+}
+.x-stackable li {
+  float: none;
+}
+.x-stackable li a {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border-color: #dddddd;
+}
+.x-stackable li:first-child a {
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.x-stackable li:last-child a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+.x-stackable li a:hover {
+  border-color: #dddddd;
+  z-index: 2;
+}
+.x-tabbable-alt.x-stackable li a {
+  border-color: transparent;
+  _border-color: #ffffff;
+  _filter: chroma(color=#ffffff);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-tabbable-alt.x-stackable li {
+  margin-bottom: 3px;
+}
+.x-tabbable-alt.x-stackable li:last-child {
+  margin-bottom: 0;
+}

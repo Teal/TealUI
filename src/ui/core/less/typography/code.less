@@ -1,0 +1,19 @@
+
+// Inline and block code styles
+code {
+    padding: 0 4px;
+    color: #1E347B;
+    background-color: #f7f7f9;
+    border: 1px solid #e1e1e8;
+    .border-radius(3px);
+    font-family: @monoFontFamily;
+}
+
+// Account for some code outputs that place code tags in pre tags
+pre code {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+}

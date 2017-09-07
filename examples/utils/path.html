@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>路径处理</title>
+
+    <script type="text/javascript" src="../../src/utils/path.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">处理路径问题。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+                'Path.resolve': 'Path.resolve("a/b", "../", "c")',
+                'Path.normalize': 'Path.normalize("a/b/../c/d/e")',
+                'Path.join': 'Path.join("a", "d")',
+                'Path.relative': 'Path.relative("a/b", "a/c")',
+                'Path.dirname': 'Path.dirname("a/b/c")',
+                'Path.basename': 'Path.basename("a/b/c")',
+                'Path.extname': 'Path.extname("a.js")'
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

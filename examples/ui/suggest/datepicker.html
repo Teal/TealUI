@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>日期选择器</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/composite/monthcalender.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/date.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/composite/monthcalender.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/datepicker.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script class="demo" type="text/html">
+
+            <input type="text" class="x-textbox" value="2012/12/30" id="datePicker" />
+
+            < script>
+                var datePicker =  new DatePicker("#datePicker");
+            < /script>
+			
+        </script>
+
+        <h2 class="demo">常用 API</h2>
+
+        <script>
+            Demo.writeExamples({
+                '内容有关': '-',
+                '获取当前的值': 'datePicker.getValue()',
+                '设置当前的值': 'datePicker.setValue(new Date(2012, 11, 24))',
+                '更改时间格式': function () {
+
+                    // 让日期选择器使用此格式输出。 格式语法参考 System.Utils.Date 组件。
+                    datePicker.dataStringFormat = "yyyy年MM月dd日";
+
+                    // 当用户手动输入日期格式时，让日期选择器默认选中该值。
+                    datePicker.updateDropDown = function () {
+
+                        // 将yyyy年MM月dd日  -> yyyy/MM/dd 这样就可以使用 new Date 格式化日期了。
+                        var d = new Date(this.getText().replace(/\D/g, "/").replace(/\/$/, ""));
+                        if (!isNaN(d.getYear()))
+                            this.dropDown.setValue(d);
+                    };
+
+                    // 更改现在的值。
+                    datePicker.setValue(datePicker.getValue());
+
+                },
+                '操作有关': '-',
+                '设置内容改变后回调': 'datePicker.on("change", function(){alert("值变成了 " + this.getText())})',
+                '设置内容选中前回调，并阻止选中事件': 'datePicker.on("selecting", function(value){alert("准备选中 " + value); return false;/* 阻止事件，任何值都不被选中*/})'
+
+            });
+        </script>
+
+        <blockquote class="demo">其它 API 参考 <a href="Picker.html">Picker</a> 组件。(DatePicker 继承于 Picker)</blockquote>
+
+        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 组件。(DropDownList 实现了 IDropDownOwner 接口)</blockquote>
+
+        <blockquote class="demo">DatePicker 使用 <a href="../Composite/MonthCalender.html">MonthCalender</a> 组件作为下拉菜单。</blockquote>
+
+    </article>
+
+</body>
+</html>

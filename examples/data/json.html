@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>JSON</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/data/json.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <p class="demo">本组件定义了 encode/decode 方法。为了方便调用，对于老版本浏览器则同时定义 stringify/parse 方法。</p>
+
+        <script>
+            Demo.writeExamples({
+                '严格方式': '-',
+                'JSON.stringify': 'JSON.stringify([{}])',
+                'JSON.parse': 'JSON.parse("[{}]")',
+                '高效方式': '-',
+                'JSON.encode': 'JSON.encode([{}])',
+                'JSON.decode': 'JSON.decode("[{}]")'
+            });
+        </script>
+    </article>
+</body>
+</html>

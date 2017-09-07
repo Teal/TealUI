@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>数据选择器</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">Picker 是一个文本框和按钮的组合框组件基类。选择框(<a href="combobox.html" class="demo">combobox</a>)、日期选择器(<a href="datepicker.html" class="demo">datepicker</a>) 等都是继承于此类实现的。</blockquote>
+
+        <h3 class="demo">HTML 结构</h3>
+        
+        <aside class="demo">
+
+            <span class="x-picker">
+                <input type="text" class="x-textbox" />
+                <button class="x-button"><span class="x-menubutton-arrow"></span></button>
+            </span>
+            
+        </aside>
+        
+        <p class="demo">Picker 标准结构如上。Picker 会在 init 中会对不满足上述结构的 HTML 重新渲染。</p>
+
+        <h3 class="demo">1. 只需写 &lt;input&gt; 即可渲染一个 Picker</h3>
+
+        <script class="demo" type="text/html">
+
+            <input type="text" class="x-textbox" id="picker1" />
+
+            < script>
+                var picker1 = new Picker("#picker1");
+            < /script>
+            
+        </script>
+
+        <h3 class="demo">2. 只需写 &lt;a&gt; 即可渲染一个 Picker</h3>
+
+        <script class="demo" type="text/html">
+
+            <a href="javascript:;" class="x-button" id="picker2">B</a>
+
+            < script>
+                var picker2 = new Picker("#picker2");
+            < /script>
+            
+        </script>
+
+        <h3 class="demo">3. 仅动态渲染一个按钮</h3>
+
+        <script class="demo" type="text/html">
+
+            <span class="x-picker" id="picker3">
+                <input type="text" class="x-textbox" />
+            </span>
+
+            < script>
+                var picker3 = new Picker("#picker3");
+            < /script>
+            
+        </script>
+
+        <h3 class="demo">4. 绑定下拉菜单</h3>
+        
+        <p class="demo">Picker 会自动将节点紧跟的  <code class="demo">x-dropdown</code> 作为下拉菜单。 最常见的做法是使用  <a href="DropDownMenu.html">DropDownMenu</a> 作为下拉菜单。</p>
+
+        <script class="demo" type="text/html">
+
+            <input type="text" class="x-textbox" id="picker4" />
+            
+            <div class="x-dropdown">
+                紧跟的 class=x-dropdown 项会被作为子菜单打开。
+            </div>
+
+            < script>
+                var picker4 = new Picker("#picker4");
+            < /script>
+            
+        </script>
+
+        <p class="demo">Picker 使用 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 创建和管理下拉菜单。</p>
+
+    </article>
+    
+    <article class="demo">
+        
+        <h2 class="demo">常用 API</h2>
+    
+        <section class="demo-sample">
+            
+            <input type="text" class="x-textbox" id="picker" />
+            
+            <script>
+                var picker = new Picker("#picker");
+            </script>
+                
+        </section>
+
+        <script>
+
+            Demo.writeExamples({
+                
+                '状态相关': '-',
+                '禁用': function(){
+                    picker.setAttr("disabled", true); // 设置
+                    picker.setAttr("disabled", false); // 取消
+                    picker.getAttr("disabled"); // 获取目前状态
+                },
+                '只读': function(){
+                    picker.setAttr("readOnly", true); // 设置
+                    picker.setAttr("readOnly", false); // 取消
+                    picker.getAttr("readOnly"); // 获取目前状态
+                }
+            });
+            
+        </script>
+
+        <blockquote class="demo">要控制文本框， 参考 <a href="../core/iinput.html">IInput</a> 组件。(Picker 实现了IInput 接口)</blockquote>
+
+        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../core/idropdownowner.html">IDropDownOwner</a> 组件。(Picker 实现了 IDropDownOwner 接口)</blockquote>
+
+    </article>
+    
+
+</body>
+</html>

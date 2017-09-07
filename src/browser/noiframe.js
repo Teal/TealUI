@@ -1,0 +1,1 @@
+/** * @author xuld */function noIFrame() {	if (self != top) {		top.location = self.location;	}};

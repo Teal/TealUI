@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>下拉菜单</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/dropdownmenu.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">
+            一个下拉菜单。用于 Suggest 和 ComboBox 组件。
+        </blockquote>
+
+        <aside class="demo">
+
+            <input type="text" id="input" value="按 上 显示菜单" />
+
+            <script>
+                var input = new Control("#input");
+
+                // 让 input 成为下拉菜单所有者。
+                Object.extend(input, IDropDownOwner);
+
+                var dropDownMenu = new DropDownMenu({
+
+                    owner: input,
+
+                    selectMethod: 'onSelect',
+
+                    updateMethod: 'onUpdate'
+
+                });
+
+                dropDownMenu.add('aa', 'bb', 'cc');
+
+                // 设置 input 的下拉菜单。
+                input.setDropDown(dropDownMenu);
+
+                input.onSelect = function (item) {
+                    alert("选中项: " + Dom.getText(item));
+
+                    input.hideDropDown();
+                };
+
+                input.onUpdate = function (item) {
+
+                };
+
+            </script>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

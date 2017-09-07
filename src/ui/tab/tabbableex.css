@@ -1,0 +1,69 @@
+.x-tabbable-bottom,
+.x-tabbable-right,
+.x-tabbable-left {
+  border-bottom: 0;
+}
+.x-tabbable-bottom {
+  border-top: 1px solid #dddddd;
+}
+.x-tabbable-bottom li {
+  margin-top: -1px;
+  margin-bottom: 0;
+}
+.x-tabbable-bottom li a {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+.x-tabbable-bottom li a:hover {
+  border-bottom-color: transparent;
+  border-top-color: #dddddd;
+}
+.x-tabbable-bottom .x-tabbable-selected a,
+.x-tabbable-bottom .x-tabbable-selected a:hover {
+  border-color: transparent #dddddd #dddddd #dddddd;
+}
+.x-tabbable-left li,
+.x-tabbable-right li {
+  float: none;
+}
+.x-tabbable-left li a,
+.x-tabbable-right li a {
+  min-width: 74px;
+  margin-right: 0;
+  margin-bottom: 3px;
+}
+.x-tabbable-left {
+  float: left;
+  border-right: 1px solid #dddddd;
+}
+.x-tabbable-left li a {
+  margin-right: -1px;
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.x-tabbable-left li a:hover {
+  border-color: #eeeeee #dddddd #eeeeee #eeeeee;
+}
+.x-tabbable-left .x-tabbable-selected a,
+.x-tabbable-left .x-tabbable-selected a:hover {
+  border-color: #dddddd transparent #dddddd #dddddd;
+}
+.x-tabbable-right {
+  float: right;
+  border-left: 1px solid #dddddd;
+}
+.x-tabbable-right li a {
+  margin-left: -1px;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+}
+.x-tabbable-right li a:hover {
+  border-color: #eeeeee #eeeeee #eeeeee #dddddd;
+}
+.x-tabbable-right .x-tabbable-selected a,
+.x-tabbable-right .x-tabbable-selected a:hover {
+  border-color: #dddddd #dddddd #dddddd transparent;
+}

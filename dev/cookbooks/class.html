@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>类机制</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <h2 class="demo">JavaScript 中的类</h2>
+
+        <p class="demo">我们目标不是做出和 java 完全一致的完整类机制，那没有意义。前端只需要一个简单的，能单继承的类机制即可。</p>
+        
+        <script>
+
+                Demo.writeExamples({
+                    '创建类': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({ // new 可省略
+
+                            // 类的一个方法。
+                            say: function () {
+                                alert("调用了 say 方法");
+                            }
+                        });
+
+                        // 创建一个类的实例。
+                        var ani = new Animale();
+
+                        // 调用 Animale 类的 say 方法。
+                        ani.say();
+
+                    },
+                    '定义类的构造函数': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({
+
+                            // 构造函数。
+                            constructor: function (args) {
+                                alert("正在执行 Animal 类的构造函数。");
+                            }
+                        });
+
+                        // 创建一个类的实例。
+                        var ani = new Animale();
+
+                    },
+                    '继承类': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({
+
+                            // 类的一个方法。
+                            say: function () {
+                                alert("正在执行 Animale 类的 say 方法");
+                            },
+
+                            // 构造函数。
+                            constructor: function (args) {
+                                alert("正在执行 Animal 类的构造函数。");
+                            }
+                        });
+
+                        // 创建一个类。
+                        var Dog = Animale.extend({
+
+                            // 类的一个方法。
+                            say2: function () {
+                                alert("正在执行 Dog 类的 say 方法");
+                            }
+
+                        });
+
+                        // 创建一个类的实例。
+                        var dog = new Dog();
+
+                        // 调用 Animale 类的 say 方法。
+                        dog.say();
+
+                        // 调用 Dog 类的 say2 方法。
+                        dog.say2();
+
+                    },
+                    '多态类': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({
+
+                            // 类的一个方法。
+                            say: function (name) {
+                                alert("正在执行 Animale 类的 say 方法: 参数 name=" + name);
+                            }
+
+                        });
+
+                        // 创建一个类。
+                        var Dog = Animale.extend({
+
+                            // 类的一个方法。
+                            say: function () {
+                                Animale.prototype.say.call(this, 'Dog');
+                            }
+
+                        });
+
+                        // 创建一个类。
+                        var Cat = Animale.extend({
+
+                            // 类的一个方法。
+                            say: function () {
+                                Animale.prototype.say.call(this, 'Cat');
+                            }
+
+                        });
+
+                        var dog = new Dog();
+                        dog.say();
+
+                        var cat = new Cat();
+                        cat.say();
+                    },
+                    '扩展类': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({
+
+                            // 构造函数。
+                            constructor: function (args) {
+                                alert("正在执行 Animal 类的构造函数。");
+                            }
+                        });
+
+                        Animale.implement({
+
+
+                            // 类的一个方法。
+                            say: function () {
+                                alert("正在执行 Animale 类的 say 方法");
+                            }
+
+                        });
+
+                        // 注意：构造函数是不能后期扩展的。
+
+                    },
+                    '使用类的事件': function () {
+
+                        // 创建一个类。
+                        var Animale = new Class({
+
+                        });
+
+                        var ani = new Animale();
+                        ani.on('needsay', function (name) {
+                            alert("needsay事件被触发了， 参数 name=" + name);
+                        });
+
+                        ani.trigger('needsay', "触发needsay事件时的参数");
+
+                    }
+                });
+
+            </script>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

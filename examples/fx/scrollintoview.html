@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>滚动到可见区域</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/scrollintoview.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <div style="overflow: auto; height: 400px;" id="ct">
+            <div style="height: 300px;" id="a" class="demo-red">
+                A
+            </div>
+            <div style="height: 300px;" id="b" class="demo-orange">
+                B
+            </div>
+            <div style="height: 300px;" id="c" class="demo-yellow">
+                C
+            </div>
+            <div style="height: 300px;" id="d" class="demo-green">
+                D
+            </div>
+        </div>
+
+
+        <script>
+
+            var ct = Dom.get('ct');
+
+            Demo.writeExamples({
+                '#a 滚到可见区域': 'Dom.get("a").scrollIntoView()',
+                '#b 滚到可见区域': 'Dom.get("b").scrollIntoView()',
+                '#c 滚到可见区域': 'Dom.get("c").scrollIntoView()',
+                '#d 滚到可见区域': 'Dom.get("d").scrollIntoView()',
+                '#c 滚到到顶部': 'Dom.get("c").scrollIntoView(true)',
+                '#c 滚到到底部': 'Dom.get("c").scrollIntoView(false)'
+            });
+        </script>
+
+    </article>
+</body>
+</html>

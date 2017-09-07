@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>手风琴</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tab/accordion.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/tabbablecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/tab/accordion.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <aside class="demo">
+
+            <div class="x-accordion" id="accordion">
+                <div class="x-accordion-panel">
+                    <div class="x-accordion-header">
+                        <a href="javascript:;">标题 title 1
+                        </a>
+                    </div>
+                    <div class="x-accordion-body">
+                        <div class="x-accordion-content">
+                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
+                        </div>
+                    </div>
+                </div>
+                <div class="x-accordion-panel x-accordion-collapsed">
+                    <div class="x-accordion-header">
+                        <a href="javascript:;" class="x-accordion-toggle">标题 title 2
+                        </a>
+                    </div>
+                    <div class="x-accordion-body">
+                        <div class="x-accordion-content">
+                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
+                        </div>
+                    </div>
+                </div>
+                <div class="x-accordion-panel x-accordion-collapsed">
+                    <div class="x-accordion-header">
+                        <a href="javascript:;" class="x-accordion-toggle">标题 title 3
+                        </a>
+                    </div>
+                    <div class="x-accordion-body collapse">
+                        <div class="x-accordion-content">
+                            正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content正文content
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                var accordion = new Accordion('#accordion');
+            </script>
+
+
+        </aside>
+
+        <section class="demo">
+
+            <script>
+
+                Demo.writeExamples({
+                    '切换到第2个面板': 'accordion.setSelectedIndex(1)',
+                    '增加一个面板': 'accordion.add("标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                    '插入一个面板到第一个位置': 'accordion.addAt(0, "标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                    '删除第1个面板': 'accordion.removeAt(0)'
+                });
+
+            </script>
+
+        </section>
+
+    </article>
+
+</body>
+</html>

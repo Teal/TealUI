@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>消息提示框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/closebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/container/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/container/messagebox.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/container/dialog.js"></script>
+    <script type="text/javascript" src="../../../src/ui/container/messagebox.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <h2 class="demo">创建消息提示框</h2>
+        
+        <script>
+            MessageBox.alert("<em>内容</em>", "标题");
+        </script>
+        
+        <script type="text/javascript">
+            Demo.writeExamples({
+                '基本用法': '-',
+                '最基本的提示框(模拟alert)': 'MessageBox.alert("<em>内容</em>", "标题");',
+                '最基本的确认框(模拟confirm)': 'MessageBox.confirm("<em>内容</em>", "标题", function(){alert("点击了确定")})',
+                '最基本的快速提示框(成功的提示)': 'MessageBox.tip("发送成功。<br><em>3 秒后刷新页面...<em>", "success", 3000, function(){location.reload()})',
+                
+                '自定义': '-',
+                '自定义图标': 'MessageBox.show("<em>内容</em>", "标题", "info")',
+                '自定义按钮': function(){
+                    MessageBox.show("<em>内容</em>", "标题", "error", {
+                       '忽略': true,
+                       '重试': function(){
+                           this.close();
+                            alert("点击了重试");
+                       },
+                       '取消': false
+                    });
+                }
+                
+            });
+        </script>
+
+        <blockquote class="demo">消息提示框是含有按钮和图标的特定对话框。其它 API 参考 <a href="Dialog.html">Dialog</a> 组件。(MessageBox 继承于 Dialog)</blockquote>
+        
+    </article>
+
+</body>
+</html>

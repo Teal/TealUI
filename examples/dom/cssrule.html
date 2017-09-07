@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>动态操作 CSS 样式规则</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/cssrule.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                "动态添加一个css样式规则": 'Dom.addCssRule("body", "background: #96CBFE;")',
+                "动态删除一个css样式规则": 'Dom.removeCssRule("body")',
+                "获取一个css样式规则": 'Dom.getCssRule("body")',
+                "设置一个css样式规则": 'Dom.setCssRule("body", "background: #96CBFE;")'
+            });
+        </script>
+    </article>
+</body>
+</html>

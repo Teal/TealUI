@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>CSS 基础库</title>
+    <link href="../../build/jplus-all.css" rel="stylesheet">
+    <link href="../assets/common.css" rel="stylesheet">
+
+    <script src="../../build/jplus-all.js" type="text/javascript"></script>
+    <script src="../assets/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">
+            所属模块： <a href="../../examples/ui/core/base.html" target="_blank">base</a>
+        </nav>
+
+        <h2 class="demo">CSS Reset（样式重置）</h2>
+
+        <p class="demo">jPlusUI 重置了一些全局样式，以让中文更美观，并增强浏览器兼容性。具体包括了：</p>
+
+        <ul class="demo">
+            <li>设置默认字体和颜色。</li>
+            <li>重置 <code class="demo">body</code>、<code class="demo">img</code>、<code class="demo">ul</code> 和 <code class="demo">table</code> 以方便布局。</li>
+            <li>重置一些标签（包括HTML5）以让浏览器显示相同的效果。</li>
+        </ul>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">
+            所属模块： <a href="../../examples/ui/core/common.html" target="_blank">common</a>
+        </nav>
+
+        <h2 class="demo">Common CSS(常用样式)</h2>
+
+        <table class="demo">
+            <tr>
+                <th>色系</th>
+                <td><span class="x-hint">x-hint(提示)</span></td>
+                <td><span class="x-highlight">x-highlight(强调)</span></td>
+                <td><span class="x-success">x-success(成功)</span></td>
+                <td><span class="x-warning">x-warning(警告)</span></td>
+                <td><span class="x-error">x-error(失败)</span></td>
+                <td><span class="x-info">x-info(信息)</span></td>
+            </tr>
+            <tr>
+                <th>位置</th>
+                <td><span>x-left(左浮动)</span></td>
+                <td><span>x-right(右浮动)</span></td>
+                <td><span>x-center(居中)</span></td>
+                <td><span>x-middle(垂直)</span></td>
+                <td><span>x-relative(相对)</span></td>
+                <td><span>x-absolute(绝对)</span></td>
+            </tr>
+            <tr>
+                <th>显示</th>
+                <td><span>x-inline(内联)</span></td>
+                <td><span>x-block(块)</span></td>
+                <td><span>x-hide(隐藏)</span></td>
+                <td colspan="2"><span>x-inline-block(内联块)</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>杂项</th>
+                <td><span>x-plain(重置)</span></td>
+                <td><span>x-row(行间距)</span></td>
+                <td><span>x-blank(空行)</span></td>
+                <td><span class="x-debug">x-debug(突出)</span></td>
+                <td colspan="2"><span>x-break-word(强制断词)</span></td>
+            </tr>
+        </table>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/layout/grid.html" target="_blank">grid</a>,<a href="../../examples/ui/layout/grid-fuild.html" target="_blank">grid-fuild</a>,<a href="../../examples/ui/layout/grid-fixed.html" target="_blank">grid-fixed</a></nav>
+
+        <h2 class="demo">网页基础布局</h2>
+
+        <h3 class="demo">980px 宽居中</h3>
+
+        <script class="demo" type="code/html">
+            <div id="body" class="__x-container__">
+                ...
+            </div>
+        </script>
+
+        <p class="demo"><em>如果需要使用其它宽度值，可修改 <code class="demo">src/ui/core/less/variables.less</code> 内的变量值, 并重新编译 less。</em></p>
+
+        <h3 class="demo">12 格布局法</h3>
+
+        <p class="demo">将一个页面主体部分分成很多行(grid)，每行分很多列(col)。</p>
+
+        <div class="x-grid x-grid-fluid" style="text-align: center;">
+            <div class="x-col x-col-first x-col-3 demo-blue">
+                左侧导航栏
+            </div>
+            <div class="x-col x-col-7 demo-blue">
+                主体
+            </div>
+            <div class="x-col x-col-2 demo-blue">
+                右侧广告栏
+            </div>
+        </div>
+
+        <script class="demo" type="code/html">
+            <div id="body" class="x-container">
+                <div class="x-grid">
+                    <div id="sidebar" class="x-col x-col-first x-col-3">
+                        左侧导航栏
+                    </div>
+                    <div id="main" class="x-col x-col-7">
+                        主体
+                    </div>
+                    <div id="extrabar" class="x-col x-col-2">
+                        右侧广告栏
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <p class="demo">其中，确保 <code class="demo">x-col-</code> 后的数字加起来等于 12，即可占满一行。<em>添加 <code class="demo">x-col-first</code> 是为了兼容 IE6 。</em></p>
+
+        <p class="demo">默认地，<code class="demo">x-grid</code> 要求容器必须是 980px 宽，添加 <code class="demo">x-grid-fluid</code> 即可改用百分比，自动适应不同的容器宽度。</p>
+
+        <h3 class="demo">三栏布局法</h3>
+
+        <p class="demo">对于大多数网站来说，网站分栏方式是固定的，因此只需使用固定的三栏布局法。</p>
+
+        <script class="demo" type="code/html">
+            <div id="body" class="x-container">
+                <div class="x-grid x-grid-3">
+　　                  <div id="sidebar" class="x-col x-col-side">
+　　　　                左侧导航栏
+　　                  </div>
+　　                  <div id="main" class="x-col x-col-main">
+　　　　                主体
+　　                  </div>
+                    <div id="extrabar" class="x-col x-col-extra">
+　　　　                右侧广告栏
+　　                  </div>
+                </div>
+            </div>
+        </script>
+
+        <p class="demo">用户可自定义不同的列对应的宽度。</p>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/heading.html" target="_blank">heading</a>,<a href="../../examples/ui/typography/paragraph.html" target="_blank">paragraph</a></nav>
+
+        <h2 class="demo">H1-H6,P（标题、段落）</h2>
+
+        <aside class="demo demo-container">
+            <h1>标题1 Heading <small>备注 Hint</small></h1>
+            <h2>标题2 Heading <small>备注 Hint</small></h2>
+            <h3>标题3 Heading <small>备注 Hint</small></h3>
+            <h4>标题4 Heading <small>备注 Hint</small></h4>
+            <h5>标题5 Heading <small>备注 Hint</small></h5>
+            <h6>标题6 Heading <small>备注 Hint</small></h6>
+            <p>正文 content</p>
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/thumbnail.html" target="_blank">thumbnail</a>,<a href="../../examples/ui/display/videoplaceholder.html" target="_blank">videoplaceholder</a></nav>
+
+        <h2 class="demo">图片</h2>
+
+        <aside class="demo">
+
+            <a class="x-thumbnail" href="#">
+                <img alt="" src="../assets/images/100x100.gif">
+            </a>
+
+            <a class="x-videoplaceholder" href="#">
+                <img alt="" src="../assets/images/100x100.gif">
+                <span class="x-videoplaceholder-icon"></span>
+            </a>
+
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/list.html" target="_blank">list</a>,<a href="../../examples/ui/typography/dl.html" target="_blank">dl</a></nav>
+
+        <h2 class="demo">列表</h2>
+        
+        <div class="demo-clear">
+
+            <div style="width: 32%;margin-right:10px;float: left;">
+
+                <h3 class="demo">无序列表</h3>
+
+                <aside class="demo demo-container">
+
+                    <ul class="x-list">
+                        <li>列表项1</li>
+                        <li>列表项2</li>
+                        <li>列表项3</li>
+                        <li>列表项4</li>
+                        <li>列表项5</li>
+                        <li>列表项6</li>
+                    </ul>
+
+                </aside>
+
+            </div>
+
+            <div style="width: 32%;margin-right:10px;float: left;">
+
+                <h3 class="demo">有序列表</h3>
+
+                <aside class="demo demo-container">
+
+                    <ol>
+                        <li>列表项1</li>
+                        <li>列表项2</li>
+                        <li>列表项3</li>
+                        <li>列表项4</li>
+                        <li>列表项5</li>
+                        <li>列表项6</li>
+                    </ol>
+
+                </aside>
+
+            </div>
+        
+            <div style="width: 31%;float: left;">
+
+                <h3 class="demo">定义列表</h3>
+
+                <aside class="demo demo-container">
+
+                    <dl>
+                        <dt>标题</dt>
+                        <dd>内容</dd>
+                        <dd>内容</dd>
+                        <dt>标题</dt>
+                        <dd>内容</dd>
+                    </dl>
+
+                </aside>
+            
+            </div>
+        
+        </div>
+        
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/display/table.html" target="_blank">table</a></nav>
+
+        <h2 class="demo">表格</h2>
+
+        <h3 class="demo">默认风格</h3>
+
+        <table class="x-table">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script class="demo" type="code/html">
+            <table class="x-table">
+                ...
+            </table>
+        </script>
+
+        <h3 class="demo">间隔颜色</h3>
+
+        <table class="x-table x-table-striped">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    <th>Th 1</th>
+                    <th>Th 2</th>
+                    <th>Th 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script class="demo" type="code/html">
+            <table class="x-table x-table-striped">
+                ...
+            </table>
+        </script>
+
+        <h3 class="demo">基线风格</h3>
+
+        <table class="x-table x-table-baseline">
+            <thead>
+                <tr>
+                    <th>Table</th>
+                    <th>Th 1</th>
+                    <th>Th 2</th>
+                    <th>Th 3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Td 1</td>
+                    <td>Td 2</td>
+                    <td>Td 3</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script class="demo" type="code/html">
+            <table class="x-table x-table-baseline">
+                ...
+            </table>
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/hr.html" target="_blank">hr</a>,<a href="../../examples/ui/display/line.html" target="_blank">line</a></nav>
+
+        <h2 class="demo">水平线</h2>
+
+        <aside class="demo">
+
+            <hr>
+
+            <hr class="x-line x-line-dotted">
+
+            <hr class="x-line x-line-dashed">
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/typography/blockquote.html" target="_blank">blockquote</a></nav>
+
+        <h2 class="demo">Blockquote（引用）</h2>
+
+        <aside class="demo demo-container">
+
+            <blockquote>
+                <p>引用 blockquote </p>
+                <small>引用<cite title="作者">作者</cite></small>
+            </blockquote>
+
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <nav class="demo demo-toolbar">所属模块： <a href="../../examples/ui/core/base.html" target="_blank">base</a>,<a href="../../examples/ui/typography/code.html" target="_blank">code</a>,<a href="../../examples/ui/typography/misc.html" target="_blank">misc</a></nav>
+
+        <h2 class="demo">内联样式</h2>
+
+        <aside class="demo demo-container">
+
+            <a href="#">Auchor</a> <strong>Strong</strong> <em>Em</em> <code>Code</code>
+            <abbr title="缩略">Abbr</abbr>
+            <cite>Cite</cite>
+
+        </aside>
+
+    </article>
+
+</body>
+</html>

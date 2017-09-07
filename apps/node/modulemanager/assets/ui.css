@@ -1,0 +1,34 @@
+
+
+html a.status-beta {
+    font-style: italic;
+}
+
+html a.status-complete {
+    font-weight: bold;
+}
+
+html a.status-obsolete {
+    text-decoration: line-through!important;
+}
+
+html a.status-develop {
+    text-decoration: underline;
+}
+
+html a.status-obsolete, html a.status-plan {
+    color: #999;
+}
+
+.current, article.demo a:focus {
+    -webkit-text-shadow: 0 0 1px #0088CC;
+    text-shadow: 0 0 1px #0088CC;
+}
+
+.modulepath {
+    width: 200px;
+}
+
+.moduletitle {
+    width: 130px;
+}

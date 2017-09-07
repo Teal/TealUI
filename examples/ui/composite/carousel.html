@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>图片轮播组件</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/composite/carousel.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/composite/carousel.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script class="demo" type="text/html">
+
+            <!-- 必须定义宽度和高度 -->
+
+            <div class="x-carousel" id="carousel" style="width: 260px; height: 180px;">
+
+                <ul class="x-carousel-body">
+                    <li>
+                        <img src="../../../apps/demo/resources/260x180.gif"></li>
+                    <li>
+                        <img src="../../../apps/demo/resources/260x180.gif"></li>
+                    <li>
+                        <img src="../../../apps/demo/resources/260x180.gif"></li>
+                </ul>
+
+                <ul class="x-carousel-header">
+                    <li>0</li>
+                    <li>1</li>
+                    <li>2</li>
+                </ul>
+
+            </div>
+
+            < script>
+                var carousel = new Carousel('#carousel');
+            < /script>
+
+        </script>
+
+        <h2 class="demo">常用 API</h2>
+
+        <script>
+
+            Demo.writeExamples({
+                '设置滚动效果的时间': function () {
+                    carousel.delay = 900; // 自动滚动的时间。
+                    carousel.duration = 300; // 滚动效果使用的时间。    
+
+                    // 注意 carousel.delay 必须大于 carousel.duration
+                },
+                '停止自动播放': 'carousel.stop()',
+                '开始自动播放': 'carousel.start()',
+                '强制移到下一张': 'carousel.next()',
+                '强制移到上一张': 'carousel.prev()',
+                '强制往右移动2张': 'carousel.moveBy(2)',
+                '强制移到第1张': 'carousel.moveTo(0)'
+            });
+
+        </script>
+
+    </article>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>传输 JSONP</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/ajax/base.js"></script>
+    <script type="text/javascript" src="../../src/ajax/json.js"></script>
+    <script type="text/javascript" src="../../src/ajax/script.js"></script>
+    <script type="text/javascript" src="../../src/ajax/jsonp.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script>
+
+            Demo.writeExamples({
+                'Ajax.jsonp': 'Ajax.jsonp("../../apps/demo/ajax/jsonp.njs", {data: "中文"}, function(data){alert(data.info)})',
+                'Ajax.send(dataType: "jsonp")': 'Ajax.send({url: "../../apps/demo/ajax/jsonp.js", dataType: "jsonp", jsonpCallback: "jsonp", success:function(data){alert(data.info)}})'
+            }, {
+                times: 4
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

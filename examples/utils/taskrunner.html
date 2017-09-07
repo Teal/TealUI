@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>函数执行器</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/taskrunner.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script class="demo">
+            var task = new TaskRunner(function () {
+                trace('task');
+            });
+
+
+
+            task.interval = 900;
+            task.start();
+            task.stop();
+        </script>
+    </article>
+</body>
+</html>

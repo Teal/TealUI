@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>IE6 png 透明</title>
+    
+    <script type="text/javascript" src="../../src/browser/fixpng.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <div class="demo-relative demo-box">
+            文字文字
+			<img class="demo-absolute" style="top: 0; left: 0" src="../../apps/demo/resources/test.png">
+        </div>
+
+        <script>
+            Demo.writeExamples({
+                "修复 PNG": 'fixPng()'
+            });
+        </script>
+    </article>
+</body>
+</html>

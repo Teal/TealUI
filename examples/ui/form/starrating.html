@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete" />
+	<title>星级评分</title>
+	
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/starrating.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+	<script type="text/javascript" src="../../../src/ui/form/starrating.js"></script>
+	
+	<script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+    	
+    	<h2 class="demo">只读模式</h2>
+
+        <aside class="demo">
+
+            <div class="x-starrating">
+                <div class="x-starrating-fore" style="width: 74%"></div>
+                <div class="x-starrating-back"></div>
+            </div>
+            
+        </aside>
+    	
+    	<h2 class="demo">正常模式</h2>
+
+        <aside class="demo">
+
+
+            <a class="x-star x-star-actived"></a>
+            <a class="x-star"></a>
+
+
+
+            <div class="x-starrating-do x-clear x-relative" read-only="">
+                <input id="x-starrating-do-result" type="hidden" value="80" data-grade="推荐">
+                <span class="x-left">请您评分：</span>
+                <ul class="x-starrating-do-ul x-plain x-relative x-left">
+                    <li><a class="x-star1" href="javascript:;" title="很差" data-rate="20">20</a></li>
+                    <li><a class="x-star2" href="javascript:;" title="较差" data-rate="40">40</a></li>
+                    <li><a class="x-star3" href="javascript:;" title="还行" data-rate="60">60</a></li>
+                    <li><a class="x-star4" href="javascript:;" title="推荐" data-rate="80">80</a></li>
+                    <li><a class="x-star5" href="javascript:;" title="力荐" data-rate="100">100</a></li>
+                    <li class="x-starrating-current">&nbsp;</li>
+                </ul>
+                <span id="x-starrating-grade" class="x-starrating-grade"></span>
+                <div class="x-absolute x-starrating-readonly"></div>
+            </div>
+            <script>
+		Starrating.init();
+            </script>
+        </aside>
+
+    </article>
+	
+</body>
+</html>

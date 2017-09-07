@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>列表框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/listbox.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <aside class="demo">
+            <ul class="x-listbox x-listboui-disabled" id="listBox">
+                <li>内容 tmp</li>
+                <li class="x-listboui-selected"><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容   tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+                <li><a href="#">内容  tmp</a></li>
+            </ul>
+        </aside>
+        <script>
+            var listBox = new ListBox('#listBox');
+
+            Demo.writeExamples({
+                '设置禁用': 'listBox.setSelectedItem(0)',
+                '设置禁用': 'listBox.getSelectedItem()'
+            });
+        </script>
+
+
+    </article>
+
+
+
+</body>
+</html>

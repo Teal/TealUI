@@ -1,0 +1,56 @@
+<!--
+	Copyright 2003,2004 Anthony M. Humphreys <anthony@humphreys.org>
+-->
+<HTML>
+	<HEAD>
+		<SCRIPT LANGUAGE="JavaScript"><!--
+/*
+ * Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+ *
+ * Permission is granted to use and modify this script for any purpose,
+ * provided that this credit header is retained, unmodified, in the script.
+ *
+ */
+
+function copyUp() {
+	window.top.RegExTest.theExpression = document.local.TheExpression.value;
+	if (document.local.RexExType[0].checked) {
+		window.top.RegExTest.regExType = 'literal';
+	} else {
+		window.top.RegExTest.regExType = 'string';
+	};
+};
+function copyDown() {
+	document.local.TheExpression.value = window.top.RegExTest.theExpression;
+	if (window.top.RegExTest.regExType == 'literal') {
+		document.local.RexExType[0].checked = true;
+	} else {
+		document.local.RexExType[1].checked = true;
+	};
+};
+// -->
+		</SCRIPT>
+	</HEAD>
+	<BODY LEFTMARGIN="0" RIGHTMARGIN="0" TOPMARGIN="3" ONLOAD="copyDown();" ONUNLOAD="copyUp();" ONBLUR="copyUp();" ONMOUSEOUT="copyUp();">
+		<FORM NAME="local" ID="local" ONSUBMIT="return false;">
+			<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+				<TR VALIGN="top">
+					<TD>RegEx:</TD>
+					<TD WIDTH="99%"><TEXTAREA COLS="40" STYLE="width: 100%;" ROWS="3" NAME="TheExpression" ID="TheExpression" ONCHANGE="copyUp();" ONMOUSEOUT="copyUp();" ONBLUR="copyUp();"></TEXTAREA></TD>
+					<TD>
+						<TABLE>
+							<TR>
+								<TD><INPUT TYPE="radio" NAME="RexExType" ID="RexExType1" VALUE="literal" ONCHANGE="copyUp();"></TD>
+								<TD><LABEL FOR="RexExType1">Literal</LABEL></TD>
+							</TR>
+							<TR>
+								<TD><INPUT TYPE="radio" NAME="RexExType" ID="RexExType2" VALUE="string" ONCHANGE="copyUp();"></TD>
+								<TD><LABEL FOR="RexExType2">String</LABEL></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+		</FORM>
+	</BODY>
+</HTML>

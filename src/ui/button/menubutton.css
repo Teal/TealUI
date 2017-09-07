@@ -1,0 +1,35 @@
+.x-menubutton-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  opacity: 30;
+  filter: alpha(opacity=3000);
+  content: "\2193";
+  font-size: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000000;
+  margin-top: -3px;
+  *margin-top: 0;
+  _vertical-align: baseline;
+  _background: transparent;
+  _border-left: 4px solid white;
+  _border-right: 4px solid white;
+  _filter: chroma(color=#ffffff);
+}
+.x-button .x-menubutton-arrow {
+  margin-left: 5px;
+  _margin-top: 7px;
+  _margin-bottom: 5px;
+}
+.x-button:hover .x-menubutton-arrow,
+.x-button-actived .x-menubutton-arrow {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.x-button[disabled]:hover .x-menubutton-arrow,
+.x-button-disabled:hover .x-menubutton-arrow {
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}

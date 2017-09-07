@@ -1,0 +1,123 @@
+﻿#main {
+    width: 600px;
+    margin: 30px auto;
+    overflow: hidden;
+}
+
+#container {
+    width: 99999px;
+}
+
+.panel {
+    float: left;
+    padding: 0 50px;
+    width: 500px;
+}
+
+.line {
+    margin: 2px 4px 2px 0;
+    line-height: 22px;
+    padding: 2px 10px;
+}
+
+.link {
+    color: #333;
+    text-decoration: none;
+}
+
+    .link:hover {
+        text-decoration: underline;
+    }
+
+.link-url {
+    font-size: 14px;
+}
+
+.line .demo-toolbar {
+    display: none;
+}
+
+.line-hover {
+    background: #EEEEEE;
+}
+
+    .line-hover .demo-toolbar {
+        display: block;
+    }
+
+.hint {
+    color: #AAA;
+    margin-top: 14px;
+    margin-bottom: 10px;
+}
+
+.panel h2 {
+    position: relative;
+    font-size: 20px;
+    margin: 0 0 24px 0;
+    line-height: 40px;
+}
+
+.backarrow {
+    background: url(images/backarrow.png) left center no-repeat;
+    display: inline-block;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: -46px;
+    top: 0;
+}
+
+.module-input {
+    width: 270px;
+}
+
+.line-input {
+    margin-bottom: 30px;
+}
+
+.toggle-arrow {
+    float: left;
+    font-size: 20px;
+}
+
+html textarea.code {
+    width: 470px;
+}
+
+.button-label {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-top: 1px solid #DDDDDD;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding: 10px 40px;
+}
+
+html .source {
+    margin: 4px 0 10px;
+    padding: 3px 10px;
+}
+
+.refs {
+    border-left: 3px solid #DDDDDD;
+    margin: 10px 0 10px 15px;
+    padding-left: 10px;
+}
+
+.large {
+    width: 360px;
+}
+
+html textarea.large {
+    width: 360px;
+    height: 60px;
+}
+
+.error {
+    color: red;
+}
+
+#step3_advance, #step4_done, #step1_buildfilelist {
+    display: none;
+}

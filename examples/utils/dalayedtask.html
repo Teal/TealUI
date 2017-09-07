@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>延时的任务</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/dalayedtask.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script class="demo">
+            var delayedTask = new DelayedTask(function () {
+                trace('task');
+            });
+
+            delayedTask.delay(100);
+            delayedTask.start(33);
+            delayedTask.stop();
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,116 @@
+﻿/**
+ * J+ Library, 1.0
+ * @copyright 2011-2013 J+ Team
+ * @license The BSD License
+ */
+html,
+body,
+form,
+object,
+iframe,
+img,
+pre,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+html,
+body,
+a img {
+  border: 0;
+}
+ul,
+li {
+  list-style-type: none;
+}
+ol li {
+  list-style-type: decimal;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+}
+th,
+td {
+  padding: 0;
+  border: 0;
+}
+input,
+button,
+select,
+textarea {
+  font-family: "Helvetica Neue", Helvetica, "宋体", Arial, sans-serif;
+  vertical-align: middle;
+}
+button,
+select,
+textarea {
+  margin: 0;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+textarea {
+  overflow: auto;
+  vertical-align: baseline;
+  *vertical-align: top;
+}
+select {
+  background-color: #ffffff;
+}
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+audio,
+canvas,
+video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+audio:not([controls]) {
+  display: none;
+}
+body {
+  font-family: 'Open Sans', 'PT Sans', 'DejaVu Sans', 'Bitstream Vera Sans', 'Microsoft YaHei', Arial;
+  font-size: 12px;
+  line-height: 18px;
+  color: #333333;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+a:focus {
+  outline-offset: -2px;
+}

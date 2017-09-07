@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>走马灯</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/marquee.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+
+    <style>
+        .ct, .ct2 {
+            width: 500px;
+            border: 1px solid red;
+            overflow: hidden;
+            height: 200px;
+            clear: both;
+        }
+
+
+            .ct ul, .ct2 ul {
+                padding: 0;
+            }
+
+            .ct li {
+                float: left;
+                margin: 10px;
+                padding: 0 20px;
+                list-style: none;
+            }
+
+            .ct2 li {
+                margin: 10px;
+                padding: 0 20px;
+                list-style: none;
+            }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+        <aside class="demo">
+
+            <h3 class="demo">循环列表的滚动</h3>
+
+            <div id='a' class="ct">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var a = new Marquee('#a').start();
+            </script>
+
+        </aside>
+
+
+        <script>
+            Demo.writeExamples({
+                'start': 'a.start()',
+                'stop': 'a.stop()',
+                'prev': 'a.prev()',
+                'next': 'a.next()'
+            });
+        </script>
+
+        <aside class="demo">
+
+            <h3 class="demo">不循环列表的滚动</h3>
+
+            <div id='b' class="ct">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var b = new Marquee('#b', null, false).start();
+            </script>
+
+        </aside>
+
+        <aside class="demo">
+
+            <h3 class="demo">平滑滚动</h3>
+
+            <div id='b1' class="ct">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var b1 = new Marquee('#b1', null);
+                b1.duration = 10;
+                b1.delay = 0;
+                b1.start(1);
+            </script>
+
+        </aside>
+
+        <aside class="demo">
+
+            <h3 class="demo">右</h3>
+
+            <div id='c' class="ct">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var c = new Marquee('#c', 'right').start();
+            </script>
+
+        </aside>
+
+        <aside class="demo">
+
+            <h3 class="demo">上</h3>
+
+            <div id='d' class="ct2">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var d = new Marquee('#d', 'top').start();
+            </script>
+
+        </aside>
+
+        <aside class="demo">
+
+            <h3 class="demo">下</h3>
+
+            <div id='e' class="ct2">
+                <ul>
+                    <li>
+                        <div class="demo-box">aa</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-large demo-green">bb</div>
+                    </li>
+                    <li>
+                        <div class="demo-boui-small demo-blue">cc</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-red">dd</div>
+                    </li>
+                    <li>
+                        <div class="demo-box demo-orange">ee</div>
+                    </li>
+                    <li>
+                        <div class="demo-box">ff</div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <script class="demo">
+                var e = new Marquee('#e', 'bottom').start();
+            </script>
+
+        </aside>
+
+    </article>
+</body>
+</html>

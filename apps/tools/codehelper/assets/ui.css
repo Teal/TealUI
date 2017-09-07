@@ -1,0 +1,37 @@
+﻿
+
+
+.code {
+	float: left;
+}
+
+
+html .code textarea{
+	width: 780px;
+	height: 400px;	
+	margin-right: 10px;
+	margin-bottom: 10px;
+	font-family: 'Courier New';
+}
+
+
+.buttons {
+	float: left;
+	width: 160px;
+}
+
+#info {
+	margin-bottom: 10px;
+}
+
+
+.button-menu {
+	padding: 10px;
+	background: #ffffff;
+}
+
+
+.x-buttongroup {
+	margin-top: 5px;	
+	margin-bottom: 5px;	
+}

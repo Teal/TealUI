@@ -1,0 +1,351 @@
+/**
+ * 开发系统的基础样式表。
+ */
+
+@import "base-blue.less";
+
+/***************** 重置 ****************/
+
+body {
+    .body();
+    overflow-y: scroll;
+}
+
+header.demo, section.demo, footer.demo, nav.demo, div.demo, span.demo, h1.demo, h2.demo, h3.demo, h4.demo, h5.demo, h6.demo, p.demo, ul.demo, ol.demo, blockquote.demo, dl.demo, table.demo {
+	.font();
+}
+
+article.demo, aside.demo, footer.demo, header.demo, hgroup.demo, nav.demo, section.demo {
+    display: block;
+}
+
+h1.demo, h2.demo, h3.demo, h4.demo, h5.demo, h6.demo {
+    .heading();
+}
+
+/***************** 布局 ****************/
+
+.demo-fullscreen {
+	
+	body {
+		overflow-y: auto;
+	}
+
+	header.demo, article.demo, footer.demo {
+		width: 100%;
+		margin: 0;
+	}
+
+}
+
+header.demo, article.demo, footer.demo {
+    width: 980px;
+    margin: 0 auto;
+}
+
+article.demo {
+    margin-bottom: 40px;
+}
+
+aside.demo {
+    margin-bottom: 10px;
+}
+
+footer.demo {
+    margin-bottom: 20px;
+	font-size: 12px;
+}
+
+h1.demo {
+    .h1();
+}
+
+h2.demo {
+    color: #4B8B20;
+    font-size: 22px;
+    line-height: 34px;
+    margin: 15px 0;
+	border-bottom: 1px solid #eee;
+}
+
+h3.demo {
+    color: #0E454A;
+    font-size: 16px;
+    line-height: 20px;
+	margin-top: 25px;
+}
+
+h4.demo {
+    .h4();
+	margin-top: 15px;
+}
+
+h5.demo {
+    .h5();
+}
+
+h6.demo {
+    .h6();
+}
+
+p.demo {
+    .p();
+}
+
+hr.demo {
+    .hr();
+}
+
+blockquote.demo {
+    .blockquote();
+}
+
+table.demo {
+    .table();
+    width: 100%;
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+}
+
+dl.demo {
+    .dl();
+}
+
+ol.demo, ul.demo {
+    .list();
+}
+
+ul.demo {
+    .ul();
+}
+
+ol.demo {
+    .ol()
+}
+
+pre.demo {
+	margin-bottom: 10px;
+}
+
+a.demo {
+    .a();
+}
+
+code.demo {
+    .code();
+	font-size: 12px;
+	line-height: 20px;
+}
+
+img.demo {
+    .img()
+}
+
+/*************** 语法高亮 ***************/
+
+.syntaxhighligher();
+/***************** 工具 ****************/
+
+html {
+    // 布局
+    .demo-inline {
+        display: inline;
+    }
+
+    .demo-block {
+        display: block;
+    }
+
+    .demo-inline-block {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+    }
+
+    .demo-hide {
+        display: none;
+    }
+
+    .demo-left {
+        float: left;
+    }
+
+    .demo-right {
+        float: right;
+    }
+
+    .demo-clear, .demo-grid {
+        .clear();
+    }
+    // 定位
+    .demo-absolute {
+        position: absolute;
+    }
+
+    .demo-relative {
+        position: relative;
+    }
+
+    .demo-fixed {
+        position: fixed;
+        _position: absolute;
+    }
+
+    // 其它
+    .demo-row {
+        margin-bottom: 10px;
+    }
+
+    .demo-plain {
+        margin: 0;
+        padding: 0;
+    }
+
+    // 颜色
+
+    .demo-red {
+        background-color: #9d261d;
+        color: #fff;
+    }
+
+    .demo-yellow {
+        background-color: #f89406;
+        color: #000;
+    }
+
+    .demo-green {
+        background-color: #B4B900;
+        color: #fff;
+    }
+
+    .demo-blue {
+        background-color: #90D9E8;
+        color: #000;
+    }
+}
+
+/***************** 测试工具 ****************/
+
+.demo-test {
+    display: none;
+}
+
+.demo-sample {
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.demo-box, .demo-box-small, .demo-box-large {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    padding: 10px;
+    text-align: center;
+    line-height: 80px;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #E95C41;
+    color: #ffffff;
+    vertical-align: top;
+}
+
+.demo-box-small {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+}
+
+.demo-box-large {
+    height: 200px;
+    width: 200px;
+    line-height: 200px;
+}
+
+.demo-container, .demo-area {
+    position: relative;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.demo-container {
+    display: inline-block;
+    padding: 10px;
+}
+
+.demo-area {
+    height: 200px;
+    width: 400px;
+    line-height: 200px;
+    text-align: center;
+}
+
+/***************** 组件 ****************/
+
+html .demo-info {
+	background: #F8F8F8;
+	border: 1px solid #E8E8E8;
+	border-left: 3px solid #4B8B20;
+	margin: 5px 0 10px;
+    padding: 10px;
+}
+
+#demo-toolbar {
+    line-height: 26px;
+    height: 10px;
+    position: relative;
+    font-size: 12px!important;
+}
+
+.demo-toolbar {
+    font-size: 12px!important;
+	line-height: 22px!important;
+    float: right;
+    color: #999999;
+
+    a {
+        color: #333333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.demo-toolbar-dropdown {
+    position: absolute;
+    right: 0;
+    top: 26px;
+    border: 1px solid #9B9B9B;
+	.box-shadow(1px 1px 2px #CCCCCC);
+    z-index: 99999;
+    background-color: #FFFFFF;
+
+    a {
+        cursor: pointer;
+        color: #333;
+    }
+}
+
+.demo-toolbar-dropdown-menu a {
+    -moz-user-select: none;
+    display: block;
+    overflow: hidden;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.demo-toolbar-dropdown-menu-usehover a:hover, a.demo-toolbar-dropdown-menu-hover {
+    background-color: #EBEBEB;
+}

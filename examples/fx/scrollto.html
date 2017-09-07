@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>滚动效果</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/scrollto.js"></script>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body style="height: 666px">
+    <article class="demo">
+        <section class="demo-sample">
+            <div class="demo-area" style="line-height: 20px; overflow: scroll" id="a">
+                <script>
+					var i = 0;
+					while(i++ < 1000)
+					document.write(i + '<br>');
+
+                </script>
+            </div>
+        </section>
+        <script>
+			Demo.writeExamples({
+				'整个文档滚动指定像素' : 'Dom.query(document).scrollBy(100)',
+				'整个文档滚动到指定位置' : 'Dom.query(document).scrollTo(100)',
+				'某个节点滚动指定像素' : 'Dom.query("#a").scrollBy(100)',
+				'某个节点滚动到指定位置' : 'Dom.query("#a").scrollTo(100)'
+			});
+
+        </script>
+    </article>
+</body>
+</html>

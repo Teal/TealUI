@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>选区操作</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/selection.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <input type="text" value="abcdefg" id="a">
+
+        <textarea id="b">abcdefg</textarea>
+
+        <script>
+            var a = Dom.query("#a");
+
+            Demo.writeExamples({
+                "获取选区区域范围": 'a.selectionRange()',
+                "设置选区区域范围": 'a.selectionRange({start: 1, end: 4})',
+                "获取选区区域内容": 'a.selectedText()',
+                "设置选区区域内容": 'a.selectedText("文本", true)'
+            });
+        </script>
+    </article>
+</body>
+</html>

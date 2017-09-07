@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>IFrame 对象操作</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/iframe.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <iframe id="a" src="./iframe.html"></iframe>
+        <script>
+            var iframe = new IFrame("a");
+            iframe.ready(function () {
+                trace(this.window.document.title);
+                iframe.document.setStyle('color', 'red');
+            }).load(function () {
+                trace(this.window.document.title);
+            });
+            iframe.autoResize();
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>子 Cookie</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/browser/base.js"></script>
+    <script type="text/javascript" src="../../../src/browser/cookie.js"></script>
+    <script type="text/javascript" src="../../../src/browser/subcookie.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                '设置子 Cookie': {
+                    'Browser.setSubCookie("a", "b", "c")': function (value, assert) {
+                        assert.areEqual(Browser.getCookie("a"), "b");
+                    },
+                    'Browser.setSubCookie("a", "c", null)': function (value, assert) {
+                        assert.areEqual(Browser.getCookie("a"), undefined);
+                    },
+                    'Browser.setSubCookie("a", "c", "b", 1)': '-'
+                },
+                '获取子 Cookie': {
+                    'Browser.getSubCookie("a", "b")': "b"
+                }
+            });
+
+        </script>
+    </article>
+</body>
+</html>

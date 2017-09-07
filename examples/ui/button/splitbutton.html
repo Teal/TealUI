@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>分隔按钮</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/buttongroup.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/splitbutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/menu/menu.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/button/button.js"></script>
+    <script type="text/javascript" src="../../../src/ui/button/menubutton.js"></script>
+    <script type="text/javascript" src="../../../src/ui/button/splitbutton.js"></script>
+
+    <!-- 以下文件仅用于演示 -->
+    <script type="text/javascript" src="../../../src/ui/core/treecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/menu/menu.js"></script>
+    <!-- 以上文件仅用于演示 -->
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <h2 class="demo">JavaScript 方式</h2>
+
+        <section class="demo">
+
+            <h3 class="demo">自动生成菜单</h3>
+
+            <p class="demo"><strong>必须手动引入 Controls.Menu.Menu 组件，才能自动生成菜单。</strong></p>
+
+            <script class="demo" type="text/html">
+                <span class="x-splitbutton x-buttongroup" id="d1">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+                < script>
+                        var d1 = new SplitButton('#d1');
+                        var item = d1.add('这是通过 add 添加的');
+                        Dom.on(item.elem, 'click', function(){alert("菜单项点击了")});
+                    < /script>
+            </script>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">HTML 方式生成菜单</h3>
+
+            <p class="demo">按钮后面的 <code class="demo">x-dropdown</code> 会被自动认为是当前按钮的子菜单。</p>
+
+            <script class="demo" type="text/html">
+                <span class="x-splitbutton x-buttongroup" id="d2">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+                <ul class="x-dropdown x-menu">
+                    <li>预定义的第1个菜单
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="x-menuitem" onclick="alert('点击了')">预定义的第2个菜单</a>
+                    </li>
+                    <li>
+                        <em>预定义的第3个菜单</em>
+                    </li>
+                </ul>
+                < script>
+                        var d2 = new SplitButton('#d2');
+                    < /script>
+            </script>
+
+        </section>
+
+    </article>
+
+    <!--<article class="demo">
+
+        <h2 class="demo">HTML 方式</h2>
+
+        <section class="demo">
+            <aside class="demo">
+                <span class="x-splitbutton x-buttongroup">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+            </aside>
+        </section>
+
+    </article>-->
+
+    <article class="demo">
+
+        <h2 class="demo">API</h2>
+
+        <p>分别参考 <a href="../Menu/Menu.html">Menu</a> 和 <a href="Button.html">Button</a> 的 API 。</p>
+
+    </article>
+
+
+</body>
+</html>

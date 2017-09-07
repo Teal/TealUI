@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>选项卡控件</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tab/tabbable.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tab/tabcontrol.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/tabbablecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/tab/tabcontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+
+        <section class="demo">
+
+            <aside class="demo">
+
+                <div class="x-tabcontrol" id="demo1">
+
+                    <ul class="x-tabcontrol-header x-tabbable">
+                        <li class="x-tabbable-selected"><a href="javascript:;">Home</a></li>
+                        <li><a href="javascript:;">Profile</a></li>
+                        <li><a href="javascript:;">Messages</a></li>
+                    </ul>
+
+                    <div class="x-tabcontrol-body">
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容1
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容2
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容3
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+                    var demo1 = new TabControl('#demo1');
+                </script>
+
+            </aside>
+
+
+
+            <aside class="demo">
+
+                <div class="x-tabcontrol x-tabcontrol-alt" id="demo2">
+
+                    <ul class="x-tabcontrol-header x-tabbable">
+                        <li class="x-tabbable-selected"><a href="javascript:;">Home</a></li>
+                        <li><a href="javascript:;">Profile</a></li>
+                        <li><a href="javascript:;">Messages</a></li>
+                    </ul>
+
+                    <div class="x-tabcontrol-body">
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容1
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容2
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容3
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+                    var demo2 = new TabControl('#demo2');
+                </script>
+
+            </aside>
+
+        </section>
+
+        <section class="demo">
+
+            <aside class="demo">
+
+                <div class="x-tabcontrol" id="a">
+
+                    <ul class="x-tabcontrol-header x-tabbable">
+                        <li class="x-tabbable-selected"><a href="#">Home</a></li>
+                        <li><a href="javascript:;">Profile</a></li>
+                        <li><a href="javascript:;">Messages</a></li>
+                    </ul>
+
+                    <div class="x-tabcontrol-body">
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容1
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容2
+                            </div>
+                        </div>
+
+                        <div class="x-tabpage">
+                            <div class="x-tabpage-content">
+                                内容3
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <script>
+                    var a = new TabControl('#a');
+                </script>
+
+            </aside>
+
+            <script>
+
+                Demo.writeExamples({
+                    '切换到第2个面板': 'a.setSelectedIndex(1)',
+                    '增加一个面板': 'a.add("标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                    '插入一个面板到第一个位置': 'a.addAt(0, "标题", "<div class=\'x-tabpage-content\'>内容</div>")',
+                    '删除第1个面板': 'a.removeAt(0)'
+                });
+
+            </script>
+
+        </section>
+
+
+    </article>
+
+</body>
+</html>

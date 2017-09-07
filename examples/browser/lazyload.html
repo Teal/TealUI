@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title></title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/browser/base.js"></script>
+    <script type="text/javascript" src="../../../src/browser/lazyload.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+
+        <div style="height: 2000px">
+            <img class="a" data-src="../../assets/resources/260x180.gif" width="500" height="300">
+        </div>
+        <div style="height: 300px">
+            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
+            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
+            <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
+        </div>
+
+        <img data-src="http://img01.taobaocdn.com/imgextra/i1/78758424/T2WWGgXj4XXXXXXXXX_!!78758424.jpg" width="500" height="300">
+        <img data-src="http://img02.taobaocdn.com/tps/i2/T1Q6_wXlNgXXbvJKnq-236-76.gif" width="500" height="300">
+        <img data-src="http://img04.taobaocdn.com/tps/i4/T1_e_AXctXXXcWEyPo-228-68.jpg" width="500" height="300">
+        <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
+        <img data-src="http://img01.taobaocdn.com/tps/i1/T1.EHBXetaXXXcuMLP-480-220.jpg" width="500" height="300">
+
+
+        <script>
+            Dom.ready(function () {
+                Dom.query('img').lazyload();
+            })
+            Demo.writeExamples({
+                '懒加载': 'Browser.lazyload({target: document, offset: 0, show: function(){}, load: function(){}})' // 处理指定节点下的 data-src 属性。
+            });
+        </script>
+
+
+    </article>
+</body>
+</html>

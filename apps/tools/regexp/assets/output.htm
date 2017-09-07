@@ -1,0 +1,58 @@
+<!--
+	Copyright 2003,2004 Anthony M. Humphreys <anthony@humphreys.org>
+-->
+<HTML>
+	<HEAD>
+		<STYLE TYPE="text/css" MEDIA="screen">
+<!--
+.hie {
+	background-color: yellow;
+}
+.hio {
+	background-color: lime;
+}
+#TheOutput {
+	font-family: Courier New, Courier, monospace;
+}
+#TheHeading {
+	font-weight: bold;
+	text-align: center;
+}
+-->
+		</STYLE>
+		<SCRIPT LANGUAGE="javascript" TYPE="text/javascript" SRC="JSON.js"><!--
+		// JSON functions, see http://www.JSON.org/
+		// Used with permission -->
+		</SCRIPT>
+		<SCRIPT LANGUAGE="javascript" TYPE="text/javascript"><!--
+/*
+ * Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+ *
+ * Permission is granted to use and modify this script for any purpose,
+ * provided that this credit header is retained, unmodified, in the script.
+ *
+ */
+
+// These functions copy the data to/from this page
+// to/from the RegExTest object in the top frome
+
+function copyDown() {
+	TheOutput.innerHTML = top.RegExTest.theOutput;
+};
+function copyUp() {
+	top.RegExTest.theOutput = TheOutput.innerHTML;
+};
+// -->
+		</SCRIPT>
+	</HEAD>
+	<BODY LEFTMARGIN="0" TOPMARGIN="0" RIGHTMARGIN="0">
+		<DIV ID="TheHeading">Output</DIV>
+		<TABLE WIDTH="100%" BORDER="0">
+			<TR>
+				<TD ID="TheOutput"></TD>
+			</TR>
+		</TABLE>
+		<A HREF="javascript:alert(stringify(top.RegExTest));">RegExTest</A>
+		<A HREF="javascript:TheOutput.innerHTML='';copyUp();">Clear</A>
+	</BODY>
+</HTML>

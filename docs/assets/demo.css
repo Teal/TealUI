@@ -1,0 +1,462 @@
+﻿/**
+ * 开发系统的基础样式表�? */
+/***************** 重置 ****************/
+body {
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+header.demo,
+section.demo,
+footer.demo,
+nav.demo,
+div.demo,
+span.demo,
+h1.demo,
+h2.demo,
+h3.demo,
+h4.demo,
+h5.demo,
+h6.demo,
+p.demo,
+ul.demo,
+ol.demo,
+blockquote.demo,
+dl.demo,
+table.demo {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: 'Open Sans', 'Microsoft YaHei', 'Segoe UI', Verdana, Arial;
+}
+article.demo,
+aside.demo,
+footer.demo,
+header.demo,
+hgroup.demo,
+nav.demo,
+section.demo {
+  display: block;
+}
+h1.demo,
+h2.demo,
+h3.demo,
+h4.demo,
+h5.demo,
+h6.demo {
+  margin: 10px 0;
+  font-weight: bold;
+}
+h1.demo small,
+h2.demo small,
+h3.demo small,
+h4.demo small,
+h5.demo small,
+h6.demo small {
+  font-size: 12px;
+  line-height: 12px;
+  margin-left: 10px;
+  color: #999999;
+  font-weight: normal;
+}
+/***************** 布局 ****************/
+.demo-fullscreen body {
+  overflow-y: auto;
+}
+.demo-fullscreen header.demo,
+.demo-fullscreen article.demo,
+.demo-fullscreen footer.demo {
+  width: 100%;
+  margin: 0;
+}
+header.demo,
+article.demo,
+footer.demo {
+  width: 980px;
+  margin: 0 auto;
+}
+article.demo {
+  margin-bottom: 40px;
+}
+aside.demo {
+  margin-bottom: 10px;
+}
+footer.demo {
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+h1.demo {
+  color: #3F529C;
+  font-size: 30px;
+  line-height: 30px;
+  height: 39px;
+  border-bottom: 1px solid #E5E5E5;
+  _width: 100%;
+  _margin-top: 0px;
+}
+h2.demo {
+  color: #4B8B20;
+  font-size: 22px;
+  line-height: 34px;
+  margin: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+h3.demo {
+  color: #0E454A;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 25px;
+}
+h4.demo {
+  font-size: 14px;
+  line-height: 14px;
+  margin-top: 15px;
+}
+h5.demo {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+h6.demo {
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0;
+}
+p.demo {
+  margin: 10px 0;
+}
+hr.demo {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #E5E5E5;
+  border-color: #e5e5e5 -moz-use-text-color -moz-use-text-color;
+  border-right: 0 none;
+  border-style: solid none none;
+  border-width: 1px 0 0;
+  clear: both;
+  display: block;
+  float: none;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  margin: 12px 0;
+}
+blockquote.demo {
+  border: 2px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+}
+table.demo {
+  border: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  width: auto;
+  min-width: 300px;
+  width: 100%;
+}
+table.demo th,
+table.demo td {
+  border: 0;
+  border-bottom: 1px solid #DDDDDD;
+  line-height: 20px;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+table.demo th,
+table.demo thead {
+  background-color: #F1F1F1;
+  color: #707070;
+  line-height: 18px;
+  padding: 3px 8px;
+}
+table.demo tr:hover {
+  background-color: #F3F3F3;
+}
+table.demo p {
+  margin: 0;
+}
+table.demo th,
+table.demo td {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+dl.demo dt {
+  font-weight: bold;
+  margin-top: 10px;
+}
+dl.demo dd {
+  margin-left: 20px;
+}
+ol.demo,
+ul.demo {
+  margin: 0 0 10px 25px;
+  padding: 0;
+}
+ul.demo li {
+  list-style-type: disc;
+}
+ol.demo li {
+  list-style-type: decimal;
+}
+pre.demo {
+  margin-bottom: 10px;
+}
+a.demo {
+  color: #0088CC;
+  text-decoration: none;
+}
+a.demo:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+code.demo {
+  font-family: "Courier New", Menlo, Monaco, monospace;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 0 4px;
+  color: #1e347b;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+  font-size: 12px;
+  line-height: 20px;
+}
+img.demo {
+  text-align: center;
+}
+a img.demo {
+  border: 0;
+}
+/*************** 语法高亮 ***************/
+.sh {
+  border: 1px solid #e1e1e8;
+  display: block;
+  margin: 9px 0;
+  white-space: pre;
+  background-color: #F7F7F7;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  word-break: break-all;
+  overflow: auto;
+  line-height: 18px;
+  font-size: 12px;
+  padding: 5px;
+  font-family: "Courier New", Menlo, Monaco, monospace;
+}
+/* 语法 */
+.sh-comment {
+  color: #93a1a1;
+}
+.sh-literal {
+  color: #195f91;
+}
+.sh-punctuation,
+.sh-leftbracket,
+.sh-rightbracket {
+  color: #93a1a1;
+}
+.sh-function {
+  color: #dc322f;
+}
+.sh-string,
+.sh-attrvalue {
+  color: #D14;
+}
+.sh-keyword,
+.sh-tag {
+  color: #1e347b;
+}
+.sh-type,
+.sh-attrname,
+.sh-declaration,
+.sh-var {
+  color: teal;
+}
+.sh-plain {
+  color: #48484c;
+}
+/***************** 工具 ****************/
+html .demo-inline {
+  display: inline;
+}
+html .demo-block {
+  display: block;
+}
+html .demo-inline-block {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+html .demo-hide {
+  display: none;
+}
+html .demo-left {
+  float: left;
+}
+html .demo-right {
+  float: right;
+}
+html .demo-clear,
+html .demo-grid {
+  *zoom: 1;
+}
+html .demo-clear:after,
+html .demo-grid:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+html .demo-absolute {
+  position: absolute;
+}
+html .demo-relative {
+  position: relative;
+}
+html .demo-fixed {
+  position: fixed;
+  _position: absolute;
+}
+html .demo-row {
+  margin-bottom: 10px;
+}
+html .demo-plain {
+  margin: 0;
+  padding: 0;
+}
+html .demo-red {
+  background-color: #9d261d;
+  color: #fff;
+}
+html .demo-yellow {
+  background-color: #f89406;
+  color: #000;
+}
+html .demo-green {
+  background-color: #B4B900;
+  color: #fff;
+}
+html .demo-blue {
+  background-color: #90D9E8;
+  color: #000;
+}
+/***************** 测试工具 ****************/
+.demo-test {
+  display: none;
+}
+.demo-sample {
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.demo-box,
+.demo-box-small,
+.demo-box-large {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+  padding: 10px;
+  text-align: center;
+  line-height: 80px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background-color: #E95C41;
+  color: #ffffff;
+  vertical-align: top;
+}
+.demo-box-small {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+}
+.demo-box-large {
+  height: 200px;
+  width: 200px;
+  line-height: 200px;
+}
+.demo-container,
+.demo-area {
+  position: relative;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+.demo-container {
+  display: inline-block;
+  padding: 10px;
+}
+.demo-area {
+  height: 200px;
+  width: 400px;
+  line-height: 200px;
+  text-align: center;
+}
+/***************** 组件 ****************/
+html .demo-info {
+  background: #F8F8F8;
+  border: 1px solid #E8E8E8;
+  border-left: 3px solid #4B8B20;
+  margin: 5px 0 10px;
+  padding: 10px;
+}
+#demo-toolbar {
+  line-height: 26px;
+  height: 10px;
+  position: relative;
+  font-size: 12px!important;
+}
+.demo-toolbar {
+  font-size: 12px!important;
+  line-height: 22px!important;
+  float: right;
+  color: #999999;
+}
+.demo-toolbar a {
+  color: #333333;
+  text-decoration: none;
+}
+.demo-toolbar a:hover {
+  text-decoration: underline;
+}
+.demo-toolbar-dropdown {
+  position: absolute;
+  right: 0;
+  top: 26px;
+  border: 1px solid #9B9B9B;
+  -webkit-box-shadow: 1px 1px 2px #cccccc;
+  -moz-box-shadow: 1px 1px 2px #cccccc;
+  box-shadow: 1px 1px 2px #cccccc;
+  z-index: 99999;
+  background-color: #FFFFFF;
+}
+.demo-toolbar-dropdown a {
+  cursor: pointer;
+  color: #333;
+}
+.demo-toolbar-dropdown-menu a {
+  -moz-user-select: none;
+  display: block;
+  overflow: hidden;
+  padding-left: 6px;
+  padding-right: 6px;
+  text-decoration: none;
+}
+.demo-toolbar-dropdown-menu a:hover {
+  text-decoration: none;
+}
+.demo-toolbar-dropdown-menu-usehover a:hover,
+a.demo-toolbar-dropdown-menu-hover {
+  background-color: #EBEBEB;
+}
+
+
+.demo-toolbar {
+    margin-top: 10px;
+}

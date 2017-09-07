@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>集合</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/data/collection.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <script>
+
+            var list = new Collection();
+            list.add(2);  // [2]
+            list.insert(0, 1);   //  [1, 2]
+            list.remove(2);  // [1]
+            list.removeAt(0);  // []
+            list.insert(0, 2);   // [2]
+            list.insert(0, 8);   // [8, 2]
+
+            Demo.writeExamples({
+                'Collection.prototype.length': 'list.length',
+                'Collection.prototype.item': 'list.item(0)'
+            });
+        </script>
+
+    </article>
+</body>
+</html>

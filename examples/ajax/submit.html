@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="module-info" content="status=complete">
+		<title>提交表单</title>
+		
+            <script type="text/javascript" src="../../src/core/core.js"></script>
+        <script type="text/javascript" src="../../src/core/class.js"></script>
+        <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+        <script type="text/javascript" src="../../src/ajax/base.js"></script>
+		<script type="text/javascript" src="../../src/ajax/submit.js"></script>
+
+		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
+	</head>
+	<body>  
+
+        <article class="demo">
+                
+    		<form action="" method="get" id="form">
+    			<input type="text" name="text" value="t1">
+    			<input type="text" name="text" value="t2" readonly="readonly">
+    			<input type="text" name="text" value="t3" disabled="disabled">
+    			<input type="checkbox" name="checkbox" value="c1" checked="checked">
+    			<input type="checkbox" name="checkbox" value="c2" checked="checked">
+    			<select name="multipleselect" multiple="multiple" size=2 id="s">
+    				<option value="s1">s1</option>
+    				<option value="s2" selected="selected">s2</option>
+    				<option value="s3">s3</option>
+    				<option value="s4" selected="selected">s4</option>
+    				<option value="s5">s5</option>
+    			</select>
+    			<input type="submit" value="提交">
+    		</form>
+    		<script>
+    			
+    		    Demo.writeExamples({
+    		        'Ajax 提交表单': 'Ajax.submit(document.getElementById("form"))',
+    		        'Ajax 提交表单并处理回调': 'Ajax.submit(document.getElementById("form"), function(data){alert("提交成功了, 返回数据" + data)}, function(errorCode){alert("提交失败了， 错误码" + errorCode)})'
+                });
+    		
+            </script>
+    		 
+        </article>
+        
+	</body>
+</html>

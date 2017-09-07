@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#2">
+    <title>创建类支持</title>
+
+    <!-- 本组件需要以下文件 -->
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        <blockquote class="demo demo-info">为 JavaScript 提供创建类的功能。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+                '创建最简单的类': function () {
+
+                    // 创建一个类。
+                    var Animal = Base.extend({
+
+                        // 类的一个方法。
+                        say: function () {
+                            alert("调用了 say 方法");
+                        }
+                    });
+
+                    // 创建一个类的实例。
+                    var ani = new Animal();
+
+                    // 调用 Animal 类的 say 方法。
+                    ani.say();
+
+                },
+                '定义字段': function () {
+
+                    // 创建一个类。
+                    var Animal = Base.extend({
+
+                        // 类的一个字段。
+                        name: "这是 Animate 的字段",
+
+                        // 类的一个方法。
+                        say: function () {
+                            alert("字段 name 的值是: " + this.name);
+                        }
+                    });
+
+                    // 创建一个类的实例。
+                    var ani = new Animal();
+
+                    ani.name = "ani 实例覆盖了这个字段的值";
+
+                    // 调用 Animal 类的 say 方法。
+                    ani.say();
+
+                },
+                '定义构造函数': function () {
+
+                    // 创建一个类。
+                    var Animal = Base.extend({
+
+                        // 构造函数。
+                        constructor: function (args) {
+                            alert("正在执行 Animal 类的构造函数。");
+                        }
+                    });
+
+                    // 创建一个类的实例。
+                    var ani = new Animal();
+
+                },
+                '继承': function () {
+
+                    // 创建一个类。
+                    var Animal = Base.extend({
+
+                        // 类的一个方法。
+                        say: function () {
+                            alert("正在执行 Animal 类的 say 方法");
+                        },
+
+                        // 构造函数。
+                        constructor: function (args) {
+                            alert("正在执行 Animal 类的构造函数。");
+                        }
+                    });
+
+                    // 创建一个类。
+                    var Dog = Animal.extend({
+
+                        // 类的一个方法。
+                        say2: function () {
+                            alert("正在执行 Dog 类的 say 方法");
+                        }
+
+                    });
+
+                    // 创建一个类的实例。
+                    var dog = new Dog();
+
+                    // 调用 Animal 类的 say 方法。
+                    dog.say();
+
+                    // 调用 Dog 类的 say2 方法。
+                    dog.say2();
+
+                },
+                '使用事件的功能': function () {
+
+                    // 创建一个类。
+                    var Animal = Base.extend({
+
+                    });
+
+                    var ani = new Animal();
+                    ani.on('needsay', function (name) {
+                        alert("needsay事件被触发了， 参数 name=" + name);
+                    });
+
+                    ani.trigger('needsay', "触发needsay事件时的参数");
+
+                }
+            });
+
+        </script>
+
+    </article>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>查询字符串解析</title>
+
+    <!-- 本组件需要以下文件 -->
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/text/querystring.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                "解析查询字符串": 'QueryString.parse("a=2&c=4")',
+                "格式化查询字符串": 'QueryString.stringify({ a: "2", c: "4" })'
+            });
+        </script>
+    </article>
+</body>
+</html>

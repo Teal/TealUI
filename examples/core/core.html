@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#1">
+    <title>基础工具函数</title>
+    
+    <!-- 本组件需要以下文件 -->
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        <blockquote class="demo demo-info">为整个库提供最基础的工具函数，也为浏览器补上缺失的标准函数。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+                'Object 对象扩展': '-',
+                'Object.extend': function () {
+                    var dest = { a: 1 };
+                    var src = { b: 2 };
+                    Object.extend(dest, src);
+
+                    // 此时 dest = {a: 1, b: 2}
+                },
+                'Object.each': function () {
+                    var obj = { a: 1, b: 2 };
+                    Object.each(obj, function (value, key) {
+                        alert(key + ' = ' + value);
+                    });
+                },
+
+                'Array 对象扩展': '-',
+                'Array#remove': 'var ar = [5,4];ar.remove(4); ar',
+                'Array#unique': '[2, 5, 7, 5].unique()',
+                'Array.isArray(原生支持)': 'Array.isArray([])',
+                'Array#indexOf(原生支持)': '[5,4].indexOf(5)',
+                'Array#forEach(原生支持)': '[5,4].forEach(alert)',
+                'Array#filter(原生支持)': '[5,4].filter(function(){return true})',
+
+                'Function 对象扩展': '-',
+                'Function.empty': 'Function.empty()',
+                'Function#bind(原生支持)': '(function(){alert(this)}).bind(2)()',
+
+                'String 对象扩展': '-',
+                'String.format': function () {
+                    String.format("{0} {1}", "h", "v"); // "h v",
+                    String.format("{a}", { a: 1 }); // "1"
+                },
+                'String#trim(原生支持)': '"      abcd  ".trim()',
+
+                'Date 对象扩展': '-',
+                'Date.now(原生支持)': 'Date.now()'
+            });
+
+        </script>
+        
+        <p class="demo demo-note">如果需要更多的扩展函数，可以查看 utils 分类下的组件</p>
+
+    </article>
+
+</body>
+</html>

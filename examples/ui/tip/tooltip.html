@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>工具提示</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/arrow.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tip/tooltip.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/itooltip.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/tip/tooltip.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        
+        <h2 class="demo">动态生成</h2>
+
+        <span id="toolTip_ct" style="display: inline-block">鼠标移到我上面，然后稍等</span>
+
+        <script class="demo">
+
+            var toolTip1 = new ToolTip().setToolTip('#toolTip_ct', 'ToolTip1');
+
+            var toolTip2 = new ToolTip().setArrow('left').setToolTip('#toolTip_ct', 'ToolTip2');
+
+            var toolTip3 = new ToolTip().setArrow('bottom').setToolTip('#toolTip_ct', 'ToolTip3');
+
+            var toolTip4 = new ToolTip().setArrow('right').setToolTip('#toolTip_ct', 'ToolTip4');
+
+            var toolTip5 = new ToolTip().setArrow('top').setToolTip('#toolTip_ct', 'ToolTip5');
+
+        </script>
+
+    </article>
+        
+    <article class="demo demo-tooltip">
+        
+        <h2 class="demo">仅样式</h2>
+        
+        <style>
+            .demo-tooltip .x-tooltip {
+                display: block;
+            }
+            
+            .demo-tooltip aside.demo {
+                position: relative;
+                height: 29px;
+            }
+        </style>
+
+        <aside class="demo">
+
+            <div class="x-tooltip">
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+
+        </aside>
+
+        <aside class="demo">
+
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-top">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+
+        </aside>
+
+        <aside class="demo">
+
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-left">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+
+        </aside>
+
+        <aside class="demo">
+
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-right">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+
+        </aside>
+
+        <aside class="demo">
+
+            <div class="x-tooltip">
+                <span class="x-arrow x-arrow-bottom">
+                    <span class="x-arrow-fore">◆</span>
+                </span>
+                <div class="x-tooltip-content">工具提示 ToolTip</div>
+            </div>
+
+        </aside>
+
+    </article>
+
+
+</body>
+</html>
