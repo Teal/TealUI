@@ -1,0 +1,34 @@
+@import "configs";
+
+.x-media {
+    display: table;
+
+    &-header, &-body {
+        display: table-cell;
+        box-sizing: border-box;
+        vertical-align: top;
+    }
+
+    &-header {
+        img {
+            margin-top: 1rem * $line-height - 1.1rem;
+            max-width: none;
+        }
+
+        &:first-child {
+            padding-right: $margin-x;
+        }
+
+        &:last-child {
+            padding-left: $margin-x;
+        }
+    }
+
+    &-body {
+        width: 100%;
+
+        > h1, > h2, > h3, > h4, > h5, > h6 {
+            margin: 0;
+        }
+    }
+}

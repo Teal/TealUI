@@ -1,0 +1,1 @@
+<article class="demo"><script>Dom.query(".demo-box").multiFade();</script></article>

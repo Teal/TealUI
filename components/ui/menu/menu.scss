@@ -1,0 +1,62 @@
+@import "configs";
+
+.x-menu {
+	display: inline-block;
+	border: 1px solid $border-color;
+	border-radius: $border-radius;
+	background-color: $background-color;
+
+	ul {
+		max-height: 40rem;
+		min-width: 7rem;
+		max-width: 20rem;
+		overflow: auto;
+		margin: 0;
+		padding: $border-radius 0;
+		list-style: none;
+	}
+
+	a {
+		display: block;
+		padding: $padding-y $padding-x;
+		color: $text-color;
+		cursor: default;
+		transition: background-color $duration;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	a:hover, &-active > a {
+		background-color: $hover-background-color;
+		text-decoration: none;
+	}
+
+	&-divider {
+		height: 1px;
+		background-color: $border-color;
+		overflow: hidden;
+		margin: $border-radius;
+	}
+
+	&-arrow > a {
+		padding-right: $spacer + 1.25rem;
+		position: relative;
+
+		&:after {
+			content: '⮞';
+			font-family: 'x-icon';
+			position: absolute;
+			right: $spacer;
+			top: 50%;
+			margin-top: -0.65rem;
+			color: darken($text-color-light, 7%);
+		}
+	}
+
+	&-disabled > a {
+		pointer-events: none;
+		color: $disable-text-color !important;
+		background-color: transparent !important;
+	}
+}

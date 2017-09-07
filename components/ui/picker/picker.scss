@@ -1,0 +1,43 @@
+@import "configs";
+
+.x-picker {
+    position: relative;
+    display: inline-block;
+    width: $input-width;
+
+    .x-textbox {
+        width: 100%;
+        padding-right: $spacer * 2 + 1rem;
+
+        &:focus + .x-button, &-active + .x-button, & + .x-button:active {
+            color: $focus-border-color;
+        }
+
+        @include state {
+            + .x-button {
+                color: $state-text-color !important;
+            }
+        }
+    }
+
+    .x-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-color: transparent;
+        border-radius: 0 $border-radius $border-radius 0;
+        padding-left: $spacer;
+        padding-right: $spacer;
+        background-color: transparent;
+        color: $text-color-light;
+        transition: color $duration;
+    }
+
+    .x-icon {
+        line-height: 1.5rem;
+    }
+
+    &-select:not(&-readonly) .x-textbox {
+        background: $background-color;
+    }
+}

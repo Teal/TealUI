@@ -1,0 +1,74 @@
+@import "configs";
+@import "typo/mixins";
+
+.x-tab {
+	border-bottom: 1px solid $border-color;
+	margin-bottom: $margin-y;
+
+	&-body {
+		overflow: hidden;
+		position: relative;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+		width: 1000000rem;
+		@include clear();
+	}
+
+	li {
+		list-style: none;
+		float: left;
+		padding: $padding-y-small $spacer;
+	}
+
+	a {
+		color: $text-color;
+		transition: color $duration;
+		overflow: hidden;
+		display: inline-block;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		min-width: 1rem;
+		max-width: 14rem;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+
+	.x-close {
+		margin-left: $spacer-small;
+	}
+
+	&-active a {
+		color: $primary-color;
+	}
+
+	.x-tab-bar {
+		position: absolute;
+		bottom: -1px;
+		height: 3px;
+		background-color: $primary-color;
+		transition: transform $duration, width $duration;
+	}
+
+	&-left, &-right {
+		color: $text-color-light !important;
+		padding: $padding-y-small $spacer;
+		line-height: 1rem * $line-height;
+	}
+
+	&-left {
+		float: left;
+	}
+
+	&-right {
+		float: right;
+	}
+
+	&-disable {
+		cursor: $cursor-disable;
+		opacity: 0.3;
+	}
+}

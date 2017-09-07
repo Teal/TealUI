@@ -1,0 +1,245 @@
+// 色系
+$primary-color: #208fee !default;
+$secondary-color: #eff7fe !default;
+$accent-color: #f5a738 !default;
+
+// 文本
+$text-color: #666 !default;
+$text-color-dark: #333 !default;
+$text-color-light: #999 !default;
+
+// 背景
+$background-color: #fff !default;
+$background-color-dark: #f5f5f5 !default;
+$background-color-light: #fff !default;
+
+// 线条
+$border-color: #e0e0e0 !default;
+$border-color-dark: #e0e0e0 !default;
+$border-color-light: #eee !default;
+
+// 交互
+$hover-background-color: #fafafa !default;
+$focus-border-color: $primary-color !default;
+
+// 选中
+$selected-text-color: #fff !default;
+$selected-background-color: $primary-color !default;
+
+// 禁用
+$disable-text-color: $text-color-light !default;
+$disable-background-color: $border-color-light !default;
+
+// 状态
+$info-text-color: #2487d0 !default;
+$info-background-color: #daebf7 !default;
+$info-border-color: darken($info-background-color, 5%) !default;
+
+$success-text-color: #3ca23c !default;
+$success-background-color: #d3f0d3 !default;
+$success-border-color: darken($success-background-color, 5%) !default;
+
+$warning-text-color: #e28f19 !default;
+$warning-background-color: #fcf0de !default;
+$warning-border-color: darken($warning-background-color, 5%) !default;
+
+$error-text-color: #d63a29 !default;
+$error-background-color: #fef0ef !default;
+$error-border-color: darken($error-background-color, 5%) !default;
+
+// 字体
+$font-family: "Helvetica Neue For Number", apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif !default;
+$font-family-scripts: Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif !default;
+$font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft Yahei", monospace !default;
+
+// 字号
+$font-size: 14px !default;
+$font-size-large: 125% !default;
+$font-size-small: 87.5% !default;
+
+// 字粗
+$font-weight: normal !default;
+$font-weight-large: 500 !default;
+$font-weight-small: 100 !default;
+
+// 行高
+$line-height: 1.5 !default;
+$line-height-large: 1.75 !default;
+$line-height-small: 1.25 !default;
+
+// 外边距
+$margin-y: 1rem !default;
+$margin-x: 1rem !default;
+$margin-y-large: 1.5rem !default;
+$margin-x-large: 1.5rem !default;
+$margin-y-small: .5rem !default;
+$margin-x-small: .5rem !default;
+
+// 内边距
+$padding-y: .375rem !default;
+$padding-x: 1rem !default;
+$padding-y-large: .5rem !default;
+$padding-x-large: 1.25rem !default;
+$padding-y-small: .25rem !default;
+$padding-x-small: .75rem !default;
+
+// 空白
+$spacer: .5rem !default;
+$spacer-large: 1rem !default;
+$spacer-small: .25rem !default;
+
+// 圆角
+$border-radius: .2rem !default;
+$border-radius-large: .25rem !default;
+$border-radius-small: .15rem !default;
+
+// 响应式
+$screen-small: 640px !default;
+$screen-medium: 1024px !default;
+$screen-large: 1280px !default;
+
+// Z-index
+$z-index-dropdown: 900 !default;
+$z-index-fixed: 1000 !default;
+$z-index-popup: 1100 !default;
+
+// 宽度
+$dropdown-min-width: 5rem;
+$dropdown-max-width: 15rem;
+$dropdown-max-height: 25rem;
+$popup-max-width: 25rem;
+$input-width: 11rem;
+
+// 动画
+$duration: .2s !default;
+$duration-large: .3s !default;
+$duration-small: .1s !default;
+
+// 鼠标
+$cursor-help: help !default;
+$cursor-disabled: not-allowed !default;
+
+// 状态
+@mixin screen($screens: small large medium) {
+    @each $screen in $screens {
+        $screen: $screen !global;
+        @if $screen=="small" {
+            $screen-postfix: "" !global;
+            @content;
+        }
+        @else if $screen=="large" {
+            $screen-postfix: "-large" !global;
+            @media (min-width: #{$screen-small + 1px}) {
+                @content;
+            }
+        }
+        @else if $screen=="medium" {
+            $screen-postfix: "-medium" !global;
+            @media (min-width: #{$screen-small + 1px}) and (max-width: #{$screen-medium}) {
+                @content;
+            }
+        }
+        @else {
+            @warn "$screen must be one of these: 'small', 'large', 'medium'. Current value is '#{$screen}'.";
+        }
+    }
+}
+
+@mixin state($states: info success warning error) {
+    @each $state in $states {
+        $state: $state !global;
+        @if $state=="info" {
+            $state-text-color: $info-text-color !global;
+            $state-background-color: $info-background-color !global;
+            $state-border-color: $info-border-color !global;
+        }
+        @else if $state=="success" {
+            $state-text-color: $success-text-color !global;
+            $state-background-color: $success-background-color !global;
+            $state-border-color: $success-border-color !global;
+        }
+        @else if $state=="warning" {
+            $state-text-color: $warning-text-color !global;
+            $state-background-color: $warning-background-color !global;
+            $state-border-color: $warning-border-color !global;
+        }
+        @else if $state=="error" {
+            $state-text-color: $error-text-color !global;
+            $state-background-color: $error-background-color !global;
+            $state-border-color: $error-border-color !global;
+        }
+        @else if $state=="primary" {
+            $state-text-color: $primary-color !global;
+            $state-background-color: $background-color !global;
+            $state-border-color: $border-color !global;
+        }
+        @else {
+            @warn "$state must be one of these: 'info', 'success', 'warning', 'error', 'primary'. Current value is '#{$state}'.";
+        }
+        &-#{$state} {
+            @content;
+        }
+    }
+}
+
+@mixin size($sizes: large small) {
+    @each $size in $sizes {
+        $size: $size !global;
+        @if $size=="large" {
+            $margin-y-size: $margin-y-large !global;
+            $margin-x-size: $margin-x-large !global;
+            $padding-y-size: $padding-y-large !global;
+            $padding-x-size: $padding-x-large !global;
+            $spacer-size: $spacer-large !global;
+            $border-radius-size: $border-radius-large !global;
+            $font-size-size: $font-size-large !global;
+            $font-weight-size: $font-weight-large !global;
+            $line-height-size: $line-height-large !global;
+        }
+        @else if $size=="small" {
+            $margin-y-size: $margin-y-small !global;
+            $margin-x-size: $margin-x-small !global;
+            $padding-y-size: $padding-y-small !global;
+            $padding-x-size: $padding-x-small !global;
+            $spacer-size: $spacer-small !global;
+            $border-radius-size: $border-radius-small !global;
+            $font-size-size: $font-size-small !global;
+            $font-weight-size: $font-weight-small !global;
+            $line-height-size: $line-height-small !global;
+        }
+        @else if $size=="medium" {
+            $margin-y-size: $margin-y !global;
+            $margin-x-size: $margin-x !global;
+            $padding-y-size: $padding-y !global;
+            $padding-x-size: $padding-x !global;
+            $spacer-size: $spacer !global;
+            $border-radius-size: $border-radius !global;
+            $font-size-size: $font-size !global;
+            $font-weight-size: $font-weight !global;
+            $line-height-size: $line-height !global;
+        }
+        @else {
+            @warn "$size must be one of these: 'small', 'large', 'medium'. Current value is '#{$size}'.";
+        }
+        &-#{$size} {
+            @content;
+        }
+    }
+}
+
+// 工具
+@mixin clear() {
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+@mixin reset-button() {
+    -webkit-appearance: none;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    outline: 0;
+}

@@ -1,0 +1,13 @@
+﻿@import "configs";
+
+.x-avatar {
+    border-radius: $border-radius;
+
+    @include size {
+        border-radius: $border-radius-size;
+    }
+
+    &-rounded {
+        border-radius: 50%;
+    }
+}

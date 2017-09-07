@@ -1,0 +1,33 @@
+@import "configs";
+
+.x-treeview {
+	padding: 0;
+	overflow: auto;
+
+	.x-icon {
+		transition: transform $duration;
+	}
+
+	a {
+		color: $text-color;
+	}
+
+	li {
+		list-style: none;
+		text-overflow: ellipsis;
+		width: 100%;
+	}
+
+	ul {
+		padding-left: 1rem;
+		overflow: hidden;
+	}
+
+	&-active > a {
+		color: $primary-color;
+	}
+
+	&-collapsed .x-icon {
+		transform: rotate(-90deg);
+	}
+}

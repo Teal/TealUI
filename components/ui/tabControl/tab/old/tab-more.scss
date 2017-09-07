@@ -1,0 +1,85 @@
+@import "configs";
+
+.x-tab {
+
+	&-bottom, &-left, &-right {
+		border-bottom: 0;
+	}
+
+	&-bottom {
+		border-width: 1px 0 0 1px;
+
+		a {
+			margin: -1px 0 0 0;
+		}
+
+		li:first-child a {
+			margin-left: 0;
+		}
+
+		.x-tab-actived a {
+			border-color: $background-color-light $border-color $border-color $border-color;
+		}
+	}
+
+	&-left, &-right {
+		li {
+			display: block;
+			float: none;
+		}
+	}
+
+	&-left {
+		float: left;
+		margin-right: $margin-x;
+		border-width: 0 1px 0 0;
+
+		a {
+			margin-right: -1px;
+			margin-bottom: 0;
+			border-width: 1px;
+		}
+
+		li {
+			&:not(:first-child) {
+				border-top-width: 0;
+			}
+
+			&:last-child a {
+				border-top-right-radius: 0;
+				border-bottom-left-radius: $border-radius;
+			}
+		}
+
+		.x-tab-actived a {
+			border-color: $border-color $background-color-light $border-color $border-color;
+		}
+	}
+
+	&-right {
+		float: right;
+		margin-left: $margin-x;
+		border-width: 0 0 0 1px;
+
+		a {
+			margin-left: -1px;
+			margin-bottom: 0;
+			border-width: 1px;
+		}
+
+		li {
+			&:not(:first-child) {
+				border-top-width: 0;
+			}
+
+			&:last-child a {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: $border-radius;
+			}
+		}
+
+		.x-tab-actived a {
+			border-color: $border-color $border-color $border-color $background-color-light;
+		}
+	}
+}

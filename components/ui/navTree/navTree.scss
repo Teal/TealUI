@@ -1,0 +1,26 @@
+/**
+ * $author xuld$vip.qq.com
+ */
+
+@import "configs";
+
+.x-tree {
+    margin: 0;
+    padding: 0;
+
+    li {
+        list-style: none;
+        .text-overflow(ellipsis);
+    width: 100%;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 2em;
+    }
+}
+
+.x-tree-selected > a{
+    color: #e9985e;
+    font-weight: bold;
+}

@@ -1,0 +1,73 @@
+/**
+ * @fileOverview 表单
+ * @author xuld <xuld@vip.qq.com>
+ */
+@import "../configs.less";
+@import "../typo/mixins.less";
+
+@formFieldWidth: @font-size * 8;
+
+.x-form {
+    .x-col {
+       // line-height: @line-height + (@padding-y + 1) * 2 + 1px;
+        display: block;
+        // margin-bottom: @grid-margin / 2;
+
+        // &:first-child {
+        //     margin-bottom: 0;
+        // }
+    }
+}
+
+label.x-col {
+    text-align: right;
+}
+
+.x-form-horizontal {
+
+    @media (max-width: @screen-small-max) {
+        .x-col {
+            width: 100%;
+        }
+    }
+
+    @media (min-width: @screen-medium-min) {
+        .x-col:first-child {
+            padding-right: 0;
+            text-align: right;
+        }
+    }
+}
+
+.x-form-inline {
+    @media (min-width: @screen-medium-min) {
+        .x-row:after {
+            content: '';
+            clear: none;
+        }
+
+        .x-col {
+            padding-right: 0;
+        }
+    }
+}
+
+.x-form-required {
+    color: @error-text-color;
+}
+
+.x-form-short {
+    width: @font-size * 5 !important;
+}
+
+.x-form-long {
+    width: @font-size * 35 !important;
+}
+
+// 保证验证码居中显示
+.x-form-img {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    height: @line-height + (@padding-y + 1) * 2 + 1px;
+}

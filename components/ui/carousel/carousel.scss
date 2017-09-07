@@ -1,0 +1,119 @@
+@import "configs";
+@import "typo/mixins";
+
+.x-carousel {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+
+	&-body {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		overflow: hidden;
+		@include clear();
+
+		> li {
+			float: left;
+			display: none;
+			line-height: 0;
+			width: 100%;
+
+			&.x-carousel-active {
+				display: block;
+			}
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	&-title {
+		position: absolute;
+		left: 80px;
+		right: 80px;
+		bottom: 24px;
+		text-align: center;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
+		color: $background-color;
+	}
+
+	&-indicators {
+		position: absolute;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		bottom: 5px;
+		left: 0;
+		right: 0;
+		z-index: 10;
+		text-align: center;
+		opacity: 0.8;
+
+		li {
+			display: inline-block;
+			width: $font-size / 2;
+			height: $font-size / 2;
+			border: 1px solid $background-color;
+			border-radius: 50%;
+			cursor: pointer;
+			margin: 0 2px;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+
+			&.x-carousel-active {
+				background-color: $background-color;
+			}
+		}
+	}
+
+	&-control {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 80px;
+		opacity: 0.8;
+		color: $background-color;
+
+		span {
+			font-size: 30px;
+			position: absolute;
+			top: 50%;
+			margin-top: -15px;
+			margin-right: 0;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+		}
+
+		&:hover {
+			color: $background-color;
+			opacity: 1;
+			text-decoration: none;
+		}
+	}
+
+	&-control-prev {
+		left: 0;
+
+		span {
+			left: 20px;
+		}
+
+		&:hover {
+			background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.0005) 100%);
+		}
+	}
+
+	&-control-next {
+		right: 0;
+
+		span {
+			right: 20px;
+		}
+
+		&:hover {
+			background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0005) 0%, rgba(0, 0, 0, 0.2) 100%);
+		}
+	}
+}

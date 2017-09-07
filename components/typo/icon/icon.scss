@@ -1,0 +1,28 @@
+@import "configs";
+
+$icon-name: "x-icon" !default;
+$icon-cache: "rc" !default;
+
+@font-face {
+    font-family: $icon-name;
+    src: url("fonts/icon.ttf?#{$icon-cache}") format("truetype"), url("fonts/icon.woff?#{$icon-cache}") format("woff"), url("fonts/icon.svg?#{$icon-cache}#icon") format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+.x-icon {
+    display: inline-block;
+    font-family: $icon-name;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+
+    a & {
+        margin-right: .25rem;
+    }
+}

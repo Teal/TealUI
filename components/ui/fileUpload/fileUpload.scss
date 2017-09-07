@@ -1,0 +1,24 @@
+@import "configs";
+
+.x-fileupload {
+	position: relative;
+	overflow: hidden;
+
+	input[type="file"] {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		cursor: default;
+
+		&:focus + .x-button, &:hover + .x-button {
+			background-color: darken($background-color-dark, 5%);
+		}
+
+		&:active + .x-button {
+			background-color: darken($background-color-dark, 10%);
+		}
+	}
+}

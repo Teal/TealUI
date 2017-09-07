@@ -1,0 +1,30 @@
+@import "configs";
+
+.x-splitter {
+	z-index: $z-index-dropdown;
+	overflow: hidden;
+	position: absolute;
+
+	&-proxy {
+		position: absolute;
+		overflow: hidden;
+		background: none repeat scroll 0 0 $border-color-dark;
+		z-index: $z-index-popover;
+	}
+
+	&-vertical {
+		cursor: e-resize;
+		cursor: col-resize;
+		width: 6px;
+		height: 100%;
+		top: 0;
+	}
+
+	&-horizontal {
+		cursor: n-resize;
+		cursor: row-resize;
+		width: 100%;
+		height: 6px;
+		left: 0;
+	}
+}

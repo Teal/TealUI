@@ -1,0 +1,29 @@
+/**
+ * $author xuld$vip.qq.com
+ */
+
+@import "configs";
+
+.x-searchtextbox {
+    display: inline-block;
+    position: relative;
+
+    .x-textbox {
+        padding-right: $font-size * 2 + 4px;
+    }
+
+    .x-searchtextbox-button {
+        background: none;
+        border: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: $padding-height + 1px $font-size - 4px;
+        
+        &:active {
+            right: -1px;
+            top: 1px;
+        }
+    }
+
+}

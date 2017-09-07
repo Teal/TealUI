@@ -1,0 +1,13 @@
+@import "configs";
+
+.x-toast {
+	position: fixed;
+	right: $margin-x;
+	top: $margin-x;
+	max-width: 25rem;
+
+	&.x-tooltip {
+		max-width: 15rem;
+		padding: $padding-y-large $padding-x-large;
+	}
+}

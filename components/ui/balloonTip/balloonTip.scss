@@ -1,0 +1,32 @@
+@import "configs";
+
+.x-balloontip {
+	position: absolute;
+	z-index: $z-index-popover;
+    min-width: 15rem;
+	display: none;
+
+	.x-arrow-top:before {
+		border-bottom-color: $background-color-light;
+	}
+
+	.x-arrow-bottom:before {
+		border-top-color: $background-color-light;
+	}
+
+	.x-arrow-left:before {
+		border-right-color: $background-color-light;
+	}
+
+	.x-arrow-right:before {
+		border-left-color: $background-color-light;
+	}
+
+	.x-panel-header ~ .x-arrow-top:before {
+		border-bottom-color: $background-color-dark;
+	}
+
+	.x-panel-footer ~ .x-arrow-bottom:before {
+		border-top-color: $background-color-dark;
+	}
+}

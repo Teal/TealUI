@@ -1,0 +1,46 @@
+﻿@import "configs";
+@import "typo/mixins";
+
+.x-nav {
+	padding: 0;
+	list-style: none;
+
+	a {
+		display: block;
+		border-radius: $border-radius;
+		padding: $padding-y $padding-x;
+		margin-bottom: $margin-y-small;
+
+		&:hover {
+			text-decoration: none;
+			background-color: $hover-background-color;
+		}
+	}
+
+	.x-badge {
+		float: right;
+	}
+
+	&-active a {
+		background-color: $active-background-color !important;
+		color: $active-text-color !important;
+
+		.x-badge {
+			background-color: $active-text-color;
+			color: $active-background-color;
+		}
+	}
+
+	@include screen(large) {
+		&-horizonal {
+			@include clear();
+			li {
+				float: left;
+
+				+ li {
+					margin-left: $margin-x-small;
+				}
+			}
+		}
+	}
+}

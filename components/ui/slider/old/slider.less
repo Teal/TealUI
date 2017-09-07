@@ -1,0 +1,40 @@
+/**
+ * $author xuld$vip.qq.com
+ */
+
+@import "configs";
+
+.x-slider {
+    display: inline-block;
+    width: 100%;
+    height: $font-size - 4px;
+    position: relative;
+    border: solid 1px $border-color;
+}
+
+.x-slider-fore {
+    position: absolute;
+    height: 100%;
+    background-color: darken($background-color-hover, 5%);
+    font-size: $font-size - 4px;
+    line-height: $font-size - 4px;
+    text-align: center;
+}
+
+.x-slider-handle {
+    position: absolute;
+    margin-left: -$font-size / 2;
+    top: -3px;
+    border: solid 1px $border-color;
+    border-radius: $border-radius-small;
+    background-color: darken($background-color-hover, 10%);
+    width: $font-size;
+    height: $font-size;
+    cursor: w-resize;
+    
+    &:hover {
+	    border-color: darken($background-color-hover, 25%);
+        background-color: darken($background-color-hover, 20%);
+    }
+
+}

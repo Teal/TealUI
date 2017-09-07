@@ -1,0 +1,14 @@
+
+@import "configs";
+
+.x-colorpicker-demo {
+    position: absolute;
+    left: $padding-width;
+    top: ($padding-height + $line-height) / 2 - ($font-size - 2) / 4;
+    width: $font-size - 2px;
+    height: $font-size - 2px;
+
+    + .x-textbox {
+        padding-left: $padding-width * 2 + $font-size - 6px;
+    }
+}

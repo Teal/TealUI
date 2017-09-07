@@ -1,0 +1,35 @@
+@import "configs";
+
+.x-slider {
+	display: inline-block;
+	width: 100%;
+	height: $font-size - 4px;
+	position: relative;
+	border: solid 1px $border-color;
+
+	&-body {
+		position: absolute;
+		height: 100%;
+		background-color: darken($hover-background-color, 5%);
+		font-size: $font-size - 4px;
+		line-height: $font-size - 4px;
+		text-align: center;
+	}
+
+	&-handle {
+		position: absolute;
+		margin-left: -$font-size / 2;
+		top: -3px;
+		border: solid 1px $border-color;
+		border-radius: $border-radius-small;
+		background-color: darken($hover-background-color, 10%);
+		width: $font-size;
+		height: $font-size;
+		cursor: w-resize;
+
+		&:hover {
+			border-color: darken($hover-background-color, 25%);
+			background-color: darken($hover-background-color, 20%);
+		}
+	}
+}

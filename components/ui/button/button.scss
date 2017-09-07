@@ -1,0 +1,78 @@
+@import "configs";
+
+.x-button {
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px solid $border-color-dark;
+    border-radius: $border-radius;
+    padding: $padding-y $padding-x;
+    background-color: $background-color-dark;
+    text-align: center;
+    white-space: pre;
+    touch-action: manipulation;
+    user-select: none;
+    outline: 0;
+    transition: border-color ease-in-out $duration, background-color ease-in-out $duration;
+
+    &, &:hover {
+        color: $text-color;
+        text-decoration: none;
+    }
+
+    &:focus {
+        border-color: $focus-border-color;
+    }
+
+    &:hover {
+        background-color: darken($background-color-dark, 5%);
+    }
+
+    &:active, &-active, &-active:hover {
+        background-color: darken($background-color-dark, 10%);
+    }
+
+    &[disabled] {
+        pointer-events: none; // 参考 https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events。
+        cursor: $cursor-disabled; // 由于 pointer-events: none 可能不生效。
+        opacity: .5;
+    }
+
+    &-primary {
+        border-color: $primary-color;
+        background-color: $primary-color;
+        color: $selected-text-color;
+
+        &:hover {
+            border-color: darken($primary-color, 5%);
+            background-color: darken($primary-color, 5%);
+            color: $selected-text-color;
+        }
+    }
+
+    &-alt {
+        border-color: $primary-color;
+        background: transparent !important;
+        color: $primary-color !important;
+    }
+
+    @include state(info success warning error) {
+        border-color: $state-text-color;
+        background-color: transparent;
+        color: $state-text-color;
+
+        &:hover {
+            border-color: darken($state-text-color, 5%);
+            color: $state-text-color;
+        }
+
+        &:active, &-active, &-active:hover {
+            background-color: $background-color-dark;
+        }
+    }
+
+    @include size {
+        border-radius: $border-radius-size;
+        padding: $padding-y-size $padding-x-size;
+        font-size: $font-size-size;
+    }
+}

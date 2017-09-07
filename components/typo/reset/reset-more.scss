@@ -1,0 +1,97 @@
+@import "configs";
+
+// 隐藏 tabindex=-1 的边框。
+[tabindex="-1"]:focus {
+    outline: none !important;
+}
+
+// Edge：强制显示按钮超出部分。
+button, input {
+    overflow: visible;
+}
+
+// Firefox：禁止继承 text-transform 属性。
+button, select {
+    text-transform: none;
+}
+
+// Firefox、IE：修复透明按钮缺失选中样式。
+button:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+}
+
+// Safari Mobile：修复设置 line-height 会导致文字对齐错误的 BUG。
+// https://bugs.webkit.org/show_bug.cgi?id=139848
+input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
+    -webkit-appearance: listbox;
+}
+
+// IE 10-：统一单选按钮和选择框默认对齐方式。
+input[type=radio], input[type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+
+    &[disabled] {
+        cursor: $cursor-disabled;
+    }
+}
+
+// Chrome: 修复数字框按钮大小。
+[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+// 统一 HTML5 标签。
+output {
+    display: inline-block;
+}
+
+summary {
+    display: list-item;
+}
+
+// IE6-8：解决图片缩放质量变低问题。
+img {
+    -ms-interpolation-mode: bicubic;
+}
+
+// IE6-8：支持 HTML5 新标签。
+article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary, hgroup {
+    display: block;
+}
+
+// IE6-8: 支持 HTML5 新标签。
+audio, video, canvas {
+    display: inline-block;
+}
+
+// 隐藏 <fieldset> 空节点。
+// https://html.spec.whatwg.org/multipage/#the-fieldset-and-legend-elements
+fieldset {
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    border: 0;
+    padding: 0;
+}
+
+legend {
+    display: block;
+    margin-bottom: $margin-y-small;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    color: inherit;
+    font-size: $font-size-large;
+    line-height: inherit;
+    white-space: normal;
+}
+
+// IE 8-11、Safari、Chrome: 添加下划线。
+abbr[title] {
+    border-bottom: 0;
+    text-decoration: underline;
+    text-decoration: underline dotted;
+    cursor: $cursor-help;
+}

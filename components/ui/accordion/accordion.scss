@@ -1,0 +1,21 @@
+@import "configs";
+
+.x-accordion {
+    margin: 0 0 $margin-y;
+
+    &:last-child {
+        margin: 0;
+    }
+
+    > .x-panel:not(:first-child) {
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    > .x-panel:not(:last-child) {
+        margin-bottom: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

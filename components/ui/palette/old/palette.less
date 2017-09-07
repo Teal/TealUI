@@ -1,0 +1,71 @@
+
+@import "configs";
+
+.x-palette {
+    display: inline-block;
+    background-color: $background-color-hover;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 3px;
+    cursor: default;
+    overflow: hidden;
+}
+
+.x-palette-body {
+    .clearfix();
+    width: $font-size * 10 + $font-size * 1.6 + 3px + 2px + 2px;
+}
+
+.x-palette-main, .x-palette-slider {
+    float: left;
+    border: 1px solid $border-color;
+}
+
+.x-palette-value-handle {
+    border: 1px solid $border-color;
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    margin-top: -3px;
+    position: absolute;
+}
+
+.x-palette-slider {
+    float: right;
+    width: $font-size * 1.6;
+    height: $font-size * 10;
+    background-image: -webkit-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: -moz-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: -o-linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background-image: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    position: relative;
+}
+
+.x-palette-sat {
+    background-image: -webkit-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: -moz-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: -o-linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    background-image: linear-gradient(to right, #fff, rgba(204, 154, 129, 0));
+    position: relative;
+}
+
+.x-palette-value {
+    width: $font-size * 10;
+    height: $font-size * 10;
+    background-image: linear-gradient(to top, #000, rgba(204, 154, 129, 0));
+    position: relative;
+}
+
+.x-palette-slider-handle {
+    border-right-color: $text-color;
+    left: auto;
+    right: -8px;
+}
+
+.x-palette-history {
+    display: inline-block;
+    border: 1px solid $border-color;
+    width: 10px;
+    height: 10px;
+}

@@ -1,0 +1,12 @@
+﻿@import "configs";
+
+.x-hover {
+    &-show {
+        opacity: 0;
+        transition: opacity $duration;
+    }
+
+    &:hover &-show {
+        opacity: 1;
+    }
+}

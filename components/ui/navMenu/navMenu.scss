@@ -1,0 +1,107 @@
+@import "configs";
+.x-navmenu {
+    z-index: $z-index-dropdown;
+    height: 100%;
+    background-color: $background-color;
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        ul {
+            a {
+                padding-left: 3.2rem; // background-color: lighten($active-background-color-dark, 5%);
+                background-color: transparent;
+            }
+            ul {
+                a {
+                    padding-left: 3.5rem;
+                }
+                ul {
+                    a {
+                        padding-left: 6rem;
+                    }
+                }
+            }
+        }
+    }
+    a {
+        display: block;
+        border-right: 4px solid transparent;
+        padding: $margin-y-large / 2 $padding-x; // color: #9da5b3;
+        color: #333333;
+        white-space: pre;
+        transition: background-color $duration, color $duration, border-color $duration;
+    }
+    a:hover,
+    &-active > a {
+        border-right-color: $primary-color; // background-color: darken($active-background-color-dark, 7%);
+        background-color: $secondary-color; // color: $active-text-color;
+        color: #333333;
+        text-decoration: none;
+    }
+    &-body > &-active > a {
+        font-weight: 700;
+        color: $primary-color;
+        border-right-color: transparent;
+    }
+    .x-icon-focus {
+        display: none;
+    }
+    &-active {
+        .x-icon {
+            display: none;
+            color: $primary-color;
+        }
+        .x-icon-focus {
+            display: inline-block;
+        }
+        &:not(.x-navmenu-collapsable) {
+            background-color: $secondary-color;
+        }
+    }
+    &-body {
+        max-height: calc(100% - #{1rem * $line-height + $margin-y-large});
+        overflow: auto;
+    }
+    &-popover {
+        position: absolute;
+        z-index: 9000000000;
+        display: none;
+        width: 15rem; // background-color: $active-background-color-dark;
+        background-color: #fefefe;
+        a i:first-child,
+        a span:first-child {
+            margin-left: -1.2rem;
+        }
+        .x-navmenu-collapsable > a:before,
+        span {
+            display: inline !important;
+        }
+    }
+    &-title {
+        color: white;
+        span {
+            margin-left: 1rem;
+        }
+    }
+    &-min-title {
+        color: white;
+        display: none;
+    }
+    &-collapsable {
+        > a:before {
+            content: ">";
+            float: right;
+            font-family: x-admin-font;
+            transition: transform $duration;
+            transform: rotate(90deg);
+            font-size: .8rem;
+            line-height: 1.5rem;
+        }
+    }
+    &-collapsed {
+        > a:before {
+            transform: rotate(0deg);
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "__nameLower__",
+    "description": "__description__",
+    "version": "__version__",
+    "author": "__author__ <__email__>",
+    "types": "./__name__.ts"
+}

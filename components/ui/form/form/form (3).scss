@@ -1,0 +1,32 @@
+@import "configs";
+
+.x-form {
+	&-input {
+		margin-bottom: $margin-y;
+	}
+
+	br {
+		line-height: 2rem + $margin-y-small;
+	}
+
+	@include screen(large) {
+		&-horizonal {
+			display: table;
+
+			.x-form-field {
+				display: table-row;
+			}
+
+			.x-form-label {
+				display: table-cell;
+				text-align: right;
+				white-space: nowrap;
+				padding-right: $margin-x;
+			}
+
+			.x-form-input + .x-form-label {
+				padding-left: $margin-x-large;
+			}
+		}
+	}
+}

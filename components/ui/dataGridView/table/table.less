@@ -1,0 +1,86 @@
+/**
+ * @fileOverview 表格
+ * @author xuld <xuld@vip.qq.com>
+ */
+@import "../configs.less";
+@import "../typo/mixins.less";
+
+.x-table {
+    width: 100%;
+    background-color: @white;
+        font-size: @font-size;
+
+    tbody {
+        // 鼠标以上高亮。
+        tr:hover {
+            background-color: @background-color-hover;
+        }
+    }
+
+    thead {
+        background-color: #FAFAFA;
+    }
+
+    th {
+        text-align: left;
+        font-weight: 200;
+        color: #A6A6A6;
+        padding: 11px 14px;
+        min-width: 50px;
+        max-width: 200px;
+        text-overflow: ellipsis;
+    }
+}
+
+.x-table-empty {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: @gray-darker;
+}
+
+// 表格间隔行高亮。
+.x-table-striped tbody tr:nth-child(odd) {
+    background-color: @background-color-striped;
+}
+
+// 状态。
+.x-table-state(@state) {
+    .x-table-@{state} {
+        background-color: ~"@{@{state}-background-color}" !important;
+        color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-table-state(info);
+.x-table-state(success);
+.x-table-state(warning);
+.x-table-state(error);
+
+// 激活状态。
+.x-table-selected, .x-table-selected td {
+    background-color:  #FAFAFA !important;
+}
+
+// 尺寸。
+.x-table-large {
+    th, td {
+        padding: @padding-y-large @padding-x-large;
+    }
+}
+
+.x-table-small {
+    th, td {
+        padding: @padding-y-small @padding-x-small;
+    }
+}
+
+tr.x-table-edit{
+    th, td {
+        padding: 0;
+        .x-textbox {
+            border: 0;
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,67 @@
+@import "configs";
+
+$grid-column-count: 24 !default;
+$grid-avg-count: 6 !default;
+$grid-container-max-width: 1200px !default;
+$grid-gutter-y: $margin-y !default;
+$grid-gutter-x: $margin-x !default;
+
+.x-row {
+    @include clear();
+    margin: 0 (-$grid-gutter-x / 2);
+
+    &:first-child {
+        margin-top: -$grid-gutter-y;
+    }
+}
+
+.x-col {
+    float: left;
+    margin-top: $grid-gutter-y;
+}
+
+.x-container, .x-col {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 $grid-gutter-x / 2;
+}
+
+.x-container {
+    margin: 0 auto;
+    max-width: $grid-container-max-width;
+}
+
+.x-row-avg {
+    display: table;
+    margin-bottom: $grid-gutter-y;
+    width: 100%;
+    table-layout: fixed;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &::after {
+        display: none;
+    }
+
+    > .x-col {
+        display: table-cell;
+        float: none;
+        width: 100%;
+    }
+}
+
+@include screen {
+    @for $i from 1 through $grid-avg-count {
+        .x-row#{$screen-postfix}-#{$i} > .x-col {
+            width: 100% / $i;
+        }
+    }
+
+    @for $i from 1 through $grid-column-count {
+        .x-col#{$screen-postfix}-#{$i} {
+            width: 100% * $i / $grid-column-count;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+.x-splitter {
+    position: absolute;
+    top: 0;
+    z-index: 1000000;
+    width: 6px;
+    height: 100%;
+    background-color: #000;
+    cursor: col-resize;
+    opacity: 0;
+}
+
+.x-splitter-horizontal {
+    left: 0;
+    width: 100%;
+    height: 6px;
+    cursor: row-resize;
+}

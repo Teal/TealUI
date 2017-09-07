@@ -1,0 +1,11 @@
+﻿@import "configs";
+
+.x-breadcrumb {
+    margin: 0 0 $margin-y;
+    color: $text-color-light;
+    font-size: 95%;
+
+    &-divider {
+        margin: 0 $spacer-small;
+    }
+}

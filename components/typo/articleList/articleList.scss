@@ -1,0 +1,12 @@
+@import "configs";
+
+.x-articlelist {
+    > li {
+        padding: $margin-y 0;
+    }
+
+    p {
+        margin-bottom: 0;
+        line-height: $line-height;
+    }
+}

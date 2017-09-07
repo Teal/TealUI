@@ -1,0 +1,52 @@
+@import "configs";
+@import "typo/mixins";
+
+.x-pager {
+	text-align: center;
+	margin: $margin-y-large 0;
+	@include clear();
+	float:left;
+	a {
+		display: inline-block;
+		border: 1px solid $border-color;
+		padding: $padding-y $padding-x;
+		border-radius: $border-radius;
+		background-color: $background-color-dark;
+		color: $text-color;
+		margin: 0 $margin-x-small / 2;
+		transition: color $duration, background-color $duration;
+
+		&:hover {
+			text-decoration: none;
+			color: $primary-color;
+		}
+	}
+
+	&-active {
+		background-color: $background-color-light !important;
+		border-color: $focus-border-color !important;
+		color: $primary-color !important;
+	}
+
+	@include screen(large) {
+		&-header {
+			float: left;
+		}
+
+		&-footer {
+			float: right;
+		}
+	}
+
+	.x-textbox {
+		width: 4.5rem;
+	}
+
+	@include size {
+		a {
+			padding: $padding-y-size $padding-x-size;
+			border-radius: $border-radius-size;
+			font-size: $font-size-size;
+		}
+	}
+}

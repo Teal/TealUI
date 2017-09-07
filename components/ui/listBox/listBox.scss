@@ -1,0 +1,62 @@
+@import "configs";
+
+.x-listbox {
+    display: inline-block;
+    margin: 0;
+    min-width: $dropdown-min-width;
+    max-height: $dropdown-max-height;
+    overflow: auto;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 0;
+    background-color: $background-color-light;
+    list-style: none;
+    user-select: none;
+
+    a {
+        display: block;
+        padding: $padding-y $padding-x;
+        color: $text-color;
+        cursor: default;
+        transition: background-color $duration;
+
+        &:hover {
+            background-color: $hover-background-color;
+            text-decoration: none;
+        }
+
+        h1, h2, h3, h4, h5, h6, p {
+            margin: 0;
+        }
+    }
+
+    li {
+        &:first-child a {
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
+        }
+        &:last-child a {
+            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: $border-radius;
+        }
+    }
+
+    &-selected a {
+        background-color: $selected-background-color !important;
+        color: $selected-text-color;
+
+        .x-badge {
+            background-color: $selected-text-color;
+            color: $selected-background-color;
+        }
+    }
+
+    &-readonly, &-disabled {
+        background-color: $disable-background-color;
+    }
+
+    &-disabled {
+        pointer-events: none;
+        opacity: .8;
+    }
+}

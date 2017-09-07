@@ -1,0 +1,21 @@
+@import "configs";
+
+$mask-background-color: #000 !default;
+$mask-opacity: .5 !default;
+
+.x-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $z-index-fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: $mask-background-color;
+    color: $selected-text-color;
+    opacity: $mask-opacity;
+
+    &-body {
+        margin: auto;
+    }
+}

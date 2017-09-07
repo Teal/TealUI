@@ -1,0 +1,33 @@
+@import "configs";
+
+.x-inputgroup {
+	display: inline-table;
+	border-collapse: separate;
+
+	> .x-tipbox, > .x-textbox, > .x-button {
+		display: table-cell;
+
+		&:not(:first-child) {
+			border-bottom-left-radius: 0;
+			border-top-left-radius: 0;
+		}
+
+		&:not(:last-child) {
+			border-bottom-right-radius: 0;
+			border-top-right-radius: 0;
+			border-right-width: 0;
+		}
+
+		&:focus + .x-button {
+			border-left-color: $focus-border-color;
+		}
+	}
+
+	&.x-block {
+		display: table;
+
+		> .x-textbox, > .x-button {
+			width: 100%;
+		}
+	}
+}

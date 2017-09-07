@@ -1,0 +1,44 @@
+@import "configs";
+
+.x-nav {
+    padding: 0;
+    list-style: none;
+
+    a {
+        display: block;
+        margin-bottom: $margin-y-small;
+        border-radius: $border-radius;
+        padding: $padding-y $padding-x;
+
+        &:hover {
+            background-color: $hover-background-color;
+            text-decoration: none;
+        }
+    }
+
+    &-active a {
+        background-color: $selected-background-color !important;
+        color: $selected-text-color !important;
+
+        .x-badge {
+            background-color: $selected-text-color;
+            color: $selected-background-color;
+        }
+    }
+
+    &-inline {
+        display: inline;
+
+        li {
+            display: inline;
+
+            a {
+                display: inline-block;
+            }
+
+            + li {
+                margin-left: $margin-x-small;
+            }
+        }
+    }
+}

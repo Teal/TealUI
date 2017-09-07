@@ -1,0 +1,49 @@
+@import "configs";
+
+.x-progressbar {
+	display: inline-block;
+	vertical-align: middle;
+	overflow: hidden;
+	height: 1rem;
+	width: 10rem;
+	background-color: darken($background-color-dark, 3%);
+	font-family: "Microsoft YaHei";
+	font-size: $font-size-small;
+	line-height: $line-height-small;
+	border-radius: $border-radius-small;
+	text-align: center;
+
+	&-body {
+		display: block;
+		width: 100%;
+		height: 100%;
+		color: $active-text-color;
+		background-color: $primary-color;
+		transition: width $duration linear, background-color $duration ease;
+		overflow: hidden;
+	}
+
+	@include state {
+		.x-progressbar-body {
+			background-color: $state-primary-color;
+		}
+	}
+
+	&-striped .x-progressbar-body {
+		background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+		background-size: 3rem 3rem;
+	}
+
+	@keyframes x-progressbar-stripes {
+		from {
+			background-position: 0 0;
+		}
+		to {
+			background-position: 3rem 0;
+		}
+	}
+
+	&-active .x-progressbar-body {
+		animation: x-progressbar-stripes 2s linear infinite;
+	}
+}

@@ -1,0 +1,34 @@
+
+@import "configs";
+
+.x-buttongroup {
+    display: inline-table;
+    // ������ table �м̳б����ı߿����ԡ�
+    border-collapse: separate;
+    line-height: $line-height;
+
+    > .x-button {
+        display: table-cell;
+
+        &:not(:first-child) {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        &:not(:last-child) {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            border-right-width: 0;
+        }
+        // ��ȡ������ʾ�����߿���
+        &:focus + .x-button {
+            border-left-color: $border-color-input-hover;
+        }
+    }
+
+    div& {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+}

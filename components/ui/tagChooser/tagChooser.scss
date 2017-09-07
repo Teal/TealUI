@@ -1,0 +1,20 @@
+
+@import "configs";
+
+.x-tagchooser a {
+    display: inline-block;
+    padding: 3px 8px;
+    text-decoration: none;
+    color: $text-color-link;
+    border-radius: $border-radius;
+
+    &:before {
+        content: '✚ ';
+    }
+}
+
+a.x-tagchooser-selected, .x-tagchooser a:hover {
+    background-color: $selected-background-color;
+    color: $selected-text-color;
+    text-decoration: none;
+}

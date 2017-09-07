@@ -1,0 +1,149 @@
+@import "configs";
+@import "typo/mixins";
+
+.x-tabcontrol {
+	margin: 0 0 $margin-y;
+
+	&:last-child {
+		margin: 0;
+	}
+
+	&-header, &-footer {
+		@include clear();
+		position: relative;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		a {
+			float: left;
+			display: block;
+			text-align: center;
+			padding: $padding-y $padding-x;
+			color: $text-color;
+			border: 1px solid $border-color;
+			background-color: $background-color-dark;
+
+			&:hover {
+				text-decoration: none;
+				background-color: darken($background-color-dark, 5%);
+			}
+		}
+
+		li:not(:first-child) a {
+			margin: 0 0 0 -1px;
+		}
+	}
+
+	&-active a {
+		background-color: $background-color-light !important;
+	}
+
+	&-header {
+		bottom: -1px;
+
+		li {
+			&:first-child a {
+				border-radius: $border-radius 0 0 0;
+			}
+
+			&:last-child a {
+				border-radius: 0 $border-radius 0 0;
+			}
+		}
+
+		.x-tabcontrol-active a {
+			border-bottom-color: $background-color-light;
+		}
+
+		+ .x-tabcontrol-body {
+			border-radius: 0 $border-radius $border-radius $border-radius;
+		}
+	}
+
+	&-footer {
+		top: -1px;
+
+		li {
+			&:first-child a {
+				border-radius: 0 0 0 $border-radius;
+			}
+
+			&:last-child a {
+				border-radius: 0 0 $border-radius 0;
+			}
+		}
+
+		.x-tabcontrol-active a {
+			border-top-color: $background-color-light;
+		}
+	}
+
+	&-body {
+		padding: $padding-x;
+		box-sizing: border-box;
+		background-color: $background-color-light;
+		border: 1px solid $border-color;
+		border-radius: $border-radius $border-radius $border-radius 0;
+		overflow: auto;
+	}
+
+	&-horizontal {
+		@include clear();
+
+		.x-tabcontrol-header, .x-tabcontrol-footer {
+			a {
+				display: block;
+				float: none;
+			}
+
+			li:not(:first-child) a {
+				margin: -1px 0 0 0;
+			}
+		}
+
+		.x-tabcontrol-header {
+			float: left;
+			right: -1px;
+			bottom: 0;
+
+			li {
+				&:first-child a {
+					border-radius: $border-radius 0 0 0;
+					border-top-width: 1px;
+				}
+
+				&:last-child a {
+					border-radius: 0 0 0 $border-radius;
+				}
+			}
+
+			.x-tabcontrol-active a {
+				border-bottom-color: $border-color;
+				border-right-color: $background-color-light;
+			}
+		}
+
+		.x-tabcontrol-footer {
+			float: right;
+			left: -1px;
+			top: 0;
+
+			li {
+				&:first-child a {
+					border-radius: 0 $border-radius 0 0;
+					border-top-width: 1px;
+				}
+
+				&:last-child a {
+					border-radius: 0 0 $border-radius 0;
+				}
+			}
+
+			.x-tabcontrol-active a {
+				border-top-color: $border-color;
+				border-left-color: $background-color-light;
+			}
+		}
+	}
+}

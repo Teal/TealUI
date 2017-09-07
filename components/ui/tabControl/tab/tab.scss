@@ -1,0 +1,88 @@
+@import "configs";
+
+.x-tab {
+    @include clear();
+    position: relative;
+    margin: 0;
+    border-bottom: 1px solid $border-color;
+    padding: 0;
+    white-space: nowrap;
+
+    li {
+        float: left;
+        list-style: none;
+    }
+
+    a {
+        display: block;
+        margin-right: $spacer;
+        max-width: 10rem;
+        overflow: hidden;
+        padding: $padding-y-small $padding-x-small;
+        color: $text-color;
+        text-overflow: ellipsis;
+
+        &:hover {
+            color: $primary-color;
+            text-decoration: none;
+        }
+    }
+
+    &-active a {
+        border-bottom: 2px solid $primary-color;
+        color: $primary-color;
+    }
+
+    .x-close {
+        margin: .5rem 0 0 $spacer-small;
+    }
+}
+
+.x-tab2 {
+
+    a {
+        display: block;
+        margin: 0 0 -1px -1px;
+        border: 1px solid $border-color;
+        background-color: $background-color-dark;
+        color: $text-color;
+        transition: background-color $duration;
+
+        &:hover {
+            background-color: darken($background-color-dark, 5%);
+            text-decoration: none;
+        }
+    }
+
+    li {
+        &:first-child a {
+            margin-left: 0;
+            border-radius: $border-radius 0 0;
+        }
+
+        &:last-child a {
+            border-radius: 0 $border-radius 0 0;
+        }
+    }
+
+    &-active a {
+        border-bottom-color: $background-color-light;
+        background-color: $background-color-light !important;
+    }
+
+    &body {
+        border: 1px solid $border-color;
+        border-width: 0 1px 1px;
+        border-radius: 0 0 $border-radius $border-radius;
+        padding: $margin-y $padding-x;
+    }
+
+    &.x-block {
+        display: table !important;
+        border-collapse: separate;
+        li {
+            display: table-cell;
+            float: none;
+        }
+    }
+}

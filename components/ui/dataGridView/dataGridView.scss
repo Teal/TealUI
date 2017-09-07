@@ -1,0 +1,35 @@
+@import "configs";
+
+.x-datagridview {
+    thead, tfoot {
+        background-color: $background-color-dark;
+    }
+
+    &-sort {
+        thead {
+            cursor: pointer;
+
+            th::after {
+                content: "⬍";
+                color: $text-color-light;
+                font-family: "x-icon";
+                opacity: 0;
+                transition: opacity $duration;
+            }
+
+            th:hover::after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &-asc::after {
+        content: "⏷" !important;
+        opacity: 1 !important;
+    }
+
+    &-desc::after {
+        content: "⏶" !important;
+        opacity: 1 !important;
+    }
+}

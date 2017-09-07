@@ -1,0 +1,137 @@
+
+@import "configs";
+
+.x-calender {
+    display: inline-block;
+    background-color: $background-color-hover;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: 3px;
+    cursor: default;
+    font-size: $font-size-small;
+    line-height: 100%;
+    text-align: center;
+    .user-select(none);
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    table {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        border-collapse: separate;
+    }
+
+    th, td {
+        border: 0;
+        padding: 2px 6px;
+        width: 100% / 4;
+        height: 15px * 7 / 3;
+        text-align: center;
+    }
+
+    th {
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    td:hover {
+        cursor: pointer;
+        background-color: $background-color-hover;
+        color: $selected-background-color;
+    }
+
+}
+
+.x-calender-container {
+    border: 1px solid $border-color;
+    padding: 4px;
+    background-color: $background-color;
+}
+
+.x-calender-header, .x-calender-footer {
+    margin-bottom: .25em;
+    a:hover {
+        color: $selected-background-color;
+    }
+}
+
+.x-calender-body {
+    position: relative;
+    overflow: hidden;
+    
+    > div{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.x-calender-time, .x-calender-footer {
+    margin-top: .375em;
+}
+
+.x-calender-prev, .x-calender-next {
+    display: block;
+    width: 16px;
+    line-height: $font-size;
+}
+
+.x-calender-prev {
+    float: left;
+}
+
+.x-calender-next {
+    float: right;
+}
+
+.x-calender-days {
+    th, td {
+        width: 100% / 7;
+        height:  15px;
+        text-align: right;
+        padding: 2px 6px;
+    }
+}
+
+.x-calender-alt {
+    color: $text-color-tip;
+    cursor: default!important;
+}
+
+.x-calender-actived {
+    outline: 1px solid #007FE6;
+    outline-offset: -1px;
+    color: $text-color-link!important;
+}
+
+.x-calender-selected {
+    background-color: $selected-background-color !important;
+    color: $selected-text-color !important;
+}
+
+.x-calender-holiday {
+    color: $error-text-color!important;
+}
+
+td.x-calender-invalid {
+    color: $text-color-disabled!important;
+    pointer-events: none;
+}
+
+.x-calender-time {
+    input {
+        width: $font-size * 2 + 2px;
+        text-align: right;
+        border: none;
+        background-color: $background-color;
+        line-height: $font-size;
+
+        &[readonly] {
+            color: $text-color-disabled;
+        }
+    }
+}
