@@ -1,0 +1,36 @@
+{
+    "name": "tealui",
+    "displayName": "TealUI",
+    "version": "4.0.0",
+    "repository": "https://github.com/Teal/TealUI",
+    "description": "打造小而精的专业前端组件库",
+    "keywords": [
+        "HTML5 UI Framework",
+        "前端 UI 组件库"
+    ],
+    "license": "SEE LICENSE IN LICENSE",
+    "author": "xuld <xuld@vip.qq.com>",
+    "scripts": {
+        "start": "digo"
+    },
+    "devDependencies": {
+        "digo": "latest",
+        "digo-node-sass": "latest",
+        "digo-autoprefixer": "latest",
+        "digo-css-inline": "latest",
+        "digo-clean-css": "latest",
+        "digo-uglify-js": "latest",
+        "digo-livereload": "latest",
+        "digo-tslint": "latest",
+        "digo-sass-lint": "latest",
+        "typescript": "next",
+        "markdown-it": "latest",
+        "markdown-it-container": "latest",
+        "markdown-it-task-checkbox": "latest",
+        "highlight.js": "latest",
+        "js-yaml": "latest",
+        "uslug": "latest",
+        "fast-pinyin": "latest",
+        "tsdocparser": "latest"
+    }
+}

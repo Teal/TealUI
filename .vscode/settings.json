@@ -1,0 +1,28 @@
+{
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "_*/**": true,
+        ".*/**": true
+    },
+    "beautify.language": {
+        "js": [],
+        "css": [
+            "css",
+            "scss",
+            "less"
+        ],
+        "html": [
+            "htm",
+            "html"
+        ]
+    },
+    "beautify.config": ".vscode/.jsbeautifyrc",
+    "tslint.enable": true,
+    "tslint.configFile": "./.vscode/tslint.json",
+    "tslint.exclude": "**/*-test.*",
+    "tslint.alwaysShowRuleFailuresAsWarnings": true,
+    "sasslint.enable": true,
+    "sasslint.configFile": ".vscode/.sass-lint.yml",
+    "scss.validate": false
+}

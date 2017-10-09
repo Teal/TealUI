@@ -1,0 +1,148 @@
+$primary-color: #00a192;
+$tip-color: #8c9998;
+$screen-small: "(max-width: 576px)";
+
+#doc_wall {
+    padding: 3.2rem 1rem;
+    color: #fff;
+    text-align: center;
+
+    h1 {
+        margin: 0;
+        font-size: 4.5rem;
+        font-weight: 400;
+
+        img {
+            height: 4rem;
+        }
+    }
+
+    h2 {
+        margin: 0 0 1rem;
+        font-size: 1.75rem;
+        font-weight: 500;
+    }
+
+    a {
+        margin: 1rem;
+        padding: 0;
+        color: #fff;
+        font-size: 1.25rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    small {
+        margin-left: 1rem;
+        color: $tip-color;
+    }
+
+    &_logo {
+        flex: .75;
+        text-align: right;
+
+        @media #{$screen-small} {
+            text-align: center;
+        }
+
+        img {
+            height: 8rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: transform 1.5s, opacity 1.5s;
+
+            &.doc-logo-show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    }
+
+    &_primary {
+        margin: 0 0 .5rem;
+        text-align: left;
+
+        @media #{$screen-small} {
+            text-align: center;
+
+            small {
+                display: none;
+            }
+        }
+
+        a {
+            margin: 0;
+            border-radius: 4px;
+            padding: .5rem 1.7rem;
+            background-color: #fff;
+            color: $primary-color;
+            transition: background-color .3s;
+
+            &:hover {
+                background-color: #eee;
+                color: $primary-color;
+                text-decoration: none;
+            }
+
+            &:active {
+                background-color: #e0e0e0;
+                box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+            }
+        }
+    }
+}
+
+#doc_body {
+    min-height: auto;
+    text-align: center;
+
+    h2, h3 {
+        color: $primary-color;
+        font-size: 2rem;
+    }
+
+    p {
+        margin: 0 0 2rem;
+    }
+
+    h3 {
+        margin: .5rem 0;
+        font-size: 1.4rem;
+    }
+
+    img {
+        width: 14rem;
+        max-width: 100%;
+    }
+
+    .doc-col p {
+        text-align: left;
+    }
+}
+
+#doc_features {
+    margin-top: 1rem;
+    border-top: 1px solid #e4e4e4;
+    padding-bottom: 2rem;
+    background: #f6f6f6;
+
+    dl {
+        margin: 2rem 0 1rem;
+        line-height: 2;
+    }
+
+    dt {
+        margin-bottom: .25rem;
+        font-weight: 600;
+    }
+
+    dd {
+        margin: 0;
+    }
+}
+
+#doc_footer {
+    margin: 0;
+}

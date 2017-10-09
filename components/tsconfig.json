@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "outDir": "../_build/components",
+        "sourceMap": true,
+        "target": "es6",
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "module": "amd",
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "allowSyntheticDefaultImports": true,
+        "newLine": "lf",
+        "preserveConstEnums": true,
+        "experimentalDecorators": true,
+        "stripInternal": true,
+        "allowJs": true,
+        "strict": true,
+        "alwaysStrict": false,
+        "noImplicitUseStrict": true,
+        "jsx": "react",
+        "jsxFactory": "VNode.create"
+    },
+    "include": [
+        "./**/*.ts",
+        "./**/*.tsx",
+        "./**/*.js",
+        "./**/*.jsx",
+        "../assets/doc/**/*.d.ts"
+    ]
+}
