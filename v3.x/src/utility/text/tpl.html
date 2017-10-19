@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>模板引擎</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="最轻量、高性能的模板引擎，语法和 JavaScript 完全一样，一看就会!">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/object.js"></script>
+    <script type="text/javascript" src="../../utility/text/tpl.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <style>
+        textarea {
+            width: 800px;
+            height: 190px;
+            display: block;
+        }
+    </style>
+
+    <h2>TealUI 模板引擎</h2>
+    <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
+&lt;ul>
+    {foreach a in $data.dataArr}
+        {if a % 2 == 1}&lt;li>{a}&lt;/li>{/if}
+    {/foreach}
+&lt;/ul></textarea>
+
+    输入数据:
+    <input type="text" value="{dataArr: [3,2,1,0]}" id="data">&nbsp;
+    <input onclick="document.getElementById('to').value = Tpl.parse(document.getElementById('from').value, eval('(' + document.getElementById('data').value + ')'))" type="button" value="解析模板"><br>
+    <textarea id="to"></textarea>
+
+    <script x-doc="utility/text/tpl.js">
+
+        Doc.writeApi({
+			path: "utility/text/tpl.js",
+			apis: [{
+				name: "Tpl",
+				summary: "<p>表示一个 JavaScript 模板解析器。</p>",
+				type: "Object",
+				line: 9,
+				col: 1
+			}, {
+				name: "compile",
+				summary: "<p>编译指定的模板。</p>",
+				params: [{
+					type: "String",
+					name: "tplSource",
+					summary: "<p>要编译的模板文本。</p>"
+				}, {
+					type: "String",
+					summary: "<p>[cacheKey = <em>tplSource</em>] 表示当前模板的缓存键，相同缓存键的模板可避免被重复编译以提高解析速度。</p>"
+				}],
+				example: "<pre>Tpl.compile(\"{if $data === 1}OK{/if}\", 1) // function($data){ ... }</pre>",
+				line: 16,
+				col: 1
+			}, {
+				name: "parse",
+				summary: "<p>使用指定的数据解析模板，并返回生成的内容。</p>",
+				params: [{
+					type: "String",
+					name: "tplSource",
+					summary: "<p>要解析的模板文本。</p>"
+				}, {
+					type: "Object",
+					name: "data",
+					summary: "<p>传递给模板的数据对象。在模板中使用 $data 变量接收此参数。</p>"
+				}, {
+					type: "Object",
+					name: "scope",
+					summary: "<p>模板中 this 的指向。</p>"
+				}, {
+					type: "String",
+					summary: "<p>[cacheKey = tplSource] 表示当前模板的键，主要用于缓存。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回解析后的模板内容。</p>"
+				},
+				example: "<pre>Tpl.parse(\"{if $data === 1}OK{/if}\", 1) // \"OK\"</pre>",
+				remark: "<h4>模板语法介绍</h4>\n\
+\n\
+<p>在模板中，可以直接书写最终生成的文本内容，并通过 { 和 } 在文本中插入逻辑代码。 <br>\n\
+如： <br>\n\
+     hello {if a > 0} world {/if} <br>\n\
+其中 {if a > 0} 和 {end} 是模板内部使用的逻辑表达式，用于控制模板的输出内容。</p>\n\
+\n\
+<h5>常量</h5>\n\
+\n\
+<p>模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 { 本身，使用 }} 代替 } 本身。</p>\n\
+\n\
+<h5>if 语句</h5>\n\
+\n\
+<pre><code> {if 表达式} \n\
+     这里是 if 成功输出的文本 \n\
+ {else if 表达式}\n\
+     这里是 else if 成功输出的文本 \n\
+ {else}\n\
+     这里是 else 成功输出的文本 \n\
+ {/if}\n\
+</code></pre>\n\
+\n\
+<h5>for 语句</h5>\n\
+\n\
+<pre><code> {for(var key in obj)}\n\
+     {循环输出的内容}\n\
+ {end}\n\
+\n\
+\n\
+ {for(var i = 0; i &lt; arr.length; i++)}\n\
+     {循环输出的内容}\n\
+ {/for}\n\
+</code></pre>\n\
+\n\
+<h5>while 语句</h5>\n\
+\n\
+<pre><code> {while 表达式}\n\
+     {循环输出的内容}\n\
+ {/while}\n\
+</code></pre>\n\
+\n\
+<h5>continue/break 语句</h5>\n\
+\n\
+<p>在循环时可使用此类语句终止循环。 <br>\n\
+     {continue}</p>\n\
+\n\
+<pre><code> {break}\n\
+</code></pre>\n\
+\n\
+<h5>function 语句</h5>\n\
+\n\
+<pre><code> {function fn(a, b)}\n\
+     {函数主体}\n\
+ {/function}\n\
+</code></pre>\n\
+\n\
+<h5>var 语句</h5>\n\
+\n\
+<pre><code> {var a = 1, b = 2}\n\
+</code></pre>\n\
+\n\
+<h5>void 语句</h5>\n\
+\n\
+<p><code>void</code> 语句用于执行代码，但不会在模板字符串内添加任何内容。</p>\n\
+\n\
+<pre><code> {void alert(\"alert\")}\n\
+</code></pre>\n\
+\n\
+<h5>foreach 语句</h5>\n\
+\n\
+<p>为了简化循环操作，模板引擎提供了快速遍历类数组和对象的方式。</p>\n\
+\n\
+<pre><code> {foreach item in obj}\n\
+     {循环输出的内容}\n\
+ {/foreach}\n\
+\n\
+\n\
+ {foreach item, index in obj}\n\
+     {循环输出的内容}\n\
+ {/foreach}\n\
+</code></pre>\n\
+\n\
+<p>foreach 语句同时支持类数组和对象，item 都表示遍历的值，index 表示数组索引或对象键。 <br>\n\
+   在 foreach 语句中，可以使用 $target 获取当前遍历的对象，使用 $key 获取循环变量值。 <br>\n\
+   存在嵌套 foreach 时，它们分别表示最近的循环对应的值，如需跨语句，可使用变量保存。 <br>\n\
+   在 foreach 语句中，可以使用 {break} 和 {continue} 控制流程。 <br>\n\
+     {foreach item in obj} <br>\n\
+         {if $key == 0} <br>\n\
+             {continue} <br>\n\
+         {/if} <br>\n\
+         {foreach item2 in item} <br>\n\
+             {item2} <br>\n\
+         {/foreach} <br>\n\
+     {/foreach}</p>\n\
+\n\
+<h5>内置宏变量</h5>\n\
+\n\
+<p>在模板内部可以直接使用一些内置宏变量。</p>\n\
+\n\
+<ul>\n\
+<li><code>$data</code>: 被解析的数据。</li>\n\
+<li><code>$key</code>: foreach 语句中获取最近的循环索引或键。</li>\n\
+<li><code>$target</code>: foreach 语句中获取最近的循环对象。</li>\n\
+</ul>",
+				line: 28,
+				col: 1
+			}]
+});</script>
+
+    <h3>常量</h3>
+    <p>模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 {，使用 }} 代替 }</p>
+
+    <h3>逻辑</h3>
+    <p>所有的表达式语法和 JavaScript 相同。</p>
+
+    <h4>if 语句</h4>
+    <pre>
+        {if (true)}
+            text1
+        {else if (false)}
+            text2
+        {else}
+            text3
+        {/if}
+    </pre>
+
+    <h4>foreach 语句</h4>
+    <pre>
+        {foreach (value, key in [0,1,2])}
+            {key} = {value}
+        {/foreach}
+    </pre>
+    <p>foreach 语句同时支持数组和对象。</p>
+
+    <h4>for 语句</h4>
+    <pre>
+        {for (var i=0; i < 3; i++) }
+            text{i}
+        {/for}
+        {for (var key in obj) }
+            text{key}
+        {/for}
+    </pre>
+
+    <h4>while 语句</h4>
+    <pre>
+        {while (false) }
+            text
+        {/while}
+    </pre>
+
+    <h4>var 语句</h4>
+    <pre>
+        {var a = 2;}
+    </pre>
+
+    <h4>function 语句</h4>
+    <pre>
+        {function a()}
+            func
+        {/function}
+        {a() // 函数调用}
+    </pre>
+
+    <h4>void 语句</h4>
+    <p>void 语句用于执行代码，但不会在模板字符串内添加任何内容。</p>
+    <pre>
+        {void alert("alert")}
+    </pre>
+
+    <h3>内置宏变量</h3>
+    <p>在模板内部可以直接使用一些内置宏变量。</p>
+
+    <h4>$data</h4>
+    <p>被解析的数据。</p>
+
+    <h4>$key</h4>
+    <p>foreach 语句中获取最近的循环索引或键。</p>
+
+    <h4>$target</h4>
+    <p>foreach 语句中获取最近的循环对象。</p>
+
+</body>
+</html>

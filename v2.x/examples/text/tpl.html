@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>模板引擎</title>
+
+    <!-- 本组件需要以下文件 -->
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/text/tpl.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">一个 JavaScript 模板引擎，语法和 JavaScript 完全一样，一看就会!</blockquote>
+        <style>
+            textarea {
+                width: 800px;
+                height: 190px;
+                display: block;
+            }
+        </style>
+        <textarea id="from">遍历 dataArr 数组，输出其中的奇数:
+{for a in $data.dataArr}
+    {if a % 2 == 1}
+        {a}
+    {end}
+{end}</textarea>
+        输入数据:
+        <input class="demo" type="text" value="{dataArr: [3,2,1,0]}" id="data">&nbsp;
+        <input class="demo" onclick="document.getElementById('to').value = Tpl.parse(document.getElementById('from').value, eval('(' + document.getElementById('data').value + ')'))" type="button" value="解析模板"><br>
+        <textarea id="to"></textarea>
+    </article>
+    <article class="demo">
+        <h2 class="demo">语法介绍</h2>
+        <script>
+
+            Demo.writeExamples({
+                'Tpl.parse': 'Tpl.parse("{for p in $data.path}{p}{end}", {path: [1,2,3]})'
+            });
+
+        </script>
+        <h3 class="demo">常量</h3>
+        <p class="demo">模板内任意字符串都会原样输出，模板引擎只解析 {} 内的数据。模板内使用 {{ 代替 {，使用 }} 代替 }</p>
+        <h3 class="demo">逻辑</h3>
+        <p class="demo">所有的表达式语法和 JavaScript 相同。</p>
+        <h4 class="demo">if 语句</h4>
+        <script class="demo" type="text/plain">
+            {if true}
+                text1
+            {else if false}
+                text2
+            {else}
+                text3
+            {end}
+        </script>
+        <h4 class="demo">foreach 语句</h4>
+        <script class="demo" type="text/plain">
+            {for value, key in [0,1,2]}
+               {key} = {value}
+            {end}
+        </script>
+        <p class="demo">foreach 语句同时支持数组和对象。</p>
+        <h4 class="demo">for 语句</h4>
+        <script class="demo" type="text/plain">
+            {for(var i=0; i < 3; i++) }
+                text{i}
+            {end}
+            {for(var key in obj) }
+                text{key}
+            {end}
+        </script>
+        <p class="demo">注意 foreach 和 for 语句的区别是：foreach 没有括号；for 语句是JavaScript 自带的语法，需要括号。</p>
+        <h4 class="demo">while 语句</h4>
+        <script class="demo" type="text/plain">
+            {while false }
+                text
+            {end}
+        </script>
+        <h4 class="demo">var 语句</h4>
+        <script class="demo" type="text/plain">
+            {var a = 2;}
+        </script>
+        <h4 class="demo">function 语句</h4>
+        <script class="demo" type="text/plain">
+            {function a()}
+                func
+            {end}
+            {a() // 函数调用}
+        </script>
+        <h4 class="demo">void 语句</h4>
+        <p class="demo">void 语句用于执行代码，但不会在模板字符串内添加任何内容。</p>
+        <script class="demo" type="text/plain">
+            {void alert("alert")}
+        </script>
+        <h3 class="demo">内置宏变量</h3>
+        <p class="demo">在模板内部可以直接使用一些内置宏变量。</p>
+        <h4 class="demo">$data</h4>
+        <p class="demo">被解析的数据。</p>
+        <h4 class="demo">$key</h4>
+        <p class="demo">for each 语句中获取最近的循环索引或键。</p>
+        <h4 class="demo">$target</h4>
+        <p class="demo">for each 语句中获取最近的循环对象。</p>
+    </article>
+</body>
+</html>

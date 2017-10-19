@@ -1,0 +1,240 @@
+input, button, textarea, select, optgroup {
+  margin: 0;
+  font: inherit;
+}
+
+input[type=checkbox], input[type=radio], img {
+  vertical-align: middle;
+}
+
+input[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+input::-moz-focus-inner, button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+html input[type=button], input[type=reset], input[type=submit], button {
+  -webkit-appearance: button;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+textarea {
+  vertical-align: top;
+  resize: vertical;
+}
+
+a, label, input, button, textarea, select, area, summary {
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+}
+
+img {
+  border-style: none;
+}
+
+template, audio:not([controls]) {
+  display: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+sub, sup {
+  line-height: 0;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  font-size: 14px;
+}
+
+body {
+  background-color: #fff;
+  color: #666;
+  font-family: "Helvetica Neue For Number", apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+body, ul ul, ul ol, ol ul, ol ol, dd, th, td {
+  margin: 0;
+}
+
+p, ul, ol, dl, table, pre, hr, blockquote, figure, fieldset, address {
+  margin: 0 0 1rem;
+}
+
+p:last-child, ul:last-child, ol:last-child, dl:last-child, table:last-child, pre:last-child, hr:last-child, blockquote:last-child, figure:last-child, fieldset:last-child, address:last-child {
+  margin-bottom: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5rem 0 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
+  margin-top: 0;
+}
+
+h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child {
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 2.125rem;
+}
+
+h2 {
+  font-size: 1.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.875rem;
+}
+
+p, li, dt, dd {
+  line-height: 1.75;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd + dt {
+  margin-top: 0.5rem;
+}
+
+table {
+  empty-cells: show;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #e0e0e0;
+  padding: 0.375rem 1rem;
+  text-align: left;
+}
+
+pre, code, kbd {
+  border-radius: 0.15rem;
+  padding: 0.2rem 0.4rem;
+  background-color: #f5f5f5;
+  color: #e75242;
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft Yahei", monospace;
+  font-size: 95%;
+}
+
+pre {
+  padding: 0.375rem 1rem;
+  color: inherit;
+}
+
+pre code {
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+       box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: #e0e0e0;
+}
+
+address {
+  font-style: normal;
+}
+
+a {
+  -webkit-text-decoration-skip: objects;
+  background-color: transparent;
+  color: #1780ce;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #10588e;
+  text-decoration: underline;
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+small {
+  color: #999;
+  font-size: 87.5%;
+  font-weight: normal;
+}
+
+kbd {
+  background-color: #22272d;
+  color: #fff;
+}
+
+::-webkit-input-placeholder {
+  color: #999;
+}
+
+:-moz-placeholder {
+  color: #999;
+}
+
+::-moz-placeholder {
+  color: #999;
+}
+
+:-ms-input-placeholder {
+  color: #999;
+}
+
+::-ms-input-placeholder {
+  color: #999;
+}
+
+::placeholder {
+  color: #999;
+}
+
+/*# sourceMappingURL=reset.css.map */

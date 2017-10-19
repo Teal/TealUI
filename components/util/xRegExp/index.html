@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>正则表达式加强 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/xRegExp"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import XRegExp from \&quot;util/xRegExp\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/xRegExp\&quot;], function (xRegExp_1) {\n\tvar XRegExp = xRegExp_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/xRegExp/xRegExp.js" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/xRegExp" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/xRegExp/xRegExp.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="正则表达式加强">
+<a href="#正则表达式加强" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>正则表达式加强<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as XRegExp, ">util/xRegExp</small></h1>
+<p class="doc">提供更多功能的正则表达式。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> XRegExp <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/xRegExp"</span>;
+
+<span class="doc-code-keyword">var</span> date = XRegExp(<span class="doc-code-string">'(?&amp;lt;year&gt;  [0-9]{4} ) -?  # year  \n'</span> +
+        <span class="doc-code-string">'(?&amp;lt;month&gt; [0-9]{2} ) -?  # month \n'</span> +
+        <span class="doc-code-string">'(?&amp;lt;day&gt;   [0-9]{2} )     # day     '</span>, <span class="doc-code-string">'x'</span>);
+
+XRegExp.exec(<span class="doc-code-string">'2012-06-10'</span>, date).year; <span class="doc-code-comment">// =&gt; '2012'</span>
+
+XRegExp.replace(<span class="doc-code-string">'2012-06-10'</span>, date, <span class="doc-code-string">'${month}/${day}/${year}'</span>); <span class="doc-code-comment">// =&gt; '06/10/2012'</span>
+
+XRegExp.matchChain(<span class="doc-code-string">'&amp;lt;a href="http://xregexp.com/api/"&gt;XRegExp&amp;lt;/a&gt;&amp;lt;a href="http://www.google.com/"&gt;Google&amp;lt;/a&gt;'</span>, [
+    {<span class="doc-code-attr">regex</span>: <span class="doc-code-regexp">/&amp;lt;a href="([^"]+)"&gt;/i</span>, <span class="doc-code-attr">backref</span>: <span class="doc-code-number">1</span>},
+    {<span class="doc-code-attr">regex</span>: XRegExp(<span class="doc-code-string">'(?i)^https?://(?&amp;lt;domain&gt;[^/?#]+)'</span>), <span class="doc-code-attr">backref</span>: <span class="doc-code-string">'domain'</span>}
+]); <span class="doc-code-comment">// =&gt; ['xregexp.com', 'www.google.com']</span></code></pre><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://xregexp.com/" target="_blank" class="doc-external">XRegExp 官网</a></li>
+</ul>
+</blockquote>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/delegate/" title="委托" id="doc_pager_prev"><i class="doc-icon">⮜</i> 委托</a>
+                            <a href="../../../components/util/bigInteger/" title="大正整数" id="doc_pager_next">大正整数 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/xRegExp/","imports":["util/xRegExp"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+.x-article::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.x-article header {
+  margin-bottom: 1rem;
+}
+
+.x-article footer {
+  margin-top: 1rem;
+}
+
+.x-article table, .x-article img, .x-article audio, .x-article video, .x-article canvas {
+  margin: 0 auto 1rem;
+}
+
+.x-article img {
+  display: block;
+}
+
+.x-article img[align=left], .x-article img.x-left {
+  margin-right: 1rem;
+}
+
+.x-article img[align=right], .x-article img.x-right {
+  margin-left: 1rem;
+}
+
+.x-article figure {
+  text-align: center;
+}
+
+.x-article figure img, .x-article figure table, .x-article figure pre {
+  margin-bottom: 0;
+}
+
+/*# sourceMappingURL=article.css.map */

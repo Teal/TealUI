@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>批量操作节点 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/domList"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import $, { DomList } from \&quot;web/domList\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/domList\&quot;], function (domList_1) {\n\tvar $ = domList_1.default;\n\tvar DomList = domList_1.DomList;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/domList" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/domList/domList.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="批量操作节点">
+<a href="#批量操作节点" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>批量操作节点<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as $, DomList">web/domList</small></h1>
+<p class="doc">快速、链式操作节点。</p>
+<dl id="doc_toc">
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/DomList">DomList 接口</a></dd>
+</dl>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/$">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L47-49" target="_blank" title="源码：web/domList/domList.ts，第 47 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>$<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>any</code>, context?:<code>Document | Node</code>):<code><a href="#api/DomList">DomList</a></code>(6 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">查找 CSS 选择器匹配的所有元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要执行的选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>context</code>
+                                </td>
+                                <td>
+                                    <code>Document | Node | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查询的根节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+<hr>
+<p class="doc">解析指定的 HTML 片段。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>html<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解析的 HTML 片段。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>context</code>
+                                </td>
+                                <td>
+                                    <code>Document | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于创建新节点的文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+<hr>
+<p class="doc">创建一个空列表。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+<hr>
+<p class="doc">创建仅包含指定节点的列表。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>node<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Node | Window | null | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">节点或窗口对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+<hr>
+<p class="doc">创建和已有列表包含相同元素的新列表。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>nodeList<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;Node | Window&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">节点数组或节点列表。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+<hr>
+<p class="doc">设置文档加载完成后的回调。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>ready<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>() =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>context</code>
+                                </td>
+                                <td>
+                                    <code>Document | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回一个空列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找 CSS 选择器匹配的所有元素。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/DomList"><a href="#api/DomList" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L51-84" target="_blank" title="源码：web/domList/domList.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>DomList 接口</h3><p class="doc">表示一个元素列表。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/DomList/indexer">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L96-96" target="_blank" title="源码：web/domList/domList.ts，第 96 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>[index]</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取或设置指定索引的元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>index<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>HTMLElement</code></p>
+                
+                
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取或设置指定索引的元素。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/DomList/length">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L88-91" target="_blank" title="源码：web/domList/domList.ts，第 88 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>length</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">元素个数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">元素个数。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/DomList/DomList">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L51-84" target="_blank" title="源码：web/domList/domList.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>DomList<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>any</code>, context?:<code>any</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">表示一个元素列表。</p>
+
+                
+                <p>this：<code><a href="#api/DomList">DomList</a></code></p>
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>context</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">表示一个元素列表。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/push">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L98-103" target="_blank" title="源码：web/domList/domList.ts，第 98 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>push<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...elems:<code>HTMLElement[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">向列表末尾添加新元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elems</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回新长度。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">向列表末尾添加新元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/pop">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L105-109" target="_blank" title="源码：web/domList/domList.ts，第 105 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pop<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>HTMLElement</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">移除并返回列表末尾的元素。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>HTMLElement | undefined</code></p>
+                <p class="doc">返回元素。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">移除并返回列表末尾的元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/unshift">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L111-116" target="_blank" title="源码：web/domList/domList.ts，第 111 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>unshift<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...elems:<code>HTMLElement[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">向列表开头添加新元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elems</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回新长度。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">向列表开头添加新元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/shift">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L118-122" target="_blank" title="源码：web/domList/domList.ts，第 118 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>shift<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>HTMLElement</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">移除并返回列表开头的元素。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>HTMLElement | undefined</code></p>
+                <p class="doc">返回元素。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">移除并返回列表开头的元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/slice">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L124-130" target="_blank" title="源码：web/domList/domList.ts，第 124 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>slice<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(start?:<code>number</code>, end?:<code>number</code>):<code><a href="#api/DomList">DomList</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表的指定位置的子列表。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的开始索引（含）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的结束索引（不含）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表的指定位置的子列表。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/splice">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L132-139" target="_blank" title="源码：web/domList/domList.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>splice<i class="doc-tip doc-api-ellipsis">(start, deleteCount, ...)</i><span class="doc-tip doc-api-more">(start:<code>number</code>, deleteCount:<code>number</code>, ...insertItems:<code>HTMLElement[]</code>):<code>HTMLElement[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">移除或插入列表的指定元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>deleteCount<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>insertItems</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">所有要插入的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>HTMLElement[]</code></p>
+                <p class="doc">返回被删除的元素所组成的数组。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">移除或插入列表的指定元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/sort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L141-149" target="_blank" title="源码：web/domList/domList.ts，第 141 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sort<i class="doc-tip doc-api-ellipsis">(compareFn)</i><span class="doc-tip doc-api-more">(compareFn:<code>function</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">排序当前列表的元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>compareFn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(x: HTMLElement, y: HTMLElement) =&gt; number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于排序时确定顺序的函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">x：要比较的第一个参数。</li>
+<li class="doc">y：要比较的第二个参数。</li>
+</ul>
+<p class="doc">如果返回 0 或负数，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>x</em> 应该排在 <em>y</em> 之后。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">排序当前列表的元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/reverse">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L151-154" target="_blank" title="源码：web/domList/domList.ts，第 151 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reverse<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">颠倒所有元素的顺序。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颠倒所有元素的顺序。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/indexOf">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L156-162" target="_blank" title="源码：web/domList/domList.ts，第 156 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>indexOf<i class="doc-tip doc-api-ellipsis">(value, ...)</i><span class="doc-tip doc-api-more">(value:<code>HTMLElement</code>, startIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">查找指定项在数组内的第一个索引。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>startIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找开始的位置。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回索引。如果找不到则返回 -1。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找指定项在数组内的第一个索引。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/lastIndexOf">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L164-170" target="_blank" title="源码：web/domList/domList.ts，第 164 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>lastIndexOf<i class="doc-tip doc-api-ellipsis">(value, ...)</i><span class="doc-tip doc-api-more">(value:<code>HTMLElement</code>, startIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">查找指定项在数组内的最后一个索引。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>startIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找开始的位置。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回索引。如果找不到则返回 -1。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找指定项在数组内的最后一个索引。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/each">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L172-180" target="_blank" title="源码：web/domList/domList.ts，第 172 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>each<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, thisArg?:<code>any</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对列表的每一项执行一次回调函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(elem: HTMLElement, index: number, target: this) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：数组本身。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对列表的每一项执行一次回调函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/map">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L182-192" target="_blank" title="源码：web/domList/domList.ts，第 182 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>map<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, thisArg?:<code>any</code>):<code><a href="#api/DomList">DomList</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对列表的每一项执行一次回调函数，然后将每个结果组成新数组。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(elem: HTMLElement, index: number, target: this) =&gt; any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：数组本身。</li>
+</ul>
+<p class="doc">函数应返回新的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对列表的每一项执行一次回调函数，然后将每个结果组成新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/filter">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L194-205" target="_blank" title="源码：web/domList/domList.ts，第 194 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>filter<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, thisArg?:<code>any</code>):<code><a href="#api/DomList">DomList</a></code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">筛选数组中符合条件的项并组成一个新数组。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(elem: HTMLElement, index: number, target: this) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回一个新列表。</p>
+
+                
+<hr>
+<p class="doc">筛选数组中匹配指定 CSS 选择器的项并组成一个新数组。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                <p class="doc">返回一个新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">筛选数组中符合条件的项并组成一个新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/every">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L214-225" target="_blank" title="源码：web/domList/domList.ts，第 214 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>every<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断数组的每一项是否都符合条件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(elem: HTMLElement, index: number, target: this) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果所有项满足条件则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断数组的每一项是否都符合条件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/some">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L227-238" target="_blank" title="源码：web/domList/domList.ts，第 227 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>some<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断数组中是否存在一项或多项符合条件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(elem: HTMLElement, index: number, target: this) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果至少存在一项满足条件则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断数组中是否存在一项或多项符合条件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/add">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L240-244" target="_blank" title="源码：web/domList/domList.ts，第 240 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>add<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>(string | Node | Window | ArrayLike&lt;Node | Window&gt;)[]</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">向列表末尾添加新元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>(string | Node | Window | ArrayLike&lt;Node | Window&gt;)[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的所有元素或选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">向列表末尾添加新元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/find">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L246-250" target="_blank" title="源码：web/domList/domList.ts，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code><a href="#api/DomList">DomList</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在当前节点内查询 CSS 选择器匹配的所有节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/DomList">DomList</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在当前节点内查询 CSS 选择器匹配的所有节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/match">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L252-257" target="_blank" title="源码：web/domList/domList.ts，第 252 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>match<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断是否有一个或多个元素匹配指定的 CSS 选择器。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否有一个或多个元素匹配指定的 CSS 选择器。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/next">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L259-264" target="_blank" title="源码：web/domList/domList.ts，第 259 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>next<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>string</code>):<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取每个节点的下一个相邻元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取每个节点的下一个相邻元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/prev">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L266-271" target="_blank" title="源码：web/domList/domList.ts，第 266 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>prev<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>string</code>):<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取每个节点的上一个相邻元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取每个节点的上一个相邻元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/parent">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L273-278" target="_blank" title="源码：web/domList/domList.ts，第 273 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>parent<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>string</code>):<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取每个节点的父元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取每个节点的父元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/closest">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L280-285" target="_blank" title="源码：web/domList/domList.ts，第 280 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>closest<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>string</code>):<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从每个节点开始向父元素查找第一个匹配指定 CSS 选择器的元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从每个节点开始向父元素查找第一个匹配指定 CSS 选择器的元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/children">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L287-292" target="_blank" title="源码：web/domList/domList.ts，第 287 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>children<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(selector?:<code>string</code>):<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取每个节点的所有子元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于筛选元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回包含所有元素的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取每个节点的所有子元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/append">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L294-298" target="_blank" title="源码：web/domList/domList.ts，第 294 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>append<i class="doc-tip doc-api-ellipsis">(content)</i><span class="doc-tip doc-api-more">(content:<code>string | Node | ArrayLike&lt;HTMLElement&gt;</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在每个节点末尾插入一段 HTML 或一个节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | Node | ArrayLike&lt;HTMLElement&gt; | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的 HTML 或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在每个节点末尾插入一段 HTML 或一个节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/prepend">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L300-304" target="_blank" title="源码：web/domList/domList.ts，第 300 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>prepend<i class="doc-tip doc-api-ellipsis">(content)</i><span class="doc-tip doc-api-more">(content:<code>string | Node | ArrayLike&lt;HTMLElement&gt;</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在每个节点开头插入一段 HTML 或一个节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | Node | ArrayLike&lt;HTMLElement&gt; | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的 HTML 或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在每个节点开头插入一段 HTML 或一个节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/before">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L306-310" target="_blank" title="源码：web/domList/domList.ts，第 306 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>before<i class="doc-tip doc-api-ellipsis">(content)</i><span class="doc-tip doc-api-more">(content:<code>string | Node | ArrayLike&lt;HTMLElement&gt;</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在每个节点前插入一段 HTML 或一个节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | Node | ArrayLike&lt;HTMLElement&gt; | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的 HTML 或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在每个节点前插入一段 HTML 或一个节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/after">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L312-316" target="_blank" title="源码：web/domList/domList.ts，第 312 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>after<i class="doc-tip doc-api-ellipsis">(content)</i><span class="doc-tip doc-api-more">(content:<code>string | Node | ArrayLike&lt;HTMLElement&gt;</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在每个节点后插入一段 HTML 或一个节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | Node | ArrayLike&lt;HTMLElement&gt; | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的 HTML 或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在每个节点后插入一段 HTML 或一个节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/appendTo">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L318-322" target="_blank" title="源码：web/domList/domList.ts，第 318 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>appendTo<i class="doc-tip doc-api-ellipsis">(parent)</i><span class="doc-tip doc-api-more">(parent:<code>string | Node | ArrayLike&lt;HTMLElement&gt;</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将当前节点添加到目标节点的末尾。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>parent<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | Node | ArrayLike&lt;HTMLElement&gt; | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的目标节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将当前节点添加到目标节点的末尾。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/remove">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L324-327" target="_blank" title="源码：web/domList/domList.ts，第 324 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>remove<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从文档中移除列表中所有节点。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从文档中移除列表中所有节点。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/clone">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L329-333" target="_blank" title="源码：web/domList/domList.ts，第 329 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clone<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>NodeList</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">复制节点列表。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>NodeList</code></p>
+                <p class="doc">返回复制的新列表。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">复制节点列表。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/attr">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L335-340" target="_blank" title="源码：web/domList/domList.ts，第 335 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>attr<i class="doc-tip doc-api-ellipsis">(attributeName)</i><span class="doc-tip doc-api-more">(attributeName:<code>string</code>):<code>string</code>(3 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>attributeName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回属性值。如果属性不存在则返回 null。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>attributeName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的属性值。设置为 null 表示删除属性。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">设置列表中每个元素的属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>attributes<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Object</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的属性键值对。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的属性值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/val">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L355-359" target="_blank" title="源码：web/domList/domList.ts，第 355 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>val<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的值。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回属性值。如果属性不存在则返回 null。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/text">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L367-371" target="_blank" title="源码：web/domList/domList.ts，第 367 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>text<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的文本内容。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回属性值。如果属性不存在则返回 null。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的文本内容。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的文本内容。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/html">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L379-383" target="_blank" title="源码：web/domList/domList.ts，第 379 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>html<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的 HTML 内容。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回属性值。如果属性不存在则返回 null。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的文本内容。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的 HTML 内容。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/hasClass">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L391-396" target="_blank" title="源码：web/domList/domList.ts，第 391 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>hasClass<i class="doc-tip doc-api-ellipsis">(className)</i><span class="doc-tip doc-api-more">(className:<code>string</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断是否存在一个元素已添加指定的 CSS 类名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>className<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的 CSS 类名。如果有多个用空格隔开。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果已添加则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否存在一个元素已添加指定的 CSS 类名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/addClass">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L398-402" target="_blank" title="源码：web/domList/domList.ts，第 398 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>addClass<i class="doc-tip doc-api-ellipsis">(className)</i><span class="doc-tip doc-api-more">(className:<code>string</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">添加所有元素的 CSS 类名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>className<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的 CSS 类名。如果有多个用空格隔开。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">添加所有元素的 CSS 类名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/removeClass">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L404-408" target="_blank" title="源码：web/domList/domList.ts，第 404 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>removeClass<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(className?:<code>string</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除所有元素的 CSS 类名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>className</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要删除的 CSS 类名。如果有多个用空格隔开。如果为空则删除所有类名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除所有元素的 CSS 类名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/toggleClass">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L410-414" target="_blank" title="源码：web/domList/domList.ts，第 410 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toggleClass<i class="doc-tip doc-api-ellipsis">(className)</i><span class="doc-tip doc-api-more">(className:<code>string</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">如果存在（不存在）则删除（添加）所有元素的 CSS 类名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>className<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加或删除的 CSS 类名。如果有多个用空格隔开。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果存在（不存在）则删除（添加）所有元素的 CSS 类名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/css">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L416-421" target="_blank" title="源码：web/domList/domList.ts，第 416 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>css<i class="doc-tip doc-api-ellipsis">(propName)</i><span class="doc-tip doc-api-more">(propName:<code>string</code>):<code>this</code>(3 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的 CSS 属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>propName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的 CSS 属性名（使用骆驼规则，如 <code>fontSize</code>）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                <p class="doc">返回计算后的 CSS 属性值。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的 CSS 属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>propName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的 CSS 属性名（使用骆驼规则，如 <code>fontSize</code>）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string | number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的 CSS 属性值。如果是数字则自动追加像素单位。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">设置列表中每个元素的 CSS 属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>cssProps<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Object</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的 CSS 属性键值对。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的 CSS 属性值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/scroll">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L436-440" target="_blank" title="源码：web/domList/domList.ts，第 436 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scroll<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的滚动距离。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                <p class="doc">返回坐标。如果元素不可滚动则返回原点。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的滚动距离。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/web/dom/index.html#api/Point">Point</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的坐标。允许只设置部分属性。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的滚动距离。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/rect">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L449-453" target="_blank" title="源码：web/domList/domList.ts，第 449 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>rect<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取列表中第一个元素的区域。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                <p class="doc">返回元素实际占用区域（含内边距和边框、不含外边距）。如果元素不可见则返回空区域。</p>
+
+                
+<hr>
+<p class="doc">设置列表中每个元素的区域。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的区域内容（含内边距和边框、不含外边距）。允许只设置部分属性。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取列表中第一个元素的区域。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/on">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L462-470" target="_blank" title="源码：web/domList/domList.ts，第 462 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>on<i class="doc-tip doc-api-ellipsis">(eventName, selector, handler, ...)</i><span class="doc-tip doc-api-more">(eventName:<code>string</code>, selector:<code>string</code>, handler:<code>function</code>, thisArg?:<code>any</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">绑定每个元素的事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>eventName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要绑定的事件名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要委托的目标元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: Event, target: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要绑定的事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置监听器执行时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">on(<span class="doc-code-built_in">document</span>.body, <span class="doc-code-string">"mouseenter"</span>, <span class="doc-code-string">"a"</span>, <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params">e</span>)</span>{ <span class="doc-code-keyword">this</span>.firstChild.innerHTML = e.pageX; })</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">绑定每个元素的事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/off">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L472-480" target="_blank" title="源码：web/domList/domList.ts，第 472 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>off<i class="doc-tip doc-api-ellipsis">(eventName, selector, handler, ...)</i><span class="doc-tip doc-api-more">(eventName:<code>string</code>, selector:<code>string</code>, handler:<code>function</code>, thisArg?:<code>any</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">解绑每个元素的事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>eventName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解绑的事件名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要委托的目标元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: Event, target: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解绑的事件处理函数。如果未提供则解绑所有监听器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置监听器执行时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">off(<span class="doc-code-built_in">document</span>.body, <span class="doc-code-string">"mouseenter"</span>, <span class="doc-code-string">"a"</span>, <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params">e</span>) </span>{ <span class="doc-code-keyword">this</span>.firstChild.innerHTML = e.pageX; })</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">解绑每个元素的事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/trigger">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L482-489" target="_blank" title="源码：web/domList/domList.ts，第 482 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>trigger<i class="doc-tip doc-api-ellipsis">(eventName, selector, ...)</i><span class="doc-tip doc-api-more">(eventName:<code>string</code>, selector:<code>string</code>, event?:<code>Partial&lt;Event&gt;</code>):<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的指定事件，即执行对应已添加的所有事件处理函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>eventName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要触发的事件名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要委托的目标元素的 CSS 选择器。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>event</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;Event&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">传递给监听器的事件参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">trigger(<span class="doc-code-built_in">document</span>.body, <span class="doc-code-string">"click"</span>)</code></pre>
+<hr>
+<p class="doc">触发每个元素的指定事件，即执行对应已添加的所有事件处理函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>eventName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要触发的事件名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>event</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;Event&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">传递给监听器的事件参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">trigger(<span class="doc-code-built_in">document</span>.body, <span class="doc-code-string">"click"</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的指定事件，即执行对应已添加的所有事件处理函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/animate">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L499-507" target="_blank" title="源码：web/domList/domList.ts，第 499 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>animate<i class="doc-tip doc-api-ellipsis">(propNames, ...)</i><span class="doc-tip doc-api-more">(propNames:<code>object</code>, callback?:<code>function</code>, duration?:<code>number</code>, timingFunction?:<code>string</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">执行一个自定义渐变。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>propNames<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [propName: string]: string | number; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要渐变的 CSS 属性名和最终的属性值组成的键值对。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变执行结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变执行的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timingFunction</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变函数。可以使用 CSS3 预设的特效渐变函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">animate(<span class="doc-code-built_in">document</span>.body, { <span class="doc-code-attr">height</span>: <span class="doc-code-number">400</span> });</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行一个自定义渐变。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/show">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L509-517" target="_blank" title="源码：web/domList/domList.ts，第 509 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>show<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(animation?:<code>string | object</code>, callback?:<code>function</code>, duration?:<code>number</code>, timingFunction?:<code>string</code>, target?:<code>HTMLElement</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>animation</code>
+                                </td>
+                                <td>
+                                    <code>&quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;left&quot; | &quot;right&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示时使用的动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: boolean) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行完成后的回调。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timingFunction</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变函数。可以使用 CSS3 预设的特效渐变函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画的目标元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/hide">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L519-527" target="_blank" title="源码：web/domList/domList.ts，第 519 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>hide<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(animation?:<code>string | object</code>, callback?:<code>function</code>, duration?:<code>number</code>, timingFunction?:<code>string</code>, target?:<code>HTMLElement</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">隐藏元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>animation</code>
+                                </td>
+                                <td>
+                                    <code>&quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;left&quot; | &quot;right&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示时使用的动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: boolean) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行完成后的回调。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timingFunction</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变函数。可以使用 CSS3 预设的特效渐变函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画的目标元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">隐藏元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/toggle">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L529-537" target="_blank" title="源码：web/domList/domList.ts，第 529 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toggle<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(animation?:<code>string | object</code>, callback?:<code>function</code>, duration?:<code>number</code>, timingFunction?:<code>string</code>, target?:<code>HTMLElement</code>):<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">切换显示或隐藏元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>animation</code>
+                                </td>
+                                <td>
+                                    <code>&quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;left&quot; | &quot;right&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示时使用的动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: boolean) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行完成后的回调。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timingFunction</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变函数。可以使用 CSS3 预设的特效渐变函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画的目标元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">切换显示或隐藏元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果为 true 则强制显示元素；如果为 false 则强制隐藏元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>animation</code>
+                                </td>
+                                <td>
+                                    <code>&quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;left&quot; | &quot;right&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示或隐藏时使用的动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: boolean) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行完成后的回调。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画执行的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timingFunction</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变函数。可以使用 CSS3 预设的特效渐变函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">动画的目标元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">切换显示或隐藏元素。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/click">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L550-553" target="_blank" title="源码：web/domList/domList.ts，第 550 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>click<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的点击事件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">绑定每个元素的点击事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: MouseEvent, sender: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的点击事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/focus">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L561-564" target="_blank" title="源码：web/domList/domList.ts，第 561 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>focus<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的获取焦点事件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">绑定每个元素的获取焦点事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: UIEvent, sender: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的获取焦点事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/blur">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L572-575" target="_blank" title="源码：web/domList/domList.ts，第 572 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>blur<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的失去焦点事件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">绑定每个元素的失去焦点事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: UIEvent, sender: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的失去焦点事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/submit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L583-586" target="_blank" title="源码：web/domList/domList.ts，第 583 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>submit<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的表单提交事件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">绑定每个元素的表单提交事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: UIEvent, sender: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的表单提交事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/DomList/select">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/domList/domList.ts#L594-597" target="_blank" title="源码：web/domList/domList.ts，第 594 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>select<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>this</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发每个元素的选择事件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+<hr>
+<p class="doc">绑定每个元素的选择事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>handler<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(e: UIEvent, sender: HTMLElement) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件处理函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发每个元素的选择事件。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/dom/" title="DOM 处理" id="doc_pager_prev"><i class="doc-icon">⮜</i> DOM 处理</a>
+                            <a href="../../../components/web/scroll/" title="滚动" id="doc_pager_next">滚动 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/domList/","imports":["web/domList"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

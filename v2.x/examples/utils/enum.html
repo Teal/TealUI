@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>枚举类型</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/enum.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">模拟一个枚举类。</blockquote>
+
+        <script class="demo">
+            var e = new Enum({
+
+                a: 1,
+
+                b: 2,
+
+                c: 3
+
+            });
+
+            var name = Enum.getName(e, 2);
+
+            trace(name);
+        </script>
+
+
+
+    </article>
+</body>
+</html>

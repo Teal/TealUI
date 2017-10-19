@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>动态处理 CSS 样式表</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/stylesheet.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                "动态创建一个css样式表": 'Dom.createStyleSheet("body{background: #96CBFE;}")',
+                "切换一个css样式表的地址为新地址": 'Dom.toggleStyleSheet("id", null)'
+            });
+        </script>
+    </article>
+</body>
+</html>

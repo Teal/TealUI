@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>触屏：鼠标事件延时触发 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../assets/doc/doc.css">
+    <script src="../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../" title="Teal" id="doc_logo_image"><img src="../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li class="doc-navbar-active"><a href="../../docs" title="文档和规范">文档</a></li>
+                    <li><a href="../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找文档..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li>-</li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/edit/dev-v4/docs/issues/300ms-click-delay.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="触屏鼠标事件延时触发">
+<a href="#触屏鼠标事件延时触发" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>触屏：鼠标事件延时触发</h1>
+<p class="doc">在触屏设备上，当用户触击一个按钮时，会依次触发以下事件：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">touchstart → touchmove → touchend → (等待约 300ms 后) → mousemove → mousedown → mouseup → click</code></pre><p class="doc">click 等鼠标事件被延时触发，主要原因是浏览器为了确认用户是想点击元素还是想快速触摸屏幕两次以缩放网页。
+对于那些试图模拟原生 APP 的单页应用来说，延时触发会让用户觉得应用卡钝。</p>
+<h4>解决方案一(推荐)：设置 CSS <code>touch-action</code> 属性</h4>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-css"><span class="doc-code-selector-tag">a</span> {
+    <span class="doc-code-attribute">touch-action</span>: manipulation;
+}</code></pre><p class="doc">此方法只有<a href="http://caniuse.com/#search=-ms-touch-action" target="_blank" class="doc-external">最新浏览器</a>支持。
+但由于不影响功能，可以忽略低版本浏览器的兼容问题。
+<a href="../../docs/../components/typo/reset/" title="../components/typo/reset">全局样式</a>组件已内置此样式。</p>
+<h4>解决方案二：禁用网页缩放</h4>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">meta</span> <span class="doc-code-attr">name</span>=<span class="doc-code-string">"viewport"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"..., user-scalable=no"</span>&gt;</span></code></pre><p class="doc"><a href="https://patrickhlauke.github.io/touch/tests/results/#suppressing-300ms-delay" target="_blank" class="doc-external">多数浏览器</a>会在网页禁止缩放后自动禁用延时。</p>
+<h4>解决方案三：使用触摸事件代替鼠标事件</h4>
+<p class="doc">可使用现成组件，如 <a href="../../docs/../components/web/dom/" title="../components/web/dom">DOM 处理</a>、<a href="https://github.com/ftlabs/fastclick" target="_blank" class="doc-external">FastClick</a> 组件。</p>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="https://thx.github.io/mobile/300ms-click-delay" target="_blank" class="doc-external">300 毫秒点击延迟的来龙去脉</a></li>
+<li class="doc"><a href="https://hacks.mozilla.org/2013/04/detecting-touch-its-the-why-not-the-how/" target="_blank" class="doc-external">Detecting touch: it's the 'why', not the 'how'</a></li>
+</ul>
+</blockquote>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../docs/spec/component.html" title="组件规范" id="doc_pager_prev"><i class="doc-icon">⮜</i> 组件规范</a>
+                            <a href="../../docs/issues/chrome-font-size-lt-12px.html" title="Chrome 显示小字" id="doc_pager_next">Chrome 显示小字 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../..","dir":"docs","active":"issues/300ms-click-delay.html","imports":[]})
+    </script>
+    <script src="../../docs/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>组合框</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/idropdownowner.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/menubutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/listbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/combobox.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/icon.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/dom/keynav.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/idropdownowner.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/picker.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/dropdownmenu.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/combobox.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <h2 class="demo">创建组合框</h2>
+
+        <p class="demo">ComboBox 用于美化 <a href="../Form/Select.html">Select</a> 组件。另参考 <a href="../Button/MenuButton.html">MenuButton</a> 和 <a href="ComboBox.html">DropDownList</a> 。</p>
+
+        <h3 class="demo">最简单方式： 基于 &lt;select&gt; 创建</h3>
+
+        <p class="demo">让 ComboBox 成为 Select 的代理， Select 的 placeholder onclick onchange readonly disabled 属性会被复制。</p>
+
+        <script class="demo" type="text/html">
+            <select id="comboBox1" name="comboBox1">
+                <option value="1">选项1</option>
+                <option value="2" selected="selected">选项2</option>
+                <option value="1">选项3</option>
+                <option value="1">选项4</option>
+            </select>
+            < script>
+                var comboBox1 = new ComboBox("#comboBox1");
+            < /script>
+        </script>
+
+        <h3 class="demo">基于 &lt;input&gt; 创建</h3>
+        
+        <script class="demo" type="text/html">
+            <input class="x-textbox" id="comboBox2" value="B">
+            
+            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
+            <ul class="x-dropdown x-listbox">
+                <li>预定义的选项</li>
+            </ul>
+            
+            < script>
+                var comboBox2 = new ComboBox("#comboBox2");
+            < /script>
+        </script>
+
+        <h3 class="demo">完整 HTML 创建</h3>
+        
+        <aside class="demo">
+            <span class="x-picker" id="comboBox3">
+                <input class="x-textbox" value="C">
+                <button class="x-button"><span class="x-menubutton-arrow"></span></button>
+            </span>
+            
+            <!-- 紧跟的 x-dropdown 会被作为下拉菜单 -->
+            <ul class="x-dropdown x-listbox">
+                <li>预定义的选项</li>
+            </ul>
+            
+            <script>
+                var comboBox3 = new ComboBox("#comboBox3");
+            </script>
+        </aside>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">常用 API</h2>
+        
+        <section class="demo-sample">
+            
+            <select id="comboBox" name="comboBox">
+                <option value="1">选项1</option>
+                <option value="2" selected="selected">选项2</option>
+            </select>
+            
+            <script>
+                var comboBox = new ComboBox("#comboBox");
+            </script>
+                
+        </section>
+
+        <script>
+
+            Demo.writeExamples({
+                '内容相关': '-',
+                '动态增加一项': 'comboBox.dropDown.add("<em>这是通过 add 插入的</em>")',
+                '设置或获取当前选中的索引': 'comboBox.setSelectedIndex(1);comboBox.getSelectedIndex()',
+                '设置或获取选中的值(value), 这个值将被提交到后台': 'comboBox.setValue("2");comboBox.getValue()',
+                '调整宽度以适应下拉菜单的大小': 'comboBox.resizeToFitItems()',
+                
+                '操作相关': '-',
+                '设置值更改后的回调': 'comboBox.on("change", function(){alert("值被改变了 " + this.getText())})',
+                '设置被选中前的回调，并阻止选择事件': 'comboBox.on("selecting", function(){alert("选择前执行"); return false; /* 阻止事件，这样就永远不会选中项了。*/})',
+                '手动展开下拉菜单': 'comboBox.showDropDown()',
+                
+                '状态相关': '-',
+                '禁用': function(){
+                    comboBox.setAttr("disabled", true); // 设置
+                    comboBox.setAttr("disabled", false); // 取消
+                    comboBox.getAttr("disabled"); // 获取目前状态
+                },
+                '只读': function(){
+                    comboBox.setAttr("readOnly", true); // 设置
+                    comboBox.setAttr("readOnly", false); // 取消
+                    comboBox.getAttr("readOnly"); // 获取目前状态
+                }
+            });
+            
+        </script>
+        
+        <blockquote class="demo">其它 API 参考 <a href="Picker.html">Picker</a> 组件。(ComboBox 继承于 Picker)</blockquote>
+
+        <blockquote class="demo">要控制下拉菜单， 参考 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 组件。(ComboBox 实现了 IDropDownOwner 接口)</blockquote>
+
+        <blockquote class="demo">ComboBox 使用 <a href="DropDownMenu.html">DropDownMenu</a> 组件作为下拉菜单。</blockquote>
+
+    </article>
+
+</body>
+</html>

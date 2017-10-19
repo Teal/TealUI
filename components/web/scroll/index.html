@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>滚动 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/scroll"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { scrollTo, scrollBy, scrollSize, isScrollIntoView, scrollIntoView, scrollIntoViewIfNeeded, scrollShow, scrollParent } from \&quot;web/scroll\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/scroll\&quot;], function (scroll_1) {\n\tvar scrollTo = scroll_1.scrollTo;\n\tvar scrollBy = scroll_1.scrollBy;\n\tvar scrollSize = scroll_1.scrollSize;\n\tvar isScrollIntoView = scroll_1.isScrollIntoView;\n\tvar scrollIntoView = scroll_1.scrollIntoView;\n\tvar scrollIntoViewIfNeeded = scroll_1.scrollIntoViewIfNeeded;\n\tvar scrollShow = scroll_1.scrollShow;\n\tvar scrollParent = scroll_1.scrollParent;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/scroll" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/scroll/scroll.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="滚动">
+<a href="#滚动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>滚动<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：scrollTo, scrollBy, scrollSize, isScrollIntoView, scrollIntoView, scrollIntoViewIfNeeded, scrollShow, scrollParent">web/scroll</small></h1>
+<p class="doc">控制元素的滚动条。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/scrollTo">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L3-43" target="_blank" title="源码：web/scroll/scroll.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollTo<i class="doc-tip doc-api-ellipsis">(elem, value, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, value:<code>Partial&lt;<a href="../../../components/web/dom/index.html#api/Point">Point</a>&gt;</code>, duration?:<code>number</code>, callback?:<code>function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">滚动元素到指定的位置。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="../../../components/web/dom/index.html#api/Point">Point</a>&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要滚动的目标坐标。允许只设置部分属性。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的动画时间。如果为 0 则不使用动画。</p>
+
+                                </td>
+                                <td>
+                                    <code>200</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: <a href="../../../components/web/dom/index.html#api/Point">Point</a>) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动动画结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">scrollTo(<span class="doc-code-built_in">document</span>, {<span class="doc-code-attr">y</span>: <span class="doc-code-number">400</span>})</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动元素到指定的位置。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollBy">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L45-58" target="_blank" title="源码：web/scroll/scroll.ts，第 45 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollBy<i class="doc-tip doc-api-ellipsis">(elem, value, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, value:<code>Partial&lt;<a href="../../../components/web/dom/index.html#api/Point">Point</a>&gt;</code>, duration?:<code>number</code>, callback?:<code>function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">滚动元素指定的偏移量。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要滚动的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="../../../components/web/dom/index.html#api/Point">Point</a>&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要滚动的距离坐标。允许只设置部分属性。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的动画时间。如果为 0 则不使用动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: <a href="../../../components/web/dom/index.html#api/Point">Point</a>) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动动画结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">scrollBy(<span class="doc-code-built_in">document</span>, {<span class="doc-code-attr">y</span>: <span class="doc-code-number">400</span>})</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动元素指定的偏移量。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollSize">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L60-71" target="_blank" title="源码：web/scroll/scroll.ts，第 60 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollSize<i class="doc-tip doc-api-ellipsis">(elem)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>):<code><a href="../../../components/web/dom/index.html#api/Size">Size</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取元素的滚动区域大小。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="../../../components/web/dom/index.html#api/Size">Size</a></code></p>
+                <p class="doc">返回一个大小。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">scrollSize(<span class="doc-code-built_in">document</span>.body)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取元素的滚动区域大小。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isScrollIntoView">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L73-87" target="_blank" title="源码：web/scroll/scroll.ts，第 73 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isScrollIntoView<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, scrollable?:<code>Element | Document</code>, padding?:<code>number</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断指定元素是否在可见区域内。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>scrollable</code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的容器元素。</p>
+
+                                </td>
+                                <td>
+                                    <code>scrollParent(elem)</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否在区域内的最小距离。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果元素部分或全部在可见区域内则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isScrollIntoView(<span class="doc-code-built_in">document</span>.body)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断指定元素是否在可见区域内。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollIntoView">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L89-121" target="_blank" title="源码：web/scroll/scroll.ts，第 89 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollIntoView<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, position?:<code>string</code>, scrollable?:<code>Element | Document</code>, duration?:<code>number</code>, offset?:<code>number</code>, callback?:<code>function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将元素滚动到可见区域。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要滚动的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>position</code>
+                                </td>
+                                <td>
+                                    <code>&quot;start&quot; | &quot;center&quot; | &quot;end&quot; | &quot;nearest&quot; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的位置。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>scrollable</code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的容器元素。</p>
+
+                                </td>
+                                <td>
+                                    <code>scrollParent(elem)</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的动画时间。如果为 0 则不使用动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>offset</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果需要滚动则额外偏移的距离。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: <a href="../../../components/web/dom/index.html#api/Point">Point</a>) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动动画结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将元素滚动到可见区域。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollIntoViewIfNeeded">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L123-154" target="_blank" title="源码：web/scroll/scroll.ts，第 123 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollIntoViewIfNeeded<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, scrollable?:<code>Element | Document</code>, duration?:<code>number</code>, padding?:<code>number</code>, offset?:<code>number</code>, callback?:<code>function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">如果元素可见区域内则将元素滚动到可见区域。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要滚动的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>scrollable</code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的容器元素。</p>
+
+                                </td>
+                                <td>
+                                    <code>scrollParent(elem)</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的动画时间。如果为 0 则不使用动画。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否在区域内的最小距离。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>offset</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果需要滚动则额外偏移的距离。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>((value: <a href="../../../components/web/dom/index.html#api/Point">Point</a>) =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动动画结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">scrollIntoViewIfNeeded(<span class="doc-code-built_in">document</span>.body)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果元素可见区域内则将元素滚动到可见区域。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollShow">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L156-181" target="_blank" title="源码：web/scroll/scroll.ts，第 156 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollShow<i class="doc-tip doc-api-ellipsis">(elem, callback, ...)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>, callback:<code>function</code>, once?:<code>boolean</code>, scrollable?:<code>Element | Document</code>, padding?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置滚动到当前指定元素或文档时的回调。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要绑定事件的元素或文档。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>() =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动到当前指定元素时的回调。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>once</code>
+                                </td>
+                                <td>
+                                    <code>boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">是否只在第一次滚动时执行。</p>
+
+                                </td>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>scrollable</code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的容器元素。</p>
+
+                                </td>
+                                <td>
+                                    <code>scrollParent(elem)</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否在区域内的最小距离。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">scrollShow(<span class="doc-code-built_in">document</span>.body, () =&gt; { alert(<span class="doc-code-string">"hi"</span>); })</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置滚动到当前指定元素或文档时的回调。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/scrollParent">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/scroll/scroll.ts#L183-193" target="_blank" title="源码：web/scroll/scroll.ts，第 183 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>scrollParent<i class="doc-tip doc-api-ellipsis">(elem)</i><span class="doc-tip doc-api-more">(elem:<code>Element | Document</code>):<code>Element | Document</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取指定元素第一个可滚动的父元素。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要搜索的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>Element | Document</code></p>
+                <p class="doc">返回父元素。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取指定元素第一个可滚动的父元素。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/domList/" title="批量操作节点" id="doc_pager_prev"><i class="doc-icon">⮜</i> 批量操作节点</a>
+                            <a href="../../../components/web/pin/" title="对齐" id="doc_pager_next">对齐 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/scroll/","imports":["web/scroll"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

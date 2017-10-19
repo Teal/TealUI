@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>特效底层</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+        
+        <blockquote class="demo demo-info">Fx 特效底层模块提供一个接口，可以根据一定的变化曲线，不断调用一个函数，并且参数是变化量。子类可以重写这个函数实现不同的 UI 效果。</blockquote>
+
+        <script>
+
+            Demo.writeExamples({
+
+                // 简单创建一个特效。
+                '执行特效': function () {
+
+                    var fx = new Fx();
+
+                    // Fx 对象会不断调用此函数，参数 value 是 0 - 1 的变化值。
+                    fx.set = function (value) {
+                        trace(value);
+                    };
+
+                    fx.run({});
+                }
+            }, { times: 8 });
+
+        </script>
+
+    </article>
+</body>
+</html>

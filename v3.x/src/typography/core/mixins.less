@@ -1,0 +1,319 @@
+//================================
+// 全局配置和公用样式
+//================================
+
+//--------------------------------
+// 颜色
+//--------------------------------
+
+// 黑白
+@black: #000;
+@white: #fff;
+
+// 灰色
+@gray-darker: darken(@white, 87%); // #212121
+@gray-dark: darken(@white, 54%); // #757575
+@gray: darken(@white, 33%); // #ababab
+@gray-light: darken(@white, 26%); // #bdbdbd
+@gray-lighter: darken(@white, 12%); // #e0e0e0
+
+// 状态
+@primary-brand-color: #337ab7;
+@selected-text-color: @white;
+@selected-background-color: @primary-brand-color;
+
+@info-brand-color: #5bc0de;
+@info-text-color: #31708f;
+@info-background-color: #d9edf7;
+@info-border-color: darken(spin(@info-background-color, -10), 7%);
+
+@success-brand-color: #5cb85c;
+@success-text-color: #3c763d;
+@success-background-color: #dff0d8;
+@success-border-color: darken(spin(@success-background-color, -10), 5%);
+
+@warning-brand-color: #f0ad4e;
+@warning-text-color: #9c7a3e;
+@warning-background-color: #fcf8e3;
+@warning-border-color: darken(spin(@warning-background-color, -10), 5%);
+
+@error-brand-color: #d9534f;
+@error-text-color: #a94442;
+@error-background-color: #f2dede;
+@error-border-color: darken(spin(@error-background-color, -10), 5%);
+
+// 全局
+@background-color: @white;
+@background-color-striped: darken(@white, 2.5%); // #f9f9f9
+@background-color-header: darken(@white, 3%); // #f7f7f7
+@background-color-hover: darken(@white, 4%); // #f5f5f5
+
+@text-color: @gray-darker;
+@text-color-link: @primary-brand-color;
+@text-color-tip: @gray-dark;
+@text-color-disabled: @gray-light;
+@text-color-small: @gray;
+
+@border-color: @gray-lighter;
+@border-color-input: #ccc;
+@border-color-input-hover: #66afe9;
+
+//--------------------------------
+// 响应式
+//--------------------------------
+
+@screen-small-max: 640px; // 手机 0 - 640px
+@screen-medium-max: 1024px; // 平板 641 - 1024px
+@screen-large-max: 1280px; // 电脑 1025 - 1280px
+@screen-larger-max: 1440px; // 电视 1281 - 1440px
+@screen-largest-max: 1920px; // 高清电视 1441 -1920px
+
+@screen-small-min: 0; // 手机
+@screen-medium-min: (@screen-small-max + 1px); // 平板
+@screen-large-min: (@screen-medium-max + 1px); // 电脑
+@screen-larger-min: (@screen-large-max + 1px); // 电视
+@screen-largest-min: (@screen-larger-max + 1px); // 高清电视
+
+//--------------------------------
+// 字体和间距
+//--------------------------------
+
+// 字体
+@font-family-sans-serif: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+@font-family-serif: Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", @font-family-sans-serif, monospace;
+
+@font-size: 14px;
+@font-size-small: ceil((@font-size * 0.85)); // ~12px
+@font-size-large: ceil((@font-size * 1.25)); // ~18px
+
+// 行高
+@line-height: @font-size + 10px;
+@line-height-small: 1.5;
+@line-height-large: 1.3333333;
+
+//--------------------------------
+// 栅格布局
+//--------------------------------
+
+@grid-column-count: 12;
+@grid-gutter-width: @font-size * 2;
+@grid-container-width: 980px;
+@grid-margin: 1em;
+
+//--------------------------------
+// 表单组件宽度
+//--------------------------------
+
+@input-width: @font-size * 13;
+@input-width-small: @font-size-small * 12;
+@input-width-large: @font-size-large * 32;
+@input-max-height: @line-height * 5;
+
+@list-min-width: @font-size * 4;
+@list-max-width: @font-size * 10;
+@list-max-heiht: @line-height * 10;
+
+//--------------------------------
+// 间距
+//--------------------------------
+
+@padding-height: (@line-height - @font-size) / 2 - 1px; // 4px
+@padding-width: @padding-height * 2 + 2px; // 10px
+
+@padding-height-small: @padding-height - 2px; // 2px
+@padding-width-small: @padding-width - 5px; // 5px
+
+@padding-height-large: @padding-height + 6px; // 10px
+@padding-width-large: @padding-width + 4px; // 14px
+
+//--------------------------------
+// 其它
+//--------------------------------
+
+// 圆角
+@border-radius: 4px;
+@border-radius-small: @border-radius - 1px;
+@border-radius-large: @border-radius + 2px;
+
+// Z-index
+@z-index-dropdown: 1000;
+@z-index-tooltip: 2000;
+@z-index-dialog: 3000;
+
+//--------------------------------
+// 工具函数
+//--------------------------------
+
+// 清除浮动
+// 另参考：http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix() {
+    &:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+}
+
+// 提示文案
+.placeholder(@color: @gray-light) {
+    &:-moz-placeholder {
+        color: @color;
+    }
+
+    &:-ms-input-placeholder, &::-webkit-input-placeholder {
+        color: @color;
+    }
+}
+
+// 文本超流
+.text-overflow(@text-overflow: ellipsis) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: @text-overflow;
+}
+
+// 隐藏文本。参考 https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+.hide-text() {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.word-break(){
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+// Opacity
+.opacity(@opacity: 1) {
+    opacity: @opacity;
+    filter: e(%("alpha(opacity=%d)", @opacity * 100));
+}
+
+.transition(@transition: all .3s) {
+    -moz-transition: @transition;
+    -o-transition: @transition;
+    -webkit-transition: @transition;
+    transition: @transition;
+}
+
+.animation(@animation) {
+    -moz-animation: @animation;
+    -o-animation: @animation;
+    -webkit-animation: @animation;
+    animation: @animation;
+}
+
+.transform(@transform) {
+    -moz-transform: @transform;
+    -ms-transform: @transform;
+    -o-transform: @transform;
+    -webkit-transform: @transform;
+    transform: @transform;
+}
+
+.transform-origin(@transform-origin: 50% 50%) {
+    -moz-transform-origin: @transform-origin;
+    -ms-transform-origin: @transform-origin;
+    -o-transform-origin: @transform-origin;
+    -webkit-transform-origin: @transform-origin;
+    transform-origin: @transform-origin;
+}
+
+.box-sizing(@box-sizing: border-box) {
+    -moz-box-sizing: @box-sizing;
+    -webkit-box-sizing: @box-sizing;
+    box-sizing: @box-sizing;
+}
+
+.user-select(@user-select: none) {
+    -moz-user-select: @user-select;
+    -ms-user-select: @user-select;
+    -webkit-user-select: @user-select;
+    user-select: @user-select;
+}
+
+.background-clip(@background-clip) {
+    -moz-background-clip: @background-clip;
+    -webkit-background-clip: @background-clip;
+    background-clip: @background-clip;
+}
+
+.flex() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+#translucent {
+    .background(@color: #fff, @alpha: 1) {
+        background-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+    }
+
+    .border(@color: #fff, @alpha: 1) {
+        border-color: hsla(hue(@color), saturation(@color), lightness(@color), @alpha);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+    }
+}
+
+#gradient {
+
+    .horizontal(@start-color: #555, @end-color: #333, @start-percent: 0%, @end-percent: 100%) {
+        background-image: -webkit-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(left, @start-color @start-percent, @end-color @end-percent); // Opera 12
+        background-image: linear-gradient(to right, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+        background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down
+    }
+
+    .vertical(@start-color: #555, @end-color: #333, @start-percent: 0%, @end-percent: 100%) {
+        background-image: -webkit-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // Opera 12
+        background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+        background-repeat: repeat-x;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down
+    }
+
+    .directional(@start-color: #555, @end-color: #333, @deg: 45deg) {
+        background-repeat: repeat-x;
+        background-image: -webkit-linear-gradient(@deg, @start-color, @end-color); // Safari 5.1-6, Chrome 10+
+        background-image: -o-linear-gradient(@deg, @start-color, @end-color); // Opera 12
+        background-image: linear-gradient(@deg, @start-color, @end-color); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+    }
+
+    .horizontal-three-colors(@start-color: #00b3ee, @mid-color: #7a43b6, @color-stop: 50%, @end-color: #c3325f) {
+        background-image: -webkit-linear-gradient(left, @start-color, @mid-color @color-stop, @end-color);
+        background-image: -o-linear-gradient(left, @start-color, @mid-color @color-stop, @end-color);
+        background-image: linear-gradient(to right, @start-color, @mid-color @color-stop, @end-color);
+        background-repeat: no-repeat;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",argb(@start-color),argb(@end-color))); // IE9 and down, gets no color-stop at all for proper fallback
+    }
+
+    .vertical-three-colors(@start-color: #00b3ee, @mid-color: #7a43b6, @color-stop: 50%, @end-color: #c3325f) {
+        background-image: -webkit-linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-image: -o-linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-image: linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+        background-repeat: no-repeat;
+        filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",argb(@start-color),argb(@end-color))); // IE9 and down, gets no color-stop at all for proper fallback
+    }
+
+    .radial(@inner-color: #555, @outer-color: #333) {
+        background-image: -webkit-radial-gradient(circle, @inner-color, @outer-color);
+        background-image: radial-gradient(circle, @inner-color, @outer-color);
+        background-repeat: no-repeat;
+    }
+
+    .striped(@color: rgba(255,255,255,.15), @angle: 45deg) {
+        background-image: -webkit-linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+        background-image: linear-gradient(@angle, @color 25%, transparent 25%, transparent 50%, @color 50%, @color 75%, transparent 75%, transparent);
+    }
+}

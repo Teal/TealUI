@@ -1,0 +1,21 @@
+.x-accordion {
+  margin: 0 0 1rem;
+}
+
+.x-accordion:last-child {
+  margin: 0;
+}
+
+.x-accordion > .x-panel:not(:first-child) {
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.x-accordion > .x-panel:not(:last-child) {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/*# sourceMappingURL=accordion.css.map */

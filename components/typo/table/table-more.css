@@ -1,0 +1,23 @@
+.x-table-rounded {
+  border-style: hidden;
+  border-radius: 0.2rem;
+  box-shadow: 0 0 0 1px #e0e0e0;
+}
+
+.x-table-rounded > thead:first-child > tr:first-child > th:first-child, .x-table-rounded > thead:first-child > tr:first-child > td:first-child, .x-table-rounded > tbody:first-child > tr:first-child > th:first-child, .x-table-rounded > tbody:first-child > tr:first-child > td:first-child, .x-table-rounded > tfoot:first-child > tr:first-child > th:first-child, .x-table-rounded > tfoot:first-child > tr:first-child > td:first-child {
+  border-radius: 0.2rem 0 0;
+}
+
+.x-table-rounded > thead:first-child > tr:first-child > th:last-child, .x-table-rounded > thead:first-child > tr:first-child > td:last-child, .x-table-rounded > tbody:first-child > tr:first-child > th:last-child, .x-table-rounded > tbody:first-child > tr:first-child > td:last-child, .x-table-rounded > tfoot:first-child > tr:first-child > th:last-child, .x-table-rounded > tfoot:first-child > tr:first-child > td:last-child {
+  border-radius: 0 0.2rem 0 0;
+}
+
+.x-table-rounded > thead:last-child > tr:last-child > th:first-child, .x-table-rounded > thead:last-child > tr:last-child > td:first-child, .x-table-rounded > tbody:last-child > tr:last-child > th:first-child, .x-table-rounded > tbody:last-child > tr:last-child > td:first-child, .x-table-rounded > tfoot:last-child > tr:last-child > th:first-child, .x-table-rounded > tfoot:last-child > tr:last-child > td:first-child {
+  border-radius: 0 0 0 0.2rem;
+}
+
+.x-table-rounded > thead:last-child > tr:last-child > th:last-child, .x-table-rounded > thead:last-child > tr:last-child > td:last-child, .x-table-rounded > tbody:last-child > tr:last-child > th:last-child, .x-table-rounded > tbody:last-child > tr:last-child > td:last-child, .x-table-rounded > tfoot:last-child > tr:last-child > th:last-child, .x-table-rounded > tfoot:last-child > tr:last-child > td:last-child {
+  border-radius: 0 0 0.2rem;
+}
+
+/*# sourceMappingURL=table-more.css.map */

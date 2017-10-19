@@ -1,0 +1,15 @@
+.x-tooltip {
+  position: fixed;
+  z-index: 1100;
+  max-width: 25rem;
+  border: 1px solid #333;
+  border-radius: 0.15rem;
+  padding: 0.25rem 0.25rem;
+  background-color: #333;
+  color: #fff;
+  font-size: 87.5%;
+  line-height: 1.25;
+  word-break: break-all;
+}
+
+/*# sourceMappingURL=toolTip.css.map */

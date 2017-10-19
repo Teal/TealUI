@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>对话框(弹层/浮层)</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/closebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/container/dialog.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/container/dialog.js"></script>
+    
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <h2 class="demo">创建对话框</h2>
+
+        <h3 class="demo">纯 JavaScript 创建最基本的对话框</h3>
+        
+        <script class="demo" type="text/javascript">
+
+            // 创建一个新的对话框。
+            var dialog = new Dialog();
+
+            // 设置对话框的标题。
+            dialog.setTitle('标题');
+
+            // 设置对话框的内容。
+            dialog.setContent('<em>内容</em>');
+
+            // 显示对话框。
+            dialog.show();
+        </script>
+
+        <h3 class="demo">将 HTML 渲染为对话框</h3>
+        
+        <script class="demo" type="code/html">
+           <div id="dialog2">我是对话框2</div>
+
+            < script>
+            
+                // new Dialog(这里写id或 dom对象)。对应的 DOM 节点将被移到新创建的对话框内部。
+                var dialog2 = new Dialog('dialog2');
+
+                // 显示对话框。
+                dialog2.show();
+            < /script>
+        </script>
+
+        <blockquote class="demo">创建含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="MessageBox.html">MessageBox</a> 组件。</blockquote>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">常用 API </h2>
+
+        <script>
+            Demo.writeExamples({
+                '显示有关': '-',
+                '显示对话框（无阴影）': 'dialog.show();',
+                '创建模式对话框（对话框后有阴影）': 'dialog.showDialog();',
+                '设置阴影透明': 'dialog.mask(0).show();',
+                '设置对话框内容的大小': 'dialog.setContentSize({x:300, y:100});',
+                '设置对话框的位置': 'dialog.setPosition({x:300, y:100});',
+                
+                '关闭有关': '-',
+                '关闭对话框': 'dialog.close();',
+                '去掉关闭按钮': 'dialog.removeCloseButton();',
+                '设置关闭后的回调': 'dialog.on("close", function(){alert("对话框已经关闭了");});',
+                '设置关闭前的回调，并阻止关闭事件': 'dialog.on("closing", function(){alert("这个对话框时不允许被关闭的");return false;/*return false 阻止事件，这样将关闭不了对话框。*/});',
+                '设置双击对话框标题后关闭对话框': 'Dom.on(dialog.header(), "dblclick", dialog.close, dialog);'
+                
+            });
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">扩展对话框</h2>
+
+        <p class="demo">网站上经常需要很多相同的对话框，如果每次都是很多代码来初始化对话框，将会比较麻烦，因此最好的方法是继承对话框并将特定的对话框重新封装。</p>
+
+        <script class="demo" type="code/javascript">
+            var MyDialog = Dialog.extend({
+                
+                init: function(options){
+
+                    // 调用父类的对话框 init 函数。
+                    Dialog.prototype.init.call(this, options);
+
+                    this.setTitle('固定的标题');
+
+                    this.setContent('固定的内容');
+                }
+
+            });
+        </script>
+
+        <p class="demo">这样，我们就只需 <code class="demo">new MyDialog()</code> 即可。而不需要每次都去设置它的标题和内容。</p>
+
+        <script class="demo" type="code/javascript">
+            var dialog3 = new MyDialog();
+            dialog3.show();
+        </script>
+
+    </article>
+
+
+    <!--<div class="x-dialog" id="a">
+                <div class="x-dialog-header">
+                    <a class="x-closebutton">×</a>
+                    <h4>header</h4>
+                </div>
+                <div class="x-dialog-body">
+                    <div class="x-dialog-content">A</div>
+                </div>
+            </div>-->
+
+
+</body>
+</html>

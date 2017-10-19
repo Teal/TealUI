@@ -1,0 +1,82 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-inputgroup {
+    display: inline-table;
+    // 避免在 table 中继承表格的边框属性。
+    border-collapse: separate;
+    line-height: @line-height;
+
+    > span, .x-textbox {
+        display: table-cell;
+        position: relative;
+        vertical-align: middle;
+    }
+    // 删除圆角。
+    > span:not(:first-child), .x-textbox:not(:first-child), .x-button:not(:first-child), span:not(:first-child) .x-button {
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    > span:not(:last-child), .x-textbox:not(:last-child), .x-button:not(:last-child), > span:not(:last-child) .x-button {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    > span {
+        border-color: @border-color-input;
+        white-space: nowrap;
+
+        .x-button {
+            float: left;
+        }
+
+        &:not(:first-child) {
+            border-left-width: 0;
+
+            & .x-button {
+                position: relative;
+                margin-left: -1px;
+
+                &:focus {
+                    z-index: 3;
+                }
+            }
+        }
+
+        &:not(:last-child) {
+            border-right-width: 0;
+
+            & .x-button {
+                position: relative;
+                margin-right: -1px;
+
+                &:focus {
+                    z-index: 3;
+                }
+            }
+        }
+    }
+
+    .x-textbox {
+        z-index: 2;
+        // IE9 需要左浮动？
+        float: left\9;
+    }
+
+    div& {
+        display: table;
+        width: 100%;
+
+        > span {
+            width: 1%;
+        }
+
+        .x-textbox {
+            width: 100%;
+        }
+    }
+}

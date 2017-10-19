@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>数据结构</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展多种未内置的数据结构。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/misc/dataTable.js"></script>
+    <script type="text/javascript" src="../../utility/misc/json.js"></script>
+    <script type="text/javascript" src="../../utility/misc/json2.js"></script>
+    <script type="text/javascript" src="../../utility/misc/xml.js"></script>
+    <script type="text/javascript" src="../../utility/misc/sqlike.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>数据表</h2>
+    <pre>
+        // 创建包含两列的表格。
+        var dt = new DataTable({
+            id: { type: 'number'  },
+            name: { type: 'string'  }
+        });
+        // 为表格添加两行数据。
+        dt.add({ id: 1, name: "a" });
+        dt.add({ id: 3, name: "b" });
+        
+        // 为表格基于某列排序。
+        dt.sort("name");
+        
+        // 获取指定行的内容。
+        alert(dt[0].id);
+    </pre>
+    <script x-doc="utility/misc/dataTable.js">
+        Doc.writeApi({
+			path: "utility/misc/dataTable.js",
+			apis: [{
+				name: "DataTable",
+				summary: "<p>初始化 DataSet 类。</p>",
+				params: [{
+					type: "Object",
+					name: "columns",
+					optional: true,
+					summary: "<p>当前表格的列信息。具体格式如：</p>\n\
+\n\
+<pre><code> {\n\
+     a: { // 列名。表格内列应该唯一。\n\
+         type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。\n\
+         sorter: function(){} // 当前列的排序方案\n\
+     } // , ...\n\
+ }\n\
+</code></pre>"
+				}, {
+					type: "Array",
+					name: "data",
+					optional: true,
+					summary: "<p>要处理的原始数据。具体数值应该是和列一一对应的 JSON 对象数组。</p>"
+				}],
+				example: "<pre>new DataTable({\n\
+    a: { // 列名。表格内列应该唯一。\n\
+        type: 'number', // 列类型，可填写 JavaScript typeof 返回的所有内置类型。\n\
+        sorter: function(){} // 当前列的排序方案\n\
+    } // , ...\n\
+}, [{\n\
+     a: 1\n\
+}, {\n\
+     a: 2\n\
+}]);</pre>",
+				memberType: "constructor",
+				line: 53,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "set",
+				summary: "<p>设置当前数据集的所有数据或指定行数据。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要更新的行号。</p>"
+				}, {
+					type: "Object",
+					name: "row",
+					summary: "<p>要更新的新行。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new DataTable().set(2, {});</pre>\n\
+\n\
+<pre>new DataTable().set([{}]);</pre>",
+				line: 90,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "add",
+				summary: "<p>在当前数据表添加一行。</p>",
+				params: [{
+					type: "Number",
+					name: "index",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要添加的行号。</p>"
+				}, {
+					type: "Object",
+					name: "row",
+					summary: "<p>要添加的行。</p>"
+				}, {
+					type: "Object",
+					name: "...",
+					summary: "<p>要添加的行。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回最新的长度。</p>"
+				},
+				example: "<pre>new DataTable().add([1, 2, 3])</pre>",
+				line: 112,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "remove",
+				summary: "<p>删除一行数据。</p>",
+				params: [{
+					type: "mixed",
+					name: "row",
+					summary: "<p>要删除的行号或行本身。</p>"
+				}, {
+					type: "Number",
+					name: "length",
+					defaultValue: "1",
+					optional: true,
+					summary: "<p>要删除的行数。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回本次被删除的行组成的数组。如果未删除则返回空数组。</p>"
+				},
+				example: "<pre>new DataTable().remove(1)</pre>",
+				line: 134,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "clear",
+				summary: "<p>清空当前表格的所有行。</p>",
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new DataTable().clear()</pre>",
+				line: 150,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "values",
+				summary: "<p>获取指定列或全部列的所有值。</p>",
+				params: [{
+					type: "mixed",
+					name: "column",
+					optional: true,
+					summary: "<p>要获取的列名或列号。如果不设置列，则获取全部列的值。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回指定列或全部列的值。</p>"
+				},
+				example: "<pre>new DataTable().values(\"columnName\")</pre>",
+				line: 162,
+				col: 1
+			}, {
+				memberOf: "DataTable.prototype",
+				name: "sort",
+				summary: "<p>对当前表进行排序。</p>",
+				params: [{
+					type: "mixed",
+					name: "column",
+					summary: "<p>排序的列或排序方法。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<h5>按列名排序</h5>\n\
+\n\
+<pre>new DataTable().sort('columnName')</pre>\n\
+\n\
+<h5>按自定义排序</h5>\n\
+\n\
+<pre>new DataTable().sort(function(x, y){ return x.id > y.id })</pre>",
+				line: 184,
+				col: 1
+			}]
+});</script>
+
+    <h2>JSON(非严格)</h2>
+    <script x-doc="utility/misc/json.js">
+
+        Doc.writeApi({
+			path: "utility/misc/json.js",
+			apis: [{
+				name: "JSON",
+				summary: "<p>提供解析 JSON 的函数。</p>",
+				line: 6,
+				col: 1
+			}, {
+				memberOf: "JSON",
+				name: "stringify",
+				summary: "<p>将对象格式化为字符串。</p>",
+				returns: {
+					type: "String",
+					summary: "<p>返回字符串。</p>"
+				},
+				example: "<pre>JSON.stringify([{}])</pre>",
+				line: 19,
+				col: 1
+			}, {
+				memberOf: "JSON",
+				name: "parse",
+				summary: "<p>解析字符串为 JSON。</p>",
+				returns: {
+					type: "Object",
+					summary: "<p>返回新对象。</p>"
+				},
+				example: "<pre>JSON.parse(\"[{}]\")</pre>",
+				line: 49,
+				col: 1
+			}]
+});</script>
+    <blockquote>目前大部分浏览器已内置 JSON 支持。</blockquote>
+
+    <h2>JSON(严格) <small>(源码: <a href="../../utility/misc/json2.js" target="_blank">utility/misc/json2.js</a>)</small></h2>
+    <p>由 W3 提供了完整的 JSON 实现方案。</p>
+    <blockquote>更多信息访问：<a href="http://www.json.org" target="_blank">http://www.json.org</a>。</blockquote>
+
+    <h2>XML</h2>
+    <script x-doc="utility/misc/xml.js">
+        Doc.writeApi({
+			path: "utility/misc/xml.js",
+			apis: [{
+				memberOf: "XMLDocument",
+				name: "parse",
+				summary: "<p>解析一个 XML 文件。</p>",
+				params: [{
+					type: "String",
+					name: "value",
+					summary: "<p>要解析的字符串。</p>"
+				}, {
+					type: "XMLDocument",
+					summary: "<p>返回解析后的 XML 文档。</p>"
+				}],
+				example: "<pre>XMLDocument.parse(\"&lt;a>&lt;/a>\")</pre>",
+				line: 7,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>SQL 引擎 <small>(源码: <a href="../../utility/misc/sqlike.js" target="_blank">utility/misc/sqlike.js</a>)</small></h2>
+    <pre>
+        SQLike.q({
+           Select: ['*'],
+           From: [["George", "White", 46, 65000], ["Anette", "Copperfield", 57, 69000], ["Paul", "White", 46, 46000], ["Debbi", "White", 33, 74000], ["George", "Irons", 24, 39000], ["Vicki", "Black", 27, 46000], ["Susanna", "Jones", 28, 77000], ["Vicki", "Peterson", 47, 81000], ["Vicki", "White", 32, 42000], ["Paul", "Jones", 35, 37000]],
+           Where: function(){return this.salary>50000},
+           OrderBy: ['salary','|desc|']
+        })
+    </pre>
+    <blockquote>文档和演示： <a target="_blank" href="http://www.thomasfrank.se/SQLike/">http://www.thomasfrank.se/SQLike/</a></blockquote>
+    <blockquote>更多信息访问官网： <a target="_blank" href="http://www.thomasfrank.se/sqlike.html">http://www.thomasfrank.se/sqlike.html</a></blockquote>
+
+
+</body>
+</html>

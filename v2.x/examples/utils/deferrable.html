@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>串联异步操作</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">Deferrable 用于管理异步操作（如Ajax），确保两个操作不会同时执行以导致临界资源冲突。</blockquote>
+
+<!--        <p class="demo">假如我们需要先用间隔显示红蓝2个颜色，每种颜色分别显示 2 秒后切换。</p>
+
+        <div id="demo"></div>
+
+        <script class="demo">
+            function changeColor(color) {
+                document.getElementById('demo').className = 'demo-' + color;
+            }
+
+            var deferrable = new Deferrable();
+        </script>-->
+
+        <p class="demo">Deferrable 设计比较巧妙，也难于理解。可以先研究 Ajax 或 Fx 类。</p>
+
+        <script class="demo">
+
+            var Fx = Deferrable.extend({
+
+                run: function (options, link) {
+                    var me = this;
+
+                    // 由 defer 来判断正在执行的任务，如果正在执行，则在这里退出当前任务。（同时等待 progress 来驱动执行这个任务）
+                    if (me.defer(options, link))
+                        return;
+
+                    // 这里的代码同一时间只有 1 行在执行，所以可以访问 this 这个临界资源。
+                    me.options = options;
+                    
+                    // 开始执行异步的操作。
+                    me.timer = setTimeout(function () {
+                        trace(me.options);
+                        me.progress();  // 必须调用，驱动 Deferrable 执行正在等待的其它任务。
+                    }, 1000);
+                }
+
+            });
+
+            // 创建一个新的 Deferred 对象。
+            var fx = new Fx();
+
+            fx.run('操作 1', 'wait');
+
+            fx.run('操作 2', 'wait');
+
+            // 设置全部任务执行后的回调函数。
+            fx.then(function () {
+                trace('操作 3');
+            });
+
+            // 创建第二个新的 Deferred 对象。
+            var fx2 = new Fx();
+
+            // 串联 2 个 Deferred 对象，这样， fx2 的任务只在 fx 任务全部执行结束后执行。
+            fx2.wait(fx);
+
+            fx2.run('操作 4', 'wait');
+
+            var fx3 = new Fx();
+
+            fx3.wait(fx2);
+
+            fx3.run('操作 5', 'wait');
+
+            
+            // 由于 Deferrable 的安排，上述的 5 个操作会按顺序执行。
+
+        </script>
+
+    </article>
+
+</body>
+</html>

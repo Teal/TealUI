@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>倒计时</title>
+    <meta name="module-info" content="parent-title=杂项">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供倒计时功能。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/misc/countDown.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>倒计时</h2>
+    
+    <h3>倒计时：N 天 N 小时 N 分 N 秒</h3>
+    <aside class="doc-demo">
+        <span id="timeCounter1"></span>
+        <script>
+            countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime) {
+                document.getElementById('timeCounter1').innerHTML = '还有 ' + day + ' 天 ' + hour + ' 小时 ' + minute + ' 分 ' + second + ' 秒';
+            });
+        </script>
+    </aside>
+
+    <h3>倒计时：N 小时 N 分 N 秒</h3>
+    <aside class="doc-demo">
+        <span id="timeCounter2"></span>
+        <script>
+            countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime) {
+                document.getElementById('timeCounter2').innerHTML = '还有 ' + (hour + day * 24) + ' 小时 ' + minute + ' 分 ' + second + ' 秒';
+            });
+        </script>
+    </aside>
+
+    <h3>倒计时：自定义样式</h3>
+    <aside class="doc-demo">
+        <style>
+            #timeCounter3 span {
+                font-size: 30px;
+                font-family: 'Courier New', Courier, monospace;
+            }
+        </style>
+        <div id="timeCounter3">
+            还剩：
+            <span>-</span>
+            <span>-</span>
+            天
+            <span>-</span>
+            <span>-</span>
+            时
+            <span>-</span>
+            <span>-</span>
+            分
+            <span>-</span>
+            <span>-</span>
+            秒
+        </div>
+        <script>
+            countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime) {
+                var spans = document.getElementById('timeCounter3').getElementsByTagName('span');
+
+                spans[0].innerHTML = ~~(day / 10);
+                spans[1].innerHTML = day % 10;
+
+                spans[2].innerHTML = ~~(hour / 10);
+                spans[3].innerHTML = hour % 10;
+
+                spans[4].innerHTML = ~~(minute / 10);
+                spans[5].innerHTML = minute % 10;
+
+                spans[6].innerHTML = ~~(second / 10);
+                spans[7].innerHTML = second % 10;
+
+            });
+        </script>
+    </aside>
+
+    <script x-doc="utility/misc/countDown.js">Doc.writeApi({
+			path: "utility/misc/countDown.js",
+			apis: [{
+				name: "countDown",
+				summary: "<p>从指定时刻到指定时刻进行倒计时。</p>",
+				params: [{
+					type: "Date",
+					name: "startDate",
+					optional: true,
+					summary: "<p>开始倒计时的时间。如果省略则从当前时间开始倒计时。</p>"
+				}, {
+					type: "Date",
+					name: "endDate",
+					summary: "<p>结束倒计时的时间。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					summary: "<p>每秒倒计时的回调。函数的参数依次为:function(day, hour, minute, second, leftTime)</p>"
+				}, {
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每个元素运行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>day: <code>Number</code> 应该显示的天数。</li>\n\
+<li>hour: <code>Number</code> 应该显示的小时数。</li>\n\
+<li>minute: <code>Number</code> 应该显示的分数。</li>\n\
+<li>second: <code>Number</code> 应该显示的秒数。</li>\n\
+<li>leftTime: <code>Number</code> 剩下的总秒数。</li>\n\
+</ul>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回一个计时器，可以通过 clearInterval(返回值) 停止倒计时。</p>"
+				},
+				example: "<pre>countDown(new Date('2020/1/1'), function (day, hour, minute, second, leftTime){ console.log(day, hour, minute, second); })</pre>",
+				line: 5,
+				col: 1
+			}]
+});</script>
+</body>
+</html>

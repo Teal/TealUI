@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="module-info" content="status=plan" />
+		<title>关键字高亮</title>
+		<script type="text/javascript" src="../../../src/core/core.js"></script>
+		<script type="text/javascript" src="../../../src/fx/highlightkeyword.js"></script>
+		
+		<script type="text/javascript" src="../../apps/demo/demo.js"></script>
+	</head>
+	<body>
+
+        <article class="demo">
+
+            <script>
+                Demo.writeExamples({
+                    '高亮文本': {
+                        'document.highlightKeyword("文字1", "文字2")': '-',
+                        'document.highlightKeyword({"文字1": "#FF0000", "文字2": "#00FF00")': '-',
+                        'document.highlightKeyword({"文字1": "hightlighted", "文字2": "hightlighted2")': '-' // 添加一个 css 类
+                    }
+                });
+            </script>
+
+<div id="demoPanel">
+  <p>HighlightKey v1.0</p>
+  <p><a href="http://www.cftea.com/products/HighlightKey/" target="_blank">http://www.cftea.com/products/HighlightKey/</a></p>
+  <p>嗨，大家好！这里是千一网络给大家带来的问候。</p>
+  <p>本示例演示的是千一网络的产品——HighlightKey，我们将看到关键词高亮的效果。</p>
+  <p>本示例中“千一”、“cftea”会被不同的背景色、前景色高亮，当然您也可以只使用背景色或前景色。</p>
+  <p><textarea cols="30" rows="3">这里的“千一”和“cftea”会保持原样。</textarea></p>
+  <ul>
+    <li>它不会破坏文本框中的内容，也不会破坏属性值（比如 alt、title 中的值）。比如：<a href="http://www.cftea.com" target="_blank" title="千一网络 - 让您的 Web 开发更轻松！">千一网络</a>。</li>
+    <li>它不会破坏原有的样式、链接。比如：<strong>粗体千一网络</strong>。</li>
+    <li>它不会破坏大小写，虽然查找时是忽略大小写的，但高亮后，仍保持原有大小写。比如：Cftea，C 是大写的。</li>
+  </ul>
+</div>
+<script type="text/javascript">
+<!--
+//千一网络 www.cftea.com
+
+highlightKey("demoPanel", ["千一", "cftea"], ["#FF0000", "#00FF00"], ["#00FF00", "#0000FF"]);
+//highlightKey("demoPanel", ["千一", "cftea"], null, ["#00FF00", "#0000FF"]);
+//highlightKey("demoPanel", ["千一", "cftea"], ["#FF0000", "#00FF00"], null);
+//-->
+</script>
+        </article>
+		
+	</body>
+</html>

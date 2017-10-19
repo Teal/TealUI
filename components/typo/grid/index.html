@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>栅格布局 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/util","typo/grid"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/grid\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/grid\&quot;], function (grid_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/grid/grid.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/grid" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/grid/grid.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="栅格布局">
+<a href="#栅格布局" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>栅格布局<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;关键字：12,等分,平分,左右">typo/grid</small></h1>
+<p class="doc">栅格布局法：将网页分成多行，每行分成多列，通过填格的方式排版。</p>
+<style>
+    .x-col span {
+        background: #EEEEEE;
+        height: 20px;
+        width: 100%;
+        text-align: center;
+        line-height: 20px;
+        color: #555555;
+        display: block;
+    }
+</style>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#等分布局">等分布局</a></dt>
+	<dt><a href="#24-栅格法">24 栅格法</a></dt>
+	<dt><a href="#容器">容器</a></dt>
+	<dt><a href="#高级用法">高级用法</a></dt>
+	<dd><a href="#嵌套布局">嵌套布局</a></dd>
+	<dd><a href="#列排序">列排序</a></dd>
+	<dd><a href="#列间距">列间距</a></dd>
+	<dd><a href="#列换行">列换行</a></dd>
+	<dt><a href="#常用布局">常用布局</a></dt>
+	<dd><a href="#左小右大">左小右大</a></dd>
+	<dd><a href="#左大右小">左大右小</a></dd>
+	<dd><a href="#左右平分">左右平分</a></dd>
+	<dd><a href="#左中右">左中右</a></dd>
+	<dd><a href="#三等分">三等分</a></dd>
+	<dd><a href="#四等分">四等分</a></dd>
+	<dt><a href="#列宽一览表">列宽一览表</a></dt>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc">使用 <code>.x-row</code> 表示一行，使用 <code>.x-col</code> 表示一列，每列的宽度可自行设置。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<div class="x-row">
+    <div class="x-col" style="width:25%;"><span>左</span></div>
+    <div class="x-col" style="width:75%;"><span>右</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:75%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="等分布局">
+<a href="#等分布局" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>等分布局</h2>
+<p class="doc">为 <code>.x-row</code> 添加 <code>.x-row-avg</code> 表示所有列都是等分的。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<div class="x-row x-row-avg">
+    <div class="x-col"><span>A</span></div>
+    <div class="x-col"><span>B</span></div>
+    <div class="x-col"><span>C</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row x-row-avg"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>A<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>B<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>C<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><p class="doc">或者也可以使用 <code>.x-row-*</code>(其中 * 是 1-6 的整数) 手动标识当前行的等分数额。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
+<div class="x-row x-row-3">
+    <div class="x-col"><span>A</span></div>
+    <div class="x-col"><span>B</span></div>
+    <div class="x-col"><span>C</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row x-row-3"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>A<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>B<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>C<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><p class="doc">此时可以针对不同屏幕采用不同列数的等分布局。</p>
+<ul>
+<li class="doc"><code>.x-row-*</code>: 小屏（手机）（默认）按此列数等分。</li>
+<li class="doc"><code>.x-row-medium-*</code>: 大中屏（平板、电脑）按此列数等分。</li>
+<li class="doc"><code>.x-row-large-*</code>: 大屏（电脑）按此列数等分。</li>
+</ul>
+<h4>如何实现：大屏（平板、电脑等）上显示 3 列，小屏（手机）上显示 1 列：</h4>
+<blockquote class="doc doc-blockquote doc-blockquote-info">
+<h5>提示</h5>
+<p class="doc">可以调整浏览器窗口大小查看布局效果。</p>
+</blockquote>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_4">
+<div class="x-row x-row-1 x-row-large-3">
+    <div class="x-col">
+        <span>A</span>
+    </div>
+    <div class="x-col">
+        <span>B</span>
+    </div>
+    <div class="x-col">
+        <span>C</span>
+    </div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row x-row-1 x-row-large-3"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>A<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>B<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>C<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote doc-blockquote-error">
+<h5>注意</h5>
+<p class="doc">不能将 <code>.x-row-avg</code> 和 <code>.x-row-*</code> 赋予同一个标签。</p>
+</blockquote>
+<h2 id="24-栅格法">
+<a href="#24-栅格法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>24 栅格法</h2>
+<p class="doc">使用 <code>.x-col-*</code>(其中 * 是 1-24 的整数) 标识列宽。
+只要一行内的所有列宽度后缀加起来等于 24，即可占满一行。
+如果超过 24，列会自动换行。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
+<div class="x-row">
+    <div class="x-col x-col-8"><span>左</span></div>
+    <div class="x-col x-col-10"><span>中</span></div>
+    <div class="x-col x-col-6"><span>右</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-10"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>中<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><p class="doc">通过添加前缀可以实现不同的屏幕大小应用不同的布局方式：</p>
+<ul>
+<li class="doc"><code>.x-col-*</code>: 手机（默认）按此宽度布局。</li>
+<li class="doc"><code>.x-col-medium-*</code>: 平板按此宽度布局。</li>
+<li class="doc"><code>.x-col-large-*</code>: 电脑按此宽度布局。（当未特别指定时，按 <code>.x-col-medium-*</code> 布局）</li>
+</ul>
+<h4>如何实现：大屏（平板、电脑等）上显示 3 列，小屏（手机）上显示 1 列：</h4>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_6">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-medium-7">
+        <span>A</span>
+    </div>
+    <div class="x-col x-col-24 x-col-medium-12">
+        <span>B</span>
+    </div>
+    <div class="x-col x-col-24 x-col-medium-5">
+        <span>C</span>
+    </div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-medium-7"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>A<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-medium-12"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>B<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-medium-5"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>C<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="容器">
+<a href="#容器" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>容器</h2>
+<p class="doc">容器的功能是定义一个全局居中的区域以显示网页内容：</p>
+<ul>
+<li class="doc">中小屏幕（手机、平板）：容器占满整个屏幕，并预留默认 <code>1rem</code> 边距。</li>
+<li class="doc">大屏幕（电脑）：容器固定为默认 <code>1200px</code> 宽度居中。</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_7">
+<div class="x-container">我是容器</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-container"</span>&gt;</span>我是容器<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote doc-blockquote-error">
+<h5>注意</h5>
+<p class="doc">不能将 <code>.x-container</code> 和 <code>.x-row</code> 赋予同一个标签，而应该用 <code>.x-container</code> 嵌套 <code>.x-row</code>。</p>
+</blockquote>
+<h2 id="高级用法">
+<a href="#高级用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>高级用法</h2>
+<h3 id="嵌套布局">
+<a href="#嵌套布局" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>嵌套布局</h3>
+<p class="doc">在任一列中可以内嵌另一个栅格。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_8">
+<div class="x-row">
+    <div class="x-col" style="width:25%;"><span>左</span></div>
+    <div class="x-col" style="width:75%;">
+        <div class="x-row">
+            <div class="x-col" style="width:25%;"><span>右-1</span></div>
+            <div class="x-col" style="width:75%;"><span>右-2</span></div>
+        </div>
+    </div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:75%;"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:75%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="列排序">
+<a href="#列排序" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列排序</h3>
+<p class="doc">使用<a href="../../../components/typo/util/" title="typo/util">工具样式</a>提供的 <code>.x-left</code> 和 <code>.x-right</code> 可重定义列的顺序。
+这在为了 SEO 需要将重要内容提前又不希望内容显示在左边的时候特别有用。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_9">
+<div class="x-row">
+    <div class="x-col x-right" style="width:25%;"><span>我显示右边</span></div>
+    <div class="x-col x-left" style="width:75%;"><span>我显示在左边</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-right" style="width:25%;"><span>我显示右边</span></div>
+    <div class="x-col x-right" style="width:50%;"><span>我显示中边</span></div>
+    <div class="x-col x-left" style="width:25%;"><span>我显示在左边</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-right"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示右边<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-left"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:75%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示在左边<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-right"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示右边<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-right"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:50%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示中边<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-left"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width:25%;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示在左边<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="列间距">
+<a href="#列间距" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列间距</h3>
+<p class="doc">如果需要在列之间插入空白，可以插入使用空白的列。
+使用 <code>.x-hide-small</code> 在特定屏幕隐藏该列。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_10">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-8">
+        <span>左</span>
+    </div>
+    <div class="x-col x-hide-small x-col-large-1"></div>
+    <div class="x-col x-col-24 x-col-large-15">
+        <span>右</span>
+    </div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-hide-small x-col-large-1"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-15"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="列换行">
+<a href="#列换行" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列换行</h3>
+<p class="doc">列采用浮动布局，布局时如果需要某一列强制在下一行显示，可插入一个 <code>.x-clear</code> 的元素。
+如果某一列特别高可以使用此方法。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_11">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-8">
+        <span style="height:100px;">左</span>
+    </div>
+    <div class="x-col x-col-24 x-col-large-8">
+        <span>右</span>
+    </div>
+    <div class="x-clear x-show-large"></div>
+    <div class="x-col x-col-24 x-col-large-8">
+        <span>我显示在新行</span>
+    </div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"height:100px;"</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-clear x-show-large"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>我显示在新行<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="常用布局">
+<a href="#常用布局" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>常用布局</h2>
+<h3 id="左小右大">
+<a href="#左小右大" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>左小右大</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_12">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-6"><span>左边栏</span></div>
+    <div class="x-col x-col-24 x-col-large-18"><span>主体</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左边栏<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-18"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="左大右小">
+<a href="#左大右小" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>左大右小</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_13">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-18"><span>主体</span></div>
+    <div class="x-col x-col-24 x-col-large-6"><span>右边栏</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-18"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右边栏<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="左右平分">
+<a href="#左右平分" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>左右平分</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_14">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-12"><span>主体 1</span></div>
+    <div class="x-col x-col-24 x-col-large-12"><span>主体 2</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-12"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 1<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-12"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="左中右">
+<a href="#左中右" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>左中右</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_15">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-6"><span>左边栏</span></div>
+    <div class="x-col x-col-24 x-col-large-14"><span>主体</span></div>
+    <div class="x-col x-col-24 x-col-large-4"><span>右边栏</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>左边栏<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-14"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>右边栏<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="三等分">
+<a href="#三等分" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>三等分</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_16">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-8"><span>主体 1</span></div>
+    <div class="x-col x-col-24 x-col-large-8"><span>主体 2</span></div>
+    <div class="x-col x-col-24 x-col-large-8"><span>主体 3</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 1<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 3<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h3 id="四等分">
+<a href="#四等分" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>四等分</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_17">
+<div class="x-row">
+    <div class="x-col x-col-24 x-col-large-6"><span>主体 1</span></div>
+    <div class="x-col x-col-24 x-col-large-6"><span>主体 2</span></div>
+    <div class="x-col x-col-24 x-col-large-6"><span>主体 3</span></div>
+    <div class="x-col x-col-24 x-col-large-6"><span>主体 4</span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 1<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 3<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24 x-col-large-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>主体 4<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="列宽一览表">
+<a href="#列宽一览表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列宽一览表</h2>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_18">
+<div class="x-row">
+    <div class="x-col x-col-24">
+        <span>1/1</span>
+    </div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-12"><span>1/2</span></div>
+    <div class="x-col x-col-12"><span>1/2</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-8"><span>1/3</span></div>
+    <div class="x-col x-col-8"><span>1/3</span></div>
+    <div class="x-col x-col-8"><span>1/3</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-6"><span>1/4</span></div>
+    <div class="x-col x-col-6"><span>1/4</span></div>
+    <div class="x-col x-col-6"><span>1/4</span></div>
+    <div class="x-col x-col-6"><span>1/4</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-4"><span>1/6</span></div>
+    <div class="x-col x-col-4"><span>1/6</span></div>
+    <div class="x-col x-col-4"><span>1/6</span></div>
+    <div class="x-col x-col-4"><span>1/6</span></div>
+    <div class="x-col x-col-4"><span>1/6</span></div>
+    <div class="x-col x-col-4"><span>1/6</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+    <div class="x-col x-col-2"><span>1/12</span></div>
+</div>
+<div class="x-row">
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+    <div class="x-col x-col-1"><span></span></div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-24"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/1<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-12"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-12"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/2<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/3<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/3<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-8"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/3<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/4<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/4<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/4<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-6"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/4<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-4"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/6<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-2"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span>1/12<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-row"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-col x-col-1"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div>
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/util/" title="工具样式" id="doc_pager_prev"><i class="doc-icon">⮜</i> 工具样式</a>
+                            <a href="../../../components/typo/media/" title="图文混排" id="doc_pager_next">图文混排 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/grid/","imports":["typo/reset","typo/util","typo/grid"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

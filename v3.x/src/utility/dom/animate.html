@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>特效扩展（基于 JavaScript）</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="基于 JavaScript 实现的完整特效。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
+    <script type="text/javascript" src="../../src/fx/colorex.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+
+    <style>
+        #a {
+            background: #DCDCDC;
+            margin: 30px;
+            padding: 8px;
+        }
+
+        #b {
+            background: #EDEDED;
+            padding: 8px;
+        }
+
+        #c {
+            background: #EAF2F5;
+            border: 1px solid #ffffff;
+            margin: 4px auto;
+            width: 300px;
+            text-align: center;
+        }
+
+        #d {
+            background: #EAF2F5;
+            border: 10px solid #BEDCE7;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <article class="demo">
+
+        <div id="all">
+            <div id="a" class="a">
+                id=a margin=30 padding=8
+                <div id="b" class="b" _tag="b">
+                    id=b padding=8
+                    <div id="c" class="c">id=c border=1 margin=4 auto width=300</div>
+                </div>
+                <div id="d" class="d">id=d border=10 padding=8</div>
+            </div>
+        </div>
+        <script>
+            var a = Dom.get('a'), b = Dom.get('b'), c = Dom.get('c'), d = Dom.get('d'), o = Dom.get('o'), abcd = new Dom(Dom.get('all').getElementsByTagName("div"));
+
+            Demo.writeExamples({
+                'Animate': '-',
+                'createAnimate': function () {
+                    new Fx.Tween().run({
+                        elem: a,
+                        params: { height: 500 }
+                    }).run({
+                        elem: a,
+                        params: { height: 200 }
+                    }).run({
+                        elem: a,
+                        params: { height: 100 }
+                    })
+
+                },
+                'animateHeight': 'Dom.animate(d, {height: 500});Dom.animate(d,{height: 100});Dom.animate(d,{height: 30})',
+                'animateOpacity': 'Dom.animate(a,{opacity: 0});Dom.animate(a,{opacity: 1}); Dom.animate(a,{opacity: 0}); Dom.animate(a,{opacity: 1})',
+                'animateScrollTop': 'Dom.animate(document, {scrollTop: 400})',
+                'animateBackgroundColor': 'Dom.animate(a,{"background-color": "#efefef"})',
+                'Toggle': '-',
+                'toggle': 'Dom.toggle(a,1000)',
+                'toggleHeight': 'Dom.toggle(a,{effect:"height", duration:1000})',
+                'toggleWidth': 'Dom.toggle(a,{effect:"width", duration:1000})',
+                'toggleAll': 'Dom.toggle(a,{effect:"all", duration:1000})',
+                'toggleLeft': 'Dom.toggle(a,{effect:"left", duration:1000})',
+                'toggleTop': 'Dom.toggle(a,{effect:"top", duration:1000})',
+                'toggleRight': 'Dom.toggle(a,{effect:"right", duration:1000})',
+                'toggleBottom': 'Dom.toggle(a,{effect:"bottom", duration:1000})',
+                'hide(1000)': 'Dom.hide(a,1000)',
+                'hide': 'Dom.hide(a,1);'
+            }, { times: 8 });
+
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件是 Tween 的扩展。它让 Tween 支持处理颜色的渐变值。</blockquote>
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            var tween = new Fx.Tween();
+            Demo.writeExamples({
+                'Fx.Tween#run(#000000)': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: '#000000'
+                        }
+                    });
+                },
+                'Fx.Tween#run(rgb(0, 0, 0))': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: 'rgb(0, 0, 0)'
+                        }
+                    });
+                },
+                'Fx.Tween#run("#000000-#ffffff")': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: '#000000-#ffffff'
+                        }
+                    });
+                }
+            }, { times: 8 });
+
+        </script>
+    </article>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件是 Color 的扩展。它让 Color 支持识别系统内置颜色。</blockquote>
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            var tween = new Fx.Tween();
+            Demo.writeExamples({
+                'Fx.Tween#run(green-blue)': function () {
+                    return tween.run({
+                        elem: Dom.get('a'),
+                        params: {
+                            backgroundColor: 'green-blue'
+                        }
+                    });
+                }
+            }, { times: 8 });
+
+        </script>
+    </article>
+</body>
+</html>

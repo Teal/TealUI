@@ -1,0 +1,13 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: @z-index-dialog - 1;
+    background: #000;
+    .opacity(.5);
+}

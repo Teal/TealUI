@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>图标 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/spin","typo/icon/icon-class","typo/icon"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/icon\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/icon\&quot;], function (icon_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/icon/icon.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/icon" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/icon/icon.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="图标">
+<a href="#图标" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>图标<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>">typo/icon</small></h1>
+<p class="doc">提供各类小图标。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#通过-class-指定图标">通过 class 指定图标</a></dt>
+	<dt><a href="#加载图标">加载图标</a></dt>
+	<dt><a href="#图标列表">图标列表</a></dt>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc">创建一个独立的 <code>&lt;i class=&quot;x-icon&quot;&gt;</code> 标签来表示图标，标签内部字符决定了图标的内容。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<i class="x-icon">★</i> 你好　　
+<a href="###"><i class="x-icon">★</i>你好</a>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon"</span>&gt;</span>★<span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span> 你好　　
+<span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon"</span>&gt;</span>★<span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span>你好<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote doc-blockquote-error">
+<h5>注意</h5>
+<p class="doc">不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。</p>
+</blockquote>
+<p class="doc">使用图标时应在图标后追加一个空格以保证美观。
+链接内图标不需要追加空格，因为其已包含了 <code>0.25rem</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。</p>
+<h2 id="通过-class-指定图标">
+<a href="#通过-class-指定图标" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>通过 <code>class</code> 指定图标</h2>
+<p class="doc">引入 <code>typo/icon/icon-class.scss</code> 后可以通过 <code>class</code> 来指定图标。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<i class="x-icon x-icon-star"></i> 你好　
+<a href="###"><i class="x-icon x-icon-star"></i>你好</a>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon x-icon-star"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span> 你好　
+<span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon x-icon-star"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span>你好<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span></code></pre>
+                </div><h2 id="加载图标">
+<a href="#加载图标" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>加载图标</h2>
+<p class="doc">结合<a href="../../../components/typo/spin/" title="typo/spin">旋转</a>，可以完成加载中的效果。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
+<i class="x-icon x-spin">&#1161;</i> 正在加载...　　
+<i class="x-icon x-spin">🗘</i> 正在刷新...
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon x-spin"</span>&gt;</span>&amp;#1161;<span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span> 正在加载...　　
+<span class="doc-code-tag">&lt;<span class="doc-code-name">i</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-icon x-spin"</span>&gt;</span>🗘<span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span> 正在刷新...</code></pre>
+                </div><h2 id="图标列表">
+<a href="#图标列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>图标列表</h2>
+<p class="doc">图标的内容由内部文字决定，更换 <code>&lt;i&gt;</code> 里面的字符可以切换图标的内容。
+一些特殊字符可以使用 HTML 转义码（如<code>&amp;#9733;</code>）表示。</p>
+<style>
+    td[align="center"] {
+        text-align: center!important;
+    }
+</style>
+<div class="doc" id="iconlist"></div>
+<script>window.onload = function () {
+    var html = '<table>', odd = true;
+    function appendLine(iconChar, iconName) {
+        if (odd) {
+            html += '<tr>';
+        }
+        html += '<td align="center"><span class="x-icon">' + iconChar + '</span></td>';
+        html += '<td align="center"><code>' + iconChar + '</code></td>';
+        html += '<td><code>&amp;#' + iconChar.charCodeAt(0) + ';</code></td>';
+        html += '<td><code>x-icon-' + iconName + '</code></td>';
+        if (!odd) {
+            html += '</tr>';
+        }
+        odd = !odd;
+    }
+    try {
+        html += '<tr><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名</th><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名</th></tr>';
+        for (var i = 0; i < document.styleSheets.length; i++) {
+            var styleSheet = document.styleSheets[i];
+            for (var j = 0; j < styleSheet.cssRules.length; j++) {
+                styleSheet.cssRules[j].cssText.replace(/\.x-icon-([-\w]+):+before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
+                    appendLine(unicode, name);
+                });
+            }
+        }
+        if (!odd) {
+            html += '<td></td><td></td><td></td><td></td></tr>';
+        }
+        html += '</table>';
+    }
+    catch (e) {
+        html = '<blockquote class="doc-blockquote doc-blockquote-note">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
+    }
+    document.getElementById("iconlist").innerHTML = html;
+};
+</script>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/spin/" title="旋转" id="doc_pager_prev"><i class="doc-icon">⮜</i> 旋转</a>
+                            <a href="../../../components/typo/badge/" title="徽章" id="doc_pager_next">徽章 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/icon/","imports":["typo/reset","typo/spin","typo/icon/icon-class","typo/icon"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

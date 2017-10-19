@@ -1,0 +1,42 @@
+﻿.x-picker {
+  position: relative;
+  display: inline-block;
+}
+.x-picker .x-textbox {
+  padding-right: 36px;
+}
+.x-picker .x-textbox:focus + .x-button:not(.x-button-success):not(.x-button-warning):not(.x-button-error) {
+  border-color: #66afe9;
+}
+.x-picker .x-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-color: #cccccc;
+  border-radius: 0 4px 4px 0;
+  padding-left: 0;
+  padding-right: 0;
+  width: 34px;
+}
+.x-picker .x-button:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+  background-color: transparent;
+  border-color: transparent;
+}
+.x-picker .x-button-success {
+  border-color: #3c763d;
+}
+.x-picker .x-button-success:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+  color: #3c763d;
+}
+.x-picker .x-button-warning {
+  border-color: #9c7a3e;
+}
+.x-picker .x-button-warning:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+  color: #9c7a3e;
+}
+.x-picker .x-button-error {
+  border-color: #a94442;
+}
+.x-picker .x-button-error:not(:focus):not(:hover):not(:active):not(.x-button-actived) {
+  color: #a94442;
+}

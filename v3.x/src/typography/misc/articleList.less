@@ -1,0 +1,18 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-articlelist {
+    > li {
+        padding: .5em 0;
+    }
+    p {
+        font-size: @font-size - 1;
+        line-height: 1.5;
+        color: lighten(@text-color, 20%);
+        margin-bottom: 0;
+    }
+
+    small a {
+        color: @text-color-tip;
+    }
+}

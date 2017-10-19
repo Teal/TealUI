@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>分隔按钮</title>
+    <meta name="module-info" content="status=done, order=menuButton">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="两个按钮组合成一个分割按钮。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/buttonGroup.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/popup/menu.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/core/popover.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/form/splitButton.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/pin.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../control/core/popover.js"></script>
+    <script type="text/javascript" src="../../control/popup/menu.js"></script>
+    <script type="text/javascript" src="../../control/form/splitButton.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <span class="x-splitbutton x-buttongroup" x-role="splitButton">
+            <button type="button" class="x-button">菜单</button>
+            <button type="button" class="x-button"><span class="x-icon">&#9662;</span></button>
+        </span>
+        <menu class="x-menu x-dropdownmenu" x-role="menu">
+            <li><a href="###">菜单 1</a></li>
+            <li><a href="###">菜单 2</a></li>
+            <li class="x-menu-divider"></li>
+            <li>
+                <menu class="x-menu" x-role="menu">
+                    <li><a href="###">菜单 1</a></li>
+                    <li><a href="###">菜单 2</a></li>
+                    <li class="x-menu-divider"></li>
+                    <li><a href="###">菜单 3</a></li>
+                </menu>
+                <a href="###">菜单 3</a>
+            </li>
+        </menu>
+    </aside>
+    
+    <aside class="doc-demo">
+        <span class="x-splitbutton x-buttongroup x-radius" x-role="splitButton">
+            <button type="button" class="x-button x-button-bordered x-button-small">菜单</button>
+            <button type="button" class="x-button x-button-bordered x-button-small"><span class="x-icon">&#9662;</span></button>
+        </span>
+        <menu class="x-menu x-dropdown">
+            <li><a href="###">菜单 1</a></li>
+            <li><a href="###">菜单 2</a></li>
+            <li><hr /></li>
+            <li><a href="###">菜单 3</a></li>
+        </menu>
+    </aside>
+    <!--<article>
+
+        <h2>JavaScript 方式</h2>
+
+        <section>
+
+            <h3>自动生成菜单</h3>
+
+            <p><strong>必须手动引入 Controls.Menu.Menu 组件，才能自动生成菜单。</strong></p>
+
+            <script type="text/html">
+                <span class="x-splitbutton x-buttongroup" id="d1">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+                < script>
+                        var d1 = new SplitButton('#d1');
+                        var item = d1.add('这是通过 add 添加的');
+                        Dom.on(item.elem, 'click', function(){alert("菜单项点击了")});
+                    < /script>
+            </script>
+
+        </section>
+
+        <section>
+
+            <h3>HTML 方式生成菜单</h3>
+
+            <p>按钮后面的 <code>x-dropdown</code> 会被自动认为是当前按钮的子菜单。</p>
+
+            <script type="text/html">
+                <span class="x-splitbutton x-buttongroup" id="d2">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+                <ul class="x-dropdown x-menu">
+                    <li>预定义的第1个菜单
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="x-menuitem" onclick="alert('点击了')">预定义的第2个菜单</a>
+                    </li>
+                    <li>
+                        <em>预定义的第3个菜单</em>
+                    </li>
+                </ul>
+                < script>
+                        var d2 = new SplitButton('#d2');
+                    < /script>
+            </script>
+
+        </section>
+
+    </article>-->
+
+    <!--<article>
+
+        <h2>HTML 方式</h2>
+
+        <section>
+            <aside class="doc-demo">
+                <span class="x-splitbutton x-buttongroup">
+                    <button type="button" class="x-button">按钮button</button>
+                    <button type="button" class="x-button"><span class="x-menubutton-arrow"></span></button>
+                </span>
+            </aside>
+        </section>
+
+    </article>-->
+
+    <!--<article>
+
+        <h2>API</h2>
+
+        <p>分别参考 <a href="../Menu/Menu.html">Menu</a> 和 <a href="Button.html">Button</a> 的 API 。</p>
+
+    </article>-->
+
+
+</body>
+</html>

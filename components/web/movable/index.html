@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>移动效果 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/movable"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import movable, { Movable } from \&quot;web/movable\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/movable\&quot;], function (movable_1) {\n\tvar movable = movable_1.default;\n\tvar Movable = movable_1.Movable;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/movable" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/movable/movable.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="移动效果">
+<a href="#移动效果" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>移动效果<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as movable, Movable">web/movable</small></h1>
+<p class="doc">所有“按下-移动-松开”交互效果的抽象底层。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#内部原理">内部原理</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Movable">Movable 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc"><code>Movable</code> 封装了指针“按下-移动-松开”的连续操作，并分别触发 <code>moveStart</code>、<code>move</code>、<code>moveEnd</code> 三个事件（但不移动元素）。</p>
+<p class="doc">如果在 <code>move</code> 事件中改变元素的位置就可以实现经典的移动效果。
+<code>Movable</code> 是移动、手势、触摸滚动等交互效果的底层实现。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<div id="elem">摸我</div>
+<script>define("doc_demo_1", ["require", "exports", "web/movable"], function (require, exports, movable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    movable_1.default(elem, {
+        moveStart: function () {
+            console.log("移动开始");
+        },
+        move: function () {
+            console.log("移动中：", this.offsetX, this.offsetY);
+        },
+        moveEnd: function () {
+            console.log("移动结束");
+        }
+    });
+});
+
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem"</span>&gt;</span>摸我<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+<span class="doc-code-keyword">import</span> movable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/movable"</span>;
+
+movable(elem, {
+    moveStart(){
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"移动开始"</span>);
+    },
+    move(){
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"移动中："</span>, <span class="doc-code-keyword">this</span>.offsetX, <span class="doc-code-keyword">this</span>.offsetY);
+    },
+    moveEnd(){
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"移动结束"</span>);
+    }
+})
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="../../../components/web/draggable/" title="web/draggable">拖动</a></li>
+<li class="doc">[[web/touchable]]</li>
+<li class="doc">[[web/scrollable]]</li>
+</ul>
+</blockquote>
+<h2 id="内部原理">
+<a href="#内部原理" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>内部原理</h2>
+<p class="doc">移动交互的具体流程为：</p>
+<ol>
+<li class="doc"><code>handlePointerDown</code>：当鼠标（手指）按下时触发。记录 <code>startX</code> 和 <code>startY</code> 并开始监听鼠标（手指）松开和移动事件。</li>
+<li class="doc"><code>init</code>：当鼠标（手指）按下保持 <code>delay</code> 毫秒数或移动距离超过 <code>distance</code> 时，认为移动开始。</li>
+<li class="doc"><code>moveStart</code>：触发开始移动事件。</li>
+<li class="doc"><code>handlePointerMove</code>：当鼠标（手指）移动时触发。记录 <code>endX</code> 和 <code>endY</code> 字段。</li>
+<li class="doc"><code>move</code>：触发移动事件。</li>
+<li class="doc"><code>handlePointerUp</code>：当鼠标（手指）松开时触发。</li>
+<li class="doc"><code>uninit</code>：解绑鼠标（手指）松开和移动事件。</li>
+<li class="doc"><code>moveEnd</code>：触发移动结束事件。</li>
+</ol>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/movable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L3-14" target="_blank" title="源码：web/movable/movable.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>movable<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, options?:<code>Partial&lt;<a href="#api/Movable">Movable</a>&gt;</code>):<code><a href="#api/Movable">Movable</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个可移动对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要移动的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>options</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="#api/Movable">Movable</a>&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">移动的选项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Movable">Movable</a></code></p>
+                <p class="doc">返回一个移动对象。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个可移动对象。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Movable"><a href="#api/Movable" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L16-271" target="_blank" title="源码：web/movable/movable.ts，第 16 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Movable 类</h3><p class="doc">表示一个可移动的对象。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Movable/elem">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L21-24" target="_blank" title="源码：web/movable/movable.ts，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>elem</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">移动的元素。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">移动的元素。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/delay">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L26-30" target="_blank" title="源码：web/movable/movable.ts，第 26 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>delay</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>-1</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">从指针按下到触发移动事件的等待毫秒数。如果为 -1 则忽略指针按下不动的操作。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">从指针按下到触发移动事件的等待毫秒数。如果为 -1 则忽略指针按下不动的操作。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/distance">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L32-36" target="_blank" title="源码：web/movable/movable.ts，第 32 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>distance</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>3</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">允许触发移动事件的最小指针移动距离（单位：像素）。当移动距离小于这个值时忽略移动操作。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">允许触发移动事件的最小指针移动距离（单位：像素）。当移动距离小于这个值时忽略移动操作。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/startX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L62-65" target="_blank" title="源码：web/movable/movable.ts，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取开始移动的水平坐标（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取开始移动的水平坐标（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/startY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L67-70" target="_blank" title="源码：web/movable/movable.ts，第 67 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取开始移动的垂直坐标（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取开始移动的垂直坐标（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/endX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L72-75" target="_blank" title="源码：web/movable/movable.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取当前的水平坐标（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取当前的水平坐标（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/endY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L77-80" target="_blank" title="源码：web/movable/movable.ts，第 77 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取当前的垂直坐标（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取当前的垂直坐标（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/offsetX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L82-85" target="_blank" title="源码：web/movable/movable.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offsetX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取移动的水平距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取移动的水平距离（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/offsetY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L87-90" target="_blank" title="源码：web/movable/movable.ts，第 87 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offsetY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取移动的垂直距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取移动的垂直距离（单位：像素）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Movable/current">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L92-95" target="_blank" title="源码：web/movable/movable.ts，第 92 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>Movable.current</code>
+                                <span class="doc-api-more">: <code><a href="#api/Movable">Movable</a> | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">当前正在移动的对象。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/Movable">Movable</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">当前正在移动的对象。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Movable/cancel">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L38-46" target="_blank" title="源码：web/movable/movable.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>cancel<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断是否取消指定事件引发的移动效果。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果返回 true 则取消移动，否则允许开始移动。</p>
+
+                <h4>说明</h4><p class="doc">默认地，如果是点击输入域则取消移动。</p>
+
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否取消指定事件引发的移动效果。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/enable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L48-53" target="_blank" title="源码：web/movable/movable.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>enable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">启用移动效果。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">启用移动效果。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/disable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L55-60" target="_blank" title="源码：web/movable/movable.ts，第 55 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>disable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">禁用移动效果。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">禁用移动效果。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/handlePointerDown">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L97-130" target="_blank" title="源码：web/movable/movable.ts，第 97 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerDown<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针按下事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针按下事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/handlePointerMove">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L132-147" target="_blank" title="源码：web/movable/movable.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerMove<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针移动事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针移动事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/handlePointerUp">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L149-157" target="_blank" title="源码：web/movable/movable.ts，第 149 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerUp<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针松开事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针松开事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/init">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L169-207" target="_blank" title="源码：web/movable/movable.ts，第 169 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>init<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>进入移动状态。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>进入移动状态。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/uninit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L209-240" target="_blank" title="源码：web/movable/movable.ts，第 209 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>uninit<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>退出移动状态。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>退出移动状态。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/moveStart">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L252-257" target="_blank" title="源码：web/movable/movable.ts，第 252 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>moveStart<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean | void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发移动开始事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean | void</code></p>
+                <p class="doc">如果返回 false 则忽略本次移动。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发移动开始事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/move">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L259-263" target="_blank" title="源码：web/movable/movable.ts，第 259 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>move<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发移动事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发移动事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Movable/moveEnd">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L265-269" target="_blank" title="源码：web/movable/movable.ts，第 265 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>moveEnd<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发移动结束事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">触发移动结束事件。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/hashChange/" title="哈希值改变事件" id="doc_pager_prev"><i class="doc-icon">⮜</i> 哈希值改变事件</a>
+                            <a href="../../../components/web/draggable/" title="拖动" id="doc_pager_next">拖动 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/movable/","imports":["web/movable"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>用于填数字的控件</title>
+    <meta name="module-info" content="status=done, order=upDown">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供上下按钮的数字输入文本框。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../input/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../input/inputGroup.css" />
+    <link rel="stylesheet" type="text/css" href="../input/upDown.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../input/upDown.js"></script>
+    <script type="text/javascript" src="../input/numericUpDown.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <aside class="doc-demo">
+        <span class="x-updown x-inputgroup" x-role="numericUpDown">
+            <span><button class="x-button x-updown-up"><span class="x-icon">&#9473;</span></button></span>
+            <input type="text" class="x-textbox" value="0">
+            <span><button class="x-button x-updown-down"><span class="x-icon">&#10010;</span></button></span>
+        </span>
+    </aside>
+
+    <h2>设置步长</h2>
+    <aside class="doc-demo">
+        <span class="x-updown x-inputgroup" x-role="numericUpDown" x-step="5">
+            <span><button class="x-button x-updown-up"><span class="x-icon">&#9473;</span></button></span>
+            <input type="text" class="x-textbox" value="0">
+            <span><button class="x-button x-updown-down"><span class="x-icon">&#10010;</span></button></span>
+        </span>
+    </aside>
+</body>
+</html>

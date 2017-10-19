@@ -1,0 +1,63 @@
+.x-nav {
+  padding: 0;
+  list-style: none;
+}
+
+.x-nav a {
+  display: block;
+  margin-bottom: 0.5rem;
+  border-radius: 0.2rem;
+  padding: 0.375rem 1rem;
+}
+
+.x-nav a:hover {
+  background-color: #fafafa;
+  text-decoration: none;
+}
+
+.x-nav .x-badge {
+  float: right;
+}
+
+.x-nav-active a {
+  background-color: #1780ce !important;
+  color: #fff !important;
+}
+
+.x-nav-active a .x-badge {
+  background-color: #fff;
+  color: #1780ce;
+}
+
+.x-nav-h {
+  display: inline;
+}
+
+.x-nav-h li {
+  display: inline;
+}
+
+.x-nav-h li a {
+  display: inline-block;
+}
+
+.x-nav-h li + li {
+  margin-left: 0.5rem;
+}
+
+@media (min-width: 641px) {
+  .x-nav-large-h {
+    display: inline;
+  }
+  .x-nav-large-h li {
+    display: inline;
+  }
+  .x-nav-large-h li a {
+    display: inline-block;
+  }
+  .x-nav-large-h li + li {
+    margin-left: 0.5rem;
+  }
+}
+
+/*# sourceMappingURL=nav.css.map */

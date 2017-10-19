@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>全局样式 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/reset\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/reset\&quot;], function (reset_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/reset/reset.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/reset" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/reset/reset.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="全局样式">
+<a href="#全局样式" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局样式<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;关键字：水平线,line,分割线,线条">typo/reset</small></h1>
+<p class="doc">定义全局性的 CSS 样式。</p>
+<dl id="doc_toc">
+	<dt><a href="#样式重置">样式重置</a></dt>
+	<dt><a href="#默认样式">默认样式</a></dt>
+	<dd><a href="#字体">字体</a></dd>
+	<dd><a href="#标题">标题</a></dd>
+	<dd><a href="#段落">段落</a></dd>
+	<dd><a href="#列表">列表</a></dd>
+	<dd><a href="#表格">表格</a></dd>
+	<dd><a href="#水平线">水平线</a></dd>
+	<dd><a href="#图片">图片</a></dd>
+	<dd><a href="#代码">代码</a></dd>
+	<dd><a href="#表单">表单</a></dd>
+	<dd><a href="#html5-新标签">HTML5 新标签</a></dd>
+	<dd><a href="#其它块级标签">其它块级标签</a></dd>
+	<dd><a href="#其它内联标签">其它内联标签</a></dd>
+</dl>
+<h2 id="样式重置">
+<a href="#样式重置" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>样式重置</h2>
+<p class="doc">统一所有浏览器的默认样式，避免一些兼容问题：</p>
+<ol>
+<li class="doc">统一常用标签样式。</li>
+<li class="doc">隐藏触摸阴影；修复<a href="../../../components/../docs/issues/300ms-click-delay.html" title="../docs/issues/300ms-click-delay">触屏：鼠标事件延时触发</a>问题。</li>
+<li class="doc">IOS：修复部分表单元素无法更改样式的问题。</li>
+<li class="doc">IE：隐藏图片蓝色边框；修复滚动条和<a href="../../../components/../docs/issues/ie10-viewport.html" title="../docs/issues/ie10-viewport">IE 10（WP 8）不识别 `&lt;meta name=&quot;viewport&quot;&gt;`</a>问题。</li>
+</ol>
+<blockquote class="doc doc-blockquote doc-blockquote-warning">
+<p class="doc"> 为保持核心小巧，不常用标签的样式重置被移到了：<a href="../../../components/typo/reset/reset-more.html" title="typo/reset/reset-more">全局样式扩展</a>。</p>
+</blockquote>
+<h2 id="默认样式">
+<a href="#默认样式" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>默认样式</h2>
+<h3 id="字体">
+<a href="#字体" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>字体</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<a>描点</a>
+<a href="###" title="链接">链接</a>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span>&gt;</span>描点<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span> <span class="doc-code-attr">title</span>=<span class="doc-code-string">"链接"</span>&gt;</span>链接<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/" target="_blank" class="doc-external">native font stacks in this Smashing Magazine article</a></li>
+<li class="doc"><a href="https://infinnie.github.io/blog/2017/systemui.html" target="_blank" class="doc-external">Never, ever use system-ui as the value of font-family</a></li>
+<li class="doc"><a href="../../../components/../docs/issues/font-smoothing.html" title="../docs/issues/font-smoothing">字体平滑</a></li>
+<li class="doc"><a href="../../../components/../docs/issues/chrome-font-size-lt-12px.html" title="../docs/issues/chrome-font-size-lt-12px">Chrome 显示小字</a></li>
+<li class="doc"><a href="../../../components/typo/tip/" title="typo/tip">提示</a></li>
+</ul>
+</blockquote>
+<h3 id="标题">
+<a href="#标题" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>标题</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<h1>标题1（Heading 1）<small>副标题（Subheading）</small></h1>
+<h2>标题2（Heading 2）<small>副标题（Subheading）</small></h2>
+<h3>标题3（Heading 3）<small>副标题（Subheading）</small></h3>
+<h4>标题4（Heading 4）<small>副标题（Subheading）</small></h4>
+<h5>标题5（Heading 5）<small>副标题（Subheading）</small></h5>
+<h6>标题6（Heading 6）<small>副标题（Subheading）</small></h6>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">h1</span>&gt;</span>标题1（Heading 1）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h1</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">h2</span>&gt;</span>标题2（Heading 2）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h2</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">h3</span>&gt;</span>标题3（Heading 3）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h3</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">h4</span>&gt;</span>标题4（Heading 4）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h4</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">h5</span>&gt;</span>标题5（Heading 5）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h5</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">h6</span>&gt;</span>标题6（Heading 6）<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>副标题（Subheading）<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">h6</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><h3 id="段落">
+<a href="#段落" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>段落</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
+<h2 style="text-align: center;">雪</h2>
+<p style="text-indent: 2em;">美丽的雪花飞舞起来了。我已经有三年不曾见着它。</p>
+<p style="text-indent: 2em;">去年在福建，仿佛比现在更迟一点，也曾见过雪。但那是远处山顶的积雪，可不是飞舞的雪花。在平原上，它只是偶然的随着雨点洒下来几颗，没有落到地面的时候。它的颜色是灰的，不是白色；它的重量像是雨点，并不会飞舞。一到地面，它立刻融成了水，没有痕迹，也未尝跳跃，也未尝发出唏嘘的声音，像江浙一带下雪时的模样。这样的雪，在四十年来第一次看见它的老年的福建人，诚然能感到特别的意味，谈得津津有味，但在我，却总觉得索然。"福建下过雪"，我可没有这样想过。</p>
+<p style="text-indent: 2em;">我喜欢眼前飞舞着的上海的雪花。它才是"雪白"的白色，也才是花一样的美丽。它好像比空气还轻，并不从半空里落下来，而是被空气从地面卷起来的。然而它又像是活的生物，像夏天黄昏时候的成群的蚊蚋(ruì)，像春天酿蜜时期的蜜蜂，它的忙碌的飞翔，或上或下，或快或慢，或粘着人身，或拥入窗隙，仿佛自有它自己的意志和目的。它静默无声。但在它飞舞的时候，我们似乎听见了千百万人马的呼号和脚步声，大海汹涌的波涛声，森林的狂吼声，有时又似乎听见了儿女的窃窃私语声，礼拜堂的平静的晚祷声，花园里的欢乐的鸟歌声……它所带来的是阴沉与严寒。但在它的飞舞的姿态中，我们看见了慈善的母亲，活泼的孩子，微笑的花儿，和暖的太阳，静默的晚霞……它没有气息。但当它扑到我们面上的时候，我们似乎闻到了旷野间鲜洁的空气的气息，山谷中幽雅的兰花的气息，花园里浓郁的玫瑰的气息，清淡的茉莉花的气息……在白天，它做出千百种婀娜的姿态；夜间，它发出银色的光辉，照耀着我们行路的人，又在我们的玻璃窗上扎扎地绘就了各式各样的花卉和树木，斜的，直的，弯的，倒的。还有那河流，那天上的云…</p>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">h2</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"text-align: center;"</span>&gt;</span>雪<span class="doc-code-tag">&lt;/<span class="doc-code-name">h2</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">p</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"text-indent: 2em;"</span>&gt;</span>美丽的雪花飞舞起来了。我已经有三年不曾见着它。<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">p</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"text-indent: 2em;"</span>&gt;</span>去年在福建，仿佛比现在更迟一点，也曾见过雪。但那是远处山顶的积雪，可不是飞舞的雪花。在平原上，它只是偶然的随着雨点洒下来几颗，没有落到地面的时候。它的颜色是灰的，不是白色；它的重量像是雨点，并不会飞舞。一到地面，它立刻融成了水，没有痕迹，也未尝跳跃，也未尝发出唏嘘的声音，像江浙一带下雪时的模样。这样的雪，在四十年来第一次看见它的老年的福建人，诚然能感到特别的意味，谈得津津有味，但在我，却总觉得索然。"福建下过雪"，我可没有这样想过。<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">p</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"text-indent: 2em;"</span>&gt;</span>我喜欢眼前飞舞着的上海的雪花。它才是"雪白"的白色，也才是花一样的美丽。它好像比空气还轻，并不从半空里落下来，而是被空气从地面卷起来的。然而它又像是活的生物，像夏天黄昏时候的成群的蚊蚋(ruì)，像春天酿蜜时期的蜜蜂，它的忙碌的飞翔，或上或下，或快或慢，或粘着人身，或拥入窗隙，仿佛自有它自己的意志和目的。它静默无声。但在它飞舞的时候，我们似乎听见了千百万人马的呼号和脚步声，大海汹涌的波涛声，森林的狂吼声，有时又似乎听见了儿女的窃窃私语声，礼拜堂的平静的晚祷声，花园里的欢乐的鸟歌声……它所带来的是阴沉与严寒。但在它的飞舞的姿态中，我们看见了慈善的母亲，活泼的孩子，微笑的花儿，和暖的太阳，静默的晚霞……它没有气息。但当它扑到我们面上的时候，我们似乎闻到了旷野间鲜洁的空气的气息，山谷中幽雅的兰花的气息，花园里浓郁的玫瑰的气息，清淡的茉莉花的气息……在白天，它做出千百种婀娜的姿态；夜间，它发出银色的光辉，照耀着我们行路的人，又在我们的玻璃窗上扎扎地绘就了各式各样的花卉和树木，斜的，直的，弯的，倒的。还有那河流，那天上的云…<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><h3 id="列表">
+<a href="#列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列表</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_4">
+<ul>
+    <li>列表1</li>
+    <li>
+        列表 2
+        <ul>
+            <li>列表 2.1</li>
+            <li>列表 2.2</li>
+        </ul>
+    </li>
+</ul>
+<ol>
+    <li>列表1</li>
+    <li>列表 2</li>
+</ol>
+<dl>
+    <dt>列表1</dt>
+    <dd>列表 1-1</dd>
+    <dd>列表 1-2</dd>
+    <dt>列表2</dt>
+    <dd>列表 2-1</dd>
+    <dd>列表 2-2</dd>
+    <dt>列表3</dt>
+    <dd>列表 3-1</dd>
+    <dd>列表 3-2</dd>
+</dl>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表1<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+        列表 2
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表 2.1<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表 2.2<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">ol</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表1<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表 2<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ol</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">dl</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dt</span>&gt;</span>列表1<span class="doc-code-tag">&lt;/<span class="doc-code-name">dt</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 1-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 1-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dt</span>&gt;</span>列表2<span class="doc-code-tag">&lt;/<span class="doc-code-name">dt</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 2-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 2-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dt</span>&gt;</span>列表3<span class="doc-code-tag">&lt;/<span class="doc-code-name">dt</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 3-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">dd</span>&gt;</span>列表 3-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">dd</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">dl</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">更多列表样式请参考<a href="../../../components/typo/list/" title="typo/list">列表</a>。</p>
+</blockquote>
+<h3 id="表格">
+<a href="#表格" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>表格</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
+<table>
+    <caption>表 1-1</caption>
+    <tr>
+        <th>表格 1-1</th>
+        <th>表格 1-2</th>
+    </tr>
+    <tr>
+        <td>表格 2-1</td>
+        <td>表格 2-2</td>
+    </tr>
+    <tr>
+        <td>表格 3-1</td>
+        <td>表格 3-2</td>
+    </tr>
+</table>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">table</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">caption</span>&gt;</span>表 1-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">caption</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>表格 1-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>表格 1-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>表格 2-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>表格 2-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>表格 3-1<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>表格 3-2<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">table</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">更多表格样式请参考<a href="../../../components/typo/table/" title="typo/table">表格</a>。</p>
+</blockquote>
+<h3 id="水平线">
+<a href="#水平线" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>水平线</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_6">
+<hr>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">hr</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">可使用<a href="../../../components/typo/util/util-more.html" title="typo/util/util-more">工具样式扩展</a>提供的 <code>.x-dotted</code> 等更改线条样式。</p>
+</blockquote>
+<h3 id="图片">
+<a href="#图片" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>图片</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_7">
+<a href="###"><img src="../../../assets/resources/150x150.png" /></a>
+<img src="../../../assets/resources/150x150.png" style="border-radius: 4px" />
+<img src="../../../assets/resources/150x150.png" style="border-radius: 50%;" />
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/150x150.png"</span> /&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/150x150.png"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"border-radius: 4px"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/150x150.png"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"border-radius: 50%;"</span> /&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">更多图片样式请参考<a href="../../../components/typo/thumbnail/" title="typo/thumbnail">缩略图</a>、<a href="../../../components/typo/videoPlaceholder/" title="typo/videoPlaceholder">视频缩略图</a>、<a href="../../../components/typo/avatar/" title="typo/avatar">用户头像</a>。</p>
+</blockquote>
+<h3 id="代码">
+<a href="#代码" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>代码</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_8">
+<p>
+    我是文字
+    <code>Code</code>
+    <kbd>Ctrl+D</kbd>
+    <var>x - y</var>
+    <samp>Done</samp>
+</p>
+<pre><code>var x = 1;
+var y = 2;
+function fn(){
+    return 4;
+}
+</code></pre>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>
+    我是文字
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">code</span>&gt;</span>Code<span class="doc-code-tag">&lt;/<span class="doc-code-name">code</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">kbd</span>&gt;</span>Ctrl+D<span class="doc-code-tag">&lt;/<span class="doc-code-name">kbd</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">var</span>&gt;</span>x - y<span class="doc-code-tag">&lt;/<span class="doc-code-name">var</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">samp</span>&gt;</span>Done<span class="doc-code-tag">&lt;/<span class="doc-code-name">samp</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">pre</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">code</span>&gt;</span>var x = 1;
+var y = 2;
+function fn(){
+    return 4;
+}
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">code</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">pre</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><h3 id="表单">
+<a href="#表单" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>表单</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_9">
+<p>
+    表单默认样式：
+    <input type="radio" />
+    <input type="checkbox" />
+    <label>请输入：</label>
+    <input type="text" placeholder="文本框" />
+    <input type="file" />
+    <select>
+        <optgroup label="选择组">
+            <option>选择框1</option>
+            <option>选择框2</option>
+        </optgroup>
+        <option>选择框1</option>
+        <option>选择框2</option>
+    </select>
+    <input type="button" value="input 按钮" />
+    <button>button 按钮</button>
+</p>
+请输入：<textarea>文本域</textarea>
+<fieldset>
+    <legend>标签</legend>
+    文字
+</fieldset>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>
+    表单默认样式：
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"radio"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"checkbox"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">label</span>&gt;</span>请输入：<span class="doc-code-tag">&lt;/<span class="doc-code-name">label</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"text"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"文本框"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"file"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">select</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">optgroup</span> <span class="doc-code-attr">label</span>=<span class="doc-code-string">"选择组"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span>&gt;</span>选择框1<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span>&gt;</span>选择框2<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">optgroup</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span>&gt;</span>选择框1<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span>&gt;</span>选择框2<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">select</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"button"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"input 按钮"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">button</span>&gt;</span>button 按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+请输入：<span class="doc-code-tag">&lt;<span class="doc-code-name">textarea</span>&gt;</span>文本域<span class="doc-code-tag">&lt;/<span class="doc-code-name">textarea</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">fieldset</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">legend</span>&gt;</span>标签<span class="doc-code-tag">&lt;/<span class="doc-code-name">legend</span>&gt;</span>
+    文字
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">fieldset</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">更多美化的表单样式请参考<a href="../../../components/ui/form/" title="ui/form">表单布局</a>。</p>
+</blockquote>
+<h3 id="html5-新标签">
+<a href="#html5-新标签" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>HTML5 新标签</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_10">
+<figure>
+    图表
+</figure>
+<input type="search" />
+<input type="number" />
+<input type="range" />
+<progress value="0.8"></progress>
+<details>
+    <summary>点我展开</summary>
+    <p>我是被展开的内容</p>
+</details>
+<template>
+    template 不应该被显示
+</template>
+<audio>audio</audio>
+<audio controls="controls" src="../../../assets/resources/horse.ogg">audio</audio>
+<video controls="controls" src="../../../assets/resources/horse.ogg" >video</video>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">figure</span>&gt;</span>
+    图表
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">figure</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"search"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"number"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"range"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">progress</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"0.8"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">progress</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">details</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">summary</span>&gt;</span>点我展开<span class="doc-code-tag">&lt;/<span class="doc-code-name">summary</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是被展开的内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">details</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">template</span>&gt;</span>
+    template 不应该被显示
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">template</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">audio</span>&gt;</span>audio<span class="doc-code-tag">&lt;/<span class="doc-code-name">audio</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">audio</span> <span class="doc-code-attr">controls</span>=<span class="doc-code-string">"controls"</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/horse.ogg"</span>&gt;</span>audio<span class="doc-code-tag">&lt;/<span class="doc-code-name">audio</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">video</span> <span class="doc-code-attr">controls</span>=<span class="doc-code-string">"controls"</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/horse.ogg"</span> &gt;</span>video<span class="doc-code-tag">&lt;/<span class="doc-code-name">video</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><h3 id="其它块级标签">
+<a href="#其它块级标签" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>其它块级标签</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_11">
+<figure>figure</figure>
+<address>address</address>
+<blockquote>blockquote</blockquote>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">figure</span>&gt;</span>figure<span class="doc-code-tag">&lt;/<span class="doc-code-name">figure</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">address</span>&gt;</span>address<span class="doc-code-tag">&lt;/<span class="doc-code-name">address</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">blockquote</span>&gt;</span>blockquote<span class="doc-code-tag">&lt;/<span class="doc-code-name">blockquote</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<p class="doc">用于表示名言引入的块级引用请参考<a href="../../../components/typo/blockquote/" title="typo/blockquote">块引用</a>。</p>
+</blockquote>
+<h3 id="其它内联标签">
+<a href="#其它内联标签" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>其它内联标签</h3>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_12">
+文本：
+<code>code</code>
+<strong>strong</strong>
+<em>em</em>
+<big>big</big>
+<small>small</small>
+<sup>sup</sup>
+<sub>sub</sub>
+<del>del</del>
+<cite>cite</cite>
+<abbr title="我是说明">abbr</abbr>
+<dfn>dfn</dfn>
+<u>u</u>
+<i>i</i>
+<b>b</b>
+<q>q</q>
+<ins>ins</ins>
+<mark>mark</mark>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html">文本：
+<span class="doc-code-tag">&lt;<span class="doc-code-name">code</span>&gt;</span>code<span class="doc-code-tag">&lt;/<span class="doc-code-name">code</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">strong</span>&gt;</span>strong<span class="doc-code-tag">&lt;/<span class="doc-code-name">strong</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">em</span>&gt;</span>em<span class="doc-code-tag">&lt;/<span class="doc-code-name">em</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">big</span>&gt;</span>big<span class="doc-code-tag">&lt;/<span class="doc-code-name">big</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>small<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">sup</span>&gt;</span>sup<span class="doc-code-tag">&lt;/<span class="doc-code-name">sup</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">sub</span>&gt;</span>sub<span class="doc-code-tag">&lt;/<span class="doc-code-name">sub</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">del</span>&gt;</span>del<span class="doc-code-tag">&lt;/<span class="doc-code-name">del</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">cite</span>&gt;</span>cite<span class="doc-code-tag">&lt;/<span class="doc-code-name">cite</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">abbr</span> <span class="doc-code-attr">title</span>=<span class="doc-code-string">"我是说明"</span>&gt;</span>abbr<span class="doc-code-tag">&lt;/<span class="doc-code-name">abbr</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">dfn</span>&gt;</span>dfn<span class="doc-code-tag">&lt;/<span class="doc-code-name">dfn</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">u</span>&gt;</span>u<span class="doc-code-tag">&lt;/<span class="doc-code-name">u</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">i</span>&gt;</span>i<span class="doc-code-tag">&lt;/<span class="doc-code-name">i</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">b</span>&gt;</span>b<span class="doc-code-tag">&lt;/<span class="doc-code-name">b</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">q</span>&gt;</span>q<span class="doc-code-tag">&lt;/<span class="doc-code-name">q</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">ins</span>&gt;</span>ins<span class="doc-code-tag">&lt;/<span class="doc-code-name">ins</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">mark</span>&gt;</span>mark<span class="doc-code-tag">&lt;/<span class="doc-code-name">mark</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div>
+                        
+                        <nav id="doc_pager">
+                            
+                            <a href="../../../components/typo/print/" title="打印样式" id="doc_pager_next">打印样式 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/reset/","imports":["typo/reset"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,2057 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>消息框 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","ui/messageBox"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import MessageBox from \&quot;ui/messageBox\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;ui/messageBox\&quot;], function (messageBox_1) {\n\tvar MessageBox = messageBox_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=ui/messageBox" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/ui/messageBox/messageBox.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="消息框">
+<a href="#消息框" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>消息框<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as MessageBox">ui/messageBox</small></h1>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#样式">样式</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#api/MessageBox">MessageBox 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<button onclick="MessageBox.alert('警告');
+">警告</button>
+<button onclick="MessageBox.confirm('确认删除吗？', '标题', function () { alert('点击了确定'); });
+">确认框</button>
+<button onclick="MessageBox.prompt('请输入文字', '标题', function (text) { alert(text); });
+">输入框</button>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"MessageBox.alert('警告')"</span>&gt;</span>警告<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"MessageBox.confirm('确认删除吗？', '标题', function(){ alert('点击了确定') })"</span>&gt;</span>确认框<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"MessageBox.prompt('请输入文字', '标题', function(text){ alert(text) })"</span>&gt;</span>输入框<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span></code></pre>
+                </div><h2 id="样式">
+<a href="#样式" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>样式</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<div class="x-dialog" style="display: none;">
+    <section class="x-panel">
+        <header class="x-panel-header">
+            <a class="x-close x-dialog-close" href="javascript:;">✖</a>
+            <h5>顶部</h5>
+        </header>
+        <div class="x-panel-icon x-icon x-tip-warning">⚠</div>
+        <div class="x-panel-body">
+            内容
+        </div>
+        <div class="x-panel-buttons">
+            <button class="x-button x-button-primary">确定</button>
+            <button class="x-button">取消</button>
+        </div>
+    </section>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-dialog"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"display: none;"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">section</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-panel"</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">header</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-panel-header"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-close x-dialog-close"</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"javascript:;"</span>&gt;</span>✖<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">h5</span>&gt;</span>顶部<span class="doc-code-tag">&lt;/<span class="doc-code-name">h5</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">header</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-panel-icon x-icon x-tip-warning"</span>&gt;</span>⚠<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-panel-body"</span>&gt;</span>
+            内容
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-panel-buttons"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-button x-button-primary"</span>&gt;</span>确定<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-button"</span>&gt;</span>取消<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">section</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/MessageBox"><a href="#api/MessageBox" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L9-165" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 9 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>MessageBox 类</h3><p>继承自：<code><a href="../../../components/ui/dialog/index.html#api/Dialog">Dialog</a></code></p><p class="doc">表示一个消息框。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                <th class="doc-api-extends">继承自</th>
+                            </tr><tr id="api/MessageBox/onOk">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L39-42" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 39 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onOk</code>
+                                <span class="doc-api-more">: <code>() =&gt; boolean | void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">点击确定事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">点击确定事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/MessageBox/onCancel">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L44-47" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 44 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onCancel</code>
+                                <span class="doc-api-more">: <code>() =&gt; boolean | void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">点击取消事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">点击取消事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/MessageBox/icon">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L49-59" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 49 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>icon</code>
+                                <span class="doc-api-more">: <code>&quot;error&quot; | &quot;warning&quot; | &quot;info&quot; | &quot;success&quot; | &quot;confirm&quot; | null</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">图标。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">图标。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/MessageBox/buttons">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L61-84" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 61 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>buttons</code>
+                                <span class="doc-api-more">: <code>{ [content: string]: boolean | (() =&gt; void); } | null</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">按钮。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>object</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">按钮。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/MessageBox/primaryButton">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L86-98" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 86 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>primaryButton</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">主按钮。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">主按钮。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/MessageBox/header">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L27-30" target="_blank" title="源码：ui/dialog/dialog.tsx，第 27 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>header</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">头部。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/header">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">头部。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/header">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/title">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L32-35" target="_blank" title="源码：ui/dialog/dialog.tsx，第 32 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>title</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">标题。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/title">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">标题。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/title">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/hideClose">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L37-40" target="_blank" title="源码：ui/dialog/dialog.tsx，第 37 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hideClose</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否可关闭。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/hideClose">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否可关闭。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/hideClose">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/body">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L42-42" target="_blank" title="源码：ui/dialog/dialog.tsx，第 42 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>body</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取用于包含子控件和节点的根元素。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/body">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取用于包含子控件和节点的根元素。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/body">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/animation">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L59-62" target="_blank" title="源码：ui/dialog/dialog.tsx，第 59 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>animation</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">切换显示的动画。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/animation">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">切换显示的动画。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/animation">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/target">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L64-67" target="_blank" title="源码：ui/dialog/dialog.tsx，第 64 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>target</code>
+                                <span class="doc-api-more">: <code>HTMLElement | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">切换显示的动画目标。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/target">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">切换显示的动画目标。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/target">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/onBeforeClose">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L112-115" target="_blank" title="源码：ui/dialog/dialog.tsx，第 112 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onBeforeClose</code>
+                                <span class="doc-api-more">: <code>() =&gt; boolean | void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">即将关闭对话框事件。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/onBeforeClose">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">即将关闭对话框事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/onBeforeClose">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/onClose">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L117-120" target="_blank" title="源码：ui/dialog/dialog.tsx，第 117 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onClose</code>
+                                <span class="doc-api-more">: <code>() =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">关闭对话框事件。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/onClose">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">关闭对话框事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/onClose">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/draggable">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L124-129" target="_blank" title="源码：ui/dialog/dialog.tsx，第 124 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>draggable</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否可拖动。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/draggable">Dialog</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否可拖动。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/draggable">Dialog</a></code></td>
+                        </tr><tr id="api/MessageBox/readyState">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L10-13" target="_blank" title="源码：ui/control/control.tsx，第 10 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>readyState</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/ControlState">ControlState</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取当前控件的渲染状态。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/readyState">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/ui/control/index.html#api/ControlState">ControlState</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取当前控件的渲染状态。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/readyState">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/elem">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L20-28" target="_blank" title="源码：ui/control/control.tsx，第 20 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>elem</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">关联的元素。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/elem">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">关联的元素。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/elem">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/vNode">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L62-65" target="_blank" title="源码：ui/control/control.tsx，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>vNode</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a> | null</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(保护的)</strong>获取当前控件关联的虚拟节点。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/vNode">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(保护的)</strong>获取当前控件关联的虚拟节点。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/vNode">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/sourceVNode">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L67-70" target="_blank" title="源码：ui/control/control.tsx，第 67 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>sourceVNode</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取创建该控件使用的源虚拟节点。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/sourceVNode">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取创建该控件使用的源虚拟节点。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/sourceVNode">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/alwaysUpdate">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L102-107" target="_blank" title="源码：ui/control/control.tsx，第 102 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>alwaysUpdate</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">控件是否使用主动更新模式。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/alwaysUpdate">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">控件是否使用主动更新模式。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/alwaysUpdate">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/duration">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L187-191" target="_blank" title="源码：ui/control/control.tsx，第 187 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>duration</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>200</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">渐变的持续毫秒数。如果为 0 则不使用渐变。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/duration">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">渐变的持续毫秒数。如果为 0 则不使用渐变。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/duration">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/class">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L198-203" target="_blank" title="源码：ui/control/control.tsx，第 198 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>class</code>
+                                <span class="doc-api-more">: <code>string</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">CSS 类名。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/class">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">CSS 类名。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/class">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/hidden">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L214-217" target="_blank" title="源码：ui/control/control.tsx，第 214 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hidden</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否隐藏。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/hidden">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否隐藏。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/hidden">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/style">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L219-222" target="_blank" title="源码：ui/control/control.tsx，第 219 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>style</code>
+                                <span class="doc-api-more">: <code>string | { [key: string]: string | number; }</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">控件样式。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/style">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>string | object</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">控件样式。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/style">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/id">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L224-227" target="_blank" title="源码：ui/control/control.tsx，第 224 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>id</code>
+                                <span class="doc-api-more">: <code>string</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">控件序号。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/id">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">控件序号。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/id">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/content">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L229-232" target="_blank" title="源码：ui/control/control.tsx，第 229 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>content</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">控件内容。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/content">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">控件内容。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/content">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onSelectStart">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L234-238" target="_blank" title="源码：ui/control/control.tsx，第 234 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onSelectStart</code>
+                                <span class="doc-api-more">: <code>(e: Event, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">选择开始事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onselectstart" target="_blank" class="doc-external">https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onselectstart</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onSelectStart">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">选择开始事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onSelectStart">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onClick">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L240-244" target="_blank" title="源码：ui/control/control.tsx，第 240 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onClick</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">点击事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onclick" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onclick</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onClick">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">点击事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onClick">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onAuxClick">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L246-250" target="_blank" title="源码：ui/control/control.tsx，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onAuxClick</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">中键点击事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onauxclick" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onauxclick</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onAuxClick">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">中键点击事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onAuxClick">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onDblClick">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L252-256" target="_blank" title="源码：ui/control/control.tsx，第 252 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onDblClick</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">双击事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ondblclick" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ondblclick</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onDblClick">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">双击事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onDblClick">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onContextMenu">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L258-262" target="_blank" title="源码：ui/control/control.tsx，第 258 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onContextMenu</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">右键菜单事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/oncontextmenu" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/oncontextmenu</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onContextMenu">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">右键菜单事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onContextMenu">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseDown">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L264-268" target="_blank" title="源码：ui/control/control.tsx，第 264 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseDown</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标按下事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmousedown" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmousedown</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseDown">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标按下事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseDown">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseUp">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L270-274" target="_blank" title="源码：ui/control/control.tsx，第 270 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseUp</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标按上事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseup" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseup</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseUp">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标按上事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseUp">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseOver">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L276-280" target="_blank" title="源码：ui/control/control.tsx，第 276 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseOver</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标移入事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseover" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseover</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOver">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标移入事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOver">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseOut">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L282-286" target="_blank" title="源码：ui/control/control.tsx，第 282 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseOut</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标移开事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseout" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseout</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOut">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标移开事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOut">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseEnter">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L288-292" target="_blank" title="源码：ui/control/control.tsx，第 288 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseEnter</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标进入事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseenter" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseenter</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseEnter">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标进入事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseEnter">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseLeave">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L294-298" target="_blank" title="源码：ui/control/control.tsx，第 294 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseLeave</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标离开事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseleave" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmouseleave</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseLeave">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标离开事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseLeave">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onMouseMove">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L300-304" target="_blank" title="源码：ui/control/control.tsx，第 300 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onMouseMove</code>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标移动事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmousemove" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onmousemove</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onMouseMove">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标移动事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseMove">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onWheel">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L306-310" target="_blank" title="源码：ui/control/control.tsx，第 306 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onWheel</code>
+                                <span class="doc-api-more">: <code>(e: WheelEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">鼠标滚轮事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/wheel" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/Events/wheel</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onWheel">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">鼠标滚轮事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onWheel">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onScroll">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L312-316" target="_blank" title="源码：ui/control/control.tsx，第 312 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onScroll</code>
+                                <span class="doc-api-more">: <code>(e: UIEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">滚动事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onscroll" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onscroll</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onScroll">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">滚动事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onScroll">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onTouchStart">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L318-322" target="_blank" title="源码：ui/control/control.tsx，第 318 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onTouchStart</code>
+                                <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触摸开始事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchstart" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchstart</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onTouchStart">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触摸开始事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchStart">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onTouchMove">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L324-328" target="_blank" title="源码：ui/control/control.tsx，第 324 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onTouchMove</code>
+                                <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触摸移动事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchmove" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchmove</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onTouchMove">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触摸移动事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchMove">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onTouchEnd">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L330-334" target="_blank" title="源码：ui/control/control.tsx，第 330 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onTouchEnd</code>
+                                <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触摸结束事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchend" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchend</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onTouchEnd">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触摸结束事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchEnd">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onTouchCancel">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L336-340" target="_blank" title="源码：ui/control/control.tsx，第 336 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onTouchCancel</code>
+                                <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触摸撤销事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchcancel" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ontouchcancel</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onTouchCancel">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触摸撤销事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchCancel">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerEnter">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L342-346" target="_blank" title="源码：ui/control/control.tsx，第 342 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerEnter</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针进入事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerenter" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerenter</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerEnter">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针进入事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerEnter">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerLeave">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L348-352" target="_blank" title="源码：ui/control/control.tsx，第 348 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerLeave</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针离开事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerleave" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerleave</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerLeave">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针离开事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerLeave">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerOver">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L354-358" target="_blank" title="源码：ui/control/control.tsx，第 354 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerOver</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针移入事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerover" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerover</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOver">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针移入事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOver">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerOut">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L360-364" target="_blank" title="源码：ui/control/control.tsx，第 360 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerOut</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针移开事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerout" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerout</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOut">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针移开事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOut">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerDown">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L366-370" target="_blank" title="源码：ui/control/control.tsx，第 366 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerDown</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针按下事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerdown" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerdown</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerDown">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针按下事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerDown">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerMove">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L372-376" target="_blank" title="源码：ui/control/control.tsx，第 372 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerMove</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针移动事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointermove" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointermove</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerMove">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针移动事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerMove">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerUp">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L378-382" target="_blank" title="源码：ui/control/control.tsx，第 378 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerUp</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针松开事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerup" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointerup</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerUp">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针松开事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerUp">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onPointerCancel">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L384-388" target="_blank" title="源码：ui/control/control.tsx，第 384 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onPointerCancel</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针取消事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointercancel" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onpointercancel</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onPointerCancel">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针取消事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerCancel">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onGotPointerCapture">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L390-394" target="_blank" title="源码：ui/control/control.tsx，第 390 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onGotPointerCapture</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针开始捕获事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ongotpointercapture" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/ongotpointercapture</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onGotPointerCapture">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针开始捕获事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onGotPointerCapture">Control</a></code></td>
+                        </tr><tr id="api/MessageBox/onLostPointerCapture">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L396-400" target="_blank" title="源码：ui/control/control.tsx，第 396 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onLostPointerCapture</code>
+                                <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/MessageBox">MessageBox</a>) =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">指针停止捕获事件。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onlostpointercapture" target="_blank" class="doc-external">https://developer.mozilla.org/zh-CN/docs/Web/API/GlobalEventHandlers/onlostpointercapture</a></li></ul>
+                                    <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/onLostPointerCapture">Control</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">指针停止捕获事件。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/ui/control/index.html#api/Control/onLostPointerCapture">Control</a></code></td>
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            <th class="doc-api-extends">继承自</th>
+                        </tr><tr id="api/MessageBox/ok">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L21-28" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>ok<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">点击确定按钮。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击确定按钮。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/MessageBox/cancel">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L30-37" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 30 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>cancel<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">点击取消按钮。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击取消按钮。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/MessageBox/handleCloseClick">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L14-19" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 14 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handleCloseClick<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>当点击关闭按钮后执行。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/handleCloseClick">Dialog</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong><strong>(已覆盖)</strong>当点击关闭按钮后执行。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/handleCloseClick">Dialog</a></code></td>
+                            </tr><tr id="api/MessageBox/render">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L14-25" target="_blank" title="源码：ui/dialog/dialog.tsx，第 14 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>render<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong></p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/render">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>当被子类重写时负责返回当前控件的虚拟节点。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/render">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/init">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L44-50" target="_blank" title="源码：ui/dialog/dialog.tsx，第 44 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>init<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong></p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/init">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>当被子类重写时负责在关联元素后初始化当前控件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/init">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/show">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L69-89" target="_blank" title="源码：ui/dialog/dialog.tsx，第 69 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>show<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(target?:<code>HTMLElement</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示当前对话框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示的目标。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/show">Dialog</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示当前对话框。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/show">Dialog</a></code></td>
+                            </tr><tr id="api/MessageBox/close">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/dialog/dialog.tsx#L91-110" target="_blank" title="源码：ui/dialog/dialog.tsx，第 91 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>close<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(target?:<code>HTMLElement</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">关闭当前对话框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>target</code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">关闭的目标。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/dialog/index.html#api/Dialog/close">Dialog</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">关闭当前对话框。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/dialog/index.html#api/Dialog/close">Dialog</a></code></td>
+                            </tr><tr id="api/MessageBox/uninit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L57-60" target="_blank" title="源码：ui/control/control.tsx，第 57 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>uninit<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>当被子类重写时负责在元素被取消关联前取消初始化当前控件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/uninit">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>当被子类重写时负责在元素被取消关联前取消初始化当前控件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/uninit">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/update">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L77-89" target="_blank" title="源码：ui/control/control.tsx，第 77 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>update<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">重新渲染当前控件。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/update">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">重新渲染当前控件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/update">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/layout">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L117-121" target="_blank" title="源码：ui/control/control.tsx，第 117 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>layout<i class="doc-tip doc-api-ellipsis">(changes)</i><span class="doc-tip doc-api-more">(changes:<code><a href="../../../components/ui/control/index.html#api/Changes">Changes</a></code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">重新布局当前控件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>changes<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/Changes">Changes</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">当前已更新的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/layout">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">重新布局当前控件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/layout">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/invalidate">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L123-135" target="_blank" title="源码：ui/control/control.tsx，第 123 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>invalidate<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">使当前控件无效并在下一帧重新渲染。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/invalidate">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">使当前控件无效并在下一帧重新渲染。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/invalidate">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/renderTo">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L137-158" target="_blank" title="源码：ui/control/control.tsx，第 137 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>renderTo<i class="doc-tip doc-api-ellipsis">(parent, ...)</i><span class="doc-tip doc-api-more">(parent:<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>, refChild?:<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将当前控件渲染到指定的父控件或节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>parent<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要渲染的目标控件或节点。如果为 null 则移除当前控件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>refChild</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node | null | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在指定的子控件或节点前添加，如果为空则添加到末尾。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/renderTo">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将当前控件渲染到指定的父控件或节点。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/renderTo">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/find">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L160-172" target="_blank" title="源码：ui/control/control.tsx，第 160 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在当前控件查找指定的子控件或节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的 CSS 选择器。如果为空则返回根控件或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回子控件或节点。如果找不到则返回 null。</p>
+
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/find">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在当前控件查找指定的子控件或节点。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/find">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/query">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L174-185" target="_blank" title="源码：ui/control/control.tsx，第 174 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>query<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>any[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在当前控件查找匹配的所有子控件或节点。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>selector<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的 CSS 选择器。如果为空则返回根控件或节点。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any[]</code></p>
+                <p class="doc">返回子控件或节点列表。</p>
+
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/ui/control/index.html#api/Control/query">Control</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在当前控件查找匹配的所有子控件或节点。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/ui/control/index.html#api/Control/query">Control</a></code></td>
+                            </tr><tr id="api/MessageBox/show">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L100-120" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 100 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>MessageBox.show<i class="doc-tip doc-api-ellipsis">(content, ...)</i><span class="doc-tip doc-api-more">(content:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, title?:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, buttons?:<code>object</code>, icon?:<code>string</code>, onOk?:<code>function</code>, onCancel?:<code>function</code>):<code><a href="#api/MessageBox">MessageBox</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示一个消息框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>title</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的标题。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;提示&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>buttons</code>
+                                </td>
+                                <td>
+                                    <code>{ [content: string]: boolean | (() =&gt; void); } | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的按钮。</p>
+
+                                </td>
+                                <td>
+                                    <code>{ 确定: true }</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>icon</code>
+                                </td>
+                                <td>
+                                    <code>&quot;error&quot; | &quot;warning&quot; | &quot;info&quot; | &quot;success&quot; | &quot;confirm&quot; | null | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的图标。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onOk</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击确定事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onCancel</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击取消事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/MessageBox">MessageBox</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示一个消息框。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/MessageBox/alert">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L122-130" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 122 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>MessageBox.alert<i class="doc-tip doc-api-ellipsis">(content, ...)</i><span class="doc-tip doc-api-more">(content:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, title?:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, onOk?:<code>function</code>):<code><a href="#api/MessageBox">MessageBox</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示一个警告框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>title</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的标题。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;警告&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onOk</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击确定事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/MessageBox">MessageBox</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示一个警告框。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/MessageBox/confirm">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L132-145" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>MessageBox.confirm<i class="doc-tip doc-api-ellipsis">(content, ...)</i><span class="doc-tip doc-api-more">(content:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, title?:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, onOk?:<code>function</code>, onCancel?:<code>function</code>):<code><a href="#api/MessageBox">MessageBox</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示一个确认框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>title</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的标题。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;确认&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onOk</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击确定事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onCancel</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击取消事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/MessageBox">MessageBox</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示一个确认框。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/MessageBox/prompt">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/messageBox/messageBox.tsx#L147-163" target="_blank" title="源码：ui/messageBox/messageBox.tsx，第 147 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>MessageBox.prompt<i class="doc-tip doc-api-ellipsis">(content, ...)</i><span class="doc-tip doc-api-more">(content:<code>string</code>, title?:<code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>, onOk?:<code>function</code>, onCancel?:<code>function</code>):<code><a href="#api/MessageBox">MessageBox</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示一个输入框。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>content<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>title</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">消息框的标题。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;请输入&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onOk</code>
+                                </td>
+                                <td>
+                                    <code>((value: string) =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击确定事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>onCancel</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; boolean | void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">点击取消事件。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/MessageBox">MessageBox</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示一个输入框。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/ui/dialog/" title="对话框" id="doc_pager_prev"><i class="doc-icon">⮜</i> 对话框</a>
+                            <a href="../../../components/web/shim/" title="DOM 兼容补丁" id="doc_pager_next">DOM 兼容补丁 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"ui/messageBox/","imports":["typo/reset","ui/messageBox"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

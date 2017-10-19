@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>Window 对象操作</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/window.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            var win = Dom.window;
+
+            Demo.writeExamples({
+                '获取窗口大小': 'Dom.window.getSize()',
+                '设置窗口大小': 'Dom.window.setSize(100, 400)',
+                '获取窗口位置': 'Dom.window.getPosition()'
+            });
+
+        </script>
+    </article>
+</body>
+</html>

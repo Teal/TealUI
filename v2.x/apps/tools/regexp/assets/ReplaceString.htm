@@ -1,0 +1,59 @@
+<!--
+	Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+-->
+<HTML>
+	<HEAD>
+		<SCRIPT LANGUAGE="JavaScript"><!--
+/*
+ * Copyright 2003,2004 Anthony M. Humphreys <anthony(at)humphreys.org>
+ *
+ * Permission is granted to use and modify this script for any purpose,
+ * provided that this credit header is retained, unmodified, in the script.
+ *
+ */
+
+function copyUp() {
+	window.top.RegExTest.replaceString = document.local.ReplaceString.value;
+	if (document.local.replaceType[0].checked) {
+		window.top.RegExTest.replaceType = 'string';
+	} else {
+		window.top.RegExTest.replaceType = 'function';
+	};
+};
+function copyDown() {
+	document.local.ReplaceString.value = window.top.RegExTest.replaceString;
+//	alert(window.top.replaceType);
+	if (window.top.RegExTest.replaceType == 'string') {
+		document.local.replaceType[0].checked = true;
+	} else {
+		document.local.replaceType[1].checked = true;
+	};
+	document.local.ReplaceString.focus();
+};
+// use $1, $2 etc for back references
+// -->
+		</SCRIPT>
+	</HEAD>
+	<BODY LEFTMARGIN="0" RIGHTMARGIN="0" TOPMARGIN="3" ONLOAD="copyDown();" ONUNLOAD="copyUp();" ONBLUR="copyUp();" ONMOUSEOUT="copyUp();">
+		<FORM NAME="local" ID="local" ONSUBMIT="return false;">
+			<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+				<TR VALIGN="top">
+					<TD>Replacement&nbsp;String:</TD>
+					<TD WIDTH="99%"><TEXTAREA COLS="40" STYLE="width: 100%;" ROWS="3" NAME="ReplaceString" ID="ReplaceString" ONCHANGE="copyUp();" ONMOUSEOUT="copyUp();" ONBLUR="copyUp();"></TEXTAREA></TD>
+					<TD>
+						<TABLE>
+							<TR>
+								<TD><INPUT TYPE="radio" NAME="replaceType" ID="RexExType1" VALUE="string" ONCHANGE="copyUp();"></TD>
+								<TD><LABEL FOR="RexExType1">String</LABEL></TD>
+							</TR>
+							<TR>
+								<TD><INPUT TYPE="radio" NAME="replaceType" ID="RexExType2" VALUE="function" ONCHANGE="copyUp();" DISABLED READONLY></TD>
+								<TD><LABEL FOR="RexExType2">Function</LABEL></TD>
+							</TR>
+						</TABLE>
+					</TD>
+				</TR>
+			</TABLE>
+		</FORM>
+	</BODY>
+</HTML>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>标签选择器</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/suggest/tagchooser.css" />
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/suggest/tagchooser.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+
+
+    <article class="demo">
+
+        <script class="demo" type="text/html">
+            文字：<input type="text" class="x-textbox" id="tagchooser" />
+
+            <a class="x-tagchooser x-tagchooser-selected" href="javascript:;">选项1</a>
+            <a class="x-tagchooser" href="javascript:;">选项2</a>
+            <a class="x-tagchooser" href="javascript:;">选项3</a>
+
+
+            < script>
+                var tagchooser = new TagChooser('#tagchooser', '.x-tagchooser');
+            < /script>
+			
+        </script>
+        
+        <blockquote class="demo">注意: TagChooser 不是一个标准组件(不继承于 Control)。</blockquote>
+    
+    </article>
+</body>
+</html>

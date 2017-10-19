@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="subtitle=将用到的模块及其依赖项打包成一个文件，方便项目使用">
+    <title>模块打包工具</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/common.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/form.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/typography/hr.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tip/bubble.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/button.css">
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/button/linkbutton.css">
+    <link rel="stylesheet" type="text/css" href="../../tools/modulebuilder/assets/ui.css">
+
+    <script src="../../demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo" id="main">
+
+        <div class="main">
+
+            <section class="panel" id="step1">
+
+                <h2>选择打包配置</h2>
+
+                <a class="x-button x-button-success" href="javascript://新建一个空的打包配置" title="新建一个空的打包配置" onclick="UI.createNewBuildFile()">✚ 新建打包配置</a>
+                <a class="x-button" href="javascript://打开之前保存的配置文件" title="添加打开之前保存的配置文件" onclick="UI.openBuildFile()">打开现有配置文件</a>
+
+                <div id="step1_buildfilelist">
+
+                    <div class="hint">已保存的配置文件  ────────────────────────────────────────────</div>
+
+                    <div class="line line-hover">
+                        <nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">打开</a> | <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">复制</a> |  <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">生成</a></nav>
+                        <a href="javascript:;" class="link link-url">core/asdsad.js</a>
+                    </div>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                </div>
+
+            </section>
+
+            <hr />
+
+            <section class="panel" id="step2">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(1);"></a>打开打包配置文件</h2>
+
+                <input type="text" class="x-textbox large" placeholder="输入打包配置的路径, 使用 http:// 路径或本地文件位置。" title="如果是打开本地文件位置，则需要 xfly 服务器支持。" id="step2_url" />
+
+                <a onclick="UI.openBuildFileOf()" class="x-button x-button-success x-button-fixed" href="javascript://打开">打开</a>
+
+                <div id="step2_buildfilelist">
+
+                    <div class="hint">最近打开的文件  ────────────────────────────────────────────</div>
+
+                    <div class="line line-hover">
+                        <nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看关联的源文件">打开</a> | <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">删除</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块引用的项">复制</a> |  <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除对当前模块的引用" class="demo-viewsource-toggle">生成</a></nav>
+                        <a href="javascript:;" class="link link-url">core/asdsad.js</a>
+                    </div>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                </div>
+
+            </section>
+
+            <hr />
+
+            <section class="panel" id="step3">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(1);"></a>编辑打包配置</h2>
+
+                <div class="hint">模块列表  ─────────────────────────────────────────────────</div>
+
+                <div id="step3_modulelist">
+                    <div class="line line-hover">
+                        <nav class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块对应的源文件">源文件</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Core.Base');return false;" href="javascript://查看当前模块依赖的模块">查看引用</a> | <a onclick="UI.deleteDpl(0); return false;" href="javascript://删除此行" class="demo-viewsource-toggle">删除</a></nav>
+                        <a class="link link-url" href="javascript:;">core/asdsad.js</a>
+                    </div>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                    <ul class="source x-bubble">
+                        <li><a target="_blank" class="x-hint" href="http://localhost:50002/src/System/Core/assets/scripts/Base.js">D:\Projects\web\milk-xms\src\System\Core\assets\scripts\Base.js</a></li>
+                    </ul>
+
+                    <ul class="refs">
+                        <li>
+                            <div class="line line-hover">
+                                <span class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="line line-hover">
+                                <span class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="line line-hover">
+                                <span class="demo demo-toolbar"><a onclick="UI.viewSource(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看关联的源文件" class="demo">源文件</a> | <a onclick="UI.viewRefs(this, 'using', 'System.Utils.Date');return false;" href="javascript://查看当前模块引用的项" class="demo">查看引用</a></span><a href="http://localhost:50002/src/System/Utils/Date.html" class="demo demo-mono">System.Utils.Date</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="line"><a href="javascript:;" class="link">core/asdsad.js</a></div>
+
+                </div>
+
+                <div class="line line-input">
+
+                    <input type="text" placeholder="输入要添加的模块路径..." class="x-textbox module-input">
+
+                    <a onclick="UI.addDpl()" class="x-button x-button-fixed x-button-success" href="javascript://添加一个组件" title="添加一个模块，模块及其依赖的模块都会被合成">添加</a>
+
+                    <a onclick="UI.addDpl()" class="x-button" href="javascript://添加一个组件" title="排除一个模块，确保生成的文件里不包含此模块">排除</a>
+
+                    <a href="javascript://按顺序执行全部测试用例" onclick="UI.clearDpls();" class="link">清空列表</a>
+
+                </div>
+
+                <div class="hint">打包选项  ─────────────────────────────────────────────────</div>
+
+                <div class="line">
+
+                    <label class="short">
+                        <input type="checkbox" class="x-checkbox" id="step3_compress">压缩代码</label>
+                    <label class="short">
+                        <input type="checkbox" class="x-checkbox" name="step3_removeAssert">删除 assert 代码</label>
+                    <label class="short">
+                        <input type="checkbox" class="x-checkbox" name="step3_removeConsole">删除 console 语句</label>
+
+                </div>
+
+                <div class="line">
+
+                    <a href="javascript://展开或折叠更多选项;"><span class="demo-control-arrow">▸</span> 展开更多选项</a>
+
+                    <a href="javascript:;"><span class="demo-control-arrow">▾</span> 展开更多选项</a>
+
+                </div>
+
+                <div>
+
+                    <div class="line x-hint">鼠标移到框内查看更多信息。</div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">配置文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_buildfile" placeholder="输入相对于 ../apps/ 的文件位置" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">js 文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_js" placeholder="输入相对于配置文件的 .js 文件路径" title="如果填了此内容，工具会将生成的代码自动保存到对应的文件里。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">css 文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_css" placeholder="输入相对于配置文件的 .css 文件路径" title="如果填了此内容，工具会将生成的代码自动保存到对应的文件里。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">图片文件夹位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_images" placeholder="输入相对于配置文件的文件夹路径, 资源文件将被拷贝进入" title="如果填了此内容，工具会将需要的图片及其它资源复制到此文件夹内。">
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">模块源文件位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_src" placeholder="输入相对于配置文件的文件夹路径。" autocomplete="off" title="如果填了此内容，将从指定文件夹中搜索模块路径。">
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">模块依赖语法:</label>
+                        <div class="x-formfield-container">
+                            <select class="x-textbox" id="step3_dependencySyntax">
+                                <option value="none">（不解析依赖）</option>
+                                <option value="boot">boot.js 语法: #include</option>
+                                <option value="cmd">cmd 语法: define</option>
+                                <option value="amd">amd 语法: define</option>
+                                <option value="yui">YUI 语法: YUI().use</option>
+                                <option value="kissy">kissy 语法: KISSY.use</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">排除相同模块:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" class="x-textbox large" id="step3_uniqueBuildFiles" placeholder="输入打包配置文件的路径, 多个路径用;隔开" autocomplete="off" title="如果填了此内容，相应的合成配置内包含的模块都将被排除。这可以确保 2 个不同的打包配置生成的文件里不包含重复的模块代码。">
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">动态解析:                 </label>
+                        <div class="x-formfield-container">
+                            <label class="short">
+                                <input type="checkbox" checked="checked" id="step3_parseMacro" class="x-checkbox">解析宏</label>
+                            预定义宏：
+                                <input type="text" placeholder="多个项之间用;隔开" value="" id="step3_defines" class="x-textbox">
+                            <!--<br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 less</label>
+                            优先使用： 
+                            <label>
+                                <input type="radio" class="x-radiobutton" /> .less 文件
+                            </label>
+                            <label>
+                                <input type="radio" class="x-radiobutton" />
+                                .css 文件
+                            </label>
+                            <br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 sass</label>
+                            优先使用：
+                               <label>
+                                   <input type="radio" class="x-radiobutton" />
+                                   .sass 文件
+                               </label>
+                            <label>
+                                <input type="radio" class="x-radiobutton" />
+                                .css 文件
+                                
+                            </label>
+                            <br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 coffee</label>
+                            优先使用：
+                                <label>
+                                    <input type="radio" class="x-radiobutton" />
+                                    .coffee 文件
+                                </label>
+                                <label>
+                                    <input type="radio" class="x-radiobutton" />
+                            .js 文件
+                                </label>
+                            <br />-->
+
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">追加顶部注释:</label>
+                        <div class="x-formfield-container">
+                            <textarea class="x-textbox large" id="step3_prependComments" placeholder="输入 /**/ 注释内容" autocomplete="off" title="此注释会被追加到生成的文件顶部，其中 {time} 会被替换成当前时间，{modules} 会被替换成模块列表，{source} 会被替换成配置文件位置。"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">追加模块顶部注释:</label>
+                        <div class="x-formfield-container">
+                            <textarea class="x-textbox large" id="step3_prependModuleComments" placeholder="输入 /**/ 注释内容" autocomplete="off" title="此注释会被追加到每个模块的顶部，其中{modulePath} 会被替换成具体的模块路径。"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="button-label">
+                    <a href="javascript:;" class="x-button x-button-success" onclick="UI.build()">打包生成</a>
+                </div>
+
+            </section>
+
+            <hr />
+
+            <section class="panel" id="step4">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(3)"></a>生成代码</h2>
+
+                <ul class="error">
+                    <li>aa</li>
+                    <li>aa</li>
+                </ul>
+
+                <div>生成完成!</div>
+
+                <div class="hint">js 文件  ─────────────────────────────────────────────────</div>
+
+                <textarea class="x-textbox code" id="step4_js">aaa</textarea>
+
+                <div class="hint">css 文件  ─────────────────────────────────────────────────</div>
+
+                <textarea class="x-textbox code" id="step4_css">aaa</textarea>
+
+                <div class="hint">图片资源  ─────────────────────────────────────────────────</div>
+
+                <textarea class="x-textbox code" id="step4_images">aaa</textarea>
+
+                <div class="button-label">
+                    <a href="javascript://返回重新编辑" class="x-button" onclick="UI.step(3)">返回</a>
+                </div>
+
+            </section>
+
+        </div>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

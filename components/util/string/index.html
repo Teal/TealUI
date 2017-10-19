@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>字符串扩展 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/string"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { format, isString, trunc, truncByWord, containsWord, removeLeadingWhiteSpaces, replaceAll, clean, byteLength, capitalize, uncapitalize, toCamelCase, toKebabCase, words, unique, left, right, match } from \&quot;util/string\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/string\&quot;], function (string_1) {\n\tvar format = string_1.format;\n\tvar isString = string_1.isString;\n\tvar trunc = string_1.trunc;\n\tvar truncByWord = string_1.truncByWord;\n\tvar containsWord = string_1.containsWord;\n\tvar removeLeadingWhiteSpaces = string_1.removeLeadingWhiteSpaces;\n\tvar replaceAll = string_1.replaceAll;\n\tvar clean = string_1.clean;\n\tvar byteLength = string_1.byteLength;\n\tvar capitalize = string_1.capitalize;\n\tvar uncapitalize = string_1.uncapitalize;\n\tvar toCamelCase = string_1.toCamelCase;\n\tvar toKebabCase = string_1.toKebabCase;\n\tvar words = string_1.words;\n\tvar unique = string_1.unique;\n\tvar left = string_1.left;\n\tvar right = string_1.right;\n\tvar match = string_1.match;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/string" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/string/string.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="字符串扩展">
+<a href="#字符串扩展" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>字符串扩展<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：format, isString, trunc, truncByWord, containsWord, removeLeadingWhiteSpaces, replaceAll, clean, byteLength, capitalize, uncapitalize, toCamelCase, toKebabCase, words, unique, left, right, match">util/string</small></h1>
+<p class="doc">提供 JavaScript 内置对象 String 的扩展接口。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/format">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L1-26" target="_blank" title="源码：util/string/string.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>format<i class="doc-tip doc-api-ellipsis">(formatString, ...)</i><span class="doc-tip doc-api-more">(formatString:<code>string</code>, ...args:<code>any[]</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">格式化字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>formatString<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">格式字符串。其中以下内容会被替换：</p>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>意义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{数字}</td>
+<td>替换为参数列表</td>
+<td>如 <code>String.format(&quot;{0}年{1}月{2}日&quot;, 2012, 12, 3)</code> 中，{0} 被替换成 2012，{1} 被替换成 12 ，依次类推。</td>
+</tr>
+<tr>
+<td>{字符串}</td>
+<td>替换为参数对象</td>
+<td>如 <code>String.format(&quot;{year}年{month} 月 &quot;, {year: 2012, month:12})</code>。</td>
+</tr>
+<tr>
+<td>{{</td>
+<td>被替换为 {</td>
+<td></td>
+</tr>
+<tr>
+<td>}}</td>
+<td>被替换为 }</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>args</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">所有格式化参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回格式化后的字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">format(<span class="doc-code-string">"我是{0}，不是{1}"</span>, <span class="doc-code-string">"小黑"</span>, <span class="doc-code-string">"大白"</span>) <span class="doc-code-comment">// "我是小黑，不是大白"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">format(<span class="doc-code-string">"我是{xiaohei}，不是{dabai}"</span>, {<span class="doc-code-attr">xiaohei</span>: <span class="doc-code-string">"小黑"</span>, <span class="doc-code-attr">dabai</span>: <span class="doc-code-string">"大白"</span>}) <span class="doc-code-comment">// "我是小黑，不是大白"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">format(<span class="doc-code-string">"在字符串内使用两个{{和}}避免被转换"</span>) <span class="doc-code-comment">//  "在字符串内使用两个{和}避免被转换"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">格式化字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isString">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L28-36" target="_blank" title="源码：util/string/string.ts，第 28 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isString<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断对象是否是字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果 obj 是字符串则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isString(<span class="doc-code-string">""</span>) <span class="doc-code-comment">// true</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断对象是否是字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/trunc">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L38-49" target="_blank" title="源码：util/string/string.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>trunc<i class="doc-tip doc-api-ellipsis">(str, length, ...)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, length:<code>number</code>, append?:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">截断字符串超出长度的部分。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>length<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">最终期望的最大长度。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>append</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果字符串超出长度则自动追加的符号。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;...&quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回处理后的字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">trunc(<span class="doc-code-string">"1234567"</span>, <span class="doc-code-number">6</span>) <span class="doc-code-comment">// "123..."</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">trunc(<span class="doc-code-string">"1234567"</span>, <span class="doc-code-number">9</span>) <span class="doc-code-comment">// "1234567"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">截断字符串超出长度的部分。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/truncByWord">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L51-71" target="_blank" title="源码：util/string/string.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>truncByWord<i class="doc-tip doc-api-ellipsis">(str, length, ...)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, length:<code>number</code>, append?:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">截断字符串超出长度的部分，并确保不强制截断单词。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>length<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">最终期望的最大长度。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>append</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果字符串超出长度则自动追加的符号。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;...&quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回处理后的字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">truncByWord(<span class="doc-code-string">"abc def"</span>, <span class="doc-code-number">6</span>) <span class="doc-code-comment">//   "abc..."</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">截断字符串超出长度的部分，并确保不强制截断单词。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/containsWord">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L73-84" target="_blank" title="源码：util/string/string.ts，第 73 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>containsWord<i class="doc-tip doc-api-ellipsis">(str, value, ...)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, value:<code>string</code>, separator?:<code>string</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断字符串是否包含指定的单词。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的单词。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>separator</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">单词的分割符。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot; &quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果包含指定的单词则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">containsWord(<span class="doc-code-string">"abc ab"</span>, <span class="doc-code-string">"ab"</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断字符串是否包含指定的单词。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/removeLeadingWhiteSpaces">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L86-104" target="_blank" title="源码：util/string/string.ts，第 86 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>removeLeadingWhiteSpaces<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除字符串每行的公共缩进部分。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">removeLeadingWhiteSpaces(<span class="doc-code-string">"  a"</span>) <span class="doc-code-comment">// "a"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除字符串每行的公共缩进部分。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/replaceAll">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L106-119" target="_blank" title="源码：util/string/string.ts，第 106 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>replaceAll<i class="doc-tip doc-api-ellipsis">(str, from, to)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, from:<code>string</code>, to:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">替换字符串内指定的子字符串，如果出现多次则全部替换。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>from<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要替换的子字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>to<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要替换的目标字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">replaceAll(<span class="doc-code-string">"1121"</span>, <span class="doc-code-string">"1"</span>, <span class="doc-code-string">"3"</span>) <span class="doc-code-comment">// "3323"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">替换字符串内指定的子字符串，如果出现多次则全部替换。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/clean">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L121-129" target="_blank" title="源码：util/string/string.ts，第 121 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clean<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除字符串内的所有空白符号。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">clean(<span class="doc-code-string">" a b   "</span>) <span class="doc-code-comment">// "ab"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除字符串内的所有空白符号。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/byteLength">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L131-140" target="_blank" title="源码：util/string/string.ts，第 131 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>byteLength<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算字符串按字节计算的长度（英文算一个字符，中文算两个个字符）。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回长度值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">byteLength(<span class="doc-code-string">"a中文"</span>) <span class="doc-code-comment">// 5</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算字符串按字节计算的长度（英文算一个字符，中文算两个个字符）。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/capitalize">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L142-150" target="_blank" title="源码：util/string/string.ts，第 142 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>capitalize<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将字符串首字母大写。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">capitalize(<span class="doc-code-string">"qwert"</span>) <span class="doc-code-comment">// "Qwert"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将字符串首字母大写。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/uncapitalize">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L152-160" target="_blank" title="源码：util/string/string.ts，第 152 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>uncapitalize<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将字符串首字母小写。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">uncapitalize(<span class="doc-code-string">"Qwert"</span>) <span class="doc-code-comment">// "qwert"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将字符串首字母小写。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/toCamelCase">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L162-170" target="_blank" title="源码：util/string/string.ts，第 162 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toCamelCase<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将字符串转为骆驼规则（如 fontSize）。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toCamelCase(<span class="doc-code-string">"font-size"</span>) <span class="doc-code-comment">// "fontSize"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将字符串转为骆驼规则（如 fontSize）。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/toKebabCase">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L172-180" target="_blank" title="源码：util/string/string.ts，第 172 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toKebabCase<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将字符串转为横线规则（如 font-size）。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toKebabCase(<span class="doc-code-string">"fontSize"</span>) <span class="doc-code-comment">// "font-size"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将字符串转为横线规则（如 font-size）。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/words">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L182-194" target="_blank" title="源码：util/string/string.ts，第 182 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>words<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取字符串中的所有单词。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string[]</code></p>
+                <p class="doc">返回所有单词组成的数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">words(<span class="doc-code-string">"fontSize"</span>) <span class="doc-code-comment">// ["font", "size"]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取字符串中的所有单词。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/unique">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L196-210" target="_blank" title="源码：util/string/string.ts，第 196 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>unique<i class="doc-tip doc-api-ellipsis">(str)</i><span class="doc-tip doc-api-more">(str:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除字符串内的重复字符。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回新字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">unique(<span class="doc-code-string">"aabbcc"</span>) <span class="doc-code-comment">// "abc"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除字符串内的重复字符。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/left">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L212-221" target="_blank" title="源码：util/string/string.ts，第 212 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>left<i class="doc-tip doc-api-ellipsis">(str, length)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, length:<code>number</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取字符串左边指定长度的子字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>length<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的子字符串长度。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回字符串左边指定长度的子字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">left(<span class="doc-code-string">"abcde"</span>, <span class="doc-code-number">3</span>) <span class="doc-code-comment">// "abc"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取字符串左边指定长度的子字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/right">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L223-232" target="_blank" title="源码：util/string/string.ts，第 223 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>right<i class="doc-tip doc-api-ellipsis">(str, length)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, length:<code>number</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取字符串右边指定长度的子字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>length<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的子字符串长度。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回字符串右边指定长度的子字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">right(<span class="doc-code-string">"abcde"</span>, <span class="doc-code-number">3</span>) <span class="doc-code-comment">// "cde"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取字符串右边指定长度的子字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/match">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/string/string.ts#L234-245" target="_blank" title="源码：util/string/string.ts，第 234 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>match<i class="doc-tip doc-api-ellipsis">(str, re, ...)</i><span class="doc-tip doc-api-more">(str:<code>string</code>, re:<code>RegExp</code>, index?:<code>number</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">使用正则表达式匹配字符串并返回指定索引的匹配结果。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>str<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>re<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>RegExp</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要匹配的正则表达式。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>index</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的匹配结果索引。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | null</code></p>
+                <p class="doc">返回匹配结果。如果正则表达式不匹配则返回 null。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">match(<span class="doc-code-string">"abc"</span>, /a(b)/, <span class="doc-code-number">1</span>) <span class="doc-code-comment">// "b"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">使用正则表达式匹配字符串并返回指定索引的匹配结果。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/array/" title="数组扩展" id="doc_pager_prev"><i class="doc-icon">⮜</i> 数组扩展</a>
+                            <a href="../../../components/util/number/" title="数字扩展" id="doc_pager_next">数字扩展 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/string/","test":"util/string/string-test.ts","imports":["util/string"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

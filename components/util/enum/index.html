@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>枚举 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/enum"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { getName, getNames, hasFlag, setFlag } from \&quot;util/enum\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/enum\&quot;], function (enum_1) {\n\tvar getName = enum_1.getName;\n\tvar getNames = enum_1.getNames;\n\tvar hasFlag = enum_1.hasFlag;\n\tvar setFlag = enum_1.setFlag;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/enum/enum.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/enum" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/enum/enum.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="枚举">
+<a href="#枚举" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>枚举<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：getName, getNames, hasFlag, setFlag">util/enum</small></h1>
+<p class="doc">枚举即用字段名代替难记的数值。定义枚举可增加代码的可读性。</p>
+<dl id="doc_toc">
+	<dt><a href="#定义枚举">定义枚举</a></dt>
+	<dt><a href="#枚举标记位">枚举标记位</a></dt>
+	<dt><a href="#api">API</a></dt>
+</dl>
+<h2 id="定义枚举">
+<a href="#定义枚举" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>定义枚举</h2>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">var</span> WeekDay = { 
+    <span class="doc-code-attr">sunday</span>: <span class="doc-code-number">0</span>,
+    <span class="doc-code-attr">monday</span>: <span class="doc-code-number">1</span>,
+    <span class="doc-code-attr">tuesday</span>: <span class="doc-code-number">2</span>,
+    <span class="doc-code-attr">wednesday</span>: <span class="doc-code-number">3</span>,
+    <span class="doc-code-attr">thirsday</span>: <span class="doc-code-number">4</span>,
+    <span class="doc-code-attr">friday</span>: <span class="doc-code-number">5</span>,
+    <span class="doc-code-attr">saturday</span>: <span class="doc-code-number">6</span>
+};
+
+<span class="doc-code-keyword">if</span> (<span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Date</span>().getDay() === WeekDay.sunday) {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"今天是星期天哦"</span>);
+}</code></pre><h2 id="枚举标记位">
+<a href="#枚举标记位" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>枚举标记位</h2>
+<p class="doc">通过位操作将多个标记存在同一个数值中。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">var</span> Colors = {
+    <span class="doc-code-attr">red</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">0</span>,
+    <span class="doc-code-attr">yellow</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">1</span>,
+    <span class="doc-code-attr">blue</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">2</span>
+};
+<span class="doc-code-keyword">var</span> green = Colors.red | Colors.yellow;</code></pre>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/getName">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/enum/enum.ts#L1-21" target="_blank" title="源码：util/enum/enum.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getName<i class="doc-tip doc-api-ellipsis">(enumType, enumValue)</i><span class="doc-tip doc-api-more">(enumType:<code>any</code>, enumValue:<code>number</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">根据枚举值返回对应的枚举名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>enumType<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">枚举类型。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>enumValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">枚举值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | undefined</code></p>
+                <p class="doc">返回枚举名。如果枚举值是多个标记位的组合，则返回以“|”分割的所有枚举名。如果找不到匹配的枚举名则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">getName({<span class="doc-code-attr">sunday</span>: <span class="doc-code-number">0</span>}, <span class="doc-code-number">0</span>) <span class="doc-code-comment">// "sunday"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">根据枚举值返回对应的枚举名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/getNames">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/enum/enum.ts#L23-36" target="_blank" title="源码：util/enum/enum.ts，第 23 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getNames<i class="doc-tip doc-api-ellipsis">(enumType)</i><span class="doc-tip doc-api-more">(enumType:<code>object</code>):<code>string[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取枚举类型中定义的字段。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>enumType<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>object</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">枚举类型。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string[]</code></p>
+                <p class="doc">返回所有键组成的数组。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取枚举类型中定义的字段。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/hasFlag">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/enum/enum.ts#L38-54" target="_blank" title="源码：util/enum/enum.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>hasFlag<i class="doc-tip doc-api-ellipsis">(enumValue, flag)</i><span class="doc-tip doc-api-more">(enumValue:<code>number</code>, flag:<code>number</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断枚举值是否包含指定的标记位。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>enumValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的枚举值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>flag<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果枚举值包含所有标记位则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> Colors = {
+<span class="doc-code-attr">red</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">1</span>,
+<span class="doc-code-attr">yellow</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">2</span>,
+<span class="doc-code-attr">blue</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">3</span>,
+};
+<span class="doc-code-keyword">var</span> green = Colors.red | Colors.yellow;
+hasFlag(green, Colors.red); <span class="doc-code-comment">// true</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断枚举值是否包含指定的标记位。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/setFlag">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/enum/enum.ts#L56-73" target="_blank" title="源码：util/enum/enum.ts，第 56 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>setFlag<i class="doc-tip doc-api-ellipsis">(enumValue, flag, value)</i><span class="doc-tip doc-api-more">(enumValue:<code>number</code>, flag:<code>number</code>, value:<code>boolean</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置枚举值的标记位。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>enumValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的枚举值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>flag<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果为 true 表示添加标记位，否则删除标记位。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回新枚举值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> Colors = {
+<span class="doc-code-attr">red</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">1</span>,
+<span class="doc-code-attr">yellow</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">2</span>,
+<span class="doc-code-attr">blue</span>: <span class="doc-code-number">1</span> &lt;&lt; <span class="doc-code-number">3</span>,
+};
+<span class="doc-code-keyword">var</span> color = Colors.red;
+color = setFlag(color, Colors.yellow, <span class="doc-code-literal">true</span>); <span class="doc-code-comment">// Colors.red | Colors.yellow</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置枚举值的标记位。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/namespace/" title="命名空间" id="doc_pager_prev"><i class="doc-icon">⮜</i> 命名空间</a>
+                            <a href="../../../components/util/events/" title="事件" id="doc_pager_next">事件 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/enum/","test":"util/enum/enum-test.ts","imports":["util/enum"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

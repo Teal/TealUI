@@ -1,0 +1,16 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: @z-index-dialog;
+    min-width: 200px;
+    max-width: 400px;
+    *width: 400px;
+    margin-left: -100px;
+    background-color: @background-color;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: none;
+}

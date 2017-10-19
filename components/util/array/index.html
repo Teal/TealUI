@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>数组扩展 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/array"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { range, pushIf, insert, remove, removeAll, clean, clear, swap, sortBy, sortByDesc, groupBy, countBy, split, shuffle, random, item, pick, count, isUnique, unique, flatten, sub, union, intersect, permute, select, invoke, associate, binarySearch, min, max, sum, avg } from \&quot;util/array\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/array\&quot;], function (array_1) {\n\tvar range = array_1.range;\n\tvar pushIf = array_1.pushIf;\n\tvar insert = array_1.insert;\n\tvar remove = array_1.remove;\n\tvar removeAll = array_1.removeAll;\n\tvar clean = array_1.clean;\n\tvar clear = array_1.clear;\n\tvar swap = array_1.swap;\n\tvar sortBy = array_1.sortBy;\n\tvar sortByDesc = array_1.sortByDesc;\n\tvar groupBy = array_1.groupBy;\n\tvar countBy = array_1.countBy;\n\tvar split = array_1.split;\n\tvar shuffle = array_1.shuffle;\n\tvar random = array_1.random;\n\tvar item = array_1.item;\n\tvar pick = array_1.pick;\n\tvar count = array_1.count;\n\tvar isUnique = array_1.isUnique;\n\tvar unique = array_1.unique;\n\tvar flatten = array_1.flatten;\n\tvar sub = array_1.sub;\n\tvar union = array_1.union;\n\tvar intersect = array_1.intersect;\n\tvar permute = array_1.permute;\n\tvar select = array_1.select;\n\tvar invoke = array_1.invoke;\n\tvar associate = array_1.associate;\n\tvar binarySearch = array_1.binarySearch;\n\tvar min = array_1.min;\n\tvar max = array_1.max;\n\tvar sum = array_1.sum;\n\tvar avg = array_1.avg;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/array" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/array/array.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="数组扩展">
+<a href="#数组扩展" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>数组扩展<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：range, pushIf, insert, remove, removeAll, clean, clear, swap, sortBy, sortByDesc, groupBy, countBy, split, shuffle, random, item, pick, count, isUnique, unique, flatten, sub, union, intersect, permute, select, invoke, associate, binarySearch, min, max, sum, avg">util/array</small></h1>
+<p class="doc">提供 JavaScript 内置对象 Array 的扩展接口。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/range">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L1-16" target="_blank" title="源码：util/array/array.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>range<i class="doc-tip doc-api-ellipsis">(start, end, ...)</i><span class="doc-tip doc-api-more">(start:<code>number</code>, end:<code>number</code>, step?:<code>number</code>):<code>number[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个等差数列组成的数组。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始的数值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束的数值（不包含此数值）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>step</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">相邻数值的增幅。</p>
+
+                                </td>
+                                <td>
+                                    <code>1</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number[]</code></p>
+                <p class="doc">返回一个新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">range(<span class="doc-code-number">0</span>, <span class="doc-code-number">6</span>) <span class="doc-code-comment">// [0, 1, 2, 3, 4, 5]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">range(<span class="doc-code-number">2</span>, <span class="doc-code-number">11</span>, <span class="doc-code-number">3</span>) <span class="doc-code-comment">// [2, 5, 8]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个等差数列组成的数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/pushIf">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L18-28" target="_blank" title="源码：util/array/array.ts，第 18 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pushIf<i class="doc-tip doc-api-ellipsis">(arr, item)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, item:<code>T</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">如果数组中不存在项则添加到数组末尾。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果已添加到数组则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">pushIf(<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>], <span class="doc-code-number">1</span>) <span class="doc-code-comment">// 数组变成 [1, 9, 0]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">pushIf([<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>], <span class="doc-code-number">2</span>) <span class="doc-code-comment">// 数组变成 [1, 9, 0, 2]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果数组中不存在项则添加到数组末尾。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/insert">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L30-39" target="_blank" title="源码：util/array/array.ts，第 30 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>insert<i class="doc-tip doc-api-ellipsis">(arr, index, item)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, index:<code>number</code>, item:<code>T</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在数组的指定索引插入项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>index<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的索引（从 0 开始）。如果索引超出数组的长度，则插入到末尾。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">insert([<span class="doc-code-string">"I"</span>, <span class="doc-code-string">"you"</span>], <span class="doc-code-number">1</span>, <span class="doc-code-string">"love"</span>) <span class="doc-code-comment">// 数组变成 ["I", "love", "you"]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在数组的指定索引插入项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/remove">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L41-54" target="_blank" title="源码：util/array/array.ts，第 41 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>remove<i class="doc-tip doc-api-ellipsis">(arr, item, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, item:<code>T</code>, startIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除数组中指定的项。如果有多个匹配则只删除第一项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要删除的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>startIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始搜索的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回被删除的项在原数组中的索引。如果数组中找不到指定的项则返回 -1。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">remove([<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>], <span class="doc-code-number">9</span>) <span class="doc-code-comment">// 1, 数组变成 [1, 9, 0]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">while</span>(remove(arr, <span class="doc-code-string">"wow"</span>) &gt;= <span class="doc-code-number">0</span>) <span class="doc-code-comment">// 删除所有 "wow"。</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除数组中指定的项。如果有多个匹配则只删除第一项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/removeAll">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L56-66" target="_blank" title="源码：util/array/array.ts，第 56 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>removeAll<i class="doc-tip doc-api-ellipsis">(arr, item, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, item:<code>T</code>, startIndex?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除数组中指定的项。如果有多个匹配则全部删除。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要删除的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>startIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始搜索的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">removeAll([<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>], <span class="doc-code-number">9</span>) <span class="doc-code-comment">// 数组变成 [1, 0]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除数组中指定的项。如果有多个匹配则全部删除。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/clean">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L68-79" target="_blank" title="源码：util/array/array.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clean<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除数组中转为布尔值后为 false 的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">clean([<span class="doc-code-string">""</span>, <span class="doc-code-literal">false</span>, <span class="doc-code-number">0</span>, <span class="doc-code-literal">undefined</span>, <span class="doc-code-literal">null</span>, {}]) <span class="doc-code-comment">// 数组变成 [{}]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除数组中转为布尔值后为 false 的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/clear">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L81-88" target="_blank" title="源码：util/array/array.ts，第 81 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clear<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">清空数组的所有项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">clear([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 数组变成 []</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">清空数组的所有项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/swap">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L90-101" target="_blank" title="源码：util/array/array.ts，第 90 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>swap<i class="doc-tip doc-api-ellipsis">(arr, x, y)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, x:<code>number</code>, y:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">交换数组中的两个项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>x<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要交换的第一个项的索引。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>y<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要交换的第二个项的索引。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">swap([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>], <span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">交换数组中的两个项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/sortBy">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L103-124" target="_blank" title="源码：util/array/array.ts，第 103 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sortBy<i class="doc-tip doc-api-ellipsis">(arr, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, ...keys:<code>(function | (keyof T))[]</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">根据指定的规则排序。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>keys</code>
+                                </td>
+                                <td>
+                                    <code>(((item: T) =&gt; any) | (keyof T))[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">排序的所有规则。规则可以是一个键名或自定义取值的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sortBy([{ <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span> }, { <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"bred"</span> }], o =&gt; o.user) <span class="doc-code-comment">// [{ "user": "bred" }, { "user": "fred" }]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sortBy([{ <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span> }, { <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"bred"</span> }], <span class="doc-code-string">"user"</span>) <span class="doc-code-comment">// [{ "user": "bred" }, { "user": "fred" }]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">根据指定的规则排序。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/sortByDesc">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L126-147" target="_blank" title="源码：util/array/array.ts，第 126 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sortByDesc<i class="doc-tip doc-api-ellipsis">(arr, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, ...keys:<code>(function | (keyof T))[]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">根据指定的规则倒排。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>keys</code>
+                                </td>
+                                <td>
+                                    <code>(((item: T) =&gt; any) | (keyof T))[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">排序的所有规则。规则可以是一个键名或自定义取值的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sortByDesc([{ <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"bred"</span> }, { <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span> }], o =&gt; o.user) <span class="doc-code-comment">// [{ "user": "fred" }, { "user": "bred" }]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sortByDesc([{ <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"bred"</span> }, { <span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span> }], <span class="doc-code-string">"user"</span>) <span class="doc-code-comment">// [{ "user": "fred" }, { "user": "bred" }]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">根据指定的规则倒排。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/groupBy">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L149-170" target="_blank" title="源码：util/array/array.ts，第 149 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>groupBy<i class="doc-tip doc-api-ellipsis">(arr, key)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, key:<code>function | (keyof T)</code>):<code>(T[] &amp; { key: any; })[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将数组的项按指定规则分组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>((item: T) =&gt; any) | (keyof T)</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">分组的规则。规则可以是一个键名或自定义取值的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>(T[] &amp; { key: any; })[]</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">groupBy([{<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>}, {<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>}, {<span class="doc-code-attr">a</span>: <span class="doc-code-number">2</span>}], <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// [{key: 1, length: 2, 0: {a: 1}, 1: {a: 1}}, {key: 2, length: 1, 0: {a: 1}}]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将数组的项按指定规则分组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/countBy">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L172-185" target="_blank" title="源码：util/array/array.ts，第 172 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>countBy<i class="doc-tip doc-api-ellipsis">(arr, key)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, key:<code>function | (keyof T)</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将数组的项按指定规则分组然后统计每个分组的项数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>((item: T) =&gt; any) | (keyof T)</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">分组的规则。规则可以是一个键名或自定义取值的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: number; }</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">countBy([{<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>}, {<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>}, {<span class="doc-code-attr">a</span>: <span class="doc-code-number">2</span>}], <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// {1: 2, 2: 1}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将数组的项按指定规则分组然后统计每个分组的项数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/split">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L187-205" target="_blank" title="源码：util/array/array.ts，第 187 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>split<i class="doc-tip doc-api-ellipsis">(arr, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, count?:<code>number</code>, maxCount?:<code>number</code>):<code>T[][]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将数组等分成多个子数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>count</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">每个子数组的长度。</p>
+
+                                </td>
+                                <td>
+                                    <code>1</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>maxCount</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">最多允许拆分的组数。如果超出限制后则剩余的项全部添加到最后一个子数组中。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[][]</code></p>
+                <p class="doc">返回一个二维数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">split([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>, <span class="doc-code-number">4</span>, <span class="doc-code-number">5</span>], <span class="doc-code-number">2</span>) <span class="doc-code-comment">// [[1, 2], [3, 4], [5]]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将数组等分成多个子数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/shuffle">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L207-220" target="_blank" title="源码：util/array/array.ts，第 207 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>shuffle<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将数组中的项随机打乱。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">shuffle([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>])</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将数组中的项随机打乱。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/random">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L222-230" target="_blank" title="源码：util/array/array.ts，第 222 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>random<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">随机获取数组中的任一项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回某一项。如果数组为空则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">random([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>])</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">随机获取数组中的任一项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/item">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L232-241" target="_blank" title="源码：util/array/array.ts，第 232 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>item<i class="doc-tip doc-api-ellipsis">(arr, index)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, index:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取数组中指定索引的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>index<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的索引（从 0 开始）。如果值为负数，则获取倒数的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回指定索引的项。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">item([<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-number">-1</span>) <span class="doc-code-comment">// "b"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取数组中指定索引的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/pick">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L243-255" target="_blank" title="源码：util/array/array.ts，第 243 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pick<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取数组中第一个不为空的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                <p class="doc">返回第一个不为空的项，如果所有项都为空则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">pick([<span class="doc-code-literal">undefined</span>, <span class="doc-code-literal">null</span>, <span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 1</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取数组中第一个不为空的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/count">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L257-274" target="_blank" title="源码：util/array/array.ts，第 257 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>count<i class="doc-tip doc-api-ellipsis">(arr, item, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, item:<code>T</code>, startIndex?:<code>number</code>, endIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算指定项在数组中出现的次数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>startIndex</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始查找的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>endIndex</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束查找的索引（从 0 开始，不含）。</p>
+
+                                </td>
+                                <td>
+                                    <code>arr.length</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回项出现的次数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">count([<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// 1</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算指定项在数组中出现的次数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isUnique">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L276-290" target="_blank" title="源码：util/array/array.ts，第 276 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isUnique<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断数组中是否存在重复项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">若数组中存在重复项则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isUnique([<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>]) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isUnique([<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>]) <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断数组中是否存在重复项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/unique">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L292-304" target="_blank" title="源码：util/array/array.ts，第 292 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>unique<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除数组中的重复项并返回新数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                <p class="doc">返回过滤后的新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">[<span class="doc-code-number">1</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">9</span>, <span class="doc-code-number">0</span>].unique() <span class="doc-code-comment">// [1, 9, 0]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除数组中的重复项并返回新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/flatten">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L306-318" target="_blank" title="源码：util/array/array.ts，第 306 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>flatten<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">(arr:<code>any[]</code>):<code>any[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将多维数组合并为一维数组。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any[]</code></p>
+                <p class="doc">返回新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">flatten([[<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], [[[<span class="doc-code-number">3</span>]]]]) <span class="doc-code-comment">// [1, 2, 3]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将多维数组合并为一维数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/sub">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L320-333" target="_blank" title="源码：util/array/array.ts，第 320 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sub<i class="doc-tip doc-api-ellipsis">(arr, other)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, other:<code>T[]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从数组中删除另一个数组的所有项，返回剩下的项组成的新数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>other<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">需要被删除的项数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                <p class="doc">返回新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sub([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], [<span class="doc-code-number">1</span>]) <span class="doc-code-comment">// [2]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从数组中删除另一个数组的所有项，返回剩下的项组成的新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/union">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L335-351" target="_blank" title="源码：util/array/array.ts，第 335 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>union<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(...arrs:<code>T[][]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算所有数组的并集。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arrs</code>
+                                </td>
+                                <td>
+                                    <code>T[][]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要合并的所有数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                <p class="doc">返回所有数组中出现过的元素组成的无重复项的新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">union([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], [<span class="doc-code-number">1</span>]) <span class="doc-code-comment">// [1, 2]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算所有数组的并集。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/intersect">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L353-372" target="_blank" title="源码：util/array/array.ts，第 353 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>intersect<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(...arrs:<code>T[][]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算所有数组的交集。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arrs</code>
+                                </td>
+                                <td>
+                                    <code>T[][]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要取交集的所有数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                <p class="doc">返回所有数组中公共元素组成的无重复项的新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">intersect([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>], [<span class="doc-code-number">101</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">1</span>, <span class="doc-code-number">10</span>], [<span class="doc-code-number">2</span>, <span class="doc-code-number">1</span>]) <span class="doc-code-comment">// [1, 2]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算所有数组的交集。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/permute">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L374-397" target="_blank" title="源码：util/array/array.ts，第 374 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>permute<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>):<code>T[][]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算数组的全排列结果。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[][]</code></p>
+                <p class="doc">返回一个新数组，其每一项都是一种排列方式。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">permute([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>]) <span class="doc-code-comment">// [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算数组的全排列结果。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/select">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L399-413" target="_blank" title="源码：util/array/array.ts，第 399 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>select<i class="doc-tip doc-api-ellipsis">(arr, key)</i><span class="doc-tip doc-api-more">&lt;T, R&gt;(arr:<code>T[]</code>, key:<code>function | (keyof T)</code>):<code>R[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">根据指定的规则选择项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>((item: T) =&gt; R) | (keyof T)</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">选择的规则。规则可以是一个键名或自定义取值的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R[]</code></p>
+                <p class="doc">返回选择的结果组成的新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">select([{<span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span>}, {<span class="doc-code-string">"banch"</span>: <span class="doc-code-string">"bred"</span>}], o =&gt; o.user) <span class="doc-code-comment">// ["fred"]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">select([{<span class="doc-code-string">"user"</span>: <span class="doc-code-string">"fred"</span>}, {<span class="doc-code-string">"banch"</span>: <span class="doc-code-string">"bred"</span>}], <span class="doc-code-string">"user"</span>) <span class="doc-code-comment">// ["fred"]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">根据指定的规则选择项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/invoke">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L415-433" target="_blank" title="源码：util/array/array.ts，第 415 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>invoke<i class="doc-tip doc-api-ellipsis">(arr, fnName, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, fnName:<code>string</code>, ...args:<code>any[]</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">调用数组每一项的成员函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>fnName<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的成员函数名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>args</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调用的所有参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                <p class="doc">返回所有调用结果组成的新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">invoke([<span class="doc-code-string">"Teal"</span>, <span class="doc-code-string">"UI"</span>], <span class="doc-code-string">"length"</span>) <span class="doc-code-comment">// [4, 2]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调用数组每一项的成员函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/associate">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L435-449" target="_blank" title="源码：util/array/array.ts，第 435 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>associate<i class="doc-tip doc-api-ellipsis">(arr, keys)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, keys:<code>string[]</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将数组中的项分别和指定的键组合为对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>keys<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">键列表。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: T; }</code></p>
+                <p class="doc">返回数组和指定键组成的键值对。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">associate([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], [<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>]) <span class="doc-code-comment">// { a: 1, b: 2 }</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将数组中的项分别和指定的键组合为对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/binarySearch">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L451-471" target="_blank" title="源码：util/array/array.ts，第 451 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>binarySearch<i class="doc-tip doc-api-ellipsis">(arr, value, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(arr:<code>T[]</code>, value:<code>T</code>, compareFn?:<code>function</code>, start?:<code>number</code>, end?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在已排序的数组中二分查找指定的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要查找的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>compareFn</code>
+                                </td>
+                                <td>
+                                    <code>((item1: T, item2: T) =&gt; any) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于排序时确定优先级的函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">x：要比较的第一个参数。</li>
+<li class="doc">y：要比较的第二个参数。</li>
+</ul>
+<p class="doc">如果返回 true，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>x</em> 应该排在 <em>y</em> 之后。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始查找的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束查找的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>arr.length</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">binarySearch([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>, <span class="doc-code-number">4</span>, <span class="doc-code-number">5</span>], <span class="doc-code-number">3</span>) <span class="doc-code-comment">// 2</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在已排序的数组中二分查找指定的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/min">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L473-481" target="_blank" title="源码：util/array/array.ts，第 473 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>min<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">(arr:<code>number[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算数组中所有项的最小值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回数组中所有项的最小值。如果数组为空则返回 Infinity。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">min([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 1</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算数组中所有项的最小值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/max">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L483-491" target="_blank" title="源码：util/array/array.ts，第 483 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>max<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">(arr:<code>number[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算数组中所有项的最大值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回数组中所有项的最大值。如果数组为空则返回 -Infinity。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">max([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 2</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算数组中所有项的最大值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/sum">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L493-506" target="_blank" title="源码：util/array/array.ts，第 493 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sum<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">(arr:<code>number[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算数组中所有项的和。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回数组中所有数值的和。计算时将忽略非数字的项。如果数组为空则返回 0。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">sum([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 3</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算数组中所有项的和。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/avg">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/array/array.ts#L508-525" target="_blank" title="源码：util/array/array.ts，第 508 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>avg<i class="doc-tip doc-api-ellipsis">(arr)</i><span class="doc-tip doc-api-more">(arr:<code>number[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算数组中所有项的算术平均值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>arr<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回数组中所有数值的算术平均值。计算时将忽略非数字的项。如果数组为空则返回 0。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">avg([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>]) <span class="doc-code-comment">// 1.5</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算数组中所有项的算术平均值。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/object/" title="对象扩展" id="doc_pager_prev"><i class="doc-icon">⮜</i> 对象扩展</a>
+                            <a href="../../../components/util/string/" title="字符串扩展" id="doc_pager_next">字符串扩展 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/array/","test":"util/array/array-test.ts","imports":["util/array"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

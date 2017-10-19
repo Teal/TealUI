@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>测试页 - 5</title>
+    <link href="assets/base.css" rel="stylesheet" />
+    <script type="text/javascript" src="assets/core.js"></script>
+    <script type="text/javascript" src="assets/ui.js"></script>
+</head>
+<body>
+    <header id="header">
+        <a href="javascript:history.back();">返回</a>
+        header
+        <div id="loading"></div>
+    </header>
+    <section id="body">
+        <div class="x-page">
+            <menu>
+                <li><a href="index.html">页面 1: helle world</a></li>
+                <li><a href="subpage-2.html">页面 2: 使用 App.ready() 初始化页面</a></li>
+                <li><a href="subpage-3.html">页面 3: 使用 &lt;script> 加载业务代码</a></li>
+                <li><a href="subpage-4.html">页面 4: 使用 startLoading() 异步加载页面</a></li>
+                <li><a href="subpage-5.html">页面 5: 使用 App.go() 在页面间传参</a></li>
+                <li><a href="subpage-6.html">页面 6: 使用 App.go() 在页面间跳转</a></li>
+                <li><a href="subpage-7.html">页面 7: 使用页面的 hide 和 show 事件</a></li>
+            </menu>
+            <input type="text" id="input">
+            <input type="button" id="button" value="按我">
+            <script>
+                App.ready(function (page) {
+
+                    // 如果向当前页面传递了参数，则设置。
+                    if (page.params.value) {
+                        page.find('#input').val(page.params.value);
+                    }
+
+                    page.find('#button').click(function () {
+                        App.go('subpage-6.html', {
+                            value: page.find('#input').val()
+                        });
+                    });
+
+                });
+            </script>
+        </div>
+    </section>
+    <footer id="footer">
+        footer
+    </footer>
+</body>
+</html>

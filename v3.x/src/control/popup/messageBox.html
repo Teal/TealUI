@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>消息框</title>
+    <meta name="module-info" content="order=dialog">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="经典消息框，可代替 alert。">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/closeButton.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../container/panel.css" />
+    <link rel="stylesheet" type="text/css" href="../popup/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../popup/messageBox.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+
+    <script type="text/javascript" src="../../utility/ux/drag.js"></script>
+    <script type="text/javascript" src="../popup/dialog.js"></script>
+    <script type="text/javascript" src="../popup/messageBox.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <blockquote>如果需要一个空的对话框，请使用 <a href="messageBox.html">对话框（dialog）</a> 组件。</blockquote>
+    <h2>基本用法</h2>
+    <h5>警告框(模拟 alert)</h5>
+    <script class="doc-demo">MessageBox.alert('<em>内容</em>', '我是标题');</script>
+    <h5>确认框(模拟 confirm)</h5>
+    <pre>MessageBox.confirm('<em>内容</em>', '我是标题', function(){alert("点击了确定")});</pre>
+    <h3>输入框</h3>
+    <pre>MessageBox.prompt('请输入文字', '我是标题', function(content){alert(content)});</pre>
+    <h3>简单提示</h3>
+    <pre>MessageBox.toast('发送成功。<br><em>{time} 秒后刷新页面...</em>', null, 3000, function(){location.reload()});</pre>
+    <h2>纯HTML实现</h2>
+    <aside class="doc-demo">
+        <section class="x-panel x-dialog" x-role="dialog">
+            <header class="x-panel-header">
+                <a class="x-closebutton x-dialog-close">×</a>
+                <h4>我是标题</h4>
+            </header>
+            <div class="x-panel-body x-dialog-icon x-dialog-icon-warning">
+                我是内容
+            </div>
+            <div class="x-dialog-buttons">
+                <button class="x-button x-button-info">确定</button>
+                <button class="x-button">取消</button>
+            </div>
+        </section>
+    </aside>
+    <blockquote class="doc-info">其它 API　请参考信息框的基类： <a href="messageBox.html">对话框（dialog）</a> 组件。</blockquote>
+</body>
+</html>

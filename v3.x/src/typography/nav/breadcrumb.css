@@ -1,0 +1,13 @@
+﻿.x-breadcrumb {
+  font-size: 13px;
+}
+.x-breadcrumb,
+.x-breadcrumb a,
+.x-breadcrumb span {
+  color: #757575;
+}
+.x-breadcrumb-divider {
+  text-align: center;
+  margin: 0 .2em;
+  color: #bdbdbd !important;
+}

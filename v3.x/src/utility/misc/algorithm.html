@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>算法</title>
+    <meta name="module-info" content="order=data">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供经典算法实现。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/misc/sort.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>排序</h2>
+    <script x-doc="utility/misc/sort.js">
+        Doc.writeApi({
+			path: "utility/misc/sort.js",
+			apis: [{
+				name: "bubbleSort",
+				summary: "<p>冒泡排序。</p>",
+				params: [{
+					type: "Array",
+					name: "iteratable",
+					summary: "<p>要排序的类数组。</p>"
+				}, {
+					type: "Function",
+					name: "compareFn",
+					optional: true,
+					summary: "<p>用于排序时确定优先级的函数。函数的参数为： <br>\n\
+ - x: <code>Object</code> 比较的第一个参数。 <br>\n\
+ - y: <code>Object</code> 比较的第二个参数。 <br>\n\
+ - 返回值: <code>Boolean</code> 如果返回 <strong>true</strong>，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>y</em> 应该排在 <em>x</em> 之前。</p>"
+				}, {
+					type: "Number",
+					name: "start",
+					optional: true,
+					summary: "<p>开始排序的索引。</p>"
+				}, {
+					type: "Number",
+					name: "end",
+					optional: true,
+					summary: "<p>结束排序的索引。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回 <em>iteratable</em>。</p>"
+				},
+				remark: "<p>冒泡排序是稳定排序算法。</p>",
+				example: "<pre>bubbleSort([1, 3, 5, 4, 3]) // [1, 3, 3, 4, 5]</pre>",
+				line: 7,
+				col: 1
+			}, {
+				name: "shellSort",
+				summary: "<p>对类数组进行希尔排序。</p>",
+				params: [{
+					type: "Array",
+					name: "iteratable",
+					summary: "<p>要排序的类数组。</p>"
+				}, {
+					type: "Function",
+					name: "compareFn",
+					optional: true,
+					summary: "<p>用于排序时确定优先级的函数。函数的参数为： <br>\n\
+ - x: <code>Object</code> 比较的第一个参数。 <br>\n\
+ - y: <code>Object</code> 比较的第二个参数。 <br>\n\
+ - 返回值: <code>Boolean</code> 如果返回 <strong>true</strong>，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>y</em> 应该排在 <em>x</em> 之前。</p>"
+				}, {
+					type: "Number",
+					name: "start",
+					optional: true,
+					summary: "<p>开始排序的索引。</p>"
+				}, {
+					type: "Number",
+					name: "end",
+					optional: true,
+					summary: "<p>结束排序的索引。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回 <em>iteratable</em>。</p>"
+				},
+				remark: "<p>希尔排序不是稳定排序算法。</p>",
+				example: "<pre>shellSort([1, 3, 5, 4, 3]) // [1, 3, 3, 4, 5]</pre>",
+				line: 41,
+				col: 1
+			}, {
+				name: "quickSort",
+				summary: "<p>对类数组进行快速排序。</p>",
+				params: [{
+					type: "Array",
+					name: "iteratable",
+					summary: "<p>要排序的类数组。</p>"
+				}, {
+					type: "Function",
+					name: "compareFn",
+					optional: true,
+					summary: "<p>用于排序时确定优先级的函数。函数的参数为： <br>\n\
+ - x: <code>Object</code> 比较的第一个参数。 <br>\n\
+ - y: <code>Object</code> 比较的第二个参数。 <br>\n\
+ - 返回值: <code>Boolean</code> 如果返回 <strong>true</strong>，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>y</em> 应该排在 <em>x</em> 之前。</p>"
+				}, {
+					type: "Number",
+					name: "start",
+					optional: true,
+					summary: "<p>开始排序的索引。</p>"
+				}, {
+					type: "Number",
+					name: "end",
+					optional: true,
+					summary: "<p>结束排序的索引。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回 <em>iteratable</em>。</p>"
+				},
+				remark: "<p>快速排序不是稳定排序算法。</p>",
+				example: "<pre>quickSort([1, 3, 5, 4, 3]) // [1, 3, 3, 4, 5]</pre>",
+				line: 73,
+				col: 1
+			}]
+});</script>
+</body>
+</html>

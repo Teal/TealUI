@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>树</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/nav/treeview.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/icollapsable.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/contentcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/listcontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/treecontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/nav/treeview.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script class="demo" type="text/html">
+
+            <div id="ct" style="width:300px"></div>
+
+            < script>
+
+                var treeView = new TreeView();
+                
+                treeView.renderTo('#ct');
+                
+                var treeNode1 = treeView.add("1");
+                treeNode1.add("1-1");
+                treeNode1.add("1-2");
+                
+                var treeNode2 = treeView.add("2");
+
+            < /script>
+
+        </script>
+
+        <script>
+
+            Demo.writeExamples({
+                '添加一个子节点': 'treeView.add("<em>这是使用 add 添加的</em>")',
+                '在第一个子节点后下一个子节点': 'treeView.item(0).add("1 后的子节点")',
+                '删除第一个子节点': 'treeView.removeAt(0)',
+                '折叠第一个子节点': 'treeView.collapse()',
+                '展开确保第一个子节点内可见': 'treeView.item(0).ensureVisible()',
+                '获取选中的节点': 'treeView.getSelectedNode()'
+            });
+
+        </script>
+
+        <!-- <section class="demo-test">
+
+            <h3 class="demo">无 JavaScript 版</h3>
+
+            <ul class="x-treeview" style="width: 100px;">
+                <li class="x-treeview-item">
+                    <a class="x-treenode">
+                        <span class="x-treenode-space x-treenode-plus"></span>
+                        <span href="#">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa</span>
+                    </a>
+                    <ul class="x-treeview-subtree">
+                        <li class="x-treeview-item">
+                            <a class="x-treenode">
+                                <span class="x-treenode-space"></span>
+                                <span class="x-treenode-space x-treenode-normal"></span>
+                                <span href="#">菜单</span>
+                            </a>
+                        </li>
+                        <li class="x-treeview-item">
+                            <a class="x-treenode x-treenode-selected x-treenode-last">
+                                <span class="x-treenode-space x-treenode-line"></span>
+                                <span class="x-treenode-space x-treenode-normal"></span>
+                                <span href="#">菜单</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="x-treeview-item">
+                    <a class="x-treenode">
+                        <span class="x-treenode-space x-treenode-normal"></span>
+                        <span href="#">菜单</span>
+                    </a>
+                </li>
+                <li class="x-treeview-item">
+                    <a class="x-treenode">
+                        <span class="x-treenode-space x-treenode-plus"></span>
+                        <span href="#">菜单</span>
+                    </a>
+                    <ul class="x-treeview-subtree">
+                        <li class="x-treeview-item">
+                            <a class="x-treenode">
+                                <span class="x-treenode-space x-treenode-space"></span>
+                                <span class="x-treenode-space x-treenode-minus"></span>
+                                <span href="#">菜单</span>
+                            </a>
+                        </li>
+                        <li class="x-treeview-item">
+                            <a class="x-treenode x-treenode-last">
+                                <span class="x-treenode-space x-treenode-space"></span>
+                                <span class="x-treenode-space x-treenode-normal"></span>
+                                <span href="#">菜单</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="x-treeview-item">
+                    <div class="x-treenode">
+                        <span class="x-treenode-space x-treenode-normal"></span>
+                        <span href="#">菜单</span>
+                    </div>
+                </li>
+                <li class="x-treeview-item">
+                    <a class="x-treenode x-treenode-last">
+                        <span class="x-treenode-space x-treenode-plus"></span>
+                        <span href="#">菜单</span>
+                    </a>
+                </li>
+            </ul>
+
+        </section> -->
+
+    </article>
+</body>
+</html>

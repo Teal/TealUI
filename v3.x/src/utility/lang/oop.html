@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>面向对象</title>
+    <meta name="module-info" content="order=regexp">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="为 JavaScript 提供模拟面向对象语法的功能。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/lang/enum.js"></script>
+    <script type="text/javascript" src="../../utility/lang/namespace.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <h2>类</h2>
+
+    <h3>创建最简单的类</h3>
+    <pre>var Animal = Base.extend();</pre>
+
+    <h3>为类添加字段和方法</h3>
+    <pre>
+        var Animal = Base.extend({
+            
+            // 我是字段（Field）
+            name: '小黑',
+        
+            // 我是方法（Method）
+            say: function () {
+                alert(this.name + "调用了 say 方法");
+            }
+        });
+    </pre>
+    <pre>
+        var ani = new Animal();  // 创建一个类的实例。
+        ani.name = '大白';       // 为字段赋值。
+        ani.say();               // 调用 Animal 类的 say 方法。
+    </pre>
+
+    <h3>为类添加构造函数</h3>
+    <pre>
+        var Animal = Base.extend({
+            constructor: function (args) {
+                alert("正在执行 Animal 类的构造函数。");
+            }
+        });
+    </pre>
+    <pre>
+        var ani = new Animal(); // 创建一个类的实例时会调用类构造函数。
+    </pre>
+    <p>如果子类未定义构造函数，则继承父类构造函数。</p>
+
+    <h3>继承</h3>
+    <pre>
+        var Animal = Base.extend({
+            say: function () {
+                alert("正在执行 Animal 类的 say 方法");
+            },
+            constructor: function (args) {
+                alert("正在执行 Animal 类的构造函数。");
+            }
+        });
+    </pre>
+    <pre>
+        // 继承 Animal 类创建子类。
+        var Dog = Animal.extend({
+            say2: function () {
+                alert("正在执行 Dog 类的 say 方法");
+            }
+        });
+    </pre>
+    <pre>
+        var dog = new Dog(); // 创建一个类的实例。
+        dog.say(); // 调用 Animal 类的 say 方法。
+        dog.say2(); // 调用 Dog 类的 say2 方法。
+    </pre>
+    <p>如果子类需要调用被覆盖的父类成员，可通过原型调用，如 <code>Animal.progress.say.apply(this, arguments)</code>。</p>
+
+    <h3>事件</h3>
+    <p>自定义类默认支持事件模型。</p>
+    <pre>
+        var Animal = Base.extend();
+        var ani = new Animal();
+        ani.on('needsay', function (name) {
+            alert("needsay事件被触发了， 参数 name=" + name);
+        });
+        ani.trigger('needsay', "触发needsay事件时的参数");
+    </pre>
+
+    <h3>API</h3>
+    <script x-doc="utility/lang/class.js">
+        Doc.writeApi({
+			path: "utility/lang/class.js",
+			apis: [{
+				memberOf: "Base",
+				name: "extend",
+				summary: "<p>继承当前类创建派生类。</p>",
+				params: [{
+					type: "Object",
+					name: "members",
+					optional: true,
+					summary: "<p>子类实例成员列表。其中 <code>contructor</code> 成员表示类型构造函数。</p>"
+				}],
+				returns: {
+					type: "Function",
+					summary: "<p>返回继承创建的子类。</p>"
+				},
+				remark: "<h4>单继承</h4>\n\
+\n\
+<p>此函数只实现单继承。不同于真正面向对象的语言， <br>\n\
+子类的构造函数默认不会调用父类构造函数，除非子类不存在新的构造函数。</p>\n\
+\n\
+<p><code>Base.extend</code> 实际上创建一个新的函数，其原型指向 <code>Base</code> 的原型。 <br>\n\
+由于共享原型链，如果类的成员存在引用成员，则类所有实例将共享它们。 <br>\n\
+因此创建类型时应避免直接声明引用成员，而是改在构造函数里创建。</p>",
+				example: "<pre>var MyClass = Base.extend({  // 创建一个子类。\n\
+      type: 'a'\n\
+});</pre>\n\
+\n\
+<pre>var obj = new MyClass(); // 创建子类的实例。</pre>",
+				line: 11,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "on",
+				summary: "<p>添加一个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要添加的事件名。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					summary: "<p>要添加的事件监听器。监听器返回 <strong>false</strong> 则终止事件。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>new Base().on('click', function (e) {\n\
+        return true;\n\
+});</pre>",
+				line: 82,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "off",
+				summary: "<p>删除一个或多个事件监听器。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					optional: true,
+					summary: "<p>要删除的事件名。如果不传递此参数，则删除全部事件的全部监听器。</p>"
+				}, {
+					type: "Function",
+					name: "eventListener",
+					optional: true,
+					summary: "<p>要删除的事件处理函数。如果不传递此参数，在删除指定事件的全部监听器。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				remark: "<h4>绑定引用</h4>\n\
+\n\
+<p>注意: <code>function () {} !== function () {}</code>, 这意味着下列代码的 off 将失败:</p>\n\
+\n\
+<pre><code> base.on('click', function () {});\n\
+ base.off('click', function () {});   // 无法删除 on 绑定的函数。\n\
+</code></pre>\n\
+\n\
+<p>正确的做法是把函数保存起来。 </p>\n\
+\n\
+<pre><code> var fn =  function () {};\n\
+ elem.on('click', fn);\n\
+ elem.off('click', fn); // fn  被成功删除。\n\
+</code></pre>\n\
+\n\
+<p>如果同一个 <em>eventListener</em> 被增加多次，off 只删除第一个。</p>",
+				example: "<pre>var base = new Base(); // 创建一个实例。\n\
+function fn() { }\n\
+base.on('click', fn); // 绑定一个 click 事件。\n\
+base.off('click', fn); // 删除一个 click 事件。</pre>",
+				line: 113,
+				col: 1
+			}, {
+				memberOf: "Base.prototype",
+				name: "trigger",
+				summary: "<p>触发一个事件。</p>",
+				params: [{
+					type: "String",
+					name: "eventName",
+					summary: "<p>要触发的事件名。</p>"
+				}, {
+					type: "Object",
+					name: "eventArgs",
+					summary: "<p>传递给监听器的参数。</p>"
+				}],
+				returns: {
+					summary: "<p>如果事件被阻止则返回 <strong>false</strong>，否则返回 <strong>true</strong>。</p>"
+				},
+				example: "<pre>var base = new Base(); // 创建一个实例。\n\
+base.on('click', function (e) { alert(\"事件触发了\"); }); // 绑定一个 click 事件。\n\
+base.trigger('click'); // 手动触发 click， 即执行  on('click') 过的函数。</pre>",
+				line: 172,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>枚举</h2>
+
+    <h3>定义枚举</h3>
+    <p>枚举即将常用的字段用统一的数字编码存储表示，程序中使用字段名指代难记的数字。定义枚举可增加代码的可读性。</p>
+    <script class="doc-demo">
+        var WeekDay = {
+            sunday: 0,
+            monday: 1,
+            tuesday: 2,
+            wednesday: 3,
+            thirsday: 4,
+            friday: 5,
+            saturday: 6
+        };
+    </script>
+
+    <h3>API</h3>
+    <script x-doc="utility/lang/enum.js">
+        Doc.writeApi({
+			path: "utility/lang/enum.js",
+			apis: [{
+				name: "Enum",
+				summary: "<p>枚举相关功能。</p>",
+				type: "Object",
+				line: 6,
+				col: 1
+			}, {
+				name: "getName",
+				summary: "<p>根据枚举值返回其枚举名。</p>",
+				params: [{
+					type: "Object",
+					name: "enumType",
+					summary: "<p>枚举类型对象。</p>"
+				}, {
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>枚举的内容。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回枚举键。如果不存在则返回 <strong>null</strong>。</p>"
+				},
+				example: "<pre>Enum.getName(WeekDay, 0) // 'sunday'</pre>",
+				line: 13,
+				col: 1
+			}, {
+				name: "hasFlags",
+				summary: "<p>判断指定枚举值是否包含指定的标记位。</p>",
+				params: [{
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>要判断的枚举值。</p>"
+				}, {
+					type: "Number",
+					name: "flags",
+					summary: "<p>要判断的枚举标记项。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果包含标记位则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>var Flags = {\n\
+    red: 1 << 1,\n\
+    yellow: 1 << 2,\n\
+    blue: 1 << 3,\n\
+};\n\
+Enum.hasFlags(Flags.red | Flags.yellow, Flags.red); // true</pre>",
+				line: 33,
+				col: 1
+			}, {
+				name: "setFlag",
+				summary: "<p>设置指定枚举的标记位。</p>",
+				params: [{
+					type: "Number",
+					name: "enumValue",
+					summary: "<p>要判断的枚举值。</p>"
+				}, {
+					type: "Number",
+					name: "flags",
+					summary: "<p>要设置的枚举标记项。</p>"
+				}, {
+					type: "Boolean",
+					name: "value",
+					summary: "<p>如果设置为 <strong>true</strong> 表示添加标记位，否则清空标记位。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回更新后的枚举值。</p>"
+				},
+				example: "<pre>var Flags = {\n\
+    red: 1 << 1,\n\
+    yellow: 1 << 2,\n\
+    blue: 1 << 3,\n\
+};\n\
+var flag = 0;\n\
+flag = Enum.setFlag(flag, Flags.red, true);</pre>",
+				line: 54,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>命名空间</h2>
+    <p>定义命名空间以避免组件冲突。</p>
+    <script x-doc="utility/lang/namespace.js">
+        Doc.writeApi({
+			path: "utility/lang/namespace.js",
+			apis: [{
+				name: "namespace",
+				summary: "<p>定义命名空间。</p>",
+				params: [{
+					type: "String",
+					name: "ns",
+					summary: "<p>要创建的命名空间。</p>"
+				}],
+				returns: {
+					type: "Object",
+					summary: "<p>如果命名空间已存在则返回之前的命名空间，否则返回新创建的命名空间。</p>"
+				},
+				example: "<pre>namespace(\"MyNameSpace.SubNamespace\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});
+    </script>
+</body>
+</html>

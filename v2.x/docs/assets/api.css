@@ -1,0 +1,123 @@
+﻿
+.api-body {
+    background: none!important;
+}
+
+.api-tabcontrols {
+}
+
+.api-tabcontrols-header {
+    
+}
+
+    .api-tabcontrols-header li {
+        margin: 0 -5px -1px 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+        border: 1px solid #ccc;
+        background: #f8f8f8;
+        vertical-align: bottom;
+        cursor: pointer;
+        padding: 4px 9px;
+    }
+
+    .api-tabcontrols-header .api-tabcontrols-selected {
+        background: #fff;
+        border-bottom-color: #fff;
+        color: #333333;
+        font-weight: bolder;
+    }
+
+.api-tabcontrols-body {
+     background: #fff;
+    border: 1px solid #DDDDDD;
+    padding: 4px 6px;
+}
+
+.api-tabcontrols-body ul {
+
+}
+
+.api-tabcontrols-body li a {
+    color: #333333;
+    display: block;
+    height: 18px;
+    line-height: 18px;
+    text-decoration: none;
+    border: 1px solid #fff;
+    display: block;
+    padding: 2px 4px 0;
+ }
+
+.api-tabcontrols-body li a:hover, .api-tabcontrols-body li a.api-current {
+    background: none repeat scroll 0 0 #565964;
+    border-color: #565964;
+    color: #FFFFFF;
+    text-shadow: none;
+    border-radius: 2px;
+}
+
+.api-filter {
+    box-sizing: content-box;
+    width: 213px;
+    margin-bottom: 2px;
+    font-size: 12px;
+    padding: 3px;
+    border: 1px solid #CCCCCC;
+}
+
+/*.api-entry {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px 5px 5px 5px;
+    margin: 15px 0;
+    padding: 10px 20px;
+    background-color: #EEEEEE;
+}*/
+
+.api-detail {
+    border-bottom: 1px dotted #ccc;
+}
+
+.api-detail-container {
+    padding-left: 19px;
+}
+
+.api-detail-container table.demo {
+    width: auto;
+}
+
+#api article.demo {
+    width: auto;
+}
+
+.api-member-name {
+    font-size: larger;
+}
+
+.api-detail .demo-toolbar {
+    margin-top: 0;
+}
+
+/*.api-member-hint {
+    color: #999;
+    margin-left: 4px;
+}*/
+
+.api-list {
+    float: left;
+    width: 170px;
+    margin-right: 10px;
+    word-break:break-all;
+}
+
+.api-list li {
+    list-style: none;
+}
+
+.api-list a{
+    color: #000;
+    font-size: 13px;
+}

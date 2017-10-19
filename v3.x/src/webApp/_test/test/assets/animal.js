@@ -1,0 +1,1 @@
+﻿console.log('Animal.js 已加载');

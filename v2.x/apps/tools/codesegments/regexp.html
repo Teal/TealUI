@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>常用正则</title>
+    <script type="text/javascript" src="../../demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        
+        <dl class="demo">
+            <dt>网络</dt>
+            <dd>Email: <code class="demo">/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/</code></dd>
+            <dd>网址: <code class="demo">/^[a-zA-z]+:///</code></dd>
+            <dd>HTML: <code class="demo">/<(\S*?)[^>]*>.*?</\1>|<.*? />/</code></dd>
+            <dd>首尾空白字符: <code class="demo">/^\s*|\s*$/g</code></dd>
+            <dt>中文</dt>
+            <dd>中文: <code class="demo">/\u4e00-\u9fa5/</code></dd>
+            <dd>身份证: <code class="demo">/\d{15}|\d{18}/</code></dd>
+        </dl>
+
+    </article>
+</body>
+</html>

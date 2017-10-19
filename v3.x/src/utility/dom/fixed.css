@@ -1,0 +1,30 @@
+
+* html{
+	_background-image:url(about:blank);
+	_background-attachment:fixed
+}
+
+* html .ie6-fixed-top{
+	_position:absolute;
+	_bottom:auto;
+	_top:expression(document.documentElement.scrollTop+parseFloat(this.style.bottom));
+}
+
+* html .ie6-fixed-right{
+	_position:absolute;
+	_right:auto;
+	_left:expression(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth-(parseInt(this.currentStyle.marginLeft)||0)-(parseInt(this.currentStyle.marginRight)||0)-parseFloat(this.style.right));
+}
+
+* html .ie6-fixed-bottom{
+	_position:absolute;
+	_bottom:auto;
+	_top:expression(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop)||0)-(parseInt(this.currentStyle.marginBottom)||0)-parseFloat(this.style.bottom));
+}
+
+* html .ie6-fixed-left{
+	_position:absolute;
+	_right:auto;
+	_left:expression(eval(document.documentElement.scrollLeft)+parseFloat(this.style.right));
+}
+

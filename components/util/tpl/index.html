@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>模板引擎 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/tpl"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import tpl from \&quot;util/tpl\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/tpl\&quot;], function (tpl_1) {\n\tvar tpl = tpl_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/tpl/tpl.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/tpl" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/tpl/tpl.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="模板引擎">
+<a href="#模板引擎" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>模板引擎<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as tpl">util/tpl</small></h1>
+<p class="doc">最简 EJS（ASP/JSP）风格模板引擎：仅 10 行代码！</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<textarea id="input" placeholder="输入模板">Hello <%= $.name %>!</textarea> 
+<input type="text" id="data" placeholder="输入数据" value='{name: "World"}' />
+<button onclick="output.value = tpl(input.value, eval('(' + data.value + ')'));
+">渲染模板</button>
+<textarea id="output" placeholder="渲染结果"></textarea>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">textarea</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"输入模板"</span>&gt;</span>Hello <span class="doc-code-tag">&lt;<span class="doc-code-name">%=</span> $<span class="doc-code-attr">.name</span> %&gt;</span>!<span class="doc-code-tag">&lt;/<span class="doc-code-name">textarea</span>&gt;</span> 
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"text"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"data"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"输入数据"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">'{name: "World"}'</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"output.value = tpl(input.value, eval('(' + data.value + ')'))"</span>&gt;</span>渲染模板<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">textarea</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"output"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"渲染结果"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">textarea</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><dl id="doc_toc">
+	<dt><a href="#hello-world">Hello World</a></dt>
+	<dt><a href="#缓存模板">缓存模板</a></dt>
+	<dt><a href="#模板语法">模板语法</a></dt>
+	<dt><a href="#api">API</a></dt>
+</dl>
+<h2 id="hello-world">
+<a href="#hello-world" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Hello World</h2>
+<p class="doc">直接使用 <a href="#api/tpl"><code>tpl</code></a> 传入模板内容和数据返回渲染后的结果。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> tpl <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/tpl"</span>;
+
+<span class="doc-code-keyword">var</span> r = tpl(<span class="doc-code-string">"Hello &lt;%= $.name %&gt;!"</span>, {<span class="doc-code-attr">name</span>: <span class="doc-code-string">"World"</span>}); <span class="doc-code-comment">// =&gt; "Hello world!"</span></code></pre><h2 id="缓存模板">
+<a href="#缓存模板" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>缓存模板</h2>
+<p class="doc">模板引擎的原理是先将模板编译为 JavaScript 函数然后调用并渲染。
+如果同一份模板需要反复使用，建议缓存编译后的函数以提升渲染性能。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-comment">// 编译为函数并缓存。</span>
+<span class="doc-code-keyword">var</span> func = tpl(<span class="doc-code-string">"Hello &lt;%= $.name %&gt;!"</span>);
+
+<span class="doc-code-comment">// 执行模板。</span>
+<span class="doc-code-keyword">var</span> result1 = func({<span class="doc-code-attr">name</span>: <span class="doc-code-string">"World1"</span>}); <span class="doc-code-comment">// =&gt; "Hello world1!"</span>
+<span class="doc-code-keyword">var</span> result2 = func({<span class="doc-code-attr">name</span>: <span class="doc-code-string">"world2"</span>}); <span class="doc-code-comment">// =&gt; "Hello world2!"</span></code></pre><h2 id="模板语法">
+<a href="#模板语法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>模板语法</h2>
+<p class="doc">在模板中，使用 <code>&lt;% ... %&gt;</code> 插入一个 JavaScript 代码段。
+如 <code>&lt;% console.log('hello'); %&gt;</code>。</p>
+<p class="doc">如果需要将代码段的执行结果添加到输出，则使用 <code>&lt;%= ... %&gt;</code>，如 <code>Hello &lt;%= 1 + 1 %&gt;</code> 最终生成 <code>Hello 2</code>。</p>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://www.embeddedjs.com/" target="_blank" class="doc-external">EJS</a></li>
+</ul>
+</blockquote>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/tpl">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/tpl/tpl.ts#L19-36" target="_blank" title="源码：util/tpl/tpl.ts，第 19 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>tpl<i class="doc-tip doc-api-ellipsis">(tpl, ...)</i><span class="doc-tip doc-api-more">(tpl:<code>string</code>, data?:<code>any</code>):<code>any</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">渲染一个 EJS（ASP/JSP）模板。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>tpl<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">模板内容。在模板中使用 <code>&lt;% ... %&gt;</code> 插入 JavaScript 语句，使用 <code>&lt;%= ... %&gt;</code> 插入 JavaScript 表达式，使用 <code>$</code> 表示传入的数据。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>data<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">传递给模板的数据。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回模板渲染后的结果。</p>
+
+                
+<hr>
+<p class="doc">编译一个 EJS（ASP/JSP）模板。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>tpl<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">模板内容。在模板中使用 <code>&lt;% ... %&gt;</code> 插入 JavaScript 语句，使用 <code>&lt;%= ... %&gt;</code> 插入 JavaScript 表达式，使用 <code>$</code> 表示传入的数据。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>(data: any) =&gt; any</code></p>
+                <p class="doc">返回编译后的模板函数。函数有以下参数：</p>
+<ul>
+<li class="doc">data：传递给模板的数据。</li>
+</ul>
+<p class="doc">函数返回模板渲染后的结果。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渲染一个 EJS（ASP/JSP）模板。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/path/" title="路径处理" id="doc_pager_prev"><i class="doc-icon">⮜</i> 路径处理</a>
+                            <a href="../../../components/util/uuid/" title="通用唯一识别码" id="doc_pager_next">通用唯一识别码 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/tpl/","test":"util/tpl/tpl-test.ts","imports":["util/tpl"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

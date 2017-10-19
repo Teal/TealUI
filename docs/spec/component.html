@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件规范 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../assets/doc/doc.css">
+    <script src="../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../" title="Teal" id="doc_logo_image"><img src="../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li class="doc-navbar-active"><a href="../../docs" title="文档和规范">文档</a></li>
+                    <li><a href="../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找文档..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li>-</li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/edit/dev-v4/docs/spec/component.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="组件规范">
+<a href="#组件规范" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>组件规范</h1>
+<p class="doc">定义组件开发的最高级别规范。</p>
+<dl id="doc_toc">
+	<dt><a href="#命名">命名</a></dt>
+	<dd><a href="#选词">选词</a></dd>
+	<dd><a href="#词性">词性</a></dd>
+	<dd><a href="#缩写">缩写</a></dd>
+	<dd><a href="#通用命名">通用命名</a></dd>
+	<dd><a href="#同义词">同义词</a></dd>
+	<dt><a href="#格式规范">格式规范</a></dt>
+	<dd><a href="#符号">符号</a></dd>
+	<dd><a href="#逻辑">逻辑</a></dd>
+	<dt><a href="#文档注释规范">文档注释规范</a></dt>
+</dl>
+<h2 id="命名">
+<a href="#命名" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>命名</h2>
+<h3 id="选词">
+<a href="#选词" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>选词</h3>
+<ul>
+<li class="doc">所有公开接口和文档应使用书面语。</li>
+<li class="doc">所有单词按照美式英语发音、拼写。</li>
+<li class="doc">专业术语缩写使用全大写格式，如果在开头则使用全小写格式。如 <code>innerHTML</code>、<code>html</code>。</li>
+</ul>
+<h3 id="词性">
+<a href="#词性" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>词性</h3>
+<ul>
+<li class="doc">函数（方法）名应为动词、动宾结构或介宾结构。如 <code>find</code>、<code>findIndex</code>。</li>
+<li class="doc">变量（参数）、属性名应为名词、形容词或偏正结构。如 <code>location</code>、<code>disabled</code>。</li>
+<li class="doc">类名、ID、CSS 类名应为名词。</li>
+<li class="doc">在表示多个（数组、列表）或可组合的枚举时使用名词的复数形式。如 <code>childNodes</code>。</li>
+<li class="doc">在返回布尔值的方法名中使用动词的第三人称形式。如 <code>hasClass</code>、<code>matches</code>。</li>
+</ul>
+<h3 id="缩写">
+<a href="#缩写" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>缩写</h3>
+<ul>
+<li class="doc">除了常见缩写和专业术语，所有公开接口（包括参数名）尽量使用单词全拼。</li>
+</ul>
+<h3 id="通用命名">
+<a href="#通用命名" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>通用命名</h3>
+<p class="doc">如果需要定义一个无特定意义的变量（参数），按照以下原则命名：</p>
+<ul>
+<li class="doc">使用 <code>i</code> 作为循环变量。嵌套循环则依次使用 <code>j</code>、<code>k</code>、<code>h</code>...。</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">for</span> (<span class="doc-code-keyword">let</span> i = <span class="doc-code-number">0</span>; i &lt; <span class="doc-code-number">100</span>; i++) {
+    <span class="doc-code-keyword">for</span> (<span class="doc-code-keyword">let</span> j = i; i &lt; <span class="doc-code-number">100</span>; j++) {
+
+    }
+}</code></pre><ul>
+<li class="doc">在函数中，使用 <code>r</code> 保存需要最终返回的值。</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">getHtml</span>(<span class="doc-code-params"></span>)</span>{
+    <span class="doc-code-keyword">let</span> r = <span class="doc-code-string">""</span>;
+    <span class="doc-code-keyword">if</span> (...) {
+        r += <span class="doc-code-string">"&lt;a&gt;"</span>;
+    }
+    <span class="doc-code-keyword">return</span> r;
+}</code></pre><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">getItems</span>(<span class="doc-code-params"></span>)</span>{
+    <span class="doc-code-keyword">const</span> r = [];
+    <span class="doc-code-keyword">if</span> (...) {
+        r.push(<span class="doc-code-number">1</span>);
+    }
+    <span class="doc-code-keyword">return</span> r;
+}</code></pre><ul>
+<li class="doc">使用 <code>t</code> 保存无特定类型的内部变量。</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">swap</span>(<span class="doc-code-params">item1, item2</span>)</span>{
+    <span class="doc-code-keyword">var</span> t = item1;
+    item1 = item2;
+    item2 = t;
+}</code></pre><ul>
+<li class="doc">使用 <code>value</code> 保存无特定类型的变量。</li>
+<li class="doc">分别使用以下变量保存对应类型的变量：
+<ul>
+<li class="doc">使用 <code>obj</code> 保存对象类型的变量。</li>
+<li class="doc">使用 <code>arr</code> 保存数组类型的变量。</li>
+<li class="doc">使用 <code>str</code> 保存字符串类型的变量。</li>
+<li class="doc">使用 <code>fn</code> 保存函数类型的变量。</li>
+<li class="doc">使用 <code>num</code> 保存数字类型的变量。</li>
+<li class="doc">使用 <code>date</code> 保存日期类型的变量。</li>
+<li class="doc">使用 <code>list</code> 保存类数组类型的变量。</li>
+<li class="doc">使用首字母小写的同名变量保存自定义类型的变量。</li>
+</ul>
+</li>
+<li class="doc">使用 <code>item</code> 保存数组中的每一项。</li>
+<li class="doc">使用 <code>key</code> 保存对象的键或加密的密钥。</li>
+<li class="doc">使用 <code>count</code> 保存次数。</li>
+<li class="doc">使用 <code>timeout</code> 保存超时的毫秒数。</li>
+<li class="doc">使用 <code>options</code> 保存可组合的选项对象。</li>
+<li class="doc">使用 <code>callback</code> 保存不区分成功和失败的回调函数。使用 <code>success</code> 和 <code>error</code> 分别保存成功和失败回调。</li>
+<li class="doc">使用 <code>x</code>、<code>y</code>、<code>z</code> 保存需要作四则运算的值或坐标值。</li>
+<li class="doc">使用 <code>data</code> 保存外部获取的（一般由服务器下发的）数据。</li>
+<li class="doc">使用 <code>e</code> 保存事件参数。</li>
+<li class="doc">使用 <code>thisArg</code> 保存函数中 this 的值。</li>
+<li class="doc">使用 <code>_this</code> 临时保存原函数的 this。</li>
+<li class="doc">使用 <code>startIndex</code>、<code>endIndex</code> 分别保存开始索引和结束索引。</li>
+<li class="doc">使用 <code>compareFn</code> 保存排序比较函数。</li>
+</ul>
+<h3 id="同义词">
+<a href="#同义词" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>同义词</h3>
+<h4><code>delete</code> &amp; <code>remove</code></h4>
+<p class="doc">两者都是去除的意思。</p>
+<ul>
+<li class="doc"><code>remove</code> 表示暂时性的<strong>移除</strong>，之后可以通过 <code>add</code> 重新添加。</li>
+<li class="doc"><code>delete</code> 表示不可撤销的<strong>删除</strong>。<code>delete</code> 总是和 <code>create</code>、<code>new</code> 对应。</li>
+</ul>
+<h4><code>create</code> &amp; <code>new</code></h4>
+<p class="doc">两者都是创建的意思。</p>
+<ul>
+<li class="doc"><code>create</code> 作动词使用，常用于函数名。</li>
+<li class="doc"><code>new</code> 作形容词使用，常用于变量名。</li>
+</ul>
+<h4><code>state</code> &amp; <code>status</code></h4>
+<p class="doc">两者都是状态的意思。</p>
+<ul>
+<li class="doc"><code>state</code> 是有限的、可枚举的状态，一般是一个数字。</li>
+<li class="doc"><code>status</code> 是不可确定的、可拓展的状态，一般是一个字符串。</li>
+</ul>
+<h4><code>start</code> &amp; <code>begin</code></h4>
+<p class="doc">两者都是开始的意思。</p>
+<ul>
+<li class="doc"><code>start</code> 作名词使用，常用于属性名和变量名。</li>
+<li class="doc"><code>begin</code> 作动词使用，常用于函数名。</li>
+</ul>
+<h2 id="格式规范">
+<a href="#格式规范" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>格式规范</h2>
+<h3 id="符号">
+<a href="#符号" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>符号</h3>
+<ul>
+<li class="doc">中文和英文、数字之间空一格。</li>
+<li class="doc">文档注释句尾应添加句号。英文使用“.”，中文使用“。”。</li>
+</ul>
+<h3 id="逻辑">
+<a href="#逻辑" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>逻辑</h3>
+<ul>
+<li class="doc">尽量降低嵌套层次。如 <code>if-return-else</code> 可简写为 <code>if-return</code>：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">if</span> (...) {
+    <span class="doc-code-keyword">return</span> ...
+}
+
+<span class="doc-code-keyword">if</span> (...) {
+    <span class="doc-code-keyword">return</span> ...
+}
+
+<span class="doc-code-keyword">return</span> ...</code></pre><ul>
+<li class="doc">
+<p class="doc">尽量将更短的代码放在 if 中，而不是 else 中。</p>
+</li>
+<li class="doc">
+<p class="doc">如果变量不再重新赋值则使用 <code>const</code>，否则使用 <code>let</code>。仅全局变量使用 <code>var</code>。</p>
+</li>
+</ul>
+<h2 id="文档注释规范">
+<a href="#文档注释规范" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>文档注释规范</h2>
+<ul>
+<li class="doc">使用 <code>@desc</code> 代替 <code>@description</code>。</li>
+<li class="doc">使用 <code>@file</code> 代替 <code>@fileOverview</code>。</li>
+<li class="doc">使用 <code>@return</code> 代替 <code>@returns</code>。</li>
+<li class="doc">使用 <code>@throw</code> 代替 <code>@exception</code>。</li>
+</ul>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../docs/spec/compatibility.html" title="兼容性" id="doc_pager_prev"><i class="doc-icon">⮜</i> 兼容性</a>
+                            <a href="../../docs/issues/300ms-click-delay.html" title="触屏：鼠标事件延时触发" id="doc_pager_next">触屏：鼠标事件延时触发 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../..","dir":"docs","active":"spec/component.html","imports":[]})
+    </script>
+    <script src="../../docs/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

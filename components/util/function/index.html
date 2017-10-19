@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>函数扩展 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/function"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { empty, self, from, isFunction, concat, repeat, once, before, after, limit, cache, delay, defer, interval, tryThese, getSource } from \&quot;util/function\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/function\&quot;], function (function_1) {\n\tvar empty = function_1.empty;\n\tvar self = function_1.self;\n\tvar from = function_1.from;\n\tvar isFunction = function_1.isFunction;\n\tvar concat = function_1.concat;\n\tvar repeat = function_1.repeat;\n\tvar once = function_1.once;\n\tvar before = function_1.before;\n\tvar after = function_1.after;\n\tvar limit = function_1.limit;\n\tvar cache = function_1.cache;\n\tvar delay = function_1.delay;\n\tvar defer = function_1.defer;\n\tvar interval = function_1.interval;\n\tvar tryThese = function_1.tryThese;\n\tvar getSource = function_1.getSource;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/function" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/function/function.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="函数扩展">
+<a href="#函数扩展" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>函数扩展<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：empty, self, from, isFunction, concat, repeat, once, before, after, limit, cache, delay, defer, interval, tryThese, getSource">util/function</small></h1>
+<p class="doc">提供 JavaScript 内置对象 Function 的扩展接口。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/empty">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L1-4" target="_blank" title="源码：util/function/function.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>empty<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">空函数。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">空函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/self">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L6-13" target="_blank" title="源码：util/function/function.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>self<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(value:<code>T</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">始终返回第一个参数值的函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回值。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">始终返回第一个参数值的函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/from">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L15-23" target="_blank" title="源码：util/function/function.ts，第 15 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>from<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(value:<code>T</code>):<code>function</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个始终返回指定值的函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">新函数要返回的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>() =&gt; T</code></p>
+                <p class="doc">返回一个新函数，该函数始终返回指定值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">from</span>(<span class="doc-code-literal">false</span>)() <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个始终返回指定值的函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isFunction">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L25-35" target="_blank" title="源码：util/function/function.ts，第 25 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isFunction<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断对象是否是函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果对象是函数则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isFunction(<span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>) </span>{}) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isFunction(<span class="doc-code-literal">null</span>) <span class="doc-code-comment">// false</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isFunction(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Function</span>()) <span class="doc-code-comment">// true</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断对象是否是函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/concat">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L37-49" target="_blank" title="源码：util/function/function.ts，第 37 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>concat<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(...funcs:<code>T[]</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，调用该函数后会依次调用所有原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>funcs</code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的所有原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。该函数无返回值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">concat(<span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>)</span>{}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>)</span>{})()</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，调用该函数后会依次调用所有原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/repeat">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L51-64" target="_blank" title="源码：util/function/function.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>repeat<i class="doc-tip doc-api-ellipsis">(fn, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, count?:<code>number</code>):<code>function</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，调用该函数后，重复调用原函数指定次数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>count</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的次数。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>(this: any) =&gt; void</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">repeat(<span class="doc-code-function"><span class="doc-code-params">()</span>=&gt;</span> <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"hello"</span>), <span class="doc-code-number">3</span>)() <span class="doc-code-comment">// 输出 3 个 hello</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，调用该函数后，重复调用原函数指定次数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/once">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L66-81" target="_blank" title="源码：util/function/function.ts，第 66 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>once<i class="doc-tip doc-api-ellipsis">(fn)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，仅在第一次调用该函数时调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，仅在第一次调用该函数时调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/before">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L83-103" target="_blank" title="源码：util/function/function.ts，第 83 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>before<i class="doc-tip doc-api-ellipsis">(fn, count)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, count:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，多次调用该函数时，仅在第一次调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>count<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调用的次数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> done = before(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"hello"</span>), <span class="doc-code-number">2</span>);
+done();  <span class="doc-code-comment">// 输出 hello</span>
+done();  <span class="doc-code-comment">// 不输出</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，多次调用该函数时，仅在第一次调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/after">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L105-123" target="_blank" title="源码：util/function/function.ts，第 105 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>after<i class="doc-tip doc-api-ellipsis">(fn, count)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, count:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，多次调用该函数时，仅在最后一次调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>count<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调用的次数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> done = after(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"hello"</span>), <span class="doc-code-number">2</span>);
+done();  <span class="doc-code-comment">// 不输出</span>
+done();  <span class="doc-code-comment">// 输出 hello</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，多次调用该函数时，仅在最后一次调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/limit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L125-148" target="_blank" title="源码：util/function/function.ts，第 125 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>limit<i class="doc-tip doc-api-ellipsis">(fn, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, timeout?:<code>number</code>):<code>function</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，在指定时间内多次调用该函数时，仅在第一次调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timeout</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">超时的毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>(this: any) =&gt; any</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，在指定时间内多次调用该函数时，仅在第一次调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/cache">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L150-175" target="_blank" title="源码：util/function/function.ts，第 150 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>cache<i class="doc-tip doc-api-ellipsis">(fn)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，多次调用该函数时，仅在参数发生变化后调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，多次调用该函数时，仅在参数发生变化后调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/delay">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L177-191" target="_blank" title="源码：util/function/function.ts，第 177 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>delay<i class="doc-tip doc-api-ellipsis">(fn, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, timeout?:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，调用该函数后，延时调用原函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timeout</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">延时的毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">delay(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"延时执行"</span>), <span class="doc-code-number">100</span>)()</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，调用该函数后，延时调用原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/defer">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L193-210" target="_blank" title="源码：util/function/function.ts，第 193 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>defer<i class="doc-tip doc-api-ellipsis">(fn, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(fn:<code>T</code>, duration?:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，调用该函数后，延时调用原函数。如果在延时等待期间有新的调用，则重新开始计时。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回一个新函数。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-built_in">document</span>.onscroll = defer(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"延时执行"</span>), <span class="doc-code-number">100</span>);</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，调用该函数后，延时调用原函数。如果在延时等待期间有新的调用，则重新开始计时。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/interval">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L212-229" target="_blank" title="源码：util/function/function.ts，第 212 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>interval<i class="doc-tip doc-api-ellipsis">(fn, ...)</i><span class="doc-tip doc-api-more">(fn:<code>function</code>, count?:<code>number</code>, timeout?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个新函数，调用该函数后每隔指定时间调用一次原函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(count: number) =&gt; boolean | void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的原函数，函数接收以下参数：</p>
+<ul>
+<li class="doc">count：当前执行的次数。</li>
+</ul>
+<p class="doc">如果函数返回 false 则停止执行。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>count</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行的次数。如果指定为 -1 则无限次执行。</p>
+
+                                </td>
+                                <td>
+                                    <code>-1</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>timeout</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">每次执行之间的间隔毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">interval(<span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">a</span>) </span>{ <span class="doc-code-built_in">console</span>.log(a) }, <span class="doc-code-number">10</span>, <span class="doc-code-number">400</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个新函数，调用该函数后每隔指定时间调用一次原函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/tryThese">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L231-244" target="_blank" title="源码：util/function/function.ts，第 231 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>tryThese<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...funcs:<code>Function[]</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">依次执行多个函数，如果函数没有发生异常则返回，否则继续执行下一个函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>funcs</code>
+                                </td>
+                                <td>
+                                    <code>Function[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要调用的所有函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回第一个未发生异常的函数的返回值。如果所有函数都发生异常则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> xhr = tryThese(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> <span class="doc-code-keyword">new</span> ActiveXObject(<span class="doc-code-string">"Microsoft.XMLHttp"</span>), () =&gt; <span class="doc-code-keyword">new</span> XMLHttpRequest())</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">依次执行多个函数，如果函数没有发生异常则返回，否则继续执行下一个函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/getSource">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/function/function.ts#L246-254" target="_blank" title="源码：util/function/function.ts，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getSource<i class="doc-tip doc-api-ellipsis">(fn)</i><span class="doc-tip doc-api-more">(fn:<code>Function</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取函数不含参数部分的源码。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>fn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Function</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回源码。根据执行环境的不同，其中可能包含注释。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">getSource(<span class="doc-code-function"><span class="doc-code-params">x</span> =&gt;</span> x)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取函数不含参数部分的源码。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/boolean/" title="布尔扩展" id="doc_pager_prev"><i class="doc-icon">⮜</i> 布尔扩展</a>
+                            <a href="../../../components/util/date/" title="日期扩展" id="doc_pager_next">日期扩展 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/function/","test":"util/function/function-test.ts","imports":["util/function"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>代码工具</title>
+
+    <link href="../../demo/tools.css" rel="stylesheet" type="text/css">
+    <link href="assets/ui.css" rel="stylesheet" type="text/css">
+
+    <script src="../../demo/demo.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <article class="demo">
+        <div class="code">
+            <textarea id="code" class="x-textbox" onfocus="this.select()" placeholder="请粘贴代码"></textarea><br>
+            <div id="info"></div>
+        </div>
+
+        <div class="buttons">
+            <span class="x-splitbutton x-buttongroup">
+                <button class="x-button" onclick="UI.format()">
+                    格式化
+                </button>
+                <button class="x-button">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <div class="x-dropdown button-menu">
+                语言:
+                <select name="tabsize" id="format-language" class="x-textbox">
+                    <option value="" selected="selected">自动识别</option>
+                    <option value="js">JavaScript</option>
+                    <option value="css">CSS</option>
+                    <option value="html">HTML</option>
+                </select>
+                <div class="x-blank"></div>
+                缩进:
+                <select name="tabsize" id="format-indent" class="x-textbox">
+                    <option value="1" selected="selected">1个tab</option>
+                    <option value="2">2个空格</option>
+                    <option value="3">4个空格</option>
+                    <option value="4">6个空格</option>
+                </select>
+                <div class="x-blank"></div>
+                列大小：<input type="text" id="format-preserve-max-newlines" class="x-textbox" value="80" size="1">
+                <div class="x-blank"></div>
+                <input type="checkbox" checked="checked" id="format-preserve-newlines" class="x-checkbox"><label for="preserve-newlines">保留换行</label>
+
+            </div>
+
+            <span class="x-splitbutton x-buttongroup">
+                <button class="x-button" onclick="UI.packer()">
+                    压缩
+                </button>
+                <button class="x-button">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <div class="x-dropdown button-menu">
+                语言:
+                <select name="tabsize" id="packer-language" class="x-textbox">
+                    <option value="" selected="selected">自动识别</option>
+                    <option value="js">JavaScript</option>
+                    <option value="css">CSS</option>
+                    <option value="html">HTML</option>
+                </select>
+                <div class="x-blank"></div>
+                <input type="checkbox" id="packer-uglifyjs" class="x-checkbox" checked="checked"><label for="packer-uglifyjs">使用 Uglify-Js</label>
+                <div class="x-blank"></div>
+                <input type="checkbox" id="packer-base62" class="x-checkbox"><label for="packer-base62">Base62 编码</label>
+                <div class="x-blank"></div>
+                <input type="checkbox" checked="checked" id="packer-shrink" class="x-checkbox"><label for="packer-shrink">压缩变量</label>
+
+            </div>
+
+            <hr>
+
+            <span class="x-splitbutton x-buttongroup">
+                <button class="x-button" onclick="UI.obfuscator()">
+                    加密
+                </button>
+                <button class="x-button" onclick="UI.obfuscator(true)">
+                    解密
+                </button>
+                <button class="x-button">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <div class="x-dropdown button-menu">
+                编码:
+                <select id="obfuscator-ascii-encoding" class="x-textbox">
+                    <option value="0">(无)</option>
+                    <option value="10">数字</option>
+                    <option selected="selected" value="62">正常</option>
+                    <option value="95">高 ASCII</option>
+                </select>
+                <div class="x-blank"></div>
+                <input type="checkbox" checked="checked" id="obfuscator-fast-decode" class="x-checkbox"><label for="obfuscator-fast-decode">快速解码</label>
+                <div class="x-blank"></div>
+                <input type="checkbox" checked="checked" id="obfuscator-special-chars" class="x-checkbox"><label for="obfuscator-special-chars">特殊字符</label>
+
+            </div>
+
+            <span class="x-splitbutton x-buttongroup">
+                <button class="x-button" onclick="UI.jjencode()">
+                    jjencode
+                </button>
+                <button class="x-button">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <div class="x-dropdown button-menu">
+                变量名：
+                <input type="text" id="jjencode-varname" class="x-textbox" value="$">
+                <div class="x-blank"></div>
+                <input type="checkbox" id="jjencode-palindrome" class="x-checkbox"><label for="jjencode-palindrome">重复加密</label>
+
+            </div>
+
+            <hr>
+
+            <span class="x-buttongroup">
+                <button class="x-button" onclick="UI.string()">
+                    转 JS 字符串
+                </button>
+            </span>
+
+            <span class="x-splitbutton x-buttongroup">
+                <button class="x-button" onclick="UI.escapeJs()">
+                    中文编码
+                </button>
+                <button class="x-button" onclick="UI.unescapeJs()">
+                    解码
+                </button>
+                <button class="x-button">
+                    <span class="x-menubutton-arrow"></span>
+                </button>
+            </span>
+
+            <div class="x-dropdown button-menu">
+                前缀：
+                <label>
+                    <input type="radio" name="cnencode-prefix" checked="checked" id="cnencode-prefix-1" class="x-radiobutton" value="\u$2">\u</label>
+                <label>
+                    <input type="radio" name="cnencode-prefix" id="cnencode-prefix-2" class="x-radiobutton" value="&amp;#x$2;">&amp;#x</label>
+                <label>
+                    <input type="radio" name="cnencode-prefix" id="cnencode-prefix-3" class="x-radiobutton" value="%u$2">%u</label>
+
+            </div>
+
+            <span class="x-buttongroup">
+                <button class="x-button" onclick="UI.encode()">
+                    URL 编码
+                </button>
+                <button class="x-button" onclick="UI.decode()">
+                    解码
+                </button>
+            </span>
+
+            <span class="x-buttongroup">
+                <button class="x-button" onclick="UI.escape()">
+                    HTML 编码
+                </button>
+                <button class="x-button" onclick="UI.unescape()">
+                    解码
+                </button>
+            </span>
+
+        </div>
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+    <script type="text/javascript" src="../../demo/tools.js"></script>
+    <script type="text/javascript" src="assets/obfuscator.js"></script>
+    <script type="text/javascript" src="assets/packer.js"></script>
+    <script type="text/javascript" src="assets/jjencode.js"></script>
+    <script type="text/javascript" src="assets/ui.js"></script>
+    <script type="text/javascript" src="../../demo/beautify.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/cssmin/cssmin.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/utils.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/ast.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/parse.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/transform.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/scope.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/output.js"></script>
+    <script type="text/javascript" src="../../node/node_modules/uglify-js/lib/compress.js"></script>
+
+</body>
+</html>

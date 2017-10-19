@@ -1,0 +1,18 @@
+.x-blockquote {
+  border-left: 5px solid #e0e0e0;
+  padding-left: 1rem;
+}
+
+.x-blockquote > p {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, serif;
+}
+
+.x-blockquote > footer {
+  color: #999;
+  font-size: 87.5%;
+  font-weight: 100;
+  text-align: right;
+}
+
+/*# sourceMappingURL=blockquote.css.map */

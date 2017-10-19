@@ -1,0 +1,64 @@
+.x-arrow, .x-arrow-bordered::after {
+  content: "";
+}
+
+.x-arrow, .x-arrow::after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border: 7px solid transparent;
+  font-size: 0;
+}
+
+.x-arrow-top, .x-arrow-top::after, .x-arrow-bottom, .x-arrow-bottom::after {
+  left: 50%;
+  margin-left: -7px;
+}
+
+.x-arrow-top {
+  top: -14px;
+  border-bottom-color: inherit;
+}
+
+.x-arrow-top::after {
+  top: -5px;
+  border-bottom-color: #fff;
+}
+
+.x-arrow-bottom {
+  bottom: -14px;
+  border-top-color: inherit;
+}
+
+.x-arrow-bottom::after {
+  bottom: -5px;
+  border-top-color: #fff;
+}
+
+.x-arrow-left, .x-arrow-left::after, .x-arrow-right, .x-arrow-right::after {
+  top: 50%;
+  margin-top: -7px;
+}
+
+.x-arrow-left {
+  left: -14px;
+  border-right-color: inherit;
+}
+
+.x-arrow-left::after {
+  left: -5px;
+  border-right-color: #fff;
+}
+
+.x-arrow-right {
+  right: -14px;
+  border-left-color: inherit;
+}
+
+.x-arrow-right::after {
+  right: -5px;
+  border-left-color: #fff;
+}
+
+/*# sourceMappingURL=arrow.css.map */

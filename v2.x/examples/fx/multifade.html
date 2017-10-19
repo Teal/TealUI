@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>多元素渐隐效果</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/multifade.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+
+</head>
+<body>
+    <article class="demo">
+        <div class="demo-box demo-blue"></div>
+        <div class="demo-box demo-red"></div>
+        <div class="demo-box demo-green"></div>
+        <div class="demo-box demo-yellow"></div>
+        <div class="demo-box demo-blue"></div>
+        <div class="demo-box demo-red"></div>
+        <script>
+            Dom.query(".demo-box").multiFade();
+        </script>
+    </article>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>URL 处理（基于 DOM） - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/url"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { Url, parseUrl, formatUrl } from \&quot;web/url\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/url\&quot;], function (url_1) {\n\tvar Url = url_1.Url;\n\tvar parseUrl = url_1.parseUrl;\n\tvar formatUrl = url_1.formatUrl;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/url" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/url/url.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="url-处理基于-dom">
+<a href="#url-处理基于-dom" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>URL 处理（基于 DOM）<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：Url, parseUrl, formatUrl">web/url</small></h1>
+<p class="doc">提供解析和格式化 URL 的工具函数。</p>
+<p class="doc">本组件利用浏览器自带的 <code>&lt;a&gt;</code> 标签实现解析。完整基于 JavaScript 的 URL 解析见<a href="../../../components/util/url/" title="util/url">URL 处理</a>。</p>
+<dl id="doc_toc">
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Url">Url 接口</a></dd>
+</dl>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/parseUrl">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L58-80" target="_blank" title="源码：web/url/url.ts，第 58 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>parseUrl<i class="doc-tip doc-api-ellipsis">(url)</i><span class="doc-tip doc-api-more">(url:<code>string</code>):<code><a href="#api/Url">Url</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">解析指定的地址为对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>url<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解析的地址。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Url">Url</a></code></p>
+                <p class="doc">返回解析后的新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">parseUrl(<span class="doc-code-string">"http://tealui.com/index.html?from=parse"</span>) <span class="doc-code-comment">// { href: "http://tealui.com/index.html?from=parse", protocol: "http:", host: "tealui.com", hostname: "tealui.com", path: "/index.html?from=parse", pathname: "/index.html", search: "?from=parse", query: "from=parse", "hash": "", "port": "" }</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">解析指定的地址为对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/formatUrl">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L82-90" target="_blank" title="源码：web/url/url.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>formatUrl<i class="doc-tip doc-api-ellipsis">(url)</i><span class="doc-tip doc-api-more">(url:<code><a href="#api/Url">Url</a></code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">格式化指定的地址为字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>url<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Url">Url</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">地址。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回格式化后的字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">formatUrl({ <span class="doc-code-attr">protocol</span>:<span class="doc-code-string">"http:"</span>, <span class="doc-code-attr">hostname</span>: <span class="doc-code-string">"tealui.com"</span>, <span class="doc-code-attr">path</span>: <span class="doc-code-string">"/index.html?from=parse"</span>, <span class="doc-code-attr">pathname</span>: <span class="doc-code-string">"/index.html"</span>, <span class="doc-code-attr">search</span>: <span class="doc-code-string">"?from=parse"</span>, <span class="doc-code-attr">query</span>: <span class="doc-code-string">"from=parse"</span> }) <span class="doc-code-comment">// "http://tealui.com/index.html?from=parse"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">格式化指定的地址为字符串。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Url"><a href="#api/Url" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L1-56" target="_blank" title="源码：web/url/url.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Url 接口</h3><p class="doc">表示一个地址。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Url/protocol">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L6-9" target="_blank" title="源码：web/url/url.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>protocol</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">协议部分。如 &quot;http:&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">协议部分。如 &quot;http:&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/host">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L11-14" target="_blank" title="源码：web/url/url.ts，第 11 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>host</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">主机部分。如 &quot;localhost:80&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">主机部分。如 &quot;localhost:80&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/port">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L16-19" target="_blank" title="源码：web/url/url.ts，第 16 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>port</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">端口部分。如 &quot;80&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">端口部分。如 &quot;80&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/hostname">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L21-24" target="_blank" title="源码：web/url/url.ts，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hostname</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">主机名部分。如 &quot;localhost&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">主机名部分。如 &quot;localhost&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/hash">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L26-29" target="_blank" title="源码：web/url/url.ts，第 26 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hash</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">哈希值部分。如 &quot;#hash&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">哈希值部分。如 &quot;#hash&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/search">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L31-34" target="_blank" title="源码：web/url/url.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>search</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">查询参数部分。如 &quot;?q=1&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">查询参数部分。如 &quot;?q=1&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/query">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L36-39" target="_blank" title="源码：web/url/url.ts，第 36 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>query</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">查询参数部分。如 {q: 1}。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">查询参数部分。如 {q: 1}。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/pathname">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L41-44" target="_blank" title="源码：web/url/url.ts，第 41 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>pathname</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">路径名部分。如 &quot;/foo/a.html?q=1&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">路径名部分。如 &quot;/foo/a.html?q=1&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/path">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L46-49" target="_blank" title="源码：web/url/url.ts，第 46 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>path</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">路径部分。如 &quot;/foo/a.html&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">路径部分。如 &quot;/foo/a.html&quot;。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Url/href">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/url/url.ts#L51-54" target="_blank" title="源码：web/url/url.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>href</code>
+                                <span class="doc-api-more">: <code>string | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">完整地址。如 &quot;<a href="http://localhost:80/foo/a.html?q=1" target="_blank" class="doc-external">http://localhost:80/foo/a.html?q=1</a>&quot;。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">完整地址。如 &quot;<a href="http://localhost:80/foo/a.html?q=1" target="_blank" class="doc-external">http://localhost:80/foo/a.html?q=1</a>&quot;。</p>
+
+                            </td>
+                            
+                        </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/noIFrame/" title="禁止被 IFrame 嵌套" id="doc_pager_prev"><i class="doc-icon">⮜</i> 禁止被 IFrame 嵌套</a>
+                            <a href="../../../components/web/xml/" title="解析 XML" id="doc_pager_next">解析 XML <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/url/","test":"web/url/url-test.ts","imports":["web/url"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

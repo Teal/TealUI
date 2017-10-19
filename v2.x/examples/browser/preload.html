@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>图片预加载</title>
+    <script type="text/javascript" src="../../src/browser/preload.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <blockquote class="demo demo-info">预加载一个图片，防止css刷新时因为图片加载导致的空白闪动。</blockquote>
+        <script>
+            Demo.writeExamples({
+                "预加载一个图片": 'preload("../../apps/demo/resources/100x100.gif")'
+            });
+        </script>
+    </article>
+</body>
+</html>

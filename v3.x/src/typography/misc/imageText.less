@@ -1,0 +1,38 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-imagetext {
+    display: table;
+}
+
+.x-imagetext-image, .x-imagetext-text {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.x-imagetext-image {
+    img {
+        max-width: none;
+        margin-top: @padding-height + 1px;
+    }
+
+    &:first-child img {
+        margin-right: @grid-gutter-width / 2;
+    }
+
+    &:last-child img {
+        margin-left: @padding-width;
+    }
+}
+
+.x-imagetext-text {
+    width: 100%;
+
+    > h1, > h2, > h3, > h4, > h5, > h6 {
+        line-height: @line-height;
+        margin-bottom: 0;
+    }
+}

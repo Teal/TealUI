@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>文章 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/article"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/article\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/article\&quot;], function (article_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/article/article.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/article" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/article/article.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="文章">
+<a href="#文章" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>文章<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>">typo/article</small></h1>
+<p class="doc">本组件提供文章展示样式。为了方便使用 HTML 编辑器生成文章，组件内部所有标签都不需要追加额外 CSS 类。</p>
+<link rel="stylesheet" href="reset.scss"/>
+<link rel="stylesheet" href="article.scss"/>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#插图">插图</a></dt>
+	<dd><a href="#居中">居中</a></dd>
+	<dd><a href="#图文">图文</a></dd>
+	<dd><a href="#左浮动">左浮动</a></dd>
+	<dd><a href="#右浮动">右浮动</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<article class="x-article">
+    <header>
+        <h2>我是标题</h2>
+        <small><a href="###">作者</a> 发表于 2015/1/1</small>
+    </header>
+    <p>我是内容。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长</p>
+</article>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">article</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-article"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">header</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">h2</span>&gt;</span>我是标题<span class="doc-code-tag">&lt;/<span class="doc-code-name">h2</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>作者<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span> 发表于 2015/1/1<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">header</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是内容。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">article</span>&gt;</span></code></pre>
+                </div><h2 id="插图">
+<a href="#插图" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插图</h2>
+<h3 id="居中">
+<a href="#居中" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>居中</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<article class="x-article">
+    <p>我是一段文字，请看插图：</p>
+    <img src="../../../assets/resources/200x200.png" />
+    <p>我是第二段文字。</p>
+</article>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">article</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-article"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是一段文字，请看插图：<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/200x200.png"</span> /&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是第二段文字。<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">article</span>&gt;</span></code></pre>
+                </div><h3 id="图文">
+<a href="#图文" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>图文</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
+<article class="x-article">
+    <p>我是一段文字，请看插图：</p>
+    <figure>
+        <img src="../../../assets/resources/200x200.png" />
+        <figcaption>图1-1： 我是插图</figcaption>
+    </figure>
+    <p>我是第二段文字。</p>
+</article>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">article</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-article"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是一段文字，请看插图：<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">figure</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/200x200.png"</span> /&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">figcaption</span>&gt;</span>图1-1： 我是插图<span class="doc-code-tag">&lt;/<span class="doc-code-name">figcaption</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">figure</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是第二段文字。<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">article</span>&gt;</span></code></pre>
+                </div><h3 id="左浮动">
+<a href="#左浮动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>左浮动</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_4">
+<article class="x-article">
+    <img align="left" src="../../../assets/resources/100x100.png">
+    <p>
+        图片左浮动。我显示在右边。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+    </p>
+</article>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">article</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-article"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">align</span>=<span class="doc-code-string">"left"</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/100x100.png"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>
+        图片左浮动。我显示在右边。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">article</span>&gt;</span></code></pre>
+                </div><h3 id="右浮动">
+<a href="#右浮动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>右浮动</h3>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
+<article class="x-article">
+    <img align="right" src="../../../assets/resources/100x100.png">
+    <p>
+        图片右浮动。我显示在左边。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+    </p>
+</article>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">article</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-article"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">align</span>=<span class="doc-code-string">"right"</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">"../../../assets/resources/100x100.png"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>
+        图片右浮动。我显示在左边。很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">article</span>&gt;</span></code></pre>
+                </div>
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/table/" title="表格" id="doc_pager_prev"><i class="doc-icon">⮜</i> 表格</a>
+                            <a href="../../../components/typo/blockquote/" title="块引用" id="doc_pager_next">块引用 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/article/","imports":["typo/reset","typo/article"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#5" />
+    <title>容器组件基类</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">ContainerControl 是容器组件基类。容器组件是一个包含标题栏和正文的一个区域。</blockquote>
+
+        <p class="demo">一个容器组件标准格式为： (其中 ui 应该被替换成实际的组件名)</p>
+
+        <script class="demo" type="code/html">
+            <div class="ui">
+                <div class="x-header">
+                    header
+                </div>
+                <div class="x-body">
+                    body
+                </div>
+            </div>
+        </script>
+
+        <p class="demo">实际使用时，标题需要加粗，内容则需要 padding，因此实际格式为：</p>
+
+        <script class="demo" type="code/html">
+            <div class="ui">
+                <div class="x-header">
+                    <h4>title</h4> <!-- 为了加粗 -->
+                </div>
+                <div class="x-body">
+                    <div class="x-content"> <!-- 为了加 padding -->
+                        content
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <p class="demo">对于某些容器，标题是可以省略的，此时可删除 x-header。</p>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">常用 API</h2>
+
+        <section class="demo demo-sample">
+            <aside class="demo">
+                <div class="x-control" id="containerControl">
+                    <div class="x-control-header">
+                        header
+                    </div>
+                    <div class="x-control-body">
+                        body
+                    </div>
+                </div>
+
+                <script>
+                    var containerControl = new ContainerControl('#containerControl');
+                </script>
+            </aside>
+        </section>
+
+        <script>
+
+            Demo.writeExamples({
+                '标题': '-',
+                '获取标题': 'containerControl.getTitle()',
+                '设置标题': 'containerControl.setTitle("<em>这是使用 setTitle 设置的</em>")',
+                '删除标题': 'containerControl.setTitle(null)',
+
+                '内容': '-',
+                '获取内容': 'containerControl.getContent()',
+                '设置内容': 'containerControl.setContent("<em>这是使用 setContent 设置的</em>")'
+            });
+        </script>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">扩展 ContainerControl</h2>
+
+        <p class="demo">
+            子类可以重写三个成员。具体如下：
+        </p>
+
+        <script class="demo" type="code/javascript">
+            var MyContainer = ContainerControl.extend({
+                
+                // 当前控件顶部的 HTML 模板字符串。
+                headerTpl: '<div class="x-header"><h4></h4></div>',
+                
+                // 获取当前容器用于存放标题的 Dom 对象。
+                header: function () {
+                    return this.dom.find('.' + this.cssClass + '-header');
+                },
+
+                // 获取当前容器用于存放内容的 Dom 对象。
+                body: function () {
+                    return this.dom.find('.' + this.cssClass + '-body') || this.dom;
+                }
+
+            });
+        </script>
+
+    </article>
+
+</body>
+</html>

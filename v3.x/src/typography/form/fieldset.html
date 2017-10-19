@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>字段集</title>
+    <meta name="module-info" content="parent-title=表单, parent-order=input">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="本组件包含了常见的三种表单布局。">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../form/fieldset.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>默认样式</h2>
+    <aside class="doc-demo">
+        <fieldset>
+            <legend>标题</legend>
+            内容
+        </fieldset>
+    </aside>
+
+    <h2>自定义样式</h2>
+    <aside class="doc-demo">
+        <fieldset class="x-fieldset">
+            <legend>标题</legend>
+            内容
+        </fieldset>
+    </aside>
+
+    <h2>Firfox 表格响应式无效</h2>
+    <p>在 Firefox 中，表格的相应式无法生效，使用如下代码修复：</p>
+    <pre>
+        @-moz-document url-prefix() {
+            fieldset { display: table-cell; }
+        }
+    </pre>
+</body>
+</html>

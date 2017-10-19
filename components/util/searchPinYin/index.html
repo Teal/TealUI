@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>拼音模糊搜索 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/searchPinYin"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import searchPinYin, { Match, matchPinYin, searchStart, formatMatch } from \&quot;util/searchPinYin\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/searchPinYin\&quot;], function (searchPinYin_1) {\n\tvar searchPinYin = searchPinYin_1.default;\n\tvar Match = searchPinYin_1.Match;\n\tvar matchPinYin = searchPinYin_1.matchPinYin;\n\tvar searchStart = searchPinYin_1.searchStart;\n\tvar formatMatch = searchPinYin_1.formatMatch;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/searchPinYin" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/searchPinYin/searchPinYin.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="拼音模糊搜索">
+<a href="#拼音模糊搜索" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>拼音模糊搜索<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as searchPinYin, Match, matchPinYin, searchStart, formatMatch">util/searchPinYin</small></h1>
+<p class="doc">模糊搜索匹配项，支持全拼和简拼搜索。</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<textarea id="input" placholder="输入所有项，一行一个。">你好
+你好啊
+很好
+</textarea>
+<input type="search" id="search" placeholder="输入搜索的内容" value="nih" />
+<button onclick="output.innerHTML = searchPinYin(input.value.split('\n'), search.value, '<strong>', '</strong>').map(function (v) { return v.r; }).join('<br>');
+">搜索</button>
+<div id="output"></div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">textarea</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input"</span> <span class="doc-code-attr">placholder</span>=<span class="doc-code-string">"输入所有项，一行一个。"</span>&gt;</span>你好
+你好啊
+很好
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">textarea</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"search"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"search"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"输入搜索的内容"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"nih"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"output.innerHTML = searchPinYin(input.value.split('\n'), search.value, '&lt;strong&gt;', '&lt;/strong&gt;').map(function (v){ return v.r; }).join('&lt;br&gt;')"</span>&gt;</span>搜索<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"output"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><dl id="doc_toc">
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Match">Match 接口</a></dd>
+</dl>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/searchPinYin">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L4-30" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 4 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>searchPinYin<i class="doc-tip doc-api-ellipsis">(inputs, search, ...)</i><span class="doc-tip doc-api-more">(inputs:<code>string[]</code>, search:<code>string</code>, markStart?:<code>string</code>, markEnd?:<code>string</code>, encoder?:<code>function</code>, cache?:<code>object</code>):<code>(<a href="#api/Match">Match</a>[] &amp; { r: string; index: number; })[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">模糊搜索一个列表（支持拼音）。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>inputs<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">被搜索的所有列表项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>search<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要搜索的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>markStart</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于标记匹配开始的标记。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;&lt;mark&gt;&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>markEnd</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于标记匹配结束的标记。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;&lt;/mark&gt;&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>encoder</code>
+                                </td>
+                                <td>
+                                    <code>(value: string) =&gt; string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于编码源内容的回调函数。源内容被编码后可以避免将内容和匹配标记混淆。</p>
+
+                                </td>
+                                <td>
+                                    <code>encodeHTML</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>cache</code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: any; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果提供了缓存对象则可以加速第二次搜索的速度。</p>
+
+                                </td>
+                                <td>
+                                    <code>{ __proto__: null }</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>(<a href="#api/Match">Match</a>[] &amp; { r: string; index: number; })[]</code></p>
+                <p class="doc">返回所有的匹配项组成的数组。每个匹配项是一个包含所有匹配起止位置的数组，并附加了以下属性：</p>
+<ul>
+<li class="doc">r：当前匹配项最终拼接后的文本内容。</li>
+<li class="doc">index：当前匹配项在源列表的索引。</li>
+</ul>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">searchPinYin([<span class="doc-code-string">"ab"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// [ {r: "&lt;mark&gt;a&lt;/mark&gt;b", index: 0, length: 1, 0: {start: 0, end: 1, level: 1}} ]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">模糊搜索一个列表（支持拼音）。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/matchPinYin">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L54-107" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 54 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>matchPinYin<i class="doc-tip doc-api-ellipsis">(input, pattern, ...)</i><span class="doc-tip doc-api-more">(input:<code>string</code>, pattern:<code>string</code>, cache?:<code>object</code>):<code><a href="#api/Match">Match</a>[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取单个内容的拼音匹配结果。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>input<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">被匹配的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>pattern<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要匹配的模式。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>cache</code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: any; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果提供了缓存对象则可以加速第二次匹配的速度。</p>
+
+                                </td>
+                                <td>
+                                    <code>{ __proto__: null }</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Match">Match</a>[]</code></p>
+                <p class="doc">返回包含所有匹配起止位置的数组。如果不匹配则返回空数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">matchPinYin(<span class="doc-code-string">"ab"</span>, <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// [{start: 0, end: 1, level: 1}]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取单个内容的拼音匹配结果。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/formatMatch">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L138-154" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 138 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>formatMatch<i class="doc-tip doc-api-ellipsis">(input, matchResult, ...)</i><span class="doc-tip doc-api-more">(input:<code>string</code>, matchResult:<code><a href="#api/Match">Match</a>[]</code>, markStart?:<code>string</code>, markEnd?:<code>string</code>, encoder?:<code>function</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">格式化匹配结果为一个字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>input<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">被匹配的内容。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>matchResult<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Match">Match</a>[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">包含所有匹配起止位置的数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>markStart</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于标记匹配开始的标记。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;&lt;mark&gt;&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>markEnd</code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于标记匹配结束的标记。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;&lt;/mark&gt;&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>encoder</code>
+                                </td>
+                                <td>
+                                    <code>(value: string) =&gt; string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于编码源内容的回调函数。源内容被编码后可以避免将内容和匹配标记混淆。</p>
+
+                                </td>
+                                <td>
+                                    <code>encodeHTML</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回拼接后的文本内容。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">matchPinYin(<span class="doc-code-string">"ab"</span>, [{<span class="doc-code-attr">start</span>: <span class="doc-code-number">0</span>, <span class="doc-code-attr">end</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">level</span>: <span class="doc-code-number">1</span>}]) <span class="doc-code-comment">// "&lt;mark&gt;a&lt;/mark&gt;b"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">格式化匹配结果为一个字符串。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Match"><a href="#api/Match" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L32-52" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 32 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Match 接口</h3><p class="doc">表示一个匹配项。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Match/start">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L37-40" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 37 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>start</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">匹配项在源字符串中的开始索引（从 0 开始）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">匹配项在源字符串中的开始索引（从 0 开始）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Match/end">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L42-45" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 42 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>end</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">匹配项在源字符串中的结束索引（从 0 开始）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">匹配项在源字符串中的结束索引（从 0 开始）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Match/level">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/searchPinYin/searchPinYin.ts#L47-50" target="_blank" title="源码：util/searchPinYin/searchPinYin.ts，第 47 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>level</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">匹配度。匹配度为精确匹配的字符数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">匹配度。匹配度为精确匹配的字符数。</p>
+
+                            </td>
+                            
+                        </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/pinyin/" title="汉字转拼音" id="doc_pager_prev"><i class="doc-icon">⮜</i> 汉字转拼音</a>
+                            <a href="../../../components/util/tradionalChinese/" title="简繁体转换" id="doc_pager_next">简繁体转换 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/searchPinYin/","test":"util/searchPinYin/searchPinYin-test.ts","imports":["util/searchPinYin"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

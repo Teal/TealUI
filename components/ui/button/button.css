@@ -1,0 +1,136 @@
+.x-button {
+  display: inline-block;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  border: 1px solid #c9c9c9;
+  border-radius: 0.2rem;
+  padding: 0.375rem 1rem;
+  background-color: #f5f5f5;
+  text-align: center;
+  white-space: pre;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  outline: 0;
+  -webkit-transition: border-color ease-in-out 0.2s, background-color ease-in-out 0.2s;
+  -moz-transition: border-color ease-in-out 0.2s, background-color ease-in-out 0.2s;
+  transition: border-color ease-in-out 0.2s, background-color ease-in-out 0.2s;
+}
+
+.x-button, .x-button:hover {
+  color: #666;
+  text-decoration: none;
+}
+
+.x-button:focus {
+  border-color: #1780ce;
+}
+
+.x-button:hover {
+  background-color: #e8e8e8;
+}
+
+.x-button:active, .x-button-active, .x-button-active:hover {
+  background-color: gainsboro;
+}
+
+.x-button[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.x-button-primary {
+  border-color: #1780ce;
+  background-color: #1780ce;
+  color: #fff;
+}
+
+.x-button-primary:hover {
+  border-color: #1472b7;
+  background-color: #1472b7;
+  color: #fff;
+}
+
+.x-button-alt {
+  border-color: #1780ce;
+  background: transparent !important;
+  color: #1780ce !important;
+}
+
+.x-button-info {
+  border-color: #2487d0;
+  background-color: transparent;
+  color: #2487d0;
+}
+
+.x-button-info:hover {
+  border-color: #2079ba;
+  color: #2487d0;
+}
+
+.x-button-info:active, .x-button-info-active, .x-button-info-active:hover {
+  background-color: #f5f5f5;
+}
+
+.x-button-success {
+  border-color: #3ca23c;
+  background-color: transparent;
+  color: #3ca23c;
+}
+
+.x-button-success:hover {
+  border-color: #358f35;
+  color: #3ca23c;
+}
+
+.x-button-success:active, .x-button-success-active, .x-button-success-active:hover {
+  background-color: #f5f5f5;
+}
+
+.x-button-warning {
+  border-color: #e28f19;
+  background-color: transparent;
+  color: #e28f19;
+}
+
+.x-button-warning:hover {
+  border-color: #cb8016;
+  color: #e28f19;
+}
+
+.x-button-warning:active, .x-button-warning-active, .x-button-warning-active:hover {
+  background-color: #f5f5f5;
+}
+
+.x-button-error {
+  border-color: #d63a29;
+  background-color: transparent;
+  color: #d63a29;
+}
+
+.x-button-error:hover {
+  border-color: #c13425;
+  color: #d63a29;
+}
+
+.x-button-error:active, .x-button-error-active, .x-button-error-active:hover {
+  background-color: #f5f5f5;
+}
+
+.x-button-large {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 125%;
+}
+
+.x-button-small {
+  border-radius: 0.15rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 87.5%;
+}
+
+/*# sourceMappingURL=button.css.map */

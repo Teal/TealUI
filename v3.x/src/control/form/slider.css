@@ -1,0 +1,33 @@
+﻿/**
+ * @author xuld
+ */
+.x-slider {
+  display: inline-block;
+  width: 100%;
+  height: 10px;
+  position: relative;
+  border: solid 1px #e0e0e0;
+}
+.x-slider-fore {
+  position: absolute;
+  height: 100%;
+  background-color: #e8e8e8;
+  font-size: 10px;
+  line-height: 10px;
+  text-align: center;
+}
+.x-slider-handle {
+  position: absolute;
+  margin-left: -7px;
+  top: -3px;
+  border: solid 1px #e0e0e0;
+  border-radius: 3px;
+  background-color: #dbdbdb;
+  width: 14px;
+  height: 14px;
+  cursor: w-resize;
+}
+.x-slider-handle:hover {
+  border-color: #b5b5b5;
+  background-color: #c2c2c2;
+}

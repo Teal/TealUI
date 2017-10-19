@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>填选器</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="带选择功能的文本框，方便用户快速输入信息。">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/core/picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/core/popover.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/pin.js"></script>
+    <script type="text/javascript" src="../../utility/dom/keyNav.js"></script>
+    <script type="text/javascript" src="../../utility/ux/popover.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../control/core/popover.js"></script>
+    <script type="text/javascript" src="../../control/core/formControl.js"></script>
+    <script type="text/javascript" src="../../control/core/picker.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+
+    <h3>为普通文本框扩展</h3>
+    <p>为节点添加 <code>[x-role="picker"]</code> 即可将紧跟的 <code>.x-popover</code> 作为下拉菜单。</p>
+    <aside class="doc-demo">
+        <input type="text" id="picker1" x-role="picker" />
+        <div class="x-popover">
+            下拉菜单1
+        </div>
+    </aside>
+
+    <aside class="doc-demo">
+        <button id="button2" x-role="picker"><span>按钮2</span></button>
+        <div class="x-popover">
+            下拉菜单2
+        </div>
+    </aside>
+
+    <h3>为普通文本框+按钮扩展</h3>
+    <p>为文本框添加 <code>[x-button="#button2"]</code> 可指定扩展的按钮，点击按钮可切换显示菜单。</p>
+    <p>为文本框添加 <code>[x-menu="#menu2"]</code> 可指定下拉菜单。</p>
+    <aside class="doc-demo">
+        <input type="text" id="picker3" x-role="picker" x-button="#button3" x-menu="#menu3" />
+        <button id="button3">按钮2</button>
+        <div class="x-popover" id="menu3">
+            下拉菜单3
+        </div>
+    </aside>
+
+    <h2>预设样式</h2>
+    <aside class="doc-demo">
+        <span class="x-picker" id="picker4" x-role="picker">
+            <input type="text" class="x-textbox" />
+            <button class="x-button"><i class="x-icon">&#9662;</i></button>
+        </span>
+        <div class="x-popover">
+            下拉菜单4
+        </div>
+    </aside>
+
+    <h2>状态</h2>
+    <aside class="doc-demo">
+        <span class="x-picker">
+            <input type="text" class="x-textbox" readonly="readonly" />
+            <button class="x-button"><i class="x-icon">&#9662;</i></button>
+        </span>
+    </aside>
+
+    <h2>色系</h2>
+    <aside class="doc-demo">
+        <span class="x-picker">
+            <input type="text" class="x-textbox x-textbox-success" />
+            <button class="x-button x-button-success"><i class="x-icon">&#9662;</i></button>
+        </span>
+        <span class="x-picker">
+            <input type="text" class="x-textbox x-textbox-warning" />
+            <button class="x-button x-button-warning"><i class="x-icon">&#9662;</i></button>
+        </span>
+        <span class="x-picker">
+            <input type="text" class="x-textbox x-textbox-error" />
+            <button class="x-button x-button-error"><i class="x-icon">&#9662;</i></button>
+        </span>
+    </aside>
+
+    <script>
+        Doc.renderCodes();
+    </script>
+
+    <!--<article>
+
+                <blockquote class="demo demo-info">Picker 是一个文本框和按钮的组合框组件基类。选择框(<a href="combobox.html">combobox</a>)、日期选择器(<a href="datepicker.html">datepicker</a>) 等都是继承于此类实现的。</blockquote>
+
+                <h3>HTML 结构</h3>
+
+                <aside class="doc-demo">
+                    <span class="x-picker">
+                        <input type="text" class="x-textbox" />
+                        <button class="x-button"><span class="x-menubutton-arrow"></span></button>
+                    </span>
+                </aside>
+
+                <p>Picker 标准结构如上。Picker 会在 init 中会对不满足上述结构的 HTML 重新渲染。</p>
+
+                <h3>1. 只需写 &lt;input&gt; 即可渲染一个 Picker</h3>
+
+                <script type="text/html">
+
+                    <input type="text" class="x-textbox" id="picker1" />
+
+                    < script>
+                        var picker1 = new Picker("#picker1");
+                    < /script>
+
+                </script>
+
+                <h3>2. 只需写 &lt;a&gt; 即可渲染一个 Picker</h3>
+
+                <script type="text/html">
+
+                    <a href="javascript:;" class="x-button" id="picker2">B</a>
+
+                    < script>
+                        var picker2 = new Picker("#picker2");
+                    < /script>
+
+                </script>
+
+                <h3>3. 仅动态渲染一个按钮</h3>
+
+                <script type="text/html">
+
+                    <span class="x-picker" id="picker3">
+                        <input type="text" class="x-textbox" />
+                    </span>
+
+                    < script>
+                        var picker3 = new Picker("#picker3");
+                    < /script>
+
+                </script>
+
+                <h3>4. 绑定下拉菜单</h3>
+
+                <p>Picker 会自动将节点紧跟的  <code>x-dropdown</code> 作为下拉菜单。 最常见的做法是使用  <a href="DropDownMenu.html">DropDownMenu</a> 作为下拉菜单。</p>
+
+                <script type="text/html">
+
+                    <input type="text" class="x-textbox" id="picker4" />
+
+                    <div class="x-dropdown">
+                        紧跟的 class=x-dropdown 项会被作为子菜单打开。
+                    </div>
+
+                    < script>
+                        var picker4 = new Picker("#picker4");
+                    < /script>
+
+                </script>
+
+                <p>Picker 使用 <a href="../Core/IDropDownOwner.html">IDropDownOwner</a> 创建和管理下拉菜单。</p>
+
+            </article>
+
+            <article>
+
+                <h2>常用 API</h2>
+
+                <section class="demo-sample">
+
+                    <input type="text" class="x-textbox" id="picker" />
+
+                    <script>
+                        var picker = new Picker("#picker");
+                    </script>
+
+                </section>
+
+                <script>
+
+                    Demo.writeExamples({
+
+                        '状态相关': '-',
+                        '禁用': function(){
+                            picker.setAttr("disabled", true); // 设置
+                            picker.setAttr("disabled", false); // 取消
+                            picker.getAttr("disabled"); // 获取目前状态
+                        },
+                        '只读': function(){
+                            picker.setAttr("readOnly", true); // 设置
+                            picker.setAttr("readOnly", false); // 取消
+                            picker.getAttr("readOnly"); // 获取目前状态
+                        }
+                    });
+
+                </script>
+
+                <blockquote>要控制文本框， 参考 <a href="../core/iinput.html">IInput</a> 组件。(Picker 实现了IInput 接口)</blockquote>
+
+                <blockquote>要控制下拉菜单， 参考 <a href="../core/idropdownowner.html">IDropDownOwner</a> 组件。(Picker 实现了 IDropDownOwner 接口)</blockquote>
+
+            </article>-->
+
+</body>
+</html>

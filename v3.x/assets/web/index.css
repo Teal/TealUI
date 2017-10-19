@@ -1,0 +1,209 @@
+﻿
+/* 头部 */
+#doc_header {
+    padding-top: 3.5em;
+    padding-bottom: 2.5em;
+}
+
+    #doc_header img {
+        -moz-transition: -moz-transform 1.5s, opacity 1.5s;
+        -o-transition: -o-transform 1.5s, opacity 1.5s;
+        -webkit-transition: -webkit-transform 1.5s, opacity 1.5s;
+        transition: transform 1.5s, opacity 1.5s;
+        -moz-transform: translateY(50px);
+        -ms-transform: translateY(50px);
+        -o-transform: translateY(50px);
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    #doc_header .animateShow {
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    #doc_header h1 {
+        margin: 0;
+        padding: 0;
+        font-size: 56px;
+        line-height: 111%;
+    }
+
+    #doc_header h2 {
+        font-weight: 500;
+        font-size: 26px;
+        margin: 0 0 1em;
+        line-height: 150%;
+    }
+
+    #doc_header p {
+        text-align: center;
+        margin: .3em 0 0;
+    }
+
+    #doc_header a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0 10px;
+        font-size: 16px;
+    }
+
+        #doc_header a:hover {
+            text-decoration: underline;
+        }
+
+    #doc_header small {
+        color: #eee;
+    }
+
+    #doc_header .doc-row {
+        margin-left: -140px;
+    }
+
+#header_logo {
+    text-align: right;
+}
+
+#header_primary {
+    margin: 0 0 .5em;
+}
+
+    #header_primary a {
+        border: 0;
+        border-radius: 4px;
+        font-size: 16px;
+        text-decoration: none;
+        padding: 8px 24px !important;
+        background-color: #fff;
+        color: #009688 !important;
+        -moz-transition: all 300ms ease-out;
+        -o-transition: all 300ms ease-out;
+        -webkit-transition: all 300ms ease-out;
+        transition: all 300ms ease-out;
+    }
+
+        #header_primary a:hover {
+            color: #00796B;
+            background-color: #F5F5F5;
+            text-decoration: none !important;
+        }
+
+        #header_primary a:active {
+            background-color: #E0E0E0;
+            box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        }
+
+#header_external_links a {
+    color: #eee;
+    font-size: 13px;
+}
+
+#header_external_links a:last-child {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    #doc_header, #header_logo {
+        text-align: center;
+    }
+
+        #doc_header h2 {
+            font-size: 22px;
+        }
+
+        #doc_header .doc-row {
+            margin-left: -14px;
+        }
+}
+
+/* 正文 */
+article {
+    text-align: center;
+    padding-bottom: 2em;
+}
+
+    article h2 {
+        text-align: center;
+        font-weight: 500;
+        font-size: 2em;
+        margin: 1.5em 0 .5em;
+        line-height: 150%;
+        color: #009688;
+    }
+
+    article > p {
+        margin: 0 auto 2.1em;
+        width: 80%;
+    }
+
+    article h3 {
+        font-weight: 500;
+        margin: 0.5em 0;
+        font-size: 18px;
+    }
+
+    article img {
+        max-width: 100%;
+    }
+
+    article .doc-col p {
+        text-align: left;
+        line-height: 150%;
+    }
+
+.doc-col a img {
+    border: 1px solid #DADADA;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
+    -moz-transition: all 0.2s ease-in-out 0s;
+    -o-transition: all 0.2s ease-in-out 0s;
+    -webkit-transition: all 0.2s ease-in-out 0s;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.doc-col a:hover img {
+    border-color: #23527c;
+    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+hr {
+    border-color: #DADADA;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    height: 0;
+}
+
+/* 尾部 */
+
+#features {
+    border-top: 1px solid #e4e4e4;
+    background: #f6f6f6;
+    margin-top: 1.5em;
+}
+
+    #features .doc-row {
+        margin: 0;
+    }
+
+    #features dl {
+        margin: 2em 0;
+    }
+
+    #features dt {
+        font-weight: 700;
+    }
+
+    #features dd {
+        margin: 0;
+    }
+
+#doc_footer {
+    margin-top: 0;
+    background: #555;
+}

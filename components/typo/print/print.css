@@ -1,0 +1,46 @@
+@media print {
+  *, *::before, *::after {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+  .x-print-black *, .x-print-black *::before, .x-print-black *::after {
+    background: transparent !important;
+    color: #000 !important;
+  }
+  h2, h3, p {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3 {
+    page-break-after: avoid;
+  }
+  pre, blockquote, tr, img {
+    page-break-inside: avoid;
+  }
+  pre, blockquote {
+    border: 1px solid #999;
+  }
+  thead {
+    display: table-header-group;
+  }
+  a, a:visited {
+    text-decoration: underline;
+  }
+  a[target="_blank"][href^="http://"]::after, a[target="_blank"][href^="https://"]::after {
+    content: " (" attr(href) ")";
+  }
+  abbr[title]::after {
+    content: " [" attr(title) "] ";
+  }
+  .x-hide-print {
+    display: none !important;
+  }
+}
+
+@media not print {
+  .x-show-print {
+    display: none !important;
+  }
+}
+
+/*# sourceMappingURL=print.css.map */

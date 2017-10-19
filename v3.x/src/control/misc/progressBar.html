@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>进度条</title>
+    <meta name="module-info" content="status=done, parent-title=混合, parent-order=form">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="进度条。">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../misc/progressBar.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+
+    <script type="text/javascript" src="../misc/progressBar.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <style>
+        .doc-demo {
+            line-height: 40px;
+        }
+    </style>
+
+    <h2>基本用法</h2>
+    <p>使用 <code>span.x-progressbar</code> 绘制 <code>inline-block</code> 进度条。使用<code>div.x-progressbar</code> 绘制 <code>block</code> 进度条。</p>
+    <aside class="doc-demo">
+        进度条： <span class="x-progressbar">
+                <span class="x-progressbar-fore" style="width: 60%;"></span>
+            </span>
+        <div class="x-progressbar">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+    </aside>
+
+    <h2>色系</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-info">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-success">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-warning">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+        <div class="x-progressbar x-progressbar-error">
+            <div class="x-progressbar-fore" style="width: 60%;">60%</div>
+        </div>
+    </aside>
+
+    <h2>间隔线</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-striped">
+            <div class="x-progressbar-fore" style="width: 60%;"></div>
+        </div>
+    </aside>
+
+    <h2>动画</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar x-progressbar-striped x-progressbar-actived">
+            <div class="x-progressbar-fore" style="width: 60%;"></div>
+        </div>
+    </aside>
+
+    <h2>API</h2>
+    <aside class="doc-demo">
+        <div class="x-progressbar" x-role="progressBar" x-value="0.2">
+            <div class="x-progressbar-fore">-%</div>
+        </div>
+    </aside>
+
+    <h5>获取进度值</h5>
+    <pre>$('[x-role=progressBar]').role().getValue()</pre>
+
+    <h5>设置进度值</h5>
+    <pre>$('[x-role=progressBar]').role().setValue(0.5)</pre>
+
+    <h5>慢慢变化</h5>
+    <script type="code/javascript" class="doc-demo">
+        var i = 0;
+        var timer = setInterval(function(){
+            $('[x-role=progressBar]').role().setValue( i += 0.01 );
+            if(i >= 1) {
+                clearInterval(timer);
+            }
+        }, 300);
+    </script>
+
+    <h5>根据进度自动变化颜色</h5>
+    <script type="code/javascript" class="doc-demo">
+        $('[x-role=progressBar]').role().on('change', function(){
+            this.elem.classList.remove('x-progressbar-error');
+            this.elem.classList.remove('x-progressbar-success');
+            if(this.getValue() <= 0.2){
+                this.elem.classList.add('x-progressbar-error');
+            } else if(this.getValue() >= 0.8){
+                this.elem.classList.add('x-progressbar-success');
+            }
+        }).trigger('change');
+    </script>
+</body>
+</html>

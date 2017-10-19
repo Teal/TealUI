@@ -1,0 +1,75 @@
+.x-tipbox {
+  display: inline-block;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+  padding: 0.375rem 0.5rem;
+  background-color: #f5f5f5;
+}
+
+.x-tipbox a {
+  color: inherit;
+  font-weight: bold;
+}
+
+.x-tipbox.x-transparent {
+  border-color: transparent;
+}
+
+.x-tipbox.x-block {
+  display: block;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.x-tipbox:empty {
+  display: none;
+}
+
+.x-tipbox-info {
+  border-color: #c5e0f2;
+  background-color: #daebf7;
+  color: #2487d0;
+}
+
+.x-tipbox-success {
+  border-color: #c0eac0;
+  background-color: #d3f0d3;
+  color: #3ca23c;
+}
+
+.x-tipbox-warning {
+  border-color: #fae5c7;
+  background-color: #fcf0de;
+  color: #e28f19;
+}
+
+.x-tipbox-error {
+  border-color: #fddad7;
+  background-color: #fef0ef;
+  color: #d63a29;
+}
+
+.x-tipbox-large {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 125%;
+}
+
+.x-tipbox-large.x-block {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.x-tipbox-small {
+  border-radius: 0.15rem;
+  padding: 0.25rem 0.25rem;
+  font-size: 87.5%;
+}
+
+.x-tipbox-small.x-block {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+/*# sourceMappingURL=tipBox.css.map */

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>倒计时</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/utils/countdown.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">提供倒计时功能。</blockquote>
+
+        <script class="demo" type="text/html">
+            离12月31号还有：<span id="timeCounter"></span>
+            < script>
+                var timeCounter = new Countdown(function(day, hour, minite, second){
+
+                    // 此函数会在每一秒执行一次，参数是当前时间的各个计数，可以在这里更新网页上的文字，并最终实现倒计时效果。
+                    document.getElementById('timeCounter').innerHTML = String.format(
+                        "<bold>{0}</bold>天<bold>{1}</bold>小时<bold>{2}</bold>分<bold>{3}</bold>秒", day, hour, minite, second
+                    );
+                }).start(2013, 12, 31);
+            < /script>
+        </script>
+
+        <p class="demo">Countdown 会每秒调用一次回调函数，在回调函数里可以更新界面上的文字。</p>
+
+        <p class="demo">如果不希望显示天，则可以将天转换为小时：</p>
+
+        <script class="demo" type="code/javascript">
+            function callback(day, hour, minite, second){
+                hour += day * 24;
+                
+                // 其它逻辑...
+            }
+        </script>
+
+    </article>
+</body>
+</html>

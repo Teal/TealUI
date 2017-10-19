@@ -1,0 +1,17 @@
+.x-avatar {
+  border-radius: 0.2rem;
+}
+
+.x-avatar-large {
+  border-radius: 0.25rem;
+}
+
+.x-avatar-small {
+  border-radius: 0.15rem;
+}
+
+.x-avatar-rounded {
+  border-radius: 50%;
+}
+
+/*# sourceMappingURL=avatar.css.map */

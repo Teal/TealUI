@@ -1,0 +1,114 @@
+.x-left {
+  float: left !important;
+}
+
+.x-right {
+  float: right !important;
+}
+
+.x-clear::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.x-inline {
+  display: inline !important;
+}
+
+.x-inline-block {
+  display: inline-block !important;
+}
+
+table.x-inline-block {
+  display: inline-table !important;
+}
+
+.x-block {
+  display: block !important;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  width: 100% !important;
+}
+
+table.x-block {
+  display: table !important;
+}
+
+.x-hide {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .x-hide-small, .x-show-large {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .x-hide-large {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .x-hide-medium {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px), (min-width: 1025px) {
+  .x-show-medium {
+    display: none !important;
+  }
+}
+
+html .x-transparent {
+  background-color: transparent;
+}
+
+.x-blank {
+  margin-bottom: 1rem !important;
+}
+
+.x-space {
+  margin-right: 0.5rem !important;
+}
+
+.x-center {
+  margin: auto;
+  text-align: center;
+}
+
+.x-middle {
+  vertical-align: middle;
+}
+
+.x-scrollable {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.x-scrollable-h {
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.x-ellipsis {
+  display: block;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.x-break-word {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+/*# sourceMappingURL=util.css.map */

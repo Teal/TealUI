@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>下一帧执行 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/nextTick"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import nextTick from \&quot;web/nextTick\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/nextTick\&quot;], function (nextTick_1) {\n\tvar nextTick = nextTick_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/nextTick/nextTick.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/nextTick" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/nextTick/nextTick.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="下一帧执行">
+<a href="#下一帧执行" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>下一帧执行<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as nextTick">web/nextTick</small></h1>
+<p class="doc">延时执行，类似 NodeJs 的 <a href="https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_nexttick_callback_args" target="_blank" class="doc-external"><code>process.nextTick</code></a>。</p>
+<dl id="doc_toc">
+	<dt><a href="#什么时候需要-nexttick">什么时候需要 nextTick</a></dt>
+	<dt><a href="#nexttick-vs-settimeout">nextTick vs setTimeout</a></dt>
+	<dt><a href="#api">API</a></dt>
+</dl>
+<h2 id="什么时候需要-nexttick">
+<a href="#什么时候需要-nexttick" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>什么时候需要 <code>nextTick</code></h2>
+<p class="doc"><code>nextTick</code> 的意义相当于等待所有同步代码执行完成后执行指定的函数。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">var</span> foo = <span class="doc-code-number">1</span>;
+nextTick(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(foo);       <span class="doc-code-comment">// =&gt; 2，因为等待其它代码执行结束后再输出  </span>
+});  
+foo++;</code></pre><p class="doc">有时为了确保事件先绑定再触发，就需要用 <code>nextTick</code> 延时触发事件。</p>
+<p class="doc">在基于 MVVM 开发的模型中，为了避免更改任一个数据就重新渲染界面，往往将渲染界面的操作延时，
+这样可以一次更新多个数据，但只渲染一次界面。</p>
+<h2 id="nexttick-vs-settimeout">
+<a href="#nexttick-vs-settimeout" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><code>nextTick</code> vs <code>setTimeout</code></h2>
+<p class="doc"><code>nextTick(fn)</code> 等价于 <code>setTimeout(fn, 0)</code>，但其性能上更高。
+<code>nextTick</code> 设置的回调将比 <code>setTimeout(fn, 0)</code> 优先执行。</p>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="https://nodejs.org/dist/latest-v8.x/docs/api/process.html#process_process_nexttick_callback_args" target="_blank" class="doc-external"><code>process.nextTick</code></a></li>
+<li class="doc"><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setImmediate" target="_blank" class="doc-external"><code>window.setImmediate</code></a></li>
+</ul>
+</blockquote>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/nextTick">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/nextTick/nextTick.ts#L28-35" target="_blank" title="源码：web/nextTick/nextTick.ts，第 28 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>nextTick<i class="doc-tip doc-api-ellipsis">(func)</i><span class="doc-tip doc-api-more">(func:<code>Function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">等待下一帧执行。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>func<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Function</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要执行的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">nextTick(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> alert(<span class="doc-code-number">1</span>))</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">等待下一帧执行。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/lazyLoad/" title="图片懒加载" id="doc_pager_prev"><i class="doc-icon">⮜</i> 图片懒加载</a>
+                            <a href="../../../components/web/noContextMenu/" title="禁止右键菜单" id="doc_pager_next">禁止右键菜单 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/nextTick/","test":"web/nextTick/nextTick-test.ts","imports":["web/nextTick"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

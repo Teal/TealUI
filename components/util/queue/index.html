@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>队列 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/queue"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import Queue from \&quot;util/queue\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/queue\&quot;], function (queue_1) {\n\tvar Queue = queue_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/queue" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/queue/queue.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="队列">
+<a href="#队列" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>队列<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as Queue">util/queue</small></h1>
+<p class="doc">实现队列数据结构。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/Queue"><a href="#api/Queue" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L1-114" target="_blank" title="源码：util/queue/queue.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Queue&lt;T&gt; 类</h3><p class="doc">表示一个队列。</p>
+<table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Queue/top">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L40-43" target="_blank" title="源码：util/queue/queue.ts，第 40 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>top</code>
+                                <span class="doc-api-more">: <code>T | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取队列顶部的值。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>T</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取队列顶部的值。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Queue/empty">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L45-48" target="_blank" title="源码：util/queue/queue.ts，第 45 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>empty</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>判断队列是否为空。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>判断队列是否为空。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Queue/length">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L50-62" target="_blank" title="源码：util/queue/queue.ts，第 50 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>length</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取队列的长度。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取队列的长度。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Queue/enqueue">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L6-21" target="_blank" title="源码：util/queue/queue.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>enqueue<i class="doc-tip doc-api-ellipsis">(item)</i><span class="doc-tip doc-api-more">(item:<code>T</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将项添加到队列末尾。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>item<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将项添加到队列末尾。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Queue/dequeue">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L23-38" target="_blank" title="源码：util/queue/queue.ts，第 23 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>dequeue<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">取出队首的项。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                <p class="doc">返回队首的项。如果队列为空则返回 undefined。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">取出队首的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Queue/toArray">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L90-102" target="_blank" title="源码：util/queue/queue.ts，第 90 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toArray<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将队列转为数组。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将队列转为数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Queue/toString">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L104-107" target="_blank" title="源码：util/queue/queue.ts，第 104 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toString<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将队列转为字符串。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将队列转为字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Queue/inspect">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/queue/queue.ts#L109-112" target="_blank" title="源码：util/queue/queue.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>inspect<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>自定义调试时的显示文案。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>自定义调试时的显示文案。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/des/" title="DES 加密" id="doc_pager_prev"><i class="doc-icon">⮜</i> DES 加密</a>
+                            <a href="../../../components/util/asyncQueue/" title="异步队列" id="doc_pager_next">异步队列 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/queue/","test":"util/queue/queue-test.ts","imports":["util/queue"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

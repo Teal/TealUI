@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>日期扩展</title>
+    <meta name="module-info" content="order=boolean">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="扩展 Date 相关的 API。">
+    <meta name="keywords" content="时间, 刚刚, 天前">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/date.js"></script>
+    <script type="text/javascript" src="../../utility/lang/dateEx.js"></script>
+    <script type="text/javascript" src="../../utility/lang/formatTime.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/lang/date.js">
+        Doc.writeApi({
+			path: "utility/lang/date.js",
+			apis: [{
+				memberOf: "Date.prototype",
+				name: "format",
+				summary: "<p>将日期对象格式化为字符串。</p>",
+				params: [{
+					type: "String",
+					name: "format",
+					defaultValue: "\"yyyy/MM/dd HH:mm:ss\"",
+					optional: true,
+					summary: "<p>格式字符串。具体见下文。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>格式化后的字符串。</p>"
+				},
+				example: "<pre>new Date().format(\"yyyy/MM/dd HH:mm:ss\")</pre>",
+				remark: "<h4>格式化语法</h4>\n\
+\n\
+<p>格式字符串中，以下元字符会被替换：</p>\n\
+\n\
+<table>\n\
+<thead>\n\
+<tr>\n\
+  <th>元字符</th>\n\
+  <th>意义</th>\n\
+  <th>实例</th>\n\
+</tr>\n\
+</thead>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>年</td>\n\
+  <td>yyyy:2014, yy:14</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>M</td>\n\
+  <td>月</td>\n\
+  <td>MM:09, M:9</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>d</td>\n\
+  <td>日</td>\n\
+  <td>dd:09, d:9</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>H</td>\n\
+  <td>小时</td>\n\
+  <td>HH:13, h:13</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>分钟</td>\n\
+  <td>mm:06, m:6</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>秒</td>\n\
+  <td>ss:06, s:6</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>e</td>\n\
+  <td>星期</td>\n\
+  <td>e:天, ee:周日, eee: 星期天</td>\n\
+</tr>\n\
+</table>\n\
+\n\
+\n\
+<blockquote class=\"doc-note\">\n\
+  <h4>注意</h4>\n\
+  \n\
+  <p>元字符区分大小写。</p>\n\
+</blockquote>",
+				line: 8,
+				col: 1
+			}, {
+				memberOf: "Date",
+				name: "parseDate",
+				summary: "<p>将指定对象解析为日期对象。</p>",
+				params: [{
+					type: "String/Date",
+					name: "value",
+					summary: "<p>要解析的对象。</p>"
+				}, {
+					type: "String",
+					name: "format",
+					optional: true,
+					summary: "<p>解析的格式。 <br>\n\
+如果未指定，则支持标准的几种时间格式。 <br>\n\
+如果指定了格式，则按照格式指定的方式解析。具体见下文。</p>"
+				}],
+				returns: {
+					type: "Date",
+					summary: "<p>返回分析出的日期对象。</p>"
+				},
+				example: "<pre>Date.parseDate(\"2014-1-1\")</pre>\n\
+\n\
+<pre>Date.parseDate(\"20140101\")</pre>\n\
+\n\
+<pre>Date.parseDate(\"2013年12月1日\", \"yyyy年MM月dd日\")</pre>",
+				remark: "<h4>格式化语法</h4>\n\
+\n\
+<p>格式化字符串中，以下元字符会被反向替换为对应的值。</p>\n\
+\n\
+<table>\n\
+<thead>\n\
+<tr>\n\
+  <th>元字符</th>\n\
+  <th>意义</th>\n\
+  <th>实例</th>\n\
+</tr>\n\
+</thead>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>年</td>\n\
+  <td>2014</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>M</td>\n\
+  <td>月</td>\n\
+  <td>9</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>d</td>\n\
+  <td>日</td>\n\
+  <td>9</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>H</td>\n\
+  <td>小时</td>\n\
+  <td>9</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>分钟</td>\n\
+  <td>6</td>\n\
+</tr>\n\
+<tr>\n\
+  <td>y</td>\n\
+  <td>秒</td>\n\
+  <td>6</td>\n\
+</tr>\n\
+</table>\n\
+\n\
+\n\
+<blockquote class=\"doc-note\">\n\
+  <h4>注意</h4>\n\
+  \n\
+  <p>元字符区分大小写。</p>\n\
+</blockquote>",
+				line: 83,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "addDay",
+				summary: "<p>在当前日期添加指定的天数并返回新日期。</p>",
+				params: [{
+					type: "Number",
+					name: "value",
+					summary: "<p>要添加的天数。如果小于 0 则倒数指定天数。</p>"
+				}],
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().addDay(1)</pre>",
+				line: 139,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "addMonth",
+				summary: "<p>在当前日期添加指定的月数。</p>",
+				params: [{
+					type: "Number",
+					name: "value",
+					summary: "<p>要添加的月数。如果小于 0 则倒数指定月数。</p>"
+				}],
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().addMonth(1)</pre>",
+				line: 153,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "toDay",
+				summary: "<p>获取当前日期的日期部分。</p>",
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象，其小时部分已被清零。</p>"
+				},
+				example: "<pre>new Date().toDay()</pre>",
+				line: 172,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>其它 API</h2>
+    <script x-doc="utility/lang/dateEx.js">
+        Doc.writeApi({
+			path: "utility/lang/dateEx.js",
+			apis: [{
+				memberOf: "Date",
+				name: "now",
+				summary: "<p>获取当前时间的时间戳。</p>",
+				returns: {
+					type: "Number",
+					summary: "<p>返回当前时间的时间戳。</p>"
+				},
+				example: "<pre>Date.now(); // 相当于 new Date().getTime()</pre>",
+				since: "ES5",
+				line: 8,
+				col: 1
+			}, {
+				memberOf: "Date",
+				name: "isLeapYear",
+				summary: "<p>判断指定的年份是否是闰年。</p>",
+				params: [{
+					type: "Number",
+					name: "year",
+					summary: "<p>要判断的年份。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>year</em> 是闰年，则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Date.isLeapYear(2002) // false</pre>",
+				line: 22,
+				col: 1
+			}, {
+				memberOf: "Date",
+				name: "isValid",
+				summary: "<p>判断指定的数值所表示的日期是否合法。（如2月30日是不合法的）</p>",
+				params: [{
+					type: "Number",
+					name: "year",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的年。</p>"
+				}, {
+					type: "Number",
+					name: "month",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的月。</p>"
+				}, {
+					type: "Number",
+					name: "day",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的日。</p>"
+				}, {
+					type: "Number",
+					name: "hour",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的时。</p>"
+				}, {
+					type: "Number",
+					name: "minute",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的分。</p>"
+				}, {
+					type: "Number",
+					name: "second",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的秒。</p>"
+				}, {
+					type: "Number",
+					name: "milliSecond",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>要判断的毫秒。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果指定的数值合法则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Date.isValid(2004, 2, 29) // true</pre>",
+				line: 36,
+				col: 1
+			}, {
+				memberOf: "Date",
+				name: "getDayInMonth",
+				summary: "<p>获取指定年的指定月有多少天。</p>",
+				params: [{
+					type: "Number",
+					name: "year",
+					summary: "<p>指定的年。</p>"
+				}, {
+					type: "Number",
+					name: "month",
+					summary: "<p>指定的月。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回指定年的指定月的天数。</p>"
+				},
+				example: "<pre>Date.getDayInMonth(2001, 2) // 28</pre>",
+				line: 63,
+				col: 1
+			}, {
+				memberOf: "Date",
+				name: "compareDay",
+				summary: "<p>获取两个日期相差的天数。</p>",
+				params: [{
+					type: "Date",
+					name: "date1",
+					summary: "<p>比较的第一个日期。</p>"
+				}, {
+					type: "Date",
+					name: "date2",
+					summary: "<p>比较的第二个日期</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回 <em>date2</em> 减去 <em>date1</em> 相差的天数。不足一天的部分被忽略。</p>"
+				},
+				example: "<pre>Date.compareDay(new Date(2014, 1, 1), new Date(2014, 1, 2)) // 1</pre>",
+				line: 78,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "dayLeft",
+				summary: "<p>计算当前日期到同年某月某日的剩余天数。如果今年指定日期已过，则计算到明年同月日的剩余天数。</p>",
+				params: [{
+					type: "Number",
+					name: "month",
+					summary: "<p>月。</p>"
+				}, {
+					type: "Number",
+					name: "day",
+					summary: "<p>天。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回剩余天数。</p>"
+				},
+				example: "<pre>new Date().dayLeft(12, 5)</pre>",
+				line: 93,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "clone",
+				summary: "<p>创建当前日期对象的副本。</p>",
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().clone();</pre>",
+				line: 111,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "addYear",
+				summary: "<p>在当前日期添加指定的年数。</p>",
+				params: [{
+					type: "Number",
+					name: "value",
+					summary: "<p>要添加的年数。</p>"
+				}],
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().addYear(1)</pre>",
+				line: 124,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "addWeek",
+				summary: "<p>在当前日期添加指定的周数。</p>",
+				params: [{
+					type: "Number",
+					name: "value",
+					summary: "<p>要添加的周数。</p>"
+				}],
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().addWeek(1)</pre>",
+				line: 138,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "getWeek",
+				summary: "<p>获取当前日期的周数。</p>",
+				params: [{
+					type: "Date",
+					name: "date",
+					optional: true,
+					summary: "<p>作为第一周的日期。如果未指定则使用今年第一天作为第一周。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回周数。</p>"
+				},
+				example: "<pre>new Date(2014, 2, 1).getWeek(new Date(2014, 1, 1)) // 3</pre>\n\
+\n\
+<pre>new Date(2014, 2, 1).getWeek() // 9</pre>",
+				line: 152,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "getTimezone",
+				summary: "<p>获取当前日期的时区部分。</p>",
+				returns: {
+					type: "String",
+					summary: "<p>返回时区部分。</p>"
+				},
+				example: "<pre>new Date().getTimezone() // \"GMT\"</pre>",
+				line: 169,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "getFirstDay",
+				summary: "<p>获取当月第一天。</p>",
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().getFirstDay()</pre>",
+				line: 184,
+				col: 1
+			}, {
+				memberOf: "Date.prototype",
+				name: "getLastDay",
+				summary: "<p>获取当月最后一天。</p>",
+				returns: {
+					type: "Date",
+					summary: "<p>返回新日期对象。</p>"
+				},
+				example: "<pre>new Date().getLastDay()</pre>",
+				line: 199,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>格式化时间</h2>
+    <script x-doc="utility/lang/formatTime.js">
+        Doc.writeApi({
+			path: "utility/lang/formatTime.js",
+			apis: [{
+				name: "formatTime",
+				summary: "<p>格式化时间为 <strong>刚刚/N 秒(分钟/小时/天)前</strong> 格式。</p>",
+				params: [{
+					type: "Date",
+					name: "date",
+					summary: "<p>要格式化的日期。</p>"
+				}, {
+					type: "Date",
+					name: "now",
+					defaultValue: "new Date",
+					optional: true,
+					summary: "<p>指定当前时间。</p>"
+				}],
+				returns: {
+					type: "String",
+					summary: "<p>返回时间字符串。如果时间在 5 秒内，返回刚刚，否则返回 N 秒(分钟/小时/天)前 格式。</p>"
+				},
+				example: "<pre>formatTime(new Date())</pre>",
+				line: 6,
+				col: 1
+			}]
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>选区操作</title>
+    <meta name="module-info" content="status=doing">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="对齐节点。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/selection.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <textarea id="elem">abc</textarea>
+
+    <h2>API <small>(源码: <a href="../../utility/dom/selection.js" target="_blank">utility/dom/selection.js</a>)</small></h2>
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.selectionRange</code></td>
+            <td>读写选区信息</td>
+            <td>
+                <pre>$('#elem').selectionRange()</pre>
+                <pre>$('#elem').selectionRange({start:1, end: 4})</pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code><em>dom</em>.selectionText</code></td>
+            <td>读写选区文本</td>
+            <td>
+                <pre>$('#elem').selectionText()</pre>
+                <pre>$('#elem').selectionText("content")</pre>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

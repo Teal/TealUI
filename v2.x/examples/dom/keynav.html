@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete" />
+    <title>键盘导航事件</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/keynav.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">绑定键盘上下左右等常用事件。</blockquote>
+
+        <input type="text" id="input"/>
+
+        <script class="demo">
+            Dom.keyNav(Dom.get("input"), {
+                up: function () { alert("up") },
+
+                down: function () { alert("down") },
+
+                enter: function () { alert("enter") },
+
+                left: function () { return true },
+
+                right: function () { return true },
+
+                tab: function () { alert("tab") },
+
+                backspace: function () { return true },
+
+                'delete': function () { return true },
+
+                'space': function () { return true  },
+
+                ctrlEnter: function () { alert("ctrl+enter") },
+
+                other: function () { return true }
+            });
+        </script>
+
+    </article>
+
+</body>
+</html>

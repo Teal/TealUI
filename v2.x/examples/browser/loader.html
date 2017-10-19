@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=obsolete">
+    <title>资源文件动态载入</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/browser/base.js"></script>
+    <script type="text/javascript" src="../../../src/browser/loader.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <p class="demo">动态载入 js、css 和 图片。</p>
+        <script>
+            Demo.writeExamples({
+                "载入脚本": 'Browser.loadScript("../../assets/resources/ajax/test.js",onload)',
+                "载入样式": 'Browser.loadStyle("../../assets/resources/ajax/test.css",onload)',
+                "载入图片": 'Browser.loadImage("../../assets/resources/100x100.gif",onload,onerror)',
+                "载入所有资源": 'Browser.loadAssets(["../../assets/resources/100x100.gif","../../assets/resources/100x100.gif"],oncomplete,onload,onerror)'
+            });
+
+            function onload() {
+                trace('success')
+            }
+            function onerror() {
+                trace('error')
+            }
+            function oncomplete() {
+                trace('complete')
+            }
+        </script>
+    </article>
+</body>
+</html>

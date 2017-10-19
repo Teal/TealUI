@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>对齐 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/pin"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import pin, { PinAlign, PinResult } from \&quot;web/pin\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/pin\&quot;], function (pin_1) {\n\tvar pin = pin_1.default;\n\tvar PinAlign = pin_1.PinAlign;\n\tvar PinResult = pin_1.PinResult;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/pin" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/pin/pin.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="对齐">
+<a href="#对齐" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>对齐<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as pin, PinAlign, PinResult">web/pin</small></h1>
+<p class="doc">将元素对齐到其它元素的边缘。</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+位置：
+<select id="align">
+    <option value="leftTop">ll-tb（leftTop）</option>
+    <option value="left">ll-cc（left）</option>
+    <option value="leftTop">ll-tb（leftTop）</option>
+    <option value="leftBottom">ll-bt（leftBottom）</option>
+    <option value="rightBottom">lr-bb（rightBottom）</option>
+    <option value="right">rr-cc（right）</option>
+    <option value="rightTop" selected="selected">rr-tb（rightTop）</option>
+    <option value="topRight">rl-tt（topRight）</option>
+    <option value="top">cc-tt（top）</option>
+    <option value="topLeft">lr-tt（topLeft）</option>
+    <option value="bottomLeft">lr-bb（bottomLeft）</option>
+    <option value="bottom">cc-bb（bottom）</option>
+    <option value="bottomRight">rl-bb（bottomRight）</option>
+    <option value="center">cc-cc（center）</option>
+    <option value="ll-tt">ll-tt</option>
+    <option value="rr-tt">rr-tt</option>
+    <option value="ll-bb">ll-bb</option>
+    <option value="rr-bb">rr-bb</option>
+    <option value="lr-tb">lr-tb</option>
+    <option value="rl-tb">rl-tb</option>
+    <option value="lr-bt">lr-bt</option>
+    <option value="rl-tb">rl-tb</option>
+</select>
+<br>
+
+<div class="doc-box" style="cursor: move;" id="target">拖动我</div>
+<div class="doc-box doc-box-small doc-box-yellow" id="elem"></div>
+
+<script>define("doc_demo_1", ["require", "exports", "web/pin", "web/draggable"], function (require, exports, pin_1, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function repin() {
+        pin_1.default(elem, target, align.value, 10);
+    }
+    repin();
+    align.onchange = repin;
+    draggable_1.default(target, {
+        onDragMove: repin
+    });
+});
+
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html">位置：
+<span class="doc-code-tag">&lt;<span class="doc-code-name">select</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"align"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"leftTop"</span>&gt;</span>ll-tb（leftTop）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"left"</span>&gt;</span>ll-cc（left）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"leftTop"</span>&gt;</span>ll-tb（leftTop）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"leftBottom"</span>&gt;</span>ll-bt（leftBottom）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rightBottom"</span>&gt;</span>lr-bb（rightBottom）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"right"</span>&gt;</span>rr-cc（right）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rightTop"</span> <span class="doc-code-attr">selected</span>=<span class="doc-code-string">"selected"</span>&gt;</span>rr-tb（rightTop）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"topRight"</span>&gt;</span>rl-tt（topRight）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"top"</span>&gt;</span>cc-tt（top）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"topLeft"</span>&gt;</span>lr-tt（topLeft）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"bottomLeft"</span>&gt;</span>lr-bb（bottomLeft）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"bottom"</span>&gt;</span>cc-bb（bottom）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"bottomRight"</span>&gt;</span>rl-bb（bottomRight）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"center"</span>&gt;</span>cc-cc（center）<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"ll-tt"</span>&gt;</span>ll-tt<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rr-tt"</span>&gt;</span>rr-tt<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"ll-bb"</span>&gt;</span>ll-bb<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rr-bb"</span>&gt;</span>rr-bb<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"lr-tb"</span>&gt;</span>lr-tb<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rl-tb"</span>&gt;</span>rl-tb<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"lr-bt"</span>&gt;</span>lr-bt<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">option</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"rl-tb"</span>&gt;</span>rl-tb<span class="doc-code-tag">&lt;/<span class="doc-code-name">option</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">select</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">br</span>&gt;</span>
+
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move;"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target"</span>&gt;</span>拖动我<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box doc-box-small doc-box-yellow"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+<span class="doc-code-keyword">import</span> pin <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/pin"</span>;
+<span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+<span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">repin</span>(<span class="doc-code-params"></span>)</span>{
+    pin(elem, target, align.value, <span class="doc-code-number">10</span>);
+}
+
+repin();
+align.onchange = repin;
+
+draggable(target, {
+    <span class="doc-code-attr">onDragMove</span>: repin
+});
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><dl id="doc_toc">
+	<dt><a href="#定位修正">定位修正</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/PinAlign">PinAlign 类型</a></dd>
+	<dd><a href="#api/PinResult">PinResult 接口</a></dd>
+</dl>
+<h2 id="定位修正">
+<a href="#定位修正" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>定位修正</h2>
+<p class="doc">如果定位后发现目标元素比容器小，则 <code>pin</code> 会尝试通过翻转的方式自动纠正定位。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/pin">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L54-152" target="_blank" title="源码：web/pin/pin.ts，第 54 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pin<i class="doc-tip doc-api-ellipsis">(elem, target, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, target:<code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document</code>, align?:<code><a href="#api/PinAlign">PinAlign</a></code>, margin?:<code>number</code>, container?:<code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document</code>, containerPadding?:<code>number</code>, offset?:<code>number</code>, resize?:<code>boolean</code>):<code><a href="#api/PinResult">PinResult</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将元素对齐到其它节点或区域。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要定位的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>target<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对齐的目标节点或区域。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>align</code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/PinAlign">PinAlign</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对齐的位置。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;bottomLeft&quot;</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>margin</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">元素的外边距。如果小于 1，则表示相对元素大小的百分比。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>container</code>
+                                </td>
+                                <td>
+                                    <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document | null</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">容器节点或区域，定位超出容器后会自动调整。如果为 null 则不自动调整位置。</p>
+
+                                </td>
+                                <td>
+                                    <code>scrollParent(elem)</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>containerPadding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">容器的内边距。</p>
+
+                                </td>
+                                <td>
+                                    <code>10</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>offset</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">定位后的额外偏移距离。如果小于 1，则表示相对元素大小的百分比。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>resize</code>
+                                </td>
+                                <td>
+                                    <code>boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果容器比元素小，是否允许更改元素大小。</p>
+
+                                </td>
+                                <td>
+                                    <code>/^(?:auto|scroll)$/.test(getStyle(elem, &quot;overflow&quot;))</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/PinResult">PinResult</a></code></p>
+                <p class="doc">返回定位结果。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">pin(<span class="doc-code-built_in">document</span>.getElementById(<span class="doc-code-string">"pin_elem"</span>), <span class="doc-code-built_in">document</span>.getElementById(<span class="doc-code-string">"pin_target"</span>))</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将元素对齐到其它节点或区域。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/PinAlign"><a href="#api/PinAlign" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L20-52" target="_blank" title="源码：web/pin/pin.ts，第 20 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>PinAlign 类型</h3><p class="doc">表示对齐的位置。</p>
+<p>同：<code>&quot;cc-cc&quot; | &quot;ll-tb&quot; | &quot;ll-cc&quot; | &quot;ll-bt&quot; | &quot;lr-bb&quot; | &quot;rr-cc&quot; | &quot;rr-tb&quot; | &quot;rl-tt&quot; | &quot;cc-tt&quot; | &quot;lr-tt&quot; | &quot;cc-bb&quot; | &quot;rl-bb&quot; | &quot;center&quot; | &quot;leftTop&quot; | &quot;left&quot; | &quot;leftBottom&quot; | &quot;rightBottom&quot; | &quot;right&quot; | &quot;rightTop&quot; | &quot;topRight&quot; | &quot;top&quot; | &quot;topLeft&quot; | &quot;bottomLeft&quot; | &quot;bottom&quot; | &quot;bottomRight&quot; | &quot;ll-tt&quot; | &quot;ll-bb&quot; | &quot;lr-tb&quot; | &quot;lr-cc&quot; | &quot;lr-bt&quot; | &quot;cc-tb&quot; | &quot;cc-bt&quot; | &quot;rl-tb&quot; | &quot;rl-cc&quot; | &quot;rl-bt&quot; | &quot;rr-tt&quot; | &quot;rr-bt&quot; | &quot;rr-bb&quot;</code></p><h4>说明</h4><p class="doc">位置使用格式为“xx-yy”的字符串表示。</p>
+<p class="doc">其中 xx 表示水平方向的位置，可取以下值之一：</p>
+<ul>
+<li class="doc"><code>ll</code>: 对齐到 <code>target</code> 左边框的左侧。</li>
+<li class="doc"><code>lr</code>: 对齐到 <code>target</code> 左边框的右侧。</li>
+<li class="doc"><code>cc</code>: 对齐到 <code>target</code> 水平居中位置。</li>
+<li class="doc"><code>rl</code>: 对齐到 <code>target</code> 右边框的左侧。</li>
+<li class="doc"><code>rr</code>: 对齐到 <code>target</code> 右边框的右侧。</li>
+</ul>
+<p class="doc">其中 yy 表示垂直方向的位置，可取以下值之一：</p>
+<ul>
+<li class="doc"><code>tt</code>: 对齐到 <code>target</code> 上边框的上侧。</li>
+<li class="doc"><code>tb</code>: 对齐到 <code>target</code> 上边框的下侧。</li>
+<li class="doc"><code>cc</code>: 对齐到 <code>target</code> 垂直居中位置。</li>
+<li class="doc"><code>bt</code>: 对齐到 <code>target</code> 下边框的上侧。</li>
+<li class="doc"><code>bb</code>: 对齐到 <code>target</code> 下边框的下侧。</li>
+</ul>
+<p class="doc">对于常见的位置，也可以直接使用下图中的字符串表示：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">|        topLeft   top   topRight
+|           ┌───────────────┐
+|   leftTop │               │ rightTop
+|           │               │
+|      left │     center    │ right
+|           │               │
+|leftBottom │               │ rightBottom
+|           └───────────────┘
+|     bottomLeft bottom bottomRight</code></pre><h3 id="api/PinResult"><a href="#api/PinResult" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L154-204" target="_blank" title="源码：web/pin/pin.ts，第 154 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>PinResult 接口</h3><p>继承自：<code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code></p><p class="doc">表示定位的结果。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                <th class="doc-api-extends">继承自</th>
+                            </tr><tr id="api/PinResult/target">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L159-162" target="_blank" title="源码：web/pin/pin.ts，第 159 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>target</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">目标区域。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">目标区域。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/container">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L164-167" target="_blank" title="源码：web/pin/pin.ts，第 164 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>container</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">容器区域。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">容器区域。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/align">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L169-172" target="_blank" title="源码：web/pin/pin.ts，第 169 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>align</code>
+                                <span class="doc-api-more">: <code>&quot;cc-cc&quot; | &quot;ll-tb&quot; | &quot;ll-cc&quot; | &quot;ll-bt&quot; | &quot;lr-bb&quot; | &quot;rr-cc&quot; | &quot;rr-tb&quot; | &quot;rl-tt&quot; | &quot;cc-tt&quot; | &quot;lr-tt&quot; | &quot;cc-bb&quot; | &quot;rl-bb&quot; | &quot;ll-tt&quot; | &quot;ll-bb&quot; | &quot;lr-tb&quot; | &quot;lr-cc&quot; | &quot;lr-bt&quot; | &quot;cc-tb&quot; | &quot;cc-bt&quot; | &quot;rl-tb&quot; | &quot;rl-cc&quot; | &quot;rl-bt&quot; | &quot;rr-tt&quot; | &quot;rr-bt&quot; | &quot;rr-bb&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">对齐方式。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">对齐方式。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/rotateX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L174-177" target="_blank" title="源码：web/pin/pin.ts，第 174 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>rotateX</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否水平翻转了位置。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否水平翻转了位置。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/rotateY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L179-182" target="_blank" title="源码：web/pin/pin.ts，第 179 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>rotateY</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否垂直翻转了位置。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否垂直翻转了位置。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/transformX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L184-187" target="_blank" title="源码：web/pin/pin.ts，第 184 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>transformX</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否调整了水平位置。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否调整了水平位置。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/transformY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L189-192" target="_blank" title="源码：web/pin/pin.ts，第 189 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>transformY</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否调整了垂直位置。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否调整了垂直位置。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/scaleX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L194-197" target="_blank" title="源码：web/pin/pin.ts，第 194 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>scaleX</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否调整了宽度。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否调整了宽度。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/scaleY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L199-202" target="_blank" title="源码：web/pin/pin.ts，第 199 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>scaleY</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否调整了高度。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否调整了高度。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/PinResult/x">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/dom/dom.ts#L523-526" target="_blank" title="源码：web/dom/dom.ts，第 523 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>x</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">相对于屏幕左上角的水平距离（单位为像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/dom/index.html#api/Point/x">Point</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">相对于屏幕左上角的水平距离（单位为像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/dom/index.html#api/Point/x">Point</a></code></td>
+                        </tr><tr id="api/PinResult/y">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/dom/dom.ts#L528-531" target="_blank" title="源码：web/dom/dom.ts，第 528 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>y</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">相对于屏幕左上角的垂直距离（单位为像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/dom/index.html#api/Point/y">Point</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">相对于屏幕左上角的垂直距离（单位为像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/dom/index.html#api/Point/y">Point</a></code></td>
+                        </tr><tr id="api/PinResult/width">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/dom/dom.ts#L540-543" target="_blank" title="源码：web/dom/dom.ts，第 540 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>width</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">宽度（单位为像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/dom/index.html#api/Size/width">Size</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">宽度（单位为像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/dom/index.html#api/Size/width">Size</a></code></td>
+                        </tr><tr id="api/PinResult/height">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/dom/dom.ts#L545-548" target="_blank" title="源码：web/dom/dom.ts，第 545 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>height</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">高度（单位为像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/dom/index.html#api/Size/height">Size</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">高度（单位为像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/dom/index.html#api/Size/height">Size</a></code></td>
+                        </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/scroll/" title="滚动" id="doc_pager_prev"><i class="doc-icon">⮜</i> 滚动</a>
+                            <a href="../../../components/web/within/" title="判断区域" id="doc_pager_next">判断区域 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/pin/","imports":["web/pin"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-menu {
+    display: inline-block;
+    border: 1px solid @border-color;
+    border-radius: @border-radius;
+    background-color: @background-color;
+    min-width: @font-size * 7;
+    max-width: @font-size * 20;
+    max-height: @line-height * 10;
+    margin: 0;
+    padding: @border-radius 0;
+    list-style: none;
+    .background-clip(padding-box);
+
+    > li {
+        > a {
+            display: block;
+            color: @text-color;
+            padding: @padding-height / 2 @padding-width;
+            position: relative;
+            cursor: default;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &:hover {
+                background-color: @background-color-hover;
+                text-decoration: none;
+                .transition(background-color .1s);
+            }
+        }
+    }
+
+    &.x-popover, & .x-menu {
+        display: none;
+        position: absolute;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.x-menu-selected {
+    > a {
+        background-color: @selected-background-color !important;
+        color: @selected-text-color!important;
+    }
+}
+
+.x-menu-divider {
+    height: 1px;
+    background-color: @border-color;
+    overflow: hidden;
+    margin: @border-radius 0;
+}
+
+.x-menu-arrow > a:after, .x-menu > li > .x-menu + a:after {
+    content: '\25b8';
+    font-family: IcoMoon;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -12px;
+}
+
+.x-menu-disabled > a {
+    // pointer-events: none;
+    color: @text-color-disabled !important;
+    background-color: transparent !important;
+}

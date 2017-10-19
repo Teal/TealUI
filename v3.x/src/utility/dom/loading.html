@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>动态载入</title>
+    <meta name="module-info" content="order=rect">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="动态载入各类资源。">
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/dom/loadScript.js"></script>
+    <script type="text/javascript" src="../../utility/dom/loadStyle.js"></script>
+    <script type="text/javascript" src="../../utility/dom/loadImage.js"></script>
+    <script type="text/javascript" src="../../utility/dom/preload.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/dom/scrollShow.js"></script>
+    <script type="text/javascript" src="../../utility/dom/lazyLoad.js"></script>
+    <script type="text/javascript" src="../../utility/text/queryString.js"></script>
+    <script type="text/javascript" src="../../utility/misc/ajax.js"></script>
+    <script type="text/javascript" src="../../utility/dom/loadHtml.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>加载 JavaScript 文件</h2>
+    <script x-doc="utility/dom/loadScript.js">
+
+    Doc.writeApi({
+			path: "utility/dom/loadScript.js",
+			apis: [{
+				name: "loadScript",
+				summary: "<p>动态载入一个 JavaScript 脚本。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>加载 JavaScript 文件的路径。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>载入成功的回调函数。函数参数为： <br>\n\
+* <em>example</em> {String} url 加载的 JavaScript 文件路径。</p>"
+				}],
+				returns: {
+					type: "Element",
+					summary: "<p>返回用于载入脚本的 &lt;script&gt; 标签。</p>"
+				},
+				example: "<pre>loadScript(\"../../assets/resources/ajax/test.js\")</pre>",
+				line: 2,
+				col: 1
+			}]
+});</script>
+
+    <h2>加载 CSS 文件</h2>
+    <script x-doc="utility/dom/loadStyle.js">Doc.writeApi({
+			path: "utility/dom/loadStyle.js",
+			apis: [{
+				name: "loadStyle",
+				summary: "<p>动态载入一个 CSS 样式。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>加载 CSS 文件的路径。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>载入成功的回调函数。函数参数为： <br>\n\
+* <em>example</em> {String} url 加载的 CSS 文件路径。</p>"
+				}],
+				returns: {
+					type: "Element",
+					summary: "<p>返回用于载入脚本的 &lt;link&gt; 标签。</p>"
+				},
+				example: "<pre>loadScript(\"../../assets/resources/ajax/test.css\")</pre>",
+				line: 2,
+				col: 1
+			}]
+});</script>
+
+    <h2>加载图片文件</h2>
+    <script x-doc="utility/dom/loadImage.js">
+
+    Doc.writeApi({
+			path: "utility/dom/loadImage.js",
+			apis: [{
+				name: "loadImage",
+				summary: "<p>动态载入一个图片。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>加载图片的路径。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>载入成功的回调函数。函数参数为： <br>\n\
+* <em>example</em> {String} url 加载的图片文件路径。</p>"
+				}],
+				example: "<pre>loadImage(\"../../assets/resources/100x100.png\")</pre>",
+				line: 2,
+				col: 1
+			}, {
+				name: "loadImages",
+				summary: "<p>动态载入全部图片。</p>",
+				params: [{
+					type: "Array",
+					name: "url",
+					summary: "<p>加载图片的路径。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					summary: "<p>载入成功的回调函数。函数参数为： <br>\n\
+* <em>example</em> {Array} url 加载的图片文件路径。</p>"
+				}],
+				example: "<pre>loadImages([\"../../assets/resources/100x100.png\"])</pre>",
+				line: 22,
+				col: 1
+			}]
+});</script>
+
+    <h2>预加载</h2>
+    <p>预加载一个图片，可防止 css 刷新时因为图片加载导致的空白闪动。</p>
+    <script x-doc="utility/dom/preload.js">
+
+    Doc.writeApi({
+			path: "utility/dom/preload.js",
+			apis: [{
+				name: "preload",
+				summary: "<p>预加载一个地址的资源。</p>",
+				params: [{
+					type: "String",
+					name: "src",
+					optional: true,
+					summary: "<p>图片地址。</p>"
+				}],
+				example: "<pre>preload(\"../../assets/resources/200x150.png\")</pre>",
+				line: 6,
+				col: 1
+			}]
+});</script>
+
+    <h2>图片懒加载</h2>
+    <p>在图片较多时，为避免浪费流量，只在用于滚动图片所在区域时才加载图片。</p>
+    <aside class="doc-demo">
+        <img data-src="../../../assets/resources/100x100.png" alt="加载中...">
+        <script>
+            $('img[data-src]').lazyLoad();
+        </script>
+    </aside>
+    <script x-doc="utility/dom/lazyload.js">
+
+    Doc.writeApi({
+			path: "utility/dom/lazyload.js",
+			apis: [{
+				memberOf: "Dom.prototype",
+				name: "lazyLoad",
+				summary: "<p>懒加载图片。</p>",
+				params: [{
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>滚动到当前指定节点时的回调。函数参数为： <br>\n\
+ - <strong>this</strong>: <code>Element</code> 引发事件的节点。 <br>\n\
+ - e: <code>Event</code> 发生的事件对象。 <br>\n\
+ - proxy: <code>Image</code> 用于代理载入图片的节点。 <br>\n\
+ - 返回值: <code>String</code> 返回实际载入的图片路径。如果未指定则使用 <code>data-src</code> 属性指定的路径。</p>"
+				}, {
+					type: "Dom",
+					name: "scrollParent",
+					defaultValue: "document",
+					optional: true,
+					summary: "<p>滚动所在的容器。</p>"
+				}],
+				example: "<pre>$('img[data-src]').lazyLoad();</pre>",
+				line: 7,
+				col: 1
+			}]
+});</script>
+
+    <h2>加载 HTML 片段</h2>
+    <aside class="doc-demo">
+        <div id="loadHtml_elem1"></div>
+        <script>
+            $('#loadHtml_elem1').loadHtml("../../../assets/resources/ajax/test.txt")
+        </script>
+    </aside>
+    <script x-doc="utility/dom/loadHtml.js">
+
+    Doc.writeApi({
+			path: "utility/dom/loadHtml.js",
+			apis: [{
+				memberOf: "Dom.prototype",
+				name: "loadHtml",
+				summary: "<p>从一个地址载入 HTML 片段并设为当前节点的内容。</p>",
+				params: [{
+					type: "String",
+					name: "url",
+					summary: "<p>要载入的页面地址。</p>"
+				}, {
+					type: "Object",
+					name: "data",
+					optional: true,
+					summary: "<p>发送给服务器的数据。</p>"
+				}, {
+					type: "Function",
+					name: "callback",
+					optional: true,
+					summary: "<p>数据返回完成后的回调。</p>"
+				}],
+				returns: {
+					summary: "<p>this</p>"
+				},
+				example: "<pre>$(\"#elem1\").loadHtml(\"../../../assets/resources/ajax/test.txt\")</pre>",
+				line: 8,
+				col: 1
+			}]
+});</script>
+</body>
+</html>

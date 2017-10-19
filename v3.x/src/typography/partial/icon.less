@@ -1,0 +1,38 @@
+
+@import "../../typography/core/mixins.less";
+
+@icon-link-space:       .32em;
+@font-path:             ~"fonts/IcoMoon";
+@font-id:               ~"fczhay";
+
+@font-face {
+	font-family: 'IcoMoon';
+	src:url('@{font-path}.eot?@{font-id}');
+	src:url('@{font-path}.eot?#iefix@{font-id}') format('embedded-opentype'), url('@{font-path}.woff?@{font-id}') format('woff'), url('@{font-path}.ttf?@{font-id}') format('truetype'), url('@{font-path}.svg?@{font-id}#IcoMoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.x-icon {
+    display: inline-block;
+    font-family: 'IcoMoon';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    speak: none;
+    line-height: 1;
+    vertical-align: -1px;
+    
+    .user-select(none);
+
+    // 以下两个属性为非标准属性，此处删除之。
+    //-webkit-font-smoothing: antialiased;
+    //-moz-osx-font-smoothing: grayscale;
+
+    // 链接内部图标必须添加空白区域，以保证图标+文字效果更完美。
+    a & {
+        margin-right: @icon-link-space;
+    }
+    
+}

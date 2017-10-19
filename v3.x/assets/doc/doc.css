@@ -1,0 +1,1148 @@
+﻿/**
+ * 本文件提供文档演示的相关样式，不是组件的一部分。
+ */
+
+/*
+    色系：Teal
+    50#E0F2F1
+    100#B2DFDB
+    200#80CBC4
+    300#4DB6AC
+    400#26A69A
+    500#009688
+    600#00897B
+    700#00796B
+    800#00695C
+    900#004D40
+    A100#A7FFEB
+    A200#64FFDA
+    A400#1DE9B6
+    A700#00BFA5
+
+    灰色：
+    分割：#DADADA
+    提示：#B8B8B8
+    图标：#727272
+    文本：#212121
+    黑色：#4d4e53
+*/
+
+/* #region 全局基础样式 */
+
+.doc-section, .doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6, .doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote {
+    font-size: 14px;
+    line-height: 172.02857143%; /* 24px / 14px */
+    font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+    color: #4d4e53;
+}
+
+.doc > img, .doc > table, .doc > textarea, .doc > input, .doc > button, .doc > video, .doc > audio, .doc > canvas {
+    max-width: 100%;
+}
+
+.doc > p, .doc > ul, .doc > ol, .doc > dl, .doc > table, .doc > blockquote, .doc > img, .doc > pre, .doc-api pre, .doc > hr, .doc > figure, .doc > address, .doc > fieldset {
+    margin: 0 0 1em;
+}
+
+    .doc > p:last-child, .doc > ul:last-child, .doc > ol:last-child, .doc > dl:last-child, .doc > table:last-child, .doc > blockquote:last-child, .doc > img:last-child, .doc > pre:last-child, .doc-api pre:last-child, .doc > hr:last-child, .doc > figure:last-child, .doc > address:last-child, .doc > fieldset:last-child {
+        margin: 0;
+    }
+
+.doc > h1, .doc > h2, .doc > h3, .doc > h4, .doc > h5, .doc > h6 {
+    font-weight: 500;
+    margin: 0 0 .5em;
+    line-height: 150%;
+}
+
+    .doc > h2:before, .doc > h3:before, .doc > h4:before, .doc-index dt:before, .doc-index dd:before {
+        color: #888;
+        font-weight: 400;
+    }
+
+.doc > h1 {
+    font-size: 30px;
+    line-height: 105%;
+    border-bottom: 1px solid #dadada;
+}
+
+.doc > h2 {
+    font-size: 22px;
+    counter-increment: doc-h2;
+    counter-reset: doc-h3;
+}
+
+    .doc > h2:before {
+        content: counter(doc-h2) ". ";
+    }
+
+.doc > h3 {
+    font-size: 18px;
+    counter-increment: doc-h3;
+}
+
+    .doc > h3:before {
+        content: counter(doc-h2) "." counter(doc-h3) " ";
+    }
+
+.doc > h4 {
+    font-size: 16px;
+}
+
+.doc > h5 {
+    font-size: 14px;
+}
+
+.doc > h6 {
+    font-size: 12px;
+}
+
+.doc > dl dt {
+    margin-top: .5em;
+    font-weight: 600;
+}
+
+.doc > dl dd {
+    margin: 0;
+}
+
+.doc > table {
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+}
+
+    .doc > table th, .doc > table td {
+        line-height: 150%;
+        vertical-align: top;
+        border: 1px solid #DADADA;
+        padding: 6px;
+    }
+
+    .doc > table th {
+        background-color: #F1F1F1;
+        color: #727272;
+        padding: 2px 6px;
+        text-align: left;
+    }
+
+    .doc > table tbody tr:hover {
+        background-color: #F7F7F7;
+    }
+
+    .doc > table p {
+        margin: 0;
+    }
+
+.doc > hr {
+    border-color: #DADADA;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    height: 0;
+}
+
+.doc > blockquote {
+    background-color: #f9f9f7;
+    border: 1px solid #DADADA;
+    padding: 8px 12px;
+    position: relative;
+    word-break: break-word;
+}
+
+    .doc > blockquote:after {
+        content: '';
+        position: absolute;
+        width: 3px;
+        left: -1px;
+        top: -1px;
+        bottom: -1px;
+        background-color: #009688;
+        /*background-color: #1B809E;*/
+    }
+
+    .doc > blockquote h4 {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        line-height: 150%;
+        color: #009688;
+        /*color: #1B809E;*/
+    }
+
+.doc-note:after {
+    background-color: #b94a48 !important;
+}
+
+.doc-note h4 {
+    color: #b94a48 !important;
+}
+
+/*.doc-summary:after {
+    background-color: #009688 !important;
+}
+
+.doc-summary h4 {
+    color: #009688;
+}*/
+
+.doc > pre, .doc-api pre, .doc-section code, .doc > h1 code, .doc > h2 code, .doc > h3 code, .doc > h4 code, .doc > h5 code, .doc > h6 code, .doc > p code, .doc > ul code, .doc > ol code, .doc > dl code, .doc > table code, .doc > blockquote code, .doc-section kbd, .doc > h1 kbd, .doc > h2 kbd, .doc > h3 kbd, .doc > h4 kbd, .doc > h5 kbd, .doc > h6 kbd, .doc > p kbd, .doc > ul kbd, .doc > ol kbd, .doc > dl kbd, .doc > blockquote kbd {
+    font-family: Monaco, Menlo, Consolas, "Courier New", "Segoe UI Symbol", "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, monospace;
+    color: #990000;
+    background-color: #f9f9f7;
+    padding: 2px 4px;
+    border-radius: 0;
+}
+
+.doc > pre, .doc-api pre {
+    border: 1px solid #DADADA;
+    white-space: pre-wrap;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    line-height: 150%;
+    font-size: 13px;
+    padding: 6px;
+    color: inherit;
+    background-color: #f9f9f7;
+}
+
+.doc-section kbd, .doc > h1 kbd, .doc > h2 kbd, .doc > h3 kbd, .doc > h4 kbd, .doc > h5 kbd, .doc > h6 kbd, .doc > p kbd, .doc > ul kbd, .doc > ol kbd, .doc > dl kbd, .doc > blockquote kbd {
+    color: #ffffff;
+    background-color: #212121;
+    border-radius: 4px;
+}
+
+.doc-section a, .doc > h1 a, .doc > h2 a, .doc > h3 a, .doc > h4 a, .doc > h5 a, .doc > h6 a, .doc > p a, .doc > ul a, .doc > ol a, .doc > dl a, .doc > blockquote a {
+    color: #00796B;
+    text-decoration: none;
+}
+
+    .doc-section a:hover, .doc > h1 a:hover, .doc > h2 a:hover, .doc > h3 a:hover, .doc > h4 a:hover, .doc > h5 a:hover, .doc > h6 a:hover, .doc > p a:hover, .doc > ul a:hover, .doc > ol a:hover, .doc > dl a:hover, .doc > blockquote a:hover {
+        color: #004D40;
+        text-decoration: underline;
+    }
+
+    .doc > p a[target="_blank"][href^=http]:after, .doc > h1 a[target="_blank"][href^=http]:after, .doc > h2 a[target="_blank"][href^=http]:after, .doc > h3 a[target="_blank"][href^=http]:after, .doc > h4 a[target="_blank"][href^=http]:after, .doc > h5 a[target="_blank"][href^=http]:after, .doc > h6 a[target="_blank"][href^=http]:after, .doc > ul a[target="_blank"][href^=http]:after, .doc > ol a[target="_blank"][href^=http]:after, .doc > dl a[target="_blank"][href^=http]:after, .doc > blockquote a[target="_blank"][href^=http]:after {
+        content: "\2650";
+        font-family: DocIcoMoon;
+        vertical-align: -2px;
+        display: inline-block;
+        margin-left: .32em;
+    }
+
+.doc-section small, .doc > h1 small, .doc > h2 small, .doc > h3 small, .doc > h4 small, .doc > h5 small, .doc > h6 small, .doc > p small, .doc > ul small, .doc > ol small, .doc > dl small, .doc > blockquote small, .doc > table small {
+    color: #B8B8B8;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+    .doc-section small a, .doc > h1 small a, .doc > h2 small a, .doc > h3 small a, .doc > h4 small a, .doc > h5 small a, .doc > h6 small a, .doc > p small a, .doc > ul small a, .doc > ol small a, .doc > dl small a, .doc > blockquote small a, .doc > table small a {
+        color: inherit;
+    }
+
+.doc > textarea {
+    width: 100%;
+    height: 100px;
+}
+
+::-moz-selection {
+    background: #00BFA5;
+    color: #fff;
+}
+
+::selection {
+    background: #00BFA5;
+    color: #fff;
+}
+
+/* #endregion */
+
+/* #region 全局工具样式 */
+
+/* 浮动相关 */
+.doc-clear:after, .doc-row:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+.doc-left {
+    float: left !important;
+}
+
+.doc-right {
+    float: right !important;
+}
+
+/* 布局 */
+.doc-row {
+    margin: 0 -14px;
+}
+
+.doc-col {
+    float: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 14px;
+    margin-bottom: 1em;
+    min-height: 1px;
+}
+
+.doc-row-1 .doc-col {
+    width: 100%;
+}
+
+.doc-row-2 .doc-col {
+    width: 50%;
+}
+
+.doc-row-3 .doc-col {
+    width: 33.33333333%;
+}
+
+.doc-row-4 .doc-col {
+    width: 25%;
+}
+
+.doc-row-5 .doc-col {
+    width: 20%;
+}
+
+.doc-row-6 .doc-col {
+    width: 16.66666667%;
+}
+
+/* 代码框语法高亮 */
+.doc-code-comment {
+    color: #93a1a1;
+}
+
+.doc-code-literal {
+    color: #195f91;
+}
+
+.doc-code-punctuation, .doc-code-leftbracket, .doc-code-rightbracket {
+    color: #93a1a1;
+}
+
+.doc-code-function {
+    color: #e44d54;
+}
+
+.doc-code-string, .doc-code-attrvalue {
+    color: #d44950;
+}
+
+.doc-code-keyword, .doc-code-tag {
+    color: #2f6f9f;
+}
+
+.doc-code-type, .doc-code-attrname, .doc-code-declaration, .doc-code-var {
+    color: teal;
+}
+
+.doc-code-plain {
+    color: #333;
+}
+
+/* 代码框工具条 */
+.doc-code-toolbar a {
+    float: right;
+    padding: 0 7px;
+    display: inline-block;
+    color: #999;
+    border: 1px solid #DADADA;
+    border-width: 0 0 1px 1px;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 178%;
+}
+
+    .doc-code-toolbar a:hover, .doc-code-toolbar a.doc-hover {
+        background-color: #009688;
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    .doc-code-toolbar a .doc-icon {
+        margin: 0;
+    }
+
+/* 演示框 */
+.doc-demo {
+    padding: 14px;
+    border: 1px solid #DADADA;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+    .doc-demo:before {
+        content: "示例";
+        font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, sans-serif;
+        font-size: 10px;
+        line-height: 20px;
+        color: rgba(94, 94, 94, .5);
+        position: absolute;
+        top: 0;
+        right: 7px;
+        cursor: default;
+    }
+
+    .doc-demo:after {
+        content: " ";
+        display: table;
+        clear: both;
+    }
+
+    .doc-demo + .doc-code-toolbar, .doc-demo + .doc-code, .doc-demo + .doc-code-toolbar + .doc-code {
+        margin-top: -15px;
+    }
+
+script.doc-demo + .doc-code-toolbar, script.doc-demo + .doc-code, script.doc-demo + .doc-code-toolbar + .doc-code {
+    margin-top: 0;
+}
+
+/* 示例框 */
+.doc-box, .doc-box-small, .doc-box-large {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    margin: 10px;
+    text-align: center;
+    display: inline-block;
+    background-color: #FF9800;
+    color: #FFF;
+    vertical-align: middle;
+}
+
+.doc-box-small {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+
+.doc-box-large {
+    height: 150px;
+    width: 150px;
+    line-height: 150px;
+}
+
+.doc-red {
+    background-color: #F44336;
+    color: #FFF;
+}
+
+.doc-yellow {
+    background-color: #FFEB3B;
+    color: #FFF;
+}
+
+.doc-green {
+    background-color: #4CAF50;
+    color: #FFF;
+}
+
+.doc-blue {
+    background-color: #00BCD4;
+    color: #FFF;
+}
+
+/* 工具条 */
+.doc-toolbar {
+    font-size: 12px !important;
+    line-height: 150% !important;
+}
+
+    .doc-toolbar a, .doc-toolbar a:hover {
+        color: #838384;
+    }
+
+        .doc-toolbar a:not(:first-child) {
+            margin-left: 20px;
+        }
+
+/* 水平列表 */
+.doc-floatlist {
+    margin: 0;
+    padding: 0;
+}
+
+    .doc-floatlist li {
+        float: left;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 140px;
+    }
+
+    .doc-floatlist input[type=checkbox] {
+        vertical-align: -2px;
+    }
+
+/* 瀑布布局 */
+.doc-waterfall ul {
+    padding: 0;
+    list-style-position: inside;
+    color: #dadada;
+}
+
+/* API 列表 */
+.doc-api {
+    width: 100%;
+}
+
+    /*.doc-api > tbody > tr > td:first-child {
+        width: 1%;
+    }*/
+
+    .doc-api pre:last-child {
+        margin: 0;
+    }
+
+    .doc-api .doc-toolbar {
+        opacity: 0;
+        -moz-transition: opacity .3s;
+        -o-transition: opacity .3s;
+        -webkit-transition: opacity .3s;
+        transition: opacity .3s;
+    }
+
+    .doc-api tr:hover .doc-toolbar {
+        opacity: 1;
+    }
+
+    .doc-api p + h4 {
+        margin-top: .5em;
+    }
+
+.doc-scrollable-horizional {
+    overflow-x: auto;
+}
+
+.doc-fill {
+    table-layout: fixed;
+    width: 100%;
+}
+
+    .doc-fill * {
+        word-break: break-word;
+    }
+
+/* #endregion */
+
+/* #region 图标 */
+
+@font-face {
+    font-family: 'DocIcoMoon';
+    src: url('data:application/x-font-ttf;charset=utf-8;base64,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') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.doc-icon {
+    font-family: 'DocIcoMoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: -1px;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+a .doc-icon {
+    margin-right: .32em;
+}
+
+/* #endregion */
+
+/* #region 文档页面样式 */
+
+/* 文档和容器 */
+.doc-page {
+    /* 统一浏览器默认背景色 */
+    background-color: #fff;
+    margin: 0 14px 0 196px; /* 14px(侧边栏左边空白) + 14px * 12px(侧边栏) + 14px(侧边栏右边空白) = 196px */
+    padding: 0;
+}
+
+.doc-container {
+    margin: 0 -14px 0 -196px;
+    padding: 0 14px;
+}
+
+/* 顶部 */
+
+/* 进度条 */
+#doc_progress {
+    position: fixed;
+    /* 解决 Chrome fixed 抖动问题 */
+    -webkit-transform: translateZ(0);
+    width: 0;
+    height: 1.5px;
+    background-color: #B2DFDB;
+    top: 0;
+    left: 0;
+}
+
+/* 顶部条 */
+#doc_topbar {
+    background-color: #00796B;
+}
+
+    #doc_topbar a {
+        color: #e9e9e9;
+        display: block;
+        padding: 7px 14px;
+        text-decoration: none;
+    }
+
+        #doc_topbar a:hover, #doc_topbar .doc-actived a {
+            background-color: #004D40;
+            color: #FFF;
+        }
+
+#doc_logo, #doc_navbar li {
+    float: left;
+}
+
+a#doc_logo {
+    font-weight: 600;
+    color: #fbfbfb;
+    margin-left: -14px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAQCAMAAADK8RQqAAAA21BMVEX///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9mUQOSAAAASHRSTlMAVQUDGSFOPV33qnXkKYZ4ZVgMiRPvywkbkl4O1umxOhiHTK9NbYW+2aIzatTMnnSO5yIQB7q8P8O/N1vj+O65AVnrfjArU0Df1dKvAAAAk0lEQVR4Xm3NRRLDMBQDUCcNlpmZmZm5uv+JOr9pWs/YWmmeFmJOAjEmjReajDUbIZlbgD8n8SAAn8THACZR0SsAEBY9Qp70CB5P0LD99FSaGzLkWWpKvlAsldWvV8lr9UazRaXd6Trc68PNYDgy9emMdL746XL1P1fXrm4M7nK3x4HweFLOHF+ut/vDNJ4vnfF5A8lzHGFxo7RyAAAAAElFTkSuQmCC') no-repeat 14px 40%;
+    padding-left: 40px;
+}
+
+#doc_logo:hover {
+    background-color: transparent !important;
+}
+
+#doc_logo small {
+    position: relative;
+    top: -.5em;
+}
+
+#doc_menu {
+    display: none;
+}
+
+#doc_navbar {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#doc_search {
+    position: relative;
+    margin: 4px 0 0;
+}
+
+    #doc_search input, #doc_search button {
+        padding: 1px 7px;
+        font: inherit;
+        outline: 0;
+        border-radius: 4px;
+        height: 25px;
+        -webkit-appearance: button;
+    }
+
+    #doc_search input {
+        padding-right: 30px;
+        border: 1px solid #ccc;
+        width: 200px;
+        background: #f1f1f1;
+    }
+
+        #doc_search input:focus {
+            background-color: #fff;
+        }
+
+    #doc_search button {
+        background: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: 0;
+        margin: 2px;
+        width: 30px;
+        color: #727272;
+    }
+
+        #doc_search button:active {
+            right: -1px;
+        }
+
+/* 列表 */
+.doc-list {
+    margin: 0;
+    background: #fff;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+    .doc-list dd {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .doc-list dt, .doc-list a {
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 0 7px !important;
+        text-decoration: none;
+        color: #616161 !important;
+        line-height: 250%;
+        font-size: 13.5px;
+    }
+
+        .doc-list a:hover, .doc-list .doc-list-actived a {
+            background-color: #e8e8e8 !important;
+            text-decoration: none;
+        }
+
+    .doc-list dt {
+        line-height: 120%;
+        margin: .5em 0;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 0 !important;
+    }
+
+    .doc-list .doc-list-header-1 {
+        border-left: 2px solid #009688;
+        font-size: 16px;
+        padding: 0 7px !important;
+    }
+
+    .doc-list .doc-list-header-2 {
+        font-weight: 500;
+    }
+
+    .doc-list small {
+        padding-left: 4px;
+    }
+
+.doc-list-doing a, .doc-list-todo a {
+    color: #AAA !important;
+    font-style: italic;
+}
+
+#doc_search_suggest {
+    width: 236px;
+    max-height: 300px;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    border: 1px solid #DADADA;
+    -webkit-box-shadow: 1px 1px 2px #cccccc;
+    -moz-box-shadow: 1px 1px 2px #cccccc;
+    box-shadow: 1px 1px 2px #cccccc;
+    border-radius: 4px;
+}
+
+    #doc_search_suggest dd:first-child {
+        border-radius: 4px 0 0 4px;
+    }
+
+    #doc_search_suggest dd:last-child {
+        border-radius: 0 4px 4px 0;
+    }
+
+/* 头部 */
+#doc_header {
+    background-color: #009688;
+    background-image: linear-gradient(#00897B, #009688);
+    color: #FFF;
+    padding-bottom: 2.5em;
+    margin-bottom: 1em;
+}
+
+    #doc_header h1 {
+        color: inherit;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 150%;
+        margin: 0;
+        padding: .5em 0;
+    }
+
+    #doc_header p {
+        color: #e9e9e9;
+        font-size: 16px;
+        margin: 0;
+    }
+
+#doc_summary {
+    border: 1px solid #eee;
+    background-color: #f8f8f8;
+    padding: 8px 14px;
+}
+
+/* 列表 */
+#doc_sidebar {
+    border-right: 1px solid #dadada;
+    width: 168px; /* 14px * 12 */
+    left: 14px;
+    position: absolute;
+    -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
+    background: #fff;
+}
+
+#doc_sidebar_filter {
+    padding-right: 14px;
+    padding-bottom: .3em;
+}
+
+    #doc_sidebar_filter:before {
+        content: '☌';
+        position: absolute;
+        line-height: 30px;
+        font-family: DocIcoMoon;
+        font-size: 12px;
+        color: #727272;
+        padding-left: 3px;
+    }
+
+    #doc_sidebar_filter input {
+        width: 100%;
+        line-height: 150%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 4px 4px 4px 20px;
+        border: 0;
+        border-bottom: 1px solid #dadada;
+        background: none;
+        outline: 0;
+        -webkit-appearance: none;
+        border-radius: 0;
+    }
+
+        #doc_sidebar_filter input:hover, #doc_sidebar_filter input:focus {
+            border-bottom-color: #009688;
+        }
+
+.doc-sidebar-hidescrollbar {
+    overflow-y: hidden;
+}
+
+    .doc-sidebar-hidescrollbar:hover {
+        overflow-y: auto;
+        /* Chrome 需要此属性导致重绘 */
+        padding-right: .1px;
+    }
+
+/* 主体 */
+
+/* 翻页组件 */
+.doc-pager {
+    position: fixed;
+    -webkit-transform: translateZ(0); /* 解决 Chrome fixed 抖动问题 */
+    right: 10px;
+    bottom: 28px;
+    text-align: center;
+    z-index: 10;
+    border-radius: 4px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #000;
+    color: #ffffff;
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
+    text-decoration: none;
+    opacity: .5;
+}
+
+    .doc-pager:hover {
+        opacity: .75;
+        color: #fff;
+    }
+
+    .doc-pager span {
+        margin: 0;
+    }
+
+#doc_pager_left {
+    right: 56px;
+}
+
+#doc_pager_up {
+    bottom: 74px;
+}
+
+.doc-pager-hide {
+    opacity: 0 !important;
+    right: -50px !important;
+}
+
+/* 目录 */
+.doc-index {
+    background: #f8f8f8;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+    .doc-index h2 {
+        background: #009688;
+        color: #fff;
+        float: left;
+        font-weight: 500;
+        font-size: 16px;
+        margin: .5em 0 .5em 15px;
+        padding: .3em 7px;
+        line-height: 150%;
+    }
+
+    .doc-index dl {
+        background: #fff;
+        margin: 0 0 0 60px;
+        padding: .5em 1em;
+        border-left: 1px solid #eee;
+    }
+
+    .doc-index dt {
+        counter-increment: doc-dt;
+        counter-reset: doc-dd;
+        font-weight: 500;
+        margin: 0;
+    }
+
+        .doc-index dt:before {
+            content: counter(doc-dt) ". ";
+        }
+
+    .doc-index dd {
+        padding-left: 2em;
+        margin: 0;
+        counter-increment: doc-dd;
+    }
+
+        .doc-index dd:before {
+            content: counter(doc-dt) "." counter(doc-dd) " ";
+        }
+
+        .doc-index dd a {
+            color: #555;
+            font-size: 13px;
+        }
+
+/* 底部 */
+#doc_footer {
+    border-top: 1px solid #dadada;
+    font-size: small;
+    margin-top: 2em;
+    padding-top: 14px;
+    padding-bottom: 42px;
+}
+
+    #doc_footer div {
+        float: right;
+    }
+
+    #doc_footer a {
+        padding: 0 .5em;
+    }
+
+    #doc_footer, #doc_footer a {
+        color: #b8b8b8;
+    }
+
+/* #endregion */
+
+/* #region 自适应 */
+
+/* 更大屏幕增加边距 */
+@media (min-width: 1280px) {
+    .doc-page {
+        margin: 0 174px 0 342px; /* 14px + 160px */ /* 196px - 14px + 160px */
+    }
+
+    .doc-container {
+        margin: 0 -174px 0 -342px;
+        padding: 0 160px;
+    }
+
+    #doc_sidebar {
+        left: 160px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .doc-page {
+        margin: 0 334px 0 502px; /* 14px + 320px */ /* 196px - 14px + 320px */
+    }
+
+    .doc-container {
+        margin: 0 -334px 0 -502px;
+        padding: 0 320px;
+    }
+
+    #doc_sidebar {
+        left: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .doc-api th, .doc-api .doc-toolbar {
+        display: none;
+    }
+
+    .doc-api, .doc-api > tbody, .doc-api > thead, .doc-api > tfoot, .doc-api > tbody > tr, .doc-api > tbody > tr > td {
+        display: block;
+        border: 0 !important;
+    }
+
+        .doc-api > tbody > tr > td {
+            padding: 5px 0 !important;
+        }
+
+            .doc-api > tbody > tr > td:first-child {
+                width: auto;
+                display: inline-block;
+            }
+
+                .doc-api > tbody > tr > td:first-child:after {
+                    content: ':';
+                }
+
+                .doc-api > tbody > tr > td:first-child + td {
+                    display: inline-block;
+                }
+
+    /* 全局边框 */
+    .doc-page {
+        margin: 0 14px;
+    }
+
+    .doc-container {
+        margin: 0 -14px;
+        padding: 0 14px;
+    }
+
+    .doc-col {
+        float: none;
+        width: 100% !important;
+    }
+
+    /* 菜单 */
+    #doc_search {
+        display: none;
+    }
+
+    #doc_navbar {
+        margin: 0 -14px;
+        height: 0;
+        clear: both;
+        overflow: hidden;
+        -moz-transition: height .3s ease-out;
+        -o-transition: height .3s ease-out;
+        -webkit-transition: height .3s ease-out;
+        transition: height .3s ease-out;
+    }
+
+        #doc_navbar li {
+            float: none;
+        }
+
+    #doc_menu {
+        display: block;
+        margin: 0 -14px 0 0;
+    }
+
+        #doc_menu button {
+            -webkit-appearance: button;
+            border: 0;
+            background: none;
+            width: 40px;
+            color: #fff;
+            padding: 0;
+            height: 38px;
+            cursor: pointer;
+            outline: 0;
+            font-size: 18px;
+            line-height: 38px;
+            border-radius: 0;
+        }
+
+            #doc_menu button:active, .doc-menu-actived {
+                background-color: #004D40 !important;
+            }
+
+    /* 侧边栏 */
+    #doc_sidebar {
+        position: fixed;
+        left: -100%;
+        z-index: 10002;
+        width: 61.8%;
+    }
+
+    #doc_sidebar_filter {
+        padding: 0;
+    }
+
+    .doc-sidebar-actived {
+        padding-left: 1px;
+        left: 0 !important;
+    }
+
+    .doc-sidebar-actived, .doc-sidebar-inactived {
+        -moz-transition: left .3s ease-out;
+        -o-transition: left .3s ease-out;
+        -webkit-transition: left .3s ease-out;
+        transition: left .3s ease-out;
+    }
+
+    #doc_mask {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        z-index: 10001;
+        opacity: 0;
+        -moz-transition: opacity .3s ease-out;
+        -o-transition: opacity .3s ease-out;
+        -webkit-transition: opacity .3s ease-out;
+        transition: opacity .3s ease-out;
+    }
+
+    .doc-sidebar-actived + #doc_mask {
+        background: #000;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: .15;
+    }
+
+    #doc_module_toolbar, .doc-code-toolbar a:last-child {
+        display: none;
+    }
+
+    #doc_footer {
+        text-align: center;
+    }
+
+        #doc_footer div {
+            float: none;
+        }
+}
+
+/* #endregion */

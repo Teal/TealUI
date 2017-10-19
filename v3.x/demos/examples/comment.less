@@ -1,0 +1,42 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-comment {
+    margin-bottom: @grid-margin;
+    
+    .x-toolbar {
+        font-size: .95em;
+    }
+    
+}
+
+.x-comment-reply-content {
+    border-left: 3px solid @small-text-color;
+    font-size: .9em;
+    margin: @grid-margin / 2 0 @grid-margin / 2 @grid-margin;
+    padding-left: @padding * 2;
+    
+    p {
+        margin: 0 0 0 2em;
+        text-indent: -2em;
+    }
+
+}
+
+.x-comment-reply {
+    margin: @grid-margin / 2 0;
+}
+
+.x-comment-reply, .x-comment-add {
+    .x-textbox {
+        width: 80%;
+    }
+}
+
+.x-comment-add textarea.x-textbox {
+    width: 100%;
+    margin-bottom: @grid-margin / 2;
+}

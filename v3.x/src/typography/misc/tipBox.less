@@ -1,0 +1,52 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-tipbox {
+    display: inline-block;
+    border: 1px solid @border-color;
+    padding: @padding-height @padding-width;
+    line-height: @line-height;
+    background-color: @background-color-header;
+    border-radius: @border-radius;
+    .box-sizing(border-box);
+    // 链接。
+    a {
+        font-weight: bold;
+        color: inherit;
+    }
+    // 行内布局。
+    div& {
+        display: block;
+    }
+}
+
+// 色系
+.x-tipbox-state(@state) {
+    .x-tipbox-@{state} {
+        background-color: ~"@{@{state}-background-color}";
+        border-color: ~"@{@{state}-border-color}";
+        color: ~"@{@{state}-text-color}";
+    }
+}
+
+.x-tipbox-state(info);
+.x-tipbox-state(success);
+.x-tipbox-state(warning);
+.x-tipbox-state(error);
+
+.x-tipbox-transparent {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.x-tipbox-size(@size) {
+    .x-tipbox-@{size} {
+        padding: ~"@{padding-@{size}-y} @{padding-@{size}-x}";
+        border-radius: ~"@{border-radius-@{size}}";
+        font-size: ~"@{font-size-@{size}}";
+        line-height: ~"@{line-height-@{size}}";
+    }
+}
+
+.x-tipbox-size(small);
+.x-tipbox-size(large);

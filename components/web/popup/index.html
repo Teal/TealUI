@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>弹层效果 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/popup"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import popup, { Popup } from \&quot;web/popup\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/popup\&quot;], function (popup_1) {\n\tvar popup = popup_1.default;\n\tvar Popup = popup_1.Popup;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/popup" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/popup/popup.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="弹层效果">
+<a href="#弹层效果" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>弹层效果<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as popup, Popup">web/popup</small></h1>
+<p class="doc">通过用户操作显示弹层的交互效果。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#弹层事件">弹层事件</a></dt>
+	<dd><a href="#点击相关事件">点击相关事件</a></dd>
+	<dd><a href="#移动相关事件">移动相关事件</a></dd>
+	<dd><a href="#焦点相关事件">焦点相关事件</a></dd>
+	<dd><a href="#自定义事件">自定义事件</a></dd>
+	<dt><a href="#弹层动画">弹层动画</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Popup">Popup 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc">设置元素 <code>elem</code> 在用户点击 <code>target</code> 后自动弹出：</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<button id="target">按钮</button>
+<div id="elem" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_1", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    a = popup_1.default(elem, {
+        target: target
+    });
+});
+
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+<span class="doc-code-highlight">   a = popup(elem, {</span>
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">target</span></span><span class="doc-code-highlight">: target</span>
+<span class="doc-code-highlight">    });</span>
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="弹层事件">
+<a href="#弹层事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>弹层事件</h2>
+<p class="doc">使用 <a href="#api/Popup/event"><code>event</code></a> 字段指定触发弹层显示的事件。</p>
+<h3 id="点击相关事件">
+<a href="#点击相关事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>点击相关事件</h3>
+<ul>
+<li class="doc"><code>click</code>(默认): 点击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>dblclick</code>: 双击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>auxclick</code>: 右击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>contextmenu</code>: 作为 <code>target</code> 右键菜单后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>pointerdown</code>: 指针在 <code>target</code> 按下后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>pointerup</code>: 指针在 <code>target</code> 按出后弹出，点击屏幕空白处消失。</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col doc" id="doc_demo_2">
+<button id="target_click">按钮</button>
+<div id="elem_click" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_2", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_click, {
+        target: target_click,
+        event: "click"
+    });
+});
+
+var exports_doc_demo_2 = require("doc_demo_2")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_3">
+
+<button id="target_dblclick">按钮</button>
+<div id="elem_dblclick" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_3", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_dblclick, {
+        target: target_dblclick,
+        event: "dblclick"
+    });
+});
+
+var exports_doc_demo_3 = require("doc_demo_3")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_4">
+
+<button id="target_auxclick">按钮</button>
+<div id="elem_auxclick" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_4", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_auxclick, {
+        target: target_auxclick,
+        event: "auxclick"
+    });
+});
+
+var exports_doc_demo_4 = require("doc_demo_4")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_5">
+
+<button id="target_contextmenu">按钮</button>
+<div id="elem_contextmenu" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_5", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_contextmenu, {
+        target: target_contextmenu,
+        event: "contextmenu"
+    });
+});
+
+var exports_doc_demo_5 = require("doc_demo_5")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_6">
+
+<button id="target_pointerdown">按钮</button>
+<div id="elem_pointerdown" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_6", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_pointerdown, {
+        target: target_pointerdown,
+        event: "pointerdown"
+    });
+});
+
+var exports_doc_demo_6 = require("doc_demo_6")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_7">
+
+<button id="target_pointerup">按钮</button>
+<div id="elem_pointerup" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_7", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_pointerup, {
+        target: target_pointerup,
+        event: "pointerup"
+    });
+});
+
+var exports_doc_demo_7 = require("doc_demo_7")
+</script>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_click"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_click"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_click, {
+        <span class="doc-code-attr">target</span>: target_click,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"click"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_dblclick"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_dblclick"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_dblclick, {
+        <span class="doc-code-attr">target</span>: target_dblclick,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"dblclick"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_auxclick"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_auxclick"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_auxclick, {
+        <span class="doc-code-attr">target</span>: target_auxclick,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"auxclick"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_contextmenu"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_contextmenu"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_contextmenu, {
+        <span class="doc-code-attr">target</span>: target_contextmenu,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"contextmenu"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_pointerdown"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_pointerdown"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_pointerdown, {
+        <span class="doc-code-attr">target</span>: target_pointerdown,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"pointerdown"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_pointerup"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_pointerup"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_pointerup, {
+        <span class="doc-code-attr">target</span>: target_pointerup,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"pointerup"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h3 id="移动相关事件">
+<a href="#移动相关事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>移动相关事件</h3>
+<ul>
+<li class="doc"><code>pointerenter</code>: 指针移入 <code>target</code>  后自动弹出，移到屏幕空白处消失。</li>
+<li class="doc"><code>hover</code>: 指针移入 <code>target</code> 后自动弹出，移出 <code>target</code> 后消失。</li>
+<li class="doc"><code>pointermove</code>: 指针移入 <code>target</code>  后自动弹出，并跟随鼠标移动。</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col doc" id="doc_demo_8">
+<button id="target_pointerenter">按钮</button>
+<div id="elem_pointerenter" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_8", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_pointerenter, {
+        target: target_pointerenter,
+        event: "pointerenter"
+    });
+});
+
+var exports_doc_demo_8 = require("doc_demo_8")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_9">
+
+<button id="target_hover">按钮</button>
+<div id="elem_hover" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_9", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_hover, {
+        target: target_hover,
+        event: "hover"
+    });
+});
+
+var exports_doc_demo_9 = require("doc_demo_9")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_10">
+
+<button id="target_pointermove">按钮</button>
+<div id="elem_pointermove" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_10", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_pointermove, {
+        target: target_pointermove,
+        event: "pointermove"
+    });
+});
+
+var exports_doc_demo_10 = require("doc_demo_10")
+</script>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_pointerenter"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_pointerenter"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_pointerenter, {
+        <span class="doc-code-attr">target</span>: target_pointerenter,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"pointerenter"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_hover"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_hover"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_hover, {
+        <span class="doc-code-attr">target</span>: target_hover,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"hover"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_pointermove"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_pointermove"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_pointermove, {
+        <span class="doc-code-attr">target</span>: target_pointermove,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"pointermove"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h3 id="焦点相关事件">
+<a href="#焦点相关事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>焦点相关事件</h3>
+<ul>
+<li class="doc"><code>active</code>：指针在 <code>target</code> 按下时显示，松开后消失。</li>
+<li class="doc"><code>focus</code>： <code>target</code> 获取焦点后显示，失去焦点后消失。</li>
+<li class="doc"><code>focusin</code>：<code>target</code> 获取焦点后显示，点击屏幕空白处消失。</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col doc" id="doc_demo_11">
+<button id="target_active">按钮</button>
+<div id="elem_active" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_11", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_active, {
+        target: target_active,
+        event: "active"
+    });
+});
+
+var exports_doc_demo_11 = require("doc_demo_11")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_12">
+
+<button id="target_focus">按钮</button>
+<div id="elem_focus" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_12", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_focus, {
+        target: target_focus,
+        event: "focus"
+    });
+});
+
+var exports_doc_demo_12 = require("doc_demo_12")
+</script>
+
+</div>
+<div class="doc-col doc" id="doc_demo_13">
+
+<button id="target_focusin">按钮</button>
+<div id="elem_focusin" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_13", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_focusin, {
+        target: target_focusin,
+        event: "focusin"
+    });
+});
+
+var exports_doc_demo_13 = require("doc_demo_13")
+</script>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_active"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_active"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_active, {
+        <span class="doc-code-attr">target</span>: target_active,
+        <span class="doc-code-attr">event</span>: <span class="doc-code-string">"active"</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_focus"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_focus"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_focus, {
+        <span class="doc-code-attr">target</span>: target_focus,
+        <span class="doc-code-attr">event</span>: <span class="doc-code-string">"focus"</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_focusin"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_focusin"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_focusin, {
+        <span class="doc-code-attr">target</span>: target_focusin,
+        <span class="doc-code-attr">event</span>: <span class="doc-code-string">"focusin"</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h3 id="自定义事件">
+<a href="#自定义事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>自定义事件</h3>
+<p class="doc">手动调用 <a href="#api/Popup/show"><code>popup.show()</code></a> 和 <a href="#api/Popup/hide"><code>popup.hide()</code></a> 显示和隐藏弹层。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_14">
+<button id="target_custom">按钮</button>
+<div id="elem_custom" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_14", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var pop = popup_1.default(elem_custom, {
+        target: target_custom,
+        event: null
+    });
+    // 自定义绑定双击事件。
+    target_custom.ondblclick = function () {
+        pop.show();
+    };
+});
+
+var exports_doc_demo_14 = require("doc_demo_14")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_custom"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_custom"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    <span class="doc-code-keyword">const</span> pop = popup(elem_custom, {
+        <span class="doc-code-attr">target</span>: target_custom,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">event</span></span><span class="doc-code-highlight">: </span><span class="doc-code-literal"><span class="doc-code-highlight">null</span></span>
+    });
+
+<span class="doc-code-highlight">    </span><span class="doc-code-comment"><span class="doc-code-highlight">// 自定义绑定双击事件。</span></span>
+<span class="doc-code-highlight">    target_custom.ondblclick = </span><span class="doc-code-function"><span class="doc-code-params"><span class="doc-code-highlight">()</span></span><span class="doc-code-highlight"> =&gt;</span></span><span class="doc-code-highlight"> {</span>
+<span class="doc-code-highlight">        pop.show();</span>
+<span class="doc-code-highlight">    };</span>
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="弹层动画">
+<a href="#弹层动画" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>弹层动画</h2>
+<p class="doc">通过 <a href="#api/Popup/animation"><code>animation</code></a> 设置弹层的动画。可用的内置动画见<a href="../../../components/web/dom/#内置特效" title="web/dom#内置特效">DOM 处理</a>。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_15">
+<button id="target_animation">按钮</button>
+<div id="elem_animation" class="doc-box" style="position: fixed; display: none;"></div>
+<script>define("doc_demo_15", ["require", "exports", "web/popup"], function (require, exports, popup_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    popup_1.default(elem_animation, {
+        target: target_animation,
+        animation: "scaleY"
+    });
+});
+
+var exports_doc_demo_15 = require("doc_demo_15")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"target_animation"</span>&gt;</span>按钮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"elem_animation"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: fixed; display: none;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> popup <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/popup"</span>;
+
+    popup(elem_animation, {
+        <span class="doc-code-attr">target</span>: target_animation,
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">animation</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"scaleY"</span></span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/popup">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L4-17" target="_blank" title="源码：web/popup/popup.ts，第 4 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>popup<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, options?:<code>Partial&lt;<a href="#api/Popup">Popup</a>&gt;</code>):<code><a href="#api/Popup">Popup</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个弹层。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">弹层的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>options</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="#api/Popup">Popup</a>&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">弹层的选项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Popup">Popup</a></code></p>
+                <p class="doc">返回一个弹层对象。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个弹层。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Popup"><a href="#api/Popup" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L19-414" target="_blank" title="源码：web/popup/popup.ts，第 19 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Popup 类</h3><p class="doc">表示一个弹层对象。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Popup/elem">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L24-27" target="_blank" title="源码：web/popup/popup.ts，第 24 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>elem</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层元素。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层元素。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/target">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L29-32" target="_blank" title="源码：web/popup/popup.ts，第 29 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>target</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触发弹层显示的元素。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触发弹层显示的元素。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/event">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L34-52" target="_blank" title="源码：web/popup/popup.ts，第 34 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>event</code>
+                                <span class="doc-api-more">: <code>&quot;click&quot; | &quot;dblclick&quot; | &quot;auxclick&quot; | &quot;contextmenu&quot; | &quot;pointerdown&quot; | &quot;pointerup&quot; | &quot;pointerenter&quot; | &quot;pointermove&quot; | &quot;hover&quot; | &quot;active&quot; | &quot;focus&quot; | &quot;focusin&quot; | null</code> = <code>&quot;click&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">触发弹层显示的事件。</p>
+<h4>说明</h4><ul>
+<li class="doc"><code>click</code>(默认): 点击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>dblclick</code>: 双击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>auxclick</code>: 右击 <code>target</code> 后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>pointerdown</code>: 指针在 <code>target</code> 按下后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>pointerup</code>: 指针在 <code>target</code> 按出后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>contextmenu</code>：作为 <code>target</code> 右键菜单后弹出，点击屏幕空白处消失。</li>
+<li class="doc"><code>pointerenter</code>: 指针移入 <code>target</code>  后自动弹出，移到屏幕空白处消失。</li>
+<li class="doc"><code>hover</code>: 指针移入 <code>target</code> 后自动弹出，移出 <code>target</code> 后消失。</li>
+<li class="doc"><code>pointermove</code>: 指针移入 <code>target</code>  后自动弹出，并跟随鼠标移动。</li>
+<li class="doc"><code>active</code>：指针在 <code>target</code> 按下时显示，松开后消失。</li>
+<li class="doc"><code>focus</code>： <code>target</code> 获取焦点后显示，失去焦点后后消失。</li>
+<li class="doc"><code>focusin</code>：<code>target</code> 获取焦点后显示，点击屏幕空白处消失。</li>
+<li class="doc">其它：不绑定事件。</li>
+</ul>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">触发弹层显示的事件。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/delay">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L54-58" target="_blank" title="源码：web/popup/popup.ts，第 54 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>delay</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>100</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">显示弹层的延时毫秒数。仅对指针移动事件有效。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">显示弹层的延时毫秒数。仅对指针移动事件有效。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/pinTarget">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L60-64" target="_blank" title="源码：web/popup/popup.ts，第 60 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>pinTarget</code>
+                                <span class="doc-api-more">: <code>HTMLElement | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | undefined</code> = <code>target</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层对齐的目标节点或区域。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层对齐的目标节点或区域。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/align">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L66-70" target="_blank" title="源码：web/popup/popup.ts，第 66 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>align</code>
+                                <span class="doc-api-more">: <code>&quot;cc-cc&quot; | &quot;ll-tb&quot; | &quot;ll-cc&quot; | &quot;ll-bt&quot; | &quot;lr-bb&quot; | &quot;rr-cc&quot; | &quot;rr-tb&quot; | &quot;rl-tt&quot; | &quot;cc-tt&quot; | &quot;lr-tt&quot; | &quot;cc-bb&quot; | &quot;rl-bb&quot; | &quot;center&quot; | &quot;leftTop&quot; | &quot;left&quot; | &quot;leftBottom&quot; | &quot;rightBottom&quot; | &quot;right&quot; | &quot;rightTop&quot; | &quot;topRight&quot; | &quot;top&quot; | &quot;topLeft&quot; | &quot;bottomLeft&quot; | &quot;bottom&quot; | &quot;bottomRight&quot; | &quot;ll-tt&quot; | &quot;ll-bb&quot; | &quot;lr-tb&quot; | &quot;lr-cc&quot; | &quot;lr-bt&quot; | &quot;cc-tb&quot; | &quot;cc-bt&quot; | &quot;rl-tb&quot; | &quot;rl-cc&quot; | &quot;rl-bt&quot; | &quot;rr-tt&quot; | &quot;rr-bt&quot; | &quot;rr-bb&quot; | null</code> = <code>&quot;bottomLeft&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层对齐的位置。如果为 null 则不自动对齐。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层对齐的位置。如果为 null 则不自动对齐。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/margin">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L72-76" target="_blank" title="源码：web/popup/popup.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>margin</code>
+                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">元素的外边距，即对齐时元素和 <em>pinTarget</em> 的距离。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">元素的外边距，即对齐时元素和 <em>pinTarget</em> 的距离。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/container">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L78-82" target="_blank" title="源码：web/popup/popup.ts，第 78 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>container</code>
+                                <span class="doc-api-more">: <code>HTMLElement | Document | null | undefined</code> = <code>document</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">容器节点或区域，定位超出容器后会自动调整。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement | Document</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">容器节点或区域，定位超出容器后会自动调整。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/containerPadding">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L84-88" target="_blank" title="源码：web/popup/popup.ts，第 84 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>containerPadding</code>
+                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">容器的内边距。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">容器的内边距。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/offset">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L90-94" target="_blank" title="源码：web/popup/popup.ts，第 90 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offset</code>
+                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">定位后的额外偏移距离。如果小于 1，则表示相对元素大小的百分比。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">定位后的额外偏移距离。如果小于 1，则表示相对元素大小的百分比。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/resize">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L96-100" target="_blank" title="源码：web/popup/popup.ts，第 96 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>resize</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code> = <code>false</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">如果容器比元素小，是否允许更改元素大小。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">如果容器比元素小，是否允许更改元素大小。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/animation">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L102-106" target="_blank" title="源码：web/popup/popup.ts，第 102 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>animation</code>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code> = <code>&quot;opacity&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">显示弹层时使用的动画。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">显示弹层时使用的动画。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/hideAnimation">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L108-112" target="_blank" title="源码：web/popup/popup.ts，第 108 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hideAnimation</code>
+                                <span class="doc-api-more">: <code>&quot;left&quot; | &quot;right&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code> = <code>animation</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">隐藏弹层时使用的动画。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string | object</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">隐藏弹层时使用的动画。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/duration">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L114-118" target="_blank" title="源码：web/popup/popup.ts，第 114 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>duration</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>200</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">显示动画的持续毫秒数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">显示动画的持续毫秒数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/hideDuration">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L120-124" target="_blank" title="源码：web/popup/popup.ts，第 120 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hideDuration</code>
+                                <span class="doc-api-more">: <code>number | undefined</code> = <code>duration</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">隐藏动画的持续毫秒数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">隐藏动画的持续毫秒数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/timingFunction">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L126-130" target="_blank" title="源码：web/popup/popup.ts，第 126 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>timingFunction</code>
+                                <span class="doc-api-more">: <code>string</code> = <code>&quot;ease-in&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">显示弹层时使用的动画渐变函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">显示弹层时使用的动画渐变函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/hideTimingFunction">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L132-136" target="_blank" title="源码：web/popup/popup.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hideTimingFunction</code>
+                                <span class="doc-api-more">: <code>string</code> = <code>timingFunction</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">隐藏弹层时使用的动画渐变函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">隐藏弹层时使用的动画渐变函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/autoHide">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L138-142" target="_blank" title="源码：web/popup/popup.ts，第 138 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>autoHide</code>
+                                <span class="doc-api-more">: <code>boolean</code> = <code>true</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否在点击屏幕空白处后消失。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否在点击屏幕空白处后消失。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/autoScroll">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L144-148" target="_blank" title="源码：web/popup/popup.ts，第 144 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>autoScroll</code>
+                                <span class="doc-api-more">: <code>boolean</code> = <code>true</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否在滚动后自动重定位。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否在滚动后自动重定位。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/onShow">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L150-154" target="_blank" title="源码：web/popup/popup.ts，第 150 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onShow</code>
+                                <span class="doc-api-more">: <code>((sender: <a href="#api/Popup">Popup</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层显示事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层显示事件。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/onHide">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L156-160" target="_blank" title="源码：web/popup/popup.ts，第 156 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onHide</code>
+                                <span class="doc-api-more">: <code>((sender: <a href="#api/Popup">Popup</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层隐藏事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层隐藏事件。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/onAlign">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L162-167" target="_blank" title="源码：web/popup/popup.ts，第 162 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onAlign</code>
+                                <span class="doc-api-more">: <code>((r: <a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a>, sender: <a href="#api/Popup">Popup</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">弹层对齐事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">弹层对齐事件。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Popup/hidden">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L325-328" target="_blank" title="源码：web/popup/popup.ts，第 325 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hidden</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>判断当前元素是否已隐藏。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>判断当前元素是否已隐藏。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Popup/enable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L169-261" target="_blank" title="源码：web/popup/popup.ts，第 169 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>enable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">启用弹层。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">启用弹层。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/disable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L263-308" target="_blank" title="源码：web/popup/popup.ts，第 263 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>disable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">禁用弹层。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">禁用弹层。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/show">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L330-350" target="_blank" title="源码：web/popup/popup.ts，第 330 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>show<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">显示当前浮层。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">显示当前浮层。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/hide">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L352-368" target="_blank" title="源码：web/popup/popup.ts，第 352 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>hide<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">隐藏当前浮层。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">隐藏当前浮层。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/toggle">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L375-381" target="_blank" title="源码：web/popup/popup.ts，第 375 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toggle<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(value?:<code>boolean</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">切换显示或隐藏当前浮层。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value</code>
+                                </td>
+                                <td>
+                                    <code>boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果为 true 则强制显示。如果为 false 则强制隐藏。</p>
+
+                                </td>
+                                <td>
+                                    <code>this.hidden</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">切换显示或隐藏当前浮层。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/handleDocumentPointerDown">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L383-392" target="_blank" title="源码：web/popup/popup.ts，第 383 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handleDocumentPointerDown<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理文档指针按下事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理文档指针按下事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/handleDocumentScroll">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L394-400" target="_blank" title="源码：web/popup/popup.ts，第 394 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handleDocumentScroll<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理文档滚动事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件参数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理文档滚动事件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Popup/realign">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/popup/popup.ts#L402-412" target="_blank" title="源码：web/popup/popup.ts，第 402 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>realign<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code><a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">重新对齐浮层的位置。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code><a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a> | undefined</code></p>
+                <p class="doc">如果已重新定位则返回定位的结果。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">重新对齐浮层的位置。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/droppable/" title="拖放" id="doc_pager_prev"><i class="doc-icon">⮜</i> 拖放</a>
+                            <a href="../../../components/web/countDown/" title="倒计时" id="doc_pager_next">倒计时 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/popup/","imports":["web/popup"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

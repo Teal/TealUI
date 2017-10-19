@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>工具样式 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/util"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/util\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/util\&quot;], function (util_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/util/util.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/util" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/util/util.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="工具样式">
+<a href="#工具样式" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>工具样式<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;关键字：显示,show,隐藏,hide,浮动,float,对齐,align">typo/util</small></h1>
+<p class="doc">提供常用 CSS 工具样式。</p>
+<dl id="doc_toc">
+	<dt><a href="#浮动">浮动</a></dt>
+	<dt><a href="#隐藏">隐藏</a></dt>
+	<dt><a href="#间距">间距</a></dt>
+	<dt><a href="#居中">居中</a></dt>
+	<dt><a href="#滚动条">滚动条</a></dt>
+	<dt><a href="#文本">文本</a></dt>
+</dl>
+<h2 id="浮动">
+<a href="#浮动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>浮动</h2>
+<ul>
+<li class="doc"><code>x-left</code>: 左浮动</li>
+<li class="doc"><code>x-right</code>: 右浮动</li>
+<li class="doc"><code>x-clear</code>: 清除浮动</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<div class="x-clear">
+    <div class="doc-box x-left">.x-left</div>
+    <div class="doc-box x-right">.x-right</div>
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-clear"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box x-left"</span>&gt;</span>.x-left<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box x-right"</span>&gt;</span>.x-right<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="隐藏">
+<a href="#隐藏" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>隐藏</h2>
+<ul>
+<li class="doc"><code>x-hide</code>: 隐藏元素（display:none)</li>
+<li class="doc"><code>x-show-small</code>: 只在小屏（手机）显示</li>
+<li class="doc"><code>x-hide-small</code>: 只在小屏（手机）隐藏</li>
+<li class="doc"><code>x-show-medium</code>: 只在大中屏（平板、电脑）显示</li>
+<li class="doc"><code>x-hide-medium</code>: 只在大中屏（平板、电脑）隐藏</li>
+<li class="doc"><code>x-hide-large</code>: 只在大屏（电脑）隐藏</li>
+<li class="doc"><code>x-show-large</code>: 只在大屏（电脑）显示</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col" id="doc_demo_2">
+<div class="x-hide">hide</div>
+
+</div>
+<div class="doc-col" id="doc_demo_3">
+
+<div class="x-show-small">small</div>
+<div class="x-hide-small"><del>small</del></div>
+
+</div>
+<div class="doc-col" id="doc_demo_4">
+
+<div class="x-show-medium">medium/large</div>
+<div class="x-hide-medium"><del>medium/large</del></div>
+
+</div>
+<div class="doc-col" id="doc_demo_5">
+
+<div class="x-show-large">large</div>
+<div class="x-hide-large"><del>large</del></div>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-hide"</span>&gt;</span>hide<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-show-small"</span>&gt;</span>small<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-hide-small"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">del</span>&gt;</span>small<span class="doc-code-tag">&lt;/<span class="doc-code-name">del</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-show-medium"</span>&gt;</span>medium/large<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-hide-medium"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">del</span>&gt;</span>medium/large<span class="doc-code-tag">&lt;/<span class="doc-code-name">del</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-show-large"</span>&gt;</span>large<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-hide-large"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">del</span>&gt;</span>large<span class="doc-code-tag">&lt;/<span class="doc-code-name">del</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="间距">
+<a href="#间距" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>间距</h2>
+<ul>
+<li class="doc"><code>x-blank</code>: 提供 1rem 的下边距</li>
+<li class="doc"><code>x-space</code>: 提供 0.375rem 的右边距</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col" id="doc_demo_6">
+上
+<div class="x-blank"></div>
+下
+
+</div>
+<div class="doc-col" id="doc_demo_7">
+
+<span class="x-space">左</span>
+右
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html">上
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-blank"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+下<hr><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-space"</span>&gt;</span>左<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span>
+右</code></pre>
+                </div><h2 id="居中">
+<a href="#居中" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>居中</h2>
+<ul>
+<li class="doc"><code>x-center</code>: 水平居中</li>
+<li class="doc"><code>x-middle</code>: 垂直居中</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_8">
+<div class="x-center x-middle">居中</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-center x-middle"</span>&gt;</span>居中<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="滚动条">
+<a href="#滚动条" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>滚动条</h2>
+<ul>
+<li class="doc"><code>x-scrollable</code>: 超出内容后显示垂直滚动条</li>
+<li class="doc"><code>x-scrollable-h</code>: 超出内容后显示水平滚动条</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_9">
+<div class="x-scrollable" style="height: 30px;"><div style="height: 40px;">内容内容内容内容内容内容内容</div></div>
+<div class="x-scrollable-h"><div style="width: 200%;">我是内容</div></div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-scrollable"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"height: 30px;"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"height: 40px;"</span>&gt;</span>内容内容内容内容内容内容内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-scrollable-h"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width: 200%;"</span>&gt;</span>我是内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="文本">
+<a href="#文本" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>文本</h2>
+<ul>
+<li class="doc"><code>x-ellipsis</code>: 单行文本超出区域后显示 ...。</li>
+<li class="doc"><code>x-break-word</code>: 强制文本换行，避免长单词不换行。（仅适合中文排版使用）</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_10">
+<div class="x-ellipsis">文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本</div>
+<div class="x-break-word">break word break word break word break word break word break word break word break word break word break word break word break word break word break word break word break word</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-ellipsis"</span>&gt;</span>文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-break-word"</span>&gt;</span>break word break word break word break word break word break word break word break word break word break word break word break word break word break word break word break word<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="../../../components/../docs/issues/multiline-ellipsis.html" title="../docs/issues/multiline-ellipsis">多行文本超出区域后显示 ...</a></li>
+<li class="doc"><a href="../../../components/../docs/issues/hyphens.html" title="../docs/issues/hyphens">单词换行后自动追加 &quot;-&quot;</a></li>
+</ul>
+</blockquote>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="../../../components/typo/util/util-more.html" title="typo/util/util-more">工具样式扩展</a></li>
+</ul>
+</blockquote>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/accessibility/" title="可访问性" id="doc_pager_prev"><i class="doc-icon">⮜</i> 可访问性</a>
+                            <a href="../../../components/typo/grid/" title="栅格布局" id="doc_pager_next">栅格布局 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/util/","imports":["typo/reset","typo/util"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

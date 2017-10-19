@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>排序算法 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/sort"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { bubbleSort, quickSort, shellSort, ArrayList } from \&quot;util/sort\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/sort\&quot;], function (sort_1) {\n\tvar bubbleSort = sort_1.bubbleSort;\n\tvar quickSort = sort_1.quickSort;\n\tvar shellSort = sort_1.shellSort;\n\tvar ArrayList = sort_1.ArrayList;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/sort" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/sort/sort.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="排序算法">
+<a href="#排序算法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>排序算法<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：bubbleSort, quickSort, shellSort, ArrayList">util/sort</small></h1>
+<p class="doc">提供常用的排序算法实现。</p>
+<dl id="doc_toc">
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/ArrayList">ArrayList&lt;T&gt; 接口</a></dd>
+</dl>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/bubbleSort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L1-26" target="_blank" title="源码：util/sort/sort.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>bubbleSort<i class="doc-tip doc-api-ellipsis">(list, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(list:<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>, compareFn?:<code>function</code>, start?:<code>number</code>, end?:<code>number</code>):<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组进行冒泡排序。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>list<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要排序的类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>compareFn</code>
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于排序时确定顺序的函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">x：要比较的第一个参数。</li>
+<li class="doc">y：要比较的第二个参数。</li>
+</ul>
+<p class="doc">如果返回 true，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>x</em> 应该排在 <em>y</em> 之后。</p>
+
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; x &lt; y</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>list.length</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></p>
+                <p class="doc">返回原类数组。</p>
+
+                <h4>说明</h4><p class="doc">冒泡排序是稳定排序算法，时间复杂度为 O(n²)。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">bubbleSort([<span class="doc-code-number">1</span>, <span class="doc-code-number">3</span>, <span class="doc-code-number">5</span>, <span class="doc-code-number">4</span>, <span class="doc-code-number">3</span>]) <span class="doc-code-comment">// [1, 3, 3, 4, 5]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组进行冒泡排序。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/quickSort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L28-66" target="_blank" title="源码：util/sort/sort.ts，第 28 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>quickSort<i class="doc-tip doc-api-ellipsis">(list, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(list:<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>, compareFn?:<code>function</code>, start?:<code>number</code>, end?:<code>number</code>):<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组进行快速排序。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>list<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要排序的类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>compareFn</code>
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于排序时确定顺序的函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">x：要比较的第一个参数。</li>
+<li class="doc">y：要比较的第二个参数。</li>
+</ul>
+<p class="doc">如果返回 true，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>x</em> 应该排在 <em>y</em> 之后。</p>
+
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; x &lt; y</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>list.length</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></p>
+                <p class="doc">返回原类数组。</p>
+
+                <h4>说明</h4><p class="doc">快速排序是不稳定排序算法，时间复杂度为 O(n*log(n))。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">quickSort([<span class="doc-code-number">1</span>, <span class="doc-code-number">3</span>, <span class="doc-code-number">5</span>, <span class="doc-code-number">4</span>, <span class="doc-code-number">3</span>]) <span class="doc-code-comment">// [1, 3, 3, 4, 5]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组进行快速排序。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/shellSort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L68-94" target="_blank" title="源码：util/sort/sort.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>shellSort<i class="doc-tip doc-api-ellipsis">(list, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(list:<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>, compareFn?:<code>function</code>, start?:<code>number</code>, end?:<code>number</code>):<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组进行希尔排序。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>list<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要排序的类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>compareFn</code>
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于排序时确定顺序的函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">x：要比较的第一个参数。</li>
+<li class="doc">y：要比较的第二个参数。</li>
+</ul>
+<p class="doc">如果返回 true，则说明 <em>x</em> 应该排在 <em>y</em> 之前。否则 <em>x</em> 应该排在 <em>y</em> 之后。</p>
+
+                                </td>
+                                <td>
+                                    <code>(x: T, y: T) =&gt; x &lt; y</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">结束排序的索引（从 0 开始）。</p>
+
+                                </td>
+                                <td>
+                                    <code>list.length</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/ArrayList">ArrayList</a>&lt;T&gt;</code></p>
+                <p class="doc">返回原类数组。</p>
+
+                <h4>说明</h4><p class="doc">快速排序是不稳定排序算法，适用于数据量不大的情况。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">shellSort([<span class="doc-code-number">1</span>, <span class="doc-code-number">3</span>, <span class="doc-code-number">5</span>, <span class="doc-code-number">4</span>, <span class="doc-code-number">3</span>]) <span class="doc-code-comment">// [1, 3, 3, 4, 5]</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组进行希尔排序。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/ArrayList"><a href="#api/ArrayList" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L96-111" target="_blank" title="源码：util/sort/sort.ts，第 96 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>ArrayList&lt;T&gt; 接口</h3><p class="doc">表示一个类数组。</p>
+<table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>{}</td>
+                    </tr></table><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/ArrayList/indexer">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L109-109" target="_blank" title="源码：util/sort/sort.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>[index]</code>
+                                <span class="doc-api-more">: <code>T</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取或设置指定索引的值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>index<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                
+                
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>T</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取或设置指定索引的值。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/ArrayList/length">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/sort/sort.ts#L101-104" target="_blank" title="源码：util/sort/sort.ts，第 101 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>length</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取列表的长度。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取列表的长度。</p>
+
+                            </td>
+                            
+                        </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/tween/" title="补间动画" id="doc_pager_prev"><i class="doc-icon">⮜</i> 补间动画</a>
+                            <a href="../../../components/util/sqlike/" title="仿 SQL 引擎" id="doc_pager_next">仿 SQL 引擎 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/sort/","test":"util/sort/sort-test.ts","imports":["util/sort"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

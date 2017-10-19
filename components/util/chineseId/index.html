@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>中国身份证号 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/chineseId"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { parseChineseId, getAgeFromChineseId } from \&quot;util/chineseId\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/chineseId\&quot;], function (chineseId_1) {\n\tvar parseChineseId = chineseId_1.parseChineseId;\n\tvar getAgeFromChineseId = chineseId_1.getAgeFromChineseId;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/chineseId/chineseId.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/chineseId" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/chineseId/chineseId.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="中国身份证号">
+<a href="#中国身份证号" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>中国身份证号<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：parseChineseId, getAgeFromChineseId">util/chineseId</small></h1>
+<p class="doc">解析中国身份证号中的信息。</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<input type="text" id="input" placeholder="输入身份证号" value="152500198909267865" />
+<button onclick="output.innerHTML = format(parseChineseId(input.value));
+">校验中国身份证</button>
+<div id="output"></div>
+<script>var provinces = {
+    11: "北京",
+    12: "天津",
+    13: "河北",
+    14: "山西",
+    15: "内蒙古",
+    21: "辽宁",
+    22: "吉林",
+    23: "黑龙江",
+    31: "上海",
+    32: "江苏",
+    33: "浙江",
+    34: "安徽",
+    35: "福建",
+    36: "江西",
+    37: "山东",
+    41: "河南",
+    42: "湖北",
+    43: "湖南",
+    44: "广东",
+    45: "广西",
+    46: "海南",
+    50: "重庆",
+    51: "四川",
+    52: "贵州",
+    53: "云南",
+    54: "西藏",
+    61: "陕西",
+    62: "甘肃",
+    63: "青海",
+    64: "宁夏",
+    65: "新疆",
+    71: "台湾",
+    81: "香港",
+    82: "澳门",
+    91: "国外"
+};
+function format(idInfo) {
+    return '合法：' + idInfo.valid +
+        '<br>性别：' + (idInfo.sex ? '男' : '女') +
+        '<br>省份：' + (provinces[idInfo.province] || '') +
+        '<br>地级市：' + (idInfo.city || '') +
+        '<br>县级市：' + (idInfo.county || '') +
+        '<br>生日： ' + idInfo.birthday.toLocaleString();
+}
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"text"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input"</span> <span class="doc-code-attr">placeholder</span>=<span class="doc-code-string">"输入身份证号"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"152500198909267865"</span> /&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"output.innerHTML = format(parseChineseId(input.value))"</span>&gt;</span>校验中国身份证<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"output"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="actionscript">
+<span class="doc-code-keyword">const</span> provinces = {
+    <span class="doc-code-number">11</span>: <span class="doc-code-string">"北京"</span>,
+    <span class="doc-code-number">12</span>: <span class="doc-code-string">"天津"</span>,
+    <span class="doc-code-number">13</span>: <span class="doc-code-string">"河北"</span>,
+    <span class="doc-code-number">14</span>: <span class="doc-code-string">"山西"</span>,
+    <span class="doc-code-number">15</span>: <span class="doc-code-string">"内蒙古"</span>,
+    <span class="doc-code-number">21</span>: <span class="doc-code-string">"辽宁"</span>,
+    <span class="doc-code-number">22</span>: <span class="doc-code-string">"吉林"</span>,
+    <span class="doc-code-number">23</span>: <span class="doc-code-string">"黑龙江"</span>,
+    <span class="doc-code-number">31</span>: <span class="doc-code-string">"上海"</span>,
+    <span class="doc-code-number">32</span>: <span class="doc-code-string">"江苏"</span>,
+    <span class="doc-code-number">33</span>: <span class="doc-code-string">"浙江"</span>,
+    <span class="doc-code-number">34</span>: <span class="doc-code-string">"安徽"</span>,
+    <span class="doc-code-number">35</span>: <span class="doc-code-string">"福建"</span>,
+    <span class="doc-code-number">36</span>: <span class="doc-code-string">"江西"</span>,
+    <span class="doc-code-number">37</span>: <span class="doc-code-string">"山东"</span>,
+    <span class="doc-code-number">41</span>: <span class="doc-code-string">"河南"</span>,
+    <span class="doc-code-number">42</span>: <span class="doc-code-string">"湖北"</span>,
+    <span class="doc-code-number">43</span>: <span class="doc-code-string">"湖南"</span>,
+    <span class="doc-code-number">44</span>: <span class="doc-code-string">"广东"</span>,
+    <span class="doc-code-number">45</span>: <span class="doc-code-string">"广西"</span>,
+    <span class="doc-code-number">46</span>: <span class="doc-code-string">"海南"</span>,
+    <span class="doc-code-number">50</span>: <span class="doc-code-string">"重庆"</span>,
+    <span class="doc-code-number">51</span>: <span class="doc-code-string">"四川"</span>,
+    <span class="doc-code-number">52</span>: <span class="doc-code-string">"贵州"</span>,
+    <span class="doc-code-number">53</span>: <span class="doc-code-string">"云南"</span>,
+    <span class="doc-code-number">54</span>: <span class="doc-code-string">"西藏"</span>,
+    <span class="doc-code-number">61</span>: <span class="doc-code-string">"陕西"</span>,
+    <span class="doc-code-number">62</span>: <span class="doc-code-string">"甘肃"</span>,
+    <span class="doc-code-number">63</span>: <span class="doc-code-string">"青海"</span>,
+    <span class="doc-code-number">64</span>: <span class="doc-code-string">"宁夏"</span>,
+    <span class="doc-code-number">65</span>: <span class="doc-code-string">"新疆"</span>,
+    <span class="doc-code-number">71</span>: <span class="doc-code-string">"台湾"</span>,
+    <span class="doc-code-number">81</span>: <span class="doc-code-string">"香港"</span>,
+    <span class="doc-code-number">82</span>: <span class="doc-code-string">"澳门"</span>,
+    <span class="doc-code-number">91</span>: <span class="doc-code-string">"国外"</span>
+};
+<span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">format</span><span class="doc-code-params">(idInfo)</span> </span>{
+    <span class="doc-code-keyword">return</span> <span class="doc-code-string">'合法：'</span> + idInfo.valid + 
+    <span class="doc-code-string">'&lt;br&gt;性别：'</span> + (idInfo.sex ? <span class="doc-code-string">'男'</span> : <span class="doc-code-string">'女'</span>) + 
+    <span class="doc-code-string">'&lt;br&gt;省份：'</span> + (provinces[idInfo.province] || <span class="doc-code-string">''</span>) + 
+    <span class="doc-code-string">'&lt;br&gt;地级市：'</span> + (idInfo.city || <span class="doc-code-string">''</span>) + 
+    <span class="doc-code-string">'&lt;br&gt;县级市：'</span> + (idInfo.county || <span class="doc-code-string">''</span>) + 
+    <span class="doc-code-string">'&lt;br&gt;生日： '</span> + idInfo.birthday.toLocaleString();
+}
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://www.ip33.com/shenfenzheng.html" target="_blank" class="doc-external">身份证编码原理</a></li>
+</ul>
+</blockquote>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/parseChineseId">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/chineseId/chineseId.ts#L3-76" target="_blank" title="源码：util/chineseId/chineseId.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>parseChineseId<i class="doc-tip doc-api-ellipsis">(idNumber)</i><span class="doc-tip doc-api-more">(idNumber:<code>string</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">解析 18 位中国身份证号的信息。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>idNumber<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解析的身份证号。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ valid: boolean; province: number; city: number; county: number; birthday: Date; sex: boolean; }</code></p>
+                <p class="doc">返回一个对象，包含以下字段：</p>
+<ul>
+<li class="doc">valid：身份证是否合法。</li>
+<li class="doc">province：省份（自治区、直辖市）编码。</li>
+<li class="doc">city：地级市（州、盟）编码。</li>
+<li class="doc">county：县级市（区、旗）编码。</li>
+<li class="doc">birthday：生日。</li>
+<li class="doc">sex：性别。true 表示男, false 表示女。</li>
+</ul>
+
+                <h4>说明</h4><p class="doc">本函数只验证身份证的数值特征，并不能判定身份证是否真实存在。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">parseChineseId(<span class="doc-code-string">"152500198909267865"</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">解析 18 位中国身份证号的信息。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/getAgeFromChineseId">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/chineseId/chineseId.ts#L78-87" target="_blank" title="源码：util/chineseId/chineseId.ts，第 78 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getAgeFromChineseId<i class="doc-tip doc-api-ellipsis">(idNumber, ...)</i><span class="doc-tip doc-api-more">(idNumber:<code>string</code>, now?:<code>Date</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从 18 位身份证号提取周岁。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>idNumber<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要解析的身份证号。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>now</code>
+                                </td>
+                                <td>
+                                    <code>Date</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">当前时间。</p>
+
+                                </td>
+                                <td>
+                                    <code>new Date()</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回周岁。如果无法读取身份证号的生日信息则返回 NaN。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">getAgeFromChineseId(<span class="doc-code-string">"152500198909267865"</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从 18 位身份证号提取周岁。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/regexp/regexp-lib.html" title="常用正则表达式库" id="doc_pager_prev"><i class="doc-icon">⮜</i> 常用正则表达式库</a>
+                            <a href="../../../components/util/chineseMNO/" title="中国移动运营商" id="doc_pager_next">中国移动运营商 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/chineseId/","test":"util/chineseId/chineseId-test.ts","imports":["util/chineseId"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

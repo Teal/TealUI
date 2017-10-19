@@ -1,0 +1,18 @@
+﻿/**
+ * @author xuld
+ */
+.x-tip {
+  color: #757575;
+}
+.x-tip-info {
+  color: #31708f;
+}
+.x-tip-success {
+  color: #3c763d;
+}
+.x-tip-warning {
+  color: #9c7a3e;
+}
+.x-tip-error {
+  color: #a94442;
+}

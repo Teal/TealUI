@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="subtitle=将用到的模块及其依赖项打包成一个文件，方便项目使用">
+    <title>模块打包工具</title>
+
+    <link rel="stylesheet" type="text/css" href="../../demo/tools.css">
+    <link rel="stylesheet" type="text/css" href="assets/ui.css">
+
+    <script type="text/javascript" src="../../demo/demo.js"></script>
+    <script type="text/javascript" src="../../demo/tools.js"></script>
+    <script type="text/javascript" src="../../data/modulelist.js"></script>
+    <script type="text/javascript" src="assets/ui.js"></script>
+</head>
+<body>
+
+    <article class="demo" id="main">
+
+        <div id="container" class="demo-clear">
+
+            <section class="panel" id="step1">
+
+                <h2>选择打包方案</h2>
+
+                <a class="x-button x-button-success" href="javascript://新建一个空的打包方案" title="新建一个空的打包方案" onclick="UI.createNewBuildFile()">✚ 新建打包方案</a>
+                <a class="x-button" href="javascript://打开之前保存的配置文件" title="添加打开之前保存的配置文件" onclick="UI.openOtherBuildFile()">打开现有打包方案</a>
+
+                <div id="step1_buildfilelist">
+                </div>
+
+            </section>
+
+            <section class="panel" id="step2">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(1);"></a>打开打包方案文件</h2>
+
+                <input type="text" class="x-textbox large" placeholder="输入打包方案的路径, 使用 http:// 路径或本地文件位置。" title="如果是打开本地文件位置，则需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。" id="step2_url" />
+
+                <a onclick="UI.openBuildFileOf()" class="x-button x-button-success" href="javascript://打开">打开</a>
+                <a onclick="UI.openBuildFileOf()" class="x-button" href="javascript://打开">生成</a>
+
+                <div id="step2_buildfilelist">
+                </div>
+
+            </section>
+
+            <section class="panel" id="step3">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(1);"></a>编辑打包方案</h2>
+
+                <div class="hint">模块列表  ─────────────────────────────────────────────────</div>
+
+                <div id="step3_modulelist">
+                </div>
+
+                <div class="line line-input">
+
+                    <input type="text" placeholder="输入模块路径..." class="x-textbox module-input" id="step3_module">
+
+                    <a href="javascript://添加一个模块" class="x-button x-button-fixed x-button-success" title="添加一个模块，模块及其依赖的模块都会被合成" onclick="UI.addModule()">添加</a>
+
+                    <a href="javascript://排除一个模块" class="x-button" title="排除一个模块，确保生成的文件里不包含此模块" onclick="UI.removeModule()">排除</a>
+
+                    <a href="javascript://清空以上全部模块" class="link" id="step_clearModules" onclick="UI.clearModules();">清空列表</a>
+
+                </div>
+
+                <div class="hint">打包选项  ─────────────────────────────────────────────────</div>
+
+                <div class="line">
+
+                    <label class="short" title="基于 Uglify-Js 2 的代码压缩功能">
+                        <input type="checkbox" class="x-checkbox" id="step3_compress">压缩代码</label>
+                    <label class="short" title="勾选此项可以保留 assert 确认，它可以帮助用户在调试时快速找到出错的原因和位置">
+                        <input type="checkbox" class="x-checkbox" id="step3_addAssert">生成 debug 代码</label>
+
+                </div>
+
+                <div class="line">
+
+                    <a href="javascript://展开或折叠更多选项;" id="step3_toggleMore" onclick="UI.toggleMore()" class="link"><span class="toggle-arrow">▸</span> 展开更多选项</a>
+
+                </div>
+
+                <div id="step3_advance">
+
+                    <div class="line x-hint">以下全为非必填项。鼠标移到框内查看更多信息。</div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">配置文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_buildfile" placeholder="输入配置文件位置(相对于 ../apps/ 文件夹)" title="如果填了此内容，工具会将页面上所有的配置信息保存到对应的文件里，方便下次重新生成。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">js 文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_js" placeholder="输入.js文件位置(相对于配置文件保存位置)" title="如果填了此内容，工具会将生成的 js 代码自动保存到对应的文件里。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">css 文件保存位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_css" placeholder="输入.css文件位置(相对于配置文件保存位置)" title="如果填了此内容，工具会将生成的 css 代码自动保存到对应的文件里。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
+                        </div>
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">图片文件夹位置:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_assets" placeholder="输入文件夹位置(相对于配置文件保存位置)。末尾需加 /" title="如果填了此内容，工具会将需要的图片及其它资源复制到此文件夹内。此功能需要开启本地 xfly 服务器(运行 apps/startserver.cmd)。">
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">排除相同模块:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" class="x-textbox large" id="step3_uniqueBuildFiles" placeholder="输入配置文件位置(相对于配置文件保存位置)。多个位置用;隔开" autocomplete="off" title="如果填了此内容，对应的打包配置内已经包含的模块都将被排除。这可以确保 2 个不同的打包方案生成的文件里不包含重复的模块代码。">
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">图片基地址:</label>
+                        <div class="x-formfield-container">
+                            <input type="text" value="" class="x-textbox large" id="step3_imageRelative" placeholder="输入 URL(相对于.css文件位置)。末尾需加 /" autocomplete="off" title="如果填了此内容，在 css 中所有资源图片都会使用此地址作为基地址。如将地址设为 http://cdn.com/">
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">模块依赖语法:</label>
+                        <div class="x-formfield-container">
+                            <select class="x-textbox" id="step3_dependencySyntax">
+                                <option value="none">（不解析依赖）</option>
+                                <option value="boot">boot.js 语法: #include</option>
+                                <!--  <option value="cmd">cmd 语法: define</option>
+                                <option value="amd">amd 语法: define</option>
+                                <option value="yui">YUI 语法: YUI().use</option>
+                                <option value="kissy">kissy 语法: KISSY.use</option>  -->
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">动态解析:                 </label>
+                        <div class="x-formfield-container">
+                            <label class="short">
+                                <input type="checkbox" checked="checked" id="step3_parseMacro" class="x-checkbox">解析宏</label>
+                            预定义宏：
+                                <input type="text" placeholder="多个项之间用;隔开" value="" id="step3_defines" class="x-textbox" title="关于宏的更多信息可查看帮助">
+                            <!--<br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 less</label>
+                            优先使用： 
+                            <label>
+                                <input type="radio" class="x-radiobutton" /> .less 文件
+                            </label>
+                            <label>
+                                <input type="radio" class="x-radiobutton" />
+                                .css 文件
+                            </label>
+                            <br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 sass</label>
+                            优先使用：
+                               <label>
+                                   <input type="radio" class="x-radiobutton" />
+                                   .sass 文件
+                               </label>
+                            <label>
+                                <input type="radio" class="x-radiobutton" />
+                                .css 文件
+                                
+                            </label>
+                            <br />
+
+                            <label class="short">
+                                <input type="checkbox" checked="checked" name="macro" class="x-checkbox">解析 coffee</label>
+                            优先使用：
+                                <label>
+                                    <input type="radio" class="x-radiobutton" />
+                                    .coffee 文件
+                                </label>
+                                <label>
+                                    <input type="radio" class="x-radiobutton" />
+                            .js 文件
+                                </label>
+                            <br />-->
+
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">追加顶部注释:</label>
+                        <div class="x-formfield-container">
+                            <textarea class="x-textbox large" id="step3_prependComments" placeholder="输入 /**/ 注释内容" autocomplete="off" title="此注释会被追加到生成的文件顶部，其中 {time} 会被替换成当前时间，{modules} 会被替换成模块列表，{source} 会被替换成配置文件位置。"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="x-formfield">
+                        <label class="x-formfield-label">追加模块顶部注释:</label>
+                        <div class="x-formfield-container">
+                            <textarea class="x-textbox large" id="step3_prependModuleComments" placeholder="输入 /**/ 注释内容" autocomplete="off" title="此注释会被追加到每个模块的顶部，其中{module} 会被替换成具体的模块路径。"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="button-label">
+                    <a href="javascript:;" class="x-button x-button-success" onclick="UI.build()">打包生成</a>
+
+                    <a href="javascript:;" class="x-button" onclick="UI.preview()">查看依赖列表</a>
+
+                    <a href="javascript:;" class="x-button" onclick="UI.save()">仅保存方案</a>
+                </div>
+
+            </section>
+
+            <section class="panel" id="step4">
+
+                <h2><a href="javascript://返回上一步" class="backarrow" onclick="UI.step(3)"></a>生成代码</h2>
+
+                <div id="step4_result">
+
+                    <ul class="error" id="step4_error">
+                    </ul>
+
+                    <div id="step4_tip">正在准备生成...</div>
+
+                    <div id="step4_done">
+
+                        <div class="hint">js 文件  ─────────────────────────────────────────────────</div>
+
+                        <textarea class="x-textbox code" id="step4_js" readonly="readonly" onclick="this.select()"></textarea>
+
+                        <div class="hint">css 文件  ─────────────────────────────────────────────────</div>
+
+                        <textarea class="x-textbox code" id="step4_css" readonly="readonly" onclick="this.select()"></textarea>
+
+                        <div class="hint">图片资源列表 ───────────────────────────────────────────────</div>
+
+                        <textarea class="x-textbox code" id="step4_assets" readonly="readonly" onclick="this.select()"></textarea>
+
+                        <div class="hint">HTML 代码 ───────────────────────────────────────────────</div>
+
+                        <textarea class="x-textbox code" id="step4_html" readonly="readonly" onclick="this.select()"></textarea>
+
+                    </div>
+
+                </div>
+
+                <div id="step4_form">
+                </div>
+
+                <div class="button-label">
+                    <a href="javascript://返回重新编辑" class="x-button" onclick="UI.step(3)">返回</a>
+                </div>
+
+            </section>
+
+        </div>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+    <script type="text/javascript" src="assets/modulebuilder.js"></script>
+    <script type="text/javascript" src="../node_modules/cssmin/cssmin.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/utils.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/ast.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/parse.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/transform.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/scope.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/output.js"></script>
+    <script type="text/javascript" src="../node_modules/uglify-js/lib/compress.js"></script>
+
+</body>
+</html>

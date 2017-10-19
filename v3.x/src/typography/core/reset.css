@@ -1,0 +1,305 @@
+﻿/**
+ * @fileOverflow TealUI 3.0
+ * @copyright 2011-2015 The TealUI Team
+ * @license The Teal License
+ */
+/* #region @标签重置 */
+/* #region @<html> */
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+/* #endregion */
+/* #region @html5 标签 */
+article,
+aside,
+section,
+header,
+footer,
+nav,
+menu,
+figcaption,
+figure,
+main,
+details,
+summary {
+  display: block;
+}
+[hidden],
+template,
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+/* #endregion */
+/* #region @<svg> */
+svg:not(:root) {
+  overflow: hidden;
+}
+/* #endregion */
+/* #region @内联块级标签 */
+img,
+textarea,
+progress,
+input,
+audio,
+video,
+canvas {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: baseline;
+}
+/* #endregion */
+/* #region @<sub>, <sup> */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* #endregion */
+/* #region @<img> */
+img {
+  border: 0;
+}
+/* #endregion */
+/* #region @表单标签 */
+input,
+button,
+select,
+textarea,
+optgroup {
+  font: inherit;
+  margin: 0;
+}
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+  -moz-appearance: button;
+  -webkit-appearance: button;
+  appearance: button;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+input[type=checkbox],
+input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+  margin-top: 1px \9;
+  vertical-align: -2px;
+}
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+:-moz-placeholder {
+  color: #bdbdbd;
+}
+:-ms-input-placeholder,
+::-webkit-input-placeholder {
+  color: #bdbdbd;
+}
+/* #endregion */
+/* #endregion */
+/* #region @默认样式 */
+/* #region @<body> */
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 14px;
+  line-height: 172.02857143%;
+  color: #212121;
+  background-color: #ffffff;
+}
+/* #endregion */
+/* #region @块级标签 */
+p,
+hr,
+table,
+ul,
+ol,
+dl,
+blockquote,
+pre,
+address,
+fieldset,
+figure {
+  margin: 0 0 1em;
+}
+p:last-child,
+hr:last-child,
+table:last-child,
+ul:last-child,
+ol:last-child,
+dl:last-child,
+blockquote:last-child,
+pre:last-child,
+address:last-child,
+fieldset:last-child,
+figure:last-child {
+  margin-bottom: 0;
+}
+/* #endregion */
+/* #region @<a> */
+a {
+  background-color: transparent;
+  color: #337ab7;
+  text-decoration: none;
+}
+a:hover {
+  color: #22527b;
+  text-decoration: underline;
+}
+/* #endregion */
+/* #region @<h1>-<h6> */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 0.5em;
+  font-weight: 500;
+  line-height: 125%;
+}
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 22px;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 16px;
+}
+h5 {
+  font-size: 14px;
+}
+h6 {
+  font-size: 12px;
+}
+/* #endregion */
+/* #region @<code>, <pre>, <kbd>, <samp> */
+pre,
+code,
+kbd,
+samp {
+  font-family: Monaco, Menlo, Consolas, "Courier New", "Helvetica Neue", Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif, monospace;
+}
+pre,
+code,
+kbd {
+  border-radius: 4px;
+  font-size: 95%;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  padding: 2px 4px;
+}
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
+}
+pre {
+  padding: 7px;
+  color: inherit;
+  background-color: #f7f7f7;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* #region @<kbd> */
+kbd {
+  color: #ffffff;
+  background-color: #212121;
+}
+/* #endregion */
+/* #endregion */
+/* #region @<hr> */
+hr {
+  border-color: #e0e0e0;
+  border-width: 1px 0 0 0;
+  border-style: solid;
+  box-sizing: content-box;
+  height: 0;
+}
+/* #endregion */
+/* #region @<ul>, <ol>, <dl> */
+ul ul,
+ol ul,
+ul ol,
+ol ol {
+  margin-bottom: 0;
+}
+/* #region @<dl> */
+dt {
+  font-weight: 700;
+}
+dd ~ dt {
+  margin-top: 0.5em;
+}
+dd {
+  margin: 0;
+}
+/* #endregion */
+/* #endregion */
+/* #region @<table> */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  max-width: 100%;
+}
+th,
+td {
+  padding: 4px 10px;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+}
+/* #endregion */
+/* #region @<small> */
+small {
+  font-weight: 100;
+  font-size: 12px;
+  color: #ababab;
+}
+/* #endregion */
+/* #region @<abbr> */
+abbr[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+/* #endregion */
+/* #region @<address>, <cite>, <dfn> */
+address,
+cite,
+dfn {
+  font-style: normal;
+}
+/* #endregion */
+/* #region @<mark> */
+mark {
+  background: #ffff88;
+  color: #000;
+}
+/* #endregion */
+/* #endregion */

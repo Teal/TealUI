@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>如何添加自己的模块</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <h2 class="demo">第一步：下载项目</h2>
+
+        <p class="demo">
+            必须在本地才有权限修改文件。下载地址: <a class="demo" href="https://github.com/jplusui/jplusui/" target="_blank">https://github.com/jplusui/jplusui/</a></p>
+        <p class="demo"><img src="assets/download.png" /></p>
+
+        <h2 class="demo">第二步：启动开发服务器</h2>
+
+        <p class="demo">
+            需要启动开发服务器才能使用本库提供的开发工具。<br>
+            执行 <code class="demo">apps/startserver.cmd</code> 即可启动服务器（linux/mac 下为 <code class="demo">apps/startserver</code>）。 <a href="javascript:alert('修改 apps/demo/demo.js 和 apps/configs/server.json 内的端口号。')" class="demo">[端口冲突?]</a>  </p>
+        <p class="demo">
+            <img src="assets/cmd.png" />
+        </p>
+
+        <p class="demo">打开 <a class="demo" href="http://localhost:8021/examples/" target="_blank">http://localhost:8021/examples/</a>，即可见到模块列表。</p>
+
+        <h2 class="demo">第三步：添加模块</h2>
+
+        <p class="demo">点击模块列表页右边的 <code class="demo">✚ 创建模块</code> （注意这个按钮仅在使用 localhost 打开网站时显示），  <br>
+        	填好模块的路径（即模块存储位置）和名称（一般是中文描述，可以不写），  <br>
+        	最后点<code class="demo">添加并转到</code>。</p>
+
+        <p class="demo">
+            <img src="assets/add.png" />
+        </p>
+
+        <p class="demo">比如我填组件路径为 path/to/ctrl, 那么系统会创建如下文件：</p>
+
+        <ul class="demo">
+            <li>examples/path/to/ctrl.html</li>
+            <li>src/path/to/ctrl.js</li>
+            <li>src/path/to/ctrl.css</li>
+        </ul>
+
+        <h2 class="demo">第四步：完成模块</h2>
+
+        <p class="demo">在相应的 js/css 文件中编写模块源码。在 html 中编写模块的示例和测试代码。一个模块就可以完成了。</p>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

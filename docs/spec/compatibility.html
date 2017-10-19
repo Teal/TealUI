@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兼容性 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../assets/doc/doc.css">
+    <script src="../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../" title="Teal" id="doc_logo_image"><img src="../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li class="doc-navbar-active"><a href="../../docs" title="文档和规范">文档</a></li>
+                    <li><a href="../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找文档..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li>-</li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/edit/dev-v4/docs/spec/compatibility.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="兼容性">
+<a href="#兼容性" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>兼容性</h1>
+<p class="doc">产品在不同环境运行时都应有统一的体验。</p>
+<dl id="doc_toc">
+	<dt><a href="#浏览器分级gbsgraded-browser-support">浏览器分级（GBS，Graded Browser Support）</a></dt>
+	<dd><a href="#分级定义">分级定义</a></dd>
+	<dd><a href="#分级支持">分级支持</a></dd>
+	<dt><a href="#分级列表">分级列表</a></dt>
+	<dd><a href="#windows">Windows</a></dd>
+	<dd><a href="#macos-x">Mac(OS X)</a></dd>
+	<dd><a href="#android">Android</a></dd>
+	<dd><a href="#ios">iOS</a></dd>
+	<dd><a href="#windows-mobile">Windows Mobile</a></dd>
+	<dt><a href="#分辨率分级">分辨率分级</a></dt>
+</dl>
+<h2 id="浏览器分级gbsgraded-browser-support">
+<a href="#浏览器分级gbsgraded-browser-support" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>浏览器分级（GBS，Graded Browser Support）</h2>
+<p class="doc">通过对市面上不同浏览器和版本进行分级，来统一确定其支持程度。</p>
+<h3 id="分级定义">
+<a href="#分级定义" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>分级定义</h3>
+<p class="doc">浏览器被分为 S、A、B、C、X 五个等级：</p>
+<ul>
+<li class="doc">S：最新浏览器。每个浏览器的最新两个版本。</li>
+<li class="doc">A：主流浏览器。最近两年内发布的浏览器版本。</li>
+<li class="doc">B：常见浏览器。覆盖大部分用户的浏览器版本。</li>
+<li class="doc">C：过时浏览器。已淘汰的浏览器版本。</li>
+<li class="doc">X：未知浏览器。已知浏览器的变种。</li>
+</ul>
+<h3 id="分级支持">
+<a href="#分级支持" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>分级支持</h3>
+<p class="doc">针对不同分级的浏览器，提供不同程度的支持：</p>
+<ul>
+<li class="doc">S：完全支持。</li>
+<li class="doc">A：支持，但允许降低性能。</li>
+<li class="doc">B：支持，但允许降低用户体验。</li>
+<li class="doc">C：不支持。</li>
+<li class="doc">X：根据实际用户数决定支持程度。</li>
+</ul>
+<blockquote class="doc doc-blockquote">
+<p class="doc">另参考：<a href="https://github.com/yui/yui3/wiki/Graded-Browser-Support" target="_blank" class="doc-external">Graded Browser Support</a></p>
+</blockquote>
+<h2 id="分级列表">
+<a href="#分级列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>分级列表</h2>
+<p class="doc">参考分级定义和浏览器对 HTML5 的支持程度，实际项目中对各浏览器分级如下：</p>
+<h3 id="windows">
+<a href="#windows" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Windows</h3>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>S 级</th>
+<th>A 级</th>
+<th>B 级</th>
+<th>C 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IE</td>
+<td></td>
+<td>10+</td>
+<td>8+</td>
+<td>6+</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>14+</td>
+<td>13+</td>
+<td>12+</td>
+<td></td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>60+</td>
+<td>23+</td>
+<td>11+</td>
+<td>1+</td>
+</tr>
+<tr>
+<td>FireFox</td>
+<td>55+</td>
+<td>21+</td>
+<td>4+</td>
+<td>3+</td>
+</tr>
+<tr>
+<td>Safari</td>
+<td></td>
+<td></td>
+<td>10+</td>
+<td>5+</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td></td>
+<td></td>
+<td>42+</td>
+<td>10.1+</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="macos-x">
+<a href="#macos-x" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Mac(OS X)</h3>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>S 级</th>
+<th>A 级</th>
+<th>B 级</th>
+<th>C 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Safari</td>
+<td>10+</td>
+<td>8+</td>
+<td>6.1+</td>
+<td>3.1+</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>60+</td>
+<td>23+</td>
+<td>4+</td>
+<td>2+</td>
+</tr>
+<tr>
+<td>FireFox</td>
+<td>55+</td>
+<td>21+</td>
+<td>4+</td>
+<td>3+</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td></td>
+<td></td>
+<td>42+</td>
+<td>10.1+</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="android">
+<a href="#android" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Android</h3>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>S 级</th>
+<th>A 级</th>
+<th>B 级</th>
+<th>C 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stock</td>
+<td>4.4+</td>
+<td>4+</td>
+<td>2.1+</td>
+<td>2+</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>60+</td>
+<td>23+</td>
+<td>4+</td>
+<td>2+</td>
+</tr>
+<tr>
+<td>FireFox</td>
+<td></td>
+<td></td>
+<td>50+</td>
+<td>8+</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td></td>
+<td></td>
+<td>12+</td>
+<td>10.1+</td>
+</tr>
+<tr>
+<td>Opera Mini</td>
+<td></td>
+<td></td>
+<td>8+</td>
+<td>7+</td>
+</tr>
+<tr>
+<td>UC</td>
+<td>11+</td>
+<td>10+</td>
+<td>8+</td>
+<td>6+</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="ios">
+<a href="#ios" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>iOS</h3>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>S 级</th>
+<th>A 级</th>
+<th>B 级</th>
+<th>C 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Safari</td>
+<td>10+</td>
+<td>7+</td>
+<td>6+</td>
+<td>3+</td>
+</tr>
+<tr>
+<td>Chrome</td>
+<td>60+</td>
+<td>23+</td>
+<td>4+</td>
+<td>2+</td>
+</tr>
+<tr>
+<td>FireFox</td>
+<td></td>
+<td></td>
+<td>50+</td>
+<td>8+</td>
+</tr>
+<tr>
+<td>Opera</td>
+<td></td>
+<td></td>
+<td>12+</td>
+<td>10.1+</td>
+</tr>
+<tr>
+<td>Opera Mini</td>
+<td></td>
+<td></td>
+<td>8+</td>
+<td>7+</td>
+</tr>
+<tr>
+<td>UC</td>
+<td></td>
+<td></td>
+<td>11+</td>
+<td>10+</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="windows-mobile">
+<a href="#windows-mobile" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Windows Mobile</h3>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>S 级</th>
+<th>A 级</th>
+<th>B 级</th>
+<th>C 级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IE</td>
+<td></td>
+<td>11+</td>
+<td>10+</td>
+<td>9+</td>
+</tr>
+</tbody>
+</table>
+</div><p class="doc">其它未在以上表格出现的浏览器版本，包括国产浏览器（如 360浏览器、QQ浏览器、百度浏览器等）统一定为 X 级。</p>
+<p class="doc">根据以上分级，A 级浏览器将完全支持 HTML5、CSS 3 和 ECMAScript 5。</p>
+<blockquote class="doc doc-blockquote">
+<p class="doc">另参考：</p>
+<ul>
+<li class="doc"><a href="http://www.netmarketshare.com/" target="_blank" class="doc-external">浏览器份额统计</a></li>
+<li class="doc"><a href="http://caniuse.com/usage-table" target="_blank" class="doc-external">浏览器市场占比</a></li>
+<li class="doc"><a href="https://en.wikipedia.org/wiki/Timeline_of_web_browsers" target="_blank" class="doc-external">浏览器发布历史</a></li>
+<li class="doc"><a href="https://browsershots.org/" target="_blank" class="doc-external">兼容性测试工具</a></li>
+</ul>
+</blockquote>
+<h2 id="分辨率分级">
+<a href="#分辨率分级" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>分辨率分级</h2>
+<p class="doc">通过对市面上不同分辨率进行分级，来统一确定其布局方式。</p>
+<div class="doc doc-scrollable"><table>
+<thead>
+<tr>
+<th>分级</th>
+<th>描述</th>
+<th>分辨率宽度</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>larger</td>
+<td>高清屏</td>
+<td>≥ 1920</td>
+<td>高清显示器、电视</td>
+</tr>
+<tr>
+<td>large</td>
+<td>大屏</td>
+<td>≥ 1025</td>
+<td>笔记本电脑</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>中屏</td>
+<td>≥ 641</td>
+<td>平板电脑</td>
+</tr>
+<tr>
+<td>small</td>
+<td>小屏</td>
+<td>≤ 640</td>
+<td>手机</td>
+</tr>
+<tr>
+<td>smaller</td>
+<td>微屏</td>
+<td>≤ 320</td>
+<td>手表</td>
+</tr>
+</tbody>
+</table>
+</div><p class="doc">项目中为了节约设计资源，一般只区分小屏设备（手机）和大屏设备（平板、电脑）。</p>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../docs/tutorial/redevelopment.html" title="二次开发" id="doc_pager_prev"><i class="doc-icon">⮜</i> 二次开发</a>
+                            <a href="../../docs/spec/component.html" title="组件规范" id="doc_pager_next">组件规范 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../..","dir":"docs","active":"spec/compatibility.html","imports":[]})
+    </script>
+    <script src="../../docs/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

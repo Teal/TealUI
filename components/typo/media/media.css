@@ -1,0 +1,33 @@
+.x-media {
+  display: table;
+}
+
+.x-media-header, .x-media-body {
+  display: table-cell;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  vertical-align: top;
+}
+
+.x-media-header img {
+  margin-top: 0.4rem;
+  max-width: none;
+}
+
+.x-media-header:first-child {
+  padding-right: 1rem;
+}
+
+.x-media-header:last-child {
+  padding-left: 1rem;
+}
+
+.x-media-body {
+  width: 100%;
+}
+
+.x-media-body > h1, .x-media-body > h2, .x-media-body > h3, .x-media-body > h4, .x-media-body > h5, .x-media-body > h6 {
+  margin: 0;
+}
+
+/*# sourceMappingURL=media.css.map */

@@ -1,0 +1,44 @@
+.x-picker {
+  position: relative;
+  display: inline-block;
+  line-height: 18px !important;
+  *margin-left: .3em;
+}
+.x-picker:first-child {
+  *margin-left: 0;
+}
+.x-picker button {
+  padding-left: 4px;
+  padding-right: 8px;
+  margin-left: 0;
+  *padding: 3px 6px 3px 2px;
+  position: absolute;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
+  right: 0;
+  top: 0;
+  _padding-bottom: 1px;
+  _margin-right: -1px;
+}
+.x-picker button .x-icon {
+  margin-left: 2px;
+  margin-right: -2px;
+}
+.x-picker input {
+  padding-right: 30px;
+  *position: relative;
+  *top: -1px;
+}
+.x-picker input:focus ~ button {
+  border-color: rgba(82, 168, 236, 0.8);
+}
+.x-picker a {
+  cursor: default!important;
+  text-align: left;
+  height: 18px;
+  display: inline-block;
+  padding-right: 35px;
+  /* IE6-9 */
+
+}

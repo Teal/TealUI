@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>图标</title>
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供各类小图标。">
+
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+</head>
+<body>
+    <h2>基本用法</h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" data-doc />
+    <p>创建一个独立的 <code>&lt;span class="x-icon"&gt;</code> 标签来表示图标，标签内部字符决定了图标的内容。</p>
+    <aside class="doc-demo">
+        <span class="x-icon">&#9733;</span> 你好　　
+        <a href="###"><span class="x-icon">&#9733;</span>你好</a>
+    </aside>
+    <blockquote class="doc-note">
+        <h4>注意</h4>
+        <ol>
+            <li>不要在已有的标签直接添加 <code>.x-icon</code> 来显示图标。</li>
+            <li>使用图标时应在图标后追加一个空格以保证美观。</li>
+            <li>链接内图标不需要追加空格，因为其已包含了 <code>0.32em</code> 右边距，这可以避免图标右边空格出现下划线影响视觉效果。</li>
+        </ol>
+    </blockquote>
+
+    <h2>通过 <code>class</code> 指定图标</h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/iconEx.css" data-doc />
+    <p>部分用户习惯使用 <code>class</code> 来指定图标，所以 TealUI 也提供了额外的 <code>iconEx.css</code>。但我们不建议用户使用它，因为这会大幅增加最终的 CSS 代码量。</p>
+    <aside class="doc-demo">
+        <span class="x-icon x-icon-star"></span> 你好　
+        <a href="###"><span class="x-icon x-icon-star"></span>你好</a>　
+    </aside>
+
+    <h2>旋转图标</h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/spin.css" />
+    <p>结合 <a href="spin.html">旋转效果(spin)</a> 组件，可以完成加载中的效果。</p>
+    <aside class="doc-demo">
+        <span class="x-icon x-spin">&#1161;</span> 正在加载...　　
+        <span class="x-icon x-spin">&#8634;</span> 正在刷新...
+    </aside>
+
+    <h2>所有图标</h2>
+    <p>图标的内容由内部文字决定，更换 <code>&lt;span&gt;</code> 里面的字符可以切换图标的内容。一些特殊字符可以使用 HTML 转义码（如<code>&amp;#9733;</code>）表示。</p>
+    <style>
+        td[align="center"] {
+            text-align: center!important;
+        }
+    </style>
+    <script>
+
+        var html = '<table>', odd = true;
+
+        function appendLine(iconChar, iconName) {
+            if (odd) {
+                html += '<tr>';
+            }
+            html += '<td align="center"><span class="x-icon">' + iconChar + '</span></td>';
+            html += '<td align="center"><code>' + iconChar + '</code></td>';
+            html += '<td><code>&amp;#' + iconChar.charCodeAt(0) + ';</code></td>';
+            html += '<td><code>' + iconName + '</code></td>';
+            if (!odd) {
+                html += '</tr>';
+            }
+            odd = !odd;
+        }
+
+        try {
+
+            html += '<tr><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th><th align="center">图标</th><th align="center">字符</th><th>字符编码</th><th>类名(<code>x-icon-*</code>)</th></tr>';
+
+            for (var span = 0; span < document.styleSheets.length; span++) {
+                if (/iconex/i.test(document.styleSheets[span].href)) {
+                    var iconex = document.styleSheets[span];
+                    for (var j = 0; j < iconex.cssRules.length; j++) {
+                        iconex.cssRules[j].cssText.replace(/\.x-icon-(\w+):+before\s*\{\n?\s*content:\s*['"]\\?(.+)['"]\s*;\s*\}/g, function (all, name, unicode) {
+                            appendLine(unicode, name);
+                        });
+                    }
+                }
+            }
+
+            if (!odd) {
+                html += '<td></td><td></td><td></td><td></td></tr>';
+            }
+
+            html += '</table>';
+
+        } catch (e) {
+            html = '<blockquote class="doc-note">由于安全限制，目前无法列出所有可用图标，请改用 http 协议打开本页面。</blockquote>';
+        }
+
+        document.write(html);
+    </script>
+
+    <blockquote>所有图标由 <a target="_blank" href="http://icomoon.io/app/">IcoMoon</a> 提供。在其官方应用导入 <a target="_blank" href="icomoon_TealUI.json">icomoon_TealUI.json</a> 配置文件，可继续自定义图标。</blockquote>
+    
+    <h2>经典图标 <small>(兼容IE6)</small></h2>
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon-glyph.css" />
+    <p>除了使用字体图标，还可使用经典的图片图标效果。图标由 <a target="_blank" href="http://glyphicons.com">Glyphicons</a> 提供。</p>
+    <style>
+        #list li {
+            width: 213px;
+            float: left;
+            list-style: none;
+            line-height: 24px;
+        }
+
+        #list i {
+            margin-right: 4px;
+        }
+    </style>
+    <aside class="doc-demo">
+        <i class="x-icon-glyph x-icon-glyph-glass"></i>文字
+        <i class="x-icon-glyph x-icon-glyph-white x-icon-glyph-glass"></i>文字
+    </aside>
+    <ul id="list" class="doc-clear">
+        <li><i class="x-icon-glyph x-icon-glyph-glass"></i>x-icon-glyph-glass</li>
+        <li><i class="x-icon-glyph x-icon-glyph-music"></i>x-icon-glyph-music</li>
+        <li><i class="x-icon-glyph x-icon-glyph-search"></i>x-icon-glyph-search</li>
+        <li><i class="x-icon-glyph x-icon-glyph-envelope"></i>x-icon-glyph-envelope</li>
+        <li><i class="x-icon-glyph x-icon-glyph-heart"></i>x-icon-glyph-heart</li>
+        <li><i class="x-icon-glyph x-icon-glyph-star"></i>x-icon-glyph-star</li>
+        <li><i class="x-icon-glyph x-icon-glyph-star-empty"></i>x-icon-glyph-star-empty</li>
+        <li><i class="x-icon-glyph x-icon-glyph-user"></i>x-icon-glyph-user</li>
+        <li><i class="x-icon-glyph x-icon-glyph-film"></i>x-icon-glyph-film</li>
+        <li><i class="x-icon-glyph x-icon-glyph-th-large"></i>x-icon-glyph-th-large</li>
+        <li><i class="x-icon-glyph x-icon-glyph-th"></i>x-icon-glyph-th</li>
+        <li><i class="x-icon-glyph x-icon-glyph-th-list"></i>x-icon-glyph-th-list</li>
+        <li><i class="x-icon-glyph x-icon-glyph-ok"></i>x-icon-glyph-ok</li>
+        <li><i class="x-icon-glyph x-icon-glyph-remove"></i>x-icon-glyph-remove</li>
+        <li><i class="x-icon-glyph x-icon-glyph-zoom-in"></i>x-icon-glyph-zoom-in</li>
+        <li><i class="x-icon-glyph x-icon-glyph-zoom-out"></i>x-icon-glyph-zoom-out</li>
+        <li><i class="x-icon-glyph x-icon-glyph-off"></i>x-icon-glyph-off</li>
+        <li><i class="x-icon-glyph x-icon-glyph-signal"></i>x-icon-glyph-signal</li>
+        <li><i class="x-icon-glyph x-icon-glyph-cog"></i>x-icon-glyph-cog</li>
+        <li><i class="x-icon-glyph x-icon-glyph-trash"></i>x-icon-glyph-trash</li>
+        <li><i class="x-icon-glyph x-icon-glyph-home"></i>x-icon-glyph-home</li>
+        <li><i class="x-icon-glyph x-icon-glyph-file"></i>x-icon-glyph-file</li>
+        <li><i class="x-icon-glyph x-icon-glyph-time"></i>x-icon-glyph-time</li>
+        <li><i class="x-icon-glyph x-icon-glyph-road"></i>x-icon-glyph-road</li>
+        <li><i class="x-icon-glyph x-icon-glyph-download-alt"></i>x-icon-glyph-download-alt</li>
+        <li><i class="x-icon-glyph x-icon-glyph-download"></i>x-icon-glyph-download</li>
+        <li><i class="x-icon-glyph x-icon-glyph-upload"></i>x-icon-glyph-upload</li>
+        <li><i class="x-icon-glyph x-icon-glyph-inbox"></i>x-icon-glyph-inbox</li>
+        <li><i class="x-icon-glyph x-icon-glyph-play-circle"></i>x-icon-glyph-play-circle</li>
+        <li><i class="x-icon-glyph x-icon-glyph-repeat"></i>x-icon-glyph-repeat</li>
+        <li><i class="x-icon-glyph x-icon-glyph-refresh"></i>x-icon-glyph-refresh</li>
+        <li><i class="x-icon-glyph x-icon-glyph-list-alt"></i>x-icon-glyph-list-alt</li>
+        <li><i class="x-icon-glyph x-icon-glyph-lock"></i>x-icon-glyph-lock</li>
+        <li><i class="x-icon-glyph x-icon-glyph-flag"></i>x-icon-glyph-flag</li>
+        <li><i class="x-icon-glyph x-icon-glyph-headphones"></i>x-icon-glyph-headphones</li>
+        <li><i class="x-icon-glyph x-icon-glyph-volume-off"></i>x-icon-glyph-volume-off</li>
+        <li><i class="x-icon-glyph x-icon-glyph-volume-down"></i>x-icon-glyph-volume-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-volume-up"></i>x-icon-glyph-volume-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-qrcode"></i>x-icon-glyph-qrcode</li>
+        <li><i class="x-icon-glyph x-icon-glyph-barcode"></i>x-icon-glyph-barcode</li>
+        <li><i class="x-icon-glyph x-icon-glyph-tag"></i>x-icon-glyph-tag</li>
+        <li><i class="x-icon-glyph x-icon-glyph-tags"></i>x-icon-glyph-tags</li>
+        <li><i class="x-icon-glyph x-icon-glyph-book"></i>x-icon-glyph-book</li>
+        <li><i class="x-icon-glyph x-icon-glyph-bookmark"></i>x-icon-glyph-bookmark</li>
+        <li><i class="x-icon-glyph x-icon-glyph-print"></i>x-icon-glyph-print</li>
+        <li><i class="x-icon-glyph x-icon-glyph-camera"></i>x-icon-glyph-camera</li>
+        <li><i class="x-icon-glyph x-icon-glyph-font"></i>x-icon-glyph-font</li>
+        <li><i class="x-icon-glyph x-icon-glyph-bold"></i>x-icon-glyph-bold</li>
+        <li><i class="x-icon-glyph x-icon-glyph-italic"></i>x-icon-glyph-italic</li>
+        <li><i class="x-icon-glyph x-icon-glyph-text-height"></i>x-icon-glyph-text-height</li>
+        <li><i class="x-icon-glyph x-icon-glyph-text-width"></i>x-icon-glyph-text-width</li>
+        <li><i class="x-icon-glyph x-icon-glyph-align-left"></i>x-icon-glyph-align-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-align-center"></i>x-icon-glyph-align-center</li>
+        <li><i class="x-icon-glyph x-icon-glyph-align-right"></i>x-icon-glyph-align-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-align-block"></i>x-icon-glyph-align-block</li>
+        <li><i class="x-icon-glyph x-icon-glyph-list"></i>x-icon-glyph-list</li>
+        <li><i class="x-icon-glyph x-icon-glyph-indent-left"></i>x-icon-glyph-indent-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-indent-right"></i>x-icon-glyph-indent-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-facetime-video"></i>x-icon-glyph-facetime-video</li>
+        <li><i class="x-icon-glyph x-icon-glyph-picture"></i>x-icon-glyph-picture</li>
+        <li><i class="x-icon-glyph x-icon-glyph-pencil"></i>x-icon-glyph-pencil</li>
+        <li><i class="x-icon-glyph x-icon-glyph-map-marker"></i>x-icon-glyph-map-marker</li>
+        <li><i class="x-icon-glyph x-icon-glyph-adjust"></i>x-icon-glyph-adjust</li>
+        <li><i class="x-icon-glyph x-icon-glyph-tint"></i>x-icon-glyph-tint</li>
+        <li><i class="x-icon-glyph x-icon-glyph-edit"></i>x-icon-glyph-edit</li>
+        <li><i class="x-icon-glyph x-icon-glyph-share"></i>x-icon-glyph-share</li>
+        <li><i class="x-icon-glyph x-icon-glyph-check"></i>x-icon-glyph-check</li>
+        <li><i class="x-icon-glyph x-icon-glyph-move"></i>x-icon-glyph-move</li>
+        <li><i class="x-icon-glyph x-icon-glyph-step-backward"></i>x-icon-glyph-step-backward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-fast-backward"></i>x-icon-glyph-fast-backward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-backward"></i>x-icon-glyph-backward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-play"></i>x-icon-glyph-play</li>
+        <li><i class="x-icon-glyph x-icon-glyph-pause"></i>x-icon-glyph-pause</li>
+        <li><i class="x-icon-glyph x-icon-glyph-stop"></i>x-icon-glyph-stop</li>
+        <li><i class="x-icon-glyph x-icon-glyph-forward"></i>x-icon-glyph-forward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-fast-forward"></i>x-icon-glyph-fast-forward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-step-forward"></i>x-icon-glyph-step-forward</li>
+        <li><i class="x-icon-glyph x-icon-glyph-eject"></i>x-icon-glyph-eject</li>
+        <li><i class="x-icon-glyph x-icon-glyph-chevron-left"></i>x-icon-glyph-chevron-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-chevron-right"></i>x-icon-glyph-chevron-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-plus-sign"></i>x-icon-glyph-plus-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-minus-sign"></i>x-icon-glyph-minus-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-remove-sign"></i>x-icon-glyph-remove-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-ok-sign"></i>x-icon-glyph-ok-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-question-sign"></i>x-icon-glyph-question-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-info-sign"></i>x-icon-glyph-info-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-screenshot"></i>x-icon-glyph-screenshot</li>
+        <li><i class="x-icon-glyph x-icon-glyph-remove-circle"></i>x-icon-glyph-remove-circle</li>
+        <li><i class="x-icon-glyph x-icon-glyph-ok-circle"></i>x-icon-glyph-ok-circle</li>
+        <li><i class="x-icon-glyph x-icon-glyph-ban-circle"></i>x-icon-glyph-ban-circle</li>
+        <li><i class="x-icon-glyph x-icon-glyph-arrow-left"></i>x-icon-glyph-arrow-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-arrow-right"></i>x-icon-glyph-arrow-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-arrow-up"></i>x-icon-glyph-arrow-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-arrow-down"></i>x-icon-glyph-arrow-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-share-alt"></i>x-icon-glyph-share-alt</li>
+        <li><i class="x-icon-glyph x-icon-glyph-resize-full"></i>x-icon-glyph-resize-full</li>
+        <li><i class="x-icon-glyph x-icon-glyph-resize-small"></i>x-icon-glyph-resize-small</li>
+        <li><i class="x-icon-glyph x-icon-glyph-plus"></i>x-icon-glyph-plus</li>
+        <li><i class="x-icon-glyph x-icon-glyph-minus"></i>x-icon-glyph-minus</li>
+        <li><i class="x-icon-glyph x-icon-glyph-asterisk"></i>x-icon-glyph-asterisk</li>
+        <li><i class="x-icon-glyph x-icon-glyph-exclamation-sign"></i>x-icon-glyph-exclamation-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-gift"></i>x-icon-glyph-gift</li>
+        <li><i class="x-icon-glyph x-icon-glyph-leaf"></i>x-icon-glyph-leaf</li>
+        <li><i class="x-icon-glyph x-icon-glyph-fire"></i>x-icon-glyph-fire</li>
+        <li><i class="x-icon-glyph x-icon-glyph-eye-open"></i>x-icon-glyph-eye-open</li>
+        <li><i class="x-icon-glyph x-icon-glyph-eye-close"></i>x-icon-glyph-eye-close</li>
+        <li><i class="x-icon-glyph x-icon-glyph-warning-sign"></i>x-icon-glyph-warning-sign</li>
+        <li><i class="x-icon-glyph x-icon-glyph-plane"></i>x-icon-glyph-plane</li>
+        <li><i class="x-icon-glyph x-icon-glyph-calendar"></i>x-icon-glyph-calendar</li>
+        <li><i class="x-icon-glyph x-icon-glyph-random"></i>x-icon-glyph-random</li>
+        <li><i class="x-icon-glyph x-icon-glyph-comment"></i>x-icon-glyph-comment</li>
+        <li><i class="x-icon-glyph x-icon-glyph-magnet"></i>x-icon-glyph-magnet</li>
+        <li><i class="x-icon-glyph x-icon-glyph-chevron-up"></i>x-icon-glyph-chevron-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-chevron-down"></i>x-icon-glyph-chevron-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-retweet"></i>x-icon-glyph-retweet</li>
+        <li><i class="x-icon-glyph x-icon-glyph-shopping-cart"></i>x-icon-glyph-shopping-cart</li>
+        <li><i class="x-icon-glyph x-icon-glyph-folder-close"></i>x-icon-glyph-folder-close</li>
+        <li><i class="x-icon-glyph x-icon-glyph-folder-open"></i>x-icon-glyph-folder-open</li>
+        <li><i class="x-icon-glyph x-icon-glyph-resize-vertical"></i>x-icon-glyph-resize-vertical</li>
+        <li><i class="x-icon-glyph x-icon-glyph-resize-horizontal"></i>x-icon-glyph-resize-horizontal</li>
+        <li><i class="x-icon-glyph x-icon-glyph-hdd"></i>x-icon-glyph-hdd</li>
+        <li><i class="x-icon-glyph x-icon-glyph-bullhorn"></i>x-icon-glyph-bullhorn</li>
+        <li><i class="x-icon-glyph x-icon-glyph-bell"></i>x-icon-glyph-bell</li>
+        <li><i class="x-icon-glyph x-icon-glyph-certificate"></i>x-icon-glyph-certificate</li>
+        <li><i class="x-icon-glyph x-icon-glyph-thumbs-up"></i>x-icon-glyph-thumbs-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-thumbs-down"></i>x-icon-glyph-thumbs-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-hand-right"></i>x-icon-glyph-hand-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-hand-left"></i>x-icon-glyph-hand-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-hand-up"></i>x-icon-glyph-hand-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-hand-down"></i>x-icon-glyph-hand-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-circle-arrow-right"></i>x-icon-glyph-circle-arrow-right</li>
+        <li><i class="x-icon-glyph x-icon-glyph-circle-arrow-left"></i>x-icon-glyph-circle-arrow-left</li>
+        <li><i class="x-icon-glyph x-icon-glyph-circle-arrow-up"></i>x-icon-glyph-circle-arrow-up</li>
+        <li><i class="x-icon-glyph x-icon-glyph-circle-arrow-down"></i>x-icon-glyph-circle-arrow-down</li>
+        <li><i class="x-icon-glyph x-icon-glyph-globe"></i>x-icon-glyph-globe</li>
+        <li><i class="x-icon-glyph x-icon-glyph-wrench"></i>x-icon-glyph-wrench</li>
+        <li><i class="x-icon-glyph x-icon-glyph-tasks"></i>x-icon-glyph-tasks</li>
+        <li><i class="x-icon-glyph x-icon-glyph-filter"></i>x-icon-glyph-filter</li>
+        <li><i class="x-icon-glyph x-icon-glyph-briefcase"></i>x-icon-glyph-briefcase</li>
+        <li><i class="x-icon-glyph x-icon-glyph-fullscreen"></i>x-icon-glyph-fullscreen</li>
+    </ul>
+</body>
+</html>

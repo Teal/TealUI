@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>组件名</title>
+    <link href="assets/demo.less" rel="stylesheet/less" type="text/css">
+    <script src="../../demo/less.js" type="text/javascript"></script>
+
+    <script>
+        document.createElement('header');
+        document.createElement('nav');
+        document.createElement('menu');
+        document.createElement('article');
+        document.createElement('section');
+        document.createElement('footer');
+        document.createElement('aside');
+    </script>
+    <style>
+        #demo-toolbar-tool {
+            top: 90px!important;
+        }
+
+        #demo-toolbar-doc {
+            top: 140px!important;
+        }
+
+        #demo-toolbar-controlstate {
+            top: 170px!important;
+        }
+
+        #demo-toolbar-goto {
+            top: 500px!important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 自动生成的头部 -->
+    <header class="demo">
+
+        <!-- 工具栏 -->
+        <div id="demo-toolbar">
+
+            <nav class="demo-toolbar">
+                <a href="#">已完成</a> | <a href="#">文档 ▾</a> | <a href="#">工具 ▾</a> | <a href="#">转到 ▾</a> | <a href="#">返回列表</a>
+            </nav>
+
+            <div id="demo-toolbar-tool" class="demo-toolbar-dropdown demo-toolbar-dropdown-menu demo-toolbar-dropdown-menu-usehover" style="right: 74px;">
+                <a href="#">工具</a>
+                <a href="#" style="border-top: 1px solid #EBEBEB;">显示/隐藏源码</a>
+                <a href="#">切换源码折叠</a>
+                <a href="#">切换全屏模式</a>
+            </div>
+
+            <div id="demo-toolbar-doc" class="demo-toolbar-dropdown demo-toolbar-dropdown-menu demo-toolbar-dropdown-menu-usehover" style="right: 100px;">
+                <a href="#">文档</a>
+            </div>
+
+            <div id="demo-toolbar-controlstate" class="demo-toolbar-dropdown" style="padding: 5px;">
+                <style>
+                    #demo-toolbar-controlstate input {
+                        vertical-align: -2px;
+                    }
+                </style>
+                <form style="*margin-bottom: 0">
+
+                    <fieldset>
+                        <legend>进度</legend>
+
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />已完成</label>
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />完美版</label>
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />凑合版</label><br />
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />计划中</label>
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />开发中</label>
+                        <label>
+                            <input type="radio" name="demo-controlstate-status" />已放弃</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>兼容</legend>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />IE6</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />IE7</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />IE8</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />IE9</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />IE10</label><br />
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />FireFox</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />Chrome</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />Safari</label>
+                        <label>
+                            <input type="checkbox" name="demo-controlstate-compact" />Opera</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>属性</legend>
+                        名字：
+                        <input type="text" class="demo-toolbar-dropdown-input" />
+
+                        <br />
+                        <label>
+                            <input type="checkbox" />
+                            不在列表显示
+                        </label>
+                        <label>
+                            <input type="checkbox" />
+                            仅用于演示
+                        </label>
+                    </fieldset>
+
+                    <input type="submit" value="保存修改" class="demo-right" />
+                    <a href="#">删除组件</a>
+
+                </form>
+            </div>
+
+            <div id="demo-toolbar-goto" class="demo-toolbar-dropdown" style="width: 300px;">
+                <input type="text" placeholder="输入组件名..." onfocus="this.select()" style="width: 290px; padding: 5px; border: 0; border-bottom: 1px solid #9B9B9B;">
+                <div style="_height: 300px; _width: 300px; word-break: break-all; max-height: 300px; overflow: auto;" class="demo-toolbar-dropdown-menu">
+                    <a href="#" onmouseover="Demo.System.gotoSetListHover(this)" class="">ui/dom/base<small style="color: #999"> - DOM底层</small></a>
+                    <a href="#" onmouseover="Demo.System.gotoSetListHover(this)" class="demo-toolbar-dropdown-menu-hover">ui/dom/monthcanlender<small style="color: #999"> - 日历</small></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 标题 -->
+        <h1 class="demo">组件名<small>ui/container/dialog</small></h1>
+    </header>
+
+    <!-- 主体 -->
+    <article class="demo">
+
+        <blockquote class="demo demo-info">
+            这个组件主要功能是什么什么。
+        </blockquote>
+
+        <h2 class="demo">组件示例</h2>
+
+        <h3 class="demo">最简单的创建方式</h3>
+
+        <aside class="demo">
+            <textarea class="x-textbox"></textarea>
+        </aside>
+
+        <pre class="sh sh-htm"><code class="sh-code sh-htm"><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-header"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;h2&gt;</span><span class="sh-plain">
+			header
+		</span><span class="sh-tag">&lt;/h2&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-body"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-content"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+			body
+		</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+</span><span class="sh-tag">&lt;/div&gt;</span></code></pre>
+
+        <h3 class="demo">完整的创建方式</h3>
+
+        <aside class="demo">
+            <textarea class="x-textbox"></textarea>
+        </aside>
+
+        <pre class="sh sh-htm"><code class="sh-code sh-htm"><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-header"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;h2&gt;</span><span class="sh-plain">
+			header
+		</span><span class="sh-tag">&lt;/h2&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-body"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-content"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+			body
+		</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+</span><span class="sh-tag">&lt;/div&gt;</span></code></pre>
+
+        <aside class="demo">
+            <textarea class="x-textbox"></textarea>
+        </aside>
+
+        <pre class="sh sh-htm"><code class="sh-code sh-htm"><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-header"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;h2&gt;</span><span class="sh-plain">
+			header
+		</span><span class="sh-tag">&lt;/h2&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-body"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+		</span><span class="sh-tag">&lt;div</span><span class="sh-plain"> </span><span class="sh-attrname">class</span><span class="sh-punctuation">=</span><span class="sh-attrvalue">"x-control-content"</span><span class="sh-tag">&gt;</span><span class="sh-plain">
+			body
+		</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+	</span><span class="sh-tag">&lt;/div&gt;</span><span class="sh-plain">
+</span><span class="sh-tag">&lt;/div&gt;</span></code></pre>
+
+    </article>
+
+    <!-- 主体 -->
+    <article class="demo">
+
+        <h2 class="demo">相关教程</h2>
+
+        <h3 class="demo">最简单的方法</h3>
+
+        <p class="demo">我是相关的文字教程。</p>
+
+        <h3 class="demo">最简单的方法</h3>
+
+        <p class="demo">我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。我是相关的文字教程。</p>
+
+        <ul class="demo">
+            <li>第</li>
+            <li>第</li>
+            <li>第</li>
+        </ul>
+
+        <ol class="demo">
+            <li>第</li>
+            <li>第</li>
+            <li>第</li>
+        </ol>
+
+        <dl class="demo">
+            <dt>标题</dt>
+            <dd>说明</dd>
+            <dd>说明</dd>
+            <dt>标题2</dt>
+            <dd>说明2</dd>
+            <dd>说明2</dd>
+        </dl>
+
+        <h3 class="demo">最简单的方法</h3>
+
+        <table class="demo">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>名称</th>
+                    <th>说明</th>
+                    <th>继承</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>啊啊啊 </td>
+                    <td>
+                        <p>System 安装的根目录, 可以为相对目录。</p>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="demo">小标题</h4>
+
+        <p class="demo">我是相关的文字教程。</p>
+
+        <hr class="demo" />
+
+        <h5 class="demo">小标题</h5>
+
+        <div class="demo">我是相关的文字教程。</div>
+
+        <span class="demo">普通文字 <code class="demo">代码</code></span>
+
+        <h6 class="demo">小标题</h6>
+
+        <div class="demo">我是相关的文字教程。</div>
+
+        <blockquote class="demo">注意：必须</blockquote>
+
+    </article>
+
+    <!-- 主体 -->
+    <article class="demo">
+
+        <h2 class="demo">演示用的工具</h2>
+
+        <h3 class="demo">常用开发样式</h3>
+
+        <dl class="demo">
+            <dt>位置</dt>
+            <dd><code class="demo">demo-left</code>: 左浮动</dd>
+            <dd><code class="demo">demo-center</code>: 居中</dd>
+            <dd><code class="demo">demo-right</code>: 右浮动</dd>
+            <dd><code class="demo">demo-clear</code>: 清除浮动</dd>
+            <dt>显示</dt>
+            <dd><code class="demo">demo-inline</code>: 内联</dd>
+            <dd><code class="demo">demo-block</code>: 块</dd>
+            <dd><code class="demo">demo-inline-block</code>: 内联块</dd>
+            <dd><code class="demo">demo-hide</code>: 隐藏元素（display:none)</dd>
+            <dt>定位</dt>
+            <dd><code class="demo">demo-relative</code>: 相对定位</dd>
+            <dd><code class="demo">demo-absolute</code>: 绝对定位</dd>
+            <dd><code class="demo">demo-fixed</code>: 固定定位</dd>
+            <dt>颜色</dt>
+            <dd><code class="demo">demo-red</code>: <span class="demo-red">红色</span></dd>
+            <dd><code class="demo">demo-yellow</code>: <span class="demo-yellow">黄色</span></dd>
+            <dd><code class="demo">demo-green</code>: <span class="demo-green">绿色</span></dd>
+            <dd><code class="demo">demo-blue</code>: <span class="demo-blue">蓝色</span></dd>
+            <dt>杂项</dt>
+            <dd><code class="demo">demo-plain</code>: 重置 margin=0, padding=0</dd>
+            <dd><code class="demo">demo-row</code>: margin-bottom=10px</dd>
+            <dt>盒子模型</dt>
+            <dd>
+                <div title="demo-container" class="demo-container">
+                    <div title="demo-area" class="demo-area">demo-area 区域</div>
+                    <div title="demo-box-small" class="demo-box-small">小盒子</div>
+                    <div title="demo-box" class="demo-box">盒子</div>
+                    <div title="demo-box-large" class="demo-box-large">demo-box-large 大盒子</div>
+                </div>
+            </dd>
+        </dl>
+
+        <h3 class="demo">常用控件展示方式</h3>
+
+        <div class="demo-sample">我是被操作的组件本身</div>
+
+        <p class="demo">操作说明。</p>
+
+    </article>
+
+    <!-- 主体 -->
+    <article class="demo">
+
+        <h2 class="demo">常用 API</h2>
+
+        <nav class="demo demo-toolbar">
+            <a onclick="Demo.speedTestAll();" href="javascript:;">折叠代码</a> | 
+            <a onclick="Demo.speedTestAll();" href="javascript:;">全部效率</a> | 
+            <a onclick="Demo.runTestAll();" href="javascript://按顺序执行全部函数;">全部执行</a>
+        </nav>
+
+        <h3 class="demo">分类</h3>
+
+        <section onmouseover="this.firstChild.style.display='block'" onmouseout="this.firstChild.style.display='none'">
+            <nav class="demo demo-toolbar" style="display: none"><a onclick="Demo.speedTest(1); return false;" href="javascript://测试函数执行的速度">编辑</a> | <a onclick="Demo.speedTest(1); return false;" href="javascript://测试函数执行的速度">效率</a> | <a onclick="Demo.runTest(1); return false;" href="javascript://执行函数">执行</a></nav>
+            <h4 class="demo">创建模式对话框（对话框后有阴影）</h4>
+            <pre class="demo sh-js sh"><code class="sh-code"><span class="sh-plain">dialog</span><span class="sh-punctuation">.</span><span class="sh-plain">showDialog</span><span class="sh-punctuation">();</span><span class="sh-plain"> </span><span class="sh-comment">// 使用此函数显示对话框即可。</span></code></pre>
+        </section>
+
+        <section onmouseover="this.firstChild.style.display='block'" onmouseout="this.firstChild.style.display='none'">
+            <nav class="demo demo-toolbar" style="display: none"><a onclick="Demo.speedTest(1); return false;" href="javascript://测试函数执行的速度">编辑</a> | <a onclick="Demo.speedTest(1); return false;" href="javascript://测试函数执行的速度">效率</a> | <a onclick="Demo.runTest(1); return false;" href="javascript://执行函数">执行</a></nav>
+            <h4 class="demo">创建模式对话框（对话框后有阴影）</h4>
+            <pre class="demo sh-js sh"><code class="sh-code"><span class="sh-plain">dialog</span><span class="sh-punctuation">.</span><span class="sh-plain">showDialog</span><span class="sh-punctuation">();</span><span class="sh-plain"> </span><span class="sh-comment">// 使用此函数显示对话框即可。</span></code></pre>
+        </section>
+
+    </article>
+
+    <!-- 自动生成的底部 -->
+    <footer class="demo">
+        <hr class="demo">
+        <nav class="demo-toolbar"><a href="http://www.jplusui.com/">jPlusUI.com</a> | <a href="https://www.github.com/jplusui/jplusui">Github</a> | <a href="#">返回顶部</a>        </nav>
+        <span>Copyright &copy; 2011-2012 J+ Team</span>
+    </footer>
+
+</body>
+</html>

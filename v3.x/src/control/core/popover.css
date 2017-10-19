@@ -1,0 +1,14 @@
+﻿.x-popover {
+  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 24px;
+}
+html .x-popover {
+  display: none;
+  position: absolute;
+  z-index: 2000;
+  max-height: 480px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}

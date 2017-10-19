@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>表单验证</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+
+    <!-- 以下文件仅用于演示 -->
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/form/textbox.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tip/tipbox.css" />
+    <!-- 以上文件仅用于演示 -->
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/form/validator.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+
+</head>
+<body>
+    <article class="demo">
+
+        <h3 class="demo">验证单一字段</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" name="validator1" id="validator1" />
+            <span class="x-tipbox"></span>
+
+            <script>
+                var validator1 = new Validator({
+                    elem: Dom.get('validator1'),
+                    rules: {
+
+                        // 必填字段。
+                        required: true,
+
+                        // 最小长度。
+                        minLength: 1,
+
+                        // 最大长度。
+                        maxLength: 10,
+
+                        // 自定义正则。
+                        pattern: /\d/
+                    },
+
+                    // 通过 messages 的同名字段，可自定义错误信息。
+                    messages: {
+                        pattern: '必须包含一个数字'
+                    }
+                });
+            </script>
+
+        </aside>
+        
+        <table class="demo">
+            <tr>
+                <th>验证字段</th>
+                <th>说明</th>
+                <th>示例</th>
+            </tr>
+            <tr>
+                <td>required</td>
+                <td>必填字段</td>
+                <td>required: true</td>
+            </tr>
+            <tr>
+                <td>minLength</td>
+                <td>最小长度</td>
+                <td>minLength: 1</td>
+            </tr>
+            <tr>
+                <td>maxLength</td>
+                <td>最大长度</td>
+                <td>maxLength: 100</td>
+            </tr>
+            <tr>
+                <td>pattern</td>
+                <td>匹配指定正则表达式</td>
+                <td>pattern: /^\d+$/</td>
+            </tr>
+            <tr>
+                <td>range</td>
+                <td>在指定的大小之间</td>
+                <td>range: [0, 500]</td>
+            </tr>
+            <tr>
+                <td>equalsTo</td>
+                <td>和指定的文本框内容相同</td>
+                <td>equalsTo: Dom.get('id')</td>
+            </tr>
+            <tr>
+                <td>type</td>
+                <td>系统内置的验证器</td>
+                <td>type: 'email'。 更多的值见  <a href="#predefined">这里</a></td>
+            </tr>
+            <tr>
+                <td>other</td>
+                <td>自定义验证逻辑</td>
+                <td>other: function(text){ return text > 0 ? '必须大于 0' : ''}</td>
+            </tr>
+        </table>
+
+        <h3 class="demo">验证表单</h3>
+        
+        <form id="validator2" action="?">
+            <input type="text" class="x-textbox" name="validator2_1" /> <span class="x-tipbox"></span> <br>
+            <input type="text" class="x-textbox" name="validator2_2" /> <span class="x-tipbox"></span> <br>
+            
+            <button type="submit" class="x-button">提交</button>
+        </form>
+        
+        <script class="demo">
+            var validator2 = new Validator.Form({
+                
+                elem: Dom.get('validator2'),
+                
+                rules: {
+                    
+                    validator2_1: {
+	                    rules: {
+	                        required: true,
+	                        minLength: 2
+	                    }
+                    },
+                    
+                    validator2_2: {
+                    	rules:{
+	                        maxLength: 2
+	                    }
+                    }
+                    
+                }
+                
+            });
+        </script>
+
+        <h3 class="demo">自定义验证逻辑</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" name="validator3" id="validator3" />
+            <span class="x-tipbox"></span>
+
+            <script>
+                var validator3 = new Validator({
+                    elem: Dom.get('validator3'),
+                    rules: {
+
+                        // 必填字段。
+                        other: function (text, callback) {
+                            return text.toLowerCase() !== 'jplusui' ? '必须输入 jPlusUI' : '';
+                        }
+                    }
+                });
+            </script>
+
+        </aside>
+
+        <h3 class="demo">自定义异步后台验证</h3>
+
+        <aside class="demo">
+
+            <input type="text" class="x-textbox" name="validator4" id="validator4" />
+            <span class="x-tipbox"></span>
+
+            <script>
+                var validator4 = new Validator({
+                    elem: Dom.get('validator4'),
+                    rules: {
+
+                        // 必填字段。
+                        other: function (text, callback) {
+
+                            // 清除以前的验证信息为 正在验证的状态。
+                            this.updateState(false);
+
+                            // 通过 AJAX 回调来调用 callback。
+                            // 此处为了演示方便，直接调用。
+                            setTimeout(function () {
+                                callback(text.toLowerCase() !== 'jplusui' ? '必须输入 jPlusUI' : '');
+                            }, 2000);
+
+                        }
+                    }
+                });
+            </script>
+
+        </aside>
+
+        <h3 class="demo" id="predefined">内置数据类型</h3>
+
+        <p class="demo">下列常用的数据类型验证都可以直接使用。</p>
+
+        <div>
+            email： 
+           
+            <input type="text" class="x-textbox" id="validator5_1">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            number：
+            <input type="text" class="x-textbox" id="validator5_2">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            phone
+            <input type="text" class="x-textbox" id="validator5_3">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            id
+            <input type="text" class="x-textbox" id="validator5_4">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            letter
+            <input type="text" class="x-textbox" id="validator5_5">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            url
+            <input type="text" class="x-textbox" id="validator5_6">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            mobile
+            <input type="text" class="x-textbox" id="validator5_7">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <div>
+            qq
+            <input type="text" class="x-textbox" id="validator5_8">
+            <span class="x-tipbox"></span>
+        </div>
+
+        <script>
+            var validator5_1 = new Validator({
+                elem: Dom.get('validator5_1'),
+                rules: {
+                    // 必须为邮箱地址。
+                    type: 'email'
+                }
+            });
+            var validator5_2 = new Validator({
+                elem: Dom.get('validator5_2'),
+                rules: {
+                    type: 'number'
+                }
+            });
+            var validator5_3 = new Validator({
+                elem: Dom.get('validator5_3'),
+                rules: {
+                    type: 'phone'
+                }
+            });
+            var validator5_4 = new Validator({
+                elem: Dom.get('validator5_4'),
+                rules: {
+                    type: 'id'
+                }
+            });
+            var validator5_5 = new Validator({
+                elem: Dom.get('validator5_5'),
+                rules: {
+                    type: 'letter'
+                }
+            });
+            var validator5_6 = new Validator({
+                elem: Dom.get('validator5_6'),
+                rules: {
+                    type: 'url'
+                }
+            });
+            var validator5_7 = new Validator({
+                elem: Dom.get('validator5_7'),
+                rules: {
+                    type: 'mobile'
+                }
+            });
+            var validator5_8 = new Validator({
+                elem: Dom.get('validator5_8'),
+                rules: {
+                    type: 'qq'
+                }
+            });
+        </script>
+    </article>
+
+</body>
+</html>

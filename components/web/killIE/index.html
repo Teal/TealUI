@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>干掉 IE - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li>-</li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/killIE/killIE.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="干掉-ie">
+<a href="#干掉-ie" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>干掉 IE</h1>
+<p class="doc">干掉 IE 是前端人的共同心愿。</p>
+<dl id="doc_toc">
+	<dt><a href="#ie6-9-升级提示">IE6-9 升级提示</a></dt>
+	<dt><a href="#ie6-的-5-种死法">IE6 的 5 种死法</a></dt>
+	<dd><a href="#方案-1">方案 1</a></dd>
+	<dd><a href="#方案-2">方案 2</a></dd>
+	<dd><a href="#方案-3">方案 3</a></dd>
+	<dd><a href="#方案-4">方案 4</a></dd>
+	<dd><a href="#方案-5">方案 5</a></dd>
+</dl>
+<h2 id="ie6-9-升级提示">
+<a href="#ie6-9-升级提示" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE6-9 升级提示</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<!--[if lte IE 9]>
+    <div style="border: 1px solid #F7941D; color: #F44336; padding: 10px 20px; background: #FEEFDA;text-align: center;">
+        <strong style="float: right;cursor:pointer" onclick="this.parentNode.style.display = 'none';
+">&times;</strong>
+        您使用的浏览器版本过低，将影响使用本网站的功能。请 <a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser" target="_blank">点此升级</a> 或下载更快更安全的 <a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank">谷歌浏览器</a> 或者 <a href="http://www.firefox.com.cn/download/" target="_blank">火狐浏览器</a>。
+    </div>
+<![endif]-->
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-comment">&lt;!--[if lte IE 9]&gt;
+    &lt;div style="border: 1px solid #F7941D; color: #F44336; padding: 10px 20px; background: #FEEFDA;text-align: center;"&gt;
+        &lt;strong style="float: right;cursor:pointer" onclick="this.parentNode.style.display='none'"&gt;&amp;times;&lt;/strong&gt;
+        您使用的浏览器版本过低，将影响使用本网站的功能。请 &lt;a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser" target="_blank"&gt;点此升级&lt;/a&gt; 或下载更快更安全的 &lt;a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank"&gt;谷歌浏览器&lt;/a&gt; 或者 &lt;a href="http://www.firefox.com.cn/download/" target="_blank"&gt;火狐浏览器&lt;/a&gt;。
+    &lt;/div&gt;
+&lt;![endif]--&gt;</span></code></pre>
+                </div><h2 id="ie6-的-5-种死法">
+<a href="#ie6-的-5-种死法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE6 的 5 种死法</h2>
+<p class="doc">只需少量代码，让 IE6 立即崩溃。</p>
+<h3 id="方案-1">
+<a href="#方案-1" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方案 1</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">style</span>&gt;</span><span class="css">
+<span class="doc-code-selector-tag">div</span> {
+    <span class="doc-code-attribute">width</span>: <span class="doc-code-number">100px</span>;
+}
+<span class="doc-code-selector-tag">div</span> <span class="doc-code-selector-tag">a</span><span class="doc-code-selector-pseudo">:hover</span> {
+    <span class="doc-code-attribute">position</span>: absolute;
+}
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">style</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"#"</span>&gt;</span>点我干掉IE6<span class="doc-code-tag">&lt;<span class="doc-code-name">img</span> <span class="doc-code-attr">src</span>=<span class="doc-code-string">""</span> /&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre><h3 id="方案-2">
+<a href="#方案-2" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方案 2</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">name</span>=<span class="doc-code-string">'label1'</span>/&gt;</span>a<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">name</span>=<span class="doc-code-string">'label2'</span>/&gt;</span>b<span class="doc-code-tag">&lt;<span class="doc-code-name">sub</span>&gt;</span>c<span class="doc-code-tag">&lt;/<span class="doc-code-name">sub</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre><h3 id="方案-3">
+<a href="#方案-3" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方案 3</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">style</span>&gt;</span><span class="css">*{<span class="doc-code-attribute">position</span>:relative}</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">style</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">table</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">input</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">table</span>&gt;</span></code></pre><h3 id="方案-4">
+<a href="#方案-4" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方案 4</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="actionscript">
+<span class="doc-code-keyword">while</span>(<span class="doc-code-number">1</span>)location.reload();
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre><h3 id="方案-5">
+<a href="#方案-5" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方案 5</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript"><span class="doc-code-keyword">for</span>(x <span class="doc-code-keyword">in</span> <span class="doc-code-built_in">document</span>.write){<span class="doc-code-built_in">document</span>.write(x);}</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://www.ie6countdown.com/" target="_blank" class="doc-external">IE6 倒计时</a></li>
+</ul>
+</blockquote>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/crashBrowser/" title="卡死浏览器" id="doc_pager_prev"><i class="doc-icon">⮜</i> 卡死浏览器</a>
+                            <a href="../../../components/web/ajax/" title="异步请求" id="doc_pager_next">异步请求 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/killIE/","imports":[]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

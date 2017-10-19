@@ -1,0 +1,1 @@
+function test(){}var framewroks={framework1:{js:"demo.js",init:function(e){}},framework2:{js:"demo.js",init:function(e){}}},cases={test:{framework1:"test()",framework2:"test()"}};window.initSpeedMatch&&initSpeedMatch(framewroks,cases,options);

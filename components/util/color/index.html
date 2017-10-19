@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>颜色处理 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/color"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { RGB, HSL, HSV, Color, toRGB, toHSL, toHSV, toInt, format, spin, saturate, darken, lighten, fade, alpha, invert, mix, luma, contrast } from \&quot;util/color\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/color\&quot;], function (color_1) {\n\tvar RGB = color_1.RGB;\n\tvar HSL = color_1.HSL;\n\tvar HSV = color_1.HSV;\n\tvar Color = color_1.Color;\n\tvar toRGB = color_1.toRGB;\n\tvar toHSL = color_1.toHSL;\n\tvar toHSV = color_1.toHSV;\n\tvar toInt = color_1.toInt;\n\tvar format = color_1.format;\n\tvar spin = color_1.spin;\n\tvar saturate = color_1.saturate;\n\tvar darken = color_1.darken;\n\tvar lighten = color_1.lighten;\n\tvar fade = color_1.fade;\n\tvar alpha = color_1.alpha;\n\tvar invert = color_1.invert;\n\tvar mix = color_1.mix;\n\tvar luma = color_1.luma;\n\tvar contrast = color_1.contrast;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/color" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/color/color.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="颜色处理">
+<a href="#颜色处理" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>颜色处理<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：RGB, HSL, HSV, Color, toRGB, toHSL, toHSV, toInt, format, spin, saturate, darken, lighten, fade, alpha, invert, mix, luma, contrast">util/color</small></h1>
+<p class="doc">颜色计算</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<input type="color" id="input" value="#ff0000" style="padding: 0">
+<br>
+<input type="number" id="input_value" step="0.1" min="-1" max="1" value="0.1">
+<button onclick="input.value = darken(input.value, +input_value.value);
+">更暗</button>
+<button onclick="input.value = lighten(input.value, +input_value.value);
+">更亮</button>
+<button onclick="input.value = mix(input.value, '#fff', +input_value.value);
+">更透明</button>
+<br>
+<input type="color" id="input_mix" value="#0000ff" style="padding: 0">
+<button onclick="input.value = mix(input.value, input_mix.value);
+">混合</button>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"color"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"#ff0000"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"padding: 0"</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">br</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"number"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input_value"</span> <span class="doc-code-attr">step</span>=<span class="doc-code-string">"0.1"</span> <span class="doc-code-attr">min</span>=<span class="doc-code-string">"-1"</span> <span class="doc-code-attr">max</span>=<span class="doc-code-string">"1"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"0.1"</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"input.value=darken(input.value, +input_value.value)"</span>&gt;</span>更暗<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"input.value=lighten(input.value, +input_value.value)"</span>&gt;</span>更亮<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"input.value=mix(input.value, '#fff', +input_value.value)"</span>&gt;</span>更透明<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">br</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"color"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"input_mix"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"#0000ff"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"padding: 0"</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"input.value=mix(input.value, input_mix.value)"</span>&gt;</span>混合<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span></code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://en.wikipedia.org/wiki/HSL_color_space" target="_blank" class="doc-external">http://en.wikipedia.org/wiki/HSL_color_space</a></li>
+<li class="doc"><a href="http://www.rapidtables.com/convert/color/hsl-to-rgb.htm" target="_blank" class="doc-external">HSL to RGB color conversion</a></li>
+<li class="doc"><a href="http://www.rapidtables.com/convert/color/rgb-to-hsl.htm" target="_blank" class="doc-external">RGB to HSL color conversion</a></li>
+</ul>
+</blockquote>
+<dl id="doc_toc">
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/RGB">RGB 接口</a></dd>
+	<dd><a href="#api/HSL">HSL 接口</a></dd>
+	<dd><a href="#api/HSV">HSV 接口</a></dd>
+	<dd><a href="#api/Color">Color 类型</a></dd>
+</dl>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/toRGB">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L100-179" target="_blank" title="源码：util/color/color.ts，第 100 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toRGB<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>):<code><a href="#api/RGB">RGB</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将任意颜色格式转为 RGB 对象格式。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要转换的颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/RGB">RGB</a></code></p>
+                <p class="doc">返回包含 RGB 信息的对象。如果原对象已经是 RGB 格式则返回原对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"#000"</span>) <span class="doc-code-comment">// {r: 0, g: 0, b: 0}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"#ff0000"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"#ff0000ff"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0, a: 1}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"rgb(255,0,0)"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0, a: 1}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"rgba(255,0,0,0.9)"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0, a: 0.9}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"hsl(255,0,0)"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0, a: 0.9}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB(<span class="doc-code-string">"hsla(255,0,0,0.9)"</span>) <span class="doc-code-comment">// {r: 255, g: 0, b: 0, a: 0.9}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB({<span class="doc-code-attr">h</span>:<span class="doc-code-number">255</span>, <span class="doc-code-attr">s</span>: <span class="doc-code-number">0</span>, <span class="doc-code-attr">l</span>: <span class="doc-code-number">0</span>}) <span class="doc-code-comment">// {r: 255, g: 0, b: 0}</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toRGB({<span class="doc-code-attr">h</span>:<span class="doc-code-number">255</span>, <span class="doc-code-attr">s</span>: <span class="doc-code-number">0</span>, <span class="doc-code-attr">l</span>: <span class="doc-code-number">0</span>, <span class="doc-code-attr">a</span>: <span class="doc-code-number">0</span>}) <span class="doc-code-comment">// {r: 255, g: 0, b: 0}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将任意颜色格式转为 RGB 对象格式。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/toHSL">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L181-241" target="_blank" title="源码：util/color/color.ts，第 181 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toHSL<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>):<code><a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将任意颜色格式转为 HSL 对象格式。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要转换的颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回包含 HSL 信息的对象。如果原对象已经是 HSL 格式则返回原对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toHSL(<span class="doc-code-string">"#000"</span>) <span class="doc-code-comment">// {h: 0, s: 0, l: 0}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将任意颜色格式转为 HSL 对象格式。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/toHSV">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L243-252" target="_blank" title="源码：util/color/color.ts，第 243 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toHSV<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>):<code><a href="#api/HSV">HSV</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将任意颜色格式转为 HSV 对象格式。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要转换的颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/HSV">HSV</a></code></p>
+                <p class="doc">返回包含 HSV 信息的对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toHSV(<span class="doc-code-string">"#000"</span>) <span class="doc-code-comment">// {h: 0, s: 0, v: 0}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将任意颜色格式转为 HSV 对象格式。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/toInt">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L254-263" target="_blank" title="源码：util/color/color.ts，第 254 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toInt<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将任意格式的颜色转为 32 位整数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要转换的颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回 32 位整数，从高位到地位分别是：1 - 透明度、红值、绿值、蓝值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">toInt(<span class="doc-code-string">"#000"</span>) <span class="doc-code-comment">// {h: 0, s: 0, v: 0}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将任意格式的颜色转为 32 位整数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/format">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L394-435" target="_blank" title="源码：util/color/color.ts，第 394 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>format<i class="doc-tip doc-api-ellipsis">(color, ...)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>, format?:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">格式化颜色为字符串。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>format</code>
+                                </td>
+                                <td>
+                                    <code>&quot;auto&quot; | &quot;hex&quot; | &quot;hex6&quot; | &quot;hex8&quot; | &quot;rgb&quot; | &quot;rgba&quot; | &quot;hsl&quot; | &quot;hsla&quot;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色格式，可以使用以下值之一：</p>
+<ul>
+<li class="doc"><code>auto</code>：<code>#000000</code> 或 <code>rgba(0, 0, 0, 1)</code> 取最短的格式。</li>
+<li class="doc"><code>hex</code>：<code>#000</code> 或 <code>#000000</code> 或 <code>#000000ff</code> 取最短的格式。</li>
+<li class="doc"><code>hex6</code>：<code>#000000</code> 或 <code>#000000ff</code> 取最短的格式。</li>
+<li class="doc"><code>hex8</code>：<code>#000000ff</code>。</li>
+<li class="doc"><code>rgb</code>：<code>rgb(0, 0, 0)</code> 或 <code>rgba(0, 0, 0, 1)</code> 取最短的格式。</li>
+<li class="doc"><code>rgba</code>：<code>rgba(0, 0, 0, 1)</code>。</li>
+<li class="doc"><code>hsl</code>：<code>hsl(0, 0, 0)</code> 或 <code>hsla(0, 0, 0, 1)</code> 取最短的格式。</li>
+<li class="doc"><code>hsla</code>：<code>hsla(0, 0, 0, 1)</code>。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    <code>&quot;auto&quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回格式化后的字符串。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">format(<span class="doc-code-string">"rgb(0, 0, 0)"</span>) <span class="doc-code-comment">// "#000000"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">格式化颜色为字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/spin">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L444-455" target="_blank" title="源码：util/color/color.ts，第 444 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>spin<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">调整颜色的色相。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要增加的色相值。范围为 -359 到 359。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">spin(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">50</span>) <span class="doc-code-comment">// "#666666"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调整颜色的色相。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/saturate">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L457-468" target="_blank" title="源码：util/color/color.ts，第 457 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>saturate<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">调整颜色的饱和度。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要增加的饱和度。范围为 -1 到 1。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">saturate(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">0.5</span>) <span class="doc-code-comment">// "#993333"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调整颜色的饱和度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/darken">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L470-481" target="_blank" title="源码：util/color/color.ts，第 470 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>darken<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">减少颜色的亮度。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要减少的亮度。范围为 0 到 1。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">darken(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">0.5</span>) <span class="doc-code-comment">// "#000000"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">减少颜色的亮度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/lighten">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L483-494" target="_blank" title="源码：util/color/color.ts，第 483 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>lighten<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">增加颜色的亮度。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要增加的亮度。范围为 0 到 1。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">lighten(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">0.5</span>) <span class="doc-code-comment">// "#e6e6e6"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">增加颜色的亮度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/fade">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L496-507" target="_blank" title="源码：util/color/color.ts，第 496 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>fade<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">调整颜色的透明度。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要增加的透明度。范围为 -1 到 1。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">fade(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">0.5</span>) <span class="doc-code-comment">// "rgba(102,102,102,0.5)"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">调整颜色的透明度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/alpha">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L509-520" target="_blank" title="源码：util/color/color.ts，第 509 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>alpha<i class="doc-tip doc-api-ellipsis">(color, value)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>, value:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置颜色的透明度。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的透明度。范围为 -1 到 1。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">alpha(<span class="doc-code-string">"#666"</span>, <span class="doc-code-number">0.5</span>) <span class="doc-code-comment">// "rgba(102,102,102,0.5)"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置颜色的透明度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/invert">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L522-536" target="_blank" title="源码：util/color/color.ts，第 522 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>invert<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color:<code>T</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取颜色的反色。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同原颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">invert(<span class="doc-code-string">"#666"</span>) <span class="doc-code-comment">// "#999999"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取颜色的反色。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/mix">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L538-561" target="_blank" title="源码：util/color/color.ts，第 538 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>mix<i class="doc-tip doc-api-ellipsis">(color1, color2, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(color1:<code>T</code>, color2:<code><a href="#api/Color">Color</a></code>, weight?:<code>number</code>):<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">叠加两个颜色并返回新颜色。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color1<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要叠加的第一个颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>color2<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要叠加的第二个颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>weight</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">第二个颜色的透明度。</p>
+
+                                </td>
+                                <td>
+                                    <code>0.5</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a></code></p>
+                <p class="doc">返回新颜色，格式同第一个颜色。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">mix(<span class="doc-code-string">"#0f0"</span>, <span class="doc-code-string">"#f00"</span>) <span class="doc-code-comment">// "#808000"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">叠加两个颜色并返回新颜色。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/luma">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L563-578" target="_blank" title="源码：util/color/color.ts，第 563 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>luma<i class="doc-tip doc-api-ellipsis">(color)</i><span class="doc-tip doc-api-more">(color:<code><a href="#api/Color">Color</a></code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取颜色的亮度。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回亮度，值越大亮度越高（越接近白色），范围为 0 到 1（含）。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">luma(<span class="doc-code-string">"#666"</span>) <span class="doc-code-comment">// 0.13286832155381795</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取颜色的亮度。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/contrast">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L580-591" target="_blank" title="源码：util/color/color.ts，第 580 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>contrast<i class="doc-tip doc-api-ellipsis">(color, color1, color2, ...)</i><span class="doc-tip doc-api-more">&lt;T, U&gt;(color:<code><a href="#api/Color">Color</a></code>, color1:<code>T</code>, color2:<code>U</code>, threshold?:<code>number</code>):<code>T | U</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算和指定颜色对比度最大的颜色。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>U</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>color<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Color">Color</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>color1<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第一个颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>color2<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第二个颜色。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>threshold</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对比度阀值。将优先选择亮度高于此值的颜色。</p>
+
+                                </td>
+                                <td>
+                                    <code>0.43</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | U</code></p>
+                <p class="doc">返回给定两个颜色中的其中一个。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">contrast(<span class="doc-code-string">"#666"</span>, <span class="doc-code-string">"#000"</span>, <span class="doc-code-string">"#fff"</span>) <span class="doc-code-comment">// "#ffffff"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算和指定颜色对比度最大的颜色。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/RGB"><a href="#api/RGB" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L1-26" target="_blank" title="源码：util/color/color.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>RGB 接口</h3><p class="doc">表示一个由红、绿、蓝三原色组成的颜色。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/RGB/r">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L6-9" target="_blank" title="源码：util/color/color.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>r</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">红值（Red）。范围为 0 到 255（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">红值（Red）。范围为 0 到 255（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/RGB/g">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L11-14" target="_blank" title="源码：util/color/color.ts，第 11 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>g</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">绿值（Green）。范围为 0 到 255（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">绿值（Green）。范围为 0 到 255（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/RGB/b">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L16-19" target="_blank" title="源码：util/color/color.ts，第 16 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>b</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">蓝值（Blue）。范围为 0 到 255（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">蓝值（Blue）。范围为 0 到 255（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/RGB/a">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L21-24" target="_blank" title="源码：util/color/color.ts，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>a</code>
+                                <span class="doc-api-more">: <code>number | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr></table></div><h3 id="api/HSL"><a href="#api/HSL" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L28-53" target="_blank" title="源码：util/color/color.ts，第 28 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>HSL 接口</h3><p class="doc">表示一个由色调、饱和度、亮度组成的颜色。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/HSL/h">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L33-36" target="_blank" title="源码：util/color/color.ts，第 33 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>h</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">色调（Hue）。范围为 0 到 359（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">色调（Hue）。范围为 0 到 359（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSL/s">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L38-41" target="_blank" title="源码：util/color/color.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>s</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">饱和度（Saturation）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">饱和度（Saturation）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSL/l">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L43-46" target="_blank" title="源码：util/color/color.ts，第 43 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>l</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">亮度（Lightness）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">亮度（Lightness）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSL/a">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L48-51" target="_blank" title="源码：util/color/color.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>a</code>
+                                <span class="doc-api-more">: <code>number | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr></table></div><h3 id="api/HSV"><a href="#api/HSV" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L55-80" target="_blank" title="源码：util/color/color.ts，第 55 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>HSV 接口</h3><p class="doc">表示一个由色调、饱和度、明度组成的颜色。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/HSV/h">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L60-63" target="_blank" title="源码：util/color/color.ts，第 60 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>h</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">色调（Hue）。范围为 0 到 359（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">色调（Hue）。范围为 0 到 359（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSV/s">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L65-68" target="_blank" title="源码：util/color/color.ts，第 65 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>s</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">饱和度（Saturation）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">饱和度（Saturation）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSV/v">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L70-73" target="_blank" title="源码：util/color/color.ts，第 70 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>v</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">明度（Value）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">明度（Value）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/HSV/a">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L75-78" target="_blank" title="源码：util/color/color.ts，第 75 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>a</code>
+                                <span class="doc-api-more">: <code>number | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">透明度（Alpha）。范围为 0 到 1（含）。</p>
+
+                            </td>
+                            
+                        </tr></table></div><h3 id="api/Color"><a href="#api/Color" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/color/color.ts#L82-98" target="_blank" title="源码：util/color/color.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Color 类型</h3><p class="doc">表示一个颜色。</p>
+<p>同：<code>string | number | <a href="#api/RGB">RGB</a> | <a href="#api/HSL">HSL</a> | <a href="#api/HSV">HSV</a></code></p><h4>说明</h4><p class="doc">颜色有以下格式：</p>
+<ul>
+<li class="doc"><code>{r: 0, g: 0, b: 0, a: 1}</code></li>
+<li class="doc"><code>{h: 0, s: 0, l: 0, a: 1}</code></li>
+<li class="doc"><code>{h: 0, s: 0, v: 0, a: 1}</code></li>
+<li class="doc"><code>&quot;#000&quot;</code></li>
+<li class="doc"><code>&quot;#000000&quot;</code></li>
+<li class="doc"><code>&quot;#000000ff&quot;</code></li>
+<li class="doc"><code>&quot;rgb(0, 0, 0)&quot;</code></li>
+<li class="doc"><code>&quot;rgba(0, 0, 0, 1)&quot;</code></li>
+<li class="doc"><code>&quot;hsl(0, 0, 0)&quot;</code></li>
+<li class="doc"><code>&quot;hsla(0, 0, 0, 1)&quot;</code></li>
+<li class="doc">0x000000</li>
+</ul>
+
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/cron/" title="计划时间" id="doc_pager_prev"><i class="doc-icon">⮜</i> 计划时间</a>
+                            <a href="../../../components/util/color/knownColors.html" title="内置颜色列表" id="doc_pager_next">内置颜色列表 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/color/","test":"util/color/color-test.ts","imports":["util/color"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

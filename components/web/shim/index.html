@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>DOM 兼容补丁 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/shim/ie8-shim","web/shim/ie9-shim","web/shim/ie10-shim","web/shim"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;web/shim\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/shim\&quot;], function (shim_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/shim/shim.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/shim" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/shim/shim.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="dom-兼容补丁">
+<a href="#dom-兼容补丁" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>DOM 兼容补丁<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;关键字：polyfill,legacy,ie6,ie7,ie8,ie9,ie10,ie11,atob,btoa,base64">web/shim</small></h1>
+<p class="doc">在低版本浏览器直接使用 HTML5 标准接口。</p>
+<dl id="doc_toc">
+	<dt><a href="#ie-6-7">IE 6-7</a></dt>
+	<dt><a href="#ie-8">IE 8</a></dt>
+	<dt><a href="#ie-9">IE 9</a></dt>
+	<dt><a href="#ie-10">IE 10</a></dt>
+</dl>
+<h2 id="ie-6-7">
+<a href="#ie-6-7" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE 6-7</h2>
+<p class="doc">IE 6-7 已不被支持。另参考：<a href="../../../components/web/killIE/" title="web/killIE">干掉 IE</a>。</p>
+<h4>如何解决：IE6 PNG 透明问题</h4>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> pngFix <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/shim/png-shim"</span>;
+
+pngFix();</code></pre><h4>如何解决：IE6 模拟 fixed</h4>
+<p class="doc">为节点添加 <code>.ie6-fixed-*</code>(其中，* 为 <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>) 即可设置四个方向的固定显示。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">style</span>&gt;</span><span class="css">
+    @<span class="doc-code-keyword">import</span> url(<span class="doc-code-string">"web/shim/ie6-fixed.css"</span>);
+    <span class="doc-code-selector-class">.mystyle</span> { <span class="doc-code-attribute">position</span>: fixed; <span class="doc-code-attribute">right</span>: <span class="doc-code-number">10px</span>; <span class="doc-code-attribute">bottom</span>: <span class="doc-code-number">10px</span>; }
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">style</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"mystyle ie6-fixed-right ie6-fixed-bottom"</span>&gt;</span>fixed on rightbottom<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre><h2 id="ie-8">
+<a href="#ie-8" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE 8</h2>
+<p class="doc">IE 6-8 需导入：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> <span class="doc-code-string">"web/shim/ie8-shim"</span>;</code></pre><p class="doc">补丁添加了 HTML5 标签支持，并包含了以下接口：</p>
+<ul>
+<li class="doc"><code>XMLHttpRequest</code></li>
+<li class="doc"><code>window.addEventListener</code></li>
+<li class="doc"><code>window.removeEventListener</code></li>
+<li class="doc"><code>window.getComputedStyle</code></li>
+<li class="doc"><code>Document</code></li>
+<li class="doc"><code>Document.prototype.addEventListener</code></li>
+<li class="doc"><code>Document.prototype.removeEventListener</code></li>
+<li class="doc"><code>Document.prototype.getElementsByClassName</code></li>
+<li class="doc"><code>Document.prototype.defaultView</code></li>
+<li class="doc"><code>Element.prototype.addEventListener</code></li>
+<li class="doc"><code>Element.prototype.removeEventListener</code></li>
+<li class="doc"><code>Element.prototype.getElementsByClassName</code></li>
+<li class="doc"><code>Element.prototype.ownerDocument</code></li>
+<li class="doc"><code>Element.prototype.textContent</code></li>
+<li class="doc"><code>Event.prototype.stopPropagation</code></li>
+<li class="doc"><code>Event.prototype.preventDefault</code></li>
+<li class="doc"><code>Event.prototype.target</code></li>
+<li class="doc"><code>Event.prototype.relatedTarget</code></li>
+<li class="doc"><code>Event.prototype.which</code></li>
+<li class="doc"><code>Event.prototype.pageX</code></li>
+<li class="doc"><code>Event.prototype.pageY</code></li>
+<li class="doc"><code>TextRectangle.prototype.width</code></li>
+<li class="doc"><code>TextRectangle.prototype.height</code></li>
+</ul>
+<h2 id="ie-9">
+<a href="#ie-9" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE 9</h2>
+<p class="doc">IE 6-9 需导入：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> <span class="doc-code-string">"web/shim/ie9-shim"</span>;</code></pre><p class="doc">补丁包含了以下接口：</p>
+<ul>
+<li class="doc"><code>setTimeout</code>¹</li>
+<li class="doc"><code>setInterval</code>¹</li>
+<li class="doc"><code>atob</code>²</li>
+<li class="doc"><code>btoa</code>²</li>
+</ul>
+<p class="doc">¹：IE 6-9 支持 <code>setTimeout</code> 和 <code>setInterval</code>，但不支持传参。补丁扩展了这两个函数以支持传参。<br>
+²：只有 IE 6-9 和 Opera 10.1 不支持 <code>atob</code> 和 <code>btoa</code>。<code>atob</code> &amp; <code>btoa</code> 不支持中文，如需支持中文，改用<a href="../../../components/util/base64/" title="util/base64">Base64 编码</a>组件。</p>
+<h2 id="ie-10">
+<a href="#ie-10" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>IE 10</h2>
+<p class="doc">IE 10 手机版需导入：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> <span class="doc-code-string">"web/shim/ie10-shim"</span>;</code></pre><p class="doc">补丁修复了不识别 viewport 的问题。</p>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/ui/messageBox/" title="消息框" id="doc_pager_prev"><i class="doc-icon">⮜</i> 消息框</a>
+                            <a href="../../../components/web/dom/" title="DOM 处理" id="doc_pager_next">DOM 处理 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/shim/","imports":["web/shim/ie8-shim","web/shim/ie9-shim","web/shim/ie10-shim","web/shim"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

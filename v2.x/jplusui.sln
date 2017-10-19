@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "jplusui", ".", "{096E64AA-7FFE-40EC-BA51-5B6D4250F2B3}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/FormControlsPart2"
+		Debug.AspNetCompiler.PhysicalPath = "..\jplusui\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\FormControlsPart2\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/FormControlsPart2"
+		Release.AspNetCompiler.PhysicalPath = "..\jplusui\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\FormControlsPart2\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "59482"
+		SlnRelativePath = "..\jplusui\"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{096E64AA-7FFE-40EC-BA51-5B6D4250F2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096E64AA-7FFE-40EC-BA51-5B6D4250F2B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

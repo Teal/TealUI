@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>背景高亮</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../src/fx/color.js"></script>
+    <script type="text/javascript" src="../../src/fx/highlight.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <div id="a" class="demo-box">
+        </div>
+        <script>
+            Demo.writeExamples({
+                'Dom#highlight': function () {
+                    return Dom.query("#a").highlight();
+                }
+            }, { times: 8 });
+        </script>
+    </article>
+</body>
+</html>

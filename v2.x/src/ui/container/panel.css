@@ -1,0 +1,48 @@
+.x-panel {
+  background: #ffffff;
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.x-panel-header {
+  background-color: #FAFAFA;
+  background-color: #f3f3f3;
+  background-image: -moz-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f3f3f3));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: -o-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: linear-gradient(to bottom, #ffffff, #f3f3f3);
+  background-repeat: repeat-x;
+  border-bottom: 1px solid #CCCCCC;
+  padding: 10px 10px;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+}
+.x-panel-header h2 {
+  font-size: 14px;
+  line-height: 14px;
+  color: #333333;
+  margin: 0;
+}
+.x-panel-body {
+  overflow: hidden;
+  *zoom: 1;
+}
+.x-panel-body:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.x-panel-content {
+  padding: 10px;
+}
+.x-panel-collapsed .x-panel-header {
+  border-bottom: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}

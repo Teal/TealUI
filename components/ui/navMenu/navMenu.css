@@ -1,0 +1,119 @@
+.x-navmenu {
+  z-index: 900;
+  height: 100%;
+  background-color: #fff;
+  overflow: auto;
+}
+
+.x-navmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.x-navmenu ul ul a {
+  padding-left: 3.2rem;
+  background-color: transparent;
+}
+
+.x-navmenu ul ul ul a {
+  padding-left: 3.5rem;
+}
+
+.x-navmenu ul ul ul ul a {
+  padding-left: 6rem;
+}
+
+.x-navmenu a {
+  display: block;
+  border-right: 4px solid transparent;
+  padding: 0.75rem 1rem;
+  color: #333333;
+  white-space: pre;
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.x-navmenu a:hover, .x-navmenu-active > a {
+  border-right-color: #1780ce;
+  background-color: #eff7fe;
+  color: #333333;
+  text-decoration: none;
+}
+
+.x-navmenu-body > .x-navmenu-active > a {
+  font-weight: 700;
+  color: #1780ce;
+  border-right-color: transparent;
+}
+
+.x-navmenu .x-icon-focus {
+  display: none;
+}
+
+.x-navmenu-active:not(.x-navmenu-collapsable) {
+  background-color: #eff7fe;
+}
+
+.x-navmenu > ul > li > a {
+  background-color: #f5f5f5;
+}
+
+.x-navmenu-popover {
+  position: absolute;
+  z-index: 9000000000;
+  display: none;
+  width: 15rem;
+  background-color: #fefefe;
+  border: 1px solid #e0e0e0;
+}
+
+.x-navmenu-popover a i:first-child,
+.x-navmenu-popover a span:first-child {
+  margin-left: -1.2rem;
+}
+
+.x-navmenu-popover .x-navmenu-collapsable > a:before,
+.x-navmenu-popover span {
+  display: inline !important;
+}
+
+.x-navmenu-title {
+  color: white;
+}
+
+.x-navmenu-title span {
+  margin-left: 1rem;
+}
+
+.x-navmenu-min-title {
+  color: white;
+  display: none;
+}
+
+.x-navmenu-collapsable > a:before {
+  content: ">";
+  float: right;
+  font-family: x-admin-font;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  -moz-transition: transform 0.2s, -moz-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s, -moz-transform 0.2s;
+  -webkit-transform: rotate(90deg);
+     -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+          transform: rotate(90deg);
+  font-size: .8rem;
+  line-height: 1.5rem;
+}
+
+.x-navmenu-collapsed > a:before {
+  -webkit-transform: rotate(0deg);
+     -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+/*# sourceMappingURL=navMenu.css.map */

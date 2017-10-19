@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>拖动 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/draggable"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import draggable, { Draggable } from \&quot;web/draggable\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/draggable\&quot;], function (draggable_1) {\n\tvar draggable = draggable_1.default;\n\tvar Draggable = draggable_1.Draggable;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/draggable" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/draggable/draggable.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="拖动">
+<a href="#拖动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>拖动<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as draggable, Draggable">web/draggable</small></h1>
+<p class="doc">允许元素跟随指针移动。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#事件">事件</a></dt>
+	<dt><a href="#局部拖动">局部拖动</a></dt>
+	<dt><a href="#自动滚屏">自动滚屏</a></dt>
+	<dt><a href="#方向">方向</a></dt>
+	<dt><a href="#区域">区域</a></dt>
+	<dt><a href="#步长">步长</a></dt>
+	<dt><a href="#返回原地">返回原地</a></dt>
+	<dt><a href="#吸附">吸附</a></dt>
+	<dt><a href="#代理">代理</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Draggable">Draggable 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<div id="box" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_1", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box);
+});
+
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+<span class="doc-code-highlight">    draggable(box);</span>
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="事件">
+<a href="#事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>事件</h2>
+<p class="doc">拖动过程会依次触发以下事件：</p>
+<ol>
+<li class="doc"><code>onDragStart</code>：拖动开始事件。</li>
+<li class="doc"><code>onDragMove</code>：拖动移动事件。</li>
+<li class="doc"><code>onDragEnd</code>：拖动结束事件。</li>
+</ol>
+<p class="doc">通过事件函数的第一参数 <code>e.pageX</code> 和 <code>e.pageY</code> 获取的鼠标位置。
+通过事件函数的第二参数 <code>s.offsetX</code> 和 <code>s.offsetY</code> 获取拖动的距离。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<div id="box1" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_2", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box1, {
+        onDragStart: function () {
+            box1.className += " doc-box-green";
+        },
+        onDragMove: function (e, s) {
+            box1.innerHTML = s.offsetX.toFixed(0) + "," + s.offsetY.toFixed(0);
+        },
+        onDragEnd: function () {
+            box1.innerHTML = "";
+            box1.className = "doc-box";
+        }
+    });
+});
+
+var exports_doc_demo_2 = require("doc_demo_2")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box1"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box1, {
+<span class="doc-code-highlight">        onDragStart(){ </span>
+<span class="doc-code-highlight">            box1.className += </span><span class="doc-code-string"><span class="doc-code-highlight">" doc-box-green"</span></span><span class="doc-code-highlight">; </span>
+<span class="doc-code-highlight">        },</span>
+<span class="doc-code-highlight">        onDragMove(e, s){ </span>
+<span class="doc-code-highlight">            box1.innerHTML = s.offsetX.toFixed(</span><span class="doc-code-number"><span class="doc-code-highlight">0</span></span><span class="doc-code-highlight">) + </span><span class="doc-code-string"><span class="doc-code-highlight">","</span></span><span class="doc-code-highlight"> + s.offsetY.toFixed(</span><span class="doc-code-number"><span class="doc-code-highlight">0</span></span><span class="doc-code-highlight">); </span>
+<span class="doc-code-highlight">        },</span>
+<span class="doc-code-highlight">        onDragEnd(){ </span>
+<span class="doc-code-highlight">            box1.innerHTML = </span><span class="doc-code-string"><span class="doc-code-highlight">""</span></span><span class="doc-code-highlight">;</span>
+<span class="doc-code-highlight">            box1.className = </span><span class="doc-code-string"><span class="doc-code-highlight">"doc-box"</span></span><span class="doc-code-highlight">; </span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="局部拖动">
+<a href="#局部拖动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>局部拖动</h2>
+<p class="doc">如果不希望点击元素任意位置都能开始拖动：</p>
+<ul>
+<li class="doc">仅特定位置可以拖动：对该位置设置拖动，并将 <code>proxy</code> 设为整个元素。</li>
+<li class="doc">仅有些位置不可拖动：使用 <code>cancel</code> 排除不希望拖动的位置。默认所有输入框都会被排除。</li>
+</ul>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col" id="doc_demo_3">
+<div id="box_handle" class="doc-box"><button id="box_handle_body" style="cursor: move">点我拖动</button></div>
+<script>define("doc_demo_3", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_handle_body, {
+        proxy: box_handle
+    });
+});
+
+var exports_doc_demo_3 = require("doc_demo_3")
+</script>
+
+</div>
+<div class="doc-col" id="doc_demo_4">
+
+<div id="box_cancel" class="doc-box" style="cursor: move"><button id="box_cancel_body" style="cursor: default;">点外拖动</button></div>
+<script>define("doc_demo_4", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_cancel, {
+        cancel: function (e) {
+            return e.target === box_cancel_body;
+        }
+    });
+});
+
+var exports_doc_demo_4 = require("doc_demo_4")
+</script>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_handle"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_handle_body"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span>点我拖动<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_handle_body, {
+<span class="doc-code-highlight">        </span><span class="doc-code-attr"><span class="doc-code-highlight">proxy</span></span><span class="doc-code-highlight">: box_handle</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_cancel"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_cancel_body"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: default;"</span>&gt;</span>点外拖动<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_cancel, {
+<span class="doc-code-highlight">        cancel(e) {</span>
+<span class="doc-code-highlight">            </span><span class="doc-code-keyword"><span class="doc-code-highlight">return</span></span><span class="doc-code-highlight"> e.target === box_cancel_body;</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="自动滚屏">
+<a href="#自动滚屏" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>自动滚屏</h2>
+<p class="doc">允许拖动时更改滚动条位置。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
+<div id="box_scroll" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_5", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_scroll, {
+        onDragMove: function (e, s) {
+            s.autoScroll();
+        }
+    });
+});
+
+var exports_doc_demo_5 = require("doc_demo_5")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_scroll"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_scroll, {
+<span class="doc-code-highlight">        onDragMove(e, s) {</span>
+<span class="doc-code-highlight">            s.autoScroll();</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="方向">
+<a href="#方向" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>方向</h2>
+<p class="doc">限制拖动的方向。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col" id="doc_demo_6">
+<div id="box_direction_horizontal" class="doc-box" style="cursor: e-resize"></div>
+<script>define("doc_demo_6", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_direction_horizontal, {
+        onDragMove: function (e, s) {
+            s.direction("horizontal");
+        }
+    });
+});
+
+var exports_doc_demo_6 = require("doc_demo_6")
+</script>
+
+</div>
+<div class="doc-col" id="doc_demo_7">
+
+<div id="box_direction_vertial" class="doc-box" style="cursor: n-resize"></div>
+<script>define("doc_demo_7", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_direction_vertial, {
+        onDragMove: function (e, s) {
+            s.direction("vertical");
+        }
+    });
+});
+
+var exports_doc_demo_7 = require("doc_demo_7")
+</script>
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_direction_horizontal"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: e-resize"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> dom <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/dom"</span>;
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_direction_horizontal, {
+<span class="doc-code-highlight">        onDragMove(e, s) {</span>
+<span class="doc-code-highlight">            s.direction(</span><span class="doc-code-string"><span class="doc-code-highlight">"horizontal"</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span><hr><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_direction_vertial"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: n-resize"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> dom <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/dom"</span>;
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_direction_vertial, {
+<span class="doc-code-highlight">        onDragMove(e, s) {</span>
+<span class="doc-code-highlight">            s.direction(</span><span class="doc-code-string"><span class="doc-code-highlight">"vertical"</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="区域">
+<a href="#区域" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>区域</h2>
+<p class="doc">限制拖动的范围。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_8">
+<div id="box_limit" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_8", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_limit, {
+        onDragMove: function (e, s) {
+            s.limit(doc_demo_8);
+        }
+    });
+});
+
+var exports_doc_demo_8 = require("doc_demo_8")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_limit"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> dom <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/dom"</span>;
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_limit, {
+<span class="doc-code-highlight">        onDragMove(e, s) {</span>
+<span class="doc-code-highlight">            s.limit(__root__);</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="步长">
+<a href="#步长" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>步长</h2>
+<p class="doc">拖动到一定距离后才移动位置。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_9">
+<div id="box_step" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_9", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_step, {
+        onDragMove: function (e, s) {
+            s.step(50);
+        }
+    });
+});
+
+var exports_doc_demo_9 = require("doc_demo_9")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_step"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_step, {
+        onDragMove(e, s) {
+<span class="doc-code-highlight">            s.step(</span><span class="doc-code-number"><span class="doc-code-highlight">50</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">        }</span>
+<span class="doc-code-highlight">    });</span>
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="返回原地">
+<a href="#返回原地" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>返回原地</h2>
+<p class="doc">拖动结束后返回原地。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_10">
+<div id="box_revert" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_10", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_revert, {
+        onDragEnd: function (e, s) {
+            s.revert();
+        }
+    });
+});
+
+var exports_doc_demo_10 = require("doc_demo_10")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_revert"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_revert, {
+        onDragEnd(e, s) {
+<span class="doc-code-highlight">            s.revert();</span>
+<span class="doc-code-highlight">        }</span>
+<span class="doc-code-highlight">    });</span>
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="吸附">
+<a href="#吸附" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>吸附</h2>
+<p class="doc">允许拖动时吸附指定的位置。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_11">
+<div id="box_snap" class="doc-box" style="cursor: move"></div>
+<div id="box_snap_target" class="doc-box doc-box-large doc-box-blue"></div>
+<script>define("doc_demo_11", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_snap, {
+        onDragMove: function (e, s) {
+            s.snap(box_snap_target);
+        }
+    });
+});
+
+var exports_doc_demo_11 = require("doc_demo_11")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_snap"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_snap_target"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box doc-box-large doc-box-blue"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+
+    draggable(box_snap, {
+<span class="doc-code-highlight">        onDragMove(e, s) {</span>
+<span class="doc-code-highlight">            s.snap(box_snap_target);</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="代理">
+<a href="#代理" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>代理</h2>
+<p class="doc">允许拖动时创建移动代理元素。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_12">
+<div id="box_proxy" class="doc-box" style="cursor: move"></div>
+<script>define("doc_demo_12", ["require", "exports", "web/draggable", "web/dom"], function (require, exports, draggable_1, dom) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    draggable_1.default(box_proxy, {
+        onDragStart: function (e, s) {
+            // 创建代理元素。
+            s.proxy = s.elem.parentNode.appendChild(document.createElement(s.elem.tagName));
+            s.proxy.className = s.elem.className;
+            s.proxy.innerHTML = s.elem.innerHTML;
+            s.proxy.style.position = "absolute";
+            s.proxy.style.zIndex = 1000000;
+            s.proxy.style.opacity = 0.5;
+            dom.setRect(s.proxy, getRect(s.elem));
+        },
+        onDragEnd: function (e, s) {
+            // 设置实际元素的位置。
+            dom.setRect(s.elem, getRect(s.proxy));
+            // 删除代理元素。
+            s.proxy.parentNode.removeChild(s.proxy);
+            s.proxy = s.elem;
+        }
+    });
+});
+
+var exports_doc_demo_12 = require("doc_demo_12")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box_proxy"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"cursor: move"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> draggable <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/draggable"</span>;
+    <span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> dom <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/dom"</span>;
+
+    draggable(box_proxy, {
+<span class="doc-code-highlight">        onDragStart(e, s) {</span>
+<span class="doc-code-highlight">            </span><span class="doc-code-comment"><span class="doc-code-highlight">// 创建代理元素。</span></span>
+<span class="doc-code-highlight">            s.proxy = s.elem.parentNode.appendChild(</span><span class="doc-code-built_in"><span class="doc-code-highlight">document</span></span><span class="doc-code-highlight">.createElement(s.elem.tagName));</span>
+<span class="doc-code-highlight">            s.proxy.className = s.elem.className;</span>
+<span class="doc-code-highlight">            s.proxy.innerHTML = s.elem.innerHTML;</span>
+<span class="doc-code-highlight">            s.proxy.style.position = </span><span class="doc-code-string"><span class="doc-code-highlight">"absolute"</span></span><span class="doc-code-highlight">;</span>
+<span class="doc-code-highlight">            s.proxy.style.zIndex = </span><span class="doc-code-number"><span class="doc-code-highlight">1000000</span></span><span class="doc-code-highlight">;</span>
+<span class="doc-code-highlight">            s.proxy.style.opacity = </span><span class="doc-code-number"><span class="doc-code-highlight">0.5</span></span><span class="doc-code-highlight">;</span>
+<span class="doc-code-highlight">            dom.setRect(s.proxy, getRect(s.elem));</span>
+<span class="doc-code-highlight">        },</span>
+<span class="doc-code-highlight">        onDragEnd(e, s) {</span>
+<span class="doc-code-highlight">            </span><span class="doc-code-comment"><span class="doc-code-highlight">// 设置实际元素的位置。</span></span>
+<span class="doc-code-highlight">            dom.setRect(s.elem, getRect(s.proxy));</span>
+
+<span class="doc-code-highlight">            </span><span class="doc-code-comment"><span class="doc-code-highlight">// 删除代理元素。</span></span>
+<span class="doc-code-highlight">            s.proxy.parentNode.removeChild(s.proxy);</span>
+<span class="doc-code-highlight">            s.proxy = s.elem;</span>
+<span class="doc-code-highlight">        }</span>
+    });
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/draggable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L5-17" target="_blank" title="源码：web/draggable/draggable.ts，第 5 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>draggable<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, options?:<code>Partial&lt;<a href="#api/Draggable">Draggable</a>&gt;</code>):<code><a href="#api/Draggable">Draggable</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置指定的元素可拖动。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>elem<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>HTMLElement</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要拖动的元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>options</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="#api/Draggable">Draggable</a>&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">拖动的选项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Draggable">Draggable</a></code></p>
+                <p class="doc">返回一个拖动对象。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置指定的元素可拖动。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Draggable"><a href="#api/Draggable" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L19-242" target="_blank" title="源码：web/draggable/draggable.ts，第 19 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Draggable 类</h3><p>继承自：<code><a href="../../../components/web/movable/index.html#api/Movable">Movable</a></code></p><p class="doc">表示一个可拖动对象。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                <th class="doc-api-extends">继承自</th>
+                            </tr><tr id="api/Draggable/proxy">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L30-33" target="_blank" title="源码：web/draggable/draggable.ts，第 30 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>proxy</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">实际移动的元素。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">实际移动的元素。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/onDragStart">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L35-41" target="_blank" title="源码：web/draggable/draggable.ts，第 35 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onDragStart</code>
+                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">拖动开始事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">拖动开始事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/onDragMove">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L43-49" target="_blank" title="源码：web/draggable/draggable.ts，第 43 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onDragMove</code>
+                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">拖动移动事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">拖动移动事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/onDragEnd">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L51-56" target="_blank" title="源码：web/draggable/draggable.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onDragEnd</code>
+                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">拖动结束事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">拖动结束事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/onDragCancel">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L58-63" target="_blank" title="源码：web/draggable/draggable.ts，第 58 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>onDragCancel</code>
+                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">拖动取消事件。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">拖动取消事件。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/startClientX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L65-68" target="_blank" title="源码：web/draggable/draggable.ts，第 65 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startClientX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">开始拖动时拖动元素的水平偏移距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">开始拖动时拖动元素的水平偏移距离（单位：像素）。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/startClientY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L70-73" target="_blank" title="源码：web/draggable/draggable.ts，第 70 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startClientY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">开始拖动时拖动元素的垂直偏移距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">开始拖动时拖动元素的垂直偏移距离（单位：像素）。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/endClientX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L75-78" target="_blank" title="源码：web/draggable/draggable.ts，第 75 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endClientX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">当前拖动元素的水平偏移距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">当前拖动元素的水平偏移距离（单位：像素）。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/endClientY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L80-83" target="_blank" title="源码：web/draggable/draggable.ts，第 80 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endClientY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">当前拖动元素的垂直偏移距离（单位：像素）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">当前拖动元素的垂直偏移距离（单位：像素）。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Draggable/delay">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L24-28" target="_blank" title="源码：web/draggable/draggable.ts，第 24 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>delay</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>500</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(已覆盖)</strong>从指针按下到触发移动事件的等待毫秒数。如果为 -1 则忽略指针按下不动的操作。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/delay">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(已覆盖)</strong>从指针按下到触发移动事件的等待毫秒数。如果为 -1 则忽略指针按下不动的操作。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/delay">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/elem">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L21-24" target="_blank" title="源码：web/movable/movable.ts，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>elem</code>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">移动的元素。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/elem">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>HTMLElement</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">移动的元素。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/elem">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/distance">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L32-36" target="_blank" title="源码：web/movable/movable.ts，第 32 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>distance</code>
+                                <span class="doc-api-more">: <code>number</code> = <code>3</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">允许触发移动事件的最小指针移动距离（单位：像素）。当移动距离小于这个值时忽略移动操作。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/distance">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">允许触发移动事件的最小指针移动距离（单位：像素）。当移动距离小于这个值时忽略移动操作。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/distance">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/startX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L62-65" target="_blank" title="源码：web/movable/movable.ts，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取开始移动的水平坐标（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/startX">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取开始移动的水平坐标（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/startX">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/startY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L67-70" target="_blank" title="源码：web/movable/movable.ts，第 67 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>startY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取开始移动的垂直坐标（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/startY">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取开始移动的垂直坐标（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/startY">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/endX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L72-75" target="_blank" title="源码：web/movable/movable.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取当前的水平坐标（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/endX">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取当前的水平坐标（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/endX">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/endY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L77-80" target="_blank" title="源码：web/movable/movable.ts，第 77 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>endY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取当前的垂直坐标（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/endY">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取当前的垂直坐标（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/endY">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/offsetX">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L82-85" target="_blank" title="源码：web/movable/movable.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offsetX</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取移动的水平距离（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/offsetX">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取移动的水平距离（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/offsetX">Movable</a></code></td>
+                        </tr><tr id="api/Draggable/offsetY">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L87-90" target="_blank" title="源码：web/movable/movable.ts，第 87 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offsetY</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>获取移动的垂直距离（单位：像素）。</p>
+
+                                    <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/offsetY">Movable</a></code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>获取移动的垂直距离（单位：像素）。</p>
+
+                            </td>
+                            <td><code><a href="../../../components/web/movable/index.html#api/Movable/offsetY">Movable</a></code></td>
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            <th class="doc-api-extends">继承自</th>
+                        </tr><tr id="api/Draggable/autoScroll">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L122-130" target="_blank" title="源码：web/draggable/draggable.ts，第 122 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>autoScroll<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(scrollable?:<code>Element | Document</code>, padding?:<code>number</code>, offset?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">自动滚动屏幕。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>scrollable</code>
+                                </td>
+                                <td>
+                                    <code>Element | Document | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">滚动的容器元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否在区域内的最小距离。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>offset</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果需要滚动则额外偏移的距离。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">自动滚动屏幕。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/direction">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L132-138" target="_blank" title="源码：web/draggable/draggable.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>direction<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>string</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">限制拖动的方向。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>&quot;vertical&quot; | &quot;horizontal&quot;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的方向。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">限制拖动的方向。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/limit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L140-157" target="_blank" title="源码：web/draggable/draggable.ts，第 140 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>limit<i class="doc-tip doc-api-ellipsis">(container, ...)</i><span class="doc-tip doc-api-more">(container:<code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>, padding?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">限制只能在指定区域内拖动。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>container<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">限制的区域或元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">容器的内边距。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">限制只能在指定区域内拖动。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/step">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L159-166" target="_blank" title="源码：web/draggable/draggable.ts，第 159 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>step<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置拖动的步长。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">拖动的步长。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置拖动的步长。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/revert">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L168-182" target="_blank" title="源码：web/draggable/draggable.ts，第 168 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>revert<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(callback?:<code>function</code>, duration?:<code>number</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">还原位置。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback</code>
+                                </td>
+                                <td>
+                                    <code>(() =&gt; void) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变结束的回调函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>duration</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">渐变的总毫秒数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">还原位置。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/snap">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L184-240" target="_blank" title="源码：web/draggable/draggable.ts，第 184 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>snap<i class="doc-tip doc-api-ellipsis">(target, ...)</i><span class="doc-tip doc-api-more">(target:<code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>, padding?:<code>number</code>, distance?:<code>number</code>, position?:<code>string</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">使当前元素吸附于目标位置。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>target<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">吸附的目标区域或元素。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>padding</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">容器的内边距。</p>
+
+                                </td>
+                                <td>
+                                    <code>0</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>distance</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">吸附的最小距离，当距离小于这个值后产生吸附效果。</p>
+
+                                </td>
+                                <td>
+                                    <code>15</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>position</code>
+                                </td>
+                                <td>
+                                    <code>&quot;both&quot; | &quot;inside&quot; | &quot;outside&quot;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">吸附的位置。</p>
+
+                                </td>
+                                <td>
+                                    <code>&quot;both&quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">如果未吸附成功则返回 0，如果水平吸附成功则返回 1，如果垂直吸附成功则返回 2，如果都吸附成功则返回 3。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">使当前元素吸附于目标位置。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Draggable/moveStart">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L85-98" target="_blank" title="源码：web/draggable/draggable.ts，第 85 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>moveStart<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发拖动开始事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果返回 false 则忽略本次拖动。</p>
+
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/moveStart">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(已覆盖)</strong>触发拖动开始事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/moveStart">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/move">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L100-112" target="_blank" title="源码：web/draggable/draggable.ts，第 100 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>move<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>false</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发拖动移动事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>false | undefined</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/move">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(已覆盖)</strong>触发拖动移动事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/move">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/moveEnd">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L114-120" target="_blank" title="源码：web/draggable/draggable.ts，第 114 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>moveEnd<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">触发拖动结束事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/moveEnd">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(已覆盖)</strong>触发拖动结束事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/moveEnd">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/cancel">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L38-46" target="_blank" title="源码：web/movable/movable.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>cancel<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断是否取消指定事件引发的移动效果。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果返回 true 则取消移动，否则允许开始移动。</p>
+
+                <h4>说明</h4><p class="doc">默认地，如果是点击输入域则取消移动。</p>
+
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/cancel">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断是否取消指定事件引发的移动效果。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/cancel">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/enable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L48-53" target="_blank" title="源码：web/movable/movable.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>enable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">启用移动效果。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/enable">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">启用移动效果。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/enable">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/disable">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L55-60" target="_blank" title="源码：web/movable/movable.ts，第 55 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>disable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">禁用移动效果。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/disable">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">禁用移动效果。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/disable">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/handlePointerDown">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L97-130" target="_blank" title="源码：web/movable/movable.ts，第 97 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerDown<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针按下事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerDown">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针按下事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerDown">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/handlePointerMove">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L132-147" target="_blank" title="源码：web/movable/movable.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerMove<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针移动事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerMove">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针移动事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerMove">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/handlePointerUp">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L149-157" target="_blank" title="源码：web/movable/movable.ts，第 149 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>handlePointerUp<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>处理指针松开事件。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerUp">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>处理指针松开事件。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerUp">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/init">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L169-207" target="_blank" title="源码：web/movable/movable.ts，第 169 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>init<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>进入移动状态。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/init">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>进入移动状态。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/init">Movable</a></code></td>
+                            </tr><tr id="api/Draggable/uninit">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L209-240" target="_blank" title="源码：web/movable/movable.ts，第 209 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>uninit<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc"><strong>(保护的)</strong>退出移动状态。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>e<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>MouseEvent</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">事件对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/uninit">Movable</a></code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc"><strong>(保护的)</strong>退出移动状态。</p>
+
+                                </td>
+                                <td><code><a href="../../../components/web/movable/index.html#api/Movable/uninit">Movable</a></code></td>
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/movable/" title="移动效果" id="doc_pager_prev"><i class="doc-icon">⮜</i> 移动效果</a>
+                            <a href="../../../components/web/droppable/" title="拖放" id="doc_pager_next">拖放 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/draggable/","imports":["web/draggable"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

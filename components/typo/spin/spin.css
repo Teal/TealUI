@@ -1,0 +1,43 @@
+.x-spin {
+  display: inline-block;
+  -webkit-animation: 2s linear 0s normal none infinite running x-spin;
+     -moz-animation: 2s linear 0s normal none infinite running x-spin;
+          animation: 2s linear 0s normal none infinite running x-spin;
+}
+
+@-webkit-keyframes x-spin {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+@-moz-keyframes x-spin {
+  0% {
+    -moz-transform: rotate(0);
+         transform: rotate(0);
+  }
+  100% {
+    -moz-transform: rotate(359deg);
+         transform: rotate(359deg);
+  }
+}
+
+@keyframes x-spin {
+  0% {
+    -webkit-transform: rotate(0);
+       -moz-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+       -moz-transform: rotate(359deg);
+            transform: rotate(359deg);
+  }
+}
+
+/*# sourceMappingURL=spin.css.map */

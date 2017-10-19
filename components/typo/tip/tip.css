@@ -1,0 +1,21 @@
+.x-tip {
+  color: #999;
+}
+
+.x-tip-info {
+  color: #2487d0;
+}
+
+.x-tip-success {
+  color: #3ca23c;
+}
+
+.x-tip-warning {
+  color: #e28f19;
+}
+
+.x-tip-error {
+  color: #d63a29;
+}
+
+/*# sourceMappingURL=tip.css.map */

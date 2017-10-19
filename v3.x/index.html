@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html data-frame="page">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>TealUI | 最完整的开源前端代码库</title>
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="TealUI - 最完整的开源前端代码库">
+    <meta name="keywords" content="TealUI, HTML5 UI Framework, 前端组件">
+    <link rel="icon" type="image/x-icon" href="assets/web/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="assets/doc/doc.css">
+    <link rel="stylesheet" type="text/css" href="assets/web/index.css">
+    <script type="text/javascript" src="assets/doc/doc.js"></script>
+</head>
+<body class="doc-page doc-section">
+    <!--[if lte IE 8]>
+        <div class="doc-container" style="border: 1px solid #F7941D; color: #F44336; padding: 10px 20px; background: #FEEFDA; text-align: center; font-size: 14px;">
+            <strong style="float: right;cursor:pointer" onclick="this.parentNode.style.display='none'">&times;</strong>
+            您使用的浏览器版本过低，将影响使用本网站的功能。请 <a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser" target="_blank">点此升级</a> 或下载更快更安全的 <a href="http://www.google.cn/intl/zh-CN/chrome/browser/desktop/index.html" target="_blank">谷歌浏览器</a> 或者 <a href="http://www.firefox.com.cn/download/" target="_blank">火狐浏览器</a>。
+        </div>
+        <script src="src/utility/lang/html5.js"></script>
+        <style>
+            article,aside,dialog,footer,header,section,footer,nav,figure,menu{display:block}
+        </style>
+    <![endif]-->
+    <nav id="doc_topbar" class="doc-container doc-section doc-clear">
+        <a href="index.html" id="doc_logo" title="TealUI(网页版)">TealUI <small><!--@MAJORVERSION-->3.0<!--@/MAJORVERSION--></small></a>
+        <span id="doc_menu" class="doc-right">
+            <button type="button" id="doc_menu_navbar" onclick="Doc.toggleNavbar();"><span class="doc-icon">≡</span></button>
+        </span>
+        <ul id="doc_navbar">
+            <li><a href="docs/index.html">开始使用</a></li>
+            <li><a href="demos/index.html">DEMO演示</a></li>
+            <li><a href="src/index.html">所有组件</a></li>
+            <li><a href="assets/tools/download.html">下载定制</a></li>
+            <li><a href="https://github.com/Teal/TealUI/issues" target="_blank">讨论</a></li>
+        </ul>
+        <form id="doc_search" class="doc-right" onsubmit="Doc.onSuggestSubmit('doc_search_suggest'); return false;">
+            <input type="text" placeholder="搜索组件..." autocomplete="off" onfocus="Doc.showSearchSuggest(this.value)" onblur="Doc.hideSearchSuggest()" oninput="Doc.onSuggestInput('doc_search_suggest', this.value, false)" onchange="Doc.onSuggestInput('doc_search_suggest', this.value, false)" onkeydown="Doc.onSuggestKeyPress('doc_search_suggest', event)" />
+            <button type="submit" class="doc-icon-search"><span class="doc-icon">☌</span></button>
+        </form>
+    </nav>
+    <header id="doc_header" class="doc-container doc-section">
+        <div class="doc-row doc-row-2">
+            <div id="header_logo" class="doc-col">
+                <img src="assets/web/images/logo.png" alt="TealUI" onload="this.className = 'animateShow' " />
+            </div>
+            <div class="doc-col">
+                <h1>TealUI</h1>
+                <h2>最完整的开源前端代码库</h2>
+                <div id="header_primary">
+                    <a href="tools/customize/index.html" id="mainButton">立即下载</a>
+                    &nbsp;&nbsp;&nbsp;<small>当前版本：<!--@VERSION-->3.0.0alpha<!--@/VERSION--></small>
+                    <script>
+                        if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '::1') {
+                            document.getElementById('mainButton').innerHTML = '开始使用';
+                            document.getElementById('mainButton').href = 'docs/index.html';
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <p>
+            <a href="src/index.html">DEMO演示</a>
+            <a href="assets/tools/download.html">定制下载</a>
+            <a href="docs/index.html">如何开始</a>
+        </p>
+        <p id="header_external_links">
+            <a href="http://github.com/Teal/TealUI/" target="_blank"><span class="doc-icon">g</span>GitHub</a>
+            <a><span class="doc-icon">q</span>QQ 群: 177503954</a>
+        </p>
+    </header>
+    <article class="doc-container">
+        <h2>功能齐全：覆盖前端多数需求；同时支持电脑和手机！</h2>
+        <p>TealUI 包含了一套简约现代风格的<strong> CSS 设计</strong>、一套高性能的<strong> JS 工具代码库</strong>和一套现成的完整<strong>网页模板</strong>。你既可以通过复制源码的方式单独使用某个功能，也可以整体打包下载作为 UI 框架使用。</p>
+        <div class="doc-row doc-row-3">
+            <div class="doc-col">
+                <img src="assets/web/images/palette.png" width="200" />
+                <h3><a href="">无需设计：快速搭建漂亮页面</a></h3>
+                <p>100 多个相同风格的 UI 设计，让工(ji)程(shu)师(zhai)无需设计、用最少代码就能搭建出漂亮的 HTML5 页面，自动适配电脑手机多个平台。</p>
+            </div>
+            <div class="doc-col">
+                <img src="assets/web/images/moduler.png" width="200" />
+                <h3><a href="">工具函数：轻松复制现成源码</a></h3>
+                <p>如日期扩展、Cookie 处理、MD5 加密、模板引擎。这些常用函数都能在库中找到，函数代码短、依赖少，无需下载，只要复制源码就能直接使用。</p>
+            </div>
+            <div class="doc-col">
+                <img src="assets/web/images/localization.png" width="200" />
+                <h3><a href="">更懂国情：适合中文排版</a></h3>
+                <p>根据国内业务需要，提供城市选择、拼音汉字转换、身份证验证等特定组件；兼顾国内行情，为国产浏览器填坑。</p>
+            </div>
+        </div>
+    </article>
+    <section id="features" class="doc-container">
+        <div class="doc-row doc-row-2">
+            <dl class="doc-col">
+                <dt>兼容性</dt>
+                <dd><span class="doc-icon">✓</span> <span class="doc-icon">i</span> IE 8+(PC/WP)</dd>
+                <dd><span class="doc-icon">✓</span> <span class="doc-icon">f</span> Firefox 4+</dd>
+                <dd><span class="doc-icon">✓</span> <span class="doc-icon">c</span> Chrome 40+(PC/Android)</dd>
+                <dd><span class="doc-icon">✓</span> <span class="doc-icon">s</span> Safari 6+(PC/IOS)</dd>
+                <dd><span class="doc-icon">✓</span> <span class="doc-icon">o</span> Opera 12+</dd>
+            </dl>
+            <dl class="doc-col">
+                <dt>3.0 新特性</dt>
+                <dd>1. 组件 JS 和 CSS 依赖分离，提高组件灵活。</dd>
+                <dd>2. 重构所有组件，移动优先。</dd>
+                <dd>3. 简化项目结构，增强搜索功能。</dd>
+                <dd>4. 强化打包工具，组件瞬间下降。</dd>
+            </dl>
+        </div>
+    </section>
+    <footer id="doc_footer" class="doc-container doc-section">
+        <div>
+            <a href="docs/about/index.html">关于我们</a> |
+            <a href="docs/about/license.html">开源协议</a> |
+            <a href="https://github.com/Teal/TealUI/issues/new" target="_blank">问题反馈</a> |
+            <a href="docs/about/joinus.html">加入我们</a>
+        </div>
+        &copy; 2011-2015 The Teal Team. All Rights Reserved.
+    </footer>
+</body>
+</html>

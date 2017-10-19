@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>HTML5 兼容补丁</title>
+    <meta name="module-info" content="parent-parent-title=JS 函数库, parent-parent-order=control, parent-title=语言扩展, parent-order=^, order=^, compat=BC">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="为低版本浏览器（B、C 类，包括 IE8 以及老版本 FireFox, Safari 和 Chrome）添加标准的 HTML5 常用 API。建议先引入本组件，以确保本库能兼容所有低版本浏览器。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>常用 API</h2>
+    <script x-doc="utility/lang/html5.js">
+        Doc.writeApi({
+			path: "utility/lang/html5.js",
+			apis: [{
+				name: "语言扩展",
+				memberType: "category",
+				line: 9,
+				col: 1
+			}, {
+				memberOf: "Function.prototype",
+				name: "bind",
+				summary: "<p>返回一个新函数，这个函数执行时 <strong>this</strong> 始终为指定的 <em>scope</em>。</p>",
+				params: [{
+					type: "Object",
+					name: "scope",
+					summary: "<p>要绑定的 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Function",
+					summary: "<p>返回一个新函数。</p>"
+				},
+				example: "<pre>(function(){ return this;  }).bind(0)() // 0</pre>",
+				since: "ES5",
+				line: 13,
+				col: 1
+			}, {
+				memberOf: "Array",
+				name: "isArray",
+				summary: "<p>判断一个对象是否是数组。</p>",
+				params: [{
+					type: "Object",
+					name: "obj",
+					summary: "<p>要判断的对象。</p>"
+				}],
+				returns: {
+					type: "Boolean",
+					summary: "<p>如果 <em>obj</em> 是数组则返回 <strong>true</strong>，否则返回 <strong>false</strong>。</p>"
+				},
+				example: "<pre>Array.isArray([]); // true</pre>\n\
+\n\
+<pre>Array.isArray(document.getElementsByTagName(\"div\")); // false</pre>\n\
+\n\
+<pre>Array.isArray(new Array); // true</pre>",
+				since: "ES5",
+				line: 31,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
+				name: "forEach",
+				summary: "<p>遍历当前数组，并对每一项执行函数 <em>fn</em>。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>对每一项执行的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>定义 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				example: "<pre>[2, 5].forEach(function (value, index) {\n\
+     console.log(value);\n\
+}); // 输出 2  5</pre>",
+				since: "ES5",
+				line: 51,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
+				name: "filter",
+				summary: "<p>将当前数组中符合要求的项组成一个新数组。</p>",
+				params: [{
+					type: "Function",
+					name: "fn",
+					summary: "<p>用于判断每一项是否符合要求的函数。函数的参数依次为:</p>\n\
+\n\
+<ul>\n\
+<li>value: <code>Object</code> 当前项的值。</li>\n\
+<li>index: <code>Number</code> 当前项的索引。</li>\n\
+<li>array: <code>Array</code> 当前正在遍历的数组。</li>\n\
+<li>返回值: <code>Boolean</code> 返回 <strong>true</strong> 说明当前元素符合条件，否则不符合。</li>\n\
+</ul>"
+				}, {
+					type: "Object",
+					name: "scope",
+					optional: true,
+					summary: "<p>指定 <em>fn</em> 执行时 <strong>this</strong> 的值。</p>"
+				}],
+				returns: {
+					type: "Array",
+					summary: "<p>返回一个新数组。</p>"
+				},
+				example: "<pre>[1, 2].filter(function(v){return v > 1;}) // [2]</pre>",
+				since: "ES5",
+				line: 73,
+				col: 1
+			}, {
+				memberOf: "String.prototype",
+				name: "trim",
+				summary: "<p>去除字符串的首尾空格。</p>",
+				returns: {
+					type: "String",
+					summary: "<p>返回新字符串。</p>"
+				},
+				example: "<pre>\"   g h   \".trim(); // \"g h\"</pre>",
+				since: "ES5",
+				line: 105,
+				col: 1
+			}, {
+				name: "IE8 补丁",
+				memberType: "category",
+				line: 123,
+				col: 1
+			}, {
+				memberOf: "Array.prototype",
+				name: "indexOf",
+				summary: "<p>获取指定项在数组内的索引。</p>",
+				params: [{
+					type: "Object",
+					name: "value",
+					summary: "<p>一个类数组对象。</p>"
+				}, {
+					type: "Number",
+					name: "startIndex",
+					defaultValue: "0",
+					optional: true,
+					summary: "<p>转换开始的位置。</p>"
+				}],
+				returns: {
+					type: "Number",
+					summary: "<p>返回索引。如果找不到则返回 -1。</p>"
+				},
+				example: "<pre>[\"b\", \"c\", \"a\", \"a\"].indexOf(\"a\"); // 2</pre>",
+				since: "ES4",
+				line: 125,
+				col: 1
+			}, {
+				name: "XMLHttpRequest",
+				summary: "<p>用于创建一个异步请求。</p>",
+				example: "<pre>new XMLHttpRequest()</pre>",
+				since: "ES4",
+				line: 141,
+				col: 1
+			}, {
+				memberOf: "Element.prototype",
+				name: "addEventListener",
+				summary: "<p>为当前元素添加指定监听器。</p>",
+				since: "ES4",
+				example: "<pre>document.body.addEventListener('click', function(){}, false)</pre>",
+				line: 185,
+				col: 1
+			}, {
+				memberOf: "Element.prototype",
+				name: "removeEventListener",
+				summary: "<p>为当前元素移除指定监听器。</p>",
+				since: "ES4",
+				example: "<pre>document.body.removeEventListener('click', function(){}, false)</pre>",
+				line: 193,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "stopPropagation",
+				summary: "<p>阻止当前事件冒泡。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    e.stopPropagation();\n\
+}</pre>",
+				since: "ES4",
+				line: 201,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "preventDefault",
+				summary: "<p>阻止事件默认行为。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    e.preventDefault();\n\
+}</pre>",
+				since: "ES4",
+				line: 210,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "target",
+				summary: "<p>获取事件发生的目标元素。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.target);\n\
+}</pre>",
+				since: "ES4",
+				line: 219,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "relatedTarget",
+				summary: "<p>获取事件发生的相关元素。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.relatedTarget);\n\
+}</pre>",
+				since: "ES4",
+				line: 229,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "which",
+				summary: "<p>获取事件发生的鼠标按键。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.which);\n\
+}</pre>",
+				since: "ES4",
+				line: 239,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "pageX",
+				summary: "<p>获取事件发生的鼠标屏幕水平坐标。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.pageX);\n\
+}</pre>",
+				since: "ES4",
+				line: 251,
+				col: 1
+			}, {
+				memberOf: "Event.prototype",
+				name: "pageY",
+				summary: "<p>获取事件发生的鼠标屏幕垂直坐标。</p>",
+				example: "<pre>document.onclick = function(e){ \n\
+    console.log(e.pageY);\n\
+}</pre>",
+				since: "ES4",
+				line: 261,
+				col: 1
+			}, {
+				memberOf: "TextRectangle.prototype",
+				name: "width",
+				summary: "<p>获取当前区域的宽。</p>",
+				example: "<pre>document.body.getBoundingClientRect().width</pre>",
+				since: "ES4",
+				line: 273,
+				col: 1
+			}, {
+				memberOf: "TextRectangle.prototype",
+				name: "height",
+				summary: "<p>获取当前区域的高。</p>",
+				example: "<pre>document.body.getBoundingClientRect().height</pre>",
+				since: "ES4",
+				line: 282,
+				col: 1
+			}]
+});
+    </script>
+
+    <h2>ECMA 5 新增 API <small>(源码: <a href="../../utility/lang/es5.js" target="_blank">utility/lang/es5.js</a>)</small></h2>
+    <p>ES5 新增了若干对象操作的 API，具体请参考 <a href="http://es5.github.com" target="_blank">ES5 官网</a>。</p>
+    <blockquote>另参考：<a href="http://kangax.github.io/compat-table/es5/" target="_blank">ECMA 5 浏览器支持现状</a></blockquote>
+</body>
+</html>

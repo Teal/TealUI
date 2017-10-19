@@ -1,0 +1,101 @@
+.x-tabbar {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.x-tabbar a {
+  display: none;
+  color: #999;
+  cursor: default;
+}
+
+.x-tabbar a:hover {
+  text-decoration: none;
+}
+
+.x-tabbar-left {
+  float: left;
+  padding: 0.5rem 0.5rem 0.5rem 0;
+}
+
+.x-tabbar-right {
+  float: right;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.x-tabbar-disabled {
+  cursor: not-allowed;
+  opacity: .3;
+}
+
+.x-tabbar-overflow .x-tabbar-left, .x-tabbar-overflow .x-tabbar-right {
+  display: block;
+}
+
+.x-tabbar-body {
+  position: relative;
+  margin: 0 0 -2px;
+  overflow: hidden;
+}
+
+.x-tabbar-overflow .x-tabbar-body {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.x-tabbar ul {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  list-style: none;
+}
+
+.x-tabbar li {
+  display: inline-block;
+  margin-right: 0.5rem;
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  min-width: 6rem;
+  max-width: 10rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 0.5rem 0.375rem 0.5rem 0.5rem;
+  background-color: #eff7fe;
+  line-height: 1;
+  vertical-align: bottom;
+}
+
+.x-tabbar li:last-child {
+  margin-right: 0;
+}
+
+.x-tabbar li a {
+  display: block;
+  overflow: hidden;
+  color: #666;
+  text-overflow: ellipsis;
+}
+
+.x-tabbar-active a {
+  color: #1780ce !important;
+}
+
+.x-tabbar .x-close {
+  margin: 0 0.25rem;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.x-tabbar li:hover .x-close, .x-tabbar-active .x-close {
+  opacity: 1;
+}
+
+.x-tabbar-bar {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #1780ce;
+}
+
+/*# sourceMappingURL=tabBar.css.map */

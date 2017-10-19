@@ -1,0 +1,61 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-listbox {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    border: 1px solid @border-color;
+    border-radius: @border-radius;
+    background-color: @background-color;
+    max-height: @line-height * 10;
+    min-width: @font-size * 7;
+    max-width: @font-size * 20;
+
+    a {
+        display: block;
+        color: @text-color;
+        padding: @padding-height / 2 @padding-width;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+            background-color: @background-color-hover;
+            text-decoration: none;
+            .transition(background-color .1s);
+        }
+    }
+
+    li {
+        &:first-child a {
+            border-top-left-radius: @border-radius;
+            border-top-right-radius: @border-radius;
+        }
+
+        &:last-child a {
+            border-bottom-left-radius: @border-radius;
+            border-bottom-right-radius: @border-radius;
+        }
+    }
+}
+
+.x-listbox-selected a {
+    background-color: @selected-background-color !important;
+    color: @selected-text-color;
+}
+
+.x-listbox-readonly, .x-listbox-disabled {
+    background-color: @background-color-header !important;
+}
+
+.x-listbox-disabled {
+    pointer-events: none;
+    .user-select(none);
+}
+
+.x-listbox-disabled a {
+    color: @text-color-disabled !important;
+}

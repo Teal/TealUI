@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>兼容性</title>
+</head>
+<body>
+    <script type="text/javascript" src="../../assets/doc/doc.js"></script>
+
+    <h2>浏览器兼容性</h2>
+    <p>浏览器兼容性问题是前端开发所面对的最头疼问题。TealUI 作为国产前端框架，以国内浏览器市场占有率为基础，定制了以下了浏览器分类。</p>
+    <h3>A 类浏览器</h3>
+    <table>
+        <tr>
+            <th>操作系统</th>
+            <th>浏览器</th>
+            <th>版本</th>
+        </tr>
+        <tr>
+            <td rowspan="3">Windows</td>
+            <td>Chrome</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Firefox</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>IE</td>
+            <td>IE 10+</td>
+        </tr>
+        <tr>
+            <td rowspan="3">OS X(10.9+)</td>
+            <td>Chrome</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Firefox</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Safari</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td rowspan="4">iOS(7.1.2+)</td>
+            <td>Safari</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Chrome</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>UC</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Opera</td>
+            <td>Opera Coast</td>
+        </tr>
+        <tr>
+            <td rowspan="3">Android (4.1+)</td>
+            <td>Chrome</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>Safari</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>UC</td>
+            <td>最新版本</td>
+        </tr>
+        <tr>
+            <td rowspan="2">WP(8+)</td>
+            <td>IE</td>
+            <td>IE 10+</td>
+        </tr>
+        <tr>
+            <td>UC</td>
+            <td>最新版本</td>
+        </tr>
+    </table>
+    <h3>B 类浏览器</h3>
+    <table>
+        <tr>
+            <th>操作系统</th>
+            <th>浏览器</th>
+            <th>版本</th>
+        </tr>
+        <tr>
+            <td rowspan="5">Windows</td>
+            <td>Chrome</td>
+            <td>其它版本</td>
+        </tr>
+        <tr>
+            <td>Opera</td>
+            <td>Opera 12+</td>
+        </tr>
+        <tr>
+            <td>Safari</td>
+            <td>Safari 5.1+</td>
+        </tr>
+        <tr>
+            <td>Firefox</td>
+            <td>Firefox 4+</td>
+        </tr>
+        <tr>
+            <td>IE</td>
+            <td>IE 8-9</td>
+        </tr>
+        <tr>
+            <td>Android (2.3+)</td>
+            <td>Chrome</td>
+            <td>最新 2 个版本</td>
+        </tr>
+        <tr>
+            <td>WP(6+)</td>
+            <td>IE</td>
+            <td>IE 9</td>
+        </tr>
+    </table>
+    <h3>C 类浏览器</h3>
+    <table>
+        <tr>
+            <th>操作系统</th>
+            <th>浏览器</th>
+            <th>版本</th>
+        </tr>
+        <tr>
+            <td rowspan="4">Windows</td>
+            <td>IE</td>
+            <td>IE 6-7</td>
+        </tr>
+        <tr>
+            <td>Firefox</td>
+            <td>Firefox 2+</td>
+        </tr>
+        <tr>
+            <td>Chrome</td>
+            <td>其它版本</td>
+        </tr>
+        <tr>
+            <td>Opera</td>
+            <td>Opera 9+</td>
+        </tr>
+    </table>
+
+    <h3>X 类浏览器</h3>
+    <p>其它未在以上表格出现的浏览器版本。</p>
+    <p>对于其它国产浏览器（如 UC、360浏览器、QQ浏览器、百度浏览器等），级别均根据其内核模式定义。</p>
+    <h5>兼容性原则</h5>
+
+    <ol>
+        <li>A 类浏览器：完全支持。</li>
+        <li>B 类浏览器：提供可选补丁支持，但不能确保和一级浏览器有完全相同的用户体验。</li>
+        <li>C 类浏览器：不测试其兼容性，但会提供小部分补丁。</li>
+        <li>X 类浏览器：不测试其兼容性，理论上也不会提供补丁。</li>
+    </ol>
+    <h2>分辨率兼容性</h2>
+    <p>所有组件优先考虑移动平台，同时为 PC 平台添加自适应补丁。如果组件只用于移动平台，可以保证最少的代码量。</p>
+    <table>
+        <tr>
+            <th>前缀</th>
+            <th>分辨率宽度</th>
+            <th>描述</th>
+        </tr>
+        <tr>
+            <td>-smaller</td>
+            <td>0-640px</td>
+            <td>手机</td>
+        </tr>
+        <tr>
+            <td>-small</td>
+            <td>641px-1024px</td>
+            <td>平板</td>
+        </tr>
+        <tr>
+            <td>-large</td>
+            <td>1025px-1280px</td>
+            <td>电脑</td>
+        </tr>
+        <tr>
+            <td>-larger</td>
+            <td>1281px-1440px</td>
+            <td>电视</td>
+        </tr>
+        <tr>
+            <td>-largest</td>
+            <td>1441px-1920px</td>
+            <td>高清电视、投影仪</td>
+        </tr>
+    </table>
+    <p>TealUI 考虑前端应用场景，只提供区分手机和非手机平台的样式。</p>
+</body>
+</html>

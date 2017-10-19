@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>类 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/class"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import Class from \&quot;util/class\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/class\&quot;], function (class_1) {\n\tvar Class = class_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/class/class.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/class" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/class/class.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="类">
+<a href="#类" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>类<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as Class">util/class</small></h1>
+<p class="doc">为 JavaScript 提供快速创建类的功能。</p>
+<dl id="doc_toc">
+	<dt><a href="#定义类">定义类</a></dt>
+	<dt><a href="#字段和方法">字段和方法</a></dt>
+	<dt><a href="#构造函数">构造函数</a></dt>
+	<dt><a href="#继承">继承</a></dt>
+	<dt><a href="#建议">建议</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#api/Class">Class 类</a></dd>
+</dl>
+<h2 id="定义类">
+<a href="#定义类" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>定义类</h2>
+<p class="doc">直接调用 <code>Class.extend</code> 创建一个新类。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Class <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/class"</span>;
+
+<span class="doc-code-keyword"><span class="doc-code-highlight">var</span></span><span class="doc-code-highlight"> Animal = Class.extend();</span></code></pre><h2 id="字段和方法">
+<a href="#字段和方法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>字段和方法</h2>
+<p class="doc">通过 <code>Class.extend</code> 的第一参数添加类的字段和方法。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Class <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/class"</span>;
+
+<span class="doc-code-keyword">var</span> Animal = Class.extend({
+<span class="doc-code-highlight">    </span><span class="doc-code-attr"><span class="doc-code-highlight">name</span></span><span class="doc-code-highlight">: </span><span class="doc-code-string"><span class="doc-code-highlight">"小黑"</span></span><span class="doc-code-highlight">,         </span><span class="doc-code-comment"><span class="doc-code-highlight">// 我是字段（Field）</span></span>
+<span class="doc-code-highlight">    say: </span><span class="doc-code-function"><span class="doc-code-keyword"><span class="doc-code-highlight">function</span></span><span class="doc-code-highlight"> (</span><span class="doc-code-params"></span><span class="doc-code-highlight">) </span></span><span class="doc-code-highlight">{   </span><span class="doc-code-comment"><span class="doc-code-highlight">// 我是方法（Method）</span></span>
+<span class="doc-code-highlight">        </span><span class="doc-code-built_in"><span class="doc-code-highlight">console</span></span><span class="doc-code-highlight">.log(</span><span class="doc-code-keyword"><span class="doc-code-highlight">this</span></span><span class="doc-code-highlight">.name + </span><span class="doc-code-string"><span class="doc-code-highlight">"调用了 say 方法"</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">    }</span>
+});
+
+<span class="doc-code-keyword">var</span> ani = <span class="doc-code-keyword">new</span> Animal();  <span class="doc-code-comment">// 创建一个类的实例。</span>
+ani.name = <span class="doc-code-string">"大白"</span>;       <span class="doc-code-comment">// 为字段赋值。</span>
+ani.say();               <span class="doc-code-comment">// 调用 Animal 类的 say 方法。</span></code></pre><h2 id="构造函数">
+<a href="#构造函数" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>构造函数</h2>
+<p class="doc">如果子类未定义构造函数，则继承父类构造函数。
+子类也可使用 <code>constructor</code> 定义构造函数。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Class <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/class"</span>;
+
+<span class="doc-code-keyword">var</span> Animal = Class.extend({
+<span class="doc-code-highlight">    </span><span class="doc-code-attr"><span class="doc-code-highlight">constructor</span></span><span class="doc-code-highlight">: </span><span class="doc-code-function"><span class="doc-code-keyword"><span class="doc-code-highlight">function</span></span><span class="doc-code-highlight"> (</span><span class="doc-code-params"><span class="doc-code-highlight">args</span></span><span class="doc-code-highlight">) </span></span><span class="doc-code-highlight">{</span>
+<span class="doc-code-highlight">        </span><span class="doc-code-built_in"><span class="doc-code-highlight">console</span></span><span class="doc-code-highlight">.log(</span><span class="doc-code-string"><span class="doc-code-highlight">"调用了 Animal 类的构造函数"</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">    }</span>
+});
+<span class="doc-code-keyword">var</span> ani = <span class="doc-code-keyword">new</span> Animal(); <span class="doc-code-comment">// 创建一个类的实例时会调用类构造函数。</span></code></pre><h2 id="继承">
+<a href="#继承" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>继承</h2>
+<p class="doc">调用创建的类的 <code>extend</code>，可继承该类创建新子类。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Class <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/class"</span>;
+
+<span class="doc-code-keyword">var</span> Animal = Class.extend({
+    <span class="doc-code-attr">say</span>: <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>) </span>{
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"调用了 Animal 类的 say 方法"</span>);
+    },
+    <span class="doc-code-attr">constructor</span>: <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">args</span>) </span>{
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"调用了 Animal 类的构造函数"</span>);
+    }
+});
+
+<span class="doc-code-keyword"><span class="doc-code-highlight">var</span></span><span class="doc-code-highlight"> Dog = Animal.extend({ </span><span class="doc-code-comment"><span class="doc-code-highlight">// 继承 Animal 类创建子类。</span></span>
+<span class="doc-code-highlight">    say2: </span><span class="doc-code-function"><span class="doc-code-keyword"><span class="doc-code-highlight">function</span></span><span class="doc-code-highlight"> (</span><span class="doc-code-params"></span><span class="doc-code-highlight">) </span></span><span class="doc-code-highlight">{</span>
+<span class="doc-code-highlight">        </span><span class="doc-code-built_in"><span class="doc-code-highlight">console</span></span><span class="doc-code-highlight">.log(</span><span class="doc-code-string"><span class="doc-code-highlight">"调用了 Dog 类的 say 方法"</span></span><span class="doc-code-highlight">);</span>
+<span class="doc-code-highlight">    }</span>
+<span class="doc-code-highlight">});</span>
+
+<span class="doc-code-keyword">var</span> dog = <span class="doc-code-keyword">new</span> Dog(); <span class="doc-code-comment">// 创建一个类的实例。</span>
+dog.say(); <span class="doc-code-comment">// 调用 Animal 类的 say 方法。</span>
+dog.say2(); <span class="doc-code-comment">// 调用 Dog 类的 say2 方法。</span></code></pre><p class="doc">如果子类需要调用被覆盖的父类成员，可通过原型调用：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Class <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/class"</span>;
+
+<span class="doc-code-keyword">var</span> Animal = Class.extend({
+    <span class="doc-code-attr">say</span>: <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>) </span>{
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"调用了 Animal 类的 say 方法"</span>);
+    }
+});
+
+<span class="doc-code-comment">// 继承 Animal 类创建子类。</span>
+<span class="doc-code-keyword">var</span> Dog = Animal.extend({
+    <span class="doc-code-attr">say</span>: <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params"></span>) </span>{
+<span class="doc-code-highlight">        Animal.progress.say.apply(</span><span class="doc-code-keyword"><span class="doc-code-highlight">this</span></span><span class="doc-code-highlight">, </span><span class="doc-code-built_in"><span class="doc-code-highlight">arguments</span></span><span class="doc-code-highlight">);</span>
+        <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"调用了 Dog 类的 say 方法"</span>);
+    }
+});
+
+<span class="doc-code-keyword">var</span> dog = <span class="doc-code-keyword">new</span> Dog(); <span class="doc-code-comment">// 创建一个类的实例。</span>
+dog.say(); <span class="doc-code-comment">// 调用 Animal 类的 say 方法。</span></code></pre><p class="doc">目前 JavaScript 仅能实现单继承。</p>
+<h2 id="建议">
+<a href="#建议" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>建议</h2>
+<p class="doc">项目中建议使用 ECMAScript 6 的语法直接定义类，而不需要使用本组件。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/Class"><a href="#api/Class" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/class/class.ts#L1-69" target="_blank" title="源码：util/class/class.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Class 类</h3><p class="doc">表示一个类。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Class/extend">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/class/class.ts#L6-67" target="_blank" title="源码：util/class/class.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>Class.extend<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(prototype?:<code>any</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">继承当前类创建新的子类。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>prototype</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">子类实例成员。其中 <code>contructor</code> 表示子类的构造函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ new (...args: any[]): any; extend: (prototype?: any) =&gt; any; }</code></p>
+                <p class="doc">返回一个新类。</p>
+
+                <h4>说明</h4><ul>
+<li class="doc">只支持单继承。</li>
+<li class="doc">子类的构造函数会覆盖父类构造函数。</li>
+<li class="doc">定义的引用成员会被所有实例共用，引用类型的字段应在构造函数中赋初始值。</li>
+</ul>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> MyClass = Class.extend({<span class="doc-code-attr">name</span>: <span class="doc-code-string">"xuld"</span>});  <span class="doc-code-comment">// 创建子类。</span>
+<span class="doc-code-keyword">var</span> obj = <span class="doc-code-keyword">new</span> MyClass();                     <span class="doc-code-comment">// 创建子类的实例。</span>
+<span class="doc-code-built_in">console</span>.log(obj.name);</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">继承当前类创建新的子类。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/regexp/" title="正则表达式扩展" id="doc_pager_prev"><i class="doc-icon">⮜</i> 正则表达式扩展</a>
+                            <a href="../../../components/util/namespace/" title="命名空间" id="doc_pager_next">命名空间 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/class/","test":"util/class/class-test.ts","imports":["util/class"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

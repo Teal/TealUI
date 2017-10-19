@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>泡泡提示</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/part/arrow.css" />
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/tip/balloontip.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/dom/pin.js"></script>
+    <script type="text/javascript" src="../../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../../src/fx/animate.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/containercontrol.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/itooltip.js"></script>
+    <script type="text/javascript" src="../../../src/ui/tip/balloontip.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <div id="balloonTip_ct" style="display: inline-block">鼠标移到我上面，然后稍等</div>
+
+        <script class="demo">
+
+            var balloonTip1 = new BalloonTip().setToolTip('#balloonTip_ct', '提示内容').setTitle("标题");
+
+            var balloonTip2 = new BalloonTip().setArrow('left').setToolTip('#balloonTip_ct', '提示内容');
+
+            var balloonTip3 = new BalloonTip().setArrow('bottom').setToolTip('#balloonTip_ct', '提示内容');
+
+            var balloonTip4 = new BalloonTip().setArrow('right').setToolTip('#balloonTip_ct', '提示内容');
+
+            var balloonTip5 = new BalloonTip().setArrow('top').setToolTip('#balloonTip_ct', '提示内容');
+
+        </script>
+
+        <!--  <aside class="demo">
+
+            <div class="x-balloontip">
+                <span class="x-arrow x-arrow-bottom">
+                    <span class="x-arrow-fore">◆</span>
+                    <span class="x-arrow-back">◆</span>
+                </span>
+                <div class="x-balloontip-header">
+                    <h4>标题 Title</h4>
+                </div>
+                <div class="x-balloontip-body">
+                    <div class="x-balloontip-content">
+                        内容 content
+                    </div>
+                </div>
+            </div>
+
+        </aside>-->
+
+    </article>
+
+
+</body>
+</html>

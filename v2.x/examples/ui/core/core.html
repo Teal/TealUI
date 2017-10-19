@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#4" />
+    <title>UI 组件基类</title>
+
+    <!-- 本组件需要以下文件 -->
+    <link rel="stylesheet" type="text/css" href="../../../src/ui/core/core.css" />
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/core.js"></script>
+    <!-- 本组件需要以上文件 -->
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <blockquote class="demo demo-info">本组件是 UI 组件的公用底层。主要提供：
+            <ol class="demo">
+                <li>css reset。</li>
+                <li>js Control 类，所有标准 UI 组件都继承于此类。</li>
+            </ol>
+        </blockquote>
+
+    </article>
+
+
+    <article class="demo">
+
+        <h2 class="demo">1. Css Reset <small>样式重置</small></h2>
+
+        <section class="demo">
+            <h3 class="demo">文本 <small>Body</small></h3>
+
+            <p class="demo">定义默认样式: <code class="demo">字体=Tahoma</code>、<code class="demo">字号=12px</code>、<code class="demo">行高=18px</code>、<code class="demo">颜色=#333333</code></p>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">表格和列表 </h3>
+
+            <p class="demo">表格边框、列表的点都被删除，方便布局。</p>
+
+            <p class="demo">如果希望显示默认样式，可参考 <a href="../typography/List.html" class="demo">列表组件</a> 和  <a href="../typography/Table.html" class="demo">表格组件</a> 。</p>
+
+            <aside class="demo demo-container">
+                <ul>
+                    <li>列表1</li>
+                    <li>列表 2
+                        <ul>
+                            <li>列表 2.1</li>
+                            <li>列表 2.2</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <table>
+                    <tr>
+                        <td>表格 1-1</td>
+                        <td>表格 1-2</td>
+                    </tr>
+                    <tr>
+                        <td>表格 2-1</td>
+                        <td>表格 2-2</td>
+                    </tr>
+                    <tr>
+                        <td>表格 3-1</td>
+                        <td>表格 3-2</td>
+                    </tr>
+                </table>
+            </aside>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">链接 <small>A</small></h3>
+
+            <p class="demo">链接默认样式: <code class="demo">颜色=#0088CC</code>、<code class="demo">悬停颜色=#005580</code>、<code class="demo">悬停后出现下划线</code></p>
+
+            <aside class="demo demo-container demo-noformat">
+                <a href="javascript:alert('我是链接');" title="链接">链接 Link</a>
+            </aside>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">行内样式</h3>
+
+            <aside class="demo demo-container">
+                <p>段落 <strong>加粗</strong> <em>斜体</em> <big>大字</big><small>小字</small> <sup>上标</sup>  <sub>下标</sub>  <small>备注 Hint</small></p>
+            </aside>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">其它标签</h3>
+
+            <p class="demo">其它标签的默认样式不属于本组件的范畴，可参考 typography 分类下的其它组件：</p>
+
+            <ul class="demo">
+                <li><a href="../typography/heading.html">H1-H6 标签</a></li>
+                <li><a href="../typography/paragraph.html">P 标签</a></li>
+                <li><a href="../typography/hr.html">Hr 标签</a></li>
+                <li><a href="../typography/code.html">Code、Pre 标签</a></li>
+                <li><a href="../typography/misc.html">Abbr、 Address、Cite 标签</a></li>
+                <li><a href="../typography/blockquote.html">Blockquote 标签</a></li>
+                <li><a href="../typography/ol.html">Ol、Dl 标签</a></li>
+                <li><a href="../display/list.html">带样式的 Ul 标签</a></li>
+                <li><a href="../display/table.html">带样式的 Table 标签</a></li>
+                <li><a href="../form/frm.html">表单元素</a></li>
+                <li><a href="../button/button.html">按钮</a></li>
+                <li><a href="../core/common.html">不同的文本颜色</a></li>
+            </ul>
+        </section>
+
+    </article>
+
+    <article class="demo">
+
+        <h2 class="demo">2. js Control 类<small> UI 组件基类</small></h2>
+
+        <section class="demo">
+
+            <h3 class="demo">什么是 UI 组件</h3>
+
+            <p class="demo">UI 组件也叫控件。它的本质是用 HTML+CSS+JS 统一实现的效果。</p>
+
+            <h3 class="demo">UI 组件基类的作用</h3>
+
+            <p class="demo">Control 是 UI 组件基类，约定了组件的基本生命周期，实现了一些通用功能。</p>
+
+        </section>
+
+<!--        <section class="demo">
+
+            <h3 class="demo">为什么做控件</h3>
+
+            <p class="demo">比如网页上需要有一个按钮，点击按钮后弹出 Hello world 字样，只需如下代码:</p>
+
+            <script class="demo" type="code/html">
+                    <button onclick="alert('Hello world')">我是代码</button>
+            </script>
+
+            <p class="demo">大部分网站都不喜欢使用默认的按钮风格，而是自定义一些样式(比如设置边框颜色)。因此代码变成了:</p>
+
+            <script class="demo" type="code/html">
+                    <button style="border: 1px solid #999" onclick="alert('Hello world')">我是代码</button>
+            </script>
+
+            <p class="demo">一个网页很可能需要很多个按钮，因此上面的代码需要复制很多次，但这样会导致重复的代码很多。一旦需要变更代码风格，就需要改动很多地方，因此我们需要将这个组件的样式和脚本都分离出来，因此代码变成:</p>
+
+            <script class="demo" type="code/html">
+                    <style>
+                        .btn {
+                            border: 1px solid #999;
+                        }
+                    </style>
+                    <\script>
+                        function btn_clcik(){
+                            alert('Hello world');
+                        }
+                    </\script>
+                    <button style="btn" onclick="btn_clcik()">我是代码</button>
+                    <button style="btn" onclick="btn_clcik()">我是代码</button>
+                    <button style="btn" onclick="btn_clcik()">我是代码</button>
+                    ... 可以连续复制出很多个按钮，但是样式部分和功能处理部分的代码被重用了。
+            </script>
+
+            <p class="demo"><strong>控件的目的就在于将这些代码分离出来，方便以后重用</strong>(就像如需要显示一个按钮只需拷贝一个模块HTML即可)。将网页上常用的功能模块做成一个控件，可以方便日后直接使用。</p>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">怎么使用控件</h3>
+
+            <h4 class="demo">HTML 方式</h4>
+
+            <p class="demo">如果一个控件没有 js 交互，则完全可以通过 css 类的方式使用这个控件。比如组件库中按钮组件的 css 类是 <code class="demo">x-button</code>, 那么只需在 html 中用 <code class="demo">class="x-button"</code> 即可看到效果。</p>
+
+            <h4 class="demo">JS 方式</h4>
+
+            <p class="demo">如果需要动态生成组件，就需要调用控件提供的 API 来初始化和创建控件。比如组件库中按钮组件的js类名是 <code class="demo">Button</code>, 使用如下代码即可添加并创建一个按钮: <code class="demo">new Button().appendTo( document.body )</code></p>
+
+            <h4 class="demo">HTML+JS 方式</h4>
+
+            <p class="demo">如果全部使用 JS 生成控件，则导致 html 无勇武之地，这会导致比如 SEO 优化等其他问题。因此也可以先使用 HTML 方式显示，然后用 JS 初始化控件。</p>
+
+        </section>
+
+        <section class="demo">
+
+            <h3 class="demo">如何开发控件</h3>
+
+            <p class="demo">控件开发的方法很多，网上存在各种各样的UI组件库，每个库的开发方式也都不同。但这里只介绍 jPlusUI 使用的控件开发方法----模块化控件开发。</p>
+
+            <p class="demo">每个控件都有想似的地方(就像所有的节点都有 id 属性)，将这些相似的部分提取为控件基类(Control)，然后每个控件可以继承这个类扩展组件自身的功能。</p>
+
+            <p class="demo">Control 类定义了控件的生命周期和规范，Control 本身继承于 Dom 类的，因此可以直接通过 Dom 类提供的方法来操作 Control 本身。</p>
+
+            <h4 class="demo">控件的生命周期</h4>
+
+            <p class="demo">一个控件从创建到删除，到底经历了哪些步骤，这些步骤叫做控件的生命周期。</p>
+
+            <ol class="demo">
+                <li><strong>创建/获取 DOM 节点 (create/get)</strong>: 控件的本质是 DOM 节点加一些 CSS和 JS 。因此一个控件对应一个 DOM 节点。</li>
+                <li><strong>初始化(init)</strong>: 初始化控件，控件可以再这里添加个性化的功能。</li>
+                <li><strong>添加到 DOM 树(attach)</strong>: 添加到 DOM 树，这样控件才会被渲染。</li>
+                <li><strong>从 DOM 树移除(detach)</strong>: 移除后，或者重新添加，或者释放。</li>
+                <li><strong>释放控件所占用的内存(dispose)</strong>: 被释放后，控件将不能再使用。</li>
+            </ol>
+
+            <p class="demo">当使用 <code class="demo">new Button().appendTo( document.body )</code> 创建显示了一个按钮时，实际上调用了这些函数:</p>
+
+            <ol class="demo">
+                <li>调用 <code class="demo">Button#create</code> 生成一个 &lt;button&gt; 节点，并存到 <code class="demo">Button#node</code> 字段。</li>
+                <li>调用 <code class="demo">Button#init</code> 绑定默认事件。</li>
+                <li>调用 <code class="demo">Button#attach</code>(由  <code class="demo">Button#appendTo</code> 调用)</li>
+            </ol>
+
+            <h4 class="demo">如何开发控件</h4>
+
+            <p class="demo">根据控件生命周期可知，要想开发一个控件，只需重新定义它的生命周期每一步的操作。以下提供创建一个按钮控件(有样式、点击后弹出 Hello world 字样)的示例代码:</p>
+
+            <script class="demo" type="code/javascript">
+                    // 继承 Control 类创建新的控件。
+                    var MyBtn = Control.extend({ 
+                        
+                        // 重写 create 操作:返回一个 button 标签。
+                        create: function(){
+                            var btn = document.createElement('button');
+                            btn.style.border = '1px solid #999';
+                            return btn;
+                        },
+                        
+                        // 重写 init 操作: 绑定事件。
+                        // this.on 函数是从 Dom 类继承的，用来绑定事件。
+                        init: function(){
+                            this.on('click', function(){
+                               alert('Hello world'); 
+                            });
+                        }
+                        
+                    });
+                    
+                    // var btn = new MyBtn;
+                    // btn.appendTo( document.body );
+            </script>
+
+        </section>-->
+
+    </article>
+
+
+</body>
+</html>

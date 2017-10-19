@@ -1,0 +1,23 @@
+.x-tr {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+}
+
+.x-td {
+  display: table-cell;
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.x-td ~ .x-td {
+  padding-left: 1rem;
+}
+
+.x-td-block {
+  width: 99%;
+  white-space: normal;
+}
+
+/*# sourceMappingURL=column.css.map */

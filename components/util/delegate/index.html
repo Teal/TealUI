@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>委托 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/delegate"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import Delegate from \&quot;util/delegate\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/delegate\&quot;], function (delegate_1) {\n\tvar Delegate = delegate_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/delegate" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/delegate/delegate.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="委托">
+<a href="#委托" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>委托<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as Delegate">util/delegate</small></h1>
+<p class="doc">允许动态增删要执行的函数。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#api/Delegate">Delegate 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc">委托即函数数组。执行委托即执行数组中的每个函数。函数数组可以动态增删函数，以此增加程序的灵活性。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> Delegate <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/delegate"</span>;
+
+<span class="doc-code-built_in">document</span>.onclick = <span class="doc-code-keyword">new</span> Delegate();              <span class="doc-code-comment">// 创建新的委托。</span>
+<span class="doc-code-built_in">document</span>.onclick.add(<span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>) </span>{ alert(<span class="doc-code-number">1</span>) });   <span class="doc-code-comment">// 添加委托函数。</span>
+<span class="doc-code-built_in">document</span>.onclick.add(<span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>) </span>{ alert(<span class="doc-code-number">2</span>) });   <span class="doc-code-comment">// 添加委托函数。</span></code></pre>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/Delegate"><a href="#api/Delegate" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L1-59" target="_blank" title="源码：util/delegate/delegate.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Delegate 类</h3><p>继承自：<code>Function</code></p><p class="doc">表示一个委托。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                <th class="doc-api-extends">继承自</th>
+                            </tr><tr id="api/Delegate/funcs">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L6-9" target="_blank" title="源码：util/delegate/delegate.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>funcs</code>
+                                <span class="doc-api-more">: <code>Function[]</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取所有委托的函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>Function[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取所有委托的函数。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/Delegate/prototype">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>prototype</code>
+                                <span class="doc-api-more">: <code>any</code></span>
+                                <div class="doc doc-api-detail">
+                                    
+                                    <h4>继承自</h4><p><code>Function</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>any</code>
+                            </td>
+                            <td class="doc">
+                                
+                            </td>
+                            <td><code>Function</code></td>
+                        </tr><tr id="api/Delegate/length">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>length</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong></p>
+
+                                    <h4>继承自</h4><p><code>Function</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong></p>
+
+                            </td>
+                            <td><code>Function</code></td>
+                        </tr><tr id="api/Delegate/arguments">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>arguments</code>
+                                <span class="doc-api-more">: <code>any</code></span>
+                                <div class="doc doc-api-detail">
+                                    
+                                    <h4>继承自</h4><p><code>Function</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>any</code>
+                            </td>
+                            <td class="doc">
+                                
+                            </td>
+                            <td><code>Function</code></td>
+                        </tr><tr id="api/Delegate/caller">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>caller</code>
+                                <span class="doc-api-more">: <code>Function</code></span>
+                                <div class="doc doc-api-detail">
+                                    
+                                    <h4>继承自</h4><p><code>Function</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>Function</code>
+                            </td>
+                            <td class="doc">
+                                
+                            </td>
+                            <td><code>Function</code></td>
+                        </tr><tr id="api/Delegate/name">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>name</code>
+                                <span class="doc-api-more">: <code>string</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>Returns the name of the function. Function names are read-only and can not be changed.</p>
+
+                                    <h4>继承自</h4><p><code>Function</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>Returns the name of the function. Function names are read-only and can not be changed.</p>
+
+                            </td>
+                            <td><code>Function</code></td>
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            <th class="doc-api-extends">继承自</th>
+                        </tr><tr id="api/Delegate/undefined">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L11-17" target="_blank" title="源码：util/delegate/delegate.ts，第 11 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>new Delegate<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...funcs:<code>Function[]</code>):<code><a href="#api/Delegate">Delegate</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">初始化新的委托。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>funcs</code>
+                                </td>
+                                <td>
+                                    <code>Function[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">所有委托的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Delegate">Delegate</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">初始化新的委托。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Delegate/add">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L19-29" target="_blank" title="源码：util/delegate/delegate.ts，第 19 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>add<i class="doc-tip doc-api-ellipsis">(func)</i><span class="doc-tip doc-api-more">(func:<code>Function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">添加一个委托函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>func<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Function</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> del = <span class="doc-code-keyword">new</span> Delegate()
+del.add(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> { <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"teal"</span>) })
+del() <span class="doc-code-comment">// 控制台输出 teal</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">添加一个委托函数。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Delegate/remove">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L31-46" target="_blank" title="源码：util/delegate/delegate.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>remove<i class="doc-tip doc-api-ellipsis">(func)</i><span class="doc-tip doc-api-more">(func:<code>Function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除一个委托函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>func<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Function</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要删除的函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> fn = <span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> { <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"teal"</span>) }
+<span class="doc-code-keyword">var</span> del = <span class="doc-code-keyword">new</span> Delegate()
+del.add(fn)
+del.remove(fn)
+del() <span class="doc-code-comment">// 控制台不输出</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除一个委托函数。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Delegate/clear">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/delegate/delegate.ts#L48-57" target="_blank" title="源码：util/delegate/delegate.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clear<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除所有委托函数。
+var del = new Delegate()
+del.add(() =&gt; { console.log(&quot;teal&quot;) })
+del.clear()
+del() // 控制台不输出</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除所有委托函数。
+var del = new Delegate()
+del.add(() =&gt; { console.log(&quot;teal&quot;) })
+del.clear()
+del() // 控制台不输出</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/Delegate/apply">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>apply<i class="doc-tip doc-api-ellipsis">(thisArg, ...)</i><span class="doc-tip doc-api-more">(thisArg:<code>any</code>, argArray?:<code>any</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.</p>
+
+                
+                <p>this：<code>Function</code></p>
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The object to be used as the this object.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>argArray</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A set of arguments to be passed to the function.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Function</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Calls the function, substituting the specified object for the this value of the function, and the specified array for the arguments of the function.</p>
+
+                                </td>
+                                <td><code>Function</code></td>
+                            </tr><tr id="api/Delegate/call">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>call<i class="doc-tip doc-api-ellipsis">(thisArg, ...)</i><span class="doc-tip doc-api-more">(thisArg:<code>any</code>, ...argArray:<code>any[]</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Calls a method of an object, substituting another object for the current object.</p>
+
+                
+                <p>this：<code>Function</code></p>
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The object to be used as the current object.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>argArray</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A list of arguments to be passed to the method.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Function</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Calls a method of an object, substituting another object for the current object.</p>
+
+                                </td>
+                                <td><code>Function</code></td>
+                            </tr><tr id="api/Delegate/bind">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>bind<i class="doc-tip doc-api-ellipsis">(thisArg, ...)</i><span class="doc-tip doc-api-more">(thisArg:<code>any</code>, ...argArray:<code>any[]</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">For a given function, creates a bound function that has the same body as the original function.
+The this object of the bound function is associated with the specified object, and has the specified initial parameters.</p>
+
+                
+                <p>this：<code>Function</code></p>
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer inside the new function.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>argArray</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A list of arguments to be passed to the new function.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Function</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">For a given function, creates a bound function that has the same body as the original function.
+The this object of the bound function is associated with the specified object, and has the specified initial parameters.</p>
+
+                                </td>
+                                <td><code>Function</code></td>
+                            </tr><tr id="api/Delegate/toString">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toString<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns a string representation of a function.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Function</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns a string representation of a function.</p>
+
+                                </td>
+                                <td><code>Function</code></td>
+                            </tr><tr id="api/Delegate/[Symbol.hasInstance]">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>[Symbol.hasInstance]<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Determines whether the given value inherits from this function if this function was used
+as a constructor function.</p>
+<p class="doc">A constructor function can control which objects are recognized as its instances by
+'instanceof' by overriding this method.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Function</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Determines whether the given value inherits from this function if this function was used
+as a constructor function.</p>
+<p class="doc">A constructor function can control which objects are recognized as its instances by
+'instanceof' by overriding this method.</p>
+
+                                </td>
+                                <td><code>Function</code></td>
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/events/" title="事件" id="doc_pager_prev"><i class="doc-icon">⮜</i> 事件</a>
+                            <a href="../../../components/util/xRegExp/" title="正则表达式加强" id="doc_pager_next">正则表达式加强 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/delegate/","test":"util/delegate/delegate-test.ts","imports":["util/delegate"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

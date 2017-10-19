@@ -1,0 +1,172 @@
+@charset "UTF-8";
+.x-panel {
+  margin: 0 0 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+  background: #fff;
+}
+
+.x-panel:last-child {
+  margin: 0;
+}
+
+.x-panel-header::after, .x-panel-body::after, .x-panel-footer::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.x-panel-header, .x-panel-footer {
+  padding: 0.375rem 1rem;
+  background-color: #f5f5f5;
+  cursor: default;
+}
+
+.x-panel-header {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.x-panel-header h1, .x-panel-header h2, .x-panel-header h3, .x-panel-header h4, .x-panel-header h5, .x-panel-header h6 {
+  margin: 0;
+}
+
+.x-panel-footer {
+  border-top: 1px solid #e0e0e0;
+}
+
+.x-panel-body {
+  overflow: auto;
+  padding: 1rem;
+}
+
+.x-panel-icon {
+  float: left;
+  margin: 1rem 0 0 1rem;
+  font-size: 2.5rem;
+}
+
+.x-panel-icon + .x-panel-body {
+  min-height: 3rem;
+}
+
+.x-panel-icon-info::before {
+  content: "🛈";
+  color: #2487d0;
+}
+
+.x-panel-icon-success::before {
+  content: "✓";
+  color: #3ca23c;
+}
+
+.x-panel-icon-warning::before {
+  content: "⚠";
+  color: #e28f19;
+}
+
+.x-panel-icon-error::before {
+  content: "\2757";
+  color: #d63a29;
+}
+
+.x-panel-icon-confirm::before {
+  content: "\2754";
+  color: #2487d0;
+}
+
+.x-panel-buttons {
+  padding: 0 1rem 0.375rem;
+  text-align: right;
+}
+
+.x-panel-buttons .x-button {
+  margin-left: 0.5rem;
+}
+
+.x-panel-info {
+  border-color: #c5e0f2;
+}
+
+.x-panel-info > .x-panel-header {
+  border-color: #c5e0f2;
+  background-color: #daebf7;
+  color: #2487d0;
+}
+
+.x-panel-success {
+  border-color: #c0eac0;
+}
+
+.x-panel-success > .x-panel-header {
+  border-color: #c0eac0;
+  background-color: #d3f0d3;
+  color: #3ca23c;
+}
+
+.x-panel-warning {
+  border-color: #fae5c7;
+}
+
+.x-panel-warning > .x-panel-header {
+  border-color: #fae5c7;
+  background-color: #fcf0de;
+  color: #e28f19;
+}
+
+.x-panel-error {
+  border-color: #fddad7;
+}
+
+.x-panel-error > .x-panel-header {
+  border-color: #fddad7;
+  background-color: #fef0ef;
+  color: #d63a29;
+}
+
+.x-panel-collapsable > .x-panel-header {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.x-panel-collapsable > .x-panel-header::before {
+  content: "\23f7";
+  float: left;
+  margin-left: -.25rem;
+  margin-right: .25rem;
+  font-family: "x-icon";
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  -moz-transition: transform 0.2s, -moz-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s, -moz-transform 0.2s;
+}
+
+.x-panel-collapsed > .x-panel-header {
+  border-bottom-width: 0;
+  border-radius: 0.2rem;
+}
+
+.x-panel-collapsed > .x-panel-header::before {
+  -webkit-transform: rotate(-90deg);
+     -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+
+.x-panel-collapsed > .x-panel-body {
+  display: none;
+}
+
+.x-panel-collapsing > .x-panel-header {
+  border-bottom-width: 1px;
+  border-radius: 0;
+}
+
+.x-panel-collapsing > .x-panel-body {
+  display: block;
+}
+
+/*# sourceMappingURL=panel.css.map */

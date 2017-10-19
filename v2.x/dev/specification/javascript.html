@@ -1,0 +1,175 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Javascript 编码规范</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+    <style>
+        dt {
+            font-weight: bold;
+            line-height: 200%;
+        }
+
+        dd {
+            margin-left: 60px;
+            line-height: 150%;
+            font-size: 14px;
+            text-indent: -30px;
+        }
+
+            dd pre {
+                text-indent: 0;
+            }
+    </style>
+</head>
+<body>
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <dl>
+            <dt>1. 目的</dt>
+            <dd>1.1 我们的目的是避免出现歧义、易错的代码。</dd>
+            <dd>1.2 我们尊重您的编码习惯和风格。</dd>
+            <dd>1.3 我们相信格式化工具可以有效规范代码格式，所以不会在代码格式上作任何限制。</dd>
+            <dd>1.4 我们相信压缩工具可以有效提高代码效率，所以不会因为效率而修改代码导致可读性下降。</dd>
+            <dt>2. 格式</dt>
+            <dd>2.1 缩进: 您可以使用 2 个空格、4 个空格 、1 个 Tab 创建缩进。</dd>
+            <dd>2.2 行宽: 建议不要让一行代码超过 80 个字符。当一条语句不能在单独一行写完时，可能有必要拆分它。在操作符后进行拆分，最好是在逗号后面拆分。</dd>
+            <dd>2.3 注释: 接口性质的注释使用 /** */ 注释。大范围代码介绍使用 /* */ 注释。 小量代码使用 // 注释。您可以将 // 注释放在语句的末尾，也可以放在顶部。比如: 
+                <script type="code/javascript" class="demo">
+                    // 变量1
+                    var a = 2;
+                </script>
+                或 
+                <script type="code/javascript" class="demo">
+                var a = 2;  // 变量1
+                </script>
+            </dd>
+            <dd>3.4 { 和 [ 的位置: 建议使用下面 2 种格式之一: 
+                <script type="code/javascript" class="demo">
+                function() {
+
+                }
+
+                function()
+                {
+
+                }
+                </script>
+            </dd>
+            <dd>3.5 空格: 为了界面清晰，建议在后缀的单目操作符后端空格，在双目运行符两端空格。比如:
+                <script type="code/javascript" class="demo">
+                    function a(c, d) {}   // , 和 )  后面空格
+
+                    a = function () {}    // 匿名函数的 ( 前需要空格
+
+                    var a = {
+                        c: [2]
+                    };
+
+                    b = (e * a) + b;
+
+                    v = ++c - --a;
+                </script>
+                <br>
+                您可以根据习惯决定是否需要在 () 和 [] 中增加空格。比如: 
+                <script type="code/javascript" class="demo">
+                    f( val );
+
+                    n[ j ];
+                </script>
+            </dd>
+            <dd>3.6 括号: 没有对括号额外要求，但在表达明确的时候不需要使用括号，比如下面的例子都是不对的: 
+                <script type="code/javascript" class="demo">
+                    new(Class)
+                    typeof(value)
+                    (a * f) - 4
+                    (c + 1) + 6
+                </script>
+            </dd>
+            <dt>4. 命名</dt>
+            <dd>4.1 变量、函数参数、函数名 使用骆驼规则(如 fileName)。</dd>
+            <dd>4.2 类的私有成员使用 _ 前缀的骆驼规则(如 _fileName)。</dd>
+            <dd>4.4 类(一般把需要 new 才能使用的函数叫做类)、对象名使用 PASCAL 规则(如 FileName)。</dd>
+            <dd>4.5 常量名使用 PASCAL 规则 或 全大写(如 FILE_NAME)。</dd>
+            <dd>4.6 系统内部变量(比如因为是 JavaScrpt 关键字或保留字而不得不更名的变量，或者为了避免此变量被外部代码覆盖)使用 $ 前缀的骆驼规则(如 $fileName)。</dd>
+            <dd>4.7 对 this 的临时保存使用 me 。</dd>
+            <dd>4.8 不允许对单词随便缩写，原则上保留单词的全拼。</dd>
+            <dd>4.9 优先遵守 Javascript 本身的语言命名规则，然后遵守其它库和语言的命名，最后按照作者的风格命名。</dd>
+            <dd>4.10 一般变量名为定主结构，方法名为动宾结构，事件名为主动结构。</dd>
+            <dt>5. 语句</dt>
+            <dd>5.1 变量声明: 使用 var 。多个 var 可合并。如下: 
+                <script type="code/javascript" class="demo">
+                    var a = 2,
+                        b = 1;   // b 前面是一个 Tab 或 4 个空格。
+                </script>
+            </dd>
+            <dd>5.2 标签: 不允许添加无用的标签。
+                <script type="code/javascript" class="demo">
+                    cc:   vv = 2;
+                </script>
+            </dd>
+            <dd>5.3 逗号表达式: 只在必须时使用。</dd>
+            <dd>5.4 单行 if/while 语句: 不强制一定要为单行语句添加 {}，您可以根据习惯决定。</dd>
+            <dd>5.5 for(var a in b) 语句: 如果这里的变量 a 只在 for in 内用建议将 var 放到 for in 内。for(;;)同理。</dd>
+            <dd>5.6 continue 和 break 语句: 没有强制要求。</dd>
+            <dd>5.7 return 语句: 不建议在 return 后的表达式加括号。</dd>
+            <dd>5.8 while(true) 语句: 建议使用 true，而不是其它变量（如1）。false 同理。for ( ;true; ) 时， true 应该不写。</dd>
+            <dd>5.9 使用 {} 替代new Object()。使用 [] 替代new Array()。 </dd>
+            <dd>5.10 优先使用 .toString()，而不是 + ""</dd>
+            <dd>5.11 不要使用多余的 {} 块。</dd>
+            <dd>5.12 不要使用 with 语句。</dd>
+            <dd>5.13 判断语句可以为赋值语句，但不建议。</dd>
+            <dd>5.14 优先使用 === 和 !== 操作符。</dd>
+            <dd>5.15 外部使用的函数声明、变量定义不应该放在逻辑块内。比如下面的例子是不对的: 
+                <script type="code/javascript" class="demo">
+                    if (x) {
+                        function foo() {}
+                    }
+
+                    foo();
+                </script>
+            </dd>
+            <dd>5.16 为每个语句增加 ‘;’ 。</dd>
+            <dd>5.17 立即执行函数加括号，如: 
+                <script type="code/javascript" class="demo">
+                    (function(){
+                        // code here
+                    })();
+                </script>
+                不得使用其它符号（如void ! new)
+            </dd>
+            <dd>5.18 闭包: 没有限制。当然如果出现 10 层以上的闭包，您应该检查代码质量。</dd>
+            <dd>5.19 异常: 任何对象都可以作为异常抛出。建议抛出 Error 及子类或字符串。</dd>
+            <dd>5.20 使用 &amp;&amp; 和 || 代替 if 语句: 没有限制。但建议只在需要的时候，而不应该故意使用这个格式。</dd>
+            <dd>5.21 IE CC 语句: 不建议使用。</dd>
+            <dd>5.22 {} 和 [] 内多余的 , :  不应该出现。</dd>
+            <dd>5.23 eval 函数和 Function 函数: 不需要的时候不要使用。</dd>
+            <dt>6. 表达式</dt>
+            <dd>6.1 多行字符串常量: 可以使用下面 3 种格式之一,
+                <script type="code/javascript" class="demo">
+                    var a = 'aa\
+                        bb';
+
+                    var b = 'aa' +
+                            'dd';
+
+                    var c = ['aa',
+                            'dd'].join('');
+                </script>
+            </dd>
+            <dd>6.2 字符串单引号，双引号: 如果内容是 HTML 字符串，确保 HTML 使用 "，其它情况没有要求。 </dd>
+            <dd>6.3 多字符串连接: 建议使用数组 join 拼接。 </dd>
+            <dd>6.4 逻辑操作: 禁止将逻辑操作写为位操作，比如用 | 代替 || 是不对的。 </dd>
+            <dd>6.5 常量的属性选择: 常量属性名应该使用 . 操作符，而不是 [] 操作符。 </dd>
+            <dd>6.6 new 表达式: 不作限定， new 表达式后可以任意选择是否加括号。 </dd>
+            <dd>6.7 ? 表达式: 建议将返回值固定的if语句改写为 ? 表达式。 </dd>
+            <dt>7. 其它</dt>
+            <dd>7.1 建议使用 UTF-8 无 BOM 编码 和 Windows 换行符 (换行回车)。</dd>
+            <dd>7.2 建议于文件头部写明作者和功能。</dd>
+        </dl>
+    </article>
+</body>
+</html>

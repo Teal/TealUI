@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>异步队列 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/asyncQueue"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import AsyncQueue, { Abortable } from \&quot;util/asyncQueue\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/asyncQueue\&quot;], function (asyncQueue_1) {\n\tvar AsyncQueue = asyncQueue_1.default;\n\tvar Abortable = asyncQueue_1.Abortable;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/asyncQueue" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/asyncQueue/asyncQueue.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="异步队列">
+<a href="#异步队列" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>异步队列<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as AsyncQueue, Abortable">util/asyncQueue</small></h1>
+<p class="doc">统一管理异步任务，确保所有异步任务有序执行。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#传递数据">传递数据</a></dt>
+	<dt><a href="#插队">插队</a></dt>
+	<dt><a href="#asyncqueue-vs-promise">AsyncQueue vs Promise</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#api/AsyncQueue">AsyncQueue 类</a></dd>
+	<dd><a href="#api/Abortable">Abortable 接口</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<p class="doc"><code>AsyncQueue</code> 就像是一个密室，每个任务函数都可以通过 <a href="#api/AsyncQueue/then"><code>then()</code></a> 按顺序进入密室执行。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> AsyncQueue <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/asyncQueue"</span>;
+
+<span class="doc-code-keyword">var</span> deferred = <span class="doc-code-keyword">new</span> AsyncQueue();    <span class="doc-code-comment">// 创建新的异步队列。</span>
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {               <span class="doc-code-comment">// 添加一个任务。</span>
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"A"</span>);
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {               <span class="doc-code-comment">// 再添加一个任务。这个任务会等待上个任务。</span>
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"B"</span>);
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {               <span class="doc-code-comment">// 再添加一个任务。这个任务会等待上个任务。</span>
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"C"</span>);
+});</code></pre><p class="doc">正在执行的函数可以通过 <a href="#api/AsyncQueue/suspend"><code>suspend()</code></a> 关上密室的门，这时其它任务函数都会进入等待状态。
+当函数通过 <a href="#api/AsyncQueue/resume"><code>resume()</code></a> 打开密室的门后，下一个任务函数再进入密室执行。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> AsyncQueue <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/asyncQueue"</span>;
+
+<span class="doc-code-keyword">var</span> deferred = <span class="doc-code-keyword">new</span> AsyncQueue();
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"A"</span>);
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"B"</span>);
+<span class="doc-code-highlight">    deferred.suspend();             </span><span class="doc-code-comment"><span class="doc-code-highlight">// 挂起队列，其它任务将开始等待。</span></span>
+<span class="doc-code-highlight">    setTimeout(</span><span class="doc-code-function"><span class="doc-code-params"><span class="doc-code-highlight">()</span></span><span class="doc-code-highlight"> =&gt;</span></span><span class="doc-code-highlight"> { </span>
+<span class="doc-code-highlight">        deferred.resume();          </span><span class="doc-code-comment"><span class="doc-code-highlight">// 1 秒后：恢复队列，即执行下一个任务。</span></span>
+<span class="doc-code-highlight">    }, </span><span class="doc-code-number"><span class="doc-code-highlight">1000</span></span><span class="doc-code-highlight">);</span>
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"C"</span>);
+});</code></pre><h2 id="传递数据">
+<a href="#传递数据" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>传递数据</h2>
+<p class="doc">上一个任务函数可通过 <a href="#api/AsyncQueue/resume"><code>resume()</code></a> 传递一个数据给下一个任务函数。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> AsyncQueue <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/asyncQueue"</span>;
+
+<span class="doc-code-keyword">var</span> deferred = <span class="doc-code-keyword">new</span> AsyncQueue();
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"A"</span>);
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"B"</span>);
+    deferred.suspend();
+    setTimeout(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> { 
+<span class="doc-code-highlight">        deferred.resume(</span><span class="doc-code-number"><span class="doc-code-highlight">1</span></span><span class="doc-code-highlight">);         </span><span class="doc-code-comment"><span class="doc-code-highlight">// 传递数据 1。</span></span>
+    }, <span class="doc-code-number">1000</span>);
+});
+
+deferred.then(<span class="doc-code-function"><span class="doc-code-params">data</span> =&gt;</span> {
+<span class="doc-code-highlight">    </span><span class="doc-code-built_in"><span class="doc-code-highlight">console</span></span><span class="doc-code-highlight">.log(</span><span class="doc-code-string"><span class="doc-code-highlight">"C"</span></span><span class="doc-code-highlight">, data);         </span><span class="doc-code-comment"><span class="doc-code-highlight">// 此处 data 为 1。</span></span>
+});</code></pre><h2 id="插队">
+<a href="#插队" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插队</h2>
+<p class="doc">除了让新任务等待当前正在执行的任务，还可以通过 <a href="#api/AsyncQueue/then"><code>then()</code></a> 的<a href="#api/AsyncQueue/then">第二参数</a>让新任务插队执行。</p>
+<p class="doc">比如现在正在执行将方块从 A 点移动到 B 点的动画，
+如果此时需求改成从 A 点移动到 C 点，那么应该立即终止 A 点移动到 B 点的动画转而移向 C 点。</p>
+<p class="doc">被插队的任务可能会被强制终止执行。
+但不是所有任务都能强制终止的，如果一个任务希望支持强制终止，必须在 <a href="#api/AsyncQueue/suspend"><code>suspend()</code></a> 传递一个对象，可通过调用其 <a href="#api/Abortable/abort"><code>abort()</code></a> 方法来强制终止任务。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<button onclick="move(box, -offset.value);
+">左移</button>
+<input type="number" id="offset" value="200" style="width: 6rem;">
+<button onclick="move(box, +offset.value);
+">右移</button>
+<div id="box" class="doc-box" style="position: relative; left: 300px;"></div>
+<script>define("doc_demo_1", ["require", "exports", "util/asyncQueue"], function (require, exports, asyncQueue_1) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var deferred = new asyncQueue_1.default();
+    function move(box, delta) {
+        var y = parseInt(box.style.left) + delta; // 计算最终位置。
+        deferred.then(function () {
+            deferred.suspend({
+                abort: function () {
+                    clearInterval(timer);
+                    deferred.resume();
+                }
+            });
+            var current = parseInt(box.style.left); // 计算初始位置。
+            var timer = setInterval(function () {
+                if (current < y) {
+                    current++;
+                }
+                else {
+                    current--;
+                }
+                if (current == y) {
+                    clearInterval(timer);
+                    deferred.resume();
+                }
+                else {
+                    box.style.left = current + "px";
+                }
+            }, 20);
+        }, "abort"); // 如果在动画期间用户又设置了新终点，则需要终止当前的动画。
+        deferred.then(function () {
+            box.className += " doc-box-blue";
+        });
+    }
+    exports.move = move;
+});
+
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"move(box, -offset.value)"</span>&gt;</span>左移<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">input</span> <span class="doc-code-attr">type</span>=<span class="doc-code-string">"number"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"offset"</span> <span class="doc-code-attr">value</span>=<span class="doc-code-string">"200"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"width: 6rem;"</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">button</span> <span class="doc-code-attr">onclick</span>=<span class="doc-code-string">"move(box, +offset.value)"</span>&gt;</span>右移<span class="doc-code-tag">&lt;/<span class="doc-code-name">button</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span> <span class="doc-code-attr">style</span>=<span class="doc-code-string">"position: relative; left: 300px;"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+    <span class="doc-code-keyword">import</span> AsyncQueue <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/asyncQueue"</span>;
+
+    <span class="doc-code-keyword">var</span> deferred = <span class="doc-code-keyword">new</span> AsyncQueue();
+
+    <span class="doc-code-keyword">export</span> <span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">move</span>(<span class="doc-code-params">box, delta</span>) </span>{
+        <span class="doc-code-keyword">var</span> y = <span class="doc-code-built_in">parseInt</span>(box.style.left) + delta;           <span class="doc-code-comment">// 计算最终位置。</span>
+
+        deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+            deferred.suspend({                              <span class="doc-code-comment">// 挂起队列，避免方块同时执行多个动画函数。</span>
+<span class="doc-code-highlight">                abort(){                                    </span><span class="doc-code-comment"><span class="doc-code-highlight">// 提供一个对象，使得当前动画可被终止。</span></span>
+<span class="doc-code-highlight">                    clearInterval(timer);</span>
+<span class="doc-code-highlight">                    deferred.resume();</span>
+<span class="doc-code-highlight">                }</span>
+            });
+
+            <span class="doc-code-keyword">var</span> current = <span class="doc-code-built_in">parseInt</span>(box.style.left);         <span class="doc-code-comment">// 计算初始位置。</span>
+            <span class="doc-code-keyword">var</span> timer = setInterval(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {                 
+                <span class="doc-code-keyword">if</span> (current &lt; y) {                          <span class="doc-code-comment">// 移动方块，每次移动 1 像素。</span>
+                    current++;
+                } <span class="doc-code-keyword">else</span> {
+                    current--;
+                }
+                <span class="doc-code-keyword">if</span> (current == y) {                         <span class="doc-code-comment">// 已经移到最终位置，停止动画。</span>
+                    clearInterval(timer);
+                    deferred.resume();
+                } <span class="doc-code-keyword">else</span> {
+                    box.style.left = current + <span class="doc-code-string">"px"</span>;
+                }
+            }, <span class="doc-code-number">20</span>);
+        }, <span class="doc-code-string">"abort"</span>);                                        <span class="doc-code-comment">// 如果在动画期间用户又设置了新终点，则需要终止当前的动画。</span>
+
+        deferred.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+            box.className += <span class="doc-code-string">" doc-box-blue"</span>;
+        });
+    }
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div><h2 id="asyncqueue-vs-promise">
+<a href="#asyncqueue-vs-promise" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><code>AsyncQueue</code> vs <code>Promise</code></h2>
+<p class="doc"><code>AsyncQueue</code> 和 <code>Promise</code> 都用于解决异步任务并发的问题。</p>
+<p class="doc">但它们解决问题的思路不同：</p>
+<p class="doc"><code>Promise</code> 类似多米诺骨牌。
+每个 <code>Promise</code> 对象都有一个状态，当 <code>Promise</code> 对象状态切换为已完成后，
+它将执行所有通过 <code>then()</code> 添加的回调函数，并将状态传递给下一个 <code>Promise</code> 对象，
+以此确保所有回调函数都是按顺序执行的。</p>
+<p class="doc"><code>AsyncQueue</code> 类似排队。
+<code>AsyncQueue</code> 统一管理了队列内所有回调函数并一一通知执行。</p>
+<p class="doc">如果程序中只需确保函数的执行顺序，建议使用更灵活的 <code>Promise</code>。
+如果程序需要人工干预等待列表（如插队执行），需要使用 <code>AsyncQueue</code>。</p>
+<p class="doc"><code>AsyncQueue</code> 和  <code>Promise</code> 对象可以互相转换：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">asyncQueueToPromise</span>(<span class="doc-code-params">asyncQueue</span>) </span>{ 
+    <span class="doc-code-keyword">return</span> <span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Promise</span>(<span class="doc-code-function"><span class="doc-code-params">resolve</span> =&gt;</span> {
+        asyncQueue.then(resolve);
+    });
+}
+
+<span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">promiseToAsyncQueue</span>(<span class="doc-code-params">promise</span>) </span>{
+    <span class="doc-code-keyword">const</span> asyncQueue = <span class="doc-code-keyword">new</span> AsyncQueue();
+    asyncQueue.suspend();
+    promise.then(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+        asyncQueue.resume();
+    });
+    <span class="doc-code-keyword">return</span> asyncQueue;
+}</code></pre>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/AsyncQueue"><a href="#api/AsyncQueue" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L1-102" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>AsyncQueue 类</h3><p>继承自：<code>Function[]</code></p><p class="doc">表示一个异步任务队列。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                <th class="doc-api-extends">继承自</th>
+                            </tr><tr id="api/AsyncQueue/suspended">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L72-75" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>suspended</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(只读)</strong>判断当前队列是否已被阻止。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(只读)</strong>判断当前队列是否已被阻止。</p>
+
+                            </td>
+                            <td>—</td>
+                        </tr><tr id="api/AsyncQueue/length">
+                            <td>
+                                
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>length</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.</p>
+
+                                    <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">Gets or sets the length of the array. This is a number one higher than the highest element defined in an array.</p>
+
+                            </td>
+                            <td><code>Array&lt;T&gt;</code></td>
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            <th class="doc-api-extends">继承自</th>
+                        </tr><tr id="api/AsyncQueue/then">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L6-36" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 6 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>then<i class="doc-tip doc-api-ellipsis">(callback, ...)</i><span class="doc-tip doc-api-more">(callback:<code>function</code>, link?:<code>string</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">添加一个任务函数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(data: any) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要添加的任务函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>link</code>
+                                </td>
+                                <td>
+                                    <code>&quot;wait&quot; | &quot;abort&quot; | &quot;insert&quot; | &quot;replace&quot; | &quot;cancel&quot;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">如果当前队列正在等待其它异步任务函数，使用的处理方式，可以是以下值之一：</p>
+<ul>
+<li class="doc">wait：等待之前所有异步任务都完成后再执行当前任务。</li>
+<li class="doc">abort：终止正在执行和其它正在等待的任务并立即执行当前任务。</li>
+<li class="doc">replace：终止正在执行的异步任务并立即执行当前任务，然后继续执行其它正在等待的异步任务。</li>
+<li class="doc">insert：等待正在执行的异步任务完成后执行当前任务，然后继续执行其它正在等待的异步任务。</li>
+<li class="doc">cancel：取消当前任务。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    <code>&quot;wait&quot;</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">添加一个任务函数。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/AsyncQueue/skip">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L38-47" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>skip<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">终止当前正在执行的异步任务并执行其它正在等待的任务。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">终止当前正在执行的异步任务并执行其它正在等待的任务。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/AsyncQueue/suspend">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L49-58" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 49 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>suspend<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(abortable?:<code><a href="#api/Abortable">Abortable</a></code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">挂起当前队列。所有后续任务都将开始等待。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>abortable</code>
+                                </td>
+                                <td>
+                                    <code><a href="#api/Abortable">Abortable</a> | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">引发挂起的对象。其提供一个 <code>abort()</code> 函数可立即终止执行。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">挂起当前队列。所有后续任务都将开始等待。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/AsyncQueue/resume">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L60-70" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 60 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>resume<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(data?:<code>any</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">通知当前异步任务已经完成，并继续执行下一个任务。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>data</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">传递给下个异步任务的数据。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">通知当前异步任务已经完成，并继续执行下一个任务。</p>
+
+                                </td>
+                                <td>—</td>
+                            </tr><tr id="api/AsyncQueue/includes">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>includes<i class="doc-tip doc-api-ellipsis">(searchElement, ...)</i><span class="doc-tip doc-api-more">(searchElement:<code>T</code>, fromIndex?:<code>number</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Determines whether an array includes a certain element, returning true or false as appropriate.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>searchElement<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The element to search for.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>fromIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The position in this array at which to begin searching for searchElement.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Determines whether an array includes a certain element, returning true or false as appropriate.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/toString">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toString<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns a string representation of an array.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns a string representation of an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/toLocaleString">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toLocaleString<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns a string representation of an array. The elements are converted to string using thier toLocalString methods.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns a string representation of an array. The elements are converted to string using thier toLocalString methods.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/push">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>push<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>T[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Appends new elements to an array, and returns the new length of the array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">New elements of the Array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Appends new elements to an array, and returns the new length of the array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/pop">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pop<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Removes the last element from an array and returns it.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Removes the last element from an array and returns it.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/concat">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>concat<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>T[][]</code>):<code>T[]</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Combines two or more arrays.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>T[][]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Additional items to add to the end of array1.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+<hr>
+<p class="doc">Combines two or more arrays.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>(T[] | T)[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Additional items to add to the end of array1.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Combines two or more arrays.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/join">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>join<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(separator?:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Adds all the elements of an array separated by the specified separator string.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>separator</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Adds all the elements of an array separated by the specified separator string.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/reverse">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reverse<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Reverses the elements in an Array.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Reverses the elements in an Array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/shift">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>shift<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Removes the first element from an array and returns it.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Removes the first element from an array and returns it.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/slice">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>slice<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(start?:<code>number</code>, end?:<code>number</code>):<code>T[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns a section of an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The beginning of the specified portion of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The end of the specified portion of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns a section of an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/sort">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>sort<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(compareFn?:<code>function</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Sorts an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>compareFn</code>
+                                </td>
+                                <td>
+                                    <code>((a: T, b: T) =&gt; number) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Sorts an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/splice">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>splice<i class="doc-tip doc-api-ellipsis">(start, ...)</i><span class="doc-tip doc-api-more">(start:<code>number</code>, deleteCount?:<code>number</code>):<code>T[]</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The zero-based location in the array from which to start removing elements.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>deleteCount</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The number of elements to remove.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+<hr>
+<p class="doc">Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>start<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The zero-based location in the array from which to start removing elements.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>deleteCount<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The number of elements to remove.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Elements to insert into the array in place of the deleted elements.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/unshift">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>unshift<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>T[]</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Inserts new elements at the start of an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>items</code>
+                                </td>
+                                <td>
+                                    <code>T[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Elements to insert at the start of the Array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Inserts new elements at the start of an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/indexOf">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>indexOf<i class="doc-tip doc-api-ellipsis">(searchElement, ...)</i><span class="doc-tip doc-api-more">(searchElement:<code>T</code>, fromIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the index of the first occurrence of a value in an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>searchElement<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The value to locate in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>fromIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the index of the first occurrence of a value in an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/lastIndexOf">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>lastIndexOf<i class="doc-tip doc-api-ellipsis">(searchElement, ...)</i><span class="doc-tip doc-api-more">(searchElement:<code>T</code>, fromIndex?:<code>number</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the index of the last occurrence of a specified value in an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>searchElement<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The value to locate in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>fromIndex</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the index of the last occurrence of a specified value in an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/every">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>every<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Determines whether all the members of an array satisfy the specified test.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Determines whether all the members of an array satisfy the specified test.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/some">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>some<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Determines whether the specified callback function returns true for any element of an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Determines whether the specified callback function returns true for any element of an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/forEach">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>forEach<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, thisArg?:<code>any</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Performs the specified action for each element in an array.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Performs the specified action for each element in an array.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/map">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>map<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">&lt;U&gt;(callbackfn:<code>function</code>, thisArg?:<code>any</code>):<code>U[]</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Calls a defined callback function on each element of an array, and returns an array that contains the results.</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>U</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>U[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Calls a defined callback function on each element of an array, and returns an array that contains the results.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/filter">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>filter<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">&lt;S&gt;(callbackfn:<code>function</code>, thisArg?:<code>any</code>):<code>S[]</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the elements of an array that meet the condition specified in a callback function.</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>S</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; value is S</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>S[]</code></p>
+                
+                
+<hr>
+<p class="doc">Returns the elements of an array that meet the condition specified in a callback function.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, array: T[]) =&gt; any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T[]</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the elements of an array that meet the condition specified in a callback function.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/reduce">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reduce<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, initialValue?:<code>T</code>):<code>T</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>T | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                
+                
+<hr>
+<p class="doc">Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>U</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: U, currentValue: T, currentIndex: number, array: T[]) =&gt; U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>U</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/reduceRight">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reduceRight<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, initialValue?:<code>T</code>):<code>T</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>T | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                
+                
+<hr>
+<p class="doc">Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>U</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: U, currentValue: T, currentIndex: number, array: T[]) =&gt; U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>U</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>U</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/[Symbol.unscopables]">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>[Symbol.unscopables]<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns an object whose properties have the value 'true'
+when they will be absent when used in a 'with' statement.</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>{ copyWithin: boolean; entries: boolean; fill: boolean; find: boolean; findIndex: boolean; keys: boolean; values: boolean; }</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns an object whose properties have the value 'true'
+when they will be absent when used in a 'with' statement.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/[Symbol.iterator]">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>[Symbol.iterator]<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>IterableIterator&lt;T&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Iterator</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>IterableIterator&lt;T&gt;</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Iterator</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/entries">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>entries<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>IterableIterator&lt;[number, T]&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns an iterable of key, value pairs for every entry in the array</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>IterableIterator&lt;[number, T]&gt;</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns an iterable of key, value pairs for every entry in the array</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/keys">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>keys<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>IterableIterator&lt;number&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns an iterable of keys in the array</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>IterableIterator&lt;number&gt;</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns an iterable of keys in the array</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/values">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>values<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>IterableIterator&lt;T&gt;</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns an iterable of values in the array</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>IterableIterator&lt;T&gt;</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns an iterable of values in the array</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/find">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(predicate)</i><span class="doc-tip doc-api-more">(predicate:<code>function</code>):<code>T</code>(3 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the value of the first element in the array where predicate is true, and undefined
+otherwise.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">find calls predicate once for each element of the array, in ascending
+order, until it finds one where predicate returns true. If such an element is found, find
+immediately returns that element value. Otherwise, find returns undefined.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                
+                
+<hr>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>undefined</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                
+                
+<hr>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>Z</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: Z, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Z</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the value of the first element in the array where predicate is true, and undefined
+otherwise.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/findIndex">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>findIndex<i class="doc-tip doc-api-ellipsis">(predicate)</i><span class="doc-tip doc-api-more">(predicate:<code>function</code>):<code>number</code>(3 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the index of the first element in the array where predicate is true, and -1
+otherwise.</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">find calls predicate once for each element of the array, in ascending
+order, until it finds one where predicate returns true. If such an element is found,
+findIndex immediately returns that element index. Otherwise, findIndex returns -1.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+<hr>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>undefined</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+<hr>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>Z</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: Z, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Z</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the index of the first element in the array where predicate is true, and -1
+otherwise.</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/fill">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>fill<i class="doc-tip doc-api-ellipsis">(value, ...)</i><span class="doc-tip doc-api-more">(value:<code>T</code>, start?:<code>number</code>, end?:<code>number</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the this object after filling the section identified by start and end with value</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">value to fill array section with</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">index to start filling the array at. If start is negative, it is treated as
+length+start where length is the length of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">index to stop filling the array at. If end is negative, it is treated as
+length+end.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the this object after filling the section identified by start and end with value</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr><tr id="api/AsyncQueue/copyWithin">
+                                <td>
+                                    
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>copyWithin<i class="doc-tip doc-api-ellipsis">(target, start, ...)</i><span class="doc-tip doc-api-more">(target:<code>number</code>, start:<code>number</code>, end?:<code>number</code>):<code>this</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">Returns the this object after copying a section of the array identified by start and end
+to the same array starting at position target</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>target<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If target is negative, it is treated as length+target where length is the
+length of the array.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If start is negative, it is treated as length+start. If end is negative, it
+is treated as length+end.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">If not specified, length of the this object is used as its default value.</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>this</code></p>
+                
+                
+                                        <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">Returns the this object after copying a section of the array identified by start and end
+to the same array starting at position target</p>
+
+                                </td>
+                                <td><code>Array&lt;T&gt;</code></td>
+                            </tr></table></div><h3 id="api/Abortable"><a href="#api/Abortable" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L104-114" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 104 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Abortable 接口</h3><p class="doc">表示一个可终止的异步操作。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Abortable/abort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/asyncQueue/asyncQueue.ts#L109-112" target="_blank" title="源码：util/asyncQueue/asyncQueue.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>abort<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">终止当前异步操作。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">终止当前异步操作。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/queue/" title="队列" id="doc_pager_prev"><i class="doc-icon">⮜</i> 队列</a>
+                            <a href="../../../components/util/tween/" title="补间动画" id="doc_pager_next">补间动画 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/asyncQueue/","test":"util/asyncQueue/asyncQueue-test.ts","imports":["util/asyncQueue"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

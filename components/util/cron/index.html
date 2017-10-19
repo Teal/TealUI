@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>计划时间 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/cron"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import crobJob, { CronJob, CronExpression, CronRule, isValidCronExpression } from \&quot;util/cron\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/cron\&quot;], function (cron_1) {\n\tvar crobJob = cron_1.default;\n\tvar CronJob = cron_1.CronJob;\n\tvar CronExpression = cron_1.CronExpression;\n\tvar CronRule = cron_1.CronRule;\n\tvar isValidCronExpression = cron_1.isValidCronExpression;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/cron" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/cron/cron.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="计划时间">
+<a href="#计划时间" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>计划时间<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as crobJob, CronJob, CronExpression, CronRule, isValidCronExpression">util/cron</small></h1>
+<p class="doc">解析 CRON 表达式实现计划任务。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/CronJob">CronJob 类</a></dd>
+	<dd><a href="#api/CronExpression">CronExpression 类</a></dd>
+	<dd><a href="#api/CronRule">CronRule 接口</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> cronJob <span class="doc-code-keyword">from</span> <span class="doc-code-string">"util/cron"</span>;
+
+<span class="doc-code-comment">// 每月 5 号凌晨执行一次任务。</span>
+<span class="doc-code-keyword">var</span> job = cronJob(<span class="doc-code-string">"0 0 5 * *"</span>, () =&gt; {
+    <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"tick"</span>);
+});
+
+<span class="doc-code-comment">// 停用任务：</span>
+<span class="doc-code-comment">// job.stop();</span></code></pre><blockquote class="doc doc-blockquote doc-blockquote-warning">
+<h5>限制</h5>
+<ol>
+<li class="doc">仅支持标准格式。不支持 L、W、C 等扩展语法。</li>
+<li class="doc">星期天使用 0 表示，不支持使用 7 表示。</li>
+<li class="doc">不支持超时超过 2147483647ms 的计划任务。</li>
+<li class="doc">不支持时区。</li>
+</ol>
+</blockquote>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<p class="doc"><a href="https://en.wikipedia.org/wiki/Cron" target="_blank" class="doc-external">Cron</a></p>
+</blockquote>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/crobJob">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L1-14" target="_blank" title="源码：util/cron/cron.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>crobJob<i class="doc-tip doc-api-ellipsis">(cronExpression, callback, ...)</i><span class="doc-tip doc-api-more">(cronExpression:<code>string</code>, callback:<code>function</code>, now?:<code>Date</code>):<code><a href="#api/CronJob">CronJob</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">创建一个计划任务。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>cronExpression<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计划时间表达式。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>() =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要执行的任务函数。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>now</code>
+                                </td>
+                                <td>
+                                    <code>Date</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">服务器下发的当前时间。</p>
+
+                                </td>
+                                <td>
+                                    <code>new Date()</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/CronJob">CronJob</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">创建一个计划任务。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isValidCronExpression">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L347-393" target="_blank" title="源码：util/cron/cron.ts，第 347 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isValidCronExpression<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>string</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断指定的字符串是否是合法的计划时间表达式。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的字符串。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果合法则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断指定的字符串是否是合法的计划时间表达式。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/CronJob"><a href="#api/CronJob" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L16-81" target="_blank" title="源码：util/cron/cron.ts，第 16 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>CronJob 类</h3><p class="doc">表示一个计划任务。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/CronJob/cronExpression">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L21-24" target="_blank" title="源码：util/cron/cron.ts，第 21 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>cronExpression</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronExpression">CronExpression</a></code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">计划时间表达式。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronExpression">CronExpression</a></code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">计划时间表达式。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronJob/callback">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L26-29" target="_blank" title="源码：util/cron/cron.ts，第 26 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>callback</code>
+                                <span class="doc-api-more">: <code>() =&gt; void</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">任务回调函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">任务回调函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronJob/offset">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L31-34" target="_blank" title="源码：util/cron/cron.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>offset</code>
+                                <span class="doc-api-more">: <code>number | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">客户端时间与实际时间的误差秒数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">客户端时间与实际时间的误差秒数。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/CronJob/start">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L36-64" target="_blank" title="源码：util/cron/cron.ts，第 36 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>start<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">启动当前任务。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">启动当前任务。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/CronJob/stop">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L66-74" target="_blank" title="源码：util/cron/cron.ts，第 66 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>stop<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">停止当前任务。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">停止当前任务。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/CronExpression"><a href="#api/CronExpression" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L83-322" target="_blank" title="源码：util/cron/cron.ts，第 83 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>CronExpression 类</h3><p class="doc">表示一个计划时间表达式。</p>
+<h4>参考</h4><ul><li><a href="http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html" target="_blank" class="doc-external">http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html</a></li></ul><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/CronExpression/seconds">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L89-92" target="_blank" title="源码：util/cron/cron.ts，第 89 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>seconds</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">秒部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">秒部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/minutes">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L94-97" target="_blank" title="源码：util/cron/cron.ts，第 94 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>minutes</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">分部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">分部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/hours">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L99-102" target="_blank" title="源码：util/cron/cron.ts，第 99 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>hours</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">小时部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">小时部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/dayOfMonth">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L104-107" target="_blank" title="源码：util/cron/cron.ts，第 104 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>dayOfMonth</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">日期部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">日期部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/month">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L109-112" target="_blank" title="源码：util/cron/cron.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>month</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">月部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">月部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/dayOfWeek">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L114-117" target="_blank" title="源码：util/cron/cron.ts，第 114 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>dayOfWeek</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">星期部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">星期部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronExpression/year">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L119-122" target="_blank" title="源码：util/cron/cron.ts，第 119 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>year</code>
+                                <span class="doc-api-more">: <code><a href="#api/CronRule">CronRule</a>[] | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">年部分的匹配规则。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code><a href="#api/CronRule">CronRule</a>[]</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">年部分的匹配规则。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/CronExpression/undefined">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L124-160" target="_blank" title="源码：util/cron/cron.ts，第 124 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>new CronExpression<i class="doc-tip doc-api-ellipsis">(source)</i><span class="doc-tip doc-api-more">(source:<code>string</code>):<code><a href="#api/CronExpression">CronExpression</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">初始化新的计划时间表达式。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>source<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计划时间表达式。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/CronExpression">CronExpression</a></code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">初始化新的计划时间表达式。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/CronExpression/next">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L190-244" target="_blank" title="源码：util/cron/cron.ts，第 190 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>next<i class="doc-tip doc-api-ellipsis">(date)</i><span class="doc-tip doc-api-more">(date:<code>Date</code>):<code>Date</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取到指定日期最近的计划时间。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>date<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Date</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">日期。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>Date</code></p>
+                <p class="doc">返回最近的日期对象。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取到指定日期最近的计划时间。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/CronExpression/toString">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L285-291" target="_blank" title="源码：util/cron/cron.ts，第 285 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>toString<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">转为等效的字符串。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>string</code></p>
+                <p class="doc">返回字符串。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">转为等效的字符串。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/CronExpression/match">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L308-320" target="_blank" title="源码：util/cron/cron.ts，第 308 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>match<i class="doc-tip doc-api-ellipsis">(date)</i><span class="doc-tip doc-api-more">(date:<code>Date</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断指定的日期是否命中当前计划时间。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>date<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Date</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">日期。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果命中则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断指定的日期是否命中当前计划时间。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/CronRule"><a href="#api/CronRule" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L324-345" target="_blank" title="源码：util/cron/cron.ts，第 324 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>CronRule 接口</h3><p class="doc">表示一个计划时间表达式中的一个规则。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/CronRule/start">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L329-332" target="_blank" title="源码：util/cron/cron.ts，第 329 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>start</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">开始数值（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">开始数值（含）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronRule/step">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L334-338" target="_blank" title="源码：util/cron/cron.ts，第 334 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>step</code>
+                                <span class="doc-api-more">: <code>number | undefined</code> = <code>1</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">步长。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">步长。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/CronRule/end">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/cron/cron.ts#L340-343" target="_blank" title="源码：util/cron/cron.ts，第 340 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>end</code>
+                                <span class="doc-api-more">: <code>number | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">结束数值（含）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">结束数值（含）。</p>
+
+                            </td>
+                            
+                        </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/formatDateToChinese/" title="格式化时间" id="doc_pager_prev"><i class="doc-icon">⮜</i> 格式化时间</a>
+                            <a href="../../../components/util/color/" title="颜色处理" id="doc_pager_next">颜色处理 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/cron/","test":"util/cron/cron-test.ts","imports":["util/cron"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

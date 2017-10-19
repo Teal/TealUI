@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>对话框</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="经典对话框弹层效果。">
+    <meta name="keywords" content="弹层, 弹窗, tanchuang, tc, 浮层, alert">
+
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/closeButton.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/mask.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/container/panel.css" />
+    <link rel="stylesheet" type="text/css" href="../../control/popup/dialog.css" />
+
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/lang/class.js"></script>
+    <script type="text/javascript" src="../../utility/dom/dom.js"></script>
+    <script type="text/javascript" src="../../utility/ux/drag.js"></script>
+
+    <script type="text/javascript" src="../../control/core/control.js"></script>
+    <script type="text/javascript" src="../../control/popup/dialog.js"></script>
+    
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+
+    <h2>基本用法</h2>
+    <script class="doc-demo">
+        var dialog = new Dialog().content('<em>我是内容</em>').title('我是标题').show();
+    </script>
+
+    <h2>基于已有的 HTML 创建对话框</h2>
+    <aside class="doc-demo">
+        <section class="x-panel x-dialog" x-role="dialog">
+            <header class="x-panel-header">
+                <a class="x-closebutton x-dialog-close">×</a>
+                <h4>我是标题</h4>
+            </header>
+            <div class="x-panel-body">
+                我是内容
+            </div>
+        </section>
+    </aside>
+
+    <h2>常用 API </h2>
+
+    <h3>自定义遮罩层（模式对话框）</h3>
+                
+    <h5>不显示遮罩层</h5>
+    <pre>$('[x-role="dialog"]').role().setMask(null);</pre>
+
+    <h5>显示透明度为 0.1 的遮罩层</h5>
+    <pre>$('[x-role="dialog"]').role().setMask(0.1);</pre>
+
+    <h3>关闭按钮</h3>
+
+    <h5>手动关闭对话框</h5>
+    <pre>$('[x-role="dialog"]').role().close();</pre>
+
+    <h5>设置用户关闭对话框后的回调</h5>
+    <pre>
+        $('[x-role="dialog"]').role().on("close", function(){
+            alert("对话框已经关闭了");
+        });
+    </pre>
+
+    <h5>不显示关闭按钮</h5>
+    <pre>$('[x-role="dialog"]').role().removeCloseButton();</pre>
+
+    <h5>设置用户关闭对话框后的回调，并阻止关闭事件</h5>
+    <pre>
+        $('[x-role="dialog"]').role().on("closing", function(){
+            alert("对话框即将关闭");
+            return false; // return false 阻止事件，这样将关闭不了对话框。
+        });
+    </pre>
+
+    <blockquote>如果需要一个含有确定/取消按钮或者含有一个图标的对话框，请使用 <a href="messageBox.html">信息框（messageBox）</a> 组件。</blockquote>
+</body>
+</html>

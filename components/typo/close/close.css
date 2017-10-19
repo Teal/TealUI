@@ -1,0 +1,28 @@
+.x-close {
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  outline: 0;
+  float: right;
+  margin: 0.25rem 0;
+  width: 1rem;
+  border-radius: 50%;
+  color: #999;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.x-close:hover, .x-close:focus {
+  background-color: #d63a29;
+  color: #fff;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+p .x-close, li .x-close, dt .x-close, dd .x-close {
+  margin: 0.375rem 0.25rem;
+}
+
+/*# sourceMappingURL=close.css.map */

@@ -1,0 +1,66 @@
+.x-listbox {
+  display: inline-block;
+  margin: 0;
+  min-width: 5rem;
+  max-height: 25rem;
+  overflow: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+  padding: 0;
+  background-color: #fff;
+  list-style: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.x-listbox a {
+  display: block;
+  padding: 0.375rem 1rem;
+  color: #666;
+  cursor: default;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.x-listbox a:hover {
+  background-color: #fafafa;
+  text-decoration: none;
+}
+
+.x-listbox a h1, .x-listbox a h2, .x-listbox a h3, .x-listbox a h4, .x-listbox a h5, .x-listbox a h6, .x-listbox a p {
+  margin: 0;
+}
+
+.x-listbox li:first-child a {
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+}
+
+.x-listbox li:last-child a {
+  border-bottom-right-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+}
+
+.x-listbox-selected a {
+  background-color: #1780ce !important;
+  color: #fff;
+}
+
+.x-listbox-selected a .x-badge {
+  background-color: #fff;
+  color: #1780ce;
+}
+
+.x-listbox-readonly, .x-listbox-disabled {
+  background-color: #eee;
+}
+
+.x-listbox-disabled {
+  pointer-events: none;
+  opacity: .8;
+}
+
+/*# sourceMappingURL=listBox.css.map */

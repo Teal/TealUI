@@ -1,0 +1,18 @@
+{
+	
+	"websites": [{
+		
+		"port": 8021,
+		
+		"host": "*",
+
+		"virtualPath": "",
+		
+		"physicalPath": ""
+	}],
+	
+	"markdown": {
+		"tpl": "<!--  arkdown  -->"
+	}
+
+}

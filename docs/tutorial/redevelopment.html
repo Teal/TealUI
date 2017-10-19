@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二次开发 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../assets/doc/doc.css">
+    <script src="../../components/require.js"></script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../" title="Teal" id="doc_logo_image"><img src="../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li class="doc-navbar-active"><a href="../../docs" title="文档和规范">文档</a></li>
+                    <li><a href="../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找文档..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li>-</li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/edit/dev-v4/docs/tutorial/redevelopment.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="二次开发">
+<a href="#二次开发" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>二次开发</h1>
+<p class="doc">搭建团队专属的组件库。</p>
+<dl id="doc_toc">
+	<dt><a href="#git-fork">Git Fork</a></dt>
+	<dt><a href="#目录结构">目录结构</a></dt>
+	<dt><a href="#构建命令">构建命令</a></dt>
+	<dd><a href="#启动">启动</a></dd>
+	<dd><a href="#更多命令">更多命令</a></dd>
+	<dt><a href="#新建组件">新建组件</a></dt>
+	<dt><a href="#编写组件">编写组件</a></dt>
+	<dt><a href="#编写文档">编写文档</a></dt>
+	<dd><a href="#元信息">元信息</a></dd>
+	<dd><a href="#插入代码段">插入代码段</a></dd>
+	<dd><a href="#插入组件演示demo">插入组件演示（DEMO）</a></dd>
+	<dd><a href="#插入引用">插入引用</a></dd>
+	<dd><a href="#插入盒子">插入盒子</a></dd>
+	<dd><a href="#api-文档">API 文档</a></dd>
+	<dt><a href="#单元测试">单元测试</a></dt>
+	<dt><a href="#发布">发布</a></dt>
+</dl>
+<h2 id="git-fork">
+<a href="#git-fork" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>Git Fork</h2>
+<p class="doc">得益于 Git 的优势，使用 <a href="https://github.com/Teal/TealUI/#fork-destination-box" target="_blank" class="doc-external">Git fork</a>，可以在二次开发后同时合并 TealUI 最新的更新。</p>
+<h2 id="目录结构">
+<a href="#目录结构" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>目录结构</h2>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">TealUI/
+    ├── assets/         文档所需的资源文件
+    ├── docs/           文档
+    ├── components/     组件源码
+    │   ├── util/       工具函数（适用于所有环境）
+    │   ├── web/        网页开发的工具函数（仅适用于浏览器）
+    │   ├── typo/       CSS 排版样式
+    │   ├── ui/         UI 组件（适用于管理端和 PC 端）
+    │   ├── touch/      APP UI 组件（仅适用于移动端）
+    │   ├── hybrid/     混合开发组件
+    │   └── project/    业务组件
+    └── tools/          工具</code></pre><h2 id="构建命令">
+<a href="#构建命令" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>构建命令</h2>
+<h3 id="启动">
+<a href="#启动" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>启动</h3>
+<ul>
+<li class="doc">安装依赖包：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-bash">npm install</code></pre><ul>
+<li class="doc">启动项目：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-bash">npm start</code></pre><p class="doc">启动后会自动打开项目首页。</p>
+<h3 id="更多命令">
+<a href="#更多命令" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>更多命令</h3>
+<p class="doc">TealUI 是使用 <a href="http://digojs.github.io/" target="_blank" class="doc-external">Digo</a> 构建的，首先安装：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-bash">npm install digo -g</code></pre><p class="doc">然后可以使用以下构建命令：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-bash">digo server     <span class="doc-code-comment"># 启动开发服务器（然后打开 http://127.0.0.1:9090）</span>
+digo dist       <span class="doc-code-comment"># 发布代码（用于给 webpack 等直接引用）</span>
+digo publish    <span class="doc-code-comment"># 发布文档（用于上传到 tealui.com）</span>
+digo --list     <span class="doc-code-comment"># 列出所有命令</span></code></pre><h2 id="新建组件">
+<a href="#新建组件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>新建组件</h2>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-bash">digo new ui/<span class="doc-code-built_in">test</span> <span class="doc-code-string">"测试组件"</span></code></pre><p class="doc">执行以上命令后会生成：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">TealUI/
+    └── components/
+        └── ui/
+            └── test/
+                ├── test.md           组件文档
+                ├── test.tsx          组件 JS 源码
+                ├── test.scss         组件 CSS 源码
+                └── package.json      模块描述文件（主要用于指定入口文件）</code></pre><p class="doc">默认组件使用 <a href="http://typescriptlang.org" target="_blank" class="doc-external">TypeScript</a>（.tsx） 和 <a href="http://sass-lang.com/" target="_blank" class="doc-external">SCSS</a>（.scss）开发，你也可以改回 .js 和 .css 文件。</p>
+<p class="doc">在浏览器打开 <a href="http://127.0.0.1:9090/components/ui/test" target="_blank" class="doc-external">http://127.0.0.1:9090/components/ui/test</a> 会显示 <code>test.md</code> 文件的内容。</p>
+<p class="doc">修改 components/index.yml 可以调整组件在列表中的位置，方便查找组件。
+index.yml 是一个 <a href="http://yaml.org/" target="_blank" class="doc-external">YAML</a> 文件。</p>
+<h2 id="编写组件">
+<a href="#编写组件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>编写组件</h2>
+<p class="doc">现在你可以修改 test.tsx 和 test.scss 编写组件了。</p>
+<p class="doc">每个组件都是一个符合 <a href="http://www.commonjs.org/" target="_blank" class="doc-external">commonjs</a> 规范的小模块。</p>
+<p class="doc">使用 <code>export</code> 导出接口：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">export</span> <span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">hello</span>(<span class="doc-code-params"></span>) </span>{
+    alert(<span class="doc-code-string">"Hello world!"</span>);
+}</code></pre><p class="doc">使用 <code>import</code> 导入其它组件：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">import</span> MessageBox <span class="doc-code-keyword">from</span> <span class="doc-code-string">"ui/messageBox"</span>;
+
+<span class="doc-code-keyword">export</span> <span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">hello</span>(<span class="doc-code-params"></span>) </span>{
+    MessageBox.alert(<span class="doc-code-string">"Hello world!"</span>);
+}</code></pre><h2 id="编写文档">
+<a href="#编写文档" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>编写文档</h2>
+<p class="doc">组件完成后修改 <code>test.md</code> 文件编写文档。文档使用 Markdown 语法。
+TealUI 提供了强大的文档系统，使得编写组件文档可以非常轻松。</p>
+<h3 id="元信息">
+<a href="#元信息" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>元信息</h3>
+<p class="doc">在 .md 文件顶部可以使用 <a href="http://yaml.org/" target="_blank" class="doc-external">YAML</a> 语法描述组件的元信息：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-md">--- 
+version: 0.0.1
+<span class="doc-code-section">author: xuld@vip.qq.com
+---</span></code></pre><p class="doc">可描述的字段有：</p>
+<ul>
+<li class="doc"><code>version</code>：描述组件的版本号。</li>
+<li class="doc"><code>author</code>：描述组件的作者，可以是多个：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+author:
+    - xuld@vip.qq.com
+    - ...
+---</code></pre><ul>
+<li class="doc"><code>title</code>：描述组件的名字。</li>
+<li class="doc"><code>description</code>：描述组件的详细说明。</li>
+<li class="doc"><code>keyword</code>：描述组件的搜索关键字：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+keyword:
+    - 测试
+    - ...
+---</code></pre><ul>
+<li class="doc"><code>tag</code>：描述组件的标签（将显示在文档顶部）：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+tag:
+    - IE6
+---</code></pre><ul>
+<li class="doc"><code>import</code>：描述文档页面额外导入的组件：</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+import:
+    - ui/messageBox
+---</code></pre><h3 id="插入代码段">
+<a href="#插入代码段" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插入代码段</h3>
+<p class="doc">使用 Markdown 语法插入一段代码：</p>
+<pre>
+```js
+var a = 1;
+```
+</pre>
+<p class="doc">语言后添加 {1,3-5} 表示高亮第 1 行和第 3 到 5 行。<br>
+代码段中可以使用 <code>---</code> 插入分割线。</p>
+<pre>
+```js {3}
+var a = 1;
+---
+var b = 1;
+---
+var c = 1;
+```
+</pre>
+<p class="doc">最终显示为：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">var</span> a = <span class="doc-code-number">1</span>;<hr><span class="doc-code-keyword">var</span> b = <span class="doc-code-number">1</span>;<hr><span class="doc-code-keyword"><span class="doc-code-highlight">var</span></span><span class="doc-code-highlight"> c = </span><span class="doc-code-number"><span class="doc-code-highlight">1</span></span><span class="doc-code-highlight">;</span></code></pre><h3 id="插入组件演示demo">
+<a href="#插入组件演示demo" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插入组件演示（DEMO）</h3>
+<p class="doc">在 html、css 或 js 语言后加 <code>demo</code>，可以将代码段转为演示代码：</p>
+<pre>
+```html demo
+Hello World!
+```
+</pre>
+<p class="doc">以上代码将显示为：</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+Hello World!
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html">Hello World!</code></pre>
+                </div><p class="doc">在演示 js 语言时，可以使用 <code>__root__</code> 获取演示容器 div 的 ID：</p>
+<pre>
+```js demo
+__root__.innerHTML = "Hello World!";
+```
+</pre>
+<p class="doc">如果希望演示的代码默认折叠，则在 <code>demo</code> 后添加 <code>hide</code>。<br>
+如果希望美化演示部分的样式，则在 <code>demo</code> 后添加 <code>doc</code>。</p>
+<pre>
+```html demo {1} hide doc
+Hello
+---
+World!
+```
+</pre>
+<p class="doc">以上代码将显示为：</p>
+<div class="doc-demo doc-demo-collapsed">
+                    <div class="doc-demo-body" aria-label="示例">
+<div class="doc-row">
+<div class="doc-col doc" id="doc_demo_2">
+Hello
+
+</div>
+<div class="doc-col doc" id="doc_demo_3">
+
+World!
+
+</div>
+</div>
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-highlight">Hello</span><hr>World!</code></pre>
+<a href="javascript://查看源码" aria-label="查看源码" aria-checked="true" class="doc-demo-toggle" onclick="Doc.toggleDemoCode(this.parentNode)"><i class="doc-icon">⏷</i></a>
+                </div><h3 id="插入引用">
+<a href="#插入引用" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插入引用</h3>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">&gt; ##### 信息
+&gt; 我是信息</code></pre><p class="doc">以上代码将显示为：</p>
+<blockquote class="doc doc-blockquote">
+<h5>信息</h5>
+<p class="doc">我是信息</p>
+</blockquote>
+<p class="doc">在标题前加标记可以设置引用的级别：</p>
+<ul>
+<li class="doc">(i)：信息级别，显示为蓝色。</li>
+<li class="doc">[!]：警告级别，显示为橙色。</li>
+<li class="doc">(!)：错误级别，显示为红色。</li>
+</ul>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">&gt; ##### [!]注意
+&gt; 我是警告</code></pre><p class="doc">以上代码将显示为：</p>
+<blockquote class="doc doc-blockquote doc-blockquote-warning">
+<h5>注意</h5>
+<p class="doc">我是警告</p>
+</blockquote>
+<h3 id="插入盒子">
+<a href="#插入盒子" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>插入盒子</h3>
+<p class="doc">为演示方便，有时需要在页面显示一个方块：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span>&gt;</span>doc-box<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre><p class="doc">使用 <code>.doc-box-small</code> 和 <code>.doc-box-large</code> 改变盒子大小。<br>
+使用 <code>.doc-box-red</code>、<code>.doc-box-blue</code> 和 <code>.doc-box-yellow</code> 改变盒子颜色。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box doc-box-small doc-box-red"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box doc-box-yellow"</span>&gt;</span>doc-box<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box doc-box-large doc-box-blue"</span>&gt;</span>doc-box<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre><p class="doc">以上代码显示为：</p>
+<div class="doc-box doc-box-small doc-box-red"></div>
+<div class="doc-box doc-box-yellow">doc-box</div>
+<div class="doc-box doc-box-large doc-box-blue">doc-box</div>
+<h3 id="api-文档">
+<a href="#api-文档" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API 文档</h3>
+<p class="doc">为导出的接口添加 <a href="http://usejsdoc.org/" target="_blank" class="doc-external">jsdoc</a>，系统将会自动提取生成 API 文档。</p>
+<p class="doc">如果不需要生成 API 文档，可以在元信息添加：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+jsdoc: false
+---</code></pre><p class="doc">如果组件没有使用 <code>export</code> 导出接口，可以通过元信息手动描述导出项。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">--- 
+exportDefault: test
+export:
+    - test1
+    - ...
+---</code></pre><h2 id="单元测试">
+<a href="#单元测试" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>单元测试</h2>
+<p class="doc">系统已集成了 <a href="http://qunitjs.com" target="_blank" class="doc-external">QUnit</a> 单元测试框架。</p>
+<p class="doc">新建 组件名-test.js 文件，然后点击文档右上角工具菜单中的单元测试可以进入单元测试（如果没有请重新保存一次 .md 文件）。</p>
+<p class="doc">测试用例和组件一样使用模块化开发。
+每个导出函数即一个测试用例。</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> assert <span class="doc-code-keyword">from</span> <span class="doc-code-string">"assert"</span>;
+<span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> test <span class="doc-code-keyword">from</span> <span class="doc-code-string">"./test"</span>;
+
+<span class="doc-code-keyword">export</span> <span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">helloTest</span>(<span class="doc-code-params"></span>)</span>{
+    assert.ok(test.hello());
+}</code></pre><p class="doc">如果需要测试异步任务，可以为测试函数声明形参：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> assert <span class="doc-code-keyword">from</span> <span class="doc-code-string">"assert"</span>;
+<span class="doc-code-keyword">import</span> * <span class="doc-code-keyword">as</span> test <span class="doc-code-keyword">from</span> <span class="doc-code-string">"./test"</span>;
+
+<span class="doc-code-keyword">export</span> <span class="doc-code-function"><span class="doc-code-keyword">function</span> <span class="doc-code-title">helloTest</span>(<span class="doc-code-params">done</span>)</span>{
+    setTimeout(<span class="doc-code-function"><span class="doc-code-params">()</span> =&gt;</span> {
+        assert.ok(test.hello());
+        done();
+    }, <span class="doc-code-number">1000</span>);
+}</code></pre><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://api.qunitjs.com/assert/" target="_blank" class="doc-external">assert 接口文档</a></li>
+</ul>
+</blockquote>
+<h2 id="发布">
+<a href="#发布" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>发布</h2>
+<p class="doc">修改 <code>package.json</code> 中的 <code>name</code> 和 <code>description</code> 可以修改项目名和描述。</p>
+<p class="doc">使用 <code>digo publish</code> 生成 <code>_publish</code> 文件夹，将此文件夹上传到内网即可打造团队内部的组件库。</p>
+<p class="doc">使用 <code>digo dist</code> 生成 <code>_dist</code> 文件夹，将此文件夹上传到内网 git 的 dist 分支。
+然后在项目的 <code>package.json</code> 中添加引用：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-json">{
+    <span class="doc-code-string">"dependencies"</span>: {
+        <span class="doc-code-string">"tealui"</span>: <span class="doc-code-string">"git+http://github.com/Teal/TealUI.git#dev-v4-dist"</span>
+    }
+}</code></pre><p class="doc">这样项目里就可以直接使用内部定制过的组件库开发了。</p>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../docs/tutorial/getting-started.html" title="开始使用" id="doc_pager_prev"><i class="doc-icon">⮜</i> 开始使用</a>
+                            <a href="../../docs/spec/compatibility.html" title="兼容性" id="doc_pager_next">兼容性 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../..","dir":"docs","active":"tutorial/redevelopment.html","imports":[]})
+    </script>
+    <script src="../../docs/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

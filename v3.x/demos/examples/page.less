@@ -1,0 +1,143 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+// 顶部
+#header {
+    background: #4F5061;
+    color: #807e7e;
+    margin-bottom: 1em;
+    line-height: @line-height - 3px;
+
+    nav a {
+        color: #e7e3e3;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 200;
+        font-size: @font-size + 1px;
+        padding: @padding-height + 1px + @font-size * 0.5 @padding-width;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+}
+
+#logo, #searchform, #navbar li {
+    float: left;
+}
+
+#logo {
+    line-height: 0;
+    padding: @font-size * 0.5 0!important;
+}
+
+#searchform {
+    margin: @font-size * 0.5 .3em;
+
+    input {
+        background: #f1f1f1;
+        width: 200px;
+
+        &:focus {
+            background: #fff;
+        }
+    }
+}
+
+#navbar {
+
+    a {
+        padding: @padding-height + 1px + @font-size * 0.5 @font-size * 1.2;
+    }
+
+    a:hover, .actived a {
+        color: #fff;
+        background: #404040;
+    }
+}
+
+#navbartrigger {
+    display: none;
+}
+
+#userbar, #navbartrigger {
+    a:last-child {
+        padding-right: 0;
+    }
+}
+
+@media @small {
+
+    #searchform, #userbar, #navbar {
+        display: none;
+    }
+
+    #navbartrigger {
+        display: inline-block;
+    }
+
+    #navbar {
+        clear: left;
+        margin: 0 -@grid-margin;
+
+        li {
+            float: none;
+        }
+
+        a {
+            display: block;
+        }
+    }
+}
+
+.header {
+    background-color: #F3F3F3;
+    padding: @grid-margin 0;
+}
+
+// 底部
+#footer {
+    border-top: 1px solid @border-color;
+    margin: 2em 0;
+    padding: 1em 0;
+    font-size: small;
+
+    &, & a {
+        color: #908c8c;
+    }
+}
+
+// 主体
+
+.x-row-2, .x-row-3 {
+    #sidebar {
+        width: 18%;
+    }
+}
+
+.x-row-2 {
+    #outline {
+        display: none;
+    }
+
+    #main {
+        width: 100% - 18%;
+    }
+}
+
+.x-row-3 {
+    #outline {
+        width: 22%;
+    }
+
+    #main {
+        width: 100% - 18% - 22%;
+    }
+}
+
+#breadcrumb {
+    margin-bottom: .8em;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>日期扩展</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/utils/date.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                'Date#toString': 'new Date(2001,2,3,4,5,6,7).toString("yyyy 年 MM 月 dd 日  yy 年 M 月 d 日   hh mm ss")',
+                'Date.isLeapYear': 'Date.isLeapYear(2002)',
+                'Date.getDayInMonth': 'Date.getDayInMonth(2001, 2)',
+                'Date.compare': 'Date.compare(new Date(), new Date())'
+            });
+        </script>
+    </article>
+</body>
+</html>

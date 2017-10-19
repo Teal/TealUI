@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>文档系统</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="文档系统就像 TealUI 的后勤，它负责管理所有组件。本篇文章介绍了文档系统的所有功能，帮助需要对 TealUI 进行二次开发的用户提升组件开发效率。">
+</head>
+<body>
+    <script type="text/javascript" src="../../assets/doc/doc.js"></script>
+
+    <h2>新建组件</h2>
+
+    <h3>新建文件</h3>
+    <p>假设需要新建一个名为 <code>myButton</code> 的组件，则需要在 <code>src</code> 文件夹下选择一个分类新建源码文件，如：</p>
+
+    <pre class="doc-code-text">
+        TealUI/
+          └── src/
+               └── control/
+                     └── form/
+                           ├── myButton.css
+                           ├── myButton.js
+                           └── myButton.html
+            
+    </pre>
+
+    <h3>载入文档系统</h3>
+    <p>添加如下脚本引用即可加载文档系统。它包含了演示页所需的常用样式。</p>
+    <pre>&lt;script type="text/javascript" src="../../../assets/doc/doc.js">&lt;/script></pre>
+
+    <h3>添加组件描述</h3>
+    <p>在 <code>&lt;title&gt;</code> 中添加组件名，在 <code>&lt;meta name="author" content=""></code> 中添加组件作者，在<code>&lt;meta name="description" content=""></code> 中添加组件描述。</p>
+
+    <h3>组件演示页模板</h3>
+    <script class="doc-demo" type="text/html">
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+            <title>我的按钮</title>
+            <meta name="module-info" content="">
+            <meta name="author" content="xuld@vip.qq.com">
+            <meta name="description" content="我是按钮的功能说明。">
+
+            <!-- 以下是本组件的全部源码 -->
+            <link rel="stylesheet" type="text/css" href="myButton.css" />
+
+            &lt;script type="text/javascript" src="myButton.js">&lt;/script>
+        </head>
+        <body>
+            <!-- 以下代码仅用于文档演示 -->
+            &lt;script type="text/javascript" src="../../../assets/doc/doc.js">&lt;/script>
+
+            <!-- 在这里写内容 -->
+        </body>
+    </html>
+</script>
+
+    <h2 id="demo">组件演示（DEMO）页</h2>
+    <p>文档系统提供了一些组件演示的常用功能，方便用户为组件书写测试页和文档。</p>
+
+    <h3>框架模式</h3>
+    <p>框架模式是指文档额外显示的内容（如导航条），可以通过 URL <code>?frame=default</code> 或 HTML <code>&lt;html data-frame="default"></code> 来设置当前文档的框架模式。</p>
+
+    <ol>
+        <li><code>default</code>: 默认框架，显示组件导航条和文档样式。</li>
+        <li><code>fullscreen</code>: 全屏模式，只加载文档样式。</li>
+        <li><code>page</code>: 页面模式，不额外加载样式和元素。</li>
+        <li><code>none</code>: 空白模式，不额外加载任何内容以方便组件调试。</li>
+    </ol>
+
+    <h3>文档样式</h3>
+    <p>为避免干扰组件本身，我们只为<code>.doc-section, .doc > *, body > *</code> 应用文档样式。这些样式在 <code>assets/doc.css</code> 可以找到。</p>
+
+    <h3>插入组件示例（DEMO）</h3>
+    <p>添加 <code>aside.doc-demo</code>，系统会自动提取并显示内部源码，方便用户复制。</p>
+    <script type="text/html" class="doc-demo">
+        <aside class="doc-demo">
+            <!-- 这里写组件的 DEMO -->
+        </aside>
+    </script>
+    <blockquote>个别组件会动态生成 HTML，导致提取到的代码是生成过的，可在生成之前调用 <code>Doc.renderCodes()</code> 先提取源码。</blockquote>
+
+    <h3>插入代码块</h3>
+
+    <h4><code>pre</code></h4>
+    <p>使用 <code>&lt;pre></code> 标签插入代码是最方便的。系统将自动推断内部语言并高亮，也可通过 <code>&lt;pre class="doc-code-js"></code> 手动指定语言。</p>
+
+    <h4><code>script</code></h4>
+    <p>使用 <code>&lt;script type="text/html" class="doc-demo"></code> 标签也可插入代码，内部 HTML 代码无需转义。</p>
+    <blockquote>在 <code>&lt;script></code> 标签内，应使用 <code>&amp;lt;/script</code> 代替 <code>&lt;/script&gt;</code> 防止解析出错。</blockquote>
+
+    <h3>插入盒子</h3>
+    <p>在演示时经常需要一个 <code>&lt;div></code> 来测试，这时可使用盒子。</p>
+    <aside class="doc-demo doc-section">
+        <div class="doc-box">doc-box</div>
+        <div class="doc-box-large">doc-box-large</div>
+        <div class="doc-box-small">doc-box-small</div>
+        <div class="doc-box doc-red">doc-red</div>
+        <div class="doc-box doc-yellow">doc-yellow</div>
+        <div class="doc-box doc-blue">doc-blue</div>
+        <div class="doc-box doc-green">doc-green</div>
+    </aside>
+
+    <h3>插入引用</h3>
+    <p>添加引用提升文档的易读性。</p>
+    <aside class="doc-demo doc">
+        <blockquote>我是说明</blockquote>
+        <blockquote><h4>我是说明</h4>我是说明的具体内容</blockquote>
+        <blockquote class="doc-note">我是注意</blockquote>
+        <blockquote class="doc-note"><h4>我是注意</h4>我是注意的具体内容</blockquote>
+    </aside>
+
+    <h3>插入列</h3>
+    <p>通过 <code>.doc-row.doc-row-*</code>(其中 * 是 1-6 的数字)可插入均分的列。在手机上，列将自动垂直布局。</p>
+    <aside class="doc-demo">
+        <div class="doc-row doc-row-3">
+            <div class="doc-col">左</div>
+            <div class="doc-col">中</div>
+            <div class="doc-col">右</div>
+        </div>
+    </aside>
+
+    <h3>其他工具样式</h3>
+    <dl>
+        <dd><code class="demo">doc-left</code>: 左浮动</dd>
+        <dd><code class="demo">doc-right</code>: 右浮动</dd>
+        <dd><code class="demo">doc-clear</code>: 清除浮动</dd>
+    </dl>
+</body>
+</html>

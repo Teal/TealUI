@@ -1,0 +1,1 @@
+function test(){}var options={html:"demo.html",time:1e3,eclipseLength:100,timeout:1e3},framewroks={framework1:{js:"demo.js",html:"",init:function(e){}},framework2:{js:"demo.js",html:"",init:function(e){}}},cases={test:{time:1e3,framework1:"test()",framework2:"test()"}};window.initSpeedMatch&&initSpeedMatch(framewroks,cases,options);

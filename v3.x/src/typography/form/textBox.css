@@ -1,0 +1,85 @@
+﻿.x-textbox {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  line-height: 24px;
+  height: 34px;
+  outline: 0;
+  background-color: #ffffff;
+  width: 182px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -moz-transition: background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: background-color ease-in-out .15s, border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.x-textbox:focus {
+  border-color: #66afe9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.x-textbox[disabled],
+.x-textbox[readonly],
+[disabled] .x-textbox {
+  box-shadow: none !important;
+  background-color: #ededed;
+}
+textarea.x-textbox {
+  width: 576px;
+  height: 120px;
+}
+.x-textbox[rows],
+.x-textbox[multiple],
+.x-textbox[size] {
+  height: auto;
+}
+.x-textbox-info {
+  border-color: #31708f;
+}
+.x-textbox-info:focus {
+  border-color: #31708f;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(49, 112, 143, 0.6);
+}
+.x-textbox-success {
+  border-color: #3c763d;
+}
+.x-textbox-success:focus {
+  border-color: #3c763d;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(60, 118, 61, 0.6);
+}
+.x-textbox-warning {
+  border-color: #9c7a3e;
+}
+.x-textbox-warning:focus {
+  border-color: #9c7a3e;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(156, 122, 62, 0.6);
+}
+.x-textbox-error {
+  border-color: #a94442;
+}
+.x-textbox-error:focus {
+  border-color: #a94442;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 6px rgba(169, 68, 66, 0.6);
+}
+.x-textbox-small {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  height: 24px;
+  width: 144px;
+}
+.x-textbox-large {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  height: 46px;
+  width: 576px;
+}
+.x-textbox-block {
+  display: block;
+  width: 100%;
+}

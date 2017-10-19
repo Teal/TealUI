@@ -1,0 +1,84 @@
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+input[type=date], input[type=time], input[type=datetime-local], input[type=month] {
+  -webkit-appearance: listbox;
+}
+
+input[type=radio], input[type=checkbox] {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  padding: 0;
+}
+
+input[type=radio][disabled], input[type=checkbox][disabled] {
+  cursor: not-allowed;
+}
+
+[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+output {
+  display: inline-block;
+}
+
+summary {
+  display: list-item;
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+article, aside, section, header, footer, nav, menu, figcaption, figure, main, details, summary, hgroup {
+  display: block;
+}
+
+audio, video, canvas {
+  display: inline-block;
+}
+
+fieldset {
+  margin-left: 0;
+  margin-right: 0;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+
+legend {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  color: inherit;
+  font-size: 125%;
+  line-height: inherit;
+  white-space: normal;
+}
+
+abbr[title] {
+  border-bottom: 0;
+  -webkit-text-decoration: underline dotted;
+     -moz-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+  cursor: help;
+}
+
+/*# sourceMappingURL=reset-more.css.map */

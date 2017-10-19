@@ -1,0 +1,29 @@
+@charset "UTF-8";
+.x-videoplaceholder {
+  position: relative;
+  display: inline-block;
+}
+
+.x-videoplaceholder::after {
+  content: "▷";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #666;
+  font-family: "x-icon";
+  font-size: 4rem;
+  opacity: .3;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transition: opacity ease-in-out 0.2s;
+  -moz-transition: opacity ease-in-out 0.2s;
+  transition: opacity ease-in-out 0.2s;
+}
+
+.x-videoplaceholder:hover::after {
+  opacity: .6;
+}
+
+/*# sourceMappingURL=videoPlaceholder.css.map */

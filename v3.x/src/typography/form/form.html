@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>表单布局</title>
+    <meta name="module-info" content="order=^, parent-title=表单, parent-order=input">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="本组件包含了常见的三种表单布局。">
+    <!-- 以下是本组件的全部源码 -->
+    <link rel="stylesheet" type="text/css" href="../../typography/core/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../core/grid.css" />
+    <link rel="stylesheet" type="text/css" href="../core/grid12.css" />
+    <link rel="stylesheet" type="text/css" href="../form/form.css" />
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <link rel="stylesheet" type="text/css" href="../form/textBox.css" />
+    <link rel="stylesheet" type="text/css" href="../form/button.css" />
+    <link rel="stylesheet" type="text/css" href="../misc/tipBox.css" />
+    <link rel="stylesheet" type="text/css" href="../misc/tip.css" />
+    <link rel="stylesheet" type="text/css" href="../../typography/partial/icon.css" />
+    
+    <p>表单布局主要基于 <a href="../core/grid12.html">12栅格布局(grid12)</a> 完成。表单的各个元素分别都是独立的组件。表单布局主要实现层和文本框的垂直对齐效果。</p>
+
+    <h2>水平布局</h2>
+    <aside class="doc-demo">
+        <form class="x-form x-form-horizontal" action="###">
+            <div class="x-row">
+                <label class="x-col x-col-3">账号名<span class="x-form-required">*</span>:</label>
+                <div class="x-col x-col-9"><input type="text" class="x-textbox"></div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3">(选填)附加信息:</label>
+                <div class="x-col x-col-9">
+                    <input type="text" class="x-textbox">
+                    <span class="x-tipbox x-tipbox-error">错误提示</span><br />
+                    <span class="x-tip">如：hello world</span>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3">默认或其他:</label>
+                <div class="x-col x-col-9">
+                    <label><input type="radio" name="radio" checked="checked"> 默认</label>
+                    &nbsp;&nbsp;
+                    <label><input type="radio" name="radio"> 自定义</label>
+                    <input type="text" class="x-textbox">
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3">多字段:</label>
+                <div class="x-col x-col-9">
+                    <input type="text" class="x-textbox">
+                    <br />
+                    <input type="text" class="x-textbox">
+                    <br />
+                    <select class="x-textbox"><option>选项</option></select>
+                    <br>
+                    <select class="x-textbox"><option>选项</option></select>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3">大段内容:</label>
+                <div class="x-col x-col-9">
+                    <textarea class="x-textbox"></textarea>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3">验证码:</label>
+                <div class="x-col x-col-9">
+                    <input type="text" class="x-textbox x-form-short" />
+                    <a href="###"><img class="x-form-img" src="../../../assets/resources/100x100.png" height="34" /></a>
+                    <a href="###">看不清，换一张</a>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3"></label>
+                <div class="x-col x-col-9">
+                    <label><input type="checkbox" checked /> 同意<a href="###">用户协议</a></label>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-3"></label>
+                <div class="x-col x-col-9">
+                    <button type="submit" class="x-button">确定</button>
+                </div>
+            </div>
+        </form>
+    </aside>
+    <p>当在手机上，水平布局会自动改为垂直布局。</p>
+
+    <h2>垂直布局</h2>
+    <aside class="doc-demo">
+        <form class="x-form x-form-vertical" action="###">
+            <div class="x-row">
+                <label class="x-col x-col-12">账号名<span class="x-form-required">*</span>:</label>
+                <div class="x-col x-col-12"><input type="text" class="x-textbox"></div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">账号名<span class="x-form-required">*</span>:</label>
+                <div class="x-col x-col-12"><input type="text" class="x-textbox"></div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">(选填)附加信息:</label>
+                <div class="x-col x-col-12">
+                    <input type="text" class="x-textbox">
+                    <span class="x-tipbox x-tipbox-error">错误提示</span><br />
+                    <span class="x-tip">如：hello world</span>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">默认或其他:</label>
+                <div class="x-col x-col-12">
+                    <label><input type="radio" name="radio" checked="checked"> 默认</label>
+                    &nbsp;&nbsp;
+                    <label><input type="radio" name="radio"> 自定义</label>
+                    <input type="text" class="x-textbox">
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">多字段:</label>
+                <div class="x-col x-col-12">
+                    <input type="text" class="x-textbox">
+                    <br />
+                    <input type="text" class="x-textbox">
+                    <br />
+                    <select class="x-textbox"><option>选项</option></select>
+                    <br>
+                    <select class="x-textbox"><option>选项</option></select>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">大段内容:</label>
+                <div class="x-col x-col-12">
+                    <textarea class="x-textbox"></textarea>
+                </div>
+            </div>
+            <div class="x-row">
+                <label class="x-col x-col-12">验证码:</label>
+                <div class="x-col x-col-12">
+                    <input type="text" class="x-textbox x-form-short" />
+                    <a href="###"><img class="x-form-img" src="../../../assets/resources/100x100.png" height="34" /></a>
+                    <a href="###">看不清，换一张</a>
+                </div>
+            </div>
+            <div class="x-row">
+                <div class="x-col x-col-12">
+                    <label><input type="checkbox" checked /> 同意<a href="###">用户协议</a></label>
+                </div>
+            </div>
+            <div class="x-row">
+                <div class="x-col x-col-12">
+                    <button type="submit" class="x-button">确定</button>
+                </div>
+            </div>
+        </form>
+    </aside>
+
+    <h2>内联表单</h2>
+    <aside class="doc-demo">
+        <form class="x-form x-form-inline" action="###">
+            <div class="x-row">
+                <div class="x-col"><input type="text" class="x-textbox" placeholder="用户名"></div>
+            </div>
+            <div class="x-row">
+                <div class="x-col"><input type="text" class="x-textbox" placeholder="密码"></div>
+            </div>
+            <div class="x-row">
+                <div class="x-col">
+                    <label><input type="checkbox"> 记住密码</label>
+                </div>
+            </div>
+            <div class="x-row">
+                <div class="x-col">
+                    <button type="submit" class="x-button">登陆</button>
+                </div>
+            </div>
+        </form>
+    </aside>
+    <p>当在手机上，内联表单会自动改为垂直布局。</p>
+    
+    <h2>字段长度</h2>
+    <p>使用 <code>.x-form-short</code> 和 <code>.x-form-long</code> 生成超短或超长的表单字段。</p>
+    <aside class="doc-demo">
+        <form class="x-form x-form-horizontal" action="###">
+            <div class="x-row">
+                <label class="x-col x-col-3">字段:</label>
+                <div class="x-col x-col-9">
+                    <input type="text" class="x-textbox x-form-short">
+                    <input type="text" class="x-textbox">
+                    <input type="text" class="x-textbox x-form-long">
+                </div>
+            </div>
+        </form>
+    </aside>
+
+    <blockquote class="doc-info">另参考 <a href="validator.html">表单验证(validator)</a>。</blockquote>
+</body>
+</html>

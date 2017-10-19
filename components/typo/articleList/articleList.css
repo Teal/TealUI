@@ -1,0 +1,10 @@
+.x-articlelist > li {
+  padding: 1rem 0;
+}
+
+.x-articlelist p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/*# sourceMappingURL=articleList.css.map */

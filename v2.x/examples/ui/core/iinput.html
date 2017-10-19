@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete;attr=#13">
+    <title>表单控件接口</title>
+
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/base.js"></script>
+    <script type="text/javascript" src="../../../src/ui/core/iinput.js"></script>
+
+    <script type="text/javascript" src="../../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <p class="demo">IInput 提供表单元素的状态控制。</p>
+        <aside class="demo">
+            
+        </aside>
+
+        <section class="demo demo-control">
+
+            <aside class="demo">
+                <input type="text" id="input" />
+
+                <script>
+
+                    // 获取上文的节点对象。
+                    var input = new Control(Dom.get('input'));
+
+                    // 复制 IInput 的接口。
+                    Object.extend(input, IInput);
+
+                </script>
+            </aside>
+
+        </section>
+
+        <section class="demo demo-api">
+
+            <script>
+
+                Demo.writeExamples({
+                    '设置禁用': 'input.setAttr("disabled", true)',
+                    '取消禁用': 'input.setAttr("disabled", false)',
+                    '设置只读': 'input.setAttr("readonly", true)',
+                    '取消只读': 'input.setAttr("readonly", false)',
+                    '设置 name': 'input.setAttr("name", "name")',
+                    '获取表单': 'input.form()'
+                });
+
+            </script>
+
+        </section>
+
+    </article>
+</body>
+</html>

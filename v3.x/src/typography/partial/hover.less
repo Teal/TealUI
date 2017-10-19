@@ -1,0 +1,14 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-show-hover {
+    .opacity(0);
+    .transition(opacity .2s);
+    
+    .x-hover:hover & {
+        .opacity(1);
+    }
+}

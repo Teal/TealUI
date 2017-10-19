@@ -1,0 +1,33 @@
+
+@import "../../typography/core/mixins.less";
+
+.x-article {
+
+    table, img, audio, video, canvas {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: @grid-margin;
+    }
+    
+    img {
+        display: block;
+        
+        &.x-left, &[align=left] {
+            margin-right: @grid-margin;
+        }
+              
+        &.x-right, &[align=right] {
+            margin-left: @grid-margin;
+        }
+
+    }
+    
+    // ²åÍ¼»ò²å±í
+    figure {
+        text-align: center;
+        *:first-child {
+            margin-bottom: 0;
+        }
+    }
+
+}

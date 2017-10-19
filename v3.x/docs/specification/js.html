@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>JavaScript 编码规范</title>
+    <meta name="module-info" content="parent-title=编码规范, parent-order=advance, order=^" />
+</head>
+<body>
+    <script src="../../assets/doc/doc.js"></script>
+
+    <h2>声明</h2>
+    <p>我们尊重您的个人编码习惯，我们只纠正那些会增加代码错误率的编码方式。</p>
+
+    <h2>格式</h2>
+    <p>我们相信格式化工具可以有效规范代码格式，我们不会在格式上作出太多限制。</p>
+
+    <h3>缩进</h3>
+    <p>您可以使用 1 个 Tab（推荐）、4 个空格或 2 个空格创建缩进。</p>
+
+    <h3>空格</h3>
+    <p>
+        建议在后缀单目运算符后添加一个空格，在双目运行符两边各添加一个空格。
+    </p>
+    <pre>
+    function a(c, d) {
+    }</pre>
+    <pre>
+    function() { }</pre>
+    <pre>
+
+    var a = {
+
+    	c: [2]
+
+    };</pre>
+    <pre>
+
+    b = (e * a) + b + ++c - --a;</pre>
+
+    <h3>行宽</h3>
+    <p>建议将超过 80 个字符的代码拆为多行。拆分时尽量选择在操作符(最好是逗号）之后拆分。</p>
+
+    <h3>注释</h3>
+    <ol>
+        <li>文档注释使用 /** */ 表示，遵循 JSDoc 文档注释规范。</li>
+        <li>多行注释使用 /* */。</li>
+        <li>简短注释使用 //。您可以将 // 注释放在代码的末尾或顶部。如：</li>
+    </ol>
+    <pre id="line1"><span>// 变量1
+var a = 2;</span></pre>
+    <pre><span>var a = 2; // 变量1</span>
+</pre>
+
+    <h3>括号</h3>
+    <p>
+        没有对括号额外要求，但在表达式明确的时候不需要使用括号，比如下面的例子都是不对的:
+    </p>
+    <pre>typeof(value) </pre>
+    <pre>(a * f) - 5</pre>
+    <p>当判断条件为赋值表达式时，为其追加括号：</p>
+    <pre>
+        if((a = b)) { } // 追加扩展以表示这里不是 ==。
+    </pre>
+    <p>立即执行函数应追加括号，如:</p>
+    <pre>
+        (function() {
+
+        })();
+    </pre>
+    <p>{ 和 [ 的位置不强制要求。建议使用：</p>
+    <pre>
+        function() {
+            // 代码...
+        }
+    </pre>
+
+    <h2>命名</h2>
+
+    <h3>命名规则</h3>
+    <p>命名规则有 3 种：</p>
+    <ol>
+        <li>骆驼规则：除了第一个单词，其它各单词首字母大小。如 <code>fileName</code>。</li>
+        <li>PASCAL 规则：各单词首字母大小。如 <code>FileName</code>。</li>
+        <li>全大写规则：各字母大小，单词用下划线连接。如 <code>FILE_NAME</code>。</li>
+    </ol>
+    <p>各规则使用场景为：</p>
+    <ol>
+        <li>局部变量、参数和函数名 使用 骆驼规则。</li>
+        <li>类的私有成员使用 带“_”前缀的骆驼规则。</li>
+        <li>类、对象名和名字空间使用 PASCAL 规则。 (一般把需要 <code>new</code> 才能使用的函数叫做类)</li>
+        <li>常量名使用 PASCAL 规则或全大写规则。</li>
+        <li>系统辅助对象使用 带“$”前缀的骆驼规则。 ( 比如使用了关键字或保留字，而不得不更名的对象，或者需要在其它对象创建的成员，又同时要避免这个成员有冲突)</li>
+    </ol>
+
+    <h3>固定命名</h3>
+    <ol>
+        <li>不允许对单词随便缩写，原则上保留单词的全拼。</li>
+        <li>对 <code>this</code> 的临时保存使用 <code>me</code> 。</li>
+        <li>对 <code>arguments</code> 的临时保存使用 <code>args</code> 。</li>
+        <li>首先遵守 Javascript 本身的语言命名规则，然后遵守其它库和语言的命名，最后按照作者的风格命名。</li>
+    </ol>
+    <h2>语句</h2>
+
+    <h3>变量声明</h3>
+    <p>使用 var 声明变量，多个变量声明的 var 可合并。</p>
+    <pre>
+    var a = 2,
+        b = 1; // b 前面是一个 Tab 或 4 个空格。</pre>
+    <p>
+        对于只在 for 循环内使用的变量，在 for 内部使用 var 声明。
+    </p>
+    <pre>for(var a in b) {}</pre>
+    <p>同一个块内不能声明同名变量。如下代码是错误的：</p>
+    <pre>
+        if(true){
+            var a = 1;
+        } else {
+            var a = 2;
+        }
+    </pre>
+    <p>应改为：</p>
+    <pre>
+        var a;
+        if(true){
+            a = 1;
+        } else {
+            a = 2;
+        }
+    </pre>
+
+    <h3>标签和块</h3>
+    <p>不要创建从不使用的标签。不要创建多余的 {} 语句块。</p>
+    <p>不强制为单行语句添加 {}，您可以根据习惯决定。</p>
+
+    <h3>语句末尾</h3>
+    <p>为每个语句增加分号。多个语句应分行书写。</p>
+
+    <h3>with 语句</h3>
+    <p>不要使用 with 语句。</p>
+
+    <h3>if 语句</h3>
+    <p>允许使用 &amp;&amp; 和 || 代替 if 语句。尽量使用三目运算符，而不是 if 语句。</p>
+
+    <h3>无限循环</h3>
+    <p>建议使用 <code>while(true) {...}</code> 表示无限循环。对于 <code>for ( ;true; )</code>，<code>true</code> 应该不写。</p>
+
+    <h3>异常</h3>
+    <p>不要通过捕获已知错误的方式实现逻辑。任何对象都可以作为异常抛出。建议抛出 Error 及继承对象 或 字符串。</p>
+
+    <h2>表达式</h2>
+    <h3>引号</h3>
+    <p>如果内容是 HTML 字符串，确保 HTML 使用 &quot;，否则没有强制要求。</p>
+
+    <h3>逗号</h3>
+    <p>除了 for () 的第三部分，其它位置不要使用逗号表达式。</p>
+
+    <h3>比较运算</h3>
+    <p>
+        比较时尽量使用 <code>===</code> 和 <code>!==</code>。
+    </p>
+
+    <h3>对象和数组</h3>
+    <p>使用 <code>{}</code> 替代 <code>new Object()</code>。使用 <code>[]</code> 替代<code>new Array()</code>。</p>
+
+    <h3>执行函数</h3>
+    <p>
+        尽量不要使用 <code>eval</code> 函数和 <code>Function</code> 函数
+    </p>
+
+    <h3>闭包</h3>
+    <p>没有限制。当然如果出现10层上的闭包，您应该检查代码质量。</p>
+    <h3>多行字符串</h3>
+    <p>可以使用两种格式之一：（第1种不属于语言标准，但它被目前全部浏览器支持）</p>
+    <pre>
+                        var a = 'aa\
+
+                        vv'
+                    </pre>
+    <pre>
+                        var a = 'aa' + 'vv'</pre>
+    <h3>常量的属性选择</h3>
+    <p>
+        常量属性名应该使用 . 操作符，而不是 [] 操作符。
+    </p>
+    <h3>&nbsp;new 表达式</h3>
+    <p>
+        new 表达式后可以任意选择是否加括号。
+    </p>
+    <h3>逻辑操作</h3>
+    <p>
+        禁止将逻辑操作写为位操作，比如用 | 代替 || 是不对的。
+    </p>
+</body>
+</html>

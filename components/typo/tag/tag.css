@@ -1,0 +1,74 @@
+.x-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  border-radius: 0.15rem;
+  padding: 0 0.25rem;
+  background-color: #e8f4fc;
+  color: #1780ce;
+  font-size: 87.5%;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+a.x-tag:hover {
+  background-color: #c8e4f9;
+  text-decoration: none;
+}
+
+.x-tag:empty {
+  display: none;
+}
+
+.x-tag-info {
+  background-color: #2487d0;
+  color: #fff;
+}
+
+a.x-tag-info:hover {
+  background-color: #1f73b2;
+  color: #fff;
+}
+
+.x-tag-success {
+  background-color: #3ca23c;
+  color: #fff;
+}
+
+a.x-tag-success:hover {
+  background-color: #328832;
+  color: #fff;
+}
+
+.x-tag-warning {
+  background-color: #e28f19;
+  color: #fff;
+}
+
+a.x-tag-warning:hover {
+  background-color: #c27b15;
+  color: #fff;
+}
+
+.x-tag-error {
+  background-color: #d63a29;
+  color: #fff;
+}
+
+a.x-tag-error:hover {
+  background-color: #b83223;
+  color: #fff;
+}
+
+.x-tag .x-close {
+  margin: 0.15625rem 0 0.15625rem 0.25rem;
+}
+
+.x-tag.x-transparent {
+  background-color: transparent;
+  color: inherit;
+}
+
+/*# sourceMappingURL=tag.css.map */

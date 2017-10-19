@@ -1,0 +1,24 @@
+.x-badge {
+  display: inline-block;
+  margin: 0.25rem 0.25rem;
+  border-radius: .5rem;
+  padding: 0 .25rem;
+  background-color: #d63a29;
+  color: #fff;
+  font-family: "Microsoft YaHei", monospace;
+  font-size: 87.5%;
+  line-height: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+
+.x-badge:empty {
+  display: none;
+}
+
+p .x-badge, li .x-badge, dt .x-badge, dd .x-badge {
+  margin: 0.375rem 0.25rem;
+}
+
+/*# sourceMappingURL=badge.css.map */

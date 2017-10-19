@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>表格扩展 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/table","typo/table/table-more"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/table/table-more\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/table/table-more\&quot;], function (table-more_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/table/table-more.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/table/table-more" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/table/table-more.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="表格扩展">
+<a href="#表格扩展" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>表格扩展<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>">typo/table/table-more</small></h1>
+<h2 id="圆角">
+<a href="#圆角" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>圆角</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<table class="x-table x-table-rounded">
+    <tr>
+        <th>序号</th>
+        <th>项目名称</th>
+        <th>项目地址</th>
+    </tr>
+    <tr>
+        <th>1</th>
+        <td>TealUI</td>
+        <td>http://tealui.com</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>TealLang</td>
+        <td>http://teallang.com</td>
+    </tr>
+</table>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">table</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-table x-table-rounded"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>序号<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>项目名称<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>项目地址<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>1<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>TealUI<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>http://tealui.com<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">tr</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">th</span>&gt;</span>2<span class="doc-code-tag">&lt;/<span class="doc-code-name">th</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>TealLang<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">td</span>&gt;</span>http://teallang.com<span class="doc-code-tag">&lt;/<span class="doc-code-name">td</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">tr</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">table</span>&gt;</span></code></pre>
+                </div>
+                        
+                        
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/table/","imports":["typo/reset","typo/table","typo/table/table-more"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

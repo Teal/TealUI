@@ -1,0 +1,12 @@
+﻿/**
+ * @author xuld
+ */
+.x-toolbar {
+  color: #ababab;
+}
+.x-toolbar a {
+  color: #757575;
+}
+.x-toolbar a + a {
+  margin-left: 1.5em;
+}

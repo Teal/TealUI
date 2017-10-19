@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>异步请求 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["web/ajax"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import ajax, { Ajax, checkStatus } from \&quot;web/ajax\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/ajax\&quot;], function (ajax_1) {\n\tvar ajax = ajax_1.default;\n\tvar Ajax = ajax_1.Ajax;\n\tvar checkStatus = ajax_1.checkStatus;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/ajax" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/ajax/ajax.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="异步请求">
+<a href="#异步请求" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>异步请求<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as ajax, Ajax, checkStatus">web/ajax</small></h1>
+<p class="doc">异步从服务端载入数据。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#跨域问题">跨域问题</a></dt>
+	<dd><a href="#跨域头">跨域头</a></dd>
+	<dd><a href="#options-请求">OPTIONS 请求</a></dd>
+	<dd><a href="#登陆信息">登陆信息</a></dd>
+	<dt><a href="#api">API</a></dt>
+	<dd><a href="#global">全局</a></dd>
+	<dd><a href="#api/Ajax">Ajax 类</a></dd>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js"><span class="doc-code-keyword">import</span> ajax <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/ajax"</span>;
+
+ajax({
+    <span class="doc-code-attr">type</span>: <span class="doc-code-string">"GET"</span>,
+    <span class="doc-code-attr">url</span>: <span class="doc-code-string">""</span>,
+    <span class="doc-code-attr">data</span>: <span class="doc-code-literal">null</span>,
+    success(data) {
+        <span class="doc-code-built_in">console</span>.log(data);
+    }
+});</code></pre><h2 id="跨域问题">
+<a href="#跨域问题" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>跨域问题</h2>
+<p class="doc">浏览器默认限制只能向当前网页相同域名的服务器发送请求。</p>
+<h3 id="跨域头">
+<a href="#跨域头" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>跨域头</h3>
+<p class="doc">为了支持跨域请求，服务器响应中应包含：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">Access-Control-Allow-Origin: *</code></pre><h3 id="options-请求">
+<a href="#options-请求" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>OPTIONS 请求</h3>
+<p class="doc">如果设置了 <code>contentType</code> 为 <code>application/json</code>，则浏览器首先会发送一个 OPTIONS 请求。
+服务器应处理该请求并返回 200 状态码。</p>
+<h3 id="登陆信息">
+<a href="#登陆信息" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>登陆信息</h3>
+<p class="doc">只有设置了 <code>withCredentials</code> 为 true 时才会发送 Cookie（包含登陆信息）到服务器。
+服务器响应中应包含：</p>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-">Access-Control-Allow-Origin: tealui.com         # 值应为实际的域名且不能为 *，其值可以从请求头 Origin 获取。
+Access-Control-Allow-Methods: OPTIONS,GET,POST  # 值可以从请求头 Access-Control-Request-Method 获取。
+Access-Control-Allow-Headers: contentType       # 值可以从请求头 Access-Control-Request-Headers 获取。
+Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" class="doc-external">HTTP访问控制（CORS）</a></li>
+<li class="doc"><a href="http://www.cnblogs.com/JChen666/p/3399951.html" target="_blank" class="doc-external">前端解决跨域问题的 8 种方案</a></li>
+</ul>
+</blockquote>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="global"><a href="#global" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>全局</h3><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/ajax">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L3-23" target="_blank" title="源码：web/ajax/ajax.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>ajax<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(options?:<code>Partial&lt;<a href="#api/Ajax">Ajax</a>&gt;</code>):<code><a href="#api/Ajax">Ajax</a></code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">发送一个异步请求。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>options</code>
+                                </td>
+                                <td>
+                                    <code>Partial&lt;<a href="#api/Ajax">Ajax</a>&gt; | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">发送的选项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code><a href="#api/Ajax">Ajax</a></code></p>
+                <p class="doc">返回请求对象。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">发送一个异步请求。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/checkStatus">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L263-275" target="_blank" title="源码：web/ajax/ajax.ts，第 263 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>checkStatus<i class="doc-tip doc-api-ellipsis">(status)</i><span class="doc-tip doc-api-more">(status:<code>number</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断一个 HTTP 状态码是否表示正确响应。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>status<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要判断的状态码。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果正确则返回 true, 否则返回 false 。一般地，2xx、304、1223 被认为是正确的状态吗。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断一个 HTTP 状态码是否表示正确响应。</p>
+
+                                </td>
+                                
+                            </tr></table></div><h3 id="api/Ajax"><a href="#api/Ajax" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L25-258" target="_blank" title="源码：web/ajax/ajax.ts，第 25 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Ajax 类</h3><p class="doc">表示一个异步请求。</p>
+<div class="doc doc-scrollable"><table class="doc-api"><tr>
+                                <th class="doc-api-property">字段</th>
+                                <th class="doc-api-type">类型</th>
+                                <th class="doc-api-summary">描述</th>
+                                
+                            </tr><tr id="api/Ajax/type">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L30-34" target="_blank" title="源码：web/ajax/ajax.ts，第 30 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>type</code>
+                                <span class="doc-api-more">: <code>string</code> = <code>&quot;GET&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求的类型（方法、谓词）。请求类型应全大写。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求的类型（方法、谓词）。请求类型应全大写。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/url">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L36-40" target="_blank" title="源码：web/ajax/ajax.ts，第 36 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>url</code>
+                                <span class="doc-api-more">: <code>string</code> = <code>location.href</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求的地址。可以是相对于当前页面地址的相对地址。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求的地址。可以是相对于当前页面地址的相对地址。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/data">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L42-45" target="_blank" title="源码：web/ajax/ajax.ts，第 42 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>data</code>
+                                <span class="doc-api-more">: <code>any</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求的数据。可以是字符串、JSON 对象或 FormData。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>any</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求的数据。可以是字符串、JSON 对象或 FormData。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/contentType">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L47-51" target="_blank" title="源码：web/ajax/ajax.ts，第 47 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>contentType</code>
+                                <span class="doc-api-more">: <code>string</code> = <code>&quot;application/x-www-form-urlencoded&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求数据的 MIME 类型。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求数据的 MIME 类型。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/headers">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L53-56" target="_blank" title="源码：web/ajax/ajax.ts，第 53 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>headers</code>
+                                <span class="doc-api-more">: <code>{ [name: string]: string; }</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">附加的请求头。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>object</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">附加的请求头。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/username">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L58-61" target="_blank" title="源码：web/ajax/ajax.ts，第 58 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>username</code>
+                                <span class="doc-api-more">: <code>string</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">服务器的用户名。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">服务器的用户名。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/password">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L63-66" target="_blank" title="源码：web/ajax/ajax.ts，第 63 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>password</code>
+                                <span class="doc-api-more">: <code>string</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">服务器的密码。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">服务器的密码。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/withCredentials">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L68-71" target="_blank" title="源码：web/ajax/ajax.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>withCredentials</code>
+                                <span class="doc-api-more">: <code>boolean</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">是否发送用户凭证（如 Cookie 登陆信息）。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">是否发送用户凭证（如 Cookie 登陆信息）。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/responseType">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L73-78" target="_blank" title="源码：web/ajax/ajax.ts，第 73 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>responseType</code>
+                                <span class="doc-api-more">: <code>&quot;text&quot; | &quot;json&quot; | &quot;document&quot; | &quot;arraybuffer&quot; | &quot;blob&quot;</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">响应数据的类型。</p>
+<h4>说明</h4><p class="doc">其中 &quot;arraybuffer&quot; 和 &quot;blob&quot; 仅支持：CH 31+、FF 12+、IE 10+、OP 18+、SF 7.1+、Android 4.4.1+。</p>
+<h4>参考</h4><ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType" target="_blank" class="doc-external">https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType</a></li></ul>
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>string</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">响应数据的类型。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/timeout">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L80-83" target="_blank" title="源码：web/ajax/ajax.ts，第 80 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>timeout</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求的超时毫秒数。如果小于 0 则不设置超时。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求的超时毫秒数。如果小于 0 则不设置超时。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/xhr">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L85-88" target="_blank" title="源码：web/ajax/ajax.ts，第 85 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>xhr</code>
+                                <span class="doc-api-more">: <code>XMLHttpRequest</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取底层发送请求的对象。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>XMLHttpRequest</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取底层发送请求的对象。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/status">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L90-93" target="_blank" title="源码：web/ajax/ajax.ts，第 90 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>status</code>
+                                <span class="doc-api-more">: <code>number</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取服务器返回的状态码。如果小于 0 表示请求未发出。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>number</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取服务器返回的状态码。如果小于 0 表示请求未发出。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/response">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L95-98" target="_blank" title="源码：web/ajax/ajax.ts，第 95 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>response</code>
+                                <span class="doc-api-more">: <code>any</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">获取服务器响应的数据。数据的类型根据 <em>responseType</em> 决定。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>any</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">获取服务器响应的数据。数据的类型根据 <em>responseType</em> 决定。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/success">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L109-114" target="_blank" title="源码：web/ajax/ajax.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>success</code>
+                                <span class="doc-api-more">: <code>((response: any, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求成功的回调函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求成功的回调函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/error">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L116-121" target="_blank" title="源码：web/ajax/ajax.ts，第 116 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>error</code>
+                                <span class="doc-api-more">: <code>((error: string | Error, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求失败的回调函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求失败的回调函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/complete">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L123-128" target="_blank" title="源码：web/ajax/ajax.ts，第 123 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>complete</code>
+                                <span class="doc-api-more">: <code>((error: string | Error | undefined, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">请求完成的回调函数。无论请求是否成功都会执行此回调。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">请求完成的回调函数。无论请求是否成功都会执行此回调。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/progress">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L181-244" target="_blank" title="源码：web/ajax/ajax.ts，第 181 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>progress</code>
+                                <span class="doc-api-more">: <code>(data: string | Error | Event | undefined, internalError?: number | undefined) =&gt; void</code> = <code>(data: string | Error | Event | undefined, internalError?: number) =&gt; {
+        const xhr = this.xhr;
+        try {
+            // 仅当正在发送请求且请求已完成时继续执行。
+            if (!this.sending || !internalError &amp;&amp; xhr.readyState !== 4) {
+                return;
+            }
+            this.sending = false;
+
+            // 删除 readystatechange 以避免有些浏览器的内存泄露。
+            xhr.onreadystatechange = null!;
+
+            // 处理内置错误。
+            if (internalError) {
+                this.status = internalError;
+                if (xhr.readyState !== 4) {
+                    xhr.abort();
+                }
+            } else if (checkStatus(this.status = xhr.status)) {
+                try {
+                    switch (this.responseType) {
+                        case undefined:
+                        case &quot;text&quot;:
+                            this.response = xhr.responseText;
+                            break;
+                        case &quot;json&quot;:
+                            this.response = JSON.parse(xhr.responseText);
+                            break;
+                        case &quot;document&quot;:
+                            this.response = xhr.responseXML;
+                            break;
+                        default:
+                            this.response = xhr.response;
+                            break;
+                    }
+                    data = undefined;
+                } catch (responseError) {
+                    // 解析响应数据报错。
+                    // IE6-9：请求二进制格式的文件报错。
+                    this.status = -6;
+                    this.response = undefined;
+                    data = responseError;
+                }
+            } else {
+                data = xhr.statusText;
+            }
+        } catch (firefoxAccessError) {
+            this.progress(firefoxAccessError, -5);
+            return;
+        }
+
+        // 触发回调。
+        if (data === undefined) {
+            this.success &amp;&amp; this.success(this.response, this);
+        } else {
+            this.error &amp;&amp; this.error(data as string | Error, this);
+        }
+        this.complete &amp;&amp; this.complete(data as string | Error, this);
+    }</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc"><strong>(保护的)</strong>处理请求状态改变的回调函数。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>function</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc"><strong>(保护的)</strong>处理请求状态改变的回调函数。</p>
+
+                            </td>
+                            
+                        </tr><tr id="api/Ajax/sending">
+                            <td>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L246-249" target="_blank" title="源码：web/ajax/ajax.ts，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                <code>sending</code>
+                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <div class="doc doc-api-detail">
+                                    <p class="doc">判断是否正在发送请求。</p>
+
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td class="doc">
+                                <p class="doc">判断是否正在发送请求。</p>
+
+                            </td>
+                            
+                        </tr></table><table class="doc-api"><tr>
+                            <th class="doc-api-method">方法</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/Ajax/getResponseHeader">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L100-107" target="_blank" title="源码：web/ajax/ajax.ts，第 100 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getResponseHeader<i class="doc-tip doc-api-ellipsis">(name)</i><span class="doc-tip doc-api-more">(name:<code>string</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取响应头。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>name<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">响应头。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | null</code></p>
+                <p class="doc">返回响应头数据。如果响应头不存在则返回 null。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取响应头。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Ajax/send">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L130-179" target="_blank" title="源码：web/ajax/ajax.ts，第 130 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>send<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">发送请求。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果请求发送成功则返回 true，否则返回 false。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">发送请求。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/Ajax/abort">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L251-256" target="_blank" title="源码：web/ajax/ajax.ts，第 251 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>abort<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">终止当前请求。</p>
+
+                
+                
+                
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">终止当前请求。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/web/killIE/" title="干掉 IE" id="doc_pager_prev"><i class="doc-icon">⮜</i> 干掉 IE</a>
+                            <a href="../../../components/web/ajaxSubmit/" title="异步提交表单" id="doc_pager_next">异步提交表单 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"web/ajax/","test":"web/ajax/ajax-test.ts","imports":["web/ajax"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

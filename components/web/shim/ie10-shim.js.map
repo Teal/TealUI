@@ -1,0 +1,1 @@
+{"version":3,"file":"ie10-shim.js","sources":["ie10-shim.js"],"sourcesContent":["/*@cc_on\r\nif (document.documentMode === 10) {\r\n    document.querySelector(\"head\").appendChild(document.createElement(\"style\")).appendChild(document.createTextNode(\"@-ms-viewport{width:auto!important}\"));\r\n}\r\n@*/"],"mappings":"AAAA;;;;GAIG"}

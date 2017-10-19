@@ -1,0 +1,68 @@
+.x-textbox {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  width: 12rem;
+  border: 1px solid #c9c9c9;
+  border-radius: 0.2rem;
+  padding: 0.375rem 0.5rem;
+  background-color: #fff;
+  outline: 0;
+  -webkit-transition: border-color ease-in-out 0.2s;
+  -moz-transition: border-color ease-in-out 0.2s;
+  transition: border-color ease-in-out 0.2s;
+}
+
+.x-textbox:focus, .x-textbox-active {
+  border-color: #1780ce;
+}
+
+.x-textbox[readonly], .x-textbox[disabled] {
+  background-color: #eee;
+}
+
+.x-textbox[disabled] {
+  color: #999;
+  cursor: not-allowed;
+}
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+  select.x-textbox:not([multiple]) {
+    -webkit-appearance: button;
+    padding-right: 28px;
+    background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>") 95% 50% no-repeat;
+  }
+}
+
+textarea.x-textbox {
+  width: 100%;
+}
+
+.x-textbox-info, .x-textbox-info:focus {
+  border-color: #2487d0;
+}
+
+.x-textbox-success, .x-textbox-success:focus {
+  border-color: #3ca23c;
+}
+
+.x-textbox-warning, .x-textbox-warning:focus {
+  border-color: #e28f19;
+}
+
+.x-textbox-error, .x-textbox-error:focus {
+  border-color: #d63a29;
+}
+
+.x-textbox-large {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 125%;
+}
+
+.x-textbox-small {
+  border-radius: 0.15rem;
+  padding: 0.25rem 0.25rem;
+  font-size: 87.5%;
+}
+
+/*# sourceMappingURL=textBox.css.map */

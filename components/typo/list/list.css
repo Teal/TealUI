@@ -1,0 +1,95 @@
+.x-list {
+  padding: 0;
+  list-style: none;
+}
+
+.x-list-bordered {
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+}
+
+.x-list-bordered > li {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.x-list-baseline > li {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.x-list-baseline > li ~ li {
+  border-top: 1px solid #e0e0e0;
+}
+
+.x-list-striped > li:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.x-list-ellipsis > li {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.x-list-h::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.x-list-h > li {
+  float: left;
+}
+
+.x-list-space > li ~ li {
+  margin-left: 1rem;
+}
+
+.x-list-menu li {
+  padding: 0;
+}
+
+.x-list-menu li a {
+  display: block;
+  padding: 0.375rem 1rem;
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.x-list-menu li a:hover {
+  background-color: #fafafa;
+  text-decoration: none;
+}
+
+.x-list-menu li:first-child a {
+  border-radius: 0.2rem 0.2rem 0 0;
+}
+
+.x-list-menu li:last-child a {
+  border-radius: 0 0 0.2rem 0.2rem;
+}
+
+.x-list-menu h4, .x-list-menu h5, .x-list-menu p {
+  margin: 0;
+}
+
+.x-list-selected a {
+  background-color: #1780ce !important;
+  color: #fff !important;
+}
+
+.x-list-selected a .x-badge {
+  background-color: #fff;
+  color: #1780ce;
+}
+
+.x-list .x-badge {
+  float: right;
+}
+
+/*# sourceMappingURL=list.css.map */

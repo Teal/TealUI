@@ -1,0 +1,41 @@
+﻿/**
+ * @author xuld
+ */
+
+@import "../../typography/core/mixins.less";
+
+.x-tag {
+    display: inline-block;
+    margin-right: .3em;
+    font-size: @font-size-small;
+    line-height: @line-height-small;
+    padding: @padding-height-small @padding-width-small;
+    border-radius: @border-radius-small;
+    background-color: @primary-brand-color;
+    color: @selected-text-color;
+    min-width: 1em;
+    text-align: center;
+    white-space: nowrap;
+
+    a&:hover {
+        color: @selected-text-color;
+        text-decoration: none;
+        .opacity(.8);
+    }
+
+    &:empty {
+        display: none;
+    }
+}
+
+// 色系
+.x-tag-state(@state) {
+    .x-tag-@{state} {
+        background-color: ~"@{@{state}-brand-color}";
+    }
+}
+
+.x-tag-state(info);
+.x-tag-state(success);
+.x-tag-state(warning);
+.x-tag-state(error);

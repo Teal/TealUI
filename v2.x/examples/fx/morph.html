@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=plan">
+    <title>变形</title>
+    <script type="text/javascript" src="../../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../../src/fx/morph.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <div id="a" class="demo-box"></div>
+        <div id="b" class="demo-boui-small"></div>
+
+        <script>
+            Demo.writeExamples({
+                '变形到指定节点': 'Dom.get("a").morph("b")',
+                '变形到指定区块': 'Dom.get("a").morph(100, 500, 234, 667)',
+                '变形到指定坐标': 'Dom.get("a").morph(250, 170)'
+            });
+        </script>
+    </article>
+</body>
+</html>

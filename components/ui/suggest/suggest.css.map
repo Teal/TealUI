@@ -1,0 +1,1 @@
+{"version":3,"file":"suggest.css","sources":["suggest.scss"],"sourcesContent":["@import \"typo/configs\";\r\n\r\n.x-suggest {\r\n\r\n}\r\n"],"mappings":"AAAA,uBAAuB;;AAEvB;;CAEC"}

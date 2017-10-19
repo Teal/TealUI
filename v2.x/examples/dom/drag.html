@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>拖动</title>
+
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/core/class.js"></script>
+    <script type="text/javascript" src="../../src/dom/core.js"></script>
+    <script type="text/javascript" src="../../src/dom/drag.js"></script>
+    <script type="text/javascript" src="../../src/dom/dragex.js"></script>
+
+    <script type="text/javascript" src="../../src/utils/deferrable.js"></script>
+    <script type="text/javascript" src="../../src/fx/base.js"></script>
+    <script type="text/javascript" src="../../src/fx/tween.js"></script>
+    <script type="text/javascript" src="../../src/fx/animate.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <style>
+        #drag div {
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <article class="demo">
+        <div id="drag">
+            <div id="d1" class="demo-box demo-blue">普通拖动</div>
+            <div id="d2" class="demo-box demo-purple">返回原地</div>
+            <div id="d3" class="demo-box demo-green">
+                <button>拖动句柄</button></div>
+            <div id="d4" class="demo-box demo-purple">多像素拖动</div>
+            <div id="d5" class="demo-box demo-indigo">限制位置</div>
+            <div id="d6" class="demo-box demo-blue">自动刷屏</div>
+        </div>
+        <script class="demo">
+
+            // 一行代码即可实现基本的拖动效果。
+            var d1 = Dom.get('d1');
+            Dom.draggable(d1);
+
+            // 绑定拖动事件，实现更多自定义功能。
+            Dom.on(d1, 'dragstart', function (e) {
+                this.$text = Dom.getHtml(this);
+            });
+            
+            Dom.on(d1, 'drag', function (e) {
+                Dom.setHtml(this, e.draggable.to.x + "," + e.draggable.to.y);
+            });
+
+            Dom.on(d1, 'dragend', function (e) {
+                Dom.setHtml(this, this.$text);
+            });
+
+        </script>
+
+        <script class="demo">
+
+            var d2 = Dom.get('d2');
+            Dom.draggable(d2);
+            
+            Dom.on(d2, 'dragend', function (e) {
+                e.draggable.revert();
+            });
+
+        </script>
+
+        <script class="demo">
+
+            var d3 = Dom.get('d3');
+            
+            Dom.draggable(d3, {
+                handle: Dom.find(d3, 'button')
+            });
+
+        </script>
+
+        <script class="demo">
+
+            var d4 = Dom.get('d4');
+            
+            Dom.draggable(d4, true);
+            
+            Dom.on(d4, 'drag', function (e) {
+
+                var STHREH = 60;
+                e.draggable.setStep('x', STHREH);
+                e.draggable.setStep('y', STHREH);
+            });
+
+        </script>
+
+        <script class="demo">
+
+            var d5 = Dom.get('d5');
+            
+            Dom.draggable(d5);
+            
+            Dom.on(d5, 'drag', function (e) {
+                e.draggable.limit(Dom.parent(this));
+            });
+
+        </script>
+
+        <script class="demo">
+
+            var d6 = Dom.get('d6');
+            
+            Dom.draggable(d6)
+
+            Dom.on(d6, 'drag', function (e) {
+                e.draggable.autoScroll(document);
+
+            });
+
+
+        </script>
+    </article>
+</body>
+</html>

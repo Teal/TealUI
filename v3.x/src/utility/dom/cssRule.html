@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>样式表操作</title>
+    <meta name="module-info" content="">
+    <meta name="author" content="xuld@vip.qq.com">
+    <meta name="description" content="提供统一的、快速的 DOM 操作方法。">
+
+    <!-- 以下是本组件的全部源码 -->
+    <script type="text/javascript" src="../../utility/lang/html5.js"></script>
+    <script type="text/javascript" src="../../utility/dom/cssRule.js"></script>
+</head>
+<body>
+    <!-- 以下代码仅用于文档演示 -->
+    <script type="text/javascript" src="../../../assets/doc/doc.js"></script>
+    <h2>API <small>(源码: <a href="../../utility/dom/cssRule.js" target="_blank">utility/dom/cssRule.js</a>)</small></h2>
+
+    <table class="doc-api">
+        <tr>
+            <th>API</th>
+            <th>描述</th>
+            <th>示例</th>
+        </tr>
+        <tr>
+            <td><code>CssRules.add</code></td>
+            <td>动态增加一个样式</td>
+            <td><pre>CssRules.add("body", "background: #96CBFE;");</pre></td>
+        </tr>
+        <tr>
+            <td><code>CssRules.remove</code></td>
+            <td>动态删除一个样式</td>
+            <td><pre>CssRules.remove("body", "background: #96CBFE;");</pre></td>
+        </tr>
+        <tr>
+            <td><code>CssRules.get</code></td>
+            <td>获取指定样式</td>
+            <td><pre>CssRules.get("body");</pre></td>
+        </tr>
+        <tr>
+            <td><code>CssRules.set</code></td>
+            <td>设置指定样式</td>
+            <td><pre>CssRules.set("body", "background: #96CBFE;");</pre></td>
+        </tr>
+        <tr>
+            <td><code>CssRules.get</code></td>
+            <td>禁用或启用指定的样式表文件</td>
+            <td class="doc">
+                <h5>禁用</h5>
+                <pre>CssRules.disableStyleSheet("css");</pre>
+                <h5>启用</h5>
+                <pre>CssRules.disableStyleSheet("css", false);</pre>
+            </td>
+        </tr>
+        <tr>
+            <td><code>CssRules.setStyleSheet</code></td>
+            <td>设置指定的样式表文件路径</td>
+            <td><pre>CssRules.setStyleSheet("css", "css2.css");</pre></td>
+        </tr>
+    </table>
+</body>
+</html>

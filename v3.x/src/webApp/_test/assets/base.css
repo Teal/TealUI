@@ -1,0 +1,29 @@
+﻿html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#header {
+    top: 0;
+    position: absolute;
+    height: 60px;
+    background-color: honeydew;
+    width: 100%;
+}
+
+#body {
+    background-color: antiquewhite;
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    width: 100%;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    background-color: honeydew;
+    width: 100%;
+}

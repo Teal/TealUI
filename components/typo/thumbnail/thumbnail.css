@@ -1,0 +1,16 @@
+.x-thumbnail {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+  padding: 0.25rem;
+  -webkit-transition: border-color ease-in-out 0.2s;
+  -moz-transition: border-color ease-in-out 0.2s;
+  transition: border-color ease-in-out 0.2s;
+}
+
+a:hover .x-thumbnail {
+  border-color: #1780ce;
+}
+
+/*# sourceMappingURL=thumbnail.css.map */

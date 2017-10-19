@@ -1,0 +1,3620 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>对象扩展 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["util/object"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import { assignIf, getPropertyDescriptor, insertBefore, each, forEach, filter, map, every, some, find, findIndex, reduce, reduceRight, contains, subset, invert, isObject, type, count, isEmpty, clone, deepClone, deepCloneFast, deepEqual, diff, deepDiff, clean, select, pick, keyOf, get, set, setProperty, addCallback, addSetCallback } from \&quot;util/object\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;util/object\&quot;], function (object_1) {\n\tvar assignIf = object_1.assignIf;\n\tvar getPropertyDescriptor = object_1.getPropertyDescriptor;\n\tvar insertBefore = object_1.insertBefore;\n\tvar each = object_1.each;\n\tvar forEach = object_1.forEach;\n\tvar filter = object_1.filter;\n\tvar map = object_1.map;\n\tvar every = object_1.every;\n\tvar some = object_1.some;\n\tvar find = object_1.find;\n\tvar findIndex = object_1.findIndex;\n\tvar reduce = object_1.reduce;\n\tvar reduceRight = object_1.reduceRight;\n\tvar contains = object_1.contains;\n\tvar subset = object_1.subset;\n\tvar invert = object_1.invert;\n\tvar isObject = object_1.isObject;\n\tvar type = object_1.type;\n\tvar count = object_1.count;\n\tvar isEmpty = object_1.isEmpty;\n\tvar clone = object_1.clone;\n\tvar deepClone = object_1.deepClone;\n\tvar deepCloneFast = object_1.deepCloneFast;\n\tvar deepEqual = object_1.deepEqual;\n\tvar diff = object_1.diff;\n\tvar deepDiff = object_1.deepDiff;\n\tvar clean = object_1.clean;\n\tvar select = object_1.select;\n\tvar pick = object_1.pick;\n\tvar keyOf = object_1.keyOf;\n\tvar get = object_1.get;\n\tvar set = object_1.set;\n\tvar setProperty = object_1.setProperty;\n\tvar addCallback = object_1.addCallback;\n\tvar addSetCallback = object_1.addSetCallback;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=util/object" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/util/object/object.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="对象扩展">
+<a href="#对象扩展" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>对象扩展<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：assignIf, getPropertyDescriptor, insertBefore, each, forEach, filter, map, every, some, find, findIndex, reduce, reduceRight, contains, subset, invert, isObject, type, count, isEmpty, clone, deepClone, deepCloneFast, deepEqual, diff, deepDiff, clean, select, pick, keyOf, get, set, setProperty, addCallback, addSetCallback">util/object</small></h1>
+<p class="doc">提供 JavaScript 内置对象 Object 的扩展接口。</p>
+
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
+                            <th class="doc-api-method">函数</th>
+                            <th class="doc-api-summary">描述</th>
+                            
+                        </tr><tr id="api/assignIf">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1-15" target="_blank" title="源码：util/object/object.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>assignIf<i class="doc-tip doc-api-ellipsis">(target, source)</i><span class="doc-tip doc-api-more">&lt;T, R&gt;(target:<code>T</code>, source:<code>R</code>):<code>T &amp; R</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">复制源对象的所有可枚举属性到目标对象，如果目标对象中对应的属性值不是 undefined 则跳过。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>target<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">目标对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>source<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">源对象。源对象可以是 null 或 undefined。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T &amp; R</code></p>
+                <p class="doc">返回目标对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">assignIf({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>}, {<span class="doc-code-attr">a</span>: <span class="doc-code-number">2</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}) <span class="doc-code-comment">// {a: 1, b: 2}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">复制源对象的所有可枚举属性到目标对象，如果目标对象中对应的属性值不是 undefined 则跳过。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/getPropertyDescriptor">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L17-29" target="_blank" title="源码：util/object/object.ts，第 17 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>getPropertyDescriptor<i class="doc-tip doc-api-ellipsis">(obj, key)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>, key:<code>string</code>):<code>PropertyDescriptor</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取对象自身或原型上的属性描述符。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的属性名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>PropertyDescriptor | undefined</code></p>
+                <p class="doc">返回对象描述器。如果找不到则返回 undefined。</p>
+
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取对象自身或原型上的属性描述符。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/insertBefore">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L31-54" target="_blank" title="源码：util/object/object.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>insertBefore<i class="doc-tip doc-api-ellipsis">(obj, newKey, newValue, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, newKey:<code>string</code>, newValue:<code>any</code>, refKey?:<code>(keyof T)</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">在对象指定的键之前插入一个键值对。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>newKey<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的键。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>newValue<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要插入的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>refKey</code>
+                                </td>
+                                <td>
+                                    <code>(keyof T) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">指示插入位置的键，将在该键前插入。如果指定为 null 则插入到末尾。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">insertBefore({ <span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span> }, <span class="doc-code-string">"b"</span>, <span class="doc-code-number">2</span>, <span class="doc-code-string">"a"</span>) <span class="doc-code-comment">// { b:2, a: 1 }</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">在对象指定的键之前插入一个键值对。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/each">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L86-101" target="_blank" title="源码：util/object/object.ts，第 86 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>each<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组的每一项执行一次回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean | void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">函数可以返回 false 以终止循环。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果循环是因为回调函数返回 false 而中止，则返回 false，否则返回 true。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">each([<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-built_in">console</span>.log, <span class="doc-code-built_in">console</span>); <span class="doc-code-comment">// 打印“0  a”和“1  b”</span></code></pre>
+<hr>
+<p class="doc">对对象（函数除外）的每一项执行一次回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean | void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">函数可以返回 false 以终止循环。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果循环是因为回调函数返回 false 而中止，则返回 false，否则返回 true。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">each({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-built_in">console</span>.log, <span class="doc-code-built_in">console</span>); <span class="doc-code-comment">// 打印“a  1”和“b  2”</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组的每一项执行一次回调函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/forEach">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L127-139" target="_blank" title="源码：util/object/object.ts，第 127 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>forEach<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>void</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组的每一项执行一次回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean | void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">forEach([<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-built_in">console</span>.log, <span class="doc-code-built_in">console</span>) <span class="doc-code-comment">// 打印“0  a”和“1  b”</span></code></pre>
+<hr>
+<p class="doc">对对象（函数除外）的每一项执行一次回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean | void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">forEach({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-built_in">console</span>.log, <span class="doc-code-built_in">console</span>) <span class="doc-code-comment">// 打印“a  1”和“b  2”</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组的每一项执行一次回调函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/filter">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L171-189" target="_blank" title="源码：util/object/object.ts，第 171 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>filter<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>T[] | object</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">筛选类数组中符合条件的项并组成一个新数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: T; }</code></p>
+                <p class="doc">返回一个新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">filter([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// [2]</span></code></pre>
+<hr>
+<p class="doc">筛选对象（函数除外）中符合条件的项并组成一个新对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: T; }</code></p>
+                <p class="doc">返回一个新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">filter({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// {b: 2}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">筛选类数组中符合条件的项并组成一个新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/map">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L222-238" target="_blank" title="源码：util/object/object.ts，第 222 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>map<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T, R&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>R[] | object</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">对类数组的每一项执行一次回调函数，然后将每个结果组成新数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">函数应返回新的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R[]</code></p>
+                <p class="doc">返回一个新数组。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">map([<span class="doc-code-string">"a"</span>, <span class="doc-code-string">"b"</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">a</span>) </span>{ <span class="doc-code-keyword">return</span> a + a; }) <span class="doc-code-comment">// ["aa", "bb"]</span></code></pre>
+<hr>
+<p class="doc">对对象（函数除外）的每一项执行一次回调函数，然后将每个结果组成新数组。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">函数应返回新的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: R; }</code></p>
+                <p class="doc">返回一个新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">map({<span class="doc-code-attr">length</span>: <span class="doc-code-number">1</span>, <span class="doc-code-string">"0"</span>: <span class="doc-code-string">"a"</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">a</span>) </span>{ <span class="doc-code-keyword">return</span> a + a; }) <span class="doc-code-comment">// ["a"]</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">map({<span class="doc-code-attr">a</span>: <span class="doc-code-string">"a"</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-string">"b"</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">a</span>) </span>{ <span class="doc-code-keyword">return</span> a + a; }) <span class="doc-code-comment">// {a: "aa", b: "bb"}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对类数组的每一项执行一次回调函数，然后将每个结果组成新数组。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/every">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L274-289" target="_blank" title="源码：util/object/object.ts，第 274 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>every<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断类数组的每一项是否都符合条件。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果所有项满足条件则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">0</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+<hr>
+<p class="doc">判断对象（函数除外）的每一项是否都符合条件。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果所有项满足条件则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">0</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">every({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断类数组的每一项是否都符合条件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/some">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L325-340" target="_blank" title="源码：util/object/object.ts，第 325 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>some<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>boolean</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断类数组中是否存在一项或多项符合条件。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果至少存在一项满足条件则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">0</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+<hr>
+<p class="doc">判断对象（函数除外）中是否存在一项或多项符合条件。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果至少存在一项满足条件则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">some({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>; }) <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断类数组中是否存在一项或多项符合条件。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/find">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L372-386" target="_blank" title="源码：util/object/object.ts，第 372 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>T</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">找出类数组中符合条件的第一项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                <p class="doc">返回符合条件的第一项，如果找不到则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">find([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// 2</span></code></pre>
+<hr>
+<p class="doc">找出对象（函数除外）中符合条件的第一项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T | undefined</code></p>
+                <p class="doc">返回符合条件的第一项，如果找不到则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">find({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// 2</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">找出类数组中符合条件的第一项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/findIndex">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L420-436" target="_blank" title="源码：util/object/object.ts，第 420 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>findIndex<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, thisArg?:<code>any</code>):<code>string | number</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">找出类数组中符合条件的第一项的索引。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回符合条件的第一项的索引，如果找不到则返回 -1。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">findIndex([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>)</span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// 1</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">findIndex([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>)</span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>; }) <span class="doc-code-comment">// -1</span></code></pre>
+<hr>
+<p class="doc">找出指定对象（函数除外）中符合条件的第一项的键。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">value：当前项的值。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | null</code></p>
+                <p class="doc">返回符合条件的第一项的键，如果找不到则返回 null。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">findIndex({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>)</span>{<span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>;}) <span class="doc-code-comment">// 'b'</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">findIndex({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>)</span>{<span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">2</span>;}) <span class="doc-code-comment">// undefined</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">找出类数组中符合条件的第一项的索引。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/reduce">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L474-499" target="_blank" title="源码：util/object/object.ts，第 474 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reduce<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T, R&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, initialValue?:<code>R</code>, thisArg?:<code>any</code>):<code>R</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从左往右依次合并类数组中的每一项并最终返回一个值。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: R, currentValue: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">previousValue：要合并的前一项。</li>
+<li class="doc">currentValue：要合并的当前项。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">函数应合并的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>R | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并第一项的初始值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R | undefined</code></p>
+                <p class="doc">返回合并后的最终结果值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }, <span class="doc-code-number">10</span>) <span class="doc-code-comment">// 13</span></code></pre>
+<hr>
+<p class="doc">从左往右依次合并对象（函数除外）中的每一项并最终返回一个值。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: R, currentValue: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">previousValue：要合并的前一项。</li>
+<li class="doc">currentValue：要合并的当前项。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">函数应合并的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>R | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并第一项的初始值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R | undefined</code></p>
+                <p class="doc">返回合并后的最终结果值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }, <span class="doc-code-number">10</span>) <span class="doc-code-comment">// 13</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从左往右依次合并类数组中的每一项并最终返回一个值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/reduceRight">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L537-566" target="_blank" title="源码：util/object/object.ts，第 537 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>reduceRight<i class="doc-tip doc-api-ellipsis">(obj, callback, ...)</i><span class="doc-tip doc-api-more">&lt;T, R&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, callback:<code>function</code>, initialValue?:<code>R</code>, thisArg?:<code>any</code>):<code>R</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">从右往左依次合并类数组中的每一项并最终返回一个值。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: R, currentValue: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">previousValue：要合并的前一项。</li>
+<li class="doc">currentValue：要合并的当前项。</li>
+<li class="doc">index：当前项的索引。</li>
+<li class="doc">target：类数组本身。</li>
+</ul>
+<p class="doc">函数应合并的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>R | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并第一项的初始值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R | undefined</code></p>
+                <p class="doc">返回合并后的最终结果值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }, <span class="doc-code-number">10</span>) <span class="doc-code-comment">// 13</span></code></pre>
+<hr>
+<p class="doc">从右往左依次合并对象（函数除外）中的每一项并最终返回一个值。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr><tr>
+                        <td>R</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: R, currentValue: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">previousValue：要合并的前一项。</li>
+<li class="doc">currentValue：要合并的当前项。</li>
+<li class="doc">key：当前项的键。</li>
+<li class="doc">target：对象本身。</li>
+</ul>
+<p class="doc">函数应合并的结果。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>initialValue</code>
+                                </td>
+                                <td>
+                                    <code>R | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于合并第一项的初始值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">执行回调函数时 this 的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>R | undefined</code></p>
+                <p class="doc">返回合并后的最终结果值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }, <span class="doc-code-number">10</span>) <span class="doc-code-comment">// 13</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">从右往左依次合并类数组中的每一项并最终返回一个值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/contains">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L590-612" target="_blank" title="源码：util/object/object.ts，第 590 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>contains<i class="doc-tip doc-api-ellipsis">(obj, value, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>ArrayLike&lt;T&gt; | object</code>, value:<code>T</code>, start?:<code>string | number</code>):<code>boolean</code>(2 重载)</span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断类数组中是否包含指定的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>ArrayLike&lt;T&gt;</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">类数组。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>number | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始查找的索引。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果找到匹配的项则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">contains([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>], <span class="doc-code-number">3</span>) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">contains([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>, <span class="doc-code-number">3</span>], <span class="doc-code-number">4</span>) <span class="doc-code-comment">// false</span></code></pre>
+<hr>
+<p class="doc">判断对象（函数除外）中是否包含指定的项。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">项。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>start</code>
+                                </td>
+                                <td>
+                                    <code>string | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">开始查找的索引。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果找到匹配的项则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">contains({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">3</span>}, <span class="doc-code-number">3</span>) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">contains({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">3</span>}, <span class="doc-code-number">4</span>) <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断类数组中是否包含指定的项。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/subset">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L614-629" target="_blank" title="源码：util/object/object.ts，第 614 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>subset<i class="doc-tip doc-api-ellipsis">(obj, keys)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>object | object</code>, keys:<code>(string | number)[]</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取对象包含指定键的子对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: number]: T; } | { [key: string]: T; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>keys<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(string | number)[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">键列表。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: T; }</code></p>
+                <p class="doc">返回新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">subset({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, [<span class="doc-code-string">"a"</span>]) <span class="doc-code-comment">// {a: 1}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取对象包含指定键的子对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/invert">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L631-643" target="_blank" title="源码：util/object/object.ts，第 631 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>invert<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>object</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">将对象的键和值对换组成新对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: any; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: any; }</code></p>
+                <p class="doc">返回新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">invert({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">3</span>}) <span class="doc-code-comment">// { 1: "a", 2: "b", 3: "c" }</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">将对象的键和值对换组成新对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isObject">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L645-655" target="_blank" title="源码：util/object/object.ts，第 645 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isObject<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断一个对象是否是引用对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果对象是引用对象则返回 true，否则返回 false。</p>
+
+                <h4>说明</h4><p class="doc">此函数等效于 <code>obj !== null &amp;&amp; typeof obj === &quot;object&quot;</code></p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isObject({}) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isObject(<span class="doc-code-literal">null</span>) <span class="doc-code-comment">// false</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断一个对象是否是引用对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/type">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L662-679" target="_blank" title="源码：util/object/object.ts，第 662 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>type<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取对象的类型名。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>&quot;string&quot; | &quot;number&quot; | &quot;boolean&quot; | &quot;undefined&quot; | &quot;object&quot; | &quot;function&quot; | &quot;null&quot; | &quot;array&quot; | &quot;date&quot; | &quot;regexp&quot; | &quot;error&quot;</code></p>
+                <p class="doc">返回类型名。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type(<span class="doc-code-literal">null</span>) <span class="doc-code-comment">// "null"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type(<span class="doc-code-literal">undefined</span>) <span class="doc-code-comment">// "undefined"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Function</span>) <span class="doc-code-comment">// "function"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type(+<span class="doc-code-string">'a'</span>) <span class="doc-code-comment">// "number"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type(<span class="doc-code-regexp">/a/</span>) <span class="doc-code-comment">// "regexp"</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">type([]) <span class="doc-code-comment">// "array"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取对象的类型名。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/count">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L681-696" target="_blank" title="源码：util/object/object.ts，第 681 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>count<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>number</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">计算对象自身的可枚举属性数。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>number</code></p>
+                <p class="doc">返回对象自身的可枚举属性数，原型上的属性会被忽略。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">size({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}) <span class="doc-code-comment">// 2</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">size([<span class="doc-code-number">0</span>, <span class="doc-code-number">1</span>]) <span class="doc-code-comment">// 2</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">计算对象自身的可枚举属性数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/isEmpty">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L698-723" target="_blank" title="源码：util/object/object.ts，第 698 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>isEmpty<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">判断对象是否为 null、undefined、空字符串、空数组或空对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果对象是 null、undefined、false、空字符串、空数组或空对象，则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty(<span class="doc-code-literal">null</span>) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty(<span class="doc-code-literal">undefined</span>) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty(<span class="doc-code-string">""</span>) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty(<span class="doc-code-string">" "</span>) <span class="doc-code-comment">// false</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty([]) <span class="doc-code-comment">// true</span></code></pre>
+<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">isEmpty({}) <span class="doc-code-comment">// true</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">判断对象是否为 null、undefined、空字符串、空数组或空对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/clone">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L725-737" target="_blank" title="源码：util/object/object.ts，第 725 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clone<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">浅拷贝指定的对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回拷贝得到的新对象，该对象和原对象无引用关系。</p>
+
+                <h4>说明</h4><p class="doc">出于性能考虑，此函数不会拷贝函数和正则表达式。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">clone({<span class="doc-code-attr">a</span>: <span class="doc-code-number">3</span>, <span class="doc-code-attr">b</span>: [<span class="doc-code-number">5</span>]}) <span class="doc-code-comment">// {a: 3, b: [5]}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">浅拷贝指定的对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/deepClone">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L739-778" target="_blank" title="源码：util/object/object.ts，第 739 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>deepClone<i class="doc-tip doc-api-ellipsis">(obj, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, replacer?:<code>function</code>, cloned?:<code>any[]</code>, clonedResult?:<code>any[]</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">深拷贝一个对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>replacer</code>
+                                </td>
+                                <td>
+                                    <code>((obj: any) =&gt; any) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于拷贝自定义对象的函数。函数接收一个参数为要拷贝的值，函数应返回拷贝后的新值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>cloned</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    <code>[]</code>
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>clonedResult</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    <code>[]</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回拷贝得到的新对象，该对象的每个层级和原对象都无引用关系。</p>
+
+                <h4>说明</h4><p class="doc">出于性能考虑，此函数不会拷贝函数和正则表达式。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">deepCloneSafe({<span class="doc-code-attr">a</span>: <span class="doc-code-number">3</span>, <span class="doc-code-attr">b</span>: [<span class="doc-code-number">5</span>]}) <span class="doc-code-comment">// {a: 3, b: [5]}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">深拷贝一个对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/deepCloneFast">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L780-812" target="_blank" title="源码：util/object/object.ts，第 780 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>deepCloneFast<i class="doc-tip doc-api-ellipsis">(obj, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, replacer?:<code>function</code>, depth?:<code>number</code>):<code>T</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">深拷贝一个对象。不支持存在循环引用的对象。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>replacer</code>
+                                </td>
+                                <td>
+                                    <code>((obj: any) =&gt; any) | undefined</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">用于拷贝自定义对象的函数。函数接收一个参数为要拷贝的值，函数应返回拷贝后的新值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>depth</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">拷贝的最大深度，超过此深度后将直接使用原值。</p>
+
+                                </td>
+                                <td>
+                                    <code>Infinity</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                <p class="doc">返回拷贝得到的新对象，该对象的每个层级和原对象都无引用关系。</p>
+
+                <h4>说明</h4><p class="doc">出于性能考虑，此函数不会拷贝函数和正则表达式。</p>
+<h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">deepClone({<span class="doc-code-attr">a</span>: <span class="doc-code-number">3</span>, <span class="doc-code-attr">b</span>: [<span class="doc-code-number">5</span>]}) <span class="doc-code-comment">// {a: 3, b: [5]}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">深拷贝一个对象。不支持存在循环引用的对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/deepEqual">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L814-847" target="_blank" title="源码：util/object/object.ts，第 814 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>deepEqual<i class="doc-tip doc-api-ellipsis">(obj1, obj2)</i><span class="doc-tip doc-api-more">(obj1:<code>any</code>, obj2:<code>any</code>):<code>boolean</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">比较两个引用对象的内容是否相同。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj1<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第一个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>obj2<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第二个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>boolean</code></p>
+                <p class="doc">如果比较的对象完全相同则返回 true，否则返回 false。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">deepEqual([], []) <span class="doc-code-comment">// true</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">比较两个引用对象的内容是否相同。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/diff">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L849-888" target="_blank" title="源码：util/object/object.ts，第 849 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>diff<i class="doc-tip doc-api-ellipsis">(obj1, obj2)</i><span class="doc-tip doc-api-more">(obj1:<code>any</code>, obj2:<code>any</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">浅比较两个对象的差异。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj1<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第一个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>obj2<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第二个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ left: string[]; right: string[]; both: string[]; }</code></p>
+                <p class="doc">返回包含差异信息的对象。该对象列出了只在其中某个对象存在的属性值和公共的属性值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">diff({ <span class="doc-code-attr">a</span>:<span class="doc-code-number">1</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">1</span> }, { <span class="doc-code-attr">b</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">2</span> }) <span class="doc-code-comment">// { left: ["a"], right: ["b"], both: ["c"] }</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">浅比较两个对象的差异。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/deepDiff">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L890-941" target="_blank" title="源码：util/object/object.ts，第 890 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>deepDiff<i class="doc-tip doc-api-ellipsis">(obj1, obj2, ...)</i><span class="doc-tip doc-api-more">(obj1:<code>any</code>, obj2:<code>any</code>, depth?:<code>number</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">深比较两个对象的差异。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj1<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第一个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>obj2<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要比较的第二个对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>depth</code>
+                                </td>
+                                <td>
+                                    <code>number</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">比较的最大深度，超过此深度后的差异将被忽略。</p>
+
+                                </td>
+                                <td>
+                                    <code>Infinity</code>
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ left: string[]; right: string[]; both: string[]; }</code></p>
+                <p class="doc">返回包含差异信息的对象。该对象列出了只在其中某个对象存在的属性值和公共的属性值。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">deepDiff({ <span class="doc-code-attr">a</span>:<span class="doc-code-number">1</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">1</span> }, { <span class="doc-code-attr">b</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">2</span> }) <span class="doc-code-comment">// {left: ["a"], right: ["b"], both: ["c"]}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">深比较两个对象的差异。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/clean">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L943-956" target="_blank" title="源码：util/object/object.ts，第 943 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>clean<i class="doc-tip doc-api-ellipsis">(obj)</i><span class="doc-tip doc-api-more">(obj:<code>object</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">删除对象中值为 null 或 undefined 的键。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: any; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: any; }</code></p>
+                <p class="doc">返回原对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">clean({<span class="doc-code-attr">a</span>: <span class="doc-code-literal">undefined</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-literal">null</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">3</span>}) <span class="doc-code-comment">// {c: 3}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">删除对象中值为 null 或 undefined 的键。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/select">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L958-971" target="_blank" title="源码：util/object/object.ts，第 958 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>select<i class="doc-tip doc-api-ellipsis">(obj, ...)</i><span class="doc-tip doc-api-more">(obj:<code>object</code>, ...keys:<code>string[]</code>):<code>object</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">返回对象中指定键组成的新对象。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>{ [key: string]: any; }</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>keys</code>
+                                </td>
+                                <td>
+                                    <code>string[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要选择的所有键。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>{ [key: string]: any; }</code></p>
+                <p class="doc">返回新对象。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">select({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>, <span class="doc-code-attr">c</span>: <span class="doc-code-number">3</span>}, <span class="doc-code-string">"a"</span>,  <span class="doc-code-string">"c"</span>) <span class="doc-code-comment">// {a: 1, c: 3}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">返回对象中指定键组成的新对象。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/pick">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L973-985" target="_blank" title="源码：util/object/object.ts，第 973 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>pick<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...values:<code>any[]</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">查找所有参数中第一个不为 undefined 和 null 的值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>values</code>
+                                </td>
+                                <td>
+                                    <code>any[]</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">所有值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回第一个不为 undefined 和 null 的值。如果找不到则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">pick(<span class="doc-code-literal">undefined</span>, <span class="doc-code-literal">null</span>, <span class="doc-code-number">1</span>) <span class="doc-code-comment">// 1</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找所有参数中第一个不为 undefined 和 null 的值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/keyOf">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L987-1001" target="_blank" title="源码：util/object/object.ts，第 987 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>keyOf<i class="doc-tip doc-api-ellipsis">(obj, value)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>, value:<code>any</code>):<code>string</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">查找对象中指定值对应的第一个键。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>string | null</code></p>
+                <p class="doc">返回匹配的第一个键，如果找不到则返回 null。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">keyOf({<span class="doc-code-attr">a</span>:<span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>:<span class="doc-code-number">1</span>}, <span class="doc-code-number">1</span>) <span class="doc-code-comment">// "a"</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">查找对象中指定值对应的第一个键。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/get">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1003-1017" target="_blank" title="源码：util/object/object.ts，第 1003 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>get<i class="doc-tip doc-api-ellipsis">(obj, prop)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>, prop:<code>string</code>):<code>any</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">获取对象指定属性的值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>prop<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要获取的属性表达式。如 <code>a.b[0]</code>。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>any</code></p>
+                <p class="doc">返回属性值。如果属性不存在则返回 undefined。</p>
+
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">get({<span class="doc-code-attr">a</span>: {<span class="doc-code-attr">b</span>: <span class="doc-code-number">1</span>}}, <span class="doc-code-string">"a.b"</span>) <span class="doc-code-comment">// 1</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">获取对象指定属性的值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/set">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1019-1045" target="_blank" title="源码：util/object/object.ts，第 1019 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>set<i class="doc-tip doc-api-ellipsis">(obj, prop, value)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>, prop:<code>string</code>, value:<code>any</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">设置对象指定属性的值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>prop<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的属性表达式。如 <code>a.b[0]</code>。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">set({}, <span class="doc-code-string">"a[1].b"</span>, <span class="doc-code-number">2</span>) <span class="doc-code-comment">// { a: [undefined, { b: 2 }]}</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">设置对象指定属性的值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/setProperty">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1047-1061" target="_blank" title="源码：util/object/object.ts，第 1047 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>setProperty<i class="doc-tip doc-api-ellipsis">(obj, key, value)</i><span class="doc-tip doc-api-more">(obj:<code>any</code>, key:<code>string</code>, value:<code>any</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">强制覆盖对象的属性值。</p>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>string</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的属性名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>value<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">要设置的属性值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">setProperty({<span class="doc-code-attr">myKey</span>: <span class="doc-code-string">"oldValue"</span>}, <span class="doc-code-string">"myKey"</span>, <span class="doc-code-string">"newValue"</span>)</code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">强制覆盖对象的属性值。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/addCallback">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1063-1080" target="_blank" title="源码：util/object/object.ts，第 1063 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>addCallback<i class="doc-tip doc-api-ellipsis">(obj, key, callback)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, key:<code>keyof T</code>, callback:<code>Function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">添加调用指定成员函数后的回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>keyof T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">属性名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>Function</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收原函数的所有参数。如果原函数返回 undefined 则返回该函数的返回值。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx"><span class="doc-code-keyword">var</span> obj = { <span class="doc-code-attr">func</span>: <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>) </span>{ <span class="doc-code-built_in">console</span>.log(<span class="doc-code-number">1</span>); } };
+addCallback(obj, <span class="doc-code-string">"func"</span>, <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>) </span>{ <span class="doc-code-built_in">console</span>.log(<span class="doc-code-number">2</span>); } )
+obj.func(); <span class="doc-code-comment">// 输出 1, 2</span></code></pre>
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">添加调用指定成员函数后的回调函数。</p>
+
+                                </td>
+                                
+                            </tr><tr id="api/addSetCallback">
+                                <td>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L1082-1114" target="_blank" title="源码：util/object/object.ts，第 1082 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
+                                    <code>addSetCallback<i class="doc-tip doc-api-ellipsis">(obj, key, callback)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, key:<code>keyof T</code>, callback:<code>function</code>):<code>void</code></span></code>
+                                    <div class="doc doc-api-detail">
+                                        <p class="doc">添加设置指定属性后的回调函数。</p>
+
+                <table>
+                    <tr>
+                        <th>泛型参数</th>
+                        <th>约束类型</th>
+                        <th>默认类型</th>
+                    </tr><tr>
+                        <td>T</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr></table>
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>obj<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">对象。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>key<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>keyof T</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">属性名。</p>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>callback<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(this: T, value: any) =&gt; void</code>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">回调函数。函数接收以下参数：</p>
+<ul>
+<li class="doc">this：当前对象。</li>
+<li class="doc">value：设置的新属性值。</li>
+</ul>
+
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>void</code></p>
+                
+                
+                                        
+                                    </div>
+                                </td>
+                                <td class="doc">
+                                    <p class="doc">添加设置指定属性后的回调函数。</p>
+
+                                </td>
+                                
+                            </tr></table></div>
+                        <nav id="doc_pager">
+                            <a href="../../../components/util/shim/" title="JS 兼容补丁" id="doc_pager_prev"><i class="doc-icon">⮜</i> JS 兼容补丁</a>
+                            <a href="../../../components/util/array/" title="数组扩展" id="doc_pager_next">数组扩展 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"util/object/","test":"util/object/object-test.ts","imports":["util/object"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

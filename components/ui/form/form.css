@@ -1,0 +1,27 @@
+.x-form-input {
+  margin-bottom: 1rem;
+}
+
+.x-form br {
+  line-height: 2.5rem;
+}
+
+@media (min-width: 641px) {
+  .x-form-horizontal {
+    display: table;
+  }
+  .x-form-horizontal .x-form-field {
+    display: table-row;
+  }
+  .x-form-horizontal .x-form-label {
+    display: table-cell;
+    padding-right: 1rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .x-form-horizontal .x-form-input + .x-form-label {
+    padding-left: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=form.css.map */

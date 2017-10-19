@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>列表 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/badge","typo/util","typo/list"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/list\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/list\&quot;], function (list_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/list/list.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/list" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/list/list.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="列表">
+<a href="#列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>列表<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>">typo/list</small></h1>
+<p class="doc">有序列表和无序列表。</p>
+<dl id="doc_toc">
+	<dt><a href="#基本用法">基本用法</a></dt>
+	<dt><a href="#间隔线">间隔线</a></dt>
+	<dt><a href="#文本">文本</a></dt>
+	<dt><a href="#水平列表">水平列表</a></dt>
+	<dt><a href="#菜单列表">菜单列表</a></dt>
+</dl>
+<h2 id="基本用法">
+<a href="#基本用法" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>基本用法</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<ul class="x-list">
+    <li>列表 list</li>
+    <li>
+        列表 list
+        <ul>
+            <li>
+                子列表 list
+                <ul>
+                    <li>子列表 list</li>
+                    <li>子列表 list</li>
+                </ul>
+            </li>
+            <li>
+                子列表 list
+                <ol>
+                    <li>子列表 list</li>
+                    <li>子列表 list</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
+    <li>列表 list</li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+        列表 list
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+                子列表 list
+                <span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span>&gt;</span>
+                    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>子列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+                    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>子列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+                <span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span>
+            <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+                子列表 list
+                <span class="doc-code-tag">&lt;<span class="doc-code-name">ol</span>&gt;</span>
+                    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>子列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+                    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>子列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+                <span class="doc-code-tag">&lt;/<span class="doc-code-name">ol</span>&gt;</span>
+            <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>列表 list<span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div><h2 id="间隔线">
+<a href="#间隔线" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>间隔线</h2>
+<p class="doc">添加 <code>.x-list-baseline</code> 设置分割线。
+添加 <code>.x-list-bordered</code> 设置边框。
+添加 <code>.x-list-striped</code> 设置间隔色。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<ul class="x-list x-list-baseline x-list-bordered x-list-striped">
+    <li><a href="###">1. TealLang</a></li>
+    <li><a href="###">2. TealUI</a></li>
+    <li><a href="###">3. TealEditor</a></li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list x-list-baseline x-list-bordered x-list-striped"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>1. TealLang<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>2. TealUI<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>3. TealEditor<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div><h2 id="文本">
+<a href="#文本" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>文本</h2>
+<p class="doc">添加 <code>.x-list-ellipsis</code> 可以让列表项超限后显示省略号。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
+<ul class="x-list x-list-ellipsis">
+    <li><a href="###">1. TealLang</a></li>
+    <li><a href="###">2. TealUI</a></li>
+    <li><a href="###">3. TealEditor</a></li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list x-list-ellipsis"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>1. TealLang<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>2. TealUI<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>3. TealEditor<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div><h2 id="水平列表">
+<a href="#水平列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>水平列表</h2>
+<p class="doc">水平列表主要用于网页布局时经典的 <code>&lt;li&gt;</code> 横向布局效果。
+添加 <code>.x-list-h</code> 即可生成浮动水平列表。
+添加 <code>.x-list-space</code> 为项之间添加间隙。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_4">
+<ul class="x-list x-list-h x-list-space">
+    <li><a href="###">A</a></li>
+    <li><a href="###">B</a></li>
+    <li><a href="###">C</a></li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list x-list-h x-list-space"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>A<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>B<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>C<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div><h2 id="菜单列表">
+<a href="#菜单列表" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>菜单列表</h2>
+<p class="doc">添加 <code>.x-list-menu</code> 实现链接组成的列表，可以作为导航使用。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
+<ul class="x-list x-list-baseline x-list-bordered x-list-menu">
+    <li><a href="###">A. 10</a></li>
+    <li><a href="###">B. 20</a></li>
+    <li class="x-list-selected"><a href="###">C. 30<span class="x-badge">44</span></a></li>
+    <li><a href="###">D. 40<span class="x-badge">34</span></a></li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list x-list-baseline x-list-bordered x-list-menu"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>A. 10<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>B. 20<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list-selected"</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>C. 30<span class="doc-code-tag">&lt;<span class="doc-code-name">span</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-badge"</span>&gt;</span>44<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>D. 40<span class="doc-code-tag">&lt;<span class="doc-code-name">span</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-badge"</span>&gt;</span>34<span class="doc-code-tag">&lt;/<span class="doc-code-name">span</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div><div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_6">
+<ul class="x-list x-list-baseline x-list-bordered x-list-menu">
+    <li>
+        <a href="###">
+            <small class="x-right">10 分钟前</small>
+            <h4>列表头</h4>
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            <small>作者</small>
+        </a>
+    </li>
+    <li>
+        <a href="###">
+            <small class="x-right">10 分钟前</small>
+            <h4>列表头</h4>
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            <small>作者</small>
+        </a>
+    </li>
+    <li>
+        <a href="###">
+            <small class="x-right">10 分钟前</small>
+            <h4>列表头</h4>
+            <p>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容</p>
+            <small>作者</small>
+        </a>
+    </li>
+</ul>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">ul</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-list x-list-baseline x-list-bordered x-list-menu"</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-right"</span>&gt;</span>10 分钟前<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">h4</span>&gt;</span>列表头<span class="doc-code-tag">&lt;/<span class="doc-code-name">h4</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>作者<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-right"</span>&gt;</span>10 分钟前<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">h4</span>&gt;</span>列表头<span class="doc-code-tag">&lt;/<span class="doc-code-name">h4</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>作者<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+    <span class="doc-code-tag">&lt;<span class="doc-code-name">li</span>&gt;</span>
+        <span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"###"</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-right"</span>&gt;</span>10 分钟前<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">h4</span>&gt;</span>列表头<span class="doc-code-tag">&lt;/<span class="doc-code-name">h4</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">p</span>&gt;</span>我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">p</span>&gt;</span>
+            <span class="doc-code-tag">&lt;<span class="doc-code-name">small</span>&gt;</span>作者<span class="doc-code-tag">&lt;/<span class="doc-code-name">small</span>&gt;</span>
+        <span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+    <span class="doc-code-tag">&lt;/<span class="doc-code-name">li</span>&gt;</span>
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">ul</span>&gt;</span></code></pre>
+                </div>
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/column/" title="列布局" id="doc_pager_prev"><i class="doc-icon">⮜</i> 列布局</a>
+                            <a href="../../../components/typo/table/" title="表格" id="doc_pager_next">表格 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/list/","imports":["typo/reset","typo/badge","typo/util","typo/list"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

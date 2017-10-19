@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>本地存储</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/data/json.js"></script>
+    <script type="text/javascript" src="../../src/browser/cookie.js"></script>
+    <script type="text/javascript" src="../../src/browser/localstorage.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+        <script>
+            Demo.writeExamples({
+                "获取本地存储数据": 'LocalStorage.getData("key")',
+                "设置本地存储数据": 'LocalStorage.setData("key", "value")',
+                "获取本地存储数据的JSON": 'LocalStorage.getJSON("key")',
+                "设置本地存储数据的JSON": 'LocalStorage.setJSON("key", {value: 1})'
+            });
+        </script>
+    </article>
+</body>
+</html>

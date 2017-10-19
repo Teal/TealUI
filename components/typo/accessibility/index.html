@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="doc">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
+    <meta name="version" content="0.0.1">
+    <title>可访问性 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
+    <link rel="stylesheet" href="../../../assets/doc/doc.css">
+    <script src="../../../components/require.js"></script>
+	<script>require(["typo/reset","typo/accessibility"])</script>
+</head>
+<body>
+    <header id="doc_header">
+        <div class="doc-container">
+            <h1 id="doc_logo">
+                <a href="../../../" title="Teal" id="doc_logo_image"><img src="../../../assets/doc/images/logo.svg" alt="Teal"></a>
+                <a href="../../../" id="doc_logo_title">TealUI</a>
+                <div id="doc_version" class="doc-menubutton">
+                    <a href="javascript://切换版本">4.0.0 <i class="doc-icon">⏷</i></a>
+                    <menu>
+                        <li><a href="http://tealui.com/v3.x/" target="_blank">3.x</a></li>
+                        <li><a href="http://tealui.com/v2.x/" target="_blank">2.x</a></li>
+                    </menu>
+                </div>
+            </h1>
+            <nav id="doc_navbar">
+                <ul>
+                    <li><a href="../../../docs" title="文档和规范">文档</a></li>
+                    <li class="doc-navbar-active"><a href="../../../components" title="组件和演示">组件</a></li>
+                    <li><a href="../../../tools" title="工具和资源">工具</a></li>
+                </ul>
+                <a href="https://github.com/Teal/TealUI" target="_blank" title="源码仓库" id="doc_repository" class="doc-icon">😺</a>
+                <a href="javascript:Doc.toggleSidebar()" title="菜单" id="doc_togglesidebar" class="doc-icon">≡</a>
+            </nav>
+        </div>
+    </header>
+    <div id="doc_body" class="doc-container">
+        <aside id="doc_sidebar">
+            <div id="doc_sidebar_header">
+                <input type="search" placeholder="查找组件..." autocomplete="off" id="doc_sidebar_filter">
+            </div>
+            <ul id="doc_sidebar_menu">
+                <li class="doc-tip"><i class="doc-icon doc-spin">҉</i> 正在载入列表...</li>
+            </ul>
+        </aside>
+        <article id="doc_main" class="doc">
+<aside id="doc_mainmenu" class="doc-menubutton">
+                            <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
+                            <menu>
+                                <li><a href="javascript:void Doc.copy(&quot;import \&quot;typo/accessibility\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;typo/accessibility\&quot;], function (accessibility_1) {\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/typo/accessibility/accessibility.scss" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=typo/accessibility" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/typo/accessibility/accessibility.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                            </menu>
+                        </aside>
+                        <h1 id="可访问性">
+<a href="#可访问性" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>可访问性<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>">typo/accessibility</small></h1>
+<p class="doc">让通过辅助设备（AT，Assistive Technology）上网的人群更容易阅读。</p>
+<dl id="doc_toc">
+	<dt><a href="#屏幕阅读器和键盘导航">屏幕阅读器和键盘导航</a></dt>
+	<dd><a href="#语义化标签">语义化标签</a></dd>
+	<dd><a href="#标题嵌套">标题嵌套</a></dd>
+	<dd><a href="#色彩对比度">色彩对比度</a></dd>
+	<dd><a href="#表单验证">表单验证</a></dd>
+	<dd><a href="#键盘导航">键盘导航</a></dd>
+	<dt><a href="#辅助样式对屏幕阅读器显示和隐藏">辅助样式：对屏幕阅读器显示和隐藏</a></dt>
+	<dt><a href="#跳至主内容">跳至主内容</a></dt>
+</dl>
+<h2 id="屏幕阅读器和键盘导航">
+<a href="#屏幕阅读器和键盘导航" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>屏幕阅读器和键盘导航</h2>
+<h3 id="语义化标签">
+<a href="#语义化标签" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>语义化标签</h3>
+<p class="doc">为了让屏幕阅读器和键盘导航更好理解网页内容，应为 HTML 标签添加 <code>role</code> 和 <code>aria-*</code> 属性，以增强网页的语义化。</p>
+<h3 id="标题嵌套">
+<a href="#标题嵌套" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>标题嵌套</h3>
+<p class="doc">网页中应该按顺序嵌套 <code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> 标签，让阅读器可以更容易理解网页层次，生成网页结构列表。</p>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://squizlabs.github.io/HTML_CodeSniffer/Standards/Section508/" target="_blank" class="doc-external">HTML CodeSniffer</a></li>
+<li class="doc"><a href="http://accessibility.psu.edu/headings" target="_blank" class="doc-external">Penn State's AccessAbility</a></li>
+</ul>
+</blockquote>
+<h3 id="色彩对比度">
+<a href="#色彩对比度" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>色彩对比度</h3>
+<p class="doc">如果需要，可以修改默认配色方案，提高色彩对比度以帮助视力低下或色盲用户更好使用产品。</p>
+<h3 id="表单验证">
+<a href="#表单验证" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>表单验证</h3>
+<p class="doc">表单验证的结果不应该只通过颜色区分，还应使用图标，且图标添加 <code>aria-describedby=&quot;描述&quot;</code> 来说明，同时不正确的字段还应设置 <code>aria-invalid=&quot;true&quot;</code>。</p>
+<h3 id="键盘导航">
+<a href="#键盘导航" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>键盘导航</h3>
+<p class="doc">所有可点击区域应该可以通过 <code>Tab</code> 定位，为元素设置 <code>tabindex</code> 属性可为不可点击元素添加 <code>Tab</code> 停靠。 <code>tabindex</code> 的值应该使用 10, 20, 30... 的顺序递增，以防止需求变动需要临时插入项。在菜单中，应该支持键盘方向键切换焦点。同时，使用 <code>accesskey</code> 为常量功能设置快捷键。</p>
+<blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="../../../components/../docs/issues/safari-screen-reader.html" title="../docs/issues/safari-screen-reader">Safari 屏幕阅读器</a></li>
+<li class="doc"><a href="http://www.w3.org/WAI/intro/accessibility.php" target="_blank" class="doc-external">w3.org Introduction to Accessibility</a></li>
+<li class="doc"><a href="https://developer.mozilla.org/zh-CN/docs/Accessibility" target="_blank" class="doc-external">MDN accessibility documentation</a></li>
+<li class="doc"><a href="https://github.com/squizlabs/HTML_CodeSniffer" target="_blank" class="doc-external">&quot;HTML Codesniffer&quot; bookmarklet for identifying accessibility issues</a></li>
+<li class="doc"><a href="https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb?hl=en" target="_blank" class="doc-external">Chrome's Accessibility Developer Tools extension</a></li>
+<li class="doc"><a href="http://www.paciellogroup.com/resources/contrastanalyser/" target="_blank" class="doc-external">Colour Contrast Analyser</a></li>
+<li class="doc"><a href="http://a11yproject.com" target="_blank" class="doc-external">The A11Y Project</a></li>
+<li class="doc"><a href="http://webaim.org" target="_blank" class="doc-external">Accessibilty Certification and Training</a></li>
+</ul>
+</blockquote>
+<h2 id="辅助样式对屏幕阅读器显示和隐藏">
+<a href="#辅助样式对屏幕阅读器显示和隐藏" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>辅助样式：对屏幕阅读器显示和隐藏</h2>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
+<div aria-hidden="true">现在正在使用屏幕显示。</div>
+<div class="x-show-reader">现在正在使用屏幕阅读器。</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">aria-hidden</span>=<span class="doc-code-string">"true"</span>&gt;</span>现在正在使用屏幕显示。<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-show-reader"</span>&gt;</span>现在正在使用屏幕阅读器。<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><h2 id="跳至主内容">
+<a href="#跳至主内容" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>跳至主内容</h2>
+<p class="doc">按 <code>Tab</code> 可以显示跳到内容的快捷方式。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
+<a href="#content" class="x-show-reader x-show-reader-focusable">直接跳到内容</a>
+...
+<div class="container" id="content" tabindex="-1">
+    我是主要内容
+</div>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">a</span> <span class="doc-code-attr">href</span>=<span class="doc-code-string">"#content"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"x-show-reader x-show-reader-focusable"</span>&gt;</span>直接跳到内容<span class="doc-code-tag">&lt;/<span class="doc-code-name">a</span>&gt;</span>
+...
+<span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"container"</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"content"</span> <span class="doc-code-attr">tabindex</span>=<span class="doc-code-string">"-1"</span>&gt;</span>
+    我是主要内容
+<span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span></code></pre>
+                </div><blockquote class="doc doc-blockquote">
+<h5>另参考</h5>
+<ul>
+<li class="doc"><a href="http://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1" target="_blank" class="doc-external">添加跳至内容链接</a></li>
+</ul>
+</blockquote>
+
+                        
+                        <nav id="doc_pager">
+                            <a href="../../../components/typo/print/" title="打印样式" id="doc_pager_prev"><i class="doc-icon">⮜</i> 打印样式</a>
+                            <a href="../../../components/typo/util/" title="工具样式" id="doc_pager_next">工具样式 <i class="doc-icon">⮞</i></a>
+                        </nav>
+</article>
+    </div>
+    <footer id="doc_footer">
+        <div class="doc-container">
+            <div id="doc_footer_links">
+                <a href="https://github.com/Teal/TealUI/issues" target="_blank">反馈建议</a> |
+                <a href="../../../docs/about/contributing.html">贡献指南</a> |
+                <a href="https://gitter.im/Teal/TealUI" target="_blank">在线讨论</a>
+            </div>
+            &copy; 2011-2017 The Teal Team. All Rights Reserved.
+        </div>
+    </footer>
+    <script src="../../../assets/doc/doc.js"></script>
+    <script>
+        Doc.init({"root":"../../..","dir":"components","active":"typo/accessibility/","imports":["typo/reset","typo/accessibility"]})
+    </script>
+    <script src="../../../components/index.js"></script>
+    <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>
+</body>
+</html>

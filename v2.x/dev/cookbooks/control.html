@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>如何开发 UI 组件</title>
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+    <script type="text/javascript" src="../../apps/demo/navbar.js"></script>
+</head>
+<body>
+
+    <article class="demo">
+
+        <script type="text/javascript" src="../index.js"></script>
+
+        <h2 class="demo">认识 UI 组件</h2>
+
+        <p class="demo">UI 组件，就是 HTML、CSS 和 JavaScript 组合实现的一个网页效果。它可以小到一个按钮，大到一个注册表单。 </p>
+		
+		<p class="demo">无论什么组件，它始终都是一个带样式的 HTML 片段 和可以控制它的 JavaScript 对象。</p>
+
+        <h2 class="demo">开发第一个组件</h2>
+
+        <p class="demo">先看如下效果: </p>
+
+    	<style>
+    		.mybox { width: 200px; text-align: center; background-color: #E95C41; color: #fff; padding:  20px;}
+    	</style>
+    	
+        <div class="mybox" onclick="this.innerHTML = 'sb叫你不要点我...'">不要点我</div>
+        
+        <p class="demo">其 HTML 结构如下: </p>
+
+        <script class="demo" type="code/html">
+			<div class="mybox">不要点我</div>
+        </script>
+
+        <p class="demo">要将上面的效果做成组件，其 JavaScript 源码如下: </p>
+
+        <script class="demo" type="code/javascript">
+			// 继承 Control 类创建新的类。
+			var MyBox = Control.extend({
+            	
+				tpl: '<div class="mybox">不要点我</div>',
+                
+				init: function() {
+					this.elem.onclick = function(){
+ 						this.innerHTML = 'sb叫你不要点我...';
+ 					};
+				} 
+
+			});
+        </script>
+
+        <p class="demo">通过如下代码即可创建和显示组件: </p>
+
+        <script class="demo" type="code/javascript">
+        	var myBox1 = new MyBox();
+        	myBox1.renderTo(document.body);
+        </script>
+
+        <p class="demo">其中，myBox1 是一个标准的 JavaScript 对象，提供 API 操作组件。myBox1.elem 是这个组件相应的 DOM 对象，是一个 <code class="demo">HTMLDivElement</code> 。
+        	
+        <p class="demo">组件对象和 DOM 对象是一一对应的。
+        
+        <h2 class="demo">组件生命周期</h2>
+
+        <p class="demo">组件生命周期是指组件从创建到删除所经历的过程。所有组件都会经历这个过程，组件之所以不同，是因为它们在同样的过程做不同的事情。</p>
+
+        <blockquote class="demo">
+            创建(create) -&gt; 初始化(init) -&gt; 渲染(attach) -&gt; 移除(detach) -&gt; 销毁(dispose)
+        </blockquote>
+        
+        <h3 class="demo">创建(create)</h3>
+
+        <p class="demo">创建组件对应的 DOM 对象。</p>
+
+        <script class="demo" type="code/javascript">
+        	var myBox1 = new MyBox("#id"); // 创建过程： myBox1.elem = Dom.find("#id")
+        </script>
+
+        <script class="demo" type="code/javascript">
+        	var myBox1 = new MyBox({elem: divObject}); // 创建过程： myBox1.elem = divObject
+        </script>
+        
+        <script class="demo" type="code/javascript">
+        	var myBox1 = new MyBox(); // 创建过程： myBox1.elem = myBox1.create()
+        	// 默认地，myBox1.create() = Dom.parseNode(myBox1.tpl)
+        </script>
+
+        <h3 class="demo">初始化(init)</h3>
+
+        <p class="demo">初始化里做的事情是必须要做的，而且只做一次的事情。比如绑定事件、设置默认值等，切不可把全部事情都放在 init 下一气呵成。</p>
+
+        <script class="demo" type="code/javascript">
+        	var NewBox = Control.extend({
+        		
+        		init: function(options){
+        			// options 是 new NewBox({}) 的参数对象，不会为空。
+        			// this.elem 已经在创建过程里准备好了，因此可以直接使用 this.elem。
+        			alert("我被初始化了");
+        		} 
+        		
+        	});
+        </script>
+
+        <h3 class="demo">渲染(attach)、移除(detach)、销毁(dispose)</h3>
+
+        <p class="demo">这三个过程是 DOM 树操作的过程。对应的 API 分别是 renderTo, remove 和 dispose 。</p>
+        
+        <p class="demo">比如一个组件需要在被添加到 DOM 树时做一些操作，可以重写 attach 函数：</p>
+        
+        <script class="demo" type="code/javascript">
+        	var NewBox = Control.extend({
+        		
+        		attach: function(parent, ref){
+        			Control.prototype.attach.call(this, parent, ref); // 调用父类 的函数。
+        			alert("我被添加了");
+        		} 
+        		
+        	});
+        </script>
+
+        <h2 class="demo">组件构造函数</h2>
+
+        <p class="demo">作为一个 JavaScript 类，组件的构造函数负责完成组件的创建和初始化过程。并且会根据构造函数参数 option 调用函数。如：</p>
+        
+        <script class="demo" type="code/javascript">
+        	var newBox1 = new NewBox({
+        		renderTo: "body"
+        	});
+        </script>
+        
+        <p class="demo">效果和下列代码一致：</p>
+        
+        <script class="demo" type="code/javascript">
+        	var newBox1 = new NewBox();
+        	newBox1.renderTo("body");
+        </script>
+
+        <h2 class="demo">组件的通信</h2>
+
+        <p class="demo">组件之间互相独立，这可以大幅度减小组件开发复杂度，避免出现组件互相地干扰问题。如果组件之间需要通信，则应该借助于组件类的通信机制：事件。</p>
+        
+        <script class="demo" type="code/javascript">
+        	var NewBox = Control.extend({
+        		
+        		init: function(){
+        			var me = this;
+        			this.elem.onclick = function(){
+        				me.onClick();
+        			};
+        		},
+        		
+        		onClick: function(){
+        			this.trigger("clicked"); // 触发 clicked 事件。外部可以绑定这个事件实现回调。
+        		}
+        		
+        	});
+        </script>
+        
+        <script class="demo" type="code/javascript">
+        	var mewBox1 = new NewBox()
+        	mewBox1.on("clicked", function(e){
+        		// 绑定 clicked 事件。
+        		alert("点击了");
+        	});
+        </script>
+        
+        <h2 class="demo">总结</h2>
+
+        <p class="demo">组件设计模型并不是唯一的，jPlusUI 的组件设计可以保证组件的 HTML 和 JavaScript 完全独立，既保证组件可以和 HTML 一起书写，又可以轻松实现组件的控制。</p>
+        
+        <p class="demo">为了更好地理解组件设计思路，读者可以阅读 <a class="demo" href="/examples/ui/nav/scrolltotop.html">滚到顶部（scrolltotop）组件</a>, 并且亲自体验。</p>
+
+    </article>
+
+    <script>
+        Demo.writeFooter();
+    </script>
+
+</body>
+</html>

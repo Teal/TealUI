@@ -1,0 +1,55 @@
+.x-picker {
+  position: relative;
+  display: inline-block;
+  width: 12rem;
+}
+
+.x-picker .x-textbox {
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.x-picker .x-textbox:focus + .x-button, .x-picker .x-textbox-active + .x-button, .x-picker .x-textbox + .x-button:active {
+  color: #1780ce;
+}
+
+.x-picker .x-textbox-info + .x-button {
+  color: #2487d0 !important;
+}
+
+.x-picker .x-textbox-success + .x-button {
+  color: #3ca23c !important;
+}
+
+.x-picker .x-textbox-warning + .x-button {
+  color: #e28f19 !important;
+}
+
+.x-picker .x-textbox-error + .x-button {
+  color: #d63a29 !important;
+}
+
+.x-picker .x-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-color: transparent;
+  border-radius: 0 0.2rem 0.2rem 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  background-color: transparent;
+  color: #999;
+  -webkit-transition: color 0.2s;
+  -moz-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+.x-picker .x-icon {
+  line-height: 1.5rem;
+}
+
+.x-picker-select:not(.x-picker-readonly) .x-textbox {
+  background: #fff;
+}
+
+/*# sourceMappingURL=picker.css.map */

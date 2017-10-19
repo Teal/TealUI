@@ -1,0 +1,45 @@
+@import "../../typography/core/mixins.less";
+
+@arrow-width: 7.5px;
+@arrow-border-color: inherit;
+@arrow-background-color: @white;
+
+.x-arrow {
+    position: absolute;
+    display: block;
+    border: @arrow-width solid transparent;
+    font: 0;
+    width: 0;
+    height: 0;
+    z-index: 1;
+}
+
+.x-arrow-top, .x-arrow-bottom {
+    left: 50%;
+    margin-left: -@arrow-width;
+}
+
+.x-arrow-top {
+    border-bottom-color: @arrow-border-color;
+    top: -@arrow-width * 2;
+}
+
+.x-arrow-bottom {
+    border-top-color: @arrow-border-color;
+    bottom: -@arrow-width * 2;
+}
+
+.x-arrow-left, .x-arrow-right {
+    top: 50%;
+    margin-top: -@arrow-width;
+}
+
+.x-arrow-left {
+    border-right-color: @arrow-border-color;
+    left: -@arrow-width * 2;
+}
+
+.x-arrow-right {
+    border-left-color: @arrow-border-color;
+    right: -@arrow-width * 2;
+}

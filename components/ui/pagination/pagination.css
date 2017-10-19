@@ -1,0 +1,76 @@
+.x-pagination {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.x-pagination::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.x-pagination .x-pagination-sizechanger {
+  width: 4rem;
+}
+
+.x-pagination-header {
+  float: left;
+  text-align: left;
+}
+
+.x-pagination-footer {
+  float: right;
+  margin-bottom: 0;
+  margin-left: 1rem;
+}
+
+.x-pagination-footer input {
+  background-color: transparent;
+}
+
+.x-pagination-footer .x-textbox {
+  width: 4.5rem;
+}
+
+@media (min-width: 641px) {
+  .x-pagination-body {
+    float: right;
+  }
+}
+
+.x-pagination-body a {
+  display: inline-block;
+  margin: 0 0.25rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.2rem;
+  padding: 0.375rem 1rem;
+  color: #666;
+  -webkit-transition: color 0.2s, background-color 0.2s;
+  -moz-transition: color 0.2s, background-color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.x-pagination-body a:hover {
+  color: #1780ce;
+  text-decoration: none;
+}
+
+.x-pagination-active {
+  border-color: #1780ce !important;
+  background-color: #fff !important;
+  color: #1780ce !important;
+}
+
+.x-pagination-large-body a {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 125%;
+}
+
+.x-pagination-small-body a {
+  border-radius: 0.15rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 87.5%;
+}
+
+/*# sourceMappingURL=pagination.css.map */

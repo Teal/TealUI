@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>开始使用</title>
+</head>
+<body>
+    <script src="../assets/doc/doc.js"></script>
+    <h2>TealUI 是什么</h2>
+
+    <div class="doc-row doc-row-2">
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一个纯 CSS 界面框架</h4>
+                简约现代风格；移动优先响应式。
+            </blockquote>
+        </div>
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一个 UI 组件库</h4>
+                细致交互效果；深入业务需求。
+            </blockquote>
+        </div>
+    </div>
+
+    <div class="doc-row doc-row-2">
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一个纯 JS 函数库</h4>
+                妈妈再也不担心我找不到代码复制了。
+            </blockquote>
+        </div>
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一个 WEBAPP 开发框架</h4>
+                体验趋于原生；最少代码完成最多业务。
+            </blockquote>
+        </div>
+    </div>
+
+    <div class="doc-row doc-row-2">
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一套前端开发规范</h4>
+                高效编码模型；构造大型项目。
+            </blockquote>
+        </div>
+        <div class="doc-col doc">
+            <blockquote>
+                <h4>一个前端集成解决方案</h4>
+                打包压缩；模块依赖；文档测试；团队协作。
+            </blockquote>
+        </div>
+    </div>
+
+    <h2>使用 TealUI</h2>
+
+    <h3>复制/粘贴</h3>
+    <p>TealUI 多数组件能独立使用，复制源码是最快的使用方式。</p>
+    <blockquote><h4>友情提示</h4>右击文档页面查看源文件可找到源码；复制源码时请同时复制注释。</blockquote>
+
+    <h3>定制下载</h3>
+    <p>和传统框架不同，TealUI 是一个大型的代码库，所有源码体积超过 10M。因此我们建议您单独使用每个组件，点击每个组件页面右上角的“下载此组件”，即可下载组件所需的所有源码。</p>
+    <p>在<a href="../assets/tools/download.html">下载和定制</a>可以选择所需组件并打包下载，此工具也可在本地运行。</p>
+
+    <h3>下载整个项目</h3>
+    <p><a href="https://github.com/Teal/TealUI/archive/master.zip">点此下载整个项目</a>。项目结构为：</p>
+    <pre>
+        TealUI/        
+            ├── assets/           存放项目所需工具。  
+            ├── dist/             存放预生成的可直接引用的代码。  
+            │   ├── images/
+            │   └── fonts/          
+            ├── src/              存放所有组件源码和文档。     
+            └── docs/             存放教程。
+    </pre>
+
+    <blockquote>
+        <h4>使用 GIT</h4>
+        使用命令 <code>git clone https://github.com/Teal/TealUI.git </code>下载项目。或 <a href="https://github.com/Teal/TealUI/#fork-destination-box">点此 Fork Git 项目</a>。
+    </blockquote>
+
+    <blockquote>
+        <h4>使用 NPM</h4>
+        使用命令 <code>npm install TealUI </code>安装项目。
+    </blockquote>
+
+    <h3>模块加载</h3>
+    <p>TealUI 拥有独创的模块化方式，只需一行代码即可加载所需模块及依赖性。<a href="basic/module.html">点此了解更多</a></p>
+<pre>
+    &lt;script type="text/javascript" src="boot.js?utility/dom/base,utility/dom/keyNav">&lt;/script>
+</pre>
+
+    <h3>懒人模式</h3>
+    <p>
+        直接引用项目 <code>dist</code> 文件夹下 <code>teal-all-debug.js</code> 和 <code>teal-all-debug.css</code> 即可使用所有组件。
+    </p>
+
+    <h3>二次开发</h3>
+    <p>为团队定制一套自己的 UI 组件库和框架集。<a href="">点此了解更多</a></p>
+
+    <h2>Hello world</h2>
+    <p>将以下代码存为 <code>test.html</code>，将任意组件的示例复制到 <code>&lt;body&gt;</code>，在浏览器打开即可见到效果。</p>
+    <pre>
+        &lt;!DOCTYPE html>
+        &lt;html>
+        &lt;head>        
+            &lt;meta charset="utf-8">
+            &lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+            &lt;title>标题&lt;/title>        
+            &lt;link rel="stylesheet" type="text/css" href="http://teal.github.io/TealUI/dist/teal-ui.css" />
+            &lt;script type="text/javascript" src="http://teal.github.io/TealUI/dist/teal-ui.js">&lt;/script>
+        &lt;/head>
+        &lt;body>
+            Hello world
+        &lt;/body>
+        &lt;/html>
+    </pre>
+
+    <h3>HTML5 文档类型</h3>
+    <p>TealUI 使用到的某些 HTML 元素和 CSS 属性需要将页面设置为 HTML5 文档类型。项目中每个页面都要参照下面的格式进行设置。</p>
+<pre>
+        &lt;!DOCTYPE html>
+        &lt;html lang="zh-CN">
+            ...
+        &lt;/html>
+    </pre>
+
+    <h3>移动设备优先</h3>
+    <p>TealUI 是移动设备优先的。所有样式优先考虑手机使用，并为电脑增加补充代码。</p>
+    <p>为了确保适当的绘制和触屏缩放，需要在 <code>&lt;head&gt;</code> 之中<strong>添加 viewport 元数据标签</strong>。</p>
+    <pre>
+        &lt;meta name="viewport" content="<b>width</b>=device-width, initial-scale=1">
+    </pre>
+    <p>如果希望网站能完全模拟原生 APP 体验，禁止用户放大缩小网页，可改为如下代码：</p>
+<pre>
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </pre>
+
+    <h2>接下来可以做什么?</h2>
+
+    <ul>
+        <li><a href="basic/index.html">阅读完整的 TealUI 教程</a></li>
+        <li><a href="../src/typography/examples/index.html">查看 TealUI 现成页面模板</a></li>
+        <li><a href="../src/index.html">查看所有组件列表</a></li>
+        <li><a href="https://github.com/Teal/TealUI/issues">提交 BUG</a></li>
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+.x-fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+
+@-moz-document url-prefix() {
+  .x-fieldset {
+    display: table-cell;
+  }
+}
+
+.x-fieldset legend {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.375rem 0;
+  color: #999;
+  font-size: 125%;
+  line-height: 1.25;
+}
+
+/*# sourceMappingURL=fieldset.css.map */

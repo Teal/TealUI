@@ -1,0 +1,34 @@
+.x-dialog {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 10%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.x-dialog > .x-panel {
+  margin: auto !important;
+  min-width: 15rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.x-dialog-draggable > .x-panel > .x-panel-header {
+  cursor: move;
+}
+
+.x-dialog-open {
+  overflow: hidden !important;
+  -webkit-overflow-scrolling: auto;
+}
+
+/*# sourceMappingURL=dialog.css.map */

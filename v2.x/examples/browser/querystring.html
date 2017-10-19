@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="module-info" content="status=complete">
+    <title>查询字符串</title>
+    <script type="text/javascript" src="../../src/core/core.js"></script>
+    <script type="text/javascript" src="../../src/text/querystring.js"></script>
+    <script type="text/javascript" src="../../src/browser/querystring.js"></script>
+
+    <script type="text/javascript" src="../../apps/demo/demo.js"></script>
+</head>
+<body>
+    <article class="demo">
+
+        <blockquote class="demo demo-info">查询字符串即浏览器地址栏的参数： a.html?a=abc</blockquote>
+
+        <script>
+            Demo.writeExamples({
+                "获取 key=a 的查询字符串": 'location.query["a"]'
+            });
+        </script>
+    </article>
+</body>
+</html>
