@@ -1,0 +1,80 @@
+@import "configs";
+
+$grid-column-count: 24 !default;
+$grid-avg-count: 6 !default;
+$grid-container-max-width: 1200px !default;
+$grid-gutter-y: $margin-y !default;
+$grid-gutter-x: $margin-x !default;
+
+.x-row {
+    @include clear();
+    margin: 0 (-$grid-gutter-x / 2);
+
+    &:first-child {
+        margin-top: -$grid-gutter-y;
+    }
+
+    &:empty {
+        margin-top: 0;
+    }
+}
+
+.x-col, .x-container {
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 $grid-gutter-x / 2;
+}
+
+.x-col {
+    float: left;
+    margin-top: $grid-gutter-y;
+
+    &:empty {
+        padding: 0;
+    }
+}
+
+.x-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $grid-container-max-width;
+}
+
+.x-row-avg {
+    display: table;
+    margin-bottom: $grid-gutter-y;
+    width: 100%;
+    table-layout: fixed;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &::after {
+        content: none;
+    }
+
+    > .x-col {
+        display: table-cell;
+        float: none;
+        width: 100% !important;
+    }
+}
+
+@include screen {
+    @for $i from 1 through $grid-avg-count {
+        .x-row#{$screen-postfix}-#{$i} > .x-col {
+            width: 100% / $i !important;
+        }
+    }
+
+    @for $i from 1 through $grid-column-count {
+        .x-col#{$screen-postfix}-#{$i} {
+            width: 100% * $i / $grid-column-count !important;
+        }
+    }
+}

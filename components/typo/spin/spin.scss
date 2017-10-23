@@ -1,0 +1,17 @@
+﻿@import "configs";
+
+$spin-animation: x-spin !default;
+
+.x-spin {
+    display: inline-block;
+    animation: 2s linear 0s normal none infinite running $spin-animation;
+
+    @keyframes #{$spin-animation} {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(359deg);
+        }
+    }
+}

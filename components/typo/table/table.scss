@@ -1,0 +1,42 @@
+@import "configs";
+
+.x-table {
+    th {
+        background-color: $header-background-color;
+        color: $text-color-dark;
+        font-weight: $font-weight-large;
+    }
+
+    &-striped {
+        tbody tr:nth-child(even) {
+            background-color: lighten($header-background-color, 2%);
+        }
+    }
+
+    &-hover {
+        tbody tr:hover {
+            background-color: darken($hover-background-color, 2%);
+        }
+    }
+
+    &-baseline {
+        th, td {
+            border-width: 1px 0;
+        }
+    }
+
+    @include state {
+        background-color: $state-background-color !important;
+        color: $state-text-color;
+    }
+
+    &-selected {
+        background-color: #ffd !important;
+    }
+
+    @include size {
+        th, td {
+            padding: $padding-y-size $padding-x-size;
+        }
+    }
+}

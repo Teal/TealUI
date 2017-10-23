@@ -1,0 +1,13 @@
+@import "configs";
+
+.x-thumbnail {
+    box-sizing: border-box;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: $padding-y-small;
+    transition: border-color ease-in-out $duration;
+
+    a:hover & {
+        border-color: $primary-color;
+    }
+}

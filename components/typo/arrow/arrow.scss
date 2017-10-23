@@ -1,0 +1,74 @@
+@import "configs";
+
+$arrow-width: 14px !default;
+$arrow-border-color: inherit !default;
+$arrow-background-color: $main-background-color !default;
+
+.x-arrow {
+    &, &-bordered::after {
+        content: "";
+    }
+
+    &, &::after {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border: $arrow-width / 2 solid transparent;
+        font-size: 0;
+    }
+
+    &-top, &-bottom {
+        &, &::after {
+            left: 50%;
+            margin-left: -$arrow-width / 2;
+        }
+    }
+
+    &-top {
+        top: -$arrow-width;
+        border-bottom-color: $arrow-border-color;
+
+        &::after {
+            top: -$arrow-width / 2 + 2px;
+            border-bottom-color: $arrow-background-color;
+        }
+    }
+
+    &-bottom {
+        bottom: -$arrow-width;
+        border-top-color: $arrow-border-color;
+
+        &::after {
+            bottom: -$arrow-width / 2 + 2px;
+            border-top-color: $arrow-background-color;
+        }
+    }
+
+    &-left, &-right {
+        &, &::after {
+            top: 50%;
+            margin-top: -$arrow-width / 2;
+        }
+    }
+
+    &-left {
+        left: -$arrow-width;
+        border-right-color: $arrow-border-color;
+
+        &::after {
+            left: -$arrow-width / 2 + 2px;
+            border-right-color: $arrow-background-color;
+        }
+    }
+
+    &-right {
+        right: -$arrow-width;
+        border-left-color: $arrow-border-color;
+
+        &::after {
+            right: -$arrow-width / 2 + 2px;
+            border-left-color: $arrow-background-color;
+        }
+    }
+}

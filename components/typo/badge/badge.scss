@@ -1,0 +1,26 @@
+﻿@import "configs";
+
+$badge-color: $error-text-color !default;
+
+.x-badge {
+    display: inline-block;
+    margin: ($line-height * 1rem - 1rem) / 2 $spacer-small;
+    border-radius: .5rem;
+    padding: 0 .25rem;
+    background-color: $badge-color;
+    color: $selected-text-color;
+    font-family: "Microsoft YaHei", monospace; // 修复 Segoe UI 不垂直居中问题。
+    font-size: $font-size-small;
+    line-height: 1rem;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: 1px;
+
+    &:empty {
+        display: none; // 无内容自动隐藏（不支持 IE8)
+    }
+
+    p &, li &, dt &, dd & {
+        margin: ($line-height-large * 1rem - 1rem) / 2 $spacer-small;
+    }
+}

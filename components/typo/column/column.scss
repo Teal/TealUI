@@ -1,0 +1,23 @@
+@import "configs";
+
+.x-tr {
+    display: table;
+    width: 100%;
+    border-collapse: separate; // 避免继承上级表格的属性。
+}
+
+.x-td {
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: top;
+
+    & ~ & {
+        padding-left: $margin-x;
+    }
+
+    &-block {
+        width: 99%;
+        white-space: normal;
+    }
+}

@@ -1,0 +1,18 @@
+@import "configs";
+
+.x-blockquote {
+    border-left: 5px solid $border-color;
+    padding-left: $margin-x;
+
+    > p {
+        margin: 0;
+        font-family: $font-family-scripts;
+    }
+
+    > footer {
+        color: $text-color-light;
+        font-size: $font-size-small;
+        font-weight: $font-weight-small;
+        text-align: right;
+    }
+}

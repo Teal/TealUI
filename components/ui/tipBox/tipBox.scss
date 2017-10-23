@@ -1,0 +1,46 @@
+@import "configs";
+
+.x-tipbox {
+    display: inline-block;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: $padding-y $spacer;
+    background-color: $background-color-dark;
+
+    a {
+        color: inherit;
+        font-weight: bold;
+    }
+
+    &.x-transparent {
+        border-color: transparent;
+    }
+
+    &.x-block {
+        display: block;
+        margin-bottom: $margin-y;
+        padding-left: $padding-x;
+        padding-right: $padding-x;
+    }
+
+    &:empty {
+        display: none;
+    }
+
+    @include state {
+        border-color: $state-border-color;
+        background-color: $state-background-color;
+        color: $state-text-color;
+    }
+
+    @include size {
+        border-radius: $border-radius-size;
+        padding: $padding-y-size $spacer-size;
+        font-size: $font-size-size;
+
+        &.x-block {
+            padding-left: $padding-x-size;
+            padding-right: $padding-x-size;
+        }
+    }
+}

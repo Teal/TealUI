@@ -1,0 +1,98 @@
+@import "configs";
+
+.x-tabbar {
+    margin-bottom: $margin-y;
+    border-bottom: 2px solid $border-color;
+
+    a {
+        display: none;
+        color: $text-color-light;
+        cursor: default;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &-left {
+        float: left;
+        padding: $padding-y-large $spacer $padding-y-large 0;
+    }
+
+    &-right {
+        float: right;
+        padding: $padding-y-large 0 $padding-y-large $spacer;
+    }
+
+    &-disabled {
+        cursor: $cursor-disabled;
+        opacity: .3;
+    }
+
+    &-overflow &-left, &-overflow &-right {
+        display: block;
+    }
+
+    &-body {
+        position: relative;
+        margin: 0 0 -2px;
+        overflow: hidden;
+    }
+
+    &-overflow &-body {
+        margin-left: 1rem + $spacer;
+        margin-right: 1rem + $spacer;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+        margin-right: $spacer;
+        box-sizing: border-box;
+        min-width: 6rem;
+        max-width: 10rem;
+        border-bottom: 2px solid $border-color;
+        padding: $padding-y-large $padding-y $padding-y-large $spacer;
+        background-color: $secondary-color;
+        line-height: 1;
+        vertical-align: bottom;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        a {
+            display: block;
+            overflow: hidden;
+            color: $text-color;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &-active a {
+        color: $primary-color !important;
+    }
+
+    .x-close {
+        margin: 0 $spacer-small;
+        opacity: 0;
+        transition: opacity $duration;
+    }
+
+    li:hover .x-close, &-active .x-close {
+        opacity: 1;
+    }
+
+    &-bar {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background-color: $primary-color;
+    }
+}

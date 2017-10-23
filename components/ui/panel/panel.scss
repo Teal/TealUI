@@ -1,0 +1,135 @@
+@import "configs";
+
+.x-panel {
+    margin: 0 0 $margin-y;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background: $background-color-light;
+
+    &:last-child {
+        margin: 0;
+    }
+
+    &-header, &-body, &-footer {
+        @include clear();
+    }
+
+    &-header, &-footer {
+        padding: $padding-y $padding-x;
+        background-color: $background-color-dark;
+        cursor: default;
+    }
+
+    &-header {
+        border-bottom: 1px solid $border-color;
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+    }
+
+    &-footer {
+        border-top: 1px solid $border-color;
+    }
+
+    &-body {
+        overflow: auto;
+        padding: $padding-x;
+    }
+
+    &-icon {
+        float: left;
+        margin: $padding-x 0 0 $padding-x;
+        font-size: 2.5rem;
+
+        + .x-panel-body {
+            min-height: 3rem;
+        }
+
+        &-info::before {
+            content: "🛈";
+            color: $info-text-color;
+        }
+
+        &-success::before {
+            content: "✓";
+            color: $success-text-color;
+        }
+
+        &-warning::before {
+            content: "⚠";
+            color: $warning-text-color;
+        }
+
+        &-error::before {
+            content: "\2757";
+            color: $error-text-color;
+        }
+
+        &-confirm::before {
+            content: "\2754";
+            color: $info-text-color;
+        }
+    }
+
+    &-buttons {
+        padding: 0 $padding-x $padding-y;
+        text-align: right;
+
+        .x-button {
+            margin-left: $margin-x-small;
+        }
+    }
+
+    @include state {
+        border-color: $state-border-color;
+
+        > .x-panel-header {
+            border-color: $state-border-color;
+            background-color: $state-background-color;
+            color: $state-text-color;
+        }
+    }
+
+    &-collapsable {
+        > .x-panel-header {
+            cursor: pointer;
+            user-select: none;
+
+            &::before {
+                content: "\23f7";
+                float: left;
+                margin-left: -.25rem;
+                margin-right: .25rem;
+                font-family: "x-icon";
+                transition: transform $duration;
+            }
+        }
+    }
+
+    &-collapsed {
+        > .x-panel-header {
+            border-bottom-width: 0;
+            border-radius: $border-radius;
+
+            &::before {
+                transform: rotate(-90deg);
+            }
+        }
+
+        > .x-panel-body {
+            display: none;
+        }
+    }
+
+    &-collapsing {
+        > .x-panel-header {
+            border-bottom-width: 1px;
+            border-radius: 0;
+        }
+
+        > .x-panel-body {
+            display: block;
+        }
+    }
+}

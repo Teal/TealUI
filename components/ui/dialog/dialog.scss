@@ -1,0 +1,30 @@
+@import "configs";
+
+.x-dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-index-fixed;
+    display: flex;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 10%;
+    background: rgba(0, 0, 0, .5);
+
+    > .x-panel {
+        margin: auto !important;
+        min-width: 15rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    }
+
+    &-draggable > .x-panel > .x-panel-header {
+        cursor: move;
+    }
+
+    &-open {
+        overflow: hidden !important;
+        -webkit-overflow-scrolling: auto;
+    }
+}

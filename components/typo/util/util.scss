@@ -1,0 +1,110 @@
+@import "configs";
+
+.x-left {
+    float: left !important;
+}
+
+.x-right {
+    float: right !important;
+}
+
+.x-clear {
+    @include clear();
+}
+
+.x-inline {
+    display: inline !important;
+}
+
+.x-inline-block {
+    display: inline-block !important;
+
+    @at-root table#{&} {
+        display: inline-table !important;
+    }
+}
+
+.x-block {
+    display: block !important;
+    box-sizing: border-box;
+    width: 100% !important;
+
+    @at-root table#{&} {
+        display: table !important;
+    }
+}
+
+.x-hide {
+    display: none !important;
+}
+
+.x-hide-small, .x-show-large {
+    @media (max-width: $screen-small) {
+        display: none !important;
+    }
+}
+
+.x-hide-large {
+    @media (min-width: #{$screen-small + 1px}) {
+        display: none !important;
+    }
+}
+
+.x-hide-medium {
+    @media (min-width: #{$screen-small + 1px}) and (max-width: #{$screen-medium}) {
+        display: none !important;
+    }
+}
+
+.x-show-medium {
+    @media (max-width: #{$screen-small}), (min-width: #{$screen-medium} + 1px) {
+        display: none !important;
+    }
+}
+
+html .x-transparent {
+    background-color: transparent;
+}
+
+.x-blank {
+    margin-bottom: $margin-y !important;
+}
+
+.x-space {
+    margin-right: $spacer !important;
+}
+
+.x-center {
+    margin: auto;
+    text-align: center;
+}
+
+.x-middle {
+    vertical-align: middle;
+}
+
+.x-scrollable {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.x-scrollable-h {
+    width: 100%;
+    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.x-ellipsis {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.x-break-word {
+    word-wrap: break-word;
+    word-break: break-all;
+}

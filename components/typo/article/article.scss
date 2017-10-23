@@ -1,0 +1,37 @@
+@import "configs";
+
+.x-article {
+    @include clear();
+
+    header {
+        margin-bottom: $margin-y;
+    }
+
+    footer {
+        margin-top: $margin-y;
+    }
+
+    table, img, audio, video, canvas {
+        margin: 0 auto $margin-y;
+    }
+
+    img {
+        display: block;
+
+        &[align=left], &.x-left {
+            margin-right: $margin-x;
+        }
+
+        &[align=right], &.x-right {
+            margin-left: $margin-x;
+        }
+    }
+
+    figure {
+        text-align: center;
+
+        img, table, pre {
+            margin-bottom: 0;
+        }
+    }
+}

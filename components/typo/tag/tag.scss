@@ -1,0 +1,48 @@
+@import "configs";
+
+$tag-background-color: hsl(hue($primary-color), saturation($primary-color), 95);
+
+.x-tag {
+    display: inline-block;
+    margin-right: $spacer;
+    border-radius: $border-radius-small;
+    padding: 0 $spacer-small;
+    background-color: $tag-background-color;
+    color: $primary-color;
+    font-size: $font-size-small;
+    text-align: center;
+    white-space: nowrap;
+    transition: background-color $duration;
+
+    @at-root a#{&} {
+        &:hover {
+            background-color: darken($tag-background-color, 7%);
+            text-decoration: none;
+        }
+    }
+
+    &:empty {
+        display: none;
+    }
+
+    @include state {
+        background-color: $state-text-color;
+        color: $selected-text-color;
+
+        @at-root a#{&} {
+            &:hover {
+                background-color: darken($state-text-color, 7%);
+                color: $selected-text-color;
+            }
+        }
+    }
+
+    .x-close {
+        margin: ((1rem * ($font-size-small / 100%) * $line-height - 1rem) / 2) 0 ((1rem * ($font-size-small / 100%) * $line-height - 1rem) / 2) $spacer-small;
+    }
+
+    &.x-transparent {
+        background-color: transparent;
+        color: inherit;
+    }
+}

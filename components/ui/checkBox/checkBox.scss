@@ -1,0 +1,36 @@
+@import "configs";
+
+.x-checkbox {
+    &-button {
+        position: absolute;
+        opacity: 0;
+
+        & + i, & + i + i {
+            display: inline-block;
+            width: 1rem;
+            color: $text-color-light;
+            transition: color $duration;
+        }
+
+        & + i + i {
+            color: $primary-color;
+        }
+
+        &:focus + i, &:focus + i + i, &:hover + i, &:hover + i + i {
+            color: darken($primary-color, 7%);
+        }
+
+        &:checked + i, &:not(:checked) + i + i {
+            display: none;
+        }
+
+        &[disabled] + i, &[disabled] + i + i {
+            color: lighten($disable-text-color, 25%) !important;
+            cursor: $cursor-disabled;
+        }
+    }
+
+    & + & {
+        margin-left: $margin-x;
+    }
+}

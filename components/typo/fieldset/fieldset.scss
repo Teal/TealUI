@@ -1,0 +1,25 @@
+@import "configs";
+
+.x-fieldset {
+    min-width: 0;
+    border: 0;
+    padding: 0;
+
+    @-moz-document url-prefix() {
+        & {
+            display: table-cell;
+        }
+    }
+
+    legend {
+        display: block;
+        margin-bottom: $margin-y-small;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid $border-color;
+        padding: $padding-y 0;
+        color: $text-color-light;
+        font-size: $font-size-large;
+        line-height: $line-height-small;
+    }
+}

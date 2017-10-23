@@ -1,0 +1,253 @@
+@import "configs";
+
+$h1-font-size: 2.125rem !default;
+$h2-font-size: 1.75rem !default;
+$h3-font-size: 1.5rem !default;
+$h4-font-size: 1.25rem !default;
+$h5-font-size: 1rem !default;
+$h6-font-size: .875rem !default;
+
+$link-color: $primary-color !default;
+$link-color-hover: darken($primary-color, 14%) !default;
+$link-decoration: none !default;
+$link-decoration-hover: underline !default;
+
+$code-font-size: 95% !default;
+$code-padding: .2rem .4rem !default;
+$code-text-color: #e75242 !default;
+$code-background-color: $background-color-dark !default;
+
+$kbd-text-color: #fff !default;
+$kbd-background-color: #22272d !default;
+
+input, button, textarea, select, optgroup {
+    margin: 0; // FF、SF：统一表单元素默认边距。
+    font: inherit; // 统一表单元素默认字体。
+}
+
+// 修复中文和输入框垂直未对齐问题。
+input[type=checkbox], input[type=radio], img {
+    vertical-align: middle;
+}
+
+// SF：删除默认的搜索框圆角样式。
+input[type=search] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+}
+
+// FF 4+：删除按钮自带的 2px 边距。
+input::-moz-focus-inner, button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+// IOS：修复无法更改按钮样式的BUG。
+// AN 4 WK：追加 html 限定以避免无法显示 <audio> 和 <video> 的 BUG。
+html input[type=button], input[type=reset], input[type=submit], button {
+    -webkit-appearance: button;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button; // IOS：修复无法更改上传按钮样式 的 BUG。
+    font: inherit; // 统一表单元素默认字体。
+}
+
+textarea {
+    vertical-align: top; // 令文本域默认和文字对齐方式。
+    resize: vertical; // 令用户只能调整多行文本框高度以避免破坏页面布局。
+}
+
+// 触屏：禁止鼠标事件的 300ms 延时。
+a, label, input, button, textarea, select, area, summary {
+    touch-action: manipulation;
+}
+
+// 删除链接内图片边框。
+img {
+    border-style: none;
+}
+
+// IE 6-11、SF、FF 2-21：支持 HTML5 <template>。
+// 隐藏缺少 controls 的 <audio>。
+template, audio:not([controls]) {
+    display: none;
+}
+
+// IE 10-：支持 HTML5 hidden 属性。
+[hidden] {
+    display: none !important;
+}
+
+// IE 9+：隐藏 <svg> 超出画布部分。
+svg:not(:root) {
+    overflow: hidden;
+}
+
+// 避免 <sub> 和 <sup> 影响行高。
+sub, sup {
+    line-height: 0;
+}
+
+// IE10+：避免 <meta name="viewport"> 在有些时候不生效的问题。
+@at-root {
+    @-ms-viewport {
+        width: device-width;
+    }
+}
+
+html {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); // WK：隐藏触摸时的灰色阴影。
+    -webkit-text-size-adjust: 100%; // IOS、IE：避免设备方向改变后字体大小更改影响布局。
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar; // IE11+：避免设置 @viewport 导致滚动条消失。
+    font-size: $font-size;
+}
+
+body {
+    background-color: $background-color; // 覆盖系统默认背景。
+    color: $text-color;
+    font-family: $font-family;
+    font-weight: $font-weight;
+    line-height: $line-height;
+}
+
+body, ul ul, ul ol, ol ul, ol ol, dd, th, td {
+    margin: 0;
+}
+
+p, ul, ol, dl, table, pre, hr, blockquote, figure, fieldset, address {
+    margin: 0 0 $margin-y;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: $margin-y-large 0 $margin-y-small;
+    color: $text-color-dark;
+    font-weight: $font-weight-large;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+h1 {
+    font-size: $h1-font-size;
+}
+
+h2 {
+    font-size: $h2-font-size;
+}
+
+h3 {
+    font-size: $h3-font-size;
+}
+
+h4 {
+    font-size: $h4-font-size;
+}
+
+h5 {
+    font-size: $h5-font-size;
+}
+
+h6 {
+    font-size: $h6-font-size;
+}
+
+p, li, dt, dd {
+    line-height: $line-height-large; // 中文：多行文本增加行距更美观。
+}
+
+dt {
+    font-weight: bold;
+
+    dd + & {
+        margin-top: $margin-y-small;
+    }
+}
+
+table {
+    empty-cells: show;
+    border-spacing: 0; // 删除默认边距。
+    border-collapse: collapse; // 禁止双边框。
+}
+
+th, td {
+    border: 1px solid $border-color;
+    padding: $padding-y $padding-x;
+    text-align: left;
+}
+
+pre, code, kbd {
+    border-radius: $border-radius-small;
+    padding: $code-padding;
+    background-color: $code-background-color;
+    color: $code-text-color;
+    font-family: $font-family-monospace;
+    font-size: $code-font-size;
+}
+
+pre {
+    padding: $padding-y $padding-x;
+    color: inherit;
+
+    code {
+        border-radius: 0;
+        padding: 0;
+        background-color: transparent;
+        color: inherit;
+    }
+}
+
+hr {
+    box-sizing: content-box; // FF：统一浏览器行为。
+    height: 0;
+    overflow: visible; // IE、Edge：显示可见部分。
+    border-width: 1px 0 0;
+    border-style: solid;
+    border-color: $border-color;
+}
+
+address {
+    font-style: normal; // 统一为非斜体。
+}
+
+a {
+    -webkit-text-decoration-skip: objects; // IOS 8+、SF 8+：删除触摸时的下划线。
+    background-color: transparent; // IE10：删除激活时的灰色。
+    color: $link-color;
+    text-decoration: $link-decoration;
+
+    &:hover {
+        color: $link-color-hover;
+        text-decoration: $link-decoration-hover;
+    }
+
+    &:not([href]):not([tabindex]) {
+        color: inherit; // 非链接的 a 标签不需要链接样式。
+        text-decoration: inherit;
+    }
+}
+
+small {
+    color: $text-color-light;
+    font-size: $font-size-small;
+    font-weight: $font-weight;
+}
+
+kbd {
+    background-color: $kbd-background-color;
+    color: $kbd-text-color;
+}
+
+::placeholder {
+    color: $text-color-light;
+}

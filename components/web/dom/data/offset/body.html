@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>body</title>
+		<style type="text/css" media="screen">
+			body { margin: 1px; padding: 5px; }
+			#marker { position: absolute; border: 2px solid #000; width: 50px; height: 50px; background: #ccc; }
+		</style>
+		<script src="../../../../system/core/assets/scripts/base.js"></script>
+		<script src="../../../../system/dom/assets/scripts/base.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			Dom.ready(function() {
+				Dom.get(document.body).on('click', function() {
+					Dom.get('marker').setOffset( this.getOffset() );
+					return false;
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="marker"></div>
+	</body>
+</html>

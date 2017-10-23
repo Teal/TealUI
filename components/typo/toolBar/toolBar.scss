@@ -1,0 +1,29 @@
+@import "configs";
+
+.x-toolbar {
+    color: $text-color-light;
+
+    a {
+        margin: 0 $spacer-large 0 0;
+        color: $text-color-light;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        &:hover {
+            color: $primary-color;
+            text-decoration: none;
+            transition: color $duration;
+        }
+    }
+
+    &-right {
+        float: right;
+    }
+
+    &-active {
+        color: $primary-color !important;
+        font-weight: bold;
+    }
+}

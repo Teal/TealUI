@@ -1,0 +1,65 @@
+@import "configs";
+
+.x-pagination {
+    @include clear();
+    margin: $margin-y 0;
+    text-align: center;
+
+    & &-sizechanger {
+        width: 4rem;
+    }
+
+    &-header {
+        float: left;
+        text-align: left;
+    }
+
+    &-footer {
+        float: right;
+        margin-bottom: 0;
+        margin-left: $margin-x;
+
+        input {
+            background-color: transparent;
+        }
+
+        .x-textbox {
+            width: 4.5rem;
+        }
+    }
+
+    &-body {
+        @include screen(large) {
+            float: right;
+        }
+
+        a {
+            display: inline-block;
+            margin: 0 $margin-x-small / 2;
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
+            padding: $padding-y $padding-x; // background-color: $background-color-dark;
+            color: $text-color;
+            transition: color $duration, background-color $duration;
+
+            &:hover {
+                color: $primary-color;
+                text-decoration: none;
+            }
+        }
+    }
+
+    &-active {
+        border-color: $focus-border-color !important;
+        background-color: $background-color-light !important;
+        color: $primary-color !important;
+    }
+
+    @include size {
+        &-body a {
+            border-radius: $border-radius-size;
+            padding: $padding-y-size $padding-x-size;
+            font-size: $font-size-size;
+        }
+    }
+}

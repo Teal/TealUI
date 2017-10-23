@@ -1,0 +1,100 @@
+@import "configs";
+
+.x-list {
+    padding: 0;
+    list-style: none;
+
+    &-bordered {
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+
+        > li {
+            box-sizing: border-box;
+            padding-left: $padding-x;
+            padding-right: $padding-x;
+        }
+    }
+
+    &-baseline {
+        > li {
+            padding-top: $padding-y;
+            padding-bottom: $padding-y;
+
+            ~ li {
+                border-top: 1px solid $border-color;
+            }
+        }
+    }
+
+    &-striped {
+        > li:nth-child(even) {
+            background-color: lighten($header-background-color, 1%);
+        }
+    }
+
+    &-ellipsis {
+        > li {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    &-h {
+        @include clear();
+
+        > li {
+            float: left;
+        }
+    }
+
+    &-space {
+        > li ~ li {
+            margin-left: $margin-x;
+        }
+    }
+
+    &-menu {
+        li {
+            padding: 0;
+
+            a {
+                display: block;
+                padding: $padding-y $padding-x;
+                transition: background-color $duration;
+
+                &:hover {
+                    background-color: $hover-background-color;
+                    text-decoration: none;
+                }
+            }
+
+            &:first-child a {
+                border-radius: $border-radius $border-radius 0 0;
+            }
+
+            &:last-child a {
+                border-radius: 0 0 $border-radius $border-radius;
+            }
+        }
+
+        h4, h5, p {
+            margin: 0;
+        }
+    }
+
+    &-selected a {
+        background-color: $selected-background-color !important;
+        color: $selected-text-color !important;
+
+        .x-badge {
+            background-color: $main-background-color;
+            color: $selected-background-color;
+        }
+    }
+
+    .x-badge {
+        float: right;
+    }
+}

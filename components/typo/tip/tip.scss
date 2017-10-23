@@ -1,0 +1,9 @@
+@import "configs";
+
+.x-tip {
+    color: $text-color-light;
+
+    @include state {
+        color: $state-text-color;
+    }
+}
