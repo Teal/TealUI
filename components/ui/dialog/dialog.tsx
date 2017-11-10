@@ -80,10 +80,11 @@ export default class Dialog extends Control {
             if (!dom.contains(document.body, this.elem)) {
                 document.body.appendChild(this.elem);
             }
-            if (this.hidden) {
+            if (this.hidden || dom.isHidden(this.find(".x-panel") as HTMLElement)) {
                 dom.show(this.elem);
                 dom.show(this.find(".x-panel") as HTMLElement, this.animation, undefined, this.duration, undefined, target);
                 dom.addClass(document.body, "x-dialog-open");
+                this.onShow && this.onShow(this);
             }
         });
     }
@@ -98,26 +99,31 @@ export default class Dialog extends Control {
         } else {
             target = this.target;
         }
-        if (!this.onBeforeClose || this.onBeforeClose() !== false) {
+        if (!this.onBeforeClose || this.onBeforeClose(this) !== false) {
             this.elem.style.backgroundColor = "transparent";
             dom.hide(this.find(".x-panel") as HTMLElement, this.animation, () => {
                 this.elem.style.backgroundColor = "";
                 dom.removeClass(document.body, "x-dialog-open");
                 this.renderTo(null);
-                this.onClose && this.onClose();
+                this.onClose && this.onClose(this);
             }, this.duration, undefined, target);
         }
     }
 
     /**
+     * 显示对话框事件。
+     */
+    onShow: (sender: this) => void;
+
+    /**
      * 即将关闭对话框事件。
      */
-    onBeforeClose: () => boolean | void;
+    onBeforeClose: (sender: this) => boolean | void;
 
     /**
      * 关闭对话框事件。
      */
-    onClose: () => void;
+    onClose: (sender: this) => void;
 
     private _draggable: Draggable;
 

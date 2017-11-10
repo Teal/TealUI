@@ -51,4 +51,18 @@ export default class Select extends ComboBox {
         this.input.value = value;
     }
 
+    get defaultValue() {
+        if ((this as any)._selectedItem) {
+            return (this as any)._selectedItem.key;
+        }
+        return this.input.defaultValue;
+    }
+    set defaultValue(value) {
+        const item = (this as any)._selectedItem = this.menu.findItemByKey(value);
+        if (item) {
+            value = item.content;
+        }
+        this.input.defaultValue = value;
+    }
+
 }

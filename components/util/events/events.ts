@@ -22,6 +22,8 @@ export default class EventEmitter {
         const eventHandlers = events[eventName];
         if (Array.isArray(eventHandlers)) {
             eventHandlers.push(eventHandler);
+        } else if (events[eventName] != null) {
+            events[eventName] = [events[eventName], eventHandler] as any
         } else {
             events[eventName] = eventHandler;
         }

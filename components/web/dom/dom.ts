@@ -660,8 +660,8 @@ export function getRect(elem: Element | Document) {
     const html = doc.documentElement;
     const r = getScroll(doc) as Rect;
     if (elem.nodeType === 9) {
-        r.width = html.clientWidth;
-        r.height = html.clientHeight;
+        r.width = Math.min(html.clientWidth, document.body.clientWidth);
+        r.height = Math.min(html.clientHeight, document.body.clientHeight);
     } else {
         const rect = (elem as Element).getBoundingClientRect();
         r.x += rect.left - html.clientLeft;

@@ -10,6 +10,8 @@ import { getPinYinOfChar } from "util/pinyin";
  */
 export default class Suggest extends Select {
 
+    validateEvent = "blur";
+
     protected init() {
         super.init();
         this.input.readOnly = false;
@@ -59,9 +61,14 @@ export default class Suggest extends Select {
         return false;
     }
 
+    /**
+     * 是否允许自定义项。
+     */
+    allowCustom: boolean;
+
     protected validate(value: this["value"]) {
         const b = super.validate(value);
-        if (b) {
+        if (b || this.allowCustom) {
             return b;
         }
         if (this.menu.findItemByKey(value)) {

@@ -60,7 +60,7 @@ export default class Pagination extends Control {
     /**
      * 页面切换器显示的页码。
      */
-    @bind sizeChangerItems = [10, 20, 30];
+    @bind sizeChangerItems = [10, 20, 30, 50, 100];
 
     /**
      * 是否显示上一页。

@@ -227,7 +227,7 @@ export class Ajax {
                     data = responseError;
                 }
             } else {
-                data = xhr.statusText;
+                data = xhr.statusText || "Access denied";
             }
         } catch (firefoxAccessError) {
             this.progress(firefoxAccessError, -5);

@@ -49,6 +49,7 @@ export class Movable {
      * 启用移动效果。
      */
     enable() {
+        this.disable();
         dom.on(this.elem, "pointerdown", this.handlePointerDown, this, { passive: false });
     }
 

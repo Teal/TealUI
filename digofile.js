@@ -97,7 +97,7 @@ exports.build = () => {
             }
 
             // 自动生成 js 对应的文档。
-            if (task !== "dist" && file.test("./components") && !file.test("*-test.*") && !digo.existsFile(digo.setExt(file.srcPath, ".md"))) {
+            if (task !== "dist" && file.test("./components") && !file.test("index.*") && !file.test("*-test.*") && !digo.existsFile(digo.setExt(file.srcPath, ".md"))) {
                 const docFile = new digo.File();
                 docFile.buildMode = file.buildMode;
                 docFile.path = digo.setExt(file.srcPath, ".md");
@@ -112,10 +112,24 @@ exports.build = () => {
     }
     if (task === "dist") {
         // 最终发布时将引用模块路径全改为相对格式。
+        const packageJson = require("./package");
         list.src("*.ts", "*.tsx", "*.js", "*.jsx", "!*.d.ts").pipe(file => {
             file.content = file.content.replace(/(require\((['"]))(.*?)(\2\))/g, (all, start, quote, name, end) => {
-                return start + (/^\./.test(name) ? "" : (digo.relativePath(file.dir, "components") || ".") + "/") + name.replace(/\.scss(\?|$)/i, ".css$1") + end;
+                return start + (/^\./.test(name) || isKnownPackage(name) ? "" : (digo.relativePath(file.dir, "components") || ".") + "/") + name.replace(/\.scss(\?|$)/i, ".css$1") + end;
             });
+
+            function isKnownPackage(name) {
+                if (packageJson.dependencies && name in packageJson.dependencies) {
+                    return true;
+                }
+                if (packageJson.optionalDependencies && name in packageJson.optionalDependencies) {
+                    return true;
+                }
+                if (packageJson.devDependencies && name in packageJson.devDependencies) {
+                    return true;
+                }
+                return false;
+            }
         });
     }
 
@@ -169,6 +183,8 @@ exports.build = () => {
                 root: "..",
                 dir: rootDir,
                 title: getTitle(rootDir),
+                header: "",
+                footer: "",
                 init: {
                     root: "..",
                     dir: rootDir
@@ -321,34 +337,78 @@ exports.index = () => {
  * 创建一个 TypeScript 编译器。
  */
 function TSC() {
-    const compilerOptions = require("./components/tsconfig").compilerOptions;
-    compilerOptions.sourceMap = digo.sourceMap;
-    if (task === "publish" || task === "dist") {
-        compilerOptions.target = "es5";
-    }
-    if (task === "dist") {
-        compilerOptions.module = "commonjs";
-    }
-
-    const tsc = createTypeScriptCompiler(compilerOptions, {
-        log: digo.log,
-        trace: digo.verbose,
-        error: digo.error,
-        getCurrentDirectory() {
-            return "components";
-        }
-    });
+    const tscInstances = {};
     if (digo.watcher) {
         digo.watcher.on("rebuild", (changes, deletes) => {
             for (const path of changes) {
-                tsc.changed(path);
+                getTSCFor(path).changed(path);
             }
             for (const path of deletes) {
-                tsc.changed(path);
+                getTSCFor(path).changed(path);
             }
         });
     }
-    return tsc;
+    return {
+        add(path) {
+            return getTSCFor(path).add(path);
+        },
+        remove(path) {
+            return getTSCFor(path).remove(path);
+        },
+        changed(path) {
+            return getTSCFor(path).changed(path);
+        },
+        getEmitOutput(path) {
+            return getTSCFor(path).getEmitOutput(path);
+        },
+        getProgram(path) {
+            return getTSCFor(path).getProgram(path);
+        },
+        getSourceFile(path) {
+            return getTSCFor(path).getSourceFile(path);
+        },
+        transpile(path, content, options) {
+            return getTSCFor(path).transpile(path, content, options);
+        }
+    };
+
+    function getTSCFor(path) {
+        return getOrCreateTSC(digo.getDir(path));
+    }
+
+    function getOrCreateTSC(dir) {
+        if (tscInstances[dir]) {
+            return tscInstances[dir];
+        }
+
+        const tsconfigPath = digo.resolvePath(dir, "tsconfig.json");
+        if (!digo.existsFile(tsconfigPath)) {
+            const parentDir = digo.getDir(dir);
+            if (!digo.inDir("", parentDir)) {
+                return tscInstances[dir] = getOrCreateTSC("./components/tsconfig");
+            } else {
+                return tscInstances[dir] = getOrCreateTSC(parentDir);
+            }
+        }
+        const compilerOptions = require(tsconfigPath).compilerOptions;
+
+        compilerOptions.sourceMap = digo.sourceMap;
+        if (task === "publish" || task === "dist") {
+            compilerOptions.target = "es5";
+        }
+        if (task === "dist") {
+            compilerOptions.module = "commonjs";
+        }
+
+        return tscInstances[dir] = createTypeScriptCompiler(compilerOptions, {
+            log: digo.log,
+            trace: digo.verbose,
+            error: digo.error,
+            getCurrentDirectory() {
+                return dir;
+            }
+        });
+    }
 
     /**
      * 创建一个 TypeScript 编译器服务。
@@ -456,7 +516,7 @@ function TSC() {
                 this.add(path);
                 return this.getProgram().getSourceFile(path);
             },
-            transpile(content, options) {
+            transpile(path, content, options) {
                 let postfix = "";
                 options.compilerOptions = Object.assign({}, compilerOptions, {
                     sourceMap: false
@@ -517,7 +577,7 @@ function MDC() {
             return `<dl id="doc_toc">${html}\n</dl>\n`;
         },
         html(html, opt) {
-            return transpileScripts(html, () => `doc_script_${++opt._scriptId || (opt._scriptId = 1)}`);
+            return transpileScripts(opt.path, html, () => `doc_script_${++opt._scriptId || (opt._scriptId = 1)}`);
         },
         code(info, source, opt) {
             const infos = info.split(/\s+/);
@@ -569,11 +629,11 @@ function MDC() {
 
                     source = source.replace(/__root__/g, currentDemoId);
                     if (/^[jt]sx?$/.test(lang)) {
-                        source = `<script>\n${get(TSC).transpile(source, { moduleName: currentDemoId })}\n</script>`;
+                        source = `<script>\n${get(TSC).transpile(opt.path, source, { moduleName: currentDemoId })}\n</script>`;
                     } else if (lang === "css") {
                         source = `<style>\n${source}\n</style>`;
                     } else {
-                        source = transpileScripts(source, () => currentDemoId);
+                        source = transpileScripts(opt.path, source, () => currentDemoId);
                     }
 
                     demoHtml += sources.length > 1 ? `\n<div class="doc-col${doc}" id="${currentDemoId}">\n${source}\n</div>` : source;
@@ -705,8 +765,8 @@ function MDC() {
                 }
             }
 
-            const apiDoc = file.api ? createApiDoc(file.api, mdOptions.appendToc, file.root) : "";
-            const doc = mdc.transpile(file.content, mdOptions);
+            const apiDoc = file.api ? createApiDoc(file.api, mdOptions.appendToc, file.root, path) : "";
+            const doc = mdc.transpile(path, file.content, mdOptions);
             const imports = (file.import || []).concat(file.module).filter(x => x);
 
             return {
@@ -750,7 +810,8 @@ function MDC() {
                         ${file.prev || file.next ? `<nav id="doc_pager">
                             ${file.prev ? `<a href="${file.root}/${file.dir}/${file.prev.href}" title="${mdc.encodeHTML(file.prev.title)}" id="doc_pager_prev"><i class="doc-icon">⮜</i> ${mdc.encodeHTML(file.prev.title)}</a>` : ""}
                             ${file.next ? `<a href="${file.root}/${file.dir}/${file.next.href}" title="${mdc.encodeHTML(file.next.title)}" id="doc_pager_next">${mdc.encodeHTML(file.next.title)} <i class="doc-icon">⮞</i></a>` : ""}
-                        </nav>` : ""}`
+                        </nav>` : ""}`,
+                    footer: ""
                 }),
                 deps: file.jsPath ? [file.jsPath] : null
             };
@@ -793,7 +854,7 @@ function MDC() {
             result.content = content;
             result.created = !content;
 
-            const jsPath = result.jsPath = pick([digo.setExt(path, ".js"), digo.setExt(path, ".ts"), digo.setExt(path, ".tsx"), digo.setExt(path, ".d.ts")]);
+            const jsPath = result.jsPath = pick([digo.setExt(path, ".js"), digo.setExt(path, ".jsx"), digo.setExt(path, ".ts"), digo.setExt(path, ".tsx"), digo.setExt(path, ".d.ts")]);
             if (jsPath && result.jsdoc !== false) {
                 const api = result.api = parseDoc(jsPath);
                 if (api) {
@@ -828,13 +889,13 @@ function MDC() {
         }
     });
 
-    function transpileScripts(source, createModuleName) {
+    function transpileScripts(path, source, createModuleName) {
         return source.replace(/(\bon(?:[a-z]+)\s*=\s*(['"]))([\s\S]*?)(\2)|(<script[^>]*>)([\s\S]*?)(<\/script>)/gi, (all, start1, quote1, source1, end1, start2, source2, end2) => {
             const tsc = get(TSC);
             if (start2) {
-                return `${start2}${tsc.transpile(source2, { moduleName: createModuleName() })}${end2}`;
+                return `${start2}${tsc.transpile(path, source2, { moduleName: createModuleName() })}${end2}`;
             }
-            return `${start1}${tsc.transpile(source1, { moduleName: createModuleName() }).replace(quote1 === '"' ? /"/g : /'/g, quote1 === '"' ? "&quot;" : "$#39;")}${end1}`;
+            return `${start1}${tsc.transpile(path, source1, { moduleName: createModuleName() }).replace(quote1 === '"' ? /"/g : /'/g, quote1 === '"' ? "&quot;" : "$#39;")}${end1}`;
         })
     }
 
@@ -861,7 +922,7 @@ function MDC() {
         return `require(["${data.module}"], function (${moduleName}) {\n${code}\n\n});\n`;
     }
 
-    function createApiDoc(data, toc, root) {
+    function createApiDoc(data, toc, root, path) {
         if (!data.members) {
             return "";
         }
@@ -891,7 +952,7 @@ function MDC() {
                         html += `</p>`;
                     }
 
-                    html += mdc.transpile(classMember.summary);
+                    html += mdc.transpile(path, classMember.summary);
                     html += typeParametersDetail(classMember.typeParameters);
                 } else if (namespaces.length > 1) {
                     html += header(2, "global", "全局");
@@ -915,7 +976,7 @@ function MDC() {
                                 <th class="doc-api-summary">描述</th>
                             </tr>`;
                             namespace.propteries.forEach((member, key) => {
-                                const summary = mdc.transpile(member.summary);
+                                const summary = mdc.transpile(path, member.summary);
                                 html += `<tr id="${memberAnchor(classMember, member.name)}">
                                     <td>
                                         ${sourceLink(member, " doc-api-more")}
@@ -943,7 +1004,7 @@ function MDC() {
                                 ${hasExtends ? `<th class="doc-api-extends">继承自</th>` : ""}
                             </tr>`;
                             namespace.propteries.forEach((member, key) => {
-                                const summary = mdc.transpile(`${accessibility(member)}${member.const ? `<strong>(常量)</strong>` : member.readOnly ? `<strong>(只读)</strong>` : ""}${member.summary || ""}`);
+                                const summary = mdc.transpile(path, `${accessibility(member)}${member.const ? `<strong>(常量)</strong>` : member.readOnly ? `<strong>(只读)</strong>` : ""}${member.summary || ""}`);
                                 const parent = hasExtends && classMember.extendedPototypes && classMember.extendedPototypes.indexOf(member) >= 0 && typeToLink(member.override || member.parent, member.name);
                                 const indexer = member.memberType === "indexer";
                                 html += `<tr id="${memberAnchor(classMember, indexer ? "indexer" : member.name)}">
@@ -977,7 +1038,7 @@ function MDC() {
                             ${hasExtends ? `<th class="doc-api-extends">继承自</th>` : ""}
                         </tr>`;
                         namespace.methods.forEach((member, key) => {
-                            const summary = mdc.transpile(`${methodModifier(member)}${member.summary || ""}`);
+                            const summary = mdc.transpile(path, `${methodModifier(member)}${member.summary || ""}`);
                             const parent = hasExtends && classMember.extendedPototypes && classMember.extendedPototypes.indexOf(member) >= 0 && typeToLink(member.override || member.parent, member.name);
                             html += `<tr id="${memberAnchor(classMember, member.name)}">
                                 <td>
@@ -1082,7 +1143,7 @@ function MDC() {
             if (member.overloads) {
                 return member.overloads.map((overload, index) => method(classMember, overload)).join(`\n<hr>\n`);
             }
-            return `${mdc.transpile(methodModifier(member) + (member.summary || ""))}
+            return `${mdc.transpile(path, methodModifier(member) + (member.summary || ""))}
                 ${typeParametersDetail(member.typeParameters)}
                 ${member.thisType ? `<p>this：<code>${typeToLink(member.thisType)}</code></p>` : ""}
                 ${member.parameters && member.parameters.length ? `<table>
@@ -1109,7 +1170,7 @@ function MDC() {
                     </table>` : ""}
                 <h4>返回值</h4>
                 <p>类型：<code>${typeToLink(member.returnType)}</code></p>
-                ${mdc.transpile(member.returnSummary)}
+                ${mdc.transpile(path, member.returnSummary)}
                 ${detail(classMember, member)}`;
         }
 
@@ -1150,10 +1211,10 @@ function MDC() {
         function detail(classMember, member) {
             let html = "";
             if (member.description) {
-                html += `<h4>说明</h4>${mdc.transpile(member.description)}`;
+                html += `<h4>说明</h4>${mdc.transpile(path, member.description)}`;
             }
             if (member.examples && member.examples.length) {
-                html += `<h4>示例</h4>${member.examples.map(example => mdc.transpile(example.indexOf('```') < 0 ? "```jsx\n" + example + "\n```" : example)).join("\n")}`;
+                html += `<h4>示例</h4>${member.examples.map(example => mdc.transpile(path, example.indexOf('```') < 0 ? "```jsx\n" + example + "\n```" : example)).join("\n")}`;
             }
             if (member.sees && member.sees.length) {
                 html += `<h4>参考</h4><ul>${member.sees.map(see => `<li>${digo.isAbsoluteUrl(see) ? `<a href="${mdc.encodeHTML(see)}" target="_blank" class="doc-external">${mdc.encodeHTML(see)}</a>` : `<a href="#api/${(classMember ? mdc.toAnchor(classMember.name) + "/" : "")}${mdc.encodeHTML(mdc.toAnchor(see))}">${mdc.encodeHTML(see)}</a>`}</li>`).join("\n")}</ul>`;
@@ -1166,7 +1227,7 @@ function MDC() {
         const tsc = get(TSC);
         try {
             const sourceFile = tsc.getSourceFile(path);
-            const doc = tsDocParser.parseProgram(tsc.getProgram(), [sourceFile]);
+            const doc = tsDocParser.parseProgram(tsc.getProgram(path), [sourceFile]);
             return doc.sourceFiles[0];
         } catch (e) {
             digo.error({
@@ -1444,7 +1505,8 @@ function MDC() {
             });
 
         const mdc = {
-            transpile(content, options) {
+            transpile(path, content, options = {}) {
+                options.path = path;
                 return content ? md.render(content, options) : "";
             },
             toAnchor: uslug,
@@ -1500,7 +1562,7 @@ function match(input, pattern, index) {
  * @param data 模板数据。
  */
 function renderTpl(tpl, data) {
-    return tpl.replace(/__(\w+)__/g, (all, field) => data[field] || "");
+    return tpl.replace(/__(\w+)__/g, (all, field) => data[field] == undefined ? all : data[field]);
 }
 
 /**

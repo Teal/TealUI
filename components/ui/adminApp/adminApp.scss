@@ -1,0 +1,124 @@
+@import "configs";
+
+$header-padding: $margin-y-large / 2;
+$header-height: $header-padding * 2 + $line-height * 1rem;
+$sidebar-width: 15rem;
+$tab-height: 2rem;
+
+.x-adminapp {
+
+    &-header {
+        width: 100%;
+        height: $header-height;
+        background-color: $primary-color;
+        color: #fff;
+
+        a, a:hover {
+            color: $selected-text-color;
+            text-decoration: none;
+            vertical-align: top;
+        }
+    }
+
+    &-button {
+        display: inline-block;
+        padding: $header-padding $header-padding + ($line-height * 1rem - 1rem) / 2;
+        background-color: lighten($primary-color, 14%) !important;
+        line-height: $line-height * 1rem;
+        text-align: center;
+    }
+
+    &-text {
+        display: inline-block;
+        padding: $header-padding $padding-x-small;
+
+        img {
+            margin-top: -.2rem;
+            margin-right: $spacer;
+            height: $line-height * 1rem;
+        }
+    }
+
+    &-right {
+        float: right;
+    }
+
+    &-collapse {
+        width: 1.5rem;
+
+        &::after {
+            content: "☳";
+            font-family: x-icon;
+        }
+    }
+
+    &-collapsed &-collapse::after {
+        content: "☱";
+    }
+
+    &-container {
+        position: absolute;
+        top: $header-height;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &-sidebar {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: $sidebar-width;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 10px 0 35px -10px rgba(6, 71, 126, .1);
+    }
+
+    &-main {
+        position: absolute;
+        top: 0;
+        left: $sidebar-width + $margin-x;
+        right: 0;
+        height: 100%;
+        transition: left $duration;
+    }
+
+    &-collapsed &-main {
+        left: 3.5rem + $margin-x !important;
+    }
+
+    &-tabs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: $margin-x + .35rem;
+        z-index: 1;
+        height: $tab-height;
+        padding-top: $margin-y;
+        background: $background-color;
+    }
+
+    &-body {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: $margin-y *2 + $tab-height $margin-x $margin-y 0;
+    }
+
+    &-splitter {
+        position: absolute;
+        top: 0;
+        left: $sidebar-width;
+        z-index: $z-index-fixed;
+        width: 6px;
+        height: 100%;
+        background-color: #000;
+        cursor: col-resize;
+        opacity: 0;
+    }
+}

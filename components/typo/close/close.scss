@@ -12,7 +12,7 @@
 
     &:hover, &:focus {
         background-color: $error-text-color;
-        color: $selected-text-color;
+        color: $selected-text-color !important;
         transition: background-color $duration;
     }
 

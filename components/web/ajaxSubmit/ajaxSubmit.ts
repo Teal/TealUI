@@ -10,16 +10,20 @@ import ajax, { Ajax } from "web/ajax";
  * @example ajaxSubmit(document.getElementById("form"))
  */
 export default function ajaxSubmit(elem: HTMLFormElement, success?: Ajax["success"], error?: Ajax["error"], options?: Partial<Ajax>) {
-    return ajax({
+    const data = formData(elem);
+    options = {
         type: elem.method,
         url: elem.action,
-        contentType: elem.enctype,
         withCredentials: true,
-        data: formData(elem),
+        data: data,
         success: success,
         error: error,
         ...options
-    });
+    };
+    if(!(data instanceof FormData) && !options.contentType) {
+        options.contentType = elem.enctype;
+    }
+    return ajax(options);
 }
 
 /**

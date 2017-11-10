@@ -19,7 +19,7 @@ import Button from "ui/button";
 
 render(
     __root__,
-    <Form class="x-form-horizontal" method="GET" onValidate={()=>false}>
+    <Form class="x-form-h" method="GET" onValidate={()=>false}>
         <div class="x-form-field">
             <label class="x-form-label">账号名<span class="x-tip x-tip-error">*</span>:</label>
             <div class="x-form-input"><TextBox name="uid" value="默认值"></TextBox></div>

@@ -11,7 +11,7 @@ __description__
 
 ```jsx demo
 import { VNode, render } from "ui/control";
-import __namePascal__ from "__path__";
+import __namePascal__ from "__moduleName__";
 
 render(
     __root__,

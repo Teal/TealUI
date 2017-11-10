@@ -54,6 +54,7 @@ UI 组件:
     - ui/picker
     - ui/comboBox
     - ui/select
+    - ui/multiSelect
     - ui/suggest
     - ui/listBox
     - ui/multiListBox
@@ -140,6 +141,7 @@ UI 组件:
     - web/ctrlEnter
     - web/disableTab
     - web/hover
+    - web/active
     - web/hashChange
     - #web/keys
   交互:

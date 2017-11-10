@@ -27,6 +27,11 @@ export default class Form extends Control {
     @bind("", "method") method: string;
 
     /**
+     * 改变事件。
+     */
+    @bind("", "change") onChange: (e: Event, sender: this) => void;
+
+    /**
      * 是否异步提交表单。
      */
     async: boolean;
@@ -137,11 +142,11 @@ export default class Form extends Control {
                 if (input instanceof CheckBox) {
                     if (input.value) {
                         if (Array.isArray(r[input.name])) {
-                            r[input.name].push(input.value);
+                            r[input.name].push(input.key);
                         } else if (input.name in r) {
-                            r[input.name] = [r[input.name], input.value];
+                            r[input.name] = [r[input.name], input.key];
                         } else {
-                            r[input.name] = input.value;
+                            r[input.name] = input.key;
                         }
                     }
                 } else {

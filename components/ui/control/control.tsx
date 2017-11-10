@@ -607,10 +607,14 @@ export class VNode {
                             const oldChildResult = oldChild ? oldChild.result : null;
                             if (newChildResult instanceof Control) {
                                 newChildResult.renderTo(result, oldChildResult);
-                            } else if (oldChildResult) {
-                                body.insertBefore(newChildResult, oldChildResult instanceof Control ? oldChildResult.elem : oldChildResult);
                             } else {
-                                body.appendChild(newChildResult);
+                                try {
+                                    if (oldChildResult) {
+                                        body.insertBefore(newChildResult, oldChildResult instanceof Control ? oldChildResult.elem : oldChildResult);
+                                    } else {
+                                        body.appendChild(newChildResult);
+                                    }
+                                } catch (e) { }
                             }
                         }
                     }
@@ -624,7 +628,9 @@ export class VNode {
                         if (oldChildResult instanceof Control) {
                             oldChildResult.renderTo(null);
                         } else {
-                            body.removeChild(oldChildResult);
+                            try {
+                                body.removeChild(oldChildResult);
+                            } catch (e) { }
                         }
                     }
                 }
@@ -739,7 +745,7 @@ export class VNode {
                 if (args) {
                     dom.setStyle(elem, args, value as string | number);
                 } else if (value == null || typeof value === "string") {
-                    elem.style.cssText = value;
+                    elem.style.cssText = value as string;
                 } else {
                     for (const key in value as { [key: string]: string | number }) {
                         dom.setStyle(elem, key, (value as { [key: string]: string | number })[key]);
@@ -782,14 +788,15 @@ export class VNode {
      * @return 如果需要强制更新则返回 true，否则返回 false。
      */
     static alwaysSet(type: VNode["type"], prop: string, target: VNode["result"]) {
-        switch (prop) {
-            case "value":
-            case "checked":
-            case "selected":
-                return true;
-            default:
-                return false;
-        }
+        return false;
+        // switch (prop) {
+        //     case "value":
+        //     case "checked":
+        //     case "selected":
+        //         return true;
+        //     default:
+        //         return false;
+        // }
     }
 
     /**

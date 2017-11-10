@@ -1,108 +1,122 @@
 @import "configs";
-.x-navmenu {
-    z-index: $z-index-dropdown;
-    height: 100%;
-    background-color: $background-color;
-    overflow: auto;
 
-    ul {
+$indent: 2.5rem;
+$max-indent-level: 5;
+
+.x-navmenu {
+    margin: 0;
+    padding: 0;
+    background-color: $main-background-color;
+
+    &, & ul {
         margin: 0;
         padding: 0;
         list-style: none;
-        ul {
-            a {
-                padding-left: 3.2rem; // background-color: lighten($active-background-color-dark, 5%);
-                background-color: transparent;
-            }
-            ul {
-                a {
-                    padding-left: 3.5rem;
-                }
-                ul {
-                    a {
-                        padding-left: 6rem;
-                    }
-                }
-            }
-        }
     }
+
     a {
         display: block;
+        overflow: hidden;
         border-right: 4px solid transparent;
-        padding: $margin-y-large / 2 $padding-x; // color: #9da5b3;
-        color: #333333;
-        white-space: pre;
-        transition: background-color $duration, color $duration, border-color $duration;
+        padding: $margin-y-large / 2 $padding-x + $spacer $margin-y-large / 2 $padding-x;
+        color: $text-color-dark;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: border-color $duration, background-color $duration, color $duration;
+
+        .x-icon {
+            line-height: 2rem;
+        }
+
+        span {
+            display: inline-block;
+        }
     }
-    a:hover, &-active > a {
-        border-right-color: $primary-color; // background-color: darken($active-background-color-dark, 7%);
-        background-color: $secondary-color; // color: $active-text-color;
-        color: #333333;
+
+    a:hover, &-selected > a, &.x-navmenu-collapsed li:hover > a {
+        background-color: $secondary-color !important;
+        color: $text-color-dark;
         text-decoration: none;
     }
-    &-body > &-active > a {
+
+    &-selected:not(&-collapsable) > a {
+        border-color: $primary-color;
+    }
+
+    > li > a {
+        background-color: darken($header-background-color, 3%);
         font-weight: 700;
-        color: $primary-color;
-        border-right-color: transparent;
     }
-    .x-icon-focus {
-        display: none;
+
+    ul:empty {
+        display: none !important;
     }
-    &-active {
-        //     .x-icon {
-        //         display: none;
-        //         color: $primary-color;
-        //     }
-        //     .x-icon-focus {
-        //         display: inline-block;
-        //     }
-        &:not(.x-navmenu-collapsable) {
-            background-color: $secondary-color;
+
+    $ul: "ul";
+    @for $i from 1 to $max-indent-level {
+        $ul: "#{$ul} ul";
+
+        "#{$ul} a" {
+            padding-left: $indent * $i;
         }
     }
-    > ul > li > a {
-        background-color: $background-color-dark;
-    }
-    &-popover {
-        position: absolute;
-        z-index: 9000000000;
-        display: none;
-        width: 15rem; // background-color: $active-background-color-dark;
-        background-color: #fefefe;
-        border: 1px solid $border-color;
-        a i:first-child,
-        a span:first-child {
-            margin-left: -1.2rem;
-        }
-        .x-navmenu-collapsable > a:before,
-        span {
-            display: inline !important;
-        }
-    }
-    &-title {
-        color: white;
-        span {
-            margin-left: 1rem;
-        }
-    }
-    &-min-title {
-        color: white;
-        display: none;
-    }
+
     &-collapsable {
-        > a:before {
-            content: ">";
+        > a::before {
+            content: "⮞";
+            margin-right: -$spacer * 2;
             float: right;
-            font-family: x-admin-font;
+            font-family: x-icon;
             transition: transform $duration;
             transform: rotate(90deg);
-            font-size: .8rem;
-            line-height: 1.5rem;
         }
     }
+
     &-collapsed {
-        > a:before {
+        > a::before {
             transform: rotate(0deg);
+        }
+
+        > ul {
+            display: none;
+        }
+    }
+
+    &-collapsing > ul {
+        display: block;
+    }
+
+    &.x-navmenu-collapsed {
+        width: 3.5rem;
+
+        > li.x-navmenu-selected > a {
+            border-color: $primary-color;
+        }
+
+        > li {
+            > a::before {
+                content: none;
+            }
+
+            > a span {
+                display: none;
+            }
+
+            > ul {
+                position: fixed;
+                overflow: auto;
+                z-index: $z-index-popup;
+                display: none;
+                width: $dropdown-max-width;
+                background-color: $main-background-color;
+                border: 1px solid $border-color;
+            }
+        }
+    }
+
+    &.x-navmenu-collapsing, &.x-navmenu-collapsed {
+        a {
+            text-overflow: clip;
         }
     }
 }

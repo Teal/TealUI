@@ -1,24 +1,26 @@
 ---
-version: 0.0.2
+version: 0.0.1
 author: xuld <xuld@vip.qq.com>
 import:
     - typo/reset
 ---
-# 选择框
-提供多个选项供用户选择。
+# 多选框
+多选框
+
+## 基本用法
 
 ```jsx demo
 import { VNode, render } from "ui/control";
 import { ListItem } from "ui/listBox";
-import Select from "ui/select";
+import MultiSelect from "ui/multiSelect";
 
 render(
     __root__,
-    <Select value="2">
+    <MultiSelect value="2">
         <ListItem key="1">A</ListItem>
         <ListItem key="2">B</ListItem>
         <ListItem key="3">C</ListItem>
         <ListItem key="4">D</ListItem>
-    </Select>
+    </MultiSelect>
 );
 ```

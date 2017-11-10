@@ -24,6 +24,11 @@ export default class CheckBox extends Input {
     @bind("@input", "checked") value: boolean;
 
     /**
+     * 默认是否选中。
+     */
+    @bind("@input", "defaultChecked") defaultValue: boolean;
+
+    /**
      * 键。
      */
     @bind("@input", "value") key: string;

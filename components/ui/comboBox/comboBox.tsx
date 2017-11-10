@@ -3,7 +3,7 @@ import { scrollIntoViewIfNeeded } from "web/scroll";
 import keyPress, { KeyPressOptions } from "web/keyPress";
 import Control, { VNode, bind, from } from "ui/control";
 import Picker from "ui/picker";
-import ListBox, { ListItem } from "ui/listBox";
+import ListBox, { ListItem, List } from "ui/listBox";
 import "typo/icon";
 
 /**
@@ -11,7 +11,7 @@ import "typo/icon";
  */
 export default class ComboBox extends Picker {
 
-    menu: ListBox;
+    menu: List;
 
     value: string;
 
@@ -44,7 +44,7 @@ export default class ComboBox extends Picker {
         this.selectedItem = value >= 0 ? this.items[value] : null;
     }
 
-    protected createMenu() {
+    protected createMenu(): Control {
         const menu = new ListBox();
         dom.on(menu.body, "pointermove", "li", (e, item) => {
             this.menu.selectedItem = from(item) as ListItem;
@@ -64,7 +64,7 @@ export default class ComboBox extends Picker {
     }
 
     get keyMappings(): KeyPressOptions {
-        const mappings = this.menu.keyMappings;
+        const mappings = (this.menu as ListBox).keyMappings;
         return {
             up: (e) => {
                 if (this.dropDown.hidden) {
@@ -87,7 +87,7 @@ export default class ComboBox extends Picker {
                     return false;
                 }
                 const item = this.menu.selectedItem;
-                if (item) this.menu.onSelect(item, e, this.menu);
+                if (item) (this.menu as ListBox).onSelect(item, e, this.menu as ListBox);
             },
             esc: () => {
                 if (this.dropDown.hidden) {

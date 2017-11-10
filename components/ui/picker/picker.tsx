@@ -62,7 +62,7 @@ export default class Picker extends TextBox {
             Object.assign(menu, this.menuOptions);
             if (this.resizeMode === "fitDropDown") {
                 dom.show(menu.elem);
-                dom.setRect(this.elem, { width: dom.getRect(menu.elem).width });
+                dom.setRect(this.elem, { width: dom.computeStyle(menu.elem, "width") });
             }
             dom.hide(menu.elem);
         }
@@ -92,8 +92,9 @@ export default class Picker extends TextBox {
      * - auto（默认）: 确保下拉菜单比文本框宽度大。
      * - fitInput: 下拉菜单适应文本框宽度。
      * - fitDropDown: 文本框适应下拉菜单宽度。
+     * - none：不处理下拉框大小。
      */
-    resizeMode: "auto" | "fitInput" | "fitDropDown";
+    resizeMode: "auto" | "fitInput" | "fitDropDown" | "none";
 
     get body() { return this.menu.body; }
 
@@ -168,7 +169,7 @@ export default class Picker extends TextBox {
             return;
         }
         this.updateMenu();
-        if (this.resizeMode !== "fitDropDown") {
+        if (this.resizeMode !== "fitDropDown" && this.resizeMode !== "none") {
             const elemWidth = dom.getRect(this.elem).width;
             if (this.resizeMode === "fitInput" || dom.getRect(this.dropDown.elem).width < elemWidth) {
                 dom.setRect(this.dropDown.elem, { width: elemWidth });

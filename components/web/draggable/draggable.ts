@@ -9,8 +9,11 @@ import { scrollIntoViewIfNeeded } from "web/scroll";
  * @return 返回一个拖动对象。
  */
 export default function draggable(elem: HTMLElement, options?: Partial<Draggable>) {
-    const r = new Draggable();
-    r.proxy = r.elem = elem;
+    let r = (elem as any).__draggable__ as  Draggable;
+    if(!r) {
+        ((elem as any).__draggable__ = r = new Draggable());
+        r.proxy = r.elem = elem;
+    }
     Object.assign(r, options).enable();
     movable(r.proxy);
     return r;
