@@ -15,22 +15,21 @@
   },
   "devDependencies": {
     "digo": "latest",
-    "digo-node-sass": "latest",
     "digo-autoprefixer": "latest",
-    "digo-css-inline": "latest",
     "digo-clean-css": "latest",
-    "digo-uglify-js": "latest",
+    "digo-css-inline": "latest",
     "digo-livereload": "latest",
-    "digo-tslint": "latest",
+    "digo-node-sass": "latest",
     "digo-sass-lint": "latest",
-    "typescript": "next",
+    "digo-tslint": "latest",
+    "digo-uglify-js": "latest",
+    "fast-pinyin": "latest",
+    "highlight.js": "latest",
+    "js-yaml": "latest",
     "markdown-it": "latest",
     "markdown-it-container": "latest",
     "markdown-it-task-checkbox": "latest",
-    "highlight.js": "latest",
-    "js-yaml": "latest",
-    "uslug": "latest",
-    "fast-pinyin": "latest",
-    "tsdocparser": "latest"
+    "tsdocparser": "latest",
+    "uslug": "latest"
   }
 }

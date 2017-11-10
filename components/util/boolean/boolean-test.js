@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./boolean"], function (require, exports, assert, boolean) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function parseTest() {
         assert.equal(boolean.parse(undefined), false);

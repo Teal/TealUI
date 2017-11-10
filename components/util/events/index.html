@@ -81,14 +81,14 @@ ee.emit(<span class="doc-code-string">"hi"</span>, <span class="doc-code-string"
 <p class="doc"><a href="https://nodejs.org/api/events.html" target="_blank" class="doc-external">Node.js: Event</a></p>
 </blockquote>
 
-                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/EventEmitter"><a href="#api/EventEmitter" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L1-95" target="_blank" title="源码：util/events/events.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>EventEmitter 类</h3><p class="doc">表示一个事件触发器。</p>
+                        <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><h3 id="api/EventEmitter"><a href="#api/EventEmitter" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L1-97" target="_blank" title="源码：util/events/events.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>EventEmitter 类</h3><p class="doc">表示一个事件触发器。</p>
 <div class="doc doc-scrollable"><table class="doc-api"><tr>
                             <th class="doc-api-method">方法</th>
                             <th class="doc-api-summary">描述</th>
                             
                         </tr><tr id="api/EventEmitter/on">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L11-29" target="_blank" title="源码：util/events/events.ts，第 11 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L11-31" target="_blank" title="源码：util/events/events.ts，第 11 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>on<i class="doc-tip doc-api-ellipsis">(eventName, eventHandler)</i><span class="doc-tip doc-api-more">(eventName:<code>string</code>, eventHandler:<code>Function</code>):<code>this</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -111,8 +111,7 @@ ee.emit(<span class="doc-code-string">"hi"</span>, <span class="doc-code-string"
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要添加的事件名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -126,8 +125,7 @@ ee.emit(<span class="doc-code-string">"hi"</span>, <span class="doc-code-string"
                                     <code>Function</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要添加的事件处理函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -150,7 +148,7 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                 
                             </tr><tr id="api/EventEmitter/off">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L31-68" target="_blank" title="源码：util/events/events.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L33-70" target="_blank" title="源码：util/events/events.ts，第 33 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>off<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(eventName?:<code>string</code>, eventHandler?:<code>Function</code>):<code>this</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -170,11 +168,10 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                     <code>eventName</code>
                                 </td>
                                 <td>
-                                    <code>string | undefined</code>
+                                    <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要删除的事件名。如果不传递此参数，则删除所有事件处理函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -185,11 +182,10 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                     <code>eventHandler</code>
                                 </td>
                                 <td>
-                                    <code>Function | undefined</code>
+                                    <code>Function</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要删除的事件处理函数。如果不传递此参数，则删除指定事件的所有监听器。如果同一个监听器被添加多次，则只删除第一个。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -214,7 +210,7 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                 
                             </tr><tr id="api/EventEmitter/emit">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L70-93" target="_blank" title="源码：util/events/events.ts，第 70 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/events/events.ts#L72-95" target="_blank" title="源码：util/events/events.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>emit<i class="doc-tip doc-api-ellipsis">(eventName, ...)</i><span class="doc-tip doc-api-more">(eventName:<code>string</code>, ...eventArgs:<code>any[]</code>):<code>boolean</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -237,8 +233,7 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要触发的事件名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -252,8 +247,7 @@ ee.emit(<span class="doc-code-string">"error"</span>, <span class="doc-code-stri
                                     <code>any[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">传递给监听器的所有参数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

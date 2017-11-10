@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "web/scroll", "web/keyPress", "ui/control", "ui/input", "./listBox.scss"], function (require, exports, dom, scroll_1, keyPress_1, control_1, input_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个列表框基类。

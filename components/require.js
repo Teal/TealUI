@@ -6,8 +6,8 @@
  */
 function require(path, callback) {
     if (typeof path === "string") {
-        var exports = require._ensure(require.toUrl(path), callback).exports;
-        return exports != null && exports.__esModule && exports.default !== undefined ? exports.default : exports;
+        var exports_1 = require._ensure(require.toUrl(path), callback).exports;
+        return exports_1 != null && exports_1.__esModule && exports_1.default !== undefined ? exports_1.default : exports_1;
     }
     require._load({
         deps: path,
@@ -140,9 +140,9 @@ require._load = function (module, url) {
                 for (var i = 0; i < depModules.length; i++) {
                     depModules[i] = depModules[i].exports;
                 }
-                var exports = factory.apply(void 0, depModules);
-                if (exports != undefined) {
-                    module.exports = exports;
+                var exports_2 = factory.apply(void 0, depModules);
+                if (exports_2 != undefined) {
+                    module.exports = exports_2;
                 }
             }
             for (var _i = 0, _a = module.callbacks; _i < _a.length; _i++) {

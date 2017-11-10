@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./checkPassword"], function (require, exports, assert, checkPassword_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function checkPasswordTest() {
         assert.strictEqual(checkPassword_1.default("123456"), -1);

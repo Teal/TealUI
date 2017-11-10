@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 绑定指定的元素的 Ctrl/Command+回车事件。

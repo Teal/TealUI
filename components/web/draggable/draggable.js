@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "web/movable", "web/scroll"], function (require, exports, dom_1, movable_1, scroll_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 设置指定的元素可拖动。
@@ -17,8 +18,11 @@ define(["require", "exports", "web/dom", "web/movable", "web/scroll"], function 
      * @return 返回一个拖动对象。
      */
     function draggable(elem, options) {
-        var r = new Draggable();
-        r.proxy = r.elem = elem;
+        var r = elem.__draggable__;
+        if (!r) {
+            (elem.__draggable__ = r = new Draggable());
+            r.proxy = r.elem = elem;
+        }
         Object.assign(r, options).enable();
         dom_1.movable(r.proxy);
         return r;

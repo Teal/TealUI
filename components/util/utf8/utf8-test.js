@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./utf8"], function (require, exports, assert, utf8) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function encodeUTF8Test() {
         assert.strictEqual(utf8.encodeUTF8("你"), "\\u4f60");

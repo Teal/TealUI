@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./queue"], function (require, exports, assert, queue_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function enqueueTest() {
         var q = new queue_1.default();

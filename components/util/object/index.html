@@ -98,8 +98,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">目标对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -113,8 +112,7 @@
                                     <code>R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">源对象。源对象可以是 null 或 undefined。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -159,8 +157,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -174,8 +171,7 @@
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要获取的属性名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -183,7 +179,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>PropertyDescriptor | undefined</code></p>
+                <p>类型：<code>PropertyDescriptor</code></p>
                 <p class="doc">返回对象描述器。如果找不到则返回 undefined。</p>
 
                 
@@ -199,7 +195,7 @@
                                 <td>
                                     <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/object/object.ts#L31-54" target="_blank" title="源码：util/object/object.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>insertBefore<i class="doc-tip doc-api-ellipsis">(obj, newKey, newValue, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, newKey:<code>string</code>, newValue:<code>any</code>, refKey?:<code>(keyof T)</code>):<code>void</code></span></code>
+                                    <code>insertBefore<i class="doc-tip doc-api-ellipsis">(obj, newKey, newValue, ...)</i><span class="doc-tip doc-api-more">&lt;T&gt;(obj:<code>T</code>, newKey:<code>string</code>, newValue:<code>any</code>, refKey?:<code>keyof T</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">在对象指定的键之前插入一个键值对。</p>
 
@@ -229,8 +225,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -244,8 +239,7 @@
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要插入的键。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -259,8 +253,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要插入的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -271,11 +264,10 @@
                                     <code>refKey</code>
                                 </td>
                                 <td>
-                                    <code>(keyof T) | undefined</code>
+                                    <code>keyof T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">指示插入位置的键，将在该键前插入。如果指定为 null 则插入到末尾。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -328,8 +320,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -343,14 +334,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">函数可以返回 false 以终止循环。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -364,8 +348,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -406,8 +389,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -421,14 +403,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">函数可以返回 false 以终止循环。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -442,8 +417,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -497,8 +471,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -512,13 +485,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -532,8 +499,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -573,8 +539,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -588,13 +553,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -608,8 +567,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -662,8 +620,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -677,14 +634,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -698,8 +648,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -740,8 +689,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -755,14 +703,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -776,8 +717,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -835,8 +775,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -850,14 +789,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">函数应返回新的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -871,8 +803,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -917,8 +848,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -932,14 +862,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">函数应返回新的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -953,8 +876,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1009,8 +931,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1024,14 +945,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1045,8 +959,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1089,8 +1002,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1104,14 +1016,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1125,8 +1030,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1182,8 +1086,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1197,14 +1100,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1218,8 +1114,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1262,8 +1157,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1277,14 +1171,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1298,8 +1185,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1355,8 +1241,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1370,14 +1255,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1391,8 +1269,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1400,7 +1277,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
+                <p>类型：<code>T</code></p>
                 <p class="doc">返回符合条件的第一项，如果找不到则返回 undefined。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">find([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// 2</span></code></pre>
@@ -1433,8 +1310,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1448,14 +1324,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1469,8 +1338,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1478,7 +1346,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
+                <p>类型：<code>T</code></p>
                 <p class="doc">返回符合条件的第一项，如果找不到则返回 undefined。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">find({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>) </span>{ <span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>; }) <span class="doc-code-comment">// 2</span></code></pre>
@@ -1524,8 +1392,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1539,14 +1406,7 @@
                                     <code>(value: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1560,8 +1420,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1603,8 +1462,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1618,14 +1476,7 @@
                                     <code>(value: T, key: string, obj: { [key: string]: T; }) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于确定每一项是否符合条件的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：当前项的值。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">如果当前项符合条件应返回 true，否则返回 false。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1639,8 +1490,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1648,7 +1498,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>string | null</code></p>
+                <p>类型：<code>string</code></p>
                 <p class="doc">返回符合条件的第一项的键，如果找不到则返回 null。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">findIndex({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">item</span>)</span>{<span class="doc-code-keyword">return</span> item &gt; <span class="doc-code-number">1</span>;}) <span class="doc-code-comment">// 'b'</span></code></pre>
@@ -1699,8 +1549,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1714,15 +1563,7 @@
                                     <code>(previousValue: R, currentValue: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">previousValue：要合并的前一项。</li>
-<li class="doc">currentValue：要合并的当前项。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">函数应合并的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1733,11 +1574,10 @@
                                     <code>initialValue</code>
                                 </td>
                                 <td>
-                                    <code>R | undefined</code>
+                                    <code>R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并第一项的初始值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1751,8 +1591,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1760,7 +1599,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>R | undefined</code></p>
+                <p>类型：<code>R</code></p>
                 <p class="doc">返回合并后的最终结果值。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
@@ -1798,8 +1637,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1813,15 +1651,7 @@
                                     <code>(previousValue: R, currentValue: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">previousValue：要合并的前一项。</li>
-<li class="doc">currentValue：要合并的当前项。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">函数应合并的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1832,11 +1662,10 @@
                                     <code>initialValue</code>
                                 </td>
                                 <td>
-                                    <code>R | undefined</code>
+                                    <code>R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并第一项的初始值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1850,8 +1679,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1859,7 +1687,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>R | undefined</code></p>
+                <p>类型：<code>R</code></p>
                 <p class="doc">返回合并后的最终结果值。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduce({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
@@ -1910,8 +1738,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1925,15 +1752,7 @@
                                     <code>(previousValue: R, currentValue: T, index: number, target: ArrayLike&lt;T&gt;) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">previousValue：要合并的前一项。</li>
-<li class="doc">currentValue：要合并的当前项。</li>
-<li class="doc">index：当前项的索引。</li>
-<li class="doc">target：类数组本身。</li>
-</ul>
-<p class="doc">函数应合并的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1944,11 +1763,10 @@
                                     <code>initialValue</code>
                                 </td>
                                 <td>
-                                    <code>R | undefined</code>
+                                    <code>R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并第一项的初始值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1962,8 +1780,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1971,7 +1788,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>R | undefined</code></p>
+                <p>类型：<code>R</code></p>
                 <p class="doc">返回合并后的最终结果值。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight([<span class="doc-code-number">1</span>, <span class="doc-code-number">2</span>], <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
@@ -2009,8 +1826,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2024,15 +1840,7 @@
                                     <code>(previousValue: R, currentValue: T, key: string, obj: { [key: string]: T; }) =&gt; R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并两个项的回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">previousValue：要合并的前一项。</li>
-<li class="doc">currentValue：要合并的当前项。</li>
-<li class="doc">key：当前项的键。</li>
-<li class="doc">target：对象本身。</li>
-</ul>
-<p class="doc">函数应合并的结果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2043,11 +1851,10 @@
                                     <code>initialValue</code>
                                 </td>
                                 <td>
-                                    <code>R | undefined</code>
+                                    <code>R</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于合并第一项的初始值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2061,8 +1868,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">执行回调函数时 this 的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2070,7 +1876,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>R | undefined</code></p>
+                <p>类型：<code>R</code></p>
                 <p class="doc">返回合并后的最终结果值。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">reduceRight({<span class="doc-code-attr">a</span>: <span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>: <span class="doc-code-number">2</span>}, <span class="doc-code-function"><span class="doc-code-keyword">function</span> (<span class="doc-code-params">x, y</span>) </span>{ <span class="doc-code-keyword">return</span> x + y; }) <span class="doc-code-comment">// 3</span></code></pre>
@@ -2117,8 +1923,7 @@
                                     <code>ArrayLike&lt;T&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">类数组。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2132,8 +1937,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">项。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2144,11 +1948,10 @@
                                     <code>start</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">开始查找的索引。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2190,8 +1993,7 @@
                                     <code>{ [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2205,8 +2007,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">项。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2217,11 +2018,10 @@
                                     <code>start</code>
                                 </td>
                                 <td>
-                                    <code>string | undefined</code>
+                                    <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">开始查找的索引。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2276,8 +2076,7 @@
                                     <code>{ [key: number]: T; } | { [key: string]: T; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2291,8 +2090,7 @@
                                     <code>(string | number)[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">键列表。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2337,8 +2135,7 @@
                                     <code>{ [key: string]: any; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2383,8 +2180,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2431,8 +2227,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2482,8 +2277,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2529,8 +2323,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2589,8 +2382,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2645,8 +2437,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2657,11 +2448,10 @@
                                     <code>replacer</code>
                                 </td>
                                 <td>
-                                    <code>((obj: any) =&gt; any) | undefined</code>
+                                    <code>(obj: any) =&gt; any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于拷贝自定义对象的函数。函数接收一个参数为要拷贝的值，函数应返回拷贝后的新值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2744,8 +2534,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2756,11 +2545,10 @@
                                     <code>replacer</code>
                                 </td>
                                 <td>
-                                    <code>((obj: any) =&gt; any) | undefined</code>
+                                    <code>(obj: any) =&gt; any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">用于拷贝自定义对象的函数。函数接收一个参数为要拷贝的值，函数应返回拷贝后的新值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2774,8 +2562,7 @@
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">拷贝的最大深度，超过此深度后将直接使用原值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>Infinity</code>
@@ -2821,8 +2608,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第一个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2836,8 +2622,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第二个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2882,8 +2667,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第一个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2897,8 +2681,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第二个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2943,8 +2726,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第一个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2958,8 +2740,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要比较的第二个对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2973,8 +2754,7 @@
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">比较的最大深度，超过此深度后的差异将被忽略。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>Infinity</code>
@@ -3019,8 +2799,7 @@
                                     <code>{ [key: string]: any; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3065,8 +2844,7 @@
                                     <code>{ [key: string]: any; }</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3080,8 +2858,7 @@
                                     <code>string[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要选择的所有键。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3126,8 +2903,7 @@
                                     <code>any[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">所有值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3172,8 +2948,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3187,8 +2962,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3196,7 +2970,7 @@
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>string | null</code></p>
+                <p>类型：<code>string</code></p>
                 <p class="doc">返回匹配的第一个键，如果找不到则返回 null。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">keyOf({<span class="doc-code-attr">a</span>:<span class="doc-code-number">1</span>, <span class="doc-code-attr">b</span>:<span class="doc-code-number">1</span>}, <span class="doc-code-number">1</span>) <span class="doc-code-comment">// "a"</span></code></pre>
@@ -3233,8 +3007,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3248,8 +3021,7 @@
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要获取的属性表达式。如 <code>a.b[0]</code>。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3294,8 +3066,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3309,8 +3080,7 @@
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的属性表达式。如 <code>a.b[0]</code>。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3324,8 +3094,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3369,8 +3138,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3384,8 +3152,7 @@
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的属性名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3399,8 +3166,7 @@
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的属性值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3453,8 +3219,7 @@
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3468,8 +3233,7 @@
                                     <code>keyof T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">属性名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3483,8 +3247,7 @@
                                     <code>Function</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收原函数的所有参数。如果原函数返回 undefined 则返回该函数的返回值。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3539,8 +3302,7 @@ obj.func(); <span class="doc-code-comment">// 输出 1, 2</span></code></pre>
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3554,8 +3316,7 @@ obj.func(); <span class="doc-code-comment">// 输出 1, 2</span></code></pre>
                                     <code>keyof T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">属性名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -3569,12 +3330,7 @@ obj.func(); <span class="doc-code-comment">// 输出 1, 2</span></code></pre>
                                     <code>(this: T, value: any) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">this：当前对象。</li>
-<li class="doc">value：设置的新属性值。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —

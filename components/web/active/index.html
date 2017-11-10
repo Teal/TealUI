@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
     <meta name="version" content="0.0.1">
-    <title>激活样式 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <title>按住事件 - TealUI | 打造小而全、精而美的开源组件库</title>
     <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
     <link rel="stylesheet" href="../../../assets/doc/doc.css">
     <script src="../../../components/require.js"></script>
@@ -49,36 +49,49 @@
 <aside id="doc_mainmenu" class="doc-menubutton">
                             <a href="javascript://打开工具" title="工具" class="doc-icon">🔧⏷</a>
                             <menu>
-                                <li><a href="javascript:void Doc.copy(&quot;import { getActive, setActive } from \&quot;web/active\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/active\&quot;], function (active_1) {\n\tvar getActive = active_1.getActive;\n\tvar setActive = active_1.setActive;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleUnitTest()" accesskey="t"><i class="doc-icon">☕</i>单元测试</a></li><li><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/active/active.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/active" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/active/active.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
+                                <li><a href="javascript:void Doc.copy(&quot;import active from \&quot;web/active\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/active\&quot;], function (active_1) {\n\tvar active = active_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/active/active.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/active" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/active/active.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
                             </menu>
                         </aside>
-                        <h1 id="激活样式">
-<a href="#激活样式" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>激活样式<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：getActive, setActive">web/active</small></h1>
-<p class="doc">快速切换当前选中的元素。</p>
-<dl id="doc_toc">
-	<dt><a href="#目的">目的</a></dt>
-	<dt><a href="#api">API</a></dt>
-</dl>
-<h2 id="目的">
-<a href="#目的" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>目的</h2>
-<p class="doc">项目中一般通过添加 <code>.active</code> CSS 类名表示选中。使用 <code>setActive</code> 可以快速切换：</p>
-<pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-js">setActive([elem1, elem2, elem3], <span class="doc-code-string">"active"</span>, elem2);
+                        <h1 id="按住事件">
+<a href="#按住事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>按住事件<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as active">web/active</small></h1>
+<p class="doc">模拟 CSS :active 伪类。</p>
+<div class="doc-demo">
+                    <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
+<div id="box" class="doc-box"></div>
+<script>define("doc_demo_1", ["require", "exports", "web/active"], function (require, exports, active_1) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var c = 0;
+    active_1.default(box, function (e) {
+        box.innerHTML = c++;
+    });
+});
 
-<span class="doc-code-comment">// 等效于以下代码：</span>
-<span class="doc-code-comment">// removeClass(elem1, "active");</span>
-<span class="doc-code-comment">// addClass(elem2, "active");</span>
-<span class="doc-code-comment">// removeClass(elem3, "active");</span></code></pre>
+var exports_doc_demo_1 = require("doc_demo_1")
+</script>
+
+</div>
+                    <pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-html"><span class="doc-code-tag">&lt;<span class="doc-code-name">div</span> <span class="doc-code-attr">id</span>=<span class="doc-code-string">"box"</span> <span class="doc-code-attr">class</span>=<span class="doc-code-string">"doc-box"</span>&gt;</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">div</span>&gt;</span>
+<span class="doc-code-tag">&lt;<span class="doc-code-name">script</span>&gt;</span><span class="javascript">
+<span class="doc-code-keyword">import</span> active <span class="doc-code-keyword">from</span> <span class="doc-code-string">"web/active"</span>;
+
+<span class="doc-code-keyword">var</span> c = <span class="doc-code-number">0</span>;
+active(box, e =&gt; {
+    box.innerHTML = c++;
+})
+</span><span class="doc-code-tag">&lt;/<span class="doc-code-name">script</span>&gt;</span></code></pre>
+                </div>
                         <h2 id="api"><a href="#api" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>API</h2><div class="doc doc-scrollable"><table class="doc-api"><tr>
                             <th class="doc-api-method">函数</th>
                             <th class="doc-api-summary">描述</th>
                             
-                        </tr><tr id="api/getActive">
+                        </tr><tr id="api/active">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/active/active.ts#L3-16" target="_blank" title="源码：web/active/active.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/active/active.ts#L3-28" target="_blank" title="源码：web/active/active.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>getActive<i class="doc-tip doc-api-ellipsis">(items, className)</i><span class="doc-tip doc-api-more">(items:<code>ArrayLike&lt;HTMLElement&gt;</code>, className:<code>string</code>):<code>any</code></span></code>
+                                    <code>active<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, pointerDown?:<code>function</code>, pointerUp?:<code>function</code>, duration?:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
-                                        <p class="doc">获取列表中的元素的激活元素。</p>
+                                        <p class="doc">设置指针按住时的回调函数。</p>
 
                 
                 
@@ -91,14 +104,13 @@
                         </tr>
                         <tr>
                                 <td>
-                                    <code>items<span class="doc-api-required">*</span></code>
+                                    <code>elem<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code>ArrayLike&lt;HTMLElement&gt;</code>
+                                    <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">所有元素列表。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -106,60 +118,13 @@
                             </tr>
 <tr>
                                 <td>
-                                    <code>className<span class="doc-api-required">*</span></code>
+                                    <code>pointerDown</code>
                                 </td>
                                 <td>
-                                    <code>string</code>
+                                    <code>(e: MouseEvent) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">激活的 CSS 类名。</p>
-
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-                    </table>
-                <h4>返回值</h4>
-                <p>类型：<code>any</code></p>
-                <p class="doc">返回激活的元素。如果不存在则返回 null。</p>
-
-                
-                                        
-                                    </div>
-                                </td>
-                                <td class="doc">
-                                    <p class="doc">获取列表中的元素的激活元素。</p>
-
-                                </td>
-                                
-                            </tr><tr id="api/setActive">
-                                <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/active/active.ts#L18-28" target="_blank" title="源码：web/active/active.ts，第 18 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
-                                    <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>setActive<i class="doc-tip doc-api-ellipsis">(items, className, value)</i><span class="doc-tip doc-api-more">(items:<code>ArrayLike&lt;HTMLElement&gt;</code>, className:<code>string</code>, value:<code>HTMLElement</code>):<code>void</code></span></code>
-                                    <div class="doc doc-api-detail">
-                                        <p class="doc">设置列表中指定的元素为激活样式。</p>
-
-                
-                
-                <table>
-                        <tr>
-                            <th>参数</th>
-                            <th>类型</th>
-                            <th>描述</th>
-                            <th>默认值</th>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <code>items<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>ArrayLike&lt;HTMLElement&gt;</code>
-                                </td>
-                                <td class="doc">
-                                    <p class="doc">所有元素列表。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -167,14 +132,13 @@
                             </tr>
 <tr>
                                 <td>
-                                    <code>className<span class="doc-api-required">*</span></code>
+                                    <code>pointerUp</code>
                                 </td>
                                 <td>
-                                    <code>string</code>
+                                    <code>(e: MouseEvent) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">激活的 CSS 类名。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -182,36 +146,35 @@
                             </tr>
 <tr>
                                 <td>
-                                    <code>value<span class="doc-api-required">*</span></code>
+                                    <code>duration</code>
                                 </td>
                                 <td>
-                                    <code>HTMLElement | null | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要激活的元素。如果为 null 则表示撤销已有的激活元素。</p>
-
+                                    
                                 </td>
                                 <td>
-                                    —
+                                    <code>50</code>
                                 </td>
                             </tr>
                     </table>
                 <h4>返回值</h4>
                 <p>类型：<code>void</code></p>
                 
-                
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">active(elem, () =&gt; <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"下"</span>), () =&gt; <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"上"</span>))</code></pre>
                                         
                                     </div>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">设置列表中指定的元素为激活样式。</p>
+                                    <p class="doc">设置指针按住时的回调函数。</p>
 
                                 </td>
                                 
                             </tr></table></div>
                         <nav id="doc_pager">
-                            <a href="../../../components/web/status/" title="状态" id="doc_pager_prev"><i class="doc-icon">⮜</i> 状态</a>
-                            <a href="../../../components/web/outerHTML/" title="外部 HTML" id="doc_pager_next">外部 HTML <i class="doc-icon">⮞</i></a>
+                            <a href="../../../components/web/hover/" title="悬停事件" id="doc_pager_prev"><i class="doc-icon">⮜</i> 悬停事件</a>
+                            <a href="../../../components/web/hashChange/" title="哈希值改变事件" id="doc_pager_next">哈希值改变事件 <i class="doc-icon">⮞</i></a>
                         </nav>
 </article>
     </div>
@@ -227,7 +190,7 @@
     </footer>
     <script src="../../../assets/doc/doc.js"></script>
     <script>
-        Doc.init({"root":"../../..","dir":"components","active":"web/active/","test":"web/active/active-test.ts","imports":["web/active"]})
+        Doc.init({"root":"../../..","dir":"components","active":"web/active/","imports":["web/active"]})
     </script>
     <script src="../../../components/index.js"></script>
     <script>!location.port && /^http/.test(location.protocol) && (document.body.appendChild(document.createElement("script")).src = "//hm.baidu.com/hm.js?9a3cb18d91be19c36c5f9725822b64e8")</script>

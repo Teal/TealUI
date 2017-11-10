@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./number"], function (require, exports, assert, number) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function isNumberTest() {
         assert.strictEqual(number.isNumber(7), true);

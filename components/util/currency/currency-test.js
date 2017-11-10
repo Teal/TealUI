@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./currency"], function (require, exports, assert, currency) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function addTest() {
         assert.strictEqual(currency.add(86.24, 0.1), 86.34);

@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 如果页面被内嵌在 `<iframe>` 则代替主页面。

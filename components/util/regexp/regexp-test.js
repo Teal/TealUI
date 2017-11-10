@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./regexp"], function (require, exports, assert, regexp) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function parseTest() {
         assert.strictEqual(regexp.parse("\\s").source, /\\s/.source);

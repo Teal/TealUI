@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./path"], function (require, exports, assert, path) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function isAbsoluteTest() {
         assert.equal(path.isAbsolute("/"), true);

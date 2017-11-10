@@ -7,6 +7,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 define(["require", "exports", "web/dom", "web/scroll"], function (require, exports, dom_1, scroll_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var knownAligns = {
         center: "cc-cc",

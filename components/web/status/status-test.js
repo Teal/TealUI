@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./status"], function (require, exports, assert, status) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function statusTest() {
         var elem = document.getElementById("qunit-fixture");

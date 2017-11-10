@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "ui/control", "ui/input", "typo/icon/icon.scss", "./checkBox.scss"], function (require, exports, dom, control_1, input_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个复选框。
@@ -60,6 +61,9 @@ define(["require", "exports", "web/dom", "ui/control", "ui/input", "typo/icon/ic
         __decorate([
             control_1.bind("@input", "checked")
         ], CheckBox.prototype, "value", void 0);
+        __decorate([
+            control_1.bind("@input", "defaultChecked")
+        ], CheckBox.prototype, "defaultValue", void 0);
         __decorate([
             control_1.bind("@input", "value")
         ], CheckBox.prototype, "key", void 0);

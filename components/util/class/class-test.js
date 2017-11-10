@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./class"], function (require, exports, assert, class_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function extendTest() {
         var clazz = class_1.default.extend({

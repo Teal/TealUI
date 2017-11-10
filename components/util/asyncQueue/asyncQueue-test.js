@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./asyncQueue"], function (require, exports, assert, asyncQueue_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function defferableTest(done) {
         var deferred = new asyncQueue_1.default();

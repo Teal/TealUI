@@ -15,7 +15,7 @@
 
 .x-close:hover, .x-close:focus {
   background-color: #d63a29;
-  color: #fff;
+  color: #fff !important;
   -webkit-transition: background-color 0.2s;
   -moz-transition: background-color 0.2s;
   transition: background-color 0.2s;

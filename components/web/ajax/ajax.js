@@ -1,4 +1,5 @@
 define(["require", "exports", "util/query"], function (require, exports, query_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 发送一个异步请求。
@@ -78,7 +79,7 @@ define(["require", "exports", "util/query"], function (require, exports, query_1
                         }
                     }
                     else {
-                        data = xhr.statusText;
+                        data = xhr.statusText || "Access denied";
                     }
                 }
                 catch (firefoxAccessError) {

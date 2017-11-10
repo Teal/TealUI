@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./tradionalChinese"], function (require, exports, assert, tradionalChinese) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function toSimpleChineseTest() {
         assert.equal(tradionalChinese.toSimpleChinese("简體"), "简体");

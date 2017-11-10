@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./es5-shim", "./es6-shim", "./es7-shim"], function (require, exports, assert) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function Array_concatTest() {
         assert.deepEqual(["I", "love"].concat(["you"]), ["I", "love", "you"]);

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./gb2312"], function (require, exports, assert, gb2312) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function encodeGB2312Test() {
         assert.strictEqual(gb2312.encodeGB2312("你"), "%C4%E3");

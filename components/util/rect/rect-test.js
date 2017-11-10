@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./rect"], function (require, exports, assert, drawing) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function inRectTest() {
         assert.deepEqual(drawing.inRect({ x: 0, y: 0, width: 10, height: 10 }, { x: 20, y: 20 }), false);

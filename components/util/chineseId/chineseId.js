@@ -1,4 +1,5 @@
 define(["require", "exports", "util/date"], function (require, exports, date_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 解析 18 位中国身份证号的信息。

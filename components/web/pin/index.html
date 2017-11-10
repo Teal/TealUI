@@ -88,6 +88,7 @@
 <div class="doc-box doc-box-small doc-box-yellow" id="elem"></div>
 
 <script>define("doc_demo_1", ["require", "exports", "web/pin", "web/draggable"], function (require, exports, pin_1, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function repin() {
         pin_1.default(elem, target, align.value, 10);
@@ -189,8 +190,7 @@ draggable(target, {
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要定位的元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -204,8 +204,7 @@ draggable(target, {
                                     <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对齐的目标节点或区域。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -219,8 +218,7 @@ draggable(target, {
                                     <code><a href="#api/PinAlign">PinAlign</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">对齐的位置。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>&quot;bottomLeft&quot;</code>
@@ -234,8 +232,7 @@ draggable(target, {
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">元素的外边距。如果小于 1，则表示相对元素大小的百分比。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>0</code>
@@ -246,11 +243,10 @@ draggable(target, {
                                     <code>container</code>
                                 </td>
                                 <td>
-                                    <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document | null</code>
+                                    <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | Element | Document</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">容器节点或区域，定位超出容器后会自动调整。如果为 null 则不自动调整位置。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>scrollParent(elem)</code>
@@ -264,8 +260,7 @@ draggable(target, {
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">容器的内边距。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>10</code>
@@ -279,8 +274,7 @@ draggable(target, {
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">定位后的额外偏移距离。如果小于 1，则表示相对元素大小的百分比。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>0</code>
@@ -294,8 +288,7 @@ draggable(target, {
                                     <code>boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">如果容器比元素小，是否允许更改元素大小。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>/^(?:auto|scroll)$/.test(getStyle(elem, &quot;overflow&quot;))</code>
@@ -413,7 +406,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L174-177" target="_blank" title="源码：web/pin/pin.ts，第 174 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>rotateX</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否水平翻转了位置。</p>
 
@@ -433,7 +426,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L179-182" target="_blank" title="源码：web/pin/pin.ts，第 179 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>rotateY</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否垂直翻转了位置。</p>
 
@@ -453,7 +446,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L184-187" target="_blank" title="源码：web/pin/pin.ts，第 184 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>transformX</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否调整了水平位置。</p>
 
@@ -473,7 +466,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L189-192" target="_blank" title="源码：web/pin/pin.ts，第 189 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>transformY</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否调整了垂直位置。</p>
 
@@ -493,7 +486,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L194-197" target="_blank" title="源码：web/pin/pin.ts，第 194 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>scaleX</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否调整了宽度。</p>
 
@@ -513,7 +506,7 @@ draggable(target, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/pin/pin.ts#L199-202" target="_blank" title="源码：web/pin/pin.ts，第 199 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>scaleY</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">是否调整了高度。</p>
 

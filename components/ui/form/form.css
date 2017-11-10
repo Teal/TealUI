@@ -7,19 +7,19 @@
 }
 
 @media (min-width: 641px) {
-  .x-form-horizontal {
+  .x-form-h {
     display: table;
   }
-  .x-form-horizontal .x-form-field {
+  .x-form-h .x-form-field {
     display: table-row;
   }
-  .x-form-horizontal .x-form-label {
+  .x-form-h .x-form-label {
     display: table-cell;
     padding-right: 1rem;
     text-align: right;
     white-space: nowrap;
   }
-  .x-form-horizontal .x-form-input + .x-form-label {
+  .x-form-h .x-form-input + .x-form-label {
     padding-left: 1.5rem;
   }
 }

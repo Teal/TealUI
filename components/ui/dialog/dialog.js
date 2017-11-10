@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "web/draggable", "ui/control", "typo/icon", "typo/close", "ui/panel", "./dialog.scss"], function (require, exports, dom, draggable_1, control_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个对话框。
@@ -61,10 +62,11 @@ define(["require", "exports", "web/dom", "web/draggable", "ui/control", "typo/ic
                 if (!dom.contains(document.body, _this.elem)) {
                     document.body.appendChild(_this.elem);
                 }
-                if (_this.hidden) {
+                if (_this.hidden || dom.isHidden(_this.find(".x-panel"))) {
                     dom.show(_this.elem);
                     dom.show(_this.find(".x-panel"), _this.animation, undefined, _this.duration, undefined, target);
                     dom.addClass(document.body, "x-dialog-open");
+                    _this.onShow && _this.onShow(_this);
                 }
             });
         };
@@ -80,13 +82,13 @@ define(["require", "exports", "web/dom", "web/draggable", "ui/control", "typo/ic
             else {
                 target = this.target;
             }
-            if (!this.onBeforeClose || this.onBeforeClose() !== false) {
+            if (!this.onBeforeClose || this.onBeforeClose(this) !== false) {
                 this.elem.style.backgroundColor = "transparent";
                 dom.hide(this.find(".x-panel"), this.animation, function () {
                     _this.elem.style.backgroundColor = "";
                     dom.removeClass(document.body, "x-dialog-open");
                     _this.renderTo(null);
-                    _this.onClose && _this.onClose();
+                    _this.onClose && _this.onClose(_this);
                 }, this.duration, undefined, target);
             }
         };

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./html"], function (require, exports, assert, html) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function encodeHTMLTest() {
         assert.strictEqual(html.encodeHTML("<a></a>"), "&lt;a&gt;&lt;/a&gt;");

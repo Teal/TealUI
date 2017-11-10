@@ -67,6 +67,7 @@
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
 <script>
 define("doc_demo_1", ["require", "exports", "ui/control", "ui/toolTip"], function (require, exports, control_1, toolTip_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     control_1.render(doc_demo_1, control_1.VNode.create("div", null,
         control_1.VNode.create("button", null, "\u6309\u94AE"),
@@ -134,7 +135,7 @@ render(
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/toolTip/toolTip.tsx#L10-13" target="_blank" title="源码：ui/toolTip/toolTip.tsx，第 10 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>event</code>
-                                <span class="doc-api-more">: <code>&quot;click&quot; | &quot;dblclick&quot; | &quot;auxclick&quot; | &quot;contextmenu&quot; | &quot;pointerdown&quot; | &quot;pointerup&quot; | &quot;pointerenter&quot; | &quot;pointermove&quot; | &quot;hover&quot; | &quot;active&quot; | &quot;focus&quot; | &quot;focusin&quot; | null</code> = <code>&quot;hover&quot;</code></span>
+                                <span class="doc-api-more">: <code>&quot;click&quot; | &quot;dblclick&quot; | &quot;auxclick&quot; | &quot;contextmenu&quot; | &quot;pointerdown&quot; | &quot;pointerup&quot; | &quot;pointerenter&quot; | &quot;pointermove&quot; | &quot;hover&quot; | &quot;active&quot; | &quot;focus&quot; | &quot;focusin&quot;</code> = <code>&quot;hover&quot;</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc"><strong>(已覆盖)</strong>触发弹层显示的事件。</p>
 <h4>说明</h4><ul>
@@ -169,7 +170,7 @@ render(
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/toolTip/toolTip.tsx#L15-18" target="_blank" title="源码：ui/toolTip/toolTip.tsx，第 15 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>align</code>
-                                <span class="doc-api-more">: <code>&quot;cc-cc&quot; | &quot;ll-tb&quot; | &quot;ll-cc&quot; | &quot;ll-bt&quot; | &quot;lr-bb&quot; | &quot;rr-cc&quot; | &quot;rr-tb&quot; | &quot;rl-tt&quot; | &quot;cc-tt&quot; | &quot;lr-tt&quot; | &quot;cc-bb&quot; | &quot;rl-bb&quot; | &quot;center&quot; | &quot;leftTop&quot; | &quot;left&quot; | &quot;leftBottom&quot; | &quot;rightBottom&quot; | &quot;right&quot; | &quot;rightTop&quot; | &quot;topRight&quot; | &quot;top&quot; | &quot;topLeft&quot; | &quot;bottomLeft&quot; | &quot;bottom&quot; | &quot;bottomRight&quot; | &quot;ll-tt&quot; | &quot;ll-bb&quot; | &quot;lr-tb&quot; | &quot;lr-cc&quot; | &quot;lr-bt&quot; | &quot;cc-tb&quot; | &quot;cc-bt&quot; | &quot;rl-tb&quot; | &quot;rl-cc&quot; | &quot;rl-bt&quot; | &quot;rr-tt&quot; | &quot;rr-bt&quot; | &quot;rr-bb&quot; | null</code> = <code>&quot;top&quot;</code></span>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/pin/index.html#api/PinAlign">PinAlign</a></code> = <code>&quot;top&quot;</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc"><strong>(已覆盖)</strong>弹层对齐的位置。如果为 null 则不自动对齐。</p>
 
@@ -177,7 +178,7 @@ render(
                                 </div>
                             </td>
                             <td>
-                                <code>string</code>
+                                <code><a href="../../../components/web/pin/index.html#api/PinAlign">PinAlign</a></code>
                             </td>
                             <td class="doc">
                                 <p class="doc"><strong>(已覆盖)</strong>弹层对齐的位置。如果为 null 则不自动对齐。</p>
@@ -206,10 +207,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/animation">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/target">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L13-18" target="_blank" title="源码：ui/popup/popup.tsx，第 13 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L17-22" target="_blank" title="源码：ui/popup/popup.tsx，第 17 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>target</code>
-                                <span class="doc-api-more">: <code>HTMLElement | null</code></span>
+                                <span class="doc-api-more">: <code>HTMLElement</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">触发弹层显示的元素。</p>
 
@@ -226,7 +227,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/target">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/delay">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L52-56" target="_blank" title="源码：ui/popup/popup.tsx，第 52 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L56-60" target="_blank" title="源码：ui/popup/popup.tsx，第 56 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>delay</code>
                                 <span class="doc-api-more">: <code>number</code> = <code>100</code></span>
@@ -246,10 +247,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/delay">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/pinTarget">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L58-62" target="_blank" title="源码：ui/popup/popup.tsx，第 58 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L62-66" target="_blank" title="源码：ui/popup/popup.tsx，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>pinTarget</code>
-                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | HTMLElement | Document | undefined</code> = <code>target</code></span>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/Rect">Rect</a> | HTMLElement | Document</code> = <code>target</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">弹层对齐的目标节点或区域。</p>
 
@@ -266,10 +267,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/pinTarget">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/margin">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L70-74" target="_blank" title="源码：ui/popup/popup.tsx，第 70 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L74-78" target="_blank" title="源码：ui/popup/popup.tsx，第 74 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>margin</code>
-                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <span class="doc-api-more">: <code>number</code> = <code>0</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">元素的外边距，即对齐时元素和 <em>pinTarget</em> 的距离。</p>
 
@@ -286,10 +287,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/margin">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/container">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L76-80" target="_blank" title="源码：ui/popup/popup.tsx，第 76 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L80-84" target="_blank" title="源码：ui/popup/popup.tsx，第 80 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>container</code>
-                                <span class="doc-api-more">: <code>HTMLElement | Document | null | undefined</code> = <code>document</code></span>
+                                <span class="doc-api-more">: <code>HTMLElement | Document</code> = <code>document</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">容器节点或区域，定位超出容器后会自动调整。</p>
 
@@ -306,10 +307,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/container">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/containerPadding">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L82-86" target="_blank" title="源码：ui/popup/popup.tsx，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L86-90" target="_blank" title="源码：ui/popup/popup.tsx，第 86 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>containerPadding</code>
-                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <span class="doc-api-more">: <code>number</code> = <code>0</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">容器的内边距。</p>
 
@@ -326,10 +327,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/containerPadding">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/offset">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L88-92" target="_blank" title="源码：ui/popup/popup.tsx，第 88 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L92-96" target="_blank" title="源码：ui/popup/popup.tsx，第 92 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>offset</code>
-                                <span class="doc-api-more">: <code>number | undefined</code> = <code>0</code></span>
+                                <span class="doc-api-more">: <code>number</code> = <code>0</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">定位后的额外偏移距离。如果小于 1，则表示相对元素大小的百分比。</p>
 
@@ -346,10 +347,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/offset">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/resize">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L94-98" target="_blank" title="源码：ui/popup/popup.tsx，第 94 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L98-102" target="_blank" title="源码：ui/popup/popup.tsx，第 98 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>resize</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code> = <code>false</code></span>
+                                <span class="doc-api-more">: <code>boolean</code> = <code>false</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">如果容器比元素小，是否允许更改元素大小。</p>
 
@@ -366,10 +367,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/resize">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/hideAnimation">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L106-110" target="_blank" title="源码：ui/popup/popup.tsx，第 106 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L110-114" target="_blank" title="源码：ui/popup/popup.tsx，第 110 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>hideAnimation</code>
-                                <span class="doc-api-more">: <code>&quot;left&quot; | &quot;right&quot; | &quot;top&quot; | &quot;bottom&quot; | &quot;opacity&quot; | &quot;height&quot; | &quot;width&quot; | &quot;scale&quot; | &quot;scaleX&quot; | &quot;scaleY&quot; | &quot;slideDown&quot; | &quot;slideRight&quot; | &quot;slideUp&quot; | &quot;slideLeft&quot; | &quot;zoomIn&quot; | &quot;zoomOut&quot; | &quot;rotate&quot; | { [propName: string]: string | number; } | undefined</code> = <code>animation</code></span>
+                                <span class="doc-api-more">: <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code> = <code>animation</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">隐藏弹层时使用的动画。</p>
 
@@ -377,7 +378,7 @@ render(
                                 </div>
                             </td>
                             <td>
-                                <code>string | object</code>
+                                <code><a href="../../../components/web/dom/index.html#api/ToggleAnimation">ToggleAnimation</a></code>
                             </td>
                             <td class="doc">
                                 <p class="doc">隐藏弹层时使用的动画。</p>
@@ -386,10 +387,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/hideAnimation">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/hideDuration">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L112-116" target="_blank" title="源码：ui/popup/popup.tsx，第 112 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L116-120" target="_blank" title="源码：ui/popup/popup.tsx，第 116 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>hideDuration</code>
-                                <span class="doc-api-more">: <code>number | undefined</code> = <code>duration</code></span>
+                                <span class="doc-api-more">: <code>number</code> = <code>duration</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">隐藏动画的持续毫秒数。</p>
 
@@ -406,7 +407,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/hideDuration">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/timingFunction">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L118-122" target="_blank" title="源码：ui/popup/popup.tsx，第 118 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L122-126" target="_blank" title="源码：ui/popup/popup.tsx，第 122 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>timingFunction</code>
                                 <span class="doc-api-more">: <code>string</code> = <code>&quot;ease-in&quot;</code></span>
@@ -426,7 +427,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/timingFunction">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/hideTimingFunction">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L124-128" target="_blank" title="源码：ui/popup/popup.tsx，第 124 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L128-132" target="_blank" title="源码：ui/popup/popup.tsx，第 128 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>hideTimingFunction</code>
                                 <span class="doc-api-more">: <code>string</code> = <code>timingFunction</code></span>
@@ -446,7 +447,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/hideTimingFunction">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/autoHide">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L130-134" target="_blank" title="源码：ui/popup/popup.tsx，第 130 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L134-138" target="_blank" title="源码：ui/popup/popup.tsx，第 134 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>autoHide</code>
                                 <span class="doc-api-more">: <code>boolean</code> = <code>true</code></span>
@@ -466,7 +467,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/autoHide">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/autoScroll">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L136-140" target="_blank" title="源码：ui/popup/popup.tsx，第 136 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L140-144" target="_blank" title="源码：ui/popup/popup.tsx，第 140 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>autoScroll</code>
                                 <span class="doc-api-more">: <code>boolean</code> = <code>true</code></span>
@@ -486,10 +487,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/autoScroll">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/onShow">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L142-146" target="_blank" title="源码：ui/popup/popup.tsx，第 142 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L146-150" target="_blank" title="源码：ui/popup/popup.tsx，第 146 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onShow</code>
-                                <span class="doc-api-more">: <code>((sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">弹层显示事件。</p>
 
@@ -506,10 +507,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/onShow">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/onHide">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L148-152" target="_blank" title="源码：ui/popup/popup.tsx，第 148 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L152-156" target="_blank" title="源码：ui/popup/popup.tsx，第 152 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onHide</code>
-                                <span class="doc-api-more">: <code>((sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">弹层隐藏事件。</p>
 
@@ -526,10 +527,10 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/onHide">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/onAlign">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L154-159" target="_blank" title="源码：ui/popup/popup.tsx，第 154 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L158-163" target="_blank" title="源码：ui/popup/popup.tsx，第 158 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onAlign</code>
-                                <span class="doc-api-more">: <code>((r: <a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a>, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(r: <a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a>, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">弹层对齐事件。</p>
 
@@ -546,7 +547,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/onAlign">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/disabled">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L161-166" target="_blank" title="源码：ui/popup/popup.tsx，第 161 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L165-170" target="_blank" title="源码：ui/popup/popup.tsx，第 165 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>disabled</code>
                                 <span class="doc-api-more">: <code>boolean</code></span>
@@ -566,7 +567,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/disabled">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/arrow">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L172-177" target="_blank" title="源码：ui/popup/popup.tsx，第 172 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L176-181" target="_blank" title="源码：ui/popup/popup.tsx，第 176 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>arrow</code>
                                 <span class="doc-api-more">: <code>boolean</code></span>
@@ -586,7 +587,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/arrow">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/arrowOffset">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L189-192" target="_blank" title="源码：ui/popup/popup.tsx，第 189 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L193-196" target="_blank" title="源码：ui/popup/popup.tsx，第 193 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>arrowOffset</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -606,7 +607,7 @@ render(
                             <td><code><a href="../../../components/ui/popup/index.html#api/Popup/arrowOffset">Popup</a></code></td>
                         </tr><tr id="api/ToolTip/hidden">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L206-206" target="_blank" title="源码：ui/popup/popup.tsx，第 206 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L210-210" target="_blank" title="源码：ui/popup/popup.tsx，第 210 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>hidden</code>
                                 <span class="doc-api-more">: <code>boolean</code></span>
@@ -626,7 +627,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/hidden">Control</a></code></td>
                         </tr><tr id="api/ToolTip/readyState">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L10-13" target="_blank" title="源码：ui/control/control.tsx，第 10 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L37-40" target="_blank" title="源码：ui/control/control.tsx，第 37 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>readyState</code>
                                 <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/ControlState">ControlState</a></code></span>
@@ -646,7 +647,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/readyState">Control</a></code></td>
                         </tr><tr id="api/ToolTip/elem">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L20-28" target="_blank" title="源码：ui/control/control.tsx，第 20 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L47-55" target="_blank" title="源码：ui/control/control.tsx，第 47 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>elem</code>
                                 <span class="doc-api-more">: <code>HTMLElement</code></span>
@@ -666,10 +667,10 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/elem">Control</a></code></td>
                         </tr><tr id="api/ToolTip/vNode">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L62-65" target="_blank" title="源码：ui/control/control.tsx，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L89-92" target="_blank" title="源码：ui/control/control.tsx，第 89 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>vNode</code>
-                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a> | null</code></span>
+                                <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc"><strong>(保护的)</strong>获取当前控件关联的虚拟节点。</p>
 
@@ -686,7 +687,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/vNode">Control</a></code></td>
                         </tr><tr id="api/ToolTip/sourceVNode">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L67-70" target="_blank" title="源码：ui/control/control.tsx，第 67 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L94-97" target="_blank" title="源码：ui/control/control.tsx，第 94 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>sourceVNode</code>
                                 <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code></span>
@@ -706,7 +707,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/sourceVNode">Control</a></code></td>
                         </tr><tr id="api/ToolTip/alwaysUpdate">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L102-107" target="_blank" title="源码：ui/control/control.tsx，第 102 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L129-134" target="_blank" title="源码：ui/control/control.tsx，第 129 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>alwaysUpdate</code>
                                 <span class="doc-api-more">: <code>boolean</code></span>
@@ -726,7 +727,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/alwaysUpdate">Control</a></code></td>
                         </tr><tr id="api/ToolTip/body">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L112-115" target="_blank" title="源码：ui/control/control.tsx，第 112 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L139-142" target="_blank" title="源码：ui/control/control.tsx，第 139 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>body</code>
                                 <span class="doc-api-more">: <code>HTMLElement</code></span>
@@ -746,7 +747,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/body">Control</a></code></td>
                         </tr><tr id="api/ToolTip/duration">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L187-191" target="_blank" title="源码：ui/control/control.tsx，第 187 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L214-218" target="_blank" title="源码：ui/control/control.tsx，第 214 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>duration</code>
                                 <span class="doc-api-more">: <code>number</code> = <code>200</code></span>
@@ -766,7 +767,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/duration">Control</a></code></td>
                         </tr><tr id="api/ToolTip/class">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L198-203" target="_blank" title="源码：ui/control/control.tsx，第 198 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L225-230" target="_blank" title="源码：ui/control/control.tsx，第 225 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>class</code>
                                 <span class="doc-api-more">: <code>string</code></span>
@@ -786,7 +787,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/class">Control</a></code></td>
                         </tr><tr id="api/ToolTip/style">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L219-222" target="_blank" title="源码：ui/control/control.tsx，第 219 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L246-249" target="_blank" title="源码：ui/control/control.tsx，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>style</code>
                                 <span class="doc-api-more">: <code>string | { [key: string]: string | number; }</code></span>
@@ -806,7 +807,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/style">Control</a></code></td>
                         </tr><tr id="api/ToolTip/id">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L224-227" target="_blank" title="源码：ui/control/control.tsx，第 224 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L251-254" target="_blank" title="源码：ui/control/control.tsx，第 251 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>id</code>
                                 <span class="doc-api-more">: <code>string</code></span>
@@ -826,7 +827,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/id">Control</a></code></td>
                         </tr><tr id="api/ToolTip/content">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L229-232" target="_blank" title="源码：ui/control/control.tsx，第 229 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L256-259" target="_blank" title="源码：ui/control/control.tsx，第 256 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>content</code>
                                 <span class="doc-api-more">: <code><a href="../../../components/ui/control/index.html#api/NodeLike">NodeLike</a></code></span>
@@ -846,7 +847,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/content">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onSelectStart">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L234-238" target="_blank" title="源码：ui/control/control.tsx，第 234 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L261-265" target="_blank" title="源码：ui/control/control.tsx，第 261 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onSelectStart</code>
                                 <span class="doc-api-more">: <code>(e: Event, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -866,7 +867,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onSelectStart">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onClick">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L240-244" target="_blank" title="源码：ui/control/control.tsx，第 240 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L267-271" target="_blank" title="源码：ui/control/control.tsx，第 267 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onClick</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -886,7 +887,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onClick">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onAuxClick">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L246-250" target="_blank" title="源码：ui/control/control.tsx，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L273-277" target="_blank" title="源码：ui/control/control.tsx，第 273 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onAuxClick</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -906,7 +907,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onAuxClick">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onDblClick">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L252-256" target="_blank" title="源码：ui/control/control.tsx，第 252 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L279-283" target="_blank" title="源码：ui/control/control.tsx，第 279 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDblClick</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -926,7 +927,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onDblClick">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onContextMenu">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L258-262" target="_blank" title="源码：ui/control/control.tsx，第 258 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L285-289" target="_blank" title="源码：ui/control/control.tsx，第 285 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onContextMenu</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -946,7 +947,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onContextMenu">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseDown">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L264-268" target="_blank" title="源码：ui/control/control.tsx，第 264 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L291-295" target="_blank" title="源码：ui/control/control.tsx，第 291 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseDown</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -966,7 +967,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseDown">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseUp">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L270-274" target="_blank" title="源码：ui/control/control.tsx，第 270 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L297-301" target="_blank" title="源码：ui/control/control.tsx，第 297 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseUp</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -986,7 +987,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseUp">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseOver">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L276-280" target="_blank" title="源码：ui/control/control.tsx，第 276 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L303-307" target="_blank" title="源码：ui/control/control.tsx，第 303 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseOver</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1006,7 +1007,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOver">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseOut">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L282-286" target="_blank" title="源码：ui/control/control.tsx，第 282 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L309-313" target="_blank" title="源码：ui/control/control.tsx，第 309 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseOut</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1026,7 +1027,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseOut">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseEnter">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L288-292" target="_blank" title="源码：ui/control/control.tsx，第 288 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L315-319" target="_blank" title="源码：ui/control/control.tsx，第 315 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseEnter</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1046,7 +1047,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseEnter">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseLeave">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L294-298" target="_blank" title="源码：ui/control/control.tsx，第 294 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L321-325" target="_blank" title="源码：ui/control/control.tsx，第 321 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseLeave</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1066,7 +1067,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseLeave">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onMouseMove">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L300-304" target="_blank" title="源码：ui/control/control.tsx，第 300 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L327-331" target="_blank" title="源码：ui/control/control.tsx，第 327 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onMouseMove</code>
                                 <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1086,7 +1087,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onMouseMove">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onWheel">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L306-310" target="_blank" title="源码：ui/control/control.tsx，第 306 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L333-337" target="_blank" title="源码：ui/control/control.tsx，第 333 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onWheel</code>
                                 <span class="doc-api-more">: <code>(e: WheelEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1106,7 +1107,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onWheel">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onScroll">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L312-316" target="_blank" title="源码：ui/control/control.tsx，第 312 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L339-343" target="_blank" title="源码：ui/control/control.tsx，第 339 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onScroll</code>
                                 <span class="doc-api-more">: <code>(e: UIEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1126,7 +1127,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onScroll">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onTouchStart">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L318-322" target="_blank" title="源码：ui/control/control.tsx，第 318 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L345-349" target="_blank" title="源码：ui/control/control.tsx，第 345 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onTouchStart</code>
                                 <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1146,7 +1147,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchStart">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onTouchMove">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L324-328" target="_blank" title="源码：ui/control/control.tsx，第 324 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L351-355" target="_blank" title="源码：ui/control/control.tsx，第 351 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onTouchMove</code>
                                 <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1166,7 +1167,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchMove">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onTouchEnd">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L330-334" target="_blank" title="源码：ui/control/control.tsx，第 330 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L357-361" target="_blank" title="源码：ui/control/control.tsx，第 357 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onTouchEnd</code>
                                 <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1186,7 +1187,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchEnd">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onTouchCancel">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L336-340" target="_blank" title="源码：ui/control/control.tsx，第 336 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L363-367" target="_blank" title="源码：ui/control/control.tsx，第 363 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onTouchCancel</code>
                                 <span class="doc-api-more">: <code>(e: TouchEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1206,7 +1207,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onTouchCancel">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerEnter">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L342-346" target="_blank" title="源码：ui/control/control.tsx，第 342 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L369-373" target="_blank" title="源码：ui/control/control.tsx，第 369 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerEnter</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1226,7 +1227,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerEnter">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerLeave">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L348-352" target="_blank" title="源码：ui/control/control.tsx，第 348 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L375-379" target="_blank" title="源码：ui/control/control.tsx，第 375 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerLeave</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1246,7 +1247,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerLeave">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerOver">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L354-358" target="_blank" title="源码：ui/control/control.tsx，第 354 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L381-385" target="_blank" title="源码：ui/control/control.tsx，第 381 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerOver</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1266,7 +1267,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOver">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerOut">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L360-364" target="_blank" title="源码：ui/control/control.tsx，第 360 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L387-391" target="_blank" title="源码：ui/control/control.tsx，第 387 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerOut</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1286,7 +1287,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerOut">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerDown">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L366-370" target="_blank" title="源码：ui/control/control.tsx，第 366 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L393-397" target="_blank" title="源码：ui/control/control.tsx，第 393 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerDown</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1306,7 +1307,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerDown">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerMove">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L372-376" target="_blank" title="源码：ui/control/control.tsx，第 372 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L399-403" target="_blank" title="源码：ui/control/control.tsx，第 399 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerMove</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1326,7 +1327,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerMove">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerUp">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L378-382" target="_blank" title="源码：ui/control/control.tsx，第 378 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L405-409" target="_blank" title="源码：ui/control/control.tsx，第 405 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerUp</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1346,7 +1347,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerUp">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onPointerCancel">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L384-388" target="_blank" title="源码：ui/control/control.tsx，第 384 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L411-415" target="_blank" title="源码：ui/control/control.tsx，第 411 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onPointerCancel</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1366,7 +1367,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onPointerCancel">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onGotPointerCapture">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L390-394" target="_blank" title="源码：ui/control/control.tsx，第 390 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L417-421" target="_blank" title="源码：ui/control/control.tsx，第 417 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onGotPointerCapture</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1386,7 +1387,7 @@ render(
                             <td><code><a href="../../../components/ui/control/index.html#api/Control/onGotPointerCapture">Control</a></code></td>
                         </tr><tr id="api/ToolTip/onLostPointerCapture">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L396-400" target="_blank" title="源码：ui/control/control.tsx，第 396 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L423-427" target="_blank" title="源码：ui/control/control.tsx，第 423 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onLostPointerCapture</code>
                                 <span class="doc-api-more">: <code>(e: PointerEvent, sender: <a href="#api/ToolTip">ToolTip</a>) =&gt; void</code></span>
@@ -1412,7 +1413,7 @@ render(
                                 <td>
                                     <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/toolTip/toolTip.tsx#L25-27" target="_blank" title="源码：ui/toolTip/toolTip.tsx，第 25 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>render<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>any</code></span></code>
+                                    <code>render<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc"><strong>(保护的)</strong></p>
 
@@ -1420,7 +1421,7 @@ render(
                 
                 
                 <h4>返回值</h4>
-                <p>类型：<code>any</code></p>
+                <p>类型：<code><a href="../../../components/ui/control/index.html#api/VNode">VNode</a></code></p>
                 
                 
                                         <h4>继承自</h4><p><code><a href="../../../components/ui/popup/index.html#api/Popup/render">Popup</a></code></p>
@@ -1433,7 +1434,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/render">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/layout">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L198-204" target="_blank" title="源码：ui/popup/popup.tsx，第 198 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L202-208" target="_blank" title="源码：ui/popup/popup.tsx，第 202 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>layout<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1455,7 +1456,7 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/layout">Control</a></code></td>
                             </tr><tr id="api/ToolTip/show">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L208-218" target="_blank" title="源码：ui/popup/popup.tsx，第 208 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L212-222" target="_blank" title="源码：ui/popup/popup.tsx，第 212 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>show<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1478,7 +1479,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/show">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/hide">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L220-225" target="_blank" title="源码：ui/popup/popup.tsx，第 220 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L224-229" target="_blank" title="源码：ui/popup/popup.tsx，第 224 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>hide<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1501,7 +1502,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/hide">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/toggle">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L227-233" target="_blank" title="源码：ui/popup/popup.tsx，第 227 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L231-237" target="_blank" title="源码：ui/popup/popup.tsx，第 231 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>toggle<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(value?:<code>boolean</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1521,11 +1522,10 @@ render(
                                     <code>value</code>
                                 </td>
                                 <td>
-                                    <code>boolean | undefined</code>
+                                    <code>boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">如果为 true 则强制显示。如果为 false 则强制隐藏。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1546,7 +1546,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/toggle">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/realign">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L235-283" target="_blank" title="源码：ui/popup/popup.tsx，第 235 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L239-287" target="_blank" title="源码：ui/popup/popup.tsx，第 239 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>realign<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code><a href="../../../components/web/pin/index.html#api/PinResult">PinResult</a></code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1569,7 +1569,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/realign">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/handleDocumentPointerDown">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L285-291" target="_blank" title="源码：ui/popup/popup.tsx，第 285 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L289-295" target="_blank" title="源码：ui/popup/popup.tsx，第 289 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>handleDocumentPointerDown<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1592,8 +1592,7 @@ render(
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件参数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1614,7 +1613,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/handleDocumentPointerDown">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/handleDocumentScroll">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L293-299" target="_blank" title="源码：ui/popup/popup.tsx，第 293 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/popup/popup.tsx#L297-303" target="_blank" title="源码：ui/popup/popup.tsx，第 297 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>handleDocumentScroll<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1637,8 +1636,7 @@ render(
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件参数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1659,7 +1657,7 @@ render(
                                 <td><code><a href="../../../components/ui/popup/index.html#api/Popup/handleDocumentScroll">Popup</a></code></td>
                             </tr><tr id="api/ToolTip/init">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L52-55" target="_blank" title="源码：ui/control/control.tsx，第 52 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L79-82" target="_blank" title="源码：ui/control/control.tsx，第 79 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>init<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1682,7 +1680,7 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/init">Control</a></code></td>
                             </tr><tr id="api/ToolTip/uninit">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L57-60" target="_blank" title="源码：ui/control/control.tsx，第 57 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L84-87" target="_blank" title="源码：ui/control/control.tsx，第 84 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>uninit<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1705,7 +1703,7 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/uninit">Control</a></code></td>
                             </tr><tr id="api/ToolTip/update">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L77-89" target="_blank" title="源码：ui/control/control.tsx，第 77 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L104-116" target="_blank" title="源码：ui/control/control.tsx，第 104 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>update<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1728,7 +1726,7 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/update">Control</a></code></td>
                             </tr><tr id="api/ToolTip/invalidate">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L123-135" target="_blank" title="源码：ui/control/control.tsx，第 123 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L150-162" target="_blank" title="源码：ui/control/control.tsx，第 150 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>invalidate<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1751,7 +1749,7 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/invalidate">Control</a></code></td>
                             </tr><tr id="api/ToolTip/renderTo">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L137-158" target="_blank" title="源码：ui/control/control.tsx，第 137 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L164-185" target="_blank" title="源码：ui/control/control.tsx，第 164 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>renderTo<i class="doc-tip doc-api-ellipsis">(parent, ...)</i><span class="doc-tip doc-api-more">(parent:<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>, refChild?:<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1771,11 +1769,10 @@ render(
                                     <code>parent<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node | null</code>
+                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要渲染的目标控件或节点。如果为 null 则移除当前控件。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1786,11 +1783,10 @@ render(
                                     <code>refChild</code>
                                 </td>
                                 <td>
-                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node | null | undefined</code>
+                                    <code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | Node</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">在指定的子控件或节点前添加，如果为空则添加到末尾。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1811,9 +1807,9 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/renderTo">Control</a></code></td>
                             </tr><tr id="api/ToolTip/find">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L160-172" target="_blank" title="源码：ui/control/control.tsx，第 160 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L187-199" target="_blank" title="源码：ui/control/control.tsx，第 187 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>find<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>any</code></span></code>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | HTMLElement</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">在当前控件查找指定的子控件或节点。</p>
 
@@ -1834,8 +1830,7 @@ render(
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要查找的 CSS 选择器。如果为空则返回根控件或节点。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1843,7 +1838,7 @@ render(
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>any</code></p>
+                <p>类型：<code><a href="../../../components/ui/control/index.html#api/Control">Control</a> | HTMLElement</code></p>
                 <p class="doc">返回子控件或节点。如果找不到则返回 null。</p>
 
                 
@@ -1857,9 +1852,9 @@ render(
                                 <td><code><a href="../../../components/ui/control/index.html#api/Control/find">Control</a></code></td>
                             </tr><tr id="api/ToolTip/query">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L174-185" target="_blank" title="源码：ui/control/control.tsx，第 174 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/ui/control/control.tsx#L201-212" target="_blank" title="源码：ui/control/control.tsx，第 201 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>query<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>any[]</code></span></code>
+                                    <code>query<i class="doc-tip doc-api-ellipsis">(selector)</i><span class="doc-tip doc-api-more">(selector:<code>string</code>):<code>(<a href="../../../components/ui/control/index.html#api/Control">Control</a> | HTMLElement)[]</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">在当前控件查找匹配的所有子控件或节点。</p>
 
@@ -1880,8 +1875,7 @@ render(
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要查找的 CSS 选择器。如果为空则返回根控件或节点。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1889,7 +1883,7 @@ render(
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>any[]</code></p>
+                <p>类型：<code>(<a href="../../../components/ui/control/index.html#api/Control">Control</a> | HTMLElement)[]</code></p>
                 <p class="doc">返回子控件或节点列表。</p>
 
                 

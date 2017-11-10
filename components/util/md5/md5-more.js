@@ -1,4 +1,5 @@
 define(["require", "exports", "./md5"], function (require, exports, md5_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 计算字符串的 MD5-Base64 值。

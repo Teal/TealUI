@@ -60,6 +60,7 @@
 <div id="drag" class="doc-box doc-box-small" style="cursor: move;"></div>
 <div id="drop" style="height: 60px; border: 1px solid #C6D880"></div>
 <script>define("doc_demo_1", ["require", "exports", "web/draggable", "web/droppable"], function (require, exports, draggable_1, droppable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     // 令滑块可拖动。
     draggable_1.default(drag);
@@ -144,8 +145,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要拖放的元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -156,11 +156,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>options</code>
                                 </td>
                                 <td>
-                                    <code>Partial&lt;<a href="#api/Droppable">Droppable</a>&gt; | undefined</code>
+                                    <code>Partial&lt;<a href="#api/Droppable">Droppable</a>&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">拖放的选项。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -191,7 +190,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L22-29" target="_blank" title="源码：web/droppable/droppable.ts，第 22 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragStart</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">任意元素拖动开始事件。</p>
 
@@ -211,7 +210,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L31-38" target="_blank" title="源码：web/droppable/droppable.ts，第 31 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragEnter</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动进入事件。</p>
 
@@ -231,7 +230,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L40-46" target="_blank" title="源码：web/droppable/droppable.ts，第 40 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragMove</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">在当前区域拖动移动事件。</p>
 
@@ -251,7 +250,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L48-55" target="_blank" title="源码：web/droppable/droppable.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragLeave</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动离开事件。</p>
 
@@ -271,7 +270,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L57-63" target="_blank" title="源码：web/droppable/droppable.ts，第 57 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDrop</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖放事件。</p>
 
@@ -291,7 +290,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L65-71" target="_blank" title="源码：web/droppable/droppable.ts，第 65 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragEnd</code>
-                                <span class="doc-api-more">: <code>((draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(draggable: <a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a>, e: MouseEvent, sender: <a href="#api/Droppable">Droppable</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">任意元素拖动结束事件。</p>
 
@@ -371,7 +370,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/droppable/droppable.ts#L103-106" target="_blank" title="源码：web/droppable/droppable.ts，第 103 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>Droppable.current</code>
-                                <span class="doc-api-more">: <code><a href="#api/Droppable">Droppable</a>[] | null</code></span>
+                                <span class="doc-api-more">: <code><a href="#api/Droppable">Droppable</a>[]</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">本次拖动操作可拖放的所有区域。</p>
 
@@ -461,8 +460,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code><a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">拖动对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -476,8 +474,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -522,8 +519,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -537,8 +533,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code><a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件源。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -582,8 +577,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -597,8 +591,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code><a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件源。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -642,8 +635,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -657,8 +649,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code><a href="../../../components/web/draggable/index.html#api/Draggable">Draggable</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件源。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

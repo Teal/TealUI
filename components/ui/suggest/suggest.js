@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "ui/select", "util/pinyin"], function (require, exports, dom, select_1, pinyin_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个选择框。
@@ -17,6 +18,7 @@ define(["require", "exports", "web/dom", "ui/select", "util/pinyin"], function (
         __extends(Suggest, _super);
         function Suggest() {
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.validateEvent = "blur";
             _this._cache = { __proto__: null };
             return _this;
         }
@@ -63,7 +65,7 @@ define(["require", "exports", "web/dom", "ui/select", "util/pinyin"], function (
         };
         Suggest.prototype.validate = function (value) {
             var b = _super.prototype.validate.call(this, value);
-            if (b) {
+            if (b || this.allowCustom) {
                 return b;
             }
             if (this.menu.findItemByKey(value)) {

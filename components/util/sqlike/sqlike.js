@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function q(obj) {
         // Copyright: Thomas Frank 2010, v 1.021 (MIT style license, see EULA)

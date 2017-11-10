@@ -99,8 +99,7 @@ keyPress(elem, {
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -114,8 +113,7 @@ keyPress(elem, {
                                     <code><a href="#api/KeyPressOptions">KeyPressOptions</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">由键值和要绑定的事件函数组成的键值对。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -142,10 +140,10 @@ keyPress(elem, {
                                 
                             </tr><tr id="api/KeyPressOptions/indexer">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L66-66" target="_blank" title="源码：web/keyPress/keyPress.ts，第 66 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L61-66" target="_blank" title="源码：web/keyPress/keyPress.ts，第 61 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>[key]</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下指定的按键执行。</p>
 
@@ -174,8 +172,9 @@ keyPress(elem, {
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></p>
-                
+                <p>类型：<code>(e: KeyboardEvent) =&gt; boolean | void</code></p>
+                <p class="doc">如果函数返回 false 则表示执行默认的操作。</p>
+
                 
                                     
                                 </div>
@@ -193,7 +192,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L68-73" target="_blank" title="源码：web/keyPress/keyPress.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>esc</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下 ESC 执行。</p>
 
@@ -213,7 +212,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L75-80" target="_blank" title="源码：web/keyPress/keyPress.ts，第 75 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>up</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下方向上后执行。</p>
 
@@ -233,7 +232,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L82-87" target="_blank" title="源码：web/keyPress/keyPress.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>down</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下方向下后执行。</p>
 
@@ -253,7 +252,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L89-94" target="_blank" title="源码：web/keyPress/keyPress.ts，第 89 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>left</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下方向左后执行。</p>
 
@@ -273,7 +272,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L96-101" target="_blank" title="源码：web/keyPress/keyPress.ts，第 96 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>right</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下方向右后执行。</p>
 
@@ -293,7 +292,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L103-108" target="_blank" title="源码：web/keyPress/keyPress.ts，第 103 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>pageUp</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下向上翻页执行。</p>
 
@@ -313,7 +312,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L110-115" target="_blank" title="源码：web/keyPress/keyPress.ts，第 110 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>pageDown</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下向下翻页执行。</p>
 
@@ -333,7 +332,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L117-122" target="_blank" title="源码：web/keyPress/keyPress.ts，第 117 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>home</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下主页执行。</p>
 
@@ -353,7 +352,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L124-129" target="_blank" title="源码：web/keyPress/keyPress.ts，第 124 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>end</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下尾页执行。</p>
 
@@ -373,7 +372,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L131-136" target="_blank" title="源码：web/keyPress/keyPress.ts，第 131 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>enter</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下回车后执行。</p>
 
@@ -393,7 +392,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L138-143" target="_blank" title="源码：web/keyPress/keyPress.ts，第 138 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>ctrlEnter</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下Ctrl/Command+回车后执行。</p>
 
@@ -413,7 +412,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L145-150" target="_blank" title="源码：web/keyPress/keyPress.ts，第 145 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>space</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下空格后执行。</p>
 
@@ -433,7 +432,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L152-157" target="_blank" title="源码：web/keyPress/keyPress.ts，第 152 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>tab</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下制表符执行。</p>
 
@@ -453,7 +452,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L159-164" target="_blank" title="源码：web/keyPress/keyPress.ts，第 159 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>backspace</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下退格后执行。</p>
 
@@ -473,7 +472,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L166-171" target="_blank" title="源码：web/keyPress/keyPress.ts，第 166 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>delete</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下删除后执行。</p>
 
@@ -493,7 +492,7 @@ keyPress(elem, {
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/keyPress/keyPress.ts#L173-178" target="_blank" title="源码：web/keyPress/keyPress.ts，第 173 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>other</code>
-                                <span class="doc-api-more">: <code>((e: KeyboardEvent) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: KeyboardEvent) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">按下其它键执行。</p>
 

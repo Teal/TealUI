@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="xuld &lt;xuld@vip.qq.com&gt;">
     <meta name="version" content="0.0.1">
-    <title>鼠标移入事件 - TealUI | 打造小而全、精而美的开源组件库</title>
+    <title>悬停事件 - TealUI | 打造小而全、精而美的开源组件库</title>
     <link rel="shortcut icon" href="../../../assets/doc/images/favicon.ico">
     <link rel="stylesheet" href="../../../assets/doc/doc.css">
     <script src="../../../components/require.js"></script>
@@ -52,13 +52,14 @@
                                 <li><a href="javascript:void Doc.copy(&quot;import hover from \&quot;web/hover\&quot;;\n&quot;)" accesskey="i"><i class="doc-icon">⅏</i>复制 <code>import</code></a></li><li><a href="javascript:void Doc.copy(&quot;require([\&quot;web/hover\&quot;], function (hover_1) {\n\tvar hover = hover_1.default;\n\n\n});\n&quot;)" accesskey="r"><i class="doc-icon">⅏</i>复制 <code>require</code></a></li><li class="doc-menu-divider"><a href="javascript:Doc.toggleFullScreen()" accesskey="f"><i class="doc-icon">✥</i>全屏显示</a></li><li><a href="javascript:Doc.toggleDemoCodes()" accesskey="c"><i class="doc-icon">⅏</i>折叠源码</a></li><li><a href="javascript:Doc.toggleApis()" accesskey="a"><i class="doc-icon">≡</i>展开 API</a></li><li class="doc-menu-divider"><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/hover/hover.ts" target="_blank"><i class="doc-icon">😺</i>查看源码</a></li><li><a href="https://github.com/Teal/TealUI/issues/new?title=web/hover" target="_blank"><i class="doc-icon">🐛</i>报告 BUG</a></li><li><a href="https://github.com/Teal/TealUI/edit/dev-v4/components/web/hover/hover.md" target="_blank"><i class="doc-icon">✍</i>编辑此页</a></li>
                             </menu>
                         </aside>
-                        <h1 id="鼠标移入事件">
-<a href="#鼠标移入事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>鼠标移入事件<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as hover">web/hover</small></h1>
-<p class="doc">模拟 CSS :hover 伪类。</p>
+                        <h1 id="悬停事件">
+<a href="#悬停事件" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a>悬停事件<small title="版本：0.0.1&#10;作者：xuld <xuld@vip.qq.com>&#10;导出：default as hover">web/hover</small></h1>
+<p class="doc">模拟 CSS :active 伪类。</p>
 <div class="doc-demo">
                     <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
 <div id="box" class="doc-box"></div>
 <script>define("doc_demo_1", ["require", "exports", "web/hover"], function (require, exports, hover_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     hover_1.default(box, function (e) {
         box.className += " doc-box-blue";
@@ -90,9 +91,9 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <td>
                                     <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/hover/hover.ts#L3-27" target="_blank" title="源码：web/hover/hover.ts，第 3 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>hover<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, mouseEnter?:<code>function</code>, mouseLeave?:<code>function</code>, delay?:<code>number</code>):<code>void</code></span></code>
+                                    <code>hover<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, pointerEnter?:<code>function</code>, pointerLeave?:<code>function</code>, delay?:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
-                                        <p class="doc">绑定鼠标移上后的操作。</p>
+                                        <p class="doc">设置指针悬停时的回调函数。</p>
 
                 
                 
@@ -111,8 +112,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">相关的元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -120,14 +120,13 @@ var exports_doc_demo_1 = require("doc_demo_1")
                             </tr>
 <tr>
                                 <td>
-                                    <code>mouseEnter</code>
+                                    <code>pointerEnter</code>
                                 </td>
                                 <td>
-                                    <code>((e: MouseEvent) =&gt; void) | undefined</code>
+                                    <code>(e: MouseEvent) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">鼠标移入后的操作。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -135,14 +134,13 @@ var exports_doc_demo_1 = require("doc_demo_1")
                             </tr>
 <tr>
                                 <td>
-                                    <code>mouseLeave</code>
+                                    <code>pointerLeave</code>
                                 </td>
                                 <td>
-                                    <code>((e: MouseEvent) =&gt; void) | undefined</code>
+                                    <code>(e: MouseEvent) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">鼠标移出后的操作。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -156,8 +154,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">触发事件延时执行的毫秒数。鼠标进入后指定时间内不触发函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>30</code>
@@ -167,19 +164,19 @@ var exports_doc_demo_1 = require("doc_demo_1")
                 <h4>返回值</h4>
                 <p>类型：<code>void</code></p>
                 
-                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">hover(elem, <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>)</span>{ alert(<span class="doc-code-string">"鼠标进来了"</span>) }, <span class="doc-code-function"><span class="doc-code-keyword">function</span>(<span class="doc-code-params"></span>)</span>{ alert(<span class="doc-code-string">"鼠标出去了"</span>) });</code></pre>
+                <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">hover(elem, () =&gt; <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"进"</span>), () =&gt; <span class="doc-code-built_in">console</span>.log(<span class="doc-code-string">"出"</span>))</code></pre>
                                         
                                     </div>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">绑定鼠标移上后的操作。</p>
+                                    <p class="doc">设置指针悬停时的回调函数。</p>
 
                                 </td>
                                 
                             </tr></table></div>
                         <nav id="doc_pager">
                             <a href="../../../components/web/disableTab/" title="禁止 Tab" id="doc_pager_prev"><i class="doc-icon">⮜</i> 禁止 Tab</a>
-                            <a href="../../../components/web/hashChange/" title="哈希值改变事件" id="doc_pager_next">哈希值改变事件 <i class="doc-icon">⮞</i></a>
+                            <a href="../../../components/web/active/" title="按住事件" id="doc_pager_next">按住事件 <i class="doc-icon">⮞</i></a>
                         </nav>
 </article>
     </div>

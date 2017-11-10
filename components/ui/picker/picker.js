@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "ui/control", "web/popup", "ui/textBox", "ui/button/button.scss", "./picker.scss"], function (require, exports, dom, control_1, popup_1, textBox_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个填选器。
@@ -63,7 +64,7 @@ define(["require", "exports", "web/dom", "ui/control", "web/popup", "ui/textBox"
                     Object.assign(menu, this.menuOptions);
                     if (this.resizeMode === "fitDropDown") {
                         dom.show(menu.elem);
-                        dom.setRect(this.elem, { width: dom.getRect(menu.elem).width });
+                        dom.setRect(this.elem, { width: dom.computeStyle(menu.elem, "width") });
                     }
                     dom.hide(menu.elem);
                 }
@@ -137,7 +138,7 @@ define(["require", "exports", "web/dom", "ui/control", "web/popup", "ui/textBox"
                 return;
             }
             this.updateMenu();
-            if (this.resizeMode !== "fitDropDown") {
+            if (this.resizeMode !== "fitDropDown" && this.resizeMode !== "none") {
                 var elemWidth = dom.getRect(this.elem).width;
                 if (this.resizeMode === "fitInput" || dom.getRect(this.dropDown.elem).width < elemWidth) {
                     dom.setRect(this.dropDown.elem, { width: elemWidth });

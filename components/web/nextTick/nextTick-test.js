@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./nextTick"], function (require, exports, assert, nextTick_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function nextTickTest(done) {
         var i = 0;

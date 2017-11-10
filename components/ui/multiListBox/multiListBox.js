@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "web/keyPress", "web/scroll", "ui/control", "ui/listBox"], function (require, exports, dom, keyPress_1, scroll_1, control_1, listBox_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个多选列表框。

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./base64"], function (require, exports, assert, base64) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function encodeBase64Test() {
         assert.strictEqual(base64.encodeBase64("中文"), "5Lit5paH");

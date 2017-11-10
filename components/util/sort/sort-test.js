@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./sort"], function (require, exports, assert, sort) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function bubbleSortTest() {
         var arr = [1, 3, 5, 4, 3];

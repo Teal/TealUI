@@ -1,4 +1,5 @@
 define(["require", "exports", "./promise-shim"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象。

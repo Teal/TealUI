@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./formatDateToChinese"], function (require, exports, assert, formatDateToChinese_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function formatDateToChineseTest() {
         assert.strictEqual(formatDateToChinese_1.default(new Date()), "刚刚");

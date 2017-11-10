@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./outerHTML"], function (require, exports, assert, outerHTML) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function getOuterHTMLTest() {
         assert.strictEqual(outerHTML.getOuterHTML(document.getElementById("qunit-fixture")), "<div id=\"qunit-fixture\"></div>");

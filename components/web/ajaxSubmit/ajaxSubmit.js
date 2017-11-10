@@ -7,6 +7,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 define(["require", "exports", "web/ajax"], function (require, exports, ajax_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 异步提交表单数据。
@@ -18,7 +19,12 @@ define(["require", "exports", "web/ajax"], function (require, exports, ajax_1) {
      * @example ajaxSubmit(document.getElementById("form"))
      */
     function ajaxSubmit(elem, success, error, options) {
-        return ajax_1.default(__assign({ type: elem.method, url: elem.action, contentType: elem.enctype, withCredentials: true, data: formData(elem), success: success, error: error }, options));
+        var data = formData(elem);
+        options = __assign({ type: elem.method, url: elem.action, withCredentials: true, data: data, success: success, error: error }, options);
+        if (!(data instanceof FormData) && !options.contentType) {
+            options.contentType = elem.enctype;
+        }
+        return ajax_1.default(options);
     }
     exports.default = ajaxSubmit;
     /**

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./string"], function (require, exports, assert, string) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function formatTest() {
         assert.strictEqual(string.format("我是{0}，不是{1}", "小黑", "大白"), "我是小黑，不是大白");

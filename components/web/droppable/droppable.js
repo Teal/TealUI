@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom", "web/draggable"], function (require, exports, dom_1, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 创建一个可拖放区域。

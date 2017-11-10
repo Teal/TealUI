@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "ui/comboBox"], function (require, exports, dom, comboBox_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个选择框。
@@ -59,6 +60,23 @@ define(["require", "exports", "web/dom", "ui/comboBox"], function (require, expo
                     value = item.content;
                 }
                 this.input.value = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Select.prototype, "defaultValue", {
+            get: function () {
+                if (this._selectedItem) {
+                    return this._selectedItem.key;
+                }
+                return this.input.defaultValue;
+            },
+            set: function (value) {
+                var item = this._selectedItem = this.menu.findItemByKey(value);
+                if (item) {
+                    value = item.content;
+                }
+                this.input.defaultValue = value;
             },
             enumerable: true,
             configurable: true

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./events"], function (require, exports, assert, events_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function eventEmitterTest() {
         var ee = new events_1.default();

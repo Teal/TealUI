@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "ui/checkBoxGroup"], function (require, exports, checkBoxGroup_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个单选按钮组。

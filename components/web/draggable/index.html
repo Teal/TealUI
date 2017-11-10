@@ -76,6 +76,7 @@
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
 <div id="box" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_1", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box);
 });
@@ -104,6 +105,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
 <div id="box1" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_2", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box1, {
         onDragStart: function () {
@@ -153,6 +155,7 @@ var exports_doc_demo_2 = require("doc_demo_2")
 <div class="doc-col" id="doc_demo_3">
 <div id="box_handle" class="doc-box"><button id="box_handle_body" style="cursor: move">点我拖动</button></div>
 <script>define("doc_demo_3", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_handle_body, {
         proxy: box_handle
@@ -167,6 +170,7 @@ var exports_doc_demo_3 = require("doc_demo_3")
 
 <div id="box_cancel" class="doc-box" style="cursor: move"><button id="box_cancel_body" style="cursor: default;">点外拖动</button></div>
 <script>define("doc_demo_4", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_cancel, {
         cancel: function (e) {
@@ -205,6 +209,7 @@ var exports_doc_demo_4 = require("doc_demo_4")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_5">
 <div id="box_scroll" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_5", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_scroll, {
         onDragMove: function (e, s) {
@@ -236,6 +241,7 @@ var exports_doc_demo_5 = require("doc_demo_5")
 <div class="doc-col" id="doc_demo_6">
 <div id="box_direction_horizontal" class="doc-box" style="cursor: e-resize"></div>
 <script>define("doc_demo_6", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_direction_horizontal, {
         onDragMove: function (e, s) {
@@ -252,6 +258,7 @@ var exports_doc_demo_6 = require("doc_demo_6")
 
 <div id="box_direction_vertial" class="doc-box" style="cursor: n-resize"></div>
 <script>define("doc_demo_7", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_direction_vertial, {
         onDragMove: function (e, s) {
@@ -294,6 +301,7 @@ var exports_doc_demo_7 = require("doc_demo_7")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_8">
 <div id="box_limit" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_8", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_limit, {
         onDragMove: function (e, s) {
@@ -324,6 +332,7 @@ var exports_doc_demo_8 = require("doc_demo_8")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_9">
 <div id="box_step" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_9", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_step, {
         onDragMove: function (e, s) {
@@ -353,6 +362,7 @@ var exports_doc_demo_9 = require("doc_demo_9")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_10">
 <div id="box_revert" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_10", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_revert, {
         onDragEnd: function (e, s) {
@@ -383,6 +393,7 @@ var exports_doc_demo_10 = require("doc_demo_10")
 <div id="box_snap" class="doc-box" style="cursor: move"></div>
 <div id="box_snap_target" class="doc-box doc-box-large doc-box-blue"></div>
 <script>define("doc_demo_11", ["require", "exports", "web/draggable"], function (require, exports, draggable_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_snap, {
         onDragMove: function (e, s) {
@@ -413,6 +424,7 @@ var exports_doc_demo_11 = require("doc_demo_11")
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_12">
 <div id="box_proxy" class="doc-box" style="cursor: move"></div>
 <script>define("doc_demo_12", ["require", "exports", "web/draggable", "web/dom"], function (require, exports, draggable_1, dom) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     draggable_1.default(box_proxy, {
         onDragStart: function (e, s) {
@@ -472,7 +484,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             
                         </tr><tr id="api/draggable">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L5-17" target="_blank" title="源码：web/draggable/draggable.ts，第 5 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L5-20" target="_blank" title="源码：web/draggable/draggable.ts，第 5 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>draggable<i class="doc-tip doc-api-ellipsis">(elem, ...)</i><span class="doc-tip doc-api-more">(elem:<code>HTMLElement</code>, options?:<code>Partial&lt;<a href="#api/Draggable">Draggable</a>&gt;</code>):<code><a href="#api/Draggable">Draggable</a></code></span></code>
                                     <div class="doc doc-api-detail">
@@ -495,8 +507,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要拖动的元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -507,11 +518,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>options</code>
                                 </td>
                                 <td>
-                                    <code>Partial&lt;<a href="#api/Draggable">Draggable</a>&gt; | undefined</code>
+                                    <code>Partial&lt;<a href="#api/Draggable">Draggable</a>&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">拖动的选项。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -531,7 +541,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
 
                                 </td>
                                 
-                            </tr></table></div><h3 id="api/Draggable"><a href="#api/Draggable" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L19-242" target="_blank" title="源码：web/draggable/draggable.ts，第 19 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Draggable 类</h3><p>继承自：<code><a href="../../../components/web/movable/index.html#api/Movable">Movable</a></code></p><p class="doc">表示一个可拖动对象。</p>
+                            </tr></table></div><h3 id="api/Draggable"><a href="#api/Draggable" title="链接" aria-hidden="true" class="doc-icon doc-permalink">☍</a><a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L22-245" target="_blank" title="源码：web/draggable/draggable.ts，第 22 行" aria-hidden="true" class="doc-icon doc-sourcelink">⅏</a>Draggable 类</h3><p>继承自：<code><a href="../../../components/web/movable/index.html#api/Movable">Movable</a></code></p><p class="doc">表示一个可拖动对象。</p>
 <div class="doc doc-scrollable"><table class="doc-api"><tr>
                                 <th class="doc-api-property">字段</th>
                                 <th class="doc-api-type">类型</th>
@@ -539,7 +549,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <th class="doc-api-extends">继承自</th>
                             </tr><tr id="api/Draggable/proxy">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L30-33" target="_blank" title="源码：web/draggable/draggable.ts，第 30 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L33-36" target="_blank" title="源码：web/draggable/draggable.ts，第 33 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>proxy</code>
                                 <span class="doc-api-more">: <code>HTMLElement</code></span>
@@ -559,10 +569,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/onDragStart">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L35-41" target="_blank" title="源码：web/draggable/draggable.ts，第 35 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L38-44" target="_blank" title="源码：web/draggable/draggable.ts，第 38 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragStart</code>
-                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动开始事件。</p>
 
@@ -579,10 +589,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/onDragMove">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L43-49" target="_blank" title="源码：web/draggable/draggable.ts，第 43 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L46-52" target="_blank" title="源码：web/draggable/draggable.ts，第 46 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragMove</code>
-                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; boolean | void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动移动事件。</p>
 
@@ -599,10 +609,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/onDragEnd">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L51-56" target="_blank" title="源码：web/draggable/draggable.ts，第 51 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L54-59" target="_blank" title="源码：web/draggable/draggable.ts，第 54 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragEnd</code>
-                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动结束事件。</p>
 
@@ -619,10 +629,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/onDragCancel">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L58-63" target="_blank" title="源码：web/draggable/draggable.ts，第 58 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L61-66" target="_blank" title="源码：web/draggable/draggable.ts，第 61 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>onDragCancel</code>
-                                <span class="doc-api-more">: <code>((e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(e: MouseEvent, sender: <a href="#api/Draggable">Draggable</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">拖动取消事件。</p>
 
@@ -639,7 +649,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/startClientX">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L65-68" target="_blank" title="源码：web/draggable/draggable.ts，第 65 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L68-71" target="_blank" title="源码：web/draggable/draggable.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>startClientX</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -659,7 +669,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/startClientY">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L70-73" target="_blank" title="源码：web/draggable/draggable.ts，第 70 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L73-76" target="_blank" title="源码：web/draggable/draggable.ts，第 73 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>startClientY</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -679,7 +689,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/endClientX">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L75-78" target="_blank" title="源码：web/draggable/draggable.ts，第 75 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L78-81" target="_blank" title="源码：web/draggable/draggable.ts，第 78 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>endClientX</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -699,7 +709,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/endClientY">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L80-83" target="_blank" title="源码：web/draggable/draggable.ts，第 80 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L83-86" target="_blank" title="源码：web/draggable/draggable.ts，第 83 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>endClientY</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -719,7 +729,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td>—</td>
                         </tr><tr id="api/Draggable/delay">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L24-28" target="_blank" title="源码：web/draggable/draggable.ts，第 24 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L27-31" target="_blank" title="源码：web/draggable/draggable.ts，第 27 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>delay</code>
                                 <span class="doc-api-more">: <code>number</code> = <code>500</code></span>
@@ -779,7 +789,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/distance">Movable</a></code></td>
                         </tr><tr id="api/Draggable/startX">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L62-65" target="_blank" title="源码：web/movable/movable.ts，第 62 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L63-66" target="_blank" title="源码：web/movable/movable.ts，第 63 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>startX</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -799,7 +809,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/startX">Movable</a></code></td>
                         </tr><tr id="api/Draggable/startY">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L67-70" target="_blank" title="源码：web/movable/movable.ts，第 67 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L68-71" target="_blank" title="源码：web/movable/movable.ts，第 68 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>startY</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -819,7 +829,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/startY">Movable</a></code></td>
                         </tr><tr id="api/Draggable/endX">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L72-75" target="_blank" title="源码：web/movable/movable.ts，第 72 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L73-76" target="_blank" title="源码：web/movable/movable.ts，第 73 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>endX</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -839,7 +849,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/endX">Movable</a></code></td>
                         </tr><tr id="api/Draggable/endY">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L77-80" target="_blank" title="源码：web/movable/movable.ts，第 77 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L78-81" target="_blank" title="源码：web/movable/movable.ts，第 78 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>endY</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -859,7 +869,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/endY">Movable</a></code></td>
                         </tr><tr id="api/Draggable/offsetX">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L82-85" target="_blank" title="源码：web/movable/movable.ts，第 82 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L83-86" target="_blank" title="源码：web/movable/movable.ts，第 83 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>offsetX</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -879,7 +889,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <td><code><a href="../../../components/web/movable/index.html#api/Movable/offsetX">Movable</a></code></td>
                         </tr><tr id="api/Draggable/offsetY">
                             <td>
-                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L87-90" target="_blank" title="源码：web/movable/movable.ts，第 87 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L88-91" target="_blank" title="源码：web/movable/movable.ts，第 88 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>offsetY</code>
                                 <span class="doc-api-more">: <code>number</code></span>
@@ -903,7 +913,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             <th class="doc-api-extends">继承自</th>
                         </tr><tr id="api/Draggable/autoScroll">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L122-130" target="_blank" title="源码：web/draggable/draggable.ts，第 122 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L125-133" target="_blank" title="源码：web/draggable/draggable.ts，第 125 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>autoScroll<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(scrollable?:<code>Element | Document</code>, padding?:<code>number</code>, offset?:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -923,11 +933,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>scrollable</code>
                                 </td>
                                 <td>
-                                    <code>Element | Document | undefined</code>
+                                    <code>Element | Document</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">滚动的容器元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -938,11 +947,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>padding</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">判断是否在区域内的最小距离。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -953,11 +961,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>offset</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">如果需要滚动则额外偏移的距离。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -978,7 +985,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/direction">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L132-138" target="_blank" title="源码：web/draggable/draggable.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L135-141" target="_blank" title="源码：web/draggable/draggable.ts，第 135 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>direction<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>string</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1001,8 +1008,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>&quot;vertical&quot; | &quot;horizontal&quot;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的方向。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1023,7 +1029,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/limit">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L140-157" target="_blank" title="源码：web/draggable/draggable.ts，第 140 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L143-160" target="_blank" title="源码：web/draggable/draggable.ts，第 143 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>limit<i class="doc-tip doc-api-ellipsis">(container, ...)</i><span class="doc-tip doc-api-more">(container:<code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>, padding?:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1046,8 +1052,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">限制的区域或元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1061,8 +1066,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">容器的内边距。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>0</code>
@@ -1083,7 +1087,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/step">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L159-166" target="_blank" title="源码：web/draggable/draggable.ts，第 159 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L162-169" target="_blank" title="源码：web/draggable/draggable.ts，第 162 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>step<i class="doc-tip doc-api-ellipsis">(value)</i><span class="doc-tip doc-api-more">(value:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1106,8 +1110,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">拖动的步长。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1128,7 +1131,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/revert">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L168-182" target="_blank" title="源码：web/draggable/draggable.ts，第 168 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L171-185" target="_blank" title="源码：web/draggable/draggable.ts，第 171 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>revert<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(callback?:<code>function</code>, duration?:<code>number</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1148,11 +1151,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>callback</code>
                                 </td>
                                 <td>
-                                    <code>(() =&gt; void) | undefined</code>
+                                    <code>() =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">渐变结束的回调函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1163,11 +1165,10 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>duration</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">渐变的总毫秒数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1188,7 +1189,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/snap">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L184-240" target="_blank" title="源码：web/draggable/draggable.ts，第 184 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L187-243" target="_blank" title="源码：web/draggable/draggable.ts，第 187 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>snap<i class="doc-tip doc-api-ellipsis">(target, ...)</i><span class="doc-tip doc-api-more">(target:<code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>, padding?:<code>number</code>, distance?:<code>number</code>, position?:<code>string</code>):<code>number</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1211,8 +1212,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>Element | Document | <a href="../../../components/web/dom/index.html#api/Rect">Rect</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">吸附的目标区域或元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1226,8 +1226,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">容器的内边距。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>0</code>
@@ -1241,8 +1240,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">吸附的最小距离，当距离小于这个值后产生吸附效果。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>15</code>
@@ -1256,8 +1254,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>&quot;both&quot; | &quot;inside&quot; | &quot;outside&quot;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">吸附的位置。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>&quot;both&quot;</code>
@@ -1279,7 +1276,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td>—</td>
                             </tr><tr id="api/Draggable/moveStart">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L85-98" target="_blank" title="源码：web/draggable/draggable.ts，第 85 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L88-101" target="_blank" title="源码：web/draggable/draggable.ts，第 88 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>moveStart<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1302,8 +1299,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1325,9 +1321,9 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/moveStart">Movable</a></code></td>
                             </tr><tr id="api/Draggable/move">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L100-112" target="_blank" title="源码：web/draggable/draggable.ts，第 100 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L103-115" target="_blank" title="源码：web/draggable/draggable.ts，第 103 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>move<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>false</code></span></code>
+                                    <code>move<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>boolean</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">触发拖动移动事件。</p>
 
@@ -1348,8 +1344,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1357,7 +1352,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>false | undefined</code></p>
+                <p>类型：<code>boolean</code></p>
                 
                 
                                         <h4>继承自</h4><p><code><a href="../../../components/web/movable/index.html#api/Movable/move">Movable</a></code></p>
@@ -1370,7 +1365,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/move">Movable</a></code></td>
                             </tr><tr id="api/Draggable/moveEnd">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L114-120" target="_blank" title="源码：web/draggable/draggable.ts，第 114 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/draggable/draggable.ts#L117-123" target="_blank" title="源码：web/draggable/draggable.ts，第 117 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>moveEnd<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1393,8 +1388,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1438,8 +1432,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1462,7 +1455,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/cancel">Movable</a></code></td>
                             </tr><tr id="api/Draggable/enable">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L48-53" target="_blank" title="源码：web/movable/movable.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L48-54" target="_blank" title="源码：web/movable/movable.ts，第 48 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>enable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1485,7 +1478,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/enable">Movable</a></code></td>
                             </tr><tr id="api/Draggable/disable">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L55-60" target="_blank" title="源码：web/movable/movable.ts，第 55 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L56-61" target="_blank" title="源码：web/movable/movable.ts，第 56 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>disable<i class="doc-tip doc-api-ellipsis">()</i><span class="doc-tip doc-api-more">():<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1508,7 +1501,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/disable">Movable</a></code></td>
                             </tr><tr id="api/Draggable/handlePointerDown">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L97-130" target="_blank" title="源码：web/movable/movable.ts，第 97 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L98-131" target="_blank" title="源码：web/movable/movable.ts，第 98 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>handlePointerDown<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1531,8 +1524,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1553,7 +1545,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerDown">Movable</a></code></td>
                             </tr><tr id="api/Draggable/handlePointerMove">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L132-147" target="_blank" title="源码：web/movable/movable.ts，第 132 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L133-148" target="_blank" title="源码：web/movable/movable.ts，第 133 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>handlePointerMove<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1576,8 +1568,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1598,7 +1589,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerMove">Movable</a></code></td>
                             </tr><tr id="api/Draggable/handlePointerUp">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L149-157" target="_blank" title="源码：web/movable/movable.ts，第 149 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L150-158" target="_blank" title="源码：web/movable/movable.ts，第 150 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>handlePointerUp<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1621,8 +1612,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1643,7 +1633,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/handlePointerUp">Movable</a></code></td>
                             </tr><tr id="api/Draggable/init">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L169-207" target="_blank" title="源码：web/movable/movable.ts，第 169 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L170-208" target="_blank" title="源码：web/movable/movable.ts，第 170 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>init<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1666,8 +1656,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1688,7 +1677,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                 <td><code><a href="../../../components/web/movable/index.html#api/Movable/init">Movable</a></code></td>
                             </tr><tr id="api/Draggable/uninit">
                                 <td>
-                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L209-240" target="_blank" title="源码：web/movable/movable.ts，第 209 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
+                                    <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/movable/movable.ts#L210-241" target="_blank" title="源码：web/movable/movable.ts，第 210 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                     <code>uninit<i class="doc-tip doc-api-ellipsis">(e)</i><span class="doc-tip doc-api-more">(e:<code>MouseEvent</code>):<code>void</code></span></code>
                                     <div class="doc doc-api-detail">
@@ -1711,8 +1700,7 @@ var exports_doc_demo_12 = require("doc_demo_12")
                                     <code>MouseEvent</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">事件对象。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "ui/control", "web/status", "typo/icon", "typo/close", "./tipBox.scss"], function (require, exports, dom, control_1, status_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个提示框。

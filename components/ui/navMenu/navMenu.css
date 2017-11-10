@@ -1,101 +1,77 @@
+@charset "UTF-8";
 .x-navmenu {
-  z-index: 900;
-  height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: #fff;
-  overflow: auto;
 }
 
-.x-navmenu ul {
+.x-navmenu, .x-navmenu ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.x-navmenu ul ul a {
-  padding-left: 3.2rem;
-  background-color: transparent;
-}
-
-.x-navmenu ul ul ul a {
-  padding-left: 3.5rem;
-}
-
-.x-navmenu ul ul ul ul a {
-  padding-left: 6rem;
-}
-
 .x-navmenu a {
   display: block;
+  overflow: hidden;
   border-right: 4px solid transparent;
-  padding: 0.75rem 1rem;
-  color: #333333;
-  white-space: pre;
-  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  -moz-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+  color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  -moz-transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
 
-.x-navmenu a:hover, .x-navmenu-active > a {
-  border-right-color: #1780ce;
-  background-color: #eff7fe;
-  color: #333333;
+.x-navmenu a .x-icon {
+  line-height: 2rem;
+}
+
+.x-navmenu a span {
+  display: inline-block;
+}
+
+.x-navmenu a:hover, .x-navmenu-selected > a, .x-navmenu.x-navmenu-collapsed li:hover > a {
+  background-color: #eff7fe !important;
+  color: #333;
   text-decoration: none;
 }
 
-.x-navmenu-body > .x-navmenu-active > a {
+.x-navmenu-selected:not(.x-navmenu-collapsable) > a {
+  border-color: #1780ce;
+}
+
+.x-navmenu > li > a {
+  background-color: #ededed;
   font-weight: 700;
-  color: #1780ce;
-  border-right-color: transparent;
 }
 
-.x-navmenu .x-icon-focus {
-  display: none;
+.x-navmenu ul:empty {
+  display: none !important;
 }
 
-.x-navmenu-active:not(.x-navmenu-collapsable) {
-  background-color: #eff7fe;
+.x-navmenu ul ul a {
+  padding-left: 2.5rem;
 }
 
-.x-navmenu > ul > li > a {
-  background-color: #f5f5f5;
+.x-navmenu ul ul ul a {
+  padding-left: 5rem;
 }
 
-.x-navmenu-popover {
-  position: absolute;
-  z-index: 9000000000;
-  display: none;
-  width: 15rem;
-  background-color: #fefefe;
-  border: 1px solid #e0e0e0;
+.x-navmenu ul ul ul ul a {
+  padding-left: 7.5rem;
 }
 
-.x-navmenu-popover a i:first-child,
-.x-navmenu-popover a span:first-child {
-  margin-left: -1.2rem;
+.x-navmenu ul ul ul ul ul a {
+  padding-left: 10rem;
 }
 
-.x-navmenu-popover .x-navmenu-collapsable > a:before,
-.x-navmenu-popover span {
-  display: inline !important;
-}
-
-.x-navmenu-title {
-  color: white;
-}
-
-.x-navmenu-title span {
-  margin-left: 1rem;
-}
-
-.x-navmenu-min-title {
-  color: white;
-  display: none;
-}
-
-.x-navmenu-collapsable > a:before {
-  content: ">";
+.x-navmenu-collapsable > a::before {
+  content: "⮞";
+  margin-right: -1rem;
   float: right;
-  font-family: x-admin-font;
+  font-family: x-icon;
   -webkit-transition: -webkit-transform 0.2s;
   transition: -webkit-transform 0.2s;
   -moz-transition: transform 0.2s, -moz-transform 0.2s;
@@ -105,15 +81,51 @@
      -moz-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
           transform: rotate(90deg);
-  font-size: .8rem;
-  line-height: 1.5rem;
 }
 
-.x-navmenu-collapsed > a:before {
+.x-navmenu-collapsed > a::before {
   -webkit-transform: rotate(0deg);
      -moz-transform: rotate(0deg);
       -ms-transform: rotate(0deg);
           transform: rotate(0deg);
+}
+
+.x-navmenu-collapsed > ul {
+  display: none;
+}
+
+.x-navmenu-collapsing > ul {
+  display: block;
+}
+
+.x-navmenu.x-navmenu-collapsed {
+  width: 3.5rem;
+}
+
+.x-navmenu.x-navmenu-collapsed > li.x-navmenu-selected > a {
+  border-color: #1780ce;
+}
+
+.x-navmenu.x-navmenu-collapsed > li > a::before {
+  content: none;
+}
+
+.x-navmenu.x-navmenu-collapsed > li > a span {
+  display: none;
+}
+
+.x-navmenu.x-navmenu-collapsed > li > ul {
+  position: fixed;
+  overflow: auto;
+  z-index: 1100;
+  display: none;
+  width: 15rem;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+}
+
+.x-navmenu.x-navmenu-collapsing a, .x-navmenu.x-navmenu-collapsed a {
+  text-overflow: clip;
 }
 
 /*# sourceMappingURL=navMenu.css.map */

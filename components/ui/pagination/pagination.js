@@ -15,6 +15,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "ui/control", "ui/listBox", "ui/comboBox", "ui/textBox", "web/pagination", "./pagination.scss"], function (require, exports, control_1, listBox_1, comboBox_1, textBox_1, pagination_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个分页。
@@ -50,7 +51,7 @@ define(["require", "exports", "ui/control", "ui/listBox", "ui/comboBox", "ui/tex
             /**
              * 页面切换器显示的页码。
              */
-            _this.sizeChangerItems = [10, 20, 30];
+            _this.sizeChangerItems = [10, 20, 30, 50, 100];
             /**
              * 是否显示上一页。
              */

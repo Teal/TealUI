@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 在新窗口打开指定的地址，如果弹出窗口被阻止则等待下次点击后打开。

@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个事件触发器。
@@ -20,6 +21,9 @@ define(["require", "exports"], function (require, exports) {
             var eventHandlers = events[eventName];
             if (Array.isArray(eventHandlers)) {
                 eventHandlers.push(eventHandler);
+            }
+            else if (events[eventName] != null) {
+                events[eventName] = [events[eventName], eventHandler];
             }
             else {
                 events[eventName] = eventHandler;

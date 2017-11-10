@@ -59,6 +59,7 @@
                     <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
 <input type="text" id="input" placeholder="按 Ctrl+回车">
 <script>define("doc_demo_1", ["require", "exports", "web/ctrlEnter"], function (require, exports, ctrlEnter_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     ctrlEnter_1.default(input, function (e) {
         alert("按了 CTRL+回车");
@@ -107,8 +108,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -122,8 +122,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(e: KeyboardEvent) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要设置的回调函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

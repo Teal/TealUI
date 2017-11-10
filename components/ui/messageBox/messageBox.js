@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "ui/dialog", "typo/util", "ui/textBox/textBox.scss", "ui/button/button.scss", "./messageBox.scss"], function (require, exports, dom, dialog_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个消息框。

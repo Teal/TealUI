@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "web/dom", "web/popup", "ui/control", "typo/arrow", "./popup.scss"], function (require, exports, dom, popup_1, control_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个弹层。
@@ -18,6 +19,9 @@ define(["require", "exports", "web/dom", "web/popup", "ui/control", "typo/arrow"
         function Popup() {
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        Popup.prototype.render = function () {
+            return control_1.VNode.create("div", { class: "x-popup", style: "display: none;" });
+        };
         Object.defineProperty(Popup.prototype, "target", {
             /**
              * 触发弹层显示的元素。

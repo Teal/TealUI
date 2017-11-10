@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./color"], function (require, exports, assert, color) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function clean(color) {
         if (color.a == undefined) {

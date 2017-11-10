@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./function"], function (require, exports, assert, func) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function emptyTest() {
         assert.ok(func.empty);

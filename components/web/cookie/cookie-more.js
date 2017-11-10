@@ -1,4 +1,5 @@
 define(["require", "exports", "./cookie", "util/query"], function (require, exports, cookie_1, query_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 获取所有 Cookie。

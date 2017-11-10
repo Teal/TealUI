@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom"], function (require, exports, dom_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 滚动元素到指定的位置。

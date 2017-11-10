@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom"], function (require, exports, dom) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 创建一个可移动对象。
@@ -32,6 +33,7 @@ define(["require", "exports", "web/dom"], function (require, exports, dom) {
          * 启用移动效果。
          */
         Movable.prototype.enable = function () {
+            this.disable();
             dom.on(this.elem, "pointerdown", this.handlePointerDown, this, { passive: false });
         };
         /**

@@ -67,6 +67,7 @@
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_1">
 <script>
 define("doc_demo_1", ["require", "exports", "web/countDown"], function (require, exports, countDown_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     countDown_1.default(new Date('2020/1/1'), function (days, hours, minutes, seconds, total) {
         doc_demo_1.innerHTML = "\u8FD8\u6709" + days + "\u5929" + hours + "\u5C0F\u65F6" + minutes + "\u5206" + seconds + "\u79D2";
@@ -88,6 +89,7 @@ countDown(<span class="doc-code-keyword">new</span> <span class="doc-code-built_
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_2">
 <script>
 define("doc_demo_2", ["require", "exports", "web/countDown"], function (require, exports, countDown_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     countDown_1.default(new Date('2020/1/1'), function (days, hours, minutes, seconds, total) {
         doc_demo_2.innerHTML = "\u8FD8\u6709" + (+days * 24 + +hours) + "\u5C0F\u65F6" + minutes + "\u5206" + seconds + "\u79D2";
@@ -109,6 +111,7 @@ countDown(<span class="doc-code-keyword">new</span> <span class="doc-code-built_
                     <div class="doc-demo-body" aria-label="示例" id="doc_demo_3">
 <script>
 define("doc_demo_3", ["require", "exports", "web/countDown"], function (require, exports, countDown_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     countDown_1.countUp(new Date('2011/8/12'), function (years, days, hours, minutes, seconds, total) {
         doc_demo_3.innerHTML = "TealUI \u5DF2\u53D1\u5E03\uFF1A" + years + "\u5E74" + days + "\u5929" + hours + "\u5C0F\u65F6" + minutes + "\u5206" + seconds + "\u79D2";
@@ -133,7 +136,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                 <td>
                                     <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/countDown/countDown.ts#L1-16" target="_blank" title="源码：web/countDown/countDown.ts，第 1 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>countDown<i class="doc-tip doc-api-ellipsis">(end, callback, ...)</i><span class="doc-tip doc-api-more">(end:<code>Date</code>, callback:<code>function</code>, now?:<code>Date</code>):<code>number</code></span></code>
+                                    <code>countDown<i class="doc-tip doc-api-ellipsis">(end, callback, ...)</i><span class="doc-tip doc-api-more">(end:<code>Date</code>, callback:<code>function</code>, now?:<code>Date</code>):<code>Timer</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">执行倒计时。</p>
 
@@ -154,8 +157,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                     <code>Date</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">倒计时的结束时间。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -169,15 +171,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                     <code>(days: string, hours: string, minutes: string, seconds: string, total: number) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">每隔一秒执行的回调函数，可以用于更新界面。函数的参数依次为:</p>
-<ul>
-<li class="doc">days：需要显示的剩余天数。</li>
-<li class="doc">hours：需要显示的剩余小时数。</li>
-<li class="doc">minutes：需要显示的剩余分数。</li>
-<li class="doc">seconds：需要显示的剩余秒数。</li>
-<li class="doc">total：剩余总秒数。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -191,8 +185,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                     <code>Date</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">当前时间。可以由服务器下发以避免用户设置时间的误差。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>new Date()</code>
@@ -200,7 +193,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>number</code></p>
+                <p>类型：<code>Timer</code></p>
                 <p class="doc">返回一个计时器，可以通过 <code>clearInterval()</code> 停止倒计时。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">countDown(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Date</span>(<span class="doc-code-string">"2020/1/1"</span>), (day, hour, minute, second) =&gt; <span class="doc-code-built_in">console</span>.log(day, hour, minute, second))</code></pre>
@@ -216,7 +209,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                 <td>
                                     <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/countDown/countDown.ts#L18-41" target="_blank" title="源码：web/countDown/countDown.ts，第 18 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>countUp<i class="doc-tip doc-api-ellipsis">(start, callback, ...)</i><span class="doc-tip doc-api-more">(start:<code>Date</code>, callback:<code>function</code>, now?:<code>Date</code>):<code>number</code></span></code>
+                                    <code>countUp<i class="doc-tip doc-api-ellipsis">(start, callback, ...)</i><span class="doc-tip doc-api-more">(start:<code>Date</code>, callback:<code>function</code>, now?:<code>Date</code>):<code>Timer</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">执行正计时。</p>
 
@@ -251,16 +244,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                     <code>(years: string, days: string, hours: string, minutes: string, seconds: number, total: number) =&gt; boolean | void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">每隔一秒执行的回调函数，可以用于更新界面。函数的参数依次为:</p>
-<ul>
-<li class="doc">years：需要显示的总年数。</li>
-<li class="doc">days：需要显示的总天数。</li>
-<li class="doc">hours：需要显示的总小时数。</li>
-<li class="doc">minutes：需要显示的总分数。</li>
-<li class="doc">seconds：需要显示的总秒数。</li>
-<li class="doc">total：已经过的总秒数。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -274,8 +258,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                                     <code>Date</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">当前时间。可以由服务器下发以避免用户设置时间的误差。</p>
-
+                                    
                                 </td>
                                 <td>
                                     <code>new Date()</code>
@@ -283,7 +266,7 @@ countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>number</code></p>
+                <p>类型：<code>Timer</code></p>
                 <p class="doc">返回一个计时器，可以通过 <code>clearInterval()</code> 停止倒计时。</p>
 
                 <h4>示例</h4><pre class="doc-code"><a href="javascript://复制源码" title="复制源码" aria-hidden="true" class="doc-icon" onclick="Doc.copyCode(this)">❐</a><code class="doc-code-jsx">countUp(<span class="doc-code-keyword">new</span> <span class="doc-code-built_in">Date</span>(<span class="doc-code-string">"2011/8/12"</span>), (years, day, hour, minute, second) =&gt; <span class="doc-code-built_in">console</span>.log(years, day, hour, minute, second))</code></pre>

@@ -1,4 +1,5 @@
 define(["require", "exports", "util/query"], function (require, exports, query_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     // Reference: RFC 3986, RFC 1808, RFC 2396
     // protocols that never have a hostname.

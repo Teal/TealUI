@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./array"], function (require, exports, assert, array) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function rangeTest() {
         assert.deepEqual(array.range(0, 6), [0, 1, 2, 3, 4, 5]);

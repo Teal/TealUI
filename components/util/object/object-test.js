@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./object"], function (require, exports, assert, object) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function assignIfTest() {
         assert.deepEqual(object.assignIf({ a: 1 }, { b: 2 }), { a: 1, b: 2 });

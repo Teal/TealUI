@@ -1,4 +1,5 @@
 define(["require", "exports", "./json-shim"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 创建一个拥有指定原型和若干个属性的对象。

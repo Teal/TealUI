@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./namespace"], function (require, exports, assert, namespace_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function namespaceTest() {
         namespace_1.default("MyNameSpace.SubNamespace");

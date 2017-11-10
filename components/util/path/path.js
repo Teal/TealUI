@@ -2,6 +2,7 @@
  * @see https://github.com/joyent/node/blob/master/lib/path.js
  */
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 判断路径是否为绝对路径。

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./cron"], function (require, exports, assert, cron_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function cronJobTest(done) {
         var job = cron_1.default("* * * * * *", function () {

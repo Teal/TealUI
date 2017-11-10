@@ -1,4 +1,5 @@
 define(["require", "exports", "./shim"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 判断两个对象是否相等。

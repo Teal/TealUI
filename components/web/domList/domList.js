@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom"], function (require, exports, dom) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function $(selector, context) {
         return new DomList(selector, context);

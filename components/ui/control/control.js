@@ -5,7 +5,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "web/nextTick"], function (require, exports, dom, nextTick_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    /**
+     * 表示控件的状态。
+     */
+    var ControlState;
+    (function (ControlState) {
+        /**
+         * 初始状态。
+         */
+        ControlState[ControlState["initial"] = 1] = "initial";
+        /**
+         * 需要重新渲染。
+         */
+        ControlState[ControlState["invalidated"] = 2] = "invalidated";
+        /**
+         * 正在渲染。
+         */
+        ControlState[ControlState["rendering"] = 3] = "rendering";
+        /**
+         * 已渲染。
+         */
+        ControlState[ControlState["rendered"] = 4] = "rendered";
+    })(ControlState = exports.ControlState || (exports.ControlState = {}));
     /**
      * 表示一个控件。
      */
@@ -283,28 +306,6 @@ define(["require", "exports", "web/dom", "web/nextTick"], function (require, exp
     Control.prototype.readyState = 1 /* initial */;
     Control.prototype.duration = 200;
     /**
-     * 表示控件的状态。
-     */
-    var ControlState;
-    (function (ControlState) {
-        /**
-         * 初始状态。
-         */
-        ControlState[ControlState["initial"] = 1] = "initial";
-        /**
-         * 需要重新渲染。
-         */
-        ControlState[ControlState["invalidated"] = 2] = "invalidated";
-        /**
-         * 正在渲染。
-         */
-        ControlState[ControlState["rendering"] = 3] = "rendering";
-        /**
-         * 已渲染。
-         */
-        ControlState[ControlState["rendered"] = 4] = "rendered";
-    })(ControlState = exports.ControlState || (exports.ControlState = {}));
-    /**
      * 表示一个虚拟节点。
      */
     var VNode = /** @class */ (function () {
@@ -470,11 +471,16 @@ define(["require", "exports", "web/dom", "web/nextTick"], function (require, exp
                                 if (newChildResult instanceof Control) {
                                     newChildResult.renderTo(result, oldChildResult);
                                 }
-                                else if (oldChildResult) {
-                                    body.insertBefore(newChildResult, oldChildResult instanceof Control ? oldChildResult.elem : oldChildResult);
-                                }
                                 else {
-                                    body.appendChild(newChildResult);
+                                    try {
+                                        if (oldChildResult) {
+                                            body.insertBefore(newChildResult, oldChildResult instanceof Control ? oldChildResult.elem : oldChildResult);
+                                        }
+                                        else {
+                                            body.appendChild(newChildResult);
+                                        }
+                                    }
+                                    catch (e) { }
                                 }
                             }
                         }
@@ -488,7 +494,10 @@ define(["require", "exports", "web/dom", "web/nextTick"], function (require, exp
                                 oldChildResult.renderTo(null);
                             }
                             else {
-                                body.removeChild(oldChildResult);
+                                try {
+                                    body.removeChild(oldChildResult);
+                                }
+                                catch (e) { }
                             }
                         }
                     }
@@ -573,14 +582,15 @@ define(["require", "exports", "web/dom", "web/nextTick"], function (require, exp
          * @return 如果需要强制更新则返回 true，否则返回 false。
          */
         VNode.alwaysSet = function (type, prop, target) {
-            switch (prop) {
-                case "value":
-                case "checked":
-                case "selected":
-                    return true;
-                default:
-                    return false;
-            }
+            return false;
+            // switch (prop) {
+            //     case "value":
+            //     case "checked":
+            //     case "selected":
+            //         return true;
+            //     default:
+            //         return false;
+            // }
         };
         /**
          * 获取节点的属性。
@@ -673,7 +683,7 @@ define(["require", "exports", "web/dom", "web/nextTick"], function (require, exp
             },
             hidden: {
                 get: function (elem) {
-                    return dom.getAttr(elem, "hidden");
+                    return dom.getAttr(elem, "hidden") || dom.isHidden(elem);
                 },
                 set: function (elem, value) {
                     dom.setAttr(elem, "hidden", value);

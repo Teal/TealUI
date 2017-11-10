@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./check"], function (require, exports, assert, check) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function isLetterTest() {
         assert.strictEqual(check.isLetter("abc"), true);

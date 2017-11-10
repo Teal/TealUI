@@ -127,11 +127,10 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                     <code>options</code>
                                 </td>
                                 <td>
-                                    <code>Partial&lt;<a href="#api/Ajax">Ajax</a>&gt; | undefined</code>
+                                    <code>Partial&lt;<a href="#api/Ajax">Ajax</a>&gt;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">发送的选项。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -176,8 +175,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要判断的状态码。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -469,7 +467,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L109-114" target="_blank" title="源码：web/ajax/ajax.ts，第 109 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>success</code>
-                                <span class="doc-api-more">: <code>((response: any, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(response: any, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">请求成功的回调函数。</p>
 
@@ -489,7 +487,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L116-121" target="_blank" title="源码：web/ajax/ajax.ts，第 116 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>error</code>
-                                <span class="doc-api-more">: <code>((error: string | Error, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(error: string | Error, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">请求失败的回调函数。</p>
 
@@ -509,7 +507,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L123-128" target="_blank" title="源码：web/ajax/ajax.ts，第 123 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>complete</code>
-                                <span class="doc-api-more">: <code>((error: string | Error | undefined, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>(error: string | Error, sender: <a href="#api/Ajax">Ajax</a>) =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">请求完成的回调函数。无论请求是否成功都会执行此回调。</p>
 
@@ -529,7 +527,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L181-244" target="_blank" title="源码：web/ajax/ajax.ts，第 181 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>progress</code>
-                                <span class="doc-api-more">: <code>(data: string | Error | Event | undefined, internalError?: number | undefined) =&gt; void</code> = <code>(data: string | Error | Event | undefined, internalError?: number) =&gt; {
+                                <span class="doc-api-more">: <code>(data: string | Error | Event, internalError?: number) =&gt; void</code> = <code>(data: string | Error | Event | undefined, internalError?: number) =&gt; {
         const xhr = this.xhr;
         try {
             // 仅当正在发送请求且请求已完成时继续执行。
@@ -573,7 +571,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                     data = responseError;
                 }
             } else {
-                data = xhr.statusText;
+                data = xhr.statusText || &quot;Access denied&quot;;
             }
         } catch (firefoxAccessError) {
             this.progress(firefoxAccessError, -5);
@@ -607,7 +605,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/web/ajax/ajax.ts#L246-249" target="_blank" title="源码：web/ajax/ajax.ts，第 246 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>sending</code>
-                                <span class="doc-api-more">: <code>boolean | undefined</code></span>
+                                <span class="doc-api-more">: <code>boolean</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">判断是否正在发送请求。</p>
 
@@ -651,8 +649,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">响应头。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -660,7 +657,7 @@ Access-Control-Allow-Credentials: true</code></pre><blockquote class="doc doc-bl
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>string | null</code></p>
+                <p>类型：<code>string</code></p>
                 <p class="doc">返回响应头数据。如果响应头不存在则返回 null。</p>
 
                 

@@ -4,6 +4,7 @@
  * MIT License
  */
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * XRegExp provides augmented, extensible JavaScript regular expressions. You get new syntax,

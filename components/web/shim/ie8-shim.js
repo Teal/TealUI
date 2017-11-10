@@ -1,4 +1,5 @@
 define(["require", "exports", "./atob-shim"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
 });
 /*@cc_on if(!+"\v1") {

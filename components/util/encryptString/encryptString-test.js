@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./encryptString"], function (require, exports, assert, encryptString) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function dencryptStringTest() {
         assert.strictEqual(encryptString.dencryptString("abc", 123), "cce");

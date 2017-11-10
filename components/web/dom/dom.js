@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var parseFix;
     var parseContainer;
@@ -605,8 +606,8 @@ define(["require", "exports"], function (require, exports) {
         var html = doc.documentElement;
         var r = getScroll(doc);
         if (elem.nodeType === 9) {
-            r.width = html.clientWidth;
-            r.height = html.clientHeight;
+            r.width = Math.min(html.clientWidth, document.body.clientWidth);
+            r.height = Math.min(html.clientHeight, document.body.clientHeight);
         }
         else {
             var rect = elem.getBoundingClientRect();

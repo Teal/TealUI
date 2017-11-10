@@ -1,4 +1,5 @@
 define(["require", "exports", "util/pinyin", "util/html"], function (require, exports, pinyin_1, html_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 模糊搜索一个列表（支持拼音）。

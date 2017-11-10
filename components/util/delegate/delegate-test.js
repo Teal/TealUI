@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./delegate"], function (require, exports, assert, delegate_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function delegateTest() {
         var i = 0;

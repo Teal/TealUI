@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom", "web/pin"], function (require, exports, dom, pin_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 创建一个弹层。

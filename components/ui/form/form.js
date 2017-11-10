@@ -23,6 +23,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 define(["require", "exports", "web/dom", "ui/control", "ui/checkBox", "ui/input", "web/scroll", "./form.scss"], function (require, exports, dom, control_1, checkBox_1, input_1, scroll_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个表单。
@@ -140,13 +141,13 @@ define(["require", "exports", "web/dom", "ui/control", "ui/checkBox", "ui/input"
                     if (input instanceof checkBox_1.default) {
                         if (input.value) {
                             if (Array.isArray(r[input.name])) {
-                                r[input.name].push(input.value);
+                                r[input.name].push(input.key);
                             }
                             else if (input.name in r) {
-                                r[input.name] = [r[input.name], input.value];
+                                r[input.name] = [r[input.name], input.key];
                             }
                             else {
-                                r[input.name] = input.value;
+                                r[input.name] = input.key;
                             }
                         }
                     }
@@ -313,6 +314,9 @@ define(["require", "exports", "web/dom", "ui/control", "ui/checkBox", "ui/input"
         __decorate([
             control_1.bind("", "method")
         ], Form.prototype, "method", void 0);
+        __decorate([
+            control_1.bind("", "change")
+        ], Form.prototype, "onChange", void 0);
         return Form;
     }(control_1.default));
     exports.default = Form;

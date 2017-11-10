@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom"], function (require, exports, dom) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 判断元素是否和指定区域存在交集。

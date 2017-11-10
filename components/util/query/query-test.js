@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./query"], function (require, exports, assert, query) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function parseQueryTest() {
         assert.deepEqual(query.parseQuery("foo=1&goo=2&goo=3"), { foo: "1", goo: ["2", "3"] });

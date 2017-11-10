@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./enum"], function (require, exports, assert, enums) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function getNameTest() {
         var Colors = {

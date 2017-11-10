@@ -59,6 +59,7 @@
                     <div class="doc-demo-body doc" aria-label="示例" id="doc_demo_1">
 <img id="img" src="../../../assets/resources/100x100.png" data-src="../../../assets/resources/200x200.png">
 <script>define("doc_demo_1", ["require", "exports", "web/lazyLoad"], function (require, exports, lazyLoad_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     lazyLoad_1.default(img, img.getAttribute("data-src"));
 });
@@ -103,8 +104,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>HTMLImageElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要加载的图片。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -118,8 +118,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">加载的地址。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -130,11 +129,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>scrollParent</code>
                                 </td>
                                 <td>
-                                    <code>HTMLElement | undefined</code>
+                                    <code>HTMLElement</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">可滚动的元素。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -145,11 +143,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>callback</code>
                                 </td>
                                 <td>
-                                    <code>(() =&gt; void) | undefined</code>
+                                    <code>() =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">图片已加载的回调函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

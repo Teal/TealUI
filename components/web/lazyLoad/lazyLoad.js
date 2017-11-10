@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom", "web/scroll"], function (require, exports, dom_1, scroll_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 懒加载图片。

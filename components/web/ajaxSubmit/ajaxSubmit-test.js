@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./ajaxSubmit"], function (require, exports, assert, ajaxSubmit) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function formDataTest() {
         document.getElementById("qunit-fixture").innerHTML = "<form action=\"\" method=\"get\" id=\"form\">\n    <input type=\"text\" name=\"text\" value=\"t1\">\n    <input type=\"text\" name=\"text\" value=\"t2\" readonly=\"readonly\"> \n    <input type=\"text\" name=\"text\" value=\"t3\" disabled=\"disabled\"> \n    <input type=\"checkbox\" name=\"checkbox\" value=\"c1\" checked=\"checked\"> \n    <input type=\"checkbox\" name=\"checkbox\" value=\"c2\" checked=\"checked\"> \n    <select name=\"multipleselect\" multiple=\"multiple\" size=\"2\" id=\"s\"> \n        <option value=\"s1\">s1</option> \n        <option value=\"s2\" selected=\"selected\">s2</option> \n        <option value=\"s3\">s3</option> \n        <option value=\"s4\" selected=\"selected\">s4</option> \n        <option value=\"s5\">s5</option> \n    </select> \n    <input type=\"submit\" value=\"\u63D0\u4EA4\">\n</form>";

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./ajax"], function (require, exports, assert, ajax_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function ajaxTest(done) {
         ajax_1.default({

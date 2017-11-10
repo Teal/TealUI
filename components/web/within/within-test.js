@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./within"], function (require, exports, assert, within_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function withinTest() {
         document.getElementById("qunit-fixture").innerHTML = "<div id=\"input\" style=\"position:fixed; width:10px; height:10px; left: 10px; top: 10px;\"></div>";

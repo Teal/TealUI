@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./des"], function (require, exports, assert, des) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function encryptDESTest() {
         assert.strictEqual(des.encryptDES("a", "1"), "\u0082\u000e\u0056\u00cc\u007c\u0045\u0059\u00a4");

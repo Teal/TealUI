@@ -1,4 +1,5 @@
 define(["require", "exports", "web/dom"], function (require, exports, dom) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 获取元素的状态。
@@ -13,6 +14,7 @@ define(["require", "exports", "web/dom"], function (require, exports, dom) {
                 return status_1;
             }
         }
+        return null;
     }
     exports.getStatus = getStatus;
     /**

@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./cookie", "./cookie-more"], function (require, exports, assert, cookie, cookieMore) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function getCookieAndSetCookieTest() {
         cookie.setCookie("_test", "foo");

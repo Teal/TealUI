@@ -9,6 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 define(["require", "exports", "ui/control", "ui/checkBox", "./radioButton.scss"], function (require, exports, control_1, checkBox_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 表示一个单选按钮。

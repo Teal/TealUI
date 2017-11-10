@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./date"], function (require, exports, assert, date) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function formatTest() {
         assert.strictEqual(date.format(new Date("2016/01/01 00:00:00")), "2016/01/01 00:00:00");

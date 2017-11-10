@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./bigInteger"], function (require, exports, assert, bigInteger) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function addTest() {
         assert.strictEqual(bigInteger.add("1", "2"), "3");

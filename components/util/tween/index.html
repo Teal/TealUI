@@ -62,6 +62,7 @@
 </div>
 <div id="btn" class="doc" style="margin-top: 1rem;"></div>
 <script>define("doc_demo_1", ["require", "exports", "util/tween", "util/tween/timingFunctions"], function (require, exports, tween_1, timingFunctions) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.timingFunctions = timingFunctions;
     var html = "";
@@ -170,11 +171,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: number) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要执行的动画回调函数。函数接收以下参数：</p>
-<ul>
-<li class="doc">value：变化因子，大小在 0-1 之间。可以根据此变化因子设置实际的样式。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -185,11 +182,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>duration</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">动画执行的总毫秒数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -200,11 +196,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>timingFunction</code>
                                 </td>
                                 <td>
-                                    <code>((value: number) =&gt; number) | undefined</code>
+                                    <code>(value: number) =&gt; number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">渐变曲线。通过渐变曲线更改变化因子的变化方式。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -277,7 +272,7 @@ tween.start();</code></pre><div class="doc doc-scrollable"><table class="doc-api
                                 <a href="https://github.com/Teal/TealUI/tree/dev-v4/components/util/tween/tween.ts#L52-55" target="_blank" title="源码：util/tween/tween.ts，第 52 行" aria-hidden="true" class="doc-icon doc-sourcelink doc-api-more">⅏</a>
                                 <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
                                 <code>done</code>
-                                <span class="doc-api-more">: <code>(() =&gt; void) | undefined</code></span>
+                                <span class="doc-api-more">: <code>() =&gt; void</code></span>
                                 <div class="doc doc-api-detail">
                                     <p class="doc">动画结束后执行的回调函数。</p>
 
@@ -321,8 +316,7 @@ tween.start();</code></pre><div class="doc doc-scrollable"><table class="doc-api
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">变化因子，大小在 0-1 之间。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -367,8 +361,7 @@ tween.start();</code></pre><div class="doc doc-scrollable"><table class="doc-api
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">变化因子，大小在 0-1 之间。可以根据此变化因子设置实际的样式。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

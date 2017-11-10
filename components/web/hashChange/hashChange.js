@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     /**
      * 设置当前页面地址的哈希值改变事件的回调函数。
@@ -24,13 +25,13 @@ define(["require", "exports"], function (require, exports) {
     exports.default = hashChange;
     /**
      * 获取当前页面地址的哈希值（不含 # 号）。
-     * @return 返回当前页面的哈希值（不含 # 号）。如果不存在则返回 undefined。
+     * @return 返回当前页面的哈希值（不含 # 号）。如果不存在则返回 null。
      * @example hash()
      */
     function hash() {
         var href = location.href;
         var index = href.indexOf("#");
-        return index >= 0 ? href.substr(index + 1) : undefined;
+        return index >= 0 ? href.substr(index + 1) : null;
     }
     exports.hash = hash;
 });

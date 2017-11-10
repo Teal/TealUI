@@ -1,4 +1,5 @@
 define(["require", "exports", "assert", "./chineseId"], function (require, exports, assert, chineseId) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function parseChineseIdTest() {
         assert.deepEqual(chineseId.parseChineseId("152500198909267865"), {

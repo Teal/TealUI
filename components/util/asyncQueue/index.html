@@ -138,6 +138,7 @@ deferred.then(<span class="doc-code-function"><span class="doc-code-params">data
 ">右移</button>
 <div id="box" class="doc-box" style="position: relative; left: 300px;"></div>
 <script>define("doc_demo_1", ["require", "exports", "util/asyncQueue"], function (require, exports, asyncQueue_1) {
+    "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var deferred = new asyncQueue_1.default();
     function move(box, delta) {
@@ -320,8 +321,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(data: any) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">要添加的任务函数。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -335,15 +335,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>&quot;wait&quot; | &quot;abort&quot; | &quot;insert&quot; | &quot;replace&quot; | &quot;cancel&quot;</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">如果当前队列正在等待其它异步任务函数，使用的处理方式，可以是以下值之一：</p>
-<ul>
-<li class="doc">wait：等待之前所有异步任务都完成后再执行当前任务。</li>
-<li class="doc">abort：终止正在执行和其它正在等待的任务并立即执行当前任务。</li>
-<li class="doc">replace：终止正在执行的异步任务并立即执行当前任务，然后继续执行其它正在等待的异步任务。</li>
-<li class="doc">insert：等待正在执行的异步任务完成后执行当前任务，然后继续执行其它正在等待的异步任务。</li>
-<li class="doc">cancel：取消当前任务。</li>
-</ul>
-
+                                    
                                 </td>
                                 <td>
                                     <code>&quot;wait&quot;</code>
@@ -407,11 +399,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>abortable</code>
                                 </td>
                                 <td>
-                                    <code><a href="#api/Abortable">Abortable</a> | undefined</code>
+                                    <code><a href="#api/Abortable">Abortable</a></code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">引发挂起的对象。其提供一个 <code>abort()</code> 函数可立即终止执行。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -455,8 +446,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">传递给下个异步任务的数据。</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -500,8 +490,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The element to search for.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -512,11 +501,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>fromIndex</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The position in this array at which to begin searching for searchElement.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -606,8 +594,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">New elements of the Array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -638,7 +625,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                 
                 
                 <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
+                <p>类型：<code>T</code></p>
                 
                 
                                         <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
@@ -653,7 +640,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <td>
                                     
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>concat<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>T[][]</code>):<code>T[]</code>(2 重载)</span></code>
+                                    <code>concat<i class="doc-tip doc-api-ellipsis">(...)</i><span class="doc-tip doc-api-more">(...items:<code>ReadonlyArray&lt;T&gt;[]</code>):<code>T[]</code>(2 重载)</span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">Combines two or more arrays.</p>
 
@@ -671,11 +658,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>items</code>
                                 </td>
                                 <td>
-                                    <code>T[][]</code>
+                                    <code>ReadonlyArray&lt;T&gt;[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">Additional items to add to the end of array1.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -703,11 +689,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>items</code>
                                 </td>
                                 <td>
-                                    <code>(T[] | T)[]</code>
+                                    <code>(T | ReadonlyArray&lt;T&gt;)[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">Additional items to add to the end of array1.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -748,11 +733,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>separator</code>
                                 </td>
                                 <td>
-                                    <code>string | undefined</code>
+                                    <code>string</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -806,7 +790,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                 
                 
                 <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
+                <p>类型：<code>T</code></p>
                 
                 
                                         <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
@@ -839,11 +823,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>start</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The beginning of the specified portion of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -854,11 +837,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>end</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The end of the specified portion of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -899,11 +881,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>compareFn</code>
                                 </td>
                                 <td>
-                                    <code>((a: T, b: T) =&gt; number) | undefined</code>
+                                    <code>(a: T, b: T) =&gt; number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -947,8 +928,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The zero-based location in the array from which to start removing elements.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -959,11 +939,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>deleteCount</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The number of elements to remove.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -994,8 +973,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The zero-based location in the array from which to start removing elements.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1009,8 +987,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The number of elements to remove.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1024,8 +1001,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">Elements to insert into the array in place of the deleted elements.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1069,8 +1045,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T[]</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">Elements to insert at the start of the Array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1114,8 +1089,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The value to locate in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1126,11 +1100,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>fromIndex</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1174,8 +1147,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The value to locate in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1186,11 +1158,10 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>fromIndex</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1234,8 +1205,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1249,8 +1219,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1294,8 +1263,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1309,8 +1277,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1354,8 +1321,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; void</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1369,8 +1335,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1423,8 +1388,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; U</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1438,8 +1402,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1492,8 +1455,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; value is S</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1507,8 +1469,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1539,8 +1500,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(value: T, index: number, array: T[]) =&gt; any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1554,8 +1514,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>any</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1578,7 +1537,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <td>
                                     
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>reduce<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, initialValue?:<code>T</code>):<code>T</code>(2 重载)</span></code>
+                                    <code>reduce<i class="doc-tip doc-api-ellipsis">(callbackfn)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>):<code>T</code>(3 重载)</span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
 
@@ -1599,8 +1558,37 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.</p>
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                
+                
+<hr>
 
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
+                                </td>
+                                <td class="doc">
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1608,14 +1596,13 @@ var exports_doc_demo_1 = require("doc_demo_1")
                             </tr>
 <tr>
                                 <td>
-                                    <code>initialValue</code>
+                                    <code>initialValue<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code>T | undefined</code>
+                                    <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1655,8 +1642,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(previousValue: U, currentValue: T, currentIndex: number, array: T[]) =&gt; U</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1670,8 +1656,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>U</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1694,7 +1679,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                 <td>
                                     
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>reduceRight<i class="doc-tip doc-api-ellipsis">(callbackfn, ...)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>, initialValue?:<code>T</code>):<code>T</code>(2 重载)</span></code>
+                                    <code>reduceRight<i class="doc-tip doc-api-ellipsis">(callbackfn)</i><span class="doc-tip doc-api-more">(callbackfn:<code>function</code>):<code>T</code>(3 重载)</span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.</p>
 
@@ -1715,8 +1700,37 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.</p>
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
+                
+                
+<hr>
 
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>callbackfn<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(previousValue: T, currentValue: T, currentIndex: number, array: T[]) =&gt; T</code>
+                                </td>
+                                <td class="doc">
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1724,14 +1738,13 @@ var exports_doc_demo_1 = require("doc_demo_1")
                             </tr>
 <tr>
                                 <td>
-                                    <code>initialValue</code>
+                                    <code>initialValue<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code>T | undefined</code>
+                                    <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1771,8 +1784,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>(previousValue: U, currentValue: T, currentIndex: number, array: T[]) =&gt; U</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1786,8 +1798,7 @@ var exports_doc_demo_1 = require("doc_demo_1")
                                     <code>U</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -1927,87 +1938,10 @@ when they will be absent when used in a 'with' statement.</p>
                                 <td>
                                     
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>find<i class="doc-tip doc-api-ellipsis">(predicate)</i><span class="doc-tip doc-api-more">(predicate:<code>function</code>):<code>T</code>(3 重载)</span></code>
+                                    <code>find<i class="doc-tip doc-api-ellipsis">(predicate, ...)</i><span class="doc-tip doc-api-more">&lt;S&gt;(predicate:<code>function</code>, thisArg?:<code>any</code>):<code>S</code>(2 重载)</span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">Returns the value of the first element in the array where predicate is true, and undefined
 otherwise.</p>
-
-                
-                
-                <table>
-                        <tr>
-                            <th>参数</th>
-                            <th>类型</th>
-                            <th>描述</th>
-                            <th>默认值</th>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <code>predicate<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
-                                </td>
-                                <td class="doc">
-                                    <p class="doc">find calls predicate once for each element of the array, in ascending
-order, until it finds one where predicate returns true. If such an element is found, find
-immediately returns that element value. Otherwise, find returns undefined.</p>
-
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-                    </table>
-                <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
-                
-                
-<hr>
-
-                
-                
-                <table>
-                        <tr>
-                            <th>参数</th>
-                            <th>类型</th>
-                            <th>描述</th>
-                            <th>默认值</th>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <code>predicate<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
-                                </td>
-                                <td class="doc">
-                                    
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-<tr>
-                                <td>
-                                    <code>thisArg<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>undefined</code>
-                                </td>
-                                <td class="doc">
-                                    
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-                    </table>
-                <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
-                
-                
-<hr>
 
                 <table>
                     <tr>
@@ -2015,7 +1949,7 @@ immediately returns that element value. Otherwise, find returns undefined.</p>
                         <th>约束类型</th>
                         <th>默认类型</th>
                     </tr><tr>
-                        <td>Z</td>
+                        <td>S</td>
                         <td>—</td>
                         <td>—</td>
                     </tr></table>
@@ -2032,7 +1966,7 @@ immediately returns that element value. Otherwise, find returns undefined.</p>
                                     <code>predicate<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code>(this: Z, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; value is S</code>
                                 </td>
                                 <td class="doc">
                                     
@@ -2043,10 +1977,10 @@ immediately returns that element value. Otherwise, find returns undefined.</p>
                             </tr>
 <tr>
                                 <td>
-                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                    <code>thisArg</code>
                                 </td>
                                 <td>
-                                    <code>Z</code>
+                                    <code>any</code>
                                 </td>
                                 <td class="doc">
                                     
@@ -2057,7 +1991,51 @@ immediately returns that element value. Otherwise, find returns undefined.</p>
                             </tr>
                     </table>
                 <h4>返回值</h4>
-                <p>类型：<code>T | undefined</code></p>
+                <p>类型：<code>S</code></p>
+                
+                
+<hr>
+
+                
+                
+                <table>
+                        <tr>
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>默认值</th>
+                        </tr>
+                        <tr>
+                                <td>
+                                    <code>predicate<span class="doc-api-required">*</span></code>
+                                </td>
+                                <td>
+                                    <code>(value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+<tr>
+                                <td>
+                                    <code>thisArg</code>
+                                </td>
+                                <td>
+                                    <code>any</code>
+                                </td>
+                                <td class="doc">
+                                    
+                                </td>
+                                <td>
+                                    —
+                                </td>
+                            </tr>
+                    </table>
+                <h4>返回值</h4>
+                <p>类型：<code>T</code></p>
                 
                 
                                         <h4>继承自</h4><p><code>Array&lt;T&gt;</code></p>
@@ -2073,7 +2051,7 @@ otherwise.</p>
                                 <td>
                                     
                                     <a href="javascript://详细信息" title="展开/折叠详细信息" class="doc-icon doc-api-toggle" onclick="Doc.toggleApi(this)">⮞</a>
-                                    <code>findIndex<i class="doc-tip doc-api-ellipsis">(predicate)</i><span class="doc-tip doc-api-more">(predicate:<code>function</code>):<code>number</code>(3 重载)</span></code>
+                                    <code>findIndex<i class="doc-tip doc-api-ellipsis">(predicate, ...)</i><span class="doc-tip doc-api-more">(predicate:<code>function</code>, thisArg?:<code>any</code>):<code>number</code></span></code>
                                     <div class="doc doc-api-detail">
                                         <p class="doc">Returns the index of the first element in the array where predicate is true, and -1
 otherwise.</p>
@@ -2092,40 +2070,7 @@ otherwise.</p>
                                     <code>predicate<span class="doc-api-required">*</span></code>
                                 </td>
                                 <td>
-                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
-                                </td>
-                                <td class="doc">
-                                    <p class="doc">find calls predicate once for each element of the array, in ascending
-order, until it finds one where predicate returns true. If such an element is found,
-findIndex immediately returns that element index. Otherwise, findIndex returns -1.</p>
-
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-                    </table>
-                <h4>返回值</h4>
-                <p>类型：<code>number</code></p>
-                
-                
-<hr>
-
-                
-                
-                <table>
-                        <tr>
-                            <th>参数</th>
-                            <th>类型</th>
-                            <th>描述</th>
-                            <th>默认值</th>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <code>predicate<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>(this: void, value: T, index: number, obj: T[]) =&gt; boolean</code>
+                                    <code>(value: T, index: number, obj: T[]) =&gt; boolean</code>
                                 </td>
                                 <td class="doc">
                                     
@@ -2136,63 +2081,10 @@ findIndex immediately returns that element index. Otherwise, findIndex returns -
                             </tr>
 <tr>
                                 <td>
-                                    <code>thisArg<span class="doc-api-required">*</span></code>
+                                    <code>thisArg</code>
                                 </td>
                                 <td>
-                                    <code>undefined</code>
-                                </td>
-                                <td class="doc">
-                                    
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-                    </table>
-                <h4>返回值</h4>
-                <p>类型：<code>number</code></p>
-                
-                
-<hr>
-
-                <table>
-                    <tr>
-                        <th>泛型参数</th>
-                        <th>约束类型</th>
-                        <th>默认类型</th>
-                    </tr><tr>
-                        <td>Z</td>
-                        <td>—</td>
-                        <td>—</td>
-                    </tr></table>
-                
-                <table>
-                        <tr>
-                            <th>参数</th>
-                            <th>类型</th>
-                            <th>描述</th>
-                            <th>默认值</th>
-                        </tr>
-                        <tr>
-                                <td>
-                                    <code>predicate<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>(this: Z, value: T, index: number, obj: T[]) =&gt; boolean</code>
-                                </td>
-                                <td class="doc">
-                                    
-                                </td>
-                                <td>
-                                    —
-                                </td>
-                            </tr>
-<tr>
-                                <td>
-                                    <code>thisArg<span class="doc-api-required">*</span></code>
-                                </td>
-                                <td>
-                                    <code>Z</code>
+                                    <code>any</code>
                                 </td>
                                 <td class="doc">
                                     
@@ -2240,8 +2132,7 @@ otherwise.</p>
                                     <code>T</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">value to fill array section with</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2252,12 +2143,10 @@ otherwise.</p>
                                     <code>start</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">index to start filling the array at. If start is negative, it is treated as
-length+start where length is the length of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2268,12 +2157,10 @@ length+start where length is the length of the array.</p>
                                     <code>end</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">index to stop filling the array at. If end is negative, it is treated as
-length+end.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2318,9 +2205,7 @@ to the same array starting at position target</p>
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If target is negative, it is treated as length+target where length is the
-length of the array.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2334,9 +2219,7 @@ length of the array.</p>
                                     <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If start is negative, it is treated as length+start. If end is negative, it
-is treated as length+end.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —
@@ -2347,11 +2230,10 @@ is treated as length+end.</p>
                                     <code>end</code>
                                 </td>
                                 <td>
-                                    <code>number | undefined</code>
+                                    <code>number</code>
                                 </td>
                                 <td class="doc">
-                                    <p class="doc">If not specified, length of the this object is used as its default value.</p>
-
+                                    
                                 </td>
                                 <td>
                                     —

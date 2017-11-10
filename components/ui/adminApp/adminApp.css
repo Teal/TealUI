@@ -1,0 +1,119 @@
+@charset "UTF-8";
+.x-adminapp-header {
+  width: 100%;
+  height: 3rem;
+  background-color: #1780ce;
+  color: #fff;
+}
+
+.x-adminapp-header a, .x-adminapp-header a:hover {
+  color: #fff;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.x-adminapp-button {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  background-color: #42a3ea !important;
+  line-height: 1.5rem;
+  text-align: center;
+}
+
+.x-adminapp-text {
+  display: inline-block;
+  padding: 0.75rem 0.75rem;
+}
+
+.x-adminapp-text img {
+  margin-top: -.2rem;
+  margin-right: 0.5rem;
+  height: 1.5rem;
+}
+
+.x-adminapp-right {
+  float: right;
+}
+
+.x-adminapp-collapse {
+  width: 1.5rem;
+}
+
+.x-adminapp-collapse::after {
+  content: "☳";
+  font-family: x-icon;
+}
+
+.x-adminapp-collapsed .x-adminapp-collapse::after {
+  content: "☱";
+}
+
+.x-adminapp-container {
+  position: absolute;
+  top: 3rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.x-adminapp-sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15rem;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 10px 0 35px -10px rgba(6, 71, 126, 0.1);
+}
+
+.x-adminapp-main {
+  position: absolute;
+  top: 0;
+  left: 16rem;
+  right: 0;
+  height: 100%;
+  -webkit-transition: left 0.2s;
+  -moz-transition: left 0.2s;
+  transition: left 0.2s;
+}
+
+.x-adminapp-collapsed .x-adminapp-main {
+  left: 4.5rem !important;
+}
+
+.x-adminapp-tabs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 1.35rem;
+  z-index: 1;
+  height: 2rem;
+  padding-top: 1rem;
+  background: #fff;
+}
+
+.x-adminapp-body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4rem 1rem 1rem 0;
+}
+
+.x-adminapp-splitter {
+  position: absolute;
+  top: 0;
+  left: 15rem;
+  z-index: 1000;
+  width: 6px;
+  height: 100%;
+  background-color: #000;
+  cursor: col-resize;
+  opacity: 0;
+}
+
+/*# sourceMappingURL=adminApp.css.map */
